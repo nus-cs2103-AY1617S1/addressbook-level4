@@ -60,50 +60,50 @@ public class LogicManager extends ComponentManager implements Logic {
         
         ArrayList<ObservableList<ReadOnlyTask>> daysTaskList = new ArrayList<>();
         
-        daysTaskList.add(model.getFilteredMondayTaskList());
-        daysTaskList.add(model.getFilteredTuesdayTaskList());
-        daysTaskList.add(model.getFilteredWednesdayTaskList());
-        daysTaskList.add(model.getFilteredThursdayTaskList());
-        daysTaskList.add(model.getFilteredFridayTaskList());
-        daysTaskList.add(model.getFilteredSaturdayTaskList());
-        daysTaskList.add(model.getFilteredSundayTaskList());
+        daysTaskList.add(model.getFilteredDay1TaskList());
+        daysTaskList.add(model.getFilteredDay2TaskList());
+        daysTaskList.add(model.getFilteredDay3TaskList());
+        daysTaskList.add(model.getFilteredDay4TaskList());
+        daysTaskList.add(model.getFilteredDay5TaskList());
+        daysTaskList.add(model.getFilteredDay6TaskList());
+        daysTaskList.add(model.getFilteredDay7TaskList());
         
         return daysTaskList;
     }
     
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredMondayTaskList() {
-        return model.getFilteredMondayTaskList();
+    public ObservableList<ReadOnlyTask> getFilteredDay1TaskList() {
+        return model.getFilteredDay1TaskList();
     }
     
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredTuesdayTaskList() {
-        return model.getFilteredTuesdayTaskList();
+    public ObservableList<ReadOnlyTask> getFilteredDay2TaskList() {
+        return model.getFilteredDay2TaskList();
     }
     
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredWednesdayTaskList() {
-        return model.getFilteredWednesdayTaskList();
+    public ObservableList<ReadOnlyTask> getFilteredDay3TaskList() {
+        return model.getFilteredDay3TaskList();
     }
     
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredThursdayTaskList() {
-        return model.getFilteredThursdayTaskList();
+    public ObservableList<ReadOnlyTask> getFilteredDay4TaskList() {
+        return model.getFilteredDay4TaskList();
     }
     
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredFridayTaskList() {
-        return model.getFilteredFridayTaskList();
+    public ObservableList<ReadOnlyTask> getFilteredDay5TaskList() {
+        return model.getFilteredDay5TaskList();
     }
     
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredSaturdayTaskList() {
-        return model.getFilteredSaturdayTaskList();
+    public ObservableList<ReadOnlyTask> getFilteredDay6TaskList() {
+        return model.getFilteredDay6TaskList();
     }
     
     @Override
-    public ObservableList<ReadOnlyTask> getFilteredSundayTaskList() {
-        return model.getFilteredSundayTaskList();
+    public ObservableList<ReadOnlyTask> getFilteredDay7TaskList() {
+        return model.getFilteredDay7TaskList();
     }
     
     @Override

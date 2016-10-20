@@ -19,13 +19,13 @@ import seedu.jimi.model.task.ReadOnlyTask;
 public class ModelFilteredMap {
     
     public enum ListIdentifier {
-        MONDAY,
-        TUESDAY,
-        WEDNESDAY,
-        THURSDAY,
-        FRIDAY,
-        SATURDAY,
-        SUNDAY,
+        DAY_AHEAD_0,
+        DAY_AHEAD_1,
+        DAY_AHEAD_2,
+        DAY_AHEAD_3,
+        DAY_AHEAD_4,
+        DAY_AHEAD_5,
+        DAY_AHEAD_6,
         FLOATING_TASKS,
         COMPLETED,
         INCOMPLETE,
@@ -40,6 +40,8 @@ public class ModelFilteredMap {
         for (ListIdentifier li : ListIdentifier.values()) {
             filteredMap.put(li, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
         }
+        
+        updateFilteredListToShowAll();
     }
     
     public void updateFilteredListToShowAll() {
@@ -47,24 +49,24 @@ public class ModelFilteredMap {
                 .setPredicate(new PredicateExpression(new FloatingTaskQualifier())::satisfies);
 
         filteredMap.get(ListIdentifier.COMPLETED)
-                .setPredicate(new PredicateExpression(new CompletedQualifier(true))::satisfies);
+                .setPredicate(new PredicateExpression(new CompletedTaskQualifier(true))::satisfies);
         filteredMap.get(ListIdentifier.INCOMPLETE)
-                .setPredicate(new PredicateExpression(new CompletedQualifier(false))::satisfies);
+                .setPredicate(new PredicateExpression(new CompletedTaskQualifier(false))::satisfies);
 
-        filteredMap.get(ListIdentifier.MONDAY)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.MONDAY))::satisfies);
-        filteredMap.get(ListIdentifier.TUESDAY)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.TUESDAY))::satisfies);
-        filteredMap.get(ListIdentifier.WEDNESDAY)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.WEDNESDAY))::satisfies);
-        filteredMap.get(ListIdentifier.THURSDAY)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.THURSDAY))::satisfies);
-        filteredMap.get(ListIdentifier.FRIDAY)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.FRIDAY))::satisfies);
-        filteredMap.get(ListIdentifier.SATURDAY)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.SATURDAY))::satisfies);
-        filteredMap.get(ListIdentifier.SUNDAY)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.SUNDAY))::satisfies);
+        filteredMap.get(ListIdentifier.DAY_AHEAD_0)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_0))::satisfies);
+        filteredMap.get(ListIdentifier.DAY_AHEAD_1)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_1))::satisfies);
+        filteredMap.get(ListIdentifier.DAY_AHEAD_2)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_2))::satisfies);
+        filteredMap.get(ListIdentifier.DAY_AHEAD_3)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_3))::satisfies);
+        filteredMap.get(ListIdentifier.DAY_AHEAD_4)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_4))::satisfies);
+        filteredMap.get(ListIdentifier.DAY_AHEAD_5)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_5))::satisfies);
+        filteredMap.get(ListIdentifier.DAY_AHEAD_6)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_6))::satisfies);
 
         filteredMap.get(ListIdentifier.TASKS_AGENDA)
                 .setPredicate(new PredicateExpression(new FloatingTaskQualifier())::satisfies);
@@ -144,6 +146,7 @@ public class ModelFilteredMap {
     private class DateQualifier implements Qualifier {
         private ListIdentifier identifier;
         private DayOfWeek dayOfWeek;
+        private DayOfWeek currentDay;
         
         DateQualifier(ListIdentifier i) {
             identifier = i;
@@ -155,21 +158,24 @@ public class ModelFilteredMap {
                 return false;
             }
 
+            currentDay = new DateTime().getLocalDateTime().getDayOfWeek();
+            
+            //dynamically set the day that each list corresponds to
             switch (identifier) {
-            case MONDAY:
-                dayOfWeek = DayOfWeek.MONDAY;
-            case TUESDAY:
-                dayOfWeek = DayOfWeek.TUESDAY;
-            case WEDNESDAY:
-                dayOfWeek = DayOfWeek.WEDNESDAY;
-            case THURSDAY:
-                dayOfWeek = DayOfWeek.THURSDAY;
-            case FRIDAY:
-                dayOfWeek = DayOfWeek.FRIDAY;
-            case SATURDAY:
-                dayOfWeek = DayOfWeek.SATURDAY;
-            case SUNDAY:
-                dayOfWeek = DayOfWeek.SUNDAY;
+            case DAY_AHEAD_0:
+                dayOfWeek = currentDay;
+            case DAY_AHEAD_1:
+                dayOfWeek = currentDay.plus(1);
+            case DAY_AHEAD_2:
+                dayOfWeek = currentDay.plus(2);
+            case DAY_AHEAD_3:
+                dayOfWeek = currentDay.plus(3);
+            case DAY_AHEAD_4:
+                dayOfWeek = currentDay.plus(4);
+            case DAY_AHEAD_5:
+                dayOfWeek = currentDay.plus(5);
+            case DAY_AHEAD_6:
+                dayOfWeek = currentDay.plus(6);
             default:
                 break;
             }
@@ -177,7 +183,7 @@ public class ModelFilteredMap {
             if (task instanceof DeadlineTask) {
                 return isTaskSameWeekDate((DeadlineTask) task, dayOfWeek);
             } else if (task instanceof Event) {
-                return isEventSameDate((Event) task, dayOfWeek);
+                return isEventSameWeekDate((Event) task, dayOfWeek);
             } else {
                 return false;
             }
@@ -192,10 +198,10 @@ public class ModelFilteredMap {
         private boolean isTaskSameWeekDate(DeadlineTask task, DayOfWeek day) {
             long daysDifference = new DateTime().getDifferenceInDays(task.getDeadline());
 
-            if (daysDifference >= 0 && daysDifference <= 7) {
-                return task.getDeadline().getLocalDateTime().getDayOfWeek().getValue() == day.getValue();
+            if(daysDifference > 0) {
+                return task.getDeadline().getLocalDateTime().getDayOfWeek().getValue() == day.getValue(); //check if fit day of week
             }
-
+            
             return false;
         }
         
@@ -205,7 +211,7 @@ public class ModelFilteredMap {
          * @param day
          * @return True if event is at most 1 week ahead of current time or is occuring now.
          */
-        private boolean isEventSameDate(Event event, DayOfWeek day) {
+        private boolean isEventSameWeekDate(Event event, DayOfWeek day) {
             long daysDifference = new DateTime().getDifferenceInDays(event.getStart());
             int eventStartDay = event.getStart().getLocalDateTime().getDayOfWeek().getValue();
             int eventEndDay = 0; //set to be smaller than DayOfWeek values
@@ -223,17 +229,26 @@ public class ModelFilteredMap {
         }
     }
     
-    private class CompletedQualifier implements Qualifier {
+    private class CompletedTaskQualifier implements Qualifier {
         
         boolean isCompleteState;
         
-        public CompletedQualifier(boolean isCompleteState) {
+        public CompletedTaskQualifier(boolean isCompleteState) {
             this.isCompleteState = isCompleteState;
         }
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            return task.isCompleted() && isCompleteState;
+            if(task instanceof Event) {
+                return false;
+            }
+            
+            if (isCompleteState == true) { //if want to check completed task
+                return this.isCompleteState;
+            } else if (task.isCompleted()){ //if want to check for incomplete task
+                return false;
+            }
+            return true;
         }
     }
     

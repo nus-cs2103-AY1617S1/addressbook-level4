@@ -28,19 +28,19 @@ public interface Logic {
     
     ArrayList<ObservableList<ReadOnlyTask>> getFilteredDaysTaskList();
     
-    ObservableList<ReadOnlyTask> getFilteredMondayTaskList();
+    ObservableList<ReadOnlyTask> getFilteredDay1TaskList();
 
-    ObservableList<ReadOnlyTask> getFilteredTuesdayTaskList();
+    ObservableList<ReadOnlyTask> getFilteredDay2TaskList();
 
-    ObservableList<ReadOnlyTask> getFilteredWednesdayTaskList();
+    ObservableList<ReadOnlyTask> getFilteredDay3TaskList();
 
-    ObservableList<ReadOnlyTask> getFilteredThursdayTaskList();
+    ObservableList<ReadOnlyTask> getFilteredDay4TaskList();
 
-    ObservableList<ReadOnlyTask> getFilteredFridayTaskList();
+    ObservableList<ReadOnlyTask> getFilteredDay5TaskList();
 
-    ObservableList<ReadOnlyTask> getFilteredSaturdayTaskList();
+    ObservableList<ReadOnlyTask> getFilteredDay6TaskList();
 
-    ObservableList<ReadOnlyTask> getFilteredSundayTaskList();
+    ObservableList<ReadOnlyTask> getFilteredDay7TaskList();
 
     ObservableList<ReadOnlyTask> getFilteredAgendaTaskList();
 

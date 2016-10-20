@@ -31,19 +31,19 @@ public interface Model {
 
     UnmodifiableObservableList<ReadOnlyTask> getFilteredIncompleteTaskList();
     
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredMondayTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay1TaskList();
     
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTuesdayTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay2TaskList();
     
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredWednesdayTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay3TaskList();
     
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredThursdayTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay4TaskList();
     
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredFridayTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay5TaskList();
     
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredSaturdayTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay6TaskList();
     
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredSundayTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay7TaskList();
     
     UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaTaskList();
 
@@ -65,22 +65,6 @@ public interface Model {
     void updateFilteredAgendaTaskList(Set<String> keywords);
 
     void updateFilteredAgendaEventList(Set<String> keywords);
-    
-    /* if auto update, remove this part
-    void updateFilteredMondayTaskList(Set<String> keywords);
-
-    void updateFilteredTuesdayTaskList(Set<String> keywords);
-
-    void updateFilteredWednesdayTaskList(Set<String> keywords);
-
-    void updateFilteredThursdayTaskList(Set<String> keywords);
-
-    void updateFilteredFridayTaskList(Set<String> keywords);
-
-    void updateFilteredSaturdayTaskList(Set<String> keywords);
-
-    void updateFilteredSundayTaskList(Set<String> keywords);
-    */
     
     /** Edits the floating task at the specified index */
     void editReadOnlyTask(int targetIdx, ReadOnlyTask floatingTask);

@@ -179,37 +179,37 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredMondayTaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.MONDAY);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay1TaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_0);
     }
     
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTuesdayTaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.TUESDAY);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay2TaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_1);
     }
     
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredWednesdayTaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.WEDNESDAY);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay3TaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_2);
     }
     
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredThursdayTaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.THURSDAY);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay4TaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_3);
     }
     
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredFridayTaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.FRIDAY);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay5TaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_4);
     }
     
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredSaturdayTaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.SATURDAY);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay6TaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_5);
     }
     
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredSundayTaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.SUNDAY);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay7TaskList() {
+        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_6);
     }   
 }
