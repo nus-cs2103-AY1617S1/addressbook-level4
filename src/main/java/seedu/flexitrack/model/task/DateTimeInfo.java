@@ -26,7 +26,6 @@ public class DateTimeInfo {
 
     public DateTimeInfo(String givenTime)throws IllegalValueException {
         setDateGroupTime(givenTime);
-    //    setTimingInfo(isStartTimeOrDueDate);
     }
 
     /**
@@ -50,68 +49,9 @@ public class DateTimeInfo {
         }
     }
 
-//    /**
-//     * Set the timingInfo string as the format of the date that the user will see
-//     * @param isStartTimeOrDueDate
-//     */
-//    private void setTimingInfo(boolean isStartTimeOrDueDate) {
-//        timingInfo = getDateMonthYear();
-//        if (setTime.isTimeInferred()){
-//            setInferredTiming(isStartTimeOrDueDate);
-//        }else { 
-//            timingInfo = setTime.getDates().toString().substring(12, 17);
-//        }
-//    }
-//
-//    /**
-//     * @return
-//     */
     private String getDateMonthYear() {
         return setTime.substring(5, 12) + setTime.substring(25, 29);
     }
-//
-//    /**
-//     * Set the timing to be the default timing if timing is Inferred 
-//     * @param isStartTimeOrDueDate
-//     */
-//    private void setInferredTiming(boolean isStartTimeOrDueDate) {
-//        if (isStartTimeOrDueDate) {
-//            setTimeAsMorningDefault();
-//        } else { 
-//            setTimeAsEveningDefault();
-//        }
-//    }
-//
-//    /**
-//     * Setting the timingInfo as default timing (8am) 
-//     */
-//    private void setTimeAsMorningDefault() {
-//        timingInfo = timingInfo.substring(5, 12);
-//        timingInfo = timingInfo + "08:00";
-//    }
-//
-//    /**
-//     * Setting the timingInfo as default timing (8am) 
-//     */
-//    private void setTimeAsEveningDefault() {
-//        timingInfo = timingInfo.substring(5, 12);
-//        timingInfo = timingInfo + "17:00";
-//    }
-//
-//    /** 
-//     * @param timingInfo
-//     * @return true when the timing is specified
-//     */
-//    public boolean isTimeSpecified(String timingInfo){ 
-//        Parser parser = new Parser(); 
-//        List<DateGroup> dateParser = parser.parse("now");
-//        String timingInfoNow = dateParser.get(0).getDates().toString();
-//        if (timingInfo.substring(12, 20).equals(timingInfoNow.substring(12, 20))){
-//            return false; 
-//        } else {
-//            return true;
-//        }
-//    }
 
     /** 
      * Validate the timing inputed 

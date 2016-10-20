@@ -20,7 +20,6 @@ public class DateTimeInfoParser {
         try { 
             Parser parser = new Parser(); 
             List<DateGroup> dateParser = parser.parse(givenTime);
-            System.out.println(dateParser.get(0).getDates());  // dont forget to delete this #DELETETHIS
             setTimingInfo(dateParser);
         } catch (IndexOutOfBoundsException e){ 
             throw new IllegalValueException(MESSAGE_DATETIMEINFO_CONSTRAINTS);
