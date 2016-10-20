@@ -69,6 +69,7 @@ public class AddCommandTest extends TarsGuiTest {
             e.printStackTrace();
         }
 
+        commandBox.runCommand("clear");
         commandBox.runCommand("add Task C -dt 03/09/2016 1400 to 04/09/2016 1400 -p l -r 2 every day");
         assertTrue(taskListPanel.isListMatching(recurringList));
     }
