@@ -39,8 +39,8 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        String text = (getIsTask()||getIsEvent())?getIsTask()? " by " + getDueDate() :
-           " from " + getStartTime() + " to " + getEndTime() :"";
+        String text = (getIsTask()||getIsEvent())?getIsTask()? " by/" + getDueDate() :
+           " from/" + getStartTime() + " to/" + getEndTime() :"";
         builder.append(getIsDone()?"(Done)" : "" + getName())
                 .append(text)
                 .append(" Tags: ");
