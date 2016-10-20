@@ -4,11 +4,14 @@ import com.google.common.eventbus.Subscribe;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import teamfour.tasc.commons.core.LogsCenter;
@@ -18,6 +21,8 @@ import teamfour.tasc.logic.Logic;
 import teamfour.tasc.logic.commands.CommandResult;
 
 import java.util.logging.Logger;
+
+import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
@@ -60,32 +65,59 @@ public class CommandBox extends UiPart {
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             checkCurrentWord(newValue);
         });
-        
+        commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.UP) || ke.getCode().equals(KeyCode.DOWN)) {
+                    wordList.getSelectionModel().select(0);
+                    wordList.requestFocus();
+                }
+            }
+        });
+        wordList.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    autoComplete(wordList.getSelectionModel().getSelectedItem());
+                    commandTextField.requestFocus();
+                    commandTextField.selectPositionCaret(0);
+                    commandTextField.end();
+                }
+            }
+        });
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
     
+    private void autoComplete(String word) {
+        String[] words = commandTextField.getText().split(" ");
+        words[words.length-1] = word + " ";
+        commandTextField.setText(StringUtils.join(words, " "));
+    }
+    
     private void setWordChoices(String word) {
-        String[] keywords = {"add", "clear", "complete", "delete", "exit", "find", "help", "hide", "list", "relocate", "select", "show", "undo", "update"};
+        if (word.trim().equals("")) {
+            wordList.setItems(null);
+            wordList.setPrefHeight(0);
+            return;
+        }
+        String[] keywords = {"add", "by", "clear", "complete", "delete", "exit", "find", "from", "help", "hide", "list", "relocate", "repeat", "redo", "select", "show", "to", "undo", "update"};
         ObservableList<String> words = FXCollections.observableArrayList();
         int endIndex = word.length();
         for(String keyword: keywords) {
             if (keyword.length() >= endIndex) {
                 if (keyword.substring(0, endIndex).equalsIgnoreCase(word)) {
-                    words.add(keyword + " ");
+                    words.add(keyword);
                 }
             }
         }
         wordList.setItems(null);
         wordList.setItems(words);
+        wordList.setPrefHeight(words.size() * 16 + 2);
     }
     
     private void checkCurrentWord(String command) {
         String[] words = command.split(" ");
         String lastWord = words[words.length-1];
-        if(!lastWord.trim().equals("")) {
-            setWordChoices(lastWord);
-        }
+        setWordChoices(lastWord);
     }
 
     @Override
