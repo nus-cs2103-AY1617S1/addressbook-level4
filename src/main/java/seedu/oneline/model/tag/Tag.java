@@ -17,7 +17,8 @@ public class Tag {
 
     public Tag() {
     }
-
+    
+    //@@author A0142605N
     /**
      * Validates given tag name.
      *
@@ -49,10 +50,10 @@ public class Tag {
             this.colour = "#F95E59"; 
             break;
         case "orange": 
-            this.colour = "#F95E59"; 
+            this.colour = "#ff6633"; 
             break;
         case "yellow": 
-            this.colour = "#F95E59"; 
+            this.colour = "#FEE715"; 
             break;
         case "green": 
             this.colour = "#F95E59"; 
