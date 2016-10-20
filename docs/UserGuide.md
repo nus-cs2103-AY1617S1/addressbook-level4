@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`**` today` : lists all tasks for today
-   * **`add`**` Buy milk `**`at`**` Fairprice` : 
+   * **`add`**` Buy milk `**`by`**` 30 Oct` : 
      adds a task named `Buy milk` to Task!t.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
@@ -35,12 +35,10 @@ Format: **`help`**
  
 ### Adding a task : `add`
 Add a task to Task!t.<br>
-Format: **`add`**` [task_name] [optional parameter 1] [optional parameter 2] [optional parameter 3]...`<br>
+Format: **`add`**` [task_name] [time parameter] [optional parameter 1] [optional parameter 2]...`<br>
  
-> ##### Optional parameters
-> The following parameters can be appended to the add command. <br>
-> A task can only have one of each type of parameter.<br>
-> A task can only have either start/end time or deadline parameter.<br>
+> ##### Time parameter
+> One of the following parameters must be appended to the add command. <br>
 
 > ###### Specifying start/end time: `from ... to ...`
 > This parameter is used to indicate the starting and ending datetime of a task.<br>
@@ -76,6 +74,11 @@ Format: **`add`**` [task_name] [optional parameter 1] [optional parameter 2] [op
 > Examples:
 > * **`add`**` submit proposal `**`by`**` 23:59 02 oct 2016`
 
+> ##### Optional parameters
+> The following parameters can be appended to the add command. <br>
+> A task can only have one of each type of parameter.<br>
+> A task can only have either start/end time or deadline parameter.<br>
+
 > ###### Specifying location : `at`
 > This parameter is used to indicate the venue of a task.<br>
 > Format: **`at`**` [location]`<br>
@@ -92,7 +95,7 @@ Format: **`add`**` [task_name] [optional parameter 1] [optional parameter 2] [op
 
 Examples:
 * **`add`**` Prepare meeting agenda `**`by`**` 11:00 7 oct 2016`
-* **`add`**` Jimmy's wedding banquet `**`at`**` Trinity Church `**`from`**` 19:00 `**`to`**` 22:00 11 nov 2016 `
+* **`add`**` Jimmy's wedding banquet `**`from`**` 19:00 `**`to`**` 22:00 11 nov 2016` `**`at`**` Trinity Church
 
 ### Listing all tasks : `list`
 Shows the list of all tasks sorted temporally with the most recent ones displayed first.<br>
@@ -234,7 +237,7 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | **`add`**` [task_name] [optional parameter 1] [optional parameter 2] [optional parameter 3]...`
+Add | **`add`**` [task_name] [time parameter] [optional parameter 1] [optional parameter 2]...`
 Clear | **`clear`**
 Delete | **`delete`**` [index 1,index 2,...]`
 Done | **`done`**` [index 1,index 2,...]`
