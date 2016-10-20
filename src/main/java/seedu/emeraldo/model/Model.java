@@ -14,6 +14,9 @@ import java.util.Set;
  * The API of the Model component.
  */
 public interface Model {
+	
+	void undoChanges();
+	
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyEmeraldo newData);
 

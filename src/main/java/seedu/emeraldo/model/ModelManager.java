@@ -17,6 +17,8 @@ import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import java.util.Stack;
+
 /**
  * Represents the in-memory model of the Emeraldo data.
  * All changes to any model should be synchronized.
@@ -27,7 +29,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final Emeraldo emeraldo;
 
     private final FilteredList<Task> filteredTasks;
-
+    
+    private final Stack<Emeraldo> savedStates;
+    
     /**
      * Initializes a ModelManager with the given Emeraldo
      * Emeraldo and its variables should not be null
@@ -42,6 +46,10 @@ public class ModelManager extends ComponentManager implements Model {
         emeraldo = new Emeraldo(src);
 
         filteredTasks = new FilteredList<>(emeraldo.getTasks());
+        
+        savedStates = new Stack<Emeraldo>();
+        
+        savedStates.push(emeraldo);
     }
 
     public ModelManager() {
@@ -52,8 +60,16 @@ public class ModelManager extends ComponentManager implements Model {
         emeraldo = new Emeraldo(initialData);
 
         filteredTasks = new FilteredList<>(emeraldo.getTasks());
+        
+        savedStates = new Stack<Emeraldo>();
+        
+        savedStates.push(emeraldo);
     }
-
+    
+    public void undoChanges(){
+    	
+    }
+    
     @Override
     public void resetData(ReadOnlyEmeraldo newData) {
         emeraldo.resetData(newData);
@@ -79,6 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         emeraldo.addTask(task);
+        savedStates.push(emeraldo);
         updateFilteredListToShowAll();
         indicateEmeraldoChanged();
     }
