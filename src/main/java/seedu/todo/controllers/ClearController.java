@@ -125,17 +125,20 @@ public class ClearController implements Controller {
     private void destroyByDate(TodoListDB db, String[] parsedDate, LocalDateTime dateOn, 
             LocalDateTime dateFrom, LocalDateTime dateTo, boolean deleteAll,
             boolean isTask, String input) {
-        if (dateOn != null) {
-            destroyBySelectedDate(db, dateOn, deleteAll, isTask);
-            return;
-        } else if (dateFrom != null || dateTo != null) {
-            System.out.println("t");
-            destroyByRange(db, dateFrom, dateTo, deleteAll, isTask);
-            return;
-        } 
-        else { //natty deem all dates as invalid
+        if (dateOn == null && dateFrom == null && dateTo == null && deleteAll) {
             displayErrorMessage(input, parsedDate, deleteAll, isTask);
         }
+        else if (dateOn != null) {
+            destroyBySelectedDate(db, dateOn, deleteAll, isTask);
+            return;
+        } else {
+            if (!deleteAll && parsedDate != null) {
+                displayErrorMessage(input, parsedDate, deleteAll, isTask);
+            } else {
+                destroyByRange(db, dateFrom, dateTo, deleteAll, isTask);
+                return;
+            }
+        } 
     }
 
     /**
