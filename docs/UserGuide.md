@@ -98,6 +98,22 @@ _Example:_
 > do 'chores' t/'cleaning'
 ```  
 
+#### Adds a recurring Deadline
+_Format:_
+```java
+(add|do) [r/'recurrence'] <name>' [ed/'<end_date>'] [t/'<comma_seperated_tags>...']
+```  
+
+_Example:_
+```java
+> do r/'daily' 'chores' ed/'today' t/'cleaning'
+> do r/'weekly 2' 'workshop' sd/'tomorrow 3pm' ed/'tomorrow 5pm'
+``` 
+
+> Quick Tip: You can add recurring events too!  
+> 'weekly 2' will repeat the Task only twice
+> Use keywords like 'weekly', 'biweekly', 'monthly' and 'yearly' for recurring tasks  
+
 > Mastermind uses [natural language processing](http://www.ocpsoft.org/prettytime/nlp/) for `startDate` & `endDate`, therefore it does not enforce any specific date format. Below are the possible list of date construct that Mastermind accepts:
 >
 > `three days from now`
@@ -320,6 +336,21 @@ _Examples:_
 // select the "find" result and mark the task at index 1 as completed
 > mark 1
 ```
+### Repeating a previous command: `p`
+
+Lazy to retype a similar command? Want to paste the previous command back to the field?  
+_Mastermind_ can do just that!
+
+_Format:_
+```java
+p
+```
+
+_Example:_
+```java
+// Successfully loaded previous input
+> p
+```
 
 ### Clearing all entries: `clear`
 
@@ -386,7 +417,7 @@ _Example:_
 Command | Format  
 -------- | :--------
 Help | `help`
-Add, Do | <code>(add &#124; do) '&lt;taskName&gt;' [sd/'&lt;start_date&gt;'] [ed/'&lt;end_date&gt;'] [t/'&lt;comma_separated_tags&gt;'];</code>
+Add, Do | <code>(add &#124; do) [r/'&lt;reccurence&gt;'] '&lt;taskName&gt;' [sd/'&lt;start_date&gt;'] [ed/'&lt;end_date&gt;'] [t/'&lt;comma_separated_tags&gt;'];</code>
 List | `list [<category_name>]`
 Find | `find <keyword>...`
 Find Tag | `findtag <keyword>...`
@@ -395,6 +426,7 @@ Delete | `delete <index>`
 Undo | `undo`
 Redo | `redo`
 Mark | `mark <index>`
+Previous | `p`
 Clear | `clear`
 Relocate | `relocate <new_destination_folder>`
 Exit | `exit`
