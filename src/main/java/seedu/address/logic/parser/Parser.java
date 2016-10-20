@@ -102,7 +102,7 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^ ]+)*)"); // variable number of tags
     
     private static final Pattern RECURRING_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<recurring>(?: ([dD][aA][iI][lL][yY]|[wW][eE][eE][kK][lL][yY]|[mM][oO][nN][tT][hH][lL][yY]|[yY][eE][aA][rR][lL][yY]))*)");
+            Pattern.compile("(?<recurring>\\b(?i)daily|weekly|monthly|yearly(?i)\\b)");
         
     private static final Pattern BLOCK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<startTime>(?:from [^/]+)(?<endTime>(?: to [^/]+)))"
@@ -237,12 +237,10 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));
         }
         try {
-            RecurringType recurringType = RecurringType.NONE;
-            recurringType = checkForRecurringTask(args, recurringType);
             if(matcher.group("deadline") != null) {
-                return prepareAddNonFloatingByDate(matcher, recurringType);
+                return prepareAddNonFloatingByDate(matcher);
             } else {
-                return prepareAddNonFloatingFromDateToDate(matcher, recurringType);
+                return prepareAddNonFloatingFromDateToDate(matcher);
             }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -251,10 +249,11 @@ public class Parser {
         }
     }
 
-    private RecurringType checkForRecurringTask(String args, RecurringType recurringType) throws IllegalArgumentException {
+    private RecurringType checkForRecurringTask(String args) throws IllegalArgumentException {
         final Matcher matcher = RECURRING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches() || matcher.group("recurring").isEmpty()) {
-            recurringType = RecurringType.NONE;
+        RecurringType recurringType = RecurringType.NONE;
+        if (!matcher.find()) {
+            return recurringType;
         }
         else {
             try{
@@ -273,8 +272,9 @@ public class Parser {
      * @return the prepared add non floating command
      * @throws IllegalValueException Signals for incorrect command
      */
-    private Command prepareAddNonFloatingByDate(Matcher matcher, RecurringType recurringType) throws IllegalValueException {
+    private Command prepareAddNonFloatingByDate(Matcher matcher) throws IllegalValueException {
         String endInput = matcher.group("deadline");
+        RecurringType recurringType = checkForRecurringTask(endInput);
         return new AddNonFloatingCommand(
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
@@ -291,10 +291,10 @@ public class Parser {
      * @return the prepared add non floating command
      * @throws IllegalValueException Signals for incorrect command
      */    
-    private Command prepareAddNonFloatingFromDateToDate(Matcher matcher, RecurringType recurringType) throws IllegalValueException {
+    private Command prepareAddNonFloatingFromDateToDate(Matcher matcher) throws IllegalValueException {
         String startInput = matcher.group("startTime");
         String endInput = matcher.group("endTime");
-        
+        RecurringType recurringType = checkForRecurringTask(endInput);
         return new AddNonFloatingCommand(
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
