@@ -11,10 +11,10 @@ import seedu.address.model.tag.Tag;
  */
 public class PersonBuilder {
 
-    private TestPerson person;
+    private TestActivity person;
 
     public PersonBuilder() {
-        this.person = new TestPerson();
+        this.person = new TestActivity();
     }
 
     public PersonBuilder withName(String name) throws IllegalValueException {
@@ -30,7 +30,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Reminder(address));
+        this.person.setReminder(new Reminder(address));
         return this;
     }
 
@@ -44,7 +44,7 @@ public class PersonBuilder {
         return this;
     }
 
-    public TestPerson build() {
+    public TestActivity build() {
         return this.person;
     }
 

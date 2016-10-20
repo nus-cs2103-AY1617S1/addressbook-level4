@@ -9,11 +9,11 @@ import seedu.address.model.activity.task.*;
 /**
  *
  */
-public class TypicalTestPersons {
+public class TypicalTestActivities {
 
-    public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestActivity alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
-    public TypicalTestPersons() {
+    public TypicalTestActivities() {
         try {
             alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
                     .withEmail("alice@gmail.com").withPhone("85355255")
@@ -51,8 +51,8 @@ public class TypicalTestPersons {
         }
     }
 
-    public TestPerson[] getTypicalPersons() {
-        return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
+    public TestActivity[] getTypicalPersons() {
+        return new TestActivity[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
     public AddressBook getTypicalAddressBook(){
