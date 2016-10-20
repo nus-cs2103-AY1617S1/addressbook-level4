@@ -311,10 +311,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
   
 ##### Extensions
 
-1.1 User requests to add a task with a wrong format <br>
-1.2 Unburden will give display a error message <br>
+1.1  User requests to add a task with a wrong format <br>
+1.2  Unburden will give display a error message <br>
   
-    Use case ends
+     Use case ends
 
 
 
@@ -329,10 +329,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
     
 ##### Extensions
   
-1.1 User requests to delete a specific task by giving an invalid index <br>
-1.2 Unburden will show an error message <br>
+1.1  User requests to delete a specific task by giving an invalid index <br>
+1.2  Unburden will show an error message <br>
   
-    Use case ends
+     Use case ends
 
 
 
@@ -347,20 +347,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
   
 ##### Extension
   
-1.1 User requests to find tasks based on a name <br>
-1.2 Unburden will search through the exisiting tasks with the specified task names and shows a list to the user <br>
+1.1  User requests to find tasks based on a name <br>
+1.2  Unburden will search through the exisiting tasks with the specified task names and shows a list to the user <br>
   
-    Use case ends
+     Use case ends
   
-2.1 User requests to find tasks that are due today <br>
-2.2 Unburden will search through the exisiting tasks and shows a list of tasks due today to the user <br>
+2.1  User requests to find tasks that are due today <br>
+2.2  Unburden will search through the exisiting tasks and shows a list of tasks due today to the user <br>
   
-    Use case ends
+     Use case ends
   
-3.1 User requests to find tasks that are due tomorrow <br>
-3.2 Unburden will search through the exisiting tasks and shows a list of tasks due tomorrow to the user <br>
+3.1  User requests to find tasks that are due tomorrow <br>
+3.2  Unburden will search through the exisiting tasks and shows a list of tasks due tomorrow to the user <br>
   
-    Use case ends
+     Use case ends
 
 
 
@@ -375,10 +375,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
   
 ##### Extension
   
-1.1 User requests to edit a task based on an invalid index of tasks and the new updated fields <br>
-1.2 Unburden shows an error message <br>
+1.1  User requests to edit a task based on an invalid index of tasks and the new updated fields <br>
+1.2  Unburden shows an error message <br>
   
-    Use case ends
+     Use case ends
   
 
 
