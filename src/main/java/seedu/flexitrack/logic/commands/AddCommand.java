@@ -58,7 +58,7 @@ public class AddCommand extends Command {
             model.addTask(toAdd);
             if (toAdd.getIsEvent()){ 
                 return new CommandResult((String.format(MESSAGE_SUCCESS, toAdd)) + "\n" +
-                        DateTimeInfoParser.durationOfTheEvent(toAdd.getStartTime().toString(), toAdd.getEndTime().toString()));
+                        DateTimeInfo.durationOfTheEvent(toAdd.getStartTime().toString(), toAdd.getEndTime().toString()));
             } else { 
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
             }
