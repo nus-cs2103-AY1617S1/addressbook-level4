@@ -112,16 +112,16 @@ public class MainParser {
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
             
-        case ListCommand.COMMAND_WORD:
-        case ListCommand.COMMAND_WORD_ALL:        	
-        case ListCommand.COMMAND_WORD_SHORT_ALL:
-        	return prepareList(arguments);
         case ListCommand.COMMAND_WORD_DONE:	
         case ListCommand.COMMAND_WORD_SHORT_DONE:
             return prepareList("--done");
         case ListCommand.COMMAND_WORD_BLOCK:
         case ListCommand.COMMAND_WORD_SHORT_BLOCK:
         	return prepareList("--block");
+        case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_WORD_ALL:        	
+        case ListCommand.COMMAND_WORD_SHORT_ALL:
+        	return prepareList(arguments);
             
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
