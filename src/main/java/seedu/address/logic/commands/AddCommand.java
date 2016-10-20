@@ -44,6 +44,9 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
+    public AddCommand(String name)throws IllegalValueException{
+    	this.toAdd=new Task(new Name(name));
+    }
     
     /**
      * Convenience constructor using raw values.

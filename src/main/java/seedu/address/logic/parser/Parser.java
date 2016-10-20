@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.ArgumentTokenizer.*;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -32,7 +33,11 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<deadline>(?: d/[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    
+    public static final Prefix deadlinePrefix=new Prefix("d/");
+    public static final Prefix tagPrefix=new Prefix("t/");
+    public static final Prefix startDatePrefix=new Prefix("s/");
+    public static final Prefix endDatePrefix=new Prefix("e/");
+    public static final Prefix namePrefix=new Prefix("n/");
     private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "s/(?<startDate>[^/]+)"
@@ -95,27 +100,23 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format if it is a valid add task command
-        try {
-            if (taskMatcher.matches()) {
-                return new AddCommand(taskMatcher.group("name"), 
-                        getDeadlineFromArg(taskMatcher.group("deadline")),
-                        getTagsFromArgs(taskMatcher.group("tagArguments")));
-            }
-            final Matcher eventMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
-            // Validate arg string format if it is a valid add event command
-            if (eventMatcher.matches()) {
-                return new AddCommand(eventMatcher.group("name"), 
-                        eventMatcher.group("startDate"),
-                        eventMatcher.group("endDate"),
-                        getTagsFromArgs(eventMatcher.group("tagArguments")));
-            }
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
-        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                AddCommand.MESSAGE_USAGE));
+    	ArgumentTokenizer argsTokenizer=new ArgumentTokenizer(deadlinePrefix,namePrefix,
+    		tagPrefix,startDatePrefix,endDatePrefix);
+    	argsTokenizer.tokenize(args);
+    	try{
+    		if(argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix))
+    		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+    				argsTokenizer.getValue(deadlinePrefix).get(),toSet(argsTokenizer.getAllValues(tagPrefix)));
+    		else
+    			return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+    					argsTokenizer.getValue(startDatePrefix).get(),argsTokenizer.getValue(endDatePrefix).get(),
+    					toSet(argsTokenizer.getAllValues(tagPrefix)));
+    		
+    	}catch(IllegalValueException ive){
+    		return new IncorrectCommand(ive.getMessage());
+    	}
+    	
+		
     }
     
     /**
@@ -142,6 +143,10 @@ public class Parser {
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
+    }
+    private Set<String> toSet(Optional<List<String>>tagsOptional){
+    	List<String> tags=tagsOptional.orElse(Collections.emptyList());
+    	return new HashSet<>(tags);
     }
 
     /**

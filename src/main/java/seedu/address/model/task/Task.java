@@ -39,7 +39,12 @@ public class Task implements ReadOnlyTask {
         this(source.getName(), source.getDate(), source.getTags());
     }
     
-    @Override
+    public Task(Name name) {
+    	this.name=name;
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
     public Name getName() {
         return name;
     }
