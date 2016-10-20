@@ -13,6 +13,7 @@ public interface ReadOnlyTask {
     DueByDate getDueByDate();
     DueByTime getDueByTime();
     Priority getPriority();
+	boolean getBlock();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
