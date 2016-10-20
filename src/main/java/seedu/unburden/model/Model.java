@@ -2,6 +2,8 @@ package seedu.unburden.model;
 
 import java.util.Set;
 
+import com.google.common.base.Predicate;
+
 import seedu.unburden.commons.core.UnmodifiableObservableList;
 import seedu.unburden.commons.exceptions.*;
 import seedu.unburden.model.task.ReadOnlyTask;
@@ -37,5 +39,10 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to filter by the given date*/
 	void updateFilteredTaskListForDate(Set<String> keywords);
+	
+	//void updateFilteredListToShowAllDatesBefore(Predicate<Task> allDatesBefore);
+	
+	/** Updates the filter of the filtered task list to filter all tasks with dates before the given date*/
+	void updateFilteredListToShowAllDatesBefore(java.util.function.Predicate<? super Task> predicate);
 
 }

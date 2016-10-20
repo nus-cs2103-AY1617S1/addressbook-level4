@@ -1,6 +1,9 @@
 package seedu.unburden.commons.core;
 
+import java.util.function.Predicate;
+
 import seedu.unburden.commons.events.BaseEvent;
+import seedu.unburden.model.task.Task;
 
 /**
  * Base class for *Manager classes
@@ -25,4 +28,9 @@ public abstract class ComponentManager {
     protected void raise(BaseEvent event){
         eventsCenter.post(event);
     }
+
+	public void updateFilteredListToShowAllDatesBefore(Predicate<? super Task> predicate) {
+		// TODO Auto-generated method stub
+		
+	}
 }

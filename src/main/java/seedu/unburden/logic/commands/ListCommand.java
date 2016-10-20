@@ -18,33 +18,41 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
-	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists out all existings tasks or exising tasks according to a date";
+	public static final String MESSAGE_USAGE = "Type : \"" + COMMAND_WORD + "\" or type : \"" + COMMAND_WORD + "\" your specified date ";
 	
 	public final Date date;
 	
+	public final String mode;
+	
     public ListCommand() {
     	this.date = null;
+    	this.mode = "all";
     }
 
     public ListCommand(String args) throws ParseException {
 		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		this.date = df.parse(args);
+		this.mode = "date";
 	}
     
-    public Predicate<Task> getAllDatesBefore(Date date){
+    public java.util.function.Predicate<? super Task> getAllDatesBefore(Date date){
     	return t -> {
 			try {
 				return t.getDate().toDate().before(date);
 			} catch (ParseException e) {
-				e.printStackTrace();
+				return false;
 			}
-			return false; //Shouldn't get here
 		};
     }
 
 	@Override
     public CommandResult execute() {
-        model.updateFilteredListToShowAll();
+		if(mode.equals("all")){
+			 model.updateFilteredListToShowAll();
+		}
+		else{
+			model.updateFilteredListToShowAllDatesBefore(getAllDatesBefore(date));
+		}
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

@@ -282,21 +282,19 @@ public class Parser {
 	}
 	
 	private Command prepareList(String args) throws ParseException{
-		final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args);
+		if(args.equals("")){
+			return new ListCommand();
+		}
+		final Matcher matcherDate = KEYWORDS_DATE_FORMAT.matcher(args.trim());
 		if(!matcherDate.matches()){
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 		}
 		try {
-			if(args.equals("")){
-				return new ListCommand();
-			}
-			else{
-				return new ListCommand(args);
-			}
+			return new ListCommand(args);
 		} catch (Exception e) {
 				e.printStackTrace();
 		}
-		return null; //shouldn't get here
+		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE)); //shouldn't get here
 	}
 
 	private Command prepareEdit(String args) {

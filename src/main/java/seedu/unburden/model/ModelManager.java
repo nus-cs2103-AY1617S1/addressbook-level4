@@ -15,6 +15,8 @@ import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import com.google.common.base.Predicate;
+
 /**
  * Represents the in-memory model of the address book data.
  * All changes to any model should be synchronized.
@@ -105,6 +107,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredTaskListForDate(Set<String> keywords){
     	updateFilteredPersonList(new PredicateExpression(new DateQualifier(keywords)));
+    }
+    
+    @SuppressWarnings("unchecked")
+	@Override
+    public void updateFilteredListToShowAllDatesBefore(java.util.function.Predicate<? super Task> predicate){
+    	filteredTasks.setPredicate(predicate);
     }
 
     private void updateFilteredPersonList(Expression expression) {
