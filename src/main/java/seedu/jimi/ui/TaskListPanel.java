@@ -140,6 +140,11 @@ public class TaskListPanel extends UiPart {
                 taskListViewDay5, taskListViewDay6, taskListViewDay7);
     }
     
+    /**
+     * Checks the listview's respective DayOfWeek and then assigns the list matched to it.
+     * @param daysTaskList
+     * @param taskListViewDays
+     */
     private void setupDaysListViews(ArrayList<ObservableList<ReadOnlyTask>> daysTaskList,
             ListView<ReadOnlyTask>... taskListViewDays) {
         int i = 0;
