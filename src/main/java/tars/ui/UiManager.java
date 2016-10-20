@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import tars.MainApp;
 import tars.commons.core.ComponentManager;
 import tars.commons.core.Config;
@@ -42,6 +43,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setTitle(config.getAppTitle());
 
         //Set the application icon.
