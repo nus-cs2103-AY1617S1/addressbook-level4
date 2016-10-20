@@ -4,6 +4,13 @@
 * [Getting Started](#getting-started)
 * [Features](#features)
     * [Help Command](#1-help-command)
+    * [Add Command](#2-add-command-add)
+    * [Delete Command](#3-delete-command--delete)
+    * [List Command](#4-list-command)
+    * [Find Command](#5-find-command)
+    * [CLear Command](#6-clear-command)
+    * [Edit Command](#7-edit-command)
+    * [Exit Command](#8-exitting-the-program--exit)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
