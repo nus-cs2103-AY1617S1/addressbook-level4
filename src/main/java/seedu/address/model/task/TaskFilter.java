@@ -7,14 +7,14 @@ import java.time.LocalDateTime;
 
 public class TaskFilter {
 
-	public static Predicate<ReadOnlyTask> isTodayTask() {
+	public static Predicate<Task> isTodayTask() {
 		return p -> (p.getTaskType().value.equals(TaskType.Type.EVENT) 
 				&& p.getStartDate().get().toLocalDate().equals(LocalDateTime.now().toLocalDate())
 				|| (p.getTaskType().value.equals(TaskType.Type.DEADLINE) 
 				&& p.getEndDate().get().toLocalDate().equals(LocalDateTime.now().toLocalDate())));
 	}
 	
-	public static Predicate<ReadOnlyTask> isTomorrowTask() {
+	public static Predicate<Task> isTomorrowTask() {
 		return p -> (p.getTaskType().value.equals(TaskType.Type.EVENT) 
 				&& p.getStartDate().get().toLocalDate().isAfter(LocalDateTime.now().toLocalDate())
 				&& p.getStartDate().get().toLocalDate().isBefore(LocalDateTime.now().plusDays(2).toLocalDate())
@@ -23,7 +23,7 @@ public class TaskFilter {
 				&& p.getEndDate().get().toLocalDate().isBefore(LocalDateTime.now().plusDays(2).toLocalDate())));
 	}
 	
-	public static Predicate<ReadOnlyTask> isIn7DaysTask() {
+	public static Predicate<Task> isIn7DaysTask() {
 		return p -> (p.getTaskType().value.equals(TaskType.Type.EVENT) 
 				&& p.getStartDate().get().toLocalDate().isAfter(LocalDateTime.now().minusDays(1).toLocalDate())
 				&& p.getStartDate().get().toLocalDate().isBefore(LocalDateTime.now().plusDays(7).toLocalDate())
@@ -32,7 +32,7 @@ public class TaskFilter {
 				&& p.getEndDate().get().toLocalDate().isBefore(LocalDateTime.now().plusDays(7).toLocalDate())));
 	}
 	
-	public static Predicate<ReadOnlyTask> isIn30DaysTask() {
+	public static Predicate<Task> isIn30DaysTask() {
 		return p -> (p.getTaskType().value.equals(TaskType.Type.EVENT) 
 				&& p.getStartDate().get().toLocalDate().isAfter(LocalDateTime.now().minusDays(1).toLocalDate())
 				&& p.getStartDate().get().toLocalDate().isBefore(LocalDateTime.now().plusDays(30).toLocalDate())
@@ -41,19 +41,19 @@ public class TaskFilter {
 				&& p.getEndDate().get().toLocalDate().isBefore(LocalDateTime.now().plusDays(30).toLocalDate())));
 	}
 	
-	public static Predicate<ReadOnlyTask> isSomedayTask() {
+	public static Predicate<Task> isSomedayTask() {
 		return p -> p.getTaskType().value.equals(TaskType.Type.SOMEDAY);
 	}
 	
-	public static Predicate<ReadOnlyTask> isDone() {
-		return p -> p.getStatus().equals(Status.DoneStatus.DONE);
+	public static Predicate<Task> isDone() {
+		return p -> p.getStatus().value.equals(Status.DoneStatus.DONE);
 	}
 
-	public static Predicate<ReadOnlyTask> isDeadlineTask() {
+	public static Predicate<Task> isDeadlineTask() {
 		return p -> p.getTaskType().value.equals(TaskType.Type.DEADLINE);
 	}
 	
-	public static Predicate<ReadOnlyTask> isEventTask() {
+	public static Predicate<Task> isEventTask() {
 		return p -> p.getTaskType().value.equals(TaskType.Type.EVENT);
 	}
 }

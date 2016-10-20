@@ -42,7 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         taskManager = new TaskManager(src);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTasks = new FilteredList<>(taskManager.getAllTasks());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
     }
@@ -53,7 +53,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTasks = new FilteredList<>(taskManager.getAllTasks());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
     }
@@ -70,7 +70,7 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	undoHistory.push(new TaskManager(taskManager));
     	
-    	taskManager.setTasks(oldTaskManager.getTasks());
+    	taskManager.setTasks(oldTaskManager.getAllTasks());
     	taskManager.setTags(oldTaskManager.getTagList());
     	
     	indicateTaskManagerChanged();
@@ -81,7 +81,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     	stateHistory.push(new TaskManager(taskManager));
     	
-    	taskManager.setTasks(oldTaskManager.getTasks());
+    	taskManager.setTasks(oldTaskManager.getAllTasks());
     	taskManager.setTags(oldTaskManager.getTagList());
     	
     	indicateTaskManagerChanged();
@@ -135,10 +135,36 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0142184L
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFullTaskList() {
-        return new UnmodifiableObservableList<>(taskManager.getTasks());
+    public UnmodifiableObservableList<ReadOnlyTask> getNonDoneTaskList() {
+        return new UnmodifiableObservableList<>(taskManager.getNonDoneTasks());
     }
 
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getTodayTaskList() {
+        return new UnmodifiableObservableList<>(taskManager.getTodayTaskList());
+	}
+
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getTomorrowTaskList() {
+        return new UnmodifiableObservableList<>(taskManager.getTomorrowTaskList());
+	}
+
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getIn7DaysTaskList() {
+        return new UnmodifiableObservableList<>(taskManager.getIn7DaysTaskList());
+	}
+
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getIn30DaysTaskList() {
+        return new UnmodifiableObservableList<>(taskManager.getIn30DaysTaskList());
+	}
+
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getSomedayTaskList() {
+        return new UnmodifiableObservableList<>(taskManager.getSomedayTaskList());
+	}
+	
+	//@@author
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
@@ -210,5 +236,4 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
 }

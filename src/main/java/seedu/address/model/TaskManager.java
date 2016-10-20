@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskFilter;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.tag.Tag;
@@ -46,9 +47,33 @@ public class TaskManager implements ReadOnlyTaskManager {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getTasks() {
+    public ObservableList<Task> getAllTasks() {
         return tasks.getInternalList();
     }
+    
+    public ObservableList<Task> getNonDoneTasks() {
+        return getAllTasks().filtered(TaskFilter.isDone().negate());
+    }
+    
+	public ObservableList<Task> getTodayTaskList() {
+		return getNonDoneTasks().filtered(TaskFilter.isTodayTask());
+	}
+
+	public ObservableList<Task> getTomorrowTaskList() {
+		return getNonDoneTasks().filtered(TaskFilter.isTomorrowTask());
+	}
+
+	public ObservableList<Task> getIn7DaysTaskList() {
+		return getNonDoneTasks().filtered(TaskFilter.isIn7DaysTask());
+	}
+
+	public ObservableList<Task> getIn30DaysTaskList() {
+		return getNonDoneTasks().filtered(TaskFilter.isIn30DaysTask());
+	}
+
+	public ObservableList<Task> getSomedayTaskList() {
+		return getNonDoneTasks().filtered(TaskFilter.isSomedayTask());
+	}
 
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);

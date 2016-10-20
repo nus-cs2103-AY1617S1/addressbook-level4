@@ -11,7 +11,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -33,11 +32,11 @@ public class NewMainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListLeftPanel;
     //@@author A0142184L
-    private TodayTaskListTabPanel todayTaskListTabPanel;
-    private TomorrowTaskListTabPanel tomorrowTaskListTabPanel;
-    private In7DaysTaskListTabPanel in7DaysTaskListTabPanel;
-    private In30DaysTaskListTabPanel in30DaysTaskListTabPanel;
-    private SomedayTaskListTabPanel somedayTaskListTabPanel;
+    private TaskListPanel todayTaskListTabPanel;
+    private TaskListPanel tomorrowTaskListTabPanel;
+    private TaskListPanel in7DaysTaskListTabPanel;
+    private TaskListPanel in30DaysTaskListTabPanel;
+    private TaskListPanel somedayTaskListTabPanel;
     //@@author 
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -132,11 +131,11 @@ public class NewMainWindow extends UiPart {
     void fillInnerParts() {
         taskListLeftPanel = TaskListPanel.load(primaryStage, getTaskListLeftPlaceholder(), logic.getFilteredTaskList());
         //@@author A0142184L
-        todayTaskListTabPanel = TodayTaskListTabPanel.load(primaryStage, getTodayTaskListTabPanelPlaceholder(), logic.getFullTaskList());
-        tomorrowTaskListTabPanel = TomorrowTaskListTabPanel.load(primaryStage, getTomorrowTaskListTabPanelPlaceholder(), logic.getFullTaskList());
-        in7DaysTaskListTabPanel = In7DaysTaskListTabPanel.load(primaryStage, getIn7DaysTaskListTabPanelPlaceholder(), logic.getFullTaskList());
-        in30DaysTaskListTabPanel = In30DaysTaskListTabPanel.load(primaryStage, getIn30DaysTaskListTabPanelPlaceholder(), logic.getFullTaskList());   
-        somedayTaskListTabPanel = SomedayTaskListTabPanel.load(primaryStage, getSomedayTaskListTabPanelPlaceholder(), logic.getFullTaskList());
+        todayTaskListTabPanel = TaskListPanel.load(primaryStage, getTodayTaskListTabPanelPlaceholder(), logic.getTodayTaskList());
+        tomorrowTaskListTabPanel = TaskListPanel.load(primaryStage, getTomorrowTaskListTabPanelPlaceholder(), logic.getTomorrowTaskList());
+        in7DaysTaskListTabPanel = TaskListPanel.load(primaryStage, getIn7DaysTaskListTabPanelPlaceholder(), logic.getIn7DaysTaskList());
+        in30DaysTaskListTabPanel = TaskListPanel.load(primaryStage, getIn30DaysTaskListTabPanelPlaceholder(), logic.getIn30DaysTaskList());   
+        somedayTaskListTabPanel = TaskListPanel.load(primaryStage, getSomedayTaskListTabPanelPlaceholder(), logic.getSomedayTaskList());
         //@@author
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
