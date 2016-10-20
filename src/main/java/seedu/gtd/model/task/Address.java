@@ -1,15 +1,15 @@
-package seedu.gtd.model.person;
+package seedu.gtd.model.task;
 
 
 import seedu.gtd.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a Task's address in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {
     
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task addresses can be in any format";
     public static final String ADDRESS_VALIDATION_REGEX = ".+";
 
     public final String value;
@@ -28,7 +28,7 @@ public class Address {
     }
 
     /**
-     * Returns true if a given string is a valid person email.
+     * Returns true if a given string is a valid task email.
      */
     public static boolean isValidAddress(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);

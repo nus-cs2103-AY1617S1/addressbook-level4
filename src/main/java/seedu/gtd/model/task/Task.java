@@ -3,27 +3,31 @@ package seedu.gtd.model.task;
 import java.util.Objects;
 
 import seedu.gtd.commons.util.CollectionUtil;
-import seedu.gtd.model.person.ReadOnlyPerson;
+import seedu.gtd.model.task.ReadOnlyTask;
 import seedu.gtd.model.tag.UniqueTagList;
 
 /**
- * Represents a Person in the address book.
+ * Represents a Task in the task list.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
     private Name name;
     private DueDate dueDate;
+    private Address address;
+    private Priority priority;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, DueDate dueDate, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, dueDate, tags);
+    public Task(Name name, DueDate dueDate, Address address, Priority priority, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, dueDate, address, priority, tags);
         this.name = name;
         this.dueDate = dueDate;
+        this.address = address;
+        this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -31,7 +35,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDueDate() , source.getTags());
+        this(source.getName(), source.getDueDate(), source.getAddress(), source.getPriority(), source.getTags());
     }
 
     @Override
@@ -43,6 +47,16 @@ public class Task implements ReadOnlyTask {
     public DueDate getDueDate() {
         return dueDate;
     }
+    
+    @Override
+    public Address getAddress() {
+        return address;
+    }
+    
+    @Override
+    public Priority getPriority() {
+        return priority;
+    }
 
     @Override
     public UniqueTagList getTags() {
@@ -50,7 +64,7 @@ public class Task implements ReadOnlyTask {
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this task's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);

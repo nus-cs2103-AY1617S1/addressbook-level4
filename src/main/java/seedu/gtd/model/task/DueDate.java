@@ -9,7 +9,8 @@ import seedu.gtd.commons.exceptions.IllegalValueException;
 public class DueDate {
 
     public static final String MESSAGE_DUEDATE_CONSTRAINTS = "Task duedate numbers should only contain numbers";
-    public static final String DUEDATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)";
+    //public static final String DUEDATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/((19|20)\\d\\d)"; //dd-mm-yyyy
+    public static final String DUEDATE_VALIDATION_REGEX = "\\d+";
 
     public final String value;
 
@@ -28,7 +29,7 @@ public class DueDate {
     }
 
     /**
-     * Returns true if a given string is a valid person due date number.
+     * Returns true if a given string is a valid task due date number.
      */
     public static boolean isValidDueDate(String test) {
         return test.matches(DUEDATE_VALIDATION_REGEX);

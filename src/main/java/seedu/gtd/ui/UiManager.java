@@ -12,7 +12,7 @@ import seedu.gtd.commons.core.Config;
 import seedu.gtd.commons.core.LogsCenter;
 import seedu.gtd.commons.events.storage.DataSavingExceptionEvent;
 import seedu.gtd.commons.events.ui.JumpToListRequestEvent;
-import seedu.gtd.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.gtd.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.gtd.commons.events.ui.ShowHelpRequestEvent;
 import seedu.gtd.commons.util.StringUtil;
 import seedu.gtd.logic.Logic;
@@ -114,13 +114,13 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
+        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
+    private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.loadPersonPage(event.getNewSelection());
+        mainWindow.loadTaskPage(event.getNewSelection());
     }
 
 }

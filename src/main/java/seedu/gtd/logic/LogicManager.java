@@ -1,13 +1,13 @@
 package seedu.gtd.logic;
 
-import javafx.collections.ObservableList;
 import seedu.gtd.commons.core.ComponentManager;
 import seedu.gtd.commons.core.LogsCenter;
+import seedu.gtd.commons.core.UnmodifiableObservableList;
 import seedu.gtd.logic.commands.Command;
 import seedu.gtd.logic.commands.CommandResult;
 import seedu.gtd.logic.parser.Parser;
 import seedu.gtd.model.Model;
-import seedu.gtd.model.person.ReadOnlyPerson;
+import seedu.gtd.model.task.ReadOnlyTask;
 import seedu.gtd.storage.Storage;
 
 import java.util.logging.Logger;
@@ -35,7 +35,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return model.getFilteredPersonList();
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return model.getFilteredTaskList();
     }
 }

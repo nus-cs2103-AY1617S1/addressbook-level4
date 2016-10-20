@@ -16,7 +16,7 @@ import seedu.gtd.storage.Storage;
 import seedu.gtd.storage.StorageManager;
 import seedu.gtd.storage.XmlAddressBookStorage;
 import seedu.gtd.testutil.EventsCollector;
-import seedu.gtd.testutil.TypicalTestPersons;
+import seedu.gtd.testutil.TypicalTestTasks;
 
 import java.io.IOException;
 
@@ -60,7 +60,7 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        AddressBook original = new TypicalTestPersons().getTypicalAddressBook();
+        AddressBook original = new TypicalTestTasks().getTypicalAddressBook();
         storageManager.saveAddressBook(original);
         ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));
