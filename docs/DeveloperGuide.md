@@ -97,7 +97,7 @@ interface and exposes its functionality using the `LogicManager.java` class.
 > Diagram 3: Sequence diagram
 
 The Sequence Diagram above shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete task 1`.
 
 > Notice how the `Model` simply raises a `ActivityManagerChangedEvent` when the Activity Manager data is changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -159,7 +159,7 @@ The command execution can affect the `Model` (e.g. adding an Activity) and/or ra
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 > Diagram 8: Sequence Diagram<br>
 
-Given above is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`API call.<br><br>
+Given above is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete task 1")`API call.<br><br>
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
@@ -293,9 +293,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | track completed/uncompleted activities | better manage my schedule
 `* * *` | user | modify storage path | store data in my desired location
 `* * *` | user | search for my activities using keywords | locate activities quickly
-`* * *` | user | upload my schedule online and snyc them across devices | view my schedules when I am using different devices
-`* *` | user | set priorities to my activities | prioratise activities that are more important to me
-`* *` | user with many activities in the address book | sort activities by different priority/dateline | have a clearer view of what needs to be completed first
+`* *` | user | upload my schedule online and sync them across devices | view my schedules when I am using different devices
+`* *` | user with many activities in the activity manager | sort activities by different datelines | have a clearer view of what needs to be completed first
 
 {More to be added}
 
