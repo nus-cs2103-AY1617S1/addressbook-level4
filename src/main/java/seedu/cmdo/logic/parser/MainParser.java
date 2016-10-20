@@ -94,6 +94,9 @@ public class MainParser {
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
 
+        case StorageCommand.COMMAND_WORD:
+        	return prepareStorage(arguments);
+            
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
             
@@ -128,6 +131,21 @@ public class MainParser {
         }
     }
 
+    /**
+     * Ensures that file paths are presented properly.
+     * 
+     * @@author A0139661Y
+     */
+    private Command prepareStorage(String args) {
+    	if (args.equals("")) {
+    		return new StorageCommand("data/cmdo.xml");
+    	}
+    	if (args.lastIndexOf("/cmdo.xml") == -1) {
+    		args = new StringBuilder(args + "/cmdo.xml").toString();
+    	}
+    	return new StorageCommand(args);
+    }
+    
     /**
      * Parses arguments in the context of the add task command.
      *

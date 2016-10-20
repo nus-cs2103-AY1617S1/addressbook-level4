@@ -36,4 +36,6 @@ public interface Storage extends ToDoListStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleToDoListChangedEvent(ToDoListChangedEvent abce);
+    
+    void updateFilePathInUserPrefs(String filePath) throws DataConversionException, IOException;
 }

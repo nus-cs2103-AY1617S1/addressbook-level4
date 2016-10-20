@@ -25,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final ToDoList toDoList;
     private final FilteredList<Task> filteredTasks;
+    private final UserPrefs userPrefs;
 
     /**
      * Initializes a ModelManager with the given ToDoList
@@ -39,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         toDoList = new ToDoList(src);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
+        this.userPrefs = userPrefs;
     }
 
     public ModelManager() {
@@ -48,6 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyToDoList initialData, UserPrefs userPrefs) {
         toDoList = new ToDoList(initialData);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
+        this.userPrefs = userPrefs;
     }
 
     @Override
@@ -98,6 +101,12 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException {
     	toDoList.editTask(taskToEdit, toEditWith);
     	updateFilteredListToShowAll();
+    	indicateToDoListChanged();
+    }
+    
+    @Override
+    public void changeStorageFilePath(String filePath) {
+    	userPrefs.setStorageSettings(filePath);
     	indicateToDoListChanged();
     }
 

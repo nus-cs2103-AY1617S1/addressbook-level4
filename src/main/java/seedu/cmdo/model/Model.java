@@ -43,4 +43,6 @@ public interface Model {
 
 	void editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException;
 
+	void changeStorageFilePath(String filePath);
+
 }
