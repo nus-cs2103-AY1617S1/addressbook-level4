@@ -26,7 +26,7 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-    
+
     private static final Pattern TASK_NAME_ARGS_FORMAT=Pattern.compile("[\\p{Alnum} ]+");
     //Note: Temporary, may change it later
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
@@ -74,6 +74,9 @@ public class Parser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
+        case EditCommand.COMMAND_WORD:
+        	return prepareEdit(arguments);
+
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
@@ -81,7 +84,7 @@ public class Parser {
             //return new ListCommand();
         	//System.out.println(arguments);
              return prepareList(arguments);
-             
+
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -114,14 +117,14 @@ public class Parser {
     			return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
     					argsTokenizer.getValue(startDatePrefix).get(),argsTokenizer.getValue(endDatePrefix).get(),
     					toSet(argsTokenizer.getAllValues(tagPrefix)));
-    		
+
     	}catch(IllegalValueException ive){
     		return new IncorrectCommand(ive.getMessage());
     	}
-    	
-		
+
+
     }
-    
+
     /**
      * Extracts the new task's deadline from the add command's deadline argument string.
      * Merges duplicate tag strings.
@@ -170,8 +173,8 @@ public class Parser {
             return new DeleteCommand(name,KEYWORDS_ARGS_FORMAT);
         }
         return new DeleteCommand(index.get());
-       
-        
+
+
     }
 
     /**
@@ -207,7 +210,7 @@ public class Parser {
         return Optional.of(Integer.parseInt(index));
 
     }
-    
+
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
@@ -246,6 +249,30 @@ public class Parser {
     	if(args.equals(""))
     		return new ListCommand();
     	return new ListCommand(args);
+    }
+
+    private Command prepareEdit(String args){
+    	 final Matcher taskMatcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+         // Validate arg string format if it is a valid add task command
+         try {
+             if (taskMatcher.matches()) {
+                 return new AddCommand(taskMatcher.group("name"),
+                         getDeadlineFromArg(taskMatcher.group("deadline")),
+                         getTagsFromArgs(taskMatcher.group("tagArguments")));
+             }
+             final Matcher eventMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
+             // Validate arg string format if it is a valid add event command
+             if (eventMatcher.matches()) {
+                 return new AddCommand(eventMatcher.group("name"),
+                         eventMatcher.group("startDate"),
+                         eventMatcher.group("endDate"),
+                         getTagsFromArgs(eventMatcher.group("tagArguments")));
+             }
+         } catch (IllegalValueException ive) {
+             return new IncorrectCommand(ive.getMessage());
+         }
+         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                 AddCommand.MESSAGE_USAGE));
     }
 
 }
