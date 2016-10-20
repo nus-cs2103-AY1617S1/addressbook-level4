@@ -26,6 +26,8 @@ public class BackupCommand extends Command {
             + " c:/Users/user/Desktop/TaskManagerBackup1 OR TaskManagerBackup2";
 
     public static final String MESSAGE_BACKUP_SUCCESS = "Backup successful: %1$s";
+    
+    public static final String MESSAGE_BACKUP_FAILURE = "Backup unsuccessful: %1$s , invalid location";
 
 //    private final Task toBackup;
 //    private final Model model;
@@ -89,7 +91,10 @@ public class BackupCommand extends Command {
 
     @Override
     public CommandResult execute(boolean isUndo) {
-        assert _directory != null;
+        //assert _directory != null;
+        boolean check = new File(_directory).exists();
+        if (!check)
+            return new CommandResult(String.format(MESSAGE_BACKUP_FAILURE, _directory));
         return new CommandResult(String.format(MESSAGE_BACKUP_SUCCESS, _directory));
     }
 

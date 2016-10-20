@@ -3,13 +3,11 @@ package seedu.task.logic.commands;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import java.util.logging.Logger;
 
 import javax.xml.bind.JAXBException;
 
 import javafx.application.Platform;
-import seedu.task.MainApp;
 import seedu.task.commons.core.Config;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.util.ConfigUtil;
@@ -36,6 +34,8 @@ public class DirectoryCommand extends Command {
             + " c:/Users/user/Desktop/TaskManagerBackup1 OR TaskManagerBackup2";
 
     public static final String MESSAGE_NEW_DIRECTORY_SUCCESS = "New data: %1$s";
+    
+    public static final String MESSAGE_FILE_NOT_FOUND_ERROR = "File does not exist: %1$s";
     
     //This constant string variable is file extension of the storage file.
     private final String FILE_EXTENSION = ".xml";
@@ -81,6 +81,9 @@ public class DirectoryCommand extends Command {
 
     @Override
     public CommandResult execute(boolean isUndo) {
+        boolean check = new File(_newFilePath).exists();
+        if (!check)
+            return new CommandResult(String.format(MESSAGE_FILE_NOT_FOUND_ERROR, _newFilePath));
         assert model != null;
         try {
             File newFile = new File(_newFilePath);
@@ -102,5 +105,6 @@ public class DirectoryCommand extends Command {
         // TODO Auto-generated method stub
         return null;
     }
+    
 
 }
