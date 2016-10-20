@@ -28,9 +28,9 @@ public class AddCommand extends Command {
     private final Task toAdd;
 
     /**
-     * Convenience constructor using raw values.
+     * Convenience constructor using values parsed from Natty
      *
-     * @throws IllegalValueException if any of the raw values are invalid
+     * @throws IllegalValueException if any of the values are invalid or there are too many inputs
      */
     public AddCommand(String[] data, Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
