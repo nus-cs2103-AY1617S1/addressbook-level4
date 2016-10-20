@@ -3,6 +3,7 @@ package seedu.task.logic;
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -101,7 +102,8 @@ public class ListCommandTest extends CommandTest{
         List<Event> threeEvents = helper.generateEventList(eTarget1, eTarget2, eTarget3);
         TaskBook expectedTB = helper.generateTaskBook_Events(threeEvents);
         List<Event> expectedList = helper.generateEventList(eTarget1, eTarget2, eTarget3);
-
+        
+        expectedList = expectedList.stream().sorted(Event::sortAsc).collect(Collectors.toList());
         // prepare address book state
         helper.addEventToModel(model, threeEvents);
 

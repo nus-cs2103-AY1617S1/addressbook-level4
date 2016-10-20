@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
  * Represents an event's duration in the task book. Guarantees: immutable; is
  * valid as declared in {@link #isValidDuration(String)}
  */
-public class EventDuration {
+public class EventDuration implements Comparable<EventDuration> {
 
 	public static final String MESSAGE_DURATION_CONSTRAINTS = "event duration should be seperated by >; \n"
 			+ "start time should be no later than end time. \n "
@@ -113,5 +113,15 @@ public class EventDuration {
 		
 		EventDuration other = (EventDuration) obj;
 		return this.toString().equals(other.toString());
+	}
+
+
+	@Override
+	public int compareTo(EventDuration o) {
+		if (this.startTime.compareTo(o.startTime) == 0) {
+			return this.endTime.compareTo(o.endTime);
+		} else {
+			return this.startTime.compareTo(o.startTime);
+		}
 	}
 }

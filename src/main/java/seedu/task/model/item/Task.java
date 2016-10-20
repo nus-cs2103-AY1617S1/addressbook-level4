@@ -2,6 +2,7 @@ package seedu.task.model.item;
 
 import seedu.task.commons.util.CollectionUtil;
 
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -69,7 +70,7 @@ public class Task implements ReadOnlyTask {
         return isTaskCompleted;
     }
     
-    public void setCompleted() {
+    public void toggleComplete() {
     	isTaskCompleted = !isTaskCompleted;
     }
 
@@ -90,5 +91,49 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+
+	/**
+	 * Sort deadline from earliest to latest
+	 * @param o
+	 * @return
+	 */
+	public static Comparator<Task> getAscComparator() {
+		//first by deadline
+		Comparator<Task> byDeadline = (t1, t2) -> {
+			if(!t1.getDeadline().isPresent() && !t2.getDeadline().isPresent())
+				return 0;
+			// if this is a floating task, it will be on the top
+			if(!t1.getDeadline().isPresent())
+				return -1;
+			if(!t2.getDeadline().isPresent()) 
+				return 1;
+			
+			//if both are not floating tasks 
+			return t1.getDeadline().get().compareTo(t2.getDeadline().get());
+		};
+		
+		//then by name
+		Comparator<Task> byName = (t1, t2) -> t1.getTask().compareTo(t2.getTask());
+		
+		return byDeadline.thenComparing(byName);
+	}
+	
+	/**
+	 * Sort deadline from latest to earliest
+	 * @param o
+	 * @return
+	 */
+	public int sortDesc(Task o) {
+		if(!this.getDeadline().isPresent() && !o.getDeadline().isPresent())
+			return 0;
+		// if this is a floating task, it will be on the top
+		if(!this.getDeadline().isPresent())
+			return -1;
+		// if this is 
+		if(!o.getDeadline().isPresent()) 
+			return 1;
+		return this.getDeadline().get().compareTo(o.getDeadline().get())*(-1);
+		
+	}
 
 }

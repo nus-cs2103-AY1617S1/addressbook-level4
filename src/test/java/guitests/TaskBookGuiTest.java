@@ -12,6 +12,7 @@ import org.testfx.api.FxToolkit;
 import seedu.task.TestApp;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.ReadOnlyTask;
+import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestEvents;
 import seedu.task.testutil.TypicalTestTasks;
@@ -131,4 +132,5 @@ public abstract class TaskBookGuiTest {
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
     }
+
 }

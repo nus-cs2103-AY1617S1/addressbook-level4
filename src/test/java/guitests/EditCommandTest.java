@@ -25,8 +25,8 @@ public class EditCommandTest extends TaskBookGuiTest{
         
         //edit another task
         taskToEdit = td.socSciences;
-        currentList = TestUtil.editTasksToList(currentList, 1, taskToEdit);
-        assertEditSuccess(taskToEdit, 2 ,currentList);
+        currentList = TestUtil.editTasksToList(currentList, 3, taskToEdit);
+        assertEditSuccess(taskToEdit, 4 ,currentList);
 
         //edit to a duplicate task
         commandBox.runCommand(td.arts.getEditFloatTaskCommand(3));
@@ -50,7 +50,7 @@ public class EditCommandTest extends TaskBookGuiTest{
         assertMatching(taskToEdit, editedCard);
 
         //confirm the list now contains all previous tasks plus the new edited task
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList);
+        TestTask[] expectedList = TestUtil.addTasksToListAtIndex(currentList, index -1);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
 }

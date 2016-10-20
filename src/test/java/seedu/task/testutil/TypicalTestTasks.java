@@ -48,11 +48,11 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{music, engine, cs1010, cs1020};
+        return new TestTask[]{cs1010, cs1020,engine, music};
     }
     
     public TestTask[] getTypicalAllTasks() {
-    	return new TestTask[] {music, engine, cs1010, cs1020,slack};
+    	return new TestTask[] {slack, cs1010, cs1020,engine, music};
     }
     
 

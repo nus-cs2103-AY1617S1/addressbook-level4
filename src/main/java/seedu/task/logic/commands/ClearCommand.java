@@ -1,5 +1,7 @@
 package seedu.task.logic.commands;
 
+import java.awt.Dialog.ModalExclusionType;
+
 import seedu.task.model.ReadOnlyTaskBook;
 import seedu.task.model.TaskBook;
 import seedu.task.model.item.UniqueEventList;
@@ -9,11 +11,12 @@ import seedu.task.model.item.UniqueTaskList;
  * Clears the taskbook's tasks and events according to the tags called
  * @author Tiankai
  */
-public class ClearCommand extends Command {
+public class ClearCommand extends UndoableCommand {
 
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "All %s %s has been cleared!";
+    public static final String MESSAGE_RESTORED = "All data has been restored!";
     public static final String MESSAGE_COMPLETED = "completed";
     public static final String MESSAGE_COMPLETED_UNCOMPLETED = "completed and uncompleted";
     public static final String MESSAGE_TASKS = "tasks";
@@ -50,6 +53,8 @@ public class ClearCommand extends Command {
     
     private final Type isTask;
     private final boolean isAll;
+    
+    private ReadOnlyTaskBook currentTaskBook;
 
     public ClearCommand(Type tag_1, boolean tag_2) {
         this.isTask = tag_1;
@@ -59,6 +64,7 @@ public class ClearCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        currentTaskBook = new TaskBook(model.getTaskBook());
         
         if(isTask == Type.all && !isAll){ // clears completed tasks and events
             model.clearTasks();
@@ -87,4 +93,11 @@ public class ClearCommand extends Command {
         }      
         
     }
+
+
+	@Override
+	public CommandResult undo() {
+		model.resetData(currentTaskBook);
+		return new CommandResult(MESSAGE_RESTORED);
+	}
 }

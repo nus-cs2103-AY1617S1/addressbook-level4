@@ -17,13 +17,15 @@ public class AddCommandTest extends TaskBookGuiTest {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = td.arts;
+        currentList = TestUtil.addTasksToListAtIndex(currentList, 0, taskToAdd);
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        
 
         //add another task
         taskToAdd = td.socSciences;
-        assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        assertAddSuccess(taskToAdd, currentList);
+        
 
         //add duplicate task
         commandBox.runCommand(td.arts.getAddCommand());
@@ -43,8 +45,7 @@ public class AddCommandTest extends TaskBookGuiTest {
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(taskListPanel.isListMatching(expectedList));
+        assertTrue(taskListPanel.isListMatching(currentList));
     }
 
 }

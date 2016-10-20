@@ -11,7 +11,7 @@ import seedu.task.model.item.UniqueEventList;
  *
  */
 public class TypicalTestEvents {
-	public static TestEvent  meeting1, meeting2, meeting3;
+	public static TestEvent  meeting1, meeting2, meeting3, addedEvent;
 	
 	public TypicalTestEvents() {
 		try {
@@ -32,6 +32,14 @@ public class TypicalTestEvents {
 					.withDescription("for CS2103 discussion")
 					.withDuration("tomorrow 8pm > tomorrow 11pm")
 					.build();
+			
+			//manually added events
+			addedEvent = new EventBuilder()
+					.withName("manual event")
+					.withDescription("for manual testing")
+					.withDuration("tomorrow 1pm > next Friday")
+					.build();
+			
 		} catch (IllegalValueException e) {
 			e.printStackTrace();
 			assert false : "not possible";

@@ -284,6 +284,18 @@ public class TestUtil {
         listOfTasks.removeAll(asList(tasksToRemove));
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
+    
+    /**
+     * Removes a subset from the list of events.
+     * @param events The list of events
+     * @param eventsToRemove The subset of events.
+     * @return The modified events after removal of the subset from events.
+     */
+    public static TestEvent[] removeEventsFromList(final TestEvent[] events, TestEvent... eventsToRemove) {
+        List<TestEvent> listOfEvents = asList(events);
+        listOfEvents.removeAll(asList(eventsToRemove));
+        return listOfEvents.toArray(new TestEvent[listOfEvents.size()]);
+    }
 
 
     /**
@@ -293,6 +305,15 @@ public class TestUtil {
      */
     public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    }
+    
+    /**
+     * Returns a copy of the list with the events at specified index removed.
+     * @param list original list to copy from
+     * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
+     */
+    public static TestEvent[] removeEventFromList(final TestEvent[] list, int targetIndexInOneIndexedFormat) {
+        return removeEventsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
     /**
@@ -317,6 +338,42 @@ public class TestUtil {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.addAll(asList(tasksToAdd));
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+    
+    /**
+     * Appends tasks to the array of tasks at certain index.
+     * @param tasks A array of tasks.
+     * @param tasksToAdd The tasks that are to be appended behind the original array.
+     * @return The modified array of tasks.
+     */
+    public static TestTask[] addTasksToListAtIndex(final TestTask[] tasks,int index, TestTask... tasksToAdd) {
+        List<TestTask> listOfTasks = asList(tasks);
+        listOfTasks.addAll(index,asList(tasksToAdd));
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+    
+    /**
+     * Appends events to the array of events.
+     * @param events A array of events.
+     * @param eventsToAdd The events that are to be appended behind the original array.
+     * @return The modified array of events.
+     */
+    public static TestEvent[] addEventsToList(final TestEvent[] events, TestEvent... eventsToAdd) {
+        List<TestEvent> listOfEvents = asList(events);
+        listOfEvents.addAll(asList(eventsToAdd));
+        return listOfEvents.toArray(new TestEvent[listOfEvents.size()]);
+    }
+    
+    /**
+     * Appends events to the array of events.
+     * @param events A array of events.
+     * @param eventsToAdd The events that are to be appended behind the original array.
+     * @return The modified array of events.
+     */
+    public static TestEvent[] addEventsToListAtIndex(final TestEvent[] events, int index, TestEvent... eventsToAdd) {
+        List<TestEvent> listOfEvents = asList(events);
+        listOfEvents.addAll(index, asList(eventsToAdd));
+        return listOfEvents.toArray(new TestEvent[listOfEvents.size()]);
     }
     
     /**

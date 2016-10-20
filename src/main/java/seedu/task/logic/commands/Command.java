@@ -1,6 +1,8 @@
 package seedu.task.logic.commands;
 
 import seedu.task.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.task.commons.exceptions.UndoableException;
+import seedu.task.logic.UndoableCommandHistory;
 import seedu.task.model.Model;
 import seedu.taskcommons.core.EventsCenter;
 import seedu.taskcommons.core.Messages;
@@ -10,6 +12,8 @@ import seedu.taskcommons.core.Messages;
  */
 public abstract class Command {
     protected Model model;
+    protected UndoableCommandHistory commandList;
+    protected String arguments;
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
@@ -45,6 +49,13 @@ public abstract class Command {
      */
     public void setData(Model model) {
         this.model = model;
+    }
+    
+    /**
+     * Provides the command history for current command executed.
+     */
+    public void setCommandHistory(UndoableCommandHistory commandList) {
+        this.commandList = commandList;
     }
 
     /**

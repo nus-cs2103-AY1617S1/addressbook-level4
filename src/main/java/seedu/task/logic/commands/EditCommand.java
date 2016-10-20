@@ -5,7 +5,7 @@ package seedu.task.logic.commands;
  * @author kian ming
  */
 
-public abstract class EditCommand extends Command {
+public abstract class EditCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";
     

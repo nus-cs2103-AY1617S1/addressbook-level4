@@ -35,12 +35,12 @@ public class FindCommandTest extends TaskBookGuiTest {
         assertFindResultEvent("find cs2103t", 0, 2, TypicalTestEvents.meeting1, TypicalTestEvents.meeting2); // two events
         
         //Both events and tasks
-        assertFindResultTask("find project", 2, 2, TypicalTestTasks.music, TypicalTestTasks.engine);
+        assertFindResultTask("find project", 2, 2, TypicalTestTasks.engine, TypicalTestTasks.music);
         assertFindResultEvent("find project", 2, 2, TypicalTestEvents.meeting1, TypicalTestEvents.meeting2);
         
         //find after deleting one result
         commandBox.runCommand("delete -t 1");
-        assertFindResultTask("find my part", 1, 0, TypicalTestTasks.engine);
+        assertFindResultTask("find my part", 1, 0, TypicalTestTasks.music);
     }
 
     

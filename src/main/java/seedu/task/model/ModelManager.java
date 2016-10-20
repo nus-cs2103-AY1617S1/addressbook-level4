@@ -1,6 +1,7 @@
 package seedu.task.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.task.commons.events.model.TaskBookChangedEvent;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.model.item.Event;
@@ -19,6 +20,8 @@ import seedu.taskcommons.core.UnmodifiableObservableList;
 
 import java.util.Set;
 import java.util.logging.Logger;
+
+import com.google.common.collect.Ordering;
 
 /**
  * Represents the in-memory model of the task book data.
@@ -60,6 +63,9 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
+        
+        updateFilteredEventListToShowWithStatus(false);
+        updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();
     }
 
@@ -159,12 +165,17 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(this.filteredTasks);
+    	SortedList<Task> sortedTasks = new SortedList<>(filteredTasks);
+    	sortedTasks.setComparator(Task.getAscComparator());
+    	return new UnmodifiableObservableList<>(sortedTasks);
     }
+   
     
     @Override
     public UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList() {
-        return new UnmodifiableObservableList<>(this.filteredEvents);
+    	SortedList<Event> sortedEvents = new SortedList<>(filteredEvents);
+    	sortedEvents.setComparator(Event.getAscComparator());
+    	return new UnmodifiableObservableList<>(sortedEvents);
     }
 
     @Override
@@ -298,4 +309,5 @@ public class ModelManager extends ComponentManager implements Model {
 		}
     	
     }
+
 }

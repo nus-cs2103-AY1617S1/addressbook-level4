@@ -5,6 +5,7 @@ import seedu.task.model.item.Description;
 import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.Name;
+import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.UniqueEventList;
 
 /**
@@ -25,11 +26,16 @@ public class AddEventCommand extends AddCommand {
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
+  //TODO: more flexible of events type
     public AddEventCommand(String name, String description, String duration) throws IllegalValueException {
-        this.toAddEvent = new Event(new Name(name), new Description(description), new EventDuration(duration)); //TODO: more flexible of events type
+        this.toAddEvent = new Event(new Name(name), new Description(description), new EventDuration(duration));
     }
 
-    @Override
+    public AddEventCommand(ReadOnlyEvent event) {
+    	this.toAddEvent = new Event(event.getEvent(), event.getDescription(), event.getDuration());
+	}
+
+	@Override
     public CommandResult execute() {
         assert model != null;
         try {
@@ -40,5 +46,25 @@ public class AddEventCommand extends AddCommand {
         }
 
     }
-    
+	
+	@Override
+	public CommandResult undo() {
+		DeleteEventCommand reverseCommand = new DeleteEventCommand(toAddEvent);
+		reverseCommand.setData(model);
+		
+		return reverseCommand.execute();
+	}
+	
+	
+	public UndoableCommand prepareUndoCommand() {
+		UndoableCommand command = new DeleteEventCommand(toAddEvent);
+		
+		command.setData(model);
+		return command;
+	}
+	
+	@Override
+	public String toString() {
+		return COMMAND_WORD +" "+ this.toAddEvent.getAsText();
+	}
 }

@@ -5,7 +5,7 @@ package seedu.task.logic.commands;
  * @author kian ming
  */
 
-public abstract class AddCommand extends Command {
+public abstract class AddCommand extends UndoableCommand {
     
     public static final String COMMAND_WORD = "add";
     public static final String MESSAGE_USAGE = COMMAND_WORD + "\n" 

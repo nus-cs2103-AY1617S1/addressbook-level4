@@ -150,6 +150,8 @@ public class CommandTest extends LogicBasicTest {
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
         
+        List<ReadOnlyTask> list = model.getFilteredTaskList();
+        
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedTaskList, model.getFilteredTaskList());

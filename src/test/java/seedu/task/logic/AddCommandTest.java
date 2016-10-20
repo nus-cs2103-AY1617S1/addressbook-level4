@@ -3,6 +3,9 @@ package seedu.task.logic;
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import org.junit.Test;
 
 import seedu.task.logic.TestDataHelper;
@@ -46,8 +49,7 @@ public class AddCommandTest extends CommandTest{
 	 * Possible EP of Invalid Deadline 
 	 * 	 - Phrases in abbreviation or not referring to  relative date.
 	 *   - Characters that are not related to date/time.
-	 *   - null
-	 *   - Empty String 
+	 *   
 	 *   
 	 * Due to the flexibility of prettytime library, the constrain on the deadline format will be looser.
 	 * We will not report invalid formats for deadlines, but provide elaborative feedback to users 
@@ -103,12 +105,13 @@ public class AddCommandTest extends CommandTest{
         TestDataHelper helper = new TestDataHelper();
         
         // different argument to cover use cases as mentioned above
+        //may need to update
         Task tTarget1 = helper.generateTaskWithDeadline("Friday 11:01");
-        Task tTarget2 = helper.generateTaskWithDeadline("November 11");
-        Task tTarget3 = helper.generateTaskWithDeadline("next Friday 2pm");
-        Task tTarget4 = helper.generateTaskWithDeadline("2 Monday");
-        Task tTarget5 = helper.generateTaskWithDeadline("12/30/2016");
-        Task tTarget6 = helper.generateTaskWithDeadline("12/30/2016 11:12");
+        Task tTarget2 = helper.generateTaskWithDeadline("next Friday 2pm");
+        Task tTarget3 = helper.generateTaskWithDeadline("2 Monday");
+        Task tTarget4 = helper.generateTaskWithDeadline("12/29/2016");
+        Task tTarget5 = helper.generateTaskWithDeadline("12/30/2016 11:12");
+        Task tTarget6 = helper.generateTaskWithDeadline("November 11 2017");
         
         TaskBook expectedAB = new TaskBook();
         List<Task> targetList = helper.generateTaskList(tTarget1, tTarget2, tTarget3, tTarget4, tTarget5, tTarget6);

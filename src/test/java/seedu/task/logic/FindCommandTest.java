@@ -3,6 +3,7 @@ package seedu.task.logic;
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -50,7 +51,9 @@ public class FindCommandTest extends CommandTest {
         
         helper.addTaskToModel(model,fourTasks);
         helper.addEventToModel(model, fourEvents);
-
+        
+        expectedTaskList = expectedTaskList.stream().sorted(Task.getAscComparator()).collect(Collectors.toList());
+        expectedEventList = expectedEventList.stream().sorted(Event.getAscComparator()).collect(Collectors.toList());
         assertTaskAndEventCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedTaskList.size()) 
                 + "\n"
@@ -84,8 +87,10 @@ public class FindCommandTest extends CommandTest {
         TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(fourTasks, fourEvents);
         
         List<Task> expectedTaskList = fourTasks;
-        List<Event> expectedEventList = fourEvents;
+        expectedTaskList = expectedTaskList.stream().sorted(Task.getAscComparator()).collect(Collectors.toList());
         
+        List<Event> expectedEventList = fourEvents;
+        expectedEventList = expectedEventList.stream().sorted(Event.getAscComparator()).collect(Collectors.toList());
         helper.addTaskToModel(model, fourTasks);
         helper.addEventToModel(model, fourEvents);
 
@@ -122,13 +127,15 @@ public class FindCommandTest extends CommandTest {
         TaskBook expectedAB = helper.generateTaskBookTasksAndEvents(fourTasks, fourEvents);
         
         List<Task> expectedTaskList = fourTasks;
+        expectedTaskList = expectedTaskList.stream().sorted(Task.getAscComparator()).collect(Collectors.toList());
         List<Event> expectedEventList = fourEvents;
+        expectedEventList = expectedEventList.stream().sorted(Event.getAscComparator()).collect(Collectors.toList());
         
         helper.addTaskToModel(model, fourTasks);
         helper.addEventToModel(model, fourEvents);
 
 
-        assertTaskAndEventCommandBehavior("find KEY rAnDom",
+			        assertTaskAndEventCommandBehavior("find KEY rAnDom",
                 Command.getMessageForTaskListShownSummary(expectedTaskList.size())
                 +"\n"
                 + Command.getMessageForEventListShownSummary(expectedEventList.size()),

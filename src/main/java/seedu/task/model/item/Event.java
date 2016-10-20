@@ -5,6 +5,7 @@ import seedu.task.model.item.Description;
 import seedu.task.model.item.Name;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.Objects;
 
 /**
@@ -80,7 +81,24 @@ public class Event implements ReadOnlyEvent {
     public String toString() {
         return getAsText();
     }
+    
+    /**
+	 * Sort duration from earliest to latest
+	 * @param o
+	 * @return
+	 */
+	public int sortAsc(Event o) {
+		return this.getDuration().compareTo(o.getDuration());
+	}
 
-	
-
+	public static Comparator<? super Event> getAscComparator() {
+		//first by duration
+		Comparator<Event> byStartTime = (e1, e2) -> e1.getDuration().compareTo(e2.getDuration());
+		
+		//then by name
+		Comparator<Event> byName = (e1, e2) -> e1.getEvent().compareTo(e2.getEvent());
+		
+		return byStartTime.thenComparing(byName);
+		
+	} 
 }

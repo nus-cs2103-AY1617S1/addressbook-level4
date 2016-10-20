@@ -48,12 +48,12 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
-     * Adds a event to the list.
+     * Adds a event to the begining of list.
      *
      * @throws DuplicateEventException if the event to add is a duplicate of an existing event in the list.
      */
     public void add(Event toAdd) throws DuplicateEventException {
-        assert toAdd != null;
+    	assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateEventException();
         }

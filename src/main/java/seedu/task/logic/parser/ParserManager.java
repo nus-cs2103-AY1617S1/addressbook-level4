@@ -42,7 +42,7 @@ public class ParserManager {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
         
-        case AddTaskCommand.COMMAND_WORD:
+        case AddCommand.COMMAND_WORD:
             return new AddParser().prepare(arguments);
             
         case EditTaskCommand.COMMAND_WORD:
@@ -65,6 +65,9 @@ public class ParserManager {
 
         case ListCommand.COMMAND_WORD:
             return new ListParser().prepare(arguments);
+            
+        case UndoCommand.COMMAND_WORD:
+        	return new UndoCommand();
             
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();

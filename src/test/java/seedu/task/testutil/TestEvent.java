@@ -57,5 +57,22 @@ public class TestEvent implements ReadOnlyEvent {
 		return "list -e -a";
 	}
 	
+    public String getAddCommand() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("add " + this.getEvent().fullName + " ");
+        sb.append("/desc " + this.getDescription().value + " ");
+        sb.append("/from " + this.getDuration().toString());
+        return sb.toString();
+    }
+
+	public String getEditCommand(int i) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("edit -e " + i + " ");
+		sb.append("/name " + this.getEvent().fullName+ " ");
+		sb.append("/desc "+ this.getDescription().value +  " ");
+		sb.append("/from " + this.getDuration().toString() + " ");
+		return sb.toString();
+	}
+	
 
 }

@@ -30,6 +30,10 @@ public class AddTaskCommand extends AddCommand {
         this.toAdd = new Task(new Name(name), new Description(description), DEFAULT_STATUS);
     }
 
+	public AddTaskCommand(ReadOnlyTask t) {
+		this.toAdd = new Task(t.getTask(), t.getDescription(), t.getDeadline().orElse(null), t.getTaskStatus());
+	}
+
 	@Override
 	public CommandResult execute() {
 		assert model != null;
@@ -41,5 +45,20 @@ public class AddTaskCommand extends AddCommand {
 		}
 
 	}
+
+	@Override
+	public CommandResult undo() {
+		DeleteTaskCommand reverseCommand = new DeleteTaskCommand(toAdd);
+		reverseCommand.setData(model);
+		
+		return reverseCommand.execute();
+	}
+	
+	@Override
+	public String toString() {
+		return COMMAND_WORD +" "+ this.toAdd.getAsText();
+	}
+	
+	
 
 }
