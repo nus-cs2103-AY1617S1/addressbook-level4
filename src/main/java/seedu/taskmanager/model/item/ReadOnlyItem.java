@@ -11,10 +11,13 @@ public interface ReadOnlyItem {
 
     ItemType getItemType();
     Name getName();
-    Date getStartDate();
-    Time getStartTime();
-    Date getEndDate();
-    Time getEndTime();
+    ItemDate getStartDate();
+    ItemTime getStartTime();
+    ItemDate getEndDate();
+    ItemTime getEndTime();
+    boolean getDone();
+    void setDone();
+    void setUndone();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -26,14 +29,17 @@ public interface ReadOnlyItem {
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyItem other) {
-        return other == this // short circuit if same object
-                || (other != null // this is first to avoid NPE below
+        return other != null // this is first to avoid NPE below
                 && other.getItemType().equals(this.getItemType()) // state checks here onwards
                 && other.getName().equals(this.getName())
                 && other.getStartDate().equals(this.getStartDate())
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndDate().equals(this.getEndDate())
-                && other.getEndTime().equals(this.getEndTime()));
+                && other.getEndTime().equals(this.getEndTime())
+                && other.getStartDate().equals(this.getStartDate())
+                && other.getStartTime().equals(this.getStartTime())
+                && other.getDone() == this.getDone()
+                && other.getTags().equals(this.getTags());
     }
 
     /**

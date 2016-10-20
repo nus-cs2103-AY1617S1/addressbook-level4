@@ -6,6 +6,8 @@ import seedu.taskmanager.commons.core.ComponentManager;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.commons.events.model.TaskManagerChangedEvent;
+import seedu.taskmanager.commons.events.ui.ChangeDoneEvent;
+import seedu.taskmanager.commons.events.ui.FilterEvent;
 import seedu.taskmanager.commons.util.StringUtil;
 import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ReadOnlyItem;
@@ -16,30 +18,36 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
+import java.util.Stack;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the task manager data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskManager addressBook;
+    private final TaskManager taskManager;
     private final FilteredList<Item> filteredItems;
+    private Stack<HistoryTaskManager> history;
+    private final String initialHistory = "";
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given TaskManager
+     * TaskManager and its variables should not be null
      */
     public ModelManager(TaskManager src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new TaskManager(src);
-        filteredItems = new FilteredList<>(addressBook.getItems());
+        taskManager = new TaskManager(src);
+        filteredItems = new FilteredList<>(taskManager.getItems());
+        history = new Stack<HistoryTaskManager>();
+        HistoryTaskManager newHistory = new HistoryTaskManager(src, initialHistory);
+        history.push(newHistory);
     }
 
     public ModelManager() {
@@ -47,45 +55,84 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
-        addressBook = new TaskManager(initialData);
-        filteredItems = new FilteredList<>(addressBook.getItems());
+        taskManager = new TaskManager(initialData);
+        filteredItems = new FilteredList<>(taskManager.getItems());
+        history = new Stack<HistoryTaskManager>();
+        HistoryTaskManager newHistory = new HistoryTaskManager(initialData, initialHistory);
+        history.push(newHistory);
     }
 
     @Override
-    public void resetData(ReadOnlyTaskManager newData) {
-        addressBook.resetData(newData);
-        indicateAddressBookChanged();
+    public void resetData(ReadOnlyTaskManager newData, String actionTaken) {
+        taskManager.resetData(newData);
+        indicateTaskManagerChanged(actionTaken);
     }
 
     @Override
-    public ReadOnlyTaskManager getAddressBook() {
-        return addressBook;
-    }
-
-    /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new TaskManagerChangedEvent(addressBook));
-    }
-
-    @Override
-    public synchronized void deleteItem(ReadOnlyItem target) throws ItemNotFoundException {
-        addressBook.removeItem(target);
-        indicateAddressBookChanged();
-    }
-
-    @Override
-    public synchronized void addItem(Item item) throws UniqueItemList.DuplicateItemException {
-        addressBook.addItem(item);
-        updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+    public ReadOnlyTaskManager getTaskManager() {
+        return taskManager;
     }
     
     @Override
-    public synchronized void replaceItem(ReadOnlyItem target, Item toReplace) 
-            throws ItemNotFoundException, UniqueItemList.DuplicateItemException {
-        addressBook.replaceItem(target, toReplace);
+    public synchronized void setDone(ReadOnlyItem target, String actionTaken) throws ItemNotFoundException {
+        taskManager.setDone(target);
+        raise(new ChangeDoneEvent());
+        indicateTaskManagerChanged(actionTaken);
+    }
+    
+    @Override
+    public synchronized void setUndone(ReadOnlyItem target, String actionTaken) throws ItemNotFoundException {
+        taskManager.setUndone(target);
+        raise(new ChangeDoneEvent());
+        indicateTaskManagerChanged(actionTaken);
+    }
+
+    /** Raises an event to indicate the model has changed */
+    private void indicateTaskManagerChanged(String actionTaken) {
+        ReadOnlyTaskManager newData = new TaskManager(taskManager);
+        HistoryTaskManager newHistory = new HistoryTaskManager(newData, actionTaken);
+        history.push(newHistory);
+        raise(new TaskManagerChangedEvent(taskManager));
+        raise(new FilterEvent(filteredItems));
+    }
+    
+    @Override
+    public String undoAction() {
+    	if (history.empty()) {
+    	    return null;
+    	} else {
+            HistoryTaskManager currentData = history.pop();
+            if (history.empty()) {
+                history.push(currentData);
+            	return null;
+            } else {
+            	HistoryTaskManager oldData = history.pop();
+                taskManager.resetData(oldData.getPastTaskManager());
+                indicateTaskManagerChanged(oldData.getActionTaken());
+                return currentData.getActionTaken();
+            }
+    	}
+    }
+
+    @Override
+    public synchronized void deleteItem(ReadOnlyItem target, String actionTaken) throws ItemNotFoundException {
+        taskManager.removeItem(target);
+        indicateTaskManagerChanged(actionTaken);
+    }
+
+    @Override
+    public synchronized void addItem(Item item, String actionTaken) throws UniqueItemList.DuplicateItemException {
+        taskManager.addItem(item);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskManagerChanged(actionTaken);
+    }
+    
+    @Override
+    public synchronized void replaceItem(ReadOnlyItem target, Item toReplace, String actionTaken) 
+            throws ItemNotFoundException, UniqueItemList.DuplicateItemException {
+        taskManager.replaceItem(target, toReplace);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged(actionTaken);
     }
 
     //=========== Filtered Item List Accessors ===============================================================
@@ -97,13 +144,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredItems.setPredicate(null);
+    	filteredItems.setPredicate(null);
+    	raise(new FilterEvent(filteredItems));
     }
     
     
     @Override
     public void updateFilteredListToShowTask() {
-    	final String[] itemType = {"task"}; 
+        final String[] itemType = {"task"}; 
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(itemType));
         updateFilteredPersonList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
     }
@@ -129,6 +177,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredPersonList(Expression expression) {
         filteredItems.setPredicate(expression::satisfies);
+        raise(new FilterEvent(filteredItems));
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -136,6 +185,30 @@ public class ModelManager extends ComponentManager implements Model {
     interface Expression {
         boolean satisfies(ReadOnlyItem person);
         String toString();
+    }
+    
+    private class HistoryTaskManager {
+        
+        private String actionTaken;
+        private ReadOnlyTaskManager pastTaskManager;
+        
+        HistoryTaskManager(TaskManager pastTaskManager, String actionTaken) {
+        	this.pastTaskManager = pastTaskManager;
+            this.actionTaken = actionTaken;
+		}
+
+		HistoryTaskManager(ReadOnlyTaskManager pastTaskManager, String actionTaken) {
+            this.pastTaskManager = pastTaskManager;
+            this.actionTaken = actionTaken;
+        }
+        
+        public String getActionTaken() {
+            return actionTaken;
+        }
+        
+        public ReadOnlyTaskManager getPastTaskManager() {
+            return pastTaskManager;
+        }
     }
 
     private class PredicateExpression implements Expression {

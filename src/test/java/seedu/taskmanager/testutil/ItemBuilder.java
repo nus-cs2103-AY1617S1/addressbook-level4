@@ -1,10 +1,10 @@
 package seedu.taskmanager.testutil;
 
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
-import seedu.taskmanager.model.item.Date;
+import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
-import seedu.taskmanager.model.item.Time;
+import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.tag.Tag;
 
 /**
@@ -31,12 +31,12 @@ public class ItemBuilder {
     }
 
     public ItemBuilder withEndDate(String endDate) throws IllegalValueException {
-        this.item.setEndDate(new Date(endDate));
+        this.item.setEndDate(new ItemDate(endDate));
         return this;
     }
     
     public ItemBuilder withEndTime(String endTime) throws IllegalValueException {
-        this.item.setEndTime(new Time(endTime));
+        this.item.setEndTime(new ItemTime(endTime));
         return this;
     }
 
@@ -46,12 +46,12 @@ public class ItemBuilder {
     }
 
     public ItemBuilder withStartDate(String startDate) throws IllegalValueException {
-        this.item.setStartDate(new Date(startDate));
+        this.item.setStartDate(new ItemDate(startDate));
         return this;
     }
     
     public ItemBuilder withStartTime(String startTime) throws IllegalValueException {
-        this.item.setStartTime(new Time(startTime));
+        this.item.setStartTime(new ItemTime(startTime));
         return this;
     }
 

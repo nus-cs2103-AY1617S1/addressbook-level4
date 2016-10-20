@@ -27,12 +27,12 @@ import seedu.taskmanager.model.TaskManager;
 import seedu.taskmanager.model.Model;
 import seedu.taskmanager.model.ModelManager;
 import seedu.taskmanager.model.ReadOnlyTaskManager;
-import seedu.taskmanager.model.item.Date;
+import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.item.ReadOnlyItem;
-import seedu.taskmanager.model.item.Time;
+import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
 import seedu.taskmanager.storage.StorageManager;
@@ -87,7 +87,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new TaskManager(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedAddressBook = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -129,12 +129,10 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        System.out.println(expectedShownList);
-        System.out.println(model.getFilteredItemList().size());
         assertEquals(expectedShownList, model.getFilteredItemList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getAddressBook());
+        assertEquals(expectedAddressBook, model.getTaskManager());
         assertEquals(expectedAddressBook, latestSavedAddressBook);
     }
 
@@ -159,9 +157,9 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addItem(helper.generateItem(1));
-        model.addItem(helper.generateItem(2));
-        model.addItem(helper.generateItem(3));
+        model.addItem(helper.generateItem(1), String.format(AddCommand.MESSAGE_SUCCESS, helper.generateItem(1)));
+        model.addItem(helper.generateItem(2), String.format(AddCommand.MESSAGE_SUCCESS, helper.generateItem(2)));
+        model.addItem(helper.generateItem(3), String.format(AddCommand.MESSAGE_SUCCESS, helper.generateItem(3)));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
@@ -172,19 +170,19 @@ public class LogicManagerTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         // Missing Prefix
         assertCommandBehavior(
-        		"add event n/12345 ed/2016-08-08 et/18:00", expectedMessage);
+        		"add event 12345 ed/2016-08-08 et/18:00", expectedMessage);
         // Additional Prefix
         assertCommandBehavior(
-        		"add task n/12345 ed/2016-08-08 et/18:00", expectedMessage);
-        // No Name Prefix
-        assertCommandBehavior(
-                "add deadline 12345 ed/2016-08-08 et/18:00", expectedMessage);
+        		"add task 12345 ed/2016-08-08 et/18:00", expectedMessage);
+        // Have Name Prefix
+        // assertCommandBehavior(
+        //         "add deadline n/12345 ed/2016-08-08 et/18:00", expectedMessage);
         // No EndDate Prefix
         assertCommandBehavior(
-                "add deadline n/12345 2016-08-08 et/18:00", expectedMessage);
+                "add deadline 12345 2016-08-08 et/18:00", expectedMessage);
         // No EndTime Prefix
-        assertCommandBehavior(
-                "add deadline n/12345 ed/2016-08-08 18:00", expectedMessage);
+        // assertCommandBehavior(
+        //         "add deadline 12345 ed/2016-08-08 18:00", expectedMessage);
     }
 
     @Test
@@ -197,22 +195,22 @@ public class LogicManagerTest {
                 "add deadline n/not_numbers ed/2016-08-08 et/18:00", Name.MESSAGE_NAME_CONSTRAINTS);
         // Invalid EndDate
         assertCommandBehavior(
-                "add deadline n/12345 ed/notADate et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
+                "add deadline n/12345 ed/notADate et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
         // Invalid EndTime
         assertCommandBehavior(
-                "add deadline n/12345 ed/2016-08-08 et/notATime", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add deadline n/12345 ed/2016-08-08 et/notATime", ItemTime.MESSAGE_TIME_CONSTRAINTS);
         // Invalid Tag
         assertCommandBehavior(
-                "add deadline n/12345 ed/2016-08-08 et/18:00 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add deadline n/12345 ed/2016-08-08 et/18:00 #invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
         // Invalid Event endDate and endTime
         assertCommandBehavior(
                 "add event n/12345 sd/2016-08-08 st/19:00 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
        // Invalid Date
         assertCommandBehavior(
-                "add event n/12345 sd/2016-02-30 st/19:00 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
+                "add event n/12345 sd/2016-02-30 st/19:00 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
        // Invalid Date
         assertCommandBehavior(
-                "add deadline n/12345 ed/2016-11-31 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, Date.MESSAGE_DATE_CONSTRAINTS));
+                "add deadline n/12345 ed/2016-11-31 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
 
     }
 
@@ -241,7 +239,7 @@ public class LogicManagerTest {
         expectedAB.addItem(toBeAdded);
 
         // setup starting state
-        model.addItem(toBeAdded); // person already in internal address book
+        model.addItem(toBeAdded, String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded)); // person already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -262,10 +260,6 @@ public class LogicManagerTest {
 
         // prepare address book state
         helper.addToModel(model, 2);
-        System.out.println("Expected");
-        System.out.println(expectedAB);
-        System.out.println("Actual");
-        System.out.println(expectedList);
 
         assertCommandBehavior("list",
                 ListCommand.MESSAGE_SUCCESS,
@@ -298,12 +292,12 @@ public class LogicManagerTest {
         List<Item> itemList = helper.generateItemList(2);
 
         // set AB state to 2 persons
-        model.resetData(new TaskManager());
+        model.resetData(new TaskManager(), ClearCommand.MESSAGE_SUCCESS);
         for (Item p : itemList) {
-            model.addItem(p);
+            model.addItem(p, String.format(AddCommand.MESSAGE_SUCCESS, p));
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), itemList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskManager(), itemList);
     }
 
     @Test
@@ -433,10 +427,10 @@ public class LogicManagerTest {
         Item adam() throws Exception {
             ItemType itemType = new ItemType("deadline");
             Name privateName = new Name("111111");
-            Date startDate = new Date("");
-            Time startTime = new Time("");
-            Date endDate = new Date("2016-08-08");
-            Time endTime = new Time("01:59");
+            ItemDate startDate = new ItemDate("");
+            ItemTime startTime = new ItemTime("");
+            ItemDate endDate = new ItemDate("2016-08-08");
+            ItemTime endTime = new ItemTime("01:59");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -465,30 +459,30 @@ public class LogicManagerTest {
                 return new Item(
                     new ItemType(itemType),
                     new Name("" + Math.abs(seed)),
-                    new Date(""),
-                    new Time(""),
-                    new Date(""),
-                    new Time(""),
+                    new ItemDate(""),
+                    new ItemTime(""),
+                    new ItemDate(""),
+                    new ItemTime(""),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
                 );
             } else if (itemType == ItemType.DEADLINE_WORD) {
                 return new Item(
                     new ItemType(itemType),
                     new Name("" + Math.abs(seed)),
-                    new Date(""),
-                    new Time(""),
-                    new Date(endDate),
-                    new Time(endTime),
+                    new ItemDate(""),
+                    new ItemTime(""),
+                    new ItemDate(endDate),
+                    new ItemTime(endTime),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
                 );
             } else {
                 return new Item(
                     new ItemType(itemType),
                     new Name("" + Math.abs(seed)),
-                    new Date(startDate),
-                    new Time(startTime),
-                    new Date(endDate),
-                    new Time(endTime),
+                    new ItemDate(startDate),
+                    new ItemTime(startTime),
+                    new ItemDate(endDate),
+                    new ItemTime(endTime),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
                 );
             }
@@ -519,7 +513,7 @@ public class LogicManagerTest {
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
+                cmd.append(" #").append(t.tagName);
             }
 
             return cmd.toString();
@@ -573,7 +567,7 @@ public class LogicManagerTest {
          */
         void addToModel(Model model, List<Item> itemsToAdd) throws Exception{
             for(Item p: itemsToAdd){
-                model.addItem(p);
+                model.addItem(p, String.format(AddCommand.MESSAGE_SUCCESS, p));
             }
         }
 
@@ -600,10 +594,10 @@ public class LogicManagerTest {
             return new Item(
                     new ItemType(itemType),
                     new Name(name),
-                    new Date(""),
-                    new Time(""),
-                    new Date("2016-12-15"),
-                    new Time("01:39"),
+                    new ItemDate(""),
+                    new ItemTime(""),
+                    new ItemDate("2016-12-15"),
+                    new ItemTime("01:39"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

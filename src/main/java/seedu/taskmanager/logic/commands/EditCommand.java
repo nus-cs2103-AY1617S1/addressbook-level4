@@ -2,16 +2,23 @@ package seedu.taskmanager.logic.commands;
 
 import static seedu.taskmanager.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.List;
 import java.util.logging.*;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.core.Messages;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.model.item.Item;
+import seedu.taskmanager.model.item.ItemDate;
+import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.item.ItemType;
+import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.item.ReadOnlyItem;
 import seedu.taskmanager.model.item.UniqueItemList;
 import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
+import seedu.taskmanager.model.tag.Tag;
+import seedu.taskmanager.model.tag.UniqueTagList;
+import seedu.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
  * Edits an item identified using it's last displayed index from the task manager.
@@ -19,46 +26,82 @@ import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 public class EditCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
     public static final String COMMAND_WORD = "edit";
+    public static final String SHORT_COMMAND_WORD = "e";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-                                               + ": Edits the item identified by the index number used in the last item listing.\n"
-                                               + "Editable parameters are restricted to those the item was created with. \n"
-                                               + "Parameters: INDEX (must be a positive integer)" 
+                                               + ": Edits the item identified by the index number used in the last item listing."
+                                               + "\n" + "Parameters: INDEX (positive integer)" 
                                                + " n/[NAME]"
+                                               + " sdt/[START_DATE_TIME]"
                                                + " sd/[START_DATE]"
                                                + " st/[START_TIME]"
+                                               + "\n" + "                     " + "edt/[END_DATE_TIME]"
                                                + " ed/[END_DATE]"
                                                + " et/[END_TIME]"
-                                               + " (at least one parameter must be specifed)"
+                                               + "\n" + "Editable parameters are restricted to those the item was created with."
+                                               + "\n" + "At least one parameter must be specifed (sdt/edt favoured over sd/st/ed/et)"
                                                + "\n" + "Example: " + COMMAND_WORD + " 1" + " n/buy milk";
-
-    public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited %1$s";
     
-    public final int targetIndex;
-    public final String newName;
-    public final String newStartDate;
-    public final String newStartTime;
-    public final String newEndDate;
-    public final String newEndTime;
+    public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited %1$s";
+    public static final String MESSAGE_TAG_NOT_FOUND = "Tag [%1$s] does not exist! Tags must exist in order to be deletable";
+    
+    int targetIndex;
+    Name name;
+    ItemDate startDate;
+    ItemTime startTime;
+    ItemDate endDate;
+    ItemTime endTime;
+    UniqueTagList tagsToAdd;
+    UniqueTagList tagsToRemove;
 
     /*
      * Edits deadline, task, or event by index.
      *      
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, String name, String startDate, String startTime, String endDate, String endTime)
+    public EditCommand(int targetIndex, String name, String startDate, String startTime, 
+                       String endDate, String endTime, List<String> tagsToAdd, List<String> tagsToRemove)
             throws IllegalValueException {
         
         //At least one parameter is being edited
-        assert (name != null || startDate != null || startTime!= null || endDate != null || endTime != null);
+        assert (name != null || startDate != null || startTime!= null || endDate != null 
+                || endTime != null || tagsToAdd != null || tagsToRemove != null);
         
         this.targetIndex = targetIndex;
-        this.newName = name;
-        this.newStartDate = startDate;
-        this.newStartTime = startTime;
-        this.newEndDate = endDate;
-        this.newEndTime = endTime;
-        logger.info("EditCommand object successfully created!");
+        if (name != null) {
+            this.name = new Name(name);
+        }
+        if (startDate != null) {
+            this.startDate = new ItemDate(startDate);
+        }
+        if (startTime != null) {
+            this.startTime = new ItemTime(startTime);
+        }
+        if (endDate != null) {
+            this.endDate = new ItemDate(endDate);
+        }
+        if (endTime != null) {
+            this.endTime = new ItemTime(endTime);
+        }
+        
+        if (tagsToAdd != null) {
+            this.tagsToAdd = new UniqueTagList();
+            for (String tag : tagsToAdd) {
+                try {
+                    this.tagsToAdd.add(new Tag(tag));
+                } catch (DuplicateTagException dte) {
+                }
+            }
+        }
+        
+        if (tagsToRemove!= null) {
+            this.tagsToRemove = new UniqueTagList();
+            for (String tag : tagsToRemove) {
+                this.tagsToRemove.add(new Tag(tag));
+            }
+        }
+        
+        logger.fine("EditCommand object successfully created!");
     }
 
     @Override
@@ -79,28 +122,58 @@ public class EditCommand extends Command {
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         
-        try {
-            if (newName != null) {
-                itemToReplace.setName(newName);
+        if (this.name != null) {
+            itemToReplace.setName(this.name);
+        }
+        if (this.startDate != null) {
+            itemToReplace.setStartDate(this.startDate);
+        }
+        if (this.startTime != null) {
+            itemToReplace.setStartTime(this.startTime);
+        }
+        if (this.endDate != null) {
+            itemToReplace.setEndDate(this.endDate);
+        }
+        if (this.endTime != null) {
+            itemToReplace.setEndTime(this.endTime);
+        }
+        
+        if (this.tagsToAdd != null) {
+            UniqueTagList tagListToEdit = itemToEdit.getTags();
+            tagListToEdit.mergeFrom(this.tagsToAdd);
+            itemToReplace.setTags(tagListToEdit);
+        }
+        
+        if (tagsToRemove != null) {
+            UniqueTagList tagListToEdit = itemToEdit.getTags();
+
+            if (this.tagsToAdd != null) {
+                tagListToEdit = itemToReplace.getTags();
             }
-            if (newStartDate != null) {
-                itemToReplace.setStartDate(newStartDate);
+            
+            UniqueTagList updatedTagList = new UniqueTagList();
+            
+            for (Tag tag : tagsToRemove) {
+                if (!tagListToEdit.contains(tag)) {
+                    indicateAttemptToExecuteIncorrectCommand();
+                    return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                             String.format(MESSAGE_TAG_NOT_FOUND, tag.toString())));
+                }
             }
-            if (newStartTime != null) {
-                itemToReplace.setStartTime(newStartTime);
+            
+            for (Tag tag : tagListToEdit) {
+                if (!tagsToRemove.contains(tag)) {
+                    try {
+                        updatedTagList.add(tag);
+                    } catch (DuplicateTagException dte) {
+                    }
+                }
             }
-            if (newEndDate != null) {
-                itemToReplace.setEndDate(newEndDate);
-            }
-            if (newEndTime != null) {
-                itemToReplace.setEndTime(newEndTime);
-            }
-        } catch (IllegalValueException ive) {
-            return new CommandResult(ive.getMessage());
+            itemToReplace.setTags(updatedTagList);
         }
         
         try {
-            model.replaceItem(itemToEdit, itemToReplace);
+            model.replaceItem(itemToEdit, itemToReplace, String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToReplace));
         } catch (ItemNotFoundException pnfe) {
             assert false : "The target item cannot be missing";
         } catch (UniqueItemList.DuplicateItemException e) {
@@ -120,10 +193,10 @@ public class EditCommand extends Command {
                || itemType.equals(ItemType.EVENT_WORD);
         
         if (itemType.equals(ItemType.TASK_WORD)) {
-            return newStartDate != null || newStartTime != null || newEndDate != null || newEndTime != null;
+            return startDate != null || startTime != null || endDate != null || endTime != null;
         }
         if (itemType.equals(ItemType.DEADLINE_WORD)) {
-            return newStartDate != null || newStartTime != null;
+            return startDate != null || startTime != null;
         }
         if (itemType.equals(ItemType.EVENT_WORD)) {
             return false;

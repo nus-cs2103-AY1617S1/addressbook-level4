@@ -13,7 +13,8 @@ import seedu.taskmanager.model.item.UniqueItemList.ItemNotFoundException;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
-
+    public static final String SHORT_COMMAND_WORD = "del";
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the item identified by the index number used in the last item listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -60,7 +61,7 @@ public class DeleteCommand extends Command {
             ReadOnlyItem personToDelete = lastShownList.get(targetIndex - 1);
             
             try {
-                model.deleteItem(personToDelete);
+                model.deleteItem(personToDelete, String.format(MESSAGE_DELETE_ITEM_SUCCESS, personToDelete));
             } catch (ItemNotFoundException pnfe) {
                 assert false : "The target item cannot be missing";
             }
@@ -82,7 +83,7 @@ public class DeleteCommand extends Command {
             deletedItems.add(personToDelete);
             
             try {
-                model.deleteItem(personToDelete);
+                model.deleteItem(personToDelete, String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
             } catch (ItemNotFoundException pnfe) {
                 assert false : "The target item cannot be missing";
             }

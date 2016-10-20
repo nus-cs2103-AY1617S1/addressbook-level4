@@ -52,9 +52,10 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSamePerson(ReadOnlyItem person){
-        return getItemType().equals(person.getItemType().value) && getName().equals(person.getName().value)
-                && getEndDate().equals(person.getEndDate().value) && getEndTime().equals(person.getEndTime().value)
-                && getStartDate().equals(person.getStartDate().value) && getStartTime().equals(person.getStartTime().value);
+        return getName().equals(person.getName().value);
+//        return getItemType().equals(person.getItemType().value) && getName().equals(person.getName().value)
+//                && getEndDate().equals(person.getEndDate().value) && getEndTime().equals(person.getEndTime().value)
+//                && getStartDate().equals(person.getStartDate().value) && getStartTime().equals(person.getStartTime().value);
     }
 
     @Override

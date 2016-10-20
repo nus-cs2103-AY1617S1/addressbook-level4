@@ -7,6 +7,7 @@ package seedu.taskmanager.logic.commands;
 public class ListEventCommand extends Command {
 
     public static final String COMMAND_WORD = "listevent";
+    public static final String SHORT_COMMAND_WORD = "le";
 
     public static final String MESSAGE_SUCCESS = "Listed all events";
     

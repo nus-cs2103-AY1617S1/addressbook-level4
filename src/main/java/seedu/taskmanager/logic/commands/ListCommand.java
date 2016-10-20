@@ -7,6 +7,7 @@ package seedu.taskmanager.logic.commands;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
+    public static final String SHORT_COMMAND_WORD = "l";
 
     public static final String MESSAGE_SUCCESS = "Listed all items";
 

@@ -12,7 +12,9 @@ import seedu.taskmanager.commons.core.Config;
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.events.storage.DataSavingExceptionEvent;
 import seedu.taskmanager.commons.events.ui.JumpToListRequestEvent;
-import seedu.taskmanager.commons.events.ui.ItemPanelSelectionChangedEvent;
+import seedu.taskmanager.commons.events.ui.ChangeDoneEvent;
+import seedu.taskmanager.commons.events.ui.FilterEvent;
+import seedu.taskmanager.commons.events.ui.ShortItemPanelSelectionChangedEvent;
 import seedu.taskmanager.commons.events.ui.ShowHelpRequestEvent;
 import seedu.taskmanager.commons.util.StringUtil;
 import seedu.taskmanager.logic.Logic;
@@ -25,7 +27,7 @@ import java.util.logging.Logger;
  */
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/task_manager.png";
 
     private Logic logic;
     private Config config;
@@ -114,13 +116,25 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getItemListPanel().scrollTo(event.targetIndex);
+        mainWindow.getShortItemListPanel().scrollTo(event.targetIndex);
     }
 
     @Subscribe
-    private void handleItemPanelSelectionChangedEvent(ItemPanelSelectionChangedEvent event){
+    private void handleItemPanelSelectionChangedEvent(ShortItemPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.loadItemPage(event.getNewSelection());
+        mainWindow.loadItem(event.getNewSelection(), event.getNewIdx());
+    }
+    
+    @Subscribe
+    private void handleChangeDoneEvent(ChangeDoneEvent event) {
+        // mainWindow.getShortItemListPanel().updateIndex();
+        // mainWindow.getItemListPanel().freeResources();
+    }
+    
+    @Subscribe
+    private void handleFilterEvent(FilterEvent event) {
+        // mainWindow.getShortItemListPanel().updateIndex();
+        mainWindow.filterItems(event.getFilteredItems());
     }
 
 }

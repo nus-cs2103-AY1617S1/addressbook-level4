@@ -40,7 +40,7 @@ public abstract class TaskManagerGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected TaskListPanelHandle personListPanel;
+    protected TaskListPanelHandle itemListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -60,7 +60,7 @@ public abstract class TaskManagerGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            personListPanel = mainGui.getPersonListPanel();
+            itemListPanel = mainGui.getPersonListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -90,6 +90,11 @@ public abstract class TaskManagerGuiTest {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
     }
 
+    protected void assertDataFilePathChanged(String currentFilePath) {
+        String newSaveLocationForTesting = TestUtil.getFilePathInSandboxFolder(currentFilePath);
+        assertTrue(TestUtil.changedFilePathInSandboxFolder(TestApp.SAVE_LOCATION_FOR_TESTING, newSaveLocationForTesting));
+    }
+    
     @After
     public void cleanup() throws TimeoutException {
         FxToolkit.cleanupStages();
@@ -106,7 +111,7 @@ public abstract class TaskManagerGuiTest {
      * Asserts the size of the person list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = personListPanel.getNumberOfPeople();
+        int numberOfPeople = itemListPanel.getNumberOfPeople();
         assertEquals(size, numberOfPeople);
     }
 

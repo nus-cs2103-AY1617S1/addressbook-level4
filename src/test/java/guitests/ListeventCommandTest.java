@@ -1,6 +1,7 @@
 package guitests;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.taskmanager.logic.commands.ListEventCommand.SHORT_COMMAND_WORD;
 
 import org.junit.Test;
 
@@ -12,7 +13,9 @@ public class ListeventCommandTest extends TaskManagerGuiTest {
 	@Test
 	public void ListEventCommand() {
 		commandBox.runCommand("listevent");
-		assertListSize(3);	
+		assertListSize(4);	
+		commandBox.runCommand(SHORT_COMMAND_WORD);
+        assertListSize(4);
 	}
 	
 	@Test

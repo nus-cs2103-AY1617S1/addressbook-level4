@@ -12,19 +12,19 @@ import java.util.Set;
  */
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyTaskManager newData);
+    void resetData(ReadOnlyTaskManager newData, String actionTaken);
 
-    /** Returns the AddressBook */
-    ReadOnlyTaskManager getAddressBook();
+    /** Returns the TaskManager */
+    ReadOnlyTaskManager getTaskManager();
 
     /** Deletes the given item. */
-    void deleteItem(ReadOnlyItem target) throws UniqueItemList.ItemNotFoundException;
+    void deleteItem(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;
 
     /** Adds the given item */
-    void addItem(Item item) throws UniqueItemList.DuplicateItemException;
+    void addItem(Item item, String actionTaken) throws UniqueItemList.DuplicateItemException;
 
     /** Replaces the given item */
-    void replaceItem(ReadOnlyItem target, Item toReplace) throws UniqueItemList.ItemNotFoundException, UniqueItemList.DuplicateItemException;
+    void replaceItem(ReadOnlyItem target, Item toReplace, String actionTaken) throws UniqueItemList.ItemNotFoundException, UniqueItemList.DuplicateItemException;
     
     /** Returns the filtered item list as an {@code UnmodifiableObservableList<ReadOnlyItem>} */
     UnmodifiableObservableList<ReadOnlyItem> getFilteredItemList();
@@ -43,5 +43,14 @@ public interface Model {
 	
 	/**Updates the filter of the filtered item list to filter by event */
 	void updateFilteredListToShowEvent();
+	
+    /** Sets item as done */
+    void setDone(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;
+    
+    /** Sets item as undone */
+    void setUndone(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;
+    
+    /** Undo last action that changed todo list */
+    String undoAction();
 
 }

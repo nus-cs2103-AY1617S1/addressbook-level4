@@ -1,11 +1,11 @@
 package seedu.taskmanager.logic.commands;
 
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
-import seedu.taskmanager.model.item.Date;
+import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.Item;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
-import seedu.taskmanager.model.item.Time;
+import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.item.UniqueItemList;
 import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
@@ -19,7 +19,10 @@ import java.util.Set;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-    
+    public static final String SHORT_COMMAND_WORD = "a";
+    public static final String DEFAULT_END_TIME = "23:59";
+    public static final String DEFAULT_START_TIME = "00:00";
+        
     public static final String EVENT_MESSAGE_USAGE = "Event start datetime must come before end datetime";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task, deadline or event to the task manager. \n"
@@ -31,7 +34,9 @@ public class AddCommand extends Command {
             + "Example (Deadline): " + COMMAND_WORD +  " " + ItemType.DEADLINE_WORD 
             + " n/Cheat death ed/2000-12-13 et/12:34" + "\n"
             + "Example (Event): " + COMMAND_WORD +  " " + ItemType.EVENT_WORD
-            + " n/Win at Life sd/1900-01-01 st/00:07 ed/2300-01-01 et/12:34";
+            + " n/Win at Life sd/1900-01-01 st/00:07 ed/2300-01-01 et/12:34 \n"
+            + "Note: " + COMMAND_WORD + " can be replaced by " + SHORT_COMMAND_WORD + "\n"
+            + "Note: n/ prefix for name is optional.";
 
     public static final String MESSAGE_SUCCESS = "Added %1$s";
 
@@ -44,7 +49,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String itemType, String name, Set<String> tags)
             throws IllegalValueException {
-    	this(itemType, name, Date.EMPTY_DATE, Time.EMPTY_TIME, Date.EMPTY_DATE, Time.EMPTY_TIME, tags);
+    	this(itemType, name, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, tags);
     }
     
     /**
@@ -54,7 +59,7 @@ public class AddCommand extends Command {
      */
     public AddCommand(String itemType, String name, String endDate, String endTime, Set<String> tags)
             throws IllegalValueException {
-        this(itemType, name, Date.EMPTY_DATE, Time.EMPTY_TIME, endDate, endTime, tags);
+    	this(itemType, name, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, endDate, endTime, tags);
     }
     
     /**
@@ -65,6 +70,15 @@ public class AddCommand extends Command {
     public AddCommand(String itemType, String name, String startDate, String startTime, String endDate, String endTime, Set<String> tags)
             throws IllegalValueException {
         assert itemType != null;
+        if (itemType == ItemType.DEADLINE_WORD && endTime == null) {
+            endTime = DEFAULT_END_TIME;
+        }
+        if (itemType == ItemType.EVENT_WORD && startTime == null) {
+            endTime = DEFAULT_START_TIME;
+        }
+        if (itemType == ItemType.EVENT_WORD && endTime == null) {
+            endTime = DEFAULT_END_TIME;
+        }
         assert name != null;
         assert startDate != null;
         assert startTime != null;
@@ -79,10 +93,10 @@ public class AddCommand extends Command {
         this.toAdd = new Item(
                 new ItemType(itemType),
                 new Name(name),
-                new Date(startDate),
-                new Time(startTime),
-                new Date(endDate),
-                new Time(endTime),
+                new ItemDate(startDate),
+                new ItemTime(startTime),
+                new ItemDate(endDate),
+                new ItemTime(endTime),
                 new UniqueTagList(tagSet)
         );
     }
@@ -91,7 +105,7 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addItem(toAdd);
+            model.addItem(toAdd, String.format(MESSAGE_SUCCESS, toAdd));
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueItemList.DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_ITEM);

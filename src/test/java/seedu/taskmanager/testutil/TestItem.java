@@ -1,10 +1,11 @@
 package seedu.taskmanager.testutil;
 
-import seedu.taskmanager.model.item.Date;
+import seedu.taskmanager.logic.commands.AddCommand;
+import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.item.ReadOnlyItem;
-import seedu.taskmanager.model.item.Time;
+import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.tag.UniqueTagList;
 
 /**
@@ -13,11 +14,12 @@ import seedu.taskmanager.model.tag.UniqueTagList;
 public class TestItem implements ReadOnlyItem {
 
     private ItemType itemType;
-    private Date startDate;
-    private Time startTime;
-    private Date endDate;
-    private Time endTime;
+    private ItemDate startDate;
+    private ItemTime startTime;
+    private ItemDate endDate;
+    private ItemTime endTime;
     private Name name;
+    private boolean done;
     private UniqueTagList tags;
 
     public TestItem() {
@@ -28,19 +30,19 @@ public class TestItem implements ReadOnlyItem {
         this.itemType = itemType;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(ItemTime startTime) {
         this.startTime = startTime;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(ItemDate startDate) {
         this.startDate = startDate;
     }    
     
-    public void setEndTime(Time endTime) {
+    public void setEndTime(ItemTime endTime) {
         this.endTime = endTime;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(ItemDate endDate) {
         this.endDate = endDate;
     }
 
@@ -48,6 +50,10 @@ public class TestItem implements ReadOnlyItem {
         this.name = name;
     }
 
+    public void setTags(UniqueTagList tags) {
+        this.tags = tags;
+    }
+    
     @Override
     public ItemType getItemType() {
         return itemType;
@@ -59,22 +65,22 @@ public class TestItem implements ReadOnlyItem {
     }
 
     @Override
-    public Date getStartDate() {
+    public ItemDate getStartDate() {
         return startDate;
     }
 
     @Override
-    public Time getStartTime() {
+    public ItemTime getStartTime() {
         return startTime;
     }
     
     @Override
-    public Date getEndDate() {
+    public ItemDate getEndDate() {
         return endDate;
     }
 
     @Override
-    public Time getEndTime() {
+    public ItemTime getEndTime() {
         return endTime;
     }
 
@@ -82,31 +88,68 @@ public class TestItem implements ReadOnlyItem {
     public UniqueTagList getTags() {
         return tags;
     }
-
+    
     @Override
     public String toString() {
         return getAsText();
     }
+    
+    @Override
+    public boolean getDone() {
+        return done;
+    }
+    
+    @Override
+    public void setDone() {
+        done = true;
+    }
+    
+    public void setUndone() {
+        done = false;
+    }
 
-    public String getAddCommand() {
+    public String getAddCommand(boolean shortCommand, boolean shortItemType, boolean noNamePrefix, boolean noStartTime, boolean noEndTime) {
         StringBuilder sb = new StringBuilder();
-        if (this.getItemType().value.equals(ItemType.TASK_WORD)) {
-            sb.append("add " + this.getItemType().value + " ");
-            sb.append("n/" + this.getName().value + " ");
-        } else if (this.getItemType().value.equals(ItemType.DEADLINE_WORD)) {
-            sb.append("add " + this.getItemType().value + " ");
-            sb.append("n/" + this.getName().value + " ");
-            sb.append("ed/" + this.getEndDate().value + " ");
-            sb.append("et/" + this.getEndTime().value + " ");
-        } else if (this.getItemType().value.equals(ItemType.EVENT_WORD)) {
-            sb.append("add " + this.getItemType().value + " ");
-            sb.append("n/" + this.getName().value + " ");
-            sb.append("sd/" + this.getStartDate().value + " ");
-            sb.append("st/" + this.getStartTime().value + " ");
-            sb.append("ed/" + this.getEndDate().value + " ");
-            sb.append("et/" + this.getEndTime().value + " ");
+        String addCommand;
+        if (shortCommand) {
+            addCommand = AddCommand.SHORT_COMMAND_WORD;
+        } else {
+            addCommand = AddCommand.COMMAND_WORD;
         }
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        String itemType;
+        if (shortItemType) {
+            itemType = this.getItemType().value.substring(0, 1);
+        } else {
+        	itemType = this.getItemType().value;
+        }
+        String namePrefix = "n/";
+        if (noNamePrefix) {
+            namePrefix = "";
+        }
+        // Can be add or a
+        if (this.getItemType().value.equals(ItemType.TASK_WORD)) {
+            sb.append(addCommand + " " + itemType + " ");
+            sb.append(namePrefix + this.getName().value + " ");
+        } else if (this.getItemType().value.equals(ItemType.DEADLINE_WORD)) {
+            sb.append(addCommand + " " + itemType + " ");
+            sb.append(namePrefix + this.getName().value + " ");
+            sb.append("ed/" + this.getEndDate().value + " ");
+            if (!noEndTime) {
+                sb.append("et/" + this.getEndTime().value + " ");
+            }
+        } else if (this.getItemType().value.equals(ItemType.EVENT_WORD)) {
+            sb.append(addCommand + " " + itemType + " ");
+            sb.append(namePrefix + this.getName().value + " ");
+            sb.append("sd/" + this.getStartDate().value + " ");
+            if (!noStartTime) {
+                sb.append("st/" + this.getStartTime().value + " ");
+            }
+            sb.append("ed/" + this.getEndDate().value + " ");
+            if (!noEndTime) {
+                sb.append("et/" + this.getEndTime().value + " ");
+            }
+        }
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
         return sb.toString();
     }
 }

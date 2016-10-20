@@ -73,7 +73,7 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new TaskManager(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addItem(new Item(TypicalTestItems.deadline3));
+        original.addItem(new Item(TypicalTestItems.deadline4));
         original.removeItem(new Item(TypicalTestItems.event1));
         xmlAddressBookStorage.saveTaskManager(original, filePath);
         readBack = xmlAddressBookStorage.readTaskManager(filePath).get();

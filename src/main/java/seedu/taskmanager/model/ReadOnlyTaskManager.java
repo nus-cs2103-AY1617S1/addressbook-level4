@@ -9,7 +9,7 @@ import seedu.taskmanager.model.tag.UniqueTagList;
 import java.util.List;
 
 /**
- * Unmodifiable view of an address book
+ * Unmodifiable view of a task manager
  */
 public interface ReadOnlyTaskManager {
 
@@ -18,7 +18,7 @@ public interface ReadOnlyTaskManager {
     UniqueItemList getUniqueItemList();
 
     /**
-     * Returns an unmodifiable view of persons list
+     * Returns an unmodifiable view of items list
      */
     List<ReadOnlyItem> getItemList();
 
