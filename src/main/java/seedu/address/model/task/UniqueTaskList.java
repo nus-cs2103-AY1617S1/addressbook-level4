@@ -148,14 +148,12 @@ public class UniqueTaskList implements Iterable<Task> {
             
             if (args.contains(">")){
                 String[] beforeAndAfter = args.replaceAll(" ","").split(">");              
-                if (!toEdit.setTags(beforeAndAfter[0], beforeAndAfter[beforeAndAfter.length-1])){
-                    assert false: "The target tag cannot be missing";
-                }
+                toEdit.setTags(beforeAndAfter[0], beforeAndAfter[beforeAndAfter.length-1]);
             }
             else{
-            toEdit.setTags(new UniqueTagList(new Tag(args)));;
+                toEdit.setTags(new UniqueTagList(new Tag(args)));;
             }
-            
+
             internalList.set(editIndex, toEdit);
             return true;
             
