@@ -133,10 +133,10 @@ Format: **`edit`**`INDEX TASK_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION
 
 Examples:<br>
 * `list`<br>
-  **`edit`**`2 new_task_name s/10-Oct-2016 8am e/10-Oct-2016 9am at NUS`
+  **`edit`**`2 new task name s/10-Oct-2016 8am e/10-Oct-2016 9am at NUS`
   Edit the 2nd task in the MustDoList by the given PARAMETERS.<br>
 * **`find`**`CS2103` <br>
-  **`edit`**`1 another_new_task_name s/11-Oct-2016 8am e/11-Oct-2016 9am at there `<br>
+  **`edit`**`1 another new task name s/11-Oct-2016 8am e/11-Oct-2016 9am at there `<br>
   Edit the 1st task in the results of the `find` command by PARAMETERS.<br>
   
 > Date Format: DD-MMM-YYYY<br>
