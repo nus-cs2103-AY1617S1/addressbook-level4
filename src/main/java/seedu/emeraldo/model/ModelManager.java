@@ -26,7 +26,7 @@ import java.util.Stack;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final Emeraldo emeraldo;
+    private Emeraldo emeraldo;
 
     private final FilteredList<Task> filteredTasks;
     
@@ -67,7 +67,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     public void undoChanges(){
-    	
+    	savedStates.pop();
+    	emeraldo = savedStates.peek();
+    	indicateEmeraldoChanged();
     }
     
     @Override
