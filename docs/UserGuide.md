@@ -246,7 +246,7 @@ Add todo | `add NAME`
 Add deadline | `add NAME DATE END_TIME`
 Add event | `add NAME DATE START_TIME END_TIME`
 View | `view [DATE]`
-View done | `viewdone`
+View done | `viewdone` or `view done`
 Find | `find KEYWORDS`
 Edit todo | `edit t INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 Edit deadline | `edit d INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
