@@ -8,10 +8,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.LogsCenter;
-import seedu.tasklist.commons.events.model.TaskListChangedEvent;
-import seedu.tasklist.model.ReadOnlyTaskList;
-import seedu.tasklist.model.task.Task;
-
+import seedu.tasklist.commons.events.model.TaskCountersChangedEvent;
+import seedu.tasklist.model.TaskCounter;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
@@ -24,7 +22,6 @@ public class CategoryPanel extends UiPart {
     private static final String FXML = "CategoryPanel.fxml";
     private AnchorPane gridpane;
     private AnchorPane placeHolderPane;
-    private ReadOnlyTaskList latestSavedTaskList;
 
     @FXML
     private Label overdueNo;
@@ -62,22 +59,28 @@ public class CategoryPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static CategoryPanel load(Stage primaryStage, AnchorPane personListPlaceholder, ReadOnlyTaskList readOnlyTaskList) {
+    public static CategoryPanel load(Stage primaryStage, AnchorPane personListPlaceholder, TaskCounter taskCounter) {
         CategoryPanel categoryPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new CategoryPanel());
         categoryPanel.configure();
-        categoryPanel.overdueNo.setText(Integer.toString(Task.overdueCounter));
-        categoryPanel.floatingNo.setText(Integer.toString(Task.floatCounter));
-        categoryPanel.totalNo.setText(Integer.toString(readOnlyTaskList.getTaskList().size()));
+        categoryPanel.setCounts(taskCounter);
         EventsCenter.getInstance().registerHandler(categoryPanel);
         return categoryPanel;
     }
     
     @Subscribe
-    private void modelChangedEvent(TaskListChangedEvent abce) {
-    	overdueNo.setText(Integer.toString(Task.overdueCounter));
-    	floatingNo.setText(Integer.toString(Task.floatCounter));
-    	totalNo.setText(Integer.toString(abce.data.getTaskList().size()));
+    private void countsChangedEvent(TaskCountersChangedEvent data) {
+    	setCounts(data.data);
+    }
+    
+    private void setCounts(TaskCounter newCounts) {
+    	overdueNo.setText(Integer.toString(newCounts.getOverdue()));
+    	todayNo.setText(Integer.toString(newCounts.getToday()));
+    	tomorrowNo.setText(Integer.toString(newCounts.getTomorrow()));
+    	floatingNo.setText(Integer.toString(newCounts.getFloating()));
+    	otherNo.setText(Integer.toString(newCounts.getOther()));
+    	totalNo.setText(Integer.toString(newCounts.getTotal()));
+    	upcomingNo.setText(Integer.toString(newCounts.getUpcoming()));
     }
     
     private void configure() {

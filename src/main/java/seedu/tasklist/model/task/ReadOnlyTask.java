@@ -17,7 +17,9 @@ public interface ReadOnlyTask {
     boolean isOverDue();
     boolean isComplete();
     boolean isRecurring();
-
+	boolean isToday();
+	boolean isTomorrow();
+	boolean isEvent();
 	
 
     /**
@@ -70,6 +72,7 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+
     
 
 }

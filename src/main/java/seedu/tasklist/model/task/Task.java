@@ -1,6 +1,6 @@
 package seedu.tasklist.model.task;
 
-import java.sql.Date;
+import java.util.Calendar;
 import java.util.Objects;
 
 import seedu.tasklist.commons.util.CollectionUtil;
@@ -24,10 +24,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	private boolean isRecurring;
 	private String recurringFrequency;
 	private UniqueTagList tags;
-	
-	public static int floatCounter;
-	public static int IncompleteCounter;
-	public static int overdueCounter;
 	
 	/**
 	 * Every field must be present and not null.
@@ -177,14 +173,12 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	}
 
 	public boolean isOverDue(){
-		if(!isFloating()){
-			if(!endTime.endTime.getTime().equals(new Date(0))){
-				return endTime.endTime.getTimeInMillis() < System.currentTimeMillis();
-			}
-			else return false;
-		}
-		else 
+		if(!hasEndTime()){
 			return false;
+		}
+		else{
+			return endTime.endTime.before(Calendar.getInstance());
+		}
 	}
 
 	@Override
@@ -199,11 +193,43 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	}
 
     public boolean hasStartTime() {
-        return startTime != null;
+        return startTime.startTime.getTimeInMillis()!=0;
     }
     
     public boolean hasEndTime() {
-        return endTime != null;
+        return endTime.endTime.getTimeInMillis()!=0;
+    }
+    
+	@Override
+    public boolean isEvent() {
+		return hasStartTime() && hasEndTime();
+    }
+    
+	@Override
+    public boolean isToday() {
+    	if(hasStartTime()){
+    		return startTime.startTime.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+        }
+    	else if(hasEndTime()){
+    		return endTime.endTime.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+    	}
+    	else {
+    		return false;
+    	}
+	}
+    	
+    
+	@Override
+    public boolean isTomorrow() {
+    	if(hasStartTime()){
+    		return startTime.startTime.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + 1;
+        }
+    	else if(hasEndTime()){
+    		return endTime.endTime.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + 1;
+    	}
+    	else {
+    		return false;
+    	}
     }
 
 	@Override

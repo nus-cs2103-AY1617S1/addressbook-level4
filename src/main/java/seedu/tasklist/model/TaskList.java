@@ -40,18 +40,6 @@ public class TaskList implements ReadOnlyTaskList{
 	 */
 	public TaskList(ReadOnlyTaskList toBeCopied) {
 		this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
-
-		Iterator itr = tasks.iterator();
-		while(itr.hasNext()){
-			Task task = (Task)itr.next();
-			if(!task.isComplete())
-				Task.IncompleteCounter++;
-			if(task.isFloating())
-				Task.floatCounter++;
-
-			if(task.isOverDue())
-				Task.overdueCounter++;
-		}
 	}
 
 	/**
