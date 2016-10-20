@@ -16,7 +16,7 @@ public class HelpWindowTest extends FlexiTrackGuiTest {
 
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
 
-        assertHelpWindowOpen(commandBox.runHelpCommand());
+//        assertHelpWindowOpen(commandBox.runHelpCommand());
 
     }
 
