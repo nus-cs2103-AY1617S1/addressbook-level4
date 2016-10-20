@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Set;
 
-import org.hamcrest.generator.qdox.parser.ParseException;
+import java.text.ParseException;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
