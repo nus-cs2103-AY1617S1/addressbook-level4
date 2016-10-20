@@ -149,13 +149,13 @@ public class FindController implements Controller {
             //no event or task keyword found
             isTask = false;
             tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
-            //events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
         }
         
         if (isTask) {
             tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
         } else {
-            //events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
         }
         
         // Update console message
@@ -175,7 +175,7 @@ public class FindController implements Controller {
             consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, formatDisplayMessage(numTasks, numEvents));
         }
         
-        Renderer.renderIndex(db, consoleMessage, tasks, events);
+        Renderer.renderSelected(db, consoleMessage, tasks, events);
        
     }
     
@@ -197,28 +197,34 @@ public class FindController implements Controller {
         return String.format("%d %s", numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"));
     }
     
-//    private List<Event> setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, 
-//            LocalDateTime dateTo, TodoListDB db) {
-//        if (dateFrom == null && dateTo == null && dateOn == null) {
-//            if (listAllStatus) {
-//                return db.getAllEvents();
-//            } else if (isCompleted) {
-//                return db.getEventByRange(null, LocalDateTime.now());
-//            } else {
-//                return db.getEventByRange(LocalDateTime.now(), null);
-//            }
-//        } else if (dateOn != null) { //by keyword found
-//            return db.getEventbyDate(dateOn);
-//        } else {
-//            return db.getEventByRange(dateFrom, dateTo);
-//        }
-//    }
-//
+    private List<Event> setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, 
+            LocalDateTime dateFrom, LocalDateTime dateTo, HashSet<String> itemNameList, TodoListDB db) {
+        final LocalDateTime NO_DATE = null;
+        if (dateFrom == null && dateTo == null && dateOn == null) {
+            if (listAllStatus && itemNameList.size() == 0) {
+                System.out.println("error"); //TODO : Nothing found
+                return null;
+            } else if (listAllStatus && itemNameList.size() != 0) {
+                return db.getEventByName(db.getAllEvents(), itemNameList);
+            }
+            else if (isCompleted) {
+                return db.getEventByRange(NO_DATE, LocalDateTime.now(), itemNameList);
+            } else {
+                return db.getEventByRange(LocalDateTime.now(), NO_DATE, itemNameList);
+            } 
+        } else if (dateOn != null) { //by keyword found
+            return db.getEventbyDate(dateOn, itemNameList);
+        } else {
+            return db.getEventByRange(dateFrom, dateTo, itemNameList);
+        }
+    }
+
     private List<Task> setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, 
             LocalDateTime dateFrom, LocalDateTime dateTo, HashSet<String> itemNameList, TodoListDB db) {
         if (dateFrom == null && dateTo == null && dateOn == null) {
-            if (listAllStatus) {
-                return db.getAllTasks();
+            if (listAllStatus && itemNameList.size() == 0) {
+                System.out.println("error"); //TODO : Nothing found
+                return null;
             } else {
                 return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus, itemNameList);
             }
@@ -241,7 +247,6 @@ public class FindController implements Controller {
             }
         } 
     }
-    
     
     /**
      * Extract the name keyword enter by the user and put in the hashset of name keywords
