@@ -65,7 +65,7 @@
 <li><a href="#storage">Storage</a><ul>
 <li><a href="#fixedstorage">FixedStorage</a></li>
 <li><a href="#todoliststorage">TodoListStorage</a></li>
-<li><a href="#xml">Xml...</a></li>
+<li><a href="#xml-classes">Xml Classes</a></li>
 </ul>
 </li>
 </ul>
@@ -167,7 +167,7 @@ developing the application's <abbr title="User interface">UI</abbr>.</li>
 <li>If Eclipse auto-changed any settings files during the import process, you can discard those changes.</li>
 </ul>
 </div>
-<div class="no-page-break"><h3 id="contributing"><span>2.2 </span>Contributing<a class="headerlink" href="#contributing" title="Permanent link">#</a></h3><p>We use the <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow/">feature branch git workflow</a>. When working on a task please remember to assign the relavant issue to yourself <a href="https://github.com/CS2103AUG2016-W10-C4/main/issues">on the issue tracker</a> and branch off from <code>master</code>. When the task is complete remember to push the branch to GitHub and <a href="https://github.com/CS2103AUG2016-W10-C4/main/compare">create a new pull request</a> so that the integrator can review the code. For large features that impact multiple parts of the code it is best to open a new issue on issue tracker so that the design of the code can be discussed first. </p></div>
+<div class="no-page-break"><h3 id="contributing"><span>2.2 </span>Contributing<a class="headerlink" href="#contributing" title="Permanent link">#</a></h3><p>We use the <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow/">feature branch git workflow</a>. When working on a task please remember to assign the relevant issue to yourself <a href="https://github.com/CS2103AUG2016-W10-C4/main/issues">on the issue tracker</a> and branch off from <code>master</code>. When the task is complete remember to push the branch to GitHub and <a href="https://github.com/CS2103AUG2016-W10-C4/main/compare">create a new pull request</a> so that the integrator can review the code. For large features that impact multiple parts of the code it is best to open a new issue on issue tracker so that the design of the code can be discussed first. </p></div>
 
 <p><a href="https://en.wikipedia.org/wiki/Test-driven_development">Test driven development</a> is encouraged but not required. All incoming code should have 100% accompanying tests if possible - Coveralls will fail any incoming pull request which causes coverage to fall.</p>
 <div class="no-page-break"><h3 id="coding-style"><span>2.3 </span>Coding Style<a class="headerlink" href="#coding-style" title="Permanent link">#</a></h3><p>We use the Java coding standard found at <a href="https://oss-generic.github.io/process/codingstandards/coding-standards-java.html">https://oss-generic.github.io/process/codingstandards/coding-standards-java.html</a>.</p></div>
@@ -182,10 +182,12 @@ developing the application's <abbr title="User interface">UI</abbr>.</li>
 <li>At app launch: Bootstrapping the application by initializing the components in the correct sequence and injecting the dependencies needed for each component. </li>
 <li>At shut down: Shuts down the components and invoke cleanup method where necessary.</li>
 </ul>
-<p><a href="#common-modules"><strong><code>Commons</code></strong></a> represents a collection of modules used by multiple other components.
-<em> <a href="#ui-component"><strong><code>UI</code></strong></a>: The user facing elements of tha App, representing the view layer. 
-</em> <a href="#logic-component"><strong><code>Logic</code></strong></a>: The parser and command executer, representing the controller 
-* <a href="#model-component"><strong><code>Model</code></strong></a>: Data manipulation and storage, representing the model and data layer </p>
+<p><a href="#common-modules"><strong><code>Commons</code></strong></a> represents a collection of modules used by multiple other components.</p>
+<ul>
+<li><a href="#ui-component"><strong><code>UI</code></strong></a>: The user facing elements of tha App, representing the view layer. </li>
+<li><a href="#logic-component"><strong><code>Logic</code></strong></a>: The parser and command executer, representing the controller </li>
+<li><a href="#model-component"><strong><code>Model</code></strong></a>: Data manipulation and storage, representing the model and data layer </li>
+</ul>
 <p>Each of the three components defines its API in an <code>interface</code> with the same name and are bootstrapped at launch by <code>MainApp</code>.</p>
 <p>For example, the <code>Logic</code> component (see the class diagram given below) defines it's API in the <code>Logic.java</code> interface and exposes its functionality using the <code>TodoLogic.java</code> class.</p>
 <figure><img src="diagrams/Logic Component.png"/><figcaption><strong>Figure 2. </strong>Example of a Logic class diagram exposing its API to other components</figcaption></figure>
@@ -206,7 +208,7 @@ coupling between components.</p>
 <div class="no-page-break"><h3 id="ui-component"><span>3.2 </span><abbr title="User interface">UI</abbr> component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3><figure><img src="diagrams/Ui Component.png"/><figcaption><strong>Figure 5. </strong>The relation between the UI subcomponents</figcaption></figure></div>
 
 
-<p>The <abbr title="User interface">UI</abbr> component handles the interaction between the user and application. In particular, the <abbr title="User interface">UI</abbr> is responsible for passing the textual command input from the user to the <code>Logic</code> for execution, and then display the outcome of the execution to the user via the <abbr title="Graphical User Interface">GUI</abbr>.</p>
+<p>The <abbr title="User interface">UI</abbr> component handles the interaction between the user and application. In particular, the <abbr title="User interface">UI</abbr> is responsible for passing the textual command input from the user to the <code>Logic</code> for execution, and displaying the outcome of the execution to the user via the <abbr title="Graphical User Interface">GUI</abbr>.</p>
 <figure><img src="diagrams/Ui Image.png"/><figcaption><strong>Figure 6. </strong>Visual identification of view elements in the UI</figcaption></figure>
 
 <p><strong>API</strong> : <a href="../src/main/java/seedu/todo/ui/Ui.java"><code>Ui.java</code></a></p>
@@ -219,11 +221,13 @@ coupling between components.</p>
 <li><code>CommandErrorView</code> - a detailed breakdown of any erroneous commands presented with a table</li>
 </ul>
 <p>These view classes are represented by the <code>CommandXView</code> class in the UML diagram above. </p>
-<p>The <code>CommandController</code> class is introduced to link the three classes together, so they can work and communicate with each other. The <code>CommandController</code>:
-1. Obtains a user-supplied command string from the <code>CommandInputView</code>
-2. Submits the command string to <code>Logic</code> for execution
-3. Receives a <code>CommandResult</code> from <code>Logic</code> after the execution
-4. Displays the execution outcome via the <code>CommandResult</code> to the <code>CommandFeedbackView</code> and <code>CommandErrorView</code></p>
+<p>The <code>CommandController</code> class is introduced to link the three classes together, so they can work and communicate with each other. The <code>CommandController</code>:</p>
+<ol>
+<li>Obtains a user-supplied command string from the <code>CommandInputView</code></li>
+<li>Submits the command string to <code>Logic</code> for execution</li>
+<li>Receives a <code>CommandResult</code> from <code>Logic</code> after the execution</li>
+<li>Displays the execution outcome via the <code>CommandResult</code> to the <code>CommandFeedbackView</code> and <code>CommandErrorView</code></li>
+</ol>
 <div class="no-page-break"><h4 id="to-do-list-display"><span>3.2.2 </span>To-do List Display<a class="headerlink" href="#to-do-list-display" title="Permanent link">#</a></h4><p>A to-do list provides a richer representation of the tasks than the CLI to the users. The To-do List Display consists of: </p></div>
 
 <ul>
@@ -256,9 +260,9 @@ the command the user called</li>
 <li><code>Logic</code> binds the model and arguments to the <code>Command</code> object and executes it </li>
 <li>The command execution can affect the <code>Model</code> (e.g. adding a person), and/or raise events.</li>
 </ol>
-<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code> API call. See <a href="#logic">the implementation section</a> below for the implementation details of the logic component.  </p>
 <figure><img src="diagrams/Logic Sequence Diagram.png"/><figcaption><strong>Figure 9. </strong>The process of deleting a person within the Logic component</figcaption></figure>
 
+<p>Given above is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code> API call. See <a href="#logic">the implementation section</a> below for the implementation details of the logic component.  </p>
 <div class="no-page-break"><h3 id="model-component"><span>3.4 </span>Model component<a class="headerlink" href="#model-component" title="Permanent link">#</a></h3><figure><img src="diagrams/Model Component.png"/><figcaption><strong>Figure 10. </strong>The relation between the Model subcomponents</figcaption></figure></div>
 
 
@@ -282,8 +286,8 @@ the command the user called</li>
 <div class="no-page-break"><h4 id="core"><span>3.5.1 </span>Core<a class="headerlink" href="#core" title="Permanent link">#</a></h4><p>The core module contains many important classes used throughout the application.</p></div>
 
 <ul>
-<li><code>UnmodifiableObservableList</code> :  Apply the Observer pattern to allow the <abbr title="User interface">UI</abbr> component to be listen to changes to the data.</li>
-<li><code>Events</code> : This module is used by components to marshal information around and inform other components that things have happened. (i.e. a form of <em>Event Driven</em> design)</li>
+<li><code>UnmodifiableObservableList</code> :  Used by the <abbr title="User interface">UI</abbr> component to be listen to changes to the data through the Observer pattern.</li>
+<li><code>Events</code> : Used by components to marshal information around and inform other components that things have happened. (i.e. a form of <em>Event Driven</em> design)</li>
 <li><code>LogsCenter</code> : Used by many classes to write log messages to the App's log file.</li>
 </ul>
 <div class="no-page-break"><h4 id="util"><span>3.5.2 </span>Util<a class="headerlink" href="#util" title="Permanent link">#</a></h4><p>The util module contains many different helper methods and classes used throughout the application. The things that can, and should be reused can be found in here.</p></div>
@@ -399,7 +403,7 @@ the command the user called</li>
 <p>This interface simply exposes the read and save methods for external usage in order to store and read data from the persistence layer.</p>
 <h5 id="todoliststorage">TodoListStorage<a class="headerlink" href="#todoliststorage" title="Permanent link">#</a></h5>
 <p>The main class that is exposed to the Model. In addition from reading and saving, methods are exposed to enable user to switch where the storage file is saved and read.</p>
-<h5 id="xml">Xml...<a class="headerlink" href="#xml" title="Permanent link">#</a></h5>
+<h5 id="xml-classes">Xml Classes<a class="headerlink" href="#xml-classes" title="Permanent link">#</a></h5>
 <p>Classes prefixed with <code>Xml</code> are classes used to enable serialization of the Model. As the prefix suggests, the critical data is stored in the <code>.xml</code> file format and uses <code>JAXB</code> to read and save to the persistence layer.</p>
 <div class="no-page-break"><h3 id="logging"><span>4.3 </span>Logging<a class="headerlink" href="#logging" title="Permanent link">#</a></h3><p>We are using the <a href="https://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html"><code>java.util.logging</code></a> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p></div>
 
@@ -453,7 +457,7 @@ the command the user called</li>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you are not using a recent Eclipse version (Neon or later), enable assertions in JUnit tests
-as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option">in this Stack Overflow question</a>.</p>
+as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option">in this Stack Overflow question</a> (url: http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).</p>
 </div>
 <div class="no-page-break"><h3 id="using-gradle"><span>5.2 </span>Using Gradle<a class="headerlink" href="#using-gradle" title="Permanent link">#</a></h3><p>See <a href="#appendix-f-using-gradle">UsingGradle.md</a> for how to run tests using Gradle.</p></div>
 
@@ -605,14 +609,15 @@ public class YourCommand extends BaseCommand {
   <span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;</span>execute 1<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">figcaption</span><span class="p">&gt;</span>
 </pre></div>
-<p>The document processor will automatically wrap the <code>&lt;figcaption&gt;</code> and the preceeding element in a <code>&lt;figure&gt;</code> element and automatically add a count to it, producing </p>
+<p>The document processor will automatically wrap the <code>&lt;figcaption&gt;</code> and the preceding element in a <code>&lt;figure&gt;</code> element and automatically add a count to it, producing the following code:</p>
 <div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">figure</span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">img</span> <span class="na">src</span><span class="o">=</span><span class="s">"..."</span> <span class="na">alt</span><span class="o">=</span><span class="s">"..."</span><span class="p">&gt;</span>
 
   <span class="p">&lt;</span><span class="nt">figcaption</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">strong</span><span class="p">&gt;</span>Figure 2.<span class="p">&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>
     The sequence of function calls resulting from the user input 
-    <span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;</span>execute 1<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;&lt;/</span><span class="nt">figcaption</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">code</span><span class="p">&gt;</span>execute 1<span class="p">&lt;/</span><span class="nt">code</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">figcaption</span><span class="p">&gt;</span>
 <span class="p">&lt;/</span><span class="nt">figure</span><span class="p">&gt;</span>
 </pre></div>
 <p>Note that Markdown is not processed inside HTML, so you must use HTML to write any additional inline markup you need inside the caption. </p>

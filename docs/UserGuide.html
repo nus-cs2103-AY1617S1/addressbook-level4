@@ -227,7 +227,7 @@ for more detail.</p></div>
 </tbody>
 </table></div>
 
-<div class="no-page-break"><h3 id="deleting-a-task-delete"><span>3.5 </span>Deleting a task: <strong><code>delete</code></strong><a class="headerlink" href="#deleting-a-task-delete" title="Permanent link">#</a></h3><p>Deletes the specified task from Todo list.<br/>
+<div class="no-page-break"><h3 id="deleting-a-task-delete"><span>3.5 </span>Deleting a task: <strong><code>delete</code></strong><a class="headerlink" href="#deleting-a-task-delete" title="Permanent link">#</a></h3><p>Deletes the specified task from to-do list.<br/>
 Format: <strong><code>delete</code></strong><code>INDEX</code></p></div>
 
 <p>Deletes the task at the specified <code>INDEX</code>. The index refers to the index number shown in the most recent listing.</p>
@@ -272,7 +272,7 @@ Format: <br/>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <dl>
-<dt><strong><code>tag</code></strong> 1 nus, cs2101, cs2103t`</dt>
+<dt><strong><code>tag</code></strong><code>` 1 nus, cs2101, cs2103t</code></dt>
 <dd>Replace the tags on the first task with <code>nus</code>, <code>cs2101</code> and <code>cs2103t</code></dd>
 </dl>
 </div>
@@ -316,7 +316,7 @@ Format: <strong><code>show</code></strong><code>INDEX</code></p></div>
 <div class="no-page-break"><h3 id="switch-views-view"><span>3.11 </span>Switch views : <strong><code>view</code></strong><a class="headerlink" href="#switch-views-view" title="Permanent link">#</a></h3><p>Switch between different views.<br/>
 Format: <strong><code>view</code></strong><code>VIEW</code></p></div>
 
-<p>To drill down into your Todo list and see specific tasks, use the <code>view</code> command.</p>
+<p>To drill down into your to-do list and see specific tasks, use the <code>view</code> command.</p>
 <figure><img alt="View of completed tasks" src="images/app_screenshot_completed.png" width="700"/><figcaption><strong>Figure 5. </strong>Find important and soon overdue tasks</figcaption></figure>
 
 <p>You can also use the underlined character in the view's name as the shortcut when switching views. </p>
@@ -327,7 +327,7 @@ Format: <strong><code>view</code></strong><code>VIEW</code></p></div>
 <dd>Show completed tasks only </dd>
 </dl>
 </div>
-<div class="no-page-break"><h3 id="finding-tasks-find"><span>3.12 </span>Finding tasks: <strong><code>find</code></strong><a class="headerlink" href="#finding-tasks-find" title="Permanent link">#</a></h3><p>Finds tasks whose tags/name contain any of the given keywords.<br/>
+<div class="no-page-break"><h3 id="finding-tasks-find"><span>3.12 </span>Finding tasks: <strong><code>find</code></strong><a class="headerlink" href="#finding-tasks-find" title="Permanent link">#</a></h3><p>Find tasks whose tags/name contain any of the given keywords.<br/>
 Format: <strong><code>find</code></strong><code>KEYWORD [MORE KEYWORDS]</code></p></div>
 
 <p>The search is case insensitive and the order of the keywords does not matter. Only the title and tags are searched, and tasks matching at least one keyword will be returned.</p>
@@ -352,7 +352,7 @@ Format: <strong><code>undo</code></strong></p></div>
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Only applies to commands which have made changes to the Todo list like <code>add</code>, <code>edit</code> and <code>delete</code> </p>
+<p>Only applies to commands which have made changes to the to-do list like <code>add</code>, <code>edit</code> and <code>delete</code> </p>
 </div>
 <div class="no-page-break"><h3 id="redoing-an-action-redo"><span>3.15 </span>Redoing an action: <strong><code>redo</code></strong><a class="headerlink" href="#redoing-an-action-redo" title="Permanent link">#</a></h3><p>Redo the most recent action which was undone.<br/>
 Format: <strong><code>redo</code></strong></p></div>
@@ -367,11 +367,11 @@ Format: <strong><code>redo</code></strong></p></div>
 </div>
 <div class="no-page-break"><h3 id="changing-the-save-location-save"><span>3.17 </span>Changing the save location: <strong><code>save</code></strong><a class="headerlink" href="#changing-the-save-location-save" title="Permanent link">#</a></h3><p>Format: <strong><code>save</code></strong><code>[FILENAME]</code></p></div>
 
-<p>By default, Todo list data are saved in a file called <code>discountTodo.xml</code> in the <code>data</code> folder. You can change the save file by specifying the file path as the first argument when running the program, or by using the <code>save</code> command.</p>
+<p>By default, to-do list data are saved in a file called <code>discountTodo.xml</code> in the <code>data</code> folder. You can change the save file by specifying the file path as the first argument when running the program, or by using the <code>save</code> command.</p>
 <p>The <code>save</code> command will show you the location of the current save file if you use it without specifying a <code>FILENAME</code>. </p>
 <div class="admonition note">
 <p class="admonition-title">Autosave</p>
-<p>Your Todo list is saved automatically every time it is updated. There is no need to save manually.</p>
+<p>Your to-do list is saved automatically every time it is updated. There is no need to save manually.</p>
 </div>
 <div class="no-page-break"><h2 id="faq"><span>4 </span>FAQ<a class="headerlink" href="#faq" title="Permanent link">#</a></h2><p><strong>Q</strong>: Is my data secure?<br/>
 <strong>A</strong>: Your data is stored locally on your hard drive. So, your data is as secure as your hard drive. We do not have access to your to-do list. </p></div>
