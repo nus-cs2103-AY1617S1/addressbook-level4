@@ -10,8 +10,8 @@ import seedu.menion.model.ActivityManager;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
-    public static final String MESSAGE_SUCCESS = "Undo-ed previous changes";
-    public static final String MESSAGE_FAILURE = "Previous changes cannot be undo";
+    public static final String MESSAGE_SUCCESS = "Menion successfully undo your previous changes";
+    public static final String MESSAGE_FAILURE = "Menion is unable to undo to your previous changes";
 
     public UndoCommand() {}
 

@@ -154,6 +154,7 @@ public class ActivityParser {
 
         String[] splited = args.split("\\s+");
         boolean isValidType = false; // Checks that the activity type is of valid type
+        
         String activityType = splited[1];
         
         // Checks for valid activtiyType
