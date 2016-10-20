@@ -150,16 +150,14 @@ public class LogicManagerTest {
     }
 
 
-//    @Test
-//    public void execute_add_invalidArgsFormat() throws Exception {
-//        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-//        assertCommandBehavior(
-//                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-//        assertCommandBehavior(
-//                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-//        assertCommandBehavior(
-//                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
-//    }
+    @Test
+    public void execute_add_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        assertCommandBehavior(
+                "add s/today c/tomorrow", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name a/sadsadsad", expectedMessage);
+    }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
@@ -167,6 +165,12 @@ public class LogicManagerTest {
                 "add []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Do CS2103 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 s/hello", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 s/hello c/bbye", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 c/bbye", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 s/tomorrow c/today", Task.MESSAGE_DATETIME_CONSTRAINTS);
+        assertCommandBehavior("add Do CS2103 s/6 hours from now c/3 hours from now", Task.MESSAGE_DATETIME_CONSTRAINTS);
+
 
     }
 
@@ -382,13 +386,11 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-//            Phone privatePhone = new Phone("111111");
-//            Email email = new Email("adam@gmail.com");
-//            Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, tags); //privatePhone, email, privateAddress, 
+            boolean isComplete = false;
+            return new Task(name, new DateTime(null), new DateTime(null), isComplete, tags);
         }
 
         /**
@@ -401,9 +403,9 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-//                    new Phone("" + Math.abs(seed)),
-//                    new Email(seed + "@email"),
-//                    new Address("House of " + seed),
+                    new DateTime("" + Math.abs(seed)+" days from now"),
+                    new DateTime(""),
+                    false,
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -415,9 +417,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-//            cmd.append(" p/").append(p.getPhone());
-//            cmd.append(" e/").append(p.getEmail());
-//            cmd.append(" a/").append(p.getAddress());
+
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -500,9 +500,9 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-//                    new Phone("1"),
-//                    new Email("1@email"),
-//                    new Address("House of 1"),
+                    new DateTime("tomorrow"),
+                    new DateTime("day after tomorrow"),
+                    false,
                     new UniqueTagList(new Tag("tag"))
             );
         }

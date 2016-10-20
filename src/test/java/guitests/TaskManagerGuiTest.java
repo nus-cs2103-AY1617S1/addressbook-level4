@@ -11,6 +11,7 @@ import org.testfx.api.FxToolkit;
 
 import seedu.task.TestApp;
 import seedu.task.commons.core.EventsCenter;
+import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.TaskManager;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.testutil.TestUtil;
@@ -78,7 +79,11 @@ public abstract class TaskManagerGuiTest {
      */
     protected TaskManager getInitialData() {
         TaskManager ab = TestUtil.generateEmptyTaskManager();
-        TypicalTestTasks.loadTaskManagerWithSampleData(ab);
+        try {
+            TypicalTestTasks.loadTaskManagerWithSampleData(ab);
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
         return ab;
     }
 

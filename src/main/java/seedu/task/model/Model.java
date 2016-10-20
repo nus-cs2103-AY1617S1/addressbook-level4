@@ -29,6 +29,9 @@ public interface Model {
     /** Rollback the task list */
     void rollback();
     
+    /** Mark the given task as completed */
+    void completeTask(ReadOnlyTask originalTask, Task completedTask);
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
