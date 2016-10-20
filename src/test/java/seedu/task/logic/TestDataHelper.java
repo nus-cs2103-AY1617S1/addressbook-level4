@@ -27,6 +27,14 @@ class TestDataHelper{
         return new Task(name, des, deadline, false);
     }
     
+    Task computingEditedTask() throws Exception {
+        Name name = new Name("Do CS2106 Project");
+        Deadline deadline = new Deadline("02-02-16");
+        Description des = new Description("To post on Github");
+        
+        return new Task(name, des, deadline, false);
+    }
+    
     Task computingFloatTask() throws Exception {
         Name name = new Name("Do CS2103 Project");
         Description des = new Description("post on Github");
@@ -48,11 +56,35 @@ class TestDataHelper{
         return new Task(name, des, false);
     }
     
+    Task computingEditedNameTask() throws Exception {
+        Name name = new Name("Do CS2106 Project");
+        Deadline deadline = new Deadline("01-01-16");
+        Description des = new Description("post on Github");
+        
+        return new Task(name, des, deadline, false);
+    }
+    
     Task computingEditedDescFloatTask() throws Exception {
         Name name = new Name("Do CS2103 Project");
         Description des = new Description("To post on Github");
         
         return new Task(name, des, false);
+    }
+    
+    Task computingEditedDescTask() throws Exception {
+        Name name = new Name("Do CS2103 Project");
+        Deadline deadline = new Deadline("01-01-16");
+        Description des = new Description("To post on Github");
+        
+        return new Task(name, des, deadline, false);
+    }
+    
+    Task computingEditedDeadlineTask() throws Exception {
+        Name name = new Name("Do CS2103 Project");
+        Deadline deadline = new Deadline("02-02-16");
+        Description des = new Description("post on Github");
+        
+        return new Task(name, des, deadline, false);
     }
     
     Task completedTask() throws Exception {
@@ -67,6 +99,38 @@ class TestDataHelper{
         Name name = new Name("Attend CS2103 Workshop");
         Description des = new Description("post on Github");
         EventDuration dur = new EventDuration("tomorrow 3pm > tomorrow 4pm");
+        
+        return new Event(name, des, dur);
+    }
+    
+    Event computingEditedNameUpComingEvent() throws Exception {
+        Name name = new Name("Attend CS2106 Workshop");
+        Description des = new Description("post on Github");
+        EventDuration dur = new EventDuration("tomorrow 3pm > tomorrow 4pm");
+        
+        return new Event(name, des, dur);
+    }
+    
+    Event computingEditedDescUpComingEvent() throws Exception {
+        Name name = new Name("Attend CS2103 Workshop");
+        Description des = new Description("To post on Github");
+        EventDuration dur = new EventDuration("tomorrow 3pm > tomorrow 4pm");
+        
+        return new Event(name, des, dur);
+    }
+    
+    Event computingEditedDurationUpComingEvent() throws Exception {
+        Name name = new Name("Attend CS2103 Workshop");
+        Description des = new Description("post on Github");
+        EventDuration dur = new EventDuration("tomorrow 5pm > tomorrow 6pm");
+        
+        return new Event(name, des, dur);
+    }
+    
+    Event computingUpComingEvent2() throws Exception {
+        Name name = new Name("Attend CS2106 Workshop");
+        Description des = new Description("To post on Github");
+        EventDuration dur = new EventDuration("tomorrow 7pm > tomorrow 8pm");
         
         return new Event(name, des, dur);
     }
@@ -139,6 +203,7 @@ class TestDataHelper{
     
     /** Generates the correct add task command based on the task given */
     String generateAddFloatTaskCommand(Task p) {
+        
         StringBuffer cmd = new StringBuffer();
 
         cmd.append("add ");
@@ -163,12 +228,36 @@ class TestDataHelper{
     }
     
     /** Generates the correct edit task command based on the new description string given */
+    String generateEditFloatTaskCommand(Task p, int index) {
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("edit -t " + index);
+        cmd.append(" /name ").append(p.getTask().toString());
+        cmd.append(" /desc ").append(p.getDescription().toString());
+
+        return cmd.toString();
+    }
+    
+    /** Generates the correct edit task command based on the new description string given */
     String generateEditTaskCommand(Task p, int index) {
         StringBuffer cmd = new StringBuffer();
 
         cmd.append("edit -t " + index);
         cmd.append(" /name ").append(p.getTask().toString());
         cmd.append(" /desc ").append(p.getDescription().toString());
+        cmd.append(" /by ").append(p.getDeadline().get().toString());
+
+        return cmd.toString();
+    }
+    
+    /** Generates the correct edit event command based on the new description string given */
+    String generateEditEventCommand(Event p, int index) {
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("edit -e " + index);
+        cmd.append(" /name ").append(p.getEvent().toString());
+        cmd.append(" /desc ").append(p.getDescription().toString());
+        cmd.append(" /from ").append(p.getDuration().toString());
 
         return cmd.toString();
     }
@@ -182,6 +271,15 @@ class TestDataHelper{
         return cmd.toString();
     }
 
+    /** Generates the correct list event */
+    String generateListEventCommand() {
+        StringBuffer cmd = new StringBuffer();
+
+        cmd.append("list -e");
+
+        return cmd.toString();
+    }
+    
     /**
      * Generates an TaskBook with auto-generated tasks.
      */

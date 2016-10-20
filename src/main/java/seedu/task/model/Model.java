@@ -41,6 +41,9 @@ public interface Model {
     /** Edits the given task */
     void editTask(Task editTask, ReadOnlyTask targetTask) throws UniqueTaskList.DuplicateTaskException;
     
+    /** Edits the given event */
+    void editEvent(Event editEvent, ReadOnlyEvent targetEvent) throws UniqueEventList.DuplicateEventException;
+    
     /** Marks the given task */
     void markTask(ReadOnlyTask target);
 

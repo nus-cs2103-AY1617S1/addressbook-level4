@@ -91,6 +91,16 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
     
+    /**
+     * Edits an event in the task book.
+     *
+     * @throws UniqueEventList.DuplicateEventException if an equivalent event already exists.
+     */
+    public void editEvent(Event editEvent, ReadOnlyEvent targetEvent) throws UniqueEventList.DuplicateEventException {
+        events.edit(editEvent, targetEvent);
+        
+    }
+    
 //// task-level operations
 
     /**

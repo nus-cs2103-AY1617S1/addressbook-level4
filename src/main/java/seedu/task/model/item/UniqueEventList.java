@@ -73,6 +73,21 @@ public class UniqueEventList implements Iterable<Event> {
         }
         return taskFoundAndDeleted;
     }
+    
+    /**
+     * Edits an event in the list.
+     *
+     * @throws DuplicateEventException if the edited event is a duplicate of an existing event in the list.
+     */
+    public void edit(Event toEdit, ReadOnlyEvent targetEvent) throws UniqueEventList.DuplicateEventException {
+        assert toEdit != null && targetEvent != null;
+        if (contains(toEdit)) {
+            throw new DuplicateEventException();
+        }
+        int index = internalList.indexOf(targetEvent);
+        internalList.set(index, toEdit); 
+    }
+
 
     public ObservableList<Event> getInternalList() {
         return internalList;

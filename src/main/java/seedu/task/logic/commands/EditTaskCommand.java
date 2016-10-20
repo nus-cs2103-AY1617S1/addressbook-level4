@@ -1,6 +1,7 @@
 package seedu.task.logic.commands;
 
 import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.model.item.Deadline;
 import seedu.task.model.item.Description;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.ReadOnlyTask;
@@ -22,10 +23,10 @@ public class EditTaskCommand extends EditCommand  {
     
     private Name newName;
     private Description newDescription;
-//    private Deadline newDeadline;
+    private Deadline newDeadline;
     private boolean isNameToBeEdit;
     private boolean isDescriptionToBeEdit;
-//    private boolean isDeadlineToBeEdit;
+    private boolean isDeadlineToBeEdit;
     
     /**
      * Convenience constructor using raw values.
@@ -38,22 +39,27 @@ public class EditTaskCommand extends EditCommand  {
      */
     public EditTaskCommand(Integer index,
                            boolean isNameToBeEdited, String name, 
-                           boolean isDescriptionToBeEdited, String description
-//                           boolean isDeadlineToBeEdited, String deadline
+                           boolean isDescriptionToBeEdited, String description,
+                           boolean isDeadlineToBeEdited, String deadline
                            ) throws IllegalValueException {
         
         setTargetIndex(index);
         this.isNameToBeEdit = isNameToBeEdited;
         this.isDescriptionToBeEdit = isDescriptionToBeEdited;
+        this.isDeadlineToBeEdit = isDeadlineToBeEdited;
         
         newName = null;
         newDescription = null;
+        newDeadline = null;
         
         if (isNameToBeEdited) {
             newName = new Name(name);
         } 
         if (isDescriptionToBeEdited) {
             newDescription = new Description(description);
+        }
+        if (isDeadlineToBeEdited) {
+            newDeadline = new Deadline(deadline);
         }
     }
     
@@ -88,13 +94,23 @@ public class EditTaskCommand extends EditCommand  {
      * @return task that has the fields according to edit requirements.
      */    
     private Task editTask(ReadOnlyTask targetTask) {
+        
         if (!isNameToBeEdit) {
             newName = targetTask.getTask();
         }
         if (!isDescriptionToBeEdit) {
             newDescription = targetTask.getDescription();
         }
-        return new Task (this.newName, this.newDescription, TASK_DEFAULT_STATUS);
+        if (!isDeadlineToBeEdit) {
+            if (targetTask.getDeadline().isPresent()) {
+                newDeadline = targetTask.getDeadline().get();
+                return new Task (this.newName, this.newDescription, this.newDeadline, TASK_DEFAULT_STATUS);
+            } else {
+                return new Task (this.newName, this.newDescription, TASK_DEFAULT_STATUS);
+            }
+        } 
+        return new Task (this.newName, this.newDescription, this.newDeadline, TASK_DEFAULT_STATUS);
+        
     }
 
 }

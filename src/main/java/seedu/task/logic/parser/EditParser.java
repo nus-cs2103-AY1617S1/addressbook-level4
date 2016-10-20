@@ -6,14 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.logic.commands.AddEventCommand;
-import seedu.task.logic.commands.AddTaskCommand;
 import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.EditCommand;
+import seedu.task.logic.commands.EditEventCommand;
 import seedu.task.logic.commands.EditTaskCommand;
 import seedu.task.logic.commands.IncorrectCommand;
-import seedu.task.logic.commands.ListEventCommand;
-import seedu.task.logic.commands.ListTaskCommand;
 
 /**
  * Prepares EditTaskCommand or EditEventCommand according to the input argument.
@@ -27,12 +24,17 @@ public class EditParser implements Parser {
             Pattern.compile("(?:-t)\\s(?<index>\\d*)"
                     + "(?<newname>(?: /name [^/]+)*)"
                     + "(?<newdescription>(?: /desc [^/]+)*)?"
+                    + "(?<newdeadline>(?: /by [^/]+)*)?"
+                    );
 
-                    //+ "(?<newdeadline>(?: /by [^/]+))$"
+ // remember to trim 
+    private static final Pattern EDIT_EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?:-e)\\s(?<index>\\d*)"
+                    + "(?<newname>(?: /name [^/]+)*)"
+                    + "(?<newdescription>(?: /desc [^/]+)*)?"
+                    + "(?<newduration>(?: /from [^/]+)*)?"
                     );
     
-    private static final String TYPE_TASK = "-t";
-    private static final String TYPE_EVENT = "-e";
     
     /**
      * Parses arguments in the context of the edit command.
@@ -43,6 +45,7 @@ public class EditParser implements Parser {
     @Override
     public Command prepare(String args) {
         final Matcher taskMatcher = EDIT_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher eventMatcher = EDIT_EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
         
         if (taskMatcher.matches()){
             try {
@@ -51,7 +54,23 @@ public class EditParser implements Parser {
                         isFieldToBeEdited(taskMatcher.group("newname")),
                         taskMatcher.group("newname").replaceFirst("/name","").trim(),
                         isFieldToBeEdited(taskMatcher.group("newdescription")),
-                        taskMatcher.group("newdescription").replaceFirst("/desc", "").trim()
+                        taskMatcher.group("newdescription").replaceFirst("/desc", "").trim(),
+                        isFieldToBeEdited(taskMatcher.group("newdeadline")),
+                        taskMatcher.group("newdeadline").replaceFirst("/by", "").trim()
+                );
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
+        } else if (eventMatcher.matches()){
+            try {
+                return new EditEventCommand(
+                        Integer.parseInt(eventMatcher.group("index").trim()),
+                        isFieldToBeEdited(eventMatcher.group("newname")),
+                        eventMatcher.group("newname").replaceFirst("/name","").trim(),
+                        isFieldToBeEdited(eventMatcher.group("newdescription")),
+                        eventMatcher.group("newdescription").replaceFirst("/desc", "").trim(),
+                        isFieldToBeEdited(eventMatcher.group("newduration")),
+                        eventMatcher.group("newduration").replaceFirst("/from", "").trim()
                 );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());

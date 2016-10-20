@@ -7,6 +7,7 @@ import seedu.task.model.item.Event;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.model.item.Task;
+import seedu.task.model.item.UniqueEventList;
 import seedu.task.model.item.UniqueEventList.DuplicateEventException;
 import seedu.task.model.item.UniqueEventList.EventNotFoundException;
 import seedu.task.model.item.UniqueTaskList;
@@ -144,6 +145,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskListToShowWithStatus(false);
         indicateTaskBookChanged();   
     }
+    
+    @Override
+    public void editEvent(Event editEvent, ReadOnlyEvent targetEvent) throws UniqueEventList.DuplicateEventException {
+        taskBook.editEvent(editEvent, targetEvent);
+        updateFilteredEventListToShowWithStatus(false);
+        indicateTaskBookChanged(); 
+    }
 
         
    
@@ -151,12 +159,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+        return new UnmodifiableObservableList<>(this.filteredTasks);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList() {
-        return new UnmodifiableObservableList<>(filteredEvents);
+        return new UnmodifiableObservableList<>(this.filteredEvents);
     }
 
     @Override
