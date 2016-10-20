@@ -51,27 +51,28 @@ public class AliasController implements Controller {
         } else {
             String[] args = params.split(SPACE, ARGS_LENGTH);
             
-            String aliasKey;
-            String aliasValue;
+            String aliasKey = null;
+            String aliasValue = null;
             
             // Best-effort matching, disambiguate if wrong.
             validate: {
                 switch (args.length) {
-                case 0:
-                    break;
-                case 1:
-                    aliasKey = args[0];
-                case 2: // All good!
-                    aliasKey = args[0];
-                    aliasValue = args[1];
-                    break validate; 
-                default:
-                    aliasKey = args[0];
-                    aliasValue = args[0];
-                renderDisambiguation(aliasKey, aliasValue, INVALID_NUM_PARAMS);
+                    case 0:
+                        break;
+                    case 1:
+                        aliasKey = args[0];
+                    case 2: // All good!
+                        aliasKey = args[0];
+                        aliasValue = args[1];
+                        break validate; 
+                    default:
+                        aliasKey = args[0];
+                        aliasValue = args[0];
+                    renderDisambiguation(aliasKey, aliasValue, INVALID_NUM_PARAMS);
+                }
             }
             
-            if (!validateAlias(aliasKey) || !validateAlias(aliasValue) {
+            if (!validateAlias(aliasKey) || !validateAlias(aliasValue)) {
                 renderDisambiguation(aliasKey, aliasValue, MESSAGE_INVALID_INPUT);
             }
         }
