@@ -70,7 +70,6 @@ public class AliasController implements Controller {
                     aliasKey = args[0];
                     aliasValue = args[1];
                     break validate;
-                    break;
                 default:
                     aliasKey = args[0];
                     aliasValue = args[0];
