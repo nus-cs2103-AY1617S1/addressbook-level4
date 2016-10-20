@@ -422,7 +422,7 @@ public class Parser {
 		// the listcommand constructor must make null checks. Alternatively, the
 		// parameters can be encapsulated in an object
 		// and the constructor overloaded.
-		return new ListCommand(taskType, done);
+		return new ListCommand();
 	}
 	
 	//@@author
