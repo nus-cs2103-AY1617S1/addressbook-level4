@@ -46,6 +46,19 @@ public interface ReadOnlyTask {
             getTags().forEach(builder::append);
         }
         
+        else if(getTaskDescription().fullTaskDescriptions != "NIL" && getDate().fullDate != "NIL" && getStartTime().fullTime == "NIL" && getEndTime().fullTime == "NIL"){       
+	        builder.append(getName());
+	        builder.append("   Task Description : ");        
+	        builder.append(getTaskDescription());
+	        builder.append("   Deadline : ");        
+	        builder.append(getDate());
+	        builder.append("   Start Time - End time : ");  
+	        builder.append(getStartTime() + " - ");
+	        builder.append(getEndTime() + "   ");
+	        getTags().forEach(builder::append);
+        }
+        
+        
         else {       
 	        builder.append(getName());
 	        builder.append("   Deadline : ");        
