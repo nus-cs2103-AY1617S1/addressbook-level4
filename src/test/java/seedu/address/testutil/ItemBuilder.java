@@ -1,6 +1,8 @@
 package seedu.address.testutil;
 
+import java.time.LocalDateTime;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.DateTimeParser;
 import seedu.address.model.item.*;
 
 public class ItemBuilder {
@@ -22,13 +24,17 @@ public class ItemBuilder {
     }
     
     public ItemBuilder withStartDate(String startdate) throws IllegalValueException{
-        //TODO: fill in
-        return null;
+    	DateTimeParser parser = new DateTimeParser(startdate);
+		LocalDateTime startTimeObj = parser.extractStartDate();
+		this.item.setStartDate(startTimeObj);
+		return this;
     }
     
     public ItemBuilder withEndDate(String enddate) throws IllegalValueException{
-        //TODO: fill in
-        return null;
+    	DateTimeParser parser = new DateTimeParser(enddate);
+		LocalDateTime endTimeObj = parser.extractStartDate();
+		this.item.setEndDate(endTimeObj);
+		return this;
     }
     
     public TestItem build(){
