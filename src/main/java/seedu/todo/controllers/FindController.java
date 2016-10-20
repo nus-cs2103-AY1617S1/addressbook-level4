@@ -208,14 +208,14 @@ public class FindController implements Controller {
                 return db.getEventByName(db.getAllEvents(), itemNameList);
             }
             else if (isCompleted) {
-                return db.getEventByRange(NO_DATE, LocalDateTime.now(), itemNameList);
+                return db.getEventByRangeWithName(NO_DATE, LocalDateTime.now(), itemNameList);
             } else {
-                return db.getEventByRange(LocalDateTime.now(), NO_DATE, itemNameList);
+                return db.getEventByRangeWithName(LocalDateTime.now(), NO_DATE, itemNameList);
             } 
         } else if (dateOn != null) { //by keyword found
-            return db.getEventbyDate(dateOn, itemNameList);
+            return db.getEventbyDateWithName(dateOn, itemNameList);
         } else {
-            return db.getEventByRange(dateFrom, dateTo, itemNameList);
+            return db.getEventByRangeWithName(dateFrom, dateTo, itemNameList);
         }
     }
 
@@ -226,12 +226,12 @@ public class FindController implements Controller {
                 System.out.println("error"); //TODO : Nothing found
                 return null;
             } else {
-                return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus, itemNameList);
+                return db.getTaskByRangeWithName(dateFrom, dateTo, isCompleted, listAllStatus, itemNameList);
             }
         } else if (dateOn != null) { //by keyword found
-            return db.getTaskByDate(dateOn, isCompleted, listAllStatus, itemNameList);
+            return db.getTaskByDateWithStatusAndName(dateOn, isCompleted, listAllStatus, itemNameList);
         } else {
-            return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus, itemNameList);
+            return db.getTaskByRangeWithName(dateFrom, dateTo, isCompleted, listAllStatus, itemNameList);
         }
     }
     

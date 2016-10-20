@@ -268,13 +268,13 @@ public class TodoListDB {
         }
         return taskByName;
     }
-    
-    /**
-     * Get a list of Task in the DB filtered by status and one date.
+
+        /**
+     * Get a list of Task in the DB filtered by status , name and one date.
      * 
      * @return list of tasks
      */
-    public List<Task> getTaskByDate(LocalDateTime givenDate, boolean isCompleted, 
+    public List<Task> getTaskByDateWithStatusAndName(LocalDateTime givenDate, boolean isCompleted, 
             boolean listAllStatus, HashSet<String> itemNameList) {
         ArrayList<Task> taskByDate = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
@@ -303,13 +303,42 @@ public class TodoListDB {
             return getTaskByName(taskByDate, itemNameList);
         }
     }
-    
+
     /**
-     * Get a list of Task in the DB filtered by status and range of date.
+     * Get a list of Task in the DB filtered by status and one date.
      * 
      * @return list of tasks
      */
-    public List<Task> getTaskByRange (LocalDateTime fromDate , LocalDateTime toDate, boolean isCompleted, 
+    public List<Task> getTaskByDateWithStatus(LocalDateTime givenDate, boolean isCompleted, boolean listAllStatus) {
+        ArrayList<Task> taskByDate = new ArrayList<Task>();
+        Iterator<Task> iterator = tasks.iterator();
+        while (iterator.hasNext()) {
+            Task currTask = iterator.next();
+            LocalDateTime currTaskDueDate = DateUtil.floorDate(currTask.getDueDate());
+            
+            if (currTaskDueDate == null) {
+                currTaskDueDate = LocalDateTime.MIN;
+            }
+            
+            if (listAllStatus) {
+                if (currTaskDueDate.equals(givenDate)) {
+                    taskByDate.add(currTask);
+                }
+            } else {
+                if (currTaskDueDate.equals(givenDate) && currTask.isCompleted() == isCompleted) {
+                    taskByDate.add(currTask);
+                }
+            }
+        }
+        return taskByDate;
+    }
+
+    /**
+     * Get a list of Task in the DB filtered by status, name and range of date.
+     * 
+     * @return list of tasks
+     */
+    public List<Task> getTaskByRangeWithName (LocalDateTime fromDate , LocalDateTime toDate, boolean isCompleted, 
             boolean listAllStatus, HashSet<String> itemNameList) {
         ArrayList<Task> taskByRange = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
@@ -347,11 +376,49 @@ public class TodoListDB {
     }
     
     /**
-     * Get a list of Event in the DB filtered by status and one date.
+     * Get a list of Task in the DB filtered by status and range of date.
+     * 
+     * @return list of tasks
+     */
+    public List<Task> getTaskByRangeWithStatus (LocalDateTime fromDate , LocalDateTime toDate, 
+            boolean isCompleted, boolean listAllStatus) {
+        ArrayList<Task> taskByRange = new ArrayList<Task>();
+        Iterator<Task> iterator = tasks.iterator();
+        if (fromDate == null) {
+            fromDate = LocalDateTime.MIN;
+        }
+        
+        if (toDate == null) {
+            toDate = LocalDateTime.MAX;
+        }
+        while (iterator.hasNext()) {
+            Task currTask = iterator.next();
+            LocalDateTime currTaskDueDate = DateUtil.floorDate(currTask.getDueDate());
+            if (currTaskDueDate == null) {
+                currTaskDueDate = LocalDateTime.MIN;
+            }
+            
+            if (listAllStatus) {
+                if (currTaskDueDate.compareTo(fromDate) >= 0 && currTaskDueDate.compareTo(toDate) <= 0) {
+                    taskByRange.add(currTask);
+                }
+            } else {
+                if (currTaskDueDate.compareTo(fromDate) >= 0 && currTaskDueDate.compareTo(toDate) <= 0 && 
+                        currTask.isCompleted() == isCompleted) {
+                    taskByRange.add(currTask);
+                }
+            }
+        }
+        
+        return taskByRange;
+    }
+
+    /**
+     * Get a list of Event in the DB filtered by status, name and one date.
      * 
      * @return list of events
      */
-    public List<Event> getEventbyDate(LocalDateTime givenDate, HashSet<String> itemNameList) {
+    public List<Event> getEventbyDateWithName(LocalDateTime givenDate, HashSet<String> itemNameList) {
         ArrayList<Event> eventByDate = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
         while (iterator.hasNext()) {
@@ -360,7 +427,7 @@ public class TodoListDB {
                 eventByDate.add(currEvent);
             }
         }
-        
+
         if (itemNameList.size() == 0) {
             return eventByDate;
         } else {
@@ -369,11 +436,28 @@ public class TodoListDB {
     }
     
     /**
-     * Get a list of Event in the DB filtered by status and range of date.
+     * Get a list of Event in the DB filtered by status and one date.
      * 
      * @return list of events
      */
-    public List<Event> getEventByRange (LocalDateTime fromDate , LocalDateTime toDate, HashSet<String> itemNameList) {
+    public List<Event> getEventbyDate(LocalDateTime givenDate) {
+        ArrayList<Event> eventByDate = new ArrayList<Event>();
+        Iterator<Event> iterator = events.iterator();
+        while (iterator.hasNext()) {
+            Event currEvent = iterator.next();
+            if (DateUtil.floorDate(currEvent.getCalendarDT()).equals(givenDate)) {
+                eventByDate.add(currEvent);
+            }
+        }
+        return eventByDate;
+    }
+
+        /**
+     * Get a list of Event in the DB filtered by status, name and range of date.
+     * 
+     * @return list of events
+     */
+    public List<Event> getEventByRangeWithName (LocalDateTime fromDate , LocalDateTime toDate, HashSet<String> itemNameList) {
         ArrayList<Event> eventByRange = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
         
@@ -399,9 +483,36 @@ public class TodoListDB {
             return getEventByName(eventByRange, itemNameList);
         }
     }
+    
+    /**
+     * Get a list of Event in the DB filtered by status and range of date.
+     * 
+     * @return list of events
+     */
+    public List<Event> getEventByRange (LocalDateTime fromDate , LocalDateTime toDate) {
+        ArrayList<Event> eventByRange = new ArrayList<Event>();
+        Iterator<Event> iterator = events.iterator();
+        
+        //if either date are null, set it to min or max
+        if (fromDate == null) {
+            fromDate = LocalDateTime.MIN;
+        }
+        
+        if (toDate == null) {
+            toDate = LocalDateTime.MAX;
+        }
+        while (iterator.hasNext()) {
+            Event currEvent = iterator.next();
+            if (DateUtil.floorDate(currEvent.getStartDate()).compareTo(fromDate) >= 0 && 
+                    DateUtil.floorDate(currEvent.getStartDate()).compareTo(toDate) <= 0) {
+                eventByRange.add(currEvent);
+            }
+        }
+        return eventByRange;
+    }
 
     public List<Event> getEventByName(List<Event> events, HashSet<String> itemNameList) {
-        ArrayList<Event> taskByName = new ArrayList<Event>();
+        ArrayList<Event> eventByName = new ArrayList<Event>();
         Iterator<Event> iterator = events.iterator();
         Iterator<String> hashIterator = itemNameList.iterator();
         while (iterator.hasNext()) {
@@ -417,10 +528,10 @@ public class TodoListDB {
             }
             
             if (isMatched) {
-                taskByName.add(currEvent);
+                eventByName.add(currEvent);
             }
             hashIterator = itemNameList.iterator();
         }
-        return taskByName;
+        return eventByName;
     }
 }
