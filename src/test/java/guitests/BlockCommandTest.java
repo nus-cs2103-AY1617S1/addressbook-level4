@@ -12,24 +12,27 @@ import seedu.cmdo.testutil.TestUtil;
 /*
  * @@author A0141128R
  */
-//missing block test case with only one time slot
+
 //missing test case where you try to add a task to the blocked slot
-//write test for no allowing to done block task
 
 public class BlockCommandTest extends ToDoListGuiTest {
 
     @Test
     public void block() {
-//        //block a time slot without range
+        //block a time slot without range
         TestTask[] currentList = td.getTypicalTasks();
-//        TestTask timeToBlock = td.meeting;
-//        assertBlockSuccess(timeToBlock, currentList);
-//        currentList = TestUtil.addTasksToList(currentList, timeToBlock);
-//        
-        //add task with date/time range
-        TestTask timeToBlock = td.businessDeal;
+        TestTask timeToBlock = td.meeting;
         assertBlockSuccess(timeToBlock, currentList);
         currentList = TestUtil.addTasksToList(currentList, timeToBlock);
+        
+        //add block a timeslot with date/time range
+        timeToBlock = td.businessDeal;
+        assertBlockSuccess(timeToBlock, currentList);
+        currentList = TestUtil.addTasksToList(currentList, timeToBlock);
+        
+        //cannot done a block task
+        commandBox.runCommand("done 5");
+        assertResultMessage(Messages.MESSAGE_CANNOT_DONE);
         
         //invalid detail parameter
         commandBox.runCommand("block 'ppp");
@@ -39,19 +42,12 @@ public class BlockCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("block ''");
         assertResultMessage(Messages.MESSAGE_BLANK_DETAIL_WARNING);
         
-        //unable to pass test case
-        //invalid priority parameter
-        commandBox.runCommand("block 'new' /yolo");
-        assertResultMessage(Messages.MESSAGE_INVALID_PRIORITY);
-        commandBox.runCommand("block 'new'/high");
-        assertResultMessage(Messages.MESSAGE_INVALID_PRIORITY_SPACE);
-        
-        //add to empty list
+        //block a time slot in an empty list
         commandBox.runCommand("clear");
         assertBlockSuccess(td.deal);
 
         //invalid command
-        commandBox.runCommand("block Johnny");
+        commandBox.runCommand("blocks meeting with OCBC");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
