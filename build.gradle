@@ -77,7 +77,7 @@ allprojects {
         archiveName = "malitio.jar"
 
         manifest {
-            attributes "Main-Class": "seedu.address.MainApp"
+            attributes "Main-Class": "seedu.malitio.MainApp"
         }
 
         destinationDir = file("${buildDir}/jar/")
@@ -138,7 +138,7 @@ task guiTests(type: malitioTest) {
 
 
 task nonGuiTests(type: malitioTest) {
-    include 'seedu/address/**'
+    include 'seedu/malitio/**'
 
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")
