@@ -33,6 +33,7 @@ public class Task implements ReadOnlyTask {
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isTask = dueDate.isDateNull()?false:true;
         this.isEvent = startTime.isDateNull()?false:true;
+        this.endTime.isEndTimeInferred();
     }
 
     /**

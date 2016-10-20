@@ -43,7 +43,7 @@ public class DateTimeInfo {
 
     private void formatTiming(boolean inferred) {
         if (inferred) {
-            setTime = getDateMonthYear() + " 08:00" ;       
+            setTime = getDateMonthYear() + " 07:59" ;       
         } else { 
             setTime = getDateMonthYear() + " " + setTime.substring(12, 17);
         }
@@ -120,7 +120,7 @@ public class DateTimeInfo {
 
 
     private static String combineDuratingOfEvent(int years, int months, int days, int hours, int minutes) {
-        String duration = new String(""); 
+        String duration1 = new String(""); 
         boolean lessThanAnHour=false; 
         boolean lessThanADay=false; 
         boolean lessThanAMonth=false; 
@@ -131,7 +131,7 @@ public class DateTimeInfo {
                 minutes = Math.floorMod(minutes, 60); 
                 lessThanAnHour = true; 
             }
-            duration = " " + minutes + " minute" + ((minutes == 1)?"":"s"); 
+            duration1 = " " + minutes + " minute" + ((minutes == 1)?"":"s"); 
         }
         if (hours > 0 || hours < 0){ 
             if (hours<0){ 
@@ -141,7 +141,7 @@ public class DateTimeInfo {
             if (lessThanAnHour) {
                 hours = hours - 1; 
             }
-            duration = " " + hours + " hour" + ((hours == 1)?"":"s" + duration); 
+            duration1 = " " + hours + " hour" + ((hours == 1)?"":"s" + duration1); 
         }
         if (days != 0){ 
             if (days<0){ 
@@ -151,7 +151,7 @@ public class DateTimeInfo {
             if (lessThanADay) {
                 days = days - 1; 
             }
-            duration = " " + days + " day" + ((days == 1)?"":"s" + duration); 
+            duration1 = " " + days + " day" + ((days == 1)?"":"s" + duration1); 
         }
         if (months > 0 || months < 0){ 
             if (months<0){ 
@@ -161,20 +161,20 @@ public class DateTimeInfo {
             if (lessThanAMonth) {
                 months = months - 1; 
             }
-            duration = " " + months + " month" + ((months == 1)?"":"s" + duration ); 
+            duration1 = " " + months + " month" + ((months == 1)?"":"s" + duration1 ); 
         }
         if (years < 0 || lessThanAYear){ 
             return MESSAGE_FROM_IS_AFTER_TO; 
         } else if (years > 0 ){ 
-            duration = " " + years + " year" + ((years == 1)?"":"s" + duration ); 
+            duration1 = " " + years + " year" + ((years == 1)?"":"s" + duration1 ); 
         }
         
         if (minutes == 0 && hours == 0 && days == 0 && months == 0) { 
-            duration = "Event starts and end at the same time."; 
+            duration1 = "Event starts and end at the same time."; 
         } else { 
-            duration = "Duration of the event is: " + duration.trim() + ".";
+            duration1 = "Duration of the event is: " + duration1.trim() + ".";
         }
-        return duration;
+        return duration1;
 
     }
 
@@ -241,7 +241,7 @@ public class DateTimeInfo {
 
     @Override
     public String toString() {
-        return setTime;
+        return setTime.substring(0, 17);
     }
 
     @Override
@@ -259,5 +259,11 @@ public class DateTimeInfo {
 
     public boolean isDateNull() {
         return this.setTime.equals("Feb 29 2000 00:00");
+    }
+
+    public void isEndTimeInferred() {
+        if(setTime.substring(12, 17).equals("07:59")){
+            setTime = setTime.substring(0,12) + "16:59";
+        }
     }
 }
