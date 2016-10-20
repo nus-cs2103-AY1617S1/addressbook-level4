@@ -15,6 +15,7 @@ public class CommandParserList {
 				UnfavoriteCommandParser.class,
 				CompleteCommandParser.class,
 				UncompleteCommandParser.class,
+				UndoCommandParser.class,
 				ListCommandParser.class,
 				AddAliasCommandParser.class, 
 				DeleteAliasCommandParser.class,

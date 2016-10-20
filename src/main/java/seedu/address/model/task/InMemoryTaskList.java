@@ -89,6 +89,11 @@ public interface InMemoryTaskList {
 	void deleteAlias(Alias toRemove) throws ItemNotFoundException;
 	
 	/*
+	 * Undoes the previous command if it were a valid command
+	 */
+	void undo() throws IllegalStateException;
+	
+	/*
 	 * Gets the list of alias
 	 */
 	UnmodifiableObservableList<Alias> getAlias();

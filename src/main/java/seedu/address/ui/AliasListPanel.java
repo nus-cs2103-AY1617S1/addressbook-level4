@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
+import java.util.Date;
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -12,7 +15,10 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AliasChangedEvent;
+import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.model.Alias;
 
 public class AliasListPanel extends UiPart {
@@ -54,6 +60,7 @@ public class AliasListPanel extends UiPart {
     private void configure(ObservableList<Alias> aliasList) {
         setConnections(aliasList);
         addToPlaceholder();
+        registerAsAnEventHandler(this);
     }
 
     private void setConnections(ObservableList<Alias> aliasList) {
@@ -71,6 +78,13 @@ public class AliasListPanel extends UiPart {
             aliasListView.scrollTo(index);
             aliasListView.getSelectionModel().clearAndSelect(index);
         });
+    }
+    
+    @Subscribe
+    public void handleAliasChangedEvent(AliasChangedEvent abce) {
+    	UniqueItemCollection<Alias> newAliases = abce.data;
+        setConnections(newAliases.getInternalList());
+        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Refreshed alias list"));
     }
 
     class AliasListViewCell extends ListCell<Alias> {
