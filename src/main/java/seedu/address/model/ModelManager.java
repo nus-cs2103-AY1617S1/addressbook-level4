@@ -52,6 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
         tasks = taskMaster.getTasks();
         filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
         RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
+        RecurringTaskManager.getInstance().setInitialisedTime();
     }
 
     public ModelManager() {
@@ -63,6 +64,7 @@ public class ModelManager extends ComponentManager implements Model {
         tasks = taskMaster.getTasks();
         filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
         RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
+        RecurringTaskManager.getInstance().setInitialisedTime();
     }
 
     @Override
@@ -105,7 +107,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         taskMaster.addTask(task);
-        RecurringTaskManager.getInstance().updateAnyRecurringTasks();
         updateFilteredListToShowAll();
         indicateTaskListChanged();
     }
