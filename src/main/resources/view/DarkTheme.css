@@ -12,8 +12,9 @@
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: black;
+    -fx-text-fill: limegreen;
     -fx-opacity: 1;
+    -fx-padding: 0 10 10 10;
 }
 
 .label-header {
