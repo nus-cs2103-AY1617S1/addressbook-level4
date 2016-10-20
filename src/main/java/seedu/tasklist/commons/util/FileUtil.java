@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 /**
- * Writes, reads,delete file
+ * Writes and reads file
  */
 public class FileUtil {
     private static final String CHARSET = "UTF-8";
@@ -20,11 +20,6 @@ public class FileUtil {
         }
     }
     
-    public static void deletePreviousFile(String filepath) throws IOException{
-    	File deleteFile = new File(filepath);
-    	deleteFile.delete();   	
-    }
-
     /**
      * Creates a file if it does not exist along with its missing parent directories
      *

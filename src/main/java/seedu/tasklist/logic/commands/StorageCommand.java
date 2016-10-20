@@ -44,7 +44,7 @@ public class StorageCommand extends Command {
 		if (!file.isDirectory() && !filepath.contains(".xml")) {
 			return new CommandResult(MESSAGE_FILE_PATH_NOT_EXIST);
 		}
-		
+				
 		EventsCenter.getInstance().post(new ChangePathEvent(filepath));
 		model.updateFilePathChange();
 		return new CommandResult(MESSAGE_CHANGE_PATH_SUCCESS + filepath);
