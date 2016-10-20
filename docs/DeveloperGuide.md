@@ -259,8 +259,8 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add a new deadline | record the date, time of the deadline.
 `* * *` | user | add a new event| record the date, time and duration of the event.
 `* * *` | user | find task(s) by name or tag | search for one or more tasks with either property.
-`* * *` | user | see a list of all my tasks | have an overview of what I need to do.
-`* * *` | user | see a list of all my completed tasks | have an overview of what I have completed.
+`* * *` | user | see a list of all my incomplete tasks | have an overview of what I need to do.
+`* * *` | user | see a list of all my completed tasks | have a sense of accomplishment.
 `* * *` | user | see a list of all my overdue tasks | have an overview of what is overdue.
 `* * *` | user | edit an existing task | modify or update entries that I have previously entered.
 `* * *` | user | delete an existing task | delete entries that I no longer need to do.
@@ -271,8 +271,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | find task(s) by keyword, date, priority or tag | search for one or more tasks with certain properties. 
 `* *` | user | view task(s) of a specific day | see what task(s) I have on that day. 
 
-
-{More to be added}
 
 ## Appendix B : Use Cases
 
