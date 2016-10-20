@@ -9,7 +9,9 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
+import seedu.address.commons.events.storage.StoragePathChangedEvent;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.EventsCenter;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -56,7 +58,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyTaskManager getAddressBook() {
+    public ReadOnlyTaskManager getTaskManager() {
         return taskManager;
     }
 
@@ -77,6 +79,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public void updateTaskManager(String filePath, boolean isToClearOld) {
+        EventsCenter.getInstance().post(new StoragePathChangedEvent(filePath, isToClearOld));
+        indicateTaskManagerChanged();
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -94,8 +102,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
     @Override
-
     public void updateFilteredTaskList(String event){
     	if(event.equals("events")){
     	updateFilteredTaskList(new PredicateExpression(new EventQualifier()));
@@ -104,10 +112,11 @@ public class ModelManager extends ComponentManager implements Model {
     	}
 
     }
+    
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-
+    
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {

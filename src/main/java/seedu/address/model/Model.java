@@ -15,15 +15,15 @@ public interface Model {
     void resetData(ReadOnlyTaskManager newData);
 
     /** Returns the TaskManager */
-    ReadOnlyTaskManager getAddressBook();
+    ReadOnlyTaskManager getTaskManager();
 
-    /** Deletes the given person. */
+    /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
-    /** Adds the given person */
+    /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
@@ -33,5 +33,8 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
 
 	void updateFilteredTaskList(String keyword);
+	
+	/** Update the task manager to the new file path*/
+	void updateTaskManager(String filePath, boolean isToClearOld);
 
 }

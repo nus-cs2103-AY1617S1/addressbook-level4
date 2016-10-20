@@ -28,7 +28,7 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     private static final Pattern TASK_NAME_ARGS_FORMAT=Pattern.compile("[\\p{Alnum} ]+");
-    //Note: Temporary, may change it later
+
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<deadline>(?: d/[^/]+)?)"
@@ -43,7 +43,7 @@ public class Parser {
                     + "s/(?<startDate>[^/]+)"
                     + "e/(?<endDate>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
+    
     public Parser() {}
 
     /**
@@ -87,6 +87,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case ChangeCommand.COMMAND_WORD:
+            return prepareChange(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -242,10 +245,33 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
+    
     private Command prepareList(String args){
     	if(args.equals(""))
     		return new ListCommand();
     	return new ListCommand(args);
     }
+    
+    /**
+     * Parses arguments in the context of the change storage location command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareChange(String arguments) {
+        final String[] args = arguments.trim().split("\\s+");
+        if (args.length >= 0) {
+            String filePath = args[0];
+            if (args.length == 1) {
+                return new ChangeCommand(filePath);
+            } else if (args.length == 2) {
+                String clear = args[1];
+                return new ChangeCommand(filePath, clear);
+            }
+        }
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                ChangeCommand.MESSAGE_USAGE)); 
+    }
+
 
 }

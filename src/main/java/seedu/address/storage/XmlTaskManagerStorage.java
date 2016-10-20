@@ -8,6 +8,7 @@ import seedu.address.model.ReadOnlyTaskManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -24,8 +25,14 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
         this.filePath = filePath;
     }
 
+    @Override
     public String getTaskManagerFilePath(){
         return filePath;
+    }
+    
+    @Override
+    public void setTaskManagerFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     /**
@@ -33,6 +40,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
+    @Override
     public Optional<ReadOnlyTaskManager> readTaskManager(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
@@ -52,6 +60,7 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
      * Similar to {@link #saveTaskManager(ReadOnlyTaskManager)}
      * @param filePath location of the data. Cannot be null
      */
+    @Override
     public void saveTaskManager(ReadOnlyTaskManager addressBook, String filePath) throws IOException {
         assert addressBook != null;
         assert filePath != null;
@@ -60,14 +69,30 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
         FileUtil.createIfMissing(file);
         XmlFileStorage.saveDataToFile(file, new XmlSerializableTaskManager(addressBook));
     }
+    
+    /**
+     * Similar to {@link #deleteTaskManager()}
+     */
+    @Override
+    public void deleteTaskManager(String filePath) throws IOException {
+        assert filePath != null;
+
+        XmlFileStorage.deleteFile(Paths.get(filePath));
+    }
 
     @Override
     public Optional<ReadOnlyTaskManager> readTaskManager() throws DataConversionException, IOException {
         return readTaskManager(filePath);
     }
-
+    
     @Override
     public void saveTaskManager(ReadOnlyTaskManager addressBook) throws IOException {
         saveTaskManager(addressBook, filePath);
     }
+    
+    @Override
+    public void deleteTaskManager() throws IOException {
+        deleteTaskManager(filePath);
+    }
+    
 }

@@ -9,7 +9,7 @@ import seedu.address.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
-public class ListCommandTest extends AddressBookGuiTest {
+public class ListCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void list_all_Tasks_Events() {
