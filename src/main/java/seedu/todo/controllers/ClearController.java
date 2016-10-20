@@ -135,7 +135,14 @@ public class ClearController implements Controller {
         } else {
             if (!deleteAll && parsedDate != null && dateFrom == null && dateTo == null && dateOn == null) { //date provided is invalid
                 displayErrorMessage(input, parsedDate, deleteAll, isTask);
+                return;
             } else {
+                if (parsedDate != null) {
+                    if (parsedDate[1] != null && parsedDate[2] != null && (dateFrom == null || dateTo == null)) {
+                        displayErrorMessage(input, parsedDate, deleteAll, isTask);
+                        return;
+                    }
+                }
                 destroyByRange(db, dateFrom, dateTo, deleteAll, isTask);
                 return;
             }
