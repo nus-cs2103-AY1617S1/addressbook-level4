@@ -22,7 +22,7 @@ public class AliasController implements Controller {
     
     private static final String NAME = "Alias";
     private static final String DESCRIPTION = "Shows current aliases or updates them.";
-    private static final String COMMAND_SYNTAX = "alias [<setting> <value>]";
+    private static final String COMMAND_SYNTAX = "alias [<alias key> <alias value>]";
     
     private static final String SPACE = " ";
     private static final int ARGS_LENGTH = 2;
