@@ -2,17 +2,19 @@ package guitests;
 
 import guitests.guihandles.TaskCardHandle;
 import static org.junit.Assert.assertTrue;
-import org.junit.Test;
-import seedu.address.logic.commands.UpdateCommand;
-import static seedu.address.logic.commands.UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS;
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.task.*;
+import static seedu.task.logic.commands.UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS;
 
-public class UpdateCommandTest extends AddressBookGuiTest {
+import org.junit.Test;
+
+import seedu.task.commons.core.Messages;
+import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.logic.commands.UpdateCommand;
+import seedu.task.model.tag.Tag;
+import seedu.task.model.task.*;
+import seedu.task.testutil.TestTask;
+import seedu.task.testutil.TestUtil;
+
+public class UpdateCommandTest extends TaskManagerGuiTest {
 	@Test
     public void update() throws IllegalValueException {
 	    TestTask[] currentList = td.getTypicalTasks();

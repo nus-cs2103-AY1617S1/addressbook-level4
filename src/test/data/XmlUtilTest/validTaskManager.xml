@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <name>Do CS1231 Assignment</name>
+    </tasks>
+    <tasks>
+        <name>Buy bread</name>
+    </tasks>
+    <tasks>
+        <name>Pay tuition fees</name>
+    </tasks>
+    <tasks>
+        <name>Compose piano solo for event</name>
+    </tasks>
+    <tasks>
+        <name>Research on flights to North Korea</name>
+    </tasks>
+    <tasks>
+        <name>Register to vote for elections</name>
+    </tasks>
+    <tasks>
+        <name>Pay utility bills</name>
+    </tasks>
+    <tasks>
+        <name>Purchase medicine for grandma</name>
+    </tasks>
+    <tasks>
+        <name>Plan for next vacation</name>
+    </tasks>
+</taskmanager>

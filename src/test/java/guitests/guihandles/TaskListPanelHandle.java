@@ -6,10 +6,11 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.testutil.TestUtil;
+import seedu.task.TestApp;
+import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.testutil.TestUtil;
+import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.Task;
 
 import java.util.List;
 import java.util.Optional;
@@ -153,7 +154,12 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     public TaskCardHandle getTaskCardHandle(int index) {
-        return getTaskCardHandle(new Task(getListView().getItems().get(index)));
+        try {
+            return getTaskCardHandle(new Task(getListView().getItems().get(index)));
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public TaskCardHandle getTaskCardHandle(ReadOnlyTask task) {
