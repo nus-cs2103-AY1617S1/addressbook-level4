@@ -126,6 +126,20 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
+     * Marks a task which is marked as complete to not complete in the list.
+     */
+    public void uncomplete(ReadOnlyTask originalTask, Task uncompleteTask) {
+        assert originalTask != null;
+        assert uncompleteTask != null;
+        
+        int index = internalList.indexOf(originalTask);
+        assert index >= 0;
+        
+        internalList.set(index, uncompleteTask);
+        history.addAsNewMutation(index, new Mutation<ReadOnlyTask>(originalTask, uncompleteTask.getImmutable()));
+    }
+    
+    /**
      * Removes the equivalent task from the list.
      *
      * @throws TaskNotFoundException

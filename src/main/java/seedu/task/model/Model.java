@@ -37,6 +37,9 @@ public interface Model {
     /** Mark the given task as completed */
     void completeTask(ReadOnlyTask originalTask, Task completedTask);
     
+    /** Unmark the given important task */
+    void uncompleteTask(ReadOnlyTask originalTask, Task uncompletedTask);
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
