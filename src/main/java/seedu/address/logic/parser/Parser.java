@@ -114,6 +114,12 @@ public class Parser {
         }
     }
     
+    /**
+     * Parses arguments in the context of the add tag command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareAddTags(String args) {
         final Matcher matcher = ADD_TAGS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -133,6 +139,8 @@ public class Parser {
 
         Integer pass = index.get();
         args = "add ".concat(args);
+        
+        //uses Edit command to add tags
         return new EditCommand(pass, args, category);
     }
 
