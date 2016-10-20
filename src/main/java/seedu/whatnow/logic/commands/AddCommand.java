@@ -1,11 +1,16 @@
 package seedu.whatnow.logic.commands;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.ocpsoft.prettytime.PrettyTime;
+
+import com.joestelmach.natty.Parser;
 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.model.tag.Tag;
@@ -65,8 +70,6 @@ public class AddCommand extends UndoAndRedo {
 
 	@Override
 	public CommandResult execute() {
-		PrettyTime p = new PrettyTime();
-		System.out.println(p.format(new Date(18/10/2016)));
 		assert model != null;
 		try {
 			model.addTask(toAdd);
