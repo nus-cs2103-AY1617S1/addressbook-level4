@@ -28,7 +28,7 @@ public class DateTimeParser {
         time = sdf.format(dateTime).toString();
         String currentTime = sdf.format(new Date()).toString();
         if (currentTime.equals(time)) {
-            throw new IllegalValueException(TaskTime.MESSAGE_TIME_CONSTRAINTS);
+            time = "";
         }
     }
     

@@ -51,6 +51,15 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        
+        if (startTime.equals("")) {
+            startTime = Messages.MESSAGE_NO_START_TIME_SET;
+        }
+        
+        if (endTime.equals("")) {
+            endTime = Messages.MESSAGE_NO_END_TIME_SET;
+        }
+        
         this.toAdd = new EventTask(
                 new TaskName(taskName),
                 new TaskDate(startDate),
@@ -71,6 +80,11 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        
+        if (endTime.equals("")) {
+            endTime = Messages.MESSAGE_NO_END_TIME_SET;
+        }
+        
         this.toAdd = new DeadlineTask(
                 new TaskName(taskName),
                 new TaskDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED),

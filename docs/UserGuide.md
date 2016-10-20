@@ -81,6 +81,7 @@ Examples:
 * `add write diary, tomorrow 1300`
 * `add prepare presentation slides by monday 2pm, high`
 
+> * The comma after `[TASK]` can be replaced with `by` or `on`.<br>
 > * `[DATE]` and `[TIME]` has to separated by a space or an 'at'.<br>
 
 
@@ -88,11 +89,12 @@ Examples:
 Format: `add TASK, DATE, START TIME, END TIME, [PRIORITY], [FREQUENCY]`
 
 Examples: 
-* `add tennis, 21 nov, 1pm, 3pm, high`
-* `add lunch with parents on friday from 12pm-1pm`
+* `add tennis, 21 nov, 1pm-3pm, high`
+* `add lunch with parents on friday from 12pm to1pm`
 
+> * The comma after `[TASK]` can be replaced with `on`.<br>
 > * The comma after `[DATE]` can be replaced with a space. <br>
-> * The comma after `[START TIME]` can be replaced with a `-`. <br>
+> * The comma after `[START TIME]` can be replaced with `to` or `-`<br>
 
 
 ##### With start and end time on different days
@@ -102,8 +104,9 @@ Examples:
 * `add dad's birthday celebration, next thurs 1900, next thurs 2100, high`
 * `add going overseas from fri at 1pm-next fri at 10pm`
 
+> * The comma after `[TASK]` can be replaced with `from`.<br>
 > * `[DATE]` and `[TIME]` has to separated by a space. <br>
-> * The comma after `[START DATE TIME]` can be replaced with a `-`.
+> * The comma after `[START DATE TIME]` can be replaced with a `to`.
 
 ##### Recurring
 To make tasks repeating, simply  add the FREQUENCY parameter at the back.
