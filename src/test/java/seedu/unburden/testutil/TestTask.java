@@ -9,6 +9,7 @@ import seedu.unburden.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
+    private TaskDescription taskD;
     private Date date;
     private Time startTime;
     private Time endTime;
@@ -25,6 +26,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Name getName() {
         return name;
+    }
+    
+    @Override
+    public TaskDescription getTaskDescription() {
+        return taskD;
     }
     
     @Override
