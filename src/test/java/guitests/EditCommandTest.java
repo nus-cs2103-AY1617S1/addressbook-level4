@@ -3,14 +3,17 @@ package guitests;
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 import seedu.flexitrack.logic.commands.AddCommand;
+import seedu.flexitrack.logic.commands.EditCommand;
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.testutil.TestTask;
 import seedu.flexitrack.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 public class EditCommandTest extends FlexiTrackGuiTest {
-
+	
+	
     @Test
     public void editPass() {
     	TestTask[] currentList = td.getTypicalTasks();
@@ -78,19 +81,43 @@ public class EditCommandTest extends FlexiTrackGuiTest {
     
     @Test
     public void editFail(){
-    	//errors
+    	TestTask[] currentList = td.getTypicalTasks();
     	
     	//index not found
-    	
-//        //edit duplicate task
-//        commandBox.runCommand(td.basketball.getAddCommand());
-//        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-//        assertTrue(taskListPanel.isListMatching(currentList));
-//
-//        
-//        //invalid command
-//        commandBox.runCommand("adds cs tutorial");
-//        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+    	commandBox.runCommand("edit " + (currentList.length + 1)  + " n/ hello");
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        
+    	//edit task starttime
+        commandBox.runCommand("edit " + 1 + " from/ today");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
+    	//edit task endtime
+        commandBox.runCommand("edit " + 1 + " to/ tomorrow");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
+    	//edit event duedate
+        commandBox.runCommand("edit " + 4 + " by/ tomorrow");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
+    	//edit floating task with only starttime
+        commandBox.runCommand("edit " + 3 + " from/ today");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
+    	//edit floating task with only endtime
+        commandBox.runCommand("edit " + 3 + " to/ tomorrow");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
+    	//edit floating task with both duedate and starttime
+        commandBox.runCommand("edit " + 3 + " by/ tomorrow from/ tomorrow");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
+    	//edit floating task with both duedate and endtime
+        commandBox.runCommand("edit " + 3 + " by/ tomorrow to/ tomorrow");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        
+        //invalid command format
+        commandBox.runCommand("edit wtf is this");
+        assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     	
     }
 

@@ -131,10 +131,10 @@ public class UniqueTaskList implements Iterable<Task> {
 
 	private void checkForIllegalFloatingTaskEdit(String[] args, Task editTask) throws IllegalEditException {
 		if(!editTask.getIsTask() && !editTask.getIsEvent()){
-        	if(args[2] != null && args[3] == null){
+        	if((args[1] != null) && (args[2] != null || args[3] != null)){
         		throw new IllegalEditException();
         	}
-        	if(args[3] != null && args[2] == null){
+        	if((args[2] != null && args[3] == null) || (args[3] != null && args[2] == null)){
         		throw new IllegalEditException();
         	}
         }
