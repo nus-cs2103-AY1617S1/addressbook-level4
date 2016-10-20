@@ -52,23 +52,23 @@ public class EditCommand extends Command {
         
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         try {
+            editTaskField.push(field);
+            
             if (field.equals("task")){
-               editTaskValue.push(taskToEdit.getTaskName().toString()); 
-            }
+                editTaskValue.push(taskToEdit.getTaskName().toString()); 
+                }
             else if (field.equals("start date")){
-                editTaskValue.push(taskToEdit.getStartDate().toString()); 
-             }
+                editTaskValue.push(taskToEdit.getStartDate().toString());
+                }
             else if (field.equals("end date")){
                 editTaskValue.push(taskToEdit.getEndDate().toString()); 
-             }
+                }
             else if (field.equals("start time")){
                 editTaskValue.push(taskToEdit.getStartTime().toString()); 
-             }
+                }
             else if (field.equals("end time")){
-                editTaskValue.push(taskToEdit.getEndTime().toString()); 
-             }
-            
-            editTaskField.push(field);
+                editTaskValue.push(taskToEdit.getEndTime().toString());
+                }
             
             model.editTask(taskToEdit, field, value);
             listOfCommands.push(COMMAND_WORD);
