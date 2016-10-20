@@ -12,8 +12,8 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+1. Download the latest version `.zip` file from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your Emeraldo
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="../assets/add_1.png" width="1000"><br>
 

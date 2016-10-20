@@ -83,7 +83,7 @@
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#e8f4ff, 20%); /*Change color of TaskListWindow */
 }
 
 .list-cell {
@@ -107,17 +107,17 @@
 }
 
 .anchor-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: derive(#033c68, 0%);    /*Change color of statusbarfooter side borders */
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-background-color: derive(#e8f4ff, 20%); /*Change color of commandBox and resultDisplay */
+     -fx-border-color: derive(#e8f4ff, 10%);    /*Change color of outer border of commandBox and resultDisplay */
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#033c68, 0%);     /*Change color of statusbarfooter */
     -fx-text-fill: black;
 }
 
@@ -135,7 +135,7 @@
 
 .status-bar-with-border {
     -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-border-color: derive(#1d1d1d, 25%);     
     -fx-border-width: 1px;
 }
 
@@ -145,7 +145,7 @@
 
 .grid-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(#033c68, 0%);     /*Change color of statusbarfooter border */
     -fx-border-width: 1px;
 }
 
@@ -162,7 +162,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#033c68, 0%); /*Change color of menu bar */
 }
 
 .menu-bar .label {

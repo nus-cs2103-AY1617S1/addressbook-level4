@@ -51,6 +51,6 @@
             </VBox>
          </items>
       </SplitPane>
-      <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+      <AnchorPane fx:id="statusbarPlaceholder" styleClass="menu-bar" VBox.vgrow="NEVER" />
    </children>
 </VBox>
