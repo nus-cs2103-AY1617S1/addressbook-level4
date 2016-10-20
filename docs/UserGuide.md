@@ -91,9 +91,9 @@ Format: `edit INDEX [FIELDS]`
 
 >Example:
 * `list all`<br>
-*  `edit 2 d/Pilot 2B`<br>
-*  Edit the 2nd floating task in DoMePlease. Example Buy Pencil.
-* A message will be displayed to inform the user that the task is edited.
+*  `edit 2 d/Pilot 2B`<br><br>
+Edits the 2nd floating task in DoMePlease. Example Buy Pencil. <br>
+A message will be displayed to inform the user that the task is edited.
 
 &nbsp;&nbsp;&nbsp;&nbsp; <b>3.7 Finding all floating tasks, deadlines and events containing any keyword in their name and tags: `find` </b><br>
 >Finds all floating tasks, deadlines and events which names and tags contain any of the given keywords.<br>
@@ -104,7 +104,7 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 >Examples: 
 * `find EE2020`<br>
-*  Returns “EE2020” and “ee2020”
+*  Returns “EE2020” and “ee2020” <br><br>
 
 >* `find 2020`<br>
 *  Returns nothing
@@ -119,9 +119,9 @@ Format: `view DATE`
 * `view 5` <br>
 * Output the full list of deadlines on the day and events that start, ends or is on-going on 5th of the current month view
 
->* `view 5-10-2016` <br>
-* This command doesn't require you to be at the selected month.
-* Output the full list of deadlines on the day and events that start, ends or is on-going on 5th October 2016.
+>* `view 5-10-2016` <br><br>
+This command doesn't require you to be at the selected month.
+Output the full list of deadlines on the day and events that start, ends or is on-going on 5th October 2016.
 
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.9 Deleting a task : `delete` </b><br>
 >Deletes the specified task from DoMePlease. <br>
@@ -133,12 +133,12 @@ Format: `delete INDEX`
 
 >Examples: 
 * `list all`<br>
-*  `delete 2`<br>
-*  Deletes the 2nd task in DoMePlease.
+*  `delete 2`<br><br>
+Deletes the 2nd floating task in all the listed. <br><br>
 
 >* `find Laundry`<br> 
-*  `delete 1`<br>
-*  Deletes the 1st person in the result of the `find` command.
+*  `delete 11`<br><br>
+Deletes the 1st event or deadline task in the result of the `find` command.<br>
   
 &nbsp;&nbsp;&nbsp;&nbsp;<b>3.10 Undoing a move: `undo` </b><br>
 >Undo the previous command entered by user. (up to 3)<br>
