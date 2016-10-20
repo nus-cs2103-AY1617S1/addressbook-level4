@@ -44,7 +44,7 @@ Format: `add [TASK/EVENT] DESCRIPTION [due/at/by DATE START_TIME END_TIME] [PRIO
 > Adding tasks or events can also be done through simple English.<br>
 > If only one time is specified, it will be interpreted as a deadline. Otherwise, the event will use the input as start and end time.
 > If no command keyword is specified, the app assumes the given command is to add, and will interpret the input as a task or event depending on whether a start and end time is given or not. <br>
-> `priority` can have values of 1 through 10. If a number greater than 10 or lower than 0 is input, the value will simply be either 10 or 1, depending on which boundary is exceeded.
+> `priority` can have values of 1 through 9. If a number greater than 9 or lower than 0 is input, the value will simply be either 10 or 1, depending on which boundary is exceeded.
 > If `priority` is given the value 0, it will remove the priority from the task. Since priority is optional, this only has relevance when updating, because when creating a task with no priority, simply omit priority at the end.
 > `priority` must be preceded with the actual word. Can be shortened to `p` as well. Otherwise, the command is less readable, and ultimately less natural (who appends numbers randomly onto tasks..? The number must be labeled.)
 
@@ -53,7 +53,7 @@ Examples:
     Adds a task with the description `do laundry` and the deadline `5PM 07/24`
 * `write sql queries due tomorrow 9pm`
     Adds a task with the description `write sql queries` and the deadline `9PM [tomorrow]`, with tomorrow being whatever date the next day is.
-* `complete software engineering project -t CS2103PROJECT priority 10`
+* `complete software engineering project -t CS2103PROJECT priority 9`
     Adds a floating task with the description `complete software engineering project` and the title `CS2103PROJECT` with no deadline.
 * `dinner with jack tomorrow at 5 pm to 6pm`
     Adds an event with the description `dinner with jack` with the time 5 to 6 pm tomorrow.

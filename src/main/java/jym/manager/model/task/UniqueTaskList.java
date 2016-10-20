@@ -84,7 +84,8 @@ public class UniqueTaskList implements Iterable<Task> {
     public void update(ReadOnlyTask toUpdate, Task updatedTask) throws TaskNotFoundException {
     	assert toUpdate != null;
     	int index = internalList.indexOf(toUpdate);
-    	internalList.set(index, updatedTask);
+    	internalList.get(index).update(updatedTask);
+    	internalList.set(index, (Task) toUpdate);
     }
     
     public ObservableList<Task> getInternalList() {
