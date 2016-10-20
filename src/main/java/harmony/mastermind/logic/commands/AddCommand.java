@@ -1,24 +1,14 @@
 package harmony.mastermind.logic.commands;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import org.ocpsoft.prettytime.PrettyTime;
-import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
-import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Arrays;
-
-import com.google.common.base.Strings;
-
 import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.exceptions.IllegalValueException;
+import harmony.mastermind.commons.exceptions.InvalidEventDateException;
 import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
@@ -77,20 +67,26 @@ public class AddCommand extends Command implements Undoable, Redoable {
     private final Task toAdd;
 
     /**
-     * Convenience constructor using raw values.
+     * Convenience constructor using raw values.<br><br>
      *
-     * @throws IllegalValueException
-     *             if any of the raw values are invalid
+     * Throws IllegalValueException if any of the raw values are invalid<br>
+     * Throws InvalidEventDateException if event type has start date after end date
      */
     // event
-    // @@author A0138862W
-    public AddCommand(String name, String startDate, String endDate, Set<String> tags) throws IllegalValueException, ParseException {
+    // @@author A0124797R
+    public AddCommand(String name, String startDate, String endDate, Set<String> tags, String recurVal) throws IllegalValueException, ParseException, InvalidEventDateException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        Date startTime = prettyTimeParser.parse(startDate).get(0);
+        Date endTime = prettyTimeParser.parse(endDate).get(0);
+        
+        if (startTime.after(endTime)) {
+            throw new InvalidEventDateException();
+        }
 
-        this.toAdd = new Task(name, prettyTimeParser.parse(startDate).get(0), prettyTimeParser.parse(endDate).get(0), new UniqueTagList(tagSet), null);
+        this.toAdd = new Task(name, startTime, endTime, new UniqueTagList(tagSet), recurVal);
 
     }
 

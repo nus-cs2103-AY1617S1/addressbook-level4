@@ -42,7 +42,7 @@ public interface ReadOnlyTask {
         builder.append(getName());
         
         if (getStartDate() != null) {
-            builder.append(" start: " + parseForConsole(getStartDate()));
+            builder.append(" start:" + parseForConsole(getStartDate()));
         }
         
         if (getEndDate() != null) {

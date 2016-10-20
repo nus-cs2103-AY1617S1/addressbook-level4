@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import com.google.common.base.Strings;
 
 import harmony.mastermind.commons.exceptions.IllegalValueException;
+import harmony.mastermind.commons.exceptions.InvalidEventDateException;
 import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.logic.commands.*;
 import harmony.mastermind.model.ModelManager;
@@ -167,7 +168,11 @@ public class Parser {
             
             if (startDate.isPresent() && endDate.isPresent()) {
                 // event
-                return new AddCommand(name, startDate.get(), endDate.get(), tagSet);
+                try {
+                    return new AddCommand(name, startDate.get(), endDate.get(), tagSet, recurVal);
+                } catch (InvalidEventDateException iede) {
+                    return new IncorrectCommand(iede.getMessage());
+                }
             } else if (!startDate.isPresent() && endDate.isPresent()) {
                 // deadline
                 return new AddCommand(name, endDate.get(), tagSet, recurVal);

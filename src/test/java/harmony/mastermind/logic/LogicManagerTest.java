@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.logic.commands.*;
@@ -19,7 +18,6 @@ import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.storage.StorageManager;
-import javafx.scene.control.Tab;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.ui.JumpToListRequestEvent;
 import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
@@ -188,14 +186,16 @@ public class LogicManagerTest {
         
         assertCommandBehavior("undo", "Undo successfully.\n"
                 + "=====Undo Details=====\n"
-                + "[Undo Add Command] Task deleted: task Tags: [tag1],[tag2]\n"
+                + "[Undo Add Command] Task deleted: "
+                + "task start:00:00|01Aug16 end:00:00|01Aug16 Tags: [tag1],[tag2]\n"
                 + "==================",
                 model.getTaskManager(),
                 model.getTaskManager().getTaskList());
         
         assertCommandBehavior("redo", "Redo successfully.\n"
                 + "=====Redo Details=====\n"
-                + "[Redo Add Command] Task added: task Tags: [tag1],[tag2]\n"
+                + "[Redo Add Command] Task added: "
+                + "task start:00:00|01Aug16 end:00:00|01Aug16 Tags: [tag1],[tag2]\n"
                 + "==================",
                 model.getTaskManager(),
                 model.getTaskManager().getTaskList());
@@ -217,7 +217,8 @@ public class LogicManagerTest {
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
-                + "[Undo Edit Command] Task reverted: task Tags: [tag1],[tag2]\n"
+                + "[Undo Edit Command] Task reverted: "
+                + "task start:00:00|01Aug16 end:00:00|01Aug16 Tags: [tag1],[tag2]\n"
                 + "==================",       
                 expectedTM,
                 expectedList);
@@ -225,7 +226,8 @@ public class LogicManagerTest {
         assertCommandBehavior("redo",
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
-                + "[Redo Edit Command] Edit the following task: task Tags: [tag1],[tag2]\n"
+                + "[Redo Edit Command] Edit the following task: "
+                + "task start:00:00|01Aug16 end:00:00|01Aug16 Tags: [tag1],[tag2]\n"
                 + "==================",       
                 expectedTM,
                 expectedList);
@@ -247,7 +249,8 @@ public class LogicManagerTest {
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
-                + "[Undo Delete Command] Task added: task Tags: [tag1],[tag2]\n"
+                + "[Undo Delete Command] Task added: "
+                + "task start:00:00|01Aug16 end:00:00|01Aug16 Tags: [tag1],[tag2]\n"
                 + "==================",       
                 expectedTM,
                 expectedList);
@@ -255,7 +258,8 @@ public class LogicManagerTest {
         assertCommandBehavior("redo",
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
-                + "[Redo Delete Command] Deleted Task: task Tags: [tag1],[tag2]\n"
+                + "[Redo Delete Command] Deleted Task: "
+                + "task start:00:00|01Aug16 end:00:00|01Aug16 Tags: [tag1],[tag2]\n"
                 + "==================",
                 model.getTaskManager(),
                 model.getListToMark());
@@ -277,7 +281,9 @@ public class LogicManagerTest {
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
-                + "[Undo Mark Command] task Tags: [tag1],[tag2] has been unmarked\n"
+                + "[Undo Mark Command] task "
+                + "start:00:00|01Aug16 end:00:00|01Aug16 "
+                + "Tags: [tag1],[tag2] has been unmarked\n"
                 + "==================",       
                 expectedTM,
                 expectedList);
@@ -285,7 +291,9 @@ public class LogicManagerTest {
         assertCommandBehavior("redo",
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
-                + "[Redo Mark Command] task Tags: [tag1],[tag2] has been archived\n"
+                + "[Redo Mark Command] task "
+                + "start:00:00|01Aug16 end:00:00|01Aug16 "
+                + "Tags: [tag1],[tag2] has been archived\n"
                 + "==================",       
                 model.getTaskManager(),
                 model.getListToMark());
@@ -309,7 +317,9 @@ public class LogicManagerTest {
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
-                + "[Undo Mark Command] task Tags: [tag1],[tag2] has been unmarked\n"
+                + "[Undo Mark Command] task "
+                + "start:00:00|01Aug16 end:00:00|01Aug16 "
+                + "Tags: [tag1],[tag2] has been unmarked\n"
                 + "==================",       
                 model.getTaskManager(),
                 model.getListToMark());
@@ -317,7 +327,9 @@ public class LogicManagerTest {
         assertCommandBehavior("redo",
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
-                + "[Redo Mark Command] task Tags: [tag1],[tag2] has been archived\n"
+                + "[Redo Mark Command] task "
+                + "start:00:00|01Aug16 end:00:00|01Aug16 "
+                + "Tags: [tag1],[tag2] has been archived\n"
                 + "==================",       
                 model.getTaskManager(),
                 model.getListToMark());
@@ -580,11 +592,12 @@ public class LogicManagerTest {
      * A utility class to generate test data.
      */
     class TestDataHelper{
+        final long time = 1469980800000L;
 
         Task task() throws Exception {
             String name = "task";
-            Date startDate = new Date();
-            Date endDate = new Date();
+            Date startDate = new Date(time);
+            Date endDate = new Date(time);
             String recur = null;
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -604,8 +617,8 @@ public class LogicManagerTest {
             
             return new Task(
                     "task"+seed,
-                    new Date(),
-                    new Date(),
+                    new Date(time),
+                    new Date(time),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
                     null
                     );

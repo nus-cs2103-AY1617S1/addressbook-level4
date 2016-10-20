@@ -2,20 +2,10 @@ package harmony.mastermind.model;
 
 import javafx.collections.ObservableList;
 
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import org.junit.Assert;
-
-import com.fasterxml.jackson.databind.deser.std.DateDeserializers.CalendarDeserializer;
-
-import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
-import harmony.mastermind.logic.commands.FindCommand;
 import harmony.mastermind.logic.parser.ParserSearch;
 import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.tag.Tag;
@@ -178,7 +168,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void addNextTask(Task t) throws UniqueTaskList.DuplicateTaskException, NotRecurringTaskException {
         syncTagsWithMasterList(t);
         Task newT = getNextTask(t);
-        tasks.add(getNextTask(t));
+        tasks.add(newT);
         syncAddTask(newT);
     }
     
@@ -194,10 +184,14 @@ public class TaskManager implements ReadOnlyTaskManager {
         
         Task newT = null;
         String[] recurVal = t.getRecur().split(" ");
-        Date nextDate = getNextDate(t.getEndDate(),recurVal[0]);
+        String nextRecur = getNextRecur(t.getRecur());
+        Date nextEndDate = getNextDate(t.getEndDate(),recurVal[0]);
         
         if (t.isDeadline()) {
-            newT = new Task(t.getName(), nextDate, t.getTags(), t.getRecur());
+            newT = new Task(t.getName(), nextEndDate, t.getTags(), nextRecur);
+        }else if (t.isEvent()) {
+            Date nextStartDate = getNextDate(t.getStartDate(), recurVal[0]);
+            newT = new Task(t.getName(), nextStartDate, nextEndDate, t.getTags(), nextRecur);
         }
         
         return newT;
@@ -233,6 +227,24 @@ public class TaskManager implements ReadOnlyTaskManager {
         return c.getTime();
     }
     
+    /**
+    * returns the next date based on the type of recurring task
+    */
+    //@@author A0124797R
+    private String getNextRecur(String recur) {
+        String[] recurArr = recur.split(" ");
+        if (recurArr.length==1) {
+            return recur;
+        }else {
+            int counter = Integer.parseInt(recurArr[1]);
+            
+            if (counter>2) {
+                return recurArr[0] + " " + Integer.toString(counter-1);
+            } else {
+                return null;
+            }
+        }
+    }
 
     /**
      * Ensures that every tag in this task:
