@@ -41,6 +41,10 @@
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
+#### Generate .jar file
+
+Run `Generate Jar build.bat` located in root folder
+
 ## Design
 
 ### Architecture
@@ -292,11 +296,11 @@ Use case ends.
 > 3a1. Task Manager shows an error message <br>
   Use case resumes at step 2
 
-#### Use case: Search task
+#### Use case: Find Tasks
 
 **MSS**
 
-1. User requests to search a task by a KEYWORD
+1. User requests to list tasks containing a KEYWORD
 2. Task Manager shows a task or more tasks which match the KEYWORD.<br>
 Use case ends.
 

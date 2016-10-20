@@ -80,21 +80,21 @@ Examples:
 * `list`
 * `list priority`
 
-#### Searching all tasks containing any keyword in their name or location: `search`
-Searches tasks with names or location contain any of the given keywords.<br>
-Format: `search KEYWORD [MORE_KEYWORDS]`
+#### Finding all tasks containing any keyword in their name or location: `find`
+Find tasks with names or location contain any of the given keywords.<br>
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> * The search is not case sensitive. e.g `tennis` will match `Tennis`
+> * The check is not case sensitive. e.g `tennis` will match `Tennis`
 > * The order of the keywords does not matter. e.g. `buy groceries` will match `groceries buy`
-> * Only the name and location is searched.
-> * Only full words will be matched e.g. `ball` will not match `balls`
-> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
+> * Only the name is checked.
+> * Partial words will be matched e.g. `ball` will match `balls`
+> * Tasks matching at least one keyword will be returned (i.e. `OR` find).
     e.g. `ball` will match `Buy tennis balls`
 
 Examples: 
-* `search  tennis`<br>
-* `search submit report`<br>
-  Returns Any tasks having `practice` or `tennis` in names or locations 
+* `find  tennis`<br>
+* `find submit report`<br>
+  Lists any tasks having `practice` or `tennis` in names or locations 
 
 #### Undo the modification : `undo`
 Undo the modification in the last step.<br>
@@ -148,7 +148,7 @@ Add | `add TASKNAME [from START_TIME] [to END_TIME] [by DEADLINE] [#TAG...]`
 Edit | `edit INDEX TASKNAME at START_TIME to END_TIME [by DEADLINE] [#TAG...]`
 Delete | `delete INDEX`
 List | `list [DATA_TYPE]`
-Search | `search KEYWORD`
+Find | `find KEYWORD`
 Undo | `undo`
 Redo | `redo`
 Set Directory | `directory PATH `
