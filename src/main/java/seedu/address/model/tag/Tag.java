@@ -45,8 +45,11 @@ public class Tag {
                 && this.tagName.equals(((Tag) other).tagName)); // state check
     }
     
-    public void setTagName(String tagName) {
-        this.tagName = tagName;
+    public void setTagName(String newTagName) throws IllegalValueException {
+        if (!isValidTagName(newTagName)) {
+            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
+        }
+        this.tagName = newTagName;
     }
 
     @Override
