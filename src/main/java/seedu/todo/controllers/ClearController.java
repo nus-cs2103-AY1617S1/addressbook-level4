@@ -54,7 +54,7 @@ public class ClearController implements Controller {
         tokenDefinitions.put("eventType", new String[] { "event", "events", "task", "tasks" });
         tokenDefinitions.put("time", new String[] { "at", "by", "on", "before", "time" });
         tokenDefinitions.put("timeFrom", new String[] { "from" });
-        tokenDefinitions.put("timeTo", new String[] { "to" });
+        tokenDefinitions.put("timeTo", new String[] { "to", "until" });
         return tokenDefinitions;
     }
     
