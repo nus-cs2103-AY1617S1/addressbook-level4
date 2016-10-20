@@ -266,7 +266,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | use up arrow or down arrow to reuse previous command(s) | minimise re-typing
 `* *` | user | indicate overdue tasks with color code (red) | easily to track overdue task
 `* *` | user | indicate a completed task with color code (green) | easily to track done task  
-`* *` | user | make a task recurring | duplicate a task for more than a day  
+`* *` | user | make a task recurring | duplicate a task for specific number of days  
 `*` | user | lock task scheduler(with a password) | prevent unauthorized access/modification 
 
 ## Appendix B : Use Cases
