@@ -24,8 +24,8 @@ public class ClearController implements Controller {
     private static final String DESCRIPTION = "Clear all tasks/events or by specify date.";
     private static final String COMMAND_SYNTAX = "clear [task/event] on [date]";
     private static final String COMMAND_WORD = "clear";
-    
-    private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s tasks and events have been deleted!\n" + "To undo, type \"undo\".";;
+    private static final String MESSAGE_CLEAR_NO_ITEM_FOUND = "No item found!";
+    private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s deleted!\n" + "To undo, type \"undo\".";;
     private String invalidDate = null;
     
     private static CommandDefinition commandDefinition =
@@ -109,7 +109,7 @@ public class ClearController implements Controller {
     private void destroyByDate(TodoListDB db, String[] parsedDate, LocalDateTime dateOn, 
             LocalDateTime dateFrom, LocalDateTime dateTo, String input) {
         if (dateOn != null) {
-            destroyByDate(db, dateOn);
+            destroyBySelectedDate(db, dateOn);
             return;
         } else if (dateFrom != null || dateTo != null) {
             destroyByRange(db, dateFrom, dateTo);
@@ -129,11 +129,34 @@ public class ClearController implements Controller {
      *            null if parsing failed or End date for Event
      */
     private void destroyByRange(TodoListDB db, LocalDateTime dateFrom, LocalDateTime dateTo) {
-        int totalCalendarItems = db.getEventByRange(dateFrom, dateTo).size() + db.getTaskByRange(dateFrom, dateTo).size();
+        int numTasks = db.getTaskByRange(dateFrom, dateTo).size();
+        int numEvents = db.getEventByRange(dateFrom, dateTo).size();
+        if (numTasks == 0 && numEvents == 0) {
+            Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
+            return;
+        }
+        
         db.destroyAllEventByRange(dateFrom, dateTo);
         db.destroyAllTaskByRange(dateFrom, dateTo);
-        Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, totalCalendarItems));
-        
+        Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, displaySuccessMessage(numTasks, numEvents)));
+    }
+    
+    private String displaySuccessMessage (int numTasks, int numEvents) {
+        if (numTasks != 0 && numEvents != 0) {
+            return String.format("%s and %s", formatTaskMessage(numTasks), formatEventMessage(numEvents));
+        } else if (numTasks != 0) {
+            return formatTaskMessage(numTasks);
+        } else {
+            return formatEventMessage(numEvents);
+        }
+    }
+    
+    private String formatEventMessage (int numEvents) {
+        return String.format("%d %s", numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
+    }
+    
+    private String formatTaskMessage (int numTasks) {
+        return String.format("%d %s", numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"));
     }
 
     /**
@@ -168,11 +191,16 @@ public class ClearController implements Controller {
      * @param givenDate
      *            null if parsing failed or Due date for Task or start date for Event
      */
-    private void destroyByDate(TodoListDB db, LocalDateTime givenDate) {
-        int totalCalendarItems = db.getEventByDate(givenDate).size() + db.getTaskByDate(givenDate).size();
+    private void destroyBySelectedDate(TodoListDB db, LocalDateTime givenDate) {
+        int numTasks = db.getTaskByDate(givenDate).size();
+        int numEvents = db.getEventByDate(givenDate).size();
+        if (numTasks == 0 && numEvents == 0) {
+            Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
+            return;
+        }
         db.destroyAllEventByDate(givenDate);
         db.destroyAllTaskByDate(givenDate);
-        Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, totalCalendarItems));
+        Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, displaySuccessMessage(numTasks, numEvents)));
     }
 
     /**
