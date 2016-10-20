@@ -1,6 +1,8 @@
 package tars.logic.commands;
 
+import tars.commons.core.EventsCenter;
 import tars.commons.core.Messages;
+import tars.commons.events.ui.TaskAddedEvent;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.DateTimeUtil;
@@ -69,6 +71,14 @@ public class AddCommand extends UndoableCommand {
             tagSet.add(new Tag(tagName));
         }
 
+        this.toAdd = new Task(
+                new Name(name),
+                new DateTime(dateTime[0], dateTime[1]),
+                new Priority(priority),
+                new Status(),
+                new UniqueTagList(tagSet)
+                );
+        
         int numTask = ADDTASK_DEFAULT_NUMTASK;
         if (recurringString != null && recurringString.length > 1) {
             numTask = Integer.parseInt(recurringString[RECURRINGSTRING_INDEX_OF_NUMTASK]);
@@ -111,6 +121,7 @@ public class AddCommand extends UndoableCommand {
                 model.addTask(toAdd);
             }
             model.getUndoableCmdHist().push(this);
+            EventsCenter.getInstance().post(new TaskAddedEvent(model.getFilteredTaskList().size()+1));
             return new CommandResult(messageSummary());
         } catch (DuplicateTaskException e) {
             return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
