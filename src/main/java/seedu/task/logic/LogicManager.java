@@ -7,7 +7,6 @@ import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.CommandResult;
 import seedu.task.logic.commands.IncorrectCommand;
 import seedu.task.logic.parser.CommandParser;
-import seedu.task.logic.parser.Parser;
 import seedu.task.model.Model;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.storage.Storage;

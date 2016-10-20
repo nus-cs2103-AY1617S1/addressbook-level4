@@ -1,7 +1,6 @@
 package seedu.task.storage;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.commons.util.CollectionUtil;
 import seedu.task.model.tag.Tag;
 
 import javax.xml.bind.annotation.XmlValue;

@@ -3,7 +3,6 @@ package seedu.task.logic.commands;
 import java.util.HashSet;
 import java.util.Set;
 
-import javafx.collections.ObservableList;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;

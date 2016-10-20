@@ -29,7 +29,7 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute(boolean isUndo) {
         // TODO Auto-generated method stub
-        String taskToUndo = "";
+        //String taskToUndo = ""; //commented out by Jun Hao
         String outputUndoList = "";
         if(HistoryList.getUndoList().size() != 0) {
             String[] getIndex = HistoryList.getPreviousCommand().get(HistoryList.getPreviousCommand().size()-1).split(" ");

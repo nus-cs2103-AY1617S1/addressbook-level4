@@ -29,9 +29,6 @@ public class BackupCommand extends Command {
 
 //    private final Task toBackup;
 //    private final Model model;
-
-    //This constant string variable is used to append messages for readability.
-    private final String STRING_EMPTY = "";
     
     //This constant string variable is file extension of the storage file.
     private final String FILE_EXTENSION = ".xml";
