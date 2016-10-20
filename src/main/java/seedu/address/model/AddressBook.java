@@ -11,6 +11,7 @@ import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.storage.XmlAdaptedTag;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -63,8 +64,8 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyActivity> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Activity::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyActivity> newPersons, Collection<Tag> newTags) {	
+    	setPersons(newPersons.stream().map(Activity::create).collect(Collectors.toList()));
         setTags(newTags);
     }
 

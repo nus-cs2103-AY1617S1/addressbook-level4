@@ -1,8 +1,12 @@
 package seedu.address.model.activity;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.activity.event.Event;
+import seedu.address.model.activity.event.ReadOnlyEvent;
 import seedu.address.model.activity.task.DueDate;
 import seedu.address.model.activity.task.Priority;
+import seedu.address.model.activity.task.ReadOnlyTask;
+import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
@@ -110,6 +114,21 @@ public class Activity implements ReadOnlyActivity {
 		return false;
 	}
     
-    
+    public static Activity create (ReadOnlyActivity act) {
+		
+    	String actType = act.getClass().getSimpleName().toLowerCase();
+    	
+    			switch (actType) {
+                
+    			case "activity":
+                    return new Activity(act);
+                case "task":
+                	 return new Task((ReadOnlyTask) act);
+                case "event":
+                	return new Event((ReadOnlyEvent) act);
+    }
+				return null;
+    	
+    }
 
 }
