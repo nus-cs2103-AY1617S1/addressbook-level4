@@ -23,16 +23,11 @@ public class ItemBuilder {
         return null;
     }
     
-    public ItemBuilder withStartDate(String startdate) throws IllegalValueException{
+    public ItemBuilder withDates(String startdate) throws IllegalValueException{
     	DateTimeParser parser = new DateTimeParser(startdate);
 		LocalDateTime startTimeObj = parser.extractStartDate();
-		this.item.setStartDate(startTimeObj);
-		return this;
-    }
-    
-    public ItemBuilder withEndDate(String enddate) throws IllegalValueException{
-    	DateTimeParser parser = new DateTimeParser(enddate);
 		LocalDateTime endTimeObj = parser.extractStartDate();
+		this.item.setStartDate(startTimeObj);
 		this.item.setEndDate(endTimeObj);
 		return this;
     }
