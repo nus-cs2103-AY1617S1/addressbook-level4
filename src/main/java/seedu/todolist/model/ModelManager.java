@@ -7,6 +7,7 @@ import seedu.todolist.commons.core.UnmodifiableObservableList;
 import seedu.todolist.commons.events.model.AddressBookChangedEvent;
 import seedu.todolist.commons.util.StringUtil;
 import seedu.todolist.model.task.ReadOnlyTask;
+import seedu.todolist.model.task.Status;
 import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
@@ -25,6 +26,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Task> filteredTasks;
+    
+    private FilteredList<Task> filteredCompleteTasks;
+    private FilteredList<Task> filteredIncompleteTasks;
+    
     private final Stack<ReadOnlyAddressBook> addressBookHistory;
 
     /**
@@ -40,6 +45,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook = new AddressBook(src);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
+        filteredCompleteTasks = new FilteredList<>(addressBook.getCompletedTasks());
+        filteredIncompleteTasks = new FilteredList<>(addressBook.getIncompleteTasks());
         addressBookHistory = new Stack<ReadOnlyAddressBook>();
     }
 
@@ -50,6 +57,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredTasks = new FilteredList<>(addressBook.getTasks());
+        filteredCompleteTasks = new FilteredList<>(addressBook.getCompletedTasks());
+        filteredIncompleteTasks = new FilteredList<>(addressBook.getIncompleteTasks());
         addressBookHistory = new Stack<ReadOnlyAddressBook>();
     }
 
@@ -74,6 +83,13 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
+    }
+    
+    @Override
+    public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
+        addressBookHistory.push(new AddressBook(this.addressBook));
+        addressBook.markTask(target);
+        indicateAddressBookChanged();
     }
 
     @Override
@@ -104,6 +120,16 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredCompleteTaskList() {
+        return new UnmodifiableObservableList<>(filteredCompleteTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredIncompleteTaskList() {
+        return new UnmodifiableObservableList<>(filteredIncompleteTasks);
+    }
 
     @Override
     public void updateFilteredListToShowAll() {
@@ -117,6 +143,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+        filteredCompleteTasks.setPredicate(expression::satisfies);
+        filteredIncompleteTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================

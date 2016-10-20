@@ -11,6 +11,7 @@ public class TestTask implements ReadOnlyTask {
     private Interval interval;
     private Location location;
     private Remarks remarks;
+    private Status status;
 
     public void setName(Name name) {
         this.name = name;
@@ -26,6 +27,10 @@ public class TestTask implements ReadOnlyTask {
 
     public void setRemarks(Remarks remarks) {
     	this.remarks = remarks;
+    }
+    
+    public void setStatus(Status status) {
+        this.status = status;
     }
     
     @Override
@@ -46,6 +51,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Remarks getRemarks() {
     	return remarks;
+    }
+    
+    @Override
+    public Status getStatus() {
+        return status;
     }
 
     @Override

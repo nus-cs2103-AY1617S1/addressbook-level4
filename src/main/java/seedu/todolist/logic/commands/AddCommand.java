@@ -32,7 +32,8 @@ public class AddCommand extends Command {
                 new Name(name),
                 new Interval(startDate, startTime, endDate, endTime),
                 new Location(location),
-                new Remarks(remarks)
+                new Remarks(remarks),
+                new Status(null)
         );
     }
 

@@ -14,23 +14,25 @@ public class Task implements ReadOnlyTask {
     private Interval interval;
     private Location location;
     private Remarks remarks;
+    private Status status;
 
     /**
      * Only Name and Interval field must be present and not null. Other fields can be null.
      */
-    public Task(Name name, Interval interval, Location location, Remarks remarks) {
+    public Task(Name name, Interval interval, Location location, Remarks remarks, Status status) {
         assert !CollectionUtil.isAnyNull(name, interval);
         this.name = name;
         this.interval = interval;
         this.location = location;
         this.remarks = remarks;
+        this.status = status;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getInterval(), source.getLocation(), source.getRemarks());
+        this(source.getName(), source.getInterval(), source.getLocation(), source.getRemarks(), source.getStatus());
     }
 
     @Override
@@ -51,6 +53,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public Remarks getRemarks() {
     	return remarks;
+    }
+    
+    @Override
+    public Status getStatus() {
+        return status;
     }
 
     @Override

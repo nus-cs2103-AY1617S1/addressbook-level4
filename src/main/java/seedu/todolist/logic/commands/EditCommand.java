@@ -8,6 +8,7 @@ import seedu.todolist.model.task.Location;
 import seedu.todolist.model.task.Name;
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.Remarks;
+import seedu.todolist.model.task.Status;
 import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -37,7 +38,8 @@ public class EditCommand extends Command {
                 new Name(name),
                 new Interval(startDate, startTime, endDate, endTime),
                 new Location(location),
-                new Remarks(remarks)
+                new Remarks(remarks),
+                new Status(null)
         );
     }
     
