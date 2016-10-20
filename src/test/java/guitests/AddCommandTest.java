@@ -1,4 +1,4 @@
-//package guitests;
+package guitests;
 //
 //import guitests.guihandles.DeadlineTaskCardHandle;
 //import guitests.guihandles.EventTaskCardHandle;
@@ -13,7 +13,7 @@
 //
 //import static org.junit.Assert.assertTrue;
 //
-//public class AddCommandTest extends TaskManagerGuiTest {
+public class AddCommandTest extends TaskManagerGuiTest {
 //
 //    @Test
 //    public void add() {
@@ -110,4 +110,4 @@
 //        default:
 //        }
 //	}
-//}
+}

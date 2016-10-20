@@ -37,7 +37,7 @@ public class DeadlineTaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        taskName.setText(task.getName().fullName);
+        taskName.setText(task.getName().value);
         id.setText(displayedIndex + ". ");
         taskType.setText(task.getTaskType().toString());
         dueDateAndTime.setText(task.getEndDate().get().toString());

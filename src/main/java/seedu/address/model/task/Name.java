@@ -11,7 +11,7 @@ public class Name {
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should contain at least one non-whitespace character";
     public static final String NAME_VALIDATION_REGEX = ".*\\S+.*";
 
-    public final String fullName;
+    public final String value;
 
     /**
      * Validates given name.
@@ -24,7 +24,7 @@ public class Name {
         if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.fullName = name;
+        this.value = name;
     }
 
     /**
@@ -37,19 +37,19 @@ public class Name {
 
     @Override
     public String toString() {
-        return fullName;
+        return value;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                && this.fullName.equals(((Name) other).fullName)); // state check
+                && this.value.equals(((Name) other).value)); // state check
     }
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return value.hashCode();
     }
 
 }

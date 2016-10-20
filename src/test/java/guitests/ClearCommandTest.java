@@ -1,4 +1,4 @@
-//package guitests;
+package guitests;
 //
 //import org.junit.Test;
 //
@@ -6,7 +6,7 @@
 //
 //import static org.junit.Assert.assertTrue;
 //
-//public class ClearCommandTest extends TaskManagerGuiTest {
+public class ClearCommandTest extends TaskManagerGuiTest {
 //
 //    @Test
 //    public void clear() {
@@ -43,4 +43,4 @@
 //        assertSomedayListSize(0);
 //        assertResultMessage("Task manager has been cleared!");
 //    }
-//}
+}

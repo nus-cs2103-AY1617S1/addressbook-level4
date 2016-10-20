@@ -35,7 +35,7 @@ public class SomedayTaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        taskName.setText(task.getName().fullName);
+        taskName.setText(task.getName().value);
         id.setText(displayedIndex + ". ");
         taskType.setText(task.getTaskType().toString());
     }

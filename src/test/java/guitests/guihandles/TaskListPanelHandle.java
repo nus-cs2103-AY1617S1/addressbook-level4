@@ -69,9 +69,9 @@ public class TaskListPanelHandle extends GuiHandle {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            System.out.println("TaskInList: " + tasksInList.get(startPosition + i).getName().fullName);
-            System.out.println("tasks: " + tasks[i].getName().fullName);
-        	if (!tasksInList.get(startPosition + i).getName().fullName.equals(tasks[i].getName().fullName)){
+            System.out.println("TaskInList: " + tasksInList.get(startPosition + i).getName().value);
+            System.out.println("tasks: " + tasks[i].getName().value);
+        	if (!tasksInList.get(startPosition + i).getName().value.equals(tasks[i].getName().value)){
                 return false;
             }
         }
@@ -115,7 +115,7 @@ public class TaskListPanelHandle extends GuiHandle {
 
     public SomedayTaskCardHandle navigateToSomedayTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> (p.getTaskType().value.equals(TaskType.Type.SOMEDAY)) && p.getName().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> (p.getTaskType().value.equals(TaskType.Type.SOMEDAY)) && p.getName().value.equals(name)).findAny();
         if (!task.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
@@ -140,7 +140,7 @@ public class TaskListPanelHandle extends GuiHandle {
     
     public DeadlineTaskCardHandle navigateToDeadlineTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> (p.getTaskType().value.equals(TaskType.Type.DEADLINE)) && p.getName().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> (p.getTaskType().value.equals(TaskType.Type.DEADLINE)) && p.getName().value.equals(name)).findAny();
         if (!task.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
@@ -165,7 +165,7 @@ public class TaskListPanelHandle extends GuiHandle {
     
     public EventTaskCardHandle navigateToEventTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> (p.getTaskType().value.equals(TaskType.Type.DEADLINE)) && p.getName().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> (p.getTaskType().value.equals(TaskType.Type.DEADLINE)) && p.getName().value.equals(name)).findAny();
         if (!task.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }

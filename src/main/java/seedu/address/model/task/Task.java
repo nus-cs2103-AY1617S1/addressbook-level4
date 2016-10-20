@@ -132,5 +132,6 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
-    }   
+    }
+  
 }

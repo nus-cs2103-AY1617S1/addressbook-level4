@@ -100,7 +100,7 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTaskType().value + " '");
-        sb.append(this.getName().fullName + "'");
+        sb.append(this.getName().value + "'");
         if (this.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
         	sb.append(" by " + this.getEndDate().toString());
         } else if (this.getTaskType().value.equals(TaskType.Type.EVENT)) {
@@ -114,7 +114,7 @@ public class TestTask implements ReadOnlyTask {
     public String getEditCommand(int index) {
     	StringBuilder sb = new StringBuilder();
         sb.append("edit " + this.getTaskType().value + " " + index + " '");
-        sb.append(this.getName().fullName + "'");
+        sb.append(this.getName().value + "'");
         if (this.getTaskType().value.equals(TaskType.Type.DEADLINE)) {
         	sb.append(" by " + this.getEndDate().toString());
         } else if (this.getTaskType().value.equals(TaskType.Type.EVENT)) {
