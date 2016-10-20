@@ -30,7 +30,7 @@ public class EditCommand extends Command implements Undoable, Redoable {
 
     public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<index>\\d+))"
                                                         + "(?=(?:.*?r\\/'(?<recur>.+?)')?)" 
-                                                        + "(?=(?:.*?\\s\\'(?<name>.+?)'))"
+                                                        + "(?=(?:.*?\\s\\'(?<name>.+?)')?)"
                                                         + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
                                                         + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
                                                         + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"
