@@ -49,7 +49,7 @@ allprojects {
     }
 
     dependencies {
-        compile "com.joestelmach.natty:natty:0.13-SNAPSHOT"
+        compile "com.joestelmach:natty:0.13-SNAPSHOT"
 
         compile "org.controlsfx:controlsfx:$controlsFxVersion"
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
