@@ -38,7 +38,6 @@ public class UpdateCommand extends Command {
     
     public UpdateCommand(int targetIndex, String name, String openTime, String closeTime, Set<String> tagsToAdd, Set<String> tagsToRemove) throws IllegalValueException { 
         this.targetIndex = targetIndex;
-        System.out.println(name);
         this.newTaskName = (name.isEmpty()) ? null : new Name(name);
         
         final Set<Tag> tagSet = new HashSet<>();
