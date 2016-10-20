@@ -68,6 +68,8 @@ public class ListController implements Controller {
             return ;
         }
         
+        boolean isExactCommand = parseExactListCommand(parsedResult);
+        
         // Task or event?
         boolean listAll = parseListAllType(parsedResult);
         
@@ -95,7 +97,7 @@ public class ListController implements Controller {
         LocalDateTime dateTo = naturalTo == null ? null : parseNatural(naturalTo);
         
         //setting up view
-        setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo);
+        setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isExactCommand, input, parsedDates);
         
     }
 
@@ -120,22 +122,28 @@ public class ListController implements Controller {
      *            End date for Event
      */
     private void setupView(boolean isTask, boolean listAll, boolean isCompleted,
-            boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, LocalDateTime dateTo) {
+            boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, 
+            LocalDateTime dateTo, boolean isExactCommand, String input, String [] parsedDate) {
         TodoListDB db = TodoListDB.getInstance();
         List<Task> tasks = null;
         List<Event> events = null;
         // isTask and isEvent = true, list all type
-        if (listAll) {
+        if (listAll) { //task or event not specify
             //no event or task keyword found
             isTask = false;
-            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db);
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isExactCommand, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isExactCommand, db);
         }
         
         if (isTask) {
-            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isExactCommand, db);
         } else {
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isExactCommand, db);
+        }
+        
+        if (tasks == null && events == null) {
+            displayErrorMessage(input, parsedDate);
+            return ; //display error message
         }
         
         // Update console message
@@ -150,13 +158,40 @@ public class ListController implements Controller {
             numEvents = events.size();
         }
         
-        String consoleMessage = MESSAGE_LISTING_FAILURE;
+        String consoleMessage = "";
         if (numTasks != 0 || numEvents != 0) {
             consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, formatDisplayMessage(numTasks, numEvents));
+        } else {
+            consoleMessage = "No items found!";
         }
         
         Renderer.renderIndex(db, consoleMessage, tasks, events);
        
+    }
+    
+    /**
+     * display error message due to invalid clear command
+     * 
+     * @param input
+     *            based on user input
+     * @param parsedDate            
+     *            the date entered by the user      
+     */
+    private void displayErrorMessage(String input, String[] parsedDate) {
+        String consoleDisplayMessage = String.format("You have entered : %s.",input);
+        String commandLineMessage;
+        if (parsedDate == null) {
+            commandLineMessage = COMMAND_SYNTAX;
+        } else if (parsedDate[0] != null) {
+            commandLineMessage = String.format("%s by <date>", COMMAND_SYNTAX);
+        } else if (parsedDate[1] != null && parsedDate[2] != null) {
+            commandLineMessage = String.format("%s from <date> to <date>", COMMAND_SYNTAX);
+        } else if (parsedDate[1] != null) {
+            commandLineMessage = String.format("%s from <date>", COMMAND_SYNTAX);
+        } else { //update here
+            commandLineMessage = String.format("%s to <date>", COMMAND_SYNTAX);
+        }
+        Renderer.renderDisambiguation(commandLineMessage, consoleDisplayMessage);
     }
     
     private String formatDisplayMessage (int numTasks, int numEvents) {
@@ -177,11 +212,15 @@ public class ListController implements Controller {
         return String.format("%d %s", numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"));
     }
     
-    private List<Event> setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, 
-            LocalDateTime dateTo, TodoListDB db) {
+    private List<Event> setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn,
+            LocalDateTime dateFrom, LocalDateTime dateTo, boolean isExactCommand, TodoListDB db) {
         if (dateFrom == null && dateTo == null && dateOn == null) {
-            if (listAllStatus) {
-                return db.getAllEvents();
+            if (listAllStatus) { // not specify
+                if (isExactCommand) {
+                    return db.getAllEvents();
+                } else {
+                    return null;
+                }
             } else if (isCompleted) {
                 return db.getEventByRange(null, LocalDateTime.now());
             } else {
@@ -195,10 +234,14 @@ public class ListController implements Controller {
     }
 
     private List<Task> setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
-            LocalDateTime dateTo, TodoListDB db) {
+            LocalDateTime dateTo, boolean isExactCommand, TodoListDB db) {
         if (dateFrom == null && dateTo == null && dateOn == null) {
-            if (listAllStatus) {
-                return db.getAllTasks();
+            if (listAllStatus) { // not specify
+                if (isExactCommand) {
+                    return db.getAllTasks();
+                } else {
+                    return null;
+                }
             } else {
                 return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
             }
@@ -227,6 +270,10 @@ public class ListController implements Controller {
         }
         LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
         return DateUtil.floorDate(ldt);
+    }
+    
+    private boolean parseExactListCommand(Map<String, String[]> parsedResult) {
+        return parsedResult.get("default")[1] == null;
     }
     
     /**
