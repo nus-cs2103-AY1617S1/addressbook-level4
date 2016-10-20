@@ -23,13 +23,12 @@
    * **`list -t`** : lists all tasks that are not done. 
    * **`add`** `CS2103 Lab 6 /desc finish lab /by 30-12-16` : 
      adds a task named `CS2103 Lab 6` with a description of `finish lab` by the deadline of `30-12-16`.
-   * **`mark`**` 3` : marks and removes the 3rd task shown in the current task list.
+   * **`mark`**` 3` : marks the 3rd task as complete.
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
 ## Features
-
  
 #### Adding a task
 Adds a task to the TaskBook<br>
@@ -40,7 +39,7 @@ Format: `add TASK_NAME [/desc DESCRIPTION] [/by DEADLINE_DATE_TIME]` <br>
 > With the exception of `TASK_NAME`, all other parameters are optional. The order of parameters are not fixed. 
 > `DEADLINE_DATE_TIME` can be entered in any natural language format.
 > For date, entering words like today, tomorrow and day after are recognised.
-> For time, entering 7pm, 0700 or 19.30 are recognised.
+> For time, entering 7pm, 0700 or 19.00 are recognised.
 > If no time is entered, it is assumed to be due at 23:59 hours.
 
 Examples: 
@@ -56,9 +55,9 @@ Format: `add EVENT_NAME [/desc DESCRIPTION] [/from START_DATE_TIME > END_DATE_TI
 > With the exception of `EVENT_NAME`, all other parameters are optional. The order of parameters are not fixed. 
 > `START_DATE_TIME` and `END_DATE_TIME` can be entered in natural language.
 > For date, entering words like today, tomorrow and day after are recognised.
-> For time, entering 7pm, 0700 or 19.30 are recognised.
+> For time, entering 7pm, 0700 or 19.00 are recognised.
 > If no time is entered, it is assumed to start at 00:00 hours and end at 23:59 hours.
-> If only one date parameter is given after “/from”, the start and end dates and time will be the same.
+> If only one date parameter is given after “/from”, the start and end dates will be the same, the default timing will be set 1 hour apart.
 
 Examples:
 * `add CS2103 Exam /desc final examination @ MPSH3 /from today 4pm > 6pm` <br>
@@ -154,7 +153,19 @@ Examples:
 * `delete -t 1`  
   Deletes the 1st task in the most recent listing
 
+  
+#### Selecting a task/event
+Selects an existing task/event from the last shown task/event list.  
 
+Format: `select -t|-e INDEX`
+
+> Selects the task/event at the specified `INDEX` in the most recent task/event listing.
+
+Examples:
+* `select -t 1`  
+  Selects the 1st task in the most recent listing
+
+  
 #### Changing the save location
 Taskbook data are saved in a file called taskbook.txt in the project root folder. You can change the location by specifying the file path as a program argument.  
 
@@ -182,7 +193,7 @@ Can go back to historical versions of the TaskBook with the use of undo commands
 Format: `undo`
 
 
-#### finding for events/tasks
+#### Finding for events/tasks
 With the find command, you can find for tasks or events which contain some keywords in their name. 
 
 Format: `find -e|-t KEYWORD [MORE_KEYWORDS]`
@@ -247,7 +258,7 @@ Format : `exit`
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your preious Task Book.
+       the file that contains the data of your previous Task Book.
        
 ## Command Summary
 
@@ -260,9 +271,12 @@ Format : `exit`
 [Edit Event](#editing-an-event) | `edit -e INDEX [/name NEW_EVENT_NAME] [/desc NEW_EVENT_DESCRIPTION] [/from NEW_START_DATE_TIME > NEW_END_DATE_TIME]`
 [Mark Task](#marking-a-task-as-completed) | `mark INDEX`
 [Delete Task or Event](#deleting-a-task/event) |`delete -t|-e INDEX`
+[Select Task or Event](#selecting-a-task/event) |`select -t|-e INDEX`
 [Save](#changing-the-save-location) | `save FILEPATH`
 [Help](#viewing-help) | `help [COMMAND]`
 [Undo](#undo-modifications) | `undo`
-[Find](#finding-for-events/tasks) | `find -e|-t KEYWORD [MORE_KEYWORDS]`
+[Find](#finding-for-events/tasks) | `find -t|-e KEYWORD [MORE_KEYWORDS]`
+[Clear Tasks or Events](#clearing-completed/uncompleted-tasks/events) |`clear -t|-e [-a]`
+[Clear Tasks and Events](#clearing-completed/uncompleted-tasks and events) |`clear [-a]`
 [Exit](#exiting-the-program) | `exit`
 
