@@ -20,7 +20,6 @@ import seedu.task.storage.StorageManager;
 import seedu.task.ui.Ui;
 import seedu.task.ui.UiManager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;

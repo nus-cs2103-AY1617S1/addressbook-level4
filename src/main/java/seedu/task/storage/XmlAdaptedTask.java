@@ -1,9 +1,9 @@
 package seedu.task.storage;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.person.*;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
+import seedu.task.model.task.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class XmlAdaptedTask {
         name = source.getName().fullName;
         startTime = source.getStartTime().value;
         endTime = source.getEndTime().value;
-        location = source.getLocation().value;
+        location = source.getDeadline().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -61,7 +61,7 @@ public class XmlAdaptedTask {
         final Name name = new Name(this.name);
         final StartTime startTime = new StartTime(this.startTime);
         final EndTime endTime = new EndTime(this.endTime);
-        final Location location = new Location(this.location);
+        final Deadline location = new Deadline(this.location);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(name, startTime, endTime, location, tags);
     }

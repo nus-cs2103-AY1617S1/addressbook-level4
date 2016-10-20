@@ -17,8 +17,8 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 6. Refer to the [Features](#features) section below for details of each command.<br>5. Some example commands you can try:
-   * **`add Practice tennis, s/tomorrow 3pm, e/tomorrow 6pm, l/school court 4, #sports`** : adds a task `Practice tennis` for the next day from 3pm to 6pm with a tag `sports`
-   * **`edit s/tomorrow 4pm`** :  updates information stored
+   * **`add do homework from 12.00pm to 01.00pm by 03.00pm #homework`** : adds a task `Practice do homework` for the today from 12pm to 1pm with deadline set at 3pm tagged `homework`
+   * **`edit 2 morning class at 08.00am to 10.00am`** :  updates information stored
    * **`list`** : lists all tasks in order of index
    * **`delete`** : deletes the 1st indexed task
    * **`exit`** : exits the app
@@ -36,19 +36,18 @@ Format: `help`
 
 #### Adding a task: `add`
 Adds a task to the TaskManager<br>
-Format: `add TASK_NAME[, s/START_TIME][, e/END_TIME][, [p/PRIORITY_LEVEL][, d/DEADLINE][, l/LOCATION][, t/TAG1 t/TAG2 ...][, c/COMPLETED_STATUS]` 
+Format: `add TASKNAME [from START_TIME] [to END_TIME] [by DEADLINE] [#TAG...]` 
 
 > All additional information after `TASK_NAME` are optional
-> If left blank, `PRIORITY_LEVEL` defaults to `medium` and `COMPLETED_STATUS` defaults to `uncompleted`
 > Each task can have up to 5 tags
 
 Examples: 
-* `add project team meeting, s/tomorrow 15:00 e/18:00 p/high `
-* `add cs2103 assignment s/tonight 21:00 e/24:00 p/medium d/next friday`
+* `add project team meeting, from 01.00pm to 03.00pm #CS2103`
+* `add cs2103 assignment by 11.59pm #CS2103`
 
 #### Editing a task: `Edit`
 Edit task information in the TaskManager<br>
-Format: `edit INDEX/TASK_NAME[, TASK_NAME][, s/START_TIME][, e/END_TIME][, [p/PRIORITY_LEVEL][, d/DEADLINE][, l/LOCATION][, t1/TAG1 t4/TAG4 ...][, c/COMPLETED_STATUS] `
+Format: `INDEX TASKNAME at START_TIME to END_TIME [by DEADLINE] [#TAG...]`
 
 > Edit the task at the specific `INDEX` or `TASK_NAME`
      The index refers to the index number shown in the most recent listing.<br>
@@ -56,8 +55,8 @@ Format: `edit INDEX/TASK_NAME[, TASK_NAME][, s/START_TIME][, e/END_TIME][, [p/PR
      `TASK_NAME` should be the same as the task name stored in the TaskManager regardless of the word case
 
 Examples: 
-* `edit 2 s/3pm` 
-* `edit meeting p/low`
+* `edit 2 morning class at 08.00am to 10.00am` 
+* `edit 4 dinner at 08.00pm to 10.00pm by 12.00am`
 
 #### Deleting a task : `delete`
 Deletes the specified task from the TaskManager.<br>
@@ -81,21 +80,21 @@ Examples:
 * `list`
 * `list priority`
 
-#### Searching all tasks containing any keyword in their name or location: `search`
-Searches tasks with names or location contain any of the given keywords.<br>
-Format: `search KEYWORD [MORE_KEYWORDS]`
+#### Finding all tasks containing any keyword in their name or location: `find`
+Find tasks with names or location contain any of the given keywords.<br>
+Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> * The search is not case sensitive. e.g `tennis` will match `Tennis`
+> * The check is not case sensitive. e.g `tennis` will match `Tennis`
 > * The order of the keywords does not matter. e.g. `buy groceries` will match `groceries buy`
-> * Only the name and location is searched.
-> * Only full words will be matched e.g. `ball` will not match `balls`
-> * Tasks matching at least one keyword will be returned (i.e. `OR` search).
+> * Only the name is checked.
+> * Partial words will be matched e.g. `ball` will match `balls`
+> * Tasks matching at least one keyword will be returned (i.e. `OR` find).
     e.g. `ball` will match `Buy tennis balls`
 
 Examples: 
-* `search  tennis`<br>
-* `search submit report`<br>
-  Returns Any tasks having `practice` or `tennis` in names or locations 
+* `find  tennis`<br>
+* `find submit report`<br>
+  Lists any tasks having `practice` or `tennis` in names or locations 
 
 #### Undo the modification : `undo`
 Undo the modification in the last step.<br>
@@ -107,15 +106,18 @@ Format: `redo`
 
 #### Change working directory : `directory`
 Change data file being accessed, effectively using another TaskManager list.<br>
+A manual restart of the application is required, thus TaskManager will close itself.
 Format: `directory PATH`  
 Examples: 
 * `directory C:/Documents and Settings/User/Desktop/TaskManager2`
+* `directory data/olddata`
 
 #### Backup : `backup`
 Save a copy of the current TaskManager data file into the specified directory.<br>
 Format: `backup PATH`  
 Examples: 
 * `backup C:/Documents and Settings/User/Desktop/TaskManagerBackup`
+* `backup data/backup/backup1`
 
 #### Clearing all entries : `clear`
 Clears all entries from the TaskManager.<br>
@@ -135,17 +137,18 @@ There is no need to save manually.
 
 ## FAQ
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TaskManager folder.
+**A**: Install the app in the other computer and replace the new data file it creates with the file that contains the data of your previous TaskManager folder.
+Default: data/taskmanager.xml
        
 ## Command Summary
 Command | Format  
 -------- | :-------- 
 Help | `help`
-Add | `add TASK_NAME[, s/START_TIME][, e/END_TIME][, [p/PRIORITY_LEVEL][, d/DEADLINE][, l/LOCATION][, t/TAG1 t/TAG2 ...][, c/COMPLETED_STATUS]`
-Edit | `edit INDEX/TASK_NAME[, TASK_NAME][, s/START_TIME][, e/END_TIME][, [p/PRIORITY_LEVEL][, d/DEADLINE][, l/LOCATION][, t1/TAG1 t4/TAG4 ...][, c/COMPLETED_STATUS] `
+Add | `add TASKNAME [from START_TIME] [to END_TIME] [by DEADLINE] [#TAG...]` 
+Edit | `edit INDEX TASKNAME at START_TIME to END_TIME [by DEADLINE] [#TAG...]`
 Delete | `delete INDEX`
 List | `list [DATA_TYPE]`
-Search | `search KEYWORD`
+Find | `find KEYWORD`
 Undo | `undo`
 Redo | `redo`
 Set Directory | `directory PATH `

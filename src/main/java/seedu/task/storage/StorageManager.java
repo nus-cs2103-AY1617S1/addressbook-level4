@@ -10,7 +10,6 @@ import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.UserPrefs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;

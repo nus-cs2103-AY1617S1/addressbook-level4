@@ -15,9 +15,15 @@ public class ExitCommand extends Command {
     public ExitCommand() {}
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(boolean isUndo) {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
+    }
+
+    @Override
+    public CommandResult execute(int index) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

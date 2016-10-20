@@ -18,9 +18,9 @@ import seedu.task.model.Model;
 import seedu.task.model.ModelManager;
 import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.TaskManager;
-import seedu.task.model.person.*;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
+import seedu.task.model.task.*;
 import seedu.task.storage.StorageManager;
 
 import java.util.ArrayList;
@@ -389,7 +389,7 @@ public class LogicManagerTest {
             Name name = new Name("Revise CS1111");
             StartTime startTime = new StartTime("1111hrs");
             EndTime endTime = new EndTime("2222hrs");
-            Location location = new Location("111, NUS street");
+            Deadline location = new Deadline("111, NUS street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -408,7 +408,7 @@ public class LogicManagerTest {
                     new Name("Task " + seed),
                     new StartTime(seed + "111hrs"),
                     new EndTime(seed + "111hrs"),
-                    new Location("House of " + seed),
+                    new Deadline("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -422,7 +422,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append(" s/").append(p.getStartTime());
             cmd.append(" e/").append(p.getEndTime());
-            cmd.append(" l/").append(p.getLocation());
+            cmd.append(" l/").append(p.getDeadline());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -507,7 +507,7 @@ public class LogicManagerTest {
                     new Name(name),
                     new StartTime("1111hrs"),
                     new EndTime("1234hrs"),
-                    new Location("House of 1"),
+                    new Deadline("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
