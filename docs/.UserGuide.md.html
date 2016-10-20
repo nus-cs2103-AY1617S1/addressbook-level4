@@ -1,0 +1,821 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>/Users/TanHongYu/Desktop/NUS/GIT/main/docs/.UserGuide.md.html</title>
+
+
+<style type="text/css">
+body {
+	color: #333;
+	font: 13px/1.4 "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	background: transparent;
+	color: #4183c4;
+	text-decoration: none;
+}
+
+a:active,
+a:hover {
+	outline: 0 none;
+	text-decoration: underline;
+}
+
+abbr[title] {
+	border-bottom: 1px dotted;
+}
+
+b,
+strong {
+	font-weight: bold;
+}
+
+dfn {
+	font-style: italic;
+}
+h1 {
+	font-size: 2em;
+	margin: 0.67em 0;
+}
+mark {
+	background: #ff0;
+	color: #000;
+}
+small {
+	font-size: 80%;
+}
+sub, sup {
+	font-size: 75%;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+sup {
+	top: -0.5em;
+}
+sub {
+	bottom: -0.25em;
+}
+img {
+	border: 0 none;
+}
+svg:not(:root) {
+	overflow: hidden;
+}
+figure {
+	margin: 1em 40px;
+}
+hr {
+	box-sizing: content-box;
+	height: 0;
+}
+
+code,
+kbd,
+pre,
+samp {
+	font-family: monospace,monospace;
+	font-size: 1em;
+}
+
+pre {
+	overflow: auto;
+	font: 12px Consolas,"Liberation Mono",Menlo,Courier,monospace;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+.markdown-body {
+	padding: 30px;
+	font-size: 16px;
+	line-height: 1.6;
+	word-wrap: break-word;
+}
+
+.markdown-body>*:first-child {
+	margin-top: 0 !important;
+}
+
+.markdown-body>*:last-child {
+	margin-bottom: 0 !important;
+}
+
+.markdown-body .absent {
+	color: #c00;
+}
+
+.markdown-body .anchor {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	display: block;
+	padding-right: 6px;
+	padding-left: 30px;
+	margin-left: -30px;
+}
+
+.markdown-body .anchor:focus {
+	outline: none;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+	position: relative;
+	margin-top: 1em;
+	margin-bottom: 16px;
+	font-weight: bold;
+	line-height: 1.4;
+}
+
+.markdown-body h1 .octicon-link,
+.markdown-body h2 .octicon-link,
+.markdown-body h3 .octicon-link,
+.markdown-body h4 .octicon-link,
+.markdown-body h5 .octicon-link,
+.markdown-body h6 .octicon-link {
+	display: none;
+	color: #000;
+	vertical-align: middle;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+	padding-left: 8px;
+	margin-left: -30px;
+	line-height: 1;
+	text-decoration: none;
+}
+
+.markdown-body h1:hover .anchor .octicon-link,
+.markdown-body h2:hover .anchor .octicon-link,
+.markdown-body h3:hover .anchor .octicon-link,
+.markdown-body h4:hover .anchor .octicon-link,
+.markdown-body h5:hover .anchor .octicon-link,
+.markdown-body h6:hover .anchor .octicon-link {
+	display: inline-block;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+	font-size: inherit;
+}
+
+.markdown-body h1 {
+	padding-bottom: 0.3em;
+	font-size: 2.25em;
+	line-height: 1.2;
+	border-bottom: 1px solid #eee;
+}
+
+.markdown-body h2 {
+	padding-bottom: 0.3em;
+	font-size: 1.75em;
+	line-height: 1.225;
+	border-bottom: 1px solid #eee;
+}
+
+.markdown-body h3 {
+	font-size: 1.5em;
+	line-height: 1.43;
+}
+
+.markdown-body h4 {
+	font-size: 1.25em;
+}
+
+.markdown-body h5 {
+	font-size: 1em;
+}
+
+.markdown-body h6 {
+	font-size: 1em;
+	color: #777;
+}
+
+.markdown-body p,.markdown-body blockquote,
+.markdown-body ul,.markdown-body ol,
+.markdown-body dl,.markdown-body table,
+.markdown-body pre {
+	margin-top: 0;
+	margin-bottom: 16px;
+}
+
+.markdown-body hr {
+	height: 4px;
+	padding: 0;
+	margin: 16px 0;
+	background-color: #e7e7e7;
+	border: 0 none;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+	padding-left: 2em;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+	padding: 0;
+	list-style-type: none;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.markdown-body li>p {
+	margin-top: 16px;
+}
+
+.markdown-body dl {
+	padding: 0;
+}
+
+.markdown-body dl dt {
+	padding: 0;
+	margin-top: 16px;
+	font-size: 1em;
+	font-style: italic;
+	font-weight: bold;
+}
+
+.markdown-body dl dd {
+	padding: 0 16px;
+	margin-bottom: 16px;
+}
+
+.markdown-body blockquote {
+	padding: 0 15px;
+	color: #777;
+	border-left: 4px solid #ddd;
+}
+
+.markdown-body blockquote>:first-child {
+	margin-top: 0;
+}
+
+.markdown-body blockquote>:last-child {
+	margin-bottom: 0;
+}
+
+.markdown-body table {
+	display: block;
+	width: 100%;
+	overflow: auto;
+	word-break: normal;
+	word-break: keep-all;
+}
+
+.markdown-body table th {
+	font-weight: bold;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+	padding: 6px 13px;
+	border: 1px solid #ddd;
+}
+
+.markdown-body table tr {
+	background-color: #fff;
+	border-top: 1px solid #ccc;
+}
+
+.markdown-body table tr:nth-child(2n) {
+	background-color: #f8f8f8;
+}
+
+.markdown-body img {
+	max-width: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.markdown-body span.frame {
+	display: block;
+	overflow: hidden;
+}
+
+.markdown-body span.frame>span {
+	display: block;
+	float: left;
+	width: auto;
+	padding: 7px;
+	margin: 13px 0 0;
+	overflow: hidden;
+	border: 1px solid #ddd;
+}
+
+.markdown-body span.frame span img {
+	display: block;
+	float: left;
+}
+
+.markdown-body span.frame span span {
+	display: block;
+	padding: 5px 0 0;
+	clear: both;
+	color: #333;
+}
+
+.markdown-body span.align-center {
+	display: block;
+	overflow: hidden;
+	clear: both;
+}
+
+.markdown-body span.align-center>span {
+	display: block;
+	margin: 13px auto 0;
+	overflow: hidden;
+	text-align: center;
+}
+
+.markdown-body span.align-center span img {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.markdown-body span.align-right {
+	display: block;
+	overflow: hidden;
+	clear: both;
+}
+
+.markdown-body span.align-right>span {
+	display: block;
+	margin: 13px 0 0;
+	overflow: hidden;
+	text-align: right;
+}
+
+.markdown-body span.align-right span img {
+	margin: 0;
+	text-align: right;
+}
+
+.markdown-body span.float-left {
+	display: block;
+	float: left;
+	margin-right: 13px;
+	overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+	margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+	display: block;
+	float: right;
+	margin-left: 13px;
+	overflow: hidden;
+}
+
+.markdown-body span.float-right>span {
+	display: block;
+	margin: 13px auto 0;
+	overflow: hidden;
+	text-align: right;
+}
+
+.markdown-body code,.markdown-body tt {
+	padding: 0;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	margin: 0;
+	font-size: 85%;
+	background-color: rgba(0,0,0,0.04);
+	border-radius: 3px;
+}
+
+.markdown-body code:before,
+.markdown-body code:after,
+.markdown-body tt:before,
+.markdown-body tt:after {
+	letter-spacing: -0.2em;
+	content: "\00a0";
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+	display: none;
+}
+
+.markdown-body del code {
+	text-decoration: inherit;
+}
+
+.markdown-body pre>code {
+	padding: 0;
+	margin: 0;
+	font-size: 100%;
+	word-break: normal;
+	white-space: pre;
+	background: transparent;
+	border: 0;
+}
+
+.markdown-body .highlight {
+	margin-bottom: 16px;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+	padding: 16px;
+	overflow: auto;
+	font-size: 85%;
+	line-height: 1.45;
+	background-color: #f7f7f7;
+	border-radius: 3px;
+}
+
+.markdown-body .highlight pre {
+	margin-bottom: 0;
+	word-break: normal;
+}
+
+.markdown-body pre {
+	word-wrap: normal;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+	display: inline;
+	max-width: initial;
+	padding: 0;
+	margin: 0;
+	overflow: initial;
+	line-height: inherit;
+	word-wrap: normal;
+	background-color: transparent;
+	border: 0;
+}
+
+.markdown-body pre code:before,
+.markdown-body pre code:after,
+.markdown-body pre tt:before,
+.markdown-body pre tt:after {
+	content: normal;
+}
+
+.highlight .pl-coc,
+.highlight .pl-entl,
+.highlight .pl-entm,
+.highlight .pl-eoa,
+.highlight .pl-mai .pl-sf,
+.highlight .pl-mm,
+.highlight .pl-pdv,
+.highlight .pl-sc,
+.highlight .pl-som,
+.highlight .pl-sr,
+.highlight .pl-v,
+.highlight .pl-vpf {
+	color: #0086b3;
+}
+.highlight .pl-eoac,
+.highlight .pl-mdht,
+.highlight .pl-mi1,
+.highlight .pl-mri,
+.highlight .pl-va,
+.highlight .pl-vpu {
+	color: #008080;
+}
+.highlight .pl-c,
+.highlight .pl-pdc {
+	color: #b4b7b4;
+	font-style: italic;
+}
+.highlight .pl-k,
+.highlight .pl-ko,
+.highlight .pl-kolp,
+.highlight .pl-mc,
+.highlight .pl-mr,
+.highlight .pl-ms,
+.highlight .pl-s,
+.highlight .pl-sok,
+.highlight .pl-st {
+	color: #6e5494;
+}
+.highlight .pl-ef,
+.highlight .pl-enf,
+.highlight .pl-enm,
+.highlight .pl-entc,
+.highlight .pl-eoi,
+.highlight .pl-sf,
+.highlight .pl-smc {
+	color: #d12089;
+}
+.highlight .pl-ens,
+.highlight .pl-eoai,
+.highlight .pl-kos,
+.highlight .pl-mh .pl-pdh,
+.highlight .pl-mp,
+.highlight .pl-pde,
+.highlight .pl-stp {
+	color: #458;
+}
+.highlight .pl-enti {
+	color: #d12089;
+	font-weight: bold;
+}
+.highlight .pl-cce,
+.highlight .pl-enc,
+.highlight .pl-kou,
+.highlight .pl-mq {
+	color: #f93;
+}
+.highlight .pl-mp1 .pl-sf {
+	color: #458;
+	font-weight: bold;
+}
+.highlight .pl-cos,
+.highlight .pl-ent,
+.highlight .pl-md,
+.highlight .pl-mdhf,
+.highlight .pl-ml,
+.highlight .pl-pdc1,
+.highlight .pl-pds,
+.highlight .pl-s1,
+.highlight .pl-scp,
+.highlight .pl-sol {
+	color: #df5000;
+}
+.highlight .pl-c1,
+.highlight .pl-cn,
+.highlight .pl-pse,
+.highlight .pl-pse .pl-s2,
+.highlight .pl-vi {
+	color: #a31515;
+}
+.highlight .pl-mb,
+.highlight .pl-pdb {
+	color: #df5000;
+	font-weight: bold;
+}
+.highlight .pl-mi,
+.highlight .pl-pdi {
+	color: #6e5494;
+	font-style: italic;
+}
+.highlight .pl-ms1 {
+	background-color: #f5f5f5;
+}
+.highlight .pl-mdh,
+.highlight .pl-mdi {
+	font-weight: bold;
+}
+.highlight .pl-mdr {
+	color: #0086b3;
+	font-weight: bold;
+}
+.highlight .pl-s2 {
+	color: #333;
+}
+.highlight .pl-ii {
+	background-color: #df5000;
+	color: #fff;
+}
+.highlight .pl-ib {
+	background-color: #f93;
+}
+.highlight .pl-id {
+	background-color: #a31515;
+	color: #fff;
+}
+.highlight .pl-iu {
+	background-color: #b4b7b4;
+}
+.highlight .pl-mo {
+	color: #969896;
+}
+
+</style>
+
+
+<script type="text/javascript">
+
+function getDocumentScrollTop() 
+{
+   var res = document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset || 0;
+   // alert(res);
+   return res;
+}
+
+function setDocumentScrollTop(ypos) 
+{
+	window.scrollTo(0, ypos);
+}
+
+</script>
+
+
+</head>
+<body class="markdown-body">
+<h1> <a id="user-guide" class="anchor" href="#user-guide" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>User Guide</h1> 
+<ol> 
+ <li><a href="#1-introduction">Introduction</a></li> 
+ <li><a href="#2-quick-start">Quick Start</a></li> 
+ <li><a href="#3-features">Features</a></li> 
+ <li><a href="#4-faq">FAQ</a></li> 
+ <li><a href="#5-command-summary">Command Summary</a></li> 
+</ol> 
+<h2> <a id="1-introduction" class="anchor" href="#1-introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>1. Introduction</h2> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Have you ever felt like there are too many tasks to do, and you are unable to remember all of them? Or feel that your calendar is overflowing with sticky notes on the tasks to be done each day? Have no fear, as our all-in-one task management application, DoMePlease, is here to save your day!</p> 
+<p>DoMePlease manages the different types of tasks that you will encounter in your daily life, be it a deadline for submission, or even a date with your significant other, this application can show you what all the tasks you have in a month in one glance, or even a list of tasks for a specific day. DoMePlease also manages your list of ad-hoc tasks, which are non-dated tasks such as &quot;Read the new Harry Potter book!&quot;, and displays them beautifully and neatly at the side of the application, so you can refer to them any time you have some free time.</p> 
+<p>Love typing? You will love DoMePlease, as you only need to use the keyboard to type simple commands to manage your tasks.</p> 
+<h2> <a id="2-quick-start" class="anchor" href="#2-quick-start" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2. Quick Start</h2> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <b>2.1</b> Ensure you have Java version <code>1.8.0_60</code> or later installed in your Computer.<br /></p> 
+<blockquote> 
+ <p>Having any Java 8 version is not enough. <br /> This app will not work with earlier versions of Java 8.</p> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <b>2.2</b> Download the latest <code>DoMePlease.jar</code> from the 'releases' tab. <br /> &nbsp;&nbsp;&nbsp;&nbsp; <b>2.3</b> Copy the file to the folder you want to use as the home folder for DoMePlease. <br /> &nbsp;&nbsp;&nbsp;&nbsp; <b>2.4</b> Double-click the file to start the app. The GUI should appear in a few seconds. <br /> <a href="images/Ui.png" target="_blank"><img src="images/Ui.png" width="600" style="max-width:100%;" /></a> <br /> &nbsp;&nbsp;&nbsp;&nbsp; <b>2.5</b> Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br /></p> 
+<blockquote> 
+ <p>e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <b>2.6</b> Some example commands you can try:</p> 
+<blockquote> 
+ <p><code>add Walk the dog d/Don't forget to pick up poo</code> : Add a floating task. <code>list all</code> : List all the floating tasks, deadline and events in the application. <code>delete 3</code> : Deletes the 3rd task shown in the current list. <code>exit</code> : Exits the application.</p> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <b>2.7</b> Refer to the <a href="#3-features">Features</a> section below for details of each command.<br /></p> 
+<h2> <a id="3-features" class="anchor" href="#3-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>3. Features</h2> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <b>3.1 Viewing help : <code>help</code> </b><br /></p> 
+<blockquote> 
+ <p>Format: <code>help</code> <br /> Help is also shown if you enter an incorrect command e.g. <code>abcd</code></p> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <b>3.2 Adding a task: <code>add</code> </b><br /></p> 
+<blockquote> 
+ <p>Adds a floating task to DoMePlease<br /> Format: <code>add TASKNAME d/TASK_DESCRIPTION t/TAG...</code> </p> 
+ <p>Adds a deadline to DoMePlease<br /> Format: <code>add TASKNAME d/TASK_DESCRIPTION date/DATE TIME [t/TAG...]</code> </p> 
+ <p>Adds an event to DoMePlease<br /> Format: <code>add TASKNAME d/TASK_DESCRIPTION date/STARTDATE STARTTIME to ENDDATE ENDTIME [t/TAG...]</code> <br /> Format: <code>add TASKNAME d/TASK_DESCRIPTION date/DATE STARTTIME to ENDTIME [t/TAG...]</code> <br /></p> 
+</blockquote> 
+<p>** <i>Refer to appendix for possible formats for DATE &amp; TIME</i></p> 
+<blockquote> 
+ <p>Words in <code>UPPER_CASE</code> are the parameters, items in <code>SQUARE_BRACKETS</code> are optional, items with <code>...</code> after them can have multiple instances. Order of parameters are fixed. </p> 
+ <p>Tasks can have any number of tags (including none)</p> 
+ <p>Examples: </p> 
+ <ul> 
+  <li><code>add Buy pencil d/Pencil to shade OAS sheet</code></li> 
+  <li><code>add Wash Clothes d/Wash with detergent date/27-9-2016 9pm t/!!!</code></li> 
+  <li><code>add Meeting d/Meet with Jim date/today 5pm to 6pm t/!!! t/jim</code></li> 
+ </ul> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <b>3.3 Listing all tasks : <code>list all</code> </b><br /></p> 
+<blockquote> 
+ <p>Shows a list of all uncompleted floating tasks, deadline and events in the application.<br /> Format: <code>list all</code></p> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <b>3.4 Listing all overdue deadlines: <code>list od</code> </b><br /></p> 
+<blockquote> 
+ <p>Shows a list of all overdue deadlines. <br /> Format: <code>list od</code></p> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <b>3.5 Listing all completed tasks: <code>list done</code> </b><br /></p> 
+<blockquote> 
+ <p>Shows a list of completed floating tasks, deadlines and events. <br /> Format: <code>list done</code></p> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <b>3.6 Edit task in the application: <code>edit</code> </b><br /></p> 
+<blockquote> 
+ <p>Edit the details of the floating task, deadline and event. <br /> Format: <code>edit INDEX [FIELDS]</code></p> 
+ <p>Edits the field of the task at the specified <code>INDEX</code>. The index refers to the index number shown in the most recent listing.<br /> The index <strong>must be a positive integer</strong> 1, 2, 3, ...</p> 
+ <p>Example:</p> 
+ <ul> 
+  <li> <code>list all</code><br /> </li> 
+  <li> <code>edit 2 d/Pilot 2B</code><br /><br /> Edits the 2nd floating task in DoMePlease. Example Buy Pencil. <br /> A message will be displayed to inform the user that the task is edited.</li> 
+ </ul> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <b>3.7 Finding all floating tasks, deadlines and events containing any keyword in their name and tags: <code>find</code> </b><br /></p> 
+<blockquote> 
+ <p>Finds all floating tasks, deadlines and events which names and tags contain any of the given keywords.<br /> Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p> 
+ <p>The search is case insensitive, the order of the keywords does not matter, name, description, date, time and tag is searched, and task matching at least one keyword will be returned (i.e. <code>OR</code> search). <br /> Only full words will be matched e.g. <code>Program</code> will not match <code>Programming</code>.</p> 
+ <p>Examples: </p> 
+ <ul> 
+  <li> <code>find EE2020</code><br /> </li> 
+  <li><p>Returns “EE2020” and “ee2020” <br /><br /></p></li> 
+  <li><p><code>find 2020</code><br /></p></li> 
+  <li> Returns nothing</li> 
+ </ul> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Navigating through Calendar: <code>view</code> </b><br /></p> 
+<blockquote> 
+ <p>Populate the list of deadlines and events of the selected DATE <br /> Format: <code>view DATE</code></p> 
+ <p>The calendar panel of the application will list out all the deadlines on the day and events that start, ends or is on-going on the date. <br /></p> 
+ <p>Examples:</p> 
+ <ul> 
+  <li> <code>view 5</code> <br /> </li> 
+  <li><p>Output the full list of deadlines on the day and events that start, ends or is on-going on 5th of the current month view</p></li> 
+  <li><p><code>view 5-10-2016</code> <br /><br /> This command doesn't require you to be at the selected month. Output the full list of deadlines on the day and events that start, ends or is on-going on 5th October 2016.</p></li> 
+ </ul> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>3.9 Deleting a task : <code>delete</code> </b><br /></p> 
+<blockquote> 
+ <p>Deletes the specified task from DoMePlease. <br /> Format: <code>delete INDEX</code></p> 
+ <p>Deletes the task at the specified <code>INDEX</code>. The index refers to the index number shown in the most recent listing.<br /> The index <strong>must be a positive integer</strong> 1, 2, 3, ...</p> 
+ <p>Examples: </p> 
+ <ul> 
+  <li> <code>list all</code><br /> </li> 
+  <li><p><code>delete 2</code><br /><br /> Deletes the 2nd floating task in all the listed. <br /><br /></p></li> 
+  <li><p><code>find Laundry</code><br /> </p></li> 
+  <li> <code>delete 11</code><br /><br /> Deletes the 1st event or deadline task in the result of the <code>find</code> command.<br /> </li> 
+ </ul> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>3.10 Undoing a move: <code>undo</code> </b><br /></p> 
+<blockquote> 
+ <p>Undo the previous command entered by user. (up to 3)<br /> A message will be displayed to inform the user that the previous command has been undone. <br /> Format: <code>undo</code></p> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<b>3.11 Marking floating tasks and deadlines as done: <code>done</code> </b><br /></p> 
+<blockquote> 
+ <p>Marking a completed a floating task and deadline as done. <br /> Format: <code>done INDEX</code></p> 
+ <p>Marks the floating tasks or deadline as done at the specified <code>index</code> <br /> The index refers to the index number shown in the most recent listing. <br /> The index <strong>must be a positive integer</strong> 1,2,3, .. <br /> The completed task will be moved to the archive list <br /></p> 
+ <p>Examples: </p> 
+ <ul> 
+  <li> <code>list all</code> <br /> <code>done 2</code> <br /> Mark the 2nd task in DoMePlease as completed.</li> 
+ </ul> 
+</blockquote> 
+<p>&nbsp;&nbsp;&nbsp;&nbsp; <b>3.12 Exiting the program : <code>exit</code> </b><br /></p> 
+<blockquote> 
+ <p>Exits the program.<br /> Format: <code>exit</code> </p> 
+</blockquote> 
+<h2> <a id="4-faq" class="anchor" href="#4-faq" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>4. FAQ</h2> 
+<p><strong>Q</strong>: Do I need to save manually? <strong>A</strong>: Data is saved in the hard disk automatically after any command that changes the data. There is no need to save manually.</p> 
+<p><strong>Q</strong>: How do I transfer my data to another Computer?<br /> <strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous DoMePlease.</p> 
+<h2> <a id="5-command-summary" class="anchor" href="#5-command-summary" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>5. Command Summary</h2> 
+<table> 
+ <thead> 
+  <tr> 
+   <th>Command</th> 
+   <th>Format</th> 
+  </tr> 
+ </thead> 
+ <tbody> 
+ </tbody> 
+</table> 
+<p>Add | <code>add TASKNAME d/TASK_DESCRIPTION @/DATE TIME [t/TAG...]</code></p> 
+<ul> 
+ <li>Inserts a task into DoMePlease</li> 
+</ul> 
+<p>Delete | <code>delete INDEX</code></p> 
+<ul> 
+ <li>Deletes a task from DoMePlease</li> 
+</ul> 
+<p>Edit | <code>edit INDEX [FIELDS]</code></p> 
+<ul> 
+ <li>Edits the field of the task at the specified <code>INDEX</code> </li> 
+</ul> 
+<p>Find | <code>find KEYWORD [MORE_KEYWORDS]</code></p> 
+<ul> 
+ <li>Finds an existing task based on the TASK_NAME or TASK_TAG</li> 
+</ul> 
+<p>List | <code>list all</code> , <code>list od</code>, <code>list done</code></p> 
+<ul> 
+ <li>Lists all/overdue/completed tasks in DoMePlease</li> 
+</ul> 
+<p>Help | <code>help</code></p> 
+<ul> 
+ <li>Shows a help file</li> 
+</ul> 
+<p>View | <code>view DATE</code></p> 
+<ul> 
+ <li>Populates the list of deadlines and events of the selected DATE</li> 
+</ul> 
+<p>Done | <code>done INDEX</code></p> 
+<ul> 
+ <li>Marks the selected task as completed</li> 
+</ul> 
+<p>Undo | <code>undo</code></p> 
+<ul> 
+ <li>Reverts the last reversible action (up to 3)</li> 
+</ul> 
+<h2> <a id="6-appendix" class="anchor" href="#6-appendix" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>6. Appendix</h2> 
+<p>Possible Date formats DD-MM-YY : 18-10-16 DD-MM-YYYY : 27-2-2101 DD MMM YYYY : 15 MAY 2103 relative : today || tmr || next tuesday</p> 
+<p>Not accepted Date formats DD-MM DD.MM DD.MM.YY DD.MM.YYYY</p> 
+<p>Possible Time formats 24HR : 2359 am/pm : 2.30pm relative : 2 hours later || 30 minutes later </p> 
+<p>Not accepted Time formats 2500 230pm</p> 
+<p>This is not an exhaustive list of formats, please visit the following website for more information <a href="http://natty.joestelmach.com/doc.jsp">http://natty.joestelmach.com/doc.jsp</a></p>
+</body>
+</html>
