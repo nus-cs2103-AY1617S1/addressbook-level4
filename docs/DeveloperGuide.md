@@ -274,17 +274,17 @@ Priorities: High - `* * *` Medium - `* *`  Low - `*`
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
+`* * *` | new user | see instructions on how to use the app | refer to instructions when I forget how to use the App
 `* * *` | user | add tasks to the todo list | be reminded of what to do
 `* * *` | user | add tasks with deadline | remember by what time I have to complete a task
 `* * *` | user | add tasks with timeframe | know what I have to attend an event
 `* * *` | user | view upcoming tasks | check what I need to do / have to do soon
 `* * *` | user | search for details on a task or event | view what needs to be done
-`* * *` | user | delete task that has been completed | completely remove it from my task manager	
-`* * *` | user | mark the task as completed upon completion | keep an archive of tasks that I have completed
+`* * *` | user | delete a task that has been completed | completely remove it from my task manager	
+`* * *` | user | mark a task as completed upon completion | keep an archive of tasks that I have completed
 `* * *` | user | view tasks that I have completed | recall what I have completed
 `* * *` | user | call up the todo list with a simple keystroke | start the application anytime during my workflow
-`* * *` | user | undo my actions | reverse any mistakes that I have made
+`* * *` | user | undo my actions | reverse any mistake that I have made
 `* * *` | user | redo my undo | correct any accidental undo
 `* * *` | user | edit tasks | keep them up to date
 `* *` | user | sync my task with other computers | keep track of what to do anywhere
@@ -430,7 +430,7 @@ Use case ends
 
 ## Appendix E : Product Survey
 
-Product | Pros | Cons |
+Product | Strength | Weaknesses |
 -------- | :-------- | :--------- 
 Wunderlist | <ol> <li> Beautiful background </li> <li> Cloud sync </li> <li> Able to create folders to group similar tasks </li> <li> Able to add tags to tasks to filter them </li> </ol>  | <ol> <li> No start date or repeat options for tasks </li> <li> No options for subtasks </li> </ol> 
 Todo.txt | <ol> <li> Works on many platforms, can be accessed on devices that support Dropbox </li> <li> Easily editable format, can be edited in plain text and then displayed with neat styles </li> <li> Can edit with any text editor </li> <li> Easy syncing - can sync through Dropbox </li> <li> Command line support - can edit using command line by a supplied bash script </li> </ol> | <ol> <li> No support for recurring tasks </li> <li> No options for subtasks </li> <li> Only supports Dropbox, not flexible </li> </ol> 
