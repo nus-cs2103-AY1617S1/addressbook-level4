@@ -345,7 +345,7 @@ public class TodoListDB {
      * 
      * @return list of tasks
      */
-    public List<Task> getTaskByDate(LocalDateTime givenDate, boolean isCompleted, boolean listAllStatus) {
+    public List<Task> getTaskByDateWithStatus(LocalDateTime givenDate, boolean isCompleted, boolean listAllStatus) {
         ArrayList<Task> taskByDate = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
         while (iterator.hasNext()) {
@@ -404,7 +404,8 @@ public class TodoListDB {
      * 
      * @return list of tasks
      */
-    public List<Task> getTaskByRange (LocalDateTime fromDate , LocalDateTime toDate, boolean isCompleted, boolean listAllStatus) {
+    public List<Task> getTaskByRangeWithStatus (LocalDateTime fromDate , LocalDateTime toDate, 
+            boolean isCompleted, boolean listAllStatus) {
         ArrayList<Task> taskByRange = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
         if (fromDate == null) {
