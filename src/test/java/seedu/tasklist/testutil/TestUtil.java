@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Title("CS1010"), new StartDate("010101"), new Description("to1be completed"), new DueDate("010101"), new UniqueTagList()),
-                    new Task(new Title("CS1020"), new StartDate("010201"), new Description("to be2completed"), new DueDate("020101"), new UniqueTagList()),
-                    new Task(new Title("CS1030"), new StartDate("010301"), new Description("to3be completed"), new DueDate("030101"), new UniqueTagList()),
-                    new Task(new Title("CS1040"), new StartDate("010401"), new Description("to be6completed"), new DueDate("040101"), new UniqueTagList()),
-                    new Task(new Title("CS1050"), new StartDate("010501"), new Description("to9be completed"), new DueDate("050101"), new UniqueTagList()),
-                    new Task(new Title("CS1060"), new StartDate("010601"), new Description("to be6completed"), new DueDate("060101"), new UniqueTagList()),
-                    new Task(new Title("CS1070"), new StartDate("010701"), new Description("to2be completed"), new DueDate("070101"), new UniqueTagList()),
-                    new Task(new Title("CS1080"), new StartDate("010801"), new Description("to be4completed"), new DueDate("080101"), new UniqueTagList()),
-                    new Task(new Title("CS1090"), new StartDate("010901"), new Description("toAbe completed"), new DueDate("090101"), new UniqueTagList())
+                    new Task(new Title("CS1010"), new StartDate("01012001"), new Description("to1be completed"), new DueDate("01012001"), new UniqueTagList()),
+                    new Task(new Title("CS1020"), new StartDate("01022001"), new Description("to be2completed"), new DueDate("02012001"), new UniqueTagList()),
+                    new Task(new Title("CS1030"), new StartDate("01032001"), new Description("to3be completed"), new DueDate("03012001"), new UniqueTagList()),
+                    new Task(new Title("CS1040"), new StartDate("01042001"), new Description("to be6completed"), new DueDate("04012001"), new UniqueTagList()),
+                    new Task(new Title("CS1050"), new StartDate("01052001"), new Description("to9be completed"), new DueDate("05012001"), new UniqueTagList()),
+                    new Task(new Title("CS1060"), new StartDate("01062001"), new Description("to be6completed"), new DueDate("06012001"), new UniqueTagList()),
+                    new Task(new Title("CS1070"), new StartDate("01072001"), new Description("to2be completed"), new DueDate("07012001"), new UniqueTagList()),
+                    new Task(new Title("CS1080"), new StartDate("01082001"), new Description("to be4completed"), new DueDate("08012001"), new UniqueTagList()),
+                    new Task(new Title("CS1090"), new StartDate("01092001"), new Description("toAbe completed"), new DueDate("09012001"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

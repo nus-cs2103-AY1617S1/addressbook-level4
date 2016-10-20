@@ -1,5 +1,7 @@
 package seedu.tasklist.ui;
 
+import java.time.format.DateTimeFormatter;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -43,8 +45,16 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getTitle().fullTitle);
         id.setText(displayedIndex + ". ");
-        startDate.setText(task.getStartDate().startDate);
-        dueDate.setText(task.getDueDate().dueDate);
+        if(task.getStartDate().startDate != null){
+        	startDate.setText("Start:  " + task.getStartDate().toString().replaceAll(" ", "    Time:  "));
+        } else{
+        	startDate.setText(" ");
+        }
+        if(task.getDueDate().dueDate != null){
+        	dueDate.setText("End:    " + task.getDueDate().toString().replaceAll(" ", "    Time:  "));
+        } else{
+        	dueDate.setText(" ");
+        }
         description.setText(task.getDescription().description);
         tags.setText(task.tagsString());
         setBackgroundColor();

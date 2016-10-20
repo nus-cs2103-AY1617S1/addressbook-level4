@@ -40,9 +40,9 @@ public interface ReadOnlyTask {
         builder.append(getTitle())
                 .append(" Description: ")
                 .append(getDescription())
-                .append(" StartDate: ")
+                .append(" Start: ")
                 .append(getStartDate())
-                .append(" DueDate: ")
+                .append(" End: ")
                 .append(getDueDate())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
