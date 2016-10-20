@@ -13,7 +13,7 @@ import tars.commons.util.FxViewUtil;
  */
 public class ResultDisplay extends UiPart {
     public static final String RESULT_DISPLAY_ID = "resultDisplay";
-    private static final String STATUS_BAR_STYLE_SHEET = "result-display";
+    private static final String RESULT_DISPLAY_STYLE_SHEET = "result-display";
     private TextArea resultDisplayArea;
     private final StringProperty displayed = new SimpleStringProperty("");
 
@@ -24,9 +24,9 @@ public class ResultDisplay extends UiPart {
     private AnchorPane mainPane;
 
     public static ResultDisplay load(Stage primaryStage, AnchorPane placeHolder) {
-        ResultDisplay statusBar = UiPartLoader.loadUiPart(primaryStage, placeHolder, new ResultDisplay());
-        statusBar.configure();
-        return statusBar;
+        ResultDisplay resultDisplay = UiPartLoader.loadUiPart(primaryStage, placeHolder, new ResultDisplay());
+        resultDisplay.configure();
+        return resultDisplay;
     }
 
     public void configure() {
@@ -34,7 +34,7 @@ public class ResultDisplay extends UiPart {
         resultDisplayArea.setEditable(false);
         resultDisplayArea.setId(RESULT_DISPLAY_ID);
         resultDisplayArea.getStyleClass().removeAll();
-        resultDisplayArea.getStyleClass().add(STATUS_BAR_STYLE_SHEET);
+        resultDisplayArea.getStyleClass().add(RESULT_DISPLAY_STYLE_SHEET);
         resultDisplayArea.setText("");
         resultDisplayArea.textProperty().bind(displayed);
         FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0, 0.0, 0.0);
