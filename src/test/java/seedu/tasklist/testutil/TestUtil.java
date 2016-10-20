@@ -330,6 +330,14 @@ public class TestUtil {
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
     }
+    
+    public static boolean compareCardAndMarkedTask(TaskCardHandle card, ReadOnlyTask task) {
+        return card.isMarkedTask(task);
+    }
+    
+    public static boolean compareCardAndUnmarkedTask(TaskCardHandle card, ReadOnlyTask task) {
+        return card.isUnmarkedTask(task);
+    }
 
     public static Tag[] getTagList(String tags) {
 
