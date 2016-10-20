@@ -10,8 +10,8 @@ public class UndoCommand extends Command {
     
     @Override
     public CommandResult execute() {
-        
-        
+    	assert model != null;
+        model.undoChanges();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

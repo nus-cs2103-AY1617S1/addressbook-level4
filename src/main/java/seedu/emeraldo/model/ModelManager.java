@@ -26,7 +26,7 @@ import java.util.Stack;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private Emeraldo emeraldo;
+    private final Emeraldo emeraldo;
 
     private final FilteredList<Task> filteredTasks;
     
@@ -49,7 +49,10 @@ public class ModelManager extends ComponentManager implements Model {
         
         savedStates = new Stack<Emeraldo>();
         
-        savedStates.push(emeraldo);
+        Emeraldo temp = new Emeraldo(emeraldo);
+        savedStates.push(temp);
+        
+        System.out.println("After initialisation: " + savedStates);
     }
 
     public ModelManager() {
@@ -63,15 +66,23 @@ public class ModelManager extends ComponentManager implements Model {
         
         savedStates = new Stack<Emeraldo>();
         
-        savedStates.push(emeraldo);
+        Emeraldo temp = new Emeraldo(emeraldo);
+        savedStates.push(temp);
+        
+        System.out.println("After initialisation: " + savedStates);
     }
     
     public void undoChanges(){
     	//TODO: handle cases where undo cannot be done anymore
     	savedStates.pop();
+    	System.out.println("After pop: " + savedStates.toString());
     	if(!savedStates.empty()){
-	    	emeraldo = savedStates.peek();
+    		resetData(savedStates.peek());
 	    	indicateEmeraldoChanged();
+	    	System.out.println("YAY!");
+    	}
+    	else{
+    		System.out.println("oops");
     	}
     }
     
@@ -99,10 +110,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        emeraldo.addTask(task);
-        savedStates.push(emeraldo);
+    	emeraldo.addTask(task);
+    	Emeraldo nextState = new Emeraldo(emeraldo);
+        savedStates.push(nextState);
+        
         updateFilteredListToShowAll();
         indicateEmeraldoChanged();
+        System.out.println("After adding: " + savedStates);
     }
 
     @Override
