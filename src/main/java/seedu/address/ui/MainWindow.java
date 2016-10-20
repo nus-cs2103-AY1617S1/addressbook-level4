@@ -117,14 +117,18 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        browserPanel = BrowserPanel.load(getBrowserPanelPlaceholder(), logic.getFilteredTaskList());
         navbarPanel = NavbarPanel.load(primaryStage, getNavbarPlaceholder());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
-
+    
+    private AnchorPane getBrowserPanelPlaceholder() {
+        return browserPlaceholder;
+    }
+    
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
@@ -218,6 +222,10 @@ public class MainWindow extends UiPart {
 
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
+    }
+    
+    public BrowserPanel getBrowserPanel() {
+        return this.browserPanel;
     }
 
     public void loadTaskPage(ReadOnlyTask task) {
