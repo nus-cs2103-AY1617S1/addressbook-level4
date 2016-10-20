@@ -8,6 +8,7 @@ import seedu.address.commons.util.ConfigUtil;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -15,31 +16,40 @@ public class SetPathCommandTest extends TaskSchedulerGuiTest {
 
     @Test
     public void SetPathCommandTest() {
-        
-        Config origConfig = initConfig(Config.DEFAULT_CONFIG_FILE);
-        String origPath = origConfig.getTaskSchedulerFilePath().replace(".xml","");
+       
+        // Checking for the existence of User specified filename or path.
         String newPath = "testtaskscheduler";
-        
         commandBox.runCommand("setpath " + newPath);
+        File expected = new File(newPath);
+        assertEquals(expected.toString(), newPath);
         assertResultMessage(String.format(SetpathCommand.MESSAGE_SUCCESS, newPath + ".xml"));
         
-        origConfig = initConfig(Config.DEFAULT_CONFIG_FILE);
+        // Checking for the consistency of setting, repeatedly, of setpath <filename> in ConfigTest.json.
+        Config origConfig = initConfig("ConfigTest.json");
+        String origPath = origConfig.getTaskSchedulerFilePath().replace(".xml","");
+        String newPath2 = "taskscheduler";
+        
+        commandBox.runCommand("setpath " + newPath2);
+        assertResultMessage(String.format(SetpathCommand.MESSAGE_SUCCESS, newPath2 + ".xml"));
+        
+        origConfig = initConfig("ConfigTest.json");
         String compareString = origConfig.getTaskSchedulerFilePath();
-        assertEquals(newPath, compareString.substring(0,compareString.length()-4));
+        assertEquals(newPath2, compareString.substring(0,compareString.length()-4));
         
         commandBox.runCommand("setpath " + origPath);
         assertResultMessage(String.format(SetpathCommand.MESSAGE_SUCCESS, origPath + ".xml"));
         
-        origConfig = initConfig(Config.DEFAULT_CONFIG_FILE);
+        origConfig = initConfig("ConfigTest.json");
         String compareString2 = origConfig.getTaskSchedulerFilePath();
         assertEquals(origPath, compareString2.substring(0,compareString2.length()-4));
+        
     }
     
     protected Config initConfig(String configFilePath) {
         Config initializedConfig;
         String configFilePathUsed;
 
-        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+        configFilePathUsed = "ConfigTest.json";
 
         if(configFilePath != null) {
             configFilePathUsed = configFilePath;
