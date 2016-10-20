@@ -31,7 +31,7 @@ public class EndTime extends DateTime {
             throw new IllegalValueException(MESSAGE_ENDTIME_CONSTRAINTS);
         }
         Date startdate = DATE_PARSER.EventDateConvert(starttime);
-        if (date != "")
+        if (!date.equals(""))
             eventDate = DATE_PARSER.EventDateConvert(date);
         else {
             eventDate = DATE_PARSER.EndDateTime(startdate);
@@ -55,7 +55,7 @@ public class EndTime extends DateTime {
         super(date);
         Date taskDate;
 
-        if (date != "") {
+        if (!date.equals("")) {
             taskDate = DATE_PARSER.EventDateConvert(date);
 
             if (taskDate == null) {

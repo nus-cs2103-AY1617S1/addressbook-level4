@@ -28,7 +28,7 @@ public class StartTime extends DateTime {
         super(date);
         Date taskDate;
 
-        if (date != "") {
+        if (!date.equals("")) {
             taskDate = DATE_PARSER.EventDateConvert(date);
 
             if (taskDate == null) {

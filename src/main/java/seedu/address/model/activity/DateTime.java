@@ -24,7 +24,7 @@ public abstract class DateTime {
     public DateTime(String date) throws IllegalValueException {
         assert date != null;
 
-        if (date == "") {
+        if (date.equals("")) {
             this.value = null;
         } else {
             this.value = Calendar.getInstance();

@@ -35,7 +35,7 @@ public class DueDate extends DateTime {
             throw new IllegalValueException(MESSAGE_DUEDATE_CONSTRAINTS);
         }
         
-        if (date != "") {
+        if (!date.equals("")) {
 
             Date taskDate = DATE_PARSER.DueDateConvert(date);
 
