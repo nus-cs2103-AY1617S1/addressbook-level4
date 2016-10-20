@@ -356,8 +356,8 @@ MSS
 
 Extension
 
- 1.1 User requests to add a task with a wrong format
- 2.1 Unburden will give display a error message 
+1.1 User requests to add a task with a wrong format <br>
+1.2 Unburden will give display a error message <br>
 
 
 - Use case: Delete task
@@ -373,9 +373,8 @@ MSS
 
 - Use case: Find task
 
-1. User requests to find a specific task
-2. Unburden will search through the library of existing tasks
-3. Unburden will sieve out tasks that contain the keywords typed in
+1. User requests to find tasks based on a date
+2. Unburden will search through the library of existing tasks with deadlines that are the same as 
 4. Unburden will show a list of the tasks
 5. User is able to remember what he/she needs to do
 
@@ -385,12 +384,12 @@ MSS
 
 - Use case: Edit task
 
-- User requests to edit a task
-- Unburden will search for the task based on the user&#39;s input
-- User will type in the new task description
-- Unburden will request the user to confirm the changes
-- User will confirm with Unburden
-- Unburden will update the new changes
+1. User requests to edit a task
+2. Unburden will search for the task based on the user&#39;s input
+3. User will type in the new task description
+4. Unburden will request the user to confirm the changes
+5. User will confirm with Unburden
+6. Unburden will update the new changes
 
   Use case: ends
 
