@@ -280,7 +280,9 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | edit a task and its particulars | update instantly if there are any changes in the task
 `* *` | user | view the tasks | take a quick glance or have my tasks presented according to my needs and preference
 `* *` | user | set recurring tasks | save the hassle of contstantly updating my regular activities
+`* *` | busy user | sort my tasks | rank the importance and urgency of my activities
 `*` | advanced user | use shortcuts | key in my commands quicker and easier
+`*` | advanced user | use natural language| specify my dates and time without using a fixed format
 
 {More to be added}
 
@@ -292,7 +294,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. User requests to add task
+1. User requests to add task with minimum input `TASKNAME` 
 2. Task Manager adds task and displays the new list of tasks 
 Use case ends.
 
@@ -312,7 +314,7 @@ Use case resumes at step 1
 
 **MSS**
 
-1. User requests to view tsks for specific time period
+1. User requests to view tasks for specific time period
 2. Task Manager displays all tasks during time period
 3. User requests to delete a specific task in the list
 4. Task Manager asks for confirmation on task to delete
@@ -387,10 +389,10 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
-5. Task input should not be more than 200 characters to be concise
+5. Task input should not be more than 200 characters to be concise.
 
 {More to be added}
 
@@ -405,12 +407,13 @@ Use case ends.
 > A contact detail that is not meant to be shared with others
 
 ## Appendix E : Product Survey
+Our product survey is researched and presented from our client's point of view - Jim does not use cloud-based platforms and prefers to key in his tasks in a single command line to clicking. 
 
 |       |  Wunderlist  |  Google Calendar  |  Todoist  |
 |---|---|---|---|
-|  Strengths | <ul><li>Elegant and simple</li><li>CLI input but graphical display</li><li>Add notes and timestamps to tasks</li><li>Ability to create email with list of tasks automatically</li><li>Organize tasks in different ‘lists’</li></ul> | <ul><li>Quick add feature to minimize use of mouse</li><li>Ability to allocate tasks to specific timeslots</li><li>Ability to view free timeslots</li><li>Ability to set reminders</li></ul> | <ul><li>CLI input but graphical display</li><li>Keyboard shortcuts to minimize use of mouse</li><li>Ability to set deadlines and reminders for tasks</li><li>Ability to set priorities for tasks to decide which task to do next</li></ul> |
-|  Unnecessary features  | <ul><li>Cross-platform functionality</li><li>Syncs between devices</li><li>Collaboration with others</li></ul> | <ul><li>Collaboration with others</li></ul> | <ul><li>Cross-platform functionality</li><li>Collaboration with others</li></ul> |
-|  Weaknesses  | <ul><li>No way to allocate tasks to a specific timeslot</li><li>No way to view free timeslots</li></ul> | <ul><li>Does not provide a desktop software for easy summoning using keyboard shortcuts</li><li>No easy way to “block” multiple timeslots when the exact timing of a task is uncertain and release the blocked slots when the time is finalized</li><li>Not good with capturing tasks that need to be done before a specific date/time, or after a specific date/time, and items without specific times</li><li>No support for offline access</li></ul> | <ul><li>No way to allocate tasks to a specific timeslot</li><li>No way to view free timeslots</li></ul> |
+|  Strengths | <ul><li>Elegant and simple</li><li>CLI input but graphical display</li><li>Add notes and timestamps to tasks</li><li>Ability to create email with list of tasks automatically</li><li>Organize tasks in different lists</li></ul> | <ul><li>Quick add feature to minimize use of mouse</li><li>Ability to allocate tasks to specific timeslots</li><li>Ability to view free timeslots</li><li>Ability to set reminders</li></ul> | <ul><li>CLI input but graphical display</li><li>Keyboard shortcuts to minimize use of mouse</li><li>Ability to set deadlines and reminders for tasks</li><li>Ability to set priorities for tasks to decide which task to do next</li></ul> |
+|  Irrelevant features  | <ul><li>Cross-platform functionality</li><li>Syncs between devices</li><li>Collaboration with others</li></ul> | <ul><li>Collaboration with others</li></ul> | <ul><li>Cross-platform functionality</li><li>Collaboration with others</li></ul> |
+|  Weaknesses  | <ul><li>No way to allocate tasks to a specific timeslot</li><li>No way to view free timeslots</li></ul> | <ul><li>Does not provide a desktop software for easy summoning using keyboard shortcuts</li><li>No easy way to block multiple timeslots when the exact timing of a task is uncertain and release the blocked slots when the time is finalized</li><li>Not good with capturing tasks that need to be done before a specific date/time, or after a specific date/time, and items without specific times</li><li>No support for offline access</li></ul> | <ul><li>No way to allocate tasks to a specific timeslot</li><li>No way to view free timeslots</li></ul> |
 
 
 
