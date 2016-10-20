@@ -68,11 +68,19 @@ public class Date {
             }
         }
         
-        if (dateList.size() == 1){
+    	// floating task
+    	if (dateList.size() == 0){
+        	this.value = "";
+        	startDate = null;
+        	endDate = null;
+        }
+    	// deadline
+    	else if (dateList.size() == 1){
         	this.value = dateStrings[0];
         	startDate = dateList.get(0);
         	endDate = null;
         }
+    	// event 
         else if (dateList.size() == 2){
         	if (dateStrings[0].equals(dateStrings[1])){
         		this.value = dateStrings[0];
@@ -83,11 +91,11 @@ public class Date {
         	startDate = dateList.get(0);
         	endDate = dateList.get(1);
         }
+    	// 3 or more arguments: not something we handle
         else {
-        	this.value = "";
-        	startDate = null;
-        	endDate = null;
+        	throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
+        
         
     }
 

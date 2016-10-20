@@ -63,6 +63,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     
     private void sortFilteredLists(){
+//    	if (persons.getInternalList().size() > 3){
+//    		persons.sort(Task.Comparators.DATE);
+//    	}
+//    	if (undatedList.getInternalList().size() > 1){
+//    		undatedList.sort(Task.Comparators.NAME);
+//    	}
     	persons.sort(Task.Comparators.DATE);
     	undatedList.sort(Task.Comparators.NAME);
     }
