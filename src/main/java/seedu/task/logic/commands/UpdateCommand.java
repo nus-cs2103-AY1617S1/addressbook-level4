@@ -31,24 +31,39 @@ public class UpdateCommand extends Command {
     public final int targetIndex;
     
     private final Name newTaskName;
-    private final DateTime openTime;
-    private final DateTime closeTime;
+    private final DateTime newOpenTime;
+    private final DateTime newCloseTime;
     private final Set<String> removedTags;
     private final UniqueTagList newTaskTags;
     
     public UpdateCommand(int targetIndex, String name, String openTime, String closeTime, Set<String> tagsToAdd, Set<String> tagsToRemove) throws IllegalValueException { 
         this.targetIndex = targetIndex;
+        System.out.println(name);
         this.newTaskName = (name.isEmpty()) ? null : new Name(name);
         
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tagsToAdd) {
             tagSet.add(new Tag(tagName));
         }
-        this.openTime = new DateTime(openTime);
-        this.closeTime = new DateTime(closeTime);
+        this.newOpenTime = new DateTime(openTime);
+        this.newCloseTime = new DateTime(closeTime);
         
         this.newTaskTags = new UniqueTagList(tagSet);
         this.removedTags = tagsToRemove;
+    }
+    
+    private void mergeTaskTags(ReadOnlyTask taskToUpdate) {
+        newTaskTags.mergeFrom(taskToUpdate.getTags());
+        
+        for (String tagName : removedTags) {
+            try {
+                newTaskTags.remove(new Tag(tagName));
+            } catch (TagNotFoundException e) {
+                // do nothing, as update is more lenient
+            } catch (IllegalValueException e) {
+                assert false : "Tag cannot be of other type!";
+            }
+        }
     }
     
     @Override
@@ -63,24 +78,17 @@ public class UpdateCommand extends Command {
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
 
         Name updatedTaskName = (newTaskName == null) ? taskToUpdate.getName() : newTaskName;
-        newTaskTags.mergeFrom(taskToUpdate.getTags());
-        
-        for (String tagName : removedTags) {
-            try {
-                newTaskTags.remove(new Tag(tagName));
-            } catch (TagNotFoundException e) {
-                // do nothing, as update is more lenient
-            } catch (IllegalValueException e) {
-                assert false : "Tag cannot be of other type!";
-            }
-        }
+
+        DateTime updatedOpenTime = (newOpenTime.isEmpty()) ? taskToUpdate.getOpenTime() : newOpenTime;
+        DateTime updatedCloseTime = (newCloseTime.isEmpty()) ? taskToUpdate.getCloseTime() : newCloseTime;
+        mergeTaskTags(taskToUpdate);
         
         Task newTask; 
         try {
             newTask = new Task(
                     updatedTaskName,
-                    openTime,
-                    closeTime,
+                    updatedOpenTime,
+                    updatedCloseTime,
                     taskToUpdate.getImportance(),
                     taskToUpdate.getComplete(),
                     newTaskTags
