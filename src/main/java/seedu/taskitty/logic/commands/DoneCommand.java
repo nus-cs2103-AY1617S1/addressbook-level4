@@ -2,36 +2,51 @@ package seedu.taskitty.logic.commands;
 
 import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
+import seedu.taskitty.commons.util.AppUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the taskManager.
+ * Deletes a person identified using it's last displayed index from the address book.
  */
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
+    
+    public static final String CATEGORY_CHARS = "t|d|e";
+    
+    public static final int DEFAULT_INDEX = 0;
+    
+    public static final String[] CATEGORIES = {"Todo", "Deadline", "Event"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the task identified by the index number used in the last task listing as done.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " " + CATEGORY_CHARS + " 1";
 
     public static final String MESSAGE_MARK_TASK_AS_DONE_SUCCESS = "Task done: %1$s";
     public static final String MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR = "The task \"%1$s\" has already been marked as done.";
 
+    public final int categoryIndex;
+    
     public final int targetIndex;
 
     public DoneCommand(int targetIndex) {
+        this(targetIndex, DEFAULT_INDEX);
+    }
+    
+    public DoneCommand(int targetIndex, int categoryIndex) {
         this.targetIndex = targetIndex;
+        this.categoryIndex = categoryIndex;
     }
 
 
     @Override
     public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getTaskList();
+        assert categoryIndex >= 0 && categoryIndex < 3;
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model, categoryIndex);
+       
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             model.removeUnchangedState();
@@ -50,13 +65,11 @@ public class DoneCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS, taskToBeMarkedDone));
+        return new CommandResult(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS, CATEGORIES[categoryIndex], taskToBeMarkedDone));
     }
-
-
+    
     @Override
     public void saveStateIfNeeded(String commandText) {
         model.saveState(commandText);
     }
-
 }

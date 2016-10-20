@@ -131,6 +131,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
     	taskManager.doneTask(target);
+    	updateFilters();
     	updateFilteredListToShowAll();
     	indicateTaskManagerChanged();
     }
@@ -139,6 +140,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
         taskManager.addTask(task, index);
+        updateFilters();
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
