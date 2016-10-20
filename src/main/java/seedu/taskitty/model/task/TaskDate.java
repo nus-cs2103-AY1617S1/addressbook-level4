@@ -28,17 +28,17 @@ public class TaskDate {
     public final LocalDate date;
 
     /**
-     * Validates given name.
+     * Validates given date. The date should be parsed by Natty and
+     * be in the format according to DATE_FORMAT_STRING
      *
-     * @throws IllegalValueException if given name string is invalid.
+     * @throws IllegalValueException if given date is invalid.
      */
     public TaskDate(String date) throws IllegalValueException {
-        if (date == null) {
-            throw new IllegalValueException(MESSAGE_DATE_MISSING);
-        }
+        //date cannot be null after being parsed by natty
+        assert date != null;
         
         date = date.trim();
-      //This is not an assert because user can change the database and input wrong formats
+        //This is not an assert because user can change the database and input wrong formats
         if (!isValidDateFormat(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
