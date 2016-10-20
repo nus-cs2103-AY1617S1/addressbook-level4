@@ -11,7 +11,6 @@ import seedu.menion.model.activity.UniqueActivityList.DuplicateTaskException;
 /**
  * 
  * @author Marx A0139164A
- * Edits the variables of an activity given the index and it's activtyType, and the changes.
  */
 public class EditCommand extends Command {
 
