@@ -186,13 +186,20 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void updateFilteredDateTaskList(LocalDate date, boolean hasDate) {
-		allTasks.setPredicate(p -> p.isTodo() || (p.isDeadline() && !p.getEndDate().getDate().isAfter(date)) || (p.isEvent() && 
-				!(p.getEndDate().getDate().isBefore(date) || p.getStartDate().getDate().isAfter(date))));
+		allTasks.setPredicate(p -> p.isTodo() || isDeadlineAndIsNotAfterDate(p, date) || isEventAndDateIsWithinEventPeriod(p, date));
 		filteredTodos.setPredicate(null);
 		if (hasDate) {
-			filteredDeadlines.setPredicate(p -> p.isDeadline() && !p.getEndDate().getDate().isAfter(date));
+			filteredDeadlines.setPredicate(p -> isDeadlineAndIsNotAfterDate(p, date));
 		}
-		filteredEvents.setPredicate(p -> p.isEvent() && !(p.getEndDate().getDate().isBefore(date) || p.getStartDate().getDate().isAfter(date)));
+		filteredEvents.setPredicate(p -> isEventAndDateIsWithinEventPeriod(p, date));
+	}
+	
+	private boolean isDeadlineAndIsNotAfterDate(Task task, LocalDate date) {
+		return task.isDeadline() && !task.getEndDate().getDate().isAfter(date);
+	}
+	
+	private boolean isEventAndDateIsWithinEventPeriod(Task task, LocalDate date) {
+		return task.isEvent() && !(task.getEndDate().getDate().isBefore(date) || task.getStartDate().getDate().isAfter(date));
 	}
 	
     private void updateFilteredTaskList(Expression expression) {
