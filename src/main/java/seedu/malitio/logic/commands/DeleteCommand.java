@@ -51,11 +51,11 @@ public class DeleteCommand extends Command {
             UnmodifiableObservableList<ReadOnlyFloatingTask> lastShownFloatingTaskList = model
                     .getFilteredFloatingTaskList();
             sizeOfList = lastShownFloatingTaskList.size();
-
+            break;
         case 'd':
             UnmodifiableObservableList<ReadOnlyDeadline> lastShownDeadlineList = model.getFilteredDeadlineList();
             sizeOfList = lastShownDeadlineList.size();
-
+            break;
         default:
             UnmodifiableObservableList<ReadOnlyEvent> lastShownEventList = model.getFilteredEventList();
             sizeOfList = lastShownEventList.size();
