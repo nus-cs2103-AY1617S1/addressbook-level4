@@ -24,11 +24,6 @@ public class AddCommandTest extends TaskBookGuiTest {
         assertAddSuccess(itemToAdd, currentList);
         currentList = TestUtil.addItemsToList(currentList, itemToAdd);
 
-        //add duplicate item - allowed
-        commandBox.runCommand(td.help.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_SUCCESS_TIME_NULL);
-        assertTrue(itemListPanel.isListMatching(currentList));
-
         //add to empty list
         commandBox.runCommand("clear");
         assertAddSuccess(td.always);

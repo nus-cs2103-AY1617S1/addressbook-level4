@@ -28,7 +28,7 @@ public class DateTimeParser {
     private List<DateGroup> dategroups;
     private List<Date> dates;
 
-    DateTimeParser(String input) {
+    public DateTimeParser(String input) {
         assert input != null;
         assert input.isEmpty() != true;
 

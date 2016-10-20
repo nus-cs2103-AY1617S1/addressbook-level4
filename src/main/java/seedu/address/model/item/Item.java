@@ -47,7 +47,7 @@ public class Item implements ReadOnlyItem {
      * @author darren
      */
     public Item(Description desc, LocalDateTime start, LocalDateTime end) {
-        assert !CollectionUtil.isAnyNull(desc, start, end);
+    	assert desc != null;
         this.description = desc;
         this.startDate = start;
         this.endDate = end;
