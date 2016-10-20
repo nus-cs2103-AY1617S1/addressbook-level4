@@ -82,6 +82,16 @@ FormatL `complete INDEX`
 Example:
 * `complete 2`<br>
    Marks the second task on the list as completed.
+   
+#### Pin: `pin`
+Pin a important task.<br>
+Format: `pin INDEX`
+
+> * INDEX refers to the number appears on the list in front the task name.
+
+Example:
+* `pin 1`<br>
+pin the first task to show that it is an important task.
 
 #### Listing all persons : `list`
 Shows a list of tasks and events in the todo list.<br>
@@ -128,18 +138,10 @@ Examples:
    add a tag family to the second task and remove the tag named friends
 
 #### Undo action : `undo`
-Undo the previous one action.<br>
+Undo the previous action.<br>
 Format: `undo`
 
-#### Pin: `pin`
-Pin a important task.<br>
-Format: `pin INDEX`
-
-> * INDEX refers to the number appears on the list in front the task name.
-
-Example:
-* `pin 1`<br>
-pin the first task to show that it is an important task.
+> * Will only undo `add`, `delete` and `update` actions.
 
 #### Viewing help : `help`
 Show the help menu. Format: `help`

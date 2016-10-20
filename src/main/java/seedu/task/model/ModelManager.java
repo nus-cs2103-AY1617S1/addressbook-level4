@@ -90,6 +90,14 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public synchronized void rollback() {
+        taskManager.rollback();
+        indicateTaskManagerChanged();
+    }
+    
+    //=========== Filtered Task List Accessors ===============================================================
 
     @Override
     public synchronized void pinTask(ReadOnlyTask originalTask, Task toPin) {
@@ -97,8 +105,6 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-
-    // =========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {

@@ -16,7 +16,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Updates a task in the task list.
  */
-public class UpdateCommand extends Command {
+public class UpdateCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "update";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Update a task in the task list.\n "
@@ -25,7 +25,7 @@ public class UpdateCommand extends Command {
             + " 1 cs2103 t/quiz";
     
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s"; 
-    
+    public static final String MESSAGE_ROLLBACK_SUCCESS = "Rollback changes to updated task!";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
     
     public final int targetIndex;
@@ -71,7 +71,7 @@ public class UpdateCommand extends Command {
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(false, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
@@ -93,16 +93,24 @@ public class UpdateCommand extends Command {
                     newTaskTags
             );
         } catch (IllegalValueException e1) {
-            return new CommandResult(e1.getMessage()); 
+            return new CommandResult(false, e1.getMessage()); 
         }
         
         assert model != null;
         try {
             model.updateTask(taskToUpdate, newTask);
         } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(false, MESSAGE_DUPLICATE_TASK);
         }
 
-        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, newTask));
+        return new CommandResult(true, String.format(MESSAGE_UPDATE_TASK_SUCCESS, newTask));
+    }
+
+    @Override
+    public CommandResult rollback() {
+        assert model != null;
+        model.rollback();
+        
+        return new CommandResult(true, String.format(MESSAGE_ROLLBACK_SUCCESS));
     }
 }
