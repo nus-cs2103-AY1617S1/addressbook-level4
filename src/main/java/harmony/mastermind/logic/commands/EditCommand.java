@@ -29,11 +29,13 @@ public class EditCommand extends Command implements Undoable, Redoable {
     public static final String COMMAND_KEYWORD_UPDATE = "update";
 
     public static final String COMMAND_ARGUMENTS_REGEX = "(?=(?<index>\\d+))"
-            + "(?=(?:.*?\\s\\'(?<name>.+?)')?)"
-            + "(?=(?:.*?sd\\/'(?<startDate>.+?)')?)"
-            + "(?=(?:.*?ed\\/'(?<endDate>.+?)')?)"
-            + "(?=(?:.*t\\/'(?<tags>\\w+(?:,\\w+)*)?')?)"
-            + ".*";
+                                                         + "(?=(?:.*?r\\/'(?<recur>.+?)')?)"
+                                                         + "(?=(?:.*?name\\/\"(?<name>.+?)\")?)"
+                                                         + "(?=(?:.*?startDate\\/\"(?<startDate>.+?)\")?)"
+                                                         + "(?=(?:.*?endDate\\/\"(?<endDate>.+?)\")?)"
+                                                         + "(?=(?:.*tags\\/(?<tags>\\w+(?:,\\w+)*)?)?)"
+                                                         + ".*";
+
 
     public static final Pattern COMMAND_ARGUMENTS_PATTERN = Pattern.compile(COMMAND_ARGUMENTS_REGEX);
 
@@ -67,13 +69,15 @@ public class EditCommand extends Command implements Undoable, Redoable {
     private Optional<String> name;
     private Optional<String> startDate;
     private Optional<String> endDate;
+    private Optional<String> recur;
     private Optional<Set<String>> tags;
 
-    public EditCommand(int targetIndex, Optional<String> name, Optional<String> startDate, Optional<String> endDate, Optional<Set<String>> tags) throws IllegalValueException, ParseException {
+    public EditCommand(int targetIndex, Optional<String> name, Optional<String> startDate, Optional<String> endDate, Optional<Set<String>> tags, Optional<String> recur) throws IllegalValueException, ParseException {
         this.targetIndex = targetIndex;
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.recur = recur;
         this.tags = tags;
     }
 
@@ -153,6 +157,7 @@ public class EditCommand extends Command implements Undoable, Redoable {
         String toEditName = name.map(val -> val).orElse(originalTask.getName());
         Date toEditStartDate = startDate.map(val -> prettyTimeParser.parse(val).get(0)).orElse(originalTask.getStartDate());
         Date toEditEndDate = endDate.map(val -> prettyTimeParser.parse(val).get(0)).orElse(originalTask.getEndDate());
+        String toEditRecur = recur.map(val -> val).orElse(originalTask.getRecur());
         UniqueTagList toEditTags = new UniqueTagList(tags.map(val -> {
             final Set<Tag> tagSet = new HashSet<>();
             for (String tagName : val) {
@@ -165,9 +170,10 @@ public class EditCommand extends Command implements Undoable, Redoable {
             return tagSet;
         }).orElse(originalTask.getTags().toSet()));
 
+
         // initialize the new task with edited values
         if (editedTask == null) {
-            editedTask = new Task(toEditName, toEditStartDate, toEditEndDate, toEditTags);
+            editedTask = new Task(toEditName, toEditStartDate, toEditEndDate, toEditTags, toEditRecur);
         }
 
         model.deleteTask(originalTask);

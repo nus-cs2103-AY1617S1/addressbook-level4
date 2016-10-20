@@ -6,6 +6,7 @@ import java.util.Stack;
 
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
+import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
 import harmony.mastermind.logic.commands.Command;
 import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.logic.commands.CommandResult;
@@ -16,6 +17,7 @@ import harmony.mastermind.model.task.ArchiveTaskList;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
+import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
 import javafx.collections.ObservableList;
 
 /**
@@ -30,9 +32,17 @@ public interface Model {
 
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Deletes the given Archived Task */
+    //@@author A0124797R
+    void deleteArchive(ReadOnlyTask target) throws TaskNotFoundException, ArchiveTaskList.TaskNotFoundException;
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Add the next recurring task */
+    //@@author A0124797R
+    void addNextTask(Task task) throws UniqueTaskList.DuplicateTaskException, NotRecurringTaskException;
 
     /** Marks the given task as done */
     //@@author A0124797R

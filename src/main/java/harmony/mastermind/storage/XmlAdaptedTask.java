@@ -11,6 +11,7 @@ import harmony.mastermind.model.task.Task;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * JAXB-friendly version of the Task.

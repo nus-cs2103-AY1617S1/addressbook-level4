@@ -15,6 +15,7 @@ public class TestTask implements ReadOnlyTask {
     private String name;
     private String startDate;
     private String endDate;
+    private String recur;
     private UniqueTagList tags;
     private boolean marked;
 
@@ -35,6 +36,11 @@ public class TestTask implements ReadOnlyTask {
     //@@author A0124797R
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+    
+    //@@author A0124797R
+    public void setRecur(String recur) {
+        this.recur = recur;
     }
 
 
@@ -83,6 +89,18 @@ public class TestTask implements ReadOnlyTask {
             return null;
         }
     }
+    
+    @Override
+    //@@author A0124797R
+    public String getRecur() {
+        return recur;
+    }
+    
+    @Override
+    //@@author A0124797R
+    public boolean isRecur() {
+        return recur!=null;
+    }
 
     @Override
     // @@author A0124797R
@@ -118,14 +136,14 @@ public class TestTask implements ReadOnlyTask {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Task // instanceof handles nulls
-                && this.getName().equals(((Task) other).getName())); // state check
+                && this.toString().equals(((Task) other).toString())); // state check
         
     }
     
     //@@author A0124797R
     @Override
     public boolean isSameTask(ReadOnlyTask task) {
-        return this.getName().equals(task.getName());
+        return this.toString().equals(((Task) task).toString());
     }
     
     //@@author A0124797R

@@ -11,6 +11,7 @@ import harmony.mastermind.model.task.Task;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * JAXB-friendly version of the Task.
@@ -24,6 +25,8 @@ public class XmlAdaptedEvent {
     private Date startDate;
     @XmlElement(required = true)
     private Date endDate;
+    @XmlElement(required = true)
+    private String recur;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -42,6 +45,7 @@ public class XmlAdaptedEvent {
         name = source.getName();
         startDate = source.getStartDate();
         endDate = source.getEndDate();
+        recur = source.getRecur();
 
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -63,8 +67,9 @@ public class XmlAdaptedEvent {
         final String name = this.name;
         final Date startDate = this.startDate;
         final Date endDate = this.endDate;
+        final String recur = this.recur;
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        return new Task(name, startDate, endDate, tags);
+        return new Task(name, startDate, endDate, tags, recur);
     }
 }
