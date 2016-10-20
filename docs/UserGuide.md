@@ -82,11 +82,15 @@ Format: `list [TYPE]`
 Examples:
 
 * `list`  
-  Lists all tasks and events.
+ >  Lists all tasks and events.
   <img src="images/UserGuide/list.png">
   
 * `list events`  
-  Lists all events.
+>   Lists all events.
+
+*  `list complete task`
+   > List all completed tasks
+
 
 #### Finding all tasks containing any keyword in their name & tag: `find`
 
@@ -136,6 +140,21 @@ Examples:
 * `find assignment2`  
   `delete 1`  
   Deletes the 1<sup>st</sup> task in the results of the `find` command.
+
+#### Clearing the Database : `clear`
+
+Clear tasks/events by specific instruction from GetShitDone. Requires confirmation from the user to prevent unintentional deletes.
+Format: `clear [event/task] [date]`
+
+> Clear the task or events at the specified `date`. 
+
+Examples: 
+
+* `clear task`
+  Clear all  tasks in GetShitDone.
+
+* `clear event to yesterday`  
+  Clear all events up to yesterday [inclusive].
 
 #### Removing a tag : `untag`
 
