@@ -55,8 +55,7 @@ public class ChangeCommand extends Command{
         if (isToClearOld && !isValidClear()) {
             return new CommandResult(MESSAGE_INVALID_CLEAR_DATA);
         }
-        EventsCenter.getInstance().post(new StoragePathChangedEvent(filePath, isToClearOld));
-        model.updateTaskManager();
+        model.updateTaskManager(filePath, isToClearOld);
         return new CommandResult(MESSAGE_CHANGE_SUCCESS);
     }
 

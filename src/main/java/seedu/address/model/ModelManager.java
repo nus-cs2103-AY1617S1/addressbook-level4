@@ -9,7 +9,9 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
+import seedu.address.commons.events.storage.StoragePathChangedEvent;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.EventsCenter;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -79,7 +81,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateTaskManager() {
+    public void updateTaskManager(String filePath, boolean isToClearOld) {
+        EventsCenter.getInstance().post(new StoragePathChangedEvent(filePath, isToClearOld));
         indicateTaskManagerChanged();
     }
 

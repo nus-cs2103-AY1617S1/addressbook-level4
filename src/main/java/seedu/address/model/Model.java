@@ -34,7 +34,7 @@ public interface Model {
 
 	void updateFilteredTaskList(String keyword);
 	
-	/** Update the task manager */
-	void updateTaskManager();
+	/** Update the task manager to the new file path*/
+	void updateTaskManager(String filePath, boolean isToClearOld);
 
 }
