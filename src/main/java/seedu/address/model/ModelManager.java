@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 /**
@@ -131,10 +132,21 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
+    
+    //@@author A0142184L
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFullTaskList() {
+        return new UnmodifiableObservableList<>(taskManager.getTasks());
+    }
 
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+    }
+    
+    @Override
+    public void updateFilteredTaskList(Predicate<ReadOnlyTask> taskFilter) {
+    	filteredTasks.setPredicate(taskFilter);
     }
 
     @Override
@@ -145,6 +157,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
+    
 
     //========== Inner classes/interfaces used for filtering ==================================================
 

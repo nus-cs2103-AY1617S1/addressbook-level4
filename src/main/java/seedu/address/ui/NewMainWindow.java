@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -21,20 +22,23 @@ import seedu.address.model.UserPrefs;
  */
 public class NewMainWindow extends UiPart {
 
+	//@@author A0142184L
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "NewMainWindow.fxml";
     public static final int MIN_HEIGHT = 750;
-    public static final int MIN_WIDTH = 600;
-
+    public static final int MIN_WIDTH = 800;
+    //@@author 
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListLeftPanel;
+    //@@author A0142184L
     private TodayTaskListTabPanel todayTaskListTabPanel;
     private TomorrowTaskListTabPanel tomorrowTaskListTabPanel;
     private In7DaysTaskListTabPanel in7DaysTaskListTabPanel;
     private In30DaysTaskListTabPanel in30DaysTaskListTabPanel;
     private SomedayTaskListTabPanel somedayTaskListTabPanel;
+    //@@author 
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -56,6 +60,7 @@ public class NewMainWindow extends UiPart {
     @FXML
     private AnchorPane taskListLeftPanelPlaceholder;
 
+    //@@author A0142184L
     @FXML 
 	private AnchorPane todayTaskListTabPanelPlaceholder;
     
@@ -71,6 +76,7 @@ public class NewMainWindow extends UiPart {
     @FXML
 	private AnchorPane somedayTaskListTabPanelPlaceholder;
 
+   //@@author 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
@@ -125,11 +131,13 @@ public class NewMainWindow extends UiPart {
 
     void fillInnerParts() {
         taskListLeftPanel = TaskListPanel.load(primaryStage, getTaskListLeftPlaceholder(), logic.getFilteredTaskList());
-        todayTaskListTabPanel = TodayTaskListTabPanel.load(primaryStage, getTodayTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
-        tomorrowTaskListTabPanel = TomorrowTaskListTabPanel.load(primaryStage, getTomorrowTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
-        in7DaysTaskListTabPanel = In7DaysTaskListTabPanel.load(primaryStage, getIn7DaysTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
-        in30DaysTaskListTabPanel = In30DaysTaskListTabPanel.load(primaryStage, getIn30DaysTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());   
-        somedayTaskListTabPanel = SomedayTaskListTabPanel.load(primaryStage, getSomedayTaskListTabPanelPlaceholder(), logic.getFilteredTaskList());
+        //@@author A0142184L
+        todayTaskListTabPanel = TodayTaskListTabPanel.load(primaryStage, getTodayTaskListTabPanelPlaceholder(), logic.getFullTaskList());
+        tomorrowTaskListTabPanel = TomorrowTaskListTabPanel.load(primaryStage, getTomorrowTaskListTabPanelPlaceholder(), logic.getFullTaskList());
+        in7DaysTaskListTabPanel = In7DaysTaskListTabPanel.load(primaryStage, getIn7DaysTaskListTabPanelPlaceholder(), logic.getFullTaskList());
+        in30DaysTaskListTabPanel = In30DaysTaskListTabPanel.load(primaryStage, getIn30DaysTaskListTabPanelPlaceholder(), logic.getFullTaskList());   
+        somedayTaskListTabPanel = SomedayTaskListTabPanel.load(primaryStage, getSomedayTaskListTabPanelPlaceholder(), logic.getFullTaskList());
+        //@@author
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);    
@@ -150,7 +158,8 @@ public class NewMainWindow extends UiPart {
     public AnchorPane getTaskListLeftPlaceholder() {
         return taskListLeftPanelPlaceholder;
     }
-
+    
+    //@@author A0142184L
 	private AnchorPane getTodayTaskListTabPanelPlaceholder() {
 		return todayTaskListTabPanelPlaceholder;
 	}
@@ -170,7 +179,8 @@ public class NewMainWindow extends UiPart {
     private AnchorPane getSomedayTaskListTabPanelPlaceholder() {
     	return somedayTaskListTabPanelPlaceholder;
 	}
-
+    
+    //@@author 
     public void hide() {
         primaryStage.hide();
     }
