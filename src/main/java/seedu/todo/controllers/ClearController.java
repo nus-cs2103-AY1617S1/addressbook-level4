@@ -138,6 +138,7 @@ public class ClearController implements Controller {
         
         db.destroyAllEventByRange(dateFrom, dateTo);
         db.destroyAllTaskByRange(dateFrom, dateTo);
+        db.save();
         Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, displaySuccessMessage(numTasks, numEvents)));
     }
     
@@ -200,6 +201,7 @@ public class ClearController implements Controller {
         }
         db.destroyAllEventByDate(givenDate);
         db.destroyAllTaskByDate(givenDate);
+        db.save();
         Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, displaySuccessMessage(numTasks, numEvents)));
     }
 
@@ -212,6 +214,7 @@ public class ClearController implements Controller {
         int totalCalendarItems = db.getAllEvents().size() + db.getAllTasks().size();
         db.destroyAllEvent();
         db.destroyAllTask();
+        db.save();
         Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, totalCalendarItems));
     }
     

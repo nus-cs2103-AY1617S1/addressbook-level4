@@ -137,9 +137,8 @@ public class TodoListDB {
      * 
      * @return true if the save was successful, false otherwise
      */
-    public boolean destroyAllTask() {
+    public void destroyAllTask() {
         tasks = new LinkedHashSet<Task>();
-        return save();
     }
     
     /**
@@ -148,22 +147,19 @@ public class TodoListDB {
      * 
      * @return true if the save was successful, false otherwise
      */
-    public boolean destroyAllTaskByDate(LocalDateTime givenDate) {
+    public void destroyAllTaskByDate(LocalDateTime givenDate) {
         List<Task> selectedTasks = getTaskByDate(givenDate);
         tasks.removeAll(selectedTasks);
-        return save();
     }
     
     /**
      * Destroys all Task in the DB by a range of date
      * 
      * 
-     * @return true if the save was successful, false otherwise
      */
-    public boolean destroyAllTaskByRange(LocalDateTime dateFrom, LocalDateTime dateTo) {
+    public void destroyAllTaskByRange(LocalDateTime dateFrom, LocalDateTime dateTo) {
         List<Task> selectedTasks = getTaskByRange(dateFrom, dateTo);
         tasks.removeAll(selectedTasks);
-        return save();
     }
     
     /**
@@ -194,23 +190,20 @@ public class TodoListDB {
      * Destroys all Event in the DB and persists the commit.
      * 
      * 
-     * @return true if the save was successful, false otherwise
+     * 
      */
-    public boolean destroyAllEvent() {
+    public void destroyAllEvent() {
         events = new LinkedHashSet<Event>();
-        return save();
     }
     
     /**
      * Destroys all Event in the DB by date
      * 
      * 
-     * @return true if the save was successful, false otherwise
      */
-    public boolean destroyAllEventByDate(LocalDateTime givenDate) {
+    public void destroyAllEventByDate(LocalDateTime givenDate) {
         List<Event> selectedEvents = getEventByDate(givenDate);
         events.removeAll(selectedEvents);
-        return save();
     }
     
     /**
@@ -219,10 +212,9 @@ public class TodoListDB {
      * 
      * @return true if the save was successful, false otherwise
      */
-    public boolean destroyAllEventByRange(LocalDateTime dateFrom, LocalDateTime dateTo) {
+    public void destroyAllEventByRange(LocalDateTime dateFrom, LocalDateTime dateTo) {
         List<Event> selectedEvents = getEventByRange(dateFrom, dateTo);
         events.removeAll(selectedEvents);
-        return save();
     }
     
     
