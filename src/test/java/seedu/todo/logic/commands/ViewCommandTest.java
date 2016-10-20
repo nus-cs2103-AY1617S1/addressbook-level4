@@ -4,7 +4,9 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+import com.google.common.collect.ImmutableList;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,6 +23,7 @@ public class ViewCommandTest extends CommandTest {
     EventsCollector eventsCollector = new EventsCollector();
     ChangeViewRequestEvent event;
     ImmutableTask task1, task2, task3;
+    List<ImmutableTask> tasks;
     
     @Override
     protected BaseCommand commandUnderTest() {
@@ -43,12 +46,22 @@ public class ViewCommandTest extends CommandTest {
             task.setCompleted(false); 
             task.setEndTime(LocalDateTime.now());
         });
+        
+        tasks = ImmutableList.of(task1, task2, task3);
     }
     
     private void assertViewChangeEventFired(TaskViewFilter filter) {
         assertThat(eventsCollector.get(0), instanceOf(ChangeViewRequestEvent.class));
         event = (ChangeViewRequestEvent) eventsCollector.get(0);
         assertEquals(event.getNewView(), filter);
+    }
+    
+    private void assertTasksVisible(int[] taskIndices) {
+        assertVisibleTaskCount(taskIndices.length);
+        int i = 0;
+        for (ImmutableTask task : model.getObservableList()) {
+            assertEquals(tasks.get(taskIndices[i++]), task);
+        }
     }
 
     @Test
@@ -57,7 +70,7 @@ public class ViewCommandTest extends CommandTest {
         setParameter("show all");
         execute(true);
         
-        assertVisibleTaskCount(3);
+        assertTasksVisible(new int[]{ 0, 1, 2 });
         assertViewChangeEventFired(TaskViewFilter.DEFAULT);
     }
     
@@ -65,7 +78,6 @@ public class ViewCommandTest extends CommandTest {
     public void testInvalidView() throws ValidationException {
         setParameter("de fault");
         execute(false);
-        // checkFeedback received
     }
     
     @Test
@@ -73,12 +85,8 @@ public class ViewCommandTest extends CommandTest {
         setParameter("completed");
         execute(true);
         
-        assertVisibleTaskCount(1);
         assertViewChangeEventFired(TaskViewFilter.COMPLETED);
-        
-        assertTaskNotVisible(task1);
-        assertTaskNotVisible(task2);
-        assertTaskVisible(task3);
+        assertTasksVisible(new int[]{ 2 });
     }
     
     @Test
@@ -87,11 +95,8 @@ public class ViewCommandTest extends CommandTest {
         execute(true);
         
         assertViewChangeEventFired(TaskViewFilter.INCOMPLETE);
-        assertTaskVisible(task1);
-        assertTaskVisible(task2);
-        assertTaskNotVisible(task3);
+        assertTasksVisible(new int[]{ 0, 1 });
     }
-        
     
     @Test
     public void testCaseInsensitive() throws ValidationException {
@@ -99,9 +104,7 @@ public class ViewCommandTest extends CommandTest {
         execute(true);
         
         assertViewChangeEventFired(TaskViewFilter.INCOMPLETE);
-        assertTaskVisible(task1);
-        assertTaskVisible(task2);
-        assertTaskNotVisible(task3);
+        assertTasksVisible(new int[]{ 0, 1 });
     }
     
     @Test
@@ -110,9 +113,26 @@ public class ViewCommandTest extends CommandTest {
         execute(true);
         
         assertViewChangeEventFired(TaskViewFilter.DUE_SOON);
-        assertTaskVisible(task1);
-        assertTaskNotVisible(task2);
-        assertTaskNotVisible(task3);
+        assertTasksVisible(new int[]{ 0 });
+    }
+
+
+    @Test
+    public void testShortcut() throws ValidationException {
+        setParameter("d");
+        execute(true);
+
+        assertViewChangeEventFired(TaskViewFilter.DUE_SOON);
+        assertTasksVisible(new int[]{ 0 });
+    }
+    
+    @Test
+    public void testShortcutCaseInsensitive() throws Exception {
+        setParameter("D");
+        execute(true);
+
+        assertViewChangeEventFired(TaskViewFilter.DUE_SOON);
+        assertTasksVisible(new int[]{ 0 });
     }
     
     @Test
@@ -129,7 +149,7 @@ public class ViewCommandTest extends CommandTest {
         assertTaskVisible(task2);
         assertTaskNotVisible(task3);
         
-        setParameter("show all");
+        setParameter("a");
         execute(true);
         assertTaskVisible(task1);
         assertTaskVisible(task2);
