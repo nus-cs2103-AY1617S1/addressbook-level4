@@ -18,4 +18,5 @@ public class Messages {
 	public static final String MESSAGE_INVALID_PRIORITY_SPACE = "Did you remember to add a space before the /priority?";
 	public static final String MESSAGE_INVALID_TIME_SPACE = "What time do you want to block?";
 	public static final String MESSAGE_TIMESLOT_BLOCKED = "Time slot blocked! Try again.";
+	public static final String MESSAGE_CANNOT_DONE = "You can't do a block... Right?";
 }
