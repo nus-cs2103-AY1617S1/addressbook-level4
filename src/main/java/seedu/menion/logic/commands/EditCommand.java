@@ -1,5 +1,7 @@
 package seedu.menion.logic.commands;
 
+import java.util.Arrays;
+
 import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.core.UnmodifiableObservableList;
 import seedu.menion.model.activity.Activity;
@@ -30,7 +32,6 @@ public class EditCommand extends Command {
     public final String targetType;
     public final String[] changes;
     public final String paramToChange;
-    String[] temp;
     ReadOnlyActivity activityToEdit;
 
     public EditCommand(String[] splited) {
@@ -38,10 +39,8 @@ public class EditCommand extends Command {
         this.targetType = splited[1];
         this.targetIndex = Integer.valueOf(splited[2]) - 1;
         this.paramToChange = splited[3];
-        for (int i = 4; i < splited.length; i++) {
-            temp[i-4] = splited[i];
-        }
-        this.changes = temp;
+        this.changes = Arrays.copyOfRange(splited, 4, splited.length);
+        
         for (int i = 0; i < splited.length; i++) {
             System.out.println("This is i : " + i + ". And this is inside: " + splited[i]);
         }
@@ -91,7 +90,8 @@ public class EditCommand extends Command {
     private void taskEdit(int index, String paramToChange, String[] changes) {
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
-
+        System.out.println("This is indexOfParam:  " + indexOfParam);
+        
         switch (indexOfParam) {
         
         case 0:
