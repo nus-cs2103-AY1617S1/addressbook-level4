@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskscheduler>
+    <tasks>
+        <name>Career Fair</name>
+        <phone>07-Oct-2016</phone>
+        <email>11-Oct-2016</email>
+        <address>NUS COM1</address>
+        <tagged>Event</tagged>
+    </tasks>
+    <tasks>
+        <name>Do CS2103 Project</name>
+        <phone></phone>
+        <email>14-Oct-2016</email>
+        <address></address>
+        <tagged>Deadline</tagged>
+    </tasks>
+    <tasks>
+        <name>Project Discussion</name>
+        <phone>14-Oct-2016</phone>
+        <email>21-Oct-2016</email>
+        <address>At Technoedge</address>
+        <tagged>Event</tagged>
+    </tasks>
+    <tasks>
+        <name>Grocery Shopping</name>
+        <phone></phone>
+        <email></email>
+        <address></address>
+    </tasks>
+    <tasks>
+        <name>CS2103 Lecture</name>
+        <phone>20-Oct-2016 01:04 AM</phone>
+        <email>20-Oct-2016 12:47 PM</email>
+        <address>At ICube Lecture Hall</address>
+        <tagged>Event</tagged>
+    </tasks>
+    <tasks>
+        <name>Send kids to NUS</name>
+        <phone>20-Oct-2016 01:08 AM</phone>
+        <email>20-Oct-2016 01:04 AM</email>
+        <address>At NUS</address>
+        <tagged>Event</tagged>
+    </tasks>
+    <tasks>
+        <name>Project Briefing</name>
+        <phone>20-Oct-2016 02:04 AM</phone>
+        <email>20-Oct-2016 02:04 AM</email>
+        <address>At ICube Lecture Hall</address>
+        <tagged>Event</tagged>
+    </tasks>
+    <tags>
+        <tagName>Event</tagName>
+    </tags>
+    <tags>
+        <tagName>Deadline</tagName>
+    </tags>
+</taskscheduler>
