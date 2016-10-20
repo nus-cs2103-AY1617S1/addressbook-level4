@@ -85,6 +85,11 @@ public class Task implements ReadOnlyTask {
     public Name getName() {
         return name;
     }
+	
+	@Override
+    public TaskDescription getTaskDescription() {
+        return taskD;
+    }
     
     @Override
     public Date getDate() {
@@ -115,6 +120,10 @@ public class Task implements ReadOnlyTask {
     
     public void setName(Name name) {
         this.name = name;
+    }
+    
+    public void setTaskDescription(TaskDescription taskD) {
+        this.taskD = taskD;
     }
     
     public void setDate(Date date) {
