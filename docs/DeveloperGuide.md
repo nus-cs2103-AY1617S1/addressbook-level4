@@ -257,10 +257,15 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | user | add a new task |
 `* * *` | user | delete a task | remove task that I have done
+`* * *` | user | list all tasks | view all tasks in the TaskManager
 `* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
-`*` | user with many tasks in the task manager | sort tasks by deadline | locate a task easily
-
-{More to be added}
+`* *` | user | undo last action | remove changes made by the last command
+`* *` | user | be flexible in command inputs | easily key in commands without remembering specific formats
+`* *` | user | backup my data elsewhere | save the current data into another location
+`* *` | user | select the data to be accessed | can have different users using this application, access an older backup
+`*` | user with many tasks in the task manager | sort tasks by deadline | locate upcoming tasks easily
+`*` | user | list done/undone tasks | Keep track of which items are done and which are yet to be done
+`*` | user | have auto-fill | easily key in commands without remembering the formats
 
 ## Appendix B : Use Cases
 
@@ -301,6 +306,46 @@ Use case ends.
 
 > Use case ends
  
+ 
+ #### Use case: Backup Data
+
+**MSS**
+
+1. User requests to backup current data at specified location
+2. Task Manager saves data at specified location.
+3. Task Manager shows location data is saved at.<br>
+Use case ends.
+
+**Extensions**
+
+1a. The user don't type a valid file path
+
+> Use case ends
+ 
+ 2a. Specified location is inaccessible by TaskManager or does not exist
+ 
+ > 2a1. Task Manager shows an error message <br>
+  Use case ends
+ 
+  #### Use case: Access Another Data File
+
+**MSS**
+
+1. User requests to access data at specified location
+2. Task Manager loads data at specified location.
+3. Task Manager shuts down.<br>
+Use case ends.
+
+**Extensions**
+
+1a. The user don't type a valid file path
+
+> Use case ends
+ 
+ 2a. Specified file is inaccessible by TaskManager or does not exist
+ 
+ > 2a1. Task Manager shows an error message <br>
+  Use case ends
  
 
 ## Appendix C : Non Functional Requirements
