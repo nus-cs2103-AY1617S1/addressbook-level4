@@ -181,7 +181,7 @@ Perhaps now you have a change of schedule, or you are unsatisfied with the task 
 
 _Format:_
 ```java
-edit <index> [name/"<task_name>"] [startDate/"<start_>"] [on/DATE] [t/TAGS...]
+edit <index> '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_seperated_tags>...']
 ```
 
 >* At least one optional argument is required.
@@ -191,11 +191,11 @@ _Examples:_
 
 ```java
 // Selects the 2nd task in Mastermind and edit the task name to Dinner.
-> edit 2 name/"Dinner"
+> edit 2 'Dinner'
 ```
 ```java
 // Selects the 1st task and edit the `startDate` to tomorrow 8pm.
-edit 1 startDate/"tomorrow 8pm"
+edit 1 sd/'tomorrow 8pm'
 ```
 
 
@@ -321,40 +321,19 @@ _Examples:_
 > mark 1
 ```
 
-### Clearing of entries : `clear`
+### Clearing all entries: `clear`
 
-Too much clutter on the screen? _Mastermind_ can `clear` the current category for you by deleting the tasks.
-
-_Format:_
-```java
-clear <category_name>
-```
-> Possible values of `category_name` includes (case-insensitive):
-> `Home`
-> `Tasks`
-> `Events`
-> `Deadlines`
-> `Archive`
-
-_Example:_
-```java
-// All tasks in deadlines are deleted
-> clear deadlines
-```
-
-### Clearing all entries: `clearall`
-
-Want to clear even more clutter? _Mastermind_ can do a spring cleaning for you in all categories.
+Want to clear everything? _Mastermind_ can do a spring cleaning for you in all categories.
 
 _Format:_
 ```java
-clearall
+clear
 ```
 
 _Example:_
 ```java
 // All tasks in categories are deleted
-> clearall
+> clear
 ```
 
 ### Changing save location : `relocate`
@@ -416,7 +395,6 @@ Delete | `delete <index>`
 Undo | `undo`
 Redo | `redo`
 Mark | `mark <index>`
-Clear | `clear [<caegory_name]`
-Clear all | `clearall`
+Clear | `clear`
 Relocate | `relocate <new_destination_folder>`
 Exit | `exit`

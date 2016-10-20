@@ -1,5 +1,6 @@
 package harmony.mastermind.ui;
 
+import java.util.Random;
 import java.util.logging.Logger;
 
 import org.controlsfx.control.textfield.TextFields;
@@ -20,10 +21,12 @@ import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.PreviousCommand;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.model.task.ReadOnlyTask;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
@@ -36,6 +39,10 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 /**
@@ -284,6 +291,7 @@ public class MainWindow extends UiPart {
         initDeadlineTab();
         initArchiveTab();
 
+        Platform.runLater(()->commandField.requestFocus());
     }
 
     /**
@@ -356,6 +364,7 @@ public class MainWindow extends UiPart {
     //@@author A0138862W
     private void initIndex(TableColumn<ReadOnlyTask, String> indexColumn) {
         indexColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_INDEX));
+        
         indexColumn.setCellFactory(column -> new TableCell<ReadOnlyTask, String>() {
             @Override
             public void updateIndex(int index) {
@@ -367,6 +376,7 @@ public class MainWindow extends UiPart {
                     setText(Integer.toString(index + 1));
                 }
             }
+            
         });
     }
 
@@ -377,6 +387,32 @@ public class MainWindow extends UiPart {
     private void initName(TableColumn<ReadOnlyTask, String> nameColumn) {
         nameColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_NAME));
         nameColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getName()));
+        
+        nameColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, String>(){
+            
+            @Override
+            public void updateItem(String item , boolean isEmpty){
+                super.updateItem(item, isEmpty);
+                if(!isEmpty()){
+                    
+                    TextFlow textFlow = new TextFlow();
+                    
+                    Text taskName = new Text(item);
+                    taskName.setStyle("-fx-font-weight: bold; -fx-font-size: 18px; -fx-fill: deepSkyBlue;");
+                    
+                    textFlow.getChildren().add(taskName);
+                    
+                    
+                    this.setGraphic(textFlow);
+                    this.setPrefHeight(50);
+                    
+                }else{
+                    this.setGraphic(null);
+                }
+                
+            }
+        });
+        
     }
     
     /**
@@ -394,6 +430,44 @@ public class MainWindow extends UiPart {
                 return new ReadOnlyStringWrapper("");
             }
         });
+        
+        startDateColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, String>(){
+            
+            @Override
+            public void updateItem(String item , boolean isEmpty){
+                super.updateItem(item, isEmpty);
+                if(!isEmpty()){
+                    
+                    TextFlow textFlow = new TextFlow();
+                    
+                    String[] dates = item.split("\n");
+                    
+                    if(dates.length>1){
+                    
+                        Text prettyDate = new Text(dates[0]);
+                        prettyDate.setStyle("-fx-font-weight:bold; -fx-fill: white;");
+                        
+                        Text lineBreak = new Text("\n\n");
+                        lineBreak.setStyle("-fx-font-size:2px;");
+                        
+                        Text uglyDate = new Text(dates[1]);
+                        uglyDate.setStyle("fx-font-style: oblique; -fx-fill: deepSkyBlue; -fx-font-size: 10px;");
+                        
+                        textFlow.getChildren().add(prettyDate);
+                        textFlow.getChildren().add(lineBreak);
+                        textFlow.getChildren().add(uglyDate);
+                        
+                        
+                        this.setGraphic(textFlow);
+                        this.setPrefHeight(50);
+                    }
+                }else{
+                    this.setGraphic(null);
+                }
+                
+            }
+        });
+        
     }
     
     /**
@@ -411,6 +485,44 @@ public class MainWindow extends UiPart {
                 return new ReadOnlyStringWrapper("");
             }
         });
+        
+        endDateColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, String>(){
+            
+            @Override
+            public void updateItem(String item , boolean isEmpty){
+                super.updateItem(item, isEmpty);
+                if(!isEmpty()){
+                    
+                    TextFlow textFlow = new TextFlow();
+                    
+                    String[] dates = item.split("\n");
+                    
+                    if(dates.length>1){
+                    
+                        Text prettyDate = new Text(dates[0]);
+                        prettyDate.setStyle("-fx-font-weight:bold; -fx-fill: white;");
+                        
+                        Text lineBreak = new Text("\n\n");
+                        lineBreak.setStyle("-fx-font-size:2px;");
+                        
+                        Text uglyDate = new Text(dates[1]);
+                        uglyDate.setStyle("fx-font-style: oblique; -fx-fill: deepSkyBlue; -fx-font-size: 10px;");
+                        
+                        textFlow.getChildren().add(prettyDate);
+                        textFlow.getChildren().add(lineBreak);
+                        textFlow.getChildren().add(uglyDate);
+                        
+                        
+                        this.setGraphic(textFlow);
+                        this.setPrefHeight(50);
+                    }
+                }else{
+                    this.setGraphic(null);
+                }
+                
+            }
+        });
+        
     }
     
     /**
@@ -420,6 +532,22 @@ public class MainWindow extends UiPart {
     private void initTags(TableColumn<ReadOnlyTask, String> tagsColumn) {
         tagsColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_TAGS));
         tagsColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getTags().toString()));
+        
+        tagsColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, String>(){
+            
+            @Override
+            public void updateItem(String item , boolean isEmpty){
+                super.updateItem(item, isEmpty);
+                if(!isEmpty()){
+                    this.setText(item.replace(',', ' '));
+                    this.setStyle("-fx-font-weight:bold;");
+                    this.setWrapText(true);
+                }else{
+                    this.setText("");
+                }
+            }
+        });
+        
     }
 
 
