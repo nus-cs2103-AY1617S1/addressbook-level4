@@ -3,6 +3,8 @@ package seedu.whatnow.model.task;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 public class TaskTime {
@@ -35,6 +37,7 @@ public class TaskTime {
 	private final String endDate;
 
 	public TaskTime(String time, String startTime, String endTime, String date, String startDate, String endDate)  throws IllegalValueException{
+		PrettyTime p = new PrettyTime();
 		if(!isValidTime(time)) {
 			throw new IllegalValueException(INVALID_TIME_MESSAGE);
 		}
