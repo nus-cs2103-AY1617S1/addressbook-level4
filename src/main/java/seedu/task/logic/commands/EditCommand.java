@@ -9,10 +9,13 @@ public abstract class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " -t | -e : Edits a task or event in the latest displayed list\n"
-            + "Edit Task Parameters: INDEX + [NEW_NAME] + [NEW_DESCRIPTION] + [NEW_DEADLINE] \n"
-            + "Example: "+ COMMAND_WORD + " -t 1 /desc Complete up to pg 24 of notes\n"
-            + "Edit Event Parameters: LIST_TYPE + [NEW_NAME] + [NEW_DESCRIPTION] + [NEW_DURATION] \n" 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
+            + "Edits a task or event in the latest displayed list.\n\n"
+            + "Editing a task.\n"
+            + "Parameters: INDEX [NEW_NAME] [NEW_DESCRIPTION] [NEW_DEADLINE]\n"
+            + "Example: "+ COMMAND_WORD + " -t 1 /desc Complete up to pg 24 of notes\n\n"
+            + "Editing an event. \n"
+            + "Parameters: LIST_TYPE [NEW_NAME] [NEW_DESCRIPTION] [NEW_DURATION]\n" 
             + "Example: "+ COMMAND_WORD + " -e 4 /from 7pm tomorrow > 9pm";
     
     private static int targetIndex; //starts from index 1

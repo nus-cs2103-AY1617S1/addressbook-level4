@@ -11,6 +11,7 @@ import seedu.task.model.item.UniqueTaskList;
  */
 public class ClearCommand extends Command {
 
+
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "All %s %s has been cleared!";
     public static final String MESSAGE_COMPLETED = "completed";

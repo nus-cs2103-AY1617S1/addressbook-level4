@@ -79,6 +79,15 @@ public class CommandTest extends LogicBasicTest {
     }
     
     /**
+     * Executes the command and confirms that the result message is correct.
+     * Both the 'task book' and the 'last shown list' are expected to be empty.
+     */
+    protected void assertHelpCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
+        assertEventCommandBehavior(inputCommand, expectedMessage, new TaskBook(), Collections.emptyList());
+        assertTaskCommandBehavior(inputCommand, expectedMessage, new TaskBook(), Collections.emptyList());
+    }
+    
+    /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
      *      - the internal task book data are same as those in the {@code expectedTaskBook} <br>

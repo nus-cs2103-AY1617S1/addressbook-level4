@@ -9,18 +9,35 @@ import seedu.taskcommons.core.EventsCenter;
  */
 public class HelpCommand extends Command {
 
-    public static final String COMMAND_WORD = "help";
+	public final String commandWord;
+	public boolean isPopUp;
+	public static final String COMMAND_WORD = "help";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
-            + "Example: " + COMMAND_WORD;
+	public static final String MESSAGE_USAGE = COMMAND_WORD + "\n"
+			+ "Shows program commands usage instructions.\n" 
+			+ "Example: " + COMMAND_WORD + "\n\n"  
+			+ "List of available commands for help\n" + COMMAND_WORD + " add\n" + COMMAND_WORD + " delete\n"
+			+ COMMAND_WORD + " find\n" + COMMAND_WORD + " list\n" + COMMAND_WORD + " select\n" + COMMAND_WORD
+			+ " mark\n" + COMMAND_WORD + " clear\n" + COMMAND_WORD + " exit"
+			+ "Parameters: help [KEY_WORD]\n"
+			+ "Example: "+COMMAND_WORD+"add\n\n";
+	
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+	public HelpCommand(String commandWord, boolean helpWindowPopUp) {
+		// TODO Auto-generated constructor stub
+		this.commandWord = commandWord;
+		this.isPopUp = helpWindowPopUp;
+	}
 
-    public HelpCommand() {}
+	@Override
+	public CommandResult execute() {
 
-    @Override
-    public CommandResult execute() {
-        EventsCenter.getInstance().post(new ShowHelpEvent());
-        return new CommandResult(SHOWING_HELP_MESSAGE);
-    }
+		if (isPopUp == true) {
+			EventsCenter.getInstance().post(new ShowHelpEvent());
+			return new CommandResult(commandWord);
+		} else {
+			return new CommandResult(commandWord);
+		}
+	
+	}
 }
