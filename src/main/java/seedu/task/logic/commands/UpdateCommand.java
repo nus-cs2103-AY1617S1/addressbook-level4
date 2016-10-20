@@ -85,7 +85,7 @@ public class UpdateCommand extends UndoableCommand {
                     newTaskTags
             );
         } catch (IllegalValueException e1) {
-            return new CommandResult(e1.getMessage()); 
+            return new CommandResult(false, e1.getMessage()); 
         }
         
         assert model != null;

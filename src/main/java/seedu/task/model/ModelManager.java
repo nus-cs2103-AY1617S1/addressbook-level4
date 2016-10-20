@@ -93,7 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void rollback() {
         taskManager.rollback();
-        indicateAddressBookChanged();
+        indicateTaskManagerChanged();
     }
     
     //=========== Filtered Task List Accessors ===============================================================

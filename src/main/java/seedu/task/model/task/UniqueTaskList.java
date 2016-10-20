@@ -3,6 +3,7 @@ package seedu.task.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.task.commons.exceptions.DuplicateDataException;
+import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.CollectionUtil;
 import seedu.task.model.history.ListMutation;
 import seedu.task.model.history.Mutation;
@@ -122,8 +123,9 @@ public class UniqueTaskList implements Iterable<Task> {
      * @param index the index in the task list
      * @param mutation the Mutation of the element
      * @return true if the operation succeeds, or else false
+     * @throws IllegalValueException if the ReadOnlyTask states have invalid fields
      */
-    public boolean applyMutation(int index, Mutation<ReadOnlyTask> mutation) {
+    public boolean applyMutation(int index, Mutation<ReadOnlyTask> mutation) throws IllegalValueException {
         if (index < 0 || index > internalList.size()) {
             return false;
         }
@@ -153,7 +155,11 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         
         for (Entry<Integer, Mutation<ReadOnlyTask>> element : history.getMutations()) {
-            applyMutation(element.getKey(), element.getValue().reverse());
+            try {
+                applyMutation(element.getKey(), element.getValue().reverse());
+            } catch (IllegalValueException e) {
+                assert false : "Task was retrieved from TaskList, incorrect fields not possible";
+            }
         }
         
         history.clear();

@@ -95,7 +95,12 @@ public class Task implements ReadOnlyTask {
      * Retrieves an immutable version of the task. Will not mutate if task is changed afterwards.
      */
     public ReadOnlyTask getImmutable() {
-        return new Task(this);
+        try {
+            return new Task(this);
+        } catch (IllegalValueException e) {
+            assert false : "Impossible situation, as Task fields has been validated!";
+            return null;
+        }
     }
 
     /**
