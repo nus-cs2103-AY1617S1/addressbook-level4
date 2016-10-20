@@ -117,31 +117,8 @@ public class UniqueTaskList implements Iterable<Task> {
         	throw new TaskNotFoundException();
         }
         
-        for(int i = 0; i<args.length; i++){
-        	if(!(args[i]==null)){
-        		switch(i){
-        		case 0: editTask.setName(args[i]);break;
-        		case 1: 
-        			if(editTask.getIsTask()){
-        				editTask.setDueDate(args[i]);
-        			}else{
-        				throw new IllegalEditException();
-        			}break;
-        		case 2:
-        			if(editTask.getIsEvent()){
-        				editTask.setStartTime(args[i]);
-        			}else{
-        				throw new IllegalEditException();
-        			}break;
-        		case 3:
-        			if(editTask.getIsEvent()){
-        				editTask.setEndTime(args[i]);
-        			}else{
-        				throw new IllegalEditException();
-        			}break;
-        		}
-        	}
-        }
+        checkForIllegalFloatingTaskEdit(args, editTask);
+        editTaskParameters(editTask, args);
         internalList.set(targetIndex, editTask);
         
         if(editTask.getIsEvent()){
@@ -151,5 +128,47 @@ public class UniqueTaskList implements Iterable<Task> {
         }
 
     }
+
+	private void checkForIllegalFloatingTaskEdit(String[] args, Task editTask) throws IllegalEditException {
+		if(!editTask.getIsTask() && !editTask.getIsEvent()){
+        	if((args[1] != null) && (args[2] != null || args[3] != null)){
+        		throw new IllegalEditException();
+        	}
+        	if((args[2] != null && args[3] == null) || (args[3] != null && args[2] == null)){
+        		throw new IllegalEditException();
+        	}
+        }
+	}
+
+	private void editTaskParameters(Task editTask, String[] args) throws IllegalValueException, IllegalEditException {
+		for(int i = 0; i<args.length; i++){
+        	if(!(args[i]==null)){
+        		switch(i){
+        		case 0: editTask.setName(args[i]);break;
+        		case 1: 
+        			if(!editTask.getIsEvent()){
+        				editTask.setDueDate(args[i]);
+        				editTask.setIsTask(true);
+        			}else{
+        				throw new IllegalEditException();
+        			}break;
+        		case 2:
+        			if(!editTask.getIsTask()){
+        				editTask.setStartTime(args[i]);
+        				editTask.setIsEvent(true);
+        			}else{
+        				throw new IllegalEditException();
+        			}break;
+        		case 3:
+        			if(!editTask.getIsTask()){
+        				editTask.setEndTime(args[i]);
+        				editTask.setIsEvent(true);
+        			}else{
+        				throw new IllegalEditException();
+        			}break;
+        		}
+        	}
+        }
+	}
     
 }

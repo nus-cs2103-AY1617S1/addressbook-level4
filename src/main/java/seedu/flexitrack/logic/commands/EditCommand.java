@@ -41,11 +41,6 @@ public class EditCommand extends Command {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-
         String duration = null;
         
         try {
@@ -58,8 +53,8 @@ public class EditCommand extends Command {
         	return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive){
         	assert false: "Illegal value entered";
-        }
-
+        } 
+        
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, lastShownList.get(targetIndex - 1).getName()) + "\n" + duration);
     }
 
