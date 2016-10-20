@@ -24,6 +24,7 @@ allprojects {
         maven { url "https://repo.eclipse.org/content/repositories/egit-releases/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/service/local/staging/deploy/maven2/" }
+    	maven { url "https://mvnrepository.com/artifact/com.joestelmach/natty/" }
     }
 
     // This part is similar to global variables
@@ -49,7 +50,7 @@ allprojects {
     }
 
     dependencies {
-        compile "com.joestelmach:natty:0.13-SNAPSHOT"
+		compile group: 'com.joestelmach', name: 'natty', version: '0.12'
 
         compile "org.controlsfx:controlsfx:$controlsFxVersion"
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
