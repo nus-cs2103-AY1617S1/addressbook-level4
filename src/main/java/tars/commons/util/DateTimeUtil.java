@@ -182,20 +182,16 @@ public class DateTimeUtil {
     }
 
     /**
-     * Set the time 
+     * Modify the date based on the new hour, min and sec
      * 
      * @@author A0139924W
-     * @param toBeEdit
-     * @param hour
-     * @param min
-     * @param sec
      */
     private static Date setTime(Date toBeEdit, int hour, int min, int sec) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(toBeEdit);
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, min);
+        calendar.set(Calendar.SECOND, sec);
         toBeEdit = calendar.getTime();
 
         return toBeEdit;

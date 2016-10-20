@@ -210,11 +210,22 @@ public class LogicManagerTest {
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new Tars(), Collections.emptyList());
     }
+    
+    //---------------- Tests for empty undo history --------------------------------------
 
     @Test
     public void execute_undo_emptyCmdHistStack() throws Exception {
         assertCommandBehavior("undo", UndoCommand.MESSAGE_EMPTY_UNDO_CMD_HIST);
     }
+    
+    //---------------- Tests for empty redo history --------------------------------------
+    
+    @Test
+    public void execute_redo_emptyCmdHistStack() throws Exception {
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_EMPTY_REDO_CMD_HIST);
+    }
+    
+    //---------------- Tests for undo and redo command --------------------------------------
 
     @Test
     public void execute_undo_and_redo_add_successful() throws Exception {
@@ -377,11 +388,8 @@ public class LogicManagerTest {
                 String.format(RedoCommand.MESSAGE_SUCCESS, String.format(EditCommand.MESSAGE_REDO, taskToAdd)),
                 expectedTars, expectedTars.getTaskList());
     }
-
-    @Test
-    public void execute_redo_emptyCmdHistStack() throws Exception {
-        assertCommandBehavior("redo", RedoCommand.MESSAGE_EMPTY_REDO_CMD_HIST);
-    }
+    
+    //---------------- Tests for add command --------------------------------------
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
@@ -404,6 +412,54 @@ public class LogicManagerTest {
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
+    
+    @Test
+    public void execute_add_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.meetAdam();
+        Tars expectedTars = new Tars();
+        expectedTars.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
+    }
+
+    @Test
+    public void execute_add_end_date_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.generateTaskWithEndDateOnly("Jane");
+        Tars expectedTars = new Tars();
+        expectedTars = new Tars();
+        expectedTars.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
+    }
+
+    @Test
+    public void execute_add_float_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.floatTask();
+        Tars expectedTars = new Tars();
+        expectedTars.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
+
+    }
+    
+    @Test
+    public void execute_add_empty_task_name_invalid_format() throws Exception {
+        assertCommandBehavior("add ", String
+                .format(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE)));
+    }
+    
+    //---------------- Tests for tag command --------------------------------------
 
     @Test
     public void execute_tag_unsuccessful() throws Exception {
@@ -415,13 +471,49 @@ public class LogicManagerTest {
 
         model.addTask(toBeAdded);
 
-        assertCommandBehavior("tag abcde", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE),
+        assertCommandBehavior("tag abcde",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE), expectedAB,
+                expectedAB.getTaskList());
+
+        assertCommandBehavior("tag -e 1 INVALID_TAG_NAME", Tag.MESSAGE_TAG_CONSTRAINTS, expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_tag_invalid_index() throws Exception {
+        // EP: negative number
+        assertCommandBehavior("tag -e -1 VALIDTASKNAME",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        
+        // EP: zero
+        assertCommandBehavior("tag -e 0 VALIDTASKNAME", Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
+        
+        // EP: signed number
+        assertCommandBehavior("tag -e +1 VALIDTASKNAME",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        assertCommandBehavior("tag -e -2 VALIDTASKNAME",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+    }
+    
+    @Test
+    public void execute_tag_empty_parameters() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.meetAdam();
+        Tars expectedAB = new Tars();
+        expectedAB.addTask(toBeAdded);
+
+        model.addTask(toBeAdded);
+        
+        // EP: empty parameters
+        assertCommandBehavior("tag", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE),
+                expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior("tag  ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE),
                 expectedAB, expectedAB.getTaskList());
         assertCommandBehavior("tag -e", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE),
                 expectedAB, expectedAB.getTaskList());
-        assertCommandBehavior("tag -e 1 INVALID_TAG_NAME", Tag.MESSAGE_TAG_CONSTRAINTS, expectedAB,
-                expectedAB.getTaskList());
-
+        assertCommandBehavior("tag -e  ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE),
+                expectedAB, expectedAB.getTaskList());
     }
 
     @Test
@@ -462,7 +554,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_tag_rename_unsuccessful() throws Exception {
+    public void execute_tag_rename_duplicate() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.meetAdam();
@@ -486,54 +578,11 @@ public class LogicManagerTest {
         model.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior("tag -e -1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE),
+        assertCommandBehavior("tag -e 3 VALIDTAGNAME", String.format(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX),
                 expectedAB, expectedAB.getTaskList());
-
-        assertCommandBehavior("tag -e 0 VALIDTAGNAME", String.format(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX),
+        
+        assertCommandBehavior("tag -e 4 VALIDTAGNAME", String.format(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX),
                 expectedAB, expectedAB.getTaskList());
-
-        assertCommandBehavior("tag -e 20 VALIDTAGNAME", String.format(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX),
-                expectedAB, expectedAB.getTaskList());
-    }
-
-    @Test
-    public void execute_add_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.meetAdam();
-        Tars expectedTars = new Tars();
-        expectedTars.addTask(toBeAdded);
-
-        // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
-    }
-
-    @Test
-    public void execute_add_end_date_successful() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.generateTaskWithEndDateOnly("Jane");
-        Tars expectedTars = new Tars();
-        expectedTars = new Tars();
-        expectedTars.addTask(toBeAdded);
-
-        // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
-    }
-
-    @Test
-    public void execute_add_float_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.floatTask();
-        Tars expectedTars = new Tars();
-        expectedTars.addTask(toBeAdded);
-
-        // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n"), expectedTars, expectedTars.getTaskList());
-
     }
 
     /**
