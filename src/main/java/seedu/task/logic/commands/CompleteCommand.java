@@ -33,11 +33,7 @@ public class CompleteCommand extends Command {
 
         ReadOnlyTask orginialTask = lastShownList.get(targetIndex - 1);
         try {
-            Task completedTask = new Task(orginialTask.getName(),
-                    orginialTask.getOpenTime(),
-                    orginialTask.getCloseTime(),
-                    orginialTask.getComplete(),
-                    orginialTask.getTags());
+            Task completedTask = new Task(orginialTask);
             completedTask.setIsCompleted(true);
             model.completeTask(orginialTask, completedTask);
         } catch (IllegalValueException e) {

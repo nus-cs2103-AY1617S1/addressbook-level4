@@ -11,6 +11,7 @@ public interface ReadOnlyTask {
     Name getName();
     DateTime getOpenTime();
     DateTime getCloseTime();
+    boolean getImportance();
     boolean getComplete();
 
     /**

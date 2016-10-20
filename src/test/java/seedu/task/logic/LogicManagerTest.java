@@ -389,8 +389,10 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
+
+            boolean isImportant = false;
             boolean isComplete = false;
-            return new Task(name, new DateTime(null), new DateTime(null), isComplete, tags);
+            return new Task(name, new DateTime(null), new DateTime(null), isImportant, isComplete, tags);
         }
 
         /**
@@ -405,6 +407,7 @@ public class LogicManagerTest {
                     new Name("Task " + seed),
                     new DateTime("" + Math.abs(seed)+" days from now"),
                     new DateTime(""),
+                    false,
                     false,
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -502,6 +505,7 @@ public class LogicManagerTest {
                     new Name(name),
                     new DateTime("tomorrow"),
                     new DateTime("day after tomorrow"),
+                    false,
                     false,
                     new UniqueTagList(new Tag("tag"))
             );

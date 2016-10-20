@@ -43,6 +43,7 @@ public class AddCommand extends UndoableCommand {
                 new DateTime(openTime),
                 new DateTime(closeTime),
                 false,
+                false,
                 new UniqueTagList(tagSet)
         );
     }

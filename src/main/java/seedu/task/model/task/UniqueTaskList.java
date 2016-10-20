@@ -12,7 +12,8 @@ import java.util.*;
 import java.util.Map.Entry;
 
 /**
- * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
+ * A list of tasks that enforces uniqueness between its elements and does not
+ * allow nulls.
  *
  * Supports a minimal set of list operations.
  *
@@ -22,7 +23,8 @@ import java.util.Map.Entry;
 public class UniqueTaskList implements Iterable<Task> {
 
     /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
+     * Signals that an operation would have violated the 'no duplicates'
+     * property of the list.
      */
     public static class DuplicateTaskException extends DuplicateDataException {
         protected DuplicateTaskException() {
@@ -31,10 +33,11 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
     /**
-     * Signals that an operation targeting a specified task in the list would fail because
-     * there is no such matching task in the list.
+     * Signals that an operation targeting a specified task in the list would
+     * fail because there is no such matching task in the list.
      */
-    public static class TaskNotFoundException extends Exception {}
+    public static class TaskNotFoundException extends Exception {
+    }
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
     private final ListMutation<ReadOnlyTask> history = new ListMutation<ReadOnlyTask>();
@@ -42,10 +45,12 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Constructs empty TaskList.
      */
-    public UniqueTaskList() {}
+    public UniqueTaskList() {
+    }
 
     /**
-     * Returns true if the list contains an equivalent task as the given argument.
+     * Returns true if the list contains an equivalent task as the given
+     * argument.
      */
     public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
@@ -55,7 +60,9 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws DuplicateTaskException
+     *             if the task to add is a duplicate of an existing task in the
+     *             list.
      */
     public void add(Task toAdd) throws DuplicateTaskException {
         assert toAdd != null;
@@ -69,23 +76,40 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Updates a task to the list.
      * 
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     * @throws DuplicateTaskException
+     *             if the task to add is a duplicate of an existing task in the
+     *             list.
      */
     public void update(ReadOnlyTask toUpdate, Task updatedTask) throws DuplicateTaskException {
         assert toUpdate != null;
         assert updatedTask != null;
-        
+
         int index = internalList.indexOf(toUpdate);
         assert index >= 0;
 
-        if(contains(updatedTask) && !toUpdate.equals(updatedTask))
-        {
+        if (contains(updatedTask) && !toUpdate.equals(updatedTask)) {
             throw new DuplicateTaskException();
         }
-        
+
         internalList.set(index, updatedTask);
         history.addAsNewMutation(index, new Mutation<ReadOnlyTask>(toUpdate, updatedTask.getImmutable()));
     }
+
+    /**
+     * Pins a task as important.
+     * 
+     * @throws TaskNotFoundException
+     *             if the task cannot be found in the list.
+     */
+    public void pin(ReadOnlyTask originalTask, Task toPin) {
+        assert toPin != null;
+        assert originalTask != null;
+
+        int index = internalList.indexOf(originalTask);
+        assert index >= 0;
+        internalList.set(index, toPin);
+    }
+
     /**
      * Marks a task as completed in the list.
      */
@@ -102,7 +126,8 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Removes the equivalent task from the list.
      *
-     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws TaskNotFoundException
+     *             if no such task could be found in the list.
      */
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
@@ -178,8 +203,7 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueTaskList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueTaskList) other).internalList));
+                        && this.internalList.equals(((UniqueTaskList) other).internalList));
     }
 
     @Override

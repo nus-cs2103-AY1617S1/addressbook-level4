@@ -14,9 +14,9 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             cs2103 =  new TaskBuilder().withName("Do CS 2103").withOpenTime("next thursday")
-                    .withCloseTime("next friday").withTags("friends").build();
+                    .withCloseTime("next friday").withTags("friends").withImportance(false).build();
             laundry = new TaskBuilder().withName("Meier").withOpenTime("tomorrow")
-                    .withCloseTime("day after tomorrow").withTags("urgent", "important").build();
+                    .withCloseTime("day after tomorrow").withImportance(false).withTags("urgent", "important").build();
             carl = new TaskBuilder().withName("Meet Carl").withOpenTime("next thursday")
                     .withCloseTime("next friday").build();
             daniel = new TaskBuilder().withName("Have lunch with Meier").withOpenTime("6 hours from now")
@@ -30,7 +30,7 @@ public class TypicalTestTasks {
 
             //Manually added
             hoon = new TaskBuilder().withName("Hoon Meier").withOpenTime("tomorrow")
-                    .withCloseTime("day after tomorrow").withTags("omg").build();
+                    .withCloseTime("day after tomorrow").withTags("omg").withImportance(false).build();
             ida = new TaskBuilder().withName("Ida Mueller").withOpenTime("tomorrow")
                     .withCloseTime("day after tomorrow").build();
         } catch (IllegalValueException e) {

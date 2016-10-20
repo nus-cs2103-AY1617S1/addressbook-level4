@@ -81,6 +81,7 @@ public class UpdateCommand extends UndoableCommand {
                     updatedTaskName,
                     openTime,
                     closeTime,
+                    taskToUpdate.getImportance(),
                     taskToUpdate.getComplete(),
                     newTaskTags
             );

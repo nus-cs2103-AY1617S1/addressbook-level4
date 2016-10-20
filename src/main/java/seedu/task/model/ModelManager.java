@@ -14,8 +14,8 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the task list data.
- * All changes to any model should be synchronized.
+ * Represents the in-memory model of the task list data. All changes to any
+ * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -77,7 +77,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void updateTask(ReadOnlyTask originalTask, Task updateTask) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void updateTask(ReadOnlyTask originalTask, Task updateTask)
+            throws UniqueTaskList.DuplicateTaskException {
         taskManager.updateTask(originalTask, updateTask);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
@@ -99,6 +100,13 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
+    public synchronized void pinTask(ReadOnlyTask originalTask, Task toPin) {
+        taskManager.pinTask(originalTask, toPin);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+
+    @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
@@ -109,7 +117,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
+    public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
@@ -117,10 +125,11 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
-    //========== Inner classes/interfaces used for filtering ==================================================
+    // ========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask tasm);
+
         String toString();
     }
 
@@ -145,6 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Qualifier {
         boolean run(ReadOnlyTask task);
+
         String toString();
     }
 
@@ -158,8 +168,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().taskName, keyword))
-                    .findAny()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().taskName, keyword)).findAny()
                     .isPresent();
         }
 

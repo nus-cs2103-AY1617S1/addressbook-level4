@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
 import seedu.task.model.task.ReadOnlyTask;
 
@@ -15,12 +16,19 @@ public class TaskCard extends UiPart{
 
     @FXML
     private HBox cardPane;
+    
     @FXML
     private Text name;
+    
     @FXML
     private Label id;
+    
+    @FXML
+    private SVGPath star;
+    
     @FXML
     private Label openTime;
+    
     @FXML
     private Label closeTime;
 
@@ -49,10 +57,14 @@ public class TaskCard extends UiPart{
         openTime.setText("Start: "+task.getOpenTime().toPrettyString());
         closeTime.setText("End: "+task.getCloseTime().toPrettyString());
         tagListPanel = TagListPanel.load(getPrimaryStage(), tagsListPlaceholder, task.getTags().getInternalList());
-        setComplete();
+        setVisualFlags();
     }
     
-    private void setComplete() {
+    private void setVisualFlags() {
+        if (!task.getImportance()) {
+            star.setOpacity(0.0);
+        }
+        
         if (task.getComplete()) {
             cardPane.setId("cardPane-completed");
             name.setStrikethrough(true);
@@ -64,7 +76,8 @@ public class TaskCard extends UiPart{
     }
 
     @Override
-    public void setNode(Node node) {
+    public void setNode(Node node) 
+    {
         cardPane = (HBox)node;
     }
 
