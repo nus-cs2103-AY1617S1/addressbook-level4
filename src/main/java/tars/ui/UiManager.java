@@ -43,7 +43,6 @@ public class UiManager extends ComponentManager implements Ui {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
-        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setTitle(config.getAppTitle());
 
         //Set the application icon.
