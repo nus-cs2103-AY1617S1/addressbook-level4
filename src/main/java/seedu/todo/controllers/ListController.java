@@ -30,7 +30,8 @@ public class ListController implements Controller {
     
     private static final String NAME = "List";
     private static final String DESCRIPTION = "Lists all tasks and events.";
-    private static final String COMMAND_SYNTAX = "list";
+    private static final String COMMAND_SYNTAX = "list [task/event] [complete/incomplete] [on date] or [from date to date]";
+    private static final String COMMAND_WORD = "list";
     
     private static final String MESSAGE_LISTING_SUCCESS = "Listing a total of %s";
     private static final String MESSAGE_LISTING_FAILURE = "No task or event found!";
@@ -192,7 +193,7 @@ public class ListController implements Controller {
     private void displayErrorMessage(String input, boolean listAll, boolean listAllStatus, boolean isCompleted,
             boolean isTask, String[] parsedDates) {
         String consoleDisplayMessage = String.format("You have entered : %s.",input);
-        String commandLineMessage = COMMAND_SYNTAX;
+        String commandLineMessage = COMMAND_WORD;
         String commandLineCompleteSuggestMessage = "complete";
         String commandLineIncompleteSuggestMessage = "incomplete";
         String commandLineTaskSuggestMessage = "task";

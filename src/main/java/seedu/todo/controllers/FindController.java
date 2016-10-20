@@ -24,7 +24,8 @@ import seedu.todo.models.TodoListDB;
 public class FindController implements Controller {
     
     private static final String NAME = "Find";
-    private static final String DESCRIPTION = "Find all tasks and events based on the provided keywords.";
+    private static final String DESCRIPTION = "Find all tasks and events based on the provided keywords.\n" + 
+    "This command will be search with non-case sensitive keywords.";
     private static final String COMMAND_SYNTAX = "find [name] or/and [on date]";
     private static final String COMMAND_WORD = "find";
     
