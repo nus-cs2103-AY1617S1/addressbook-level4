@@ -214,8 +214,6 @@ public class Parser {
             // DateTime
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_DATETIME_NOTFOUND));
-        } else if (flagsPosMap.size() == 0) {
-            name = args;
         } else if (flagsPosMap.firstKey() == 0) {
             // there are arguments but name should be the first argument
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
@@ -231,6 +229,8 @@ public class Parser {
             }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (DateTimeException dte) {
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
         }
 
         try {

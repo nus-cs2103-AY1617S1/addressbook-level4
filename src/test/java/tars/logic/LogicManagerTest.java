@@ -168,7 +168,7 @@ public class LogicManagerTest {
 
     private void assertCommandBehaviorWithRsvTaskList(String inputCommand, String expectedMessage,
             ReadOnlyTars expectedTars, List<? extends ReadOnlyTask> expectedShownTaskList,
-            List<RsvTask> expectedShownRsvTaskList) throws Exception {
+            List<? extends RsvTask> expectedShownRsvTaskList) throws Exception {
 
         // Execute the command
         CommandResult result = logic.execute(inputCommand);
@@ -550,9 +550,6 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
         expectedAB.addTask(toBeAdded2);
 
-        System.out.println("1: " + toBeAdded);
-        System.out.println("2: " + toBeAdded2);
-        System.out.println(helper.generateAddCommand(toBeAdded).concat(" -r 2 every week"));
         // execute command and verify result
 
         String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + "\n");
@@ -778,8 +775,83 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_confirmInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void execute_rsvInvalidArgsFormat_errorMessageShown() throws Exception {
 
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE);
+        assertCommandBehavior("rsv ", expectedMessage);
+    }
+
+    @Test
+    public void execute_rsvAddInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessageForNullDate = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                RsvCommand.MESSAGE_DATETIME_NOTFOUND);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE);
+        assertCommandBehavior("rsv Rsv Task Without Date", expectedMessageForNullDate);
+        assertCommandBehavior("rsv Rsv Task with flags other than date -p h", expectedMessageForNullDate);
+        assertCommandBehavior("rsv -dt tomorrow", expectedMessage);
+        assertCommandBehavior("rsv Rsv Task with invalid Date -dt invalidDate", Messages.MESSAGE_INVALID_DATE);
+    }
+
+//    @Test
+//    public void execute_rsvAdd_success() throws Exception {
+//        TestDataHelper helper = new TestDataHelper();
+//
+//        // Create a reserved task
+//        RsvTask rsvTask = helper.generateReservedTaskWithOneDateTimeOnly("Test Task");
+//
+//        // Create empty end state taskList
+//        List<Task> taskList = new ArrayList<Task>();
+//
+//        // Create end state rsvTaskList with 1 Reserved Task
+//        List<RsvTask> rsvTaskList = new ArrayList<RsvTask>();
+//        rsvTaskList.add(rsvTask);
+//
+//        // Create end state Tars with 1 Reserved Task
+//        Tars expectedTars = new Tars();
+//        expectedTars.addRsvTask(rsvTask);
+//
+//        // Create empty Tars.
+//        model.resetData(new Tars());
+//
+//        String expectedMessage = String.format(RsvCommand.MESSAGE_SUCCESS, rsvTask);
+//        assertCommandBehaviorWithRsvTaskList("rsv Test Task -dt 05/09/2016 1400 to 06/09/2016 2200", expectedMessage,
+//                expectedTars, taskList, rsvTaskList);
+//    }
+
+    @Test
+    public void execute_rsvDelInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE_DEL);
+        assertCommandBehavior("rsv invalidArgs -del 1", expectedMessage);
+        assertCommandBehavior("rsv -del 1 -dt invalid flag", expectedMessage);
+        assertCommandBehavior("rsv -del invalidValue", expectedMessage);
+    }
+
+    @Test
+    public void execute_rsvDel_success() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+
+        // Create a reserved task
+        RsvTask rsvTask = helper.generateReservedTaskWithOneDateTimeOnly("Test Task");
+
+        // Create empty taskList
+        List<Task> taskList = new ArrayList<Task>();
+
+        // Create empty end state rsvTaskList
+        List<RsvTask> rsvTaskList = new ArrayList<RsvTask>();
+
+        // Create empty end state Tars
+        Tars expectedTars = new Tars();
+
+        // Set Tars start state to 1 reserved task, and 0 tasks.
+        model.resetData(new Tars());
+        model.addRsvTask(rsvTask);
+
+        String expectedMessage = String.format(RsvCommand.MESSAGE_SUCCESS_DEL, rsvTask);
+        assertCommandBehaviorWithRsvTaskList("rsv -del 1", expectedMessage, expectedTars, taskList, rsvTaskList);
+    }
+
+    @Test
+    public void execute_confirmInvalidArgsFormat_errorMessageShown() throws Exception {
 
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE);
         assertCommandBehavior("confirm ", expectedMessage);
@@ -787,37 +859,38 @@ public class LogicManagerTest {
         assertCommandBehavior("confirm 1 1 -dt invalidFlag", expectedMessage);
         assertCommandBehavior("confirm 1 1 3", expectedMessage);
     }
-    
+
     @Test
     public void execute_confirmInvalidRsvTaskIndex_errorMessageShown() throws Exception {
         assertCommandBehavior("confirm 2 3", Messages.MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX);
     }
-    
+
     @Test
     public void execute_confirmInvalidArgsFormat_success() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        
-        //Create added task
+
+        // Create added task
         Task addedTask = helper.generateTaskWithName("Test Task");
-        
-        //Create end state taskList with one confirmed task
+
+        // Create end state taskList with one confirmed task
         List<Task> taskList = new ArrayList<Task>();
         taskList.add(addedTask);
-        
-        //Create Empty end state rsvTaskList
+
+        // Create Empty end state rsvTaskList
         List<RsvTask> rsvTaskList = new ArrayList<RsvTask>();
-        
+
         RsvTask rsvTask = helper.generateReservedTaskWithOneDateTimeOnly("Test Task");
-        
+
         Tars expectedTars = new Tars();
         expectedTars.addTask(addedTask);
 
         // Set Tars start state to 1 reserved task, and 0 tasks.
         model.resetData(new Tars());
         model.addRsvTask(rsvTask);
-        
+
         String expectedMessage = String.format(ConfirmCommand.MESSAGE_CONFIRM_SUCCESS, addedTask);
-        assertCommandBehaviorWithRsvTaskList("confirm 1 1 -p h -t tag", expectedMessage, expectedTars, taskList, rsvTaskList);
+        assertCommandBehaviorWithRsvTaskList("confirm 1 1 -p h -t tag", expectedMessage, expectedTars, taskList,
+                rsvTaskList);
 
     }
 
