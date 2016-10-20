@@ -12,10 +12,10 @@
 
 <HBox id="cardPane" fx:id="cardPane" minHeight="125.0" minWidth="400.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane prefHeight="125.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+        <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="329.0" minWidth="10.0" prefWidth="328.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="51.0" />
+                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
             </columnConstraints>
             <children>
                 <VBox alignment="CENTER_LEFT" translateY="-18.0" GridPane.rowIndex="1">
@@ -28,7 +28,7 @@
                     </padding>
 
                           <children>
-                        <HBox alignment="CENTER_LEFT" minWidth="310.0" spacing="5.0">
+                        <HBox alignment="CENTER_LEFT" prefWidth="310.0" spacing="5.0">
                             <children>
                                  <Label fx:id="id" minWidth="10.0" styleClass="cell_big_label" />
                                  <Label fx:id="taskName" styleClass="cell_big_label" text="\$taskName" HBox.hgrow="ALWAYS">
@@ -46,16 +46,36 @@
                     </children>
                 </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="taskType" style="-fx-background-color: #03abff;" text="\$taskType" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="CLIP">
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label fx:id="taskType" style="-fx-background-color: #03abff;" text="\$taskType" textAlignment="JUSTIFY" textFill="WHITE" textOverrun="CLIP">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets left="15.0" top="10.0" />
+                     </GridPane.margin>
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </GridPane>
+            <Label fx:id="taskStatus" textAlignment="JUSTIFY" textOverrun="CLIP" underline="true" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                <font>
                   <Font size="16.0" />
                </font>
                <GridPane.margin>
-                  <Insets left="15.0" top="10.0" />
+                  <Insets right="15.0" top="10.0" />
                </GridPane.margin>
-               <padding>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </padding>
             </Label>
             </children>
          <rowConstraints>

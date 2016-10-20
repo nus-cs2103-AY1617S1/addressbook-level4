@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Status;
 
 public class EventTaskCard extends UiPart{
 
@@ -18,6 +19,8 @@ public class EventTaskCard extends UiPart{
     private Label id;
     @FXML
     private Label taskType;
+    @FXML
+    private Label taskStatus;
     @FXML
     private Label startDateAndTime;
     @FXML
@@ -44,9 +47,16 @@ public class EventTaskCard extends UiPart{
         taskType.setText(task.getTaskType().toString());
         startDateAndTime.setText(task.getStartDate().get().toString());
         endDateAndTime.setText(task.getEndDate().get().toString());
+        setTaskStatus();
     }
 
-    public HBox getLayout() {
+    private void setTaskStatus() {
+		if (task.getStatus().value.equals(Status.DoneStatus.DONE)) {
+			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
+		}
+	}
+
+	public HBox getLayout() {
         return cardPane;
     }
 

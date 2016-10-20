@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Status;
 
 public class SomedayTaskCard extends UiPart{
 
@@ -18,6 +19,8 @@ public class SomedayTaskCard extends UiPart{
     private Label id;
     @FXML
     private Label taskType;
+    @FXML
+    private Label taskStatus;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -38,7 +41,14 @@ public class SomedayTaskCard extends UiPart{
         taskName.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         taskType.setText(task.getTaskType().toString());
+        setTaskStatus();
     }
+    
+    private void setTaskStatus() {
+		if (task.getStatus().value.equals(Status.DoneStatus.DONE)) {
+			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
+		}
+	}
 
     public HBox getLayout() {
         return cardPane;
