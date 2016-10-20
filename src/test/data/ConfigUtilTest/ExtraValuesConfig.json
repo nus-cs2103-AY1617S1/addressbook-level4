@@ -3,6 +3,6 @@
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
  "flextTrackFilePath" : "tasktracker.xml",
-  "flexiTrackName" : "MyTaskTracker",
+  "flexiTrackName" : "TypicalTaskTracker",
   "extra" : "extra value"
 }
