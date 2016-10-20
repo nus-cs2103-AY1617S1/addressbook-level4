@@ -9,6 +9,8 @@ import tars.model.task.ReadOnlyTask;
 import tars.model.task.Status;
 import tars.model.task.UniqueTaskList;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
+import tars.model.task.rsv.RsvTask;
+import tars.model.task.rsv.UniqueRsvTaskList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.flags.Flag;
@@ -29,8 +31,10 @@ import java.util.stream.Collectors;
  */
 public class Tars implements ReadOnlyTars {
 
+
 	private final UniqueTaskList tasks;
 	private final UniqueTagList tags;
+    private final UniqueRsvTaskList rsvTasks;
 
 	private static final int DATETIME_INDEX_OF_ENDDATE = 1;
 	private static final int DATETIME_INDEX_OF_STARTDATE = 0;
@@ -38,6 +42,7 @@ public class Tars implements ReadOnlyTars {
 	{
 		tasks = new UniqueTaskList();
 		tags = new UniqueTagList();
+		rsvTasks = new UniqueRsvTaskList();
 	}
 
 	public Tars() {
@@ -47,14 +52,14 @@ public class Tars implements ReadOnlyTars {
 	 * Tasks and Tags are copied into this tars
 	 */
 	public Tars(ReadOnlyTars toBeCopied) {
-		this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+		this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList(), toBeCopied.getUniqueRsvTaskList());
 	}
 
 	/**
 	 * Tasks and Tags are copied into this tars
 	 */
-	public Tars(UniqueTaskList tasks, UniqueTagList tags) {
-		resetData(tasks.getInternalList(), tags.getInternalList());
+	public Tars(UniqueTaskList tasks, UniqueTagList tags, UniqueRsvTaskList rsvTasks) {
+		resetData(tasks.getInternalList(), rsvTasks.getInternalList(), tags.getInternalList());
 	}
 
 	public static ReadOnlyTars getEmptyTars() {
@@ -66,10 +71,18 @@ public class Tars implements ReadOnlyTars {
 	public ObservableList<Task> getTasks() {
 		return tasks.getInternalList();
 	}
+	
+	public ObservableList<RsvTask> getRsvTasks() {
+        return rsvTasks.getInternalList();
+    }
 
 	public void setTasks(List<Task> tasks) {
 		this.tasks.getInternalList().setAll(tasks);
 	}
+	
+    public void setRsvTasks(List<RsvTask> rsvTasks) {
+        this.rsvTasks.getInternalList().setAll(rsvTasks);
+    }
 
 	/**
 	 * Replaces task in tars internal list
@@ -97,13 +110,14 @@ public class Tars implements ReadOnlyTars {
 		this.tags.getInternalList().setAll(tags);
 	}
 
-	public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+	public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<RsvTask> newRsvTasks, Collection<Tag> newTags) {
 		setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+		setRsvTasks(newRsvTasks.stream().collect(Collectors.toList()));
 		setTags(newTags);
 	}
 
 	public void resetData(ReadOnlyTars newData) {
-		resetData(newData.getTaskList(), newData.getTagList());
+		resetData(newData.getTaskList(), newData.getRsvTaskList(), newData.getTagList());
 	}
 
 	//// task-level operations
@@ -120,6 +134,16 @@ public class Tars implements ReadOnlyTars {
 		syncTagsWithMasterList(p);
 		tasks.add(p);
 	}
+	
+    /**
+     * Adds a reserved task to tars.
+     *
+     * @@author A0124333U
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent reserved task already exists.
+     */
+    public void addRsvTask(RsvTask rt) throws DuplicateTaskException {
+        rsvTasks.add(rt);
+    }
 
 	/**
 	 * Edits a task in tars
@@ -339,32 +363,44 @@ public class Tars implements ReadOnlyTars {
 	}
 
 	@Override
-	public List<Tag> getTagList() {
-		return Collections.unmodifiableList(tags.getInternalList());
-	}
+    public List<RsvTask> getRsvTaskList() {
+        return Collections.unmodifiableList(rsvTasks.getInternalList());
+    }
 
-	@Override
-	public UniqueTaskList getUniqueTaskList() {
-		return this.tasks;
-	}
+    @Override
+    public List<Tag> getTagList() {
+        return Collections.unmodifiableList(tags.getInternalList());
+    }
 
-	@Override
-	public UniqueTagList getUniqueTagList() {
-		return this.tags;
-	}
+    @Override
+    public UniqueTaskList getUniqueTaskList() {
+        return this.tasks;
+    }
+    
+    @Override
+    public UniqueRsvTaskList getUniqueRsvTaskList() {
+        return this.rsvTasks;
+    }
 
-	@Override
-	public boolean equals(Object other) {
-		return other == this // short circuit if same object
-				|| (other instanceof Tars // instanceof handles nulls
-						&& this.tasks.equals(((Tars) other).tasks) && this.tags.equals(((Tars) other).tags));
-	}
+    @Override
+    public UniqueTagList getUniqueTagList() {
+        return this.tags;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Tars // instanceof handles nulls
+                        && this.tasks.equals(((Tars) other).tasks)
+                        && this.rsvTasks.equals(((Tars) other).rsvTasks)
+                        && this.tags.equals(((Tars) other).tags));
+    }
 
 	@Override
 	public int hashCode() {
 		// use this method for custom fields hashing instead of implementing
 		// your own
-		return Objects.hash(tasks, tags);
+		return Objects.hash(tasks, tags, rsvTasks);
 	}
 
 }

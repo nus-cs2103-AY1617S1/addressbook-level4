@@ -13,7 +13,6 @@ import tars.commons.core.Config;
 import tars.commons.core.EventsCenter;
 import tars.commons.core.Messages;
 import tars.commons.events.model.TarsChangedEvent;
-import tars.commons.events.ui.JumpToListRequestEvent;
 import tars.commons.events.ui.ShowHelpRequestEvent;
 import tars.commons.exceptions.DataConversionException;
 import tars.commons.flags.Flag;
@@ -32,7 +31,6 @@ import tars.logic.commands.FindCommand;
 import tars.logic.commands.HelpCommand;
 import tars.logic.commands.ListCommand;
 import tars.logic.commands.RedoCommand;
-import tars.logic.commands.SelectCommand;
 import tars.logic.commands.TagCommand;
 import tars.logic.commands.UndoCommand;
 import tars.model.Tars;
@@ -73,7 +71,6 @@ public class LogicManagerTest {
     // These are for checking the correctness of the events raised
     private ReadOnlyTars latestSavedTars;
     private boolean helpShown;
-    private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TarsChangedEvent abce) {
@@ -85,10 +82,6 @@ public class LogicManagerTest {
         helpShown = true;
     }
 
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = je.targetIndex;
-    }
 
     @Before
     public void setup() {
@@ -106,7 +99,6 @@ public class LogicManagerTest {
         latestSavedTars = new Tars(model.getTars()); // last saved assumed to be
                                                      // up to date before.
         helpShown = false;
-        targetedJumpIndex = -1; // non yet
     }
 
     @After
@@ -765,30 +757,6 @@ public class LogicManagerTest {
         assertCommandBehavior(inputCommand, expectedMessage, model.getTars(), taskList);
     }
 
-    @Test
-    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
-    }
-
-    @Test
-    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
-    }
-
-    @Test
-    public void execute_select_jumpsToCorrectTask() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> threeTasks = helper.generateTaskList(3);
-
-        Tars expectedTars = helper.generateTars(threeTasks);
-        helper.addToModel(model, threeTasks);
-
-        assertCommandBehavior("select 2", String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2), expectedTars,
-                expectedTars.getTaskList());
-        assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
-    }
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {

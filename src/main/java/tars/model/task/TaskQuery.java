@@ -19,7 +19,6 @@ public class TaskQuery extends Task {
 
     private String tagQuery = "";
     private String statusString = "";
-    private final static String NEWLINE = "\n";
     public final static String MESSAGE_BOTH_STATUS_SEARCHED_ERROR = "Both '-do (Done)' and '-ud (Undone)' flags "
             + "have been detected.\n"
             + "Please search for either '-do (Done)' or '-ud (Undone)' status";

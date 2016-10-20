@@ -21,6 +21,7 @@ import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.DateTime.IllegalDateException;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
+import tars.model.task.rsv.RsvTask;
 
 import java.time.DateTimeException;
 import java.util.HashMap;
@@ -38,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final Tars tars;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<RsvTask> filteredRsvTasks;
     private final Stack<Command> undoableCmdHistStack;
     private final Stack<Command> redoableCmdHistStack;
 
@@ -58,6 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         tars = new Tars(src);
         filteredTasks = new FilteredList<>(tars.getTasks());
+        filteredRsvTasks = new FilteredList<>(tars.getRsvTasks());
         undoableCmdHistStack = new Stack<>();
         redoableCmdHistStack = new Stack<>();
     }
@@ -69,6 +72,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTars initialData, UserPrefs userPrefs) {
         tars = new Tars(initialData);
         filteredTasks = new FilteredList<>(tars.getTasks());
+        filteredRsvTasks = new FilteredList<>(tars.getRsvTasks());
         undoableCmdHistStack = new Stack<>();
         redoableCmdHistStack = new Stack<>();
     }
@@ -147,6 +151,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTarsChanged();
     }
+    
+    @Override
+    public synchronized void addRsvTask(RsvTask rsvTask) throws DuplicateTaskException {
+        tars.addRsvTask(rsvTask);
+        indicateTarsChanged();
+    }
 
     @Override
     /**
@@ -165,12 +175,17 @@ public class ModelManager extends ComponentManager implements Model {
 	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
 		return new UnmodifiableObservableList<>(filteredTasks);
 	}
+	
+	@Override
+    public UnmodifiableObservableList<RsvTask> getFilteredRsvTaskList() {
+        return new UnmodifiableObservableList<>(filteredRsvTasks);
+    }
 
 	@Override
 	public void updateFilteredListToShowAll() {
 		filteredTasks.setPredicate(null);
 	}
-
+	
 	@Override
 	public void updateFilteredTaskList(Set<String> keywords) {
 		updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));

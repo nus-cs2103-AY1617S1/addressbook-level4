@@ -3,6 +3,7 @@ package tars.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
@@ -13,7 +14,6 @@ import tars.commons.core.GuiSettings;
 import tars.commons.events.ui.ExitAppRequestEvent;
 import tars.logic.Logic;
 import tars.model.UserPrefs;
-import tars.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -30,8 +30,8 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private InformationHeader infoHeader;
-    private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
+    private RsvTaskListPanel rsvTaskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -45,9 +45,6 @@ public class MainWindow extends UiPart {
     private String tarsName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
-
-    @FXML
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
@@ -58,12 +55,21 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane rsvTaskListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private Label taskListLabel;
+    
+    @FXML
+    private Label rsvTaskListLabel;
 
 
     public MainWindow() {
@@ -103,7 +109,7 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-
+        
         setAccelerators();
     }
 
@@ -113,8 +119,8 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         infoHeader = InformationHeader.load(primaryStage, infoHeaderPlaceholder, logic.getFilteredTaskList());
-        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+        rsvTaskListPanel = RsvTaskListPanel.load(primaryStage, getRsvTaskListPlaceholder(), logic.getFilteredRsvTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTarsFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -141,6 +147,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getRsvTaskListPlaceholder() {
+        return rsvTaskListPanelPlaceholder;
     }
 
     public void hide() {
@@ -197,12 +207,9 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
+    
+    public RsvTaskListPanel getRsvTaskListPanel() {
+        return this.rsvTaskListPanel;
     }
 
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
 }

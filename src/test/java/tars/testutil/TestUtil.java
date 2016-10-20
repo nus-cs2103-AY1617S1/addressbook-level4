@@ -19,6 +19,7 @@ import tars.commons.util.FileUtil;
 import tars.commons.util.XmlUtil;
 import tars.model.Tars;
 import tars.model.task.*;
+import tars.model.task.rsv.UniqueRsvTaskList;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 import tars.storage.XmlSerializableTars;
@@ -142,7 +143,7 @@ public class TestUtil {
     }
 
     public static Tars generateEmptyTars() {
-        return new Tars(new UniqueTaskList(), new UniqueTagList());
+        return new Tars(new UniqueTaskList(), new UniqueTagList(), new UniqueRsvTaskList());
     }
 
     public static XmlSerializableTars generateSampleStorageTars() {

@@ -3,6 +3,7 @@ package tars.logic;
 import javafx.collections.ObservableList;
 import tars.logic.commands.CommandResult;
 import tars.model.task.ReadOnlyTask;
+import tars.model.task.rsv.RsvTask;
 
 /**
  * API of the Logic component
@@ -17,5 +18,8 @@ public interface Logic {
 
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered list of RsvTasks */
+    ObservableList<RsvTask> getFilteredRsvTaskList();
 
 }
