@@ -5,12 +5,43 @@ import static org.junit.Assert.*;
 import java.time.DateTimeException;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
+import tars.commons.core.Messages;
 import tars.model.task.DateTime;
 import tars.model.task.DateTime.IllegalDateException;
 
 public class DateTimeUtilTest {
+    
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+    
+    @Test
+    public void natty_parser_invalid_date() {
+        thrown.expect(DateTimeException.class);
+        thrown.expectMessage(Messages.MESSAGE_INVALID_DATE);
+
+        DateTimeUtil.getDateTimeFromArgs("abc");
+        DateTimeUtil.getDateTimeFromArgs("hello world");
+
+        DateTimeUtil.getDateTimeFromArgs("+1");
+        DateTimeUtil.getDateTimeFromArgs("-1");
+    }
+
+    @Test
+    public void natty_parser_empty_args() {
+        String[] expected = new String[] {"", ""};
+        String[] actual = DateTimeUtil.getDateTimeFromArgs(" ");
+
+        assertEquals(expected[0], actual[0]);
+        assertEquals(expected[1], actual[1]);
+
+        actual = DateTimeUtil.getDateTimeFromArgs("");
+        assertEquals(expected[0], actual[0]);
+        assertEquals(expected[1], actual[1]);
+    }
 
     @Test
     public void extract_date_successful() {
