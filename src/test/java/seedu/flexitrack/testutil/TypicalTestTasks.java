@@ -9,23 +9,32 @@ import seedu.flexitrack.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask homework1, homework2, homework3, soccer, dinner, exam, midterm, basketball, lecture;
+    public static TestTask homework1, homework2, homework3, soccer, dinner, exam, midterm, basketball, lecture, job;
 // TODO: change the test case  soccer, homework, exam, dinner, homework2, homework3, lecture, basketball, midterm
     public TypicalTestTasks() {
         try {
-            homework1 =  new TaskBuilder().withName("Homework cs 2103").withDueDate("21 June 5pm")
-                    .withEndTime("29 Feb 23.23").withStartTime("29 Feb 23.23").build();
-            homework2 = new TaskBuilder().withName("Homework cs 2101").withDueDate("23 Jun")
-                    .withEndTime("29 Feb 23.23").withStartTime("29 Feb 23.23").build();
-            homework3 = new TaskBuilder().withName("Homework ma 1505").withStartTime("29 Feb 23.23").withEndTime("29 Feb 23.23").withDueDate("29 Feb 23.23").build();
-            soccer = new TaskBuilder().withName("Soccer training").withStartTime("20 Jun 5.30").withEndTime("20 jun 8.30").withDueDate("29 Feb 23.23").build();
-            dinner = new TaskBuilder().withName("Dinner with parents").withStartTime("5th jan 6pm").withEndTime("5th jan 7.30").withDueDate("29 Feb 23.23").build();
-            exam = new TaskBuilder().withName("MA 1505 Exams").withStartTime("15 Apr 10am").withEndTime("15 apr 11.45").withDueDate("29 Feb 23.23").build();
-            midterm = new TaskBuilder().withName("Midter cs 2101").withStartTime("29 Feb 23.23").withEndTime("29 Feb 23.23").withDueDate("29 november").build();
+            homework1 =  new TaskBuilder().withName("Homework cs 2103").withDueDate("Jan 11 2016 17:00")
+                    .withEndTime("Feb 29 2000 00:00").withStartTime("Feb 29 2000 00:00").build();
+            homework2 = new TaskBuilder().withName("Homework cs 2101").withDueDate("Sep 01 2016 13:00")
+                    .withEndTime("Feb 29 2000 00:00").withStartTime("Feb 29 2000 00:00").build();
+            homework3 = new TaskBuilder().withName("Homework ma 1505").withStartTime("Feb 29 2000 00:00")
+                    .withEndTime("Feb 29 2000 00:00").withDueDate("Feb 29 2000 00:00").build();
+            soccer = new TaskBuilder().withName("Soccer training").withStartTime("Jun 30 2016 21:00")
+                    .withEndTime("Jun 30 2016 23:00").withDueDate("Feb 29 2000 00:00").build();
+            dinner = new TaskBuilder().withName("Dinner with parents").withStartTime("Nov 16 2016 19:00")
+                    .withEndTime("Nov 16 2016 20:15").withDueDate("Feb 29 2000 00:00").build();
+            exam = new TaskBuilder().withName("MA 1505 Exams").withStartTime("May 12 2016 10:00")
+                    .withEndTime("May 12 2016 11:30").withDueDate("Feb 29 2000 00:00").build();
+            midterm = new TaskBuilder().withName("Midter cs 2101").withStartTime("Feb 29 2000 00:00")
+                    .withEndTime("Feb 29 2000 00:00").withDueDate("Mar 23 2017 09:00").build();
 
             //Manually added
-            basketball = new TaskBuilder().withName("Basketball training").withStartTime("25 december 18").withEndTime("25 dec 21").withDueDate("29 Feb 23.23").build();
-            lecture = new TaskBuilder().withName("Lecture CS2103").withStartTime("10oct 9am").withEndTime("10 oct 11am").withDueDate("29 Feb 23.23").build();
+            basketball = new TaskBuilder().withName("Basketball training").withStartTime("Dec 25 2016 18:00")
+                    .withEndTime("Dec 25 2016 21:00").withDueDate("Feb 29 2000 00:00").build();
+            lecture = new TaskBuilder().withName("Lecture CS2103").withStartTime("Oct 10 2016 14:00")
+                    .withEndTime("Oct 10 2016 16:00").withDueDate("Feb 29 2000 00:00").build();
+            job = new TaskBuilder().withName("Apply Job in Starbucks").withDueDate("Feb 29 2000 00:00")
+                    .withEndTime("Feb 29 2000 00:00").withStartTime("Feb 29 2000 00:00").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

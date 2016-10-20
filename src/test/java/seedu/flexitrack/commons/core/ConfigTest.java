@@ -17,8 +17,8 @@ public class ConfigTest {
         String defaultConfigAsString = "App title : FlexiTrack\n" +
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
-                "Local data file location : data/addressbook.xml\n" +
-                "AddressBook name : MyFlexiTrack";
+                "Local data file location : tasktracker.xml\n" +
+                "FlexiTrack name : MyTaskTracker";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }

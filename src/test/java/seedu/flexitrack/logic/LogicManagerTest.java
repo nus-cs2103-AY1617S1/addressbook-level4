@@ -46,7 +46,7 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(FlexiTrackChangedEvent abce) {
+    private void handleLocalModelrChangedEvent(FlexiTrackChangedEvent abce) {
         latestSavedFlexiTracker = new FlexiTrack(abce.data);
     }
 
@@ -108,7 +108,7 @@ public class LogicManagerTest {
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
 
-        //Confirm the ui display elements should contain the right data
+        //Confirm the ui display elements should contain the right data;
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
 
@@ -145,30 +145,24 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new FlexiTrack(), Collections.emptyList());
     }
 
-//TODO: need to change all the test casses 
+//TODO: What is the limitation of add???? 
+//    @Test
+//    public void execute_add_invalidArgsFormat() throws Exception {
+//        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+//        assertCommandBehavior(
+//                "adds wrong args wrong args", expectedMessage);
+//        assertCommandBehavior(
+//                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+//        assertCommandBehavior(
+//                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+//        assertCommandBehavior(
+//                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+//    }
+   
     @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+    public void execute_add_invalidTimeData() throws Exception {
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
-    }
-  //TODO: need to change all the test casses 
-    @Test
-    public void execute_add_invalidPersonData() throws Exception {
-        assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Apply for job by/ mondat", DateTimeInfo.MESSAGE_DATETIMEINFO_CONSTRAINTS);
 
     }
 
@@ -176,7 +170,7 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.midterm();
         FlexiTrack expectedAB = new FlexiTrack();
         expectedAB.addTask(toBeAdded);
 
@@ -192,7 +186,7 @@ public class LogicManagerTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.midterm();
         FlexiTrack expectedAB = new FlexiTrack();
         expectedAB.addTask(toBeAdded);
 
@@ -383,15 +377,13 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            DateTimeInfo privatePhone = new DateTimeInfo("02/02/2012");
-            DateTimeInfo email = new DateTimeInfo("03/02/2012");
-            DateTimeInfo privateAddress = new DateTimeInfo("04/02/2012");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privatePhone, email, privateAddress, tags);
+        Task midterm() throws Exception {
+            Name name = new Name("Midter cs 2101");
+            DateTimeInfo dueDate = new DateTimeInfo("Mar 23 2017 09:00");
+            DateTimeInfo startingTime = new DateTimeInfo("Feb 29 2000 00:00");
+            DateTimeInfo endingTime = new DateTimeInfo("Feb 29 2000 00:00");
+            UniqueTagList tags = new UniqueTagList();
+            return new Task(name, dueDate, startingTime, endingTime, tags);
         }
 
         /**
@@ -401,7 +393,6 @@ public class LogicManagerTest {
          *
          * @param seed used to generate the person data field values
          */
-      //TODO: need to change all the test casses 
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Person " + seed),
@@ -419,9 +410,12 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" by ").append(p.getDueDate());
-            cmd.append(" from ").append(p.getStartTime());
-            cmd.append(" to ").append(p.getEndTime());
+            if (p.getIsTask()){
+                cmd.append(" by/ ").append(p.getDueDate());
+            } else if (p.getIsEvent()){
+                cmd.append(" from/ ").append(p.getStartTime());
+                cmd.append(" to/ ").append(p.getEndTime());
+            }
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
