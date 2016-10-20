@@ -190,6 +190,17 @@ public class ModelManager extends ComponentManager implements Model {
         indicateActivityManagerChanged();
     }
     
+    /**
+     * @author Marx Low A0139164A
+     * Methods for editting Event/Task Starting Date & Time
+     */
+    @Override
+    public void editTaskDateTime(int index, String newDate, String newTime) {
+        activityManager.editTaskDateTime(index, newDate, newTime);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+
     @Override
     public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
         activityManager.removeTask(target);

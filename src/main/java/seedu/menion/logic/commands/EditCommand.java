@@ -1,5 +1,7 @@
 package seedu.menion.logic.commands;
 
+import java.util.Arrays;
+
 import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.core.UnmodifiableObservableList;
 import seedu.menion.model.ActivityManager;
@@ -11,7 +13,6 @@ import seedu.menion.model.activity.UniqueActivityList.DuplicateTaskException;
 /**
  * 
  * @author Marx A0139164A
- * Edits the variables of an activity given the index and it's activtyType, and the changes.
  */
 public class EditCommand extends Command {
 
@@ -23,25 +24,22 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " task 1 note write in red ink \n"
             + "Example: " + COMMAND_WORD + " event 1 name ORD";
 
-    public static final String MESSAGE_EDITTED_ACTIVITY_SUCCESS = "Edited Activity to: %1$s";
+    public static final String MESSAGE_EDITTED_ACTIVITY_SUCCESS = "Menion editted your Activity to: %1$s";
     public static final String NAME_PARAM = "name";
     public static final String NOTE_PARAM = "note";
+    public static final String TASK_DEADLINE_PARAM = "by"; 
     
     public final int targetIndex;
     public final String targetType;
-    public final String changes;
+    public final String[] changes;
     public final String paramToChange;
-    
     ReadOnlyActivity activityToEdit;
 
     public EditCommand(String[] splited) {
         this.targetType = splited[1];
         this.targetIndex = Integer.valueOf(splited[2]) - 1;
         this.paramToChange = splited[3];
-        this.changes = splited[4];
-        for (int i = 0; i < splited.length; i++) {
-            System.out.println("This is i : " + i + ". And this is inside: " + splited[i]);
-        }
+        this.changes = Arrays.copyOfRange(splited, 4, splited.length);
     }
 
     @Override
@@ -62,52 +60,68 @@ public class EditCommand extends Command {
             lastShownList = model.getFilteredEventList();
             eventEdit(this.targetIndex, this.paramToChange, this.changes);
         }
-
+        // Validates valid index is an index of an activity in the correct list
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
+        
         ReadOnlyActivity activityToEdit= lastShownList.get(targetIndex);
         return new CommandResult(String.format(MESSAGE_EDITTED_ACTIVITY_SUCCESS, activityToEdit));
     }
     
-    private void floatingTaskEdit(int index, String paramToChange, String changes) {
+    private void floatingTaskEdit(int index, String paramToChange, String[] changes) {
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
         switch (indexOfParam) {
         
         case 0:
-            model.editFloatingTaskName(index, changes);
+            String newName = changes[0];
+            model.editFloatingTaskName(index, newName);
             break;
         case 1:
-            model.editFloatingTaskNote(index, changes);
+            String newNote = changes[0];
+            model.editFloatingTaskNote(index, newNote);
             break;
         }
         
     }
-    private void taskEdit(int index, String paramToChange, String changes) {
+    private void taskEdit(int index, String paramToChange, String[] changes) {
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
+        System.out.println("This is indexOfParam:  " + indexOfParam);
+        
         switch (indexOfParam) {
         
         case 0:
-            model.editTaskName(index, changes);
+            String newName = changes[0];
+            model.editTaskName(index, newName);
             break;
         case 1:
-            model.editTaskNote(index, changes);
+            String newNote = changes[0];
+            model.editTaskNote(index, newNote);
+            break;
+        case 2:
+            String newDate = changes[0];
+            String newTime = changes[1];
+            model.editTaskDateTime(index, newDate, newTime);
             break;
         }
     }
-    private void eventEdit(int index, String paramToChange, String changes) {
+    private void eventEdit(int index, String paramToChange, String[] changes) {
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
         switch (indexOfParam) {
         
         case 0:
-            model.editEventName(index, changes);
+            String newName = changes[0];
+            model.editEventName(index, newName);
             break;
         case 1:
-            model.editEventNote(index, changes);
+            String newNote = changes[0];
+            model.editEventNote(index, newNote);
+            break;
+        case 3:
             break;
         }
     }
@@ -117,7 +131,7 @@ public class EditCommand extends Command {
      * @return an integer to match with the param to change, refer below for index
      * 0 = name (For all)
      * 1 = note (For all)
-     * 2 = by: (For Tasks only)
+     * 2 = by (For Tasks only)
      * 3 = from: to: (For Events only)
      */
     private int checkParam(String paramToChange) {
@@ -127,6 +141,9 @@ public class EditCommand extends Command {
         }
         else if (paramToChange.equals(NOTE_PARAM)) {
             return 1;
+        }
+        else if (paramToChange.equals(TASK_DEADLINE_PARAM)) {
+            return 2;
         }
         
         return 100;

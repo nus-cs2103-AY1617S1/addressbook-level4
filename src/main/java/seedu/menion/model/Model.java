@@ -62,6 +62,12 @@ public interface Model {
     void editTaskNote(int index, String changes);
     void editEventNote(int index, String changes);
     
+    /**
+     * @author Marx Low A0139164A
+     * Edits the Start Date & Time of the given Task/Event, given it's index. 
+     */
+    void editTaskDateTime(int index, String newDate, String newTime);
+
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
     
