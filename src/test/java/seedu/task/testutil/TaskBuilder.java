@@ -33,6 +33,11 @@ public class TaskBuilder {
         this.task.setRemarks(new Remarks(remarks));
         return this;
     }
+    
+    public TaskBuilder withStatus(String status) throws IllegalValueException {
+        this.task.setStatus(new Status(status));
+        return this;
+    }
 
     public TestTask build() {
         return this.task;
