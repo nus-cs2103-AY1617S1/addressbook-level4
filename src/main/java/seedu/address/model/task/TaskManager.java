@@ -23,7 +23,7 @@ import seedu.address.model.UserPrefs;
 public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	private UniqueItemCollection<Task> tasks;
 	private UniqueItemCollection<Alias> aliases;
-	private final FilteredList<Task> filteredTasks;
+	private FilteredList<Task> filteredTasks;
 	private final UndoManager undoManager;
 
 	public TaskManager() {
@@ -184,6 +184,9 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		}
 		// Clear old values of tasks & aliases
 		undoManager.clearOldCopies();
+		
+		// Refresh the filtered tasks
+		filteredTasks = new FilteredList<>(tasks.getInternalList());
 		
 		// Raise the changes
 		indicateTaskManagerChanged();
