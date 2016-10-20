@@ -10,10 +10,8 @@ import seedu.cmdo.testutil.TestTask;
 import seedu.cmdo.testutil.TestUtil;
 
 /*
- * @@author A0141128R
+ * @@author A0141128R tested as of 20/10/16
  */
-
-//missing test case where you try to add a task to the blocked slot
 
 public class BlockCommandTest extends ToDoListGuiTest {
 
@@ -29,6 +27,12 @@ public class BlockCommandTest extends ToDoListGuiTest {
         timeToBlock = td.businessDeal;
         assertBlockSuccess(timeToBlock, currentList);
         currentList = TestUtil.addTasksToList(currentList, timeToBlock);
+        
+        //cannot add task to a blocked timeslot with same timing
+        TestTask taskToAdd = td.eat;
+        commandBox.runCommand(taskToAdd.getAddCommand());
+        assertResultMessage(Messages.MESSAGE_TIMESLOT_BLOCKED);
+        commandBox.runCommand("list all");//to go back to general list
         
         //cannot done a block task
         commandBox.runCommand("done 5");
