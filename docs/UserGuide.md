@@ -123,7 +123,6 @@ Examples:
 * `edit 3 -n Meet John Tan -dt 08/10/2016 1000 to 1200 -p H -t friend`
 
 #### Editing a tag's name : `tag -e`
-*[Under Development]* <br>
 Edits a tag’s name <br>
 Format: `tag -e <INDEX> <TAG>`
 
@@ -147,7 +146,6 @@ Examples:
 * `tag -d 4` deletes the tag at Index 4
 
 #### Listing all tags : `tag -ls`
-*[Under Development]* <br>
 Lists all tags in TARS <br>
 Format: `tag -ls`
 
@@ -239,7 +237,13 @@ Examples:
 Undo a command executed by the user. <br>
 Format: `undo` 
 
-> Able to undo all `add` and `delete` commands from the time the app starts running.
+> Able to undo all `add`, `delete`, `edit` and `del` commands from the time the app starts running.
+
+#### Redoing a command : `redo`
+Redo a command executed by the user. <br>
+Format: `redo` 
+
+> Able to redo all `add`, `delete`, `edit` and `del` commands from the time the app starts running.
 
 #### Clearing the data storage file : `clear`
 Clears the whole To-Do List storage file.<br>
@@ -300,4 +304,5 @@ Command | Format
 [Tag [Find]](#finding-tags--tag--f) | `tag -f <KEYWORD>[ , <KEYWORD>, <KEYWORD>]`
 [Tag [List]](#listing-all-tags--tag--ls) | `tag -ls`
 [Undo](#undoing-a-command--undo) | `undo`
+[Redo](#redoing-a-command--redo) | `redo`
 
