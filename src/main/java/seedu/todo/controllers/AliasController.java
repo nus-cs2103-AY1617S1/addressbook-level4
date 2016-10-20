@@ -2,6 +2,7 @@ package seedu.todo.controllers;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
@@ -80,6 +81,17 @@ public class AliasController implements Controller {
             renderDisambiguation(aliasKey, aliasValue, MESSAGE_INVALID_INPUT);
             return;
         }
+        
+        // Persist alias mapping
+        TodoListDB db = TodoListDB.getInstance();
+        saveAlias(db, aliasKey, aliasValue);
+        
+    }
+    
+    private static void saveAlias(TodoListDB db, String aliasKey, String aliasValue) {
+        Map<String, String> aliases = db.getAliases();
+        aliases.put(aliasKey, aliasValue);
+        db.save();
     }
     
     /**
