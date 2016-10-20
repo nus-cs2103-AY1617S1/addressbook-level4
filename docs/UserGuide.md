@@ -213,7 +213,7 @@ You can use tags to organize your tasks easily. Tags are case insensitive, and e
 To replace the tags on a task with new ones, specify an `INDEX` with the list of tags you want to replace them with. 
 
 !!! example
-    **`tag`** 1 nus, cs2101, cs2103t` 
+    **`tag`**`` 1 nus, cs2101, cs2103t` 
     :     Replace the tags on the first task with `nus`, `cs2101` and `cs2103t`
 
 #### Adding tags to a task 
@@ -276,7 +276,7 @@ You can also use the underlined character in the view's name as the shortcut whe
 
 ### Finding tasks: **`find`**
 
-Finds tasks whose tags/name contain any of the given keywords.  
+Find tasks whose tags/name contain any of the given keywords.  
 Format: **`find`**` KEYWORD [MORE KEYWORDS]`
 
 The search is case insensitive and the order of the keywords does not matter. Only the title and tags are searched, and tasks matching at least one keyword will be returned.
