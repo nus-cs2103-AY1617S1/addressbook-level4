@@ -71,15 +71,9 @@ public class ConfigUtil {
         FileUtil.serializeObjectToJsonFile(new File(configFilePath), config);
     }
     
-    private void updateConfig(Config newConfig) throws IOException {
+    public static void updateConfig(Config newConfig) throws IOException {
         saveConfig(newConfig, configFilePath);
     }
 
-    // @@author A0124333U
-    @Subscribe
-    private void handleTarsStorageDirectoryChangedEvent(TarsStorageDirectoryChangedEvent event) throws IOException {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        updateConfig(event.getNewConfig());
-    }
 
 }

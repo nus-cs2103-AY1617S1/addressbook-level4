@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import tars.commons.core.Config;
+import tars.commons.util.ConfigUtil;
 import tars.storage.Storage;
 import tars.storage.StorageManager;
 import tars.storage.XmlTarsStorage;
@@ -64,6 +65,7 @@ public class CdCommand extends Command {
             }
             
             storageUpdater.updateTarsStorageDirectory(newFilePath, newConfig);
+            ConfigUtil.updateConfig(newConfig);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, newFilePath));
             
