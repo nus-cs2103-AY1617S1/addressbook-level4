@@ -105,11 +105,11 @@ public class ViewCommandTest extends CommandTest {
     }
     
     @Test
-    public void testViewDueToday() throws ValidationException {
-        setParameter("due today");
+    public void testViewDueSoon() throws ValidationException {
+        setParameter("due soon");
         execute(true);
         
-        assertViewChangeEventFired(TaskViewFilter.DUE_TODAY);
+        assertViewChangeEventFired(TaskViewFilter.DUE_SOON);
         assertTaskVisible(task1);
         assertTaskNotVisible(task2);
         assertTaskNotVisible(task3);
@@ -117,7 +117,7 @@ public class ViewCommandTest extends CommandTest {
     
     @Test
     public void testSuccessiveCommands() throws ValidationException {
-        setParameter("due today");
+        setParameter("due soon");
         execute(true);
         assertTaskVisible(task1);
         assertTaskNotVisible(task2);

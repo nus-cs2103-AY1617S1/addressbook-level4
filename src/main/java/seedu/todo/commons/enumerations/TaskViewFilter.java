@@ -8,30 +8,33 @@ import java.util.function.Predicate;
 
 //@@author A0092382A
 public enum TaskViewFilter {
-    DEFAULT("show all", null, 5), 
+    DEFAULT("show all", null, false, 5), 
     
-    COMPLETED("completed", ImmutableTask::isCompleted, 0), 
+    COMPLETED("completed", ImmutableTask::isCompleted, false, 0), 
     
-    INCOMPLETE ("incomplete", task -> !task.isCompleted(), 0),
+    INCOMPLETE ("incomplete", task -> !task.isCompleted(), true, 0),
     
-    DUE_TODAY ("due today", (task) -> {
+    DUE_SOON ("due soon", (task) -> {
         TimeUtil time = new TimeUtil(); 
         return !task.isCompleted() && 
             !task.isEvent() &&
             task.getEndTime().isPresent() && 
             time.isToday(task.getEndTime().get(), LocalDateTime.now());
-    }, 4);
+    }, true, 0);
     
     private final String name;
     
     private final Predicate<ImmutableTask> filter;
     
-    private final int underlineChar;
+    private final int shortcutCharPosition;
+    
+    private boolean chronological; 
 
-    TaskViewFilter(String name, Predicate<ImmutableTask> filter, int underlineCharPosition) {
+    TaskViewFilter(String name, Predicate<ImmutableTask> filter, boolean chronological, int underlineCharPosition) {
         this.name = name;
         this.filter = filter;
-        this.underlineChar = underlineCharPosition;
+        this.chronological = chronological;
+        this.shortcutCharPosition = underlineCharPosition;
     }
     
     public String getViewName() {
@@ -42,7 +45,11 @@ public enum TaskViewFilter {
         return this.filter;
     }
     
-    public int getUnderlineChar() {
-        return this.underlineChar;
+    public int getShortcutCharPosition() {
+        return this.shortcutCharPosition;
+    }
+
+    public boolean isChronological() {
+        return chronological;
     }
 }

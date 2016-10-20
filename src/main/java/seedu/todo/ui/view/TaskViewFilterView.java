@@ -99,7 +99,7 @@ public class TaskViewFilterView extends UiPart {
      */
     private HBox constructViewFilterBox(TaskViewFilter filter) {
         String filterName = WordUtils.capitalize(filter.getViewName());
-        String[] partitionedText = StringUtil.partitionStringAtPosition(filterName, filter.getUnderlineChar());
+        String[] partitionedText = StringUtil.partitionStringAtPosition(filterName, filter.getShortcutCharPosition());
 
         Label leftText = new Label(partitionedText[0]);
         Label centreText = new Label(partitionedText[1]);
