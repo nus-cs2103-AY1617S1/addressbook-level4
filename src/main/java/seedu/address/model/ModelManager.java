@@ -132,7 +132,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        RecurringTaskManager.getInstance().updateAnyRecurringTasks();
         filteredTaskComponents.setPredicate(new PredicateExpression(new ArchiveQualifier(true))::unsatisfies);       
     }
 
@@ -142,7 +141,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredTaskList(Expression expression) {
-        RecurringTaskManager.getInstance().updateAnyRecurringTasks();
         filteredTaskComponents.setPredicate(expression::satisfies);
     }
 

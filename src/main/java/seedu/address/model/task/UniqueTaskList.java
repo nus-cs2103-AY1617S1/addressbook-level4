@@ -1,13 +1,16 @@
 package seedu.address.model.task;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.exceptions.DuplicateDataException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.BlockCommand;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.commons.exceptions.DuplicateDataException;
-
-import java.util.*;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -100,6 +103,11 @@ public class UniqueTaskList implements Iterable<Task> {
     public void add(Task toAdd) throws DuplicateTaskException, TimeslotOverlapException {
         assert toAdd != null;
         if (contains(toAdd)) {
+            if (!toAdd.getRecurringType().equals(RecurringType.NONE)) {
+                // append this "task" as date component to the task
+                appendDuplicateRecurringDatesToTask(toAdd);
+                return;
+            }
             throw new DuplicateTaskException();
         }
         if(overlaps(toAdd)){
@@ -107,6 +115,13 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(toAdd);
         internalComponentList.addAll(toAdd.getTaskDateComponent());
+    }
+
+    private void appendDuplicateRecurringDatesToTask(Task toAdd) {
+        int idx = internalList.indexOf(toAdd);
+        Task toBeAppendedOn = internalList.get(idx);
+        toBeAppendedOn.appendRecurringDate(toAdd.getComponentForNonRecurringType());
+        internalComponentList.add(toAdd.getComponentForNonRecurringType());
     }
 
     /**

@@ -39,7 +39,7 @@ public interface ReadOnlyTask {
     		return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getTaskType().equals(this.getTaskType())
+                && ((other.getTaskType().equals(this.getTaskType())) || !other.getRecurringType().equals(RecurringType.NONE))
                 );
     }
 
@@ -71,4 +71,6 @@ public interface ReadOnlyTask {
     void completeTaskWhenAllComponentArchived();
     
     TaskComponent getComponentForNonRecurringType();
+    
+    void appendRecurringDate(TaskComponent componentToBeAppended);
 }
