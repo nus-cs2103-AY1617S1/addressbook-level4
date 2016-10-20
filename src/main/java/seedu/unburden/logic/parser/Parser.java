@@ -159,49 +159,90 @@ public class Parser {
 		final Matcher matcher2 = ADD_FORMAT_2.matcher(args.trim());
 		final Matcher matcher3 = ADD_FORMAT_3.matcher(args.trim());
 		final Matcher matcher4 = ADD_FORMAT_4.matcher(args.trim());
+		
 		// Validate arg string format
 		if (!matcher0.matches() & !matcher1.matches() & !matcher2.matches() & !matcher3.matches() & !matcher4.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
+		
 		try {
 			if (matcher0.matches()) {
-				return new AddCommand(matcher0.group("name"), matcher0.group("details"),
-						matcher0.group("startTimeArguments"), matcher0.group("endTimeArguments"),
+				return new AddCommand(
+						matcher0.group("name"), 
+						matcher0.group("taskDescriptions"),
+						matcher0.group("date"),
+						matcher0.group("startTimeArguments"), 
+						matcher0.group("endTimeArguments"),
 						getTagsFromArgs(matcher0.group("tagArguments")));
 			}
+			
 			if (matcher1.matches()) {
-				return new AddCommand(matcher1.group("name"), matcher1.group("date"),
-						matcher1.group("startTimeArguments"), matcher1.group("endTimeArguments"),
-						getTagsFromArgs(matcher1.group("tagArguments")));
-			} else if (matcher2.matches()) {
-				return new AddCommand(matcher2.group("name"), matcher2.group("date"),
+				return new AddCommand(
+						matcher1.group("name"), 
+						matcher1.group("date"),
+						matcher1.group("startTimeArguments"), 
+						matcher1.group("endTimeArguments"),
+						getTagsFromArgs(matcher1.group("tagArguments")));		
+			} 
+			
+			else if (matcher2.matches()) {
+				return new AddCommand(
+						matcher2.group("name"), 
+						matcher2.group("date"),
 						getTagsFromArgs(matcher2.group("tagArguments")));
-			} else if (matcher4.matches()) {
-				return new AddCommand(matcher4.group("name"), matcher4.group("date"),
-						matcher4.group("endTimeArguments"), getTagsFromArgs(matcher4.group("tagArguments")));
-			} else {
+			} 
+			
+			else if (matcher4.matches()) {
+				return new AddCommand(
+						matcher4.group("name"), 
+						matcher4.group("date"),
+						matcher4.group("endTimeArguments"), 
+						getTagsFromArgs(matcher4.group("tagArguments")));
+				
+			} 
+			
+			else {
 				if (matcher3.group("name").toLowerCase().contains(byToday)) {
-					return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byToday), ""),
-							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));
-				} else if (matcher3.group("name").toLowerCase().contains(byTomorrow)) {
+					return new AddCommand(
+							matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byToday), ""),
+							dateFormatter.format(calendar.getTime()), 
+							getTagsFromArgs(matcher3.group("tagArguments")));	
+				} 
+				
+				else if (matcher3.group("name").toLowerCase().contains(byTomorrow)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.DAY_OF_YEAR, 1);
-					return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byTomorrow), ""),
-							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));
-				} else if (matcher3.group("name").toLowerCase().contains(byNextWeek)) {
+					return new AddCommand(
+							matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byTomorrow), ""),
+							dateFormatter.format(calendar.getTime()), 
+							getTagsFromArgs(matcher3.group("tagArguments")));	
+				} 
+				
+				else if (matcher3.group("name").toLowerCase().contains(byNextWeek)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_YEAR, 1);
-					return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextWeek), ""),
-							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));
-				} else if (matcher3.group("name").toLowerCase().contains(byNextMonth)) {
+					return new AddCommand(
+							matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextWeek), ""),
+							dateFormatter.format(calendar.getTime()), 
+							getTagsFromArgs(matcher3.group("tagArguments")));	
+				} 
+				
+				else if (matcher3.group("name").toLowerCase().contains(byNextMonth)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_MONTH, 4);
-					return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextMonth), ""),
-							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));
-				} else {
-					return new AddCommand(matcher3.group("name"), getTagsFromArgs(matcher3.group("tagArguments")));
+					return new AddCommand(
+							matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextMonth), ""),
+							dateFormatter.format(calendar.getTime()), 
+							getTagsFromArgs(matcher3.group("tagArguments")));
+				} 
+				
+				else {
+					return new AddCommand(
+							matcher3.group("name"), 
+							getTagsFromArgs(matcher3.group("tagArguments")));
 				}
 			}
+			
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
 		}
