@@ -1,12 +1,16 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.function.Predicate;
+
+import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
@@ -38,11 +42,16 @@ public interface Model {
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the full task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+	UnmodifiableObservableList<ReadOnlyTask> getFullTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
+    
+    /** Updates the filter of the filtered task list according to a specified predicate*/
+    void updateFilteredTaskList(Predicate<ReadOnlyTask> taskFilter);
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
-
 }
