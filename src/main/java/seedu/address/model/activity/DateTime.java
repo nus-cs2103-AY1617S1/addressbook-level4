@@ -9,6 +9,7 @@ import seedu.address.commons.util.DateUtil;
 public abstract class DateTime {
     public final Calendar value;
     protected static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("EEE, MMM d, yyyy h:mm a");
+    protected static final SimpleDateFormat SAVE_DATE_FORMAT = new SimpleDateFormat("d-MM-yyyy h:mm a");
     protected static final DateUtil DATE_PARSER = new DateUtil();
 
     public DateTime(Calendar date) {
@@ -55,6 +56,15 @@ public abstract class DateTime {
         }
     }
 
+
+    public String toSave() {
+        if (this.value == null) {
+            return new String("");
+        } else {
+            return SAVE_DATE_FORMAT.format(value.getTime());
+        }
+    }
+    
     @Override
     public boolean equals(Object other) {
         if (value == null || ((DateTime) other).value == null) {

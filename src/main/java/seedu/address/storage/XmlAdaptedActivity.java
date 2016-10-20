@@ -51,7 +51,7 @@ public class XmlAdaptedActivity {
     	String sourceType = source.getClass().getSimpleName().toLowerCase();
     	
     	name = source.getName().fullName;
-        reminder = source.getReminder().toString();
+        reminder = source.getReminder().toSave();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -72,14 +72,14 @@ public class XmlAdaptedActivity {
         
     	case "task" :
     		type = "task";
-            line1 = ((ReadOnlyTask) source).getDueDate().toString();
+            line1 = ((ReadOnlyTask) source).getDueDate().toSave();
             line2 = ((ReadOnlyTask) source).getPriority().value;
             break;
     	
     	case "event" :
     		type = "event";
-            line1 = ((ReadOnlyEvent) source).getStartTime().toString();
-            line2 = ((ReadOnlyEvent) source).getEndTime().toString();
+            line1 = ((ReadOnlyEvent) source).getStartTime().toSave();
+            line2 = ((ReadOnlyEvent) source).getEndTime().toSave();
             break;
     		
     	}
@@ -148,7 +148,7 @@ public class XmlAdaptedActivity {
         final Reminder reminder = new Reminder(this.reminder);
         final UniqueTagList tags = new UniqueTagList(activityTags);
         
-        switch (type) {
+        switch (this.type) {
        
         case "activity" :
             return new Activity(name, reminder, tags);
