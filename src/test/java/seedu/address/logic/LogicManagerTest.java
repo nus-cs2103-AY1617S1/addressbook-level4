@@ -482,34 +482,34 @@ public class LogicManagerTest {
          * Generates an TaskManager with auto-generated tasks.
          */
         TaskManager generateTaskManager(int numGenerated) throws Exception{
-            TaskManager addressBook = new TaskManager();
-            addToTaskManager(addressBook, numGenerated);
-            return addressBook;
+            TaskManager taskManager = new TaskManager();
+            addToTaskManager(taskManager, numGenerated);
+            return taskManager;
         }
 
         /**
          * Generates an TaskManager based on the list of Tasks given.
          */
         TaskManager generateTaskManager(List<Task> tasks) throws Exception{
-            TaskManager addressBook = new TaskManager();
-            addToTaskManager(addressBook, tasks);
-            return addressBook;
+            TaskManager taskManager = new TaskManager();
+            addToTaskManager(taskManager, tasks);
+            return taskManager;
         }
 
         /**
          * Adds auto-generated Task objects to the given TaskManager
-         * @param addressBook The TaskManager to which the Tasks will be added
+         * @param taskManager The TaskManager to which the Tasks will be added
          */
-        void addToTaskManager(TaskManager addressBook, int numGenerated) throws Exception{
-            addToTaskManager(addressBook, generateTaskList(numGenerated));
+        void addToTaskManager(TaskManager taskManager, int numGenerated) throws Exception{
+            addToTaskManager(taskManager, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given TaskManager
          */
-        void addToTaskManager(TaskManager addressBook, List<Task> tasksToAdd) throws Exception{
+        void addToTaskManager(TaskManager taskManager, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
-                addressBook.addTask(p);
+                taskManager.addTask(p);
             }
         }
 
