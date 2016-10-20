@@ -1,8 +1,11 @@
 package jym.manager.testutil;
 
+
 import jym.manager.commons.exceptions.IllegalValueException;
 import jym.manager.model.tag.Tag;
 import jym.manager.model.task.*;
+import jym.manager.logic.parser.Parser;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -27,15 +30,15 @@ public class TaskBuilder {
         return this;
     }
 
-//    public TaskBuilder withAddress(String address) throws IllegalValueException {
-//        this.task.setAddress(new Address(address));
-//        return this;
-//    }
-//
-//    public TaskBuilder withPhone(String phone) throws IllegalValueException {
-//        this.task.setPhone(new Phone(phone));
-//        return this;
-//    }
+    public TaskBuilder withLocation(String address) throws IllegalValueException {
+        this.task.setAddress(new Location(address));
+        return this;
+    }
+
+    public TaskBuilder withDeadline(String date) throws IllegalValueException {
+        this.task.setDate(Parser.parseDate(date));
+        return this;
+    }
 //
 //    public TaskBuilder withEmail(String email) throws IllegalValueException {
 //        this.task.setEmail(new Email(email));

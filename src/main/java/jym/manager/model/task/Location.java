@@ -12,8 +12,12 @@ public class Location {
     public static final String MESSAGE_LOCATION_CONSTRAINTS = "Person addresses can be in any format";
     public static final String LOCATION_VALIDATION_REGEX = ".+";
 
-    public final String value;
+    private final String value;
 
+    
+    public Location(){
+    	value = "no location";
+    }
     /**
      * Validates given address.
      *
@@ -26,7 +30,9 @@ public class Location {
 //        }
         this.value = location;
     }
-
+    public Location(Location other){
+    	this.value = other.toString();
+    }
     /**
      * Returns true if a given string is a valid person email.
      */

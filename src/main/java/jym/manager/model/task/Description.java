@@ -11,7 +11,7 @@ public class Description {
     public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
     public static final String DESCRIPTION_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
-    public final String fullDescription;
+    private final String fullDescription;
 
     /**
      * Validates given name.

@@ -15,11 +15,11 @@ import jym.manager.model.task.Priority;
  * Represents a task in the JYM program.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task extends TaskManagerItem implements ReadOnlyTask {
 
 	private Description descr;
 	private Location loc;
-	private LocalDateTime dueDate;
+	private Deadline dueDate;
 	private Priority pri;
 	private Complete compl;
 
@@ -29,15 +29,21 @@ public class Task implements ReadOnlyTask {
 	public Task(Description description, Object ... objects) throws IllegalValueException{
 		assert !CollectionUtil.isAnyNull(description, objects);
 		this.descr = description;
-		this.loc = null;
-		this.dueDate = null;
+		this.loc = new Location();
+		this.dueDate = new Deadline();
 		this.pri = new Priority(0);
 		for(int i = 0; i < objects.length; i++){
     		Object o = objects[i];
     		if(o instanceof String){
     			this.loc = new Location((String)o);
+    		} else if(o instanceof Location){ 
+    			this.loc = (Location)o;
     		} else if(o instanceof LocalDateTime){
-    			this.dueDate = (LocalDateTime)o;
+    			this.dueDate = new Deadline((LocalDateTime)o);
+    		} else if(o instanceof Deadline){ 
+    			this.dueDate = (Deadline)o;
+    		} else if(o instanceof Priority){
+    			this.pri = (Priority)o;
     		} else if(o instanceof Integer){
     			this.pri = new Priority((Integer)o);
     		} else if(o instanceof UniqueTagList){
@@ -45,21 +51,27 @@ public class Task implements ReadOnlyTask {
     		}
     	}
 	}
-
+	public Task(Description d, Deadline due, Location location){
+		this.descr = d;
+		this.dueDate = due;
+		this.loc = location;
+	
+	}
     /**
      * Every field must be present and not null.
      */
 
-    public Task(Description description, Location location, LocalDateTime due, Priority p, UniqueTagList tags) {
-    	assert !CollectionUtil.isAnyNull(description, location, due);
+    public Task(Description description, Location location, Deadline due, Priority p, UniqueTagList tags) {
+    //	assert !CollectionUtil.isAnyNull(description, location, due);
     	this.descr = description;
-    	this.loc = location;
-    	this.dueDate = due;
+    	this.loc = (location == null)? new Location():location;
+    	this.dueDate = (due == null) ? new Deadline():due;
     	this.pri = p;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     /**
      * Copy constructor.
+     * @throws IllegalValueException 
      */
     public Task(ReadOnlyTask source) {
         this(source.getDescription(), source.getLocation(), source.getDate(), source.getPriority(), source.getTags());
@@ -70,7 +82,9 @@ public class Task implements ReadOnlyTask {
         assert !CollectionUtil.isAnyNull(description, tags);
         this.descr = description;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        this.loc = null;
+        this.loc = new Location();
+        this.dueDate = new Deadline();
+        this.pri = new Priority();
     }
 
     @Override
@@ -84,7 +98,7 @@ public class Task implements ReadOnlyTask {
     }
 
 	@Override
-	public LocalDateTime getDate() {
+	public Deadline getDate() {
 		return this.dueDate;
 	}
 
@@ -124,6 +138,9 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
 
+    public boolean hasDeadline(){
+    	return this.dueDate != null && this.dueDate.hasDeadline();
+    }
 	@Override
 	public Complete getComplete() {
 		return this.compl;

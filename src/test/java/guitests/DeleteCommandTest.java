@@ -5,7 +5,9 @@ import jym.manager.testutil.TestUtil;
 
 import org.junit.Test;
 
-import static jym.manager.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+
+import static jym.manager.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+
 import static org.junit.Assert.assertTrue;
 
 public class DeleteCommandTest extends TaskManagerGuiTest {
@@ -49,7 +51,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, taskToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
 }

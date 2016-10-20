@@ -61,6 +61,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
+
     public Optional<ReadOnlyTaskManager> readTaskManager(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return taskManagerStorage.readTaskManager(filePath);
@@ -72,6 +73,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
+
     public void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         taskManagerStorage.saveTaskManager(taskManager, filePath);

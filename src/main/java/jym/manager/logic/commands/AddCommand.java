@@ -43,7 +43,17 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
-
+    public AddCommand(String description, Object ... objects) throws IllegalValueException{
+    	if(objects.length > 3){//f**k in this case - this should never happen b/c we control parser.
+    		throw new IllegalArgumentException();
+    	}
+//      final Set<Tag> tagSet = new HashSet<>();
+//      for (String tagName : tags) {
+//          tagSet.add(new Tag(tagName));
+//      }
+   
+    	this.toAdd = new Task(new Description(description), objects);
+    }
     public AddCommand(String description, Set<String> tags) throws IllegalValueException
     {
         final Set<Tag> tagSet = new HashSet<>();
@@ -67,7 +77,14 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
-
+    public AddCommand(String description, LocalDateTime deadline) throws IllegalValueException
+    {
+     
+        this.toAdd = new Task(
+                new Description(description),
+                deadline
+        );
+    }
     @Override
     public CommandResult execute() {
         assert model != null;

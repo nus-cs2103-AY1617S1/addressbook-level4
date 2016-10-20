@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import jym.manager.commons.exceptions.IllegalValueException;
 import jym.manager.model.tag.Tag;
 import jym.manager.model.tag.UniqueTagList;
 import jym.manager.model.task.ReadOnlyTask;
@@ -60,7 +61,9 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(arg0 -> {
+			return new Task(arg0);
+		}).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -78,7 +81,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(p);
+ //       syncTagsWithMasterList(p);
         tasks.add(p);
     }
 

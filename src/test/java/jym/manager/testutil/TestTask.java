@@ -11,8 +11,9 @@ import jym.manager.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Description description;
-//    private Address address;
-//    private Email email;
+    private Location address;
+    private Deadline deadline;
+    private Priority pri;
 //    private Phone phone;
     private UniqueTagList tags;
 
@@ -24,13 +25,13 @@ public class TestTask implements ReadOnlyTask {
         this.description = description;
     }
 
-//    public void setAddress(Address address) {
-//        this.address = address;
-//    }
-//
-//    public void setEmail(Email email) {
-//        this.email = email;
-//    }
+    public void setAddress(Location address) {
+        this.address = address;
+    }
+
+    public void setDate(LocalDateTime date) {
+        this.deadline = new Deadline(date);
+    }
 //
 //    public void setPhone(Phone phone) {
 //        this.phone = phone;
@@ -46,15 +47,15 @@ public class TestTask implements ReadOnlyTask {
 //        return phone;
 //    }
 //
-//    @Override
-//    public Email getEmail() {
-//        return email;
-//    }
-//
-//    @Override
-//    public Address getAddress() {
-//        return address;
-//    }
+    @Override
+    public Deadline getDate() {
+        return this.deadline;
+    }
+
+    @Override
+    public Location getLocation() {
+        return address;
+    }
 
     @Override
     public UniqueTagList getTags() {
@@ -68,26 +69,27 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getDescription().toString() + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("add " + this.getDescription().toString());
+        if(this.hasDeadline()){
+        	sb.append(" by " + this.getDate().toString());
+        }
+        if(this.getLocation() != null){
+        	sb.append(" at " + this.getLocation().toString());
+        }
+     //   this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 
-
-	@Override
-	public Location getLocation() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public LocalDateTime getDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+    public boolean hasDeadline(){
+    	return (this.deadline != null && this.deadline.hasDeadline());
+    }
 	@Override
 	public Priority getPriority() {
+		return pri;
+	}
+
+	@Override
+	public Complete getComplete() {
 		// TODO Auto-generated method stub
 		return null;
 	}

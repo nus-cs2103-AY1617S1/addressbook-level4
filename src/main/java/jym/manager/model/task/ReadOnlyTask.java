@@ -1,7 +1,5 @@
 package jym.manager.model.task;
 
-import java.time.LocalDateTime;
-
 import jym.manager.model.tag.UniqueTagList;
 
 /**
@@ -12,7 +10,7 @@ public interface ReadOnlyTask {
 
     Description getDescription();
     Location getLocation();
-	LocalDateTime getDate();
+	Deadline getDate();
 	Priority getPriority();
 	Complete getComplete();
 	
@@ -38,8 +36,7 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getLocation())
-                .append(" Description: ")
+        builder.append(" Description: ")
                 .append(getDescription())
                 .append(" Deadline: ")
                 .append(getDate())
@@ -56,7 +53,7 @@ public interface ReadOnlyTask {
     default String tagsString() {
         final StringBuffer buffer = new StringBuffer();
         final String separator = ", ";
-        getTags().forEach(tag -> buffer.append(tag).append(separator));
+//        getTags().forEach(tag -> buffer.append(tag).append(separator));
         if (buffer.length() == 0) {
             return "";
         } else {

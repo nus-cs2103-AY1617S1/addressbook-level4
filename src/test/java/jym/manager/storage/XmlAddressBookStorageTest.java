@@ -19,7 +19,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class XmlAddressBookStorageTest {
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
+    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTaskManagerStorageTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -52,7 +52,7 @@ public class XmlAddressBookStorageTest {
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatAddressBook.xml");
+        readAddressBook("NotXmlFormatTaskManager.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -72,14 +72,15 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new TaskManager(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTasks.hoon));
-        original.removeTask(new Task(TypicalTestTasks.alice));
+
+        original.addTask(new Task(TypicalTestTasks.buyFan));
+        original.removeTask(new Task(TypicalTestTasks.doLaundry));
         xmlTaskManagerStorage.saveTaskManager(original, filePath);
         readBack = xmlTaskManagerStorage.readTaskManager(filePath).get();
         assertEquals(original, new TaskManager(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestTasks.ida));
+        original.addTask(new Task(TypicalTestTasks.goToWork));
         xmlTaskManagerStorage.saveTaskManager(original); //file path not specified
         readBack = xmlTaskManagerStorage.readTaskManager().get(); //file path not specified
         assertEquals(original, new TaskManager(readBack));

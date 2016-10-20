@@ -1,15 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
-    <persons>
-        <id>1</id>
-        <firstName>John</firstName>
-        <lastName>Doe</lastName>
-        <githubUsername></githubUsername>
-        <street></street>
-        <postalCode></postalCode>
-        <city></city>
-    </persons>
-    <tags>
-        <name>Friends</name>
-    </tags>
+    <tasks>
+        <description>do that</description>
+        <deadline>no deadline</deadline>
+        <address>no location</address>
+    </tasks>
 </taskmanager>

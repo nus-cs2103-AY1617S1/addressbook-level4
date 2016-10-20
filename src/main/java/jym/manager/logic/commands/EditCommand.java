@@ -21,7 +21,7 @@ import jym.manager.model.task.UniqueTaskList.TaskNotFoundException;
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "update";
     
-    public static final String MESSAGE_UPDATE_PERSON_SUCCESS = "Updated Task: %1$s";
+    public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Updates the task identified by the index number used in the last task listing.\n"
@@ -66,7 +66,7 @@ public class EditCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_UPDATE_PERSON_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToDelete));
 
 	}
 
