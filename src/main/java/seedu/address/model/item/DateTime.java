@@ -30,16 +30,31 @@ public abstract class DateTime {
      * @return Date object converted from given String
      */
     public static Date convertStringToDate(String dateString) {
+        assert isValidDate(dateString);
+        
         Date date;
         List<DateGroup> dates = new Parser().parse(dateString);
         
         assert dates.get(BASE_INDEX) != null && dates.get(BASE_INDEX).getDates().get(BASE_INDEX) != null;
         
         date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
-        String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
             
-        if (!syntaxTree.contains(TIME)) {
+        return date;
+    }
+
+    public static Date setTime(Date date, String dateString, boolean isStartDate) {
+        assert date != null && isValidDate(dateString);
+        
+        List<DateGroup> dates = new Parser().parse(dateString);
+        
+        assert dates.get(BASE_INDEX) != null;
+        
+        String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
+        
+        if (!syntaxTree.contains(TIME) && isStartDate) {
             date = setTimeToStartOfDay(date);
+        } else if (!syntaxTree.contains(TIME) && !isStartDate) {
+            date = setTimeToEndOfDay(date);
         }
         return date;
     }
@@ -58,7 +73,7 @@ public abstract class DateTime {
         }
     }
     
-    public static Date setDateToStartDate(Date startDate, Date endDate) {
+    public static Date setEndDateToStartDate(Date startDate, Date endDate) {
         Calendar calendarStartDate = Calendar.getInstance();
         calendarStartDate.setTime(startDate);
         int date = calendarStartDate.get(Calendar.DATE);
@@ -81,6 +96,7 @@ public abstract class DateTime {
      * "5pm tomorrow", "02/10/2016", "13 Sep"
      */
     public static boolean isValidDate(String dateString) {
+        assert dateString != null;
         List<DateGroup> dates = new Parser().parse(dateString.trim());
         try {
             dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
@@ -100,10 +116,10 @@ public abstract class DateTime {
      * Assigns start date to a specified weekday
      */
     public static Date assignStartDateToSpecifiedWeekday(String dateString) {
-        assert dateString.toLowerCase().equals("monday") || dateString.toLowerCase().equals("tuesday") ||
+        assert dateString != null && (dateString.toLowerCase().equals("monday") || dateString.toLowerCase().equals("tuesday") ||
         dateString.toLowerCase().equals("wednesday") || dateString.toLowerCase().equals("thursday") || 
         dateString.toLowerCase().equals("friday") || dateString.toLowerCase().equals("saturday") || 
-        dateString.toLowerCase().equals("sunday");
+        dateString.toLowerCase().equals("sunday"));
         
         Date date;
         List<DateGroup> dates = new Parser().parse(dateString);
@@ -120,6 +136,7 @@ public abstract class DateTime {
      * Sets time of Date object to start of the day i.e "00:00:00"
      */
     private static Date setTimeToStartOfDay(Date date) {
+        assert date != null;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -129,11 +146,12 @@ public abstract class DateTime {
         Date updatedDate = calendar.getTime();
         return updatedDate;
     }
-    
+
     /**
      * Sets time of Date object to end of the day i.e "23:59:59"
      */
     private static Date setTimeToEndOfDay(Date date) {
+        assert date != null;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 23);

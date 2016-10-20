@@ -62,23 +62,21 @@ public class AddCommand extends UndoableCommand {
         Priority priority;
 
         if (startDateString.isPresent()) {
-            assert DateTime.isValidDate(startDateString.get());
             startDate = DateTime.convertStringToDate(startDateString.get());
         }
 
         if (endDateString.isPresent()) {
-            assert DateTime.isValidDate(endDateString.get());
             endDate = DateTime.convertStringToDate(endDateString.get());
             if (startDate != null && !DateTime.hasDateValue(endDateString.get())) {
-                endDate = DateTime.setDateToStartDate(startDate, endDate);
+                endDate = DateTime.setEndDateToStartDate(startDate, endDate);
             }
         }
 
         if (rateString.isPresent() && timePeriodString.isPresent()) {
             recurrenceRate = new RecurrenceRate(rateString.get(), timePeriodString.get());
-        } else if (rateString.isPresent() && timePeriodString.isPresent()) {
+        } else if (!rateString.isPresent() && timePeriodString.isPresent()) {
             recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString.get());
-        } else if (rateString.isPresent() && timePeriodString.isPresent()) {
+        } else if (rateString.isPresent() && !timePeriodString.isPresent()) {
             throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
         } 
         
@@ -88,6 +86,7 @@ public class AddCommand extends UndoableCommand {
             startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
         }
         
+        //TODO: Design decision
         if (recurrenceRate != null && startDate == null && endDate == null) {
             throw new IllegalValueException(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
         }
