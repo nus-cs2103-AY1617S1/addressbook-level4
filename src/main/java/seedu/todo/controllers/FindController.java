@@ -32,7 +32,7 @@ public class FindController implements Controller {
     private static final String MESSAGE_LISTING_FAILURE = "No task or event found!";
     
     private static CommandDefinition commandDefinition =
-            new CommandDefinition(NAME, DESCRIPTION, COMMAND_WORD); 
+            new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
 
     public static CommandDefinition getCommandDefinition() {
         return commandDefinition;
