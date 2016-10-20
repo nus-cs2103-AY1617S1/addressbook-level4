@@ -7,9 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import tars.TestApp;
-import tars.model.task.Task;
 import tars.model.task.rsv.RsvTask;
-import tars.model.task.ReadOnlyTask;
 import tars.testutil.TestUtil;
 
 import java.util.List;
@@ -79,9 +77,9 @@ public class RsvTaskListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Returns true if the list is showing the task details correctly and in correct order.
+     * Returns true if the list is showing the RsvTask details correctly and in correct order.
      * @param startPosition The starting position of the sub list.
-     * @param tasks A list of task in the correct order.
+     * @param tasks A list of RsvTask in the correct order.
      */
     public boolean isListMatching(int startPosition, RsvTask... tasks) throws IllegalArgumentException {
         if (tasks.length + startPosition != getRsvListView().getItems().size()) {

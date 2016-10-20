@@ -3,7 +3,6 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import tars.model.task.ReadOnlyTask;
 import tars.model.task.rsv.RsvTask;
 
 /**
