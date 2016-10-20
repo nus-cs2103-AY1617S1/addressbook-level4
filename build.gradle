@@ -79,7 +79,7 @@ allprojects {
         archiveName = "flexitrack.jar"
 
         manifest {
-            attributes "Main-Class": "seedu.address.MainApp"
+            attributes "Main-Class": "seedu.flexitrack.MainApp"
         }
 
         destinationDir = file("${buildDir}/jar/")
@@ -140,7 +140,7 @@ task guiTests(type: FlexiTrackTest) {
 
 
 task nonGuiTests(type: FlexiTrackTest) {
-    include 'seedu/address/**'
+    include 'seedu/flexitrack/**'
 
     jacoco {
         destinationFile = new File("${buildDir}/jacoco/test.exec")

@@ -1,0 +1,7 @@
+{
+  "appTitle" : "FlexiTrack",
+  "logLevel" : "INFO",
+  "userPrefsFilePath" : "preferences.json",
+  "flexiTrackFilePath" : "data/tasktracker.xml",
+  "flexiTrackName" : "MyTaskTracker"
+}
