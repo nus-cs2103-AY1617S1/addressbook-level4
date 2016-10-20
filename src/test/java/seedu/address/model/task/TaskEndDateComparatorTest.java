@@ -66,9 +66,6 @@ public class TaskEndDateComparatorTest {
 		Collections.sort(unsorted1, comparator);
 		Collections.sort(unsorted2, comparator);
 		
-		System.out.println(unsorted1);
-		System.out.println(unsorted2);
-		
 		assertEquals(sorted, unsorted1);
 		assertEquals(sorted, unsorted2);
 	}
