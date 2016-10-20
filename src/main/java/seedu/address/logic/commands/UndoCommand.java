@@ -2,11 +2,12 @@ package seedu.address.logic.commands;
 
 import java.util.EmptyStackException;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.Undo;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -17,9 +18,9 @@ public class UndoCommand extends Command{
 	
 	public static final String COMMAND_WORD = "undo";
 
-	public static final String MESSAGE_SUCCESS = "Undid %s: %s";
+	public static final String MESSAGE_SUCCESS = "Undid %s command: %s";
 
-	public static final String MESSAGE_FAILURE = "The task scheduler is at initial stage";
+	public static final String MESSAGE_FAILURE = "There is no previous command to undo!";
    
     @Override
 	public CommandResult execute() {
@@ -30,26 +31,55 @@ public class UndoCommand extends Command{
     	try {
     		final Undo toUndo = CommandHistory.getMutateCmd();
     		switch (toUndo.getCommandKey()) {
-    			case "add":
-    				model.deleteTask(toUndo.getTask());
+    			case AddCommand.COMMAND_WORD:
+    			    performUndoAdd(toUndo);
     				break;
-    			case "delete":
-    				model.insertTask(toUndo.getIndex(), toUndo.getTask());
+    			case DeleteCommand.COMMAND_WORD:
+    			    performUndoDelete(toUndo);
     				break;
-    			case "mark":
-    			case "edit":
-    		        ReadOnlyTask taskToUndo = lastShownList.get(toUndo.getIndex() - 1);
-    				model.replaceTask((Task)taskToUndo, toUndo.getTask());
+    			case RecurCommand.COMMAND_WORD:
+    			    performUndoRecur(toUndo);
+    			    break;
+    			case ClearCommand.COMMAND_WORD:
+    			    performUndoClear(toUndo);
+    			    break;
+    			case MarkCommand.COMMAND_WORD:
+    			case EditCommand.COMMAND_WORD:
+    			    performUndoModification(lastShownList, toUndo);
     				break;
     		}
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommandKey(), toUndo.getTask()));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommandKey(), toUndo.getArrayString()));
         } catch (TaskNotFoundException e) {
-        	assert false: "The task cannot be missing";
-        	return new CommandResult("The task cannot be missing");
+        	assert false: Messages.MESSAGE_TASK_CANNOT_BE_MISSING;
+        	return new CommandResult(Messages.MESSAGE_TASK_CANNOT_BE_MISSING);
 		} catch (EmptyStackException e) {
             return new CommandResult(MESSAGE_FAILURE);
-		}
+		} catch (DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        }
 	}
+
+    private void performUndoModification(UnmodifiableObservableList<ReadOnlyTask> lastShownList, final Undo toUndo)
+            throws TaskNotFoundException {
+        ReadOnlyTask taskToUndo = lastShownList.get(toUndo.getIndex() - 1);
+        model.replaceTask((Task)taskToUndo, toUndo.getTask());
+    }
+
+    private void performUndoRecur(final Undo toUndo) throws TaskNotFoundException {
+        model.deleteTask(toUndo.getTaskArray());
+    }
+
+    private void performUndoDelete(final Undo toUndo) throws TaskNotFoundException {
+        model.insertTask(toUndo.getIndex(), toUndo.getTask());
+    }
+
+    private void performUndoAdd(final Undo toUndo) throws TaskNotFoundException {
+        model.deleteTask(toUndo.getTask());
+    }
+    
+    private void performUndoClear(final Undo toUndo) throws TaskNotFoundException, DuplicateTaskException {
+        model.addTask(toUndo.getTaskArray());
+    }
 
 
 }

@@ -32,8 +32,9 @@ public class EventTask extends Task{
 //        return "End Date: " + getEndDate().getDisplayString();
 //    }
 //
-//    @Override
-//    public Task copy() {
-//        return new EventTask(this);
-//    }
+
+    @Override
+    public Task copy() {
+        return new EventTask(this);
+    }
 }

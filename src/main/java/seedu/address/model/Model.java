@@ -21,13 +21,13 @@ public interface Model {
     ReadOnlyTaskScheduler getTaskScheduler();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(ReadOnlyTask... targets) throws UniqueTaskList.TaskNotFoundException;
 
     /** Marks the given task. */
     void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateTagException;
     
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task... tasks) throws UniqueTaskList.DuplicateTaskException;
 
     /** Replace the given oldTask with newTask */
 	void replaceTask(Task oldTask, Task newTask) throws TaskNotFoundException;

@@ -4,12 +4,14 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 
 import seedu.address.model.Undo;
+import seedu.address.model.task.ReadOnlyTask;
 
 public class CommandHistory {
 	
 	private static Stack<Command> prevCmd = new Stack<Command>();
 	private static Stack<Command> nextCmd = new Stack<Command>();
 	private static Stack<Undo> mutateCmd = new Stack<Undo>();
+	private static ReadOnlyTask lastModTask;
 	
 	public static void addPrevCmd(Command command) {
 		prevCmd.push(command);
@@ -46,4 +48,12 @@ public class CommandHistory {
 	public static void flushMutateCmd() {
 		mutateCmd.clear();
 	}
+	
+	public static void setModTask(ReadOnlyTask task) {
+	    lastModTask = task;
+	}
+	
+    public static ReadOnlyTask getModTask() {
+        return lastModTask;
+    }
 }

@@ -9,12 +9,15 @@ import seedu.address.commons.util.DateFormatter;
 public class TaskDateTime {
 
     private Date date;
-    private Date time;
-    
+    private boolean showTime = false;
     
     public TaskDateTime() {
         date = null;
-        time = null;
+    }
+    
+    public TaskDateTime(TaskDateTime other) {
+        this.date = (Date) other.getDate();
+        this.showTime = other.showTime;
     }
     
     public TaskDateTime(String args) throws IllegalValueException {
@@ -22,29 +25,24 @@ public class TaskDateTime {
             return;
         
         date = DateFormatter.convertStringToDate(args);
+        checkIfTimeIsSpecified(new Date());
+    }
+
+    public void setDate(long l) { 
+        Date newDate = new Date(l);
+        checkIfTimeIsSpecified(newDate);
+        this.date = newDate; 
+    }
+
+    private void checkIfTimeIsSpecified(Date other) {
         if (!DateFormatter.convertDateToFullTimeString(date)
-                .equals(DateFormatter.convertDateToFullTimeString(new Date()))) {
-            time = date;
+                .equals(DateFormatter.convertDateToFullTimeString(other))) {
+            showTime = true;
         }
-//        if (split.length > 1 && !split[1].trim().isEmpty()) {
-//            time = DateFormatter.convertStringToTime(split[1].trim());
-//        }
     }
     
     public Date getDate() { 
         return date;
-    }
-    
-    public Date getTime() {
-        return time;
-    }
-    
-    public String getDateString() {
-//        if (date == null)
-//            return "";
-//        else 
-//            return DateFormatter.convertDateToString(date);
-        return getDisplayDateString();
     }
     
     public String getDisplayDateString() {
@@ -54,19 +52,15 @@ public class TaskDateTime {
             return DateFormatter.convertDateToDisplayString(date);
     }
     
-    public String getTimeString() {
-//        if (time == null)
-//            return "";
-//        else 
-//            return " " + DateFormatter.convertTimeToString(date);
-        return getDisplayTimeString();
+    public String getDisplayTimeString() {
+        if (showTime)
+            return " " + DateFormatter.convertTimeToDisplayString(date);
+        else
+            return "";
     }
     
-    public String getDisplayTimeString() {
-        if (time == null)
-            return "";
-        else 
-            return " " + DateFormatter.convertTimeToDisplayString(date);
+    public boolean getShowTime() {
+        return showTime;
     }
     
     public String getDisplayString() {
@@ -74,7 +68,7 @@ public class TaskDateTime {
     }
     
     public String toString() {
-        return getDateString() + getTimeString();
+        return getDisplayString();
     }
     
     public boolean equals(Object other) {
@@ -85,7 +79,5 @@ public class TaskDateTime {
     
     public boolean isSameStateAs(TaskDateTime other) {
         return getDisplayString().equals(other.getDisplayString());
-//                (getDateString().equals(other.getDateString()) 
-//                && getTimeString().equals(other.getTimeString()));
     }
 }

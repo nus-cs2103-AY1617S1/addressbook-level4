@@ -27,8 +27,9 @@ public class FloatingTask extends Task {
 //        return "";
 //    }
 //
-//    @Override
-//    public Task copy() {
-//        return new FloatingTask(this);
-//    }
+    
+    @Override
+    public Task copy() {
+        return new FloatingTask(this);
+    }
 }

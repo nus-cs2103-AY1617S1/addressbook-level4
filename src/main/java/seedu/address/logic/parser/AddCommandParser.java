@@ -30,7 +30,8 @@ public class AddCommandParser extends CommandParser {
                 return new AddEventCommand(matcher.group("name"), matcher.group("startDate"),
                     matcher.group("endDate"), matcher.group("address"));
             } else if (containsDelimiters(args)) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                        AddCommand.MESSAGE_USAGE));
             }
     
             matcher = DEADLINE_DATA_ARGS_FORMAT.matcher(args);
@@ -42,7 +43,8 @@ public class AddCommandParser extends CommandParser {
             if (matcher.matches()) {
                 return new AddFloatingCommand(args);
             } else {   
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                        AddCommand.MESSAGE_USAGE));
             }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

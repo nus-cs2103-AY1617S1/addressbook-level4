@@ -33,7 +33,7 @@ public abstract class CommandParser {
  
     protected static final Pattern DEADLINE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+?)"
-                    + "(?>(\\s+\\b(by|in|at)\\b))"
+                    + "(?>(\\s+\\b(by|in|at|on)\\b))"
                     + "(?<endDate>.*)"
                     );
     

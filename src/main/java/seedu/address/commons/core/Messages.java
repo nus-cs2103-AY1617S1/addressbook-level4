@@ -11,4 +11,6 @@ public class Messages {
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d tasks listed!";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Incorrect date format: %s";
     public static final String MESSAGE_INVALID_TIME_FORMAT = "Incorrect time format";
+
+    public static final String MESSAGE_TASK_CANNOT_BE_MISSING = "The task cannot be missing";
 }

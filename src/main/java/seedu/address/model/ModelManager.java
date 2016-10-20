@@ -8,7 +8,6 @@ import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskSchedulerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
@@ -67,14 +66,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskScheduler.removeTask(target);
+    public synchronized void deleteTask(ReadOnlyTask... target) throws TaskNotFoundException {
+        for (ReadOnlyTask task : target) {
+            taskScheduler.removeTask(task);
+        }
         indicateTaskSchedulerChanged();
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskScheduler.addTask(task);
+    public synchronized void addTask(Task... tasks) throws UniqueTaskList.DuplicateTaskException {
+        for (Task task : tasks) {
+            taskScheduler.addTask(task);
+        }
         updateFilteredListToShowAll();
         indicateTaskSchedulerChanged();
     }
