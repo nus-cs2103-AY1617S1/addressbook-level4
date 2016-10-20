@@ -31,7 +31,7 @@ Love typing? You will love DoMePlease, as you only need to use the keyboard to t
 
 &nbsp;&nbsp;&nbsp;&nbsp; <b>2.6</b> Some example commands you can try:
 >    `add Walk the dog d/Don't forget to pick up poo` : Add a floating task.
-    `listall` : List all the floating tasks, deadline and events in the application.
+    `list all` : List all the floating tasks, deadline and events in the application.
     `delete 3` : Deletes the 3rd task shown in the current list.
     `exit` : Exits the application.
     
@@ -68,19 +68,19 @@ Format: `add TASKNAME d/TASK_DESCRIPTION date/DATE STARTTIME to ENDTIME [t/TAG..
 * `add Wash Clothes d/Wash with detergent date/27-9-2016 9pm t/!!!`
 * `add Meeting d/Meet with Jim date/today 5pm to 6pm t/!!! t/jim`
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.4 Listing all tasks : `listall` </b><br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>3.3 Listing all tasks : `list all` </b><br>
 >Shows a list of all floating tasks, deadline and events in the application.<br>
-Format: `listall`
+Format: `list all`
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.5 Listing all overdue deadlines: `listod` </b><br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>3.4 Listing all overdue deadlines: `list od` </b><br>
 >Shows a list of all overdue deadlines. <br>
-Format: `listod`
+Format: `list od`
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.6 Listing all completed tasks: `listdone` </b><br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>3.5 Listing all completed tasks: `list done` </b><br>
 >Shows a list of completed floating tasks, deadlines and events. <br>
-Format: `listdone`
+Format: `list done`
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.3 Edit task in the application: `edit` </b><br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>3.6 Edit task in the application: `edit` </b><br>
 
 >Edit the details of the floating task, deadline and event. <br>
 Format: `edit INDEX [FIELDS]`
@@ -90,27 +90,26 @@ Format: `edit INDEX [FIELDS]`
   The index **must be a positive integer** 1, 2, 3, ...
 
 >Example:
-* `listall`<br>
+* `list all`<br>
 *  `edit 2 d/Pilot 2B`<br>
 *  Edit the 2nd floating task in DoMePlease. Example Buy Pencil.
 * A message will be displayed to inform the user that the task is edited.
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.6 Finding all floating tasks, deadlines and events containing any keyword in their name and tags: `find` </b><br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>3.7 Finding all floating tasks, deadlines and events containing any keyword in their name and tags: `find` </b><br>
 >Finds all floating tasks, deadlines and events which names and tags contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> The search is case insensitive, the order of the keywords does not matter, only the name and tag is searched, 
-and task matching at least one keyword will be returned (i.e. `OR` search). <br>
+> The search is case insensitive, the order of the keywords does not matter, name, description, date, time and tag is searched, and task matching at least one keyword will be returned (i.e. `OR` search). <br>
 > Only full words will be matched e.g. `Program` will not match `Programming`.
 
 >Examples: 
 * `find EE2020`<br>
 *  Returns “EE2020” and “ee2020”
 
-* `find 2020`<br>
+>* `find 2020`<br>
 *  Returns nothing
   
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.7 Navigating through Calendar: `view` </b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Navigating through Calendar: `view` </b><br>
 >Populate the list of deadlines and events of the selected DATE <br>
 Format: `view DATE`
 
@@ -120,11 +119,11 @@ Format: `view DATE`
 * `view 5` <br>
 * Output the full list of deadlines on the day and events that start, ends or is on-going on 5th of the current month view
 
-* `view 5-10-2016` <br>
+>* `view 5-10-2016` <br>
 * This command doesn't require you to be at the selected month.
 * Output the full list of deadlines on the day and events that start, ends or is on-going on 5th October 2016.
 
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.8 Deleting a task : `delete` </b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.9 Deleting a task : `delete` </b><br>
 >Deletes the specified task from DoMePlease. <br>
 Format: `delete INDEX`
 
@@ -133,19 +132,20 @@ Format: `delete INDEX`
   The index **must be a positive integer** 1, 2, 3, ...
 
 >Examples: 
-* `listall`<br>
+* `list all`<br>
 *  `delete 2`<br>
 *  Deletes the 2nd task in DoMePlease.
-* `find Laundry`<br> 
+
+>* `find Laundry`<br> 
 *  `delete 1`<br>
 *  Deletes the 1st person in the result of the `find` command.
   
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.9 Undoing a move: `undo` </b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.10 Undoing a move: `undo` </b><br>
 >Undo the previous command entered by user. (up to 3)<br>
 A message will be displayed to inform the user that the previous command has been undone. <br>
 Format: `undo`
 
-&nbsp;&nbsp;&nbsp;&nbsp;<b>3.10 Marking floating tasks and deadlines as done: `done` </b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>3.11 Marking floating tasks and deadlines as done: `done` </b><br>
 >Marking a completed a floating task and deadline as done. <br>
 Format: `done INDEX`
 
@@ -156,12 +156,12 @@ Format: `done INDEX`
   The completed task will be moved to the archive list <br>
 
 >Examples: 
-* `list` <br>
+* `list all` <br>
   `done 2` <br>
    Mark the 2nd task in DoMePlease as completed.
   
 
-&nbsp;&nbsp;&nbsp;&nbsp; <b>3.11 Exiting the program : `exit` </b><br>
+&nbsp;&nbsp;&nbsp;&nbsp; <b>3.12 Exiting the program : `exit` </b><br>
 >Exits the program.<br>
 Format: `exit`  
 
