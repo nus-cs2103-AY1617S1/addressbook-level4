@@ -2,6 +2,9 @@ package seedu.address.model.person;
 
 
 import java.util.List;
+import java.util.TimeZone;
+
+import com.joestelmach.natty.DateGroup;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -23,24 +26,61 @@ public class Date {
     public final java.util.Date startDate;
     public final java.util.Date endDate;
 
-    
-    public Date(String date) throws IllegalValueException {
-    	// allow dateList to be null in Date constructor when user doesn't input "date/"
-        if (date == null){
+    //TODO: To streamline the method
+    public Date(String dateStr) throws IllegalValueException {
+        // allow dateList to be null in Date constructor when user doesn't input "date/"
+        assert dateStr != null;
+        
+        TimeZone tz = TimeZone.getDefault();    
+        com.joestelmach.natty.Parser natty = new com.joestelmach.natty.Parser(tz);
+        List<java.util.Date> dateList;
+        List<DateGroup> groupList = natty.parse(dateStr);
+        dateList = (groupList.isEmpty()) ? null : groupList.get(0).getDates();
+        if (dateList == null){
             this.value = "";
             startDate = null;
             endDate = null;
             return;
         }
-            
-        date = date.trim();
-        if (!isValidDate(date)) {
+
+        String [] dateStrings = new String [2];
+
+        for (int i = 0; i < dateList.size(); i++){
+            java.util.Date date = dateList.get(i);
+            dateStrings[i] = date.getDate() + "-" + (date.getMonth() + 1) + "-" + (date.getYear() + 1900);
+
+            if (!isValidDate(dateStrings[i])) {
+                throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
+            }
+        }
+
+        // floating task
+        if (dateList.size() == 0){
+            this.value = "";
+            startDate = null;
+            endDate = null;
+        }
+        // deadline
+        else if (dateList.size() == 1){
+            this.value = dateStrings[0];
+            startDate = dateList.get(0);
+            endDate = null;
+        }
+        // event 
+        else if (dateList.size() == 2){
+            if (dateStrings[0].equals(dateStrings[1])){
+                this.value = dateStrings[0];
+            }
+            else {
+                this.value = dateStrings[0] + " to " + dateStrings[1];
+            }
+            startDate = dateList.get(0);
+            endDate = dateList.get(1);
+        }
+        // 3 or more arguments: not something we handle
+        else {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
-        this.value = date;
-        
-        startDate = null;
-        endDate = null;
     }
     
     /**
@@ -68,11 +108,19 @@ public class Date {
             }
         }
         
-        if (dateList.size() == 1){
+    	// floating task
+    	if (dateList.size() == 0){
+        	this.value = "";
+        	startDate = null;
+        	endDate = null;
+        }
+    	// deadline
+    	else if (dateList.size() == 1){
         	this.value = dateStrings[0];
         	startDate = dateList.get(0);
         	endDate = null;
         }
+    	// event 
         else if (dateList.size() == 2){
         	if (dateStrings[0].equals(dateStrings[1])){
         		this.value = dateStrings[0];
@@ -83,11 +131,11 @@ public class Date {
         	startDate = dateList.get(0);
         	endDate = dateList.get(1);
         }
+    	// 3 or more arguments: not something we handle
         else {
-        	this.value = "";
-        	startDate = null;
-        	endDate = null;
+        	throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
+        
         
     }
 

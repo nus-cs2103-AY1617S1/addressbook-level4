@@ -147,7 +147,21 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         public static Comparator<Task> DATE = new Comparator<Task>() {
             @Override
             public int compare(Task t1, Task t2) {
-                return t1.getDate().startDate.compareTo(t2.getDate().startDate);
+            	Date d1 = t1.getDate();
+            	Date d2 = t2.getDate();
+            	
+            	java.util.Date dd1 = d1.startDate;
+            	java.util.Date dd2 = d2.startDate;
+            	
+            	if (dd1 == null){
+            		return 0;
+            	}
+            	else if (dd2 == null){
+            		System.out.println("hi");
+            		return 0;
+            	}
+            	
+                return dd1.compareTo(dd2);
             }
         };
     }

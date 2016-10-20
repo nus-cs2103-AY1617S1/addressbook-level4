@@ -51,22 +51,23 @@ public class AddressBook implements ReadOnlyAddressBook {
 //// list overwrite operations
 
     public ObservableList<Task> getPersons() {
-    	System.out.println("sort dated");
-    	sortFilteredLists();
+    	sortPersonFilteredLists();
         return persons.getInternalList();
     }
     
     public ObservableList<Task> getUndatedTasks() {
-    	System.out.println("sort undated");
-    	sortFilteredLists();
+    	sortUndatedFilteredLists();
         return undatedList.getInternalList();
     }
     
-    private void sortFilteredLists(){
-    	persons.sort(Task.Comparators.DATE);
-    	undatedList.sort(Task.Comparators.NAME);
+    private void sortUndatedFilteredLists(){
+   	undatedList.sort(Task.Comparators.NAME);
     }
 
+    private void sortPersonFilteredLists(){
+        persons.sort(Task.Comparators.DATE);
+    }
+    
     public void setPersons(List<Task> persons) {
         this.persons.getInternalList().setAll(persons);
     }
@@ -187,14 +188,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     //this gets called when ModelManager.indicateAddressBookChanged() 
     @Override
     public List<ReadOnlyTask> getPersonList() {
-    	sortFilteredLists();
+    	sortPersonFilteredLists();
         return Collections.unmodifiableList(persons.getInternalList());
     }
     
     //this also gets called when ModelManager.indicateAddressBookChanged() 
     @Override
     public List<ReadOnlyTask> getUndatedTaskList() {
-    	sortFilteredLists();
+    	sortUndatedFilteredLists();
         return Collections.unmodifiableList(undatedList.getInternalList());
     }
 
@@ -205,13 +206,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public UniquePersonList getUniquePersonList() {
-    	sortFilteredLists();
+    	sortPersonFilteredLists();
         return this.persons;
     }
     
     @Override
     public UniquePersonList getUniqueUndatedTaskList() {
-    	sortFilteredLists();
+    	sortUndatedFilteredLists();
         return this.undatedList;
     }
 

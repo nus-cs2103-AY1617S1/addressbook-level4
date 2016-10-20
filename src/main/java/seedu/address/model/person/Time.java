@@ -56,8 +56,14 @@ public class Time {
                 throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
             }
         }
-
-        if (dateList.size() == 1){
+    	
+    	
+    	if (dateList.size() == 0){
+            this.value = "";
+            startTime = null;
+            endTime = null;
+        }
+    	else if (dateList.size() == 1){
             this.value = timeStrings[0];
             startTime = dateList.get(0);
             endTime = null;
@@ -73,9 +79,7 @@ public class Time {
             endTime = dateList.get(1);
         }
         else {
-            this.value = "";
-            startTime = null;
-            endTime = null;
+        	throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
 
     }

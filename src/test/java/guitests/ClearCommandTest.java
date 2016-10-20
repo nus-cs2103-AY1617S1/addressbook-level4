@@ -1,6 +1,6 @@
 package guitests;
 
-import org.junit.Test;
+import seedu.address.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,8 +14,8 @@ public class ClearCommandTest extends AddressBookGuiTest {
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.one.getAddCommand());
-        assertTrue(personListPanel.isListMatching(td.one));
+        commandBox.runCommand(TypicalTestTasks.one.getAddCommand());
+        assertTrue(personListPanel.isListMatching(TypicalTestTasks.one));
         commandBox.runCommand("delete 1");
         assertListSize(0);
 

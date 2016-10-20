@@ -36,7 +36,7 @@ public class Description {
      * Returns true if a given string is a valid description.
      */
     public static boolean isValidPhone(String test) {
-        return test.matches(DESCRIPTION_VALIDATION_REGEX);
+        return test.equals("") || test.matches(DESCRIPTION_VALIDATION_REGEX);
     }
 
     @Override
