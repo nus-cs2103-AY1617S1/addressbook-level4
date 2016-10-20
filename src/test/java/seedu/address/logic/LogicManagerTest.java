@@ -27,7 +27,9 @@ import org.junit.rules.TemporaryFolder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -391,9 +393,10 @@ public class LogicManagerTest {
             Date privatePhone = new Date("111111");
             StartTime email = new StartTime("adam@gmail.com");
             EndTime privateAddress = new EndTime("111, alpha street");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            //Tag tag1 = new Tag("tag1");
+            //Tag tag2 = new Tag("tag2");
+            final Set<Tag> tagSet = new HashSet<>();
+            UniqueTagList tags = new UniqueTagList(tagSet);
             return new Task(name, privatePhone, email, privateAddress, tags);
         }
 
