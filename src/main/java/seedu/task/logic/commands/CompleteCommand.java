@@ -6,7 +6,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.ReadOnlyTask;
 
-public class CompleteCommand extends Command {
+public class CompleteCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "complete";
 
@@ -15,6 +15,7 @@ public class CompleteCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Completed Task: %1$s";
+    public static final String MESSAGE_ROLLBACK_SUCCESS = "Undo action on complete task was executed successfully!";
 
     public final int targetIndex;
 
@@ -39,9 +40,16 @@ public class CompleteCommand extends Command {
         } catch (IllegalValueException e) {
             assert false : "Impossible";
         }
-
         
-
         return new CommandResult(true, String.format(MESSAGE_COMPLETE_TASK_SUCCESS, orginialTask));
+    }
+
+    @Override
+    public CommandResult rollback() {
+        assert model != null;
+        
+        model.rollback();
+        
+        return new CommandResult(true, MESSAGE_ROLLBACK_SUCCESS);
     }
 }

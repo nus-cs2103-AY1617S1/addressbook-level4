@@ -1,24 +1,22 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
 import static org.junit.Assert.assertTrue;
-import static seedu.task.logic.commands.UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS;
 
 import org.junit.Test;
 
-import seedu.task.commons.core.Messages;
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.logic.commands.UpdateCommand;
-import seedu.task.model.tag.Tag;
-import seedu.task.model.task.*;
+import seedu.task.logic.commands.UndoCommand;
 import seedu.task.testutil.TestTask;
-import seedu.task.testutil.TestUtil;
 
 public class UndoCommandTest extends TaskManagerGuiTest {
     @Test
-    public void update() throws IllegalValueException {
+    public void undo() throws IllegalValueException {
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
+        
+        // undo without previous command
+        commandBox.runCommand("undo");
+        assertResultMessage(UndoCommand.MESSAGE_NO_ACTION_TO_UNDO);
         
         // undo add command
         assertUndoSuccess(td.hoon.getAddCommand(), currentList);
@@ -28,6 +26,12 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         
         // undo update command
         assertUndoSuccess("update " + targetIndex + td.ida.getArgs(), currentList);
+        
+        // undo pin command
+        assertUndoSuccess("pin " + targetIndex, currentList);
+        
+        // undo complete command
+        assertUndoSuccess("complete " + targetIndex, currentList);
     }
     
     private void assertUndoSuccess(String command, TestTask... originalList) {
