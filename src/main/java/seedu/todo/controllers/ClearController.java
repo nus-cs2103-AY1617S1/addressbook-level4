@@ -247,9 +247,17 @@ public class ClearController implements Controller {
             db.destroyAllEventByDate(givenDate);
             db.destroyAllTaskByDate(givenDate);
         } else if (isTask) {
+            if (numTasks == 0) {
+                Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
+                return;
+            }
             db.destroyAllTaskByDate(givenDate);
             numEvents = 0;
         } else {
+            if (numEvents == 0) {
+                Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
+                return;
+            }
             db.destroyAllEventByDate(givenDate);
             numTasks = 0;
         }
