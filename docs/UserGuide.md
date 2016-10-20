@@ -152,7 +152,7 @@ Flag | Parameter        | Used to
 
 ### Deleting a task: **`delete`**
 
-Deletes the specified task from todo list.  
+Deletes the specified task from to-do list.  
 Format: **`delete`**` INDEX`
 
 Deletes the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
@@ -261,7 +261,7 @@ Descriptions of tasks and events are hidden by default. In order to display them
 Switch between different views.  
 Format: **`view`**` VIEW`
 
-To drill down into your todo list and see specific tasks, use the `view` command.
+To drill down into your to-do list and see specific tasks, use the `view` command.
 
 <img src="images/app_screenshot_completed.png" width="700" alt="View of completed tasks">
 
@@ -304,7 +304,7 @@ Undo the most recent action.
 Format: **`undo`**
 
 !!! note
-    Only applies to commands which have made changes to the todo list like `add`, `edit` and `delete` 
+    Only applies to commands which have made changes to the to-do list like `add`, `edit` and `delete` 
 
 ### Redoing an action: **`redo`**
 
@@ -326,12 +326,12 @@ Loads in another save file. You can use this to restore a backup or switch to di
 
 Format: **`save`**` [FILENAME]`
 
-By default, todo list data are saved in a file called `discountTodo.xml` in the `data` folder. You can change the save file by specifying the file path as the first argument when running the program, or by using the `save` command.
+By default, to-do list data are saved in a file called `discountTodo.xml` in the `data` folder. You can change the save file by specifying the file path as the first argument when running the program, or by using the `save` command.
  
 The `save` command will show you the location of the current save file if you use it without specifying a `FILENAME`. 
 
 !!! note "Autosave"
-    Your todo list is saved automatically every time it is updated. There is no need to save manually.
+    Your to-do list is saved automatically every time it is updated. There is no need to save manually.
 
 
 ## FAQ
