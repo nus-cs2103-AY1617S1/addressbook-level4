@@ -251,9 +251,9 @@ public class TodoListDB {
         Iterator<String> hashIterator = itemNameList.iterator();
         while (iterator.hasNext()) {
             Task currTask = iterator.next();
-            String currTaskName = currTask.getName();
+            String currTaskName = currTask.getName().toLowerCase();
             while(hashIterator.hasNext()) {
-                String currentMatchingString = hashIterator.next();
+                String currentMatchingString = hashIterator.next().toLowerCase();
                 if (currTaskName.contains(currentMatchingString)) {
                     taskByName.add(currTask);
                 }
@@ -511,9 +511,9 @@ public class TodoListDB {
         Iterator<String> hashIterator = itemNameList.iterator();
         while (iterator.hasNext()) {
             Event currEvent = iterator.next();
-            String currEventName = currEvent.getName();
+            String currEventName = currEvent.getName().toLowerCase();
             while(hashIterator.hasNext()) {
-                String currentMatchingString = hashIterator.next();
+                String currentMatchingString = hashIterator.next().toLowerCase();
                 if (currEventName.contains(currentMatchingString)) {
                     eventByName.add(currEvent);
                 } 
