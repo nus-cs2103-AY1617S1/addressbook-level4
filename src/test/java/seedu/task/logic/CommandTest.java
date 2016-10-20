@@ -340,6 +340,7 @@ public class CommandTest extends LogicBasicTest {
         assertEquals(expectedTaskBook, latestSavedTaskBook);
     }
     
+    
     /**
      * After executing clear command, executes the list all events command
      * and confirms that the result message is correct and

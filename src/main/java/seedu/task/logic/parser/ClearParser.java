@@ -15,7 +15,7 @@ import seedu.task.logic.commands.IncorrectCommand;
  */
 public class ClearParser implements Parser {
 
-	private static final Pattern CLEAR_ARGS_FORMAT = Pattern.compile("(?<type>-t|-e|-a)*" + "(?: (?<isAll>-a))*");
+	private static final Pattern CLEAR_ARGS_FORMAT = Pattern.compile("(?<type>(?:(-t|-e|-a))*)" + "(?: (?<isAll>-a))*");
 	private static final String CLEAR_TYPE_TASK = "-t";
 	private static final String CLEAR_TYPE_EVENT = "-e";
 	private static final String CLEAR_TYPE_ALL = "-a";
@@ -29,11 +29,10 @@ public class ClearParser implements Parser {
 		}
 		
 		boolean isAll = (matcher.group("isAll") == null) ? false : true;
-		if(matcher.group("type")==null){ // "clear"
-		    return new ClearCommand(Type.all, false);
-		}
 		
 		switch (matcher.group("type")) {
+		case "": // "clear"
+		    return new ClearCommand(Type.all, false);
 		case CLEAR_TYPE_TASK: // "clear -t" & "clear -t -a"
 			return new ClearCommand(Type.task, isAll); 
 		case CLEAR_TYPE_EVENT: // "clear -e" & "clear -e -a"
