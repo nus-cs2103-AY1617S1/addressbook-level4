@@ -49,7 +49,7 @@ public class Parser {
             Pattern.compile("(?<name>[\\p{Alnum} ]+)");
     
     private static final Pattern SETPATH_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<name>[\\p{Alnum}|/]+)");   //    data/  <---
+            Pattern.compile("(?<name>[\\p{Alnum}|/|:|\\s+]+)");   //    data/  <---
     
     
     public Parser() {}
@@ -123,7 +123,7 @@ public class Parser {
         Matcher matcher = SETPATH_DATA_ARGS_FORMAT.matcher(args);
         // Validate arg string format
         if (matcher.matches()) {
-            String path = "data/" + matcher.group("name").trim().replaceAll("/$","") +".xml";
+            String path = matcher.group("name").trim().replaceAll("/$","") +".xml";
             return new SetPathCommand(path); 
         }
         else {   
