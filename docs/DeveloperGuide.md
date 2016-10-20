@@ -1,13 +1,3 @@
-# Developer Guide
-
-* [Setting Up](#setting-up)
-* [Design](#design)
-* [Testing](#testing)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
-
 ## Setting up
 
 #### Prerequisites
@@ -131,6 +121,12 @@ Use case ends.
 > 3a1. TaskList shows an error message <br>
   Use case resumes at step 2
 
+4a. Invalid command
+
+ > 4a1.TaskList shows an error message
+ > 4a2. Use case ends
+
+
 #### Use case: Delete task
 
 **MSS**
@@ -166,14 +162,15 @@ Use case ends.
 
 > Use case ends
 
-#### Use case:Redo task
+#### Use case: Redo task
 
 **MSS**
 
 1. User requests to redo the previous command
 2. TaskList shows the previous command
 3. User enter command
-4.TaskList update the list
+4. User update the command
+5. TaskList update the list
 Use case ends.
 
 **Extensions**
@@ -182,14 +179,14 @@ Use case ends.
 
 > Use case ends
 
-#### Use case:Set storage file path
+#### Use case: Set storage file path
 
 **MSS**
 
 1. User requests a new directory for file path
 2. TaskList update on the new file path
-Use case ends.
 
+> Use case ends
 
 #### Use case: Display the number of complete or incomplete task
 
@@ -197,26 +194,50 @@ Use case ends.
 
 1. User requests display the complete/incomplete task
 2. TaskList shows the list of complete/incomplete tasks
-Use case ends.
+
 **Extensions**
 
 2a. There is no complete/incomplete task
 
 > Use case ends
 
-#### Use case: Mark the task as done
+#### Use case: Mark the task
 
 **MSS**
 
-1. User requests to mark specific task to be done
-2. TaskList update the task as done
+1. User requests to list tasks
+2. TaskList shows a list of tasks
+3. User requests to mark specific task to be completed
+4. TaskList update the task as completed
 Use case ends.
-
-
 
 **Extensions**
 
-2a. There is no incomplete task
+2a. The list is empty
+
+> Use case ends
+
+3a. There is no incompleted task
+
+> Use case ends
+
+#### Use case: Unmark the task
+
+**MSS**
+
+1. User requests to list tasks
+2. TaskList shows a list of tasks
+3. User requests to mark specific task to be not completed
+4. TaskList update the task as not completed
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. There is no completed task
 
 > Use case ends
 
@@ -226,16 +247,11 @@ Use case ends.
 
 1. User requests to change specific command word
 2. TaskList update the edited command word
-Use case ends.
-
-
 
 **Extensions**
 
 2a. There is no such command
 > Use case ends
-
-
 
 ## Appendix C : Non Functional Requirements
 
@@ -245,6 +261,7 @@ Use case ends.
 4. Should favor DOS style commands over Unix-style commands.
 5. Should be intuitive for users to use the commands and user interface
 6. Should respond to the user in less than 0.5 seconds
+7. Constraints (http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints)
 
 ## Appendix D : Glossary
 
@@ -262,40 +279,40 @@ Use case ends.
 * Description: To Do List and Task Manager
 * Product Review:
     * Strengths:
-Easy to add, view and organize tasks.
-Tasks with deadlines and recurring dates.
-Focus on important tasks with priority levels.
+        * Easy to add, view and organize tasks.
+        * Tasks with deadlines and recurring dates.
+        * Focus on important tasks with priority levels.
     * Weaknesses:
-Tasks are not auto sorted by dates, priorities or names.
+        * Tasks are not auto sorted by dates, priorities or names.
 
 #### Product Name: Todo.Txt
 * Description: Simple to-do list, operated through commandline interface
 * Product Review:
     * Strengths:
-While simple, the application has 3 main features that make it useful.
-Priority: to sort to do list based on relative importance.
-Project: to categorise tasks.
-Context: to insert comments and additional information about the item.
+        * While simple, the application has 3 main features that make it useful.
+        * Priority: to sort to do list based on relative importance.
+        * Project: to categorise tasks.
+        * Context: to insert comments and additional information about the item.
     * Weaknesses:
-Users unfamiliar with commandline tools will be intimidated to use it.
-Not too user-friendly as using the application is not intuitive; users may need to read the documentation to fully understand the app.
+        * Users unfamiliar with commandline tools will be intimidated to use it.
+        * Not too user-friendly as using the application is not intuitive; users may need to read the documentation to              fully understand the app.
 
 #### Product Name: Fantastical
 * Description: Calendar to-do-list app
 * Product Review:
     * Strengths:
-Clean design, works well with different types of calendar display.
-Group multiple calendars together from multiple devices.
+        * Clean design, works well with different types of calendar display.
+        * Group multiple calendars together from multiple devices.
     * Weaknesses:
-Some users find the many features too distracting and seldom use them outside of the main ones.
+        * Some users find the many features too distracting and seldom use them outside of the main ones.
 
 
 #### Product Name: BusyCal3
 * Description: To-do list and calendar
 * Product Review:
     * Strengths:
-SmartFilter: allows users to customise what tasks to be shown and also by what order of priority
-Users can create multiple filters and switch between them
-Mini calendar widget
+        * SmartFilter: allows users to customise what tasks to be shown and also by what order of priority
+        * Users can create multiple filters and switch between them
+        * Mini calendar widget
     * Weaknesses:
-Some users face integration error between devices.
+        * Some users face integration error between devices.
