@@ -191,12 +191,19 @@ public class MainApp extends Application {
     @Subscribe
     public void ChangePathRequestEvent(ChangePathEvent event){
     	 logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    	 String previousFilePath = config.getTaskListFilePath();
     	 config.setTaskListFilePath(event.toString());
     	 try{
     		 ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
     	 }catch (IOException e){
     		 logger.warning("Error saving file to " + event.toString() + e);
 		}
+    	 try {
+			FileUtil.deletePreviousFile(previousFilePath);
+		} catch (IOException e) {
+			 logger.warning("Cannot delete file at " + previousFilePath + e);
+		}
+    	 
     	 storage.setTaskListFilePath(event.toString());
     }
 }

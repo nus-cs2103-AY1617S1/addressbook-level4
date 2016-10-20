@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 /**
- * Writes and reads file
+ * Writes,reads,delete file
  */
 public class FileUtil {
     private static final String CHARSET = "UTF-8";
@@ -18,6 +18,11 @@ public class FileUtil {
         if (!isFileExists(file)) {
             createFile(file);
         }
+    }
+    
+    public static void deletePreviousFile(String filepath) throws IOException{
+    	File deleteFile = new File(filepath);
+    	deleteFile.delete();   	
     }
     
     /**
