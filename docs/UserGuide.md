@@ -3,6 +3,8 @@
 * [About](#about)
 * [Getting Started](#getting-started)
 * [Features](#features)
+	* [Help Command](#help-command)
+	
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
