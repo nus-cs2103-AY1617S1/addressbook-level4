@@ -23,6 +23,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -153,33 +154,28 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
+                "add wrong args format", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add \"wrong args format", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add wrong args format\"", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoTaskPrefix valid, address", expectedMessage);
+                "add wrong args format", expectedMessage);
+        assertCommandBehavior(
+                "add wrong args \"format\"", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidItemData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
-
-    }
+                "add \"Valid description\" not a valid date", AddCommand.MESSAGE_SUCCESS_TIME_NULL);
+       }
 
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Item toBeAdded = helper.adam();
+        Item toBeAdded = helper.aLongEvent();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addItem(toBeAdded);
 
@@ -191,11 +187,11 @@ public class LogicManagerTest {
 
     }
 
-    @Test
+   @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Item toBeAdded = helper.adam();
+        Item toBeAdded = helper.aLongEvent();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addItem(toBeAdded);
 
@@ -205,10 +201,9 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_ITEM,
+                AddCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedAB.getItemList());
-
     }
 
 
@@ -385,10 +380,22 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Item adam() throws Exception {
-            Description description = new Description("Eat a lollipop");
-            //UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Item(description);
+        Item aLongEvent() throws Exception {
+            Description description = new Description("A long event");
+            LocalDateTime startDate = LocalDateTime.of(2016, 10, 10, 10, 10);
+            LocalDateTime endDate = LocalDateTime.of(2016, 12, 12, 12, 12);
+            return new Item(description, startDate, endDate);
+        }
+        
+        Item aFloatingTask() throws Exception {
+            Description description = new Description("A floating task");
+            return new Item(description, null, null);
+        }
+        
+        Item aDeadLine() throws Exception {
+            Description description = new Description("A deadline");
+            LocalDateTime endDate = LocalDateTime.of(2016, 12, 12, 12, 12);
+            return new Item(description, null, endDate);
         }
 
         /**
@@ -406,20 +413,11 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct add command based on the person given */
-        String generateAddCommand(Item p) {
+        String generateAddCommand(Item item) {
             StringBuffer cmd = new StringBuffer();
-
             cmd.append("add ");
-
-            cmd.append("\"" + p.getDescription().toString() + "\"");
-
-            /**
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
-            }
-            **/
-
+            cmd.append("\"" + item.getDescription().toString() + "\"");
+            cmd.append("from " + item.getStartDate().toString() + " to " + item.getEndDate().toString());
             return cmd.toString();
         }
 
