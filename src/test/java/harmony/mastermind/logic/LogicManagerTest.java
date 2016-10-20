@@ -250,6 +250,7 @@ public class LogicManagerTest {
     public void execute_undo_delete() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.task();
+        String timeCheck = toBeEdited.parseForConsole(new Date(time));
         List<Task> oneTask = helper.generateTaskList(toBeEdited);
         TaskManager expectedTM = helper.generateTaskManager(oneTask);
         List<Task>expectedList = oneTask;
@@ -261,8 +262,10 @@ public class LogicManagerTest {
         assertCommandBehavior("undo",
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
-                + "[Undo Delete Command] Task added: "
-                + "task start:00:00|01Aug16 end:00:00|01Aug16 Tags: [tag1],[tag2]\n"
+                + "[Undo Delete Command] Task added: task "
+                + "start:" + timeCheck + " "
+                + "end:" + timeCheck + " "
+                + "Tags: [tag1],[tag2]\n"
                 + "==================",       
                 expectedTM,
                 expectedList);
@@ -270,8 +273,10 @@ public class LogicManagerTest {
         assertCommandBehavior("redo",
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
-                + "[Redo Delete Command] Deleted Task: "
-                + "task start:00:00|01Aug16 end:00:00|01Aug16 Tags: [tag1],[tag2]\n"
+                + "[Redo Delete Command] Task deleted: task "
+                + "start:" + timeCheck + " "
+                + "end:" + timeCheck + " "
+                + "Tags: [tag1],[tag2]\n"
                 + "==================",
                 model.getTaskManager(),
                 model.getListToMark());
