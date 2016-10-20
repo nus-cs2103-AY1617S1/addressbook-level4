@@ -30,5 +30,4 @@ public interface TaskListStorage {
      * @throws IOException if there was any problem writing to the file.
      */
     void saveTaskList(ReadOnlyTaskList taskList) throws IOException;
-
 }

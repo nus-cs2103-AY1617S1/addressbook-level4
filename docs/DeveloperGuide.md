@@ -2,17 +2,11 @@
 
 * [Setting Up](#setting-up)
 * [Design](#design)
-* [Implementation](#implementation)
 * [Testing](#testing)
-* [Continuous Integration](#continuous-integration)
-* [Making a Release](#making-a-release)
-* [Managing Dependencies](#managing-dependencies)
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
-
 
 ## Setting up
 
@@ -50,17 +44,22 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *`| user | create a task | keep track of my new tasks; may include date and/or time
 `* * *`| user | find a task by name | locate details of tasks without having to go through the entire list
 `* * *`| user | find a task by dates | locate details of tasks without having to go through the entire list
-`* * *`| user | find a task by groups | locate details of tasks without having to go through the entire list
-`* * *`| user | find a task by tags | locate details of tasks without having to go through the entire list
+`* * *`| user | find a task by description | locate details of tasks without having to go through the entire list
+`* * *`| user | find a task by labels | locate details of tasks without having to go through the entire list
 `* * *`| user | edit the tasks | updates the changes of the task
 `* * *`| user | delete a tasks | remove entries that I no longer need
-`* * *`| user | check for time collision  | ensure that no events are stacked
-`* * *`| user | redo the previous commands | undo the last changes
+`* * *`| user | list my tasklist | know the uncompleted task for today/7days/all
+`* * *`| user | check for time collision  | be pre-empted for stacked events
+`* * *`| user | undo my previous commands | undo my mistakes
+`* * *`| user | redo the previous commands | redo similar commands
 `* * *`| user | display the number of tasks completed or left | keep track of my progress
+`* * *`| user | mark the task as done | know which tasks are completed
+`* * *`| user | change the command words | make it more intuitive
+`* * * `| user | clear all the task | start a totally new task list
+`* * * `| user | exit the application | close the application
 `* * `| new user | set my username | regard the app as my own
-`* * `| user | change/add shortcut names  | it is more intuitive
 `* * `| user | hide private tasks by default | minimize chance of someone else seeing them by accident
-`* * `| user | lock tasklist | prevent unauthorised access
+`* * `| user | lock task list | prevent unauthorised access
 `* `| user | change the task list's theme | personalise the look of the application
 
 
@@ -152,6 +151,91 @@ Use case ends.
 
 > 3a1. TaskList shows an error message <br>
   Use case resumes at step 2
+
+#### Use case: Undo task
+
+**MSS**
+
+1. User requests to undo the previous command
+2. TaskList shows the list of task before the last command
+Use case ends.
+
+**Extensions**
+
+2a. There is no previous command
+
+> Use case ends
+
+#### Use case:Redo task
+
+**MSS**
+
+1. User requests to redo the previous command
+2. TaskList shows the previous command
+3. User enter command
+4.TaskList update the list
+Use case ends.
+
+**Extensions**
+
+2a. There is no previous command
+
+> Use case ends
+
+#### Use case:Set storage file path
+
+**MSS**
+
+1. User requests a new directory for file path
+2. TaskList update on the new file path
+Use case ends.
+
+
+#### Use case: Display the number of complete or incomplete task
+
+**MSS**
+
+1. User requests display the complete/incomplete task
+2. TaskList shows the list of complete/incomplete tasks
+Use case ends.
+**Extensions**
+
+2a. There is no complete/incomplete task
+
+> Use case ends
+
+#### Use case: Mark the task as done
+
+**MSS**
+
+1. User requests to mark specific task to be done
+2. TaskList update the task as done
+Use case ends.
+
+
+
+**Extensions**
+
+2a. There is no incomplete task
+
+> Use case ends
+
+#### Use case: Change the command word
+
+**MSS**
+
+1. User requests to change specific command word
+2. TaskList update the edited command word
+Use case ends.
+
+
+
+**Extensions**
+
+2a. There is no such command
+> Use case ends
+
+
 
 ## Appendix C : Non Functional Requirements
 

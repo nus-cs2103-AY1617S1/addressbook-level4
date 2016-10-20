@@ -9,10 +9,10 @@ import seedu.tasklist.model.task.ReadOnlyTask;
  * Provides a handle to a person card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
-    private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String TITLE_FIELD_ID = "#name";
+    private static final String DUEDATE_FIELD_ID = "#dueDate";
+    private static final String STARTDATE_FIELD_ID = "#startDate";
+    private static final String DESCRIPTION_FIELD_ID = "#description";
 
     private Node node;
 
@@ -25,39 +25,41 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(fieldId, node);
     }
 
-    public String getFullName() {
-        return getTextFromLabel(NAME_FIELD_ID);
+    public String getTitle() {
+        return getTextFromLabel(TITLE_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+    public String getDueDate() {
+        return getTextFromLabel(DUEDATE_FIELD_ID);
     }
 
-    public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
+    public String getStartDate() {
+        return getTextFromLabel(STARTDATE_FIELD_ID);
     }
 
-    public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
+    public String getDescription() {
+        return getTextFromLabel(DESCRIPTION_FIELD_ID);
     }
 
-    public boolean isSameTask(ReadOnlyTask person){
-        return getFullName().equals(person.getTitle().fullTitle) && getPhone().equals(person.getStartDate().startDate)
-                && getEmail().equals(person.getDescription().description) && getAddress().equals(person.getDueDate().dueDate);
+    public boolean isSameTask(ReadOnlyTask task){
+        return getTitle().equals(task.getTitle().fullTitle) && getStartDate().equals("Start:  " + task.getStartDate().toString().replaceAll(" ", "    Time:  "))
+                && getDescription().equals(task.getDescription().description) && getDueDate().equals("End:    " + task.getDueDate().toString().replaceAll(" ", "    Time:  "));
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+            return getTitle().equals(handle.getTitle())
+                    && getDueDate().equals(handle.getDueDate())
+                    && getStartDate().equals(handle.getStartDate())
+                    && getDescription().equals(handle.getDescription());
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getTitle() + " " + getDueDate();
     }
 }

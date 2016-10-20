@@ -20,7 +20,7 @@ public interface Storage extends TaskListStorage, UserPrefsStorage {
 
     @Override
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
-
+    
     @Override
     String getTaskListFilePath();
 
@@ -36,4 +36,6 @@ public interface Storage extends TaskListStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleTaskListEvent(TaskListChangedEvent taskListChangedEvent);
+    
+    void setTaskListFilePath(String filepath);
 }

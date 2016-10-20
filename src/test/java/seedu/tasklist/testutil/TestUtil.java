@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Title("CS2103"), new StartDate("18122016"), new Description("pretutorial activity"), new DueDate("20122016"), new UniqueTagList()),
-                    new Task(new Title("CS1010"), new StartDate("87249245"), new Description("take hime lab"), new DueDate("31062016"), new UniqueTagList()),
-                    new Task(new Title("CS1020"), new StartDate("28062016"), new Description("sit in lab"), new DueDate("30062016"), new UniqueTagList()),
-                    new Task(new Title("GER1000"), new StartDate("15072016"), new Description("mid term test"), new DueDate("18062016"), new UniqueTagList()),
-                    new Task(new Title("MA1505"), new StartDate("30092016"), new Description("tutorial"), new DueDate("01102016"), new UniqueTagList()),
-                    new Task(new Title("MA1506"), new StartDate("08072016"), new Description("mid term test"), new DueDate("09072016"), new UniqueTagList()),
-                    new Task(new Title("PC1222"), new StartDate("10102016"), new Description("lab assignmnet"), new DueDate("17102016"), new UniqueTagList()),
-                    new Task(new Title("CG1001"), new StartDate("09082016"), new Description("Report deadline"), new DueDate("12082016"), new UniqueTagList()),
-                    new Task(new Title("EE2021"), new StartDate("10092016"), new Description("homework dealine"), new DueDate("14092016"), new UniqueTagList())
+                    new Task(new Title("CS1010"), new StartDate("01012001"), new Description("to1be completed"), new DueDate("01012001"), new UniqueTagList()),
+                    new Task(new Title("CS1020"), new StartDate("01022001"), new Description("to be2completed"), new DueDate("02012001"), new UniqueTagList()),
+                    new Task(new Title("CS1030"), new StartDate("01032001"), new Description("to3be completed"), new DueDate("03012001"), new UniqueTagList()),
+                    new Task(new Title("CS1040"), new StartDate("01042001"), new Description("to be6completed"), new DueDate("04012001"), new UniqueTagList()),
+                    new Task(new Title("CS1050"), new StartDate("01052001"), new Description("to9be completed"), new DueDate("05012001"), new UniqueTagList()),
+                    new Task(new Title("CS1060"), new StartDate("01062001"), new Description("to be6completed"), new DueDate("06012001"), new UniqueTagList()),
+                    new Task(new Title("CS1070"), new StartDate("01072001"), new Description("to2be completed"), new DueDate("07012001"), new UniqueTagList()),
+                    new Task(new Title("CS1080"), new StartDate("01082001"), new Description("to be4completed"), new DueDate("08012001"), new UniqueTagList()),
+                    new Task(new Title("CS1090"), new StartDate("01092001"), new Description("toAbe completed"), new DueDate("09012001"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -88,8 +88,8 @@ public class TestUtil {
     private static Tag[] getSampleTagData() {
         try {
             return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
+                    new Tag("urgent"),
+                    new Tag("completed")
             };
         } catch (IllegalValueException e) {
             assert false;

@@ -96,7 +96,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskListChanged();
     }
-
+    
+    @Override
+    public void updateFilePathChange(){
+    	indicateTaskListChanged();
+    }
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override

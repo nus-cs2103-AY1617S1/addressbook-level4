@@ -75,4 +75,9 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
+	@Override
+	public void setTaskListFilePath(String filepath) {
+		 this.taskListStorage = new XmlTaskListStorage(filepath);		
+	}
+
 }

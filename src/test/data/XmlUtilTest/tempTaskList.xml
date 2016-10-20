@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tasklist>
+    <tasks>
+        <title>CS2103</title>
+        <startDate>12151993</startDate>
+        <description>Pre tutorial 1</description>
+        <dueDate>12301993</dueDate>
+        <tagged>hihi</tagged>
+    </tasks>
+    <tags>
+        <tagName>urgent</tagName>
+    </tags>
+    <tags>
+        <tagName>hi</tagName>
+    </tags>
+    <tags>
+        <tagName>hihi</tagName>
+    </tags>
+</tasklist>

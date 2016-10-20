@@ -2,29 +2,41 @@ package seedu.tasklist.model.task;
 
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 /**
  * Represents a Task's start date in the task list.
  * Guarantees: immutable; is valid as declared in {@link #isValidStartDate(String)}
  */
 public class StartDate {
 
-    public static final String MESSAGE_STARTDATE_CONSTRAINTS = "StartDate should be digits only";
-    public static final String DATE_VALIDATION_REGEX = "^(?:\\d+|)$";
-
-    public final String startDate;
-
+    public static final String MESSAGE_STARTDATE_CONSTRAINTS = "Start date should be numeric only";
+    public static final String DATE_VALIDATION_REGEX = "^(?:[0-9 ]+|)$";
+    public LocalDateTime startDate;
+    
     /**
      * Validates given start date.
      *
      * @throws IllegalValueException if given startDate string is invalid.
      */
     public StartDate(String startDate) throws IllegalValueException {
-        assert startDate != null;
+    	
+    	assert startDate != null;
         startDate = startDate.trim();
         if (!isValidStartDate(startDate)) {
             throw new IllegalValueException(MESSAGE_STARTDATE_CONSTRAINTS);
+        } 
+        
+        if(!startDate.trim().isEmpty()){
+            if (startDate.length() == 13) {
+            	this.startDate = LocalDateTime.of(Integer.parseInt(startDate.substring(4, 8)), Integer.parseInt(startDate.substring(2, 4))
+                		, Integer.parseInt(startDate.substring(0, 2)), Integer.parseInt(startDate.substring(9, 11)),
+                				Integer.parseInt(startDate.substring(11, 13)));
+            } else {
+                this.startDate = LocalDateTime.of(Integer.parseInt(startDate.substring(4, 8)), Integer.parseInt(startDate.substring(2, 4))
+                        , Integer.parseInt(startDate.substring(0, 2)), 0, 0);
+            }
         }
-        this.startDate = startDate;
     }
 
     /**
@@ -36,7 +48,12 @@ public class StartDate {
 
     @Override
     public String toString() {
-        return startDate;
+    	if(startDate != null){    	
+    		DateTimeFormatter df = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+    		return df.format(startDate);
+    	} else{
+    		return "";
+    	}
     }
 
     @Override
