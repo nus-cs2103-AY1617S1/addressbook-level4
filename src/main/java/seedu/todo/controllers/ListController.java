@@ -23,7 +23,7 @@ import seedu.todo.models.TodoListDB;
 /**
  * Controller to list CalendarItems.
  * 
- * @author louietyj
+ * @author Tiong Yaocong
  *
  */
 public class ListController implements Controller {
