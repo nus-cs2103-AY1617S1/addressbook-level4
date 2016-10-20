@@ -264,6 +264,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | delete tasks | discard tasks that cannot be done
 `* * *` | user | sort the event by name, date or priority | easily view events that requires immediate attention
 `* *` | busy user | mark tasks as priority | display them at the top of my tasks
+`* *` | user | set my storage file to some other folder/directory (e.g dropbox) | store a back up of my tasks in dropbox or google drive
 `* *` | busy user | search for empty slots | add tasks easily
 `* *` | user | block multiple slots for tasks | reserve multiple time slots where the exact timing of the task is not certain and release the extra slots when the time is finalized
 `* *` | user | undo and redo the changes made to my tasklist | Keep my tasklist in order
@@ -382,6 +383,22 @@ Guarantees:
 3a. The given index is invalid
 > 3a1. The system shows an error message <br>
   Use case resumes at Step 2
+
+#### Use case UC06 - Set storage directory
+
+**MSS**
+
+Precondition: The storage file has to exist in order for the directory shift to take place. 
+
+Guarantees:  
+* The corresponding file path will be updated to its new value. 
+
+1. The user enters the file path, indicating the folder in which he wants to save the data.
+2. When the user enters the file path, he should indicate the file name by which he wants to update the directory:
+   e.g  Users/James/Desktop/[filename].xml
+3. System will process the file path and will create a copy of the file in the new directory.
+4. File in the old directory will be removed. 
+
 
 ##Appendix C: Non Functional Requirements
 
