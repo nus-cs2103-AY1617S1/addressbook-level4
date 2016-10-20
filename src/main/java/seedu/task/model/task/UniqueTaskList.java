@@ -108,6 +108,7 @@ public class UniqueTaskList implements Iterable<Task> {
         int index = internalList.indexOf(originalTask);
         assert index >= 0;
         internalList.set(index, toPin);
+        history.addAsNewMutation(index, new Mutation<ReadOnlyTask>(originalTask, toPin.getImmutable()));
     }
 
     /**
@@ -121,6 +122,7 @@ public class UniqueTaskList implements Iterable<Task> {
         assert index >= 0;
         
         internalList.set(index, completeTask);
+        history.addAsNewMutation(index, new Mutation<ReadOnlyTask>(originalTask, completeTask.getImmutable()));
     }
     
     /**
