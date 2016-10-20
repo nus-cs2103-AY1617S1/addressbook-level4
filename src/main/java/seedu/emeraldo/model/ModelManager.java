@@ -67,9 +67,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     public void undoChanges(){
+    	//TODO: handle cases where undo cannot be done anymore
     	savedStates.pop();
-    	emeraldo = savedStates.peek();
-    	indicateEmeraldoChanged();
+    	if(!savedStates.empty()){
+	    	emeraldo = savedStates.peek();
+	    	indicateEmeraldoChanged();
+    	}
     }
     
     @Override
