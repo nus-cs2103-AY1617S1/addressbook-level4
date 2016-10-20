@@ -132,7 +132,7 @@ public class Parser {
 			return prepareFind(arguments);
 
 		case ListCommand.COMMAND_WORD:
-			return new ListCommand();
+			return prepareList(arguments);
 
 		case ExitCommand.COMMAND_WORD:
 			return new ExitCommand();
@@ -284,6 +284,8 @@ public class Parser {
 		if(!matcherDate.matches()){
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 		}
+		
+		return new ListCommand(args);
 	}
 
 	private Command prepareEdit(String args) {
