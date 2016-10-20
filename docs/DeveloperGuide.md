@@ -410,6 +410,9 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix E : Product Survey
 
+Product Name | Strengths | Weaknesss
+-------------| :-------- | :--------- 
+
 ##### ColorNote Android Application
 * User can add task quickly; within 2 button clicks. <br>
 
