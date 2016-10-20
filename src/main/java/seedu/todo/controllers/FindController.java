@@ -140,7 +140,7 @@ public class FindController implements Controller {
      */
     private void setupView(boolean isTask, boolean listAll, boolean isCompleted,
             boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
-            LocalDateTime dateTo, String[] itemNameList) {
+            LocalDateTime dateTo, HashSet<String> itemNameList) {
         TodoListDB db = TodoListDB.getInstance();
         List<Task> tasks = null;
         List<Event> events = null;
@@ -149,13 +149,13 @@ public class FindController implements Controller {
             //no event or task keyword found
             isTask = false;
             tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
+            //events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
         }
         
         if (isTask) {
             tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
         } else {
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
+            //events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
         }
         
         // Update console message
@@ -175,7 +175,7 @@ public class FindController implements Controller {
             consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, formatDisplayMessage(numTasks, numEvents));
         }
         
-        Renderer.renderIndex(db, consoleMessage);
+        Renderer.renderIndex(db, consoleMessage, tasks, events);
        
     }
     
@@ -214,18 +214,18 @@ public class FindController implements Controller {
 //        }
 //    }
 //
-    private List<Task> setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
-            LocalDateTime dateTo, TodoListDB db) {
+    private List<Task> setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, 
+            LocalDateTime dateFrom, LocalDateTime dateTo, HashSet<String> itemNameList, TodoListDB db) {
         if (dateFrom == null && dateTo == null && dateOn == null) {
             if (listAllStatus) {
                 return db.getAllTasks();
             } else {
-                return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
+                return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus, itemNameList);
             }
         } else if (dateOn != null) { //by keyword found
-            return db.getTaskByDate(dateOn, isCompleted, listAllStatus);
+            return db.getTaskByDate(dateOn, isCompleted, listAllStatus, itemNameList);
         } else {
-            return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
+            return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus, itemNameList);
         }
     }
     
