@@ -267,6 +267,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | use up arrow or down arrow to reuse previous command(s) | minimise re-typing
 `* *` | user | indicate overdue tasks with color code (red) | easily to track overdue task
 `* *` | user | indicate a completed task with color code (green) | easily to track done task  
+`* *` | user | make a task recurring | duplicate a task for specific number of days  
 `*` | user | lock task scheduler(with a password) | prevent unauthorized access/modification 
 
 ## Appendix B : Use Cases
@@ -355,7 +356,7 @@ Use case ends.
 3a. The given index is invaild
 
 > 3a1. MustDoList shows an error message <br>
-  Use case resumes at step 2
+  Use case resumes at step 3
 
 
 #### Use case 6: Delete task
@@ -377,7 +378,7 @@ Use case ends.
 3a. The given index is invalid
 
 > 3a1. MustDoList shows an error message <br>
-  Use case resumes at step 2
+  Use case resumes at step 3
 
 #### Use case 7: Clear task
 
@@ -403,10 +404,16 @@ Use case ends.
 
 > Use case ends
 
-3a. The given index is invalid
+3a. The edit task request has invalid format
 
 > 3a1. MustDoList shows an error message <br>
-  Use case resumes at step 2
+  Use case resumes at step 3
+
+3b. The given index is invalid
+
+> 3b1. MustDoList shows an error message <br>
+  Use case resumes at step 3
+  
 
 #### Use case 9: Undo task
 
@@ -441,13 +448,20 @@ Use case ends
 > 3a1. MustDoList shows an error message <br>
   Use case resumes at step 2
 
-#### Use case 11: Change default storage path
+#### Use case 11: Set storage path
 
 **MSS**
 
 1. User requests to change default storage path
 2. MustDoList changes the path of default storage <br>
 Use case ends.
+
+**Extensions**
+
+1a. The set storage path task request has invalid format
+
+> 1a1. MustDoList shows an error message <br>
+  Use case resumes at step 1
 
 #### Use case 12: Exit task list
 
@@ -456,6 +470,32 @@ Use case ends.
 1. User requests to exit task list
 2. MustDoList closes the task list <br>
 Use case ends.
+
+#### Use case 13: Recur a task
+
+**MSS**
+
+1. User requests to list task
+2. MustDoList shows a list of tasks
+3. User requests to recur a specific task in the list by the task's index
+4. MustDoList recurs the task with a specific numbers of days <br>
+Use case ends
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The edit task request has invalid format
+
+> 3a1. MustDoList shows an error message <br>
+  Use case resumes at step 3
+
+3b. The given index is invalid
+
+> 3b1. MustDoList shows an error message <br>
+  Use case resumes at step 3
 
 ## Appendix C : Non Functional Requirements
 
@@ -468,6 +508,8 @@ Use case ends.
 7. Should have fast response time.
 8. Should be accessible and usable only by authorized users
 9. Should protect task information 
+
+> http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints
 
 ## Appendix D : Glossary
 
