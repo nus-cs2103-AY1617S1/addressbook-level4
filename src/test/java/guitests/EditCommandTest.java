@@ -277,7 +277,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(commandBuilder.toString());
 
         //confirm the list now contains all items including the edited item
-        assertTrue(itemListPanel.isListMatching(expectedList));
+        assertTrue(shortItemListPanel.isListMatching(expectedList));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToEdit));

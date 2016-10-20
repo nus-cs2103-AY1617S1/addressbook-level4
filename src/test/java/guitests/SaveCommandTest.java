@@ -22,7 +22,7 @@ public class SaveCommandTest extends TaskManagerGuiTest {
         String currentFilePath = currentConfig.getTaskManagerFilePath();
         
         //verify can save to another location when list is not empty
-        assertTrue(itemListPanel.isListMatching(td.getTypicalItems()));
+        assertTrue(shortItemListPanel.isListMatching(td.getTypicalItems()));
         commandBox.runCommand(SaveCommand.COMMAND_WORD + " " + TestUtil.getFilePathInSandboxFolder("new.xml"));
         assertSaveCommandSuccess(TestUtil.getFilePathInSandboxFolder("new.xml"));
         

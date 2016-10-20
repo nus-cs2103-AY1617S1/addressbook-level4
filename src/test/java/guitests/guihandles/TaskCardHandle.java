@@ -51,7 +51,7 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(STARTTIME_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyItem person){
+    public boolean isSameItem(ReadOnlyItem person){
         return getName().equals(person.getName().value);
 //        return getItemType().equals(person.getItemType().value) && getName().equals(person.getName().value)
 //                && getEndDate().equals(person.getEndDate().value) && getEndTime().equals(person.getEndTime().value)

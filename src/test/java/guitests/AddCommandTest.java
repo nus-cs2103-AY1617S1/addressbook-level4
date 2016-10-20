@@ -42,7 +42,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         //add duplicate person
         commandBox.runCommand(td.deadline4.getAddCommand(false, false, false, false, false));
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_ITEM);
-        assertTrue(itemListPanel.isListMatching(currentList));
+        assertTrue(shortItemListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -186,7 +186,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         itemToAdd.setEndTime(new ItemTime(endTime));
 		itemToAdd.setItemType(new ItemType(itemType));
         
-        TaskCardHandle addedCard = itemListPanel.navigateToItem(itemName);
+        TaskCardHandle addedCard = shortItemListPanel.navigateToItem(itemName);
         assertMatching(itemToAdd, addedCard);
 
     }
@@ -195,12 +195,12 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(itemToAdd.getAddCommand(false, false, false, false, false));
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = itemListPanel.navigateToItem(itemToAdd.getName().value);
+        TaskCardHandle addedCard = shortItemListPanel.navigateToItem(itemToAdd.getName().value);
         assertMatching(itemToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
         TestItem[] expectedList = TestUtil.addItemsToList(currentList, itemToAdd);
-        assertTrue(itemListPanel.isListMatching(expectedList));
+        assertTrue(shortItemListPanel.isListMatching(expectedList));
     }
     
     private void assertAddSuccessWithDifferentCommand(TestItem itemToAdd,
@@ -209,7 +209,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(itemToAdd.getAddCommand(shortCommand, shortItemType, noNamePrefix, noStartTime, noEndTime));
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = itemListPanel.navigateToItem(itemToAdd.getName().value);
+        TaskCardHandle addedCard = shortItemListPanel.navigateToItem(itemToAdd.getName().value);
         if (noStartTime && itemToAdd.getItemType().value.equals(ItemType.EVENT_WORD)) {
             try {
 		        itemToAdd.setStartTime(new ItemTime(AddCommand.DEFAULT_START_TIME));
@@ -228,7 +228,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
 
         //confirm the list now contains all previous persons plus the new person
         TestItem[] expectedList = TestUtil.addItemsToList(currentList, itemToAdd);
-        assertTrue(itemListPanel.isListMatching(expectedList));
+        assertTrue(shortItemListPanel.isListMatching(expectedList));
     }
 
 }

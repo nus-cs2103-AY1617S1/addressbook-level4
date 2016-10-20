@@ -40,7 +40,8 @@ public abstract class TaskManagerGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected TaskListPanelHandle itemListPanel;
+    protected TaskDetailsPanelHandle itemListPanel;
+    protected ShortTaskListPanelHandle shortItemListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -60,7 +61,8 @@ public abstract class TaskManagerGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            itemListPanel = mainGui.getPersonListPanel();
+            shortItemListPanel = mainGui.getPersonListPanel();
+            itemListPanel = mainGui.getTaskDetailsPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -111,7 +113,7 @@ public abstract class TaskManagerGuiTest {
      * Asserts the size of the person list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = itemListPanel.getNumberOfPeople();
+        int numberOfPeople = shortItemListPanel.getNumberOfPeople();
         assertEquals(size, numberOfPeople);
     }
 
