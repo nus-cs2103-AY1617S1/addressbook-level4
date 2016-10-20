@@ -16,10 +16,10 @@ public class XmlAdaptedItem {
     @XmlElement(required = true)
     private String description;
     
-    @XmlElement(required = false)
+    @XmlElement(required = true)
     private String startDate;
     
-    @XmlElement(required = false)
+    @XmlElement(required = true)
     private String endDate;
     
     
@@ -35,6 +35,7 @@ public class XmlAdaptedItem {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedItem(ReadOnlyItem source) {
+
         description = source.getDescription().getFullDescription();
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
