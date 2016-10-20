@@ -16,27 +16,27 @@ Responsibilities: Team Mentor
 #### [Musa Bin Rahamat](http://github.com/ghurabah93) 
 <img src="images/musa.jpg" width="150"><br>
 **Role**: Developer <br>
-Responsibilities: Team Lead
+Responsibilities: Team Lead, Logic
 
 -----
 
 #### [Yan Nuoyuan](http://github.com/nyannnnnnn)
 <img src="images/nuoyuan.jpg" width="150"><br>
 **Role**: Developer <br>
-Responsibilities: Code Quality
+Responsibilities: Code Quality, Parser
 
 -----
 
 #### [Han Xue](http://github.com/Hanxnow77)
 <img src="images/hanxue.png" width="150"><br>
 **Role**: Developer <br>
-Responsibilities: Testing
+Responsibilities: Testing, GUI
 
 -----
 
 #### [Lim Jun Hao](http://github.com/evilmtv)
 <img src="images/junhao.jpg" width="150"><br>
 **Role**: Developer <br>
-Responsibilities: Integration
+Responsibilities: Integration, Storage
 
 -----
