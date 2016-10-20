@@ -219,7 +219,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             case "monthly": date = c.get(Calendar.MONTH);
                             c.set(Calendar.MONTH, date + 1);
                             break;
-            case "yearly":  date = c.get(Calendar.MONTH);
+            case "yearly":  date = c.get(Calendar.YEAR);
                             c.set(Calendar.YEAR, date + 1);
                             break;
         }

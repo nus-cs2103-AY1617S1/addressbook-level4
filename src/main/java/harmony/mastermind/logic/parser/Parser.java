@@ -186,9 +186,6 @@ public class Parser {
 
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        } catch (ParseException pe) {
-            pe.printStackTrace();
-            return new IncorrectCommand(pe.getMessage());
         }
     }
     
