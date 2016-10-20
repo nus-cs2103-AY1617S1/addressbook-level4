@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+
 /**
  * Adds a task to tars.
  * 
@@ -77,20 +79,19 @@ public class AddCommand extends UndoableCommand {
                 if (recurringString != null 
                         && recurringString.length > RECURRINGSTRING_NOT_EMPTY) {
                     if (dateTime[DATETIME_INDEX_OF_STARTDATE] != null 
-                            || dateTime[DATETIME_INDEX_OF_STARTDATE].length() > DATETIME_EMPTY_DATE) {
+                            && dateTime[DATETIME_INDEX_OF_STARTDATE].length() > DATETIME_EMPTY_DATE) {
                         dateTime[DATETIME_INDEX_OF_STARTDATE] = 
                                 DateTimeUtil.modifyDate(dateTime[DATETIME_INDEX_OF_STARTDATE], 
                                              recurringString[RECURRINGSTRING_INDEX_OF_FREQUENCY]);
                     }
                     if (dateTime[DATETIME_INDEX_OF_ENDDATE] != null 
-                            || dateTime[DATETIME_INDEX_OF_ENDDATE].length() > DATETIME_EMPTY_DATE) {
+                            && dateTime[DATETIME_INDEX_OF_ENDDATE].length() > DATETIME_EMPTY_DATE) {
                         dateTime[DATETIME_INDEX_OF_ENDDATE] = 
                                 DateTimeUtil.modifyDate(dateTime[DATETIME_INDEX_OF_ENDDATE], 
                                            recurringString[RECURRINGSTRING_INDEX_OF_FREQUENCY]);
                     }
                 }
             }
-
             this.toAdd = new Task(new Name(name), 
                     new DateTime(dateTime[DATETIME_INDEX_OF_STARTDATE], 
                                  dateTime[DATETIME_INDEX_OF_ENDDATE]), 
