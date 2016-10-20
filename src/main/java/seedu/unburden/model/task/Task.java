@@ -22,9 +22,12 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name,Date date, Time startTime, Time endTime, UniqueTagList tags) {
+    
+    // adds Task Name, Task Description, Date, start time and end time of the task
+    public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
+        this.taskD = taskD;
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
