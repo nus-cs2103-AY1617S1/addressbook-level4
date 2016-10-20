@@ -76,10 +76,10 @@ allprojects {
     }
     
     shadowJar {
-        archiveName = "addressbook.jar"
+        archiveName = "savvytasker.jar"
 
         manifest {
-            attributes "Main-Class": "seedu.address.MainApp"
+            attributes "Main-Class": "seedu.savvytasker.MainApp"
         }
 
         destinationDir = file("${buildDir}/jar/")

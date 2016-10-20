@@ -20,7 +20,7 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list`** : lists all tasks
-   * **`add`**` Project Meeting s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103 d/Discuss about roles and milestones` : 
+   * **`add`**` Project Meeting s/05-10-2016 r/daily n/2 c/CS2103 d/Discuss about roles and milestones` : 
      adds a task named `Project Meeting` to Savvy Tasker for 2 days.
    * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
@@ -50,52 +50,64 @@ There is no need to save manually.
  
 #### Adding a task: `add`
 Adds a task to Savvy Tasker.<br>
-Format: `add TASK_NAME [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]` 
+Format: `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]` 
 
-> If DATE is entered but TIME is not entered, the task is assumed to occur all-day <br>
-> If TIME is entered but DATE is not entered, DATE is assumed to be current date <br>
-> Tasks with START_TIME only, are assumed to occur for 1 hour from specified START_TIME only <br>
-> Tasks with either one of or both END_DATE and/or END_TIME, are assumed to be tasks with deadlines <br>
-> Tasks with START_DATE only, are assumed to have the same START_DATE and END_DATE <br>
-> Tasks with either or both START_DATE and/or START_TIME, are assumed to be events instead of task <br>
-> If START_DATE and END_DATE are different, the RECURRING_TYPE has to be larger than the duration between START_DATE and END_DATE. (e.g. A 3d2n camp cannot be recurring daily but can be recurring weekly) <br>
-> If START_DATE and END_DATE are different, END_DATE must be later than START_DATE, and END_TIME does not have to be later than START_TIME <br>
-> If START_DATE and END_DATE are the same, END_TIME must be later than START_TIME <br>
-> For DATE the format is as follows: dd-mm-yyyy <br>
-> For TIME the format is as follows: hh:MM, hh:MM defaults to 00:00 if not specified. <br>
-> Having more than 1 task for any specific timing is allowed (Multitasking) <br>
-> RECURRING_TYPE can be `none`, `daily`, `weekly` or `monthly`, `yearly`, by default RECURRING_TYPE set as `none`, NUMBER_OF_RECURRENCE set as 0 <br>
-> PRIORITY_LEVEL can be `high`, `medium`, `low`, by default PRIORITY_LEVEL is set as `low` <br>
+> Parameters | Description  
+> -------- | :-------- 
+> TASK_NAME | `Mandatory` Specifies the name of the task.
+> START_DATE **(See DATE)** | `Optional` Specifies the starting date and time of the task.
+> END_DATE **(See DATE)** | `Optional` Specifies the ending date and time of the task.
+> **DATE** | If only the DATE is specified, the TIME defaults to starting at 12am or ending at 11:59pm.<br>If only the TIME is specified, the DATE defaults to today.<br><br>If only START_DATE is supplied, the task will be a 1-day event starting from the specified START_DATE and ending on the same day at 11:59pm.<br>If only END_DATE is supplied, the task will start today at 12am.<br><br>The date and time can be entered in a formal format like <i>17-03-2016</i>, or a natural format like <i>next wednesday, 2pm</i>. The formal format follows the system's settings for whether <i>mm-dd-yyyy</i> or <i>dd-mm-yyyy</i> is used.
+> LOCATION | `Optional` Specifies the location where the task happens.
+> PRIORITY_LEVEL | `Optional` Specifies the priority level of the task.<br>`Accepts` values `low`, `medium`, `high`<br>`Defaults` to `???`
+> RECURRING_TYPE | `Optional` Specifies the recurring type of the task.<br>`Accepts` values `none`, `daily`, `weekly`, `monthly`, `yearly`<br>`Defaults` to `none`
+> NUMBER_OF_RECURRENCE | `Optional` Specifies the number of times the task recurrs. A value of 0 specifies a never-ending recurrence.<br>`Defaults` to `0`<br>`Ignored` if RECURRING_TYPE is `none`
+> CATEGORY | `Optional` Specifies a custom category for the task. This can be used for keeping track of similar tasks.
+> DESCRIPTION | `Optional` Describes the task.
 
 Examples: 
-* `add Project Meeting s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103 d/Discuss about roles and milestones` <br>
+* `add Project Meeting s/05-10-2016 2pm e/6pm r/daily n/2 c/CS2103 d/Discuss about roles and milestones` <br>
   Add task named, Project Meeting, under CS2103 category. The task is schedule to take place on 5th and 6th of October 2016 from 2pm to 6pm each day.
-* `add NUSSU Leadership Camp s/05-10-2016 st/14:00 e/08-10-2016 et/18:00 c/NUSSU`
+* `add NUSSU Leadership Camp s/05-10-2016 2pm e/08-10-2016 6pm c/NUSSU`
   Add task named, NUSSU Leadership Camp, under NUSSU category. The 4 day 3 night is schedule to take place from 5th October, 2pm to 8th of October 2016, 6pm.
 
 #### Listing all tasks: `list`
 Shows a list of all tasks in Savvy Tasker <br>
 Format: `list [t/LIST_TYPE]`
 
-> LIST_TYPE can be `Due Date`, `Priority Level`, `Archived`, by default LIST_TYPE is set as `Due Date`<br>
-> If TYPE is `Due Date`, the tasks and events are sorted according to due date and time of tasks and start date and time of events, earliest first.<br>
-> If no ENDTIME specified (floating tasks), sorted to bottom of list.<br>
-> If TYPE is `Priority Level`, the tasks and events are sorted according to priority level, high first.<br>
-> If TYPE is `Archived`, the Archived tasks and events are listed. They are sorted according to date the task has been marked, most recent first.<br>
+> Parameters | Description  
+> -------- | :-------- 
+> LIST_TYPE | `Optional` Specifies the name of the task.<br>`Accepts` values `DueDate`, `PriorityLevel`, `Archived`<br>`Defaults` to `DueDate`
+
+`LIST_TYPE` Explanation:
+* `DueDate` <br> 
+   Tasks are sorted according to END_DATE beginning with the earliest.<br>
+   If no END_DATE is specified for the task (floating tasks), they will be sorted to bottom of list.<br>
+* `PriorityLevel` <br> 
+   Tasks are sorted according to priority level beginning with the highest.<br>
+* `Archived` <br> 
+   Tasks that have been [marked](#mark-a-task-as-done--mark) are listed. They are sorted according to the time of creation of the task.<br>
 
 #### Finding all task containing any keyword in its name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
-Format: `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
+Format: `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS...]`
 
-> FIND_TYPE can be `Partial`, `Full`, `Exact`, by default FIND_TYPE is set as `Partial` <br>
-> If FIND_TYPE is `Partial`, partial keywords will be matched e.g. `task` will match ` 2103 tasks` <br>
-> If FIND_TYPE is `Full`, only full keywords will be matched e.g. `task` will not match `2103 tasks` <br>
-> If FIND_TYPE is `Exact`, the exact set of keywords will be matched e.g. `Project Meeting` will match `2103 Project Meeting` and not match `2103 Meeting` <br>
+> Parameters | Description  
+> -------- | :-------- 
+> FIND_TYPE | `Optional` Specifies the name of the task.<br>`Accepts` values `Partial`, `Full`, `Exact`<br>`Defaults` to `Partial`
+
+> Only the TASK_NAME is searched. <br>
 > The search is case insensitive. e.g `task` will match `Task`<br>
-> The order of the keywords does not matter. e.g. `project meeting` will match `meeting project` <br>
-> Only the TASK_NAME and DATE are searched. <br>
-> Only full words will be matched e.g. `task` will not match `tasks` <br>
-> If FIND_TYPE is not `Exact`, tasks matching at least one keyword will be returned (i.e. `OR` search) e.g. `Project` will match `Project Meeting`<br>
+> The order of the keywords does not matter for `Partial` and `Full`. e.g. `project meeting` will match `meeting project` <br>
+> Tasks matching at least one keyword will be returned, except for the case of `Exact`.<br>
+
+`FIND_TYPE` Explanation:
+* `Partial` <br> 
+   Partial keywords will be matched e.g. `task` will match `2103 tasks` <br>
+* `Full` <br> 
+   Only full keywords will be matched e.g. `task` will not match `2103 tasks` but matches `CS2103 Single Task` <br>
+* `Exact` <br> 
+   The exact set of keywords will be matched e.g. `Project Meeting` will match `Project Meeting` but not `2103 Project Meeting` <br>
 
 Examples: 
 * `find t/Full Project meeting`<br>
@@ -103,49 +115,35 @@ Examples:
 * `find t/Exact Project meeting`<br>
   Returns any task containing names `Project Meeting` exactly
 * `find meet CS2103`<br>
-  Returns any task containing names `meet`, or `CS2103`, including `meeting` and other word containing `meet`
+  Returns any task containing names `meet`, or `CS2103`. This matches `meeting` and any other words containing `meet` or `CS2103`
 
 #### Deleting a task : `delete`
-Deletes the specified task from Savvy Tasker. Irreversible.<br>
-Format: `delete INDEX [MORE_INDEX]`
+Deletes the specified task from Savvy Tasker.<br>
+Format: `delete INDEX [MORE_INDEX...]`
 
-> Deletes the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-> Allow multiple deletion
-
+> Parameters | Description  
+> -------- | :-------- 
+> INDEX | `Mandatory` Specifies the index of the listing shown to modify.<br>The index **must be a positive integer** 1, 2, 3, ...
+> MORE_INDEX... | `Optional` Same as INDEX.
+> Deletes the task at the specified `INDEX` and `[MORE_INDEX...]`. 
+  
 Examples: 
 * `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd task in the saavy tasker.
+  `delete 2 3 5`<br>
+  Deletes the 2nd, 3rd and 5th task listed by Savvy Tasker.
 * `find CS1010`<br> 
   `delete 1`<br>
   Deletes the 1st task in the results of the `find` command.
 
-#### Select a task : `select`
-Selects the task identified by the index number used in the last task listing.<br>
-Format: `select INDEX [MORE_INDEX]`
-
-> Selects the task and loads the details of the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-> Allow multiple selection
-
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd task in the task book.
-* `find CS2103` <br> 
-  `select 1`<br>
-  Selects the 1st task in the results of the `find` command.
-
 #### Modifies a task : `modify`
 Modifies the task identified by the index number used in the last task listing.<br>
-Format: `modify INDEX [t/TASK_NAME] [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
+Format: `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
 
-> Selects the task and modifies the task as done at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ... <br>
+> Parameters | Description  
+> -------- | :-------- 
+> INDEX | `Mandatory` Specifies the index of the listing shown to modify.<br>The index **must be a positive integer** 1, 2, 3, ...
+> TASK_NAME<br>START_DATE<br>END_DATE<br>LOCATION<br>PRIORITY_LEVEL<br>RECURRING_TYPE<br>NUMBER_OF_RECURRENCE<br>CATEGORY<br>DESCRIPTION | See [Adding a task](#adding-a-task-add)
+> <br>
 > Overwrites any of the specified fields ('LOCATION', 'DESCRIPTION'...) with the new values
 
 #### Mark a task as done : `mark`
@@ -224,18 +222,17 @@ Add task named "pjm" to task list
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK_NAME [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
-Alias | `alias k/KEYWORD s/SHORT_KEYWORD`
-Clear | `clear`
-Delete | `delete INDEX [MORE_INDEX]`
-Exit | `exit`
-Find | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
-List | `list [t/LIST_TYPE]`
-Help | `help`
-Select | `select INDEX [MORE_INDEX]`
-Modify | `modify INDEX [t/TASK_NAME] [s/START_DATE] [st/START_TIME] [e/END_DATE] [et/END_TIME] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
-Mark | `mark INDEX [MORE_INDEX]`
-Unmark | `unmark INDEX [MORE_INDEX]`
-Undo | `undo`
-Redo | `redo`
-Unalias | `unalias  s/SHORT_KEYWORD`
+[Add](#adding-a-task-add) | `add TASK_NAME [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
+[Alias](#alias-a-keyword--alias) | `alias k/KEYWORD s/SHORT_KEYWORD`
+[Clear](#clearing-all-entries--clear) | `clear`
+[Delete](#deleting-a-task--delete) | `delete INDEX [MORE_INDEX]`
+[Exit](#exiting-the-program--exit) | `exit`
+[Find](#finding-all-task-containing-any-keyword-in-its-name-find) | `find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]`
+[List](#listing-all-tasks-list) | `list [t/LIST_TYPE]`
+[Help](#viewing-help--help) | `help`
+[Modify](#modifies-a-task--modify) | `modify INDEX [t/TASK_NAME] [s/START_DATE] [e/END_DATE] [l/LOCATION] [p/PRIORITY_LEVEL] [r/RECURRING_TYPE] [n/NUMBER_OF_RECURRENCE] [c/CATEGORY] [d/DESCRIPTION]`
+[Mark](#mark-a-task-as-done--mark) | `mark INDEX [MORE_INDEX]`
+[Unmark](#unmark-a-task-as-done--unmark) | `unmark INDEX [MORE_INDEX]`
+[Undo](#undo-the-most-recent-operation--undo) | `undo`
+[Redo](#redo-the-most-recent-undo-operation--redo) | `redo`
+[Unalias](#unalias-a-keyword--unalias) | `unalias  s/SHORT_KEYWORD`

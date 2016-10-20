@@ -3,10 +3,11 @@ package guitests;
 import guitests.guihandles.TaskCardHandle;
 
 import org.junit.Test;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
+
+import seedu.savvytasker.commons.core.Messages;
+import seedu.savvytasker.logic.commands.AddCommand;
+import seedu.savvytasker.testutil.TestTask;
+import seedu.savvytasker.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,23 +15,23 @@ public class AddCommandTest extends AddressBookGuiTest {
 
     @Test
     public void add() {
-        //add one person
+        //add one task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.haloween;
+        TestTask taskToAdd = td.happy;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add another person
-        taskToAdd = td.hello;
+        //add another task
+        taskToAdd = td.haloween;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.hello);
+        assertAddSuccess(td.highPriority);
 
         //invalid command
-        commandBox.runCommand("adds Johnny");
+        commandBox.runCommand("adds Bad Command Task");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 

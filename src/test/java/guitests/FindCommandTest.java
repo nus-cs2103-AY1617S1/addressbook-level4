@@ -1,9 +1,10 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestTask;
+
+import seedu.savvytasker.commons.core.Messages;
+import seedu.savvytasker.testutil.TestPerson;
+import seedu.savvytasker.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
@@ -12,11 +13,27 @@ public class FindCommandTest extends AddressBookGuiTest {
     @Test
     public void find_nonEmptyList() {
         assertFindResult("find Zoo"); //no results
-        assertFindResult("find Hello", td.hello, td.hello2); //multiple results
+        assertFindResult("find Priority", td.highPriority, td.medPriority, td.lowPriority); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find Hello", td.hello2);
+        assertFindResult("find Priority", td.medPriority, td.lowPriority);
+    }
+    
+    @Test
+    public void find_nonEmptyList_byPartialMatch() {
+        // covered by find_nonEmptyList()
+    }
+    
+    @Test
+    public void find_nonEmptyList_byFullMatch() {
+        assertFindResult("find t/full Due", td.furthestDue, td.nearerDue, 
+                td.notSoNearerDue, td.earliestDue, td.longDue); //multiple results
+    }
+    
+    @Test
+    public void find_nonEmptyList_byExactMatch() {
+        assertFindResult("find t/exact Nearer Due Task", td.nearerDue); // one matching result only
     }
 
     @Test
@@ -31,7 +48,7 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, TestTask... expectedHits ) {
+    private void assertFindResult(String command, TestTask... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");
