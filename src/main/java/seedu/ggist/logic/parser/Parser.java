@@ -35,12 +35,14 @@ public class Parser {
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
+            Pattern.compile("(?<taskName>.+)((\\s*,\\s*)|(\\s+?(by|on|at)\\s+?))(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
         
     //regex for tasks with start and end time
     private static final Pattern EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,\\s*(?<startDateTime>.+)\\s*(,|-)\\s*(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
-       
+            Pattern.compile("(?<taskName>.+)((\\s*,\\s*)|(\\s+?(from|by|on|at)\\s+?))(?<startDateTime>.+)((\\s*(,|-)\\s*)|(\\s+?to\\s+?))(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
+    
+   // private static final Pattern EVENT_TASK_SAME_DAYS_DATA_ARGS_FORMAT = 
+     //       Pattern.compile("(?<taskName>.+)((\\s*,\\s*)|(\\s+?(by|on|at)\\s+?))(?<startDateTime>.+)((\\s*(,|-)\\s*)|(\\s+?to\\s+?))(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
     //regex for edit
     private static final Pattern EDIT_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<index>\\d+?)\\s+?(?<field>(task|start date| start time|end date|end time))\\s+?(?<value>.+)" , Pattern.CASE_INSENSITIVE);
