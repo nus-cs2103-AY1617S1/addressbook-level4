@@ -116,4 +116,9 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("-" + s.tagName + " "));
         return sb.toString();
     }
+
+	@Override
+	public boolean isRange() {
+		return dueByDate.isRange() || dueByTime.isRange();
+	}
 }

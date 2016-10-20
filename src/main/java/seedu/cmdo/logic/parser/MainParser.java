@@ -51,13 +51,13 @@ public class MainParser {
     /**
      * Private constructor
      */
-	private MainParser(Blocker blocker) {
-    	init(blocker);
+	private MainParser() {
+    	init();
     }
     
-    public static MainParser getInstance(Blocker blocker) {
+    public static MainParser getInstance() {
     	if (mainParser == null) {
-    		mainParser = new MainParser(blocker);
+    		mainParser = new MainParser();
     	} return mainParser;
     }
     
@@ -68,9 +68,8 @@ public class MainParser {
      * 
      * @author A0139661Y
      */
-    private void init(Blocker blocker) {
+    private void init() {
     	Parser parser = new Parser();
-    	this.blocker = blocker;
     	datesAndTimes = new ArrayList<LocalDateTime>();
     }
 
@@ -168,8 +167,8 @@ public class MainParser {
         	LocalDateTime dtEnd = LocalDateTime.MIN;
         	String[] splittedArgs = getCleanString(args).split(" ");
         	// Check for blocking
-        	if (blocker.isBlocked(datesAndTimes))
-        		throw new IllegalValueException(Messages.MESSAGE_TIMESLOT_BLOCKED);
+//        	if (blocker.isBlocked(datesAndTimes))
+//        		throw new IllegalValueException(Messages.MESSAGE_TIMESLOT_BLOCKED);
 
         	// used as flag for task type. 0 for floating, 1 for non-range, 2 for range
         	int dataMode;
@@ -224,8 +223,8 @@ public class MainParser {
         	LocalDateTime dtEnd = LocalDateTime.MIN;
         	String[] splittedArgs = getCleanString(args).split(" ");
         	// Check for blocking
-        	if (blocker.isBlocked(datesAndTimes))
-        		throw new IllegalValueException(Messages.MESSAGE_TIMESLOT_BLOCKED);
+//        	if (blocker.isBlocked(datesAndTimes))
+//        		throw new IllegalValueException(Messages.MESSAGE_TIMESLOT_BLOCKED);
         	
         	// used as flag for task type. 0 for floating, 1 for non-range, 2 for range
         	if (datesAndTimes.size() == 1) {

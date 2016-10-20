@@ -146,5 +146,13 @@ public class Task implements ReadOnlyTask {
     public boolean getBlock(){
     	return block;
     }
+
+    /**
+     * Determines if task is occupies a range.
+     */
+	@Override
+	public boolean isRange() {
+		return dueByDate.isRange() || dueByTime.isRange();
+	}
     
 }

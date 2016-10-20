@@ -1,11 +1,19 @@
 package seedu.cmdo.logic.commands;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import seedu.cmdo.commons.core.Messages;
+import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
+import seedu.cmdo.commons.exceptions.TaskBlockedException;
+import seedu.cmdo.logic.parser.Blocker;
 import seedu.cmdo.model.ToDoList;
 import seedu.cmdo.model.tag.Tag;
 import seedu.cmdo.model.tag.UniqueTagList;
@@ -98,12 +106,16 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        try {
-            model.addTask(toAdd);
+        Blocker blocker = new Blocker();
+    	try {
+    		// Check for block conflicts. Throws a TaskBlockedException if conflicts exist.
+    		blocker.checkBlocked(toAdd, model.getBlockedList());
+        	model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        } catch (TaskBlockedException tbe) {
+    		return new CommandResult(tbe.getMessage());
         }
     }
-
 }

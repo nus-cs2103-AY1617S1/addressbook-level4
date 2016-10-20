@@ -4,15 +4,19 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.cmdo.MainApp;
 import seedu.cmdo.commons.core.LogsCenter;
+import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.core.UnmodifiableObservableList;
+import seedu.cmdo.commons.exceptions.TaskBlockedException;
 import seedu.cmdo.logic.Logic;
 import seedu.cmdo.logic.LogicManager;
 import seedu.cmdo.model.Model;
 import seedu.cmdo.model.task.ReadOnlyTask;
+import seedu.cmdo.model.task.Task;
 
 public class Blocker {
 
@@ -24,23 +28,26 @@ public class Blocker {
 	LocalDateTime checking;
 	LocalDateTime againstStart;
 	LocalDateTime againstEnd;
-		
-	private Model model; 
-	private static UnmodifiableObservableList<ReadOnlyTask> blockedList; 
-	   
-	private Blocker(Model model) { 
-		init(model); 
-	} 
-	   
-	private void init(Model model) { 
-		blockedList = model.getBlockedList();  
-	} 
-	   
-    public static Blocker getInstance(Model model) { 
-      if (blocker == null) { 
-    	  blocker = new Blocker(model); 
-	  } return blocker; 
-	} 
+
+	public Blocker() {}
+	
+	public ArrayList<LocalDateTime> checkBlocked(Task toCheck, UnmodifiableObservableList<ReadOnlyTask> blockedList)
+										throws TaskBlockedException {
+		ArrayList<LocalDateTime> dateTimeList = new ArrayList<LocalDateTime>();
+		if (toCheck.isRange()) {
+			LocalDateTime startDt = LocalDateTime.of(toCheck.getDueByDate().start, toCheck.getDueByTime().start);
+			LocalDateTime endDt = LocalDateTime.of(toCheck.getDueByDate().end, toCheck.getDueByTime().end);
+			dateTimeList.add(startDt);
+			dateTimeList.add(endDt);
+		} else {
+    		LocalDateTime dt = LocalDateTime.of(toCheck.getDueByDate().start, toCheck.getDueByTime().start);
+    		dateTimeList.add(dt);
+		}
+        if (isBlocked(dateTimeList, blockedList)) {
+        	throw new TaskBlockedException(Messages.MESSAGE_TIMESLOT_BLOCKED);
+        }
+        return dateTimeList;
+	}
 	
 	/**
 	 * Checks to see if a local date time array list of ranges falls within a blocked slot.
@@ -50,7 +57,7 @@ public class Blocker {
 	 * 
 	 * @@author A0139661Y
 	 */
-	public boolean isBlocked(ArrayList<LocalDateTime> datesAndTimes) {
+	public boolean isBlocked(List<LocalDateTime> datesAndTimes, UnmodifiableObservableList<ReadOnlyTask> blockedList) {
 		reset();
 		for (LocalDateTime dt : datesAndTimes) {
 			logger.info(String.format("Checking before is %s", checking.toString()));
