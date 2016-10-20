@@ -26,17 +26,12 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
-    @XmlElement
-    private List<XmlAdaptedTask> deadlineTasks;
-    @XmlElement
-    private List<XmlAdaptedTask> events;
+
     @XmlElement
     private List<Tag> tags;
 
     {
         tasks = new ArrayList<>();
-        deadlineTasks = new ArrayList<>();
-        events = new ArrayList<>();
         tags = new ArrayList<>();
     }
 
@@ -50,8 +45,6 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
      */
     public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        deadlineTasks.addAll(src.getDeadlineTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        events.addAll(src.getEventList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -71,42 +64,7 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
         UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedTask p : tasks) {
             try {
-                ReadOnlyTask toAdd = p.toModelType();
-                if(!(toAdd instanceof DeadlineTask) && !(toAdd instanceof Event) && (toAdd instanceof FloatingTask)) {
-                    lists.add(p.toModelType());
-                }
-            } catch (IllegalValueException e) {
-                //TODO: better error handling
-            }
-        }
-        return lists;
-    }
-    
-    @Override
-    public UniqueTaskList getUniqueDeadlineTaskList() {
-        UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedTask p : deadlineTasks) {
-            try {
-                ReadOnlyTask toAdd = p.toModelType();
-                if(!(toAdd instanceof Event) && (toAdd instanceof DeadlineTask)) {
-                    lists.add(p.toModelType());
-                }
-            } catch (IllegalValueException e) {
-                //TODO: better error handling
-            }
-        }
-        return lists;
-    }
-    
-    @Override
-    public UniqueTaskList getUniqueEventList() {
-        UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedTask p : events) {
-            try {
-                ReadOnlyTask toAdd = p.toModelType();
-                if(!(toAdd instanceof DeadlineTask) && (toAdd instanceof Event)) {
-                    lists.add(p.toModelType());
-                }
+                lists.add(p.toModelType());
             } catch (IllegalValueException e) {
                 //TODO: better error handling
             }
@@ -118,11 +76,7 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
     public List<ReadOnlyTask> getTaskList() {
         return tasks.stream().map(p -> {
             try {
-                ReadOnlyTask toAdd = p.toModelType();
-                if(!(toAdd instanceof DeadlineTask) && !(toAdd instanceof Event) && (toAdd instanceof FloatingTask)) {
-                    return toAdd;
-                }
-                return null;
+                return p.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();
                 //TODO: better error handling
@@ -131,40 +85,6 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
     
-    @Override
-    public List<ReadOnlyTask> getDeadlineTaskList() {
-        return deadlineTasks.stream().map(p -> {
-            try {
-                ReadOnlyTask toAdd = p.toModelType();
-                if(!(toAdd instanceof Event) && (toAdd instanceof DeadlineTask)) {
-                    return toAdd;
-                }
-                return null;
-            } catch (IllegalValueException e) {
-                e.printStackTrace();
-                //TODO: better error handling
-                return null;
-            }
-        }).collect(Collectors.toCollection(ArrayList::new));
-    }
-    
-    @Override
-    public List<ReadOnlyTask> getEventList() {
-        return events.stream().map(p -> {
-            try {
-                ReadOnlyTask toAdd = p.toModelType();
-                if(!(toAdd instanceof DeadlineTask) && (toAdd instanceof Event)) {
-                    return toAdd;
-                }
-                return null;
-            } catch (IllegalValueException e) {
-                e.printStackTrace();
-                //TODO: better error handling
-                return null;
-            }
-        }).collect(Collectors.toCollection(ArrayList::new));
-    }
-
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags);
