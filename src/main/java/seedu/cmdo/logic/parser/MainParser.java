@@ -166,10 +166,6 @@ public class MainParser {
         	LocalDateTime dtStart = LocalDateTime.MIN;
         	LocalDateTime dtEnd = LocalDateTime.MIN;
         	String[] splittedArgs = getCleanString(args).split(" ");
-        	// Check for blocking
-//        	if (blocker.isBlocked(datesAndTimes))
-//        		throw new IllegalValueException(Messages.MESSAGE_TIMESLOT_BLOCKED);
-
         	// used as flag for task type. 0 for floating, 1 for non-range, 2 for range
         	int dataMode;
         	if (datesAndTimes.size() == 1) {
@@ -222,33 +218,41 @@ public class MainParser {
         	LocalDateTime dtStart = LocalDateTime.MIN;
         	LocalDateTime dtEnd = LocalDateTime.MIN;
         	String[] splittedArgs = getCleanString(args).split(" ");
-        	// Check for blocking
-//        	if (blocker.isBlocked(datesAndTimes))
-//        		throw new IllegalValueException(Messages.MESSAGE_TIMESLOT_BLOCKED);
-        	
-        	// used as flag for task type. 0 for floating, 1 for non-range, 2 for range
+        	if (datesAndTimes.size() == 0) {
+        		throw new IllegalValueException("Specify a time/date range for the block.");
+        	}
+        	// Only one time or date or both
         	if (datesAndTimes.size() == 1) {
-        		dtStart = datesAndTimes.get(0);
-        		dtEnd = dtStart.plusHours(1);//one hr later by default
-        	} else if (datesAndTimes.size() == 2) {
+        		dt = datesAndTimes.get(0);
+        		// Case 1: Date only
+        		if (dt.toLocalTime().equals(LocalTime.MAX)) {
+        			dtStart = dt;
+        			dtEnd = dt;
+        		}
+        		// Case 2: Time only or date and time only
+        		else {
+        			dtStart = dt;
+        			dtEnd = dt.plusHours(1);
+        		}
+        	} 
+        	// Otherwise there is a start and end time, date.
+        	else {
         		dtStart = datesAndTimes.get(0);
         		dtEnd = datesAndTimes.get(1);
-        	} else {
-        		throw new IllegalValueException(Messages.MESSAGE_INVALID_TIME_SPACE);
         	}
-    			return new BlockCommand(
-    					detailToAdd,
-    					dtStart.toLocalDate(),
-    					dtStart.toLocalTime(),
-    					dtEnd.toLocalDate(),
-    					dtEnd.toLocalTime(),
-    					"",
-    					getTagsFromArgs(splittedArgs));
-        }
-    	 catch (IllegalValueException ive) {
+    		return new BlockCommand(
+    			detailToAdd,
+    			dtStart.toLocalDate(),
+    			dtStart.toLocalTime(),
+    			dtEnd.toLocalDate(),
+    			dtEnd.toLocalTime(),
+    			"",
+    			getTagsFromArgs(splittedArgs));
+    	} catch (IllegalValueException ive) {
     		return new IncorrectCommand(ive.getMessage());
     	}
     }
+    
     /**
      * Parses arguments in the context of the edit task command.
      *

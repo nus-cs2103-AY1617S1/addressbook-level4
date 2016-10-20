@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.cmdo.commons.exceptions.IllegalValueException;
+import seedu.cmdo.commons.exceptions.TaskBlockedException;
+import seedu.cmdo.logic.parser.Blocker;
 import seedu.cmdo.model.tag.Tag;
 import seedu.cmdo.model.tag.UniqueTagList;
 import seedu.cmdo.model.task.Detail;
@@ -32,8 +34,8 @@ public class BlockCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " unconfirmed business meeting on Thursday at noon to 1300 /high -$$$";
 
-    public static final String MESSAGE_SUCCESS = "TimeSlot Blocked: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This Timeslot if already booked";
+    public static final String MESSAGE_SUCCESS = "Time slot blocked: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK = "This time slot if already booked";
 
     private final Task toBlock;
     
@@ -75,11 +77,15 @@ public class BlockCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        Blocker blocker = new Blocker();
         try {
+    		blocker.checkBlocked(toBlock, model.getBlockedList());
             model.addTask(toBlock);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toBlock));
         } catch (UniqueTaskList.DuplicateTaskException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        } catch (TaskBlockedException tbe) {
+        	return new CommandResult (tbe.getMessage());
         }
     }
 

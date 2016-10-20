@@ -70,7 +70,9 @@ public class Blocker {
 				againstEnd = LocalDateTime.of(rot.getDueByDate().end, rot.getDueByTime().end);
 				logger.info(String.format("AgainstStart is %s", againstStart.toString()));
 				logger.info(String.format("AgainstEnd is %s", againstEnd.toString()));
-				if (checking.isAfter(againstStart) && checking.isBefore(againstEnd)) {
+				if ((checking.isAfter(againstStart) && checking.isBefore(againstEnd))
+						|| checking.isEqual(againstStart) 
+						|| checking.isEqual(againstEnd)) {
 					logger.info("Date is between blocked range.");
 					return true; 
 				}
