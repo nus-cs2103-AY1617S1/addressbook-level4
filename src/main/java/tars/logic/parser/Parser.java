@@ -171,11 +171,19 @@ public class Parser {
         }
 
         try {
-            return new AddCommand(name,
-                    DateTimeUtil.getDateTimeFromArgs(argumentMap.get(dateTimeFlag).replace(Flag.DATETIME + " ", "")),
-                    argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", ""),
-                    ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag),
-                    ExtractorUtil.getRecurringFromArgs(argumentMap.get(recurringFlag), recurringFlag));
+            String[] dateTime = DateTimeUtil.getDateTimeFromArgs(argumentMap.get(dateTimeFlag).replace(Flag.DATETIME + " ", ""));
+            String priority = argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", "");
+            Set<String> tags = ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag);
+            String[] recurring = ExtractorUtil.getRecurringFromArgs(argumentMap.get(recurringFlag), recurringFlag);
+            
+            if(recurring.length > 1) {
+                if(dateTime[0].isEmpty() && dateTime[1].isEmpty()) {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                }
+            }
+            
+            return new AddCommand(name, dateTime, priority, tags, recurring);
+            
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (DateTimeException dte) {
