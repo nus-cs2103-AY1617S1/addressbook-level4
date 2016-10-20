@@ -32,7 +32,14 @@ public class ListCommand extends Command {
 	}
     
     public Predicate<Task> getAllDatesBefore(Date date){
-    	return t -> t.getDate().before.(date);
+    	return t -> {
+			try {
+				return t.getDate().toDate().before(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			return false; //Shouldn't get here
+		};
     }
 
 	@Override
