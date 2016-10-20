@@ -20,32 +20,32 @@ public class ParserFormats {
     public static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
     
     public static final Pattern ADD_TASK_ARGS_FORMAT_FT = Pattern.compile(
-            "(?<name>[^/]+)" + " (on|from) (?<onDateTime>.+)" + " by (?<byDateTime>[^;]+)" + "(?: ?; ?(?<detail>.+))?");
+            "(?<name>[^/]+)" + " (on|from) (?<onDateTime>.+)" + " (by|to) (?<byDateTime>[^;]+)" + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
 
     public static final Pattern ADD_TASK_ARGS_FORMAT_ON = Pattern
-            .compile("(?<name>[^/]+) on (?<onDateTime>[^;]+)(?: ?; ?(?<detail>.+))?");
+            .compile("(?<name>[^/]+) on (?<onDateTime>[^;]+)(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
 
     public static final Pattern ADD_TASK_ARGS_FORMAT_BY = Pattern
-            .compile("(?<name>[^/]+) by (?<byDateTime>[^;]+)(?: ?; ?(?<detail>.+))?");
+            .compile("(?<name>[^/]+) by (?<byDateTime>[^;]+)(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
 
     public static final Pattern ADD_TASK_ARGS_FORMAT_FLOAT = Pattern
-            .compile("(?<name>[a-zA-Z_0-9 ]+)(?: ?; ?(?<detail>.+))?");
+            .compile("(?<name>[a-zA-Z_0-9 ]+)(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
         
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_ON = Pattern
-            .compile("on (?<onDateTime>.+)");
+            .compile("on (?<onDateTime>.+)", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_BEFORE = Pattern
-            .compile("before (?<beforeDateTime>.+)");
+            .compile("before (?<beforeDateTime>.+)", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_AFTER = Pattern
-            .compile("after (?<afterDateTime>.+)");
+            .compile("after (?<afterDateTime>.+)", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_FT = Pattern
-            .compile("from (?<fromDateTime>.+) till (?<tillDateTime>.+)");
+            .compile("from (?<fromDateTime>.+) till (?<tillDateTime>.+)", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern UPDATE_TASK_ARGS_FORMAT = Pattern
             .compile("(?<name>[^/]*?)? ?((^| )((on|from) "
                     + "(?<onDateTime>[^(by|;)]+)?|by (?<byDateTime>[^;]+)))*?"
-                    + "(?: ?;(?<detail>.+))?$");
+                    + "(?: ?;(?<detail>.+))?$", Pattern.CASE_INSENSITIVE);
     
 }

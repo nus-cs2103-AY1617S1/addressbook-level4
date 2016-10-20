@@ -31,6 +31,9 @@ public class DateTimeUtil {
         } else {
             DateGroup group = groups.get(0);
             Map<String, List<ParseLocation>> m = group.getParseLocations();
+            for(String str : m.keySet()) {
+                System.out.println(str + "-->" + m.get(str));
+            }
             if (!m.keySet().contains("date")) {
                 return null;
             }
@@ -45,6 +48,33 @@ public class DateTimeUtil {
         }
     }
 
+    public static boolean containsDateField(String dateTimeString) {
+        Parser nattyParser = new Parser();
+        List<DateGroup> groups = nattyParser.parse(dateTimeString);
+        
+        if (groups.size() == 0) {
+            return false;
+        } else {
+            DateGroup group = groups.get(0);
+            Map<String, List<ParseLocation>> m = group.getParseLocations();
+            return m.keySet().contains("date");
+        }
+    }
+    
+    public static boolean containsTimeField(String dateTimeString) {
+        Parser nattyParser = new Parser();
+        List<DateGroup> groups = nattyParser.parse(dateTimeString);
+        
+        if (groups.size() == 0) {
+            return false;
+        } else {
+            DateGroup group = groups.get(0);
+            Map<String, List<ParseLocation>> m = group.getParseLocations();
+            return m.keySet().contains("explicit_time");
+        }
+    }
+    
+    
     public static LocalDateTime combineLocalDateAndTime(LocalDate date, LocalTime time) {
         assert date != null;
         if (time == null) {
@@ -53,7 +83,7 @@ public class DateTimeUtil {
             return LocalDateTime.of(date, time);
         }
     }
-
+    
     
     public static String prettyPrintDate(LocalDate date) {
         return date.format(DateTimeFormatter.ofPattern("dd MMM yyyy"));

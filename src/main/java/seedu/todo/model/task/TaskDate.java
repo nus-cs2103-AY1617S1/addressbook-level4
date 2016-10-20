@@ -45,6 +45,15 @@ public class TaskDate {
         }
     }
 
+    public TaskDate(LocalDateTime ldt) {
+        this.date = ldt.toLocalDate();
+        this.time = ldt.toLocalTime();
+    }
+    
+    public TaskDate(LocalDate date, LocalTime time) {
+        this.date = date;
+        this.time = time;
+    }
     
     public LocalDate getDate() {
         return this.date;
