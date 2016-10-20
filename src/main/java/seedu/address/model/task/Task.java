@@ -6,7 +6,7 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Task in the address book.
+ * Represents a Task in ForgetMeNot.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
@@ -21,12 +21,12 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Date date, StartTime start, EndTime address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, date, start, address, tags);
+    public Task(Name name, Date date, StartTime start, EndTime end, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, date, start, end, tags);
         this.name = name;
         this.date = date;
         this.start = start;
-        this.end = address;
+        this.end = end;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
