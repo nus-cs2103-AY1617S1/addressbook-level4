@@ -394,7 +394,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Activity(name, privatePhone, email, privateAddress, tags);
+            return new Activity(name, privateAddress, tags);
         }
 
         /**
@@ -407,8 +407,6 @@ public class LogicManagerTest {
         Activity generatePerson(int seed) throws Exception {
             return new Activity(
                     new Name("Person " + seed),
-                    new DueDate("" + Math.abs(seed)),
-                    new Priority(seed + "@email"),
                     new Reminder("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -421,8 +419,6 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" p/").append(p.getDueDate());
-            cmd.append(" e/").append(p.getPriority());
             cmd.append(" a/").append(p.getReminder());
 
             UniqueTagList tags = p.getTags();
@@ -506,8 +502,6 @@ public class LogicManagerTest {
         Activity generatePersonWithName(String name) throws Exception {
             return new Activity(
                     new Name(name),
-                    new DueDate("1"),
-                    new Priority("1@email"),
                     new Reminder("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );

@@ -44,16 +44,6 @@ public class TestPerson implements ReadOnlyActivity {
     }
 
     @Override
-    public DueDate getDueDate() {
-        return phone;
-    }
-
-    @Override
-    public Priority getPriority() {
-        return email;
-    }
-
-    @Override
     public Reminder getReminder() {
         return address;
     }
@@ -71,8 +61,6 @@ public class TestPerson implements ReadOnlyActivity {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("p/" + this.getDueDate().value + " ");
-        sb.append("e/" + this.getPriority().value + " ");
         sb.append("a/" + this.getReminder().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
@@ -90,5 +78,11 @@ public class TestPerson implements ReadOnlyActivity {
         } 
         
         	return "";	
+    }
+
+    @Override
+    public boolean passedDueDate() {
+        // TODO Auto-generated method stub
+        return false;
     }
 }

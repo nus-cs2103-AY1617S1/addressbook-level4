@@ -261,10 +261,11 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | undo the previous command that made change to the list
 `* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
 `* * *` | user | be able to view his schedule in a visual display |  understand the flow of tasks.
-`* * *` | user | see uncompleted tasks that are overdue marked out in red
-`* * *` | user | delete the unwanted task
-`* * *` | user | add task due date 
-`* * *` | user | be able to add details such as priority and deadline only if I want to
+`* * *` | user | see uncompleted tasks that are overdue marked out in red | visually see what are the task that I failed to complete on time
+`* * *` | user | delete the unwanted task | keep my Lifekeep neat and clean
+`* * *` | user | add task due date | I can set due time for my tasks
+`* * *` | user | add event | I can set start and end time for the events
+`* * *` | user | be able to add details such as priority and deadline only if I want to | add task even when I dont know the due date for it yet
 `* *` | user | be able to block out multiple possible timings and confirm the exact timeslot at a later time
 `* *` | user | have access to his schedule even without internet access.
 `* *` | user | find out the next upcoming task without having to scan through the calendar or the task list.
