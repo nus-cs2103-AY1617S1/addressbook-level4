@@ -1,11 +1,10 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.logic.commands.SetPathCommand;
+import seedu.address.logic.commands.SetpathCommand;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.util.ConfigUtilTest;
 
 import static org.junit.Assert.*;
 
@@ -22,14 +21,14 @@ public class SetPathCommandTest extends TaskSchedulerGuiTest {
         String newPath = "testtaskscheduler";
         
         commandBox.runCommand("setpath " + newPath);
-        assertResultMessage(String.format(SetPathCommand.MESSAGE_SUCCESS, newPath + ".xml"));
+        assertResultMessage(String.format(SetpathCommand.MESSAGE_SUCCESS, newPath + ".xml"));
         
         origConfig = initConfig(Config.DEFAULT_CONFIG_FILE);
         String compareString = origConfig.getTaskSchedulerFilePath();
         assertEquals(newPath, compareString.substring(0,compareString.length()-4));
         
         commandBox.runCommand("setpath " + origPath);
-        assertResultMessage(String.format(SetPathCommand.MESSAGE_SUCCESS, origPath + ".xml"));
+        assertResultMessage(String.format(SetpathCommand.MESSAGE_SUCCESS, origPath + ".xml"));
         
         origConfig = initConfig(Config.DEFAULT_CONFIG_FILE);
         String compareString2 = origConfig.getTaskSchedulerFilePath();

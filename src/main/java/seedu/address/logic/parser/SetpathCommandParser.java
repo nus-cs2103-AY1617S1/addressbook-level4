@@ -22,7 +22,7 @@ public class SetpathCommandParser extends CommandParser {
         Matcher matcher = SETPATH_DATA_ARGS_FORMAT.matcher(args);
         // Validate arg string format
         if (matcher.matches()) {
-            String path = "data/" + matcher.group("name").trim().replaceAll("/$","") +".xml";
+            String path = matcher.group("name").trim().replaceAll("/$","") +".xml";
             return new SetpathCommand(path); 
         }
         else {   
