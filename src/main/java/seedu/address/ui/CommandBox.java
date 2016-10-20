@@ -1,10 +1,14 @@
 package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
+
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
@@ -79,6 +83,15 @@ public class CommandBox extends UiPart {
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
+    }
+    
+    @FXML
+    private void handleKeyPressedEvent(KeyEvent keyEvent) {
+    	if (keyEvent.getCode() == KeyCode.DOWN) {
+    		commandTextField.setText(CommandHistory.getNextCmd());
+    	} else if (keyEvent.getCode() == KeyCode.UP) {
+    		commandTextField.setText(CommandHistory.getPrevCmd());
+    	}
     }
 
 
