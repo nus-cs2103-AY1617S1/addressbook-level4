@@ -3,53 +3,53 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefHeight="115.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane HBox.hgrow="ALWAYS">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="0.0" prefWidth="0.0" />
-            </columnConstraints>
-            <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" prefWidth="186.0" GridPane.columnIndex="0">
-                    <stylesheets>
-                        <URL value="@TarsTheme.css" />
-                        <URL value="@Extensions.css" />
-                    </stylesheets>
-                    <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
-                    </padding>
-
-                    <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
+      <GridPane prefHeight="90.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="250.0">
+               <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="24.0" prefWidth="130.0" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_index_label" />
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first">
+                                    <Label fx:id="id" styleClass="cell_index_label">
                               <HBox.margin>
-                                 <Insets bottom="5.0" />
-                              </HBox.margin></Label>
+                                 <Insets left="15.0" />
+                              </HBox.margin>
+                           </Label>
+                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" wrapText="true">
+                              <HBox.margin>
+                                 <Insets />
+                              </HBox.margin>
+                           </Label>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
                                 </HBox>
                             </children>
                         </HBox>
-		                <HBox alignment="CENTER_LEFT" spacing="5" HBox.hgrow="ALWAYS">
-		                   <children>
-		                      <TextArea fx:id="dateTimeList" editable="false" text="\$dateTimeList"/>
-		                   </children>
-		                </HBox>
-                    </children>
-                </VBox>
-            </children>
-         <rowConstraints>
-            <RowConstraints />
-         </rowConstraints>
-        </GridPane>
+               </children>
+            </VBox>
+            <AnchorPane fx:id="dateTimeListPane" GridPane.columnIndex="1" />
+         </children>
+      </GridPane>
     </children>
+   <stylesheets>
+      <URL value="@TarsTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
 </HBox>

@@ -2,10 +2,13 @@ package tars.ui;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import tars.model.task.DateTime;
 import tars.model.task.rsv.RsvTask;
@@ -13,16 +16,20 @@ import tars.model.task.rsv.RsvTask;
 public class RsvTaskCard extends UiPart{
 
     private static final String FXML = "RsvTaskListCard.fxml";
-
+    private static final String DATETIMELIST_ID = "dateTimeList";
+    
+    private TextArea dateTimeListArea;
+    private AnchorPane dateTimeListPane;
+    
+    private StringProperty dateTimeListdisplayed = new SimpleStringProperty("");
+    
     @FXML
     private HBox cardPane;
     @FXML
     private Label name;
     @FXML
     private Label id;
-    @FXML
-    private TextArea dateTimeList;
-  
+    
     private RsvTask rsvTask;
     private int displayedIndex;
 
@@ -32,6 +39,9 @@ public class RsvTaskCard extends UiPart{
 
     public static RsvTaskCard load(RsvTask rsvTask, int displayedIndex){
         RsvTaskCard card = new RsvTaskCard();
+        card.cardPane = new HBox();
+        card.dateTimeListPane = new AnchorPane();
+        
         card.rsvTask = rsvTask;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
@@ -42,19 +52,32 @@ public class RsvTaskCard extends UiPart{
         name.setText(rsvTask.getName().taskName);
         id.setText(displayedIndex + ". ");
         setDateTimeList();
+        configure();
+    }
+    
+    public void configure() {
+        dateTimeListArea = new TextArea();
+        dateTimeListArea.setEditable(false);
+        dateTimeListArea.setId(DATETIMELIST_ID);
+        
+        dateTimeListArea.getStyleClass().removeAll();
+        dateTimeListArea.setWrapText(true);
+        dateTimeListArea.setPrefSize(185, 110);
+        dateTimeListArea.textProperty().bind(dateTimeListdisplayed);
+        dateTimeListPane.getChildren().add(dateTimeListArea);
+        cardPane.getChildren().add(dateTimeListPane);
     }
     
     private void setDateTimeList() {
         ArrayList<DateTime> dateTimeArrayList = rsvTask.getDateTimeList();
-        String toSet = "[";
+        String toSet = "";
         int count = 1;
         for (DateTime dt : dateTimeArrayList) {
-            toSet += String.valueOf(count) + ". " + dt.toString() + ", ";
+            toSet += String.valueOf(count) + ". " + dt.toString() + "\n\n";
             count++;
         }
-        // remove last comma and whitespace and add closing bracket
-        toSet = toSet.trim().substring(0, toSet.length()-2) + "]";
-        dateTimeList.setText(toSet);
+        toSet = "\n" + toSet;
+        dateTimeListdisplayed.setValue(toSet);
     }
 
     public HBox getLayout() {
@@ -63,7 +86,8 @@ public class RsvTaskCard extends UiPart{
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        cardPane = (HBox) node;
+        dateTimeListPane = (AnchorPane) node;
     }
 
     @Override
