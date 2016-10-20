@@ -77,8 +77,10 @@ public class TaskDate {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskDate // instanceof handles nulls
-                || DateTimeUtil.combineLocalDateAndTime(this.date, this.time)
-                    .equals(DateTimeUtil.combineLocalDateAndTime(((TaskDate) other).date, ((TaskDate) other).time)));
+                && ((this.date == null && ((TaskDate) other).date == null)
+                || ((this.date != null && ((TaskDate) other).date != null)
+                && DateTimeUtil.combineLocalDateAndTime(this.date, this.time)
+                    .equals(DateTimeUtil.combineLocalDateAndTime(((TaskDate) other).date, ((TaskDate) other).time)))));
     }
 
     @Override

@@ -12,7 +12,7 @@ public interface ReadOnlyTask {
     Detail getDetail();
     TaskDate getOnDate();
     TaskDate getByDate();
-    boolean isDone();
+    Completion isCompleted();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -25,11 +25,11 @@ public interface ReadOnlyTask {
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
-                || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
+                || ((other != null) // this is first to avoid NPE below
+                && other.getName().equals(this.getName())
                 && other.getDetail().equals(this.getDetail())
-                && other.getOnDate().equals(this.getOnDate())
-                && other.getByDate().equals(this.getByDate()));
+                && (other.getOnDate().equals(this.getOnDate())
+                && other.getByDate().equals(this.getByDate())));
     }
 
     /**
