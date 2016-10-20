@@ -73,7 +73,7 @@ User has to specify INTERVAL or TIME_INTERVAL.
 * `add Homework d/ProgrammingEx1 i/2 ti/10 dd/10-01-2012`
 
 
-### List task : `list`
+### List tasks : `list`
 Shows a list of upcoming task in the task management tool.<br>
 Format: `list`
 Examples: 
@@ -97,13 +97,14 @@ Format: `Assign TASKID c/CATEGORY`
 Example:
 * `Assign 1 c/Work`
 
-#### Complete Task: `Complete`
+#### Complete a task: `done`
 Set Task as completed
-Format: `Complete TASKID`
+Format: `done TASKID`
 
-Example: `Complete 0`
+Example: `done 0`
  
-Edit details to the existing task 
+#### Edit a task: `edit`
+Edit details to an existing task
 Format: `edit TASKID t/TASK_NAME d/DESCRIPTION sd/START_DATE dd/DUE_DATE ts/TAGS`
 
 Examples: 
