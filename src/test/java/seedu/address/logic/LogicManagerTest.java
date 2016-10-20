@@ -187,7 +187,7 @@ public class LogicManagerTest {
 
     }
 
-    /*@Test
+   @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -201,10 +201,10 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_ITEM,
+                AddCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedAB.getItemList());
-    }*/
+    }
 
 
     @Test
