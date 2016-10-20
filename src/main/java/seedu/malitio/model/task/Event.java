@@ -2,6 +2,7 @@ package seedu.malitio.model.task;
 
 import java.util.Objects;
 
+import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.tag.UniqueTagList;
 
 public class Event implements ReadOnlyEvent {
@@ -10,17 +11,25 @@ public class Event implements ReadOnlyEvent {
     private DateTime end;
     private UniqueTagList tags;
 	
-	public Event(Name name, DateTime start, DateTime end, UniqueTagList tags) {
-		this.name = name;	
-		this.start = start;
-		this.end = end;
-		this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-	}
+    private static final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
+
+    public Event(Name name, DateTime start, DateTime end, UniqueTagList tags) 
+            throws IllegalValueException {
+        
+       if(!isValidEvent(start, end)) {       
+           throw new IllegalValueException(MESSAGE_INVALID_EVENT);
+       }
+       this.name = name;
+       this.start = start;
+       this.end = end;
+       this.tags = tags;
+    }
 	
     /**
      * Copy constructor.
+     * @throws IllegalValueException 
      */
-    public Event(ReadOnlyEvent source) {
+    public Event(ReadOnlyEvent source) throws IllegalValueException {
         this(source.getName(), source.getStart(), source.getEnd(), source.getTags());
     }
 
@@ -76,6 +85,13 @@ public class Event implements ReadOnlyEvent {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    private static boolean isValidEvent(DateTime start, DateTime end) {
+        if (end.compareTo(start) > 0) {
+            return true;
+        }
+        return false;
     }
 
 }
