@@ -81,7 +81,7 @@ public class XmlMalitioStorageTest {
         assertEquals(original, new Malitio(readBack));
 
         //Save and read without specifying file path
-        original.addDeadline(new Deadline(TypicalTestTasks.manualDeadline));
+        original.addDeadline(new Deadline(TypicalTestTasks.manualDeadline1));
         xmlmalitioStorage.savemalitio(original); //file path not specified
         readBack = xmlmalitioStorage.readMalitio().get(); //file path not specified
         assertEquals(original, new Malitio(readBack));

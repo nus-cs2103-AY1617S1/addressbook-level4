@@ -22,9 +22,9 @@ import static org.junit.Assert.assertTrue;
 public class DeadlineListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
-    public static final String CARD_PANE_ID = "#cardPane";
+    public static final String CARD_PANE_ID = "#cardPane2";
 
-    private static final String TASK_LIST_VIEW_ID = "#taskListView";
+    private static final String DEADLINE_LIST_VIEW_ID = "#deadlineListView";
 
     public DeadlineListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -36,7 +36,7 @@ public class DeadlineListPanelHandle extends GuiHandle {
     }
 
     public ListView<ReadOnlyDeadline> getListView() {
-        return (ListView<ReadOnlyDeadline>) getNode(TASK_LIST_VIEW_ID);
+        return (ListView<ReadOnlyDeadline>) getNode(DEADLINE_LIST_VIEW_ID);
     }
 
     /**
@@ -152,7 +152,7 @@ public class DeadlineListPanelHandle extends GuiHandle {
     public DeadlineCardHandle getTaskCardHandle(ReadOnlyDeadline task) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> taskCardNode = nodes.stream()
-                .filter(n -> new DeadlineCardHandle(guiRobot, primaryStage, n).isSameTask(task))
+                .filter(n -> new DeadlineCardHandle(guiRobot, primaryStage, n).isSameDeadline(task))
                 .findFirst();
         if (taskCardNode.isPresent()) {
             return new DeadlineCardHandle(guiRobot, primaryStage, taskCardNode.get());

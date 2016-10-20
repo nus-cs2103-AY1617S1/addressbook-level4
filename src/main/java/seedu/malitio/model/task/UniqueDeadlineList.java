@@ -86,7 +86,6 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         	      return e1.getDateTime().compareTo(e2.getDateTime());
         	  }
         	});
-		
 	}
 
     @Override

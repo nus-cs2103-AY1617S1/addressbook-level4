@@ -22,9 +22,9 @@ import static org.junit.Assert.assertTrue;
 public class EventListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
-    public static final String CARD_PANE_ID = "#cardPane";
+    public static final String CARD_PANE_ID = "#cardPane3";
 
-    private static final String TASK_LIST_VIEW_ID = "#taskListView";
+    private static final String EVENT_LIST_VIEW_ID = "#eventListView";
 
     public EventListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -36,7 +36,7 @@ public class EventListPanelHandle extends GuiHandle {
     }
 
     public ListView<ReadOnlyEvent> getListView() {
-        return (ListView<ReadOnlyEvent>) getNode(TASK_LIST_VIEW_ID);
+        return (ListView<ReadOnlyEvent>) getNode(EVENT_LIST_VIEW_ID);
     }
 
     /**
