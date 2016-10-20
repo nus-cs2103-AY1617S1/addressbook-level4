@@ -84,7 +84,8 @@ public class UpdateCommand extends UndoAndRedo {
         }
         
         try {
-            toUpdate = (date == null) ? new Task(new Name(newName), new UniqueTagList(tagSet), null) : new Task(new Name(newName), new TaskDate(date), new UniqueTagList(tagSet), null);
+            toUpdate = new Task(new Name(newName), new TaskDate(date), null, null, null, null, null, new UniqueTagList(tagSet), null, null);
+            //toUpdate = (date == null) ? new Task(new Name(newName), new UniqueTagList(tagSet), null) : new Task(new Name(newName), new TaskDate(date), new UniqueTagList(tagSet), null);
             if (date == null)
                 toUpdate.setTaskType(TASK_TYPE_FLOATING);
             else
