@@ -26,8 +26,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Activity> filteredTasks;
     private final FilteredList<Activity> filteredFloatingTasks;
     private final FilteredList<Activity> filteredEvents;
-    private Stack<ReadOnlyActivityManager> activityManagerStates;
-
+    private Stack<ReadOnlyActivityManager> activityManagerUndoStack;
+    private Stack<ReadOnlyActivityManager> activityManagerRedoStack;
     /**
      * Initializes a ModelManager with the given Activity Manager
      * ActivityManager and its variables should not be null
@@ -43,7 +43,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(activityManager.getTasks());
         filteredFloatingTasks = new FilteredList<>(activityManager.getFloatingTasks());
         filteredEvents = new FilteredList<>(activityManager.getEvents());
-        activityManagerStates = new Stack<ReadOnlyActivityManager>();
+        activityManagerUndoStack = new Stack<ReadOnlyActivityManager>();
+        activityManagerRedoStack = new Stack<ReadOnlyActivityManager>();
     }
 
     public ModelManager() {
@@ -55,7 +56,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(activityManager.getTasks());
         filteredFloatingTasks = new FilteredList<>(activityManager.getFloatingTasks());
         filteredEvents = new FilteredList<>(activityManager.getEvents());
-        activityManagerStates = new Stack<ReadOnlyActivityManager>();
+        activityManagerUndoStack = new Stack<ReadOnlyActivityManager>();
+        activityManagerRedoStack = new Stack<ReadOnlyActivityManager>();
     }
 
     @Override
@@ -80,18 +82,37 @@ public class ModelManager extends ComponentManager implements Model {
      */
     
     @Override
-    public void addState(ReadOnlyActivityManager activityManager) {
-    	activityManagerStates.push(activityManager);
+    public void addStateToUndoStack(ReadOnlyActivityManager activityManager) {
+    	activityManagerUndoStack.push(activityManager);
     }
     
     @Override
-    public ReadOnlyActivityManager retrievePreviousState() {
-    	return activityManagerStates.pop();
+    public ReadOnlyActivityManager retrievePreviousStateFromUndoStack() {
+    	return activityManagerUndoStack.pop();
     }
     
     @Override
-    public boolean checkPreviousStates() {
-    	return this.activityManagerStates.isEmpty();
+    public boolean checkStatesInUndoStack() {
+    	return this.activityManagerUndoStack.isEmpty();
+    }
+    
+    /**
+     * Methods for redo
+     * @author Seow Wei Jie A0139515A
+     */
+    @Override
+    public void addStateToRedoStack(ReadOnlyActivityManager activityManager) {
+    	activityManagerRedoStack.push(activityManager);
+    }
+    
+    @Override
+    public ReadOnlyActivityManager retrievePreviousStateFromRedoStack() {
+    	return activityManagerRedoStack.pop();
+    }
+    
+    @Override
+    public boolean checkStatesInRedoStack() {
+    	return this.activityManagerRedoStack.isEmpty();
     }
     
     /**

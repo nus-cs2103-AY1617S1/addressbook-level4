@@ -36,14 +36,29 @@ public interface Model {
      * @author Seow Wei Jie A0139515A
      */
     
-    /** add an activity manager state into stack for undo */
-    void addState(ReadOnlyActivityManager activityManager);
+    /** add an activity manager state into undo stack */
+    void addStateToUndoStack(ReadOnlyActivityManager activityManager);
     
-    /** retrieve previous activity manager */
-    ReadOnlyActivityManager retrievePreviousState();
+    /** retrieve previous activity manager from undo stack */
+    ReadOnlyActivityManager retrievePreviousStateFromUndoStack();
     
-    /** check if there is any previous activity manager */
-    boolean checkPreviousStates();
+    /** check if there is any previous activity manager in undo stack */
+    boolean checkStatesInUndoStack();
+    
+    /**
+     * Methods for redo
+     * @author Seow Wei Jie A0139515A
+     */
+    
+    /** add an activity manager state into redo stack */
+    void addStateToRedoStack(ReadOnlyActivityManager activityManager);
+    
+    /** retrieve previous activity manager from redo stack */
+    ReadOnlyActivityManager retrievePreviousStateFromRedoStack();
+    
+    /** check if there is any previous activity manager in redo stack */
+    boolean checkStatesInRedoStack();
+    
     
     /** 
      * @author Marx  Low A0139164A
