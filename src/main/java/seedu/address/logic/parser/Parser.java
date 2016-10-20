@@ -150,9 +150,6 @@ public class Parser {
         String endTime = (matcher.group("end") == null) ? "" : matcher.group("end");
         
         try {
-        		System.out.println(matcher.group("name").replace('\\', '\0'));
-        		System.out.println(startTime);
-        		System.out.println(endTime);
 	            return new AddCommand(
 	                    matcher.group("name").replace('\\', '\0'),
 	                    "false",
