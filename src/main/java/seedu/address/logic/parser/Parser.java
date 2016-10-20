@@ -212,27 +212,31 @@ public class Parser {
         }
         try {
             RecurringType recurringType = RecurringType.NONE;
-            
-            if (matcher.group("recurring").isEmpty()) {
-                recurringType = RecurringType.NONE;
-            }
-            else {
-                try{
-                    recurringType = extractRecurringInfo(matcher.group("recurring"));
-                } catch (IllegalArgumentException iae) {
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));                    
-                }
-            }
-            
+            recurringType = checkForRecurringTask(matcher, recurringType);
             if(matcher.group("deadline") != null) {
                 return prepareAddNonFloatingByDate(matcher, recurringType);
             } else {
                 return prepareAddNonFloatingFromDateToDate(matcher, recurringType);
             }
-
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (IllegalArgumentException iae) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));
         }
+    }
+
+    private RecurringType checkForRecurringTask(final Matcher matcher, RecurringType recurringType) throws IllegalArgumentException {
+        if (matcher.group("recurring").isEmpty()) {
+            recurringType = RecurringType.NONE;
+        }
+        else {
+            try{
+                recurringType = extractRecurringInfo(matcher.group("recurring"));
+            } catch (IllegalArgumentException iae) {
+                throw iae;                 
+            }
+        }
+        return recurringType;
     }
 
     /**

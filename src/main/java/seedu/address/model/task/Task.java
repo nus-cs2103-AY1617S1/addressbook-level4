@@ -45,8 +45,9 @@ public class Task implements ReadOnlyTask {
      */
     public Task(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType) {
         this(name, tags);
-        assert !CollectionUtil.isAnyNull(name, tags);
+        assert !CollectionUtil.isAnyNull(startDate, endDate, recurringType);
         this.taskType = TaskType.NON_FLOATING;
+        this.recurringType = recurringType;
         getComponentForNonRecurringType().setStartDate(startDate);
         getComponentForNonRecurringType().setEndDate(endDate);
     }

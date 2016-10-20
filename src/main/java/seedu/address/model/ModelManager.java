@@ -1,34 +1,31 @@
 package seedu.address.model;
 
-import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.RecurringTaskManager;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskComponent;
-import seedu.address.model.task.TaskType;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
-import seedu.address.commons.events.model.TaskListChangedEvent;
-import seedu.address.commons.events.model.FilePathChangeEvent;
-import seedu.address.commons.core.ComponentManager;
-
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import edu.emory.mathcs.backport.java.util.Collections;
+import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.model.FilePathChangeEvent;
+import seedu.address.commons.events.model.TaskListChangedEvent;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.RecurringTaskManager;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskDate;
+import seedu.address.model.task.TaskType;
+import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -49,12 +46,12 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         assert src != null;
         assert userPrefs != null;
-
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         taskMaster = new TaskMaster(src);
         tasks = taskMaster.getTasks();
         filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
+        RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
     }
 
     public ModelManager() {
@@ -65,6 +62,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskMaster = new TaskMaster(initialData);
         tasks = taskMaster.getTasks();
         filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
+        RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
     }
 
     @Override
@@ -107,6 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         taskMaster.addTask(task);
+        RecurringTaskManager.getInstance().updateAnyRecurringTasks();
         updateFilteredListToShowAll();
         indicateTaskListChanged();
     }
@@ -132,6 +131,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
+        RecurringTaskManager.getInstance().updateAnyRecurringTasks();
         filteredTaskComponents.setPredicate(new PredicateExpression(new ArchiveQualifier(true))::unsatisfies);       
     }
 
@@ -141,6 +141,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredTaskList(Expression expression) {
+        RecurringTaskManager.getInstance().updateAnyRecurringTasks();
         filteredTaskComponents.setPredicate(expression::satisfies);
     }
 
