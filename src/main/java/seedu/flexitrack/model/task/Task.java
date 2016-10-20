@@ -62,7 +62,7 @@ public class Task implements ReadOnlyTask {
     public boolean getIsDone() {
         return isDone;
     }
-
+    
     @Override
     public DateTimeInfo getDueDate() {
         return dueDate;
@@ -109,12 +109,12 @@ public class Task implements ReadOnlyTask {
     }
 
     private void setIsDone(boolean isDone) {
-        this.isDone = isDone;
-        if(isDone) {
+        if(isDone && !this.isDone) {
             name.setName("(Done)"+name.toString());
-        } else {
+        } else if(!isDone &&!this.isDone){
             name.setName(name.toString().replace("(Done)", ""));
         }
+        this.isDone = isDone;
     }
     
     public void markTask(boolean isDone) {

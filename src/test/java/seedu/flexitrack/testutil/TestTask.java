@@ -78,6 +78,10 @@ public class TestTask implements ReadOnlyTask {
         return isDone;
     }
 
+    public void setIsDone(boolean isDone) {
+        this.isDone = isDone;
+    }
+    
     @Override
     public DateTimeInfo getDueDate() {
         return dueDate;
@@ -135,4 +139,17 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+    
+    public static String getMarkCommand(int mark) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("mark " + mark);
+        return sb.toString();
+    }
+    
+    public static String getUnMarkCommand(int taskToUnMark) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("unmark " + taskToUnMark);
+        return sb.toString();
+    }
+    
 }

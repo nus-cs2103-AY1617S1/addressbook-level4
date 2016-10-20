@@ -351,4 +351,53 @@ public class TestUtil {
         return collect.toArray(new Tag[split.length]);
     }
 
+    /**
+     * Mark a task as done.
+     * @param tasks A array of tasks.
+     * @param taskToMark The tasks that are to be appended behind the original array.
+     * @return The modified array of tasks.
+     */
+    public static TestTask[] markTasksToList(final TestTask[] tasks, int taskToMark) {
+        taskToMark=taskToMark-1;
+        List<TestTask> listOfTasks = asList(tasks);
+        if (taskToMark > listOfTasks.size()){
+            throw new IllegalArgumentException("The task index provided is invalid");
+        }
+        if(!listOfTasks.get(taskToMark).getIsDone()){
+            try {
+                listOfTasks.get(taskToMark).
+                        setName(new Name("(Done)"+listOfTasks.get(taskToMark).getName()));
+                listOfTasks.get(taskToMark).setIsDone(true);
+            } catch (IllegalValueException e) {
+                throw new IllegalArgumentException("The task index provided is invalid");
+            }
+        }
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+    
+    /**
+     * Mark a task as undone.
+     * @param tasks A array of tasks.
+     * @param taskToMark The tasks that are to be appended behind the original array.
+     * @return The modified array of tasks.
+     */
+    public static TestTask[] unMarkTasksToList(TestTask[] currentList, int taskToUnMark) {
+        taskToUnMark=taskToUnMark-1;
+        List<TestTask> listOfTasks = asList(currentList);
+        if (taskToUnMark > listOfTasks.size()){
+            throw new IllegalArgumentException("The task index provided is invalid");
+        }
+        if(!listOfTasks.get(taskToUnMark).getIsDone()){
+            try {
+                listOfTasks.get(taskToUnMark).
+                        setName(new Name(listOfTasks.get(taskToUnMark).getName().toString().replace("(Done)", "")));
+                listOfTasks.get(taskToUnMark).setIsDone(false);
+            } catch (IllegalValueException e) {
+                throw new IllegalArgumentException("The task index provided is invalid");
+            }
+        }
+        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+    
+
 }
