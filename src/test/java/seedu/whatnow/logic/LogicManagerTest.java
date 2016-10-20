@@ -468,11 +468,11 @@ public class LogicManagerTest {
 
     @Test
     public void execute_changeLocation_movesToCorrectPath() throws Exception {
-        String egPath = "data/testlocation";
+        String egPath = "./data/testlocation";
         assertCommandBehavior("change location to " + egPath,
                 String.format(ChangeCommand.MESSAGE_SUCCESS, egPath + "/whatnow.xml", null, null));
         
-        egPath = "data";
+        egPath = "./data";
         assertCommandBehavior("change location to " + egPath,
                 String.format(ChangeCommand.MESSAGE_SUCCESS, egPath + "/whatnow.xml", null, null));
     }
