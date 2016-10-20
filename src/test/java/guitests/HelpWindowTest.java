@@ -12,8 +12,6 @@ public class HelpWindowTest extends WhatNowGuiTest {
 
         taskListPanel.clickOnListView();
 
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
-
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
 
         assertHelpWindowOpen(commandBox.runHelpCommand());

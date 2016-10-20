@@ -38,7 +38,7 @@ public class TaskDate {
 	
 	public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_MODIFIED_REGEX =	"^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$";
 	private String fullDate;	//Is the full date that will be used and stored
-
+	
 	/*
 	 * Validates given date
 	 *
@@ -227,8 +227,8 @@ public class TaskDate {
 	@Override
 	public boolean equals(Object other) {
 		return other == this // short circuit if same object
-				|| (other instanceof Name // instanceof handles nulls
-						&& this.fullDate.equals(((Name) other).fullName)); // state check
+				|| (other instanceof TaskDate // instanceof handles nulls
+						&& this.fullDate.equals(((TaskDate) other).fullDate)); // state check
 	}
 
 	@Override
