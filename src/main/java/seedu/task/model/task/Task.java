@@ -13,6 +13,7 @@ import java.util.Objects;
  */
 public class Task implements ReadOnlyTask {
 
+
 	private Title title;
 	private Description description;
 	private StartDate startDate;
@@ -21,7 +22,7 @@ public class Task implements ReadOnlyTask {
 	private TimeInterval timeInterval;
 	private Status status;
 	private UniqueTagList tags;
-
+	
 	/**
 	 * Every field must be present and not null.
 	 */
@@ -81,6 +82,11 @@ public class Task implements ReadOnlyTask {
 	public Status getStatus() {
 		return status;
 	}
+	
+	@Override
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
 	@Override
 	public UniqueTagList getTags() {
@@ -129,5 +135,7 @@ public class Task implements ReadOnlyTask {
 		cal.add(Calendar.DATE, days);
 		return cal.getTime();
 	}
-
 }
+
+
+
