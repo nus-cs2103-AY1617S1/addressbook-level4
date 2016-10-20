@@ -259,7 +259,7 @@ public class ListController implements Controller {
                 return db.getEventByRange(LocalDateTime.now(), null);
             }
         } else if (dateOn != null) { //by keyword found
-            return db.getEventbyDate(dateOn);
+            return db.getEventByDate(dateOn);
         } else {
             return db.getEventByRange(dateFrom, dateTo);
         }
