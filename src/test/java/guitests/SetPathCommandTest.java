@@ -18,22 +18,22 @@ public class SetPathCommandTest extends TaskSchedulerGuiTest {
     public void SetPathCommandTest() {
         
         Config origConfig = initConfig(Config.DEFAULT_CONFIG_FILE);
-        String origPath = origConfig.getTaskSchedulerFilePath().replace("data/", "").replace(".xml","");
+        String origPath = origConfig.getTaskSchedulerFilePath().replace(".xml","");
         String newPath = "testtaskscheduler";
         
         commandBox.runCommand("setpath " + newPath);
-        assertResultMessage(String.format(SetPathCommand.MESSAGE_SUCCESS, "data/" + newPath + ".xml"));
+        assertResultMessage(String.format(SetPathCommand.MESSAGE_SUCCESS, newPath + ".xml"));
         
         origConfig = initConfig(Config.DEFAULT_CONFIG_FILE);
         String compareString = origConfig.getTaskSchedulerFilePath();
-        assertEquals(newPath, compareString.substring(5,compareString.length()-4));
+        assertEquals(newPath, compareString.substring(0,compareString.length()-4));
         
         commandBox.runCommand("setpath " + origPath);
-        assertResultMessage(String.format(SetPathCommand.MESSAGE_SUCCESS, "data/" + origPath + ".xml"));
+        assertResultMessage(String.format(SetPathCommand.MESSAGE_SUCCESS, origPath + ".xml"));
         
         origConfig = initConfig(Config.DEFAULT_CONFIG_FILE);
         String compareString2 = origConfig.getTaskSchedulerFilePath();
-        assertEquals(origPath, compareString2.substring(5,compareString2.length()-4));
+        assertEquals(origPath, compareString2.substring(0,compareString2.length()-4));
     }
     
     protected Config initConfig(String configFilePath) {
