@@ -274,12 +274,12 @@ public class ListController implements Controller {
                     return null;
                 }
             } else {
-                return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
+                return db.getTaskByRangeWithStatus(dateFrom, dateTo, isCompleted, listAllStatus);
             }
         } else if (dateOn != null) { //by keyword found
-            return db.getTaskByDate(dateOn, isCompleted, listAllStatus);
+            return db.getTaskByDateWithStatus(dateOn, isCompleted, listAllStatus);
         } else {
-            return db.getTaskByRange(dateFrom, dateTo, isCompleted, listAllStatus);
+            return db.getTaskByRangeWithStatus(dateFrom, dateTo, isCompleted, listAllStatus);
         }
     }
     
