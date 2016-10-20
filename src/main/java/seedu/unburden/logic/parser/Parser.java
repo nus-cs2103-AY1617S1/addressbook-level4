@@ -276,9 +276,6 @@ public class Parser {
 		} else {
 			Calendar calendar = Calendar.getInstance();
 			switch (matcherWord.group("keywords").toLowerCase()) {
-			case today:
-				final String todayKeyword = dateFormatter.format(calendar.getTime());
-				return new ListCommand(todayKeyword);
 			case tomorrow:
 				calendar.setTime(calendar.getTime());
 				calendar.add(Calendar.DAY_OF_YEAR, 1);
