@@ -83,7 +83,7 @@ public class MainWindow extends UiPart {
     
     //List of words for autocomplete 
     String[] listOfWords = {"add", "delete", "edit", "clear", "help", "undo", "mark", "find", "exit"
-            ,"do", "add r/'monthly' 'test' ed/'today'", "delete 1"};
+            ,"do", "add 'submit homework' ed/'tomorrow'", "delete 1"};
 
     // UI elements
     @FXML

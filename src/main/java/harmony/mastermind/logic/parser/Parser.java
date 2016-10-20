@@ -168,14 +168,37 @@ public class Parser {
             
             if (startDate.isPresent() && endDate.isPresent()) {
                 // event
+                String start = startDate.get().toLowerCase();
+                String end = endDate.get().toLowerCase();
+                
+                if (start.equals("today")) {
+                    start += " 2359";
+                }else if (start.equals("tomorrow")) {
+                    start += " 2359";
+                }
+                if (end.equals("today")) {
+                    end += " 2359";
+                }else if (start.equals("tomorrow")) {
+                    end += " 2359";
+                }
+                
+                
                 try {
-                    return new AddCommand(name, startDate.get(), endDate.get(), tagSet, recurVal);
+                    return new AddCommand(name, start, end, tagSet, recurVal);
                 } catch (InvalidEventDateException iede) {
                     return new IncorrectCommand(iede.getMessage());
                 }
             } else if (!startDate.isPresent() && endDate.isPresent()) {
                 // deadline
-                return new AddCommand(name, endDate.get(), tagSet, recurVal);
+                String end = endDate.get().toLowerCase();
+                
+                if (end.equals("today")) {
+                    end += " 2359";
+                }else if (end.equals("tomorrow")) {
+                    end += " 2359";
+                }
+                
+                return new AddCommand(name, end, tagSet, recurVal);
             } else if (startDate.isPresent() && !endDate.isPresent()) {
                 // task with only startdate is not supported.
                 throw new IllegalValueException("Cannot create a task with only start date.");
