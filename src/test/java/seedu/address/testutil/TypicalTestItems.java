@@ -33,13 +33,13 @@ public class TypicalTestItems {
     public static void loadTaskBookWithSampleData(TaskBook tb) {
 
         try {
-            tb.addItem(new Item(always));
-            tb.addItem(new Item(bags));
-            tb.addItem(new Item(cs2103));
-            tb.addItem(new Item(dover));
-            tb.addItem(new Item(eating));
-            tb.addItem(new Item(frolick));
-            tb.addItem(new Item(grass));
+            tb.addItem(new Item(always.getDescription(), always.getStartDate(), always.getEndDate()));
+            tb.addItem(new Item(bags.getDescription(), bags.getStartDate(), bags.getEndDate()));
+            tb.addItem(new Item(cs2103.getDescription(), cs2103.getStartDate(), cs2103.getEndDate()));
+            tb.addItem(new Item(dover.getDescription(), dover.getStartDate(), dover.getEndDate()));
+            tb.addItem(new Item(eating.getDescription(), eating.getStartDate(), eating.getEndDate()));
+            tb.addItem(new Item(frolick.getDescription(), frolick.getStartDate(), frolick.getEndDate()));
+            tb.addItem(new Item(grass.getDescription(), grass.getStartDate(), grass.getEndDate()));
         } catch (UniqueItemList.DuplicateItemException e) {
             assert false : "not possible";
         }
