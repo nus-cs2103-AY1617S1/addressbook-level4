@@ -70,9 +70,10 @@ public class EditCommand extends Command{
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
-            catch (IllegalValueException pnfe) {
+            catch (IllegalValueException ive) {
                 indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Tag.MESSAGE_TAG_CONSTRAINTS);
+                Command command = new IncorrectCommand(ive.getMessage());
+                return command.execute();
             }
 
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
@@ -92,9 +93,10 @@ public class EditCommand extends Command{
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
-            catch (IllegalValueException pnfe) {
+            catch (IllegalValueException ive) {
                 indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Tag.MESSAGE_TAG_CONSTRAINTS);
+                Command command = new IncorrectCommand(ive.getMessage());
+                return command.execute();
             }
 
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
@@ -114,9 +116,10 @@ public class EditCommand extends Command{
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
-            catch (IllegalValueException pnfe) {
+            catch (IllegalValueException ive) {
                 indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Tag.MESSAGE_TAG_CONSTRAINTS);
+                Command command = new IncorrectCommand(ive.getMessage());
+                return command.execute();
             }
 
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
