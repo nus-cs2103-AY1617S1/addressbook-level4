@@ -169,9 +169,6 @@ public class EditCommand extends Command implements Undoable, Redoable {
             }
             return tagSet;
         }).orElse(originalTask.getTags().toSet()));
-        
-        System.out.println(name+":"+startDate+":"+endDate+":"+recur);
-
 
         // initialize the new task with edited values
         if (editedTask == null) {
