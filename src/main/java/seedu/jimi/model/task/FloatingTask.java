@@ -2,7 +2,6 @@ package seedu.jimi.model.task;
 
 import seedu.jimi.commons.util.CollectionUtil;
 import seedu.jimi.model.tag.UniqueTagList;
-import seedu.jimi.testutil.TestFloatingTask;
 
 import java.util.Objects;
 
@@ -38,11 +37,6 @@ public class FloatingTask implements ReadOnlyTask {
         this(source.getName(), source.getTags(), source.isCompleted());
     }
     
-    
-    /* Constructor for testing purposes */
-    public FloatingTask(TestFloatingTask source) {
-        this(source.getName(), source.getTags(), source.isCompleted());
-    }
 
     @Override
     public Name getName() {

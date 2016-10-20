@@ -12,6 +12,7 @@ import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.ReadOnlyTaskBook;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.storage.XmlTaskBookStorage;
+import seedu.jimi.testutil.TestFloatingTask;
 import seedu.jimi.testutil.TypicalTestFloatingTasks;
 
 import java.io.IOException;
@@ -73,14 +74,14 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new TaskBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new FloatingTask(TypicalTestFloatingTasks.night));
-        original.removeTask(new FloatingTask(TypicalTestFloatingTasks.water));
+        original.addTask(new TestFloatingTask(TypicalTestFloatingTasks.night));
+        original.removeTask(new TestFloatingTask(TypicalTestFloatingTasks.water));
         xmlTaskBookStorage.saveTaskBook(original, filePath);
         readBack = xmlTaskBookStorage.readTaskBook(filePath).get();
         assertEquals(original, new TaskBook(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new FloatingTask(TypicalTestFloatingTasks.dream));
+        original.addTask(new TestFloatingTask(TypicalTestFloatingTasks.dream));
         xmlTaskBookStorage.saveTaskBook(original); //file path not specified
         readBack = xmlTaskBookStorage.readTaskBook().get(); //file path not specified
         assertEquals(original, new TaskBook(readBack));

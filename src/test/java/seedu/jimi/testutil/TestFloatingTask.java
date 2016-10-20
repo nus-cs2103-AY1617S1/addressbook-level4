@@ -15,6 +15,12 @@ public class TestFloatingTask implements ReadOnlyTask {
     public TestFloatingTask() {
         tags = new UniqueTagList();
     }
+    
+    public TestFloatingTask(TestFloatingTask source) {
+        this.name = source.getName();
+        this.tags = source.getTags();
+        this.isCompleted = source.isCompleted();
+    }
 
     public void setName(Name name) {
         this.name = name;
