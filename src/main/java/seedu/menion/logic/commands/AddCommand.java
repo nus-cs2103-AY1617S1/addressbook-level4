@@ -99,6 +99,6 @@ public class AddCommand extends Command {
         assert model != null;
 
         ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
-    	model.addState(beforeState);
+    	model.addStateToUndoStack(beforeState);
     }
 }

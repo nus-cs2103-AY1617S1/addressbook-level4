@@ -1,6 +1,7 @@
 package seedu.menion.logic.commands;
 
 import seedu.menion.model.ActivityManager;
+import seedu.menion.model.ReadOnlyActivityManager;
 
 /**
  * Revert to previous activity manager state.
@@ -29,16 +30,17 @@ public class UndoCommand extends Command {
     }
 
     /**
-     * Return true if able to previous activity manager, otherwise return false.
+     * Return true if able revert to previous activity manager, otherwise return false.
      */
 	public boolean undo() {
 		assert model != null;
 		
-		if (model.checkPreviousStates()) {
+		if (model.checkStatesInUndoStack()) {
 			return false;
 		}
 		
-		model.resetData(model.retrievePreviousState());
+		model.addStateToRedoStack(new ActivityManager(model.getActivityManager()));
+		model.resetData(model.retrievePreviousStateFromUndoStack());
 		
 		return true;
 	}
