@@ -101,17 +101,32 @@ public class TaskManager implements ReadOnlyTaskManager {
      * @throw UniqueTaskList.DuplicateTaskException if the same task already
      *        exists in the list.
      */
-
     public void updateTask(ReadOnlyTask originalTask, Task updateTask) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(updateTask);
         tasks.update(originalTask, updateTask);
     }
-
+    /**
+     * Pins a specfic task to the task list as important. 
+     * 
+     * @param originalTask the orginial task on the list
+     * @param toPin Task which is pinned
+     */
     public void pinTask(ReadOnlyTask originalTask, Task toPin) {
         syncTagsWithMasterList(toPin);
         tasks.pin(originalTask, toPin);
     }
 
+    /**
+     * Unpins a specfic pinned task to the task list. 
+     * 
+     * @param originalTask the orginial task on the list
+     * @param toPin Task which is unpinnned
+     */
+    public void unpinTask(ReadOnlyTask originalTask, Task toUnpin) {
+        syncTagsWithMasterList(toUnpin);
+        tasks.unpin(originalTask, toUnpin);
+    }
+    
     /**
      * Marks a specific task as completed to the task list.
      */

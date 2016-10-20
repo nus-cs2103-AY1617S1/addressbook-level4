@@ -33,6 +33,9 @@ public interface Model {
     
     /** Pins the given task as important */
     void pinTask(ReadOnlyTask originalTask, Task toPin);
+    
+    /** Unpins the given task*/
+    void unpinTask(ReadOnlyTask originalTask, Task toUnpin);
 
     /** Mark the given task as completed */
     void completeTask(ReadOnlyTask originalTask, Task completedTask);

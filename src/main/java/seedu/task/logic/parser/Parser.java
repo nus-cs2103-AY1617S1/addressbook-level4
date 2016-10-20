@@ -73,6 +73,9 @@ public class Parser {
 
         case PinCommand.COMMAND_WORD:
             return preparePin(arguments);
+            
+        case UnpinCommand.COMMAND_WORD:
+            return prepareUnpin(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -261,10 +264,10 @@ public class Parser {
     }
 
 	/**
-	 * Parses arguments in the context of the mark task command.
+	 * Parses arguments in the context of the pin task command.
 	 * 
-	 * @param args
-	 * @return
+	 * @param args full command args string
+	 * @return the prepared command
 	 */
     private Command preparePin(String args) {
         Optional<Integer> index = parseIndex(args);
@@ -272,5 +275,17 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, PinCommand.MESSAGE_USAGE));
         }
         return new PinCommand(index.get());
+    }
+    /**
+     * Parses arguments in the context of the unpin task command.
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareUnpin(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnpinCommand.MESSAGE_USAGE));
+        }
+        return new UnpinCommand(index.get());
     }
 }

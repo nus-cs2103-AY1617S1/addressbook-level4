@@ -97,9 +97,6 @@ public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Pins a task as important.
-     * 
-     * @throws TaskNotFoundException
-     *             if the task cannot be found in the list.
      */
     public void pin(ReadOnlyTask originalTask, Task toPin) {
         assert toPin != null;
@@ -109,6 +106,19 @@ public class UniqueTaskList implements Iterable<Task> {
         assert index >= 0;
         internalList.set(index, toPin);
         history.addAsNewMutation(index, new Mutation<ReadOnlyTask>(originalTask, toPin.getImmutable()));
+    }
+    
+    /**
+     * Unpin a pinned task.
+     */
+    public void unpin(ReadOnlyTask originalTask, Task toUnpin) {
+        assert toUnpin != null;
+        assert originalTask != null;
+
+        int index = internalList.indexOf(originalTask);
+        assert index >= 0;
+        internalList.set(index, toUnpin);
+        history.addAsNewMutation(index, new Mutation<ReadOnlyTask>(originalTask, toUnpin.getImmutable()));
     }
 
     /**
