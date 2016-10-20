@@ -17,6 +17,7 @@ Responsibilities: Code Quality
 -----
 
 #### [Zihua Huang](https://github.com/JamesHuangUC)
+<img src="images/ZihuaHuang.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Integration, Git Expert, Scheduling and Tracking
 
