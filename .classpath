@@ -17,5 +17,17 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
+	<classpathentry kind="lib" path="C:/Users/Praveer/Desktop/projects/CS2103/team repo/main/libs/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Praveer/Desktop/projects/CS2103/team repo/main/libs/ical4j-1.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Praveer/Desktop/projects/CS2103/team repo/main/libs/natty-0.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Praveer/Desktop/projects/CS2103/team repo/main/libs/stringtemplate-3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Praveer/Desktop/projects/CS2103/team repo/main/libs/backport-util-concurrent-3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Praveer/Desktop/projects/CS2103/team repo/main/libs/commons-codec-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Praveer/Desktop/projects/CS2103/team repo/main/libs/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Praveer/Desktop/projects/CS2103/team repo/main/libs/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Praveer/Desktop/projects/CS2103/team repo/main/libs/logback-core-0.9.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Praveer/Desktop/projects/CS2103/team repo/main/libs/logback-classic-0.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Praveer/Desktop/projects/CS2103/team repo/main/libs/antlr-runtime-3.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Praveer/Desktop/projects/CS2103/team repo/main/libs/slf4j-api-1.7.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

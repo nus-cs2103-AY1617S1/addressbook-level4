@@ -102,6 +102,9 @@ public class Parser {
 
 	// If arguments are in hashmap, pass them to addCommand, if not pass
 	// them as empty string
+	
+	//Change date to "dd/mm/yy/", time to "hh:mm"
+    nattyParser natty = new nattyParser();
 
 	if (mapArgs.containsKey("taskName")) {
 	    taskName = mapArgs.get("taskName");
@@ -111,19 +114,29 @@ public class Parser {
 	} else {
 	    date = "today";
 	}
+	date = natty.parseDate(date);
 	if (mapArgs.containsKey("startTime")) {
 	    startTime = mapArgs.get("startTime");
+	    startTime = natty.parseTime(startTime);
 	}
 	if (mapArgs.containsKey("endTime")) {
 	    endTime = mapArgs.get("endTime");
+	    endTime = natty.parseTime(endTime);
 	}
 	if (mapArgs.containsKey("isRecurring")) {
 	    isRecurring = mapArgs.get("isRecurring");
 	}
 
 	Set<String> emptySet = new HashSet<String>();
+	
+	
+    
+    
+    
+    
 
 	try {
+	    
 	    return new AddCommand(taskName, date, startTime, endTime, emptySet
 	    // getTagsFromArgs(matcher.group("tagArguments")
 	    );
