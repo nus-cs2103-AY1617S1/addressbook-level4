@@ -53,11 +53,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         taskMaster = new TaskMaster(src);
-        RecurringTaskManager.getInstance().removeCompletedRecurringTasks(src);
         tasks = taskMaster.getTasks();
         filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
-        RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
-        RecurringTaskManager.getInstance().setInitialisedTime();
     }
 
     public ModelManager() {
@@ -66,11 +63,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskMaster initialData, UserPrefs userPrefs) {
         taskMaster = new TaskMaster(initialData);
-        RecurringTaskManager.getInstance().removeCompletedRecurringTasks(taskMaster);
         tasks = taskMaster.getTasks();
         filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
-        RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
-        RecurringTaskManager.getInstance().setInitialisedTime();
     }
 
     @Override
@@ -113,7 +107,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         taskMaster.addTask(task);
-        RecurringTaskManager.getInstance().updateRecurringTasks();
         updateFilteredListToShowAll();
         indicateTaskListChanged();
     }
