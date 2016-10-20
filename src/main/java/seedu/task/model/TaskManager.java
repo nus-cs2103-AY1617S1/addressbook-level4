@@ -150,6 +150,15 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    /**
+     * Rollback the previous change made to TaskList
+     * @return true if the operation is successful, else false
+     */
+    public boolean rollback() {
+        tasks.rollback();
+        return true;
+    }
 
     //// tag-level operations
 

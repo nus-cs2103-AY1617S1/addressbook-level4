@@ -3,9 +3,13 @@ package seedu.task.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.task.commons.exceptions.DuplicateDataException;
+import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.CollectionUtil;
+import seedu.task.model.history.ListMutation;
+import seedu.task.model.history.Mutation;
 
 import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not
@@ -18,6 +22,9 @@ import java.util.*;
  */
 public class UniqueTaskList implements Iterable<Task> {
 
+    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private final ListMutation<ReadOnlyTask> history = new ListMutation<ReadOnlyTask>();
+    
     /**
      * Signals that an operation would have violated the 'no duplicates'
      * property of the list.
@@ -34,8 +41,6 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {
     }
-
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.
@@ -65,6 +70,7 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
+        history.addAsNewMutation(internalList.size() - 1, new Mutation<ReadOnlyTask>(null, toAdd.getImmutable()));
     }
 
     /**
@@ -86,6 +92,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
 
         internalList.set(index, updatedTask);
+        history.addAsNewMutation(index, new Mutation<ReadOnlyTask>(toUpdate, updatedTask.getImmutable()));
     }
 
     /**
@@ -101,6 +108,7 @@ public class UniqueTaskList implements Iterable<Task> {
         int index = internalList.indexOf(originalTask);
         assert index >= 0;
         internalList.set(index, toPin);
+        history.addAsNewMutation(index, new Mutation<ReadOnlyTask>(originalTask, toPin.getImmutable()));
     }
 
     /**
@@ -114,6 +122,7 @@ public class UniqueTaskList implements Iterable<Task> {
         assert index >= 0;
         
         internalList.set(index, completeTask);
+        history.addAsNewMutation(index, new Mutation<ReadOnlyTask>(originalTask, completeTask.getImmutable()));
     }
     
     /**
@@ -124,11 +133,63 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
-        final boolean taskFoundAndDeleted = internalList.remove(toRemove);
-        if (!taskFoundAndDeleted) {
+        final int index = internalList.indexOf(toRemove);
+        if (index == -1) {
             throw new TaskNotFoundException();
         }
-        return taskFoundAndDeleted;
+
+        final Task taskRemoved = internalList.remove(index);
+        history.addAsNewMutation(index, new Mutation<ReadOnlyTask>(taskRemoved.getImmutable(), null));
+
+        return (index != -1);
+    }
+    
+    /**
+     * Applies a ReadOnlyTask mutation to the current list.
+     * 
+     * @param index the index in the task list
+     * @param mutation the Mutation of the element
+     * @return true if the operation succeeds, or else false
+     * @throws IllegalValueException if the ReadOnlyTask states have invalid fields
+     */
+    public boolean applyMutation(int index, Mutation<ReadOnlyTask> mutation) throws IllegalValueException {
+        if (index < 0 || index > internalList.size()) {
+            return false;
+        }
+        
+        if (mutation.getPreviousState() == null) {
+            internalList.add(index, new Task(mutation.getPresentState()));
+            return true;
+        }
+        
+        if (!internalList.get(index).equals(mutation.getPreviousState())) {
+            return false;
+        } else if (mutation.getPresentState() == null) {
+            internalList.remove(index);
+            return true;
+        } else {
+            internalList.set(index, new Task(mutation.getPresentState()));
+            return true;
+        }
+    }
+    
+    /**
+     * Rollback the previous operation done on the task list.
+     */
+    public void rollback() {
+        if (!history.hasMutation()) {
+            return;
+        }
+        
+        for (Entry<Integer, Mutation<ReadOnlyTask>> element : history.getMutations()) {
+            try {
+                applyMutation(element.getKey(), element.getValue().reverse());
+            } catch (IllegalValueException e) {
+                assert false : "Task was retrieved from TaskList, incorrect fields not possible";
+            }
+        }
+        
+        history.clear();
     }
 
     public ObservableList<Task> getInternalList() {

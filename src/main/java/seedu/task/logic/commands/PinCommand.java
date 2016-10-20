@@ -6,7 +6,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.ReadOnlyTask;
 
-public class PinCommand extends Command {
+public class PinCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "pin";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
@@ -14,6 +14,7 @@ public class PinCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_PIN_TASK_SUCCESS = "Pinned Task: %1$s";
+    public static final String MESSAGE_ROLLBACK_SUCCESS = "Undo action on pin task was executed successfully!";
 
     public final int targetIndex;
 
@@ -28,7 +29,7 @@ public class PinCommand extends Command {
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(false, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         ReadOnlyTask orginialTask = lastShownList.get(targetIndex - 1);
@@ -40,7 +41,16 @@ public class PinCommand extends Command {
             assert false : "Not possible for task on list to have illegal value";
         }
 
-        return new CommandResult(String.format(MESSAGE_PIN_TASK_SUCCESS, orginialTask));
+        return new CommandResult(true, String.format(MESSAGE_PIN_TASK_SUCCESS, orginialTask));
+    }
+
+    @Override
+    public CommandResult rollback() {
+        assert model != null;
+        
+        model.rollback();
+        
+        return new CommandResult(true, MESSAGE_ROLLBACK_SUCCESS);
     }
 
 }
