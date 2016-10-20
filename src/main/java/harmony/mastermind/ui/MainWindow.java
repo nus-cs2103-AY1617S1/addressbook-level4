@@ -74,7 +74,11 @@ public class MainWindow extends UiPart {
     private static final short INDEX_DEADLINES = 3;
     private static final short INDEX_ARCHIVES = 4;
     
-    private static final KeyCombination CTR_ONE = new KeyCodeCombination(KeyCode.DIGIT1, KeyCombination.CONTROL_DOWN);
+    private static final KeyCombination CTRL_ONE = new KeyCodeCombination(KeyCode.DIGIT1, KeyCombination.CONTROL_DOWN);
+    private static final KeyCombination CTRL_TWO = new KeyCodeCombination(KeyCode.DIGIT2, KeyCombination.CONTROL_DOWN);
+    private static final KeyCombination CTRL_THREE = new KeyCodeCombination(KeyCode.DIGIT3, KeyCombination.CONTROL_DOWN);
+    private static final KeyCombination CTRL_FOUR = new KeyCodeCombination(KeyCode.DIGIT4, KeyCombination.CONTROL_DOWN);
+    private static final KeyCombination CTRL_FIVE = new KeyCodeCombination(KeyCode.DIGIT5, KeyCombination.CONTROL_DOWN);
     
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 460;
@@ -585,6 +589,7 @@ public class MainWindow extends UiPart {
         mostRecentResult = logic.execute(currCommandText, currentTab);
         consoleOutput.setText(mostRecentResult.feedbackToUser);
 
+        //updates the tab when a list command is called
         updateTab(mostRecentResult);
 
         prevCommandText = currCommandText;
@@ -601,12 +606,20 @@ public class MainWindow extends UiPart {
         KeyCode key = event.getCode();
         switch (key) {
             case UP: restorePrevCommandText();
-                     break;
+                     return;
         }
         
-//        if (CTR_ONE.match(event)) {
-//            updateTab(ListCommand.MESSAGE_SUCCESS_EVENTS);
-//        }
+        if (CTRL_ONE.match(event)) {
+            updateTab(ListCommand.MESSAGE_SUCCESS);
+        }else if (CTRL_TWO.match(event)) {
+            updateTab(ListCommand.MESSAGE_SUCCESS_TASKS);
+        }else if (CTRL_THREE.match(event)) {
+            updateTab(ListCommand.MESSAGE_SUCCESS_EVENTS);
+        }else if (CTRL_FOUR.match(event)) {
+            updateTab(ListCommand.MESSAGE_SUCCESS_DEADLINES);
+        }else if (CTRL_FIVE.match(event)) {
+            updateTab(ListCommand.MESSAGE_SUCCESS_ARCHIVES);
+        }
     }
     
     @FXML
