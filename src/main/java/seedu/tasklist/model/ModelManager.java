@@ -60,6 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskList taskList;
     private final FilteredList<Task> filteredTasks;
+    private final TaskCounter taskCounter;
 
     /**
      * Initializes a ModelManager with the given TaskList TaskList and its
@@ -74,6 +75,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskList = new TaskList(src);
         filteredTasks = new FilteredList<>(taskList.getTasks());
+        taskCounter = new TaskCounter(src);
     }
 
     public ModelManager() {
@@ -83,6 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
         taskList = new TaskList(initialData);
         filteredTasks = new FilteredList<>(taskList.getTasks());
+        taskCounter = new TaskCounter(initialData);
     }
 
     @Override
@@ -111,6 +114,11 @@ public class ModelManager extends ComponentManager implements Model {
     public ReadOnlyTaskList getTaskList() {
         return taskList;
     }
+    
+    @Override
+    public TaskCounter getTaskCounter(){
+    	return taskCounter;
+    }
 
     /** Raises an event to indicate the model has changed */
     private void indicateTaskListChanged() {
@@ -126,17 +134,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        if (target instanceof Task) {
-            Task myTask = (Task) target;
-            if (!myTask.isComplete())
-                Task.IncompleteCounter--;
-            if (myTask.isOverDue() && !myTask.isComplete()) {
-                Task.overdueCounter--;
-            }
-            if (myTask.isFloating() && !myTask.isComplete()) {
-                Task.floatCounter--;
-            }
-        }
         taskList.removeTask(target);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
@@ -146,16 +143,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        if (task instanceof Task) {
-            Task myTask = (Task) task;
-            Task.IncompleteCounter++;
-            if (myTask.isOverDue()) {
-                Task.overdueCounter++;
-            }
-            if (myTask.isFloating()) {
-                Task.floatCounter++;
-            }
-        }
         taskList.addTask(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
@@ -192,16 +179,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void markTaskAsComplete(ReadOnlyTask task) throws TaskNotFoundException {
-        if (task instanceof Task) {
-            Task myTask = (Task) task;
-            Task.IncompleteCounter--;
-            if (myTask.isOverDue()) {
-                Task.overdueCounter--;
-            }
-            if (myTask.isFloating()) {
-                Task.floatCounter--;
-            }
-        }
         taskList.markTaskAsComplete(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
@@ -529,17 +506,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void deleteTaskRedo(Task target) throws TaskNotFoundException {
-        if (target instanceof Task) {
-            Task myTask = (Task) target;
-            if (!myTask.isComplete())
-                myTask.IncompleteCounter--;
-            if (myTask.isOverDue() && !myTask.isComplete()) {
-                myTask.overdueCounter--;
-            }
-            if (myTask.isFloating() && !myTask.isComplete()) {
-                myTask.floatCounter--;
-            }
-        }
         taskList.removeTask(target);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
@@ -548,16 +514,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addTaskRedo(Task task) throws DuplicateTaskException {
-        if (task instanceof Task) {
-            Task myTask = (Task) task;
-            Task.IncompleteCounter++;
-            if (myTask.isOverDue()) {
-                Task.overdueCounter++;
-            }
-            if (myTask.isFloating()) {
-                Task.floatCounter++;
-            }
-        }
         taskList.addTask(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
@@ -566,16 +522,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void markTaskAsCompleteRedo(Task task) throws TaskNotFoundException {
-        if (task instanceof Task) {
-            Task myTask = (Task) task;
-            Task.IncompleteCounter--;
-            if (myTask.isOverDue()) {
-                Task.overdueCounter--;
-            }
-            if (myTask.isFloating()) {
-                Task.floatCounter--;
-            }
-        }
         taskList.markTaskAsComplete(task);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
