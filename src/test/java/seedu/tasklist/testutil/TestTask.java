@@ -8,7 +8,7 @@ import seedu.tasklist.model.task.*;
 /**
  * A mutable Task object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 
     private TaskDetails taskDetails;
     private int uniqueID;
@@ -139,5 +139,15 @@ public class TestTask implements ReadOnlyTask {
 		}
 		else 
 			return false;
+	}
+	
+	@Override
+	public int compareTo(TestTask o){
+		if(!this.startTime.equals(o.getStartTime())){
+			return this.startTime.compareTo(o.getStartTime());
+		}
+		else {
+			return this.priority.compareTo(o.getPriority());
+		}
 	}
 }

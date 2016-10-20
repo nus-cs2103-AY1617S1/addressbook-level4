@@ -11,7 +11,7 @@ import seedu.tasklist.model.tag.UniqueTagList;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask, Comparable<Task> {
 
 	private static int currentID = 0;
 
@@ -205,4 +205,14 @@ public class Task implements ReadOnlyTask {
     public boolean hasEndTime() {
         return endTime != null;
     }
+
+	@Override
+	public int compareTo(Task o) {
+		if(!this.startTime.equals(o.getStartTime())){
+			return this.startTime.compareTo(o.getStartTime());
+		}
+		else {
+			return this.priority.compareTo(o.getPriority());
+		}
+	}
 }
