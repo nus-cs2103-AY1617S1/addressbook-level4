@@ -5,18 +5,19 @@ import java.time.LocalDateTime;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Task in the todo list.
- * Implementations should guarantee: details are present and not null, field values are validated.
+ * A read-only immutable interface for a Task in the todo list. Implementations
+ * should guarantee: details are present and not null, field values are
+ * validated.
  */
 public interface ReadOnlyItem {
 
 	Description getDescription();
 
 	boolean getIsDone();
-	
+
 	// THIS IS TEMPORARY (@darren)
 	void setIsDone(boolean doneness);
-	
+
 	/**
 	 * These return the start and end dates of the item (if they exist). If not,
 	 * then the default null is used. Override these in the implemented classes
@@ -29,55 +30,94 @@ public interface ReadOnlyItem {
 	default LocalDateTime getEndDate() {
 		return null;
 	}
-	
-    /**
-     * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the person's internal tags.
-     */
-    UniqueTagList getTags();
 
-    /**
-     * Returns true if both have the same state. (interfaces cannot override .equals)
-     */
+	/**
+	 * The returned TagList is a deep copy of the internal TagList, changes on
+	 * the returned list will not affect the person's internal tags.
+	 */
+	UniqueTagList getTags();
+
+	/**
+	 * Returns true if both have the same state. (interfaces cannot override
+	 * .equals)
+	 */
 	default boolean isSameStateAs(ReadOnlyItem other) {
-		return false;
-        /*return other == this // short circuit if same object
-                || (other != null // this is first to avoid NPE below
-						// state checks here onwards
-                && other.getDescription().equals(this.getDescription()) 
-                && other.getStartDate().equals(this.getStartDate())
-                && other.getEndDate().equals(this.getEndDate()));*/
-    }
+		Description thisDescription = this.getDescription();
+		LocalDateTime thisStartDate = this.getStartDate();
+		LocalDateTime thisEndDate = this.getEndDate();
+		if (other != null) {
+			Description otherDescription = other.getDescription();
+			LocalDateTime otherStartDate = other.getStartDate();
+			LocalDateTime otherEndDate = other.getEndDate();
+			// if different descriptions
+			if (!thisDescription.equals(otherDescription)) {
+				return false;
+			}
+			// if one start date is null the other must be null
+			if (thisStartDate == null) {
+				if (otherStartDate != null) {
+					return false;
+				}
+			} else {
+				if (otherStartDate == null) {
+					return false;
+				} else {
+					if (!thisStartDate.equals(otherStartDate)) {
+						return false;
+					}
+				}
+			}
+			// if one end date is null the other must be null
+			if (thisEndDate == null) {
+				if (otherEndDate != null) {
+					return false;
+				}
+			} else {
+				if (otherEndDate == null) {
+					return false;
+				} else {
+					if (!thisEndDate.equals(otherEndDate)) {
+						return false;
+					}
+				}
+			}
+			// if passed all tests return true
+			return true;
+		} else {
+			return false;
+		}
 
-    /**
-     * Formats the Item as text, showing just the description
-     */
-    default String getAsText() {
-        final StringBuilder builder = new StringBuilder();
+	}
+
+	/**
+	 * Formats the Item as text, showing just the description
+	 */
+	default String getAsText() {
+		final StringBuilder builder = new StringBuilder();
 		builder.append(getDescription());
-//                .append(" Phone: ")
-//                .append(getPhone())
-//                .append(" Email: ")
-//                .append(getEmail())
-//                .append(" Address: ")
-//                .append(getAddress())
-//                .append(" Tags: ");
-        getTags().forEach(builder::append);
-        return builder.toString();
-    }
+		// .append(" Phone: ")
+		// .append(getPhone())
+		// .append(" Email: ")
+		// .append(getEmail())
+		// .append(" Address: ")
+		// .append(getAddress())
+		// .append(" Tags: ");
+		getTags().forEach(builder::append);
+		return builder.toString();
+	}
 
-    /**
-     * Returns a string representation of this Person's tags
-     */
-    default String tagsString() {
-        final StringBuffer buffer = new StringBuffer();
-        final String separator = ", ";
-        getTags().forEach(tag -> buffer.append(tag).append(separator));
-        if (buffer.length() == 0) {
-            return "";
-        } else {
-            return buffer.substring(0, buffer.length() - separator.length());
-        }
-    }
+	/**
+	 * Returns a string representation of this Person's tags
+	 */
+	default String tagsString() {
+		final StringBuffer buffer = new StringBuffer();
+		final String separator = ", ";
+		getTags().forEach(tag -> buffer.append(tag).append(separator));
+		if (buffer.length() == 0) {
+			return "";
+		} else {
+			return buffer.substring(0, buffer.length() - separator.length());
+		}
+	}
 
 }
