@@ -12,7 +12,7 @@ import seedu.cmdo.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask grocery, house, family, car, dog, zika, vacation,meeting,businessDeal,deal;
+    public static TestTask grocery, house, family, car, dog, zika, vacation,eat,meeting,businessDeal,deal;
 
     public TypicalTestTasks() {
         try {
@@ -27,7 +27,7 @@ public class TypicalTestTasks {
             							.withDueByTimeRange(LocalTime.of(1, 0), LocalTime.of(23, 59))
             							.withPriority("")
             							.build();
-            //how to write the meeting task to not show 9999999999999999
+            eat = new TaskBuilder().withDetail("Eat bagel").withDueByDate(LocalDate.of(2016, 12, 12)).withDueByTime(LocalTime.of(11, 20)).withPriority("high").build();
             meeting = new TaskBuilder().withDetail("Unconfirmed meeting with boss")
 					.withDueByDateRange(LocalDate.of(2016, 11, 11),LocalDate.of(2016, 11, 11))
 					.withDueByTimeRange(LocalTime.of(1, 0), LocalTime.of(2, 0))
