@@ -1,6 +1,7 @@
 package harmony.mastermind.ui;
 
 import java.util.Random;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 import org.controlsfx.control.textfield.AutoCompletionBinding;
@@ -19,21 +20,13 @@ import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.ListCommand;
-import harmony.mastermind.logic.commands.PreviousCommand;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.model.task.ReadOnlyTask;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -44,15 +37,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar
@@ -96,11 +84,10 @@ public class MainWindow extends UiPart {
 
     private final Logger logger = LogsCenter.getLogger(MainWindow.class);
 
-    String currCommandText;
-    
-    String prevCommandText;
-
     private CommandResult mostRecentResult;
+    private String currCommandText;
+    private Stack<String> commandHistory = new Stack<String>();
+    private int commandIndex = 0;
     private boolean isExpectingConfirmation = false;
     
     private AutoCompletionBinding<String> autoCompletionBinding;
@@ -572,6 +559,9 @@ public class MainWindow extends UiPart {
     }
 
 
+    /**
+     * Handles all command input keyed in by user
+     */
     @FXML
     //@@author A0124797R
     private void handleCommandInputChanged() {
@@ -592,7 +582,8 @@ public class MainWindow extends UiPart {
         //updates the tab when a list command is called
         updateTab(mostRecentResult);
 
-        prevCommandText = currCommandText;
+        //adds current command into the stack
+        updateCommandHistory(currCommandText);
 
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
@@ -602,11 +593,13 @@ public class MainWindow extends UiPart {
      * Handles any KeyPress in the commandField
      */
     @FXML
-    public void handleKeyPressed(KeyEvent event) {
+    private void handleKeyPressed(KeyEvent event) {
         KeyCode key = event.getCode();
         switch (key) {
-            case UP: restorePrevCommandText();
-                     return;
+            case UP:    restorePrevCommandText();
+                        return;
+            case DOWN:  restoreNextCommandText();
+                        return;
         }
         
         if (CTRL_ONE.match(event)) {
@@ -682,6 +675,39 @@ public class MainWindow extends UiPart {
         }
     }
     
+    //@@author A0124797R
+    /**
+     * Adds recent input into stack
+     */
+    private void updateCommandHistory(String command) {
+        commandHistory.push(command);
+        commandIndex = commandHistory.size();
+    }
+
+    //@@author A0124797R
+    private String getPrevCommandHistory() {
+        if (commandHistory.empty()) {
+            return null;
+        }else if (commandIndex == 0) {
+            return null;
+        }else {
+            commandIndex--;
+            return commandHistory.get(commandIndex);
+        }
+    }
+    
+    //@@author A0124797R
+    private String getNextCommandHistory() {
+        if (commandHistory.empty()) {
+            return null;
+        }else if (commandIndex >= commandHistory.size()) {
+            return null;
+        }else {
+            commandIndex++;
+            return commandHistory.get(commandIndex-1);
+        }
+    }
+    
     public void disposeAutoCompleteBinding(){
         this.autoCompletionBinding.dispose();
     }
@@ -701,6 +727,19 @@ public class MainWindow extends UiPart {
     
     //@@author A0124797R
     private void restorePrevCommandText() {
-        commandField.setText(prevCommandText);
+        String prevCommand = getPrevCommandHistory();
+        if (prevCommand!=null) {
+            commandField.setText(prevCommand);
+        }//else ignore
+    }
+    
+    //@@author A0124797R
+    private void restoreNextCommandText() {
+        String nextCommand = getNextCommandHistory();
+        if (nextCommand!=null) {
+            commandField.setText(nextCommand);
+        }else {
+            commandField.setText("");
+        }
     }
 }
