@@ -20,35 +20,20 @@
 
 ## **Introduction**
 
-**Overview**
+###**Overview**
 
 _Unburden_ is an application which will help you to manage your tasks better. Unburden provides a simple command line interface which does not require any form of clicking. _Unburden_ is written in Java.
 
-**Purpose**
+###**Purpose**
 
 This developer guide focuses primarily on the APIs used, the different components that work together and the main 4 components of _Unburden_. This developer guide will clearly explain the design of the software and also to showcase the core functionalities of the software. As such, the main purpose of this developer guide is to provide a general introduction and summary of the classes and components that are used within this application to help prospective developers who wish to develop _Unburden_ further.
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-**Audience**
+###**Audience**
 
 The main audience of this developer&#39;s guide is directed towards the students who may be interested to further develop this application or even prospective team members. This developer guide may also interest developers who are interested to join the team.
 
-**Level of Difficulty**
+###**Level of Difficulty**
 
 The entire application uses a huge range of APIs and requires a deep understanding of:
 
@@ -68,7 +53,7 @@ In essence, having all of the skills above will definitely help to enhance the u
 
 ## **Setting up**
 
-**Prerequisites**
+###**Prerequisites**
 
 1. JDK 8.0\_60 or later
 2. Having any Java 8 version is not enough.
@@ -77,7 +62,7 @@ In essence, having all of the skills above will definitely help to enhance the u
 5. e(fx)clipse plugin for Eclipse (Do the steps 2 onwards given in [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
 6. Buildship Gradle Integration plugin from the Eclipse Marketplace
 
-**Importing the project into Eclipse**
+###**Importing the project into Eclipse**
 
 1. Fork this repo, and clone the fork to your computer
 2. Open Eclipse (Note: Ensure you have installed the e(fx)clipse and buildship plugins as given in the prerequisites above)
@@ -108,7 +93,7 @@ The rest of the app consists of 4 main components other than main. They are :
 
 Each component has a interface which all its classes implements and is named after the component itself.
 
-**UI component**
+###**UI component**
 
 > <img src="DeveloperGuideImages/UI_01.png" width="600">
 
@@ -119,7 +104,7 @@ In essence, the UI makes use of JavaFx UI framework and majority of the classes 
 
 
 
-**API**
+####**API**
 
 The UI component consists mainly of:
 
@@ -152,13 +137,7 @@ The UI component,
 
 
 
-
-
-
-
-
-
-**Logic component**
+###**Logic component**
 
 > <img src="DeveloperGuideImages/Logic_01.png" width="600">
 
@@ -166,7 +145,7 @@ The Logic component consists of the Parser class which is responsible to taking 
 
 
 
-**API**
+####**API**
 
 The API of the Logic component consists mainly of:
 
@@ -184,13 +163,13 @@ TheLogiccomponent,
 - LogicManager class takes the command and executes it by calling Model
 - TaskResult class is created and returned to the UI to be displayed to the user
 
-**Model component**
+###**Model component**
 
 > <img src="DeveloperGuideImages/Model_01.png" width="600">
 
 The Model component is mainly responsible for executing the outputs from the Logic component. It is also responsible for storing all the in-app data such as the user&#39;s preferences anddata which is needed when executing commands.
 
-**API**
+####**API**
 
 The API of the Model component is in the Model class which consists of the main features of the task manager such as &#39;add&#39;, &#39;delete&#39; and updates the task manager accordingly. The ModelManager class, which represents the in-memory model of the task manager data, inherit from the Model interface.
 
@@ -199,13 +178,13 @@ ModelManager is able to:
  1)Store the user preference
  2)Store _Unburden&#39;s_ data
 
-**Storage component**
+###**Storage component**
 
 > <img src="DeveloperGuideImages/Storage_01.png" width="600">
 
 The Storage component primarily focuses on storing data. Any data related to the application will be saved within Storage and can be accessed later when requested. Storage works closely with Modelto read and write data from the app as and when the user requests to add or show existing data.
 
-**API**
+####**API**
 
 The API of the Model component consists mainly of:
 
@@ -221,9 +200,6 @@ Storage is able to:
 
  1)Save the data entered in by the user and also read it back to Model when requested
  2)Save user preferences and read it back when needed
-
-
-
 
 
 ## **Testing**
@@ -256,25 +232,13 @@ Headless GUI Testing : Thanks to the [TestFX](https://github.com/TestFX/TestFX) 
 
 See [UsingGradle.md](https://github.com/nus-cs2103-AY1617S1/addressbook-level4/blob/master/docs/UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
-**Troubleshooting tests**
+###**Troubleshooting tests**
 
 Problem: Tests fail because NullPointException when AssertionError is expected
 
 - Reason: Assertions are not enabled for JUnit tests. This can happen if you are not using a recent Eclipse version (i.e. _Neon_r later)
 - Solution: Enable assertions in JUnit tests as described.
 - Delete run configurations created when you ran tests earlier.
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -292,18 +256,11 @@ Some possible additions to be made:
 - Implement a synchronous system based on a clock that will remind the user (possibly even when the application is not running) when he/she has a deadline approaching
 
 
-
-
-
-
-
-
-
-
-
 ## **Appendix A : User Stories**
 
+
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
+
 
 
 | **Priority** | **As a...** | **I want to...** | **So that I can...** | 
@@ -340,14 +297,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 
 
-
-
-
 ## **Appendix B : Use Cases**
 
 - Use case: Add task
 
-MSS
+### MSS
 
 1. User requests to add a task 
 2. Unburden saves the task to the list of tasks and displays the existing list of tasks
@@ -365,7 +319,7 @@ MSS
 
 - Use case: Delete task
 
-MSS
+### MSS
 
 1. User requests to delete a specific task by index
 2. Unburden will delete the task and show the existing list of tasks
@@ -384,7 +338,7 @@ MSS
 
 - Use case: Find task
 
-MSS
+### MSS
 
 1. User requests to find tasks based on a date
 2. Unburden will search through the existing tasks with the specified deadline and shows a list to the user
@@ -413,7 +367,7 @@ MSS
 
 - Use case: Edit task
 
-MSS
+### MSS
 
 1. User requests to edit a task based on the index of the tasks and the new updated fields
 2. Unburden updates the task to the given input fields and displays it to the user
@@ -448,14 +402,6 @@ MSS
  2. API - Application Programming Interface 
  3. App - Application 
  4. IDE - Integrated Development environment 
-
-
-
-
-
-
-
-
 
 
 
