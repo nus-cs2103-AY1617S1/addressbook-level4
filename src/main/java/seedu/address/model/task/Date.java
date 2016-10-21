@@ -10,7 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Date {
 
-    public static final String MESSAGE_DATE_CONSTRAINTS = "Dates should only contain 6 numbers";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Dates should be entered in the format DDMMYY, DD.MM.YY, DD/MM/YY, DD-MM-YY";
     public static final String DATE_VALIDATION_REGEX = "([3][01][1][012]\\d{2})|([3][01][0]\\d{3})|([012]\\d{1}[1][012]\\d{2})|"+ //6digits
     												   "([012]\\d{1}[0]\\d{3})|"+
     												   "([3][01]-[1][012]-\\d{2})|([3][01]-\\d{1}-\\d{2})|([12]\\d{1}-[1][012]-\\d{2})|"+ //2d-2d-2d
@@ -20,7 +20,8 @@ public class Date {
     												   "([3][01]/[1][012]/\\d{2})|([3][01]/\\d{1}/\\d{2})|([12]\\d{1}/[1][012]/\\d{2})|"+ //2d/2d/2d
     												   "([12]\\d{1}/\\d{1}/\\d{2})|(\\d{1}/[1][012]/\\d{2})|(\\d{1}/\\d{1}/\\d{2})|"+
     												   "(no date)";
-
+    public static final String MESSAGE_PAST_DATE = "Cannot enter a date that have already past!";
+    
     public final String value;
 
     /**
@@ -32,22 +33,39 @@ public class Date {
         //assert date != null;
         if (date == null)
     		date = "default";
-        date = date.trim();
+        date = standardFormatDate(date.trim());
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
-        if (date.equals("default")) {
-        	//System.out.println("test");
-        	this.value = local_date();
+        if (!isAfterCurrentDate(date)) {
+        	throw new IllegalValueException(MESSAGE_PAST_DATE);
         }
-        else if (date.equals("no date"))
-        	this.value = "no date";
+        	
         else
-        	this.value = standardFormatDate(date);
+        	this.value = date;
     }
 
-    private String standardFormatDate(String date) {
-		if (date.contains("."))
+    private boolean isAfterCurrentDate(String date) {
+    	if (date.contains("-")) {
+			String[] date_cat = date.split("-");
+			String date_year = "20" + date_cat[2];
+			LocalDate now = LocalDate.now();
+			LocalDate test = LocalDate.of(Integer.parseInt(date_year), Integer.parseInt(date_cat[1]), Integer.parseInt(date_cat[0]));
+			if (test.isAfter(now) || test.isEqual(now))
+				return true;
+			else	
+				return false;
+    	}
+    	else//accounting for no date
+    		return true;
+	}
+
+	private String standardFormatDate(String date) {
+    	if (date.equals("default"))
+    		return local_date();
+    	else if (date.equals("no date"))
+    		return date;
+    	else if (date.contains("."))
 			return date.replaceAll("\\.", "-");
 		else if (date.contains("-"))
 			return date;
