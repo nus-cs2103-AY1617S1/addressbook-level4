@@ -2,14 +2,13 @@ package teamfour.tasc.model.history;
 
 import java.util.LinkedList;
 
-import teamfour.tasc.commons.exceptions.DuplicateDataException;
-
 /**
- * Stores and retrieves HistoryItems.
+ * Stores and retrieves HistoryItems as a stack.
  * Automatically removes older items when max limit is reached.
  */
-public class HistoryQueue<T extends HistoryItem<T>> {
+public class HistoryStack<T extends HistoryItem<T>> {
 
+    /** Thrown when trying to pop an empty HistoryStack */
     public static class OutOfHistoryException extends Exception {
         protected OutOfHistoryException() {
             super("This history queue is empty.");
@@ -18,19 +17,41 @@ public class HistoryQueue<T extends HistoryItem<T>> {
     
     private static final int DEFAULT_MAX_NUM_OF_STATES = 10;
     private final int maxNumOfStates;
-    // Uses a LinkedList so that can removeFirst.
+    
+    // Uses a LinkedList so that can removeFirst 
+    // for states that are too old.
     LinkedList<T> historyLL;
     
-    public HistoryQueue() {
+    /**
+     * Default constructor creates with default size.
+     */
+    public HistoryStack() {
         this(DEFAULT_MAX_NUM_OF_STATES);
     }
     
-    public HistoryQueue(int maxNumOfStates) {
+    /**
+     * Precondition: maxNumOfStates is > 0.
+     * Creates HistoryStack which can store up to
+     * a number of history item states.
+     * 
+     * @param maxNumOfStates max number of history states
+     */
+    public HistoryStack(int maxNumOfStates) {
+        assert maxNumOfStates > 0;
         this.maxNumOfStates = maxNumOfStates;
         historyLL = new LinkedList<T>();
     }
     
+    /**
+     * Precondition: item passed in argument is not null.
+     * Pushes the object to be saved as a history state,
+     * by adding its deep copy into this stack.
+     * 
+     * @param item Object to be saved
+     */
     public void pushState(T item) {
+        assert item != null;
+        
         if (historyLL.size() >= maxNumOfStates) {
             historyLL.removeFirst();
         }
@@ -38,9 +59,9 @@ public class HistoryQueue<T extends HistoryItem<T>> {
     }
     
     /**
-     * Retrieve the latest HistoryItem stored.
+     * Pops and returns the latest history item stored.
      * 
-     * @return The HistoryItem object.
+     * @return The HistoryItem object
      * @throws OutOfHistoryException if the history queue is empty
      */
     public T popState() throws OutOfHistoryException {
