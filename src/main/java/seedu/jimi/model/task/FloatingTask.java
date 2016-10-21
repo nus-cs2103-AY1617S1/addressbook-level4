@@ -33,7 +33,7 @@ public class FloatingTask implements ReadOnlyTask {
     /**
      * Copy constructor.
      */
-    public FloatingTask(FloatingTask source) {
+    public FloatingTask(ReadOnlyTask source) {
         this(source.getName(), source.getTags(), source.isCompleted());
     }
     
