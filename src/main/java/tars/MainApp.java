@@ -4,7 +4,6 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import tars.model.*;
 import tars.commons.core.Config;
 import tars.commons.core.EventsCenter;
