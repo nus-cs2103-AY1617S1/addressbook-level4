@@ -10,9 +10,8 @@ import seedu.task.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-//    private static final String ADDRESS_FIELD_ID = "#address";
-//    private static final String PHONE_FIELD_ID = "#phone";
-//    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String OPEN_TIME_FIELD_ID = "#openTime";
+    private static final String CLOSE_TIME_FIELD_ID = "#closeTime";
 
     private Node node;
 
@@ -24,25 +23,31 @@ public class TaskCardHandle extends GuiHandle {
     protected String getTextFromLabel(String fieldId) {
         return getTextFromLabel(fieldId, node);
     }
-
-    public String getFullName() {
-        return getTextFromLabel(NAME_FIELD_ID);
+    
+    protected String getTextFromText(String fieldId) {
+        return getTextFromText(fieldId, node);
     }
 
-//    public String getAddress() {
-//        return getTextFromLabel(ADDRESS_FIELD_ID);
-//    }
-//
-//    public String getPhone() {
-//        return getTextFromLabel(PHONE_FIELD_ID);
-//    }
-//
-//    public String getEmail() {
-//        return getTextFromLabel(EMAIL_FIELD_ID);
-//    }
+    public String getTaskName() {
+        return getTextFromText(NAME_FIELD_ID);
+    }
+    
+    public String getOpenTime() {
+        return getTextFromLabel(OPEN_TIME_FIELD_ID);
+    }
+    
+    public String getCloseTime() {
+        return getTextFromLabel(CLOSE_TIME_FIELD_ID);
+    }
+    
+    public boolean isDetailsShown() {
+        Node openTimeNode = getNode(OPEN_TIME_FIELD_ID, node);
+        Node closeTimeNode = getNode(CLOSE_TIME_FIELD_ID, node);
+        return openTimeNode.isVisible() && openTimeNode.isManaged() && closeTimeNode.isVisible() && closeTimeNode.isManaged();
+    }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getName().taskName);
+        return getTaskName().equals(task.getName().taskName);
 //                && getPhone().equals(person.getPhone().value)
 //                && getEmail().equals(person.getEmail().value) && getAddress().equals(person.getAddress().value);
     }
@@ -51,7 +56,7 @@ public class TaskCardHandle extends GuiHandle {
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getFullName().equals(handle.getFullName());
+            return getTaskName().equals(handle.getTaskName());
                     //&& getAddress().equals(handle.getAddress()); //TODO: compare the rest
         }
         return super.equals(obj);
@@ -59,6 +64,6 @@ public class TaskCardHandle extends GuiHandle {
 
     @Override
     public String toString() {
-        return getFullName(); //+ " " + getAddress();
+        return getTaskName() + " " + getOpenTime() + " " + getCloseTime();
     }
 }

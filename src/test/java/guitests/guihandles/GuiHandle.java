@@ -2,6 +2,7 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
@@ -48,6 +49,10 @@ public class GuiHandle {
     protected Node getNode(String query) {
         return guiRobot.lookup(query).tryQuery().get();
     }
+    
+    protected Node getNode(String query, Node parentNode) {
+        return guiRobot.from(parentNode).lookup(query).tryQuery().get();
+    }
 
     protected String getTextFieldText(String filedName) {
         return ((TextField) getNode(filedName)).getText();
@@ -64,7 +69,11 @@ public class GuiHandle {
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
-        return ((Text) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
+        return ((Label) getNode(fieldId, parentNode)).getText();
+    }
+    
+    protected String getTextFromText(String fieldId, Node parentNode) {
+        return ((Text) getNode(fieldId, parentNode)).getText();
     }
 
     public void focusOnSelf() {
