@@ -91,30 +91,55 @@ public class RecurringTaskManager {
             return;
         }
         LocalDate localDateCurrently = LocalDate.now();
+        LocalDate startDateInLocalDate = null;
+        if (!task.getComponentForNonRecurringType().hasOnlyEndDate()) {
+            startDateInLocalDate = task.getComponentForNonRecurringType().getEndDate().getDate()
+                    .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }
         LocalDate endDateInLocalDate = task.getComponentForNonRecurringType().getEndDate().getDate()
                 .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         switch(task.getRecurringType()) {
             case DAILY:
-                final int elapsedDay = (int) ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently);
+                final int elapsedDay;
+                if (startDateInLocalDate != null) {
+                    elapsedDay = (int) ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently);
+                } else {
+                    elapsedDay = (int) ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently);
+                }
                 if(elapsedDay > 0) {
                     correctDailyRecurringTask(task, elapsedDay);
                 }
                 break;
             case WEEKLY:
-                final int elapsedWeek =  (int) Math.ceil((ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
+                final int elapsedWeek;
+                if (startDateInLocalDate != null) {
+                    elapsedWeek =  (int) Math.ceil((ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
+                } else {
+                    elapsedWeek =  (int) Math.ceil((ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
+                }
                 if(elapsedWeek > 0) {
                     correctWeeklyRecurringTask(task, elapsedWeek);
                 }
                 break;
             case MONTHLY:
-                final int elapsedMonth = (int) Math.ceil(ChronoUnit.WEEKS.between(endDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
+                final int elapsedMonth;
+                if (startDateInLocalDate != null) {
+                    elapsedMonth = (int) Math.ceil(ChronoUnit.WEEKS.between(startDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
+                } else {
+                    elapsedMonth = (int) Math.ceil(ChronoUnit.WEEKS.between(endDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
+                }
                 if(elapsedMonth > 0) {
                     correctMonthlyRecurringTask(task, elapsedMonth);
                 }
                 break;
             case YEARLY:
-                final int elapsedYear = (int) Math.ceil(ChronoUnit.MONTHS.between(endDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
-                if(elapsedYear > 0) {
+                final int elapsedYear;
+                if (startDateInLocalDate != null) {
+                    elapsedYear = (int) Math.ceil(ChronoUnit.MONTHS.between(startDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
+                } else {
+                    elapsedYear = (int) Math.ceil(ChronoUnit.MONTHS.between(endDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
+                }
+                if (elapsedYear > 0) {
                     correctYearlyRecurringTask(task, elapsedYear);
                 }                
                 break;
@@ -238,28 +263,52 @@ public class RecurringTaskManager {
 
     private void appendRecurringTasks(ReadOnlyTask task, Calendar startDate, Calendar endDate) {
         LocalDate localDateCurrently = LocalDate.now();
+        LocalDate startDateInLocalDate = null;
+        if (startDate != null) {
+            startDateInLocalDate = startDate.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }
         LocalDate endDateInLocalDate = endDate.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         switch (task.getRecurringType()) {
             case DAILY:
-                final int elapsedDay = (int) ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently);
+                final int elapsedDay;
+                if (startDateInLocalDate != null) {
+                    elapsedDay = (int) ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently);
+                } else {
+                    elapsedDay = (int) ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently);
+                }
                 for (int i = 0; i < elapsedDay; i++) {
                     appendDailyRecurringTask(task, startDate, endDate, elapsedDay);
                 }
                 break;
             case WEEKLY:
-                final int elapsedWeek = (int) Math.ceil((ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
+                final int elapsedWeek;
+                if ( startDateInLocalDate != null) {
+                    elapsedWeek = (int) Math.ceil((ChronoUnit.DAYS.between(startDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
+                } else {
+                    elapsedWeek = (int) Math.ceil((ChronoUnit.DAYS.between(endDateInLocalDate, localDateCurrently) / NUM_DAYS_IN_WEEK));
+                }
                 for (int i = 0; i < elapsedWeek; i++) {
                     appendWeeklyRecurringTask(task, startDate, endDate, elapsedWeek);
                 } 
                 break;
             case MONTHLY:
-                final int elapsedMonth = (int) Math.ceil(ChronoUnit.WEEKS.between(endDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
+                final int elapsedMonth;
+                if (startDateInLocalDate != null) {
+                    elapsedMonth = (int) Math.ceil(ChronoUnit.WEEKS.between(startDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
+                } else {
+                    elapsedMonth = (int) Math.ceil(ChronoUnit.WEEKS.between(endDateInLocalDate, localDateCurrently) / NUM_WEEKS_IN_MONTH);
+                }
                 for (int i = 0; i < elapsedMonth; i++) {
                     appendMonthlyRecurringTask(task, startDate, endDate, elapsedMonth);
                 }
                 break;
             case YEARLY:
-                final int elapsedYear = (int) Math.ceil(ChronoUnit.MONTHS.between(endDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
+                final int elapsedYear;
+                if (startDateInLocalDate != null) {
+                    elapsedYear = (int) Math.ceil(ChronoUnit.MONTHS.between(startDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
+                } else {
+                    elapsedYear = (int) Math.ceil(ChronoUnit.MONTHS.between(endDateInLocalDate, localDateCurrently) / NUM_MONTHS_IN_YEAR);
+                }
                 for (int i = 0; i < elapsedYear; i++) {
                     appendYearlyRecurringTask(task, startDate, endDate, elapsedYear);
                 }
