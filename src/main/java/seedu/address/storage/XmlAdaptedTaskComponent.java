@@ -6,7 +6,6 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
@@ -64,9 +63,6 @@ public class XmlAdaptedTaskComponent {
         if (source.getTaskReference().getRecurringType() != RecurringType.NONE && source.isArchived()) {
             TaskDate startCopy = new TaskDate(source.getStartDate());
             TaskDate endCopy = new TaskDate(source.getEndDate());
-            RecurringTaskManager.getInstance().handleRecurringTaskSaving(startCopy,
-                    endCopy, 
-                    source.getTaskReference().getRecurringType());
             startDate = startCopy.getDateInLong();
             endDate = endCopy.getDateInLong();
         }
