@@ -4,16 +4,18 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.task.EventDate;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
+import seedu.address.commons.events.storage.StoragePathChangedEvent;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.EventsCenter;
 
 import java.util.Set;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 /**
  * Represents the in-memory model of the task manager data.
@@ -56,7 +58,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyTaskManager getAddressBook() {
+    public ReadOnlyTaskManager getTaskManager() {
         return taskManager;
     }
 
@@ -77,6 +79,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public void updateTaskManager(String filePath, boolean isToClearOld) {
+        EventsCenter.getInstance().post(new StoragePathChangedEvent(filePath, isToClearOld));
+        indicateTaskManagerChanged();
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -94,8 +102,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
     @Override
-
     public void updateFilteredTaskList(String event){
     	if(event.equals("events")){
     	updateFilteredTaskList(new PredicateExpression(new EventQualifier()));
@@ -106,10 +114,16 @@ public class ModelManager extends ComponentManager implements Model {
     	}
 
     }
+    
+    @Override
+    public void updateFilteredTaskList(String dateValue, boolean isEventDate){
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(dateValue, isEventDate)));
+    }
+    
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-
+    
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
@@ -171,6 +185,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    
     private class EventQualifier implements Qualifier{
         EventQualifier(){}
 		@Override
@@ -184,6 +199,7 @@ public class ModelManager extends ComponentManager implements Model {
 		}
     	
     }
+    
     private class TaskQualifier implements Qualifier{
     	TaskQualifier(){}
     	@Override
@@ -195,6 +211,7 @@ public class ModelManager extends ComponentManager implements Model {
     		return "name";
     	}
     }
+
     private class DoneQualifier implements Qualifier{
     	DoneQualifier(){}
 
@@ -206,7 +223,32 @@ public class ModelManager extends ComponentManager implements Model {
 		public String toString(){
 			return "name";
 		}
+    }
     	
+    private class DateQualifier implements Qualifier {
+        private String dateValue;
+        private boolean isEventDate;
+
+        DateQualifier(String dateValue, boolean isEventDate) {
+            assert dateValue != null;
+            this.dateValue = dateValue.trim();
+            this.isEventDate = isEventDate;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            System.out.println(task.getDate());
+            if (isEventDate) {
+                return task.isEvent() && ((EventDate) task.getDate()).getStartDate().equals(dateValue);
+            } else {
+                return task.getDate().getValue().equals(dateValue);
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "date=" + dateValue;
+        }
     }
 
 }

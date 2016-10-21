@@ -8,6 +8,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
+import seedu.address.commons.events.storage.StoragePathChangedEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
@@ -40,6 +41,8 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
+    
+    private String configFilePathUsed;
 
     public MainApp() {}
 
@@ -95,7 +98,6 @@ public class MainApp extends Application {
 
     protected Config initConfig(String configFilePath) {
         Config initializedConfig;
-        String configFilePathUsed;
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
@@ -180,6 +182,19 @@ public class MainApp extends Application {
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
+    }
+    
+    @Subscribe
+    public void handleStoragePathChangedEvent(StoragePathChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        
+        //Update config file
+        this.config.setTaskManagerFilePath(event.newStorageFilePath);
+        try {
+            ConfigUtil.saveConfig(config, configFilePathUsed);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
     }
 
     public static void main(String[] args) {

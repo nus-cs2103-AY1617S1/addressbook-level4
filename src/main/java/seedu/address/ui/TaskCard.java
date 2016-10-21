@@ -14,12 +14,16 @@ public class TaskCard extends UiPart{
     private HBox cardPane;
     @FXML
     private Label name;
-    @FXML
-    private Label id;
+//    @FXML
+//    private Label id;
     @FXML
     private Label date;
-    @FXML
-    private Label tags;
+//    @FXML
+//    private Label tags;
+//    @FXML
+//    private Label headerTitle;
+//    @FXML
+//    private Label headerDeadline;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -37,10 +41,12 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
+//    	headerTitle.setText("Title");
+//    	headerDeadline.setText("Deadline");
         name.setText(task.getName().taskName);
-        id.setText(displayedIndex + ". ");
+//        id.setText(displayedIndex + ". ");
         date.setText(task.getDate().getValue());
-        tags.setText(task.tagsString());
+//        tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {

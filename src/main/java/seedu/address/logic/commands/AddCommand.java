@@ -44,7 +44,7 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
-    
+
     /**
      * Convenience constructor using raw values.
      *

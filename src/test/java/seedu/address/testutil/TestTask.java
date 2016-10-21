@@ -65,7 +65,7 @@ public class TestTask implements ReadOnlyTask {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().taskName + " ");
+        sb.append("add "  +"n/"+this.getName().taskName + " ");
         if (isEvent) {
             assert date instanceof EventDate;
             EventDate eventDate = (EventDate) this.getDate();
@@ -88,4 +88,24 @@ public class TestTask implements ReadOnlyTask {
 		
 	}
 
+    public String getFlexiAddCommand() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("add ");
+        if (isEvent) {
+        	assert date instanceof EventDate;
+        	EventDate eventDate = (EventDate) this.getDate();
+        	sb.append("e/" + eventDate.getEndDate() + " ");
+        	sb.append("s/" + eventDate.getStartDate() + " ");
+        } else {
+        	assert date instanceof Deadline;
+        	String deadline = this.getDate().getValue();
+        	if (!deadline.equals("")) {
+        		sb.append("d/" + deadline + " ");
+        	}
+        }
+        sb.append("n/"+this.getName().taskName + " ");
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        return sb.toString();
+    }
+    
 }

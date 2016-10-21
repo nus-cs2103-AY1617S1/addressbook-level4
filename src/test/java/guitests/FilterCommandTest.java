@@ -6,34 +6,40 @@ import seedu.address.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends TaskManagerGuiTest {
+public class FilterCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void find_nonEmptyList() {
-        assertFindResult("find Mark"); //no results
-        assertFindResult("find friends", td.friend,td.friendEvent,td.lunch); //multiple results
+        assertFilterResult("filter d/12.10.2016"); //no results
+        commandBox.runCommand("list");
+        assertFilterResult("filter d/11.10.2016", td.friendEvent, td.work); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find friends",td.friendEvent,td.lunch);
+        assertFilterResult("filter d/11.10.2016",td.work);
+        
+        // Filter for event start date
+        commandBox.runCommand("list");
+        assertFilterResult("filter s/11.10.2016",td.travel);
     }
 
     @Test
     public void find_emptyList(){
         commandBox.runCommand("clear");
-        assertFindResult("find project"); //no results
+        assertFilterResult("filter d/11.10.2016"); //no results
     }
 
     @Test
     public void find_invalidCommand_fail() {
-        commandBox.runCommand("findgeorge");
+        commandBox.runCommand("filterd/11.10.2016");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, TestTask... expectedHits ) {
+    private void assertFilterResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
+
 }
