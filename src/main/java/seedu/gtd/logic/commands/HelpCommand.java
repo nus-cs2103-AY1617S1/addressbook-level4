@@ -51,11 +51,11 @@ public class HelpCommand extends Command {
         	
         case HelpCommand.COMMAND_WORD:
         	EventsCenter.getInstance().post(new ShowHelpRequestEvent());
-        	return new CommandResult(SHOWING_HELP_MESSAGE);
+        	return new CommandResult(MESSAGE_USAGE+"/n"+SHOWING_HELP_MESSAGE);
         	
         default:
         	EventsCenter.getInstance().post(new ShowHelpRequestEvent());
-            return new CommandResult(SHOWING_HELP_MESSAGE);
+            return new CommandResult(MESSAGE_USAGE+"/n"+SHOWING_HELP_MESSAGE);
     	}
     }
 }
