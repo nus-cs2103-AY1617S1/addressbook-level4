@@ -129,12 +129,17 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case CompleteCommand.COMMAND_WORD:
+        	return prepareComplete(arguments);
+        	
         default:
             return prepareAdd(commandWord.concat(arguments));
         }
     }
 
-    /**
+
+
+	/**
      * Parses arguments in the context of the add person command.
      *
      * @param args full command args string
@@ -269,7 +274,19 @@ public class Parser {
 
         return new DeleteCommand(index.get());
     }
-
+    /**
+     * Parse arguments in the context of the complete person command
+     */
+    private Command prepareComplete(String args) {
+    	Optional<Integer> index = parseIndex(args);
+    	if(!index.isPresent()){
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+    		
+    	}
+    	
+    	return new CompleteCommand(index.get());
+	}
+    
     private Command prepareEdit(String args){
     	final Matcher matcher = PERSON_DATA_ARGS_FORMAT_UPDATE.matcher(args.trim());
     	 if (!matcher.matches()) {
