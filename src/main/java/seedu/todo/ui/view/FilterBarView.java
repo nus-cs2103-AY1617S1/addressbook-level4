@@ -11,7 +11,7 @@ import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.enumerations.TaskViewFilter;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.ui.UiPart;
-import seedu.todo.ui.UiPartLoader;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
@@ -21,12 +21,12 @@ import java.util.logging.Logger;
 
 /**
  * Shows a row of filter categories via {@link seedu.todo.commons.enumerations.TaskViewFilter}
- * to filter the tasks in {@link seedu.todo.ui.TodoListPanel}
+ * to filter the tasks in {@link TodoListView}
  */
-public class TaskViewFilterView extends UiPart {
+public class FilterBarView extends UiPart {
     /* Constants */
-    private final Logger logger = LogsCenter.getLogger(TaskViewFilterView.class);
-    private static final String FXML = "TaskViewFilterView.fxml";
+    private final Logger logger = LogsCenter.getLogger(FilterBarView.class);
+    private static final String FXML = "FilterBarView.fxml";
 
     /* Layout Views */
     private AnchorPane placeholder;
@@ -42,30 +42,22 @@ public class TaskViewFilterView extends UiPart {
      * @param placeholder where the view element {@link #filterViewPane} should be placed
      * @return an instance of this class
      */
-    public static TaskViewFilterView load(Stage primaryStage, AnchorPane placeholder) {
-        TaskViewFilterView filterView = UiPartLoader.loadUiPart(primaryStage, placeholder, new TaskViewFilterView());
-        filterView.addToPlaceholder();
+    public static FilterBarView load(Stage primaryStage, AnchorPane placeholder) {
+        FilterBarView filterView = UiPartLoaderUtil.loadUiPart(primaryStage, placeholder, new FilterBarView());
         filterView.configureLayout();
         filterView.configureProperties();
         return filterView;
     }
 
     /**
-     * Adds this view element to external placeholder
-     */
-    private void addToPlaceholder() {
-        placeholder.getChildren().add(filterViewPane);
-    }
-
-    /**
-     * Configure the UI layout of {@link TaskViewFilterView}
+     * Configure the UI layout of {@link FilterBarView}
      */
     private void configureLayout() {
         FxViewUtil.applyAnchorBoundaryParameters(filterViewPane, 0.0, 0.0, 0.0, 0.0);
     }
 
     /**
-     * Initialise and configure the UI properties of {@link TaskViewFilterView}
+     * Initialise and configure the UI properties of {@link FilterBarView}
      */
     private void configureProperties() {
         initialiseAllViewFilters();

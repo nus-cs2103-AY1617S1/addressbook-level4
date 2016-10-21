@@ -2,10 +2,11 @@ package seedu.todo.commons.events.ui;
 
 import seedu.todo.commons.events.BaseEvent;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.ui.view.TodoListView;
 
 /**
  * Request to highlight in the user interface a particular task
- * displayed in the {@link seedu.todo.ui.TodoListPanel}
+ * displayed in the {@link TodoListView}
  */
 public class HighlightTaskEvent extends BaseEvent {
 

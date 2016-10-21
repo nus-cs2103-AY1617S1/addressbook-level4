@@ -8,17 +8,17 @@
    <children>
       <VBox>
          <children>
-            <AnchorPane fx:id="taskViewFilterPanel" />
-            <AnchorPane fx:id="todoListPanelPlaceholder" VBox.vgrow="ALWAYS">
+            <AnchorPane fx:id="filterBarViewPlaceholder" />
+            <AnchorPane fx:id="todoListViewPlaceholder" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </AnchorPane>
          </children>
       </VBox>
-      <AnchorPane fx:id="errorViewPlaceholder" />
-      <AnchorPane fx:id="helpPanelPlaceholder" />
-       <AnchorPane fx:id="resultDisplayPlaceholder" prefHeight="16.0" VBox.vgrow="NEVER">
+      <AnchorPane fx:id="commandErrorViewPlaceholder" />
+      <AnchorPane fx:id="helpViewPlaceholder" />
+       <AnchorPane fx:id="commandFeedbackViewPlaceholder" prefHeight="16.0" VBox.vgrow="NEVER">
          <VBox.margin>
             <Insets />
          </VBox.margin>
@@ -26,7 +26,7 @@
             <Insets left="2.0" right="2.0" />
          </padding>
        </AnchorPane>
-      <AnchorPane fx:id="commandBoxPlaceholder" VBox.vgrow="NEVER">
+      <AnchorPane fx:id="commandInputViewPlaceholder" VBox.vgrow="NEVER">
          <VBox.margin>
             <Insets />
          </VBox.margin>

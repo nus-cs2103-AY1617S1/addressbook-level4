@@ -11,7 +11,7 @@ import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.ui.UiPart;
-import seedu.todo.ui.UiPartLoader;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.ViewGeneratorUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
@@ -30,14 +30,10 @@ public class CommandErrorView extends UiPart {
 
     private AnchorPane placeholder;
     private VBox errorViewBox;
-    @FXML
-    private VBox nonFieldErrorBox;
-    @FXML
-    private VBox fieldErrorBox;
-    @FXML
-    private GridPane nonFieldErrorGrid;
-    @FXML
-    private GridPane fieldErrorGrid;
+    @FXML private VBox nonFieldErrorBox;
+    @FXML private VBox fieldErrorBox;
+    @FXML private GridPane nonFieldErrorGrid;
+    @FXML private GridPane fieldErrorGrid;
 
     /**
      * Loads and initialise the feedback view element to the placeHolder
@@ -46,18 +42,10 @@ public class CommandErrorView extends UiPart {
      * @return an instance of this class
      */
     public static CommandErrorView load(Stage primaryStage, AnchorPane placeHolder) {
-        CommandErrorView errorView = UiPartLoader.loadUiPart(primaryStage, placeHolder, new CommandErrorView());
-        errorView.addToPlaceholder();
+        CommandErrorView errorView = UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new CommandErrorView());
         errorView.configureLayout();
         errorView.hideCommandErrorView();
         return errorView;
-    }
-
-    /**
-     * Adds this view element to external placeholder
-     */
-    private void addToPlaceholder() {
-        this.placeholder.getChildren().add(errorViewBox);
     }
 
     /**

@@ -12,83 +12,64 @@ import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.logic.Logic;
 import seedu.todo.model.UserPrefs;
 import seedu.todo.ui.controller.CommandController;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.view.*;
 
+//@@author A0135805H
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing placeholders
+ * where other JavaFX view elements can be placed.
  */
 public class MainWindow extends UiPart {
 
+    /* Constants */
     private static final String ICON = "/images/app_icon.png";
     private static final String FXML = "MainWindow.fxml";
-    public static final int MIN_HEIGHT = 400;
-    public static final int MIN_WIDTH = 580;
+    private static final int MIN_HEIGHT = 400;
+    private static final int MIN_WIDTH = 580;
 
+    /* Variables */
     private Logic logic;
-
-    // Independent Ui parts residing in this Ui container
-    private CommandInputView commandInputView;
-    private CommandFeedbackView commandFeedbackView;
-    private CommandErrorView commandErrorView;
-    private TaskViewFilterView taskViewFilterView;
-
-    private TodoListPanel todoListPanel;
-    private HelpPanel helpPanel;
-
     private Config config;
     private UserPrefs userPrefs;
 
-    // Handles to elements of this Ui container
+    /* Independent Ui parts residing in this Ui container */
+    private CommandInputView commandInputView;
+    private CommandFeedbackView commandFeedbackView;
+    private CommandErrorView commandErrorView;
+    private FilterBarView filterBarView;
+    private TodoListView todoListView;
+    private HelpView helpView;
+
+    /* Layout objects for MainWindow: Handles elements of this Ui container */
     private VBox rootLayout;
     private Scene scene;
 
-    private String todoListName;
+    @FXML private AnchorPane commandInputViewPlaceholder;
+    @FXML private AnchorPane commandErrorViewPlaceholder;
+    @FXML private AnchorPane commandFeedbackViewPlaceholder;
+    @FXML private AnchorPane todoListViewPlaceholder;
+    @FXML private AnchorPane helpViewPlaceholder;
+    @FXML private AnchorPane filterBarViewPlaceholder;
 
-    @FXML
-    private AnchorPane todoListPanelPlaceholder;
-
-    @FXML
-    private AnchorPane commandBoxPlaceholder;
-
-    @FXML
-    private AnchorPane errorViewPlaceholder;
-
-    @FXML
-    private AnchorPane resultDisplayPlaceholder;
-
-    @FXML
-    private AnchorPane helpPanelPlaceholder;
-
-    @FXML
-    private AnchorPane taskViewFilterPanel;
-
-    public MainWindow() {
-        super();
-    }
-
-    @Override
-    public void setNode(Node node) {
-        rootLayout = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
+    /**
+     * Loads an instance of the {@link MainWindow} together with the associated view elements.
+     *
+     * @param primaryStage For the MainWindow to be loaded into.
+     * @param config App configuration class file for some properties to be loaded.
+     * @param prefs User preference for some properties to be loaded.
+     * @param logic The main logic engine for commands to be executed.
+     * @return An instance of the {@link MainWindow} element.
+     */
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-
-        MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getTodoListName(), config, prefs, logic);
+        MainWindow mainWindow = UiPartLoaderUtil.loadUiPart(primaryStage, new MainWindow());
+        mainWindow.configure(config.getAppTitle(), config, prefs, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String todoListName, Config config, UserPrefs prefs, Logic logic) {
-
+    private void configure(String appTitle, Config config, UserPrefs prefs, Logic logic) {
         //Set dependencies
         this.logic = logic;
-        this.todoListName = todoListName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -102,18 +83,19 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        todoListPanel = TodoListPanel.load(primaryStage, todoListPanelPlaceholder, logic.getObservableTaskList());
-        helpPanel = HelpPanel.load(primaryStage, helpPanelPlaceholder);
-        taskViewFilterView = TaskViewFilterView.load(primaryStage, taskViewFilterPanel);
-        commandFeedbackView = CommandFeedbackView.load(primaryStage, resultDisplayPlaceholder);
-        commandInputView = CommandInputView.load(primaryStage, commandBoxPlaceholder);
-        commandErrorView = CommandErrorView.load(primaryStage, errorViewPlaceholder);
+        //Initialise the view elements to each placeholders.
+        todoListView = TodoListView.load(primaryStage, todoListViewPlaceholder, logic.getObservableTaskList());
+        helpView = HelpView.load(primaryStage, helpViewPlaceholder);
+        filterBarView = FilterBarView.load(primaryStage, filterBarViewPlaceholder);
+        commandFeedbackView = CommandFeedbackView.load(primaryStage, commandFeedbackViewPlaceholder);
+        commandInputView = CommandInputView.load(primaryStage, commandInputViewPlaceholder);
+        commandErrorView = CommandErrorView.load(primaryStage, commandErrorViewPlaceholder);
+
+        //Constructs a command communication link between the commandXViews and logic.
         CommandController.constructLink(logic, commandInputView, commandFeedbackView, commandErrorView);
     }
 
-    public void hide() {
-        primaryStage.hide();
-    }
+
 
     private void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
@@ -143,7 +125,11 @@ public class MainWindow extends UiPart {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
-    
+
+    public void hide() {
+        primaryStage.hide();
+    }
+
     public void show() {
         primaryStage.show();
     }
@@ -156,20 +142,31 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
+    /* Override Methods */
+    @Override
+    public void setNode(Node node) {
+        rootLayout = (VBox) node;
+    }
+
+    @Override
+    public String getFxmlPath() {
+        return FXML;
+    }
+
     /* Getters */
-    TodoListPanel getTodoListPanel() {
-        return this.todoListPanel;
+    public TodoListView getTodoListView() {
+        return this.todoListView;
     }
 
-    HelpPanel getHelpPanel() {
-        return this.helpPanel;
+    public HelpView getHelpView() {
+        return this.helpView;
     }
 
-    TaskViewFilterView getTaskViewFilterView() {
-        return taskViewFilterView;
+    public FilterBarView getFilterBarView() {
+        return filterBarView;
     }
 
-    CommandFeedbackView getCommandFeedbackView() {
+    public CommandFeedbackView getCommandFeedbackView() {
         return commandFeedbackView;
     }
 }
