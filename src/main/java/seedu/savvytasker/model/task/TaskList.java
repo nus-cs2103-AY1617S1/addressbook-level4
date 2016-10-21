@@ -1,19 +1,17 @@
-package seedu.savvytasker.model.person;
+package seedu.savvytasker.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.savvytasker.commons.exceptions.DuplicateDataException;
-import seedu.savvytasker.commons.util.CollectionUtil;
 
 import java.util.*;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#equals(Object)
- * @see CollectionUtil#elementsAreUnique(Collection)
+ * @see Task#equals(Object)
  */
 public class TaskList implements Iterable<Task> {
 
@@ -82,6 +80,7 @@ public class TaskList implements Iterable<Task> {
      * Returns true if the list contains an equivalent task as the given argument.
      */
     public boolean contains(ReadOnlyTask toCheck) {
+        assert toCheck != null;
         return internalList.contains(toCheck);
     }
 

@@ -1,7 +1,6 @@
 package seedu.savvytasker.logic.parser;
 
 import seedu.savvytasker.commons.core.Messages;
-import seedu.savvytasker.logic.commands.ExitCommand;
 import seedu.savvytasker.logic.commands.UndoCommand;
 
 public class UndoCommandParser implements CommandParser<UndoCommand> {

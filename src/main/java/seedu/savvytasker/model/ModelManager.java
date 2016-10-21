@@ -7,11 +7,11 @@ import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.util.StringUtil;
-import seedu.savvytasker.model.person.ReadOnlyTask;
-import seedu.savvytasker.model.person.Task;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
-import seedu.savvytasker.model.person.TaskList.TaskNotFoundException;
 import seedu.savvytasker.model.task.FindType;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 import java.util.Arrays;
 import java.util.Comparator;

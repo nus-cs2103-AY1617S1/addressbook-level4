@@ -7,7 +7,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.savvytasker.commons.core.LogsCenter;
-import seedu.savvytasker.commons.events.model.AddressBookChangedEvent;
+import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.util.FxViewUtil;
 
 import org.controlsfx.control.StatusBar;
@@ -91,9 +91,9 @@ public class StatusBarFooter extends UiPart {
     }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
+    public void handleAddressBookChangedEvent(SavvyTaskerChangedEvent stce) {
         String lastUpdated = (new Date()).toString();
-        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
+        logger.info(LogsCenter.getEventHandlingLogMessage(stce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
 }

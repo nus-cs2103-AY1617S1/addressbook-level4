@@ -1,7 +1,6 @@
 package seedu.savvytasker.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -15,13 +14,12 @@ import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
 
 import seedu.savvytasker.TestApp;
-import seedu.savvytasker.commons.exceptions.IllegalValueException;
 import seedu.savvytasker.commons.util.FileUtil;
 import seedu.savvytasker.commons.util.XmlUtil;
 import seedu.savvytasker.model.SavvyTasker;
-import seedu.savvytasker.model.person.*;
-import seedu.savvytasker.model.tag.Tag;
-import seedu.savvytasker.model.tag.UniqueTagList;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList;
 import seedu.savvytasker.storage.XmlSerializableSavvyTasker;
 
 import java.io.File;
@@ -61,47 +59,6 @@ public class TestUtil {
      * Folder used for temp files created during testing. Ignored by Git.
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
-
-    public static final Person[] samplePersonData = getSamplePersonData();
-
-    private static Person[] getSamplePersonData() {
-        try {
-            return new Person[]{
-                    new Person(new Name("Ali Muster"), new Phone("9482424"), new Email("hans@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Boris Mueller"), new Phone("87249245"), new Email("ruth@google.com"), new Address("81th street"), new UniqueTagList()),
-                    new Person(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@yahoo.com"), new Address("wall street"), new UniqueTagList()),
-                    new Person(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@google.com"), new Address("10th street"), new UniqueTagList()),
-                    new Person(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@gmail.com"), new Address("michegan ave"), new UniqueTagList()),
-                    new Person(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@gmail.com"), new Address("little tokyo"), new UniqueTagList()),
-                    new Person(new Name("George Best"), new Phone("9482442"), new Email("anna@google.com"), new Address("4th street"), new UniqueTagList()),
-                    new Person(new Name("Hoon Meier"), new Phone("8482424"), new Email("stefan@mail.com"), new Address("little india"), new UniqueTagList()),
-                    new Person(new Name("Ida Mueller"), new Phone("8482131"), new Email("hans@google.com"), new Address("chicago ave"), new UniqueTagList())
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            //not possible
-            return null;
-        }
-    }
-
-    public static final Tag[] sampleTagData = getSampleTagData();
-
-    private static Tag[] getSampleTagData() {
-        try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            return null;
-            //not possible
-        }
-    }
-
-    public static List<Person> generateSamplePersonData() {
-        return Arrays.asList(samplePersonData);
-    }
 
     public static final Task[] sampleTaskData = getSampleTaskData();
 
@@ -228,6 +185,7 @@ public class TestUtil {
      *
      * Caveat: only find method declared in the current Class, not inherited from supertypes
      */
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public static Method getPrivateMethod(Class objectClass, String methodName) throws NoSuchMethodException {
         Method method = objectClass.getDeclaredMethod(methodName);
         method.setAccessible(true);
@@ -312,15 +270,15 @@ public class TestUtil {
     }
 
     /**
-     * Replaces persons[i] with a person.
-     * @param persons The array of persons.
-     * @param person The replacement person
-     * @param index The index of the person to be replaced.
+     * Replaces tasks[i] with a task.
+     * @param tasks The array of tasks.
+     * @param task The replacement task
+     * @param index The index of the task to be replaced.
      * @return
      */
-    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
-        persons[index] = person;
-        return persons;
+    public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
+        tasks[index] = task;
+        return tasks;
     }
 
     /**
@@ -343,33 +301,8 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
-        return card.isSamePerson(person);
-    }
-
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
-    }
-
-    public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
-            return new Tag[]{};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                //not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
     }
 
 }

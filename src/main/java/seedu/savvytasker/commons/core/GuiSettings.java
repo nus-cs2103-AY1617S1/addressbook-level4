@@ -9,6 +9,10 @@ import java.util.Objects;
  */
 public class GuiSettings implements Serializable {
 
+    /**
+     * Generated serial
+     */
+    private static final long serialVersionUID = -7442507632162266083L;
     private static final double DEFAULT_HEIGHT = 600;
     private static final double DEFAULT_WIDTH = 740;
 

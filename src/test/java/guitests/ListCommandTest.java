@@ -3,12 +3,11 @@ package guitests;
 import org.junit.Test;
 
 import seedu.savvytasker.commons.core.Messages;
-import seedu.savvytasker.testutil.TestPerson;
 import seedu.savvytasker.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
-public class ListCommandTest extends AddressBookGuiTest {
+public class ListCommandTest extends SavvyTaskerGuiTest {
 
     @Test
     public void list_nonEmptyList() {

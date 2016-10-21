@@ -10,7 +10,7 @@ import seedu.savvytasker.commons.exceptions.DataConversionException;
 import seedu.savvytasker.commons.util.FileUtil;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
 import seedu.savvytasker.model.SavvyTasker;
-import seedu.savvytasker.model.person.Task;
+import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.storage.XmlSavvyTaskerStorage;
 import seedu.savvytasker.testutil.TypicalTestTasks;
 
@@ -73,14 +73,14 @@ public class XmlAddressBookStorageTest {
         assertEquals(original, new SavvyTasker(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTasks.happy));
-        original.removeTask(new Task(TypicalTestTasks.happy));
+        original.addTask(new Task(td.happy));
+        original.removeTask(new Task(td.happy));
         xmlSavvyTaskerStorage.saveSavvyTasker(original, filePath);
         readBack = xmlSavvyTaskerStorage.readSavvyTasker(filePath).get();
         assertEquals(original, new SavvyTasker(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new Task(TypicalTestTasks.happy));
+        original.addTask(new Task(td.happy));
         xmlSavvyTaskerStorage.saveSavvyTasker(original); //file path not specified
         readBack = xmlSavvyTaskerStorage.readSavvyTasker().get(); //file path not specified
         assertEquals(original, new SavvyTasker(readBack));
