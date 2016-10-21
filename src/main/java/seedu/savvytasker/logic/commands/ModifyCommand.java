@@ -10,7 +10,7 @@ import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 /**
  * Adds a person to the address book.
  */
-public class ModifyCommand extends Command {
+public class ModifyCommand extends ModelRequiringCommand {
 
     public static final String COMMAND_WORD = "modify";
 

@@ -2,12 +2,11 @@ package seedu.savvytasker.logic.commands;
 
 import seedu.savvytasker.logic.commands.models.AliasCommandModel;
 import seedu.savvytasker.model.task.Task;
-import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 
 /**
  * Command to create aliases
  */
-public class AliasCommand extends Command {
+public class AliasCommand extends LogicRequiringCommand {
 
     public static final String COMMAND_WORD = "alias";
 
@@ -31,14 +30,7 @@ public class AliasCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        assert model != null;
-        try {
-            model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_ALIAS);
-        }
-
+        return null;
     }
     
     @Override

@@ -5,6 +5,7 @@ import seedu.savvytasker.commons.core.ComponentManager;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.logic.commands.Command;
 import seedu.savvytasker.logic.commands.CommandResult;
+import seedu.savvytasker.logic.commands.ModelRequiringCommand;
 import seedu.savvytasker.logic.parser.*;
 import seedu.savvytasker.model.Model;
 import seedu.savvytasker.model.task.ReadOnlyTask;
@@ -37,7 +38,8 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parse(commandText);
-        command.setData(model);
+        command.setModel(model);
+        command.setLogic(this);
         
         CommandResult result = command.execute();
         if (command.canUndo()) {

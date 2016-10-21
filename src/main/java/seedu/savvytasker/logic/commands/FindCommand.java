@@ -8,7 +8,7 @@ import seedu.savvytasker.model.task.FindType;
  * Keyword matching is case sensitive.
  * @author A0139915W
  */
-public class FindCommand extends Command {
+public class FindCommand extends ModelRequiringCommand {
 
     public static final String COMMAND_WORD = "find";
     public static final String COMMAND_FORMAT = "find [t/FIND_TYPE] KEYWORD [MORE_KEYWORDS]";

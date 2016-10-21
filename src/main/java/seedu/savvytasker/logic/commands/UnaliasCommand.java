@@ -8,7 +8,7 @@ import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 /**
  * Command to remove aliases
  */
-public class UnaliasCommand extends Command {
+public class UnaliasCommand extends ModelRequiringCommand {
 
     public static final String COMMAND_WORD = "unalias";
 

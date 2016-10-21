@@ -6,7 +6,7 @@ import seedu.savvytasker.model.task.ListType;
 /**
  * Lists all tasks in the savvy tasker to the user.
  */
-public class ListCommand extends Command {
+public class ListCommand extends ModelRequiringCommand {
 
     public static final String COMMAND_WORD = "list";
 
