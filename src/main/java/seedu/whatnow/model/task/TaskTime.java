@@ -13,11 +13,11 @@ import seedu.whatnow.commons.exceptions.IllegalValueException;
 public class TaskTime {
 	//	public static final String TWENTY_FOUR_HOUR_FORMAT = "HHmm"; //E.g. 2359
 
-	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_REGEX = "([1-12]{1}+):([0-6]{1}[0-9]{1})[am|pm]";
-	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT = "h:mm a"; //E.g. 1:50 pm
-	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_REGEX = "([1-12]{1}+).([0-6]{1}[0-9]{1})[am|pm]";
-	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT = "h.mm a";	//E.g. 1.45 pm
-	public static final String TWELVE_HOUR_WITHOUT_MINUTES_REGEX = "([1-12]{1}+)[am|pm]";
+	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_REGEX = "((\\d:\\d\\d)(am|pm))";
+	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT = "h:mma"; //E.g. 1:50 pm
+	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_REGEX = "(\\d.\\d\\d)(am|pm)";
+	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT = "h.mma";	//E.g. 1.45 pm
+	public static final String TWELVE_HOUR_WITHOUT_MINUTES_REGEX = "\\d(am|pm)";
 	public static final String TWELVE_HOUR_WITHOUT_MINUTES_FORMAT = "ha";	//E.g. 2pm
 
 	public static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
@@ -55,14 +55,18 @@ public class TaskTime {
 	public final String INVALID_DATE_MESSAGE = "Entered an invalid date format";
 	public final String INVALID_DATE_RANGE_MESSAGE = "Entered and invalid date range format";
 
-	private String time = null;
-	private String startTime = null;
-	private String endTime = null;
-	private String date = null;
-	private String startDate = null;
-	private String endDate = null;
-
+	private static String time = null;
+	private static String startTime = null;
+	private static String endTime = null;
+	private static String date = null;
+	private static String startDate = null;
+	private static String endDate = null;
+	
+	private String todayDate = null;
+	private String tmrDate = null;
 	public TaskTime(String time, String startTime, String endTime, String date, String startDate, String endDate)  throws IllegalValueException{
+		
+		System.out.println("Entered TaskTime");
 		ListOfDateRegex = new ArrayList<String>();
 		ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX);	ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_VALIDATION_REGEX);	
 		ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_VALIDATION_REGEX);	ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_VALIDATION_REGEX);
@@ -130,6 +134,7 @@ public class TaskTime {
 	 */
 	public boolean isValidTime(String reqTime) {
 		//i.e. not a deadline but a schedule
+		System.out.println("check time 1");
 		if(reqTime == null) {
 			return true;
 		}else {
@@ -138,6 +143,7 @@ public class TaskTime {
 					return isValidTimeSeq(reqTime, ListOfTimeFormat.get(j));
 				}
 			}
+			System.out.println("Entered before false");
 			return false;
 		}
 	}
@@ -150,6 +156,8 @@ public class TaskTime {
 		boolean currEarlierThanInput = false;
 		Date inputTime = null;
 		Date todayTime = null;
+		System.out.println("format is : " + format);
+		System.out.println("reqTime is :" + reqTime);
 		try {
 			String currentTime = new SimpleDateFormat(format).format(new Date());
 			DateFormat tf = new SimpleDateFormat(format);
@@ -164,22 +172,28 @@ public class TaskTime {
 			ex.printStackTrace();
 			return false;
 		}
+		System.out.println("Enter time 2");
+		System.out.println("currEarlierThanInput is : " + currEarlierThanInput);
 		//Second check on whether this time is before the current Time
 
 		//This check if for e.g. input add "Sth" at 5 pm
 		//Attempts to put today's date, if current time is >  5pm, put it as tomorrow instead
 		if(startDate == null && endDate == null && date == null) {
 			//If currentTime is earlier than input time, puts today's date
+			System.out.println("Enter time 3");
 			if(!currEarlierThanInput) {
+				System.out.println("Entered this first if condition");
 				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
 				Calendar cal = Calendar.getInstance();
 				String taskDate = dateFormat.format(cal.getTime()); //Gets today's date
+				System.out.println("this taskDate is : " + taskDate);
 				date = taskDate;
 				time = reqTime;
 				return true;
 			}
 			//CurrentTime is later than inputTime, puts tmr date instead
 			else {
+				System.out.println("Entered this else condition");
 				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.DATE, 1);

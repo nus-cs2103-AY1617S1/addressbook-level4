@@ -205,8 +205,6 @@ public class TaskDate {
 		c.set(Calendar.MINUTE, 00);
 		c.set(Calendar.SECOND, 00);
 		Date currDate = c.getTime();
-		System.out.println("currDate is : " + currDate);
-		System.out.println("tempDate is : " + tempDate);
 		if(currDate.compareTo(tempDate) > 0) {
 			return false;
 		}
