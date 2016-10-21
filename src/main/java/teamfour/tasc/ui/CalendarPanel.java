@@ -50,6 +50,9 @@ public class CalendarPanel extends UiPart {
         lastSelectedTask = null;
     }
     
+    /**
+     * Get current calendar view type.
+     */
     public static String getCalendarView() {
         return currentCalendarView;
     }
