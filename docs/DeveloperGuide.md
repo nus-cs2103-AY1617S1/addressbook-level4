@@ -415,53 +415,21 @@ Priority | As a ... | I want to ... | So that I can...
 
 Product Name | Strengths | Weaknesss
 -------------| :-------- | :--------- 
+Colour Note | <ol><li> User can add task quickly; within 2 button clicks</li> <li> User can add tasks w/o specific datetime</li> <li>  Looking for suitable slot to schedule item is easy by looking at calendar view/day view</li><li>  Marking item as done is easy; simply clicking</li><li>  Deciding what to-do item to do next: all tasks are listed and easily rearrangeable by dragging</li><li>  Postponing an item is easy (even has shortcuts like tomorrow/ next tuesday)</li></ol> |<ol><li>Calendar can't block multiple slots</li><li> User cannot specify tasks that need to be done before/after specific datetime</li></ol>
+ToDoIst  | <ol><li>User can add any task easily using shortcut key ‘q’ </li> <li>User can choose not to include the date and time. </li> <li>User can attach labels (tags) to these entries to categorise them</li> <li>User can view a list of upcoming tasks, up to the next 7 days.</li> <li>User can view a list of completed tasks.</li></ol> |<ol><li> User cannot add in a task to the next earliest available slot </li><li>User cannot add a task that has two possible dates and confirm one of it at a later time</li> <li>User cannot navigate through the application using only the keyboard.</li></ol>
+Apple iOS Reminder | <ol><li>User can add task, both ad-hoc and events quickly; within 2 button press</li><li>User can include additional information anytime by accessing the task in the application easily</li><li>User can add tasks using external application </li><li>User is able to navigate through all the different tasks via touchscreen</li></ol> |<ol><li> User cannot add in task to the next available slot</li><li>User is unable to resolve conflict due to clashing events as the application is not able to detect similar date and time event</li><li>User is not able to undo any command he/she performed</li><li>No repeat option for recurring tasks, user has to repeatedly key in new task each time</li><li>User event and deadline tasks are not sync with any calendar application</li></ol>
+Google Tasks | <ol><li>User can add a new Task by clicking the '+' button. </li><li>User can add an email as a task through the more option after selecting a particular email. </li><li>User can add notes or deadline to the the task by clicking '>' button to the right of each task.</li><li>User can view or clear completed tasks but cannot view the uncompleted ones. </li><li>User can integrate their tasks with Google Calendar.</li></ol> | <ol><li>User has to click pop-up calendar to select date instead of typing a command to do so. </li><li>Does not indicate that a task is overdue.</li></ol>
 
-##### ColorNote Android Application
-* User can add task quickly; within 2 button clicks. <br>
 
-> Ad-hoc task can be added by clicking '+' button. <br> 
-> Events can be added by clicking 'add' on calendar view. <br>
 
-* User cannot specify tasks that need to be done before/after specific datetime.
-* User can add tasks without specific datetime.
-* User can manually look for suitable slot to schedule item by viewing at the calendar. <br>
-* User can easily mark item by clicking. <br>
-* User can choose what task to do next by rearranging the to-do task. <br>
-* User can postpone a task easily (has shortcuts like tomorrow/ next tuesday) <br>
 
-###### TodoIst.com
-* User can add any form of tasks or event easily using shortcut key 'q'. <br>
-* User has the option to include the date and time of a task. <br>
-* User can label his/her entries to further categorise them. <br>
-* User can view a list of upcoming events or deadlines for up to the next 7 days. <br>
-* User cannot add in a task to the next earliest available slot, or add a task with two timings and confirm it later. <br>
-* User have to use a mouse to navigate through the different parts of the application. <br>
 
-###### Apple Reminder iOS Application
-* User can task quickly; within 2 button clicks. <br>
 
-> Ad-hoc task added by clicking '+' button in the Tasks section. <br>
-> Events can be added by clicking '+' button in the Scheduled section. <br>
 
-* User can use SIRI to add Ad-hoc or Event task using voice command. <br>
-* User can add additional information by pressing option button at side of the name of the task or schedule. <br>
 
-> Set alarm reminders via setting the date and time <br>
-> Setting priority of the task <br>
 
-* User must navigate through the application via touchscreen. <br>
-* User can add specific task or schedule without setting datetime
-* The reminders are not sync with the Phone's calendar application
-* Apple Reminder is unable to resolve conflict due to clashing events
-* User is not able to undo any command he/she performed
+ 
 
-###### Google Tasks - Gmail
-* User can add a new Task by clicking the '+' button. <br>
-* User can add an email as a task through the more option after selecting a particular email. <br>
-* User can add notes or deadline to the the task by clicking '>' button to the right of each task. <br>
-* User has to click pop-up calendar to select date instead of typing a command to do so. <br>
-* User can view or clear completed tasks but cannot view the uncompleted ones. <br>
-* User can integrate their tasks with Google Calendar. <br>
 
 
 
