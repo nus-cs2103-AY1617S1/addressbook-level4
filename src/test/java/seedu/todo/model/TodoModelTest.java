@@ -9,6 +9,7 @@ import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
@@ -93,14 +94,18 @@ public class TodoModelTest {
     }
 
     @Test
-    @Ignore
     public void testSorting() throws Exception {
         model.add("Task 3", p -> p.setEndTime(TimeUtil.now));
         model.add("Task 2", p -> p.setEndTime(TimeUtil.now.plusHours(2)));
         model.add("Task 1", p -> p.setEndTime(TimeUtil.now.plusHours(1)));
 
+        TaskViewFilter lexi = new TaskViewFilter("lexi", 
+            null, (a, b) -> a.getTitle().compareTo(b.getTitle()));
+        TaskViewFilter chrono = new TaskViewFilter("chrono", 
+            null, (a, b) -> a.getEndTime().get().compareTo(b.getEndTime().get()));
+
         // Check that the items are sorted in lexicographical order by title
-        model.view(null);
+        model.view(lexi);
         assertEquals("Task 1", observableList.get(0).getTitle());
         assertEquals("Task 2", observableList.get(1).getTitle());
         assertEquals(3, observableList.size());
@@ -116,7 +121,7 @@ public class TodoModelTest {
 
         // Check that sorting by time works
         // Chronological ordering would give us Task 3, 1, 2, 4
-        model.view(null);
+        model.view(chrono);
         assertEquals("Task 3", observableList.get(0).getTitle());
         assertEquals("Task 1", observableList.get(1).getTitle());
         assertEquals("Task 2", observableList.get(2).getTitle());
