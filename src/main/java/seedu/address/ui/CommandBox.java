@@ -94,11 +94,11 @@ public class CommandBox extends UiPart {
         @Override
         public void handle(KeyEvent event) {
             if(event.getCode() == KeyCode.UP) {
-                
-            }  else if(event.getCode() == KeyCode.DOWN) {
-            	commandTextField.setText("DOWN");
+            	
+            } else if(event.getCode() == KeyCode.DOWN) {
+            	
             } else if(event.getCode() == KeyCode.TAB) {
-            	commandTextField.setText("TAB");
+            	
             } else {
             	return;
             }
