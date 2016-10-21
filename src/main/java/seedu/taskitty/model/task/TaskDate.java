@@ -73,12 +73,20 @@ public class TaskDate {
                 && this.date.equals(((TaskDate) other).date)); // state check
     }
     
-    public static boolean isEquals(TaskDate left, TaskDate right) {
-        if (left == null || right == null) {
+    /**
+     * This method can be used when unsure which dates are null
+     */
+    public static boolean isEquals(TaskDate date, TaskDate other) {
+        if (date == other) {
+            return true;
+        }
+        
+        //if either one is null, they are not equal
+        if (date == null || other == null) {
             return false;
         }
         
-        return left.equals(right);
+        return date.equals(other);
     }
 
     @Override

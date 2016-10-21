@@ -74,12 +74,20 @@ public class TaskTime {
                 && this.time.equals(((TaskTime) other).time)); // state check
     }
     
-    public static boolean isEquals(TaskTime left, TaskTime right) {
-        if (left == null || right == null) {
+    /**
+     * This method can be used when unsure which times are null
+     */
+    public static boolean isEquals(TaskTime time, TaskTime other) {
+        if (time == other) {
+            return true;
+        }
+        
+        //if either one is null, they are not equal
+        if (time == null || other == null) {
             return false;
         }
         
-        return left.equals(right);
+        return time.equals(other);
     }
 
     @Override
