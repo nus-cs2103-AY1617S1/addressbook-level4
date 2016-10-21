@@ -46,7 +46,7 @@ public interface ReadOnlyTask {
             getTags().forEach(builder::append);
         }
         
-        else if(getTaskDescription().fullTaskDescriptions != "NIL" && getDate().fullDate != "NIL" && getStartTime().fullTime == "NIL" && getEndTime().fullTime == "NIL"){       
+        else if(getTaskDescription().fullTaskDescriptions != "NIL" && getDate().fullDate != "NIL" && getStartTime().fullTime != "NIL" && getEndTime().fullTime != "NIL"){       
 	        builder.append(getName());
 	        builder.append("   Task Description : ");        
 	        builder.append(getTaskDescription());
