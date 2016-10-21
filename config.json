@@ -1,7 +1,7 @@
 {
-  "appTitle" : "Test App",
+  "appTitle" : "Must Do List",
   "logLevel" : "INFO",
-  "userPrefsFilePath" : ".\\src\\test\\data\\sandbox\\pref_testing.json",
+  "userPrefsFilePath" : "preferences.json",
   "taskSchedulerFilePath" : "data/taskscheduler.xml",
-  "taskSchedulerName" : "Test"
+  "taskSchedulerName" : "MustDoList"
 }

@@ -8,15 +8,15 @@ import seedu.address.commons.util.DateFormatter;
 public class TaskDateTime {
 
     private Date date;
-    private boolean showTime = false;
+    private boolean enShowTime = false;
     
     public TaskDateTime() {
         date = null;
     }
     
-    public TaskDateTime(TaskDateTime other) {
-        this.date = (Date) other.getDate();
-        this.showTime = other.showTime;
+    public TaskDateTime(TaskDateTime source) {
+        this.date = source.getDate();
+        this.enShowTime = source.enShowTime;
     }
     
     public TaskDateTime(String args) throws IllegalValueException {
@@ -36,7 +36,7 @@ public class TaskDateTime {
     private void checkIfTimeIsSpecified(Date other) {
         if (!DateFormatter.convertDateToFullTimeString(date)
                 .equals(DateFormatter.convertDateToFullTimeString(other))) {
-            showTime = true;
+            enShowTime = true;
         }
     }
     
@@ -52,14 +52,14 @@ public class TaskDateTime {
     }
     
     public String getDisplayTimeString() {
-        if (showTime)
+        if (enShowTime)
             return " " + DateFormatter.convertTimeToDisplayString(date);
         else
             return "";
     }
     
-    public boolean getShowTime() {
-        return showTime;
+    public boolean getEnShowTime() {
+        return enShowTime;
     }
     
     public String getDisplayString() {
