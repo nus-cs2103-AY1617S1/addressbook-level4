@@ -36,15 +36,29 @@ public class Date {
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
-        if (date == "default") {
+        if (date.equals("default")) {
         	//System.out.println("test");
         	this.value = local_date();
         }
+        else if (date.equals("no date"))
+        	this.value = "no date";
         else
-        	this.value = date;
+        	this.value = standardFormatDate(date);
     }
 
-    public String local_date(){
+    private String standardFormatDate(String date) {
+		if (date.contains("."))
+			return date.replaceAll("\\.", "-");
+		else if (date.contains("-"))
+			return date;
+		else if (date.contains("/"))
+			return date.replaceAll("/",  "-");
+		else {
+			return date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6);
+		}
+	}
+
+	public String local_date(){
     	/*LocalDate current_date = LocalDate.now();
     	System.out.println(current_date);
     	System.out.println(current_date.getDayOfMonth() + "/" + current_date.getMonthValue() + "/" + current_date.getYear());*/
@@ -59,7 +73,7 @@ public class Date {
      * Returns true if a given string is a valid task date.
      */
     public static boolean isValidDate(String test) {
-    	if (test.matches(DATE_VALIDATION_REGEX) || test == "default")
+    	if (test.matches(DATE_VALIDATION_REGEX) || test.equals("default"))
     		return true;
     	else
     		return false;
