@@ -7,8 +7,10 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskFilter;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         taskManager = new TaskManager(src);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTasks = new FilteredList<>(taskManager.getFilteredTasks());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
     }
@@ -53,7 +55,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
-        filteredTasks = new FilteredList<>(taskManager.getTasks());
+        filteredTasks = new FilteredList<>(taskManager.getFilteredTasks());
         stateHistory = new Stack<>();
         undoHistory = new Stack<>();
     }
@@ -70,7 +72,7 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	undoHistory.push(new TaskManager(taskManager));
     	
-    	taskManager.setTasks(oldTaskManager.getTasks());
+    	taskManager.setTasks(oldTaskManager.getFilteredTasks());
     	taskManager.setTags(oldTaskManager.getTagList());
     	
     	indicateTaskManagerChanged();
@@ -81,7 +83,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     	stateHistory.push(new TaskManager(taskManager));
     	
-    	taskManager.setTasks(oldTaskManager.getTasks());
+    	taskManager.setTasks(oldTaskManager.getFilteredTasks());
     	taskManager.setTags(oldTaskManager.getTagList());
     	
     	indicateTaskManagerChanged();
@@ -125,6 +127,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
 	}
+    
+    @Override
+    public synchronized void putDoneTaskToLast(int index, Task task) throws TaskNotFoundException, DuplicateTaskException {
+    	taskManager.removeTask(task);
+    	taskManager.addTask(task);
+        updateFilteredListToShowAll();
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -135,13 +144,39 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author A0142184L
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFullTaskList() {
-        return new UnmodifiableObservableList<>(taskManager.getTasks());
+    public UnmodifiableObservableList<ReadOnlyTask> getNonDoneTaskList() {
+        return new UnmodifiableObservableList<>(filteredTasks.filtered(TaskFilter.isDone().negate()));
     }
 
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getTodayTaskList() {
+        return new UnmodifiableObservableList<>(filteredTasks.filtered(TaskFilter.isDone().negate().and(TaskFilter.isTodayTask())));
+	}
+
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getTomorrowTaskList() {
+        return new UnmodifiableObservableList<>(filteredTasks.filtered(TaskFilter.isDone().negate().and(TaskFilter.isTomorrowTask())));
+	}
+
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getIn7DaysTaskList() {
+        return new UnmodifiableObservableList<>(filteredTasks.filtered(TaskFilter.isDone().negate().and(TaskFilter.isIn7DaysTask())));
+	}
+
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getIn30DaysTaskList() {
+        return new UnmodifiableObservableList<>(filteredTasks.filtered(TaskFilter.isDone().negate().and(TaskFilter.isIn30DaysTask())));
+	}
+
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getSomedayTaskList() {
+        return new UnmodifiableObservableList<>(filteredTasks.filtered(TaskFilter.isDone().negate().and(TaskFilter.isSomedayTask())));
+	}
+	
+	//@@author
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+       filteredTasks.setPredicate(null);;
     }
     
     @Override
@@ -210,5 +245,4 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
 }
