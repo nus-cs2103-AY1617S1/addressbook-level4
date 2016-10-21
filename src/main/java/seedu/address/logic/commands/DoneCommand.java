@@ -11,6 +11,9 @@ import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
+/**
+ * Archives a task identified using its last displayed index from the task manager.
+ */
 public class DoneCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "done";
 
@@ -21,7 +24,8 @@ public class DoneCommand extends UndoableCommand {
     
     public static final String TOOL_TIP = "done INDEX [ANOTHER_INDEX ...]";
 
-    public static final String MESSAGE_DONE_ITEM_SUCCESS = "Archived Item: %1$s";
+    public static final String MESSAGE_DONE_ITEM_SUCCESS = "Archived Task: %1$s";
+    public static final String MESSAGE_DONE_ITEMS_SUCCESS = "Archived Tasks: %1$s";
 
     // temporary TODO
     public static final String MESSAGE_DONE_UNDO_SUCCESS = "Undid archive tasks! Tasks restored to undone list!";
@@ -52,8 +56,7 @@ public class DoneCommand extends UndoableCommand {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
     
             if (lastShownList.size() < targetIndex - adjustmentForRemovedTask) {
-                indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+                continue;      
             }
     
             ReadOnlyTask taskToArchive = lastShownList.get(targetIndex - adjustmentForRemovedTask - 1);
@@ -75,9 +78,14 @@ public class DoneCommand extends UndoableCommand {
         }
         
         updateHistory();
-        
+        if (displayArchivedTasks.isEmpty()) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        }
         String toDisplay = displayArchivedTasks.toString().replace("[", "").replace("]", "");
-        return new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, toDisplay));
+        return (displayArchivedTasks.size() == 1)? 
+                new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, toDisplay)):
+                new CommandResult(String.format(MESSAGE_DONE_ITEMS_SUCCESS, toDisplay));
     }
 
 

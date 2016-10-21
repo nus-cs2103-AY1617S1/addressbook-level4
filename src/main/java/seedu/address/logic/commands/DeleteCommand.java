@@ -11,7 +11,7 @@ import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a task identified using its last displayed index from the task manager.
  */
 public class DeleteCommand extends UndoableCommand {
 
@@ -24,14 +24,13 @@ public class DeleteCommand extends UndoableCommand {
     
     public static final String TOOL_TIP = "delete INDEX [ANOTHER_INDEX ...]";
 
-    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
+    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_ITEMS_SUCCESS = "Deleted Tasks: %1$s";
     
     public static final String MESSAGE_UNDO_SUCCESS = "Undid delete on tasks! %1$s Tasks restored!";
     
     private List<Task> deletedTasks;
-    
     private List<String> displayDeletedTasks;
-
     public final List<Integer> targetIndexes;
 
     public DeleteCommand(List<Integer> targetIndexes) {
@@ -49,11 +48,10 @@ public class DeleteCommand extends UndoableCommand {
         deletedTasks = new ArrayList<Task>();
 
         for (int targetIndex: targetIndexes) {
-            UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
+            UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredDoneTaskList();
     
             if (lastShownList.size() < targetIndex - adjustmentForRemovedTask) {
-                indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+                continue;
             }
     
             ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - adjustmentForRemovedTask - 1);
@@ -70,9 +68,14 @@ public class DeleteCommand extends UndoableCommand {
         
        
         updateHistory();
-
+        if (displayDeletedTasks.isEmpty()) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        }
         String toDisplay = displayDeletedTasks.toString().replace("[", "").replace("]", "");
-        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay));
+        return (displayDeletedTasks.size() == 1)? 
+                new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay)):
+                new CommandResult(String.format(MESSAGE_DELETE_ITEMS_SUCCESS, toDisplay));
     }
 
 
