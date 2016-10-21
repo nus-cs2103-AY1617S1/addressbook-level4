@@ -1,5 +1,6 @@
 package seedu.todo.model;
 
+import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
@@ -7,7 +8,6 @@ import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
 
-import java.util.Comparator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -64,8 +64,11 @@ public interface Model {
      * Changes the filter predicate and sort comparator used to display the tasks. A null
      * value for either parameter resets it to the default value - showing everything for 
      * the filter and insertion order for sort. 
+     * @param view
      */
-    void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> sort);
+    void view(TaskViewFilter view);
+
+    void find(Predicate<ImmutableTask> predicate);
 
     /**
      * Undoes the last operation that modifies the todolist

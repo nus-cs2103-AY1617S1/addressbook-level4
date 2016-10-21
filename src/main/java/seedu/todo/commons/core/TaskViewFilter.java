@@ -55,4 +55,9 @@ public class TaskViewFilter {
             DEFAULT, COMPLETED, INCOMPLETE, EVENTS, DUE_SOON,
         };
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

@@ -4,8 +4,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.todo.commons.core.Config;
+import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
+import seedu.todo.commons.events.ui.ChangeViewRequestEvent;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
@@ -15,7 +17,6 @@ import seedu.todo.storage.MovableStorage;
 import seedu.todo.storage.TodoListStorage;
 
 import java.util.ArrayDeque;
-import java.util.Comparator;
 import java.util.Deque;
 import java.util.List;
 import java.util.function.Consumer;
@@ -39,7 +40,8 @@ public class TodoModel implements Model {
     private MovableStorage<ImmutableTodoList> storage;
     
     private ObservableList<ImmutableTask> tasks;
-    private FilteredList<ImmutableTask> filteredTasks;
+    private FilteredList<ImmutableTask> viewFilteredTasks;
+    private FilteredList<ImmutableTask> findFilteredTasks;
     private SortedList<ImmutableTask> sortedTasks;
     
     private Deque<List<ImmutableTask>> undoStack = new ArrayDeque<>();
@@ -58,11 +60,12 @@ public class TodoModel implements Model {
         this.todolist = todolist;
 
         tasks = todolist.getObservableList();
-        filteredTasks = new FilteredList<>(tasks);
-        sortedTasks = new SortedList<>(filteredTasks);
+        viewFilteredTasks = new FilteredList<>(tasks);
+        findFilteredTasks = new FilteredList<>(viewFilteredTasks);
+        sortedTasks = new SortedList<>(findFilteredTasks);
         
         // Sets the default view 
-        view(TaskViewFilter.DEFAULT.filter, TaskViewFilter.DEFAULT.sort);
+        view(TaskViewFilter.DEFAULT);
         
         // Update event status 
         
@@ -137,13 +140,20 @@ public class TodoModel implements Model {
     }
 
     @Override
-    public void view(Predicate<ImmutableTask> filter, Comparator<ImmutableTask> comparator) {
-        filteredTasks.setPredicate(filter);
+    public void view(TaskViewFilter view) {
+        viewFilteredTasks.setPredicate(view.filter);
 
         sortedTasks.setComparator((a, b) -> {
             int pin = Boolean.compare(b.isPinned(), a.isPinned());
-            return pin != 0 || comparator == null ? pin : comparator.compare(a, b);
+            return pin != 0 || view.sort == null ? pin : view.sort.compare(a, b);
         });
+
+        EventsCenter.getInstance().post(new ChangeViewRequestEvent(view));
+    }
+    
+    @Override
+    public void find(Predicate<ImmutableTask> predicate) {
+        findFilteredTasks.setPredicate(predicate);
     }
 
     @Override

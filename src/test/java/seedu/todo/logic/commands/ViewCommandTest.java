@@ -78,8 +78,8 @@ public class ViewCommandTest extends CommandTest {
     }
     
     private void assertViewChangeEventFired(TaskViewFilter filter) {
-        assertThat(eventsCollector.get(0), instanceOf(ChangeViewRequestEvent.class));
-        ChangeViewRequestEvent event = (ChangeViewRequestEvent) eventsCollector.get(0);
+        assertThat(eventsCollector.last(), instanceOf(ChangeViewRequestEvent.class));
+        ChangeViewRequestEvent event = (ChangeViewRequestEvent) eventsCollector.last();
         assertEquals(event.getNewView(), filter);
     }
     
@@ -95,7 +95,7 @@ public class ViewCommandTest extends CommandTest {
     @Test
     public void testViewDefault() throws ValidationException {
         assertVisibleTaskCount(all.length);
-        setParameter("show all");
+        setParameter("all");
         execute(true);
         
         assertTasksVisible(all);
@@ -185,6 +185,6 @@ public class ViewCommandTest extends CommandTest {
         execute(true);
         assertTasksVisible(all);
         
-        assertEquals(eventsCollector.size(), 3);
+        assertEquals(4, eventsCollector.size());
     }
 }

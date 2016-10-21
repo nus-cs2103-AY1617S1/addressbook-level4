@@ -45,7 +45,7 @@ public class FindCommand extends BaseCommand {
             return keywordList.stream().anyMatch(title::contains);
         };
         
-        model.view(filter, null);
+        model.find(filter);
         
         int resultSize = model.getObservableList().size();
         String feedback = String.format(TASK_FOUND_FORMAT, resultSize, English.plural("result", resultSize));
