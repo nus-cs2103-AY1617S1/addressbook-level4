@@ -47,17 +47,18 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getTaskName().equals(task.getName().taskName);
-//                && getPhone().equals(person.getPhone().value)
-//                && getEmail().equals(person.getEmail().value) && getAddress().equals(person.getAddress().value);
+        return getTaskName().equals(task.getName().taskName)
+                && getOpenTime().equals(task.getOpenTime())
+                && getCloseTime().equals(task.getCloseTime());
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getTaskName().equals(handle.getTaskName());
-                    //&& getAddress().equals(handle.getAddress()); //TODO: compare the rest
+            return getTaskName().equals(handle.getTaskName())
+                    && getOpenTime().equals(handle.getOpenTime())
+                    && getCloseTime().equals(handle.getCloseTime());
         }
         return super.equals(obj);
     }
