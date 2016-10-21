@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<cmdo>
+    <tasks>
+        <detail></detail>
+        <done>false</done>
+        <dueByDate>-999999999-01-01</dueByDate>
+        <dueByTime>23:59:59.999999999</dueByTime>
+        <priority>low</priority>
+    </tasks>
+</cmdo>

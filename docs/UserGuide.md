@@ -45,9 +45,13 @@ Format: `help`
 #### Adding a task in CMDo: `add`
 Adds a task to CMDo <br>
 Format: `add <details> <day> <time> /<priority> -<tag>` 
- 
+
+> You need to type your details in '' after add, eg. add 'feed dog'.
+> 
 > You can type anything in details. It must not end with `by`, `on`, `before` or `at`.
 > 
+> If will default as a one hour block if end time is not keyed in or if only one time slot is keyed in.
+>
 > For time, typing `tml`, `tmr`, `tomorrow` will still be recognised as tomorrow.
 >
 > For time, typing `1300`, `1pm`, will be recognised as 1300.
@@ -59,9 +63,23 @@ Format: `add <details> <day> <time> /<priority> -<tag>`
 <br><img src="images/Add2.jpeg" width="600"><br>
 <br><img src="images/Add2a.jpeg" width="600"><br>
 
-#### Listing task in CMDo : `list <day>` or `param` or `/priority`
+#### Blocking time slots in CMDo: `block`
+Block a time slot in CMDo <br>
+Format: `block <day> <time> /<priority> -<tag>` 
+ 
+> You need to type your details in '' after add, eg. add 'feed dog'.
+> 
+> You can type anything in details. It must not end with `by`, `on`, `before` or `at`.
+> 
+> If will default as a one hour block if end time is not keyed in or if only one time slot is keyed in.
+>
+> For time, typing `tml`, `tmr`, `tomorrow` will still be recognised as tomorrow.
+>
+> For time, typing `1300`, `1pm`, will be recognised as 1300.
+
+#### Finding task in CMDo : `find <day>` or `param` or `/priority`
 Shows a list of all task in the CMDo on that day. It also acts as a filter.<br>
-Format: `list <today>`
+Format: `find <today>`
 
 > Key in <day> and all task due on that day will appear
 > <br><img src="images/ListTmr.jpeg" width="600"><br>
@@ -72,6 +90,10 @@ Format: `list <today>`
 > Key in </priority> to show all tasks with specified priority
 <br><img src="images/ListHP.jpeg" width="600"><br>
 
+#### Listing all task in CMDo : `list`
+Shows a list of all task in the CMDo.<br>
+Format: `list`
+
 #### Deleting a task in CMDo : `delete`
 Deletes the specified task from the to do list.
 Format: `delete INDEX`
@@ -81,14 +103,14 @@ Format: `delete INDEX`
   The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
-* `list`
+* `list all`
   `delete 2`
   Deletes the 2nd task in the to do list.
-* `list email` 
+* `find email` 
   `delete 1`
   Deletes the 1st task in the results of the `find` command.
 
-#### Update task : `update`
+#### Edit task : `edit`
 Update existing tasks in the CMDo list, as you would entering a new task.<br>
 Format: `edit INDEX details`  
 
@@ -118,7 +140,14 @@ Format: `undo`
 
 #### Redo earlier action : `redo`
 Redo the earlier action.
-Format: `redo`  
+Format: `redo`
+
+#### Change the storage location : `storage`
+Change the storage location.
+Format: `storage file/path/cmdo.xml`
+
+> There is no need to explicitly write cmdo.xml
+> Filepath which does not start with '/' will imply that the user is working in the app home directory.
 
 #### Exiting the program : `exit`
 Exits the program.<br>
@@ -153,7 +182,16 @@ There is no need to save manually.
 **A**: You have to check your to-do list, isnt that the point?
 
 **Q**: How do i block out slots for unconfirmed tasks?
-**A**: just key in the timming after the task description.
+**A**: use the block command
+
+**Q**: How do i remove a blocked out slot to add task?
+**A**: use the delete command to delete the blocked slot
+
+**Q**: Where did all my tasks go when i try to add a task to a blocked slot?
+**A**: When you attempt to add a task to a blocked slot, CMDo will list all your blocked slots, hence, you are only shown your blocked slots now. Simply use the command 'list all' to go back to your task listing.
+
+**Q**: What if i input only one timing when using the block command?
+**A**: It will create a blocked slot with one hour default end time from the start time which is the time you entered
 
 **Q**: How do i see upcoming tasks?
 **A**: The list will be sorted according to date and time
@@ -165,17 +203,20 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :-------- 
-Add | `add <task> <day> <time> <priority>`
+Add | `add <task> <day> <start time> <end time> <priority>`
+Block | `Block <day> <start time> <end time>`
 Delete | `delete <INDEX>`
 Done | `done <INDEX>`
-List | `list <keyword>`
-List All | `la`
+Find | `find <keyword>`
+List All | `list all / la`
+List Done | `list done / ld`
+List Block | `list block / lb`
 Help | `help`
 Undo | `undo`
 Redo | `redo`
-Update | `update <index> <task details>`
+Edit | `edit <index> <task details>`
 Page Up | <kbd>PgUp</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Up</kbd> (Mac)
 Page Down | <kbd>PgDown</kbd> (Windows) / <kbd>Fn</kbd>+<kbd>Shift</kbd>+<kbd>Down</kbd> (Mac)
 Exit | `exit`
 
-Last updated 7 Oct 2016.
+Last updated 20 Oct 2016. @author A0141128R

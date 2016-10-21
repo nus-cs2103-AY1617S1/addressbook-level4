@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@CMDoTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="-1.0" layoutY="-1.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <StackPane prefHeight="405.0" prefWidth="600.0">
+               <children>
+                  <SplitPane dividerPositions="0.29797979797979796" prefHeight="160.0" prefWidth="200.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                           <children>
+                              <HBox layoutY="-2.0" prefHeight="34.0" prefWidth="174.0">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="34.0" prefWidth="174.0" text="Label" />
+                                 </children>
+                              </HBox>
+                              <VBox layoutY="34.0" prefHeight="200.0" prefWidth="174.0">
+                                 <children>
+                                    <HBox prefHeight="27.0" prefWidth="174.0">
+                                       <children>
+                                          <ImageView fitHeight="32.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="108.0" text="Overdue">
+                                             <font>
+                                                <Font name="Times New Roman Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="32.0" prefWidth="81.0" text="Label" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="27.0" prefWidth="174.0">
+                                       <children>
+                                          <ImageView fitHeight="32.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="107.0" text="Today">
+                                             <font>
+                                                <Font name="Times New Roman Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="32.0" prefWidth="80.0" text="Label" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="27.0" prefWidth="174.0">
+                                       <children>
+                                          <ImageView fitHeight="32.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="92.0" text="This Week">
+                                             <font>
+                                                <Font name="Times New Roman Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="32.0" prefWidth="64.0" text="Label" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="27.0" prefWidth="174.0">
+                                       <children>
+                                          <ImageView fitHeight="32.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="90.0" text="This Month">
+                                             <font>
+                                                <Font name="Times New Roman Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="32.0" prefWidth="63.0" text="Label" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="27.0" prefWidth="174.0">
+                                       <children>
+                                          <ImageView fitHeight="32.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="108.0" text="Someday">
+                                             <font>
+                                                <Font name="Times New Roman Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="32.0" prefWidth="81.0" text="Label" />
+                                       </children>
+                                    </HBox>
+                                    <HBox prefHeight="27.0" prefWidth="174.0">
+                                       <children>
+                                          <ImageView fitHeight="32.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="109.0" text="Total Task">
+                                             <font>
+                                                <Font name="Times New Roman Bold" size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="32.0" prefWidth="80.0" text="Label" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <ProgressBar layoutX="3.0" layoutY="234.0" prefHeight="20.0" prefWidth="166.0" progress="0.0" />
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" stylesheets="@CMDoTheme.css">
+                           <children>
+                              <TextField layoutX="5.0" layoutY="6.0" prefHeight="27.0" prefWidth="408.0" promptText="Enter task here..." />
+                              <ListView layoutX="5.0" layoutY="39.0" prefHeight="325.0" prefWidth="408.0" />
+                              <Label alignment="CENTER" layoutX="6.0" layoutY="369.0" prefHeight="27.0" prefWidth="408.0" text="Label" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </StackPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

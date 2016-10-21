@@ -34,9 +34,10 @@ Responsibilities:
 
 #### [Lim Hong Wei](http://github.com/imhongw)
 <img src="images/LimHongWei.jpg" width="150"><br>
-Role: Lead Tester <br>  
+Role: Chief Designer, Lead Tester <br>  
 Responsibilities:
-* Ensures the testing of the project is done properly and on time.
+* Takes care of the UI, UX and design of the project.
+* Ensures the testing of the project is done properly (all passing), extensively, and on time.
 
 -----
 

@@ -113,7 +113,7 @@ The `UI` component,
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
+1. `Logic` uses the `MainParser` class to parse the user command. `MainParser` relies on `Parser` of [Natty by Joe Stelmach](https://github.com/joestelmach/natty) for natural language processing.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
@@ -126,8 +126,8 @@ The `UI` component,
 
 The `Model`,
 * Stores a `UserPref` object that represents the user's preferences
-* Stores the Address Book data
-* Exposes a `UnmodifiableObservableList<ReadOnlyPerson` that can be 'observed' e.g. the UI can be bound to this list
+* Stores CMDo data
+* Exposes a `UnmodifiableObservableList<ReadOnlyTask` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
 
@@ -139,7 +139,7 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save CMDo data in xml format and read it back.
 
 ### Common classes
 
@@ -235,9 +235,9 @@ Here are the steps to create a new release.
    
 ## Managing Dependencies
 
-A project often depends on third party libraries. For example, Address Book depends on the 
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
+A project often depends on third party libraries. For example, CMDo depends on the 
+[Natty](http://github.com/joestelmach/natty) for date/time natural language parsing. Managing these _dependencies_
+can be automated using Gradle or Maven. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
@@ -250,26 +250,123 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
-{More to be added}
+`* * *` | user | add a new task using natural language | add a task to CMDo
+`* * *` | user | delete a task | remove entries that I no longer need
+`* * *` | user | edit a task| edit the task by accessing the task and typing the changes
+`* * *` | user | find a task by keywords | access details of tasks quickly without having to go through the entire list
+`* * *` | user |only view uncompleted task in CMDo| avoid being confused by completed task that are overdue| 
+`* * *` | user | my tasks sorted by due date and due time|locate urgent tasks easily | 
+`* * *` | user | remove my completed tasks| see only uncompleted tasks | 
+`* * *` | user | book by time slots| block out time for unconfirmed events |
+`* * *` | user | undo my previous action | make mistakes | 
+`* * *` | user | redo my previous action upon undo | make mistakes |
+`* * *` | user | set priority to my task | know which task is more important | 
+`* *` | user |Simply assign a date due to my todo by typing in the due date| to enter due dates easily
+`* *` | user |block out time slots of unconfirmed tasks| avoid scheduling tasks that clash
+`* *` | user |auto reschedule a task i am unable to complete due at the moment| save the effort of manual rescheduling
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `CMDo` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+### Use case: Add a task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to add a task
+2. CMDo stores the natural language into data
+3. CMD0 adds the task <br>
+>Use case ends.
+
+**Extensions**
+
+1a. The given input is invalid
+
+> 1a1. CMDo shows help message <br>
+  Use case resumes at step 1
+
+2a. Date is not specified
+
+> CMDo stores the task as a floating one
+  Use case resumes at step 3	
+
+2b. Date is specified but time is not
+
+> CMDo stores the task with the input date and the time would be 2359 for that date.
+  Use case resumes at step 3
+
+2c. Priority is not specified
+
+> CMDo stores it as low priority
+  Use case resumes at step 3
+
+2d. Two priorities are specified
+
+> CMDo stores it as the highest priority indicated (eg. low, high, high is stored as the priority)
+   Use case resumes at step 3
+  
+### Use case: Block out time slot
+
+**MSS**
+  
+  
+1. User requests to block time slot
+2. CMDo stores the natural language into data
+3. CMD0 blocks the specified time slot <br>
+>Use case ends.
+
+**Extensions**
+
+1a. The given input is invalid
+
+> 1a. CMDo shows help message <br>
+  Use case resumes at step 1
+
+2a. Date is not specified
+
+> 2a. CMDo shows help message <br>
+  Use case resumes at step 1
+
+2b. Date is specified but time is not
+
+> 2b. CMDo shows help message <br>
+  Use case resumes at step 1
+
+2c. Time slot clash
+
+> 2c1. CMDo shows a message informing of time clash and list all the blocked time slots. <br>
+  Use case ends
+
+### Use case: Delete a task
+
+**MSS**
+
+1. User requests to search a task
+2. CMDo shows a list of tasks
+3. User requests to delete a specific task in the list
+4. CMD0 deletes the task <br>
+>Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. CMDo shows help message <br>
+  Use case resumes at step 2
+  
+### Use case: Edit a task
+
+**MSS**
+
+1. User requests to find a task or list all tasks
+2. CMDo shows a list of tasks
+3. User requests to edit a specific task in the list by index
+4. User keys in the changes
+5. CMD0 edits the task <br>
 Use case ends.
 
 **Extensions**
@@ -280,17 +377,169 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+>3a1. CMDo shows help message <br>
+> Use case resumes at step 2
+
+  
+### Use case: Find a task
+
+**MSS**
+
+1. User requests to find a task
+2. CMDo shows a list of tasks <br>
+>Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> Use case ends
+
+### Use case: List all tasks
+
+**MSS**
+
+1. User requests to list all tasks
+2. CMDo shows a list of tasks <br>
+>Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+### Use case: List done tasks
+
+> Use case ends
+
+**MSS**
+
+1. User requests to list done tasks
+2. CMDo shows a list of done tasks <br>
+>Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> Use case ends
+
+**MSS**
+
+1. User requests to list blocked time slots
+2. CMDo shows a list of blocked time slots <br>
+>Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> Use case ends
+
+### Use case: Mark a task as done
+
+**MSS**
+
+1. User requests to find a task or list all tasks
+2. CMDo shows a list of tasks 
+3. Mark the task done by index 
+4. The task is marked as done and moved to storage<br>
+>Use case ends.
+
+**Extensions**
+
+1a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. CMDo shows help message <br>
   Use case resumes at step 2
 
-{More to be added}
+4a. The task will not show up on list or find.
+
+> Use case ends
+
+### Use case: Undo
+
+**MSS**
+
+1. User requests to undo previous action
+2. CMDo requests the user to confirm the action
+3. CMDo undos the previous action <br>
+>Use case ends.
+
+**Extensions**
+
+1a. There are no more previous actions
+
+> Use case ends
+
+2a. User does not confirm the action
+
+> Use case ends
+
+### Use case: Redo
+
+**MSS**
+
+1. User requests to redo previous action
+2. CMDo requests the user to confirm the action
+3. CMDo undos the previous action <br>
+> Use case ends.
+
+**Extensions**
+
+1a. There are no more previous actions
+
+> Use case ends
+
+2a. User does not confirm the action
+
+> Use case ends
+
+### Use case: Change storage location
+
+**MSS**
+
+1. User requests to to change file storage location
+2. CMDo requests the user to confirm the action
+3. CMDo changes the file storage location <br>
+> Use case ends.
+
+**Extensions**
+
+2a. User does not confirm the action
+
+> Use case ends
+
+### Use case: Exit
+
+**MSS**
+
+1. User requests to Exit CMDo
+2. CMDo request the user to confirm the action
+3. CMDo is exited <br>
+>Use case ends.
+
+**Extensions**
+
+2a. User does not confirm the action
+
+> Use case ends
+
 
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Customize commands to suit user preference
+6. Able to toggle layout for dark and light for colour blindness
+7. Issue reminders for upcoming tasks
+8. Auto-complete functionality for user entries
+9. Google search function in CMDo
 
 {More to be added}
 
@@ -300,11 +549,56 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
-
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+### Product 1: WunderList
 
+**PROS**
+1. A true keyboard-only program, able to add new tasks with completion date using only keyboard. It also understands today, tomorrow, next Sunday, etc.
+2. Has option to sort by date created, date due, alphabetical order, etc.
+3. Shows history of completed tasks
+4. Categories
+
+**CONS**
+1. Not keyboard-language enough. I would like to enter something like ‘Finish assignment by Tuesday' 'Remind Monday in NOC'.
+ 
+---
+### Product 2: Google Keep
+
+**PROS**
+1. Functions as To-Do List and note taking and has reminders.
+2. Can archive notes and list
+3. Have trash to recover past to-dos
+4. Can share with another person via email.
+
+**CONS**
+1. 
+
+---
+### Product 3: Windows Sticky Note
+
+**PROS**
+1. Quick glance at tasks on a persisting interface.
+2. No need to learn complicated commands because all items are written by themself.
+
+
+**CONS**
+1. Disorganized, no ability to sort by timing, name or done status.
+2. Just another note pad.
+
+---
+### Product 4: Mac Reminders
+
+**PROS**
+1. Intuitive, beautiful interface with use of color headings.
+2. Adding a task is as simple as clicking on an empty line in the 'notepad' and typing a name.
+3. Syncing with iCloud so that tasks persist on all iDevices.
+4. Built in reminders and alarm system.
+5. Configurable categories, shown on the leftside toolbar for easy switching.
+
+**CONS**
+1. No natural language parsing for dates, due dates must be set manually by double-clicking on the created task. This adds an additional layer of complexity.
+
+---
+
+_Last updated 11 Oct 2016 by @author A0141128R_
