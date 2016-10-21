@@ -164,7 +164,7 @@ public class TaskTime {
 
 			inputTime = tf.parse(reqTime);
 			todayTime = tf.parse(currentTime);
-			if(inputTime.before(todayTime)) {
+			if(todayTime.before(inputTime)) {
 				currEarlierThanInput = true;
 			}
 		} catch(ParseException ex) {
@@ -204,9 +204,10 @@ public class TaskTime {
 			}
 		}
 		//checks for todayDate gets current time and compare with input time, returns false if invalid
-		else if(date.equals("today")) {
+		else if(date.toLowerCase().equals("today")) {
 			System.out.println("Entered today else if condition");
-			if(!currEarlierThanInput){
+			if(currEarlierThanInput){
+				System.out.println("currEarlierThanInput is true");
 				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
 				Calendar cal = Calendar.getInstance();
 				String taskDate = dateFormat.format(cal.getTime()); //Gets today's date
@@ -218,7 +219,7 @@ public class TaskTime {
 				return false;
 		}
 		//Performs a normal check
-		else if(date.equals("tomorrow")) {
+		else if(date.toLowerCase().equals("tomorrow")) {
 			DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
 			Calendar cal = Calendar.getInstance();
 			cal.add(Calendar.DATE, 1);
