@@ -27,6 +27,7 @@ import seedu.address.model.task.UniqueTaskList;
  *
  */
 public class RecurringTaskManager {
+    private static final int APPEND_INCREMENT = 1;
     private static final double NUM_MONTHS_IN_YEAR = 12.0;
     private static final double NUM_WEEKS_IN_MONTH = 4.0;
     private static final double NUM_DAYS_IN_WEEK = 7.0;
@@ -285,7 +286,7 @@ public class RecurringTaskManager {
         TaskDate editedEndDate = new TaskDate();
         if(startDate != null) {
             calendar.setTime(startDate.getTime());
-            calendar.add(Calendar.YEAR, 1);
+            calendar.add(Calendar.YEAR, APPEND_INCREMENT);
             editedStartDate.setDateInLong(calendar.getTime().getTime());
             startDate.setTime(editedStartDate.getDate());
         }else {
@@ -293,7 +294,7 @@ public class RecurringTaskManager {
         }
 
         calendar.setTime(endDate.getTime());
-        calendar.add(Calendar.YEAR, 1);
+        calendar.add(Calendar.YEAR, APPEND_INCREMENT);
         editedEndDate.setDateInLong(calendar.getTime().getTime());
         endDate.setTime(editedEndDate.getDate());
         
@@ -319,7 +320,7 @@ public class RecurringTaskManager {
         TaskDate editedEndDate = new TaskDate();
         if(startDate != null) {
             calendar.setTime(startDate.getTime());
-            calendar.add(Calendar.MONTH, 1);
+            calendar.add(Calendar.MONTH, APPEND_INCREMENT);
             editedStartDate.setDateInLong(calendar.getTime().getTime());
             startDate.setTime(editedStartDate.getDate());
         }else {
@@ -327,7 +328,7 @@ public class RecurringTaskManager {
         }
 
         calendar.setTime(endDate.getTime());
-        calendar.add(Calendar.MONTH, 1);
+        calendar.add(Calendar.MONTH, APPEND_INCREMENT);
         editedEndDate.setDateInLong(calendar.getTime().getTime());
         endDate.setTime(editedEndDate.getDate());
         
@@ -385,7 +386,7 @@ public class RecurringTaskManager {
         TaskDate editedEndDate = new TaskDate();
         if(startDate != null) {
             calendar.setTime(startDate.getTime());
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            calendar.add(Calendar.DAY_OF_MONTH, APPEND_INCREMENT);
             editedStartDate.setDateInLong(calendar.getTime().getTime());
             startDate.setTime(editedStartDate.getDate());
         }else {
@@ -393,7 +394,7 @@ public class RecurringTaskManager {
         }
 
         calendar.setTime(endDate.getTime());
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
+        calendar.add(Calendar.DAY_OF_MONTH, APPEND_INCREMENT);
         editedEndDate.setDateInLong(calendar.getTime().getTime());
         endDate.setTime(editedEndDate.getDate());
         
