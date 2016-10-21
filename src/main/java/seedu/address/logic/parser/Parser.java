@@ -241,17 +241,17 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareDelete(String args) {
+    private Command prepareDelete(String args){
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteCommand.MESSAGE_USAGE));
         }
         
-        char cat = args.charAt(1);
         ArrayList<String> indexes = new ArrayList<String> (Arrays.asList(args.trim().replaceAll(" ", "").split(","))); //might need to change split regex to ; instead of ,
-              
-        if(args.contains("-")){          
+        
+        if(args.contains("-")){        
+            char cat = args.charAt(1);
             String[] temp = args.replaceAll(" ", "").replaceAll(Character.toString(cat),"").split("-");
             int start;
             int end;
@@ -273,22 +273,28 @@ public class Parser {
         }
 
         Iterator<String> itr = indexes.iterator();
-        Optional<Integer> index = parseIndex(Character.toString(itr.next().charAt(1)));
-        
+        String tempIndex = itr.next();
+        String indexToDelete = tempIndex.substring(1, tempIndex.length());
+        Optional<Integer> index = parseIndex(indexToDelete);      
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }          
         while(itr.hasNext()){
-            index = parseIndex(Character.toString(itr.next().charAt(1)));
+            tempIndex = itr.next();
+            indexToDelete = tempIndex.substring(1, tempIndex.length());
+            index = parseIndex(indexToDelete);
             // System.out.println(index.isPresent() + args + indexes.size());
             if(!index.isPresent()){
                 return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));             
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));             
             }           
         }
-        
-        return new DeleteCommand(indexes);
+        try {
+            return new DeleteCommand(indexes);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
     
     private Command prepareEdit(String args) {
