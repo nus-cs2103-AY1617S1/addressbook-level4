@@ -1,7 +1,8 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.model.task.*;
+
+import seedu.taskscheduler.model.task.*;
 
 import static org.junit.Assert.assertEquals;
 

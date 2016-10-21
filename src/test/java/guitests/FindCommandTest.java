@@ -1,8 +1,9 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestTask;
+
+import seedu.taskscheduler.commons.core.Messages;
+import seedu.taskscheduler.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 

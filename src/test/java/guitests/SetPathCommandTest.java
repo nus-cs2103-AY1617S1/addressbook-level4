@@ -1,10 +1,11 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.logic.commands.SetpathCommand;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.ConfigUtil;
+
+import seedu.taskscheduler.commons.core.Config;
+import seedu.taskscheduler.commons.exceptions.DataConversionException;
+import seedu.taskscheduler.commons.util.ConfigUtil;
+import seedu.taskscheduler.logic.commands.SetpathCommand;
 
 import static org.junit.Assert.*;
 
