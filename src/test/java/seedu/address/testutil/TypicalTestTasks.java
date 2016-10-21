@@ -15,23 +15,23 @@ public class TypicalTestTasks {
         try {
             alice =  new TaskBuilder().withName("Career Fair").withAddress("NUS COM1")
                     .withEndDate("11 Oct 2016").withStartDate("07 Oct 2016").withTags("Event").build();
-            benson = new TaskBuilder().withName("Do CS2103 Project").withAddress("")
-                    .withEndDate("14 Oct 2016").withStartDate("").withTags("Deadline").build();
-            carl = new TaskBuilder().withName("Project Discussion").withAddress("At Technoedge")
+            benson = new TaskBuilder().withName("Groupwork Project").withAddress("")
+                    .withEndDate("14 Oct 2016").withStartDate("").withTags("Deadline").build(); // deadline task
+            carl = new TaskBuilder().withName("Project Discussion").withAddress("Technoedge")
                     .withEndDate("21 Oct 2016").withStartDate("14 Oct 2016").withTags("Event").build();
-            daniel = new TaskBuilder().withName("Grocery Shopping").withAddress("")
-                    .withEndDate("").withStartDate("").withTags().build();
-            elle = new TaskBuilder().withName("CS2103 Lecture").withAddress("At ICube Lecture Hall")
+            daniel = new TaskBuilder().withName("Groupwork Discussion").withAddress("")
+                    .withEndDate("").withStartDate("").withTags().build(); // floating task
+            elle = new TaskBuilder().withName("CS2103 Lecture").withAddress("ICube Lecture Hall")
                     .withEndDate("311247").withStartDate("010417").withTags("Event").build();
-            fiona = new TaskBuilder().withName("Send kids to NUS").withAddress("At NUS")
+            fiona = new TaskBuilder().withName("Send kid to NUS").withAddress("NUS")
                     .withEndDate("010451").withStartDate("010847").withTags("Event").build();
-            george = new TaskBuilder().withName("Project Briefing").withAddress("At ICube Lecture Hall")
+            george = new TaskBuilder().withName("Project Briefing").withAddress("ICube Lecture Hall")
                     .withEndDate("020491").withStartDate("020451").withTags("Event").build();
             //Manually added
-            hoon = new TaskBuilder().withName("Regret working at Mcdonalds").withAddress("At the hospital")
+            hoon = new TaskBuilder().withName("Wildlife Photoshoot").withAddress("Wildlife Reserves")
                     .withEndDate("today").withStartDate("yesterday").build();
-            ida = new TaskBuilder().withName("Thinking about what happen if I fail CS2103").withAddress("At ICube Lecture Hall")
-                    .withEndDate("071016").withStartDate("071016").build();
+            ida = new TaskBuilder().withName("University Graduation").withAddress("University Cultural Centre")
+                    .withEndDate("15 July 2016").withStartDate("7 July 2016").build();
             overdue = new TaskBuilder().withName("Overdue Task Colour Test").withAddress("At ICube Lecture Hall")
                     .withEndDate("071016").withStartDate("071016").build();
         } catch (IllegalValueException e) {

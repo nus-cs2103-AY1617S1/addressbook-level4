@@ -15,7 +15,7 @@ public class FindCommandTest extends TaskSchedulerGuiTest {
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find Grocery", td.daniel);
+        assertFindResult("find Groupwork", td.daniel);
     }
     
     @Test
@@ -31,10 +31,8 @@ public class FindCommandTest extends TaskSchedulerGuiTest {
     @Test
     public void find_tag() {
         commandBox.runCommand("mark 1");
-        commandBox.runCommand("mark 2");
-        commandBox.runCommand("mark 3");
         commandBox.runCommand("mark 4");
-        assertFindResult("find Completed", td.alice, td.benson, td.carl, td.daniel);
+        assertFindResult("find Completed", td.alice, td.daniel);
     }
 
     @Test
@@ -45,7 +43,7 @@ public class FindCommandTest extends TaskSchedulerGuiTest {
 
     @Test
     public void find_invalidCommand_fail() {
-        commandBox.runCommand("findgeorge");
+        commandBox.runCommand("findsomething");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 

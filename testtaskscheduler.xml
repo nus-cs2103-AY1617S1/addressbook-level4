@@ -8,7 +8,7 @@
         <tagged>Event</tagged>
     </tasks>
     <tasks>
-        <name>Do CS2103 Project</name>
+        <name>Groupwork Project</name>
         <phone></phone>
         <email>14-Oct-2016</email>
         <address></address>
@@ -18,11 +18,11 @@
         <name>Project Discussion</name>
         <phone>14-Oct-2016</phone>
         <email>21-Oct-2016</email>
-        <address>At Technoedge</address>
+        <address>Technoedge</address>
         <tagged>Event</tagged>
     </tasks>
     <tasks>
-        <name>Grocery Shopping</name>
+        <name>Groupwork Discussion</name>
         <phone></phone>
         <email></email>
         <address></address>
@@ -31,21 +31,21 @@
         <name>CS2103 Lecture</name>
         <phone>21-Oct-2016 01:04 AM</phone>
         <email>21-Oct-2016 12:47 PM</email>
-        <address>At ICube Lecture Hall</address>
+        <address>ICube Lecture Hall</address>
         <tagged>Event</tagged>
     </tasks>
     <tasks>
-        <name>Send kids to NUS</name>
+        <name>Send kid to NUS</name>
         <phone>21-Oct-2016 01:08 AM</phone>
         <email>21-Oct-2016 01:04 AM</email>
-        <address>At NUS</address>
+        <address>NUS</address>
         <tagged>Event</tagged>
     </tasks>
     <tasks>
         <name>Project Briefing</name>
         <phone>21-Oct-2016 02:04 AM</phone>
         <email>21-Oct-2016 02:04 AM</email>
-        <address>At ICube Lecture Hall</address>
+        <address>ICube Lecture Hall</address>
         <tagged>Event</tagged>
     </tasks>
     <tags>
