@@ -27,7 +27,7 @@ public class ShowCommand extends Command {
 	    model.updateFilteredListToShowAll();
 	    return new CommandResult(String.format(MESSAGE_SUCCESS, "all"));
 	} else {
-	    model.updateFilteredPersonList(keywords);
+	    model.updateFilteredPersonListByDate(keywords);
 	    return new CommandResult(String.format(MESSAGE_SUCCESS, model.getFilteredPersonList().size()));
 	}
     }
