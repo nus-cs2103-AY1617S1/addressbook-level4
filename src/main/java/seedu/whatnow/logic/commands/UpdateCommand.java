@@ -169,6 +169,6 @@ public class UpdateCommand extends UndoAndRedo {
 	public CommandResult redo() {
 		assert model != null;
 		model.revertToPrevDataUpdate();
-		return new CommandResult(RedoCommand.MESSAGE_FAIL);
+		return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
 	}
 }
