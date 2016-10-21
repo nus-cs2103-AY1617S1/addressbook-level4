@@ -150,27 +150,27 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public UnmodifiableObservableList<ReadOnlyTask> getTodayTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks.filtered(TaskFilter.isDone().negate().and(TaskFilter.isTodayTask())));
+        return new UnmodifiableObservableList<>(taskManager.getFilteredTasks().filtered(TaskFilter.isDone().negate().and(TaskFilter.isTodayTask())));
 	}
 
 	@Override
 	public UnmodifiableObservableList<ReadOnlyTask> getTomorrowTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks.filtered(TaskFilter.isDone().negate().and(TaskFilter.isTomorrowTask())));
+        return new UnmodifiableObservableList<>(taskManager.getFilteredTasks().filtered(TaskFilter.isDone().negate().and(TaskFilter.isTomorrowTask())));
 	}
 
 	@Override
 	public UnmodifiableObservableList<ReadOnlyTask> getIn7DaysTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks.filtered(TaskFilter.isDone().negate().and(TaskFilter.isIn7DaysTask())));
+        return new UnmodifiableObservableList<>(taskManager.getFilteredTasks().filtered(TaskFilter.isDone().negate().and(TaskFilter.isIn7DaysTask())));
 	}
 
 	@Override
 	public UnmodifiableObservableList<ReadOnlyTask> getIn30DaysTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks.filtered(TaskFilter.isDone().negate().and(TaskFilter.isIn30DaysTask())));
+        return new UnmodifiableObservableList<>(taskManager.getFilteredTasks().filtered(TaskFilter.isDone().negate().and(TaskFilter.isIn30DaysTask())));
 	}
 
 	@Override
 	public UnmodifiableObservableList<ReadOnlyTask> getSomedayTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks.filtered(TaskFilter.isDone().negate().and(TaskFilter.isSomedayTask())));
+        return new UnmodifiableObservableList<>(taskManager.getFilteredTasks().filtered(TaskFilter.isDone().negate().and(TaskFilter.isSomedayTask())));
 	}
 	
 	//@@author
