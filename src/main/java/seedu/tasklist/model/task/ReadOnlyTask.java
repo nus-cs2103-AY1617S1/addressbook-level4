@@ -13,6 +13,8 @@ public interface ReadOnlyTask {
     DateTime getStartDateTime();
     DateTime getEndDateTime();
     boolean isCompleted();
+    boolean isOverdue();
+    boolean isFloating();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

@@ -3,6 +3,8 @@ package seedu.tasklist.model.task;
 import seedu.tasklist.commons.util.CollectionUtil;
 import seedu.tasklist.model.tag.UniqueTagList;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Objects;
 
 /**
@@ -19,6 +21,8 @@ public class Task implements ReadOnlyTask {
     private UniqueTagList tags;
     
     private boolean isCompleted;
+    private boolean isOverdue;
+    private boolean isFloating;
 
     /**
      * Every field must be present and not null.
@@ -31,26 +35,43 @@ public class Task implements ReadOnlyTask {
         this.endDateTime = endDateTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isCompleted = false;
+        this.isOverdue = false;
+        this.isFloating = false;
+        
+        if (!endDateTime.getDate().toString().isEmpty()) {
+            if (endDateTime.getDate().getDate().isBefore(LocalDate.now())) {
+                this.isOverdue = true;
+            } else if (endDateTime.getDate().getDate().isEqual(LocalDate.now()) && endDateTime.getTime().getTime().isBefore(LocalTime.now())) {
+                this.isOverdue = false;
+            }
+        }
+        
+        if (startDateTime.getDate().toString().isEmpty() && startDateTime.getTime().toString().isEmpty() 
+                && endDateTime.getDate().toString().isEmpty() && endDateTime.getTime().toString().isEmpty()) {
+            this.isFloating = true;
+        }
     }
     
     /**
      * Every field must be present and not null.
      */
-    public Task(Title title, DateTime startDateTime, Description description, DateTime endDateTime, UniqueTagList tags, boolean isCompleted) {
-        assert !CollectionUtil.isAnyNull(title, startDateTime, description, endDateTime, tags);
+    public Task(Title title, DateTime startDateTime, Description description, DateTime endDateTime, UniqueTagList tags, boolean isCompleted, boolean isOverdue, boolean isFloating) {
+        assert !CollectionUtil.isAnyNull(title, startDateTime, description, endDateTime, tags, isCompleted, isOverdue, isFloating);
         this.title = title;
         this.startDateTime = startDateTime;
         this.description = description;
         this.endDateTime = endDateTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isCompleted = isCompleted;
+        this.isOverdue = isOverdue;
+        this.isFloating = isFloating;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getTitle(), source.getStartDateTime(), source.getDescription(), source.getEndDateTime(), source.getTags(), source.isCompleted());
+        this(source.getTitle(), source.getStartDateTime(), source.getDescription(), source.getEndDateTime(), source.getTags(), source.isCompleted(), source.isOverdue(), source.isFloating());
     }
 
     @Override
@@ -84,6 +105,18 @@ public class Task implements ReadOnlyTask {
 
     public void setCompleted(boolean completed) {
         this.isCompleted = completed;
+    }
+    
+    public boolean isOverdue() {
+        return isOverdue;
+    }
+
+    public void setOverdue(boolean isOverdue) {
+        this.isOverdue = isOverdue;
+    }
+    
+    public boolean isFloating() {
+        return isFloating;
     }
 
     /**

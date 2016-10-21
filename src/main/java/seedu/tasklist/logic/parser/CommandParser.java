@@ -38,16 +38,16 @@ public interface CommandParser {
     final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<title>[^/]+)"
                     + "(?<isDescriptionPrivate>p?)(?<description>(?: d/[^/]+)*)"
-                    + "(?<isStartDatePrivate>p?)(?<startDate>(?: s/[^/]+)*)"
-                    + "(?<isDueDatePrivate>p?)(?<dueDate>(?: e/[^/]+)*)"
+                    + "(?<isStartDateTimePrivate>p?)(?<startDateTime>(?: s/[^/]+)*)"
+                    + "(?<isEndDateTimePrivate>p?)(?<endDateTime>(?: e/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     final Pattern EDIT_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>[^/\\s]+)"
                     + "(?<title>(?: [^/]+)*)"
                     + "(?<isDescriptionPrivate>p?)(?<description>(?: d/[^/]+)*)"
-                    + "(?<isStartDatePrivate>p?)(?<startDate>(?: s/[^/]+)*)"
-                    + "(?<isDueDatePrivate>p?)(?<dueDate>(?: e/[^/]+)*)"
+                    + "(?<isStartDateTimePrivate>p?)(?<startDateTime>(?: s/[^/]+)*)"
+                    + "(?<isEndDateTimePrivate>p?)(?<endDateTime>(?: e/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
         
     /**

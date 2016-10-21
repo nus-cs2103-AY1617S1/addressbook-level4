@@ -18,8 +18,8 @@ import seedu.tasklist.storage.Storage;
 
 public class StorageCommandTest extends TaskListGuiTest {
 
-	private String testStorageCommandFilePath = "src/test/data/StorageCommandTestFolder/tesTaskList.xml";
-	private String testFileName = "tesTaskList.xml";
+	private String testStorageCommandFilePath = "src/test/data/StorageCommandTestFolder/testTaskList.xml";
+	private String testFileName = "testTaskList.xml";
 	private final String COMMAND_WORD = "storage ";
 	private String defaultFilePath = "src/test/data/sandbox/tempTaskList.xml";
 	private String defaultConfigFile = "src/test/data/ConfigUtilTest/TestConfig.json";

@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import seedu.tasklist.model.task.ReadOnlyTask;
 
 /**
- * Provides a handle to a person card in the task list panel.
+ * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String TITLE_FIELD_ID = "#name";
@@ -49,7 +49,7 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isMarkedTask(ReadOnlyTask task) {
-        return node.getStyle().equals("-fx-background-color: yellow;")
+        return node.getStyle().equals("-fx-background-color: #98FB98;")
                 && task.isCompleted()
                 && getTitle().equals(task.getTitle().fullTitle)
                 && getDescription().equals(task.getDescription().description)

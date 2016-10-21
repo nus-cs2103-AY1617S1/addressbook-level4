@@ -87,8 +87,12 @@ public class TaskCard extends UiPart{
     }
     
     public void setBackgroundColor() {
-        if (task.isCompleted()) {
-            cardPane.setStyle("-fx-background-color: yellow;");
+        if (task.isFloating()) {
+            cardPane.setStyle("-fx-background-color: #FFFFCC;");    //pale yellow
+        } else if (task.isCompleted()) {
+            cardPane.setStyle("-fx-background-color: #98FB98;");    //pale green
+        } else if (task.isOverdue()){
+            cardPane.setStyle("-fx-background-color: #ff9999;");    //pale red
         } else {
             cardPane.setStyle("-fx-background-color: white;");
         }

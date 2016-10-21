@@ -42,6 +42,10 @@ public class Date {
     public static boolean isValidDate(String test) {
         return test.matches(DATE_VALIDATION_REGEX);
     }
+    
+    public LocalDate getDate() {
+        return date;
+    }
 
     @Override
     public String toString() {

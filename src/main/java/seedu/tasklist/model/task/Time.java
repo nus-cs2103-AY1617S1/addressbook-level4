@@ -42,6 +42,10 @@ public class Time {
         return test.matches(TIME_VALIDATION_REGEX);
     }
 
+    public LocalTime getTime() {
+        return time;
+    }
+
     @Override
     public String toString() {
         if (time != null) {

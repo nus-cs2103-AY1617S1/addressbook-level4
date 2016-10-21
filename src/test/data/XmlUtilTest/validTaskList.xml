@@ -2,9 +2,9 @@
 <tasklist>
     <tasks>
         <title>CS2103</title>
-        <startDate>15121993</startDate>
+        <startDateTime>15121993</startDateTime>
         <description>Pre tutorial 1</description>
-        <dueDate>30121993</dueDate>
+        <endDateTime>30121993</endDateTime>
         <tagged>hihi</tagged>
     </tasks>
     <tags>

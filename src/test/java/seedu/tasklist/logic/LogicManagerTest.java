@@ -155,23 +155,23 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add", expectedMessage);
         assertCommandBehavior(
-                "add Valid Title 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid Title 12345 e/details a/numbers", expectedMessage);
         assertCommandBehavior(
-                "add Valid Title p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid Title p/invalid a/nonexistent", expectedMessage);
         assertCommandBehavior(
-                "add Valid Title p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Title p/12345 e/no date", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] d/12345 s/11112011 e/11112011", Title.MESSAGE_TITLE_CONSTRAINTS);
+                "add []\\[;] d/Valid Description s/11112011 1100 e/11112011 1200", Title.MESSAGE_TITLE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Title d/not_numbers s/valid@e.mail e/11112011", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
+                "add Valid Title d/notnumbers s/Invalid Date Time e/11112011", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Title d/12_345 s/11112011 e/11112011", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
+                "add Valid Title d/12_345 s/11112011 0200 e/11112011 0400", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Title d/12345 s/11112011 e/11112011 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Title d/12345 s/11112011 e/11112011 1700 t/Invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -387,13 +387,13 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Title title = new Title("Adam Brown");
-            DateTime privatePhone = new DateTime("11112011");
+            DateTime privateStartDateTime = new DateTime("11112011");
             Description description = new Description("loves ida alot");
-            DateTime privateDueDate = new DateTime("22122022");
+            DateTime privateEndDateTime = new DateTime("22122022");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(title, privatePhone, description, privateDueDate, tags);
+            return new Task(title, privateStartDateTime, description, privateEndDateTime, tags);
         }
 
         /**

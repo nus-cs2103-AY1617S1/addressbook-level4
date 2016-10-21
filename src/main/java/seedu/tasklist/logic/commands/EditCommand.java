@@ -27,7 +27,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX [TITLE] [d/DESCRIPTION] [s/START DATE] [e/DUE DATE] [t/TAG]\n" + "Example: "
+            + "Parameters: INDEX [TITLE] [d/DESCRIPTION] [s/START DATE TIME] [e/END DATE TIME] [t/TAG]\n" + "Example: "
             + COMMAND_WORD + " 1 NEW_TITLE d/NEW_DESCRIPTION\n"
             + COMMAND_WORD + " 2 e/12122012 2359"
             + COMMAND_WORD + " 3 t/TAG1 t/TAG2";
@@ -164,9 +164,9 @@ public class EditCommand extends Command {
             return new EditCommand(
                     index.get(),
                     matcher.group("title"),
-                    getDetailsFromArgs(matcher.group("startDate")),
+                    getDetailsFromArgs(matcher.group("startDateTime")),
                     getDetailsFromArgs(matcher.group("description")),
-                    getDetailsFromArgs(matcher.group("dueDate")),
+                    getDetailsFromArgs(matcher.group("endDateTime")),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {

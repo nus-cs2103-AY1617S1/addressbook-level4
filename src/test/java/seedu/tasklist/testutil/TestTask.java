@@ -14,6 +14,8 @@ public class TestTask implements ReadOnlyTask {
     private DateTime startDateTime;
     private UniqueTagList tags;
     private boolean isCompleted;
+    private boolean isOverdue;
+    private boolean isFloating;
     
     public TestTask() {
         tags = new UniqueTagList();
@@ -23,10 +25,6 @@ public class TestTask implements ReadOnlyTask {
         this.title = title;
     }
 
-    public void setEndDateTime(DateTime endDateTime) {
-        this.endDateTime = endDateTime;
-    }
-
     public void setDescription(Description description) {
         this.description = description;
     }
@@ -34,25 +32,56 @@ public class TestTask implements ReadOnlyTask {
     public void setStartDateTime(DateTime startDateTime) {
         this.startDateTime = startDateTime;
     }
+    
+    public void setEndDateTime(DateTime endDateTime) {
+        this.endDateTime = endDateTime;
+    }
 
+    @Override
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+    
+    @Override
+    public boolean isOverdue() {
+        return isOverdue;
+    }
+    
+    @Override
+    public boolean isFloating() {
+        return isFloating;
+    }
+    
     @Override
     public Title getTitle() {
         return title;
     }
 
     @Override
+    public Description getDescription() {
+        return description;
+    }
+    
+    @Override
     public DateTime getStartDateTime() {
         return startDateTime;
     }
 
     @Override
-    public Description getDescription() {
-        return description;
-    }
-
-    @Override
     public DateTime getEndDateTime() {
         return endDateTime;
+    }
+    
+    public void setCompleted(boolean b) {
+        isCompleted = b;
+    }
+    
+    public void setOverdue(boolean isOverdue) {
+        this.isOverdue = isOverdue;
+    }
+
+    public void setFloating(boolean isFloating) {
+        this.isFloating = isFloating;
     }
 
     @Override
@@ -73,14 +102,5 @@ public class TestTask implements ReadOnlyTask {
         sb.append("e/" + this.getEndDateTime().toString().replaceAll(":", "").replaceAll("-", "") + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
-    }
-
-    @Override
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
-    public void setCompleted(boolean b) {
-        isCompleted = b;
     }
 }
