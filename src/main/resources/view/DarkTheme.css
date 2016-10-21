@@ -17,7 +17,7 @@
 }
 
 .label-header {
-    -fx-font-size: 14pt;
+    -fx-font-size: 12pt;
     -fx-font-family: "Lucida Console", Monaco, monospace;
     -fx-text-fill: pink;
     -fx-opacity: 1;
@@ -97,19 +97,19 @@
 }
 
 .cell_name_label {
-	-fx-font-size: 18px;
+	-fx-font-size: 16px;
 	-fx-text-fill: #010504;
 }
 
 .cell_big_label {
 	-fx-font-family: "Courier New", Courier, monospace;
-    -fx-font-size: 14px;
+    -fx-font-size: 13px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
 	-fx-font-family: "Courier New", Courier, monospace;
-    -fx-font-size: 13px;
+    -fx-font-size: 12px;
     -fx-text-fill: #010504;
 }
 
@@ -129,6 +129,7 @@
 }
 
 .result-display {
+	-fx-font-family: "Courier New", Courier, monospace;
     -fx-background-color: #ffffff;
 }
 
@@ -137,7 +138,7 @@
 }
 
 .status-bar .label {
-    -fx-text-fill: white;
+    -fx-text-fill: pink;
 }
 
 .status-bar-with-border {
@@ -173,7 +174,7 @@
 }
 
 .menu-bar .label {
-    -fx-font-size: 10pt;
+    -fx-font-size: 9pt;
     -fx-font-family: "Lucida Console", Monaco, monospace;
     -fx-text-fill: pink;
     -fx-opacity: 0.9;

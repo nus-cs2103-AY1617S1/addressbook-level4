@@ -98,7 +98,7 @@
             </VBox>
             </children>
          <rowConstraints>
-            <RowConstraints minHeight="-Infinity" prefHeight="90.0" />
+            <RowConstraints minHeight="-Infinity" prefHeight="60.0" />
          </rowConstraints>
         </GridPane>
     </children>
