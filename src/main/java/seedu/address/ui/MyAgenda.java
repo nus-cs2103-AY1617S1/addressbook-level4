@@ -102,7 +102,7 @@ public class MyAgenda extends Agenda{
 	
 	/** Computes and adds all occurences of this daily task to agenda.*/
 	private void addDailyOccurrences(AppointmentImplLocal appointment) {
-		if(appointment.getStartLocalDateTime().isAfter(agendaEndTime)) return;
+		if(appointment.getStartLocalDateTime().truncatedTo(ChronoUnit.DAYS).isAfter(agendaEndTime)) return;
 		int dayOfWeek = appointment.getStartLocalDateTime().getDayOfWeek().getValue() % 7;
 		for(int i = dayOfWeek; i <= 6; i++){
 			LocalDateTime start = appointment.getStartLocalDateTime().plusDays(i - dayOfWeek);
@@ -142,17 +142,18 @@ public class MyAgenda extends Agenda{
 	
 	/** Returns the startTime of the agenda. */
 	private LocalDateTime getAgendaStartDateTime(){
-		LocalDateTime displayedDateTime = getDisplayedLocalDateTime();
+		LocalDateTime displayedDateTime = getDisplayedLocalDateTime().truncatedTo(ChronoUnit.DAYS);
 		int dayOfWeek = displayedDateTime.getDayOfWeek().getValue() % 7;
 		return displayedDateTime.minusDays(dayOfWeek);
 	}
 	
 	/** Returns the endTime of the agenda. */
 	private LocalDateTime getAgendaEndDateTime(){
-		LocalDateTime displayedDateTime = getDisplayedLocalDateTime();
+		LocalDateTime displayedDateTime = getDisplayedLocalDateTime().truncatedTo(ChronoUnit.DAYS);
 		int dayOfWeek = displayedDateTime.getDayOfWeek().getValue() % 7;
 		return displayedDateTime.plusDays(6 - dayOfWeek);
 	}
+	
 	
 	/** Returns a new appointment with start and end time specified and contains same data with source. */
 	private AppointmentImplLocal copyAppointment(AppointmentImplLocal src, LocalDateTime start, LocalDateTime end){
