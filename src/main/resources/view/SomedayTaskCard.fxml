@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="cardPane" fx:id="cardPane" prefHeight="70.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<VBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane prefWidth="600.0" VBox.vgrow="NEVER">
          <columnConstraints>
@@ -19,7 +19,7 @@
             <ColumnConstraints hgrow="NEVER" maxWidth="80.0" minWidth="80.0" />
          </columnConstraints>
          <children>
-            <Label fx:id="taskType" style="-fx-background-color: #63ff75; -fx-font-weight: bold;" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="taskType" style="-fx-background-color: #63ff75; -fx-font-weight: bold; -fx-font-size: 15;" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -38,7 +38,7 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <HBox alignment="CENTER_LEFT" prefHeight="50.0" translateX="10.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="33.0" prefWidth="510.0" translateX="10.0">
                <children>
                   <Label fx:id="id" minWidth="10.0" styleClass="cell_big_label" text=" " />
                   <Label fx:id="taskName" styleClass="cell_big_label" text="\$taskName" HBox.hgrow="ALWAYS">
@@ -72,7 +72,7 @@
             <RowConstraints />
          </rowConstraints>
       </GridPane>
-      <GridPane>
+      <GridPane prefHeight="27.0" prefWidth="600.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -80,18 +80,17 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" translateY="-6.0">
+            <HBox prefWidth="580.0">
                <children>
-                  <Label text="Tags: ">
+                  <Label style="-fx-font-size: 13; -fx-text-fill: #3c3838;" text="Tags: " textFill="#686565">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="tags" styleClass="cell_small_label" text="\$tags">
-                     <stylesheets>
-                        <URL value="@DarkTheme.css" />
-                        <URL value="@Extensions.css" />
-                     </stylesheets>
+                  <Label fx:id="tags" style="-fx-font-size: 13; -fx-text-fill: #3c3838;" text="\$tags">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
                   </Label>
                </children>
                <GridPane.margin>
