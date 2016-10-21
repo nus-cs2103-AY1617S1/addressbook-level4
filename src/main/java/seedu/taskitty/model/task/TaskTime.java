@@ -75,10 +75,6 @@ public class TaskTime {
     }
     
     public static boolean isEquals(TaskTime left, TaskTime right) {
-        if (left == right) {
-            return true;
-        }
-        
         if (left == null || right == null) {
             return false;
         }

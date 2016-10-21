@@ -74,10 +74,6 @@ public class TaskDate {
     }
     
     public static boolean isEquals(TaskDate left, TaskDate right) {
-        if (left == right) {
-            return true;
-        }
-        
         if (left == null || right == null) {
             return false;
         }
