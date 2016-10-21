@@ -27,7 +27,7 @@ public class PersonCard extends UiPart{
 
     private ReadOnlyTask task;
     private int displayedIndex;
-//    private String status;
+
     
     public PersonCard(){
 
@@ -38,7 +38,9 @@ public class PersonCard extends UiPart{
         card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
+        
     }
+    
 
     @FXML
     public void initialize() {
@@ -48,6 +50,7 @@ public class PersonCard extends UiPart{
         address.setText(task.getDatetime().getDateString());
         email.setText(task.getDatetime().getTimeString());
         tags.setText(task.tagsString());
+        setStyleToIndicateOverdueTask(task);
     }
 
     public HBox getLayout() {
@@ -63,4 +66,22 @@ public class PersonCard extends UiPart{
     public String getFxmlPath() {
         return FXML;
     }
+    
+    
+    /**
+     * Sets the command box style to indicate an overdue,completed or no status tasks.
+     */
+    private void setStyleToIndicateOverdueTask(ReadOnlyTask task) {
+        String status = task.getStatus().toString();
+        if(status.equals("OVERDUE")){
+        	cardPane.setStyle("-fx-background-color: red;");
+        }
+        else if(status.equals("DONE")){
+        	cardPane.setStyle("-fx-background-color: midnightblue ;");
+        }
+        else if(status.equals("NONE")){
+        	cardPane.setStyle("-fx-background-color: black");
+        }
+        
+    }   
 }
