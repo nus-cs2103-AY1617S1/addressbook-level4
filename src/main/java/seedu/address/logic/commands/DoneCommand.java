@@ -39,17 +39,17 @@ public class DoneCommand extends Command {
     @Override
     public CommandResult execute() {
         ReadOnlyTask taskToMark = null;
-    	if(keywords!=null){
-    	    model.updateFilteredTaskList(keywords);
-        	if(model.getFilteredTaskList().size()==0) {
-            	return new CommandResult(TASK_NOT_FOUND);
-        	} else if(model.getFilteredTaskList().size()>1) {
-            	return new CommandResult(MULTIPLE_TASK_SATISFY_KEYWORD);
-        	} else {
-            	 UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-            	 assert lastShownList.size() == 1;
-            	 taskToMark = lastShownList.get(0);
-        	}
+        if (keywords != null) {
+            model.updateFilteredTaskList(keywords);
+            if (model.getFilteredTaskList().size() == 0) {
+                return new CommandResult(TASK_NOT_FOUND);
+            } else if (model.getFilteredTaskList().size() > 1) {
+                return new CommandResult(MULTIPLE_TASK_SATISFY_KEYWORD);
+            } else {
+                UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+                assert lastShownList.size() == 1;
+                taskToMark = lastShownList.get(0);
+            }
         } else {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
             if (lastShownList.size() < targetIndex) {
@@ -58,7 +58,7 @@ public class DoneCommand extends Command {
             }
             taskToMark = lastShownList.get(targetIndex - 1);
         }
-    	model.markTask(taskToMark);
+        model.markTask(taskToMark);
         return new CommandResult(String.format(MARK_DONE_SUCCESS, taskToMark));
     }
 
