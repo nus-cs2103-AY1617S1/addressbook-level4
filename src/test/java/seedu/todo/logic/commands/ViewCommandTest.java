@@ -1,6 +1,5 @@
 package seedu.todo.logic.commands;
 
-import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 import java.util.List;
@@ -10,10 +9,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.core.TaskViewFilter;
-import seedu.todo.commons.events.ui.ChangeViewRequestEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
-import seedu.todo.testutil.EventsCollector;
 import seedu.todo.testutil.TaskBuilder;
 import seedu.todo.testutil.TimeUtil;
 

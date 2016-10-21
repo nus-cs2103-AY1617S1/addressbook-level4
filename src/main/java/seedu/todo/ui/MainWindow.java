@@ -168,10 +168,6 @@ public class MainWindow extends UiPart {
         return this.helpPanel;
     }
 
-    TaskViewFilterView getTaskViewFilterView() {
-        return taskViewFilterView;
-    }
-
     CommandFeedbackView getCommandFeedbackView() {
         return commandFeedbackView;
     }

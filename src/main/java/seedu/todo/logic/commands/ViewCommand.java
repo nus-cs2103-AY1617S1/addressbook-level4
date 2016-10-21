@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
-import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.TaskViewFilter;
-import seedu.todo.commons.events.ui.ChangeViewRequestEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.Parameter;
