@@ -2,6 +2,7 @@ package seedu.todo.logic.commands;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -27,17 +28,19 @@ public class ViewCommandTest extends CommandTest {
     
     @Before
     public void setUp() throws Exception {
+        LocalDateTime now = LocalDateTime.now();
+        
         tasks = ImmutableList.of(
             TaskBuilder.name("0. Completed, no deadline")
                 .completed()
                 .build(),
 
             TaskBuilder.name("1. Due tomorrow")
-                .due(TimeUtil.tomorrow().plusHours(8))
+                .due(now.plusHours(24))
                 .build(),
 
             TaskBuilder.name("2. Due today")
-                .due(TimeUtil.today().plusHours(8))
+                .due(now.plusHours(8))
                 .build(),
 
             TaskBuilder.name("3. Pinned task")
@@ -46,30 +49,27 @@ public class ViewCommandTest extends CommandTest {
 
             TaskBuilder.name("4. Due today, completed")
                 .completed()
-                .due(TimeUtil.today().plusHours(10))
+                .due(now.plusHours(10))
                 .build(),
 
-            TaskBuilder.name("5. Event happening today")
-                .event(TimeUtil.today().plusHours(12), TimeUtil.today().plusHours(14))
+            TaskBuilder.name("5. Event happening later")
+                .event(now.plusHours(1), now.plusHours(2))
                 .build(),
 
             TaskBuilder.name("6. Event happened yesterday")
-                .event(TimeUtil.today(). minusHours(14), TimeUtil.today().minusHours(12))
+                .event(now.minusHours(14), now.minusHours(12))
+                .completed()
                 .build()
         );
         
         todolist.setTasks(tasks);
-        
-        for (ImmutableTask task : model.getObservableList()) {
-            System.out.println(task.getTitle() + " " + task.getCreatedAt());
-        }
-        System.out.println();
-        
+        Thread.sleep(1);
+
         all = new int[]{ 3, 6, 5, 4, 2, 1, 0 };
         events = new int[]{ 6, 5 };
         dueSoon = new int[]{ 2, 1 };
-        completed = new int[]{ 4, 0 };
-        incomplete = new int[]{ 3, 6, 2, 5, 1 };
+        completed = new int[]{ 6, 4, 0 };
+        incomplete = new int[]{ 3, 5, 2, 1 };
     }
     
     private void assertViewChange(TaskViewFilter filter) {

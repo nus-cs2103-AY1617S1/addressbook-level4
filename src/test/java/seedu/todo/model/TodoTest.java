@@ -18,6 +18,8 @@ import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.storage.MovableStorage;
+import seedu.todo.testutil.TaskBuilder;
+import seedu.todo.testutil.TimeUtil;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -61,6 +63,21 @@ public class TodoTest {
         assertEquals(2, todo.getTasks().size());
         assertTrue(todo.getTasks().contains(task1));
         assertTrue(todo.getTasks().contains(task2));
+    }
+    
+    @Test
+    public void testCompletedEvent() throws Exception {
+        LocalDateTime start = LocalDateTime.now().minusHours(4);
+        
+        when(storageData.getTasks()).thenReturn(ImmutableList.of(
+            TaskBuilder.name("Test task")
+                .event(start, start.plusHours(1))
+                .build()
+        ));
+        todo = new TodoList(storage);
+        
+        Thread.sleep(1);
+        assertTrue(todo.getTasks().get(0).isCompleted());
     }
 
     @Test
