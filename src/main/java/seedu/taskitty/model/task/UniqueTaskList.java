@@ -91,6 +91,13 @@ public class UniqueTaskList implements Iterable<Task> {
     		throw new TaskNotFoundException();
     	}
     }   
+    
+    /**
+     * Sorts the task list according to compareTo method in Task
+     */
+    public void sort() {
+        internalList.sort(null);
+    }
 
     /**
      * Removes the equivalent task from the list.

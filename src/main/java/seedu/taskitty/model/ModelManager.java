@@ -56,6 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
         historyTaskManagers = new Stack<ReadOnlyTaskManager>();
         historyCommands = new Stack<String>();
         historyPredicates = new Stack<Predicate>();
+        taskManager.sortList();
     }
 
     public ModelManager() {
