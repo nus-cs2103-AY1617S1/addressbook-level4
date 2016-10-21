@@ -12,11 +12,11 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the TodoList.\n"
-            + "Parameters: TASK_NAME d/DATE s/START_TIME e/END_TIME\n"
+            + "Parameters: TASK_NAME d/DATE ed/ENDDATE s/START_TIME e/END_TIME\n"
             + "Example: " + COMMAND_WORD
-            + " Assignment 3 d/25-12-2016 p/1\n"
+            + " Assignment 3 d/25-12-2016 d/26-12-2016 p/1\n"
             + "Example: " + COMMAND_WORD
-            + " Time's birthday party d/25-12-2016 s/1400 e/1600\n"
+            + " Time's birthday party d/25-12-2016 ed/26-12-2016 s/1400 e/1600\n"
             + "Example: " + COMMAND_WORD
             + " CS2103 v0.2 d/25-12-2016 e/1600\n";
 
@@ -31,11 +31,12 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String date, int priority)
+    public AddCommand(String name, String date, String endDate ,int priority)
             throws IllegalValueException {
         this.toAdd = new Todo(
                 new Name(name),
                 new Date(date),
+                new EndDate(endDate),
                 new Priority(Integer.toString(priority))
         );
     }
@@ -45,11 +46,12 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String date, String startTime, String endTime)
+    public AddCommand(String name, String date, String endDate, String startTime, String endTime)
             throws IllegalValueException {
         this.toAdd = new Event(
                 new Name(name),
                 new Date(date),
+                new EndDate(endDate),
                 new StartTime(startTime),
                 new EndTime(endTime)
         );

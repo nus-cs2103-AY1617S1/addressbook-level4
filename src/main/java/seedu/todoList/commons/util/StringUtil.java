@@ -42,4 +42,8 @@ public class StringUtil {
     public static boolean isUnsignedString(String s){
         return s != null && s.matches("^[a-zA-Z]+$");
     }
+    
+    public static boolean isUnsignedDate(String s){
+        return s != null && s.matches("^(\\d{2}-\\d{2}-\\d{4})$");
+    }
 }

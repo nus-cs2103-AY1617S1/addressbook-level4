@@ -3,6 +3,7 @@ package seedu.todoList.model.task;
 import seedu.todoList.commons.util.CollectionUtil;
 import seedu.todoList.model.task.attributes.Name;
 import seedu.todoList.model.task.attributes.Date;
+import seedu.todoList.model.task.attributes.EndDate;
 import seedu.todoList.model.task.attributes.EndTime;
 import seedu.todoList.model.task.attributes.StartTime;
 
@@ -13,16 +14,18 @@ import seedu.todoList.model.task.attributes.StartTime;
 public class Event extends Task implements ReadOnlyTask {
 
 	private Date date;
+	private EndDate endDate;
     private StartTime startTime;
     private EndTime endTime;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, Date date, StartTime startTime, EndTime endTime) {
+    public Event(Name name, Date date, EndDate endDate, StartTime startTime, EndTime endTime) {
         assert !CollectionUtil.isAnyNull(name, date, startTime, endTime);
         super.name = name;
         this.date = date;
+        this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -31,7 +34,7 @@ public class Event extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Event(Event source) {
-        this(source.getName(), source.getDate(), source.getStartTime(), source.getEndTime());
+        this(source.getName(), source.getDate(), source.getEndDate(), source.getStartTime(), source.getEndTime());
     }
     
     public Event(ReadOnlyTask source) {
@@ -40,6 +43,10 @@ public class Event extends Task implements ReadOnlyTask {
 
     public Date getDate() {
         return date;
+    }
+    
+    public EndDate getEndDate() {
+        return endDate;
     }
 
     public StartTime getStartTime() {

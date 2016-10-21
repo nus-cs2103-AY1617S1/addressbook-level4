@@ -2,6 +2,7 @@ package seedu.todoList.model.task;
 
 import seedu.todoList.commons.util.CollectionUtil;
 import seedu.todoList.model.task.attributes.Date;
+import seedu.todoList.model.task.attributes.EndDate;
 import seedu.todoList.model.task.attributes.Name;
 import seedu.todoList.model.task.attributes.Priority;
 
@@ -12,16 +13,18 @@ import seedu.todoList.model.task.attributes.Priority;
 public class Todo extends Task implements ReadOnlyTask {
     
     private Date date;
+    private EndDate endDate;
     private Priority priority;
 
     /**
      * Every field must be present and not null.
      * @param date 
      */
-    public Todo(Name name, Date date, Priority priority) {
-        assert !CollectionUtil.isAnyNull(name, date, priority);
+    public Todo(Name name, Date date, EndDate endDate, Priority priority) {
+        assert !CollectionUtil.isAnyNull(name, date, endDate, priority);
         super.name = name;
         this.date = date;
+        this.endDate = endDate;
         this.priority = priority;
     }
 
@@ -29,11 +32,15 @@ public class Todo extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Todo(Todo source) {
-        this(source.getName(), source.getDate() , source.getPriority());
+        this(source.getName(), source.getDate() , source.getEndDate(), source.getPriority());
     }
 
     public Date getDate() {
         return date;
+    }
+    
+    public EndDate getEndDate() {
+        return endDate;
     }
 
     public Priority getPriority() {

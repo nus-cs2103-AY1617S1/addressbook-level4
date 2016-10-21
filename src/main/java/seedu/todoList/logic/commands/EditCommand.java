@@ -37,13 +37,14 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, int priority, int targetIndex, String dataType)
+    public EditCommand(String name, String date, String endDate, int priority, int targetIndex, String dataType)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.dataType = dataType;
         this.toEdit = new Todo(
                 new Name(name),
                 new Date(date),
+                new EndDate(endDate),
                 new Priority(Integer.toString(priority))
         );
     }
@@ -53,13 +54,14 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, String startTime, String endTime, int targetIndex, String dataType)
+    public EditCommand(String name, String date, String endDate, String startTime, String endTime, int targetIndex, String dataType)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.dataType = dataType;
         this.toEdit = new Event(
                 new Name(name),
                 new Date(date),
+                new EndDate(endDate),
                 new StartTime(startTime),
                 new EndTime(endTime)
         );
