@@ -1,6 +1,10 @@
 package seedu.ggist.model.task;
 
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 
 /**
@@ -9,8 +13,9 @@ import seedu.ggist.commons.exceptions.IllegalValueException;
  */
 public class Priority {
 
-    public static final String MESSAGE_PRIORITY_CONSTRAINTS =
-            "Task priority should be either 'low','med' or'high'";
+    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority must be prefixed with -\n "
+            + "Valid priority level are -low , -med , -high";
+
     public static final String PRIORITY_VALIDATION_REGEX = "low|med|high";
 
     public final String value;
@@ -21,16 +26,18 @@ public class Priority {
      * @throws IllegalValueException if given priority string is invalid.
      */
     public Priority(String priority) throws IllegalValueException {
-        assert priority != null;
-        priority = priority.trim();
-        if (!isValidPriority(priority)) {
+        if (priority == null) {
+            value =  Messages.MESSAGE_NO_PRIORITY_VALUE;
+        } else if (!isValidPriority(priority.trim())){
             throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
+        } else {
+            priority = priority.trim();
+            value = priority;
         }
-        this.value = priority;
     }
 
     /**
-     * Returns if a given string is a valid priority.
+     * Returns the matched string
      */
     public static boolean isValidPriority(String test) {
         return test.matches(PRIORITY_VALIDATION_REGEX);
