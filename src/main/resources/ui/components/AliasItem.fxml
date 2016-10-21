@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<VBox styleClass="tasklist-dateitem" maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" 
+  xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" 
+  fx:controller="seedu.todo.ui.components.AliasItem">
+  <children>
+
+    <HBox alignment="CENTER_LEFT">
+      <children>
+        <Text fx:id="aliasKey" wrappingWidth="100.0" VBox.vgrow="ALWAYS" />
+        <Text fx:id="aliasValue" VBox.vgrow="ALWAYS" />
+      </children>
+    </HBox>
+    
+  </children>
+  <padding>
+    <Insets bottom="10.0" />
+  </padding>
+</VBox>

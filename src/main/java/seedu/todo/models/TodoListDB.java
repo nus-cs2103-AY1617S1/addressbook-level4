@@ -3,10 +3,12 @@ package seedu.todo.models;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import seedu.todo.commons.exceptions.CannotRedoException;
@@ -34,9 +36,14 @@ public class TodoListDB {
     
     private Set<Task> tasks = new LinkedHashSet<Task>();
     private Set<Event> events = new LinkedHashSet<Event>();
+    private Map<String, String> aliases = new HashMap<String, String>();
     
     protected TodoListDB() {
         // Prevent instantiation.
+    }
+    
+    public Map<String, String> getAliases() {
+        return aliases;
     }
     
     /**

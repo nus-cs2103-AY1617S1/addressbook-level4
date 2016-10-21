@@ -46,7 +46,8 @@ public class InputHandler {
     }
     
     private Controller[] instantiateAllControllers() {
-        return new Controller[] { new HelpController(),
+        return new Controller[] { new AliasController(),
+                                  new HelpController(),
                                   new AddController(),
                                   new ListController(),
                                   new DestroyController(),
