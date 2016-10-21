@@ -31,6 +31,7 @@ public class CommandParser {
     public static final String COMMAND_QUOTE_SYMBOL = "\"";
     public static final String EMPTY_STRING = "";
     public static final int NOT_FOUND = -1;
+    public static final int STRING_START = 0;
     
     /**
      * Used for initial separation of command word and args.
@@ -179,8 +180,7 @@ public class CommandParser {
             detailLastIndex = arguments.length();
         }
         
-        //Is this 0 considered magic number?
-        return arguments.substring(0, detailLastIndex).trim();
+        return arguments.substring(STRING_START, detailLastIndex).trim();
     }
     
     /**
@@ -211,12 +211,15 @@ public class CommandParser {
         ArrayList<String> details = new ArrayList<String>();
         
         //Attempt to extract name out if it is surrounded by quotes
-        //+1 because we want the quote included in the string
-        nameEndIndex = dataArguments.lastIndexOf(COMMAND_QUOTE_SYMBOL) + 1;
+        nameEndIndex = dataArguments.lastIndexOf(COMMAND_QUOTE_SYMBOL);
         boolean isNameExtracted = false;
         if (nameEndIndex != NOT_FOUND) {
             int nameStartIndex = dataArguments.indexOf(COMMAND_QUOTE_SYMBOL);
-            String nameDetail = dataArguments.substring(nameStartIndex, nameEndIndex);
+            if (nameStartIndex == NOT_FOUND) {
+                nameStartIndex = STRING_START;
+            }
+            //+1 because we want the quote included in the string
+            String nameDetail = dataArguments.substring(nameStartIndex, nameEndIndex + 1);
             
             //remove name from dataArguments
             dataArguments = dataArguments.replace(nameDetail, EMPTY_STRING);
@@ -230,6 +233,7 @@ public class CommandParser {
         
         Parser dateTimeParser = new Parser(); 
         List<DateGroup> dateGroups = dateTimeParser.parse(dataArguments);
+        nameEndIndex = dataArguments.length();
         
         for (DateGroup group : dateGroups) {
             List<Date> dates = group.getDates();
@@ -243,7 +247,8 @@ public class CommandParser {
         }
         
         if (!isNameExtracted) {
-            details.add(Task.TASK_COMPONENT_INDEX_NAME, dataArguments.substring(0, nameEndIndex).trim());
+            details.add(Task.TASK_COMPONENT_INDEX_NAME,
+                    dataArguments.substring(STRING_START, nameEndIndex).trim());
         }
         
         String[] returnDetails = new String[details.size()];
