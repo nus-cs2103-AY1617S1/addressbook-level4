@@ -19,8 +19,8 @@ public class ListCommand extends Command {
         
     private Boolean isListDoneCommand;
     
-    public ListCommand(Boolean isListDoneView) {
-        this.isListDoneCommand = isListDoneView;
+    public ListCommand(Boolean isListDoneCommand) {
+        this.isListDoneCommand = isListDoneCommand;
     }
 
     @Override
