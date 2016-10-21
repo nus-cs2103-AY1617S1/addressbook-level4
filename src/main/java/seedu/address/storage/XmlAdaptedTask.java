@@ -21,6 +21,8 @@ public class XmlAdaptedTask {
     private String name;
     @XmlElement
     private String date;
+    @XmlElement
+    private boolean isDone;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -39,6 +41,7 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().taskName;
         date = source.getDate().getValue();
+        isDone = source.isDone();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -65,6 +68,6 @@ public class XmlAdaptedTask {
             date = new EventDate(dates[START_DATE_INDEX], dates[END_DATE_INDEX]);
         }
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, date, tags);
+        return new Task(name, date, tags, isDone);
     }
 }

@@ -81,6 +81,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public synchronized void markTask(ReadOnlyTask task) {
+        taskManager.markTask(task);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
     public void updateTaskManager(String filePath, boolean isToClearOld) {
         EventsCenter.getInstance().post(new StoragePathChangedEvent(filePath, isToClearOld));
         indicateTaskManagerChanged();

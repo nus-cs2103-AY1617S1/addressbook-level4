@@ -13,6 +13,7 @@ public interface ReadOnlyTask {
     boolean isEvent();
     boolean isDone();
     void markAsDone();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the person's internal tags.
@@ -26,7 +27,8 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getDate().equals(this.getDate()));
+                && other.getDate().equals(this.getDate())
+                && other.isDone() == this.isDone());
     }
 
     /**

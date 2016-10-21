@@ -14,7 +14,7 @@ public class Task implements ReadOnlyTask {
     private boolean isEvent;
     private Name name;
     private Date date;
-    private boolean taskDone;
+    private boolean isDone;
 
     private UniqueTagList tags;
 
@@ -22,8 +22,11 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public Task(Name name, Date date, UniqueTagList tags) {
+        this(name, date, tags, false);
+    }
+    
+    public Task(Name name, Date date, UniqueTagList tags, boolean isDone) {
         assert !CollectionUtil.isAnyNull(name, date, tags);
-        this.taskDone=false;
         this.name = name;
         this.date = date;
         if (date instanceof EventDate) {
@@ -32,13 +35,14 @@ public class Task implements ReadOnlyTask {
             isEvent = false;
         }
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isDone = isDone;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDate(), source.getTags());
+        this(source.getName(), source.getDate(), source.getTags(), source.isDone());
     }
     
     public Task(Name name) {
@@ -63,9 +67,9 @@ public class Task implements ReadOnlyTask {
     
     @Override
     public boolean isDone(){
-    	return taskDone;
+    	return isDone;
     }
-
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -88,7 +92,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, date, tags);
+        return Objects.hash(name, date, tags, isDone);
     }
 
     @Override
@@ -98,7 +102,7 @@ public class Task implements ReadOnlyTask {
 
 	@Override
 	public void markAsDone() {
-		taskDone=true;
+		isDone=true;
 		
 	}
 

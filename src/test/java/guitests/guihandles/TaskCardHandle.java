@@ -11,6 +11,7 @@ import seedu.address.model.task.ReadOnlyTask;
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String DATE_FIELD_ID = "#date";
+    private static final String DONE_FIELD_ID = "#done";
 
     private Node node;
 
@@ -30,9 +31,15 @@ public class TaskCardHandle extends GuiHandle {
     public String getDate() {
         return getTextFromLabel(DATE_FIELD_ID);
     }
+    
+    // Temporary design
+    public boolean isDone() {
+        return getTextFromLabel(DONE_FIELD_ID).equals("done");
+    }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getName().equals(task.getName().taskName) && getDate().equals(task.getDate().getValue());
+        return getName().equals(task.getName().taskName) && getDate().equals(task.getDate().getValue())
+                && isDone() == task.isDone();
     }
 
     @Override
@@ -40,13 +47,14 @@ public class TaskCardHandle extends GuiHandle {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getName().equals(handle.getName())
-                    && getDate().equals(handle.getDate()); //TODO: compare the rest
+                    && getDate().equals(handle.getDate())
+                    && isDone() == handle.isDone(); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getName() + " " + getDate();
+        return getName() + " " + getDate() + " " + isDone();
     }
 }

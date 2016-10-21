@@ -18,6 +18,8 @@ public class TaskCard extends UiPart{
 //    private Label id;
     @FXML
     private Label date;
+    @FXML
+    private Label done;
 //    @FXML
 //    private Label tags;
 //    @FXML
@@ -46,6 +48,8 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().taskName);
 //        id.setText(displayedIndex + ". ");
         date.setText(task.getDate().getValue());
+        // Temporary design
+        done.setText(task.isDone() ? "done" : "");
 //        tags.setText(task.tagsString());
     }
 

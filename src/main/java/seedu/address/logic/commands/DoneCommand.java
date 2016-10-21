@@ -39,36 +39,28 @@ public class DoneCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        ReadOnlyTask taskToMark = null;
     	if(keywords!=null){
-        model.updateFilteredTaskList(keywords);
-        if(model.getFilteredTaskList().size()==0)
-        	return new CommandResult(TASK_NOT_FOUND);
-        else if(model.getFilteredTaskList().size()>1)
-        	return new CommandResult(MULTIPLE_TASK_SATISFY_KEYWORD);
-        else{
-        	 UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        	 ReadOnlyTask TaskToMark=null;
-        	 for(ReadOnlyTask e:lastShownList){
-        		 if(keywords.stream().filter(keyword -> StringUtil.containsIgnoreCase(e.getName().taskName, keyword))
-                    .findAny().isPresent()){
-        			 TaskToMark=e;
-        			 TaskToMark.markAsDone();
-        		 break;
-        		 }
-        	 }
-        	 return new CommandResult(String.format(MARK_DONE_SUCCESS, TaskToMark));
-        }
-    	}else{
-    		ReadOnlyTask TaskToMark = null;
+    	    model.updateFilteredTaskList(keywords);
+        	if(model.getFilteredTaskList().size()==0) {
+            	return new CommandResult(TASK_NOT_FOUND);
+        	} else if(model.getFilteredTaskList().size()>1) {
+            	return new CommandResult(MULTIPLE_TASK_SATISFY_KEYWORD);
+        	} else {
+            	 UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+            	 assert lastShownList.size() == 1;
+            	 taskToMark = lastShownList.get(0);
+        	}
+        } else {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-                if (lastShownList.size() < targetIndex) {
-                    indicateAttemptToExecuteIncorrectCommand();
-                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-                }
-                TaskToMark = lastShownList.get(targetIndex - 1);
-                TaskToMark.markAsDone();
-                return new CommandResult(String.format(MARK_DONE_SUCCESS, TaskToMark));
-    	}
+            if (lastShownList.size() < targetIndex) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            taskToMark = lastShownList.get(targetIndex - 1);
+        }
+    	model.markTask(taskToMark);
+        return new CommandResult(String.format(MARK_DONE_SUCCESS, taskToMark));
     }
 
 }

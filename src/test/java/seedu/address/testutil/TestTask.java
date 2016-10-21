@@ -53,11 +53,12 @@ public class TestTask implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return tags;
     }
+    
     @Override
     public boolean isDone() {
     	return isDone;
     }
-
+    
     @Override
     public String toString() {
         return getAsText();
