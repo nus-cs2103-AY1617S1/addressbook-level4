@@ -93,8 +93,18 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Set<String> keywords){
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
 
     private void updateFilteredPersonList(Expression expression) {
+        filteredPersons.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+	public void updateFilteredPersonListByDate(Set<String> keywords) {
+    	updateFilteredPersonList(new PredicateExpression(new DateQualifier(keywords)));
+    }
+    
+    private void updateFilteredPersonListByDate(Expression expression) {
         filteredPersons.setPredicate(expression::satisfies);
     }
 
@@ -128,6 +138,27 @@ public class ModelManager extends ComponentManager implements Model {
         boolean run(ReadOnlyTask person);
         String toString();
     }
+    
+    private class DateQualifier implements Qualifier {
+    	private Set<String> dateKeyWords;
+
+        DateQualifier(Set<String> dateKeyWords) {
+            this.dateKeyWords = dateKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask person) {
+            return dateKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getPhone().value, keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "date=" + String.join(", ", dateKeyWords);
+        }
+    }
 
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
@@ -149,5 +180,4 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
 }

@@ -87,6 +87,12 @@ public class Parser {
 	case HelpCommand.COMMAND_WORD:
 	    return new HelpCommand();
 
+	case ShowCommand.COMMAND_WORD:
+	    if (arguments.equals(""))
+		return new ShowCommand();
+	    else
+		return prepareShow(arguments);
+
 	default:
 	    return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 	}
@@ -350,6 +356,24 @@ public class Parser {
 
 	return new DeleteCommand(index.get());
     }
+    
+    private Command prepareShow(String args) {
+	final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+	if (!matcher.matches()) {
+	    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+	}
+
+	// keywords delimited by whitespace
+	final String[] keywords = matcher.group("keywords").split("\\s+");
+	nattyParser natty = new nattyParser();
+	
+	for (int i = 0; i < keywords.length; i++) {
+		keywords[i] = natty.parseDate(keywords[i]);
+	}
+	final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
+	return new ShowCommand(keywordSet);
+    }
+       
 
     /**
      * Parses arguments in the context of the select person command.
