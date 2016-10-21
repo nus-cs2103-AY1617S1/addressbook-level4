@@ -39,11 +39,11 @@ public class TaskViewFilter {
     
     public final int shortcutCharPosition;
 
-    private TaskViewFilter(String name, Predicate<ImmutableTask> filter, Comparator<ImmutableTask> sort) {
+    public TaskViewFilter(String name, Predicate<ImmutableTask> filter, Comparator<ImmutableTask> sort) {
         this(name, filter, sort, 0);
     }
 
-    private TaskViewFilter(String name, Predicate<ImmutableTask> filter, Comparator<ImmutableTask> sort, int underlineCharPosition) {
+    public TaskViewFilter(String name, Predicate<ImmutableTask> filter, Comparator<ImmutableTask> sort, int underlineCharPosition) {
         this.name = name;
         this.filter = filter;
         this.sort = sort;
