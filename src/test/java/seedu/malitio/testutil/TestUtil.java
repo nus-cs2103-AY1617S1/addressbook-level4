@@ -1,7 +1,10 @@
 package seedu.malitio.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.TaskCardHandle;
+
+import guitests.guihandles.DeadlineCardHandle;
+import guitests.guihandles.EventCardHandle;
+import guitests.guihandles.FloatingTaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -29,6 +32,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
@@ -85,13 +90,42 @@ public class TestUtil {
     }
 
     private static Event[] getSampleEventData() {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            return new Event[]{
+                    new Event(new Name("Zen Birthday Celebration"), new DateTime("20102016 1100"), new DateTime("20102016 1200"), new UniqueTagList()),
+                    new Event(new Name("JuMin Speech"), new DateTime("20112016 1100"), new DateTime("20112016 1200"), new UniqueTagList()),
+                    new Event(new Name("STxxxx Lecture"), new DateTime("02102016 0000"), new DateTime("03102016 1000"), new UniqueTagList()),
+                    new Event(new Name("My Birthday"), new DateTime("20032016 0000"), new DateTime("20032016 2359"), new UniqueTagList()),
+                    new Event(new Name("Dinner Date with YooSung"), new DateTime("18022017 1100"), new DateTime("19022017 1200"), new UniqueTagList()),
+                    new Event(new Name("Play Dota with Friends"), new DateTime("02122016 0000"), new DateTime("02122016 2359"), new UniqueTagList()),
+                    new Event(new Name("Get Rich Seminar"), new DateTime("17112016 0000"), new DateTime("17112016 0210"), new UniqueTagList()),
+                    new Event(new Name("Badminton"), new DateTime("03012016 1400"), new DateTime("02122016 1700"), new UniqueTagList()),
+            };
+        } catch (IllegalValueException e) {
+            assert false;
+            //not possible
+            return null;
+        }
     }
 
     private static Deadline[] getSampleDeadlineData() {
-        // TODO Auto-generated method stub
-        return null;
+        try {
+            return new Deadline[]{
+                    new Deadline(new Name("Complete ST4231 Homework"), new DateTime ("20102016 2300"), new UniqueTagList()),
+                    new Deadline(new Name("Feed Elizabeth the 3rd"), new DateTime ("08082016 0808"), new UniqueTagList()),
+                    new Deadline(new Name("Buy materials for christmas party!"), new DateTime ("24122016 1200"), new UniqueTagList()),
+                    new Deadline(new Name("Make new year resolutions"), new DateTime ("31122016 2359"), new UniqueTagList()),
+                    new Deadline(new Name("Study for Test"), new DateTime ("18112016 1300"), new UniqueTagList()),
+                    new Deadline(new Name("Buy food for Zen"), new DateTime ("01012017 0000"), new UniqueTagList()),
+                    new Deadline(new Name("Buy present for girlfriend"), new DateTime ("05032017 0500"), new UniqueTagList()),
+                    new Deadline(new Name("Complete Hearthstone missions"), new DateTime ("10062016 1940"), new UniqueTagList()),
+                    new Deadline(new Name("Reply lecturer emails"), new DateTime ("30102016 2359"), new UniqueTagList())
+            };
+        } catch (IllegalValueException e) {
+            assert false;
+            //not possible
+            return null;
+        }
     }
 
     public static final Tag[] sampleTagData = getSampleTagData();
@@ -111,6 +145,14 @@ public class TestUtil {
 
     public static List<FloatingTask> generateSampleTaskData() {
         return Arrays.asList(sampleFloatingTaskData);
+    }
+    
+    public static List<Deadline> generateSampleDeadlineData() {
+        return Arrays.asList(sampleDeadlineData);
+    }
+    
+    public static List<Event> generateSampleEventData() {
+        return Arrays.asList(sampleEventData);
     }
 
     /**
@@ -291,10 +333,10 @@ public class TestUtil {
      * @param tasksToRemove The subset of tasks.
      * @return The modified tasks after removal of the subset from tasks.
      */
-    public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
-        List<TestTask> listOfTasks = asList(tasks);
+    public static TestFloatingTask[] removeTasksFromList(final TestFloatingTask[] tasks, TestFloatingTask... tasksToRemove) {
+        List<TestFloatingTask> listOfTasks = asList(tasks);
         listOfTasks.removeAll(asList(tasksToRemove));
-        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+        return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
     }
 
 
@@ -303,7 +345,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
+    public static TestFloatingTask[] removeTaskFromList(final TestFloatingTask[] list, int targetIndexInOneIndexedFormat) {
         return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
@@ -314,7 +356,7 @@ public class TestUtil {
      * @param index The index of the task to be replaced.
      * @return
      */
-    public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
+    public static TestFloatingTask[] replaceTaskFromList(TestFloatingTask[] tasks, TestFloatingTask task, int index) {
         tasks[index] = task;
         return tasks;
     }
@@ -325,10 +367,36 @@ public class TestUtil {
      * @param tasksToAdd The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
-    public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
-        List<TestTask> listOfTasks = asList(tasks);
+    public static TestFloatingTask[] addTasksToList(final TestFloatingTask[] tasks, TestFloatingTask... tasksToAdd) {
+        List<TestFloatingTask> listOfTasks = asList(tasks);
         listOfTasks.addAll(asList(tasksToAdd));
-        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+        return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
+    }
+    
+    public static TestDeadline[] addTasksToList(final TestDeadline[] deadlines, TestDeadline... deadlinesToAdd) {
+        List<TestDeadline> listOfDeadlines = asList(deadlines);
+        listOfDeadlines.addAll(asList(deadlinesToAdd));
+        Collections.sort(listOfDeadlines, new Comparator<TestDeadline>() {
+            public int compare(TestDeadline d1, TestDeadline d2) {
+                if (d1.getDue() == null || d2.getDue() == null)
+                  return 0;
+                return d1.getDue().compareTo(d2.getDue());
+            }
+          });
+        return listOfDeadlines.toArray(new TestDeadline[listOfDeadlines.size()]);
+    }
+    
+    public static TestEvent[] addTasksToList(final TestEvent[] events, TestEvent... eventsToAdd) {
+        List<TestEvent> listOfEvents = asList(events);
+        listOfEvents.addAll(asList(eventsToAdd));
+        Collections.sort(listOfEvents, new Comparator<TestEvent>() {
+            public int compare(TestEvent e1, TestEvent e2) {
+                if (e1.getStart() == null || e2.getStart() == null)
+                  return 0;
+                return e1.getStart().compareTo(e2.getStart());
+            }
+          });
+        return listOfEvents.toArray(new TestEvent[listOfEvents.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -339,7 +407,15 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyFloatingTask task) {
+    public static boolean compareCardAndTask(FloatingTaskCardHandle card, ReadOnlyFloatingTask task) {
+        return card.isSameTask(task);
+    }
+    
+    public static boolean compareCardAndTask(DeadlineCardHandle card, ReadOnlyDeadline task) {
+        return card.isSameDeadline(task);
+    }
+    
+    public static boolean compareCardAndTask(EventCardHandle card, ReadOnlyEvent task) {
         return card.isSameTask(task);
     }
 

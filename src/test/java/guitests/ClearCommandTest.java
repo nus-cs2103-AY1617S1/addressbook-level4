@@ -10,12 +10,12 @@ public class ClearCommandTest extends MalitioGuiTest {
     public void clear() {
 
         //verify a non-empty list can be cleared
-        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
+        assertTrue(floatingTaskListPanel.isListMatching(td.getTypicalFloatingTasks()));
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.manualFloatingTask.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.manualFloatingTask));
+        commandBox.runCommand(td.manualFloatingTask1.getAddCommand());
+        assertTrue(floatingTaskListPanel.isListMatching(td.manualFloatingTask1));
         commandBox.runCommand("delete 1");
         assertListSize(0);
 

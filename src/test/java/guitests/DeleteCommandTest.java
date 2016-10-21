@@ -1,7 +1,7 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.malitio.testutil.TestTask;
+import seedu.malitio.testutil.TestFloatingTask;
 import seedu.malitio.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
@@ -16,7 +16,7 @@ public class DeleteCommandTest extends MalitioGuiTest {
     public void delete() {
 
         //delete the first in the list
-        TestTask[] currentList = td.getTypicalTasks();
+        TestFloatingTask[] currentList = td.getTypicalFloatingTasks();
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -41,14 +41,14 @@ public class DeleteCommandTest extends MalitioGuiTest {
      * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of tasks (before deletion).
      */
-    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
-        TestTask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
+    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestFloatingTask[] currentList) {
+        TestFloatingTask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestFloatingTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous tasks except the deleted task
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        assertTrue(floatingTaskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));

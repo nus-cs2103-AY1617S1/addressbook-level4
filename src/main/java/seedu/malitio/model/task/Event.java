@@ -60,14 +60,6 @@ public class Event implements ReadOnlyEvent {
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }
-    
-    public DateTime getStartTime() {
-		return start;
-	}
-    
-    public DateTime getEndTime() {
-		return end;
-	}
 
     @Override
     public boolean equals(Object other) {
