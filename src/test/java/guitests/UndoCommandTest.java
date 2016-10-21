@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-import teamfour.tasc.logic.LogicManager;
 import teamfour.tasc.logic.commands.UndoCommand;
 import teamfour.tasc.testutil.TestTask;
 
