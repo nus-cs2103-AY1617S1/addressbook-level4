@@ -1,11 +1,9 @@
-package seedu.savvytasker.model.person;
+package seedu.savvytasker.model.task;
 
 import java.util.Date;
 import java.util.Objects;
 
 import seedu.savvytasker.logic.commands.models.ModifyCommandModel;
-import seedu.savvytasker.model.task.PriorityLevel;
-import seedu.savvytasker.model.task.RecurrenceType;
 
 /**
  * Represents a Task in the task list.

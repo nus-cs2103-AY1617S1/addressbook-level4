@@ -1,8 +1,8 @@
 package seedu.savvytasker.logic.commands;
 
 import seedu.savvytasker.logic.commands.models.AddCommandModel;
-import seedu.savvytasker.model.person.*;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 
 /**
  * Adds a person to the address book.
@@ -42,7 +42,6 @@ public class AddCommand extends Command {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateTaskException e) {
-            assert false; // ModelManager will ensure no duplicated tasks
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 

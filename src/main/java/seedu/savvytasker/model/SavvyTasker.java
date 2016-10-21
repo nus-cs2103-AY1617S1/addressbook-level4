@@ -1,11 +1,11 @@
 package seedu.savvytasker.model;
 
 import javafx.collections.ObservableList;
-import seedu.savvytasker.model.person.ReadOnlyTask;
-import seedu.savvytasker.model.person.Task;
-import seedu.savvytasker.model.person.TaskList;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
-import seedu.savvytasker.model.person.TaskList.TaskNotFoundException;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList;
+import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -20,6 +20,11 @@ import java.util.logging.Level;
 public class JsonUtil {
     private static class LevelDeserializer extends FromStringDeserializer<Level> {
 
+        /**
+         * Generated serial
+         */
+        private static final long serialVersionUID = 7901046138205615293L;
+
         protected LevelDeserializer(Class<?> vc) {
             super(vc);
         }

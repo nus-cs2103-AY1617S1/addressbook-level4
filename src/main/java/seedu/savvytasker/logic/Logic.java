@@ -2,7 +2,7 @@ package seedu.savvytasker.logic;
 
 import javafx.collections.ObservableList;
 import seedu.savvytasker.logic.commands.CommandResult;
-import seedu.savvytasker.model.person.ReadOnlyTask;
+import seedu.savvytasker.model.task.ReadOnlyTask;
 
 /**
  * API of the Logic component

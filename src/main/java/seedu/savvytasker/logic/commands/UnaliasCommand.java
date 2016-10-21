@@ -2,8 +2,8 @@ package seedu.savvytasker.logic.commands;
 
 import seedu.savvytasker.commons.exceptions.IllegalValueException;
 import seedu.savvytasker.logic.commands.models.AliasCommandModel;
-import seedu.savvytasker.model.person.*;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 
 /**
  * Command to remove aliases

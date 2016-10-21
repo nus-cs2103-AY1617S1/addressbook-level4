@@ -1,13 +1,6 @@
 package guitests;
 
-import org.junit.Test;
-
-import seedu.savvytasker.model.person.ReadOnlyPerson;
-import seedu.savvytasker.model.person.ReadOnlyTask;
-
-import static org.junit.Assert.assertEquals;
-
-public class SelectCommandTest extends AddressBookGuiTest {
+public class SelectCommandTest extends SavvyTaskerGuiTest {
 
 
     /** Not running the select test for now, not implemented
@@ -34,7 +27,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("clear");
         assertListSize(0);
         assertSelectionInvalid(1); //invalid index
-    }*/
+    }
 
     private void assertSelectionInvalid(int index) {
         commandBox.runCommand("select " + index);
@@ -56,6 +49,6 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertNoPersonSelected() {
         assertEquals(taskListPanel.getSelectedTasks().size(), 0);
-    }
+    }*/
 
 }

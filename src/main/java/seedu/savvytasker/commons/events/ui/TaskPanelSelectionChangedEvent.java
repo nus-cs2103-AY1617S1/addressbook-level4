@@ -1,7 +1,7 @@
 package seedu.savvytasker.commons.events.ui;
 
 import seedu.savvytasker.commons.events.BaseEvent;
-import seedu.savvytasker.model.person.ReadOnlyTask;
+import seedu.savvytasker.model.task.ReadOnlyTask;
 
 /**
  * Represents a selection change in the Person List Panel
