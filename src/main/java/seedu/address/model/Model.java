@@ -42,29 +42,29 @@ public interface Model {
     
     //@@author A0142184L
     /** Returns the list showing only non-done tasks (not-done and overdue tasks) as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-	UnmodifiableObservableList<ReadOnlyTask> getNonDoneTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getNonDoneTaskList();
 
-	/** Returns the today task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-	UnmodifiableObservableList<ReadOnlyTask> getTodayTaskList();
+    /** Returns the today task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getTodayTaskList();
 
     /** Returns the tomorrow task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-	UnmodifiableObservableList<ReadOnlyTask> getTomorrowTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getTomorrowTaskList();
 
     /** Returns the in-7-days task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-	UnmodifiableObservableList<ReadOnlyTask> getIn7DaysTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getIn7DaysTaskList();
 
     /** Returns the in-30-days task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-	UnmodifiableObservableList<ReadOnlyTask> getIn30DaysTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getIn30DaysTaskList();
 
     /** Returns the someday task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-	UnmodifiableObservableList<ReadOnlyTask> getSomedayTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getSomedayTaskList();
 	
-	//@@author A0139339W
-	/** Returns the unfiltered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-	UnmodifiableObservableList<ReadOnlyTask> getUnfilteredTaskList();
+    //@@author A0139339W
+    /** Returns the unfiltered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getUnfilteredTaskList();
     //@@author
 
-	/** Updates the filter of the filtered task list to show all tasks */
+    /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
     
     /** Updates the filter of the filtered task list according to a specified predicate*/

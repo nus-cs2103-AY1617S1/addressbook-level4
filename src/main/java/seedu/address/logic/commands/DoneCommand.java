@@ -34,21 +34,21 @@ public class DoneCommand extends Command {
     public CommandResult execute() {
 
         model.saveState();
-    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         UnmodifiableObservableList<ReadOnlyTask> fullList = model.getUnfilteredTaskList();
 
         ArrayList<ReadOnlyTask> tasksDoneList = new ArrayList<>();
         Task taskDone;
         
         for (int i=0; i<targetIndices.length; i++) {
-        	if (lastShownList.size() < targetIndices[i]) {
+            if (lastShownList.size() < targetIndices[i]) {
                 model.loadPreviousState();
         		indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
 
-        	taskDone = new Task(lastShownList.get(targetIndices[i] - 1));
-        	int index = fullList.indexOf(taskDone);
+            taskDone = new Task(lastShownList.get(targetIndices[i] - 1));
+            int index = fullList.indexOf(taskDone);
             taskDone.setStatus(new Status("done"));
             tasksDoneList.add(taskDone);
         	
@@ -56,7 +56,7 @@ public class DoneCommand extends Command {
                 model.editTask(index, taskDone);
             } catch (TaskNotFoundException pnfe) {
                 model.loadPreviousState();
-            	assert false : "The target task cannot be missing";
+                assert false : "The target task cannot be missing";
             }
         }
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, tasksDoneList));
