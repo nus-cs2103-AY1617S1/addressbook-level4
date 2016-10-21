@@ -15,7 +15,10 @@
 
 ## 0. Introduction 
 
-&nbsp;&nbsp;&nbsp;&nbsp; DoMePlease is a task management application that accepts 3 kinds of tasks, namely: floating tasks, deadlines and events. This guide introduces you to our code base so that you can dive straight into code without much lead-time.
+&nbsp;&nbsp;&nbsp;&nbsp; Hello new developer! We are pleased to welcome you into our team and we hope that you will enjoy your time working with us. DoMePlease is a reliable task management application that accepts 3 kinds of tasks, namely: floating tasks, deadlines and events. This application caters to users who prefer using the command-line interface. Our Developer Guide introduces you to our code base so that you can dive straight into code without much lead-time. The documents listed provide details about how to extend our application using Java's various APIs. 
+
+Perfection is achieved not when there is nothing more to add, but rather when there is nothing more to take away
+--Antoine de Saint-Exupery
 
 ## 1. Setting up
 
