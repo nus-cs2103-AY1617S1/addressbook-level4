@@ -26,7 +26,13 @@
 5. Click `Finish`
 
 ## Design
-<img src="images/mainClassDiagram.png"/>
+
+<img src="images/Architecture.png" width="900"/> <br><br><br>
+<img src="images/LogicClassDiagram.png" width="900"/> <br><br><br>
+<img src="images/ModelClassDiagram.png" width="900"/> <br><br><br>
+<img src="images/StorageClassDiagram.png" width="900"/> <br><br><br>
+<img src="images/UiClassDiagram.png" width="900"/> <br><br><br>
+
 
 ## Testing
 
