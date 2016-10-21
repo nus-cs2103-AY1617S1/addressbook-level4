@@ -10,7 +10,7 @@ import seedu.address.model.activity.ReadOnlyActivity;
  */
 public class PersonCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
+    private static final String REMINDER_FIELD_ID = "#reminder";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
 
@@ -29,8 +29,8 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+    public String getReminder() {
+        return getTextFromLabel(REMINDER_FIELD_ID);
     }
 
     public String getPhone() {
@@ -42,7 +42,7 @@ public class PersonCardHandle extends GuiHandle {
     }
 
     public boolean isSamePerson(ReadOnlyActivity person){
-        return getFullName().equals(person.getName().fullName) && getAddress().equals(person.getReminder().value);
+        return getFullName().equals(person.getName().fullName) && getReminder().equals(person.getReminder().value);
     }
 
     @Override
@@ -50,13 +50,13 @@ public class PersonCardHandle extends GuiHandle {
         if(obj instanceof PersonCardHandle) {
             PersonCardHandle handle = (PersonCardHandle) obj;
             return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+                    && getReminder().equals(handle.getReminder()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getFullName() + " " + getReminder();
     }
 }

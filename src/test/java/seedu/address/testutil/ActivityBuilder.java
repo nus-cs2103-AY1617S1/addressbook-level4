@@ -5,47 +5,37 @@ import seedu.address.model.activity.Name;
 import seedu.address.model.activity.Reminder;
 import seedu.address.model.activity.task.*;
 import seedu.address.model.tag.Tag;
+import seedu.address.testutil.TaskBuilder;
 
 /**
- *
+ * Used to constitute sample activities/tasks/events for testing purposes.
  */
-public class PersonBuilder {
+public class ActivityBuilder {
 
-    private TestActivity person;
+    private TestActivity activity;
 
-    public PersonBuilder() {
-        this.person = new TestActivity();
+    public ActivityBuilder() {
+        this.activity = new TestActivity();
     }
 
-    public PersonBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new Name(name));
+    public ActivityBuilder withName(String name) throws IllegalValueException {
+        this.activity.setName(new Name(name));
+        return this;
+    }
+    
+    public ActivityBuilder withReminder(String address) throws IllegalValueException {
+        this.activity.setReminder(new Reminder(address));
         return this;
     }
 
-    public PersonBuilder withTags(String ... tags) throws IllegalValueException {
+    public ActivityBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
-            person.getTags().add(new Tag(tag));
+            activity.getTags().add(new Tag(tag));
         }
         return this;
     }
 
-    public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setReminder(new Reminder(address));
-        return this;
-    }
-
-    public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setPhone(new DueDate(phone));
-        return this;
-    }
-
-    public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Priority(email));
-        return this;
-    }
-
     public TestActivity build() {
-        return this.person;
+        return this.activity;
     }
-
 }

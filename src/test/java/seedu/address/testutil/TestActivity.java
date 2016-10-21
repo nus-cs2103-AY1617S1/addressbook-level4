@@ -11,32 +11,31 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable Activity object. For testing only.
  */
 public class TestActivity implements ReadOnlyActivity {
 
     protected Name name;
     protected Reminder reminder;
-    private boolean isCompleted;
+    protected boolean isCompleted;
     protected UniqueTagList tags;
     
     /**
      * Every field must be present and not null.
      */
-    public TestActivity(Name name, Reminder reminder, UniqueTagList tags) {
+/*    public TestActivity(Name name, Reminder reminder, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, reminder, tags);
         this.name = name;
         this.reminder = reminder;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
-    /**
-     * Copy constructor.
-     */
-    public TestActivity(ReadOnlyActivity source) {
-        this(source.getName(), source.getReminder(), source.getTags());
+*/
+    public TestActivity() {
     }
     
     @Override
@@ -67,71 +66,18 @@ public class TestActivity implements ReadOnlyActivity {
         return tags;
     }
     
-    /**
-     * Replaces this person's tags with the tags in the argument tag list.
-     */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
-    }
-    
-    @Override
-    public boolean equals(Object other) {
-        if (this.getClass() != other.getClass()) {
-            return false;
-        } else {
-            return other == this // short circuit if same object
-                    || (other instanceof ReadOnlyActivity // instanceof handles nulls
-                    && this.isSameStateAs((ReadOnlyActivity) other));
-        }
-    }
-    
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, reminder, tags);
-    }
-    
-    @Override
-    public String toString() {
-        return getAsText();
-    }
-    
-    public void setCompletionStatus(boolean isComplete) {
-        isCompleted = isComplete;
-        
-    }
-    
-    @Override
+	@Override
 	public String toStringCompletionStatus() {
         if(isCompleted) {
-        	return "Completed";
+            return "Completed";
         } 
-        
-        	return "";	
-    }
+            return ""; 
+	}
 
-    @Override
-    public boolean passedDueDate() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-    
-    public static Activity create (ReadOnlyActivity act) {
-		
-    	String actType = act.getClass().getSimpleName().toLowerCase();
-    	
-    			switch (actType) {
-                
-    			case "activity":
-                    return new Activity(act);
-                case "task":
-                	 return new Task((ReadOnlyTask) act);
-                case "event":
-                	return new Event((ReadOnlyEvent) act);
-    }
-				return null;
-    	
-    }
+	@Override
+	public boolean passedDueDate() {
+		return false;
+	}   
     
     //TestActivity specific commands
     public String getAddCommand() {
@@ -146,5 +92,6 @@ public class TestActivity implements ReadOnlyActivity {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
 
 }

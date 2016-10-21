@@ -11,25 +11,25 @@ import seedu.address.model.activity.task.*;
  */
 public class TypicalTestActivities {
 
-    public static TestActivity alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static TestActivity findAlice, findHoon;
+    public static TestTask findBenson, findCarl, findDaniel, findIda; 
+    public static TestEvent findElle, findFiona, findGeorge, findJodie;
 
     public TypicalTestActivities() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
-                    .withEmail("alice@gmail.com").withPhone("85355255")
-                    .withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd@gmail.com").withPhone("98765432")
-                    .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563").withEmail("heinz@yahoo.com").withAddress("wall street").build();
-            daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533").withEmail("cornelia@google.com").withAddress("10th street").build();
-            elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224").withEmail("werner@gmail.com").withAddress("michegan ave").build();
-            fiona = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427").withEmail("lydia@gmail.com").withAddress("little tokyo").build();
-            george = new PersonBuilder().withName("George Best").withPhone("9482442").withEmail("anna@google.com").withAddress("4th street").build();
+        	//to test loading saved activity, tasks and events
+            findAlice =  new ActivityBuilder().withName("find Alice").withReminder("30-12-2017 1200").withTags("bringgift").build();
+            findBenson = new TaskBuilder().withName("find Benson").withDueDate("31-12-2017 1400").withTags("bringgift").build();
+            findCarl = new TaskBuilder().withName("find Carl").withDueDate("31-12-2017 1200").build();
+            findDaniel = new TaskBuilder().withName("find Daniel").withDueDate("31-12-2017 1200").withReminder("30-12-2017 1200").withTags("bringgifts").build();
+            findElle = new EventBuilder().withName("find Elle").withStartTime("31-12-2017 1200").withReminder("30-12-2017 1200").build();
+            findFiona = new EventBuilder().withName("find Fiona").withStartTime("31-12-2017 1200").withEndTime("31-12-2017 1800").withReminder("30-12-2017 1200").build();
+            findGeorge = new EventBuilder().withName("find George").withStartTime("31-12-2017 1200").withEndTime("31-12-2017 1800").withTags("bringgifts").build();
 
-            //Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").withEmail("stefan@mail.com").withAddress("little india").build();
-            ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131").withEmail("hans@google.com").withAddress("chicago ave").build();
+            //To test adding of activity, task and event.
+            findHoon = new ActivityBuilder().withName("find Hoon").withReminder("30-12-2017 1200").withTags("bringgift").build();
+            findIda = new TaskBuilder().withName("find Ida").withDueDate("8482131").withReminder("chicago ave").withTags("bringgifts").build();
+            findJodie = new EventBuilder().withName("find Jodie").withStartTime("31-12-2017 1200").withEndTime("31-12-2017 1800").withReminder("30-12-2017 1200").withTags("bringgifts").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -39,20 +39,20 @@ public class TypicalTestActivities {
     public static void loadAddressBookWithSampleData(AddressBook ab) {
 
         try {
-            ab.addPerson(new Activity(alice));
-            ab.addPerson(new Activity(benson));
-            ab.addPerson(new Activity(carl));
-            ab.addPerson(new Activity(daniel));
-            ab.addPerson(new Activity(elle));
-            ab.addPerson(new Activity(fiona));
-            ab.addPerson(new Activity(george));
+            ab.addPerson(new Activity(findAlice));
+            ab.addPerson(new Activity(findBenson));
+            ab.addPerson(new Activity(findCarl));
+            ab.addPerson(new Activity(findDaniel));
+            ab.addPerson(new Activity(findElle));
+            ab.addPerson(new Activity(findFiona));
+            ab.addPerson(new Activity(findGeorge));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestActivity[] getTypicalPersons() {
-        return new TestActivity[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestActivity[]{findAlice, findBenson, findCarl, findDaniel, findElle, findFiona, findGeorge};
     }
 
     public AddressBook getTypicalAddressBook(){
