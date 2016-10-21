@@ -182,13 +182,13 @@ Examples:
 
 
 #### Complete a task: `complete`
-Mark the task specified as 'Complete' and remove it from the calendar.<br>
+Marks the task with the specified index as 'Completed' and removes it from the calendar.<br>
 Format: `complete INDEX`
 
 Examples:
 * `list`<br>
   `complete 2`<br>
-  Add a tag `DONE` the 2nd task in the task manager.
+  Marks the second task as 'Completed' and removes it from the calendar.<br>
 
 
 #### Undo action: `undo`
@@ -222,19 +222,19 @@ There is no need to save manually.
 
 Command | Format
 -------- | :--------
-Add Task | `add DESCRIPTION [pr/PRIORITY] [start/TIME] [end/TIME] [t/TAG]...`
 Add Tag | `addTag INDEX TAG`
+Add Task | `add DESCRIPTION [pr/PRIORITY] [start/TIME] [end/TIME] [t/TAG]...`
 Clear | `clear`
-Delete Task | `delete INDEX`
+Complete | `complete INDEX`
 Delete Tags | `deleteTag INDEX TAG`
+Delete Task | `delete INDEX`
 Edit | `update INDEX PROPERTY NEW_INFORMATION `
 Find Tasks | `find KEYWORD [MORE_KEYWORDS]`
-Find Tasks with PRIORITY | `find pr/PRIORITY`
-Find Tasks starting after TIME | `find start/TIME`
 Find Tasks due by TIME | `find end/TIME`
+Find Tasks starting after TIME | `find start/TIME`
+Find Tasks with PRIORITY | `find pr/PRIORITY`
 Find Tasks with TAGS | `find t/TAG [MORE_TAGS]`
-List Tasks | `list [-pr] [-t/TAG]...`
-List Tags | `list tags`
-Undo | `undo`
 Help | `help`
-Complete | `complete INDEX`
+List Tags | `list tags`
+List Tasks | `list [-pr] [-t/TAG]...`
+Undo | `undo`
