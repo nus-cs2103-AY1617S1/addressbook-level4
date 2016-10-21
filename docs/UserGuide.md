@@ -301,6 +301,10 @@ last 5 actions taken:
 
 `undo last 5`
 
+> **Note:**<br>
+> Sorry! To help you save memory on your computer, 
+> you can only undo up to the 10 most recent tasks.
+
 <br>
 
 ### Deleting a task/event: `delete`
