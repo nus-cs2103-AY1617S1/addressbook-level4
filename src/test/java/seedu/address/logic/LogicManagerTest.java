@@ -9,7 +9,6 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.*;
-import seedu.address.logic.parser.DatePreParse;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
@@ -165,9 +164,9 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add Valid Name from next week to e/5:00pm", DatePreParse.MESSAGE_INCORRECT_DATE_FORMAT);
+                "add Valid Name from next week to e/5:00pm", Time.MESSAGE_INCORRECT_DATE_FORMAT);
         assertCommandBehavior(
-                "add Valid Name at e/5:00pm", DatePreParse.MESSAGE_INCORRECT_DATE_FORMAT);
+                "add Valid Name at e/5:00pm", Time.MESSAGE_INCORRECT_DATE_FORMAT);
 //        assertCommandBehavior(
 //                "add Valid Name d/01/01/10 s/5:00pm a/5:00am e/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
@@ -431,8 +430,8 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             Date privateDate = new Date("false");
-            StartTime start = new StartTime("1/1/17 5pm");
-            EndTime privateEndTime = new EndTime("2/1/17 5:00am");
+            Time start = new Time("1/1/17 5pm");
+            Time privateEndTime = new Time("2/1/17 5:00am");
 //            Tag tag1 = new Tag("tag1");
 //            Tag tag2 = new Tag("tag2");
 //            UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -451,8 +450,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Task " + seed),
                     new Date("false"),
-                    new StartTime("1/1/17 5:00pm"),
-                    new EndTime("2/1/17 5:00am"),
+                    new Time("1/1/17 5:00pm"),
+                    new Time("2/1/17 5:00am"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -552,8 +551,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new Date("false"),
-                    new StartTime("1/1/17 5:00pm"),
-                    new EndTime("2/1/17 5:00am"),
+                    new Time("1/1/17 5:00pm"),
+                    new Time("2/1/17 5:00am"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

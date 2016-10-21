@@ -9,8 +9,8 @@ import seedu.address.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private EndTime address;
-    private StartTime start;
+    private Time end;
+    private Time start;
     private Date date;
     private UniqueTagList tags;
 
@@ -22,11 +22,11 @@ public class TestTask implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setEndTime(EndTime address) {
-        this.address = address;
+    public void setEndTime(Time end) {
+        this.end = end;
     }
 
-    public void setStartTime(StartTime start) {
+    public void setStartTime(Time start) {
         this.start = start;
     }
 
@@ -45,13 +45,13 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public StartTime getStartTime() {
+    public Time getStartTime() {
         return start;
     }
 
     @Override
-    public EndTime getEndTime() {
-        return address;
+    public Time getEndTime() {
+        return end;
     }
 
     @Override
