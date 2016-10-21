@@ -1,7 +1,5 @@
 package seedu.tasklist.ui;
 
-import java.time.format.DateTimeFormatter;
-
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -19,9 +17,9 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label startDate;
+    private Label startDateTime;
     @FXML
-    private Label dueDate;
+    private Label endDateTime;
     @FXML
     private Label description;
     @FXML
@@ -43,23 +41,51 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(task.getTitle().fullTitle);
-        id.setText(displayedIndex + ". ");
-        if(task.getStartDate().startDate != null){
-        	startDate.setText("Start:  " + task.getStartDate().toString().replaceAll(" ", "    Time:  "));
-        } else{
-        	startDate.setText(" ");
-        }
-        if(task.getDueDate().dueDate != null){
-        	dueDate.setText("End:    " + task.getDueDate().toString().replaceAll(" ", "    Time:  "));
-        } else{
-        	dueDate.setText(" ");
-        }
-        description.setText(task.getDescription().description);
-        tags.setText(task.tagsString());
+        initializeId();
+        initializeTitle();
+        initializeDateTime();
+        initializeDescription();
+        initializeTags();
         setBackgroundColor();
     }
+    
+    private void initializeId() {
+        id.setText(displayedIndex + ". ");
+    }
+    
+    private void initializeTitle() {
+        name.setText(task.getTitle().fullTitle);
+    }
+    
+    private void initializeDescription() {
+        if (task.getDescription().description.equals("")) {
+            description.setManaged(false);
+        } else {
+            description.setManaged(true);
+            description.setText(task.getDescription().description);
+        }
+    }
 
+    private void initializeDateTime() {
+        if(!task.getStartDateTime().toString().isEmpty()) {
+            startDateTime.setManaged(true);
+            startDateTime.setText("Start:  " + task.getStartDateTime().toString().replaceAll(" ", "    Time:  "));
+        } else {
+            startDateTime.setManaged(false);
+        }
+        
+        if(!task.getEndDateTime().toString().isEmpty()){
+            endDateTime.setManaged(true);
+            endDateTime.setText("End:    " + task.getEndDateTime().toString().replaceAll(" ", "    Time:  "));
+        } else {
+            endDateTime.setManaged(false);
+        }
+    }
+    
+    private void initializeTags() {
+        tags.setText(task.tagsString());
+    }
+    
     public void setBackgroundColor() {
         if (task.isCompleted()) {
             cardPane.setStyle("-fx-background-color: yellow;");

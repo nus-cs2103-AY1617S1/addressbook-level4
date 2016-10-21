@@ -41,9 +41,9 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         title = source.getTitle().fullTitle;
-        startDate = source.getStartDate().toString().replaceAll(":", "").replaceAll("-", "");
+        startDate = source.getStartDateTime().toString().replaceAll(":", "").replaceAll("-", "");
         description = source.getDescription().description;
-        dueDate = source.getDueDate().toString().replaceAll(":", "").replaceAll("-", "");
+        dueDate = source.getEndDateTime().toString().replaceAll(":", "").replaceAll("-", "");
         isCompleted = source.isCompleted();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -62,10 +62,10 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Title title = new Title(this.title);
-        final StartDate startDate = new StartDate(this.startDate);
+        final DateTime startDateTime = new DateTime(this.startDate);
         final Description description = new Description(this.description);
-        final DueDate dueDate = new DueDate(this.dueDate);
+        final DateTime endDateTime = new DateTime(this.dueDate);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(title, startDate, description, dueDate, tags, this.isCompleted);
+        return new Task(title, startDateTime, description, endDateTime, tags, this.isCompleted);
     }
 }

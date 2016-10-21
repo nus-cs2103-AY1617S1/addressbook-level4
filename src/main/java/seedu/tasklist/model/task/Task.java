@@ -13,8 +13,8 @@ public class Task implements ReadOnlyTask {
 
     private Title title;
     private Description description;
-    private StartDate startDate;
-    private DueDate dueDate;
+    private DateTime startDateTime;
+    private DateTime endDateTime;
 
     private UniqueTagList tags;
     
@@ -23,12 +23,12 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Title title, StartDate startDate, Description description, DueDate dueDate, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(title, startDate, description, dueDate, tags);
+    public Task(Title title, DateTime startDateTime, Description description, DateTime endDateTime, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(title, startDateTime, description, endDateTime, tags);
         this.title = title;
-        this.startDate = startDate;
+        this.startDateTime = startDateTime;
         this.description = description;
-        this.dueDate = dueDate;
+        this.endDateTime = endDateTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isCompleted = false;
     }
@@ -36,12 +36,12 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Title title, StartDate startDate, Description description, DueDate dueDate, UniqueTagList tags, boolean isCompleted) {
-        assert !CollectionUtil.isAnyNull(title, startDate, description, dueDate, tags);
+    public Task(Title title, DateTime startDateTime, Description description, DateTime endDateTime, UniqueTagList tags, boolean isCompleted) {
+        assert !CollectionUtil.isAnyNull(title, startDateTime, description, endDateTime, tags);
         this.title = title;
-        this.startDate = startDate;
+        this.startDateTime = startDateTime;
         this.description = description;
-        this.dueDate = dueDate;
+        this.endDateTime = endDateTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isCompleted = isCompleted;
     }
@@ -50,7 +50,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getTitle(), source.getStartDate(), source.getDescription(), source.getDueDate(), source.getTags(), source.isCompleted());
+        this(source.getTitle(), source.getStartDateTime(), source.getDescription(), source.getEndDateTime(), source.getTags(), source.isCompleted());
     }
 
     @Override
@@ -59,20 +59,20 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public StartDate getStartDate() {
-        return startDate;
-    }
-
-    @Override
     public Description getDescription() {
         return description;
     }
 
     @Override
-    public DueDate getDueDate() {
-        return dueDate;
+    public DateTime getStartDateTime() {
+        return startDateTime;
     }
 
+    @Override
+    public DateTime getEndDateTime() {
+        return endDateTime;
+    }
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -103,7 +103,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(title, startDate, description, dueDate, tags);
+        return Objects.hash(title, startDateTime, description, endDateTime, tags);
     }
 
     @Override

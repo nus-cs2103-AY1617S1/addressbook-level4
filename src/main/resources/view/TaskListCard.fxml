@@ -12,13 +12,13 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" VBox.vgrow="ALWAYS" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                     </stylesheets>
                     <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
+                        <Insets bottom="10" left="25" right="10" top="10" />
                     </padding>
 
                     <children>
@@ -32,8 +32,8 @@
                             </children>
                         </HBox>
                         <Label fx:id="description" styleClass="cell_medium_label" text="\$description" />
-                        <Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
-                        <Label fx:id="dueDate" styleClass="cell_small_label" text="\$dueDate" />
+                        <Label fx:id="startDateTime" styleClass="cell_small_label" text="\$startDateTime" />
+                        <Label fx:id="endDateTime" styleClass="cell_small_label" text="\$endDateTime" />
                     </children>
                 </VBox>
             </children>

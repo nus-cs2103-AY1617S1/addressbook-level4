@@ -12,10 +12,9 @@ import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.tag.Tag;
 import seedu.tasklist.model.tag.UniqueTagList;
+import seedu.tasklist.model.task.DateTime;
 import seedu.tasklist.model.task.Description;
-import seedu.tasklist.model.task.DueDate;
 import seedu.tasklist.model.task.ReadOnlyTask;
-import seedu.tasklist.model.task.StartDate;
 import seedu.tasklist.model.task.Task;
 import seedu.tasklist.model.task.Title;
 import seedu.tasklist.model.task.UniqueTaskList.TaskNotFoundException;
@@ -46,8 +45,9 @@ public class EditCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toEdit = new Task(new Title(title), new StartDate(startDate), new Description(description),
-                new DueDate(dueDate), new UniqueTagList(tagSet));
+        
+        this.toEdit = new Task(new Title(title), new DateTime(startDate), new Description(description),
+                new DateTime(dueDate), new UniqueTagList(tagSet));
     }
 
     @Override
@@ -61,12 +61,13 @@ public class EditCommand extends Command {
 
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
 
-        Task editedTask = editTask(taskToEdit);
-
         try {
+            Task editedTask = editTask(taskToEdit);
             model.editTask(editedTask, taskToEdit);
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
+        } catch (IllegalValueException e) {
+            assert false : "The target task cannot be illegal";
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
@@ -75,13 +76,22 @@ public class EditCommand extends Command {
      * Combine the new editions with its original task
      * @param taskToEdit containing the parameters to change
      * @return new edited task
+     * @throws IllegalValueException 
      */
-    private Task editTask(ReadOnlyTask taskToEdit) {
+    private Task editTask(ReadOnlyTask taskToEdit) throws IllegalValueException {
+        DateTime startDateTime = new DateTime();
+        startDateTime.setDate(this.toEdit.getStartDateTime().getDate().toString().equals("") ? taskToEdit.getStartDateTime().getDate() : this.toEdit.getStartDateTime().getDate());
+        startDateTime.setTime(this.toEdit.getStartDateTime().getTime().toString().equals("") ? taskToEdit.getStartDateTime().getTime() : this.toEdit.getStartDateTime().getTime());
+        
+        DateTime endDateTime = new DateTime();
+        endDateTime.setDate(this.toEdit.getEndDateTime().getDate().toString().equals("") ? taskToEdit.getEndDateTime().getDate() : this.toEdit.getEndDateTime().getDate());
+        endDateTime.setTime(this.toEdit.getEndDateTime().getTime().toString().equals("") ? taskToEdit.getEndDateTime().getTime() : this.toEdit.getEndDateTime().getTime());
+        
         return new Task(
                 this.toEdit.getTitle().toString().equals("") ? taskToEdit.getTitle() : this.toEdit.getTitle(),
-                this.toEdit.getStartDate().toString().equals("") ? taskToEdit.getStartDate() : this.toEdit.getStartDate(),
+                startDateTime,
                 this.toEdit.getDescription().toString().equals("") ? taskToEdit.getDescription() : this.toEdit.getDescription(),
-                this.toEdit.getDueDate().toString().equals("") ? taskToEdit.getDueDate() : this.toEdit.getDueDate(),
+                endDateTime,
                 this.toEdit.getTags().getInternalList().isEmpty() ? new UniqueTagList(taskToEdit.getTags()) : new UniqueTagList(this.toEdit.getTags())
                         );
     }

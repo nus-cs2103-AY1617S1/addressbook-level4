@@ -9,9 +9,9 @@ import seedu.tasklist.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Title getTitle();
-    StartDate getStartDate();
     Description getDescription();
-    DueDate getDueDate();
+    DateTime getStartDateTime();
+    DateTime getEndDateTime();
     boolean isCompleted();
 
     /**
@@ -27,9 +27,9 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getTitle().equals(this.getTitle()) // state checks here onwards
-                && other.getStartDate().equals(this.getStartDate())
+                && other.getStartDateTime().equals(this.getStartDateTime())
                 && other.getDescription().equals(this.getDescription())
-                && other.getDueDate().equals(this.getDueDate()));
+                && other.getEndDateTime().equals(this.getEndDateTime()));
     }
 
     /**
@@ -41,9 +41,9 @@ public interface ReadOnlyTask {
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Start: ")
-                .append(getStartDate())
+                .append(getStartDateTime())
                 .append(" End: ")
-                .append(getDueDate())
+                .append(getEndDateTime())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
