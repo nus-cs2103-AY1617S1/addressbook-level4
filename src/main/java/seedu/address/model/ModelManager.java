@@ -11,6 +11,7 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -83,6 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         taskBook.completeTask(target);
+        updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
 
@@ -100,8 +102,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredDatedTasks.setPredicate(null);
-        filteredUndatedTasks.setPredicate(null);
+        updateFilteredTaskList("NONE", "OVERDUE");
+        //filteredDatedTasks.setPredicate(null);
+        //filteredUndatedTasks.setPredicate(null);
     }
 
     @Override
@@ -109,8 +112,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new TaskQualifier(keywords)));
     }
 
-    public void updateFilteredTaskList(String keyword){
-        updateFilteredTaskList(new PredicateExpression(new StatusQualifier(keyword)));
+    @Override
+    public void updateFilteredTaskList(String... keyword){
+        ArrayList<String> listOfKeywords = new ArrayList<>();
+        for (String word : keyword){
+            listOfKeywords.add(word);
+        }
+        updateFilteredTaskList(new PredicateExpression(new StatusQualifier(listOfKeywords)));
     }
     
     private void updateFilteredTaskList(Expression expression) {
@@ -183,20 +191,28 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     private class StatusQualifier implements Qualifier {
-        private Status stateKeyWord;
+        private ArrayList<Status> statusList;
 
-        StatusQualifier(String stateKeyWord) {
-            this.stateKeyWord = new Status(stateKeyWord);
+        StatusQualifier(ArrayList<String> stateKeyWords) {
+            this.statusList = new ArrayList<Status>();
+            for (String word : stateKeyWords){
+                statusList.add(new Status(word));
+            }
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return task.getStatus().equals(stateKeyWord);
+            for (Status key : statusList) {
+                if (task.getStatus().equals(key)) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         @Override
         public String toString() {
-            return "status=" + stateKeyWord;
+            return "status=" + statusList.toString();
         }
     }
 }
