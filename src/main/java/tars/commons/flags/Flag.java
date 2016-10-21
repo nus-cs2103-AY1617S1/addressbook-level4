@@ -13,6 +13,11 @@ public class Flag {
     public static final String REMOVETAG = "-tr";
     public static final String DONE = "-do";
     public static final String UNDONE = "-ud";
+    public static final String LIST = "-ls";
+    public static final String DELETE = "-d";
+    public static final String EDIT ="-e";
+    public static final String RECURRING = "-r";
+    public static final String DELETE_RSVTASK = "-del";
 
     public String prefix;
     public boolean hasMultiple;

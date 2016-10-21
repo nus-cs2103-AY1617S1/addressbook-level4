@@ -27,8 +27,8 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withDateTime(String dateTime, String dateTime2) throws IllegalValueException {
-        this.task.setDateTime(new DateTime(dateTime, dateTime2));
+    public TaskBuilder withDateTime(String dateTime1, String dateTime2) throws IllegalValueException {
+        this.task.setDateTime(new DateTime(dateTime1, dateTime2));
         return this;
     }
 

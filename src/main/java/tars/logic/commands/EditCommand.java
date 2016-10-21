@@ -2,6 +2,7 @@ package tars.logic.commands;
 
 import tars.commons.core.Messages;
 import tars.commons.core.UnmodifiableObservableList;
+import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.flags.Flag;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
@@ -16,7 +17,7 @@ import java.util.HashMap;
  * 
  * @@author A0121533W
  */
-public class EditCommand extends Command {
+public class EditCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -29,8 +30,14 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
 
     private static final String MESSAGE_MISSING_TASK = "The target task cannot be missing";
+    
+    public static final String MESSAGE_UNDO = "Edited to %1$s to %1$s";
+    public static final String MESSAGE_REDO = "Edited to %1$s to %1$s";
 
     public final int targetIndex;
+    
+    private ReadOnlyTask toEdit;
+    private Task editedTask;
 
     private HashMap<Flag, String> argsToEdit;
 
@@ -52,11 +59,11 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask toEdit = lastShownList.get(targetIndex - 1);
+        toEdit = lastShownList.get(targetIndex - 1);
 
         try {
-            Task editedTask = model.editTask(toEdit, this.argsToEdit);
-            toEdit = editedTask;
+            editedTask = model.editTask(toEdit, this.argsToEdit);
+            model.getUndoableCmdHist().push(this);
         } catch (TaskNotFoundException tnfe) {
             return new CommandResult(MESSAGE_MISSING_TASK);
         } catch (DateTimeException dte) {
@@ -64,7 +71,40 @@ public class EditCommand extends Command {
         } catch (IllegalValueException | TagNotFoundException e) {
             return new CommandResult(e.getMessage());
         }
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toEdit));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, editedTask));
+    }
+
+    @Override
+    /** @@author A0139924W */
+    public CommandResult undo() {
+        assert model != null;
+        try {
+            model.unEditTask(editedTask, new Task(toEdit));
+            return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS,
+                    String.format(MESSAGE_UNDO, toEdit)));
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
+        }
+    }
+    
+    @Override
+    public CommandResult redo() {
+        assert model != null;
+        try {
+            model.editTask(toEdit, this.argsToEdit);
+            return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS,
+                    String.format(MESSAGE_REDO, toEdit)));
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS, e.getMessage()));
+        } catch (DateTimeException e) {
+            return new CommandResult(
+                    String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_INVALID_DATE));
+        } catch (TaskNotFoundException e) {
+            return new CommandResult(
+                    String.format(RedoCommand.MESSAGE_UNSUCCESS, MESSAGE_MISSING_TASK));
+        } catch (IllegalValueException | TagNotFoundException e) {
+            return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS, e.getMessage()));
+        }
     }
 
 }

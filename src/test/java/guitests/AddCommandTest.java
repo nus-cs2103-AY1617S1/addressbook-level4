@@ -4,7 +4,9 @@ import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import tars.commons.core.Messages;
-import tars.logic.commands.AddCommand;
+import tars.commons.exceptions.IllegalValueException;
+import tars.model.task.Name;
+import tars.model.task.Priority;
 import tars.testutil.TestTask;
 import tars.testutil.TestUtil;
 
@@ -27,7 +29,7 @@ public class AddCommandTest extends TarsGuiTest {
 
         // add duplicate task
         commandBox.runCommand(td.taskH.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertResultMessage(Messages.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         // add to empty list
@@ -38,6 +40,8 @@ public class AddCommandTest extends TarsGuiTest {
         
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+        assertAddSuccess(td.taskA);
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
@@ -52,4 +56,21 @@ public class AddCommandTest extends TarsGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
 
+    //@@author A0140022H
+    @Test
+    public void addRecurring() {
+        TestTask[] recurringList = new TestTask[0];
+        recurringList = TestUtil.addTasksToList(recurringList, td.taskC, td.taskD);
+        try {
+            recurringList[1].setName(new Name("Task C"));
+            recurringList[1].setPriority(new Priority("l"));
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        commandBox.runCommand("clear");
+        commandBox.runCommand("add Task C -dt 03/09/2016 1400 to 04/09/2016 1400 -p l -r 2 every day");
+        assertTrue(taskListPanel.isListMatching(recurringList));
+    }
 }

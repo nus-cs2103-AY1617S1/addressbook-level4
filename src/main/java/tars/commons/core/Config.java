@@ -64,10 +64,10 @@ public class Config {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this){
+        if (other == this) {
             return true;
         }
-        if (!(other instanceof Config)){ //this handles null as well.
+        if (!(other instanceof Config)) { // this handles null as well.
             return false;
         }
 

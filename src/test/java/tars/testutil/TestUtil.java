@@ -1,6 +1,8 @@
 package tars.testutil;
 
 import com.google.common.io.Files;
+
+import guitests.guihandles.RsvTaskCardHandle;
 import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -19,6 +21,8 @@ import tars.commons.util.FileUtil;
 import tars.commons.util.XmlUtil;
 import tars.model.Tars;
 import tars.model.task.*;
+import tars.model.task.rsv.RsvTask;
+import tars.model.task.rsv.UniqueRsvTaskList;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 import tars.storage.XmlSerializableTars;
@@ -142,7 +146,7 @@ public class TestUtil {
     }
 
     public static Tars generateEmptyTars() {
-        return new Tars(new UniqueTaskList(), new UniqueTagList());
+        return new Tars(new UniqueTaskList(), new UniqueTagList(), new UniqueRsvTaskList());
     }
 
     public static XmlSerializableTars generateSampleStorageTars() {
@@ -396,6 +400,10 @@ public class TestUtil {
 
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
+    }
+    
+    public static boolean compareCardAndRsvTask(RsvTaskCardHandle card, RsvTask tasks) {
+        return card.isSameRsvTask(tasks);
     }
 
     public static Tag[] getTagList(String tags) {

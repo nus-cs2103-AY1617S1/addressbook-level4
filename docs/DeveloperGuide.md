@@ -251,7 +251,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :---------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new task (with deadlines) and events (with start and end timings) | keep track of it and complete it in the future
+`* * *` | user | add a new events (with start and end timings) | keep track of it and complete it in the future
+`* * *` | user | add a new task (tasks that have to be done before a specific deadline) | keep track of the deadline
+`* * *` | user | add a floating task (tasks without specific times) | have a task that can roll over to the next day if I did not get to it
 `* * *` | user | delete a task | remove tasks that I no longer need to do
 `* * *` | user | edit a task | change the details of the tasks
 `* * *` | user | view tasks | decide on the follow-up action for each task
@@ -259,11 +261,13 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | prioritize my task | do the more important ones first
 `* *` | user | search for a task by keywords | view the details of task and complete it
 `* *` | user | undo a command | unexecute the last action that I just performed
+`* *` | user | redo a command | redo the last action that I just performed
 `* *` | user | add recurring tasks | save time entering the same task over multiple dates
 `* *` | user | choose my data storage location | have the flexibility to use the program on multiple computers as they can read from the same file stored on the cloud e.g. Google Drive
 `* *` | user | add a tag on tasks | categorize my task
 `* *` | user | edit a tag | rename the tag without the need to delete and add it again
-`* *` | user | mark my tasks as done or undone | change the status of my tasks
+`* *` | user | mark my tasks as done | indicate that the task has been completed
+`* *` | user | mark my tasks as undone | indicate that the task has not been completed
 `* *` | user | view tasks by tags/priority/date | group my tasks based on a field of my choice
 `* *` | user | reserve dates for a task/event | block out time slots and add them upon confirmation of the time and date details
 `* *` |user| can view all tags and edit them | edit a specific tag of all tasks with that tag in one command
@@ -410,7 +414,7 @@ Use case ends.
 
 1. User requests to list tags
 2. TARS shows a list of tags
-3. User requets to delete a specific tag in the list
+3. User requests to delete a specific tag in the list
 4. TARS deletes the tag<br>
 Use case ends.
 
@@ -438,12 +442,26 @@ Use case ends.
 **MSS**
 
 1. User requests to undo a previous command
-2. TARS unexecutes (undo) the last command in the history list<br>
+2. TARS reinstates (undo) the last command in the undo history list and add the command to the redo history list<br>
 Use case ends.
 
 **Extensions**
 
-2a. The history list is empty
+2a. The undo history list is empty
+
+> 2a1. Use case ends
+
+#### Use case: UC10 - Redo a previous undo command
+
+**MSS**
+
+1. User requests to redo a previous command
+2. TARS redo the last command in the redo history list and add the command to the undo history list<br>
+Use case ends.
+
+**Extensions**
+
+2a. The redo history list is empty
 
 > 2a1. Use case ends
 

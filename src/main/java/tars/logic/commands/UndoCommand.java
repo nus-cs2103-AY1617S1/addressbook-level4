@@ -9,6 +9,7 @@ public class UndoCommand extends Command {
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_SUCCESS = "Undo successfully.";
+    public static final String MESSAGE_UNSUCCESS = "Undo unsuccessfully.";
     public static final String MESSAGE_EMPTY_UNDO_CMD_HIST = "No more actions that can be undo.";
 
     @Override
@@ -20,7 +21,9 @@ public class UndoCommand extends Command {
         }
 
         UndoableCommand command = (UndoableCommand) model.getUndoableCmdHist().pop();
-        return new CommandResult(MESSAGE_SUCCESS + "\nAction: " + command.undo().feedbackToUser);
+        model.getRedoableCmdHist().push(command);
+        //return new CommandResult(MESSAGE_SUCCESS + "\nAction: " + command.undo().feedbackToUser);
+        return command.undo();
     }
 
 }

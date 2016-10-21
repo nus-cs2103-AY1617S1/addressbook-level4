@@ -122,22 +122,7 @@ Format: `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRI
 Examples:
 * `edit 3 -n Meet John Tan -dt 08/10/2016 1000 to 1200 -p H -t friend`
 
-#### Editing a task by appending details to a task : `edit -ap`
-*[Under Development]* <br>
-Edits a task by appending details to a particular task name <br>
-Format: `edit <INDEX> -ap <DETAILS_TO_APPEND_TO_TASK>`
-
-> Appends details to the task at the specific `<INDEX>`. 
-> The index refers to the index number shown in the task list.
-> The index **must be a positive integer** 1, 2, 3, ... 
->
-> `<DETAILS_TO_APPEND_TO_TASK>` are words that the user wants to append to the back of the task.
-
-Examples:
-* `edit 3 -ap At UTown` edits `3. Meet John Doe` to `3. Meet John Doe At UTown`
-
 #### Editing a tag's name : `tag -e`
-*[Under Development]* <br>
 Edits a tag’s name <br>
 Format: `tag -e <INDEX> <TAG>`
 
@@ -161,7 +146,6 @@ Examples:
 * `tag -d 4` deletes the tag at Index 4
 
 #### Listing all tags : `tag -ls`
-*[Under Development]* <br>
 Lists all tags in TARS <br>
 Format: `tag -ls`
 
@@ -177,80 +161,89 @@ Examples:
 
 #### Marking tasks : `mark`
 Marks a particular task(s) with the status `done` or `undone` <br>
-Format: `mark -do <INDEX>[ , <INDEX>, <INDEX>, ...] -ud <INDEX>[, <INDEX>, <INDEX>, …]`
+Format: `mark -do <INDEX>[<INDEX> <INDEX> ...] -ud <INDEX>[<INDEX> <INDEX> ...]` <br>
+Format: `mark -do <START_INDEX>..<END_INDEX> -ud <START_INDEX>..<END_INDEX>`
 
 > Marks the task at the specific `<INDEX>`
 > The index refers to the index number shown in the tag list.
-> The index **must be a positive integer** 1, 2, 3, ...
-> 
-> Use -do to mark a task(s) as `done` <br>
+> The index **must be a positive integer** 1, 2, 3, ..
+> Start index of range must be before end index
+> Use -do to mark a task(s) as `done`
 > Use -ud to mark a task(s) as `undone`
 
 Examples:
-* `mark -do 3, 5, 7`
-* `mark -ud 2, 3`
+* `mark -do 2 4 6`
+* `mark -ud 3 5 7`
+* `mark -do 3 5 7 -ud 2 4 6`
+* `mark -do 1..3 -ud 4..6`
 
 #### Deleting a task : `del`
 Deletes a particular task, or a list of task based on a specific criteria (i.e. INDEX, done/undone status, date, tags, priority) <br>
 Formats: 
-* `del <INDEX> [, <INDEX>, <INDEX>, …]`
-* `del -all <INDEX> [, <INDEX>, <INDEX>, …]` *[Under Development]*
-* `del -dt [<START_DATE> to <END_DATE>] <INDEX>[, <INDEX>, <INDEX>,...]` *[Under Development]* 
-* `del -t <TAG>[ , <TAG>, <TAG>] <INDEX>[, <INDEX>, <INDEX>,...]` *[Under Development]* 
-* `del -p [PRIORITY] <INDEX> [, <INDEX>, <INDEX>, …]` *[Under Development]* 
+* `del <INDEX> [<INDEX> <INDEX> ...]` <br>
+* `del <START_INDEX>..<END_INDEX>`
 
-> use -all to delete selected undone and done tasks <br>
-> use -dt to delete selected undone tasks in that date range <br>
-> use -t to delete selected undone tasks with a searched tag(s) <br>
-> use -p to delete selected undone tasks with that particular priority level
+> Deletes the task at the specific `<INDEX>`
+> The index refers to the index number shown in the tag list.
+> The index **must be a positive integer** 1, 2, 3, ..
+> Start index of range must be before end index
 
 Examples:
-* `del 3, 6`
-* `del -all 3, 23`
-* `del -dt 23/09/16 to 24/09/16 9, 10`
-* `del -t friend, family 9, 15`
-* `del -p high 3, 5, 6`
+* `del 3 6`
+* `del 1..3`
 
 #### Listing tasks : `ls`
 Lists all tasks in TARS with available list filters.<br>
 Format: 
 * `ls`
-* `ls -do` 
-* `ls -all`
-* `ls -dt [START_DATE] to [START_TIME]` *[Under Development]*
-* `ls -t <TAG>[ , <TAG>, <TAG>]` *[Under Development]*
-* `ls -p [PRIORITY]` *[Under Development]*
+* `ls -dt [dsc]`
+* `ls -p [dsc]`
 
-> default is to list all undone task <br>
-> use -do to list all done task <br>
-> use -all to list all done and undone tasks <br>
-> use -dt to list all undone tasks in that date range <br>
-> use -t to list all undone tasks with a searched tag(s) <br>
-> use -p to list all undone tasks with that particular priority level
+> default is to list all tasks <br>
+> use -dt to list all tasks by earliest end dateTime s<br>
+> use -p to list all task by priority from low to high <br>
+> use dsc to list task in reverse order
 
 Examples:
 * `ls`
-* `ls -do`
-* `ls -all`
-* `ls -dt 23/09/16 to 24/09/16`
-* `ls -t assignments, projects`
-* `ls -p high`
+* `ls -dt`
+* `ls -dt dsc`
+* `ls -p`
+* `ls -p dsc`
 
 
 #### Finding tasks : `find`
 Finds all tasks containing a list of keywords (i.e. AND search).<br>
-Format: `find <KEYWORD>[, KEYWORD, KEYWORD]`
+Two modes: Quick Search & Filter Search. <br>
+Format:
+* [Quick Search]: `find <KEYWORD>[, KEYWORD, KEYWORD]` <br>
+* [Filter Search]: `find -n <NAME_KEYWORD>[, NAME_KEYWORD, NAME_KEYWORD] -dt [START_DATE] to [END_DATE] -p [PRIORITY(h/m/l)] -do (or -ud) -t <TAG_KEYWORD>[, TAG_KEYWORD, TAG_KEYWORD]`
 
-> `<KEYWORD>` are **case-insensitive**. The order of the `<KEYWORD>` does not matter.
+> **Quick Search Mode**: Find tasks quickly by entering keywords that match what is displayed in the task list <br><br>
+> **Filter Search Mode**: Find tasks using task filters (i.e. -n, -p, -dt, -do, -ud, -t) <br>
+> Use -n to filter tasks by task name <br>
+> Use -p to filter tasks by priority level <br>
+> Use -dt to filter tasks by date (in a date range) <br>
+> Use -do to filter all done tasks (Cannot be used together with -ud)<br>
+> Use -ud to filter all undone tasks (Cannot be used together with -do)<br>
+> Use -t to filter tasks by tags <br><br>
+> `<KEYWORD>` are **case-insensitive**. The order of the `<KEYWORD>` or `Flags` (for filter search) does not matter.
 
 Examples: 
-* `find meet John` returns all tasks containing BOTH the keywords “meet” and “John” (e.g. meet John Doe)
+* `find meet John` uses Quick Search and returns all tasks containing BOTH the keywords “meet” and “John” (e.g. meet John Doe)
+* `find -n meet -dt 17/10/2016 1300 to 18/10/2016 1400` uses Filter Search and returns all tasks whose name contains "meet" and whose task date falls within the range "17/10/2016 1300 to 18/10/2016 1400" (e.g. meet Tim for dinner, 17/10/2016 1800 to 17/10/2016 1900)
 
 #### Undoing a command : `undo`
 Undo a command executed by the user. <br>
 Format: `undo` 
 
-> Able to undo all `add` and `delete` commands from the time the app starts running.
+> Able to undo all `add`, `delete`, `edit` and `del` commands from the time the app starts running.
+
+#### Redoing a command : `redo`
+Redo a command executed by the user. <br>
+Format: `redo` 
+
+> Able to redo all `add`, `delete`, `edit` and `del` commands from the time the app starts running.
 
 #### Clearing the data storage file : `clear`
 Clears the whole To-Do List storage file.<br>
@@ -295,14 +288,12 @@ Command | Format
 [Edit](#editing-a-task--edit) | `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)>`
 [Edit [Append]](#editing-a-task-by-appending-details-to-a-task--edit--ap) | `edit <INDEX> -ap <TO APPEND>`
 [Exit](#exiting-the-program--exit) | `exit`
-[Find](#finding-tasks--find) | `find KEYWORD [MORE_KEYWORDS]`
+[Find [Quick Serach]](#finding-tasks--find) | `find KEYWORD [MORE_KEYWORDS]`
+[Find [Filter Serach]](#finding-tasks--find) | `find -n <NAME_KEYWORD> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITYLEVEL> -do [or -ud] -t <TAG_KEYWORD>`
 [Help](#displaying-a-list-of-available-commands--help) | `help`
 [List](#listing-tasks--ls) | `ls`
-[List [Done]](#listing-tasks--ls) | `ls -do`
-[List [All]](#listing-tasks--ls) | `ls -all`
-[List [Date]](#listing-tasks--ls) | `ls -dt [<START_DATE> to <END_DATE>]`
-[List [Priority]](#listing-tasks--ls) | `ls -p [PRIORITY]`
-[List [Tags]](#listing-tasks--ls) | `ls -t <TAG>[ , <TAG>, <TAG>]`
+[List [Date]](#listing-tasks--ls) | `ls -dt`
+[List [Priority]](#listing-tasks--ls) | `ls -p`
 [Mark Done](#marking-tasks--mark) | `mark -do <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Mark Undone](#marking-tasks--mark) | `mark -ud <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Reserve](#reserving-timeslots-for-a-task--rsv) | `rsv -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
@@ -313,4 +304,5 @@ Command | Format
 [Tag [Find]](#finding-tags--tag--f) | `tag -f <KEYWORD>[ , <KEYWORD>, <KEYWORD>]`
 [Tag [List]](#listing-all-tags--tag--ls) | `tag -ls`
 [Undo](#undoing-a-command--undo) | `undo`
+[Redo](#redoing-a-command--redo) | `redo`
 

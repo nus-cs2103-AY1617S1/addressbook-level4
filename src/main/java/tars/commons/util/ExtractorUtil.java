@@ -33,6 +33,22 @@ public class ExtractorUtil {
                 .split(" " + prefix.prefix + " "));
         return new HashSet<>(tagStrings);
     }
+    
+    /**
+     * Extracts the new task's dateTimes from the rsv command's dateTime arguments string.
+     * Merges duplicate dateTime strings.
+     */
+    public static Set<String> getDateTimeStringSetFromArgs(String dateTimeArguments, Flag prefix) throws IllegalValueException {
+        // no dateTime
+        if (dateTimeArguments.equals("")) {
+            return Collections.emptySet();
+        }
+        // replace first delimiter prefix, then split
+        final Collection<String> dateTimeStrings = Arrays.asList(dateTimeArguments
+                .replaceFirst(prefix.prefix + " ", "")
+                .split(" " + prefix.prefix + " "));
+        return new HashSet<>(dateTimeStrings);
+    }
 
     /**
      * Gets all flag positions from arguments string
@@ -42,7 +58,7 @@ public class ExtractorUtil {
     public static TreeMap<Integer, Flag> getFlagPositon(String args, Flag[] prefixes) {
         TreeMap<Integer, Flag> flagsPosMap = new TreeMap<Integer, Flag>();
 
-        if (args != null && args.length() > 0 && prefixes.length > 0) {
+        if (args != null && args.length() > 0 && prefixes != null && prefixes.length > 0) {
             args = args.trim();
             for (int i = 0; i < prefixes.length; i++) {
                 int curIndexPos = INVALID_POS;
@@ -69,7 +85,7 @@ public class ExtractorUtil {
     public static HashMap<Flag, String> getArguments(String args, Flag[] flags, TreeMap<Integer, Flag> flagsPosMap) {
         HashMap<Flag, String> flagsValueMap = new HashMap<Flag, String>();
 
-        if (args != null && args.length() > 0 && flags.length > 0) {
+        if (args != null && args.length() > 0 && flags != null && flags.length > 0) {
             args = args.trim();
 
             // initialize the flagsValueMap
@@ -89,14 +105,21 @@ public class ExtractorUtil {
                 String arg = args.substring(pos, endPos);
                 endPos = pos;
 
-                if (flagsValueMap.containsKey(prefix)) {
-                    flagsValueMap.put(prefix, flagsValueMap.get(prefix).concat(" ").concat(arg));
-                } else {
-                    flagsValueMap.put(prefix, arg);
-                }
+                flagsValueMap.put(prefix, flagsValueMap.get(prefix).concat(" ").concat(arg));
             }
         }
-
         return flagsValueMap;
+    }
+    
+    /**
+     * Extracts the new task's recurring args from add command.
+     * 
+     * @@author A0140022H
+     */
+    public static String[] getRecurringFromArgs(String recurringArguments, Flag prefix) throws IllegalValueException{   	
+    	recurringArguments = recurringArguments.replaceFirst(prefix.prefix, "").trim();
+    	String[] recurringString = recurringArguments.split(" ");
+    	
+    	return recurringString;
     }
 }
