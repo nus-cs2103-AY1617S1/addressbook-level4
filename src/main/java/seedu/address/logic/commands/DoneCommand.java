@@ -39,7 +39,7 @@ public class DoneCommand extends UndoableCommand {
 
     public final List<Integer> targetIndexes;
     
-    private boolean targetDoneList;
+    private boolean viewingDoneList;
 
 
     public DoneCommand(List<Integer> targetIndexes) {
@@ -51,8 +51,10 @@ public class DoneCommand extends UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
-        targetDoneList = model.isCurrentListDoneList();
-        if (targetDoneList) {
+        if (!getIsRedo()) {
+            viewingDoneList = model.isCurrentListDoneList();
+        }
+        if (viewingDoneList) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
         }
@@ -74,6 +76,7 @@ public class DoneCommand extends UndoableCommand {
             Task taskToArchive = new Task(lastShownList.get(targetIndex - adjustmentForRemovedTask - 1));
             
             try {
+                assert viewingDoneList == false;
                 model.deleteTask(taskToArchive);
                 doneTasks.add(taskToArchive);
             } catch (TaskNotFoundException pnfe) {

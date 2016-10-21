@@ -59,11 +59,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
-        if (isDoneList) {
-            taskManager.resetDoneData(newData);
-        } else {
-            taskManager.resetUndoneData(newData);
-        }
+        taskManager.resetUndoneData(newData);
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public void resetDoneData(ReadOnlyTaskManager newData) {
+        taskManager.resetDoneData(newData);
         indicateTaskManagerChanged();
     }
 
@@ -79,13 +81,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask floatingTask) throws TaskNotFoundException {
-        if (isDoneList) {
-            taskManager.removeDoneTask(floatingTask);
-        } else {
-            taskManager.removeFloatingTask(floatingTask);
-        }
+        taskManager.removeFloatingTask(floatingTask);
         indicateTaskManagerChanged();
     }
+    
 
     @Override
     public synchronized void addTask(Task floatingTask) {

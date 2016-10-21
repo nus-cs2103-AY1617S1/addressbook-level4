@@ -22,7 +22,7 @@ public class ClearCommand extends UndoableCommand {
 
     private List<Task> clearedTasks;
 
-    private boolean targetDoneList;
+    private boolean viewingDoneList;
 
     public ClearCommand() {}
 
@@ -30,13 +30,18 @@ public class ClearCommand extends UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
-        targetDoneList = model.isCurrentListDoneList();
-        if (targetDoneList) {
+        if (!getIsRedo()) {
+            viewingDoneList = model.isCurrentListDoneList();
+        }
+        
+        if (viewingDoneList) {
             clearedTasks = new ArrayList<Task>(model.getTaskManager().getUniqueDoneTaskList().getInternalList());
+            model.resetDoneData(TaskManager.getEmptyTaskManager());
         } else {
             clearedTasks = new ArrayList<Task>(model.getTaskManager().getUniqueUndoneTaskList().getInternalList());
+            model.resetData(TaskManager.getEmptyTaskManager());
         }
-        model.resetData(TaskManager.getEmptyTaskManager());
+       
         updateHistory();
         return new CommandResult(MESSAGE_SUCCESS);
     }
@@ -44,7 +49,7 @@ public class ClearCommand extends UndoableCommand {
 
     @Override
     public CommandResult undo() {
-        if (targetDoneList) {
+        if (viewingDoneList) {
             model.addDoneTasks(clearedTasks);
         }
         else {

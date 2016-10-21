@@ -23,5 +23,9 @@ public abstract class UndoableCommand extends Command {
         history.resetRedo();
         isRedo = true;
     }
+    
+    public boolean getIsRedo() {
+        return isRedo;
+    }
 
 }

@@ -70,12 +70,13 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
         TestTask aliceTask = new TestTask(td.alice);
         assertAddSuccess(aliceTask);
         
-        // primative edit undo and redo testing until the assertEditSuccess is complete
+        // primitive edit undo and redo testing until the assertEditSuccess is complete
         TestTask aliceTaskBackup = new TestTask(aliceTask);
-        commandBox.runCommand("edit 1 Call Alice from 2pm to 3pm repeat every day -high");
+        commandBox.runCommand("edit 1 Call Alice from 2pm repeat every day -high");
+        //commandBox.runCommand("edit 1 Call Alice from 2pm to 3pm repeat every day -high");
         aliceTask.setName(new Name("Call Alice"));
         aliceTask.setStartDate(DateTime.convertStringToStartDate("2pm"));
-        aliceTask.setEndDate(DateTime.convertStringToEndDate("3pm", aliceTask.getStartDate().get()));
+        //aliceTask.setEndDate(DateTime.convertStringToEndDate("3pm", aliceTask.getStartDate().get()));
         try {
             aliceTask.setRecurrence(new RecurrenceRate("1", "day"));
         } catch (IllegalValueException e) {
@@ -87,27 +88,25 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
         assertUndoSuccess(aliceTaskBackup);
         assertRedoSuccess(aliceTask);        
 
-        TestTask recurredAliceTask = new TestTask(aliceTaskBackup);
+        TestTask recurredAliceTask = new TestTask(aliceTask);
         recurredAliceTask.setStartDate(DateTime.convertStringToStartDate("tomorrow 2pm"));
-        aliceTask.setEndDate(DateTime.convertStringToEndDate("tomorrow 3pm", aliceTask.getStartDate().get()));
 
-        // primative done undo and redo testing until the assertDoneSuccess is complete
+        // primitive done undo and redo testing until the assertDoneSuccess is complete
         commandBox.runCommand("done 1");
         assertTrue(personListPanel.isListMatching(recurredAliceTask));
         commandBox.runCommand("list done");
         assertTrue(personListPanel.isListMatching(aliceTask));
         
         // automatically directs me back to undone view
-        assertUndoSuccess(aliceTask);
-        commandBox.runCommand("list done");
-        assertTrue(personListPanel.isListMatching());
+        assertUndoSuccess();
+        commandBox.runCommand("list");
+        assertTrue(personListPanel.isListMatching(aliceTask));
         
         // automatically directs me back to undone view
-        assertRedoSuccess();
-        assertTrue(personListPanel.isListMatching());
-
+        assertRedoSuccess(recurredAliceTask);
         commandBox.runCommand("list done");
         assertTrue(personListPanel.isListMatching(aliceTask));
+
         commandBox.runCommand("list");
         
         // test whether the redo resets properly

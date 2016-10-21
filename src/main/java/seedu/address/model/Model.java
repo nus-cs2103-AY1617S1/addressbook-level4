@@ -87,6 +87,8 @@ public interface Model {
     /** Edits the recurrence of the given floating task. */
 	void editRecurrence(ReadOnlyTask personToEdit, RecurrenceRate recurrenceRate);
 
+    void resetDoneData(ReadOnlyTaskManager emptyTaskManager);
+
 
 
 
