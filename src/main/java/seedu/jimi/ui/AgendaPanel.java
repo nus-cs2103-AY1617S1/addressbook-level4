@@ -1,5 +1,8 @@
 package seedu.jimi.ui;
 
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -30,6 +33,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.events.model.TaskBookChangedEvent;
+import seedu.jimi.commons.events.ui.ShowTaskPanelSectionEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.jimi.commons.util.FxViewUtil;
 import seedu.jimi.model.datetime.DateTime;
@@ -53,6 +57,10 @@ public class AgendaPanel extends UiPart{
     //list of tasks and events to display on agenda
     private ObservableList<ReadOnlyTask> tasksList;
     private ObservableList<ReadOnlyTask> eventsList;
+    private ObservableList<ReadOnlyTask> floatingTaskList;
+    private ObservableList<ReadOnlyTask> completedTaskList;
+    private ObservableList<ReadOnlyTask> incompleteTaskList;
+    private ArrayList<ObservableList<ReadOnlyTask>> daysTaskList;
     
     //main agenda views
     @FXML
@@ -97,26 +105,28 @@ public class AgendaPanel extends UiPart{
         placeHolderPane.getChildren().add(panel);
     }
     
-    
-    public static AgendaPanel load(Stage primaryStage, AnchorPane agendaPlaceholder, ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList) {
-        AgendaPanel agendaPanel = 
-                UiPartLoader.loadUiPart(primaryStage, agendaPlaceholder, new AgendaPanel());
-        agendaPanel.configure(taskList, eventList);
+    public static AgendaPanel load(Stage primaryStage, AnchorPane agendaPlaceholder,
+            ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList,
+            ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
+            ObservableList<ReadOnlyTask> completedTaskList, ArrayList<ObservableList<ReadOnlyTask>> daysList) {
+        AgendaPanel agendaPanel = UiPartLoader.loadUiPart(primaryStage, agendaPlaceholder, new AgendaPanel());
+        agendaPanel.configure(taskList, eventList, floatingTaskList, incompleteTaskList, completedTaskList, daysList);
         return agendaPanel;
     }
-    
-    private void configure(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList) {
-        instantiateObjectLists(taskList, eventList);
+
+    private void configure(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList,
+            ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
+            ObservableList<ReadOnlyTask> completedTaskList, ArrayList<ObservableList<ReadOnlyTask>> daysList) {
+        instantiateObjectLists(taskList, eventList, floatingTaskList, incompleteTaskList, completedTaskList, daysList);
         configureTaskColumnsCellFactories();
         configureEventsColumnsCellFactories();
-        setConnections(taskList);
+        setConnections();
         addToPlaceholder();
         registerAsAnEventHandler(this); //to update labels
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        tasksTableView.setItems(this.tasksList);
-        eventsTableView.setItems(this.eventsList);
+    private void setConnections() {
+        showAgenda();
         
         tasksTableView.getColumns().setAll(tasksTableColumnId, 
                 tasksTableColumnTags,
@@ -133,9 +143,15 @@ public class AgendaPanel extends UiPart{
     /**
      * Instantiates the tasks and events lists.
      */
-    private void instantiateObjectLists(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList) {
+    private void instantiateObjectLists(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList,
+            ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
+            ObservableList<ReadOnlyTask> completedTaskList, ArrayList<ObservableList<ReadOnlyTask>> daysList) {
         this.tasksList = taskList;
         this.eventsList = eventList;
+        this.floatingTaskList = floatingTaskList;
+        this.incompleteTaskList = incompleteTaskList;
+        this.completedTaskList = completedTaskList;
+        this.daysTaskList = daysList;
     }
 
     /**
@@ -235,6 +251,86 @@ public class AgendaPanel extends UiPart{
                return new SimpleStringProperty();
             }
         });
+    }
+    
+    //========== Event handlers ================================================================================
+    
+    /**
+     * Expands the relevant task panels according to user input.
+     */
+    @Subscribe
+    public void handleShowTaskPanelSelectionEvent(ShowTaskPanelSectionEvent event) {
+        switch (event.sectionToDisplay) {
+        case "all":
+            showAgenda();
+            break;
+        case "floating tasks":
+            showFloatingTasks();
+            break;
+        case "incomplete tasks":
+            showIncompleteTasks();
+            break;
+        case "complete tasks":
+            showCompleteTasks();
+            break;
+        case "today":
+            showDayRequired(0);
+            break;
+        case "tomorrow":
+            showDayRequired(1);
+            break;
+        default:
+            showRequiredDay(event.sectionToDisplay);
+            break;
+        }
+    }
+
+    /**
+     * Finds the day to be displayed and calls its respective method to load its respective list.
+     * @param sectionToDisplay
+     */
+    private void showRequiredDay(String sectionToDisplay) {
+        DateTime dayNow = new DateTime();
+        LocalDateTime dayRequired = dayNow.getLocalDateTime();
+        int differenceInDays = 0;
+        //find required datetime 
+        for(int i = 0; i < 7; i++) {
+            if (dayRequired.getDayOfWeek().plus(i).toString().toLowerCase().equals(sectionToDisplay)) {
+                differenceInDays = i;
+            }
+        }
+        
+        showDayRequired(differenceInDays);
+    }
+
+    //========== Method calls to load relevant list details into panel. ===========================================
+    
+    public void showAgenda() {
+        tasksTableView.setItems(this.tasksList);
+        eventsTableView.setItems(this.eventsList);
+    }
+    
+    public void showFloatingTasks() {
+        tasksTableView.setItems(this.floatingTaskList);
+        eventsTableView.setItems(null);
+    }
+    
+    public void showIncompleteTasks() {
+        tasksTableView.setItems(this.incompleteTaskList);
+        eventsTableView.setItems(null);
+    }
+    
+    public void showCompleteTasks() {
+        tasksTableView.setItems(this.completedTaskList);
+        eventsTableView.setItems(null);
+    }
+    
+    /**
+     * Loads the list respective to which day is required.
+     * @param index must be 0 to 6, inlclusive.
+     */
+    public void showDayRequired(int index) {
+        tasksTableView.setItems(this.daysTaskList.get(index));
     }
 }
    
