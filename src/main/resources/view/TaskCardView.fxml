@@ -36,7 +36,7 @@
                         <String fx:value="roundLabel" />
                      </styleClass>
                   </Label>
-                  <Label fx:id="moreInfoLabel" text="More" textFill="WHITE">
+                  <Label fx:id="moreInfoLabel" text="•••" textFill="WHITE">
                      <font>
                         <Font name="Segoe UI Semilight" size="16.0" />
                      </font>
