@@ -27,8 +27,8 @@ public class StorageCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public StorageCommand(String directory)
-           throws IllegalValueException {
+    public StorageCommand(String directory) {
+           // throws IllegalValueException {
         this.newDirectory = directory;
     }
 
