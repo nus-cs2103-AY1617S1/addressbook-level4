@@ -492,18 +492,23 @@ Use case ends
 ## Appendix E: Product Survey
 ###Any.do
 ####Any.do is a mobile and online task manager application (not a command-line application).
+####Strengths
 1.	User can add new lists of tasks, add new tasks to a selected list.
 2.	User can include task descriptions, notes and set date, time in 24- or 12-hour format.
 3.	User can add sub-tasks under a selected task.
 4.	User can delete tasks and lists of tasks.
 5.	User can set recurring tasks.
 6.	User can undo marking a task done.
-7.	User can set the priority level of a task. Only two priority levels are supported
-8.	User can choose to view completed and uncompleted tasks. For completed tasks, they are listed in the order of completion, rather than in the order of task date or time. The task name, date/time and list name are shown. Viewing by list or date is not supported. For uncompleted tasks, users can choose to view by list, time and priority.
+7.	User can set the priority level of a task.
+8.	User can choose to view completed tasks by list, time and priority.
 9.	User can choose from different themes of UI.
+####Weaknesses
+1.	Only two priority levels are supported.
+2.      Viewing of uncompleted tasks is in the order of completion, rather than in the order of task date or time. Viewing by list or date is not supported.
 
 ###Taskwarrior
 ####Taskwarrior is a well-developed command line task manager software. It has implemented many functionalities, but only the ones most applicable to the project are detailed in this document.
+####Strengths
 1.	User can execute all the must-have commands (CRUD, Undo, Mark Done etc.).
 2.	User can also search or list by filters like status of tasks, due date, tags/virtual tags.
 3.	User can also update the task name by using the prepend and append commands.
@@ -511,6 +516,9 @@ Use case ends
 5.	User can add recurring tasks.
 6.	User can type very flexibly in terms of date and time. A wide range of accepted date/time formats is supported. User can also set duration of events by typing keywords like “3 weeks”.
 7.	User can choose from different themes of UI.
+####Weaknesses
+1.	Command words are usually long.
+2.      The use of colon (:) is frequent to indicate command parameters, which might not be natural for the user.
 
 ###Wunderlist
 ####Wunderlist is a task manager application for mobile phones, tablets, and computers.
