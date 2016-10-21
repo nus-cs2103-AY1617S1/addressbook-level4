@@ -21,11 +21,13 @@ public class TaskDescription {
 	 *             if the string passed in is invalid
 	 */
 	public TaskDescription(String details) throws IllegalValueException {
+		/*
 		assert details != null;
 		details = details.trim();
 		if (isValidDetails(details)) {
 			throw new IllegalValueException(MESSAGE_TASK_CONSTRAINTS);
 		}
+		*/
 		this.fullTaskDescriptions = details;
 	}
 
