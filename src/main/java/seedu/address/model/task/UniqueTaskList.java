@@ -91,10 +91,10 @@ public class UniqueTaskList implements Iterable<Task> {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
             throw new TaskNotFoundException();
-    int taskIndex = internalList.indexOf(toEdit);
-    Task taskFound = internalList.get(taskIndex);
-    taskFound.setEndTime(newTiming);
-    internalList.set(taskIndex, taskFound);
+        int taskIndex = internalList.indexOf(toEdit);
+        Task taskFound = internalList.get(taskIndex);
+        taskFound.setEndTime(newTiming);
+        internalList.set(taskIndex, taskFound);
     }
     
     /**
