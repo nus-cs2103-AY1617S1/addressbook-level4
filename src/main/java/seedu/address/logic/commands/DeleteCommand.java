@@ -42,13 +42,19 @@ public class DeleteCommand extends UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
+        boolean isDoneList = model.isCurrentListDoneList();
         displayDeletedTasks = new ArrayList<String>();
         Collections.sort(targetIndexes);
         int adjustmentForRemovedTask = 0;
         deletedTasks = new ArrayList<Task>();
 
         for (int targetIndex: targetIndexes) {
-            UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredDoneTaskList();
+            UnmodifiableObservableList<ReadOnlyTask> lastShownList;
+            if (isDoneList) {
+                lastShownList = model.getFilteredDoneTaskList();
+            } else {
+                lastShownList = model.getFilteredUndoneTaskList();
+            }
     
             if (lastShownList.size() < targetIndex - adjustmentForRemovedTask) {
                 continue;

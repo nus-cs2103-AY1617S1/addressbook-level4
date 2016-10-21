@@ -75,7 +75,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask floatingTask) throws TaskNotFoundException {
-        taskManager.removeFloatingTask(floatingTask);
+        if (isDoneList) {
+            taskManager.removeDoneTask(floatingTask);
+        } else {
+            taskManager.removeFloatingTask(floatingTask);
+        }
         indicateTaskManagerChanged();
     }
 
