@@ -241,7 +241,7 @@ public class TaskListPanel extends UiPart {
         case "incomplete tasks":
             showIncompleteTasks();
             break;
-        case "complete tasks":
+        case "completed tasks":
             showCompleteTasks();
             break;
         case "today":
@@ -267,19 +267,19 @@ public class TaskListPanel extends UiPart {
      * @param sectionToDisplay
      */
     private void showRequiredDay(String sectionToDisplay) {
-        if(titleTaskDay1.getText().contains(sectionToDisplay)) {
+        if(titleTaskDay1.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay1();
-        } else if(titleTaskDay2.getText().contains(sectionToDisplay)) {
+        } else if(titleTaskDay2.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay2();
-        } else if(titleTaskDay3.getText().contains(sectionToDisplay)) {
+        } else if(titleTaskDay3.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay3();
-        }else if(titleTaskDay4.getText().contains(sectionToDisplay)) {
+        }else if(titleTaskDay4.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay4();
-        }else if(titleTaskDay5.getText().contains(sectionToDisplay)) {
+        }else if(titleTaskDay5.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay5();
-        }else if(titleTaskDay6.getText().contains(sectionToDisplay)) {
+        }else if(titleTaskDay6.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay6();
-        }else if(titleTaskDay7.getText().contains(sectionToDisplay)) {
+        }else if(titleTaskDay7.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay7();
         }
     }

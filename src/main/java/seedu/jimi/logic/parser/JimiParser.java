@@ -93,7 +93,7 @@ public class JimiParser {
 
     private static final String XML_FILE_EXTENSION = ".xml";
     
-    private static final String[] showCommandValidKeywords = { "floating tasks", "incomplete tasks", "complete tasks",
+    private static final String[] showCommandValidKeywords = { "floating tasks", "incomplete tasks", "completed tasks",
             "today", "tomorrow", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday" };
     
     public JimiParser() {}
