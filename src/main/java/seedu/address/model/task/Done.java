@@ -3,20 +3,16 @@ package seedu.address.model.task;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a task's date number in the task manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
+ * Represents a task's done status in the task manager.
  */
 public class Done {
-
-//    public static final String MESSAGE_DATE_CONSTRAINTS = "Date numbers should follow the format dd/mm/yy";
-//    public static final String DATE_VALIDATION_REGEX = "(0?[1-9]|[12][\\d]|3[01])/(0?[1-9]|1[012])/(\\d\\d)";
 
     public Boolean value;
 
     /**
-     * Validates given date number.
+     * Validates given done status
      *
-     * @throws IllegalValueException if given date string is invalid.
+     * @throws IllegalValueException if given done status is invalid. i.e not true or not false
      */
     public Done(Boolean done) throws IllegalValueException {
         this.value = done;
@@ -32,7 +28,10 @@ public class Done {
     
     @Override
     public String toString() {
-    	return "";
+        if(this.value)
+            return "done";
+        else
+            return "not done";
     }
     
     @Override
