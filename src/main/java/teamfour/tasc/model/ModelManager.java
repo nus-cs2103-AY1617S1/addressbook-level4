@@ -7,8 +7,8 @@ import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.core.UnmodifiableObservableList;
 import teamfour.tasc.commons.events.model.TaskListChangedEvent;
 import teamfour.tasc.commons.util.StringUtil;
-import teamfour.tasc.model.history.HistoryQueue;
-import teamfour.tasc.model.history.HistoryQueue.OutOfHistoryException;
+import teamfour.tasc.model.history.HistoryStack;
+import teamfour.tasc.model.history.HistoryStack.OutOfHistoryException;
 import teamfour.tasc.model.task.ReadOnlyTask;
 import teamfour.tasc.model.task.Task;
 import teamfour.tasc.model.task.UniqueTaskList;
@@ -30,7 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private PredicateExpression taskListFilter;
     private final SortedList<Task> sortedTasks;
-    private final HistoryQueue<TaskList> taskListHistory;
+    private final HistoryStack<TaskList> taskListHistory;
 
     /**
      * Initializes a ModelManager with the given TaskList
@@ -47,7 +47,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
         sortedTasks = new SortedList<>(filteredTasks);
-        taskListHistory = new HistoryQueue<TaskList>();
+        taskListHistory = new HistoryStack<TaskList>();
     }
 
     public ModelManager() {
@@ -59,7 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
         sortedTasks = new SortedList<>(filteredTasks);
-        taskListHistory = new HistoryQueue<TaskList>();
+        taskListHistory = new HistoryStack<TaskList>();
     }
 
     @Override
