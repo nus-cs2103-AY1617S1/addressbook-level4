@@ -39,10 +39,6 @@ public class Deadline implements ReadOnlyDeadline{
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-    
-    public DateTime getDateTime() {
-		return due;
-	}
 
     /**
      * Replaces this deadline's tags with the tags in the argument tag list.

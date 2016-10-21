@@ -81,9 +81,9 @@ public class UniqueEventList implements Iterable<Event> {
     public void sort() {
     	Collections.sort(internalList, new Comparator<Event>() {
       	  public int compare(Event e1, Event e2) {
-      	      if (e1.getStartTime() == null || e2.getStartTime() == null)
+      	      if (e1.getStart() == null || e2.getStart() == null)
       	        return 0;
-      	      return e1.getStartTime().compareTo(e2.getStartTime());
+      	      return e1.getStart().compareTo(e2.getStart());
       	  }
       	});
     }

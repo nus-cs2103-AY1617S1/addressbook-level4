@@ -81,9 +81,9 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     public void sort() {
     	Collections.sort(internalList, new Comparator<Deadline>() {
         	  public int compare(Deadline e1, Deadline e2) {
-        	      if (e1.getDateTime() == null || e2.getDateTime() == null)
+        	      if (e1.getDue() == null || e2.getDue() == null)
         	        return 0;
-        	      return e1.getDateTime().compareTo(e2.getDateTime());
+        	      return e1.getDue().compareTo(e2.getDue());
         	  }
         	});
 	}
