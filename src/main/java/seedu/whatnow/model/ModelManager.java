@@ -288,7 +288,16 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void updateFilteredTaskList(Set<String> keywords){
-		updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+        filteredTasks.setPredicate(p -> {
+            if ((keywords.stream()
+                    .filter(key -> StringUtil.containsIgnoreCase(p.getName().fullName, key))
+                    .findAny()
+                    .isPresent()) && p.getTaskType().equals(TASK_TYPE_FLOATING))  {
+                return true;
+            } else {
+                return false;
+            }
+        });
 	}
 
 	private void updateFilteredTaskList(Expression expression) {
@@ -355,7 +364,16 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void updateFilteredScheduleList(Set<String> keywords){
-		updateFilteredScheduleList(new PredicateExpression(new NameQualifier(keywords)));
+        filteredSchedules.setPredicate(p -> {
+            if ((keywords.stream()
+                    .filter(key -> StringUtil.containsIgnoreCase(p.getName().fullName, key))
+                    .findAny()
+                    .isPresent()) && p.getTaskType().equals(TASK_TYPE_NOT_FLOATING))  {
+                return true;
+            } else {
+                return false;
+            }
+        });
 	}
 
 	private void updateFilteredScheduleList(Expression expression) {
