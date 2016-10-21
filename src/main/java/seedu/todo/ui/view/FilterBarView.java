@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 
 /**
  * Shows a row of filter categories via {@link seedu.todo.commons.enumerations.TaskViewFilter}
- * to filter the tasks in {@link seedu.todo.ui.TodoListPanel}
+ * to filter the tasks in {@link TodoListView}
  */
 public class FilterBarView extends UiPart {
     /* Constants */

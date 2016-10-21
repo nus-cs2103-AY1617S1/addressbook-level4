@@ -1,4 +1,4 @@
-package seedu.todo.ui;
+package seedu.todo.ui.view;
 
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
 import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.ui.UiPart;
+import seedu.todo.ui.UiPartLoader;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.util.ViewGeneratorUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
@@ -21,7 +23,7 @@ import java.util.*;
 /**
  * This class links up with TaskCard.fxml layout to display details of a given ReadOnlyTask to users via the TaskListPanel.fxml.  
  */
-public class TaskCard extends UiPart{
+public class TaskCard extends UiPart {
     /*Constants*/
     private static final String FXML = "TaskCard.fxml";
 

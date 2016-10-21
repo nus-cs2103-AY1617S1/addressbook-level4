@@ -33,7 +33,7 @@ public class MainWindow extends UiPart {
     private CommandErrorView commandErrorView;
     private FilterBarView filterBarView;
 
-    private TodoListPanel todoListPanel;
+    private TodoListView todoListView;
     private HelpView helpView;
 
     private Config config;
@@ -102,7 +102,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        todoListPanel = TodoListPanel.load(primaryStage, todoListPanelPlaceholder, logic.getObservableTaskList());
+        todoListView = TodoListView.load(primaryStage, todoListPanelPlaceholder, logic.getObservableTaskList());
         helpView = HelpView.load(primaryStage, helpPanelPlaceholder);
         filterBarView = FilterBarView.load(primaryStage, taskViewFilterPanel);
         commandFeedbackView = CommandFeedbackView.load(primaryStage, resultDisplayPlaceholder);
@@ -157,8 +157,8 @@ public class MainWindow extends UiPart {
     }
 
     /* Getters */
-    TodoListPanel getTodoListPanel() {
-        return this.todoListPanel;
+    TodoListView getTodoListView() {
+        return this.todoListView;
     }
 
     HelpView getHelpView() {

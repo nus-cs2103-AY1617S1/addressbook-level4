@@ -98,7 +98,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleExpandCollapseTaskEvent(ExpandCollapseTaskEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getTodoListPanel().toggleExpandCollapsed(event.task);
+        mainWindow.getTodoListView().toggleExpandCollapsed(event.task);
     }
 
     @Subscribe
@@ -117,7 +117,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleHighlightTaskEvent(HighlightTaskEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getTodoListPanel().scrollAndSelect(event.getTask());
+        mainWindow.getTodoListView().scrollAndSelect(event.getTask());
     }
 
     @Subscribe
