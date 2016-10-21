@@ -77,7 +77,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(taskIndex, taskFound);
     }
     
-    public void setStartTime(ReadOnlyTask toEdit, StartTime newTiming) throws TaskNotFoundException {
+    public void setStartTime(ReadOnlyTask toEdit, Time newTiming) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
             throw new TaskNotFoundException();
@@ -87,7 +87,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(taskIndex, taskFound);
     }
     
-    public void setEndTime(ReadOnlyTask toEdit, EndTime newTiming) throws TaskNotFoundException {
+    public void setEndTime(ReadOnlyTask toEdit, Time newTiming) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
             throw new TaskNotFoundException();

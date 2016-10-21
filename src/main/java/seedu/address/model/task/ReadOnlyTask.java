@@ -10,8 +10,8 @@ public interface ReadOnlyTask {
 
     Name getName();
     Date getDate();
-    StartTime getStartTime();
-    EndTime getEndTime();
+    Time getStartTime();
+    Time getEndTime();
     String getDone();
     Recurrence getRecurrence();
     

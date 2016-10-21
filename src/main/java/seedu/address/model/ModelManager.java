@@ -12,10 +12,9 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.Time;
 import seedu.address.model.task.Date;
-import seedu.address.model.task.EndTime;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.StartTime;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
@@ -143,8 +142,8 @@ public class ModelManager extends ComponentManager implements Model {
         addTask(new Task(
                 task.getName(), 
                 new Date("false"),
-                new StartTime(days + " after " + task.getStartTime().appearOnUIFormat()),
-                new EndTime(days + " after " + task.getEndTime().appearOnUIFormat()),
+                new Time(days + " after " + task.getStartTime().appearOnUIFormat()),
+                new Time(days + " after " + task.getEndTime().appearOnUIFormat()),
                 task.getTags() 
                 ));
     }

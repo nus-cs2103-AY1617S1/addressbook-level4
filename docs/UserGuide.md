@@ -11,7 +11,7 @@
    This app will not work with earlier versions of Java 8.
    
 1. Download the latest `forgetmenot.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+2. Copy the file to the folder you want to use as the home folder for ForgetMeNot.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
    > <img src="images/ForgetMeNot.png" width="600">
 
@@ -180,7 +180,7 @@ Example:
 * `set storage task manager`
 
 #### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+ForgetMeNot data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
 ## Command Summary

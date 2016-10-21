@@ -54,7 +54,7 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void addressBookReadSave() throws Exception {
+    public void taskManagerReadSave() throws Exception {
         TaskManager original = new TypicalTestTasks().getTypicalTaskManager();
         storageManager.saveTaskManager(original);
         ReadOnlyTaskManager retrieved = storageManager.readTaskManager().get();
@@ -87,7 +87,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveTaskManager(ReadOnlyTaskManager addressBook, String filePath) throws IOException {
+        public void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

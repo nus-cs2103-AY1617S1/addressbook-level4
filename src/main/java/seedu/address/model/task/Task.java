@@ -6,28 +6,28 @@ import seedu.address.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Task in the address book.
+ * Represents a Task in ForgetMeNot.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
     private Name name;
     private Date date;
-    private StartTime start;
-    private EndTime end;
     private Recurrence rec;
+    private Time start;
+    private Time end;
     
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Date date, StartTime start, EndTime address, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, date, start, address, tags);
+    public Task(Name name, Date date, Time start, Time end, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, date, start, end, tags);
         this.name = name;
         this.date = date;
         this.start = start;
-        this.end = address;
+        this.end = end;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -49,12 +49,12 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public StartTime getStartTime() {
+    public Time getStartTime() {
         return start;
     }
 
     @Override
-    public EndTime getEndTime() {
+    public Time getEndTime() {
         return end;
     }
     
@@ -77,11 +77,11 @@ public class Task implements ReadOnlyTask {
         this.name = name;
     }
     
-    public void setStartTime(StartTime start) {
+    public void setStartTime(Time start) {
         this.start = start;
     }
     
-    public void setEndTime(EndTime end) {
+    public void setEndTime(Time end) {
         this.end = end;
     }
     
