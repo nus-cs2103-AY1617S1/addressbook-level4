@@ -23,7 +23,7 @@ public class DeleteCommand extends Command {
             + "      "
     		+ "Example: " + COMMAND_WORD + " T1, E2, D3"
     		+ "      "
-    		+ "Example: " + COMMAND_WORD + " T1-10";
+    		+ "Example: " + COMMAND_WORD + " T1-T10";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task: %1$s";
 
