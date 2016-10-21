@@ -8,8 +8,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case sensitive.
+ * Mark the specified task or event as done.
  */
 public class DoneCommand extends Command {
 

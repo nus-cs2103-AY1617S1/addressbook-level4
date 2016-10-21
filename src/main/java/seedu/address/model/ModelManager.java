@@ -112,12 +112,12 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredTaskList(String event){
-    	if(event.equals("events")){
+    	if(event.equals("events")) {
     	updateFilteredTaskList(new PredicateExpression(new EventQualifier()));
-    	}else if(event.equals("tasks")){
+    	} else if(event.equals("tasks")) {
     		updateFilteredTaskList(new PredicateExpression(new TaskQualifier()));
-    	}else{
-    		updateFilteredTaskList(new PredicateExpression(new DoneQualifier()));
+    	} else {
+    		updateFilteredTaskList(new PredicateExpression(new DoneQualifier(event)));
     	}
 
     }
@@ -220,16 +220,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private class DoneQualifier implements Qualifier{
-    	DoneQualifier(){}
+        private boolean isDone;
+        
+        DoneQualifier(String isDone){
+            this.isDone = isDone.equals("done");
+        }
 
-		@Override
-		public boolean run(ReadOnlyTask task) {
-			return task.isDone();
-		}
-		@Override
-		public String toString(){
-			return "name";
-		}
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return task.isDone() == isDone;
+        }
+        
+        @Override
+        public String toString(){
+            return "done=" + isDone;
+        }
     }
     	
     private class DateQualifier implements Qualifier {
@@ -257,5 +262,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "date=" + dateValue;
         }
     }
-
+    
 }
