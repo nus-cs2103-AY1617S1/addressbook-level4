@@ -8,6 +8,7 @@ import teamfour.tasc.logic.LogicManager;
 import teamfour.tasc.logic.commands.UndoCommand;
 
 public class UndoCommandTest extends AddressBookGuiTest {
+    /*
     public static int commandsInStack;
     
     public void prepare() {
@@ -32,12 +33,13 @@ public class UndoCommandTest extends AddressBookGuiTest {
         //Undo last command
         assertUndoSuccess(1);
     }
-
+    /*
     /**
      * Runs the delete command to delete the task at specified index and confirms the result is correct.
      * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of tasks (before deletion).
      */
+    /*
     private void assertUndoSuccess(int steps) {
         String command = (steps == 1) ? "undo" : "undo " + steps;
         commandsInStack -= steps;
@@ -49,5 +51,6 @@ public class UndoCommandTest extends AddressBookGuiTest {
         //confirm the result message is correct
         assertResultMessage(String.format(UndoCommand.MESSAGE_SUCCESS, (steps == 1) ? "command" : steps + " commands"));
     }
-
+    */
+    
 }
