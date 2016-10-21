@@ -142,7 +142,7 @@ public class UiManager extends ComponentManager implements Ui {
     
     @Subscribe
     private void handleTaskListChangedEvent(TaskListChangedEvent tlce){
-    	mainWindow.getBrowserPanel().addAllToAgenda((ObservableList<TaskComponent>) tlce.data.getTaskComponentList());
+    	mainWindow.getBrowserPanel().loadTaskList((ObservableList<TaskComponent>) tlce.data.getTaskComponentList());
     }
 
 }

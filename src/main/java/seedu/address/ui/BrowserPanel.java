@@ -29,7 +29,7 @@ public class BrowserPanel extends UiPart{
     private static final String FXML = "BrowserPanel.fxml";
     
     @FXML
-    private Agenda agenda;
+    private MyAgenda agenda;
 
     /**
      * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a BrowserPanel.
@@ -60,7 +60,7 @@ public class BrowserPanel extends UiPart{
         logger.info("Initializing Calendar");
         BrowserPanel browserPanel = new BrowserPanel();
         //browserPanel.browser = new WebView();
-        browserPanel.agenda = new Agenda();
+        browserPanel.agenda = new MyAgenda();
         browserPanel.initialize(taskList);
         placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
         FxViewUtil.applyAnchorBoundaryParameters(browserPanel.agenda, 0.0, 0.0, 0.0, 0.0);
@@ -70,12 +70,11 @@ public class BrowserPanel extends UiPart{
     
     
     private void initialize(ObservableList<TaskComponent> taskList){
-    	addAllToAgenda(taskList);
+    	loadTaskList(taskList);
     }
 
     public void loadTaskPage(ReadOnlyTask task) {
         //loadPage("https://www.google.com.sg/#safe=off&q=" + task.getName().fullName.replaceAll(" ", "+"));
-
     }
 
     /**
@@ -85,34 +84,8 @@ public class BrowserPanel extends UiPart{
         agenda = null;
     }
     
-    public void addAllToAgenda(ObservableList<TaskComponent> taskList){
-    	agenda.appointments().clear();
-    	for(TaskComponent t:taskList){
-    		if(t.getTaskReference().getTaskType()!=TaskType.FLOATING && !t.hasOnlyEndDate()){
-    			AppointmentImplLocal appointment = new AppointmentImplLocal();
-    			appointment.setSummary(t.getTaskReference().getName().fullName);
-    			appointment.setDescription(t.getTaskReference().tagsString());
-    			appointment.setStartLocalDateTime(getTime(t.getStartDate()));
-    			appointment.setEndLocalDateTime(getTime(t.getEndDate()));
-    			if(t.getTaskReference().getTaskType() == TaskType.COMPLETED){
-    				appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1"));
-    			}else if(t.getTaskReference().getName().fullName.equals(BlockCommand.DUMMY_NAME)){
-    				appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group3"));
-    			}
-    			else{
-    				appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group2"));
-    			}
-    			agenda.appointments().add(appointment);
-    		}
-    	}
+    public void loadTaskList(ObservableList<TaskComponent> taskList){
+    	agenda.addAllToAgenda(taskList);    		
     }
     
-    //===============Temp methods to convert startdate and enddate==================================
-    private LocalDateTime getTime(TaskDate t){
-    	return LocalDateTime.ofInstant(new Date(t.getDateInLong()).toInstant(), ZoneId.systemDefault());
-    }
-    
-    
-    
-
 }

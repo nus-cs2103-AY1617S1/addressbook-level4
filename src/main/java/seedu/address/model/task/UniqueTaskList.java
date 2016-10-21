@@ -73,8 +73,8 @@ public class UniqueTaskList implements Iterable<Task> {
         //Only compare tasks with blocked time slots.
         for(Task t: internalList){
         	if(t.getName().fullName.equals(BlockCommand.DUMMY_NAME)){
-        		if(!(t.getComponentForNonRecurringType().getEndDate().getDate().before(toCheck.getComponentForNonRecurringType().getStartDate().getDate())||
-        	        t.getComponentForNonRecurringType().getStartDate().getDate().after(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
+        		if(!(!t.getComponentForNonRecurringType().getEndDate().getDate().after(toCheck.getComponentForNonRecurringType().getStartDate().getDate())||
+        	        !t.getComponentForNonRecurringType().getStartDate().getDate().before(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
         	        	return true;        		
         	}
         }
@@ -82,10 +82,10 @@ public class UniqueTaskList implements Iterable<Task> {
         if(toCheck.getName().fullName.equals(BlockCommand.DUMMY_NAME)){
         	for(Task t: internalList){
         	if(t.getTaskType() == TaskType.NON_FLOATING && t.getComponentForNonRecurringType().getStartDate().getDateInLong() != TaskDate.DATE_NOT_PRESENT){
-        		if(!(t.getComponentForNonRecurringType().getEndDate().getDate().before(toCheck.getComponentForNonRecurringType().getStartDate().getDate())||
-        	        t.getComponentForNonRecurringType().getStartDate().getDate().after(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
+        		if(!(!t.getComponentForNonRecurringType().getEndDate().getDate().after(toCheck.getComponentForNonRecurringType().getStartDate().getDate())||
+        	        !t.getComponentForNonRecurringType().getStartDate().getDate().before(toCheck.getComponentForNonRecurringType().getEndDate().getDate())))
         	        	return true;        		
-        	}
+        		}
         	}
         }
         return false;
