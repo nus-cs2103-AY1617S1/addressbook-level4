@@ -1,21 +1,17 @@
 package seedu.jimi.model;
 
-import javafx.collections.transformation.FilteredList;
+import java.util.Set;
+import java.util.logging.Logger;
+
 import seedu.jimi.commons.core.ComponentManager;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.events.model.AddressBookChangedEvent;
 import seedu.jimi.commons.events.ui.ShowTaskPanelSectionEvent;
-import seedu.jimi.commons.util.StringUtil;
-import seedu.jimi.model.ModelFilteredMap.ListIdentifier;
+import seedu.jimi.model.FilteredListManager.ListIdentifier;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
-import seedu.jimi.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
-
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * Represents the in-memory model of Jimi's data.
@@ -23,9 +19,9 @@ import java.util.logging.Logger;
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-
+    
     private final TaskBook taskBook;
-    private final ModelFilteredMap filteredTasksMap;
+    private final FilteredListManager filteredListManager;
     
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -35,22 +31,22 @@ public class ModelManager extends ComponentManager implements Model {
         super();
         assert src != null;
         assert userPrefs != null;
-
+        
         logger.fine("Initializing with task book: " + src + " and user prefs " + userPrefs);
-
+        
         taskBook = new TaskBook(src);
         
-        this.filteredTasksMap = new ModelFilteredMap(taskBook);
+        this.filteredListManager = new FilteredListManager(taskBook);
     }
-
+    
     public ModelManager() {
         this(new TaskBook(), new UserPrefs());
     }
-
+    
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         taskBook = new TaskBook(initialData);
         
-        this.filteredTasksMap = new ModelFilteredMap(taskBook);
+        this.filteredListManager = new FilteredListManager(taskBook);
     }
     
     @Override
@@ -58,7 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook.resetData(newData);
         indicateAddressBookChanged();
     }
-
+    
     @Override
     public ReadOnlyTaskBook getTaskBook() {
         return taskBook;
@@ -73,13 +69,13 @@ public class ModelManager extends ComponentManager implements Model {
     public void showTaskPanelSection(String sectionToShow) {
         raise(new ShowTaskPanelSectionEvent(sectionToShow));
     }
-
+    
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.removeTask(target);
         indicateAddressBookChanged();
     }
-
+    
     @Override
     public synchronized void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
@@ -112,104 +108,104 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //=========== Filtered list accessors ===============================================================
-
+    
     @Override
     public void updateFilteredListToShowAll() {
-        this.filteredTasksMap.updateFilteredListToShowAll();
+        this.filteredListManager.updateFilteredListToShowAll();
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.TASKS_AGENDA);
+        return this.filteredListManager.getRequiredFilteredTaskList(ListIdentifier.TASKS_AGENDA);
     }
-
+    
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        this.filteredTasksMap.updateRequiredFilteredTaskList(ListIdentifier.TASKS_AGENDA, keywords);
+    public void updateFilteredTaskList(Set<String> keywords) {
+        this.filteredListManager.updateRequiredFilteredTaskList(ListIdentifier.TASKS_AGENDA, keywords);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.FLOATING_TASKS);
+        return this.filteredListManager.getRequiredFilteredTaskList(ListIdentifier.FLOATING_TASKS);
     }
-
+    
     @Override
     public void updateFilteredFloatingTaskList(Set<String> keywords) {
-        this.filteredTasksMap.updateRequiredFilteredTaskList(ListIdentifier.FLOATING_TASKS, keywords);
+        this.filteredListManager.updateRequiredFilteredTaskList(ListIdentifier.FLOATING_TASKS, keywords);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredCompletedTaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.COMPLETED);
+        return this.filteredListManager.getRequiredFilteredTaskList(ListIdentifier.COMPLETED);
     }
-
+    
     @Override
-    public void updateFilteredCompletedTaskList(Set<String> keywords){
-        this.filteredTasksMap.updateRequiredFilteredTaskList(ListIdentifier.COMPLETED, keywords);
+    public void updateFilteredCompletedTaskList(Set<String> keywords) {
+        this.filteredListManager.updateRequiredFilteredTaskList(ListIdentifier.COMPLETED, keywords);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredIncompleteTaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.INCOMPLETE);
+        return this.filteredListManager.getRequiredFilteredTaskList(ListIdentifier.INCOMPLETE);
     }
-
+    
     @Override
-    public void updateFilteredIncompleteTaskList(Set<String> keywords){
-        this.filteredTasksMap.updateRequiredFilteredTaskList(ListIdentifier.INCOMPLETE, keywords);
+    public void updateFilteredIncompleteTaskList(Set<String> keywords) {
+        this.filteredListManager.updateRequiredFilteredTaskList(ListIdentifier.INCOMPLETE, keywords);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaTaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.TASKS_AGENDA);
+        return this.filteredListManager.getRequiredFilteredTaskList(ListIdentifier.TASKS_AGENDA);
     }
-
+    
     @Override
-    public void updateFilteredAgendaTaskList(Set<String> keywords){
-        this.filteredTasksMap.updateRequiredFilteredTaskList(ListIdentifier.TASKS_AGENDA, keywords);
+    public void updateFilteredAgendaTaskList(Set<String> keywords) {
+        this.filteredListManager.updateRequiredFilteredTaskList(ListIdentifier.TASKS_AGENDA, keywords);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaEventList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.EVENTS_AGENDA);
+        return this.filteredListManager.getRequiredFilteredTaskList(ListIdentifier.EVENTS_AGENDA);
     }
-
+    
     @Override
-    public void updateFilteredAgendaEventList(Set<String> keywords){
-        this.filteredTasksMap.updateRequiredFilteredTaskList(ListIdentifier.EVENTS_AGENDA, keywords);
+    public void updateFilteredAgendaEventList(Set<String> keywords) {
+        this.filteredListManager.updateRequiredFilteredTaskList(ListIdentifier.EVENTS_AGENDA, keywords);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay1TaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_0);
+        return this.filteredListManager.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_0);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay2TaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_1);
+        return this.filteredListManager.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_1);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay3TaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_2);
+        return this.filteredListManager.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_2);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay4TaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_3);
+        return this.filteredListManager.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_3);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay5TaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_4);
+        return this.filteredListManager.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_4);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay6TaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_5);
+        return this.filteredListManager.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_5);
     }
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay7TaskList() {
-        return this.filteredTasksMap.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_6);
-    }   
+        return this.filteredListManager.getRequiredFilteredTaskList(ListIdentifier.DAY_AHEAD_6);
+    }
 }

@@ -1,10 +1,7 @@
 package seedu.jimi.model;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.time.format.TextStyle;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -19,8 +16,8 @@ import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 
-public class ModelFilteredMap {
-    private static final Logger logger = LogsCenter.getLogger(ModelFilteredMap.class);
+public class FilteredListManager {
+    private static final Logger logger = LogsCenter.getLogger(FilteredListManager.class);
 
     public enum ListIdentifier {
         DAY_AHEAD_0, DAY_AHEAD_1, DAY_AHEAD_2, DAY_AHEAD_3, DAY_AHEAD_4, DAY_AHEAD_5, DAY_AHEAD_6, FLOATING_TASKS, COMPLETED, INCOMPLETE, TASKS_AGENDA, EVENTS_AGENDA
@@ -28,7 +25,7 @@ public class ModelFilteredMap {
 
     private final HashMap<ListIdentifier, FilteredList<ReadOnlyTask>> filteredMap = new HashMap<ListIdentifier, FilteredList<ReadOnlyTask>>();
 
-    public ModelFilteredMap(TaskBook taskBook) {
+    public FilteredListManager(TaskBook taskBook) {
         for (ListIdentifier li : ListIdentifier.values()) {
             filteredMap.put(li, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
         }
