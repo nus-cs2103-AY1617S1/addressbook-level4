@@ -29,13 +29,18 @@
             <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
          </padding>
       </AnchorPane>
-       <AnchorPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="anchor-pane-with-border" minHeight="100" prefHeight="100" maxHeight="100">
+      <AnchorPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="anchor-pane-with-border" minHeight="100" prefHeight="100" maxHeight="100">
            <padding>
                <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
            </padding>
        </AnchorPane>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
          <items>
+            <AnchorPane fx:id="filterPlaceholder" prefWidth="340" >
+                <padding>
+                    <Insets top="10" bottom="10" left="10" right="10"/>
+                </padding>
+            </AnchorPane>
             <VBox fx:id="taskList" minWidth="340" prefWidth="340">
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
@@ -44,11 +49,7 @@
                   <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </children>
             </VBox>
-            <AnchorPane fx:id="browserPlaceholder" prefWidth="340" >
-                <padding>
-                    <Insets top="10" bottom="10" left="10" right="10"/>
-                </padding>
-            </AnchorPane>
+
          </items>
       </SplitPane>
       <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
