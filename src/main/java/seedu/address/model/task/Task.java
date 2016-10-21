@@ -74,6 +74,10 @@ public class Task implements ReadOnlyTask {
         this.end = end;
     }
     
+    public void setDone(Done done) {
+    	this.done = done;
+    }
+    
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
