@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.ReadOnlyTaskFilter;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskFilter;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -50,10 +53,14 @@ public class DoneCommand extends Command {
         	
             try {
                 model.editTask(targetIndices[i], taskDone);
+                model.putDoneTaskToLast(targetIndices[i], taskDone);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
-            }
+            } catch (DuplicateTaskException e) {
+				assert false: "The target task cannot be duplicate";
+			}
         }
+        model.updateFilteredTaskList(ReadOnlyTaskFilter.isDone().negate());
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, tasksDoneList));
     }
 

@@ -1,16 +1,15 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.function.Predicate;
-
-import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
@@ -40,6 +39,11 @@ public interface Model {
     /** Updates the given task */
     void editTask(int index, Task task) throws UniqueTaskList.TaskNotFoundException;
     
+    //@@author A0142184L
+    /** Put the task marked as done to the back of the list*/
+	void putDoneTaskToLast(int index, Task task) throws TaskNotFoundException, DuplicateTaskException;
+	
+	//@@author 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     
