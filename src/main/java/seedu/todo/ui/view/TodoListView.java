@@ -42,7 +42,8 @@ public class TodoListView extends UiPart {
     }
 
     /**
-     * Loads and initialise the {@link TodoListView} to the placeHolder
+     * Loads and initialise the {@link TodoListView} to the placeHolder.
+     *
      * @param primaryStage of the application
      * @param placeHolder where the view element {@link #todoListView} should be placed
      * @return an instance of this class
@@ -58,7 +59,8 @@ public class TodoListView extends UiPart {
 
     /**
      * Configures the {@link TodoListView}
-     * @param todoList a list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
+     *
+     * @param todoList A list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
      */
     private void configure(ObservableList<ImmutableTask> todoList) {
         setConnections(todoList);
@@ -66,7 +68,8 @@ public class TodoListView extends UiPart {
 
     /**
      * Links the list of {@link ImmutableTask} to the todoListView.
-     * @param todoList a list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
+     *
+     * @param todoList A list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
      */
     private void setConnections(ObservableList<ImmutableTask> todoList) {
         todoListView.setItems(todoList);
@@ -76,7 +79,8 @@ public class TodoListView extends UiPart {
     /* Ui Methods */
     /**
      * Toggles the expanded/collapsed view of a task card.
-     * @param task to be expanded or collapsed from view.
+     *
+     * @param task The specific to be expanded or collapsed from view.
      */
     public void toggleExpandCollapsed(ImmutableTask task) {
         TaskCardView taskCardView = TaskCardView.getTaskCard(task);
@@ -86,7 +90,7 @@ public class TodoListView extends UiPart {
     }
 
     /**
-     * Scrolls the {@link #todoListView} to the particular task card at the listIndex
+     * Scrolls the {@link #todoListView} to the particular task card at the listIndex.
      */
     public void scrollAndSelect(int listIndex) {
         Platform.runLater(() -> {
@@ -97,6 +101,7 @@ public class TodoListView extends UiPart {
 
     /**
      * Scrolls the {@link #todoListView} to the particular task card.
+     *
      * @param task for the list to scroll to.
      */
     public void scrollAndSelect(ImmutableTask task) {
@@ -126,9 +131,7 @@ public class TodoListView extends UiPart {
      */
     private class TodoListViewCell extends ListCell<ImmutableTask> {
 
-        public TodoListViewCell() {
-        }
-
+        /* Override Methods */
         @Override
         protected void updateItem(ImmutableTask task, boolean empty) {
             super.updateItem(task, empty);

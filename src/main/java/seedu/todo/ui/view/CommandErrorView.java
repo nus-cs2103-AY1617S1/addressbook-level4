@@ -30,14 +30,10 @@ public class CommandErrorView extends UiPart {
 
     private AnchorPane placeholder;
     private VBox errorViewBox;
-    @FXML
-    private VBox nonFieldErrorBox;
-    @FXML
-    private VBox fieldErrorBox;
-    @FXML
-    private GridPane nonFieldErrorGrid;
-    @FXML
-    private GridPane fieldErrorGrid;
+    @FXML private VBox nonFieldErrorBox;
+    @FXML private VBox fieldErrorBox;
+    @FXML private GridPane nonFieldErrorGrid;
+    @FXML private GridPane fieldErrorGrid;
 
     /**
      * Loads and initialise the feedback view element to the placeHolder
