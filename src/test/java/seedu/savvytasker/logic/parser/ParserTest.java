@@ -19,6 +19,7 @@ public class ParserTest {
     private UnmarkCommandParser unmarkParser;
     private UndoCommandParser undoParser;
     private RedoCommandParser redoParser;
+    private AliasCommandParser aliasParser;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -37,6 +38,7 @@ public class ParserTest {
         unmarkParser = new UnmarkCommandParser();
         undoParser = new UndoCommandParser();
         redoParser = new RedoCommandParser();
+        aliasParser = new AliasCommandParser();
     }
     
     @Test
@@ -388,5 +390,47 @@ public class ParserTest {
     public void parse_redo_valid() throws ParseException {
         assertNotEquals(redoParser.parse("redo"), null);
     }
+
+    //==================================================================================
+
+    @Test
+    public void parse_alias_keywordUnspecified() throws ParseException {
+        thrown.expect(ParseException.class);
+        aliasParser.parse("alias t/ a string of things");
+    }
+
+    @Test
+    public void parse_alias_textUnspecified() throws ParseException {
+        thrown.expect(ParseException.class);
+        aliasParser.parse("alias k/ xyz");
+    }
     
+    @Test
+    public void parse_alias_noSwitchesSpecified() throws ParseException {
+        thrown.expect(ParseException.class);
+        aliasParser.parse("alias power overwhelming");
+    }
+    
+    @Test
+    public void parse_alias_keywordTooLong() throws ParseException {
+        thrown.expect(ParseException.class);
+        aliasParser.parse("alias k/ not a single word t/ project management");
+    }
+    
+    @Test
+    public void parse_alias_keywordEmpty() throws ParseException {
+        thrown.expect(ParseException.class);
+        aliasParser.parse("alias k/   t/ project management");
+    }
+    
+    @Test
+    public void parse_alias_textEmpty() throws ParseException {
+        thrown.expect(ParseException.class);
+        aliasParser.parse("alias k/ pjm  t/  ");
+    }
+    
+    @Test
+    public void parse_alias_fullValid() throws ParseException {
+        assertNotEquals(aliasParser.parse("alias   k/ pjm  t/  project management  "), null);
+    }
 }

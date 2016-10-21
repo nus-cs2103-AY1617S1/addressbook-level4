@@ -95,4 +95,15 @@ public class LogicManager extends ComponentManager implements Logic {
         
         return redone;
     }
+    
+    public void addPreprocessSymbol(String symbol, String representation) {
+        assert symbol != null;
+        assert representation != null;
+        
+        
+    }
+    
+    public void removePreprocessingSymbol(String symbol) {
+        assert symbol != null;
+    }
 }

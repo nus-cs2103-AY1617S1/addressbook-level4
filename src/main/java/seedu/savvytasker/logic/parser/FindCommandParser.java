@@ -47,27 +47,28 @@ public class FindCommandParser implements CommandParser<FindCommand> {
     }
     
     private FindType parseFindType(String findTypeText) throws ParseException {
+        if (findTypeText == null)
+            return null;
+        
+        String trimmedFindTypeText = findTypeText.trim();
         try {
-            if (findTypeText == null)
-                return null;
-            findTypeText = findTypeText.trim();
-            return FindType.valueOfIgnoreCase(findTypeText);
+            return FindType.valueOfIgnoreCase(trimmedFindTypeText);
         } catch (IllegalArgumentException ex) {
-            throw new ParseException(findTypeText, "FIND_TYPE: Unknown type '" + findTypeText + "'");
+            throw new ParseException(trimmedFindTypeText, "FIND_TYPE: Unknown type '" + findTypeText + "'");
         }
     }
     
     private String[] parseKeywords(String keywordsBefore, String keywordsAfter) throws ParseException {
-        keywordsBefore = keywordsBefore.trim();
-        keywordsAfter = keywordsAfter.trim();
+        String trimmedKeywordsBefore = keywordsBefore.trim();
+        String trimmedKeywordsAfter = keywordsAfter.trim();
         
         String[] keywordsArr1 = new String[0];
         String[] keywordsArr2 = new String[0];
-        if (!keywordsBefore.isEmpty()) keywordsArr1 = keywordsBefore.split("\\s+");
-        if (!keywordsAfter.isEmpty()) keywordsArr2 = keywordsAfter.split("\\s+");
+        if (!trimmedKeywordsBefore.isEmpty()) keywordsArr1 = trimmedKeywordsBefore.split("\\s+");
+        if (!trimmedKeywordsAfter.isEmpty()) keywordsArr2 = trimmedKeywordsAfter.split("\\s+");
         
         if (keywordsArr1.length == 0 && keywordsArr2.length == 0)
-            throw new ParseException(keywordsBefore + " ... " + keywordsAfter,
+            throw new ParseException(trimmedKeywordsBefore + " ... " + trimmedKeywordsAfter,
                     "KEYWORD: Need to specify at least one keyword!");
         
         return concatArray(keywordsArr1, keywordsArr2);
