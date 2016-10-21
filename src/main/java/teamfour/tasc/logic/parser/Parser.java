@@ -378,6 +378,12 @@ public class Parser {
         return new SelectCommand(index.get());
     }
 
+    /**
+     * Parses arguments in the context of the undo command.
+     * Special case: if no arg is provided, undoes 1 command.
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareUndo(String args) {
         if (args.equals("")) {
             return new UndoCommand(1);
