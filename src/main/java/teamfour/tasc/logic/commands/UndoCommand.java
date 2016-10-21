@@ -12,7 +12,7 @@ public class UndoCommand extends Command {
             + "Example: " + COMMAND_WORD + " 5";
 
     public static final String MESSAGE_SUCCESS = "Last %1$s undone.";
-    public static final String MESSAGE_NUM_COMMANDS_NOT_ENOUGH = 
+    public static final String MESSAGE_NO_PAST_COMMAND_TO_UNDO = 
             "There is no past command to undo.";
 
     private final int numCommandsToBeUndone;
@@ -38,7 +38,7 @@ public class UndoCommand extends Command {
         }
         
         if (numCommandsUndone == 0) {
-            return new CommandResult(MESSAGE_NUM_COMMANDS_NOT_ENOUGH);
+            return new CommandResult(MESSAGE_NO_PAST_COMMAND_TO_UNDO);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, 
                 numCommandsUndone == 1 ? 
