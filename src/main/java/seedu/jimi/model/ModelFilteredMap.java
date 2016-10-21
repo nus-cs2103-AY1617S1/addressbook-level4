@@ -279,7 +279,7 @@ public class ModelFilteredMap {
         @Override
         public boolean run(ReadOnlyTask task) {
             if (checkCompleted) {
-                if (!task.isCompleted()) {
+                if (task.isCompleted()) {
                     return false;
                 }
             }
@@ -303,7 +303,7 @@ public class ModelFilteredMap {
         @Override
         public boolean run(ReadOnlyTask task) {
             if (checkCompleted) {
-                if (!task.isCompleted()) {
+                if (task.isCompleted()) {
                     return false;
                 }
             }
@@ -328,7 +328,7 @@ public class ModelFilteredMap {
         @Override
         public boolean run(ReadOnlyTask task) {
             if (checkCompleted) {
-                if (!task.isCompleted()) {
+                if (task.isCompleted()) {
                     return false;
                 }
             }
