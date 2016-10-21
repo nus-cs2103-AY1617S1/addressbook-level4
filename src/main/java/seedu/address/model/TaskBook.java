@@ -182,7 +182,9 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     @Override
     public String toString() {
-        return datedTasks.getInternalList().size() + " datedTasks, " + tags.getInternalList().size() +  " tags";
+        return datedTasks.getInternalList().size() + " datedTasks, " +
+               undatedTasks.getInternalList().size() + " undatedTasks, "+
+               tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 

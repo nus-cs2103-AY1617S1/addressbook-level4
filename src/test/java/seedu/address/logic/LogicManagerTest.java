@@ -28,6 +28,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.DoneCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
@@ -81,9 +82,9 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempTaskBookFile = saveFolder.getRoot().getPath() + "TempTaskBook.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
+        logic = new LogicManager(model, new StorageManager(tempTaskBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new TaskBook(model.getTaskBook()); // last saved assumed to be up to date before.
@@ -109,7 +110,8 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(String, String, ReadOnlyTaskBook, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new TaskBook(), Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, new TaskBook(),
+                Collections.emptyList(), Collections.emptyList());
     }
 
     /**
@@ -121,14 +123,16 @@ public class LogicManagerTest {
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskBook expectedAddressBook,
-                                       List<? extends ReadOnlyTask> expectedShownList) throws Exception {
+                                       List<? extends ReadOnlyTask> expectedDatedList,
+                                       List<? extends ReadOnlyTask> expectedUndatedList) throws Exception {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
-
+        
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredDatedTaskList());
+        assertEquals(expectedDatedList, model.getFilteredDatedTaskList());
+        assertEquals(expectedUndatedList, model.getFilteredUndatedTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedAddressBook, model.getTaskBook());
@@ -156,11 +160,12 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addTask(helper.generatePerson(1));
-        model.addTask(helper.generatePerson(2));
-        model.addTask(helper.generatePerson(3));
+        model.addTask(helper.generateDatedTask(1));
+        model.addTask(helper.generateDatedTask(2));
+        model.addTask(helper.generateDatedTask(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), 
+                Collections.emptyList(), Collections.emptyList());
     }
 
     @Test
@@ -194,25 +199,28 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task[] toBeAdded = new Task[3];
+        toBeAdded[0] = helper.floatTaskA();
+        toBeAdded[1] = helper.deadlineA();
+        toBeAdded[2] = helper.eventA();
         TaskBook expectedAB = new TaskBook();
-        expectedAB.addTask(toBeAdded);
-
-        // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getDatedTaskList());
+        
+        for (Task toAdd : toBeAdded) {
+            expectedAB.addTask(toAdd);
+            // execute command and verify result
+            assertCommandBehavior(helper.generateAddCommand(toAdd),
+                    String.format(AddCommand.MESSAGE_SUCCESS, toAdd),
+                    expectedAB, expectedAB.getDatedTaskList(),
+                    expectedAB.getUndatedTaskList());
+        }
 
     }
     
-    
-
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.floatTaskA();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
 
@@ -223,12 +231,11 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_PERSON,
-                expectedAB,
-                expectedAB.getDatedTaskList());
+                expectedAB, expectedAB.getDatedTaskList(),
+                expectedAB.getUndatedTaskList());
 
     }
-
-
+    
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
@@ -250,44 +257,49 @@ public class LogicManagerTest {
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Task> personList = helper.generatePersonList(2);
+        List<Task> datedTaskList = helper.generateDatedTaskList(2);
+        List<Task> undatedTaskList = helper.generateUndatedTaskList(2);
 
-        // set AB state to 2 persons
+        // set total tasks state to 4 tasks
         model.resetData(new TaskBook());
-        for (Task p : personList) {
-            model.addTask(p);
+        for (Task d : datedTaskList) {
+            model.addTask(d);
+        }
+        for (Task u : undatedTaskList) {
+            model.addTask(u);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), personList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
+        assertCommandBehavior(commandWord + " 10", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
+        assertCommandBehavior(commandWord + " 13", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
     }
 
-    @Test
+    //@Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
     }
 
-    @Test
+    //@Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
     }
 
-    @Test
+    //@Test
     public void execute_select_jumpsToCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threePersons = helper.generateDatedTaskList(3);
 
         TaskBook expectedAB = helper.generateAddressBook(threePersons);
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
-                expectedAB,
-                expectedAB.getDatedTaskList());
+                expectedAB, expectedAB.getDatedTaskList(),
+                expectedAB.getUndatedTaskList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredDatedTaskList().get(1), threePersons.get(1));
     }
-
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -299,27 +311,49 @@ public class LogicManagerTest {
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("delete");
     }
-
+    
     @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
+    public void execute_delete_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generatePersonList(3);
-
-        TaskBook expectedAB = helper.generateAddressBook(threePersons);
-        expectedAB.removeTask(threePersons.get(1));
-        helper.addToModel(model, threePersons);
+        List<Task> threeDatedTasks = helper.generateDatedTaskList(2);
+        List<Task> threeUndatedTasks = helper.generateUndatedTaskList(3);
+        
+        TaskBook expectedAB = helper.generateAddressBook(threeDatedTasks);
+        helper.addToAddressBook(expectedAB, threeUndatedTasks);
+        
+        expectedAB.removeTask(threeDatedTasks.get(1));
+        helper.addToModel(model, threeDatedTasks);
+        helper.addToModel(model, threeUndatedTasks);
 
         assertCommandBehavior("delete 12",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
-                expectedAB,
-                expectedAB.getDatedTaskList());
+                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threeDatedTasks.get(1)),
+                expectedAB, expectedAB.getDatedTaskList(),
+                expectedAB.getUndatedTaskList());
+        
+        expectedAB.removeTask(threeUndatedTasks.get(1));
+        assertCommandBehavior("delete 2",
+                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threeUndatedTasks.get(1)),
+                expectedAB, expectedAB.getDatedTaskList(),
+                expectedAB.getUndatedTaskList());
     }
 
+    @Test 
+    public void execute_done_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
+    }
+
+    @Test 
+    public void execute_done_invalidIndexData() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("done");
+    }
+    
+    
     @Test
     public void execute_edit_name_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeEdited = helper.adam();
+        Task toBeEdited = helper.floatTaskA();
         TaskBook expectedAB = new TaskBook();
         
         // actual to be edited
@@ -333,8 +367,8 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(helper.generateEditCommand(1, "new name"),
                     String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, toBeEdited),
-                    expectedAB,
-                    expectedAB.getDatedTaskList());
+                    expectedAB, expectedAB.getDatedTaskList(),
+                    expectedAB.getUndatedTaskList());
     }
 
     
@@ -353,9 +387,9 @@ public class LogicManagerTest {
         Task p1 = helper.generatePersonWithName("KE Y");
         Task p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
 
-        List<Task> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
+        List<Task> fourPersons = helper.generateDatedTaskList(p1, pTarget1, p2, pTarget2);
         TaskBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Task> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        List<Task> expectedList = helper.generateDatedTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY",
@@ -372,7 +406,7 @@ public class LogicManagerTest {
         Task p3 = helper.generatePersonWithName("key key");
         Task p4 = helper.generatePersonWithName("KEy sduauo");
 
-        List<Task> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
+        List<Task> fourPersons = helper.generateDatedTaskList(p3, p1, p4, p2);
         TaskBook expectedAB = helper.generateAddressBook(fourPersons);
         List<Task> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
@@ -391,9 +425,9 @@ public class LogicManagerTest {
         Task pTarget3 = helper.generatePersonWithName("key key");
         Task p1 = helper.generatePersonWithName("sduauo");
 
-        List<Task> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
+        List<Task> fourPersons = helper.generateDatedTaskList(pTarget1, p1, pTarget2, pTarget3);
         TaskBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Task> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
+        List<Task> expectedList = helper.generateDatedTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find key rAnDoM",
@@ -408,29 +442,70 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Description description = new Description("111111");
-            Datetime datetime = new Datetime("11-11-2011 1111");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
+        Task floatTaskA() throws Exception {
+            Name name = new Name("Buy new water bottle");
+            Description description = new Description("NTUC");
+            Datetime datetime = new Datetime(null);
+            Tag tag1 = new Tag("NTUC");
+            Tag tag2 = new Tag("waterbottle");
             Status status = new Status(Status.State.NONE);
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Task(name, description, datetime, status, tags);
         }
 
+        Task deadlineA() throws Exception {
+            Name name = new Name("File income tax");
+            Description description = new Description("tax online portal");
+            Datetime datetime = new Datetime("14-OCT-2017 11pm");
+            Tag tag1 = new Tag("tax");
+            Tag tag2 = new Tag("epic");
+            Status status = new Status(Status.State.NONE);
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, description, datetime, status, tags);
+        }
+        
+        Task eventA() throws Exception {
+            Name name = new Name("Jim birthday party");
+            Description description = new Description("Wave house");
+            Datetime datetime = new Datetime("12-DEC-2016 6pm to 12-DEC-2016 9pm");
+            Tag tag1 = new Tag("jim");
+            Tag tag2 = new Tag("party");
+            Status status = new Status(Status.State.NONE);
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, description, datetime, status, tags);
+        }
+        
         /**
-         * Generates a valid person using the given seed.
+         * Generates a valid dated task using the given seed.
          * Running this function with the same parameter values guarantees the returned person will have the same state.
          * Each unique seed will generate a unique Person object.
          *
          * @param seed used to generate the person data field values
          */
-        Task generatePerson(int seed) throws Exception {
+        Task generateDatedTask(int seed) throws Exception {
             return new Task(
-                    new Name("Person " + seed),
+                    new Name("Task " + seed),
                     new Description("" + Math.abs(seed)),
-                    new Datetime("11-11-201" + seed + " 111" + seed),
+                    new Datetime(
+                            (seed%2==1) ? "11-NOV-201" + seed + " 111" + seed
+                                    : "1" + seed + "-NOV-2018 111" + seed + " to 1" + seed + "-NOV-2019 111" + seed),
+                    new Status(Status.State.NONE),
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+            );
+        }
+        
+        /**
+         * Generates a valid dated task using the given seed.
+         * Running this function with the same parameter values guarantees the returned person will have the same state.
+         * Each unique seed will generate a unique Person object.
+         *
+         * @param seed used to generate the person data field values
+         */
+        Task generateUndatedTask(int seed) throws Exception {
+            return new Task(
+                    new Name("Task " + seed),
+                    new Description("" + Math.abs(seed)),
+                    new Datetime(null),
                     new Status(Status.State.NONE),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -443,9 +518,13 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" d/").append(p.getDescription());
-            cmd.append(" date/").append(p.getDatetime().getDateString().replace('.', '-'));
-            cmd.append(" ").append(p.getDatetime().getTimeString());
+            if (!p.getDescription().toString().isEmpty()) {
+                cmd.append(" d/").append(p.getDescription());
+            }
+            if (p.getDatetime() != null && !p.getDatetime().toString().isEmpty()) {
+                String hi = p.getDatetime().toString();
+                cmd.append(" date/").append(p.getDatetime().toString());
+            }
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -506,7 +585,7 @@ public class LogicManagerTest {
          * @param addressBook The TaskBook to which the Persons will be added
          */
         void addToAddressBook(TaskBook addressBook, int numGenerated) throws Exception{
-            addToAddressBook(addressBook, generatePersonList(numGenerated));
+            addToAddressBook(addressBook, generateDatedTaskList(numGenerated));
         }
 
         /**
@@ -523,7 +602,7 @@ public class LogicManagerTest {
          * @param model The model to which the Persons will be added
          */
         void addToModel(Model model, int numGenerated) throws Exception{
-            addToModel(model, generatePersonList(numGenerated));
+            addToModel(model, generateDatedTaskList(numGenerated));
         }
 
         /**
@@ -536,20 +615,35 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates a list of Persons based on the flags.
+         * Generates a list of dated task based on the flags.
          */
-        List<Task> generatePersonList(int numGenerated) throws Exception{
+        List<Task> generateDatedTaskList(int numGenerated) throws Exception{
             List<Task> persons = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
-                persons.add(generatePerson(i));
+                persons.add(generateDatedTask(i));
             }
             return persons;
         }
 
-        List<Task> generatePersonList(Task... persons) {
-            return Arrays.asList(persons);
+        List<Task> generateDatedTaskList(Task... tasks) {
+            return Arrays.asList(tasks);
+        }
+        
+        /**
+         * Generates a list of undated task based on the flags.
+         */
+        List<Task> generateUndatedTaskList(int numGenerated) throws Exception{
+            List<Task> persons = new ArrayList<>();
+            for(int i = 1; i <= numGenerated; i++){
+                persons.add(generateUndatedTask(i));
+            }
+            return persons;
         }
 
+        List<Task> generateUndatedTaskList(Task... tasks) {
+            return Arrays.asList(tasks);
+        }
+        
         /**
          * Generates a Person object with given name. Other fields will have some dummy values.
          */
