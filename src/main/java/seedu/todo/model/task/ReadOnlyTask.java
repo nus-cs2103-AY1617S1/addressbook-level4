@@ -13,6 +13,7 @@ public interface ReadOnlyTask {
     TaskDate getOnDate();
     TaskDate getByDate();
     Completion getCompletion();
+    Recurrence getRecurrence();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

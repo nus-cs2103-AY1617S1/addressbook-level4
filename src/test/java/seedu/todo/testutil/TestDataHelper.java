@@ -8,6 +8,7 @@ import seedu.todo.model.Model;
 import seedu.todo.model.ToDoList;
 import seedu.todo.model.task.Detail;
 import seedu.todo.model.task.Name;
+import seedu.todo.model.task.Recurrence;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.TaskDate;
 
@@ -28,7 +29,8 @@ public class TestDataHelper{
                 new Name("Task " + seed),
                 new Detail("House of " + seed),
                 new TaskDate("2/3/2017 12:34 pm"),
-                new TaskDate("2/3/2017 12:34 pm")
+                new TaskDate("2/3/2017 12:34 pm"),
+                new Recurrence(null)
         );
     }
 
@@ -120,7 +122,8 @@ public class TestDataHelper{
                 new Name(name),
                 new Detail("1"),
                 new TaskDate("5/3/2017 12:44 pm"),
-                new TaskDate("5/3/2017 12:44 pm")
+                new TaskDate("5/3/2017 12:44 pm"),
+                new Recurrence(null)
         );
     }
 }

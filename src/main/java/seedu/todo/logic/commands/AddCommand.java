@@ -25,14 +25,25 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String detail, String fromDate, String tillDate)
+    public AddCommand(String name, String detail, String onDate, String byDate)
             throws IllegalValueException {
         
+        Recurrence recurrence;
+        if (onDate != null && onDate.contains("every")) {
+            if (byDate != null && byDate.length() > 0) {
+                recurrence = new Recurrence("every " + onDate + " to " + byDate);
+            } else {
+                recurrence = new Recurrence(onDate);
+            }
+        } else {
+            recurrence = new Recurrence(null);
+        }
         this.toAdd = new Task(
                 new Name(name),
                 new Detail(detail),
-                new TaskDate(fromDate),
-                new TaskDate(tillDate)
+                new TaskDate(onDate),
+                new TaskDate(byDate),
+                recurrence
         );
     }
 

@@ -13,7 +13,6 @@ import seedu.todo.model.ModelManager;
 import seedu.todo.model.ReadOnlyToDoList;
 import seedu.todo.model.ToDoList;
 import seedu.todo.model.tag.Tag;
-import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.*;
 import seedu.todo.storage.StorageManager;
 
@@ -25,8 +24,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

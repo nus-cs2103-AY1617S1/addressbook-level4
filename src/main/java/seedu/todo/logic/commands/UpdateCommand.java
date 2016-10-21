@@ -83,7 +83,7 @@ public class UpdateCommand extends Command{
             }
             
             Task newTask = new Task(newName, newDetail, taskToUpdate.getCompletion(), 
-                    newOnDate, newByDate, taskToUpdate.getTags());
+                    newOnDate, newByDate, taskToUpdate.getRecurrence(), taskToUpdate.getTags());
             model.updateTask(taskToUpdate, newTask);
             model.updateFilteredListToShowAll();
             

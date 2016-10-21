@@ -24,4 +24,9 @@ public class Completion {
         this.completed = !this.completed;
     }
     
+    @Override
+    public String toString() {
+        return completed ? "true" : "false";
+    }
+    
 }

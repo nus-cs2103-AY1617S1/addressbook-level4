@@ -24,6 +24,11 @@ public class TaskBuilder {
         this.task.setCompletion(new Completion(completed));
         return this;
     }
+    
+    public TaskBuilder withRecurrence(String desc) throws IllegalValueException{
+        this.task.setRecurrence(new Recurrence(desc));
+        return this;
+    }
 
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {

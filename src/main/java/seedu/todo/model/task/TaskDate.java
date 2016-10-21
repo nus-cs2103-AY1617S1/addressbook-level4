@@ -4,6 +4,7 @@ package seedu.todo.model.task;
 import java.time.LocalTime;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.util.CollectionUtil;
 import seedu.todo.commons.util.DateTimeUtil;
 
 import java.time.LocalDate;
@@ -46,11 +47,13 @@ public class TaskDate {
     }
 
     public TaskDate(LocalDateTime ldt) {
+        assert ldt != null;
         this.date = ldt.toLocalDate();
         this.time = ldt.toLocalTime();
     }
     
     public TaskDate(LocalDate date, LocalTime time) {
+        assert !CollectionUtil.isAnyNull(date, time);
         this.date = date;
         this.time = time;
     }
