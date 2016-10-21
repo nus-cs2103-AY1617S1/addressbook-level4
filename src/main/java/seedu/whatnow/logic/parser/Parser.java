@@ -13,6 +13,7 @@ import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.*;
+import seedu.whatnow.model.tag.Tag;
 
 /**
  * Parses user input.
@@ -45,6 +46,8 @@ public class Parser {
 	/**
      * Regular Expressions
      */
+	private static final Pattern UPDATE_FORMAT = Pattern.compile("^((todo|schedule)\\s(\\d+)\\s(description|date|time|start|end|tag)($|\\s))");
+	
     private static final Pattern DATE_WITH_SLASH_FORMAT = Pattern.compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[/](([1][0-2])|([0]??[1-9]))[/]([0-9]{4})$");
     private static final Pattern TIME_FORMAT = Pattern.compile("^(([1][0-2])|([0-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
     private static final Pattern TAG_FORMAT = Pattern.compile("^(t/)");
@@ -65,10 +68,12 @@ public class Parser {
 	private static final int ARG_TYPE = 2;
 	private static final int ARG = 3;
 	
-	private static final int DESCRIPTION = 1;
-	private static final int TAG = 1;
-    private static final int MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS = 2;
+	private static final int ADD_COMMAND_DESCRIPTION_INDEX = 1;
+	private static final int ADD_COMMAND_TAG_INDEX = 1;
+    private static final int ADD_COMMAND_MIN_ARGUMENTS = 2;
     private static final int NUM_OF_QUOTATION_MARKS = 2;
+    
+    private static final int UPDATE_COMMAND_MIN_ARGUMENTS = 3;
     
 	private static final int LIST_ARG = 0;
     
@@ -79,6 +84,8 @@ public class Parser {
     /**
      * String Constants
      */
+    private static final String NONE = "none";
+    private static final String DESCRIPTION = "description";
 	private static final String DELIMITER_BLANK_SPACE = " ";
 	private static final String DELIMITER_DOUBLE_QUOTATION_MARK = "\"";
 	
@@ -203,9 +210,9 @@ public class Parser {
 	    args = args.trim();
 	    
 		// Validate the format of the arguments
-//		if (!TASK_DATA_ARGS_FORMAT.matcher(args).find() && !TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args).find()){
-//			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-//		}
+		/*if (!TASK_DATA_ARGS_FORMAT.matcher(args).find() && !TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args).find()){
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+		}*/
 	    
 	    // Check whether there are two quotation marks ""
 	    if (countOccurence(args, DELIMITER_DOUBLE_QUOTATION_MARK) != NUM_OF_QUOTATION_MARKS)
@@ -213,13 +220,13 @@ public class Parser {
 	    
 		String[] arguments = args.split(DELIMITER_DOUBLE_QUOTATION_MARK);
 		
-		if (arguments.length < MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS) {
+		if (arguments.length < ADD_COMMAND_MIN_ARGUMENTS) {
 		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		
 		// E.g. add "Buy Milk"
-		if (arguments.length == MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS) {
-		    name = arguments[DESCRIPTION].trim();
+		if (arguments.length == ADD_COMMAND_MIN_ARGUMENTS) {
+		    name = arguments[ADD_COMMAND_DESCRIPTION_INDEX].trim();
 		    
 			try {
 				return new AddCommand(name, date, startDate, endDate, time, startTime, endTime, Collections.emptySet());
@@ -230,11 +237,11 @@ public class Parser {
             }
 		}
 		
-		name = arguments[DESCRIPTION].trim();
+		name = arguments[ADD_COMMAND_DESCRIPTION_INDEX].trim();
 		String[] additionalArgs = null;
 		
-		if (arguments.length > MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS) {
-			additionalArgs = arguments[arguments.length - 1].trim().split(" ");
+		if (arguments.length > ADD_COMMAND_MIN_ARGUMENTS) {
+			additionalArgs = arguments[arguments.length - 1].trim().split(DELIMITER_BLANK_SPACE);
 		}
 		
 		for (int i = 0; i < additionalArgs.length; i++) {
@@ -248,7 +255,7 @@ public class Parser {
 		    }
 		    else if (TAG_FORMAT.matcher(additionalArgs[i]).find()) {
 		        String[] splitTag = additionalArgs[i].trim().split("/");
-		        tags.add(splitTag[TAG]);
+		        tags.add(splitTag[ADD_COMMAND_TAG_INDEX]);
 		        continue;
 		    } else if (!hasDate && TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
 		        numOfDate++;
@@ -402,6 +409,12 @@ public class Parser {
 
 		return new DeleteCommand(argComponents[TASK_TYPE], index.get());
 	}
+	
+	public static void printArray(String[] array) {
+	    for (int i = 0; i < array.length; i++) {
+	        System.out.println(i + ": " + array[i]);
+	    }
+	}
     
     /**
      * Parses arguments in the context of the update task command.
@@ -413,37 +426,77 @@ public class Parser {
         if (args.equals(null))
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         
-        String[] argComponents= args.trim().split(" ");
+        args = args.trim();
         
-        if (argComponents.length < 3)
+        if (!UPDATE_FORMAT.matcher(args).find())
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
-
-        String type = argComponents[TASK_TYPE];
+        
+        String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
+        String taskType = argComponents[TASK_TYPE];
+        Optional<Integer> index = parseIndex(argComponents[INDEX]);
         String argType = argComponents[ARG_TYPE];
         String arg = "";
-        Optional<Integer> index = parseIndex(argComponents[INDEX]);
-        for (int i = ARG; i < argComponents.length; i++) {
-            if (argComponents[i].toUpperCase().compareToIgnoreCase("none") == 0 && argType.toUpperCase().compareToIgnoreCase("description") != 0) {
-                arg = argComponents[i];
-                try {
-                    return new UpdateCommand(type, index.get(), argType, arg);
-                } catch (IllegalValueException ive) {
-                    return new IncorrectCommand(ive.getMessage());
+        
+        int numOfDate = 0;
+        int numOfTime = 0;
+        
+        if (argComponents.length > UPDATE_COMMAND_MIN_ARGUMENTS) {
+            for (int i = ARG; i < argComponents.length; i++) {            
+                if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_DESCRIPTION) == 0) {
+                    if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
+                        return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT + UpdateCommand.MESSAGE_USAGE); 
+                    
+                    arg += argComponents[i] + " ";
+                } else if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_DATE) == 0) {
+                    if (DATE_WITH_SLASH_FORMAT.matcher(argComponents[i]).find()) {
+                        numOfDate++;
+                        if (numOfDate == 1)
+                            arg = argComponents[i];
+                        else if (numOfDate == 2)
+                            arg += " " + argComponents[i];
+                    } else if (TODAY_OR_TOMORROW.matcher(argComponents[i].toLowerCase()).find()) {
+                        numOfDate++;
+                        if (numOfDate == 1)
+                            arg = argComponents[i];
+                        else if (numOfDate == 2)
+                            arg += " " + argComponents[i];
+                    } else if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
+                        arg = null;
+                } else if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_TIME) == 0) {
+                    if (TIME_FORMAT.matcher(argComponents[i]).find()) {
+                        numOfTime++;
+                        if (numOfTime == 1)
+                            arg = argComponents[i];
+                        else if (numOfTime == 2)
+                            arg += " " + argComponents[i];
+                    } else if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
+                        arg = null;
+                } else if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_TAG) == 0) {
+                    if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
+                        arg = null;
+                    else
+                        arg += argComponents[i] + " ";
                 }
             }
-            arg += argComponents[i] + " ";
+            
+            try {
+                return new UpdateCommand(taskType, index.get(), argType, arg);
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(ive.getMessage());
+            }
         }
+        
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
         
-        if (!isValidUpdateCommandFormat(type, index.get(), argType)) {
+        if (!isValidUpdateCommandFormat(taskType, index.get(), argType)) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
         
         try {
-            return new UpdateCommand(type, index.get(), argType, arg);
+            return new UpdateCommand(taskType, index.get(), argType, arg);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

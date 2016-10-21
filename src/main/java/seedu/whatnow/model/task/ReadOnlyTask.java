@@ -26,19 +26,20 @@ public interface ReadOnlyTask {
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
-        if (other.getTaskDate() == null && this.getTaskDate() == null) {
-            return other == this // short circuit if same object
-                    || (other != null // this is first to avoid NPE below
-                    && other.getName().equals(this.getName())
-                    && other.getTags().equals(this.getTags())
-                    );
-        }
-        return other == this // short circuit if same object
-                || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName())
-                && other.getTaskDate().equals(this.getTaskDate())
-                && other.getTags().equals(this.getTags())
-                );
+        return other == this;
+//        if (other.getTaskDate() == null && this.getTaskDate() == null) {
+//            return other == this // short circuit if same object
+//                    || (other != null // this is first to avoid NPE below
+//                    && other.getName().equals(this.getName())
+//                    && other.getTags().equals(this.getTags())
+//                    );
+//        }
+//        return other == this // short circuit if same object
+//                || (other != null // this is first to avoid NPE below
+//                && other.getName().equals(this.getName())
+//                && other.getTaskDate().equals(this.getTaskDate())
+//                && other.getTags().equals(this.getTags())
+//                );
     }
     
     /**

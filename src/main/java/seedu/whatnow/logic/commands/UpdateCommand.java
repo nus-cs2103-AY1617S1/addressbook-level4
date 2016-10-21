@@ -1,11 +1,14 @@
 package seedu.whatnow.logic.commands;
 
+import static seedu.whatnow.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
@@ -36,14 +39,22 @@ public class UpdateCommand extends UndoAndRedo {
     public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Updated Task: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in WhatNow";
     
+    private static final Pattern DATE_WITH_SLASH_FORMAT = Pattern.compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[/](([1][0-2])|([0]??[1-9]))[/]([0-9]{4})$");
+    private static final Pattern TIME_FORMAT = Pattern.compile("^(([1][0-2])|([0-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
+    private static final Pattern TAG_FORMAT = Pattern.compile("^(t/)");
+    private static final Pattern TODAY_OR_TOMORROW = Pattern.compile("^(today|tomorrow)$");
+    
     private static final String ARG_TYPE_DESCRIPTION = "description";
     private static final String ARG_TYPE_DATE = "date";
+    private static final String ARG_TYPE_TIME = "time";
+    private static final String ARG_TYPE_START = "start";
+    private static final String ARG_TYPE_END = "end";
     private static final String ARG_TYPE_TAG = "tag";
     private static final String DELIMITER_BLANK_SPACE = " ";
     private static final String TASK_TYPE_TODO = "todo";
     private static final String TASK_TYPE_FLOATING = "floating";
     private static final String TASK_TYPE_NOT_FLOATING = "not_floating";
-    private static final String REMOVE = "none";
+    private static final String NONE = "none";
     
     public final int targetIndex;
     public final String taskType;
@@ -59,17 +70,63 @@ public class UpdateCommand extends UndoAndRedo {
         processArg();
     }
     
+    public static void printArray(String[] array) {
+        for (int i = 0; i < array.length; i++) {
+            System.out.println(i + ": " + array[i]);
+        }
+    }
+    
     /**
      * Processes the arguments in the update command
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
     private void processArg() throws IllegalValueException {
-        String newName = "a";
+        String newName = "default";
         String date = null;
+        String startDate = null;
+        String endDate = null;
+        String time = null;
+        String startTime = null;
+        String endTime = null;
         final Set<Tag> tagSet = new HashSet<>();
+        
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DESCRIPTION) == 0) {
+            newName = arg;
+        }
+        
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DATE) == 0) {
+            if (arg != null) {
+                System.out.println("ARG: " + arg);
+                String[] argComponents = arg.trim().split(DELIMITER_BLANK_SPACE);
+
+                if (argComponents.length == 1) {
+                    date = argComponents[0];
+                } else if (argComponents.length == 2) {
+                    startDate = argComponents[0];
+                    endDate = argComponents[1];
+                }
+            }
+            
+            //date = (arg.toUpperCase().compareToIgnoreCase(NONE) == 0) ? null : arg;  
+        }
+        
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_TIME) == 0) {
+            if (arg != null) {
+                String[] argComponents = arg.trim().split(DELIMITER_BLANK_SPACE);
+                if (argComponents.length == 1) {
+                    time = argComponents[0];
+                } else if (argComponents.length == 2) {
+                    startTime = argComponents[0];
+                    endTime = argComponents[1];
+                }
+            }
+            
+            //time = (arg.toUpperCase().compareToIgnoreCase(NONE) == 0) ? null : arg;
+        }
+        
         if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_TAG) == 0) {
-            if (arg.toUpperCase().compareToIgnoreCase(REMOVE) != 0) {
+            if (arg != null) {
                 Set<String> tags = processTag();
                 for (String tagName : tags) {
                     tagSet.add(new Tag(tagName));
@@ -77,18 +134,10 @@ public class UpdateCommand extends UndoAndRedo {
             }   
         }
         
-        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DATE) == 0) {
-            date = (arg.toUpperCase().compareToIgnoreCase(REMOVE) == 0) ? null : arg;
-        }
-        
-        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DESCRIPTION) == 0) {
-            newName = arg;
-        }
-        
         try {
-            toUpdate = new Task(new Name(newName), new TaskDate(date), null, null, null, null, null, new UniqueTagList(tagSet), null, null);
+            toUpdate = new Task(new Name(newName), new TaskDate(date), new TaskDate(startDate), new TaskDate(endDate), time, startTime, endTime, new UniqueTagList(tagSet), null, null);
             //toUpdate = (date == null) ? new Task(new Name(newName), new UniqueTagList(tagSet), null) : new Task(new Name(newName), new TaskDate(date), new UniqueTagList(tagSet), null);
-            if (date == null)
+            if (date == null && startDate == null && endDate == null && time == null && startTime == null && endTime == null)
                 toUpdate.setTaskType(TASK_TYPE_FLOATING);
             else
                 toUpdate.setTaskType(TASK_TYPE_NOT_FLOATING);
@@ -112,21 +161,43 @@ public class UpdateCommand extends UndoAndRedo {
         if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_TAG) == 0) {
             toUpdate.setName(taskToUpdate.getName());
             toUpdate.setTaskDate(taskToUpdate.getTaskDate());
+            toUpdate.setStartDate(taskToUpdate.getStartDate());
+            toUpdate.setEndDate(taskToUpdate.getEndDate());
+            toUpdate.setTaskTime(taskToUpdate.getTaskTime());
+            toUpdate.setStartTime(taskToUpdate.getStartTime());
+            toUpdate.setEndTime(taskToUpdate.getEndTime());
             toUpdate.setStatus(taskToUpdate.getStatus());
             toUpdate.setTaskType(taskToUpdate.getTaskType());
         }
         if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DESCRIPTION) == 0) {
             toUpdate.setTags(taskToUpdate.getTags());
             toUpdate.setTaskDate(taskToUpdate.getTaskDate());
+            toUpdate.setStartDate(taskToUpdate.getStartDate());
+            toUpdate.setEndDate(taskToUpdate.getEndDate());
+            toUpdate.setTaskTime(taskToUpdate.getTaskTime());
+            toUpdate.setStartTime(taskToUpdate.getStartTime());
+            toUpdate.setEndTime(taskToUpdate.getEndTime());
             toUpdate.setStatus(taskToUpdate.getStatus());
             toUpdate.setTaskType(taskToUpdate.getTaskType());
         }
         if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DATE) == 0) {
             toUpdate.setName(taskToUpdate.getName());
+            toUpdate.setTaskTime(taskToUpdate.getTaskTime());
+            toUpdate.setStartTime(taskToUpdate.getStartTime());
+            toUpdate.setEndTime(taskToUpdate.getEndTime());
+            toUpdate.setTags(taskToUpdate.getTags());
+            toUpdate.setStatus(taskToUpdate.getStatus());            
+        }
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_TIME) == 0) {
+            toUpdate.setName(taskToUpdate.getName());
+            toUpdate.setTaskDate(taskToUpdate.getTaskDate());
+            toUpdate.setStartDate(taskToUpdate.getStartDate());
+            toUpdate.setEndDate(taskToUpdate.getEndDate());
             toUpdate.setTags(taskToUpdate.getTags());
             toUpdate.setStatus(taskToUpdate.getStatus());
         }
-        toUpdate.setStatus(taskToUpdate.getStatus());
+        
+        System.out.println("TO UPDATE: " + toUpdate.toString());
     }
     
     private void undoUpdateTheCorrectField(ReadOnlyTask tasktoUndoUpdate) {
