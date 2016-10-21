@@ -27,7 +27,8 @@ public class PersonCard extends UiPart{
 
     private ReadOnlyTask task;
     private int displayedIndex;
-
+//    private String status;
+    
     public PersonCard(){
 
     }
