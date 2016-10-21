@@ -1,3 +1,4 @@
+//@@author A0139930B
 package seedu.taskitty.model.task;
 
 import seedu.taskitty.commons.exceptions.IllegalValueException;
@@ -127,6 +128,7 @@ public class Task implements ReadOnlyTask {
         return numArgs;
     }
 
+    //@@author
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
