@@ -4,6 +4,8 @@ import seedu.malitio.model.tag.UniqueTagList;
 /**
  * A read-only immutable interface for a Deadline in Malitio.
  * Implementations should guarantee: details are present and not null, field values are validated.
+ * @@ Annabel Eng A0129595N
+ * 
  */
 
 public interface ReadOnlyEvent {
@@ -18,6 +20,7 @@ public interface ReadOnlyEvent {
          */
         UniqueTagList getTags();
 
+      //@@author A0129595N
         /**
          * Returns true if both have the same state. (interfaces cannot override .equals)
          */
@@ -25,8 +28,8 @@ public interface ReadOnlyEvent {
             return other == this // short circuit if same object
                     || (other != null // this is first to avoid NPE below
                     && other.getName().equals(this.getName()) 
-                    && other.getStart().equals(this.getStart())
-                    && other.getStart().equals(this.getEnd())//state checks here onwards
+                    && other.getStart().toString().equals(this.getStart().toString())
+                    && other.getEnd().toString().equals(this.getEnd().toString())//state checks here onwards
     );
         }
 

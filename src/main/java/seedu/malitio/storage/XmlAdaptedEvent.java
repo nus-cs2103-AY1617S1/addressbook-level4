@@ -14,7 +14,7 @@ import seedu.malitio.model.task.Name;
 import seedu.malitio.model.task.ReadOnlyEvent;
 
 public class XmlAdaptedEvent {
-
+    
     @XmlElement(required = true)
     private String name;
 
@@ -27,6 +27,7 @@ public class XmlAdaptedEvent {
     
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
+    //@@author A0129595N
     /**
      * No-arg constructor for JAXB use.
      */

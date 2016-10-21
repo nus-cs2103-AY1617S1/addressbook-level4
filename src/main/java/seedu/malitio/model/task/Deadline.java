@@ -4,13 +4,17 @@ import java.util.Objects;
 
 import seedu.malitio.model.tag.UniqueTagList;
 
+
 public class Deadline implements ReadOnlyDeadline{
     
     private Name name;
     private DateTime due;
     private UniqueTagList tags;
 
-	
+    //@@author A0129595N
+    /**
+     * Constructor for deadlines.
+     */
 	public Deadline(Name name, DateTime due, UniqueTagList tags) {
 		this.name = name;
 		this.due = due;

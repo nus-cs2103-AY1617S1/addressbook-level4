@@ -19,6 +19,8 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of deadlines.
  */
+
+
 public class EventListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
     private static final String FXML = "EventListPanel.fxml";
@@ -28,6 +30,7 @@ public class EventListPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyEvent> eventListView;
 
+    //@@author A0129595N
     public EventListPanel() {
         super();
     }

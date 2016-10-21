@@ -10,16 +10,21 @@ import seedu.malitio.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestFloatingTask floatingTask1, floatingTask2, manualFloatingTask1, manualFloatingTask2;
+    public static TestFloatingTask floatingTask1, floatingTask2, floatingTask3, floatingTask4, floatingTask5, 
+                                   manualFloatingTask1, manualFloatingTask2;
     public static TestDeadline deadline1, deadline2, manualDeadline1, manualDeadline2;
     public static TestEvent event1, event2, event3, event4, manualEvent1, manualEvent2;
     
+    //@@author A0129595N
     public TypicalTestTasks() {
         try {
             floatingTask1 =  new FloatingTaskBuilder().withName("Adjust meter")
                     .withTags("careful").build();
             floatingTask2 = new FloatingTaskBuilder().withName("Bring along notes")
                     .withTags("pen", "cs2103").build();
+            floatingTask3 = new FloatingTaskBuilder().withName("Tell your world").build();
+            floatingTask4 = new FloatingTaskBuilder().withName("Download Promise Song").build();
+            floatingTask5 = new FloatingTaskBuilder().withName("Cendrillion").withTags("vocaloid").build();
             deadline1 = new DeadlineBuilder().withName("Cut hair").dueOn("11122016 2000").build();
             deadline2 = new DeadlineBuilder().withName("Do some sit-up").dueOn("21112016 2359").build();
             event1 = new EventBuilder().withName("Eat with mom").start("21102016 1800").end("21102016 1855").build();
@@ -45,6 +50,9 @@ public class TypicalTestTasks {
         try {
             ab.addFloatingTask(new FloatingTask(floatingTask1));
             ab.addFloatingTask(new FloatingTask(floatingTask2));
+            ab.addFloatingTask(new FloatingTask(floatingTask3));
+            ab.addFloatingTask(new FloatingTask(floatingTask4));
+            ab.addFloatingTask(new FloatingTask(floatingTask5));
             ab.addDeadline(new Deadline(deadline1));
             ab.addDeadline(new Deadline(deadline2));
             ab.addEvent(new Event(event1));
@@ -52,11 +60,13 @@ public class TypicalTestTasks {
             ab.addEvent(new Event(event3));
         } catch (DuplicateDataException e) {
             assert false : "not possible";
+        } catch (IllegalValueException e) {
+            assert false : "not possible:";
         }
     }
 
     public TestFloatingTask[] getTypicalFloatingTasks() {
-        return new TestFloatingTask[]{floatingTask1, floatingTask2};        
+        return new TestFloatingTask[]{floatingTask1, floatingTask2, floatingTask3, floatingTask4, floatingTask5};        
     }
     
     public TestDeadline[] getTypicalDeadlines() {

@@ -84,6 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicatemalitioChanged();
     }
 
+    //@@author A0129595N
     @Override
     public void addFloatingTask(FloatingTask task) throws DuplicateFloatingTaskException {
         malitio.addFloatingTask(task);

@@ -19,8 +19,10 @@ import java.util.*;
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
+
 public class UniqueEventList implements Iterable<Event> {
 
+    //@@author A0129595N
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -98,6 +100,7 @@ public class UniqueEventList implements Iterable<Event> {
         return internalList;
     }
     
+    //@@author
     public void sort() {
     	Collections.sort(internalList, new Comparator<Event>() {
       	  public int compare(Event e1, Event e2) {
@@ -108,6 +111,7 @@ public class UniqueEventList implements Iterable<Event> {
       	});
     }
 
+    //@@author A0129595N
     @Override
     public Iterator<Event> iterator() {
         return internalList.iterator();

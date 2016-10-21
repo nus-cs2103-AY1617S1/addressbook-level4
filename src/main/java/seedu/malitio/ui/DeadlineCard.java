@@ -6,7 +6,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.malitio.model.task.ReadOnlyDeadline;
 
+
 public class DeadlineCard extends UiPart{
+    
 
     private static final String FXML = "DeadlineListCard.fxml";
 
@@ -25,6 +27,7 @@ public class DeadlineCard extends UiPart{
     private ReadOnlyDeadline deadline;
     private int displayedIndex;
 
+    //@@author A0129595N
     public DeadlineCard(){
 
     }

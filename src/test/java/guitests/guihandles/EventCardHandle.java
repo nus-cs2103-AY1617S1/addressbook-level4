@@ -10,7 +10,10 @@ import seedu.malitio.model.task.ReadOnlyFloatingTask;
  * Provides a handle to a Event card in the task list panel.
  */
 public class EventCardHandle extends GuiHandle {
+    //@@author A0129595N
     private static final String NAME_FIELD_ID = "#name";
+    private static final String START_FIELD_ID = "#start";
+    private static final String END_FIELD_ID = "#end";
 
     private Node node;
 
@@ -26,16 +29,28 @@ public class EventCardHandle extends GuiHandle {
     public String getFullName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
+    
+    public String getStart() {
+        return getTextFromLabel(START_FIELD_ID);
+    }
+    
+    public String getEnd() {
+        return getTextFromLabel(END_FIELD_ID);
+    }
 
-    public boolean isSameTask(ReadOnlyEvent task){
-        return getFullName().equals(task.getName().fullName);
+    public boolean isSameTask(ReadOnlyEvent event){
+        return getFullName().equals(event.getName().fullName) 
+               && getStart().substring(7).equals(event.getStart().toString())
+               && getEnd().substring(5).equals(event.getEnd().toString());
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof EventCardHandle) {
             EventCardHandle handle = (EventCardHandle) obj;
-            return getFullName().equals(handle.getFullName());
+            return getFullName().equals(handle.getFullName())
+                   && getStart().equals(handle.getStart())
+                   && getEnd().equals(handle.getEnd());
         }
         return super.equals(obj);
     }

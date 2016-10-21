@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.malitio.TestApp;
+import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.testutil.TestUtil;
 import seedu.malitio.model.task.Event;
 import seedu.malitio.model.task.ReadOnlyEvent;
@@ -42,8 +43,10 @@ public class EventListPanelHandle extends GuiHandle {
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
      * @param tasks A list of task in the correct order.
+     * @throws IllegalValueException 
+     * @throws IllegalArgumentException 
      */
-    public boolean isListMatching(ReadOnlyEvent... tasks) {
+    public boolean isListMatching(ReadOnlyEvent... tasks) throws IllegalArgumentException, IllegalValueException {
         return this.isListMatching(0, tasks);
     }
     
@@ -80,8 +83,9 @@ public class EventListPanelHandle extends GuiHandle {
      * Returns true if the list is showing the task details correctly and in correct order.
      * @param startPosition The starting position of the sub list.
      * @param tasks A list of task in the correct order.
+     * @throws IllegalValueException 
      */
-    public boolean isListMatching(int startPosition, ReadOnlyEvent... tasks) throws IllegalArgumentException {
+    public boolean isListMatching(int startPosition, ReadOnlyEvent... tasks) throws IllegalArgumentException, IllegalValueException {
         if (tasks.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getListView().getItems().size() - 1) + " tasks");
@@ -145,7 +149,7 @@ public class EventListPanelHandle extends GuiHandle {
         return getListView().getItems().get(index);
     }
 
-    public EventCardHandle getTaskCardHandle(int index) {
+    public EventCardHandle getTaskCardHandle(int index) throws IllegalValueException {
         return getTaskCardHandle(new Event(getListView().getItems().get(index)));
     }
 

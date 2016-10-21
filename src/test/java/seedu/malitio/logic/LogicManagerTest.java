@@ -270,7 +270,7 @@ public class LogicManagerTest {
         Malitio expectedAB = helper.generateMalitio(threeTasks);
         helper.addToModel(model, threeTasks);
 
-        assertCommandBehavior("select 2",
+        assertCommandBehavior("select f2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getFloatingTaskList());
@@ -299,7 +299,7 @@ public class LogicManagerTest {
         expectedAB.removeTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
 
-        assertCommandBehavior("delete 2",
+        assertCommandBehavior("delete f2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getFloatingTaskList());

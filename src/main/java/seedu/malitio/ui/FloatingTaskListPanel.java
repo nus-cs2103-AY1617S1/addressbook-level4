@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of tasks.
  */
+
 public class FloatingTaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(FloatingTaskListPanel.class);
     private static final String FXML = "TaskListPanel.fxml";

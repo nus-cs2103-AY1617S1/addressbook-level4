@@ -39,7 +39,8 @@ public class XmlSerializableMalitio implements ReadOnlyMalitio {
         events = new ArrayList<>();
         tags = new ArrayList<>();
     }
-
+    
+    //@@author A0129595N
     /**
      * Empty constructor required for marshalling
      */

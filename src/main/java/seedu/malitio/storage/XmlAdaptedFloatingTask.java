@@ -13,7 +13,7 @@ import java.util.List;
  * JAXB-friendly version of the Task.
  */
 public class XmlAdaptedFloatingTask {
-
+    
     @XmlElement(required = true)
     private String name;
 
@@ -21,6 +21,7 @@ public class XmlAdaptedFloatingTask {
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
+    //@@author A0129595N
     /**
      * No-arg constructor for JAXB use.
      */

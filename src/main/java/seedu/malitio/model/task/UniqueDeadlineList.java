@@ -17,8 +17,10 @@ import java.util.*;
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
+
 public class UniqueDeadlineList implements Iterable<Deadline> {
 
+    //@@author A0129595N
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -96,6 +98,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         return internalList;
     }
     
+    //@@author
     public void sort() {
     	Collections.sort(internalList, new Comparator<Deadline>() {
         	  public int compare(Deadline e1, Deadline e2) {
@@ -105,7 +108,8 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         	  }
         	});
 	}
-
+    
+    //@@author A0129595N
     @Override
     public Iterator<Deadline> iterator() {
         return internalList.iterator();

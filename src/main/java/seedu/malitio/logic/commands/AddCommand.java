@@ -23,11 +23,12 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This floating task already exists in Malitio";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in Malitio";
-    private static final String MESSAGE_DUPLICATE_DEADLINE ="This deadline already exists in Malitio";
+    public static final String MESSAGE_DUPLICATE_DEADLINE ="This deadline already exists in Malitio";
     private FloatingTask toAddFloatingTask;
     private Deadline toAddDeadline;
     private Event toAddEvent;
     
+    //@@author A0129595N
     /**
      * Convenience constructor for floating tasks using raw values.
      *
@@ -50,6 +51,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
+    
     public AddCommand(String name, String date, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();

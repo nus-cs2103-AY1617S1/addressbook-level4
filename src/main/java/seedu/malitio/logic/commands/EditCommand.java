@@ -26,8 +26,8 @@ import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundExcep
 /**
  * Edits a floating task/ deadline/ event identified using it's last displayed index from Malitio.
  * Only the attribute(s) that require changes is(are) entered.
- * @author Bel
- *
+ * @author Annabel Eng A0129595N
+ * 
  */
 public class EditCommand extends Command{
 
@@ -71,7 +71,8 @@ public class EditCommand extends Command{
     private DateTime end;
     
     private UniqueTagList tags;
-  
+    
+    //@@author A0129595N  
     public EditCommand(char taskType, int targetIndex, String name, Set<String> newTags) 
             throws IllegalValueException {
         assert taskType == 'd';

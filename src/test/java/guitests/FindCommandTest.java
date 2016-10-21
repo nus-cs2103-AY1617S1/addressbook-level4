@@ -6,13 +6,14 @@ import seedu.malitio.testutil.TestDeadline;
 import seedu.malitio.testutil.TestEvent;
 import seedu.malitio.testutil.TestFloatingTask;
 import seedu.malitio.commons.core.Messages;
+import seedu.malitio.commons.exceptions.IllegalValueException;
 
 import static org.junit.Assert.assertTrue;
 
 public class FindCommandTest extends MalitioGuiTest {
 
     @Test
-    public void find_nonEmptyList() {
+    public void find_nonEmptyList() throws IllegalArgumentException, IllegalValueException {
        // assertFindResult("find jump"); //no results
         assertFindResult("find with", td.event1, td.event2); //multiple results
 
@@ -48,7 +49,7 @@ public class FindCommandTest extends MalitioGuiTest {
         
         assertTrue(deadlineListPanel.isListMatching(expectedHits));
     }
-    private void assertFindResult(String command, TestEvent... expectedHits ) {
+    private void assertFindResult(String command, TestEvent... expectedHits ) throws IllegalArgumentException, IllegalValueException {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks found!");

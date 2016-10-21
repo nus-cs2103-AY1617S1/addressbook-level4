@@ -11,8 +11,9 @@ public class FloatingTask implements ReadOnlyFloatingTask {
     
     private UniqueTagList tags;
     
+    //@@author A0129595N
     /**
-     * Constructor for tasks.
+     * Constructor for floating tasks.
      */
     public FloatingTask(Name name, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);

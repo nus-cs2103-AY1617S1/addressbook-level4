@@ -16,7 +16,8 @@ public interface Logic {
      * @return the result of the command execution.
      */
     CommandResult execute(String commandText);
-
+    
+    //@@ Annabel Eng A0129595N
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyFloatingTask> getFilteredFloatingTaskList();
     

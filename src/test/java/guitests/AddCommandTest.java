@@ -12,6 +12,7 @@ import seedu.malitio.testutil.TestUtil;
 import seedu.malitio.ui.DeadlineListPanel;
 import seedu.malitio.ui.FloatingTaskListPanel;
 import seedu.malitio.commons.core.Messages;
+import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.logic.commands.AddCommand;
 
 import static org.junit.Assert.assertTrue;
@@ -45,6 +46,7 @@ public class AddCommandTest extends MalitioGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
     
+    //@@author A0129595N
     @Test
     public void addDeadline() {
 
@@ -59,18 +61,19 @@ public class AddCommandTest extends MalitioGuiTest {
         assertAddSuccess(deadlineToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, deadlineToAdd);
 
-//        //add duplicate deadline
-//        commandBox.runCommand(td.deadline1.getAddCommand());
-//        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-//        assertTrue(deadlineListPanel.isListMatching(currentList));
+        //add duplicate deadline
+        commandBox.runCommand(td.deadline1.getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_DEADLINE);
+        assertTrue(deadlineListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
         assertAddSuccess(td.deadline1);
        }
     
+    //@@author A0129595N
     @Test
-    public void addEvent() {
+    public void addEvent() throws IllegalArgumentException, IllegalValueException {
 
           //add one event
         TestEvent[] currentList = td.getTypicalEvents();
@@ -83,10 +86,10 @@ public class AddCommandTest extends MalitioGuiTest {
         assertAddSuccess(eventToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, eventToAdd);
 
-//        //add duplicate event
-//        commandBox.runCommand(td.deadline1.getAddCommand());
-//        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-//        assertTrue(deadlineListPanel.isListMatching(currentList));
+        //add duplicate event
+        commandBox.runCommand(td.manualEvent1.getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_EVENT);
+        assertTrue(eventListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -117,7 +120,7 @@ public class AddCommandTest extends MalitioGuiTest {
         assertTrue(deadlineListPanel.isListMatching(expectedList));
     }
     
-    private void assertAddSuccess(TestEvent eventToAdd, TestEvent... currentList) {
+    private void assertAddSuccess(TestEvent eventToAdd, TestEvent... currentList) throws IllegalArgumentException, IllegalValueException {
         commandBox.runCommand(eventToAdd.getAddCommand());
 
         //confirm the new card contains the right data

@@ -15,8 +15,10 @@ import java.util.*;
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
+
 public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
 
+    //@@author A0129595N
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
