@@ -75,7 +75,7 @@ public class TestApp extends MainApp {
     @Override
     @Subscribe
     public void handleStoragePathChangedEvent(StoragePathChangedEvent event) {
-        //do nothing
+        this.config.setTaskManagerFilePath(event.newStorageFilePath);
     }
 
     public static void main(String[] args) {
