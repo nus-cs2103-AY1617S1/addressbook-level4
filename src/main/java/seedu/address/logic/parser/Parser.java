@@ -36,6 +36,7 @@ public class Parser {
             + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?"
             + "(?<tagArguments>(?: t/[^;]+)*)"
             );
+    private static final Pattern DATE_ARGS_FORMAT = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/(\\d\\d)");
 
     public Parser() {}
 
@@ -76,7 +77,9 @@ public class Parser {
         case ShowCommand.COMMAND_WORD:
         	return prepareShow(arguments);
 
-            
+        case ShowDateCommand.COMMAND_WORD:
+        	return new ShowDateCommand(arguments.trim());
+        	
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
         
@@ -101,7 +104,10 @@ public class Parser {
     }
     
     private Command prepareShow(String args){
+    	final Matcher matcher = DATE_ARGS_FORMAT.matcher(args.trim());
+    	
     	args = args.trim();
+    	
     	if(args.equals("done")) {
     		return new ShowDoneCommand();
     	}
@@ -112,6 +118,10 @@ public class Parser {
     	else if (args.equals("")) {
     		return new ShowCommand();
     	}
+    	
+    	else if (matcher.matches()){
+            return new ShowDateCommand(args.trim());
+        } 
     	else
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
     }
