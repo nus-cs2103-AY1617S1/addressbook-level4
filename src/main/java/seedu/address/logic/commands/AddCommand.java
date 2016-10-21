@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
@@ -123,6 +124,10 @@ public class AddCommand extends UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
+        if (model.isCurrentListDoneList()) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
+        }
         model.addTask(toAdd);
         
         // TODO: i don't like updating the history here, to refactor further
