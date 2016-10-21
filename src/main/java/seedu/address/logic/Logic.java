@@ -20,5 +20,11 @@ public interface Logic {
     ObservableList<Task> getFilteredTaskList();
     
     ObservableList<Alias> getAlias();
+    
+    /** Returns the previous command in the command history */
+    String getPreviousCommand();
+    
+    /** Returns the next command in the command history */
+    String getNextCommand();
 
 }

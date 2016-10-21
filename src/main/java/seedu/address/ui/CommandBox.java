@@ -90,12 +90,19 @@ public class CommandBox extends UiPart {
     	commandTextField.setOnKeyPressed(keyListener);
     }
     
+    /*
+     * Handles Up/Down keys to replace commandbox content with previous/next commands
+     */
     private EventHandler<KeyEvent> keyListener = new EventHandler<KeyEvent>() {
         @Override
         public void handle(KeyEvent event) {
             if(event.getCode() == KeyCode.UP) {
+            	String previousCommand = logic.getPreviousCommand();
+            	commandTextField.setText(previousCommand);
             	
             } else if(event.getCode() == KeyCode.DOWN) {
+            	String nextCommand = logic.getNextCommand();
+            	commandTextField.setText(nextCommand);
             	
             } else if(event.getCode() == KeyCode.TAB) {
             	

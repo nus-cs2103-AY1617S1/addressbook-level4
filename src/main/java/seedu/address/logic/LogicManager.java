@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 import seedu.address.logic.parser.TaskCommandsParser;
@@ -21,15 +22,18 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final InMemoryTaskList model;
     private final TaskCommandsParser parser;
+    private final CommandHistory commandHistory;
 
     public LogicManager(InMemoryTaskList model, TaskStorage storage) {
         this.model = model;
         this.parser = new TaskCommandsParser();
+        this.commandHistory = new CommandHistory();
     }
 
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
+        commandHistory.addCommandTextToHistory(commandText);
         ReplaceAlias r = new ReplaceAlias(model);
         commandText = r.getAliasCommandText(commandText);
         TaskCommand command = parser.parseCommand(commandText);
@@ -45,5 +49,15 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Alias> getAlias() {
         return model.getAlias();
+    }
+    
+    @Override
+    public String getPreviousCommand() {
+    	return commandHistory.getPreviousCommand();
+    }
+    
+    @Override
+    public String getNextCommand() {
+    	return commandHistory.getNextCommand();
     }
 }
