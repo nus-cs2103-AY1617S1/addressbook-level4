@@ -69,8 +69,12 @@ public class DeleteCommand extends Command {
         if(targetIndexesE.size()>0){
             Collections.sort(targetIndexesE);
             Collections.reverse(targetIndexesE);
-            for(int i=0; i<targetIndexesE.size();i++){        
-                Integer idx = targetIndexesE.get(i);         
+            for(int i=0; i<targetIndexesE.size();i++){               
+                Integer idx = targetIndexesE.get(i); 
+                if (lastShownEventList.size() < idx) {
+                    indicateAttemptToExecuteIncorrectCommand();
+                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                }
                 ReadOnlyTask taskToDelete = lastShownEventList.get(idx-1);             
                 try {
                     model.deleteTask(taskToDelete);
@@ -84,8 +88,12 @@ public class DeleteCommand extends Command {
         if(targetIndexesD.size()>0){
             Collections.sort(targetIndexesD);
             Collections.reverse(targetIndexesD);
-            for(int i=0; i<targetIndexesD.size();i++){             
+            for(int i=0; i<targetIndexesD.size();i++){                 
                 Integer idx = targetIndexesD.get(i);               
+                if (lastShownDeadlineList.size() < idx) {
+                    indicateAttemptToExecuteIncorrectCommand();
+                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                }
                 ReadOnlyTask taskToDelete = lastShownDeadlineList.get(idx-1);             
                 try {
                     model.deleteTask(taskToDelete);
@@ -101,8 +109,11 @@ public class DeleteCommand extends Command {
             Collections.reverse(targetIndexesT);
             for(int i=0; i<targetIndexesT.size();i++){               
                 Integer idx = targetIndexesT.get(i);                
-                ReadOnlyTask taskToDelete = lastShownTodoList.get(idx-1);   
-                
+                if (lastShownTodoList.size() < idx) {
+                    indicateAttemptToExecuteIncorrectCommand();
+                    return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                }
+                ReadOnlyTask taskToDelete = lastShownTodoList.get(idx-1);       
                 try {
                     model.deleteTask(taskToDelete);
                 } catch (TaskNotFoundException e) {
