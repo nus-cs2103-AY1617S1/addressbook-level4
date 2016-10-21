@@ -139,7 +139,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addRecurringTask(ReadOnlyTask task, String days) throws DuplicateTaskException, IllegalValueException {
         
-        
         //Recurring task with only end time.
         if (task.getStartTime().appearOnUIFormat().equals("-") && !task.getEndTime().appearOnUIFormat().equals(""))
             addTask(new Task(
