@@ -47,6 +47,7 @@ public class ConfigUtil {
 
     /**
      * Saves the Config object to the specified file.
+     *   Check for Testing-Config or App-Config
      *   Overwrites existing file if it exists, creates a new file if it doesn't.
      * @param config cannot be null
      * @param configFilePath cannot be null
@@ -55,8 +56,13 @@ public class ConfigUtil {
     public static void saveConfig(Config config, String configFilePath) throws IOException {
         assert config != null;
         assert configFilePath != null;
-
-        FileUtil.serializeObjectToJsonFile(new File(configFilePath), config);
+ 
+        if (config.getAppTitle() == "Test App") {
+            FileUtil.serializeObjectToJsonFile(new File("ConfigTest.json"), config);
+        }
+        else {
+            FileUtil.serializeObjectToJsonFile(new File(configFilePath), config);
+        }        
     }
 
 }

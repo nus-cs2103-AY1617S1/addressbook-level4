@@ -25,25 +25,25 @@ public class UndoCommandTest extends TaskSchedulerGuiTest {
         //undo add command
         commandKey = "add";
         commandBox.runCommand(td.hoon.getAddCommand());
-        assertUndoSuccess(commandKey,task,currentList);
+        assertUndoSuccess(commandKey,currentList,task);
         
         //undo delete command
         commandKey = "delete";
         task = taskListPanel.getTask(0);
         commandBox.runCommand("delete 1");
-        assertUndoSuccess(commandKey,task,currentList);
+        assertUndoSuccess(commandKey,currentList,task);
 
         //undo edit command
         commandKey = "edit";
         task = taskListPanel.getTask(1);
         commandBox.runCommand("edit " + 2 + " " + td.ida.getTaskString());
-        assertUndoSuccess(commandKey,task,currentList);
+        assertUndoSuccess(commandKey,currentList,task);
 
         //undo mark command
         commandKey = "mark";
         task = taskListPanel.getTask(4);
         commandBox.runCommand("mark 5");
-        assertUndoSuccess(commandKey,task,currentList);
+        assertUndoSuccess(commandKey,currentList,task);
         
         //undo multiple mixed commands
         commandBox.runCommand("edit " + 2 + " " + td.ida.getTaskString());
@@ -72,13 +72,18 @@ public class UndoCommandTest extends TaskSchedulerGuiTest {
         assertTrue(taskListPanel.isListMatching(currentList));
     }
 
-    private void assertUndoSuccess(String commandKey, ReadOnlyTask task, TestTask... currentList) {
+    private void assertUndoSuccess(String commandKey, TestTask[] currentList, ReadOnlyTask... taskList) {
        
     	commandBox.runCommand("undo");
 
         //confirm the list now contains all previous tasks with the undo task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList);
         assertTrue(taskListPanel.isListMatching(expectedList));
-        assertResultMessage(String.format(UndoCommand.MESSAGE_SUCCESS, commandKey, task.getAsText()));
+        StringBuilder sb = new StringBuilder();
+        for (ReadOnlyTask testTask : taskList) {
+            sb.append("\n");
+            sb.append(testTask.getAsText());
+        }
+        assertResultMessage(String.format(UndoCommand.MESSAGE_SUCCESS, commandKey, sb));
     }
 }

@@ -254,6 +254,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | find a task by task date | locate details of tasks without having to go through the entire task list
 `* * *` | user | find a task by task time| locate details of tasks without having to go through the entire task list
 `* * *` | user | select a task | open the browser without using the mouse 
+`* * *` | user | set the data file path | save the data to where i want 
 `* * *` | user | delete a task | remove entries that I no longer need
 `* * *` | user | clear all tasks | start a fresh task list 
 `* * *` | user | edit a task | edit details without re-entry

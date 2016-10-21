@@ -6,7 +6,6 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 
-import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -28,8 +27,8 @@ public class Task implements ReadOnlyTask {
     public Task(Name name, TaskDateTime startDateTime, TaskDateTime endDateTime, Location address, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, startDateTime, endDateTime, address, tags);
         this.name = name;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        this.startDateTime = new TaskDateTime(startDateTime);
+        this.endDateTime = new TaskDateTime(endDateTime);
         this.address = address;
         this.tags = new UniqueTagList(tags);
     }
@@ -77,7 +76,13 @@ public class Task implements ReadOnlyTask {
         this.address = address;
     }
     
-
+    public void addDuration(long duration) {
+        if (startDateTime.getDate() != null)
+            this.startDateTime.setDate(startDateTime.getDate().getTime() + duration + 1);
+        if (endDateTime.getDate() != null)
+            this.endDateTime.setDate(endDateTime.getDate().getTime() + duration + 1);
+    }
+    
     /**
      * Add completed tag to indicate task done.
      */
@@ -127,6 +132,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+
+    @Override
+    public Task copy() {
+        return new Task(this);
     }
 
 }

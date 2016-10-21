@@ -14,12 +14,14 @@ import seedu.address.logic.commands.EditFloatingCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 
 public class EditCommandParser extends CommandParser{
+    
     /**
      * Parses arguments in the context of the edit task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
+    
     public Command prepareCommand(String args) {
         try {
             args = args.trim();

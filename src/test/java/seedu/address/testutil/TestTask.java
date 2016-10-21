@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
@@ -10,14 +11,25 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Location address;
-    private TaskDateTime startDate;
-    private TaskDateTime endDate;
+    private TaskDateTime startDateTime;
+    private TaskDateTime endDateTime;
     private UniqueTagList tags;
 
     public TestTask() {
         tags = new UniqueTagList();
     }
-
+    public TestTask(Name name, TaskDateTime startDateTime, TaskDateTime endDateTime, Location address, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, startDateTime, endDateTime, address, tags);
+        this.name = name;
+        this.startDateTime = new TaskDateTime(startDateTime);
+        this.endDateTime = new TaskDateTime(endDateTime);
+        this.address = address;
+        this.tags = new UniqueTagList(tags);
+    }
+    public TestTask(ReadOnlyTask source) {
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getLocation(), source.getTags());
+    }
+    
     public void setName(Name name) {
         this.name = name;
     }
@@ -27,10 +39,10 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public void setStartDate(TaskDateTime date) {
-        this.startDate = date;
+        this.startDateTime = date;
     }
     public void setEndDate(TaskDateTime date) {
-        this.endDate = date;
+        this.endDateTime = date;
     }
 
 
@@ -41,12 +53,12 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
     public TaskDateTime getStartDate() {
-        return startDate;
+        return startDateTime;
     }
 
     @Override
     public TaskDateTime getEndDate() {
-        return endDate;
+        return endDateTime;
     }
 
     @Override
@@ -104,5 +116,19 @@ public class TestTask implements ReadOnlyTask {
         sb.append("at" + " " + this.getLocation().value);
 //        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
+    }
+    
+
+    public void addDuration(long duration) {
+        if (startDateTime.getDate() != null)
+            this.startDateTime.setDate(startDateTime.getDate().getTime() + duration + 1);
+        if (endDateTime.getDate() != null)
+            this.endDateTime.setDate(endDateTime.getDate().getTime() + duration + 1);
+    }
+    
+    
+    @Override
+    public TestTask copy() {
+        return new TestTask(this);
     }
 }

@@ -1,8 +1,5 @@
 package seedu.address.model.task;
 
-import java.util.Date;
-
-import seedu.address.commons.util.DateFormatter;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -15,6 +12,7 @@ public interface ReadOnlyTask {
     TaskDateTime getStartDate();
     TaskDateTime getEndDate();
     Location getLocation();
+    ReadOnlyTask copy();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -82,4 +80,8 @@ public interface ReadOnlyTask {
         getTags().forEach(b -> builder.append(b.tagName + " "));  
         return builder.toString();  
     }  
+    
+    default boolean equals(ReadOnlyTask other) {
+        return isSameStateAs(other);
+    }
 }

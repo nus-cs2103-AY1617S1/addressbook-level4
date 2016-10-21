@@ -4,36 +4,51 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 
 import seedu.address.model.Undo;
+import seedu.address.model.task.ReadOnlyTask;
 
 public class CommandHistory {
 	
-	private static Stack<Command> prevCmd = new Stack<Command>();
-	private static Stack<Command> nextCmd = new Stack<Command>();
+	private static Stack<String> prevCmd = new Stack<String>();
+	private static Stack<String> nextCmd = new Stack<String>();
 	private static Stack<Undo> mutateCmd = new Stack<Undo>();
+	private static ReadOnlyTask lastModTask;
 	
-	public static void addPrevCmd(Command command) {
-		prevCmd.push(command);
-		nextCmd.clear();
+	public static void addPrevCmd(String commandText) {
+		while (!nextCmd.isEmpty()) {
+			prevCmd.push(nextCmd.pop());
+		}
+		prevCmd.push(commandText);
 	}
 	
-	public static void addNextCmd(Command command) {
-		nextCmd.push(command);
+	public static void addNextCmd(String commandText) {
+		nextCmd.push(commandText);
 	}
 	
-	public static void addMutateCmd(Undo undo) {
-		mutateCmd.push(undo);
-	}
 	
-	public static Command getPrevCmd() {
-		Command result = prevCmd.pop();
-		nextCmd.push(result);
+	public static String getPrevCmd() {
+		String result = "";
+		if (prevCmd.size() > 0) {
+			if (prevCmd.size() == 1) {
+				result = prevCmd.peek();
+			} else {
+				result = prevCmd.pop();
+				nextCmd.push(result);
+			}
+		}
 		return result;
 	}
 
-	public static Command getNextCmd() {
-		Command result = nextCmd.pop();
-		prevCmd.push(result);
+	public static String getNextCmd() {
+		String result = "";
+		if (!nextCmd.isEmpty()) {
+			result = nextCmd.pop();
+			prevCmd.push(result);
+		}
 		return result;
+	}
+
+	public static void addMutateCmd(Undo undo) {
+		mutateCmd.push(undo);
 	}
 	
 	public static Undo getMutateCmd() throws EmptyStackException{
@@ -46,4 +61,12 @@ public class CommandHistory {
 	public static void flushMutateCmd() {
 		mutateCmd.clear();
 	}
+	
+	public static void setModTask(ReadOnlyTask task) {
+	    lastModTask = task;
+	}
+	
+    public static ReadOnlyTask getModTask() {
+        return lastModTask;
+    }
 }

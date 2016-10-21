@@ -33,15 +33,15 @@ public abstract class CommandParser {
  
     protected static final Pattern DEADLINE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+?)"
-                    + "(?>(\\s+\\b(by|in|at)\\b))"
+                    + "(?>(\\s+\\b(by|in|at|on)\\b))"
                     + "(?<endDate>.*)"
                     );
     
     protected static final Pattern FLOATING_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[\\p{Alnum} ]+)");
-    
+
     protected static final Pattern SETPATH_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<name>[\\p{Alnum}|/]+)");   //    data/  <---
+            Pattern.compile("(?<name>[\\p{Alnum}|/|:|\\s+]+)");   //    data/  <---
     
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.

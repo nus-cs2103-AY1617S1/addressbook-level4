@@ -29,9 +29,9 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " 1 Must Do CS2103 Pretut\n"
             + "Example: " + COMMAND_WORD
-            + " 1 Must Do CS2103 Pretut by 011016\n"
+            + " 2 new task name s/10-Oct-2016 8am e/10-Oct-2016 9am at NUS\n"
             + "Example: " + COMMAND_WORD
-            + " 1 CS2103 Lecture s/011016 e/011016 at NUS COM1-B103\n";
+            + " 1 another new task name s/11-Oct-2016 8am e/11-Oct-2016 9am at there\n";
 
     public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
     
