@@ -86,13 +86,16 @@ public class ClearController implements Controller {
             destroyAll(db);
             return;
         } else {
-            if (deleteAll && !parseExactClearCommand(parsedResult) && parsedDates == null) { //no item type provided
-                displayErrorMessage(input, parsedDates, deleteAll, isTask);
-                return;
+            if (deleteAll && !parseExactClearCommand(parsedResult) && parsedDates == null) { //no item type and date provided
+                LocalDateTime date = parseDateWithNoKeyword(parsedResult);
+                if (date == null) {
+                    displayErrorMessage(input, parsedDates, deleteAll, isTask);
+                    return;
+                } 
             }
         }
         
-        LocalDateTime dateOn = null;
+        LocalDateTime dateOn = parseDateWithNoKeyword(parsedResult);
         LocalDateTime dateFrom = null;
         LocalDateTime dateTo = null;
         if (parsedDates != null) {
@@ -102,7 +105,7 @@ public class ClearController implements Controller {
             // if all are null = no date provided
             
             // Parse natural date using Natty.
-            dateOn = naturalOn == null ? null : parseNatural(naturalOn); 
+            dateOn = naturalOn == null ? null : parseNatural(naturalOn);
             dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
             dateTo = naturalTo == null ? null : parseNatural(naturalTo);
         }
@@ -298,8 +301,19 @@ public class ClearController implements Controller {
     }
     
     private boolean parseExactClearCommand(Map<String, String[]> parsedResult) {
-        System.out.println(Arrays.toString(parsedResult.get("default")));
         return parsedResult.get("default")[1] == null;
+    }
+    
+    private LocalDateTime parseDateWithNoKeyword(Map<String, String[]> parsedResult) {
+        if (parsedResult.get("default").length == 2) { // user enter more than 1 date with no keyword
+            if (parsedResult.get("default")[1] != null) {
+                return parseNatural(parsedResult.get("default")[1]);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
     
     /**
