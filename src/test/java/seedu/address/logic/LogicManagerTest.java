@@ -261,7 +261,7 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList, Collections.emptyList(), Collections.emptyList());
+        assertCommandBehavior(commandWord , expectedMessage, model.getAddressBook(), personList, Collections.emptyList(), Collections.emptyList());
     }
 
    /* @Test
