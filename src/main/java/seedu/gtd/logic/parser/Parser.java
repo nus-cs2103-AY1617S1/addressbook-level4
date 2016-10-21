@@ -73,7 +73,7 @@ public class Parser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+        	return prepareHelp(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -189,4 +189,24 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
+    /**
+     * Parses arguments in the context of the help command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareHelp(String args) {
+    	//if no argument
+    	if (args.equals("")) {
+    		args="help";
+    	}
+    	
+    	final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        }
+
+        final String commandWord = matcher.group("commandWord");
+        return new HelpCommand(commandWord);
+    }
 }
