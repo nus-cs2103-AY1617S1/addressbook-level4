@@ -129,6 +129,20 @@
     -fx-padding: 0px;
 }
 
-.fail{
-    -fx-text-fill: red;
+.task-name-column{
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+}
+
+
+.normal{
+    -fx-fill: deepSkyBlue;
+}
+
+.overdue{
+    -fx-fill: red;
+}
+
+.happening{
+    -fx-fill: orange;
 }

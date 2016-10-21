@@ -462,17 +462,13 @@ public class MainWindow extends UiPart {
             @Override
             public void updateItem(String item , boolean isEmpty){
                 super.updateItem(item, isEmpty);
+                
                 if(!isEmpty()){
+                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
                     
-                    TextFlow textFlow = new TextFlow();
+                    Text taskName = generateStyledName(readOnlyTask);
                     
-                    Text taskName = new Text(item);
-                    taskName.setStyle("-fx-font-weight: bold; -fx-font-size: 18px; -fx-fill: deepSkyBlue;");
-                    
-                    textFlow.getChildren().add(taskName);
-                    
-                    
-                    this.setGraphic(textFlow);
+                    this.setGraphic(taskName);
                     this.setPrefHeight(50);
                     
                 }else{
@@ -482,6 +478,39 @@ public class MainWindow extends UiPart {
             }
         });
         
+    }
+    
+    private Text generateStyledName(ReadOnlyTask readOnlyTask){
+        Text taskName = new Text(readOnlyTask.getName());
+        taskName.getStyleClass().add("task-name-column");
+        
+        Date startDate = readOnlyTask.getStartDate();
+        Date endDate = readOnlyTask.getEndDate();
+        
+        Date today = new Date();
+        
+        if(readOnlyTask.isFloating()){
+            taskName.getStyleClass().add("normal");
+        }
+        
+        if(readOnlyTask.isDeadline()){
+            if(today.before(endDate)){
+                taskName.getStyleClass().add("normal");
+            }else{
+                taskName.getStyleClass().add("overdue");
+            }
+        }
+        
+        if(readOnlyTask.isEvent()){
+            if(today.after(startDate) && today.after(endDate)){
+                taskName.getStyleClass().add("overdue");
+            }else if(today.after(startDate) && today.before(endDate)){
+                taskName.getStyleClass().add("happening");
+            }else{
+                taskName.getStyleClass().add("normal");
+            }
+        }
+        return taskName;
     }
     
     /**
