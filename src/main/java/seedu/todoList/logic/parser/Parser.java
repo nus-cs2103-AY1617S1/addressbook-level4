@@ -282,12 +282,12 @@ public class Parser {
         // I STOPPED HERE
         // check user input to edit todolist
         if (dataType.get().equals("todo")) {
-            if (matcher_task.matches() || matcher_name.matches()) {
+            if (matcher_task.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_name.group("name"), 
-                            matcher_date.group("date"),
-                            Integer.parseInt(matcher_priority.group("priority")),
+                            matcher_task.group("name"), 
+                            matcher_task.group("date"),
+                            Integer.parseInt(matcher_task.group("priority")),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get());
                 } catch (IllegalValueException ive) {
@@ -296,10 +296,10 @@ public class Parser {
             } else if (matcher_event.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_name.group("name"), 
-                            matcher_date.group("date"),
-                            matcher_st.group("startTime"), 
-                            matcher_et.group("endTime"),
+                            matcher_event.group("name"), 
+                            matcher_event.group("date"),
+                            matcher_event.group("startTime"), 
+                            matcher_event.group("endTime"),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
                             dataType.get());
                 } catch (IllegalValueException ive) {
@@ -308,9 +308,9 @@ public class Parser {
             } else if (matcher_deadline.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_name.group("name"), 
-                            matcher_date.group("date"),
-                            matcher_et.group("endTime"), 
+                            matcher_deadline.group("name"), 
+                            matcher_deadline.group("date"),
+                            matcher_deadline.group("endTime"), 
                             Integer.parseInt(matcher_deadline.group("targetIndex")),
                             dataType.get());
                 } catch (IllegalValueException ive) {
