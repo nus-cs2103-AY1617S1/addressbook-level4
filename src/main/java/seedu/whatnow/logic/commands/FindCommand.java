@@ -23,6 +23,7 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList(keywords).size()));
+        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList(keywords).size()
+                + model.getFilteredScheduleList(keywords).size()));
     }
 }
