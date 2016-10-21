@@ -1,6 +1,10 @@
 package seedu.address.logic.commands;
 
+import java.util.ArrayList;
 import java.util.Set;
+
+import seedu.address.model.TaskManager;
+import seedu.address.model.item.Task;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -25,8 +29,14 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredFloatingTaskList(keywords);
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredUndoneTaskList().size()));
+        assert model != null;
+        if (model.isCurrentListDoneList()) {
+            model.updateFilteredDoneTaskList(keywords);
+            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredDoneTaskList().size()));
+        } else {
+            model.updateFilteredFloatingTaskList(keywords);
+            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredUndoneTaskList().size()));
+        }
     }
 
 }

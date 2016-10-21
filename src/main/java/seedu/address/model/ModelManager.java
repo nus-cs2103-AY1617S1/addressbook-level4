@@ -213,6 +213,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public void TaskManager() {
         filteredUndoneTasks.setPredicate(null);
+        filteredDoneTasks.setPredicate(null);
     }
 
     @Override
@@ -222,6 +223,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredFloatingTaskList(Expression expression) {
         filteredUndoneTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredDoneTaskList(Set<String> keywords){
+        updateFilteredDoneTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
+    private void updateFilteredDoneTaskList(Expression expression) {
+        filteredDoneTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -279,6 +289,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredUndoneTasks.setPredicate(null);
+        filteredDoneTasks.setPredicate(null);
     }
     
 }

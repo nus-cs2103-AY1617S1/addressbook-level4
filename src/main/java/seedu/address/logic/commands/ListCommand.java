@@ -28,6 +28,7 @@ public class ListCommand extends Command {
         if (isListDoneCommand) {
             EventsCenter.getInstance().post(new ChangeToListDoneViewEvent());
             model.setCurrentListToBeDoneList();
+            model.updateFilteredListToShowAll();
             return new CommandResult(DONE_MESSAGE_SUCCESS);
         } else {
             EventsCenter.getInstance().post(new ChangeToListUndoneViewEvent());
