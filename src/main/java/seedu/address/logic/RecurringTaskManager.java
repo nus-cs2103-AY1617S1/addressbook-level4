@@ -93,7 +93,7 @@ public class RecurringTaskManager {
         LocalDate localDateCurrently = LocalDate.now();
         LocalDate startDateInLocalDate = null;
         if (!task.getComponentForNonRecurringType().hasOnlyEndDate()) {
-            startDateInLocalDate = task.getComponentForNonRecurringType().getEndDate().getDate()
+            startDateInLocalDate = task.getComponentForNonRecurringType().getStartDate().getDate()
                     .toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         }
         LocalDate endDateInLocalDate = task.getComponentForNonRecurringType().getEndDate().getDate()
