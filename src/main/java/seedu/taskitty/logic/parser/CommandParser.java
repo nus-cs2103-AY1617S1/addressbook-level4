@@ -28,7 +28,7 @@ import com.sun.media.jfxmedia.logging.Logger;
  */
 public class CommandParser {
 
-    public static final String COMMAND_QUOTATION_SYMBOL = "\"";
+    public static final String COMMAND_QUOTE_SYMBOL = "\"";
     public static final String EMPTY_STRING = "";
     public static final int NOT_FOUND = -1;
     
@@ -212,17 +212,17 @@ public class CommandParser {
         
         //Attempt to extract name out if it is surrounded by quotes
         //+1 because we want the quote included in the string
-        nameEndIndex = dataArguments.lastIndexOf(COMMAND_QUOTATION_SYMBOL) + 1;
+        nameEndIndex = dataArguments.lastIndexOf(COMMAND_QUOTE_SYMBOL) + 1;
         boolean isNameExtracted = false;
         if (nameEndIndex != NOT_FOUND) {
-            int nameStartIndex = dataArguments.indexOf(COMMAND_QUOTATION_SYMBOL);
+            int nameStartIndex = dataArguments.indexOf(COMMAND_QUOTE_SYMBOL);
             String nameDetail = dataArguments.substring(nameStartIndex, nameEndIndex);
             
             //remove name from dataArguments
             dataArguments = dataArguments.replace(nameDetail, EMPTY_STRING);
             
             //remove quotes from nameDetail
-            nameDetail = nameDetail.replaceAll(COMMAND_QUOTATION_SYMBOL, EMPTY_STRING);
+            nameDetail = nameDetail.replaceAll(COMMAND_QUOTE_SYMBOL, EMPTY_STRING);
             
             details.add(Task.TASK_COMPONENT_INDEX_NAME, nameDetail);
             isNameExtracted = true;
