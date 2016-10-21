@@ -207,7 +207,7 @@ public class TaskCardView extends UiPart {
      * @param task that is being wrapped by the {@link TaskCardView} object
      * @return a {@link TaskCardView} object that contains this task (can be null if not available)
      */
-    static TaskCardView getTaskCard(ImmutableTask task) {
+    public static TaskCardView getTaskCard(ImmutableTask task) {
         return taskCardMap.get(task);
     }
 

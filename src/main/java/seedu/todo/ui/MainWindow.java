@@ -154,19 +154,19 @@ public class MainWindow extends UiPart {
     }
 
     /* Getters */
-    TodoListView getTodoListView() {
+    public TodoListView getTodoListView() {
         return this.todoListView;
     }
 
-    HelpView getHelpView() {
+    public HelpView getHelpView() {
         return this.helpView;
     }
 
-    FilterBarView getFilterBarView() {
+    public FilterBarView getFilterBarView() {
         return filterBarView;
     }
 
-    CommandFeedbackView getCommandFeedbackView() {
+    public CommandFeedbackView getCommandFeedbackView() {
         return commandFeedbackView;
     }
 }
