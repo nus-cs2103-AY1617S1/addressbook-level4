@@ -13,8 +13,8 @@ public class TypicalTestPersons {
 
     public TypicalTestPersons() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
-                    .withEmail("alice@gmail.com").withPhone("85355255")
+            alice =  new PersonBuilder().withName("Alice Pauline").withAddress("6pm")
+                    .withEmail("3pm").withPhone("today")
                     .withTags("friends").build();
             benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
                     .withEmail("johnd@gmail.com").withPhone("98765432")
@@ -26,8 +26,8 @@ public class TypicalTestPersons {
             george = new PersonBuilder().withName("George Best").withPhone("9482442").withEmail("anna@google.com").withAddress("4th street").build();
 
             //Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("8482424").withEmail("stefan@mail.com").withAddress("little india").build();
-            ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131").withEmail("hans@google.com").withAddress("chicago ave").build();
+            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("today").withEmail("2pm").withAddress("5pm").build();
+            ida = new PersonBuilder().withName("Ida Mueller").withPhone("tomorrow").withEmail("1am").withAddress("2am").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

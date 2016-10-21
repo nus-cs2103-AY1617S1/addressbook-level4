@@ -11,11 +11,11 @@ public class nattyParser {
     
     private com.joestelmach.natty.Parser nattyParserPackage;
     
-    nattyParser() {
+    public nattyParser() {
     nattyParserPackage = new com.joestelmach.natty.Parser();
     }
     
-    String parseDate(String date) {
+    public String parseDate(String date) {
         List<DateGroup> groups = nattyParserPackage.parse(date);
         Date parsedDate = new Date();
         for(DateGroup group:groups) {
@@ -27,7 +27,7 @@ public class nattyParser {
         return df.format(parsedDate);
     }
     
-    String parseTime(String time) {
+    public String parseTime(String time) {
         List<DateGroup> groups = nattyParserPackage.parse(time);
         Date parsedTime = new Date();
         for(DateGroup group:groups) {
