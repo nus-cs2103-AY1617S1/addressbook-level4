@@ -55,6 +55,10 @@ public class Parser {
                     + " #[^#]+"
                     + "(?<tagArguments>(?: #[^#]+)*)");// variable number of tags
     
+    private static final Pattern DELETE_ARGS_FORMAT = 
+    		Pattern.compile("(([E|D|T]\\d+, )*([E|D|T]\\d+))|"
+    				+ "([E|D|T]\\d+-[E|D|T]\\d+)");
+    
     public Parser() {}
 
     /**
@@ -242,7 +246,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args){
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = DELETE_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     DeleteCommand.MESSAGE_USAGE));
