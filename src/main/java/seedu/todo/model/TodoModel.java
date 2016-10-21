@@ -1,5 +1,7 @@
 package seedu.todo.model;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
@@ -31,22 +33,31 @@ import java.util.stream.Collectors;
  * to transform them into the index {@link TodoList} methods can use. 
  */
 public class TodoModel implements Model {
+    // Constants 
     private static final int UNDO_LIMIT = 10;
-    
     private static final String INDEX_OUT_OF_BOUND_FORMAT = "There is no task no. %d";
     private static final String NO_MORE_UNDO_REDO_FORMAT = "There are no more steps to %s";
-
+    
+    // Dependencies
     private TodoListModel todolist;
     private MovableStorage<ImmutableTodoList> storage;
     
+    // Stack of transformation that the tasks go through before being displayed to the user
     private ObservableList<ImmutableTask> tasks;
     private FilteredList<ImmutableTask> viewFilteredTasks;
     private FilteredList<ImmutableTask> findFilteredTasks;
     private SortedList<ImmutableTask> sortedTasks;
     
+    // State stacks for managing un/redo
     private Deque<List<ImmutableTask>> undoStack = new ArrayDeque<>();
     private Deque<List<ImmutableTask>> redoStack = new ArrayDeque<>();
 
+    /**
+     * Contains the current view tab the user has selected. 
+     * {@link #getViewFilter()} is the getter and {@link #view(TaskViewFilter)} is the setter
+     */
+    private ObjectProperty<TaskViewFilter> view = new SimpleObjectProperty<>();
+    
     public TodoModel(Config config) {
         this(new TodoListStorage(config.getTodoListFilePath()));
     }
@@ -147,8 +158,8 @@ public class TodoModel implements Model {
             int pin = Boolean.compare(b.isPinned(), a.isPinned());
             return pin != 0 || view.sort == null ? pin : view.sort.compare(a, b);
         });
-
-        EventsCenter.getInstance().post(new ChangeViewRequestEvent(view));
+        
+        this.view.setValue(view);
     }
     
     @Override
@@ -198,5 +209,10 @@ public class TodoModel implements Model {
     @Override
     public UnmodifiableObservableList<ImmutableTask> getObservableList() {
         return new UnmodifiableObservableList<>(sortedTasks);
+    }
+
+    @Override
+    public ObjectProperty<TaskViewFilter> getViewFilter() {
+        return view;
     }
 }

@@ -21,7 +21,6 @@ import seedu.todo.logic.parser.TodoParser;
 import seedu.todo.model.*;
 import seedu.todo.storage.Storage;
 import seedu.todo.storage.StorageManager;
-import seedu.todo.storage.TodoListStorage;
 import seedu.todo.ui.Ui;
 import seedu.todo.ui.UiManager;
 
@@ -68,7 +67,7 @@ public class MainApp extends Application {
         dispatcher = new TodoDispatcher();
         logic = new TodoLogic(parser, model, dispatcher);
 
-        ui = new UiManager(logic, config, userPrefs);
+        ui = new UiManager(logic, config, userPrefs, model);
 
         initEventsCenter();
     }

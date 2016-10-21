@@ -10,6 +10,7 @@ import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.logic.Logic;
+import seedu.todo.model.Model;
 import seedu.todo.model.UserPrefs;
 import seedu.todo.ui.controller.CommandController;
 import seedu.todo.ui.view.*;
@@ -38,6 +39,7 @@ public class MainWindow extends UiPart {
 
     private Config config;
     private UserPrefs userPrefs;
+    private Model model;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -77,20 +79,21 @@ public class MainWindow extends UiPart {
         return FXML;
     }
 
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-
+    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, Model model) {
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getTodoListName(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config.getTodoListName(), config, prefs, logic, model);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String todoListName, Config config, UserPrefs prefs, Logic logic) {
+    private void configure(String appTitle, String todoListName, Config config, UserPrefs prefs, 
+                           Logic logic, Model model) {
 
         //Set dependencies
         this.logic = logic;
         this.todoListName = todoListName;
         this.config = config;
         this.userPrefs = prefs;
+        this.model = model;
 
         //Configure the UI
         setTitle(appTitle);
@@ -102,9 +105,9 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        todoListPanel = TodoListPanel.load(primaryStage, todoListPanelPlaceholder, logic.getObservableTaskList());
+        todoListPanel = TodoListPanel.load(primaryStage, todoListPanelPlaceholder, model.getObservableList());
         helpPanel = HelpPanel.load(primaryStage, helpPanelPlaceholder);
-        taskViewFilterView = TaskViewFilterView.load(primaryStage, taskViewFilterPanel);
+        taskViewFilterView = TaskViewFilterView.load(primaryStage, taskViewFilterPanel, model.getViewFilter());
         commandFeedbackView = CommandFeedbackView.load(primaryStage, resultDisplayPlaceholder);
         commandInputView = CommandInputView.load(primaryStage, commandBoxPlaceholder);
         commandErrorView = CommandErrorView.load(primaryStage, errorViewPlaceholder);

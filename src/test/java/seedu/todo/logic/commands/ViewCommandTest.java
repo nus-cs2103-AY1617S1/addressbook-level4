@@ -19,8 +19,6 @@ import seedu.todo.testutil.TimeUtil;
 
 //@@ author A0092382A
 public class ViewCommandTest extends CommandTest {
-    private EventsCollector eventsCollector = new EventsCollector();
-    
     private int[] all, events, dueSoon, completed, incomplete;
     
     private List<ImmutableTask> tasks;
@@ -77,10 +75,8 @@ public class ViewCommandTest extends CommandTest {
         incomplete = new int[]{ 3, 6, 2, 5, 1 };
     }
     
-    private void assertViewChangeEventFired(TaskViewFilter filter) {
-        assertThat(eventsCollector.last(), instanceOf(ChangeViewRequestEvent.class));
-        ChangeViewRequestEvent event = (ChangeViewRequestEvent) eventsCollector.last();
-        assertEquals(event.getNewView(), filter);
+    private void assertViewChange(TaskViewFilter filter) {
+        assertEquals(model.getViewFilter().get(), filter);
     }
     
     private void assertTasksVisible(int[] taskIndices) {
@@ -99,7 +95,7 @@ public class ViewCommandTest extends CommandTest {
         execute(true);
         
         assertTasksVisible(all);
-        assertViewChangeEventFired(TaskViewFilter.DEFAULT);
+        assertViewChange(TaskViewFilter.DEFAULT);
     }
     
     @Test (expected = ValidationException.class)
@@ -113,7 +109,7 @@ public class ViewCommandTest extends CommandTest {
         setParameter("completed");
         execute(true);
         
-        assertViewChangeEventFired(TaskViewFilter.COMPLETED);
+        assertViewChange(TaskViewFilter.COMPLETED);
         assertTasksVisible(completed);
     }
     
@@ -122,7 +118,7 @@ public class ViewCommandTest extends CommandTest {
         setParameter("incomplete");
         execute(true);
         
-        assertViewChangeEventFired(TaskViewFilter.INCOMPLETE);
+        assertViewChange(TaskViewFilter.INCOMPLETE);
         assertTasksVisible(incomplete);
     }
     
@@ -131,7 +127,7 @@ public class ViewCommandTest extends CommandTest {
         setParameter("IncompLete");
         execute(true);
         
-        assertViewChangeEventFired(TaskViewFilter.INCOMPLETE);
+        assertViewChange(TaskViewFilter.INCOMPLETE);
         assertTasksVisible(incomplete);
     }
     
@@ -140,7 +136,7 @@ public class ViewCommandTest extends CommandTest {
         setParameter("due soon");
         execute(true);
         
-        assertViewChangeEventFired(TaskViewFilter.DUE_SOON);
+        assertViewChange(TaskViewFilter.DUE_SOON);
         assertTasksVisible(dueSoon);
     }
     
@@ -149,7 +145,7 @@ public class ViewCommandTest extends CommandTest {
         setParameter("events"); 
         execute(true);
         
-        assertViewChangeEventFired(TaskViewFilter.EVENTS);
+        assertViewChange(TaskViewFilter.EVENTS);
         assertTasksVisible(events);
     }
 
@@ -158,7 +154,7 @@ public class ViewCommandTest extends CommandTest {
         setParameter("d");
         execute(true);
 
-        assertViewChangeEventFired(TaskViewFilter.DUE_SOON);
+        assertViewChange(TaskViewFilter.DUE_SOON);
         assertTasksVisible(dueSoon);
     }
     
@@ -167,7 +163,7 @@ public class ViewCommandTest extends CommandTest {
         setParameter("D");
         execute(true);
 
-        assertViewChangeEventFired(TaskViewFilter.DUE_SOON);
+        assertViewChange(TaskViewFilter.DUE_SOON);
         assertTasksVisible(dueSoon);
     }
     
@@ -184,7 +180,5 @@ public class ViewCommandTest extends CommandTest {
         setParameter("a");
         execute(true);
         assertTasksVisible(all);
-        
-        assertEquals(4, eventsCollector.size());
     }
 }

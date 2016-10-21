@@ -1,5 +1,6 @@
 package seedu.todo.model;
 
+import javafx.beans.property.ObjectProperty;
 import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
@@ -61,13 +62,14 @@ public interface Model {
     ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException;
 
     /**
-     * Changes the filter predicate and sort comparator used to display the tasks. A null
-     * value for either parameter resets it to the default value - showing everything for 
-     * the filter and insertion order for sort. 
-     * @param view
+     * Sets the model to the provided TaskViewFilter object. TaskViewFilters represents the
+     * filter and sorting needed by each intelligent view
      */
     void view(TaskViewFilter view);
 
+    /**
+     * Filters the list of tasks by this predicate. This is run after the view predicate. 
+     */
     void find(Predicate<ImmutableTask> predicate);
 
     /**
@@ -103,4 +105,9 @@ public interface Model {
      * Get an observable list of tasks. Used mainly by the JavaFX UI. 
      */
     UnmodifiableObservableList<ImmutableTask> getObservableList();
+
+    /**
+     * Get the current view filter used on the model. Used mainly by the JavaFx UI. 
+     */
+    ObjectProperty<TaskViewFilter> getViewFilter();
 }

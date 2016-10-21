@@ -1,5 +1,6 @@
 package seedu.todo.ui.view;
 
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -42,11 +43,12 @@ public class TaskViewFilterView extends UiPart {
      * @param placeholder where the view element {@link #filterViewPane} should be placed
      * @return an instance of this class
      */
-    public static TaskViewFilterView load(Stage primaryStage, AnchorPane placeholder) {
+    public static TaskViewFilterView load(Stage primaryStage, AnchorPane placeholder, ObservableValue<TaskViewFilter> filter) {
         TaskViewFilterView filterView = UiPartLoader.loadUiPart(primaryStage, placeholder, new TaskViewFilterView());
         filterView.addToPlaceholder();
         filterView.configureLayout();
         filterView.configureProperties();
+        filterView.bindListener(filter);
         return filterView;
     }
 
@@ -112,8 +114,11 @@ public class TaskViewFilterView extends UiPart {
         textContainer.getChildren().add(rightText);
         return textContainer;
     }
-
-    /* Methods interfacing with UiManager */
+    
+    private void bindListener(ObservableValue<TaskViewFilter> filter) {
+        filter.addListener(((observable, oldValue, newValue) -> selectOneViewFilter(newValue)));
+    }
+    
     /**
      * Select exactly one filter from {@link #filterViewPane}
      */

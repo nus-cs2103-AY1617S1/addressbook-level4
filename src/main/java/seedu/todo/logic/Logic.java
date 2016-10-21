@@ -12,8 +12,5 @@ public interface Logic {
      * Executes the command and returns the result.
      * @param input The command as entered by the user.
      */
-    public CommandResult execute(String input);
-    
-    ObservableList<ImmutableTask> getObservableTaskList();
-
+    CommandResult execute(String input);
 }
