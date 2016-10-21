@@ -2,6 +2,7 @@ package seedu.todoList.model.task;
 
 import seedu.todoList.commons.util.CollectionUtil;
 import seedu.todoList.model.task.attributes.Date;
+import seedu.todoList.model.task.attributes.Done;
 import seedu.todoList.model.task.attributes.Name;
 import seedu.todoList.model.task.attributes.Priority;
 
@@ -57,9 +58,9 @@ public class Todo extends Task implements ReadOnlyTask {
     public String toString() {
     	final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Date: ")
+                .append("\nDate: ")
                 .append(getDate())
-                .append(" Priority: ")
+                .append("\nPriority: ")
                 .append(getPriority());
         return builder.toString();
     }

@@ -64,11 +64,11 @@ public class Event extends Task implements ReadOnlyTask {
     public String toString() {
     	final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Date: ")
+                .append("\nDate: ")
                 .append(getDate())
-                .append(" StartTime: ")
+                .append("\nStartTime: ")
                 .append(getStartTime())
-                .append(" EndTime: ")
+                .append("\nEndTime: ")
                 .append(getEndTime());
         return builder.toString();
     }

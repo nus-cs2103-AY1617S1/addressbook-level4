@@ -23,7 +23,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String INVALID_VALUE = "Invalid value";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Task-list";
-
+        
     private final Task toAdd;
 
     /**
