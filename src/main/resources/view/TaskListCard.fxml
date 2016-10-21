@@ -34,7 +34,14 @@
 								<Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
 							</children>
 						</HBox>
-						<Label fx:id="taskDate" styleClass="cell_small_label" text="\$taskDate" />
+						<HBox spacing="2" alignment="CENTER_LEFT">
+							<Label fx:id="taskDate" styleClass="cell_small_label" text="\$taskDate" />
+							<Label fx:id="taskTime" styleClass="cell_small_label" text="\$taskTime" />
+							<Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
+							<Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
+							<Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate" />
+							<Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />
+						</HBox>
 						<Label fx:id="status" styleClass="cell_small_label" text="\$status" />
 					</children>
 				</VBox>

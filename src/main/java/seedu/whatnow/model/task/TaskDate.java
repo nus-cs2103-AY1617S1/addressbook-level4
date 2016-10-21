@@ -46,27 +46,29 @@ public class TaskDate {
 	 * @throw IllegalValueException if given date is invalid
 	 */
 	public TaskDate(String taskDate) throws IllegalValueException, java.text.ParseException {
-		assert taskDate != null;
-		System.out.println("taskDate is : " + taskDate);
-		if(!isValidDate(taskDate)) {
-			throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
-		}
-		//Formats the date to be today's date
-		if(taskDate.equals("today")) {
-			DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
-			Calendar cal = Calendar.getInstance();
-			taskDate = dateFormat.format(cal.getTime());
-			fullDate = taskDate;
-		}
-		//Formats the date to be tomorrow's date
-		else if(taskDate.equals("tomorrow")) {
-			DateFormat dateFormat2 = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
-			Calendar cal2 = Calendar.getInstance();
-			cal2.add(Calendar.DATE, 1);
-			taskDate = dateFormat2.format(cal2.getTime());
-			fullDate= taskDate;
-		}
-
+		//assert taskDate != null;
+	    if (taskDate != null) {
+	        taskDate = taskDate.trim();
+	        
+	        if(!isValidDate(taskDate)) {
+	            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+	        }
+	        //Formats the date to be today's date
+	        if(taskDate.equals("today")) {
+	            DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+	            Calendar cal = Calendar.getInstance();
+	            taskDate = dateFormat.format(cal.getTime());
+	            fullDate = taskDate;
+	        }
+	        //Formats the date to be tomorrow's date
+	        else if(taskDate.equals("tomorrow")) {
+	            DateFormat dateFormat2 = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+	            Calendar cal2 = Calendar.getInstance();
+	            cal2.add(Calendar.DATE, 1);
+	            taskDate = dateFormat2.format(cal2.getTime());
+	            fullDate= taskDate;
+	        }
+	    }
 	}
 	/**
 	 * 

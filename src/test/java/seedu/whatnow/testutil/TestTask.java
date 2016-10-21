@@ -11,10 +11,17 @@ import seedu.whatnow.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
+    private String date;
+    private TaskDate taskDate;
+    private TaskDate startDate;
+    private TaskDate endDate;
+    private String taskTime;
+    private String startTime;
+    private String endTime;
     private UniqueTagList tags;
     private String status;
     private String taskType;//todo or schedule
-    private String date;
+    
 
     public TestTask() {
         setDate("");
@@ -22,15 +29,15 @@ public class TestTask implements ReadOnlyTask {
         tags = new UniqueTagList();
     }
     
-   public void setName(Name name) {
-        this.name = name;
-    }
-
     @Override
     public Name getName() {
         return this.name;
     }
-
+    
+    public void setName(Name name) {
+        this.name = name;
+    }    
+    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -91,7 +98,31 @@ public class TestTask implements ReadOnlyTask {
 
 	@Override
 	public TaskDate getTaskDate() {
-		// TODO Auto-generated method stub
-		return null;
+		return taskDate;
 	}
+
+    @Override
+    public TaskDate getStartDate() {
+        return startDate;
+    }
+
+    @Override
+    public TaskDate getEndDate() {
+        return endDate;
+    }
+
+    @Override
+    public String getTaskTime() {
+        return taskTime;
+    }
+
+    @Override
+    public String getStartTime() {
+        return startTime;
+    }
+
+    @Override
+    public String getEndTime() {
+        return endTime;
+    }
 }
