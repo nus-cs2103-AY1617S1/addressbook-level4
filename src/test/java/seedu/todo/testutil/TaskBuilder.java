@@ -39,7 +39,7 @@ public class TaskBuilder {
 
     public TaskBuilder lastUpdated(LocalDateTime lastUpdated) throws IllegalValueException {
         defaultTime = false;
-        task.setLastUpdated(lastUpdated);
+        task.setCreatedAt(lastUpdated);
         return this;
     }
 
@@ -85,7 +85,7 @@ public class TaskBuilder {
         // Push the time up by 1s to avoid colliding with previously created tasks 
         if (defaultTime) {
             now = now.plusSeconds(1);
-            task.setLastUpdated(now);
+            task.setCreatedAt(now);
         }
         
         return task;

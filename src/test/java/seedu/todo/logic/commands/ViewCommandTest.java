@@ -3,7 +3,6 @@ package seedu.todo.logic.commands;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -67,7 +66,7 @@ public class ViewCommandTest extends CommandTest {
         todolist.setTasks(tasks);
         
         for (ImmutableTask task : model.getObservableList()) {
-            System.out.println(task.getTitle() + " " + task.getLastUpdated());
+            System.out.println(task.getTitle() + " " + task.getCreatedAt());
         }
         System.out.println();
         

@@ -14,7 +14,7 @@ public class TaskViewFilter {
         .result();
     
     private static final Comparator<ImmutableTask> LAST_UPDATED = (a, b) -> 
-        b.getLastUpdated().compareTo(a.getLastUpdated());
+        b.getCreatedAt().compareTo(a.getCreatedAt());
     
     public static final TaskViewFilter DEFAULT = new TaskViewFilter("show all",
         null, LAST_UPDATED, 5);

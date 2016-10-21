@@ -69,8 +69,7 @@ public class TaskTest {
             return null;
         }
 
-        @Override
-        public LocalDateTime getLastUpdated() { return null; }
+        public LocalDateTime getCreatedAt() { return null; }
 
         @Override
         public UUID getUUID() {
@@ -144,24 +143,18 @@ public class TaskTest {
 
     @Test
     public void testLastUpdated() throws Exception {
-        assertNotNull(task.getLastUpdated());
+        assertNotNull(task.getCreatedAt());
 
         LocalDateTime anotherTime = LocalDateTime.now().minusDays(1);
 
-        task.setLastUpdated(anotherTime);
-        assertEquals(anotherTime, task.getLastUpdated());
-    }
-
-    @Test(expected = IllegalValueException.class)
-    public void testLastUpdatedFutureTime() throws Exception {
-        LocalDateTime anotherTime = LocalDateTime.now().plusDays(1);
-        task.setLastUpdated(anotherTime);
+        task.setCreatedAt(anotherTime);
+        assertEquals(anotherTime, task.getCreatedAt());
     }
     
     @Test
     public void testLastUpdatedNull() throws Exception {
-        task.setLastUpdated(null);
-        assertNotNull(task.getLastUpdated());
+        task.setCreatedAt(null);
+        assertNotNull(task.getCreatedAt());
     }
 
     @Test
@@ -198,7 +191,7 @@ public class TaskTest {
 
     @Test
     public void testGetObservableProperties() {
-        assertEquals(9, task.getObservableProperties().length);
+        assertEquals(8, task.getObservableProperties().length);
     }
 
     @Test

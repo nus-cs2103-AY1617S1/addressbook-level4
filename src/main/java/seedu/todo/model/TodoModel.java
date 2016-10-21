@@ -63,8 +63,18 @@ public class TodoModel implements Model {
         
         // Sets the default view 
         view(TaskViewFilter.DEFAULT.filter, TaskViewFilter.DEFAULT.sort);
+        
+        // Update event status 
+        
     }
 
+    /**
+     * Because the model does filtering and sorting on the tasks, the incoming index needs to be 
+     * translated into it's index in the underlying todolist. The code below is not particularly 
+     * clean, but it works well enough. 
+     * 
+     * @throws ValidationException if the index is invalid
+     */
     private int getTaskIndex(int index) throws ValidationException {
         int taskIndex;
 
@@ -96,6 +106,10 @@ public class TodoModel implements Model {
     private void saveUndoState() {
         saveState(undoStack);
         redoStack.clear();
+    }
+    
+    private void updateEventStatus() {
+        
     }
     
     @Override

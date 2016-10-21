@@ -21,9 +21,4 @@ public interface MutableTask extends ImmutableTask {
     public void setEndTime(LocalDateTime endTime);
 
     public void setTags(Set<Tag> tags);
-
-    /**
-     * Automatically updates the field to the current time.
-     */
-    public void setLastUpdated();
 }

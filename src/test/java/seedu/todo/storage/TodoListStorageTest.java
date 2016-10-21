@@ -93,14 +93,6 @@ public class TodoListStorageTest {
     }
 
     @Test
-    public void testDifferentTodoList() throws Exception {
-        storage.save(original);
-        ImmutableTodoList readBack = storage.read(filePath);
-        when(original.getTasks()).thenReturn(ImmutableList.of(new Task("Test")));
-        assertFalse(isShallowEqual(original.getTasks(), readBack.getTasks()));
-    }
-
-    @Test
     public void testReadAndSave() throws Exception {
         when(original.getTasks()).thenReturn(TaskFactory.list());
         // Save in new file and read back
@@ -143,5 +135,4 @@ public class TodoListStorageTest {
         thrown.expect(AssertionError.class);
         storage.save(original, null);
     }
-
 }

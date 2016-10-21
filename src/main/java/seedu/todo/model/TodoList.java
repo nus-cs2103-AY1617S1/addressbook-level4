@@ -97,7 +97,6 @@ public class TodoList implements TodoListModel {
 
         // changes are validated and accepted
         update.accept(task);
-        task.setLastUpdated();
         saveTodoList();
         return task;
     }
