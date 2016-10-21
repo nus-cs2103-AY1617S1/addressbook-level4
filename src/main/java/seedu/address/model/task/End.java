@@ -32,17 +32,46 @@ public class End {
         if (!isValidEnd(end)) {
             throw new IllegalValueException(MESSAGE_END_CONSTRAINTS);
         }
-        if (end == "default")
+        if (end.equals("default"))
         	this.value = DEFAULT_END_TIME;
+        else if (end.equals("no end"))
+        	this.value = "no end";
         else
-        	this.value = end;
+        	this.value = changeTo24HourFormat(end);
     }
+    
+    private String changeTo24HourFormat(String end) {
+		if (Character.isDigit(end.charAt(end.length()-1)))
+			return end;
+		else if (end.length() == 3) {
+			if (end.substring(1).equalsIgnoreCase("pm"))
+				return (Integer.parseInt(end.substring(0,1))+12) + "00";
+			else
+				return "0" + end.substring(0, 1) + "00";
+		}
+		else if (end.length() == 4) {
+			if (end.substring(2).equalsIgnoreCase("pm"))
+				return (Integer.parseInt(end.substring(0,2))+12) + "00";
+			else
+				return end.substring(0, 2) + "00";
+		}
+		else {
+			String[] time_cat = end.split("\\.");
+			if (time_cat[0].length() ==1)
+				time_cat[0] = "0" + time_cat[0];
+			if (time_cat[1].substring(2).equalsIgnoreCase("pm")) 
+				time_cat[0] = "" + (Integer.parseInt(time_cat[0]) + 12);
+			return time_cat[0] + time_cat[1].substring(0, 2);
+		}
+			
+	}
+
 
     /**
      * Returns true if a given string is a valid task end time.
      */
     public static boolean isValidEnd(String test) {
-    	if (test.matches(END_VALIDATION_REGEX) || test == "default")
+    	if (test.matches(END_VALIDATION_REGEX) || test.equals("default"))
     		return true;
     	else
     		return false;
