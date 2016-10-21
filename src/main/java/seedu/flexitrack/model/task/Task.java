@@ -112,12 +112,14 @@ public class Task implements ReadOnlyTask {
     }
 
     private void setIsDone(boolean isDone) {
-        if (isDone && !this.isDone) {
+        if (isDone && this.isDone == false) {
             name.setName("(Done)" + name.toString());
-        } else if (!isDone && !this.isDone) {
+            this.isDone = true;
+        } else if (!isDone && this.isDone == true) {
             name.setName(name.toString().replace("(Done)", ""));
+            this.isDone = false;
         }
-        this.isDone = isDone;
+        //this.isDone = isDone;
     }
 
     public void markTask(boolean isDone) {
