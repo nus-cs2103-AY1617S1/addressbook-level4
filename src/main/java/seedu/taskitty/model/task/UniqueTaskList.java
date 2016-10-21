@@ -64,6 +64,12 @@ public class UniqueTaskList implements Iterable<Task> {
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
+        for (int i = 0; i < internalList.size(); i++) {
+            if (toAdd.compareTo(internalList.get(i)) < 0) {
+                internalList.add(i, toAdd);
+                return;
+            }
+        }
         internalList.add(toAdd);
     }
     
