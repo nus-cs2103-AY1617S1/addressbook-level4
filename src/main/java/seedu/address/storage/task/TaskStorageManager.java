@@ -6,6 +6,7 @@ import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AliasChangedEvent;
+import seedu.address.commons.events.model.NewTaskListEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -92,6 +93,16 @@ public class TaskStorageManager extends ComponentManager implements TaskStorage 
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveTaskManager(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+    
+    @Subscribe
+    public void handleNewTaskListEvent(NewTaskListEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveTaskManager(event.newTasks);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

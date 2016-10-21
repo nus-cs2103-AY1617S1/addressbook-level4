@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
@@ -14,6 +15,7 @@ import javafx.stage.Stage;
 import seedu.address.model.task.Task;
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.NewTaskListEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 
 import java.util.logging.Logger;
@@ -83,9 +85,10 @@ public class TaskListPanel extends UiPart {
     }
     
     @Subscribe
-    public void handleAddressBookChangedEvent(TaskManagerChangedEvent abce) {
-    	UniqueItemCollection<Task> newTasks = abce.data;
-        setConnections(newTasks.getInternalList());
+    public void handleNewTaskListEvent(NewTaskListEvent abce) {
+    	FilteredList<Task> newTasks = abce.filteredTasks;
+		newTasks.setPredicate(p -> !p.isComplete());
+		setConnections(newTasks);
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Refreshed task list"));
     }
 

@@ -17,11 +17,21 @@ public class FloatingTask extends Task implements FavoritableTask, CompletableTa
 	public FloatingTask copy() {
 		Description newDescription = new Description(this.description.getContent());
 		FloatingTask newTask = new FloatingTask(newDescription);
+		
+		// Copy favorite status
 		if (this.isFavorite()) {
 			newTask.setAsFavorite();
 		} else {
 			newTask.setAsNotFavorite();
 		}
+		
+		// Copy completed status
+		if (this.isComplete()) {
+			newTask.setAsComplete();
+		} else {
+			newTask.setAsUncomplete();
+		}
+		
 		return newTask;
 	 }
 	

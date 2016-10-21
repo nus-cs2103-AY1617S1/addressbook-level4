@@ -31,11 +31,21 @@ public class EventTask extends Task implements FavoritableTask, CompletableTask,
 		Date newStartDate = new Date(this.startDate.getTime());
 		Date newEndDate = new Date(this.endDate.getTime());
 		EventTask newTask = new EventTask(newDescription, newStartDate, newEndDate); 
+		
+		// Copy favorite status
 		if (this.isFavorite()) {
 			newTask.setAsFavorite();
 		} else {
 			newTask.setAsNotFavorite();
 		}
+		
+		// Copy completed status
+		if (this.isComplete()) {
+			newTask.setAsComplete();
+		} else {
+			newTask.setAsUncomplete();
+		}
+		
 		return newTask;
 	}
 	

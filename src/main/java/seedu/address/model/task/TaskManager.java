@@ -11,6 +11,7 @@ import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundExcept
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AliasChangedEvent;
+import seedu.address.commons.events.model.NewTaskListEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.Alias;
@@ -189,7 +190,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		filteredTasks = new FilteredList<>(tasks.getInternalList());
 		
 		// Raise the changes
-		indicateTaskManagerChanged();
+		indicateNewTaskListEvent();
 		indicateAliasChanged();
 	}
 	
@@ -199,6 +200,10 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
     private void indicateTaskManagerChanged() {
     	FXCollections.sort(tasks.getInternalList());
         raise(new TaskManagerChangedEvent(tasks));
+    }
+    
+    private void indicateNewTaskListEvent() {
+    	raise(new NewTaskListEvent(tasks, filteredTasks));
     }
 
 	@Override

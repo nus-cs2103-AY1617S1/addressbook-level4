@@ -25,10 +25,19 @@ public class DeadlineTask extends Task implements FavoritableTask, CompletableTa
 		String newDescription = this.description.getContent();
 		Date newDeadline = new Date(this.deadline.getTime());
 		DeadlineTask newTask = new DeadlineTask(newDescription, newDeadline);
+		
+		// Copy favorite status
 		if (this.isFavorite()) {
 			newTask.setAsFavorite();
 		} else {
 			newTask.setAsNotFavorite();
+		}
+		
+		// Copy completed status
+		if (this.isComplete()) {
+			newTask.setAsComplete();
+		} else {
+			newTask.setAsUncomplete();
 		}
 		return newTask;
 	}
