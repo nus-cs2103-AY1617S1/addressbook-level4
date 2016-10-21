@@ -56,8 +56,52 @@ public class TestTaskList {
         }
     }
     
-    public void removeTaskFromList(TestTask task) {
+    public TestTask getTaskFromList(int index, String category) {
+        switch (category) {
         
+        case ("d") :
+            return deadlineList.get(index);
+            
+        case ("e") :
+            return eventList.get(index);
+            
+        default :
+            return todoList.get(index);
+        }
+            
+    }
+    
+    public void removeTaskFromList(int index, String category) {
+        switch (category) {
+        
+        case ("d") :
+            deadlineList.remove(index);
+            deadlineList.sort(null);
+            break;
+            
+        case ("e") :
+            eventList.remove(index);
+            eventList.sort(null);
+            break;
+            
+        default :
+            todoList.remove(index);
+            todoList.sort(null);
+        }
+    }
+    
+    public int size(String category) {
+        switch (category) {
+        
+        case ("d") :
+            return deadlineList.size();
+            
+        case ("e") :
+            return eventList.size();
+            
+        default :
+            return todoList.size();
+        }
     }
     
     public void clear() {
