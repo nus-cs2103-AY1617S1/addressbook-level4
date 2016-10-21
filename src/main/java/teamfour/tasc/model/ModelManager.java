@@ -87,16 +87,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public boolean undoTaskListHistory() {
+    public int undoTaskListHistory(int numToUndo) {
+        assert numToUndo > 0;
+        
+        int numUndone = 0;
         TaskList historyTaskList = null;
         try {
-            historyTaskList = taskListHistory.popState();
+            for (int i = 0; i < numToUndo; i++) {
+                historyTaskList = taskListHistory.popState();
+                numUndone++;
+            }
         } catch (OutOfHistoryException e) {
             logger.fine(e.getMessage());
-            return false;
         }
-        resetData(historyTaskList);
-        return true;
+        
+        if (historyTaskList != null) {
+            resetData(historyTaskList);
+        }
+        return numUndone;
     }
 
     @Override

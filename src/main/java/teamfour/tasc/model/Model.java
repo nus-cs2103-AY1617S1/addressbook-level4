@@ -28,10 +28,11 @@ public interface Model {
     void saveTaskListHistory();
     
     /**
+     * Precondition: numToUndo must be > 0.
      * Reverts the task list to the most recent past state
-     * @return true if successful
+     * @return number of history states undone
      */
-    boolean undoTaskListHistory();
+    int undoTaskListHistory(int numToUndo);
     
     /** Deletes the given task */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;

@@ -20,7 +20,7 @@ public class HistoryStack<T extends HistoryItem<T>> {
     
     // Uses a LinkedList so that can removeFirst 
     // for states that are too old.
-    LinkedList<T> historyLL;
+    private final LinkedList<T> historyLL;
     
     /**
      * Default constructor creates with default size.
