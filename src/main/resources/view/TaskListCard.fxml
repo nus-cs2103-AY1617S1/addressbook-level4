@@ -35,7 +35,7 @@
                               </HBox.margin></Label>
                                     <Label fx:id="taskName" styleClass="cell_name_label" text="task name" wrapText="true" />
                                 </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" />
+                                <Label fx:id="priority" styleClass="cell_small_label" />
                             </children>
                         </HBox>
                     </children>

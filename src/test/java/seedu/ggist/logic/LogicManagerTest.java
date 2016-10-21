@@ -386,10 +386,8 @@ public class LogicManagerTest {
             TaskTime startTime = new TaskTime("1800");
             TaskDate endDate = new TaskDate("18 Oct");
             TaskTime endTime = new TaskTime("2000");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(taskName, startDate, startTime, endDate, endTime, tags);
+            Priority priority = new Priority("high");
+            return new Task(taskName, startDate, startTime, endDate, endTime, priority);
         }
 
         /**
@@ -406,7 +404,7 @@ public class LogicManagerTest {
                     new TaskTime("123"+seed),
                     new TaskDate("Oct 2" + Math.abs(seed)),
                     new TaskTime("213" + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new Priority("high")
             );
         }
 
@@ -417,16 +415,12 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getTaskName().toString());
-            cmd.append(",").append(p.getStartDate());
-            cmd.append(",").append(p.getStartTime());
-            cmd.append(",").append(p.getEndDate());
-            cmd.append("-").append(p.getEndTime());
-
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
-            }
-
+            cmd.append(",").append(p.getStartDate().toString());
+            cmd.append(",").append(p.getStartTime().toString());
+            cmd.append(",").append(p.getEndDate().toString());
+            cmd.append("-").append(p.getEndTime().toString());
+            cmd.append(",").append(p.getPriority().toString());
+            
             return cmd.toString();
         }
 
@@ -507,7 +501,7 @@ public class LogicManagerTest {
                     new TaskTime("1800"),
                     new TaskDate("13 Oct"),
                     new TaskTime("2000"),
-                    new UniqueTagList(new Tag("tag"))
+                    new Priority("high")
             );
         }
     }

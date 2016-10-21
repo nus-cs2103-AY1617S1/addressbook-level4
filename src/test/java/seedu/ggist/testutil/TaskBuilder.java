@@ -20,13 +20,6 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
-        for (String tag: tags) {
-            task.getTags().add(new Tag(tag));
-        }
-        return this;
-    }
-
     public TaskBuilder withStartDate(String date) throws IllegalValueException {
         this.task.setStartDate(new TaskDate(date));
         return this;
@@ -46,6 +39,12 @@ public class TaskBuilder {
         this.task.setEndTime(new TaskTime(endTime));
         return this;
     }
+    
+    public TaskBuilder withPriority(String priority) throws IllegalValueException {
+        this.task.setPriority(new Priority(priority));
+        return this;
+    }
+
 
     public TestTask build() {
         return this.task;
