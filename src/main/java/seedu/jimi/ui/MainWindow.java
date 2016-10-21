@@ -108,7 +108,9 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         agendaPanel = AgendaPanel.load(primaryStage, getAgendaPlaceholder(), logic.getFilteredAgendaTaskList(),
-                logic.getFilteredAgendaEventList());
+                logic.getFilteredAgendaEventList(), logic.getFilteredFloatingTaskList(),
+                logic.getFilteredIncompleteTaskList(), logic.getFilteredCompletedTaskList(),
+                logic.getFilteredDaysTaskList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredFloatingTaskList(),
                 logic.getFilteredIncompleteTaskList(), logic.getFilteredCompletedTaskList(),
                 logic.getFilteredDaysTaskList());
