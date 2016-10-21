@@ -4,8 +4,6 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -39,11 +37,6 @@ public interface Model {
     /** Updates the given task */
     void editTask(int index, Task task) throws UniqueTaskList.TaskNotFoundException;
     
-    //@@author A0142184L
-    /** Put the task marked as done to the back of the list*/
-	void putDoneTaskToLast(int index, Task task) throws TaskNotFoundException, DuplicateTaskException;
-	
-	//@@author 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     
@@ -70,6 +63,7 @@ public interface Model {
 	/** Returns the unfiltered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
 	UnmodifiableObservableList<ReadOnlyTask> getUnfilteredTaskList();
     //@@author
+
 	/** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
     
@@ -78,5 +72,6 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+
 
 }
