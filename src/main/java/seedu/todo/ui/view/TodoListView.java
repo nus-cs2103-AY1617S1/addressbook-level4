@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.ui.UiPart;
-import seedu.todo.ui.UiPartLoader;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.model.task.ImmutableTask;
 
@@ -51,7 +51,7 @@ public class TodoListView extends UiPart {
                                     ObservableList<ImmutableTask> todoList) {
         
         TodoListView todoListView =
-                UiPartLoader.loadUiPart(primaryStage, placeHolder, new TodoListView());
+                UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new TodoListView());
         todoListView.configure(todoList);
         return todoListView;
     }

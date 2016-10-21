@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.UiPart;
-import seedu.todo.ui.UiPartLoader;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.util.logging.Logger;
@@ -34,7 +34,7 @@ public class CommandFeedbackView extends UiPart {
      * @return an instance of this class
      */
     public static CommandFeedbackView load(Stage primaryStage, AnchorPane placeHolder) {
-        CommandFeedbackView feedbackView = UiPartLoader.loadUiPart(primaryStage, placeHolder, new CommandFeedbackView());
+        CommandFeedbackView feedbackView = UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new CommandFeedbackView());
         feedbackView.addToPlaceholder();
         feedbackView.configureLayout();
         return feedbackView;

@@ -11,7 +11,7 @@ import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.enumerations.TaskViewFilter;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.ui.UiPart;
-import seedu.todo.ui.UiPartLoader;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
@@ -43,7 +43,7 @@ public class FilterBarView extends UiPart {
      * @return an instance of this class
      */
     public static FilterBarView load(Stage primaryStage, AnchorPane placeholder) {
-        FilterBarView filterView = UiPartLoader.loadUiPart(primaryStage, placeholder, new FilterBarView());
+        FilterBarView filterView = UiPartLoaderUtil.loadUiPart(primaryStage, placeholder, new FilterBarView());
         filterView.addToPlaceholder();
         filterView.configureLayout();
         filterView.configureProperties();

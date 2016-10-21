@@ -12,7 +12,7 @@ import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.logic.commands.CommandSummary;
 import seedu.todo.ui.UiPart;
-import seedu.todo.ui.UiPartLoader;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.ViewGeneratorUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
@@ -41,7 +41,7 @@ public class HelpView extends UiPart {
      * @return an instance of this class
      */
     public static HelpView load(Stage primaryStage, AnchorPane placeholder) {
-        HelpView helpView = UiPartLoader.loadUiPart(primaryStage, placeholder, new HelpView());
+        HelpView helpView = UiPartLoaderUtil.loadUiPart(primaryStage, placeholder, new HelpView());
         helpView.addToPlaceholder();
         helpView.configureLayout();
         helpView.hideHelpPanel();

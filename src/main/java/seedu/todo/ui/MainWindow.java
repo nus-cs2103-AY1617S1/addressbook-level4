@@ -12,6 +12,7 @@ import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.logic.Logic;
 import seedu.todo.model.UserPrefs;
 import seedu.todo.ui.controller.CommandController;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.view.*;
 
 /**
@@ -79,7 +80,7 @@ public class MainWindow extends UiPart {
 
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
-        MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
+        MainWindow mainWindow = UiPartLoaderUtil.loadUiPart(primaryStage, new MainWindow());
         mainWindow.configure(config.getAppTitle(), config.getTodoListName(), config, prefs, logic);
         return mainWindow;
     }

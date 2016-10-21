@@ -1,15 +1,16 @@
-package seedu.todo.ui;
+package seedu.todo.ui.util;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.todo.MainApp;
+import seedu.todo.ui.UiPart;
 
 /**
  * A utility class to load UiParts from FXML files.
  */
-public class UiPartLoader {
+public class UiPartLoaderUtil {
     private final static String FXML_FILE_FOLDER = "/view/";
 
     public static <T extends UiPart> T loadUiPart(Stage primaryStage, T controllerSeed) {

@@ -12,7 +12,7 @@ import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.ui.UiPart;
-import seedu.todo.ui.UiPartLoader;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.util.ViewGeneratorUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
@@ -72,7 +72,7 @@ public class TaskCardView extends UiPart {
         taskListCard.task = task;
         taskListCard.displayedIndex = displayedIndex;
         taskCardMap.put(task, taskListCard);
-        return UiPartLoader.loadUiPart(taskListCard);
+        return UiPartLoaderUtil.loadUiPart(taskListCard);
     }
 
     /**
