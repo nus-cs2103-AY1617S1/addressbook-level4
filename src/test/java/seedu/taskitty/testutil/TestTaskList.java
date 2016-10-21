@@ -74,6 +74,11 @@ public class TestTaskList {
             
     }
     
+    public void editTaskFromList(int index, String category, TestTask task) {
+        removeTaskFromList(index, category);
+        addTaskToList(task);
+    }
+    
     public void removeTaskFromList(int index, String category) {
         switch (category) {
         

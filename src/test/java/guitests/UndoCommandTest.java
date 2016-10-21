@@ -34,10 +34,12 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         assertUndoSuccess(previous, "delete " + targetIndex);
         testTaskListStack.push(previous);
         
+        TestTask taskToEdit = td.event;
+        testTaskListStack.push(editTask(1, taskToEdit, "t", testTaskListStack.peek()));
         commandBox.runCommand("find xmass");        
-//       TestTask taskToEdit = td.event;
-//       editTask(1, taskToEdit, testTaskList.peek());                   
+                           
         assertUndoSuccess(testTaskListStack.pop(), "find xmass");
+        assertUndoSuccess(testTaskListStack.pop(), taskToEdit.getEditCommand(1, "t"));
         assertUndoSuccess(testTaskListStack.pop(), taskToAdd.getAddCommand());
         assertNoMoreUndos();        
     }
@@ -55,11 +57,12 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         return resultList;
     }
     
-//    private TestTask[] editTask(int index, TestTask taskToEdit, TestTaskList list) {
-//        TestTask[] resultList = TestUtil.replacePersonFromList(list, taskToEdit, index - 1);
-//        commandBox.runCommand(taskToEdit.getEditCommand(index));
-//        return resultList;
-//    }
+    private TestTaskList editTask(int index, TestTask taskToEdit, String category, TestTaskList list) {
+        TestTaskList resultList = list.copy();        
+        commandBox.runCommand(taskToEdit.getEditCommand(index, category));
+        resultList.editTaskFromList(index - 1, category, taskToEdit);
+        return resultList;
+    }
     
     private TestTaskList deleteTask(int targetIndex, TestTaskList list) {
         TestTaskList resultList = list.copy();
