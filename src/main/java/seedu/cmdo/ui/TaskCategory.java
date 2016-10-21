@@ -1,8 +1,12 @@
 package seedu.cmdo.ui;
 
 import java.awt.Font;
+import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -10,6 +14,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import seedu.cmdo.commons.core.LogsCenter;
+import seedu.cmdo.model.task.DueByDate;
+import seedu.cmdo.model.task.ReadOnlyTask;
+import seedu.cmdo.model.task.Task;
 import javafx.scene.Node;
 //import javafx.scene.layout.GridPane;
 
@@ -170,5 +177,84 @@ public class TaskCategory extends UiPart {
 		totalTask.setText("Total Tasks");
 		//totalTask.setTextFill(Color.VIOLET);	
 	}
+	
+	//@@author A0139661Y
+    public void updateTasksOverviewPanel(ObservableList<Task> taskObservableList) {
+        List<Integer> countMap = getTaskTimeStateCount(taskObservableList);
+        
+    	//Integer tasksInInbox = 0;
+        Integer overdueNumber = 0;
+        Integer todayNumber = 0;
+        Integer thisWeekNumber = 0;
+        Integer thisMonthNumber = 0;
+        Integer somedayNumber = 0;
+        Integer totalTasksNumber = taskObservableList.size();
+        
+        for (Integer i:countMap) {
+        	switch (i) {
+        	case -1:
+        		overdueNumber++;
+        		break;
+        	case 0:
+        		somedayNumber++;
+        		break;
+        	case 3:
+        		todayNumber++;
+        	case 2:
+        		thisWeekNumber++;
+        	case 1:
+        		thisMonthNumber++;
+        	}
+        }
+     }
+
+     /**
+     * Determines the time-state of the task in question
+     * 
+     * =======TIME-STATE TABLE=======
+     * |    state   |   due         |
+     * |------------|---------------|
+     * |    666     |   error       |
+     * |    -1      |   overdue     |
+     * |    0       |   no due date |
+     * |    1       |   today       |
+     * |    2       |   this week   |
+     * |    3       |   this month  |
+     * ==============================
+     * 
+     * @param task in question
+     * @return int based on the time-state
+     * 
+     * @@author A0139661Y
+     */
+    public int getTaskTimeState(ReadOnlyTask task) {
+        DueByDate dbd = task.getDueByDate();
+        
+        LocalDate nowDate = LocalDate.now();
+        LocalDate weekDate = nowDate.plusWeeks(1);
+        LocalDate monthDate = nowDate.plusMonths(1);
+        LocalDate dueDate = dbd.start;
+        
+        // Floating tasks.
+        if (dueDate.equals(LocalDate.MIN)) {
+            return 0;
+        }
+        
+        if (dueDate.isBefore(nowDate)) return -1;
+        if (dueDate.isEqual(nowDate)) return 1;
+        if (dueDate.isBefore(weekDate)) return 2;
+        if (dueDate.isBefore(monthDate)) return 3;
+        
+        return 666;
+    }
+    
+    //@@author A0139661Y
+    public List<Integer> getTaskTimeStateCount(ObservableList<Task> taskObservableList) {
+        List<Integer> countMap = Collections.EMPTY_LIST;
+        for (Task t:taskObservableList) {
+            countMap.add(getTaskTimeState(t));          
+        }
+        return countMap;
+    }
 	
 }
