@@ -4,6 +4,7 @@ import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.events.ui.ChangeCalendarViewRequestEvent;
 import teamfour.tasc.commons.events.ui.ExitAppRequestEvent;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
+import teamfour.tasc.ui.CalendarPanel;
 
 /**
  * Changes the calendar view.
@@ -24,7 +25,6 @@ public class CalendarCommand extends Command {
     public static final String MESSAGE_FAILURE_IS_ALREADY_THE_VIEW = 
             "Calendar is already in %1$s view.";
 
-    private static String currentCalendarView = KEYWORD_CALENDAR_VIEW_WEEK;
     private final String calendarView;
     
     /**
@@ -53,12 +53,11 @@ public class CalendarCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (calendarView.equals(currentCalendarView)) {
+        if (calendarView.equals(CalendarPanel.getCalendarView())) {
             return new CommandResult(String.format(
                     MESSAGE_FAILURE_IS_ALREADY_THE_VIEW, calendarView));
         }
         
-        currentCalendarView = calendarView;
         EventsCenter.getInstance().post(new ChangeCalendarViewRequestEvent(calendarView));
         return new CommandResult(String.format(MESSAGE_SUCCESS, calendarView));
     }

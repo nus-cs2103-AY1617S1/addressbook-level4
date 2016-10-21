@@ -38,6 +38,7 @@ import teamfour.tasc.ui.calendar.CalendarReadOnlyRecurredAppointment;
 public class CalendarPanel extends UiPart {
 
     private static Logger logger = LogsCenter.getLogger(CalendarPanel.class);
+    private static String currentCalendarView = "";
    
     private Agenda agendaView;
     private ReadOnlyTask lastSelectedTask;
@@ -47,6 +48,10 @@ public class CalendarPanel extends UiPart {
      */
     private CalendarPanel() {
         lastSelectedTask = null;
+    }
+    
+    public static String getCalendarView() {
+        return currentCalendarView;
     }
     
     public static CalendarPanel load(AnchorPane placeholder, List<ReadOnlyTask> initialTaskList) {
@@ -106,9 +111,11 @@ public class CalendarPanel extends UiPart {
         switch(view) {
         case CalendarCommand.KEYWORD_CALENDAR_VIEW_DAY:
             agendaView.setSkin(new AgendaDaySkin(agendaView));
+            currentCalendarView = CalendarCommand.KEYWORD_CALENDAR_VIEW_DAY;
             break;
         case CalendarCommand.KEYWORD_CALENDAR_VIEW_WEEK:
             agendaView.setSkin(new AgendaWeekSkin(agendaView));
+            currentCalendarView = CalendarCommand.KEYWORD_CALENDAR_VIEW_WEEK;
             break;
         default:
             logger.warning("Calendar view type is invalid: " + view);
