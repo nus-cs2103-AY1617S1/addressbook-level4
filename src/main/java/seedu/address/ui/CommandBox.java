@@ -4,10 +4,13 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
@@ -36,6 +39,7 @@ public class CommandBox extends UiPart {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
         commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
+        commandBox.setKeyListener();
         return commandBox;
     }
 
@@ -81,6 +85,26 @@ public class CommandBox extends UiPart {
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
+    
+    private void setKeyListener() {
+    	commandTextField.setOnKeyPressed(keyListener);
+    }
+    
+    private EventHandler<KeyEvent> keyListener = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+            if(event.getCode() == KeyCode.UP) {
+                
+            }  else if(event.getCode() == KeyCode.DOWN) {
+            	commandTextField.setText("DOWN");
+            } else if(event.getCode() == KeyCode.TAB) {
+            	commandTextField.setText("TAB");
+            } else {
+            	return;
+            }
+            event.consume();
+        }
+    };
 
 
     /**
