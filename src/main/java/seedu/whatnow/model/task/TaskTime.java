@@ -99,9 +99,10 @@ public class TaskTime {
 		if(!isValidTimeRange(startTime, endTime)) {
 			throw new IllegalValueException(INVALID_TIME_RANGE_MESSAGE);
 		}
+		System.out.println(getFullString());
 	}
 	public String getFullString() {
-		return (date + startDate + endDate + time + startTime + endTime);
+		return (date + " " + startDate  + " " + endDate + " " + time + " " +  startTime + " " + endTime);
 	}
 	/** returns time */
 	public String getTime() {
@@ -134,7 +135,6 @@ public class TaskTime {
 	 */
 	public boolean isValidTime(String reqTime) {
 		//i.e. not a deadline but a schedule
-		System.out.println("check time 1");
 		if(reqTime == null) {
 			return true;
 		}else {
@@ -143,7 +143,6 @@ public class TaskTime {
 					return isValidTimeSeq(reqTime, ListOfTimeFormat.get(j));
 				}
 			}
-			System.out.println("Entered before false");
 			return false;
 		}
 	}
@@ -199,11 +198,14 @@ public class TaskTime {
 				cal.add(Calendar.DATE, 1);
 				date = dateFormat.format(cal.getTime());
 				time = reqTime;
+				System.out.println("this date is : " + date);
+				System.out.println("this time is : " + time);
 				return true;
 			}
 		}
 		//checks for todayDate gets current time and compare with input time, returns false if invalid
 		else if(date.equals("today")) {
+			System.out.println("Entered today else if condition");
 			if(!currEarlierThanInput){
 				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
 				Calendar cal = Calendar.getInstance();
@@ -349,9 +351,11 @@ public class TaskTime {
 			return true;
 		}
 		else if(reqDate.toLowerCase().equals("today")) {
+			date = "today";
 			return true;
 		}
 		else if(reqDate.toLowerCase().equals("tomorrow")) {
+			date = "tomorrow";
 			return true;
 		}
 		else {
