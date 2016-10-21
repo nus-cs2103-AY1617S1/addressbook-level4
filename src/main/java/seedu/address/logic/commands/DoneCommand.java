@@ -64,19 +64,21 @@ public class DoneCommand extends UndoableCommand {
                 continue;      
             }
     
-            ReadOnlyTask taskToArchive = lastShownList.get(targetIndex - adjustmentForRemovedTask - 1);
-            
-            model.addDoneTask((Task) taskToArchive);
-            // vs new (taskToArchive)?
-            // TODO
+            Task taskToArchive = new Task(lastShownList.get(targetIndex - adjustmentForRemovedTask - 1));
             
             try {
                 model.deleteTask(taskToArchive);
-                doneTasks.add((Task) taskToArchive);
+                doneTasks.add(taskToArchive);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
             }
             
+            if (taskToArchive.getRecurrenceRate().isPresent()) {
+                taskToArchive.updateRecurringTask();
+                model.addTask(taskToArchive);
+            }
+            
+            model.addDoneTask(taskToArchive);
             
             displayArchivedTasks.add(taskToArchive.toString());
             adjustmentForRemovedTask++;
