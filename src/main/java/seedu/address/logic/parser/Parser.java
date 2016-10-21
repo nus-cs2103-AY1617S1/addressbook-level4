@@ -122,7 +122,7 @@ public class Parser {
 		}
 	}
 	
-	//@@author
+	//@@author A0139339W
 	private Command prepareDone(String arguments) {
 		int[] indices;
 		try {
