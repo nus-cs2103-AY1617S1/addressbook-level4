@@ -44,8 +44,20 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Tags: ");
+        builder.append(getName());
+        if (getStartDate() != null) {
+            builder.append(" from: ")
+                    .append(getStartDate() + " ")
+                    .append(getStartTime())
+                    .append(" to ")
+                    .append(getEndDate() + " ")
+                    .append(getEndTime());
+        } else if (getEndDate() != null) {
+            builder.append(" by ")
+                .append(getEndDate() + " ")
+                .append(getEndTime());
+        }
+        builder.append("\nTags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
