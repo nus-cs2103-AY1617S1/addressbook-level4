@@ -179,7 +179,7 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.newTask();
         TaskList expectedAB = new TaskList();
         expectedAB.addTask(toBeAdded);
 
@@ -195,7 +195,7 @@ public class LogicManagerTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.newTask();
         TaskList expectedAB = new TaskList();
         expectedAB.addTask(toBeAdded);
 
@@ -385,10 +385,10 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
-            Title title = new Title("Adam Brown");
+        Task newTask() throws Exception {
+            Title title = new Title("New Task");
             DateTime privateStartDateTime = new DateTime("11112011");
-            Description description = new Description("loves ida alot");
+            Description description = new Description("New description");
             DateTime privateEndDateTime = new DateTime("22122022");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
