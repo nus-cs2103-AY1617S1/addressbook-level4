@@ -1,7 +1,6 @@
 //@@author A0139930B
 package seedu.taskitty.model.task;
 
-import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.CollectionUtil;
 import seedu.taskitty.model.tag.UniqueTagList;
 
