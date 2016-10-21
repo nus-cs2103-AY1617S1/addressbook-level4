@@ -85,12 +85,15 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(aliceTask));
         
         assertUndoSuccess(aliceTaskBackup);
-        assertRedoSuccess(aliceTask);
-        
-        
+        assertRedoSuccess(aliceTask);        
+
+        TestTask recurredAliceTask = new TestTask(aliceTaskBackup);
+        recurredAliceTask.setStartDate(DateTime.convertStringToStartDate("tomorrow 2pm"));
+        aliceTask.setEndDate(DateTime.convertStringToEndDate("tomorrow 3pm", aliceTask.getStartDate().get()));
+
         // primative done undo and redo testing until the assertDoneSuccess is complete
         commandBox.runCommand("done 1");
-        assertTrue(personListPanel.isListMatching());
+        assertTrue(personListPanel.isListMatching(recurredAliceTask));
         commandBox.runCommand("list done");
         assertTrue(personListPanel.isListMatching(aliceTask));
         

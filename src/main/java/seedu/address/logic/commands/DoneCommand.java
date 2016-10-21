@@ -33,6 +33,8 @@ public class DoneCommand extends UndoableCommand {
     
     private List<Task> doneTasks;
     
+    private List<Task> readdedRecurringTasks;
+    
     private List<Task> doneTasksUndoFail;
 
     public final List<Integer> targetIndexes;
@@ -60,6 +62,7 @@ public class DoneCommand extends UndoableCommand {
         
         // update history
         doneTasks = new ArrayList<Task>();
+        readdedRecurringTasks = new ArrayList<Task>();
 
         for (int targetIndex: targetIndexes) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
@@ -78,8 +81,10 @@ public class DoneCommand extends UndoableCommand {
             }
             
             if (taskToArchive.getRecurrenceRate().isPresent()) {
-                taskToArchive.updateRecurringTask();
-                model.addTask(taskToArchive);
+                Task recurringTaskToReAdd = new Task(taskToArchive);
+                recurringTaskToReAdd.updateRecurringTask();
+                readdedRecurringTasks.add(recurringTaskToReAdd);
+                model.addTask(recurringTaskToReAdd);
             }
             
             model.addDoneTask(taskToArchive);
@@ -109,6 +114,14 @@ public class DoneCommand extends UndoableCommand {
                 model.deleteDoneTask(doneTask);
             } catch (TaskNotFoundException e) {
                 doneTasksUndoFail.add(doneTask);
+            }
+        }
+        
+        for (Task readdedRecurTask : readdedRecurringTasks) { 
+            try {
+                model.deleteTask(readdedRecurTask);
+            } catch (TaskNotFoundException e) {
+                doneTasksUndoFail.add(readdedRecurTask);
             }
         }
         
