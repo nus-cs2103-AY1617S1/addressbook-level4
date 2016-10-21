@@ -39,7 +39,7 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
 
     /** Updates the filter of the filtered tasks list to filter by the given keyword (od/done)*/
-    void updateFilteredTaskList(String keyword);
+    void updateFilteredTaskList(String... keyword);
 
     
 

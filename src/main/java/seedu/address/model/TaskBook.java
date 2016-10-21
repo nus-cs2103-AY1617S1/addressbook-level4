@@ -50,21 +50,22 @@ public class TaskBook implements ReadOnlyTaskBook {
 
 //// list overwrite operations
 
+    
     public ObservableList<Task> getDatedTasks() {
-    	sortDatedTaskFilteredLists();
+    	sortDatedTaskLists();
         return datedTasks.getInternalList();
     }
     
     public ObservableList<Task> getUndatedTasks() {
-    	sortUndatedTaskFilteredLists();
+    	sortUndatedTaskLists();
         return undatedTasks.getInternalList();
     }
     
-    private void sortUndatedTaskFilteredLists(){
+    private void sortUndatedTaskLists(){
    	undatedTasks.sort(Task.Comparators.NAME);
     }
 
-    private void sortDatedTaskFilteredLists(){
+    private void sortDatedTaskLists(){
         datedTasks.sort(Task.Comparators.DATE);
     }
     
@@ -185,17 +186,17 @@ public class TaskBook implements ReadOnlyTaskBook {
         // TODO: refine later
     }
 
-    //this gets called when ModelManager.indicateAddressBookChanged() 
+    //this gets called when ModelManager.indicateTaskBookChanged() 
     @Override
     public List<ReadOnlyTask> getDatedTaskList() {
-    	sortDatedTaskFilteredLists();
+    	sortDatedTaskLists();
         return Collections.unmodifiableList(datedTasks.getInternalList());
     }
     
-    //this also gets called when ModelManager.indicateAddressBookChanged() 
+    //this also gets called when ModelManager.indicateTaskBookChanged() 
     @Override
     public List<ReadOnlyTask> getUndatedTaskList() {
-    	sortUndatedTaskFilteredLists();
+    	sortUndatedTaskLists();
         return Collections.unmodifiableList(undatedTasks.getInternalList());
     }
 
@@ -206,13 +207,13 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     @Override
     public UniqueTaskList getUniqueDatedTaskList() {
-    	sortDatedTaskFilteredLists();
+    	sortDatedTaskLists();
         return this.datedTasks;
     }
     
     @Override
     public UniqueTaskList getUniqueUndatedTaskList() {
-    	sortUndatedTaskFilteredLists();
+    	sortUndatedTaskLists();
         return this.undatedTasks;
     }
 
