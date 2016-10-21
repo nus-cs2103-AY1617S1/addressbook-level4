@@ -13,11 +13,18 @@ public class ListCommandTest extends TaskManagerGuiTest {
 		TestTask[] testList = td.getTypicalTasks();
 		//list without parameters
 		assertListResult("list", testList);
+		
+		//list someday
+		testList = td.getSomedayTasks();
+		assertListResult("list someday", testList);
+		
+		//list deadline
+		assertListResult("list deadline" );
 	}
 	
-	private void assertListResult(String command, TestTask... list) {
+	private void assertListResult(String command, TestTask... expectedList) {
 		commandBox.runCommand(command);
-		assertTrue(taskListPanel.isListMatching(list));
+		assertTrue(taskListPanel.isListMatching(expectedList));
 	}
 
 }

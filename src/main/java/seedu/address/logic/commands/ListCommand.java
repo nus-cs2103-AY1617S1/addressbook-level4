@@ -41,20 +41,23 @@ public class ListCommand extends Command {
     	
     	if(taskType.isPresent()) {
     		System.out.println("DEBUG2");
-    		assert taskType.get().equals("someday") || 
-    				taskType.get().equals("deadline") || 
-    				taskType.get().equals("event"); 
+    		assert taskType.get().equals("someday") || taskType.get().equals("sd") ||
+    				taskType.get().equals("deadline") || taskType.get().equals("dl") ||
+    				taskType.get().equals("event") || taskType.get().equals("ev"); 
     		System.out.println("DEBUG3");
     		switch(taskType.get()) {
     		case "someday":
+    		case "sd":
     			System.out.println("DEBUG4");
     			taskTypePredicate = (TaskFilter.isSomedayTask());
     			break;
     		case "deadline":
+    		case "dl":
     			System.out.println("DEBUG5");
     			taskTypePredicate = (TaskFilter.isDeadlineTask());
     			break;
     		case "event":
+    		case "ev":
     			System.out.println("DEBUG6");
     			taskTypePredicate = (TaskFilter.isEventTask());
     			break;
