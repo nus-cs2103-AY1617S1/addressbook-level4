@@ -17,6 +17,8 @@ import seedu.ggist.model.task.UniqueTaskList;
 import seedu.ggist.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -54,7 +56,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        updateFilteredListToShowAllUndone();
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM YY"));
+        updateFilteredListToShowDate(today);
     }
     
     public void setLastListing(String listing) {
