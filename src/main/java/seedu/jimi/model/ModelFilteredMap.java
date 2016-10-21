@@ -38,7 +38,7 @@ public class ModelFilteredMap {
 
     public void updateFilteredListToShowAll() {
         filteredMap.get(ListIdentifier.FLOATING_TASKS)
-                .setPredicate(new PredicateExpression(new FloatingTaskQualifier())::satisfies);
+                .setPredicate(new PredicateExpression(new FloatingTaskQualifier(false))::satisfies);
 
         filteredMap.get(ListIdentifier.COMPLETED)
                 .setPredicate(new PredicateExpression(new CompletedTaskQualifier(true))::satisfies);
@@ -61,9 +61,9 @@ public class ModelFilteredMap {
                 .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_6))::satisfies);
 
         filteredMap.get(ListIdentifier.TASKS_AGENDA)
-                .setPredicate(new PredicateExpression(new TaskQualifier())::satisfies);
+                .setPredicate(new PredicateExpression(new TaskQualifier(true))::satisfies);
         filteredMap.get(ListIdentifier.EVENTS_AGENDA)
-                .setPredicate(new PredicateExpression(new EventQualifier())::satisfies);
+                .setPredicate(new PredicateExpression(new EventQualifier(true))::satisfies);
     }
 
     public void updateAllDefault() {
@@ -262,27 +262,76 @@ public class ModelFilteredMap {
             }
         }
     }
-
+    
+    /**
+     * Predicate for filtering events from the internal list.
+     * @author zexuan
+     * @param checkCompleted If true, checks for event completion as well.
+     */
     private class EventQualifier implements Qualifier {
 
+        boolean checkCompleted;
+        
+        public EventQualifier(boolean checkCompleted) {
+            this.checkCompleted = checkCompleted;
+        }
+        
         @Override
         public boolean run(ReadOnlyTask task) {
+            if (checkCompleted) {
+                if (!task.isCompleted()) {
+                    return false;
+                }
+            }
             return task instanceof Event;
         }
     }
 
+    /**
+     * Predicate for filtering floatingTasks from the internal list.
+     * @author zexuan
+     * @param checkCompleted If true, checks for task completion as well.
+     */
     private class FloatingTaskQualifier implements Qualifier {
-
+        
+        boolean checkCompleted;
+        
+        public FloatingTaskQualifier(boolean checkCompleted) {
+            this.checkCompleted = checkCompleted;
+        }
+        
         @Override
         public boolean run(ReadOnlyTask task) {
+            if (checkCompleted) {
+                if (!task.isCompleted()) {
+                    return false;
+                }
+            }
             return !(task instanceof DeadlineTask) && !(task instanceof Event) && task instanceof FloatingTask;
         }
     }
     
+    
+    /**
+     * Predicate for filtering tasks from the internal list.
+     * @author zexuan
+     * @param checkCompleted If true, checks for task completion as well.
+     */
     private class TaskQualifier implements Qualifier {
 
+        boolean checkCompleted;
+        
+        public TaskQualifier(boolean checkCompleted) {
+            this.checkCompleted = checkCompleted;
+        }
+        
         @Override
         public boolean run(ReadOnlyTask task) {
+            if (checkCompleted) {
+                if (!task.isCompleted()) {
+                    return false;
+                }
+            }
             return task instanceof DeadlineTask || task instanceof FloatingTask;
         }
     }
