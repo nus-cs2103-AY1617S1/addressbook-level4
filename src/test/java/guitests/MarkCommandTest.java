@@ -34,11 +34,13 @@ public class MarkCommandTest extends FlexiTrackGuiTest {
 
         // un-mark a marked test
         assertUnMarkSuccess(1);
-        currentList = TestUtil.unMarkTasksToList(currentList, 1);
+        currentList = TestUtil.markTasksToList(currentList, 1);
+        //assertTrue(taskListPanel.isListMatching(currentList));
 
         // un-mark an unmarked test
         assertUnMarkSuccess(3);
-        currentList = TestUtil.unMarkTasksToList(currentList, 3);
+        currentList = TestUtil.markTasksToList(currentList, 3);
+        //assertTrue(taskListPanel.isListMatching(currentList));
 
         // unmark a task with invalid number
         commandBox.runCommand(TestTask.getUnMarkCommand(10));
