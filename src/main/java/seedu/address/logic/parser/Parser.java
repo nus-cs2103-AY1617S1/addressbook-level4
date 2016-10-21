@@ -176,7 +176,6 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-
         Optional<Integer> index = parseIndex(args);
         String name=args;
         if(!index.isPresent()){
@@ -184,7 +183,8 @@ public class Parser {
                 return new IncorrectCommand(
                         String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
             }
-            return new DeleteCommand(name,KEYWORDS_ARGS_FORMAT);
+           
+            return new DeleteCommand(args,KEYWORDS_ARGS_FORMAT);
         }
         return new DeleteCommand(index.get());
 
