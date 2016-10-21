@@ -47,17 +47,9 @@ public class CommandErrorView extends UiPart {
      */
     public static CommandErrorView load(Stage primaryStage, AnchorPane placeHolder) {
         CommandErrorView errorView = UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new CommandErrorView());
-        errorView.addToPlaceholder();
         errorView.configureLayout();
         errorView.hideCommandErrorView();
         return errorView;
-    }
-
-    /**
-     * Adds this view element to external placeholder
-     */
-    private void addToPlaceholder() {
-        this.placeholder.getChildren().add(errorViewBox);
     }
 
     /**

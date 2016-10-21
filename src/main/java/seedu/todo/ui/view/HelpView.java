@@ -42,17 +42,9 @@ public class HelpView extends UiPart {
      */
     public static HelpView load(Stage primaryStage, AnchorPane placeholder) {
         HelpView helpView = UiPartLoaderUtil.loadUiPart(primaryStage, placeholder, new HelpView());
-        helpView.addToPlaceholder();
         helpView.configureLayout();
         helpView.hideHelpPanel();
         return helpView;
-    }
-
-    /**
-     * Adds this view element to external placeholder
-     */
-    private void addToPlaceholder() {
-        this.placeholder.getChildren().add(helpPanelView);
     }
 
     /**

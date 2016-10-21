@@ -35,16 +35,8 @@ public class CommandFeedbackView extends UiPart {
      */
     public static CommandFeedbackView load(Stage primaryStage, AnchorPane placeHolder) {
         CommandFeedbackView feedbackView = UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new CommandFeedbackView());
-        feedbackView.addToPlaceholder();
         feedbackView.configureLayout();
         return feedbackView;
-    }
-
-    /**
-     * Adds this view element to external placeholder
-     */
-    private void addToPlaceholder() {
-        this.placeHolder.getChildren().add(textContainer);
     }
 
     /**

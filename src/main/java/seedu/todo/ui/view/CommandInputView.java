@@ -40,17 +40,9 @@ public class CommandInputView extends UiPart {
      */
     public static CommandInputView load(Stage primaryStage, AnchorPane placeHolder) {
         CommandInputView commandInputView = UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new CommandInputView());
-        commandInputView.addToPlaceholder();
         commandInputView.configureLayout();
         commandInputView.configureProperties();
         return commandInputView;
-    }
-
-    /**
-     * Adds this view element to external placeholder
-     */
-    private void addToPlaceholder() {
-        placeHolder.getChildren().add(commandInputPane);
     }
 
     /**

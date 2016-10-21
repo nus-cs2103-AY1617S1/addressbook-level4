@@ -44,17 +44,9 @@ public class FilterBarView extends UiPart {
      */
     public static FilterBarView load(Stage primaryStage, AnchorPane placeholder) {
         FilterBarView filterView = UiPartLoaderUtil.loadUiPart(primaryStage, placeholder, new FilterBarView());
-        filterView.addToPlaceholder();
         filterView.configureLayout();
         filterView.configureProperties();
         return filterView;
-    }
-
-    /**
-     * Adds this view element to external placeholder
-     */
-    private void addToPlaceholder() {
-        placeholder.getChildren().add(filterViewPane);
     }
 
     /**

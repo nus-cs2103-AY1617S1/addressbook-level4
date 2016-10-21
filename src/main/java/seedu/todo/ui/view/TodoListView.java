@@ -62,14 +62,6 @@ public class TodoListView extends UiPart {
      */
     private void configure(ObservableList<ImmutableTask> todoList) {
         setConnections(todoList);
-        addToPlaceholder();
-    }
-
-    /**
-     * Adds this view element to external placeholder
-     */
-    private void addToPlaceholder() {
-        placeHolderPane.getChildren().add(panel);
     }
 
     /**
