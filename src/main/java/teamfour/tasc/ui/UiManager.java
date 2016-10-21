@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import teamfour.tasc.MainApp;
 import teamfour.tasc.commons.core.ComponentManager;
 import teamfour.tasc.commons.core.Config;
+import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.events.storage.DataSavingExceptionEvent;
 import teamfour.tasc.commons.events.ui.ChangeCalendarViewRequestEvent;
@@ -54,6 +55,7 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            mainWindow.getCalendarPanel().changeView(prefs.getCalendarView());
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -143,5 +145,6 @@ public class UiManager extends ComponentManager implements Ui {
     public void handleChangeCalendarViewRequestEvent(ChangeCalendarViewRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getCalendarPanel().changeView(event.getCalendarViewType());
+        prefs.setCalendarView(event.getCalendarViewType());
     }
 }
