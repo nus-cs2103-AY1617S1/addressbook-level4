@@ -29,7 +29,6 @@ public class ListCommand extends Command {
     public ListCommand(String taskType, String doneStatus) {
     	this.taskType = Optional.ofNullable(taskType);
     	this.doneStatus = Optional.ofNullable(doneStatus);
-    	System.out.println("DEBUG0: " + this.taskType.isPresent());
     }
 
     @Override
@@ -37,28 +36,22 @@ public class ListCommand extends Command {
     	Predicate <ReadOnlyTask> taskTypePredicate = null;
     	Predicate <ReadOnlyTask> donePredicate = null;
     	
-    	System.out.println("DEBUG1");
     	
     	if(taskType.isPresent()) {
-    		System.out.println("DEBUG2");
     		assert taskType.get().equals("someday") || taskType.get().equals("sd") ||
     				taskType.get().equals("deadline") || taskType.get().equals("dl") ||
     				taskType.get().equals("event") || taskType.get().equals("ev"); 
-    		System.out.println("DEBUG3");
     		switch(taskType.get()) {
     		case "someday":
     		case "sd":
-    			System.out.println("DEBUG4");
     			taskTypePredicate = (TaskFilter.isSomedayTask());
     			break;
     		case "deadline":
     		case "dl":
-    			System.out.println("DEBUG5");
     			taskTypePredicate = (TaskFilter.isDeadlineTask());
     			break;
     		case "event":
     		case "ev":
-    			System.out.println("DEBUG6");
     			taskTypePredicate = (TaskFilter.isEventTask());
     			break;
     		}
