@@ -187,25 +187,25 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	}
 	
 	@Override
-    public int compareTo(Task o) {
-        if (this.getNumArgs() == o.getNumArgs()) {
+    public int compareTo(Task taskToCompare) {
+        if (this.getNumArgs() == taskToCompare.getNumArgs()) {
             if (this.isEvent()) {
-                if (!this.getStartDate().equals(o.getStartDate())) {
-                    return this.getStartDate().getDate().compareTo(o.getStartDate().getDate());
-                } else if (!this.getStartTime().equals(o.getStartTime())) {
-                    return this.getStartTime().time.compareTo(o.getStartTime().time);                    
+                if (!this.getStartDate().equals(taskToCompare.getStartDate())) {
+                    return this.getStartDate().getDate().compareTo(taskToCompare.getStartDate().getDate());
+                } else if (!this.getStartTime().equals(taskToCompare.getStartTime())) {
+                    return this.getStartTime().time.compareTo(taskToCompare.getStartTime().time);                    
                 }
             }
             if (this.isEvent() || this.isDeadline()) {
-                if (!this.getEndDate().equals(o.getEndDate())) {
-                    return this.getEndDate().getDate().compareTo(o.getEndDate().getDate());
-                } else if (!this.getEndTime().equals(o.getEndTime())) {
-                    return this.getEndTime().time.compareTo(o.getEndTime().time);                    
+                if (!this.getEndDate().equals(taskToCompare.getEndDate())) {
+                    return this.getEndDate().getDate().compareTo(taskToCompare.getEndDate().getDate());
+                } else if (!this.getEndTime().equals(taskToCompare.getEndTime())) {
+                    return this.getEndTime().time.compareTo(taskToCompare.getEndTime().time);                    
                 } 
             }
-            return this.getAsText().compareTo(o.getAsText());
+            return this.getAsText().compareTo(taskToCompare.getAsText());
         } else {
-            return this.getNumArgs() - o.getNumArgs();
+            return this.getNumArgs() - taskToCompare.getNumArgs();
         } 
     }
 	

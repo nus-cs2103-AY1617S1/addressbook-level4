@@ -6,7 +6,7 @@ import seedu.taskitty.model.task.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 
     private Name name;
     private TaskDate startDate;
@@ -123,4 +123,27 @@ public class TestTask implements ReadOnlyTask {
 	public boolean isEvent() {
 		return numArgs == 5;
 	}
+	
+	@Override
+    public int compareTo(TestTask taskToCompare) {
+        if (this.getNumArgs() == taskToCompare.getNumArgs()) {
+            if (this.isEvent()) {
+                if (!this.getStartDate().equals(taskToCompare.getStartDate())) {
+                    return this.getStartDate().getDate().compareTo(taskToCompare.getStartDate().getDate());
+                } else if (!this.getStartTime().equals(taskToCompare.getStartTime())) {
+                    return this.getStartTime().time.compareTo(taskToCompare.getStartTime().time);                    
+                }
+            }
+            if (this.isEvent() || this.isDeadline()) {
+                if (!this.getEndDate().equals(taskToCompare.getEndDate())) {
+                    return this.getEndDate().getDate().compareTo(taskToCompare.getEndDate().getDate());
+                } else if (!this.getEndTime().equals(taskToCompare.getEndTime())) {
+                    return this.getEndTime().time.compareTo(taskToCompare.getEndTime().time);                    
+                } 
+            }
+            return this.getAsText().compareTo(taskToCompare.getAsText());
+        } else {
+            return this.getNumArgs() - taskToCompare.getNumArgs();
+        } 
+    }
 }
