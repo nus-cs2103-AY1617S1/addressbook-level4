@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.jimi.commons.core.LogsCenter;
-import seedu.jimi.commons.events.model.AddressBookChangedEvent;
+import seedu.jimi.commons.events.model.TaskBookChangedEvent;
 import seedu.jimi.commons.events.ui.ShowTaskPanelSectionEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.jimi.model.datetime.DateTime;
@@ -220,13 +220,13 @@ public class TaskListPanel extends UiPart {
     
     /**
      * Updates all the titles when taskBook is changed. Updates remaining tasks for each title.
-     * @param abce
+     * @param tbce
      */
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
+    public void handleTaskBookChangedEvent(TaskBookChangedEvent tbce) {
         updateAllTitles();
         
-        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting floatingTaskListSize label to : " + ""+abce.data.getTaskList().size()));
+        logger.info(LogsCenter.getEventHandlingLogMessage(tbce, "Setting floatingTaskListSize label to : " + ""+tbce.data.getTaskList().size()));
     }
     
     /**

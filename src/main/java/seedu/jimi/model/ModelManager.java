@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import seedu.jimi.commons.core.ComponentManager;
 import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
-import seedu.jimi.commons.events.model.AddressBookChangedEvent;
+import seedu.jimi.commons.events.model.TaskBookChangedEvent;
 import seedu.jimi.commons.events.ui.ShowTaskPanelSectionEvent;
 import seedu.jimi.model.FilteredListManager.ListId;
 import seedu.jimi.model.task.ReadOnlyTask;
@@ -52,7 +52,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
     
     @Override
@@ -61,8 +61,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(taskBook));
+    private void indicateTaskBookChanged() {
+        raise(new TaskBookChangedEvent(taskBook));
     }
     
     /** Raises and event to indicate user request to show task panel sections. */
@@ -73,14 +73,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.removeTask(target);
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
     
     @Override
     public synchronized void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
     
     /**
@@ -92,7 +92,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void editReadOnlyTask(int targetIndex, ReadOnlyTask newTask) {
         taskBook.editTask(targetIndex, newTask);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
     
     /**
@@ -104,7 +104,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) {
         taskBook.completeTask(taskToComplete, isComplete);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
     
     //=========== Filtered list accessors ===============================================================

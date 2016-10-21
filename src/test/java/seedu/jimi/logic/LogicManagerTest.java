@@ -5,7 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import seedu.jimi.TestApp;
 import seedu.jimi.commons.core.Config;
 import seedu.jimi.commons.core.EventsCenter;
-import seedu.jimi.commons.events.model.AddressBookChangedEvent;
+import seedu.jimi.commons.events.model.TaskBookChangedEvent;
 import seedu.jimi.commons.events.ui.JumpToListRequestEvent;
 import seedu.jimi.commons.events.ui.ShowHelpRequestEvent;
 import seedu.jimi.commons.util.ConfigUtil;
@@ -54,8 +54,8 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
-        latestSavedTaskBook = new TaskBook(abce.data);
+    private void handleLocalModelChangedEvent(TaskBookChangedEvent tbce) {
+        latestSavedTaskBook = new TaskBook(tbce.data);
     }
 
     @Subscribe

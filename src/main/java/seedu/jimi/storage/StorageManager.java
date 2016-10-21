@@ -8,7 +8,7 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.jimi.commons.core.ComponentManager;
 import seedu.jimi.commons.core.LogsCenter;
-import seedu.jimi.commons.events.model.AddressBookChangedEvent;
+import seedu.jimi.commons.events.model.TaskBookChangedEvent;
 import seedu.jimi.commons.events.storage.DataSavingExceptionEvent;
 import seedu.jimi.commons.events.storage.StoragePathChangedEvent;
 import seedu.jimi.commons.exceptions.DataConversionException;
@@ -32,8 +32,8 @@ public class StorageManager extends ComponentManager implements Storage {
         this.userPrefsStorage = userPrefsStorage;
     }
 
-    public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
-        this(new XmlTaskBookStorage(addressBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    public StorageManager(String taskBookFilePath, String userPrefsFilePath) {
+        this(new XmlTaskBookStorage(taskBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
@@ -81,7 +81,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleTaskBookChangedEvent(TaskBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveTaskBook(event.data);

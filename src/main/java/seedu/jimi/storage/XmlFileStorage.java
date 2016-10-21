@@ -9,11 +9,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Stores addressbook data in an XML file
+ * Stores Jimi's in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given task book data to the specified file.
      */
     public static void saveDataToFile(File file, XmlSerializableTaskBook taskBook)
             throws FileNotFoundException {
@@ -25,7 +25,7 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns address book in the file or an empty address book
+     * Returns task book in the file or an empty task book
      */
     public static XmlSerializableTaskBook loadDataFromSaveFile(File file) throws DataConversionException,
                                                                             FileNotFoundException {

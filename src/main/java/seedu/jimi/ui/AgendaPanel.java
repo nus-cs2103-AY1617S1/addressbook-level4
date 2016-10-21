@@ -29,7 +29,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import seedu.jimi.commons.core.LogsCenter;
-import seedu.jimi.commons.events.model.AddressBookChangedEvent;
+import seedu.jimi.commons.events.model.TaskBookChangedEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.jimi.commons.util.FxViewUtil;
 import seedu.jimi.model.datetime.DateTime;
