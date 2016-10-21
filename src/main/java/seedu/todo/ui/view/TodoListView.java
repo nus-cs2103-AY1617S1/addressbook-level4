@@ -1,4 +1,4 @@
-package seedu.todo.ui;
+package seedu.todo.ui.view;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -11,20 +11,22 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.ui.UiPart;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.util.logging.Logger;
 
 /**
- * A panel that holds all the tasks inflated from TaskCard.
+ * A panel that holds all the tasks inflated from TaskCardView.
  */
-public class TodoListPanel extends UiPart {
+public class TodoListView extends UiPart {
     /*Constants*/
-    private static final String FXML = "TodoListPanel.fxml";
+    private static final String FXML = "TodoListView.fxml";
     
     /*Variables*/
-    private final Logger logger = LogsCenter.getLogger(TodoListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(TodoListView.class);
     private VBox panel;
     private AnchorPane placeHolderPane;
     
@@ -33,46 +35,41 @@ public class TodoListPanel extends UiPart {
     private ListView<ImmutableTask> todoListView;
 
     /**
-     * Default Constructor for {@link TodoListPanel}
+     * Default Constructor for {@link TodoListView}
      */
-    public TodoListPanel() {
+    public TodoListView() {
         super();
     }
 
     /**
-     * Loads and initialise the {@link TodoListPanel} to the placeHolder
+     * Loads and initialise the {@link TodoListView} to the placeHolder.
+     *
      * @param primaryStage of the application
      * @param placeHolder where the view element {@link #todoListView} should be placed
      * @return an instance of this class
      */
-    public static TodoListPanel load(Stage primaryStage, AnchorPane placeHolder,
-            ObservableList<ImmutableTask> todoList) {
+    public static TodoListView load(Stage primaryStage, AnchorPane placeHolder,
+                                    ObservableList<ImmutableTask> todoList) {
         
-        TodoListPanel todoListPanel = 
-                UiPartLoader.loadUiPart(primaryStage, placeHolder, new TodoListPanel());
-        todoListPanel.configure(todoList);
-        return todoListPanel;
+        TodoListView todoListView =
+                UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new TodoListView());
+        todoListView.configure(todoList);
+        return todoListView;
     }
 
     /**
-     * Configures the {@link TodoListPanel}
-     * @param todoList a list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
+     * Configures the {@link TodoListView}
+     *
+     * @param todoList A list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
      */
     private void configure(ObservableList<ImmutableTask> todoList) {
         setConnections(todoList);
-        addToPlaceholder();
-    }
-
-    /**
-     * Adds this view element to external placeholder
-     */
-    private void addToPlaceholder() {
-        placeHolderPane.getChildren().add(panel);
     }
 
     /**
      * Links the list of {@link ImmutableTask} to the todoListView.
-     * @param todoList a list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
+     *
+     * @param todoList A list of {@link ImmutableTask} to be displayed on this {@link #todoListView}.
      */
     private void setConnections(ObservableList<ImmutableTask> todoList) {
         todoListView.setItems(todoList);
@@ -82,19 +79,20 @@ public class TodoListPanel extends UiPart {
     /* Ui Methods */
     /**
      * Toggles the expanded/collapsed view of a task card.
-     * @param task to be expanded or collapsed from view.
+     *
+     * @param task The specific to be expanded or collapsed from view.
      */
-    void toggleExpandCollapsed(ImmutableTask task) {
-        TaskCard taskCard = TaskCard.getTaskCard(task);
-        if (taskCard != null) {
-            taskCard.toggleCardCollapsing();
+    public void toggleExpandCollapsed(ImmutableTask task) {
+        TaskCardView taskCardView = TaskCardView.getTaskCard(task);
+        if (taskCardView != null) {
+            taskCardView.toggleCardCollapsing();
         }
     }
 
     /**
-     * Scrolls the {@link #todoListView} to the particular task card at the listIndex
+     * Scrolls the {@link #todoListView} to the particular task card at the listIndex.
      */
-    void scrollAndSelect(int listIndex) {
+    public void scrollAndSelect(int listIndex) {
         Platform.runLater(() -> {
             todoListView.scrollTo(listIndex);
             todoListView.getSelectionModel().clearAndSelect(listIndex);
@@ -103,11 +101,12 @@ public class TodoListPanel extends UiPart {
 
     /**
      * Scrolls the {@link #todoListView} to the particular task card.
+     *
      * @param task for the list to scroll to.
      */
-    void scrollAndSelect(ImmutableTask task) {
-        TaskCard taskCard = TaskCard.getTaskCard(task);
-        int listIndex = FxViewUtil.convertToListIndex(taskCard.getDisplayedIndex());
+    public void scrollAndSelect(ImmutableTask task) {
+        TaskCardView taskCardView = TaskCardView.getTaskCard(task);
+        int listIndex = FxViewUtil.convertToListIndex(taskCardView.getDisplayedIndex());
         scrollAndSelect(listIndex);
     }
 
@@ -132,9 +131,7 @@ public class TodoListPanel extends UiPart {
      */
     private class TodoListViewCell extends ListCell<ImmutableTask> {
 
-        public TodoListViewCell() {
-        }
-
+        /* Override Methods */
         @Override
         protected void updateItem(ImmutableTask task, boolean empty) {
             super.updateItem(task, empty);
@@ -143,18 +140,18 @@ public class TodoListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                TaskCard taskCard = TaskCard.load(task, FxViewUtil.convertToUiIndex(getIndex()));
-                setGraphic(taskCard.getLayout());
-                setTaskCardStyleProperties(taskCard);
+                TaskCardView taskCardView = TaskCardView.load(task, FxViewUtil.convertToUiIndex(getIndex()));
+                setGraphic(taskCardView.getLayout());
+                setTaskCardStyleProperties(taskCardView);
             }
         }
 
         /**
          * Sets the style properties of a cell on the to-do list, that cannot be done in any other places.
          */
-        private void setTaskCardStyleProperties(TaskCard taskCard) {
+        private void setTaskCardStyleProperties(TaskCardView taskCardView) {
             this.setPadding(Insets.EMPTY);
-            this.selectedProperty().addListener((observable, oldValue, newValue) -> taskCard.markAsSelected(newValue));
+            this.selectedProperty().addListener((observable, oldValue, newValue) -> taskCardView.markAsSelected(newValue));
         }
     }
 

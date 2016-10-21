@@ -81,7 +81,7 @@ public class UiManager extends ComponentManager implements Ui {
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
                                                String contentText) {
         final Alert alert = new Alert(type);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add("style/DefaultStyle.css");
         alert.initOwner(owner);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
@@ -101,26 +101,26 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleExpandCollapseTaskEvent(ExpandCollapseTaskEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getTodoListPanel().toggleExpandCollapsed(event.task);
+        mainWindow.getTodoListView().toggleExpandCollapsed(event.task);
     }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getHelpPanel().displayCommandSummaries(event.getCommandSummaries());
+        mainWindow.getHelpView().displayCommandSummaries(event.getCommandSummaries());
     }
 
     @Subscribe
     private void handleCommandInputEnterEvent(CommandInputEnterEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getHelpPanel().hideHelpPanel();
+        mainWindow.getHelpView().hideHelpPanel();
         mainWindow.getCommandFeedbackView().clearMessage();
     }
 
     @Subscribe
     private void handleHighlightTaskEvent(HighlightTaskEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getTodoListPanel().scrollAndSelect(event.getTask());
+        mainWindow.getTodoListView().scrollAndSelect(event.getTask());
     }
 
     @Subscribe

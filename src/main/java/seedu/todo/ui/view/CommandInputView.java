@@ -13,7 +13,7 @@ import seedu.todo.commons.events.ui.CommandInputEnterEvent;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.util.TextAreaResizerUtil;
 import seedu.todo.ui.UiPart;
-import seedu.todo.ui.UiPartLoader;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.util.logging.Logger;
@@ -39,18 +39,10 @@ public class CommandInputView extends UiPart {
      * @return an instance of this class
      */
     public static CommandInputView load(Stage primaryStage, AnchorPane placeHolder) {
-        CommandInputView commandInputView = UiPartLoader.loadUiPart(primaryStage, placeHolder, new CommandInputView());
-        commandInputView.addToPlaceholder();
+        CommandInputView commandInputView = UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new CommandInputView());
         commandInputView.configureLayout();
         commandInputView.configureProperties();
         return commandInputView;
-    }
-
-    /**
-     * Adds this view element to external placeholder
-     */
-    private void addToPlaceholder() {
-        placeHolder.getChildren().add(commandInputPane);
     }
 
     /**

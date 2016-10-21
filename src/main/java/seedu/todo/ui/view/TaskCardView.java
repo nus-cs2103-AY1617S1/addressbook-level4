@@ -1,4 +1,4 @@
-package seedu.todo.ui;
+package seedu.todo.ui.view;
 
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -11,6 +11,8 @@ import javafx.scene.layout.VBox;
 import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.ui.UiPart;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.util.ViewGeneratorUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
@@ -19,19 +21,19 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 /**
- * This class links up with TaskCard.fxml layout to display details of a given ReadOnlyTask to users via the TaskListPanel.fxml.  
+ * This class links up with TaskCardView.fxml layout to display details of a given ReadOnlyTask to users via the TaskListPanel.fxml.
  */
-public class TaskCard extends UiPart{
+public class TaskCardView extends UiPart {
     /*Constants*/
-    private static final String FXML = "TaskCard.fxml";
+    private static final String FXML = "TaskCardView.fxml";
 
     private static final String TASK_TYPE = "Task";
     private static final String EVENT_TYPE = "Event";
 
     /*Static Field*/
-    //Provides a global reference between an ImmutableTask to the wrapper TaskCard class,
-    //since we have no direct access of TaskCard from the ListView object.
-    private static final Map<ImmutableTask, TaskCard> taskCardMap = new HashMap<>();
+    //Provides a global reference between an ImmutableTask to the wrapper TaskCardView class,
+    //since we have no direct access of TaskCardView from the ListView object.
+    private static final Map<ImmutableTask, TaskCardView> taskCardMap = new HashMap<>();
     
     /*Layout Declarations*/
     @FXML
@@ -55,7 +57,7 @@ public class TaskCard extends UiPart{
     private TimeUtil timeUtil = new TimeUtil();
 
     /* Default Constructor */
-    private TaskCard(){
+    private TaskCardView(){
     }
 
     /* Initialisation Methods */
@@ -65,12 +67,12 @@ public class TaskCard extends UiPart{
      * @param displayedIndex index to be displayed on the card itself to the user
      * @return an instance of this class
      */
-    public static TaskCard load(ImmutableTask task, int displayedIndex){
-        TaskCard taskListCard = new TaskCard();
+    public static TaskCardView load(ImmutableTask task, int displayedIndex){
+        TaskCardView taskListCard = new TaskCardView();
         taskListCard.task = task;
         taskListCard.displayedIndex = displayedIndex;
         taskCardMap.put(task, taskListCard);
-        return UiPartLoader.loadUiPart(taskListCard);
+        return UiPartLoaderUtil.loadUiPart(taskListCard);
     }
 
     /**
@@ -201,11 +203,11 @@ public class TaskCard extends UiPart{
 
     /* Getters */
     /**
-     * Gets the mapped {@link TaskCard} object from an {@link ImmutableTask} object
-     * @param task that is being wrapped by the {@link TaskCard} object
-     * @return a {@link TaskCard} object that contains this task (can be null if not available)
+     * Gets the mapped {@link TaskCardView} object from an {@link ImmutableTask} object
+     * @param task that is being wrapped by the {@link TaskCardView} object
+     * @return a {@link TaskCardView} object that contains this task (can be null if not available)
      */
-    static TaskCard getTaskCard(ImmutableTask task) {
+    public static TaskCardView getTaskCard(ImmutableTask task) {
         return taskCardMap.get(task);
     }
 
