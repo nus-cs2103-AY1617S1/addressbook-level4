@@ -16,7 +16,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the daily planner. "
-            + "Parameters: NAME d/DATE st/STARTTIME et/ENDTIME [t/TAG]...\n"
+            + "Parameters: NAME d/DATE s/STARTTIME e/ENDTIME [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " CS2103 Assignment d/11/11/2016 st/10pm et/11pm t/urgent t/important";
 
