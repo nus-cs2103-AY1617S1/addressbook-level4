@@ -267,7 +267,6 @@ Command | Format
 [Mark Undone](#marking-tasks--mark) | `mark -ud <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Reserve](#reserving-timeslots-for-a-task--rsv) | `rsv -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
 [Reserve [Delete]](#deleting-a-task-with-reserved-timeslots--rsv--d) | `rsv -d <INDEX>`
-[Reserve [Edit]](#editing-a-reserved-timeslot--rsv--e) | `rsv -e <INDEX> -n <TASK> -dta <START_DATE/TIME> to <END_DATE/TIME> -dtr <START_DATE/TIME> to <END_DATE/TIME`
 [Tag [Delete]](#deleting-a-tag--tag--d) | `tag -d <INDEX>`
 [Tag [Edit]](#editing-a-tags-name--tag--e) | `tag -e <INDEX> <TAG>`
 [Tag [List]](#listing-all-tags--tag--ls) | `tag -ls`
