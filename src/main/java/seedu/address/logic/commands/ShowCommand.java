@@ -19,7 +19,7 @@ public class ShowCommand extends Command {
     public ShowCommand() {}
 
     public static Predicate<Task> isNotDone() {
-    	return t -> t.getDone().equals("false");
+    	return t -> t.getDone().value == false;
     }
     
     @Override

@@ -12,7 +12,7 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Date date;
+    private Done done;
     private Time start;
     private Time end;
     
@@ -21,10 +21,10 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Date date, Time start, Time end, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, date, start, end, tags);
+    public Task(Name name, Done done, Time start, Time end, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, done, start, end, tags);
         this.name = name;
-        this.date = date;
+        this.done = done;
         this.start = start;
         this.end = end;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
@@ -34,7 +34,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
+        this(source.getName(), source.getDone(), source.getStartTime(), source.getEndTime(), source.getTags());
     }
 
     @Override
@@ -43,8 +43,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Date getDate() {
-        return date;
+    public Done getDone() {
+        return done;
     }
 
     @Override
@@ -60,11 +60,6 @@ public class Task implements ReadOnlyTask {
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
-    }
-    
-    @Override
-    public String getDone() {
-    	return date.getDate();
     }
 
     public void setName(Name name) {
@@ -96,7 +91,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, date, start, end, tags);
+        return Objects.hash(name, done, start, end, tags);
     }
 
     @Override
@@ -106,12 +101,12 @@ public class Task implements ReadOnlyTask {
     
     public void setDone() {
     	System.out.println("done");
-    	this.date.setDate("true");
+    	this.done.setDone(true);
     }
     
     public void setUndone() {
     	System.out.println("undone");
-    	this.date.setDate("false");
+    	this.done.setDone(false);
     }
 
 }

@@ -61,7 +61,7 @@ public class AddCommand extends Command {
         
         this.toAdd = new Task(
                 new Name(name),
-                new Date(date),
+                new Done(false),
                 startTime,
                 endTime,
                 new UniqueTagList(tagSet)
@@ -85,6 +85,6 @@ public class AddCommand extends Command {
     
     
     public static Predicate<Task> isNotDone() {
-    	return t -> t.getDone().equals("false");
+    	return t -> t.getDone().value == false;
     }
 }
