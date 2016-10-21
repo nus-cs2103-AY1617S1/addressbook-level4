@@ -88,7 +88,6 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Subscribe
     private void handleExecuteCommandEvent(ExecuteCommandEvent event){
-        Date now = new Date();
-        mainWindow.pushToActionHistory(now, event.title, event.description);
+        mainWindow.pushToActionHistory(event.title, event.description);
     }
 }
