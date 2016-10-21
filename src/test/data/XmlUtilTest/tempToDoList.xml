@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<todolist>
+<cmdo>
     <persons>
         <id>1</id>
         <firstName>John</firstName>
@@ -12,4 +12,4 @@
     <tags>
         <name>Friends</name>
     </tags>
-</todolist>
+</cmdo>
