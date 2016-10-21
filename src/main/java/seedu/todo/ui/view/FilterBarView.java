@@ -106,9 +106,12 @@ public class FilterBarView extends UiPart {
         textContainer.getChildren().add(rightText);
         return textContainer;
     }
-    
+
+    /**
+     * Binds this component with the {@link TaskViewFilter} property it listens to
+     */
     private void bindListener(ObservableValue<TaskViewFilter> filter) {
-        filter.addListener(((observable, oldValue, newValue) -> selectOneViewFilter(newValue)));
+        filter.addListener((observable, oldValue, newValue) -> selectOneViewFilter(newValue));
     }
     
     /**

@@ -1,6 +1,5 @@
 package seedu.todo.model;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
@@ -20,7 +19,6 @@ import seedu.todo.storage.TodoListStorage;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
-import java.util.Timer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -117,10 +115,6 @@ public class TodoModel implements Model {
     private void saveUndoState() {
         saveState(undoStack);
         redoStack.clear();
-    }
-    
-    private void updateEventStatus() {
-        
     }
     
     @Override
