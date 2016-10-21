@@ -13,28 +13,32 @@ import seedu.taskitty.testutil.TestUtil;
 
 public class UndoCommandTest extends TaskManagerGuiTest {
     
-    Stack<TestTaskList> testTaskList;
+    Stack<TestTaskList> testTaskListStack;
     
     @Test
     public void undo() {
         
-        testTaskList = new Stack<TestTaskList>();
-        testTaskList.push(new TestTaskList(td.getTypicalTasks()));
+        testTaskListStack = new Stack<TestTaskList>();
+        testTaskListStack.push(new TestTaskList(td.getTypicalTasks()));
         
         TestTask taskToAdd = td.todo;
-        testTaskList.push(addTask(taskToAdd, testTaskList.peek()));
-//        testTaskList.push(deleteTask(testTaskList.size() / 2, testTaskList.peek()));
+        testTaskListStack.push(addTask(taskToAdd, testTaskListStack.peek()));
+        
+        int targetIndex = testTaskListStack.peek().size("") / 2;
+        testTaskListStack.push(deleteTask(testTaskListStack.peek().size("") / 2, testTaskListStack.peek()));
+        
         commandBox.runCommand("clear");
-        TestTaskList previous = testTaskList.peek();
-        testTaskList.push(previous);
-        assertUndoSuccess(testTaskList.pop(), "clear");
+        assertUndoSuccess(testTaskListStack.pop(), "clear");
         
+        TestTaskList previous = testTaskListStack.pop();
+        assertUndoSuccess(previous, "delete " + targetIndex);
+        testTaskListStack.push(previous);
         
-        commandBox.runCommand("find xmass");
-//        TestTask taskToEdit = td.event;
-//        editTask(1, taskToEdit, testTaskList.peek());                   
-        assertUndoSuccess(testTaskList.pop(), "find xmass");
-        assertUndoSuccess(testTaskList.pop(), taskToAdd.getAddCommand());
+        commandBox.runCommand("find xmass");        
+//       TestTask taskToEdit = td.event;
+//       editTask(1, taskToEdit, testTaskList.peek());                   
+        assertUndoSuccess(testTaskListStack.pop(), "find xmass");
+        assertUndoSuccess(testTaskListStack.pop(), taskToAdd.getAddCommand());
         assertNoMoreUndos();        
     }
     
@@ -57,12 +61,12 @@ public class UndoCommandTest extends TaskManagerGuiTest {
 //        return resultList;
 //    }
     
-//    private TestTaskList deleteTask(int targetIndex, TestTaskList list) {
-//        TestTaskList resultList = list.copy();
-//        commandBox.runCommand("delete " + targetIndex);
-//        resultList.removeTaskFromList(targetIndex);
-//        return resultList;
-//    }
+    private TestTaskList deleteTask(int targetIndex, TestTaskList list) {
+        TestTaskList resultList = list.copy();
+        commandBox.runCommand("delete " + targetIndex);
+        resultList.removeTaskFromList(targetIndex - 1, "");
+        return resultList;
+    }
     
     private void assertUndoSuccess(TestTaskList expectedList, String commandText) {
         commandBox.runCommand("undo");

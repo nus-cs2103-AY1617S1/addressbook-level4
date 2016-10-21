@@ -25,6 +25,9 @@ public class TestTaskList {
         this.todoList = new ArrayList<TestTask>(Arrays.asList(todoList));
         this.deadlineList = new ArrayList<TestTask>(Arrays.asList(deadlineList));
         this.eventList = new ArrayList<TestTask>(Arrays.asList(eventList));
+        this.todoList.sort(null);
+        this.deadlineList.sort(null);
+        this.eventList.sort(null);
     }
     
     private void splitTaskList(TestTask[] taskList) {
@@ -76,17 +79,14 @@ public class TestTaskList {
         
         case ("d") :
             deadlineList.remove(index);
-            deadlineList.sort(null);
             break;
             
         case ("e") :
             eventList.remove(index);
-            eventList.sort(null);
             break;
             
         default :
             todoList.remove(index);
-            todoList.sort(null);
         }
     }
     

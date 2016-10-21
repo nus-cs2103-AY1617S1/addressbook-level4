@@ -2,6 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
@@ -17,6 +18,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
 
         //delete using todo/default
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
+        
         int targetIndex = currentList.size("");
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -31,6 +33,10 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         //invalid index
         commandBox.runCommand("delete t " + (currentList.size("t") + 1));
         assertResultMessage("The task index provided is invalid");
+        
+        //invalid command
+        commandBox.runCommand("deletes e " + (currentList.size("e")));
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
     }
     
