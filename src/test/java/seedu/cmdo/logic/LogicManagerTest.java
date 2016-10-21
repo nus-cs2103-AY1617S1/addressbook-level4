@@ -3,6 +3,7 @@ package seedu.cmdo.logic;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.cmdo.commons.core.EventsCenter;
+import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.events.model.ToDoListChangedEvent;
 import seedu.cmdo.commons.events.ui.JumpToListRequestEvent;
 import seedu.cmdo.commons.events.ui.ShowHelpEvent;
@@ -151,79 +152,13 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new ToDoList(), Collections.emptyList());
     }
 
-
-//    @Test
-//    public void execute_add_invalidArgsFormat() throws Exception {
-//        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-//        assertCommandBehavior(
-//                "add wrong args wrong args", expectedMessage);
-//        assertCommandBehavior(
-//                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-//        assertCommandBehavior(
-//                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-//        assertCommandBehavior(
-//                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
-//    }
-
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add new task -/tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add 'new task' -/tag", Messages.MESSAGE_INVALID_PRIORITY_SPACE );
+        assertCommandBehavior(
+        		"add new task", Messages.MESSAGE_ENCAPSULATE_DETAIL_WARNING);
     }
-
-//    @Test
-//    public void execute_add_successful() throws Exception {
-//        // setup expectations
-//        TestDataHelper helper = new TestDataHelper();
-//        Task toBeAdded = helper.adam();
-//        ToDoList expectedAB = new ToDoList();
-//        expectedAB.addTask(toBeAdded);
-//
-//        // execute command and verify result
-//        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-//                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-//                expectedAB,
-//                expectedAB.getTaskList());
-//
-//    }
-
-//    @Test
-//    public void execute_addDuplicate_notAllowed() throws Exception {
-//        // setup expectations
-//        TestDataHelper helper = new TestDataHelper();
-//        Task toBeAdded = helper.adam();
-//        ToDoList expectedAB = new ToDoList();
-//        expectedAB.addTask(toBeAdded);
-//
-//        // setup starting state
-//        model.addTask(toBeAdded); // task already in internal address book
-//
-//        // execute command and verify result
-//        assertCommandBehavior(
-//                helper.generateAddCommand(toBeAdded),
-//                AddCommand.MESSAGE_DUPLICATE_TASK,
-//                expectedAB,
-//                expectedAB.getTaskList());
-//
-//    }
-
-
-//    @Test
-//    public void execute_list_showsAllTasks() throws Exception {
-//        // prepare expectations
-//        TestDataHelper helper = new TestDataHelper();
-//        ToDoList expectedAB = helper.generateToDoList(2);
-//        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
-//
-//        // prepare address book state
-//        helper.addToModel(model, 2);
-//
-//        assertCommandBehavior("list",
-//                ListCommand.MESSAGE_SUCCESS,
-//                expectedAB,
-//                expectedList);
-//    }
-
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -417,7 +352,7 @@ public class LogicManagerTest {
 
             cmd.append("add ");
 
-            cmd.append(p.getDetail().toString());
+            cmd.append("'" + p.getDetail().toString() + "'");
             cmd.append(" ").append(p.getDueByDate().getFriendlyString());
             cmd.append(" at ").append(p.getDueByTime().getFriendlyString());
             cmd.append(" /").append(p.getPriority());
