@@ -17,7 +17,7 @@ public class UnmarkCommand extends Command {
             + ": Unmarks the task identified by the index number used in the task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmarke Task: %1$s";
+    public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmark Task: %1$s";
 
     public UnmarkCommand(int targetIndex) {
         this.targetIndex = targetIndex;
