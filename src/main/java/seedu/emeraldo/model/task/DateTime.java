@@ -46,7 +46,7 @@ public class DateTime {
     private static final String MESSAGE_KEYWORD_ON_CONSTRAINTS = "Invalid format! It should be "
                     + "'on DD/MM/YYYY'";
 
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date must follow this format DD/MM/YYYY"
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date must follow this format DD/MM/YYYY "
                     + "and time must follow this format HH:MM in 24 hours format";
     
     public static final String ON_KEYWORD_VALIDATION_REGEX = "on " + DATE_VALIDATION_REGEX;
