@@ -24,6 +24,7 @@ import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_EDIT_ITEM_SUC
 import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_USAGE;
 import static seedu.taskmanager.logic.commands.EditCommand.COMMAND_WORD;
 import static seedu.taskmanager.logic.commands.EditCommand.SHORT_COMMAND_WORD;
+import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_TAG_NOT_FOUND;
 import static seedu.taskmanager.model.item.ItemTime.MESSAGE_TIME_CONSTRAINTS;
 import static seedu.taskmanager.model.item.ItemDate.MESSAGE_DATE_CONSTRAINTS;
 import static seedu.taskmanager.logic.commands.Command.MESSAGE_DUPLICATE_ITEM;
@@ -44,6 +45,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
     private String validEndTime = "23:06";
     private String invalidTime = "46:99";
     private String invalidDate = "12345679";
+    private String nonexistentTag = "nonexistent";
     private UniqueTagList tagsToAdd = new UniqueTagList();
     private UniqueTagList tagsToRemove = new UniqueTagList();
     TestItem[] currentList;
@@ -154,8 +156,15 @@ public class EditCommandTest extends TaskManagerGuiTest {
     
     @Test
     public void edit_addDuplicateTag_duplicateItemMessage() {
-        commandBox.runCommand("edit 2  #work");
+        commandBox.runCommand("edit 2 #work");
         assertResultMessage(MESSAGE_DUPLICATE_ITEM);
+    }
+    
+    @Test
+    public void edit_deleteNonExistentTag_TagNotFoundMessage() {
+        commandBox.runCommand("edit 2 #-" + nonexistentTag );
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                            String.format(MESSAGE_TAG_NOT_FOUND, "[" + nonexistentTag + "]")));
     }
        
     @Test

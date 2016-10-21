@@ -186,7 +186,7 @@ public class EditCommand extends Command {
      * @param itemToReplace
      * @return true if parameters input by user is not valid for the item that is being edited
      */
-    private boolean isInvalidInputForItemType(Item itemToReplace) { 
+    private boolean isInvalidInputForItemType(ReadOnlyItem itemToReplace) { 
         String itemType = itemToReplace.getItemType().toString();
         assert itemType.equals(ItemType.TASK_WORD) 
                || itemType.equals(ItemType.DEADLINE_WORD) 
