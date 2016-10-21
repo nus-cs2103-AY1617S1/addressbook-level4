@@ -171,7 +171,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_add_successful() throws Exception {
+    public void execute_add_Event_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
@@ -183,8 +183,40 @@ public class LogicManagerTest {
                 String.format(AddCommand.EVENT_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getEventList(),
-                Collections.emptyList(),
-                Collections.emptyList());
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+
+    }
+    @Test
+    public void execute_add_Deadline_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.beta();
+        TaskBook expectedAB = new TaskBook();
+        expectedAB.addTask(toBeAdded);
+        
+        assertCommandBehavior(helper.generateAddDeadlineCommand(toBeAdded),
+                String.format(AddCommand.DEADLINE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+        
+    }
+    @Test
+    public void execute_add_Todo_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.charlie();
+        TaskBook expectedAB = new TaskBook();
+        expectedAB.addTask(toBeAdded);
+        
+        assertCommandBehavior(helper.generateAddTodoCommand(toBeAdded),
+                String.format(AddCommand.TODO_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
 
     }
 
@@ -420,6 +452,28 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Task(name, date, start, end, task_cat, tags);
         }
+        Task beta() throws Exception {
+            Name name = new Name("Deadlines");
+            Date date = new Date("12.12.16");
+            Start start = new Start("no start");
+            End end = new End("3pm");
+            int task_cat = 2;
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("tag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, date, start, end, task_cat, tags);
+        }
+        Task charlie() throws Exception {
+            Name name = new Name("Todo");
+            Date date = new Date("no date");
+            Start start = new Start("no start");
+            End end = new End("no end");
+            int task_cat = 3;
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("tag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Task(name, date, start, end, task_cat, tags);
+        }
 
         /**
          * Generates a valid person using the given seed.
@@ -474,7 +528,6 @@ public class LogicManagerTest {
             );
         }
 
-
         /** Generates the correct add command based on the person given */
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
@@ -489,6 +542,37 @@ public class LogicManagerTest {
             for(Tag t: tags){
                 cmd.append(" #").append(t.tagName);
             }
+            System.out.println(cmd);
+            return cmd.toString();
+        }
+        
+        /** Generates the correct add command based on the deadline given */
+        String generateAddDeadlineCommand(Task p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("add ");
+            cmd.append(p.getName().toString());
+            cmd.append("; ").append(p.getDate());
+            cmd.append("; ").append(p.getEnd());
+            UniqueTagList tags = p.getTags();
+            for(Tag t: tags){
+                cmd.append(" #").append(t.tagName);
+            }
+            System.out.println(cmd);
+            return cmd.toString();
+        }
+        
+        /** Generates the correct add command based on the todo given */
+        String generateAddTodoCommand(Task p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("add ");
+            cmd.append(p.getName().toString());
+            UniqueTagList tags = p.getTags();
+            for(Tag t: tags){
+                cmd.append(" #").append(t.tagName);
+            }
+            System.out.println(cmd);
 
             return cmd.toString();
         }
