@@ -5,11 +5,8 @@ import java.util.ArrayList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.ReadOnlyTaskFilter;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskFilter;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -36,31 +33,32 @@ public class DoneCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        model.saveState();
+    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> fullList = model.getUnfilteredTaskList();
 
         ArrayList<ReadOnlyTask> tasksDoneList = new ArrayList<>();
         Task taskDone;
         
         for (int i=0; i<targetIndices.length; i++) {
         	if (lastShownList.size() < targetIndices[i]) {
-                indicateAttemptToExecuteIncorrectCommand();
+                model.loadPreviousState();
+        		indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             }
 
-            taskDone = new Task(lastShownList.get(targetIndices[i] - 1));
+        	taskDone = new Task(lastShownList.get(targetIndices[i] - 1));
+        	int index = fullList.indexOf(taskDone);
             taskDone.setStatus(new Status("done"));
             tasksDoneList.add(taskDone);
         	
             try {
-                model.editTask(targetIndices[i], taskDone);
-                model.putDoneTaskToLast(targetIndices[i], taskDone);
+                model.editTask(index, taskDone);
             } catch (TaskNotFoundException pnfe) {
-                assert false : "The target task cannot be missing";
-            } catch (DuplicateTaskException e) {
-				assert false: "The target task cannot be duplicate";
-			}
+                model.loadPreviousState();
+            	assert false : "The target task cannot be missing";
+            }
         }
-        model.updateFilteredTaskList(ReadOnlyTaskFilter.isDone().negate());
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, tasksDoneList));
     }
 

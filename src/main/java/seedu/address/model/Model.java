@@ -66,8 +66,11 @@ public interface Model {
     /** Returns the someday task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
 	UnmodifiableObservableList<ReadOnlyTask> getSomedayTaskList();
 	
-	//@@author 
-    /** Updates the filter of the filtered task list to show all tasks */
+	//@@author A0139339W
+	/** Returns the unfiltered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+	UnmodifiableObservableList<ReadOnlyTask> getUnfilteredTaskList();
+    //@@author
+	/** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
     
     /** Updates the filter of the filtered task list according to a specified predicate*/
@@ -75,4 +78,5 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+
 }

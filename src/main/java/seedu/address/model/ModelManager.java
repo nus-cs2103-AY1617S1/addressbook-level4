@@ -124,7 +124,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void editTask(int index, Task task) throws TaskNotFoundException {
         taskManager.editTask(index, task);
-        updateFilteredListToShowAll();
         indicateTaskManagerChanged();
 	}
     
@@ -140,6 +139,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getUnfilteredTaskList() {
+        return new UnmodifiableObservableList<>(taskManager.getFilteredTasks());
     }
     
     //@@author A0142184L
