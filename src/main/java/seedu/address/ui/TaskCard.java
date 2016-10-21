@@ -20,10 +20,10 @@ public class TaskCard extends UiPart{
     private Label date;
 //    @FXML
 //    private Label tags;
-    @FXML
-    private Label headerTitle;
-    @FXML
-    private Label headerDeadline;
+//    @FXML
+//    private Label headerTitle;
+//    @FXML
+//    private Label headerDeadline;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -41,8 +41,8 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-    	headerTitle.setText("Title");
-    	headerDeadline.setText("Deadline");
+//    	headerTitle.setText("Title");
+//    	headerDeadline.setText("Deadline");
         name.setText(task.getName().taskName);
 //        id.setText(displayedIndex + ". ");
         date.setText(task.getDate().getValue());

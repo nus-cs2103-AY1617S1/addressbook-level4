@@ -21,15 +21,11 @@
                         <Insets bottom="5" left="15" right="5" top="5" />
                     </padding>
                     <children>
-                    	<HBox>
-                   	 		<Label fx:id="headerTitle" styleClass="cell_big_label"/>
-                   	 		<Label fx:id="headerDeadline" styleClass="cell_big_label"/>
-                   	 	</HBox>
                         <HBox spacing="5" alignment="CENTER_LEFT">
                             <children>
                                 <HBox>
                                     <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
-                                    
+
                                 </HBox>
                                 <Label fx:id="date" styleClass="cell_small_label" text="\$deadline" />
                             </children>
