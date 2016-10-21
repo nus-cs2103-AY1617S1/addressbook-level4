@@ -74,7 +74,7 @@ public class TaskListPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
+                logger.info("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
@@ -89,8 +89,7 @@ public class TaskListPanel extends UiPart {
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
-        public TaskListViewCell() {
-        }
+        public TaskListViewCell() { }
 
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {
@@ -100,7 +99,11 @@ public class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                this.selectedProperty().addListener((element, oldValue, newValue) -> {
+                    logger.fine("Index: " + this.getIndex() + " changed selection from " + oldValue + " to " + newValue);
+                    this.updateItem(task, empty);
+                });
+                setGraphic(TaskCard.load(task, getIndex() + 1, this.isSelected()).getLayout());
             }
         }
     }
