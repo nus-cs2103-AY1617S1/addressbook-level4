@@ -15,14 +15,16 @@ import seedu.todo.commons.events.ui.ChangeViewRequestEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.EventsCollector;
+import seedu.todo.testutil.TaskBuilder;
+import seedu.todo.testutil.TimeUtil;
 
 //@@ author A0092382A
 public class ViewCommandTest extends CommandTest {
-
-    EventsCollector eventsCollector = new EventsCollector();
-    ChangeViewRequestEvent event;
-    ImmutableTask task1, task2, task3;
-    List<ImmutableTask> tasks;
+    private EventsCollector eventsCollector = new EventsCollector();
+    
+    private int[] all, events, dueSoon, completed, incomplete;
+    
+    private List<ImmutableTask> tasks;
     
     @Override
     protected BaseCommand commandUnderTest() {
@@ -31,45 +33,73 @@ public class ViewCommandTest extends CommandTest {
     
     @Before
     public void setUp() throws Exception {
-        task3 = model.add("Task 3", task -> { 
-            task.setCompleted(true); 
-            task.setEndTime(LocalDateTime.now().plusDays(1)); 
-        });
+        tasks = ImmutableList.of(
+            TaskBuilder.name("0. Completed, no deadline")
+                .completed()
+                .build(),
+
+            TaskBuilder.name("1. Due tomorrow")
+                .due(TimeUtil.tomorrow().plusHours(8))
+                .build(),
+
+            TaskBuilder.name("2. Due today")
+                .due(TimeUtil.today().plusHours(8))
+                .build(),
+
+            TaskBuilder.name("3. Pinned task")
+                .pinned()
+                .build(),
+
+            TaskBuilder.name("4. Due today, completed")
+                .completed()
+                .due(TimeUtil.today().plusHours(10))
+                .build(),
+
+            TaskBuilder.name("5. Event happening today")
+                .event(TimeUtil.today().plusHours(12), TimeUtil.today().plusHours(14))
+                .build(),
+
+            TaskBuilder.name("6. Event happened yesterday")
+                .event(TimeUtil.today(). minusHours(14), TimeUtil.today().minusHours(12))
+                .build()
+        );
         
-        task2 = model.add("Task 2", task -> { 
-            task.setCompleted(false); 
-            task.setEndTime(LocalDateTime.now().plusDays(4));
-        });
+        todolist.setTasks(tasks);
         
-        task1 = model.add("Task 1", task -> { 
-            task.setCompleted(false); 
-            task.setEndTime(LocalDateTime.now());
-        });
+        for (ImmutableTask task : model.getObservableList()) {
+            System.out.println(task.getTitle() + " " + task.getLastUpdated());
+        }
+        System.out.println();
         
-        tasks = ImmutableList.of(task1, task2, task3);
+        all = new int[]{ 3, 6, 5, 4, 2, 1, 0 };
+        events = new int[]{ 6, 5 };
+        dueSoon = new int[]{ 2, 1 };
+        completed = new int[]{ 4, 0 };
+        incomplete = new int[]{ 3, 6, 2, 5, 1 };
     }
     
     private void assertViewChangeEventFired(TaskViewFilter filter) {
         assertThat(eventsCollector.get(0), instanceOf(ChangeViewRequestEvent.class));
-        event = (ChangeViewRequestEvent) eventsCollector.get(0);
+        ChangeViewRequestEvent event = (ChangeViewRequestEvent) eventsCollector.get(0);
         assertEquals(event.getNewView(), filter);
     }
     
     private void assertTasksVisible(int[] taskIndices) {
-        assertVisibleTaskCount(taskIndices.length);
         int i = 0;
         for (ImmutableTask task : model.getObservableList()) {
-            assertEquals(tasks.get(taskIndices[i++]), task);
+            assertEquals("Item " + (i + 1) + " in the list is incorrect", 
+                tasks.get(taskIndices[i++]), task);
         }
+        assertVisibleTaskCount(taskIndices.length);
     }
 
     @Test
     public void testViewDefault() throws ValidationException {
-        assertVisibleTaskCount(3);
+        assertVisibleTaskCount(all.length);
         setParameter("show all");
         execute(true);
         
-        assertTasksVisible(new int[]{ 0, 1, 2 });
+        assertTasksVisible(all);
         assertViewChangeEventFired(TaskViewFilter.DEFAULT);
     }
     
@@ -85,7 +115,7 @@ public class ViewCommandTest extends CommandTest {
         execute(true);
         
         assertViewChangeEventFired(TaskViewFilter.COMPLETED);
-        assertTasksVisible(new int[]{ 2 });
+        assertTasksVisible(completed);
     }
     
     @Test
@@ -94,16 +124,16 @@ public class ViewCommandTest extends CommandTest {
         execute(true);
         
         assertViewChangeEventFired(TaskViewFilter.INCOMPLETE);
-        assertTasksVisible(new int[]{ 0, 1 });
+        assertTasksVisible(incomplete);
     }
     
     @Test
     public void testCaseInsensitive() throws ValidationException {
-        setParameter("Incomplete");
+        setParameter("IncompLete");
         execute(true);
         
         assertViewChangeEventFired(TaskViewFilter.INCOMPLETE);
-        assertTasksVisible(new int[]{ 0, 1 });
+        assertTasksVisible(incomplete);
     }
     
     @Test
@@ -112,9 +142,17 @@ public class ViewCommandTest extends CommandTest {
         execute(true);
         
         assertViewChangeEventFired(TaskViewFilter.DUE_SOON);
-        assertTasksVisible(new int[]{ 0 });
+        assertTasksVisible(dueSoon);
     }
-
+    
+    @Test
+    public void testEvents() throws Exception {
+        setParameter("events"); 
+        execute(true);
+        
+        assertViewChangeEventFired(TaskViewFilter.EVENTS);
+        assertTasksVisible(events);
+    }
 
     @Test
     public void testShortcut() throws ValidationException {
@@ -122,7 +160,7 @@ public class ViewCommandTest extends CommandTest {
         execute(true);
 
         assertViewChangeEventFired(TaskViewFilter.DUE_SOON);
-        assertTasksVisible(new int[]{ 0 });
+        assertTasksVisible(dueSoon);
     }
     
     @Test
@@ -131,28 +169,22 @@ public class ViewCommandTest extends CommandTest {
         execute(true);
 
         assertViewChangeEventFired(TaskViewFilter.DUE_SOON);
-        assertTasksVisible(new int[]{ 0 });
+        assertTasksVisible(dueSoon);
     }
     
     @Test
     public void testSuccessiveCommands() throws ValidationException {
         setParameter("due soon");
         execute(true);
-        assertTaskVisible(task1);
-        assertTaskNotVisible(task2);
-        assertTaskNotVisible(task3);
+        assertTasksVisible(dueSoon);
         
         setParameter("incomplete");
         execute(true);
-        assertTaskVisible(task1);
-        assertTaskVisible(task2);
-        assertTaskNotVisible(task3);
+        assertTasksVisible(incomplete);
         
         setParameter("a");
         execute(true);
-        assertTaskVisible(task1);
-        assertTaskVisible(task2);
-        assertTaskVisible(task3);
+        assertTasksVisible(all);
         
         assertEquals(eventsCollector.size(), 3);
     }
