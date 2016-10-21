@@ -15,8 +15,11 @@ import java.util.Set;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
+    
+    public static final String COMMAND_SHORTCUT = "a";
+    
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the FlexiTrack.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD  + ", Shortcut [" + COMMAND_SHORTCUT + "]" + ": Adds a task to the FlexiTrack.\n"
             + "1. Add Floating Task - Parameters to add an Floating Task: [task title]\n" + "\tExample: " + COMMAND_WORD
             + " Do CS homework\n"
             + "2. Add Event - Parameters to add an event: [task title] from/ [starting time] to/ [ending time]\n"

@@ -10,8 +10,9 @@ import java.util.Set;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
+    public static final String COMMAND_SHORTCUT = "f";
+    
+    public static final String MESSAGE_USAGE = COMMAND_WORD  + ", Shortcut [" + COMMAND_SHORTCUT + "]" + ": Finds all tasks whose names contain any of "
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
             + "1. Default Search - " + "Parameters: KEYWORD [MORE_KEYWORDS]...\n\t" + "Example: " + COMMAND_WORD
             + "  CS2103\n" + "2. Search by exact task name - " + "Parameters: f/ KEYWORD [MORE KEYWORDS]...\n\t"

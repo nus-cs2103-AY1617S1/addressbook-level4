@@ -16,8 +16,9 @@ import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_SHORTCUT = "e";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ", Shortcut [" + COMMAND_SHORTCUT + "]"
             + ": Edits the specified task attributes of the task identified by the index number used in the last task listing.\n"
             + "Parameters to edit an event: [index] (must be a positive integer) from/ [starting time] to/ [ending time]\n"
             + "Example: " + COMMAND_WORD + " 1 " + "from/ 01062016 to/ 01/072016\n"

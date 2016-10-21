@@ -11,8 +11,9 @@ import seedu.flexitrack.commons.events.ui.ShowHelpRequestEvent;
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
+    public static final String COMMAND_SHORTCUT = "h";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n" + "Example: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD  + ", Shortcut [" + COMMAND_SHORTCUT + "]" + ": Shows program usage instructions.\n" + "Example: "
             + COMMAND_WORD;
 
     public static final String HELP_MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"

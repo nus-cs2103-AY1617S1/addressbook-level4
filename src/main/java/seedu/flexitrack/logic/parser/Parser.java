@@ -23,14 +23,23 @@ public class Parser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
-                                                                                                           // or
-                                                                                                           // more
-                                                                                                           // keywords
-                                                                                                           // separated
-                                                                                                           // by
-                                                                                                           // whitespace
-
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
+    
+    private static final HashMap<String, String> SHORTCUT_MAP = new HashMap<String, String>();                                                                                                       // more
+                                                                                                           
+    static {
+        SHORTCUT_MAP.put(AddCommand.COMMAND_SHORTCUT, AddCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(ClearCommand.COMMAND_SHORTCUT, ClearCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(DeleteCommand.COMMAND_SHORTCUT, DeleteCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(EditCommand.COMMAND_SHORTCUT, EditCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(ExitCommand.COMMAND_SHORTCUT, ExitCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(HelpCommand.COMMAND_SHORTCUT, HelpCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(FindCommand.COMMAND_SHORTCUT, FindCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(ListCommand.COMMAND_SHORTCUT, ListCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(MarkCommand.COMMAND_SHORTCUT, MarkCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(UnmarkCommand.COMMAND_SHORTCUT, UnmarkCommand.COMMAND_WORD);
+        SHORTCUT_MAP.put(SelectCommand.COMMAND_SHORTCUT, SelectCommand.COMMAND_WORD);
+    }                                                                                                      
     private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = // '/'
                                                                     // forward
                                                                     // slashes
@@ -95,8 +104,10 @@ public class Parser {
         }
 
         final String commandWord = matcher.group("commandWord");
+        final String parsedCommandWord = parseCommandWord(commandWord);
+        
         final String arguments = matcher.group("arguments");
-        switch (commandWord) {
+        switch (parsedCommandWord) {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
@@ -134,6 +145,10 @@ public class Parser {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+
+    private String parseCommandWord(String commandWord) {       
+        return SHORTCUT_MAP.getOrDefault(commandWord, commandWord);
     }
 
     private Command prepareEdit(String arguments) {
