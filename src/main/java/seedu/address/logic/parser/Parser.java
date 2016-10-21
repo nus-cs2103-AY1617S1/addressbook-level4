@@ -37,6 +37,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.ViewCommand;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.TaskDate;
 
@@ -180,16 +181,16 @@ public class Parser {
             return new UndoCommand();
             
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();          
+            return new RedoCommand();  
+            
+        case ViewCommand.COMMAND_WORD:
+        	return prepareView(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
-    
-
-	
 
 	/**
      * Parses arguments in the context of the add task command.
@@ -577,6 +578,17 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }   
     }
+    
+    private Command prepareView(String arguments) {
+		// TODO Auto-generated method stub
+    	Date date;
+    	try{
+    		date = getDateFromString(arguments);
+    	}catch(Exception e){
+    		return new IncorrectCommand(e.getMessage());
+    	}
+		return new ViewCommand(new TaskDate(date));
+	}
     
     /**
      * Reformats any date into the format that we are storing and using in this software 
