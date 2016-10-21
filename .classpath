@@ -7,7 +7,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+	<classpathentry kind="src" output="bin" path="src/main/resources">
 		<attributes>
 			<attribute name="FROM_GRADLE_MODEL" value="true"/>
 			<attribute name="maven.pomderived" value="true"/>
