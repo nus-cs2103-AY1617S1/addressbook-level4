@@ -2,7 +2,6 @@ package teamfour.tasc.logic.commands;
 
 import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.events.ui.ChangeCalendarViewRequestEvent;
-import teamfour.tasc.commons.events.ui.ExitAppRequestEvent;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
 import teamfour.tasc.ui.CalendarPanel;
 
@@ -22,7 +21,7 @@ public class CalendarCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = 
             "Calendar changed to %1$s view.";
-    public static final String MESSAGE_FAILURE_IS_ALREADY_THE_VIEW = 
+    public static final String MESSAGE_FAILURE_ALREADY_IN_VIEW = 
             "Calendar is already in %1$s view.";
 
     private final String calendarView;
@@ -55,7 +54,7 @@ public class CalendarCommand extends Command {
     public CommandResult execute() {
         if (calendarView.equals(CalendarPanel.getCalendarView())) {
             return new CommandResult(String.format(
-                    MESSAGE_FAILURE_IS_ALREADY_THE_VIEW, calendarView));
+                    MESSAGE_FAILURE_ALREADY_IN_VIEW, calendarView));
         }
         
         EventsCenter.getInstance().post(new ChangeCalendarViewRequestEvent(calendarView));
