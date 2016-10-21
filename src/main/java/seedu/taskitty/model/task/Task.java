@@ -10,7 +10,7 @@ import java.util.Objects;
  * Represents a Task in the taskManager.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask, Comparable<Task> {
     
     public static final int TASK_COMPONENT_INDEX_NAME = 0;
     public static final int TASK_COMPONENT_COUNT = 1;
@@ -185,4 +185,28 @@ public class Task implements ReadOnlyTask {
 	public boolean isEvent() {
 		return numArgs == 5;
 	}
+	
+	@Override
+    public int compareTo(Task o) {
+        if (this.getNumArgs() == o.getNumArgs()) {
+            if (this.isEvent()) {
+                if (!this.getStartDate().equals(o.getStartDate())) {
+                    return this.getStartDate().getDate().compareTo(o.getStartDate().getDate());
+                } else if (!this.getStartTime().equals(o.getStartTime())) {
+                    return this.getStartTime().time.compareTo(o.getStartTime().time);                    
+                }
+            }
+            if (this.isEvent() || this.isDeadline()) {
+                if (!this.getEndDate().equals(o.getEndDate())) {
+                    return this.getEndDate().getDate().compareTo(o.getEndDate().getDate());
+                } else if (!this.getEndTime().equals(o.getEndTime())) {
+                    return this.getEndTime().time.compareTo(o.getEndTime().time);                    
+                } 
+            }
+            return this.getAsText().compareTo(o.getAsText());
+        } else {
+            return this.getNumArgs() - o.getNumArgs();
+        } 
+    }
+	
 }
