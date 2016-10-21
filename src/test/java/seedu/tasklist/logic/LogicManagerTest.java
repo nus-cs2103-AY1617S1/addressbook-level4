@@ -167,7 +167,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] d/12345 s/11112011 e/11112011", Title.MESSAGE_TITLE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Title d/not_numbers s/valid@e.mail e/11112011", StartDate.MESSAGE_STARTDATE_CONSTRAINTS);
+                "add Valid Title d/not_numbers s/valid@e.mail e/11112011", DateTime.MESSAGE_DATETIME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Title d/12_345 s/11112011 e/11112011", Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
         assertCommandBehavior(
@@ -387,9 +387,9 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Title title = new Title("Adam Brown");
-            StartDate privatePhone = new StartDate("11112011");
+            DateTime privatePhone = new DateTime("11112011");
             Description description = new Description("loves ida alot");
-            DueDate privateDueDate = new DueDate("22122022");
+            DateTime privateDueDate = new DateTime("22122022");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -406,9 +406,9 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Title("Task " + seed),
-                    new StartDate("11112011" + Math.abs(seed)),
+                    new DateTime("1111201" + Math.abs(seed)),
                     new Description(seed + "email"),
-                    new DueDate("22122012" + seed),
+                    new DateTime("2212202" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -421,8 +421,8 @@ public class LogicManagerTest {
 
             cmd.append(p.getTitle().toString());
             cmd.append(" d/").append(p.getDescription());
-            cmd.append(" s/").append(p.getStartDate().toString().replaceAll(":", "").replaceAll("-", ""));
-            cmd.append(" e/").append(p.getDueDate().toString().replaceAll(":", "").replaceAll("-", ""));
+            cmd.append(" s/").append(p.getStartDateTime().toString().replaceAll(":", "").replaceAll("-", ""));
+            cmd.append(" e/").append(p.getEndDateTime().toString().replaceAll(":", "").replaceAll("-", ""));
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -505,9 +505,9 @@ public class LogicManagerTest {
         Task generateTaskWithTitle(String name) throws Exception {
             return new Task(
                     new Title(name),
-                    new StartDate("11112011"),
+                    new DateTime("11112011"),
                     new Description("has no name"),
-                    new DueDate("12122012"),
+                    new DateTime("12122012"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

@@ -27,8 +27,10 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX a[TITLE] [d/DESCRIPTION] [s/START DATE] [e/DUE DATE] [t/TAG]\n" + "Example: "
-            + COMMAND_WORD + " 1 d/new description";
+            + "Parameters: INDEX [TITLE] [d/DESCRIPTION] [s/START DATE] [e/DUE DATE] [t/TAG]\n" + "Example: "
+            + COMMAND_WORD + " 1 NEW_TITLE d/NEW_DESCRIPTION\n"
+            + COMMAND_WORD + " 2 e/12122012 2359"
+            + COMMAND_WORD + " 3 t/TAG1 t/TAG2";
 
     private static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
 
@@ -37,7 +39,7 @@ public class EditCommand extends Command {
 
     public EditCommand() {};
     
-    public EditCommand(int targetIndex, String title, String startDate, String description, String dueDate,
+    public EditCommand(int targetIndex, String title, String startDateTime, String description, String endDateTime,
             Set<String> tags) throws IllegalValueException {
         this.targetIndex = targetIndex;
 
@@ -46,8 +48,8 @@ public class EditCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         
-        this.toEdit = new Task(new Title(title), new DateTime(startDate), new Description(description),
-                new DateTime(dueDate), new UniqueTagList(tagSet));
+        this.toEdit = new Task(new Title(title), new DateTime(startDateTime), new Description(description),
+                new DateTime(endDateTime), new UniqueTagList(tagSet));
     }
 
     @Override
@@ -76,26 +78,66 @@ public class EditCommand extends Command {
      * Combine the new editions with its original task
      * @param taskToEdit containing the parameters to change
      * @return new edited task
-     * @throws IllegalValueException 
+     * @throws IllegalValueException if input contains invalid format
      */
     private Task editTask(ReadOnlyTask taskToEdit) throws IllegalValueException {
+        return new Task(editTitle(taskToEdit), editStartDateTime(taskToEdit), editDescription(taskToEdit),
+                editEndDateTime(taskToEdit), editTags(taskToEdit));
+    }
+    
+    /**
+     * Retrieve a Title by replacing the original Title with the new Title, if any.
+     * @param taskToEdit containing the parameters to change
+     * @return Title with the edited Title
+     */
+    private Title editTitle(ReadOnlyTask taskToEdit) {
+        return this.toEdit.getTitle().toString().equals("") ? taskToEdit.getTitle() : this.toEdit.getTitle();
+    }
+    
+    /**
+     * Retrieve a Description by replacing the original Description with the new Description, if any.
+     * @param taskToEdit containing the parameters to change
+     * @return Description with the edited Description
+     */
+    private Description editDescription(ReadOnlyTask taskToEdit) {
+        return this.toEdit.getDescription().toString().equals("") ? taskToEdit.getDescription() : this.toEdit.getDescription();
+    }
+    
+    /**
+     * Retrieve a DateTime by replacing the original DateTime with the new DateTime, if any.
+     * @param taskToEdit containing the parameters to change
+     * @return DateTime with the edited DateTime 
+     * @throws IllegalValueException if invalid DateTime format
+     */
+    private DateTime editStartDateTime(ReadOnlyTask taskToEdit) throws IllegalValueException {
         DateTime startDateTime = new DateTime();
         startDateTime.setDate(this.toEdit.getStartDateTime().getDate().toString().equals("") ? taskToEdit.getStartDateTime().getDate() : this.toEdit.getStartDateTime().getDate());
         startDateTime.setTime(this.toEdit.getStartDateTime().getTime().toString().equals("") ? taskToEdit.getStartDateTime().getTime() : this.toEdit.getStartDateTime().getTime());
-        
+        return startDateTime;
+    }
+    
+    /**
+     * Retrieve a DateTime by replacing the original DateTime with the new DateTime, if any.
+     * @param taskToEdit containing the parameters to change
+     * @return DateTime with the edited DateTime 
+     * @throws IllegalValueException if invalid DateTime format
+     */
+    private DateTime editEndDateTime(ReadOnlyTask taskToEdit) throws IllegalValueException {
         DateTime endDateTime = new DateTime();
         endDateTime.setDate(this.toEdit.getEndDateTime().getDate().toString().equals("") ? taskToEdit.getEndDateTime().getDate() : this.toEdit.getEndDateTime().getDate());
         endDateTime.setTime(this.toEdit.getEndDateTime().getTime().toString().equals("") ? taskToEdit.getEndDateTime().getTime() : this.toEdit.getEndDateTime().getTime());
-        
-        return new Task(
-                this.toEdit.getTitle().toString().equals("") ? taskToEdit.getTitle() : this.toEdit.getTitle(),
-                startDateTime,
-                this.toEdit.getDescription().toString().equals("") ? taskToEdit.getDescription() : this.toEdit.getDescription(),
-                endDateTime,
-                this.toEdit.getTags().getInternalList().isEmpty() ? new UniqueTagList(taskToEdit.getTags()) : new UniqueTagList(this.toEdit.getTags())
-                        );
+        return endDateTime;
     }
-
+    
+    /**
+     * Retrieve a UniqueTagList by replacing the original Tags with the new Tags, if any.
+     * @param taskToEdit containing the parameters to change
+     * @return UniqueTagList containing the edited Tags
+     */
+    private UniqueTagList editTags(ReadOnlyTask taskToEdit) {
+        return this.toEdit.getTags().getInternalList().isEmpty() ? new UniqueTagList(taskToEdit.getTags()) : new UniqueTagList(this.toEdit.getTags());
+    }
+    
     /**
      * Parses arguments in the context of the edit task command.
      *

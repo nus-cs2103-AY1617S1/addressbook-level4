@@ -9,9 +9,9 @@ import seedu.tasklist.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Title title;
-    private DueDate dueDate;
+    private DateTime endDateTime;
     private Description description;
-    private StartDate startDate;
+    private DateTime startDateTime;
     private UniqueTagList tags;
     private boolean isCompleted;
     
@@ -23,16 +23,16 @@ public class TestTask implements ReadOnlyTask {
         this.title = title;
     }
 
-    public void setDueDate(DueDate dueDate) {
-        this.dueDate = dueDate;
+    public void setEndDateTime(DateTime endDateTime) {
+        this.endDateTime = endDateTime;
     }
 
     public void setDescription(Description description) {
         this.description = description;
     }
 
-    public void setStartDate(StartDate startDate) {
-        this.startDate = startDate;
+    public void setStartDateTime(DateTime startDateTime) {
+        this.startDateTime = startDateTime;
     }
 
     @Override
@@ -41,8 +41,8 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public StartDate getStartDate() {
-        return startDate;
+    public DateTime getStartDateTime() {
+        return startDateTime;
     }
 
     @Override
@@ -51,8 +51,8 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public DueDate getDueDate() {
-        return dueDate;
+    public DateTime getEndDateTime() {
+        return endDateTime;
     }
 
     @Override
@@ -69,8 +69,8 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getTitle().fullTitle + " ");
         sb.append("d/" + this.getDescription().description + " ");
-        sb.append("s/" + this.getStartDate().toString().replaceAll(":", "").replaceAll("-", "") + " ");
-        sb.append("e/" + this.getDueDate().toString().replaceAll(":", "").replaceAll("-", "") + " ");
+        sb.append("s/" + this.getStartDateTime().toString().replaceAll(":", "").replaceAll("-", "") + " ");
+        sb.append("e/" + this.getEndDateTime().toString().replaceAll(":", "").replaceAll("-", "") + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

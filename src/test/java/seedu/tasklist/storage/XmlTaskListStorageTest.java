@@ -62,7 +62,7 @@ public class XmlTaskListStorageTest {
 
     @Test
     public void readAndSaveTaskList_allInOrder_success() throws Exception {
-        String filePath = testFolder.getRoot().getPath() + "TempTaskList.xml";
+        String filePath = testFolder.getRoot().getPath() + "tempTaskList.xml";
         TypicalTestTasks td = new TypicalTestTasks();
         TaskList original = td.getTypicalTaskList();
         XmlTaskListStorage xmlTaskListStorage = new XmlTaskListStorage(filePath);

@@ -35,7 +35,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String title, String startDate, String description, String dueDate, Set<String> tags)
+    public AddCommand(String title, String startDateTime, String description, String endDateTime, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -43,9 +43,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Title(title),
-                new DateTime(startDate),
+                new DateTime(startDateTime),
                 new Description(description),
-                new DateTime(dueDate),
+                new DateTime(endDateTime),
                 new UniqueTagList(tagSet)
         );
     }
@@ -80,9 +80,9 @@ public class AddCommand extends Command {
         try {
             return new AddCommand(
                     matcher.group("title"),
-                    getDetailsFromArgs(matcher.group("startDate")),
+                    getDetailsFromArgs(matcher.group("startDateTime")),
                     getDetailsFromArgs(matcher.group("description")),
-                    getDetailsFromArgs(matcher.group("dueDate")),
+                    getDetailsFromArgs(matcher.group("endDateTime")),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {

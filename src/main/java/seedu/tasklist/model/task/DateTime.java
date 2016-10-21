@@ -8,7 +8,7 @@ import seedu.tasklist.commons.exceptions.IllegalValueException;
  * Represents a Task's date and time in the task list.
  */
 public class DateTime {
-    private static final String MESSAGE_DATETIME_CONSTRAINTS = "Invalid Date Time format\nDate format: DDMMYYYY\n24-hour Time format: HHMM";
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Invalid Date Time format\nDate format: DDMMYYYY\n24-hour Time format: HHMM";
     
     private static final int DATE_LENGTH = 8;
     private static final int TIME_LENGTH = 4;
