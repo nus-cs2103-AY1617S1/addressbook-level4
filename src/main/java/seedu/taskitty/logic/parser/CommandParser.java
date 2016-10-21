@@ -4,6 +4,7 @@ import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.logic.commands.*;
 import seedu.taskitty.model.tag.Tag;
+import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
 
@@ -20,12 +21,17 @@ import java.util.regex.Pattern;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
+import com.sun.media.jfxmedia.logging.Logger;
 
 /**
  * Parses user input.
  */
 public class CommandParser {
 
+    public static final String COMMAND_QUOTATION_SYMBOL = "\"";
+    public static final String EMPTY_STRING = "";
+    public static final int NOT_FOUND = -1;
+    
     /**
      * Used for initial separation of command word and args.
      */
@@ -168,14 +174,12 @@ public class CommandParser {
      * @param arguments command args string without command word
      */
     private String getTaskDetailArguments(String arguments) {
-        //Have 2 magic numbers.. where should I put them..
-        //-1 is NOT_FOUND
-        //0 is START_OF_ARGUMENT
         int detailLastIndex = arguments.indexOf(Tag.TAG_VALIDATION_REGEX_PREFIX);
-        if (detailLastIndex == -1) {
+        if (detailLastIndex == NOT_FOUND) {
             detailLastIndex = arguments.length();
         }
         
+        //Is this 0 considered magic number?
         return arguments.substring(0, detailLastIndex).trim();
     }
     
@@ -187,7 +191,7 @@ public class CommandParser {
     private String getTagArguments(String arguments) {
         //This line is exactly the same as the 1st line of getTaskDetailArguments.. how?
         int tagStartIndex = arguments.indexOf(Tag.TAG_VALIDATION_REGEX_PREFIX);
-        if (tagStartIndex == -1) {
+        if (tagStartIndex == NOT_FOUND) {
             tagStartIndex = arguments.length();
         }
         
@@ -202,25 +206,49 @@ public class CommandParser {
      */
     private String[] extractTaskDetailsNatty(String dataArguments) {
         dataArguments = convertToNattyDateFormat(dataArguments);
-        Parser dateTimeParser = new Parser();
-        List<DateGroup> dateGroups = dateTimeParser.parse(dataArguments);
         
         int nameEndIndex = dataArguments.length();
         ArrayList<String> details = new ArrayList<String>();
+        
+        //Attempt to extract name out if it is surrounded by quotes
+        //+1 because we want the quote included in the string
+        nameEndIndex = dataArguments.lastIndexOf(COMMAND_QUOTATION_SYMBOL) + 1;
+        boolean isNameExtracted = false;
+        if (nameEndIndex != NOT_FOUND) {
+            int nameStartIndex = dataArguments.indexOf(COMMAND_QUOTATION_SYMBOL);
+            String nameDetail = dataArguments.substring(nameStartIndex, nameEndIndex);
+            
+            //remove name from dataArguments
+            dataArguments = dataArguments.replace(nameDetail, EMPTY_STRING);
+            
+            //remove quotes from nameDetail
+            nameDetail = nameDetail.replaceAll(COMMAND_QUOTATION_SYMBOL, EMPTY_STRING);
+            
+            details.add(Task.TASK_COMPONENT_INDEX_NAME, nameDetail);
+            isNameExtracted = true;
+        }
+        
+        Parser dateTimeParser = new Parser(); 
+        List<DateGroup> dateGroups = dateTimeParser.parse(dataArguments);
+        
         for (DateGroup group : dateGroups) {
             List<Date> dates = group.getDates();
+            //Natty's getPosition returns 1 based position
+            //-1 because we want the 0 based position
             nameEndIndex = Math.min(nameEndIndex, group.getPosition() - 1);
             for (Date date : dates) {
                 details.add(extractLocalDate(date));
                 details.add(extractLocalTime(date));
             }
         }
-        details.add(0, dataArguments.substring(0, nameEndIndex).trim());
+        
+        if (!isNameExtracted) {
+            details.add(Task.TASK_COMPONENT_INDEX_NAME, dataArguments.substring(0, nameEndIndex).trim());
+        }
         
         String[] returnDetails = new String[details.size()];
         details.toArray(returnDetails);
         return returnDetails;
-        
     }
     
     //@@author
