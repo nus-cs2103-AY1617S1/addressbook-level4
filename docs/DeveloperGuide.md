@@ -269,6 +269,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | make a task recurring | duplicate a task for specific number of days  
 `*` | user | lock task scheduler(with a password) | prevent unauthorized access/modification 
 
+
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `MustDoList` and the **Actor** is the `user`, unless specified otherwise)
