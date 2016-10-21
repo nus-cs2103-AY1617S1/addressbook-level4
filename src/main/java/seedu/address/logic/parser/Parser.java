@@ -34,10 +34,10 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern TAG_ADD_ARGS_FORMAT =
-    		Pattern.compile("(?<targetIndex>.+)" + "(?<tag>([^/]+)?)");
+    		Pattern.compile("(?<targetIndex>.+)" + "(?<tag>.*)");
 
     private static final Pattern TAG_DELETE_ARGS_FORMAT =
-    		Pattern.compile("(?<targetIndex>.+)" + "(?<tag>([^/]+)?)");
+    		Pattern.compile("(?<targetIndex>.+)" + "(?<tag>.*)");
 
     private static final Pattern TASK_UPDATE_ARGS_FORMAT =
     		Pattern.compile("(?<targetIndex>.+)"
@@ -243,6 +243,10 @@ public class Parser {
 
 
 		String[] command = args.trim().split(" ");
+		if(command.length!=2)
+			return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
+
         Optional<Integer> index = parseIndex(command[0]);
         if(!index.isPresent()){
             return new IncorrectCommand(
@@ -265,6 +269,10 @@ public class Parser {
 
 
 		String[] command = args.trim().split(" ");
+		if(command.length!=2)
+			return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE));
+
         Optional<Integer> index = parseIndex(command[0]);
         if(!index.isPresent()){
             return new IncorrectCommand(

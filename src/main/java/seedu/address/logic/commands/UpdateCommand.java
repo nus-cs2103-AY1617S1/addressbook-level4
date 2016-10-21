@@ -24,6 +24,8 @@ public class UpdateCommand extends Command{
     public static final String MESSAGE_TIME_CONSTRAINTS =
             "Time should either be in 24H format or given as a Day of the Week\n"
           + "Eg. 9:11, 09:11, thursday, Thursday, THURSDAY, thu, Thur, THURS";
+    public static final String MESSAGE_PRIORITY_CONSTRAINTS =
+            "Priority should be high, normal or low";
 
     public final int targetIndex;
     public final String property;
@@ -88,7 +90,13 @@ public class UpdateCommand extends Command{
 					break;
 
 				case "priority":
-					priority = new Priority(info);
+					try{
+						priority = new Priority(info);
+					} catch (IllegalValueException e1) {
+						LogicManager.tasks.pop();
+				        LogicManager.indexes.pop();
+						return new CommandResult(MESSAGE_PRIORITY_CONSTRAINTS);
+					}
 					description = taskToUpdate.getDescription();
 					timeEnd = taskToUpdate.getTimeEnd();
 					timeStart = taskToUpdate.getTimeStart();
