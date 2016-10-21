@@ -106,7 +106,11 @@ public class UniqueTaskList implements Iterable<Task> {
         if(!internalList.contains(toDone))
             throw new TaskNotFoundException();
         Task taskFound = internalList.get(internalList.indexOf(toDone));
-        taskFound.setDone();
+        try {
+            taskFound.setDone(new Done(true));
+        } catch (IllegalValueException e) {
+            assert false : "Illegal value input for the done status";
+        }
         internalList.set(internalList.indexOf(toDone), taskFound);
     }
     
@@ -120,7 +124,11 @@ public class UniqueTaskList implements Iterable<Task> {
         if(!internalList.contains(toUndone))
             throw new TaskNotFoundException();
         Task taskFound = internalList.get(internalList.indexOf(toUndone));
-        taskFound.setUndone();
+        try {
+            taskFound.setDone(new Done(false));
+        } catch (IllegalValueException e) {
+            assert false: "Illegal value input for the done status";
+        }
         internalList.set(internalList.indexOf(toUndone), taskFound);
     }
     

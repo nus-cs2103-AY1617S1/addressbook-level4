@@ -103,14 +103,4 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
     
-    public void setDone() {
-    	System.out.println("done");
-    	this.done.setDone(true);
-    }
-    
-    public void setUndone() {
-    	System.out.println("undone");
-    	this.done.setDone(false);
-    }
-
 }
