@@ -505,7 +505,7 @@ Use case ends
 
 ####Weaknesses
 1. Only two priority levels are supported.
-2. Viewing of uncompleted tasks is in the order of completion, rather than in the order of task date or time. Viewing by list or date is not supported.
+2. List of uncompleted tasks is not sorted according to date and time, but by order of creation.
 
 ###Taskwarrior
 ####Taskwarrior is a well-developed command line task manager software. It has implemented many functionalities, but only the ones most applicable to the project are detailed in this document.
@@ -524,6 +524,7 @@ Use case ends
 
 ###Wunderlist
 ####Wunderlist is a task manager application for mobile phones, tablets, and computers.
+####Strengths
 1.	User can add new lists of tasks, add new tasks to a selected list.
 2.	User can set due date/time as well as reminder before the due date/time.
 3.	User can add subtasks, notes and comments to a task.
@@ -535,8 +536,12 @@ Use case ends
 9.	User can sort the displayed tasks alphabetically, by creation date, due day, and priority.
 10.	User can use the default short-cuts or customize the short-cuts.
 
+####Weaknesses
+1. Only one priority level is supported (mark as "starred").
+
 ###Todoist
 ####Todoist is an online and mobile task manager application.
+####Strengths
 1.	User can add new projects (lists) of tasks, add new tasks to a selected project (list).
 2.	User can set due date/time as well as reminder before the due date/time.
 3.	User can add comments to a task.
@@ -548,3 +553,6 @@ Use case ends
 9.	User can sort the displayed tasks by name, priority, date.
 10.	User can set new filters and labels to categorize different tasks. For example, the existing priority level is implemented as a filter.
 11.	User can choose from different themes of UI.
+
+####Weaknesses
+1. List of completed tasks is in the order of completion, rather than in the order of task date or time. 
