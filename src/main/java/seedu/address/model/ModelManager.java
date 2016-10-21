@@ -139,18 +139,9 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addRecurringTask(ReadOnlyTask task, String days) throws DuplicateTaskException, IllegalValueException {
         
-        //Recurring task wth both start and end times  
-        if (!task.getStartTime().appearOnUIFormat().equals("") && !task.getEndTime().appearOnUIFormat().equals(""))
-        addTask(new Task(
-                task.getName(), 
-                new Date("false"),
-                new Time(days + " days after " + task.getStartTime().appearOnUIFormat()),
-                new Time(days + " days after " + task.getEndTime().appearOnUIFormat()),
-                task.getTags() 
-                ));
         
         //Recurring task with only end time.
-        else if (task.getStartTime().appearOnUIFormat().equals("") && !task.getEndTime().appearOnUIFormat().equals(""))
+        if (task.getStartTime().appearOnUIFormat().equals("-") && !task.getEndTime().appearOnUIFormat().equals(""))
             addTask(new Task(
                     task.getName(), 
                     new Date("false"),
@@ -160,12 +151,21 @@ public class ModelManager extends ComponentManager implements Model {
                     ));
        
         //Recurring task with only start time.
-        else if (!task.getStartTime().appearOnUIFormat().equals("") && task.getEndTime().appearOnUIFormat().equals(""))
+        else if (!task.getStartTime().appearOnUIFormat().equals("") && task.getEndTime().appearOnUIFormat().equals("-"))
             addTask(new Task(
                     task.getName(), 
                     new Date("false"),
                     new Time(days + " days after " + task.getStartTime().appearOnUIFormat()),
                     new Time(""),
+                    task.getTags() 
+                    ));
+        //Recurring task wth both start and end times  
+        else if (!task.getStartTime().appearOnUIFormat().equals("") && !task.getEndTime().appearOnUIFormat().equals(""))
+            addTask(new Task(
+                    task.getName(), 
+                    new Date("false"),
+                    new Time(days + " days after " + task.getStartTime().appearOnUIFormat()),
+                    new Time(days + " days after " + task.getEndTime().appearOnUIFormat()),
                     task.getTags() 
                     ));
 
