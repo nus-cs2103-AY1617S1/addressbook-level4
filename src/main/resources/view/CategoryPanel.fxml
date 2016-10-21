@@ -168,12 +168,12 @@
                   </Label>
                   <ImageView fitHeight="52.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../docs/images/redclock.png" />
+                        <Image url="@../images/redclock.png" />
                      </image>
                   </ImageView>
                   <ImageView fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                      <image>
-                        <Image url="@../../../../docs/images/today.png" />
+                        <Image url="@../images/today.png" />
                      </image>
                      <GridPane.margin>
                         <Insets left="8.0" />
@@ -181,7 +181,7 @@
                   </ImageView>
                   <ImageView fitHeight="38.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
                      <image>
-                        <Image url="@../../../../docs/images/tomorrow.png" />
+                        <Image url="@../images/tomorrow.png" />
                      </image>
                      <GridPane.margin>
                         <Insets left="8.0" />
@@ -189,7 +189,7 @@
                   </ImageView>
                   <ImageView fitHeight="37.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
                      <image>
-                        <Image url="@../../../../docs/images/floating.png" />
+                        <Image url="@../images/floating.png" />
                      </image>
                      <GridPane.margin>
                         <Insets left="8.0" />
@@ -197,7 +197,7 @@
                   </ImageView>
                   <ImageView fitHeight="41.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4">
                      <image>
-                        <Image url="@../../../../docs/images/upcoming.png" />
+                        <Image url="@../images/upcoming.png" />
                      </image>
                      <GridPane.margin>
                         <Insets left="8.0" />
@@ -205,7 +205,7 @@
                   </ImageView>
                   <ImageView fitHeight="37.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5">
                      <image>
-                        <Image url="@../../../../docs/images/fantastical_icon.png" />
+                        <Image url="@../images/fantastical_icon.png" />
                      </image>
                      <GridPane.margin>
                         <Insets left="10.0" />
@@ -213,7 +213,7 @@
                   </ImageView>
                   <ImageView fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="6">
                      <image>
-                        <Image url="@../../../../docs/images/upcomingevent.png" />
+                        <Image url="@../images/upcomingevent.png" />
                      </image>
                      <GridPane.margin>
                         <Insets left="5.0" />
