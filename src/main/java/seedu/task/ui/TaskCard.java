@@ -1,7 +1,5 @@
 package seedu.task.ui;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.fxml.FXML;
 
 import javafx.scene.Node;
@@ -10,8 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
-import seedu.task.commons.core.LogsCenter;
-import seedu.task.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.task.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
