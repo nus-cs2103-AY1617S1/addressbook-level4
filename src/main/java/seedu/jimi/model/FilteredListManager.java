@@ -42,8 +42,9 @@ public class FilteredListManager {
             new HashMap<ListId, FilteredList<ReadOnlyTask>>();
     
     public FilteredListManager(TaskBook taskBook) {
-        for (ListId li : ListId.values()) {
-            listMap.put(li, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
+        // Initializing each list with taskBook's own internal list
+        for (ListId id : ListId.values()) {
+            listMap.put(id, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
         }
         
         updateFilteredListToDefault();
@@ -79,24 +80,30 @@ public class FilteredListManager {
                 .setPredicate(new PredicateExpression(new EventQualifier(true))::satisfies);
     }
     
-    public UnmodifiableObservableList<ReadOnlyTask> getRequiredFilteredTaskList(ListId li) {
-        return new UnmodifiableObservableList<>(listMap.get(li));
+    public UnmodifiableObservableList<ReadOnlyTask> getRequiredFilteredTaskList(ListId id) {
+        return new UnmodifiableObservableList<>(listMap.get(id));
     }
     
-    public void updateRequiredFilteredTaskList(ListId li, Set<String> keywords) {
-        updateFilteredTaskList(li, new PredicateExpression(new NameQualifier(keywords)));
+    public void updateRequiredFilteredTaskList(ListId id, Set<String> keywords) {
+        updateFilteredTaskList(id, new PredicateExpression(new NameQualifier(keywords)));
     }
     
-    private void updateFilteredTaskList(ListId li, Expression expression) {
-        listMap.get(li).setPredicate(expression::satisfies);
+    private void updateFilteredTaskList(ListId id, Expression expression) {
+        listMap.get(id).setPredicate(expression::satisfies);
     }
     
-    // Inner classes/interfaces used for filtering
-    // ==================================================
+    /*
+     *  ============================================
+     *  Private qualifier classes used for filtering
+     *  ============================================
+     */
     
     interface Expression {
+        
         boolean satisfies(ReadOnlyTask task);
+        
         String toString();
+        
     }
     
     private class PredicateExpression implements Expression {
@@ -134,7 +141,8 @@ public class FilteredListManager {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword)).findAny()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+                    .findAny()
                     .isPresent();
         }
         
@@ -199,10 +207,6 @@ public class FilteredListManager {
         
         /**
          * Checks if the task is at most 1 week ahead of current time.
-         * 
-         * @param task
-         * @param day
-         * @return True if task is at most 1 week ahead of current time.
          */
         private boolean isTaskSameWeekDate(DeadlineTask task, DayOfWeek day) {
             long daysDifference = new DateTime().getDifferenceInDays(task.getDeadline());
@@ -217,11 +221,6 @@ public class FilteredListManager {
         /**
          * Checks if the event is at most 1 week ahead of current time or is
          * occuring now.
-         * 
-         * @param event
-         * @param day
-         * @return True if event is at most 1 week ahead of current time or is
-         *         occuring now.
          */
         private boolean isEventSameWeekDate(Event event, DayOfWeek day) {
             long daysDifference = new DateTime().getDifferenceInDays(event.getStart());
@@ -251,10 +250,10 @@ public class FilteredListManager {
     
     private class CompletedTaskQualifier implements Qualifier {
         
-        boolean isCompleteState;
+        boolean isCheckCompleted;
         
-        public CompletedTaskQualifier(boolean isCompleteState) {
-            this.isCompleteState = isCompleteState;
+        public CompletedTaskQualifier(boolean isCheckCompleted) {
+            this.isCheckCompleted = isCheckCompleted;
         }
         
         @Override
@@ -263,7 +262,7 @@ public class FilteredListManager {
                 return false;
             }
             
-            if (isCompleteState == true) { // if want to check completed task
+            if (isCheckCompleted) {
                 return task.isCompleted();
             } else {
                 return !task.isCompleted();
@@ -274,22 +273,20 @@ public class FilteredListManager {
     /**
      * Predicate for filtering events from the internal list.
      * @author zexuan
-     * @param checkCompleted If true, checks for event completion as well.
+     * @param isCheckCompleted If true, checks for event completion as well.
      */
     private class EventQualifier implements Qualifier {
         
-        boolean checkCompleted;
+        boolean isCheckCompleted;
         
-        public EventQualifier(boolean checkCompleted) {
-            this.checkCompleted = checkCompleted;
+        public EventQualifier(boolean isCheckCompleted) {
+            this.isCheckCompleted = isCheckCompleted;
         }
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            if (checkCompleted) {
-                if (task.isCompleted()) {
-                    return false;
-                }
+            if (isCheckCompleted && task.isCompleted()) {
+                return false;
             }
             return task instanceof Event;
         }
@@ -298,48 +295,47 @@ public class FilteredListManager {
     /**
      * Predicate for filtering floatingTasks from the internal list.
      * @author zexuan
-     * @param checkCompleted If true, checks for task completion as well.
+     * @param isCheckCompleted If true, checks for task completion as well.
      */
     private class FloatingTaskQualifier implements Qualifier {
         
-        boolean checkCompleted;
+        boolean isCheckCompleted;
         
-        public FloatingTaskQualifier(boolean checkCompleted) {
-            this.checkCompleted = checkCompleted;
+        public FloatingTaskQualifier(boolean isCheckCompleted) {
+            this.isCheckCompleted = isCheckCompleted;
         }
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            if (checkCompleted) {
-                if (task.isCompleted()) {
-                    return false;
-                }
+            if (isCheckCompleted && task.isCompleted()) {
+                return false;
             }
-            return !(task instanceof DeadlineTask) && !(task instanceof Event) && task instanceof FloatingTask;
+            
+            return !(task instanceof DeadlineTask) 
+                    && !(task instanceof Event) 
+                    && task instanceof FloatingTask;
         }
     }
     
     /**
      * Predicate for filtering tasks from the internal list.
      * @author zexuan
-     * @param checkCompleted If true, checks for task completion as well.
+     * @param isCheckCompleted If true, checks for task completion as well.
      */
     private class TaskQualifier implements Qualifier {
         
-        boolean checkCompleted;
+        boolean isCheckCompleted;
         
-        public TaskQualifier(boolean checkCompleted) {
-            this.checkCompleted = checkCompleted;
+        public TaskQualifier(boolean isCheckCompleted) {
+            this.isCheckCompleted = isCheckCompleted;
         }
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            if (checkCompleted) {
-                if (task.isCompleted()) {
-                    return false;
-                }
+            if (isCheckCompleted && task.isCompleted()) {
+                return false;
             }
-            return task instanceof DeadlineTask || task instanceof FloatingTask;
+            return task instanceof FloatingTask;
         }
     }
 }
