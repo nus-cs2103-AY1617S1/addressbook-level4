@@ -11,6 +11,7 @@ import teamfour.tasc.commons.core.ComponentManager;
 import teamfour.tasc.commons.core.Config;
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.events.storage.DataSavingExceptionEvent;
+import teamfour.tasc.commons.events.ui.ChangeCalendarViewRequestEvent;
 import teamfour.tasc.commons.events.ui.JumpToListRequestEvent;
 import teamfour.tasc.commons.events.ui.ShowHelpRequestEvent;
 import teamfour.tasc.commons.events.ui.TaskPanelListChangedEvent;
@@ -120,7 +121,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
+    private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getCalendarPanel().selectTask(event.getNewSelection());
     }
@@ -128,11 +129,19 @@ public class UiManager extends ComponentManager implements Ui {
 
     /** 
      * Handle the event when the task list is changed.
-     * @param event
      */
     @Subscribe
     public void handleTaskListPanelChangedEvent(TaskPanelListChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getCalendarPanel().refreshTasks(event.getNewTaskList());
+    }
+    
+    /**
+     * Handle the event when change calendar view is requested.
+     */
+    @Subscribe
+    public void handleChangeCalendarViewRequestEvent(ChangeCalendarViewRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getCalendarPanel().changeView(event.getCalendarViewType());
     }
 }
