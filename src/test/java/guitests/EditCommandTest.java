@@ -40,7 +40,7 @@ public class EditCommandTest extends TaskBookGuiTest {
         fields.put(TaskField.END_TIME, "New End Time");
         fields.put(TaskField.DEADLINE, "New Deadline");
         fields.put(TaskField.RECURRENCE, "Monday");
-        fields.put(TaskField.TAG_ARGUMENTS, "#Tag3 #Tag4");
+        fields.put(TaskField.TAG_ARGUMENTS, "#Tag2");
         assertEditSuccess(2, fields, currentList);
 
 //        //add another task

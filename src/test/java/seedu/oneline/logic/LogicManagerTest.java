@@ -416,8 +416,7 @@ public class LogicManagerTest {
             TaskTime deadline = new TaskTime("111, alpha street");
             TaskRecurrence recurrence = new TaskRecurrence("X");
             Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            UniqueTagList tags = new UniqueTagList(tag1);
             return new Task(name, startTime, endTime, deadline, recurrence, tags);
         }
 
