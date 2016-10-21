@@ -92,11 +92,6 @@ public class TaskListPanelHandle extends GuiHandle {
         assertTrue(this.containsInOrder(startPosition, tasks));
         
         for (int i = 0; i < tasks.length; i++) {
-        	// Might not actually be doing anything
-        	if (getEventTaskCardHandle(startPosition + i) == null) {
-            	System.out.println("card is null");
-            	return false;
-            }
         	
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
