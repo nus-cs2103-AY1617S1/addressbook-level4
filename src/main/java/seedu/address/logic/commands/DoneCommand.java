@@ -45,6 +45,11 @@ public class DoneCommand extends UndoableCommand {
 
     @Override
     public CommandResult execute() {
+        assert model != null;
+        if (model.isCurrentListDoneList()) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
+        }
         List<String> displayArchivedTasks = new ArrayList<String>();
         Collections.sort(targetIndexes);
         int adjustmentForRemovedTask = 0;
