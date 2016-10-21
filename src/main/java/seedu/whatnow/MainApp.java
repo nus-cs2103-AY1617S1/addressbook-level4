@@ -48,6 +48,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
+        System.out.println("storage calls getwhatnowfilepath");
         storage = new StorageManager(config.getWhatNowFilePath(), config.getUserPrefsFilePath());
         userPrefs = initPrefs(config);
 

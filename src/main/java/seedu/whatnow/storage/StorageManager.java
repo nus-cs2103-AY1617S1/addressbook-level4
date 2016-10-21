@@ -10,7 +10,6 @@ import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.model.ReadOnlyWhatNow;
 import seedu.whatnow.model.UserPrefs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;

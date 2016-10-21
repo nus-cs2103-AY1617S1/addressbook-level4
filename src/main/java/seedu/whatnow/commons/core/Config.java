@@ -46,6 +46,7 @@ public class Config {
     }
 
     public String getWhatNowFilePath() {
+        System.out.println("whatnow file path: " + whatNowFilePath);
         return whatNowFilePath;
     }
 
