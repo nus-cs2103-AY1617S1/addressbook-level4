@@ -53,7 +53,6 @@ Examples:
 * `add Floating Task`
 
 #### Reserving timeslots for a task : `rsv` 
-*[Under Development]* <br>
 Reserves one or more timeslot for a task<br>
 Format: `rsv <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
 
@@ -64,39 +63,20 @@ Format: `rsv <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME
 Examples:
 * `rsv Meet John Doe -dt 26/09/2016 0900 to 1030, 28/09/2016 1000 to 1130`
 
-#### Editing a reserved timeslot : `rsv -e` 
-*[Under Development]* <br>
-Renames a task with reserved time slots or Adds/Deletes a reserved timeslot for a task <br>
-Format: `rsv -e <INDEX> -n <TASK> -dta <START_DATE/TIME> to <END_DATE/TIME> -dtr <START_DATE/TIME> to <END_DATE/TIME>`
-
-> Words in `UPPER_CASE` are the parameters. 
-> 
-> Time is in 24-hr format. More than one date/time can be edited.
->
-> Use -n to rename the task <br>
-> Use -dta to add a timeslot <br>
-> Use -dtr to remove a timeslot <br>
-
-Examples:
-* `rsv -e 2 -n Meet John Tan -dta 08/10/2016 1000 to 1200`
-* `rsv -e 1 -n -dta 09/10/2016 1100 to 1230 -dtr 05/10/2016 1000 to 1200`
-
-#### Deleting a task with reserved timeslots : `rsv -d`
-*[Under Development]* <br>
+#### Deleting a task with reserved timeslots : `rsv -del`
 Deletes a task with all its reserved time slots <br>
-Format: `rsv -d <INDEX>`
+Format: `rsv -del <INDEX>`
 
 > Deletes the task at the specific `<INDEX>`. 
 > The index refers to the index number shown in the task list.
 > The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
-* `rsv -d 5`
+* `rsv -del 5`
 
-#### Confirming a reserved timeslot : `confirm`
-*[Under Development]* <br>
+#### Confirming a reserved timeslot : `confirm`  
 Confirms a reserved timeslot for a particular tasks and removed all the other reserved time slots. <br>
-Format: `confirm <INDEX_TASK> <INDEX_TIMESLOT>`
+Format: `confirm <INDEX_TASK> <INDEX_TIMESLOT> -p <PRIORITY> -t <TAG(s)>`
 
 > Confirm the task of a specific `<INDEX_TASK>` at a timeslot of a specific `<INDEX_TIMESLOT>` <br>
 > The `<INDEX_TASK>` refers to the index number shown in the task list. <br>
@@ -104,11 +84,11 @@ Format: `confirm <INDEX_TASK> <INDEX_TIMESLOT>`
 > Both indexes **must be a positive integer** 1, 2, 3, ...
 
 Examples:
-* `confirm 3 2`
+* `confirm 3 2 -p l -t tagname`
 
 #### Editing a task : `edit`
 Edits any component of a particular task <br>
-Format: `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)`
+Format: `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)>`
 
 > Edits the task at the specific `<INDEX>`. 
 > The index refers to the index number shown in the task list.
@@ -133,10 +113,10 @@ Format: `tag -e <INDEX> <TAG>`
 Examples:
 * `tag -e 5 Assignment`
 
-#### Deleting a tag : `tag -d`
+#### Deleting a tag : `tag -del`
 *[Under Development]* <br>
 Deletes a particular tag <br>
-Format: `tag -d <INDEX>`
+Format: `tag -del <INDEX>`
 
 > Deletes the tag at the specific `<INDEX>`
 > The index refers to the index number shown in the tag list.
@@ -148,16 +128,6 @@ Examples:
 #### Listing all tags : `tag -ls`
 Lists all tags in TARS <br>
 Format: `tag -ls`
-
-#### Finding tags : `tag -f`
-Finds all tags by keywords (i.e. AND search) <br>
-Format: `tag -f <KEYWORD>[ , <KEYWORD>, <KEYWORD>, ...]`
-
-> `<KEYWORD>` are **case-insensitive**. The order of the `<KEYWORD>` does not matter.
-
-Examples:
-* `tag -f assignment` returns all tags with the word “assignment” (e.g. CS2103 assignment, CS2010 assignment)
-* `tag -f cs2103 assignment` returns all tags with both the words “cs2103” and “assignment" (e.g. CS2103 assignment)
 
 #### Marking tasks : `mark`
 Marks a particular task(s) with the status `done` or `undone` <br>
@@ -283,7 +253,6 @@ Command | Format
 [Confirm](#confirming-a-reserved-timeslot--confirm) | `confirm <INDEX_TASK> <INDEX_TIMESLOT>`
 [Delete](#deleting-a-task--del) | `del <INDEX> [, <INDEX>, <INDEX>, …]`
 [Delete [by Date]](#deleting-a-task--del) | `del -dt [<START_DATE> to <END_DATE>] <INDEX>[, <INDEX>, <INDEX>,...]`
-[Delete [by Priority]](#deleting-a-task--del) | `del -p [PRIORITY] <INDEX> [, <INDEX>, <INDEX>, …]`
 [Delete [by Tags]](#deleting-a-task--del) | `del -t <TAG>[ , <TAG>, <TAG>] <INDEX>[, <INDEX>, <INDEX>,...]`
 [Edit](#editing-a-task--edit) | `edit <INDEX> -n <TASK> -dt <START_DATE/TIME> to <END_DATE/TIME> -p <PRIORITY> -t <TAG(s)>`
 [Edit [Append]](#editing-a-task-by-appending-details-to-a-task--edit--ap) | `edit <INDEX> -ap <TO APPEND>`
@@ -301,7 +270,6 @@ Command | Format
 [Reserve [Edit]](#editing-a-reserved-timeslot--rsv--e) | `rsv -e <INDEX> -n <TASK> -dta <START_DATE/TIME> to <END_DATE/TIME> -dtr <START_DATE/TIME> to <END_DATE/TIME`
 [Tag [Delete]](#deleting-a-tag--tag--d) | `tag -d <INDEX>`
 [Tag [Edit]](#editing-a-tags-name--tag--e) | `tag -e <INDEX> <TAG>`
-[Tag [Find]](#finding-tags--tag--f) | `tag -f <KEYWORD>[ , <KEYWORD>, <KEYWORD>]`
 [Tag [List]](#listing-all-tags--tag--ls) | `tag -ls`
 [Undo](#undoing-a-command--undo) | `undo`
 [Redo](#redoing-a-command--redo) | `redo`
