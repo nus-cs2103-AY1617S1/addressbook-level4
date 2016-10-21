@@ -29,7 +29,7 @@ public class UiManager extends ComponentManager implements Ui {
     private Logic logic;
     private Config config;
     private UserPrefs prefs;
-    private NewMainWindow newMainWindow;
+    private MainWindow newMainWindow;
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -47,7 +47,7 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            newMainWindow = NewMainWindow.load(primaryStage, config, prefs, logic);
+            newMainWindow = MainWindow.load(primaryStage, config, prefs, logic);
             newMainWindow.show(); //This should be called before creating other UI parts
             newMainWindow.fillInnerParts();
 
