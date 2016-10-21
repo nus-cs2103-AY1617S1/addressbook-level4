@@ -502,9 +502,10 @@ Use case ends
 7.	User can set the priority level of a task.
 8.	User can choose to view completed tasks by list, time and priority.
 9.	User can choose from different themes of UI.
+
 ####Weaknesses
-1.	Only two priority levels are supported.
-2.      Viewing of uncompleted tasks is in the order of completion, rather than in the order of task date or time. Viewing by list or date is not supported.
+1. Only two priority levels are supported.
+2. Viewing of uncompleted tasks is in the order of completion, rather than in the order of task date or time. Viewing by list or date is not supported.
 
 ###Taskwarrior
 ####Taskwarrior is a well-developed command line task manager software. It has implemented many functionalities, but only the ones most applicable to the project are detailed in this document.
@@ -516,9 +517,10 @@ Use case ends
 5.	User can add recurring tasks.
 6.	User can type very flexibly in terms of date and time. A wide range of accepted date/time formats is supported. User can also set duration of events by typing keywords like “3 weeks”.
 7.	User can choose from different themes of UI.
+
 ####Weaknesses
-1.	Command words are usually long.
-2.      The use of colon (:) is frequent to indicate command parameters, which might not be natural for the user.
+1. Command words are usually long.
+2. The use of colon is frequent to indicate command parameters, which might not be natural for the user.
 
 ###Wunderlist
 ####Wunderlist is a task manager application for mobile phones, tablets, and computers.
