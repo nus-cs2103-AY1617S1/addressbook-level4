@@ -22,9 +22,9 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the ForgetMeNot. "
-            + "Parameters: TASKNAME d/DATE s/START e/END  [t/TAG]...\n"
+            + "Parameters: TASKNAME DATE"
             + "Example: " + COMMAND_WORD
-            + " Homework d/98765432 s/10:00pm e/11:00pm";
+            + " Homework by tomorrow 6pm";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in ForgetMeNot";
@@ -61,7 +61,7 @@ public class AddCommand extends Command {
         
         this.toAdd = new Task(
                 new Name(name),
-                new Date(date),
+                new Done(false),
                 startTime,
                 endTime,
                 new UniqueTagList(tagSet)
@@ -85,6 +85,6 @@ public class AddCommand extends Command {
     
     
     public static Predicate<Task> isNotDone() {
-    	return t -> t.getDone().equals("false");
+    	return t -> t.getDone().value == false;
     }
 }

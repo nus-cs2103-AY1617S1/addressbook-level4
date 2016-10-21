@@ -192,6 +192,6 @@ public class MainApp extends Application {
     }
     
     public static Predicate<Task> isNotDone() {
-    	return t -> t.getDone().equals("false");
+    	return t -> t.getDone().value == false;
     }
 }

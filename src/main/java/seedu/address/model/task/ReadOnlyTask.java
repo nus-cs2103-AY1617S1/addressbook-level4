@@ -9,11 +9,10 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
-    Date getDate();
     Time getStartTime();
     Time getEndTime();
-    String getDone();
     Recurrence getRecurrence();
+    Done getDone();
     
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -28,7 +27,7 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
-                && other.getDate().equals(this.getDate())
+                && other.getDone().equals(this.getDone())
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime()));
     }
@@ -39,8 +38,8 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Date: ")
-                .append(getDate())
+//                .append(" Date: ")
+//                .append(getDone())
                 .append(" StartTime: ")
                 .append(getStartTime())
                 .append(" EndTime: ")

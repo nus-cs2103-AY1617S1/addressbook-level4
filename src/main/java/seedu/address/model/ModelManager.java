@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.Time;
-import seedu.address.model.task.Date;
+import seedu.address.model.task.Done;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
@@ -144,7 +144,7 @@ public class ModelManager extends ComponentManager implements Model {
         if (task.getStartTime().appearOnUIFormat().equals("-") && !task.getEndTime().appearOnUIFormat().equals(""))
             addTask(new Task(
                     task.getName(), 
-                    new Date("false"),
+                    new Done(false),
                     new Time(""),
                     new Time(days + " days after " + task.getEndTime().appearOnUIFormat()),
                     task.getTags() 
@@ -154,7 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
         else if (!task.getStartTime().appearOnUIFormat().equals("") && task.getEndTime().appearOnUIFormat().equals("-"))
             addTask(new Task(
                     task.getName(), 
-                    new Date("false"),
+                    new Done(false),
                     new Time(days + " days after " + task.getStartTime().appearOnUIFormat()),
                     new Time(""),
                     task.getTags() 
@@ -163,7 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
         else if (!task.getStartTime().appearOnUIFormat().equals("") && !task.getEndTime().appearOnUIFormat().equals(""))
             addTask(new Task(
                     task.getName(), 
-                    new Date("false"),
+                    new Done(false),
                     new Time(days + " days after " + task.getStartTime().appearOnUIFormat()),
                     new Time(days + " days after " + task.getEndTime().appearOnUIFormat()),
                     task.getTags() 

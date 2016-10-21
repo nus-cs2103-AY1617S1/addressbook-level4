@@ -11,7 +11,7 @@ public class TestTask implements ReadOnlyTask {
     private Name name;
     private Time end;
     private Time start;
-    private Date date;
+    private Done done;
     private UniqueTagList tags;
     private Recurrence rec;
 
@@ -31,8 +31,8 @@ public class TestTask implements ReadOnlyTask {
         this.start = start;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDone(Done done) {
+        this.done = done;
     }
 
     @Override
@@ -41,8 +41,8 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Date getDate() {
-        return date;
+    public Done getDone() {
+        return done;
     }
 
     @Override
@@ -74,11 +74,6 @@ public class TestTask implements ReadOnlyTask {
 //        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
-
-	@Override
-	public String getDone() {
-		return "false";
-	}
 
     @Override
     public Recurrence getRecurrence() {

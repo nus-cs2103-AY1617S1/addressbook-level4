@@ -32,8 +32,8 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withDate(String date) throws IllegalValueException {
-        this.task.setDate(new Date(date));
+    public TaskBuilder withDone(Boolean done) throws IllegalValueException {
+        this.task.setDone(new Done(done));
         return this;
     }
 
