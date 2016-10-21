@@ -26,5 +26,8 @@ public interface Logic {
     
     /** Returns the next command in the command history */
     String getNextCommand();
+    
+    /** Returns an autocompleted version of the current command */
+    String getAutocompletedCommand(String currentCommand);
 
 }

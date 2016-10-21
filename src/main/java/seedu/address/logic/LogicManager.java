@@ -23,11 +23,13 @@ public class LogicManager extends ComponentManager implements Logic {
     private final InMemoryTaskList model;
     private final TaskCommandsParser parser;
     private final CommandHistory commandHistory;
+    private final AutocompleteEngine autocompleteEngine;
 
     public LogicManager(InMemoryTaskList model, TaskStorage storage) {
         this.model = model;
         this.parser = new TaskCommandsParser();
         this.commandHistory = new CommandHistory();
+        this.autocompleteEngine = new AutocompleteEngine();
     }
 
     @Override
@@ -60,4 +62,9 @@ public class LogicManager extends ComponentManager implements Logic {
     public String getNextCommand() {
     	return commandHistory.getNextCommand();
     }
+
+	@Override
+	public String getAutocompletedCommand(String currentCommand) {
+		return autocompleteEngine.autocomplete(currentCommand);
+	}
 }

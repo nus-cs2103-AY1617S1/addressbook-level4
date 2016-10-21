@@ -105,7 +105,9 @@ public class CommandBox extends UiPart {
             	commandTextField.setText(nextCommand);
             	
             } else if(event.getCode() == KeyCode.TAB) {
-            	
+            	String currentCommand = commandTextField.getText();
+            	String autocompletedCommand = logic.getAutocompletedCommand(currentCommand);
+            	commandTextField.setText(autocompletedCommand);
             } else {
             	return;
             }
