@@ -106,7 +106,7 @@ public class EditCommand extends Command{
         try {
             model.editTask(taskToEdit, toEdit);
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            model.removeUnchangedState();
+            model.undo();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
             model.removeUnchangedState();
