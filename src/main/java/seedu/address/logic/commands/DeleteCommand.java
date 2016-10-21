@@ -32,6 +32,7 @@ public class DeleteCommand extends UndoableCommand {
     private List<Task> deletedTasks;
     private List<String> displayDeletedTasks;
     public final List<Integer> targetIndexes;
+    private boolean targetDoneList;
 
     public DeleteCommand(List<Integer> targetIndexes) {
         assert targetIndexes != null;
@@ -42,15 +43,15 @@ public class DeleteCommand extends UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
-        boolean isDoneList = model.isCurrentListDoneList();
         displayDeletedTasks = new ArrayList<String>();
+        targetDoneList = model.isCurrentListDoneList();
         Collections.sort(targetIndexes);
         int adjustmentForRemovedTask = 0;
         deletedTasks = new ArrayList<Task>();
 
         for (int targetIndex: targetIndexes) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList;
-            if (isDoneList) {
+            if (targetDoneList) {
                 lastShownList = model.getFilteredDoneTaskList();
             } else {
                 lastShownList = model.getFilteredUndoneTaskList();
@@ -87,7 +88,12 @@ public class DeleteCommand extends UndoableCommand {
 
     @Override
     public CommandResult undo() {
-        model.addTasks(deletedTasks);
+        if (targetDoneList) {
+            model.addDoneTasks(deletedTasks);
+        }
+        else {
+            model.addTasks(deletedTasks);
+        }
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, displayDeletedTasks));
     }
 

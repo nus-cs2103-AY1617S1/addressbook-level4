@@ -36,6 +36,9 @@ public class DoneCommand extends UndoableCommand {
     private List<Task> doneTasksUndoFail;
 
     public final List<Integer> targetIndexes;
+    
+    private boolean targetDoneList;
+
 
     public DoneCommand(List<Integer> targetIndexes) {
         assert targetIndexes != null;
@@ -46,7 +49,8 @@ public class DoneCommand extends UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
-        if (model.isCurrentListDoneList()) {
+        targetDoneList = model.isCurrentListDoneList();
+        if (targetDoneList) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
         }
