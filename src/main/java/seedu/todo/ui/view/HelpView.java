@@ -22,10 +22,10 @@ import java.util.logging.Logger;
 /**
  * A view that displays all the help commands in a single view.
  */
-public class HelpPanel extends UiPart {
+public class HelpView extends UiPart {
 
-    private final Logger logger = LogsCenter.getLogger(HelpPanel.class);
-    private static final String FXML = "HelpPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(HelpView.class);
+    private static final String FXML = "HelpView.fxml";
 
     /*Layouts*/
     private AnchorPane placeholder;
@@ -40,12 +40,12 @@ public class HelpPanel extends UiPart {
      * @param placeholder where the view element {@link #helpPanelView} should be placed
      * @return an instance of this class
      */
-    public static HelpPanel load(Stage primaryStage, AnchorPane placeholder) {
-        HelpPanel helpPanel = UiPartLoader.loadUiPart(primaryStage, placeholder, new HelpPanel());
-        helpPanel.addToPlaceholder();
-        helpPanel.configureLayout();
-        helpPanel.hideHelpPanel();
-        return helpPanel;
+    public static HelpView load(Stage primaryStage, AnchorPane placeholder) {
+        HelpView helpView = UiPartLoader.loadUiPart(primaryStage, placeholder, new HelpView());
+        helpView.addToPlaceholder();
+        helpView.configureLayout();
+        helpView.hideHelpPanel();
+        return helpView;
     }
 
     /**
