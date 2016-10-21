@@ -34,7 +34,7 @@ public class EditCommandTest extends TaskBookGuiTest {
         fields.put(TaskField.END_TIME, "Tue Oct 18 21:35:45");
         fields.put(TaskField.DEADLINE, "Mon Oct 24 21:35:45");
         fields.put(TaskField.RECURRENCE, "Monday");
-        fields.put(TaskField.TAG_ARGUMENTS, "#Tag3 #Tag4");
+        fields.put(TaskField.TAG_ARGUMENTS, "#Tag2");
         assertEditSuccess(2, fields, currentList);
 
         //invalid command
