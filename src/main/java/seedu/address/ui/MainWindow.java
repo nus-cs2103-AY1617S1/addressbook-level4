@@ -23,7 +23,7 @@ public class MainWindow extends UiPart {
 
 	//@@author A0142184L
     private static final String ICON = "/images/address_book_32.png";
-    private static final String FXML = "NewMainWindow.fxml";
+    private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 750;
     public static final int MIN_WIDTH = 800;
     //@@author 
