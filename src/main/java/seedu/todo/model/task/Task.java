@@ -56,7 +56,7 @@ public class Task implements MutableTask {
         this.setEndTime(task.getEndTime().orElse(null));
         this.setCompleted(task.isCompleted());
         this.setPinned(task.isPinned());
-        this.setLastUpdated();
+        this.setLastUpdated(task.getLastUpdated());
         this.uuid = task.getUUID();
     }
 
@@ -146,12 +146,11 @@ public class Task implements MutableTask {
     @Override
     public void setLastUpdated() { this.lastUpdated.set(LocalDateTime.now()); }
 
-    public void setLastUpdated(LocalDateTime lastUpdated) throws IllegalValueException {
+    public void setLastUpdated(LocalDateTime lastUpdated) {
         if (lastUpdated == null) {
             lastUpdated = LocalDateTime.now();
-        } else if (lastUpdated.isAfter(LocalDateTime.now())) {
-            throw new IllegalValueException("Task updated time cannot be in the future.");
         }
+        
         this.lastUpdated.set(lastUpdated);
     }
 
@@ -182,5 +181,10 @@ public class Task implements MutableTask {
     @Override
     public int hashCode() {
         return uuid.hashCode();
+    }
+    
+    @Override
+    public String toString() {
+        return title.get();
     }
 }
