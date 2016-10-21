@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.ListTaskCommand;
@@ -17,7 +19,7 @@ public class ListCommandParser extends CommandParser{
         	return new ListTaskCommand(arguments);
         }
         catch(IllegalValueException ive){
-            return new IncorrectTaskCommand(ive.getMessage());
+            return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListTaskCommand.MESSAGE_USAGE));
         }
     }
 

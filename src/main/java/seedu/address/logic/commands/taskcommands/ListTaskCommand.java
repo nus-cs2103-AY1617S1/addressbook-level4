@@ -29,7 +29,7 @@ public class ListTaskCommand extends TaskCommand {
     		throws IllegalValueException {
 
         this.argument = argument;
-        if(argument!=null || argument!="alias" || argument!="completed" || argument!="complete"){
+        if(!argument.equals("") && !argument.equals("alias") && !argument.equals("completed") &&!argument.equals("complete")){
     		throw new IllegalValueException(MESSAGE_USAGE);
         }
     }
