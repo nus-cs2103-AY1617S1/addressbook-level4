@@ -136,16 +136,40 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    public synchronized void addRecurringTask(Task task, String days) throws DuplicateTaskException, IllegalValueException {
-        //yet to input the conditions for what new task to add. 
-        //3 cases: event, only start, only end
+    @Override
+    public synchronized void addRecurringTask(ReadOnlyTask task, String days) throws DuplicateTaskException, IllegalValueException {
+        
+        //Recurring task wth both start and end times  
+        if (!task.getStartTime().appearOnUIFormat().equals("") && !task.getEndTime().appearOnUIFormat().equals(""))
         addTask(new Task(
                 task.getName(), 
                 new Date("false"),
-                new Time(days + " after " + task.getStartTime().appearOnUIFormat()),
-                new Time(days + " after " + task.getEndTime().appearOnUIFormat()),
+                new Time(days + " days after " + task.getStartTime().appearOnUIFormat()),
+                new Time(days + " days after " + task.getEndTime().appearOnUIFormat()),
                 task.getTags() 
                 ));
+        
+        //Recurring task with only end time.
+        else if (task.getStartTime().appearOnUIFormat().equals("") && !task.getEndTime().appearOnUIFormat().equals(""))
+            addTask(new Task(
+                    task.getName(), 
+                    new Date("false"),
+                    new Time(""),
+                    new Time(days + " days after " + task.getEndTime().appearOnUIFormat()),
+                    task.getTags() 
+                    ));
+       
+        //Recurring task with only start time.
+        else if (!task.getStartTime().appearOnUIFormat().equals("") && task.getEndTime().appearOnUIFormat().equals(""))
+            addTask(new Task(
+                    task.getName(), 
+                    new Date("false"),
+                    new Time(days + " days after " + task.getStartTime().appearOnUIFormat()),
+                    new Time(""),
+                    task.getTags() 
+                    ));
+
+
     }
     
     @Override

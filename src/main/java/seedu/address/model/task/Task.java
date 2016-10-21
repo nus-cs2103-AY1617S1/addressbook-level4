@@ -28,6 +28,7 @@ public class Task implements ReadOnlyTask {
         this.date = date;
         this.start = start;
         this.end = end;
+        this.rec = new Recurrence(true, "7");
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
