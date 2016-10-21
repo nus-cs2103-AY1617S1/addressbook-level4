@@ -32,7 +32,7 @@ public class UserPrefs {
 
     public UserPrefs(){
         this.setGuiSettings(500, 500, 0, 0);
-        this.setStorageSettings("/data/cmdo.xml");
+        this.setStorageSettings("data/cmdo.xml");
     }
 
     public void setGuiSettings(double width, double height, int x, int y) {

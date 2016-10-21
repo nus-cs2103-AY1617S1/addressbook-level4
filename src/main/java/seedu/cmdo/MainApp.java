@@ -55,8 +55,10 @@ public class MainApp extends Application {
         storage = new StorageManager(config.getToDoListFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
-        
+                
         model = initModelManager(storage, userPrefs);
+        
+        logger.info("Init model success");
         
         syncUserPrefsToConfig();
         
@@ -101,6 +103,9 @@ public class MainApp extends Application {
         } catch (FileNotFoundException e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty ToDoList");
             initialData = new ToDoList();
+        } catch(Exception e) {
+        	logger.warning("Data file not found. Will be starting with an empty ToDoList");
+        	initialData = new ToDoList();
         }
 
         return new ModelManager(initialData, userPrefs);
