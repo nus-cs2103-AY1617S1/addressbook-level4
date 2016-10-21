@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.ActivityCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -22,6 +22,7 @@ import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
 import seedu.address.model.activity.UniqueTaskList;
+import seedu.address.model.activity.event.ReadOnlyEvent;
 import seedu.address.model.activity.task.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -331,8 +332,21 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyActivity person) {
-        return card.isSamePerson(person);
+    public static boolean compareCardAndPerson(ActivityCardHandle card, ReadOnlyActivity activity) {
+    	String classOfActivity = activity.getClass().getSimpleName();
+    	
+    	switch (classOfActivity) {
+	    	case "TestActivity":
+	    	    return card.isSameActivity(activity);
+	    	
+	    	case "TestTask": 
+	    		return card.isSameTask((ReadOnlyTask) activity);
+	    	
+	    	case "TestEvent": 
+	    		return card.isSameEvent((ReadOnlyEvent) activity);
+    	}
+    	return false;
+    	
     }
 
     public static Tag[] getTagList(String tags) {

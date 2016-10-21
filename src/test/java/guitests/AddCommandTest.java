@@ -1,6 +1,6 @@
 package guitests;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.ActivityCardHandle;
 import org.junit.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.commons.core.Messages;
@@ -68,7 +68,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(activityToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        PersonCardHandle addedCard = personListPanel.navigateToPerson(activityToAdd.getName().fullName);
+        ActivityCardHandle addedCard = personListPanel.navigateToActivity(activityToAdd.getName().fullName);
         assertMatching(activityToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
