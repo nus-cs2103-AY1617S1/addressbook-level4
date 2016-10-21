@@ -188,6 +188,12 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	
 	@Override
     public int compareTo(Task taskToCompare) {
+	    // sort all tasks that are done to the back of the list
+	    if (this.getIsDone() && !taskToCompare.getIsDone()) {
+	        return 1;
+	    } else if (!this.getIsDone() && taskToCompare.getIsDone()) {
+	        return -1;
+	    }
         if (this.getNumArgs() == taskToCompare.getNumArgs()) {
             // sort events according to their start time and end time
             if (this.isEvent()) {
