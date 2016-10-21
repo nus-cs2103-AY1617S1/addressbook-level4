@@ -29,7 +29,11 @@ public class ClearCommand extends UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
-        clearedTasks = new ArrayList<Task>(model.getTaskManager().getUniqueUndoneTaskList().getInternalList());
+        if (model.isCurrentListDoneList()) {
+            clearedTasks = new ArrayList<Task>(model.getTaskManager().getUniqueDoneTaskList().getInternalList());
+        } else {
+            clearedTasks = new ArrayList<Task>(model.getTaskManager().getUniqueUndoneTaskList().getInternalList());
+        }
         model.resetData(TaskManager.getEmptyTaskManager());
         updateHistory();
         return new CommandResult(MESSAGE_SUCCESS);

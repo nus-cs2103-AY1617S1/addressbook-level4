@@ -59,7 +59,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
-        taskManager.resetData(newData);
+        if (isDoneList) {
+            taskManager.resetDoneData(newData);
+        } else {
+            taskManager.resetUndoneData(newData);
+        }
         indicateTaskManagerChanged();
     }
 
