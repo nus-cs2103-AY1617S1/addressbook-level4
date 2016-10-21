@@ -1,9 +1,12 @@
 package seedu.address.logic.commands;
 
+import java.util.function.Predicate;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -48,12 +51,17 @@ public class EditCommand extends Command {
        try{ 
            model.saveToHistory();
            model.editTask(taskToEdit, newName, newStart, newEnd);
+           model.updateFilteredTaskListToShow(isNotDone());
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (IllegalValueException e) {
             return new CommandResult(MESSAGE_EDIT_TASK_NOT_SUCCESSFUL);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
+    }
+    
+    public static Predicate<Task> isNotDone() {
+    	return t -> t.getDone().value == false;
     }
     
 }
