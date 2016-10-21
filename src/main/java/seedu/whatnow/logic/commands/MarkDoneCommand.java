@@ -64,7 +64,7 @@ public class MarkDoneCommand extends UndoAndRedo {
 	@Override
 	public CommandResult undo() {
 		if(model.getStackOfMarkDoneTask().isEmpty() || model.getStackOfMarkDoneTaskTaskType().isEmpty()) {
-			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
+		    return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
 		}
 
 		ReadOnlyTask taskToReAdd = model.getStackOfMarkDoneTask().pop();

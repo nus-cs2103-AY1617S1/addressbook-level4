@@ -47,7 +47,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<ReadOnlyTask> stackOfDeletedTasks;
     private final Stack<String> stackOfDeletedTaskTypes;
     private final Stack<ReadOnlyTask> stackOfMarkDone;
+    private final Stack<ReadOnlyTask> stackOfMarkUndone;
     private final Stack<String> stackOfMarkDoneTaskTypes;
+    private final Stack<String> stackOfMarkUndoneTaskTypes;
     private final Stack<ReadOnlyWhatNow> stackOfWhatNowUndoUpdate;
     private final Stack<ReadOnlyWhatNow> stackOfWhatNowRedoUpdate;
     
@@ -76,7 +78,9 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfDeletedTasks = new Stack<>();
         stackOfDeletedTaskTypes = new Stack<>();
         stackOfMarkDone= new Stack<>();
+        stackOfMarkUndone= new Stack<>();
         stackOfMarkDoneTaskTypes = new Stack<>();
+        stackOfMarkUndoneTaskTypes = new Stack<>();
         stackOfWhatNowUndoUpdate = new Stack<>();
         stackOfWhatNowRedoUpdate = new Stack<>();
     }
@@ -99,7 +103,9 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfDeletedTasks = new Stack<>();
         stackOfDeletedTaskTypes = new Stack<>();
         stackOfMarkDone = new Stack<>();
+        stackOfMarkUndone = new Stack<>();
         stackOfMarkDoneTaskTypes = new Stack<>();
+        stackOfMarkUndoneTaskTypes = new Stack<>();
         stackOfWhatNowUndoUpdate = new Stack<>();
         stackOfWhatNowRedoUpdate = new Stack<>();
     }
@@ -215,9 +221,18 @@ public class ModelManager extends ComponentManager implements Model {
     public Stack<ReadOnlyTask> getStackOfMarkDoneTask() {
     	return stackOfMarkDone;
     }
+    
+    @Override
+    public Stack<ReadOnlyTask> getStackOfMarkUndoneTask() {
+        return stackOfMarkUndone;
+    }
     @Override
     public Stack<String> getStackOfMarkDoneTaskTaskType() {
     	return stackOfMarkDoneTaskTypes;
+    }
+    @Override
+    public Stack<String> getStackOfMarkUndoneTaskTaskType() {
+        return stackOfMarkUndoneTaskTypes;
     }
     @Override
     public Stack<ReadOnlyWhatNow> getStackOfWhatNowUpdate() {
@@ -452,4 +467,6 @@ public class ModelManager extends ComponentManager implements Model {
             return "TaskType=" + String.join(", ", taskType);
         }
     }
+
+   
 }

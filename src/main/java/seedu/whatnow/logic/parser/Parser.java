@@ -9,7 +9,6 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.*;
@@ -144,6 +143,9 @@ public class Parser {
 		
 		case MarkDoneCommand.COMMAND_WORD:
 			return prepareMarkDone(arguments);
+			
+		case MarkUndoneCommand.COMMAND_WORD:
+            return prepareMarkUndone(arguments);
 		
 		case UndoCommand.COMMAND_WORD:
 			return new UndoCommand();
@@ -465,6 +467,22 @@ public class Parser {
         return new MarkDoneCommand(argComponents[TASK_TYPE], index.get());
     }
 
+    /**
+     * Parses arguments in the context of the markUndone task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMarkUndone(String args) {
+        String[] argComponents = args.trim().split(" ");
+        Optional<Integer> index = parseIndex(argComponents[INDEX]);
+        if (!index.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkUndoneCommand.MESSAGE_USAGE));
+        }
+        return new MarkUndoneCommand(argComponents[TASK_TYPE], index.get());
+    }
+    
 	/**
 	 * Checks that the command format is valid
 	 * @param type is todo/schedule, index is the index of item on the list, argType is description/tag/date/time
