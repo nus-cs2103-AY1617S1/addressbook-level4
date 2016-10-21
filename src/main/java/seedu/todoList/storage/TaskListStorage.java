@@ -15,6 +15,11 @@ public interface TaskListStorage {
      * Returns the file path of the data file.
      */
     String getTaskListFilePath();
+    
+    /**
+     * Update the file path of the data file.
+     */
+    void setTaskListFilePath(String filePath);
 
     /**
      * Returns TodoList data as a {@link ReadOnlyTaskList}.

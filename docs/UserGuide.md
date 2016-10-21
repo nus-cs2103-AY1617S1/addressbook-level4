@@ -104,8 +104,7 @@ Undo the latest command. If there is no previous command, nothing will happen.<b
 > Format: `undo`
 
 #### Change the Storage directory : `storage`
-Change the storage directory for the app.<br>
-The storage folder's name must be 'data'
+Change the storage directory of the app.<br>
 > Format: `storage DIRECTORY` <br>
 > Example: `storage /Desktop/Tdoo/date`
 
