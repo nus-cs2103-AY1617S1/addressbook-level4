@@ -33,7 +33,7 @@ public class ShowCommand extends Command {
             COMMAND_WORD + ": Shows certain sections of the task panel in the agenda panel. \n"
             + "Parameters: NAME_OF_SECTION_TO_DISPLAY\n" 
             + "Example: " + COMMAND_WORD + " floating tasks\n"
-            + "> Valid Keywords: Floating Tasks, Completed Tasks, Incomplete Tasks, Today, Tomorrow, {day of week displayed with capitalized first letter}";
+            + "> Valid Keywords: Floating Tasks, Completed Tasks, Incomplete Tasks, Today, Tomorrow, {day of week displayed}";
 
     public static final String MESSAGE_SUCCESS = "Displayed tasks and events.";
     
