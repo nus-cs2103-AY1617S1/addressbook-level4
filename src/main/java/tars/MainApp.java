@@ -160,7 +160,6 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting Tars " + MainApp.VERSION);
-        primaryStage.initStyle(StageStyle.UNDECORATED);
         ui.start(primaryStage);
     }
 
