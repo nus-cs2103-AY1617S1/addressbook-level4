@@ -222,7 +222,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            System.out.println(task.getDate());
             if (isEventDate) {
                 return task.isEvent() && ((EventDate) task.getDate()).getStartDate().equals(dateValue);
             } else {
