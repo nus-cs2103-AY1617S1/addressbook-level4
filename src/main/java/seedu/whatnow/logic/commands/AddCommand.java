@@ -8,10 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.ocpsoft.prettytime.PrettyTime;
-
-import com.joestelmach.natty.Parser;
-
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.tag.UniqueTagList;

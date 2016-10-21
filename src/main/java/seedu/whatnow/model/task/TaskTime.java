@@ -8,10 +8,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import org.ocpsoft.prettytime.PrettyTime;
-
-import com.joestelmach.natty.Parser;
-
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 public class TaskTime {
