@@ -111,7 +111,7 @@ public class MainWindow extends UiPart {
         undatedListPanel = UndatedListPanel.load(primaryStage, getUndatedListPlaceholder(),
                 logic.getFilteredUndatedTaskList(), UndatedListPanel.UNDATED_DISPLAY_INDEX_OFFSET);
         personListPanel = PersonListPanel.load(primaryStage, getDatedListPlaceholder(),
-                logic.getFilteredPersonList(), PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
+                logic.getFilteredDatedTaskList(), PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);

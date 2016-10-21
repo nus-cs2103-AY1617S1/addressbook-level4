@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.person.*;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.task.*;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.ui.PersonListPanel;
 
 /**
@@ -29,7 +29,7 @@ public class DoneCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredDatedTaskList();
         UnmodifiableObservableList<ReadOnlyTask> lastUndatedTaskList = model.getFilteredUndatedTaskList();
 
         if ((targetIndex <= PersonListPanel.DATED_DISPLAY_INDEX_OFFSET 
@@ -51,7 +51,7 @@ public class DoneCommand extends Command {
         if (!readTaskToComplete.getStatus().equals(new Status(Status.State.DONE))){
             try {
                 model.completeTask(readTaskToComplete);
-            } catch (PersonNotFoundException pnfe) {
+            } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be found";
             }
         }

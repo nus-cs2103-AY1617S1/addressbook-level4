@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 /**
  * Represents a task's status in the to-do-list.

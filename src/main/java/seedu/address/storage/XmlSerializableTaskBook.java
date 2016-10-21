@@ -3,9 +3,9 @@ package seedu.address.storage;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.ReadOnlyTaskBook;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,20 +15,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable AddressBook that is serializable to XML format
+ * An Immutable TaskBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
+public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedTask> datedTasks;
     @XmlElement
-    private List<XmlAdaptedPerson> undatedTasks;
+    private List<XmlAdaptedTask> undatedTasks;
     @XmlElement
     private List<Tag> tags;
 
     {
-        persons = new ArrayList<>();
+        datedTasks = new ArrayList<>();
         undatedTasks = new ArrayList<>();
         tags = new ArrayList<>();
     }
@@ -36,14 +36,14 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableTaskBook() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
-        undatedTasks.addAll(src.getUndatedTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+    public XmlSerializableTaskBook(ReadOnlyTaskBook src) {
+        datedTasks.addAll(src.getDatedTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+        undatedTasks.addAll(src.getUndatedTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -59,9 +59,9 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public UniquePersonList getUniquePersonList() {
-        UniquePersonList lists = new UniquePersonList();
-        for (XmlAdaptedPerson p : persons) {
+    public UniqueTaskList getUniqueDatedTaskList() {
+        UniqueTaskList lists = new UniqueTaskList();
+        for (XmlAdaptedTask p : datedTasks) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -72,8 +72,21 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
-        return persons.stream().map(p -> {
+    public UniqueTaskList getUniqueUndatedTaskList() {
+        UniqueTaskList lists = new UniqueTaskList();
+        for (XmlAdaptedTask p : undatedTasks) {
+            try {
+                lists.add(p.toModelType());
+            } catch (IllegalValueException e) {
+
+            }
+        }
+        return lists;
+    }
+
+    @Override
+    public List<ReadOnlyTask> getDatedTaskList() {
+        return datedTasks.stream().map(p -> {
             try {
                 return p.toModelType();
             } catch (IllegalValueException e) {
@@ -83,25 +96,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
             }
         }).collect(Collectors.toCollection(ArrayList::new));
     }
-
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
-    }
-
-    @Override
-    public UniquePersonList getUniqueUndatedTaskList() {
-        UniquePersonList lists = new UniquePersonList();
-        for (XmlAdaptedPerson p : undatedTasks) {
-            try {
-                lists.add(p.toModelType());
-            } catch (IllegalValueException e) {
-
-            }
-        }
-        return lists;
-    }
-
+    
     @Override
     public List<ReadOnlyTask> getUndatedTaskList() {
         return undatedTasks.stream().map(p -> {
@@ -114,4 +109,9 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 
+    @Override
+    public List<Tag> getTagList() {
+        return Collections.unmodifiableList(tags);
+    }
+    
 }
