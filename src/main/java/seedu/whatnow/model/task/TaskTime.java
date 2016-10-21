@@ -59,12 +59,12 @@ public class TaskTime {
 	public final String INVALID_DATE_MESSAGE = "Entered an invalid date format";
 	public final String INVALID_DATE_RANGE_MESSAGE = "Entered and invalid date range format";
 
-	private String time;
-	private String startTime;
-	private String endTime;
-	private String date;
-	private String startDate;
-	private String endDate;
+	private String time = null;
+	private String startTime = null;
+	private String endTime = null;
+	private String date = null;
+	private String startDate = null;
+	private String endDate = null;
 
 	public TaskTime(String time, String startTime, String endTime, String date, String startDate, String endDate)  throws IllegalValueException{
 		ListOfDateRegex = new ArrayList<String>();
@@ -87,24 +87,21 @@ public class TaskTime {
 		ListOfTimeFormat.add(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT); ListOfTimeFormat.add(TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT);
 		ListOfTimeFormat.add(TWELVE_HOUR_WITHOUT_MINUTES_FORMAT);
 
-		if(!isValidDate(date, 0)) {
+		if(!isValidDate(date)) {
 			throw new IllegalValueException(INVALID_DATE_MESSAGE);
 		}
-		this.date = date;
 		if(!isValidDateRange(startDate, endDate)) {
 			throw new IllegalValueException(INVALID_DATE_RANGE_MESSAGE);
 		}
-		this.startDate = startDate;
-		this.endDate = endDate;
 		if(!isValidTime(time)) {
 			throw new IllegalValueException(INVALID_TIME_MESSAGE);
 		}
-		this.time = time;
 		if(!isValidTimeRange(startTime, endTime)) {
 			throw new IllegalValueException(INVALID_TIME_RANGE_MESSAGE);
 		}
-		this.startTime = startTime;
-		this.endTime = endTime;
+	}
+	public String getFullString() {
+		return (date + startDate + endDate + time + startTime + endTime);
 	}
 	/** returns time */
 	public String getTime() {
@@ -154,36 +151,75 @@ public class TaskTime {
 	 */
 	public boolean isValidTimeSeq(String reqTime, String format) {
 		//First checks if it is indeed valid:
-		Date tempTime = null;
+		boolean currEarlierThanInput = false;
+		Date inputTime = null;
+		Date todayTime = null;
 		try {
-			DateFormat df = new SimpleDateFormat(format);
-			df.setLenient(false);
+			String currentTime = new SimpleDateFormat(format).format(new Date());
+			DateFormat tf = new SimpleDateFormat(format);
+			tf.setLenient(false);
 
-			tempTime = df.parse(reqTime);
+			inputTime = tf.parse(reqTime);
+			todayTime = tf.parse(currentTime);
+			if(inputTime.before(todayTime)) {
+				currEarlierThanInput = true;
+			}
 		} catch(ParseException ex) {
 			ex.printStackTrace();
 			return false;
 		}
 		//Second check on whether this time is before the current Time
-		
-		//This check is for e.g. input add "Sth" at 5 pm
-		//Gets today's currentTime, if its after then i will get tomorrow's currentTime instead
+
+		//This check if for e.g. input add "Sth" at 5 pm
+		//Attempts to put today's date, if current time is >  5pm, put it as tomorrow instead
 		if(startDate == null && endDate == null && date == null) {
-			
+			//If currentTime is earlier than input time, puts today's date
+			if(!currEarlierThanInput) {
+				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+				Calendar cal = Calendar.getInstance();
+				String taskDate = dateFormat.format(cal.getTime()); //Gets today's date
+				date = taskDate;
+				time = reqTime;
+				return true;
+			}
+			//CurrentTime is later than inputTime, puts tmr date instead
+			else {
+				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.DATE, 1);
+				date = dateFormat.format(cal.getTime());
+				time = reqTime;
+				return true;
+			}
 		}
 		//checks for todayDate gets current time and compare with input time, returns false if invalid
 		else if(date.equals("today")) {
-			
+			if(!currEarlierThanInput){
+				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+				Calendar cal = Calendar.getInstance();
+				String taskDate = dateFormat.format(cal.getTime()); //Gets today's date
+				date = taskDate;
+				time = reqTime;
+				return true;
+			}
+			else
+				return false;
 		}
 		//Performs a normal check
 		else if(date.equals("tomorrow")) {
-			
+			DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DATE, 1);
+			date = dateFormat.format(cal.getTime());
+			time = reqTime;
+			return true;
 		}
 		//E.g. add "Sth" on 22/10/2016 to 23/10/2016 (date has been checked if its valid) at 8pm
+		//I.e. date is null, startDate is not null, endDate is not null
 		else {
-			
+			time = reqTime;
+			return true;
 		}
-		return false;
 	}
 	/**
 	 * Checks if a particular time range is valid i.e. startTime is before endTime
@@ -191,12 +227,106 @@ public class TaskTime {
 	 */
 	public boolean isValidTimeRange(String beforeTime, String afterTime) {
 		//First check for whether the given two times are valid
-		
+
 		//Second check for whether the dates are present or not i.e.
 		//Add "sth" 8pm to 10pm, we get today, if it has passed, we get tomorrow's date instead
-		
+
 		//Third check for whether the beforeTime is indeed before the afterTime
+
+		//Means that there is not timeRange
+		if(beforeTime == null && afterTime == null && time != null) {
+			return true;
+		}
+		else {
+			for(int i =0; i < ListOfTimeRegex.size() && i < ListOfTimeFormat.size(); i ++) {
+				if(beforeTime.matches(ListOfTimeFormat.get(i)) && afterTime.matches(ListOfTimeFormat.get(i))) {
+					return isValidNumTime(beforeTime, afterTime, ListOfTimeFormat.get(i));
+				}
+			}
+		}
 		return false;
+	}
+	public boolean isValidNumTime(String beforeTime, String afterTime, String format) {
+		//First check if two times are valid
+		boolean currEarlierThanInput = false;
+		boolean beforeEarlierThanAfter = false;
+		Date inputBeforeTime = null;
+		Date inputAfterTime = null;
+		Date todayTime = null;
+		try {
+			String currentTime = new SimpleDateFormat(format).format(new Date());
+			DateFormat tf = new SimpleDateFormat(format);
+			tf.setLenient(false);
+
+			inputBeforeTime = tf.parse(beforeTime);
+			inputAfterTime = tf.parse(afterTime);
+			todayTime = tf.parse(currentTime);
+			if(inputBeforeTime.before(todayTime) && inputAfterTime.before(todayTime)) {
+				currEarlierThanInput = true;
+			}
+			if(inputBeforeTime.before(inputAfterTime)) {
+				beforeEarlierThanAfter = true;
+			}
+		} catch(ParseException ex) {
+			ex.printStackTrace();
+			return false;
+		}
+		//Checks if beforeTime is earlier than afterTime
+		if(!beforeEarlierThanAfter) {
+			return false;
+		}
+		//This check if for e.g. input add "Sth" from 5pm to 7pm
+		//Attempts to put today's date, if current time is >  5pm, put it as tomorrow instead
+		if(startDate == null && endDate == null && date == null) {
+			//If currentTime is earlier than input time, puts today's date
+			if(!currEarlierThanInput && beforeEarlierThanAfter) {
+				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+				Calendar cal = Calendar.getInstance();
+				String taskDate = dateFormat.format(cal.getTime()); //Gets today's date
+				date = taskDate;
+				startTime = beforeTime;
+				endTime = afterTime;
+				return true;
+			}
+			//CurrentTime is later than inputTime, puts tmr date instead
+			else {
+				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.DATE, 1);
+				date = dateFormat.format(cal.getTime());
+				startTime = beforeTime;
+				endTime = afterTime;
+				return true;
+			}
+		}
+		else if(date.equals("today")) {
+			if(!currEarlierThanInput){
+				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+				Calendar cal = Calendar.getInstance();
+				String taskDate = dateFormat.format(cal.getTime()); //Gets today's date
+				date = taskDate;
+				startTime = beforeTime;
+				endTime = afterTime;
+				return true;
+			}
+			else
+				return false;
+		}
+		//Performs a normal check
+		else if(date.equals("tomorrow")) {
+			DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DATE, 1);
+			date = dateFormat.format(cal.getTime());
+			startTime = beforeTime;
+			endTime = afterTime;
+			return true;
+		}
+		else {
+			startTime = beforeTime;
+			endTime = afterTime;
+			return true;
+		}
 	}
 
 	/**
@@ -204,7 +334,7 @@ public class TaskTime {
 	 * num is to be used to indicate what date im referring to i.e. 0 for variable date, 1 for variable startDate, 2 for variable endDate
 	 * @return true if valid, else return false
 	 */
-	public boolean isValidDate(String reqDate, int num) {
+	public boolean isValidDate(String reqDate) {
 		if(reqDate == null) {
 			return true;
 		}
@@ -289,22 +419,30 @@ public class TaskTime {
 	//Assume both beforeDate and afterDate is dd/mm/yyyy
 	public boolean isValidDateRange(String beforeDate, String afterDate) {
 		//Checks if the 2 dates are valid
-
-
 		//Checks if beforeDate is earlier than afterDate
+		if(beforeDate == null && afterDate == null) {
+			return true;
+		}
+		boolean validDateRange = false;
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date startDate = null;
+		Date beginDate = null;
+		Date finishDate = null;
 		try {
-			startDate = sdf.parse(beforeDate);
+			beginDate = sdf.parse(beforeDate);
+			finishDate = sdf.parse(afterDate);
+			if(beginDate.before(finishDate)) {
+				validDateRange = true;
+			}
 		} catch (ParseException e) {
-
+			return false;
 		}
-		Date endDate = null;
-		try {
-			endDate = sdf.parse(afterDate);
-		} catch (ParseException e) {
-			e.printStackTrace();
+		if(!validDateRange) {
+			return false;
 		}
-		return startDate.before(endDate);
+		else {
+			startDate = beforeDate;
+			endDate = afterDate;
+			return true;
+		}
 	}
 }

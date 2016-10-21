@@ -2,6 +2,7 @@ package seedu.whatnow.model.task;
 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Set;
 
@@ -26,19 +27,19 @@ public class TaskDate {
 	public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_REGEX = "([0-9]{1}+)/([0-9]{2}+)/([0-9]{4})";
 	public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_MONTH_REGEX = "([0-9]{2}+)/([1-9]{1}+)/([0-9]{4})";
 	public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_SHORTENED_DAY_AND_MONTH_REGEX = "([0-9]{1}+)/([0-9]{1}+)/([0-9]{4})";
-	
+
 	public static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
 	public static final String DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT = "dd/MM";
 	public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_FORMAT = "d/MM/yyyy";
 	public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_FORMAT = "dd/M/yyyy";
 	public static final String DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_FORMAT = "d/M/yyyy";
-	
+
 	public static final String DATE_AlPHA_WHITESPACE_WITH_YEAR_FORMAT = "dd MMMM yyyy ";
 	public static final String DATE_ALPHA_WHITESPACE_WITHOUT_YEAR_FORMAT = "dd MMMM";	
-	
+
 	public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_MODIFIED_REGEX =	"^\\d{1,2}\\/\\d{1,2}\\/\\d{4}$";
 	private String fullDate;	//Is the full date that will be used and stored
-	
+
 	/*
 	 * Validates given date
 	 *
@@ -123,10 +124,18 @@ public class TaskDate {
 			return false;
 		}
 		//Following checks if the user input date is invalid i.e before today's date
-		DateFormat dateFormat = new SimpleDateFormat(format);
-		Calendar todayCal = Calendar.getInstance();
-		Date todayDate = todayCal.getTime();
-		if(todayDate.compareTo(tempDate) > 0) {
+		//		DateFormat dateFormat = new SimpleDateFormat(format);
+		//		Calendar todayCal = Calendar.getInstance();
+		//		Date todayDate = todayCal.getTime();
+		//		if(todayDate.compareTo(tempDate) > 0) {
+		//			return false;
+		//		}
+		Calendar c = new GregorianCalendar();
+		c.set(Calendar.HOUR_OF_DAY, 23);
+		c.set(Calendar.MINUTE, 59);
+		c.set(Calendar.SECOND, 59);
+		Date currDate = c.getTime();
+		if(currDate.compareTo(tempDate) > 0) {
 			return false;
 		}
 		//Following ensures that the date format keyed in the user will be converted to DATE_NUM_SLASH_WITH_YEAR_FORMAT
@@ -175,7 +184,7 @@ public class TaskDate {
 		try {
 			DateFormat df = new SimpleDateFormat(format);
 			df.setLenient(false);
-			
+
 			tempDate = df.parse(test);
 		} catch(ParseException ex) {
 			ex.printStackTrace();
