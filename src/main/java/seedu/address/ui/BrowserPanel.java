@@ -61,7 +61,6 @@ public class BrowserPanel extends UiPart{
         BrowserPanel browserPanel = new BrowserPanel();
         browserPanel.agenda = new MyAgenda();
         browserPanel.initialize(taskList);
-        //placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
         FxViewUtil.applyAnchorBoundaryParameters(browserPanel.agenda, 0.0, 0.0, 0.0, 0.0);
         placeholder.getChildren().add(browserPanel.agenda);
         return browserPanel;
@@ -74,7 +73,7 @@ public class BrowserPanel extends UiPart{
     }
 
     public void loadTaskPage(ReadOnlyTask task) {
-        //loadPage("https://www.google.com.sg/#safe=off&q=" + task.getName().fullName.replaceAll(" ", "+"));
+        //Deprecated method
     }
     
     public void updateAgenda(TaskDate inputDate, ObservableList<TaskComponent> taskList){

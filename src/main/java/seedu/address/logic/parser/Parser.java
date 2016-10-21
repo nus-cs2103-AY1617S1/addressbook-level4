@@ -423,7 +423,6 @@ public class Parser {
         Date startTime = null;
         Date endTime = null;
         Date deadline = null;
-        Date today = null;
         Set<String> tagSet = new HashSet<String>();
         
         boolean dateMatcherMatches = dateMatcher.matches();
@@ -584,7 +583,7 @@ public class Parser {
     	Date date;
     	try{
     		date = getDateFromString(arguments);
-    	}catch(Exception e){
+    	}catch(IllegalArgumentException e){
     		return new IncorrectCommand(e.getMessage());
     	}
 		return new ViewCommand(new TaskDate(date));
@@ -631,8 +630,11 @@ public class Parser {
      */
     public static Date getDateFromString(String dateInput) {
         List<DateGroup> dateGroups = nattyParser.parse(dateInput);
-        
-        return dateGroups.get(0).getDates().get(0);
+        try{
+        	return dateGroups.get(0).getDates().get(0);
+        }catch (Exception e){
+        	throw new IllegalArgumentException("Illegal date input");
+        }
     }
     
     private static RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {
