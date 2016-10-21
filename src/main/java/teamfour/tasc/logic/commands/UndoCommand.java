@@ -30,19 +30,14 @@ public class UndoCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         
-        int numCommandsUndone = 0;
-        for (int i = 0; i < numCommandsToBeUndone; i++) {
-            if (model.undoTaskListHistory()) {
-                numCommandsUndone++;
-            }
-        }
+        int numUndone = model.undoTaskListHistory(numCommandsToBeUndone);
         
-        if (numCommandsUndone == 0) {
+        if (numUndone == 0) {
             return new CommandResult(MESSAGE_NO_PAST_COMMAND_TO_UNDO);
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, 
-                numCommandsUndone == 1 ? 
-                "command" : numCommandsUndone + " commands"));
+                numUndone == 1 ? 
+                "command" : numUndone + " commands"));
     }
 
     @Override
