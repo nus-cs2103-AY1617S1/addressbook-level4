@@ -45,7 +45,7 @@ public class Parser {
             Pattern.compile("(?<taskName>.+)((\\s*,\\s*)|(\\s+?(by|on)\\s+))(?<day>.+)((\\s*,\\s*)|(\\s+?(from)\\s+))(?<startTime>.+)((\\s*(,|-)\\s*)|(\\s+?to\\s+?))(?<endTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
     //regex for edit
     private static final Pattern EDIT_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<index>\\d+?)\\s+?(?<field>(task|start date| start time|end date|end time))\\s+?(?<value>.+)" , Pattern.CASE_INSENSITIVE);
+            Pattern.compile("(?<index>\\d+?)\\s+?(?<field>(task|start date|start time|end date|end time))\\s+?(?<value>.+)" , Pattern.CASE_INSENSITIVE);
    
     
     public Parser() {}
