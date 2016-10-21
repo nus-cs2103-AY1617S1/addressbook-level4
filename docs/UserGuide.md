@@ -84,7 +84,7 @@ Example:
 * `complete 2`<br>
    Marks the second task on the list as completed.
    
-#### Unarking a completed task as not completed: `complete`
+#### Unarking a completed task as not completed: `uncomplete`
 Unmarks a completed specific task as not completed by index from the to-do list.<br>
 FormatL `uncomplete INDEX`
 
