@@ -26,7 +26,7 @@ public class DoneCommand extends UndoableCommand {
 
     public static final String MESSAGE_DONE_ITEM_SUCCESS = "Archived Task: %1$s";
     public static final String MESSAGE_DONE_ITEMS_SUCCESS = "Archived Tasks: %1$s";
-
+    
     // temporary TODO
     public static final String MESSAGE_DONE_UNDO_SUCCESS = "Undid archive tasks! Tasks restored to undone list!";
 

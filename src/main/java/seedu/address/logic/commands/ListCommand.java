@@ -16,21 +16,22 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
     public static final String DONE_MESSAGE_SUCCESS = "Listed all done tasks";
+        
+    private Boolean isListDoneCommand;
     
-
-    Boolean isListDoneCommand;
-    
-    public ListCommand(Boolean isListDoneCommand) {
-        this.isListDoneCommand = isListDoneCommand;
+    public ListCommand(Boolean isListDoneView) {
+        this.isListDoneCommand = isListDoneView;
     }
 
     @Override
     public CommandResult execute() {
         if (isListDoneCommand) {
             EventsCenter.getInstance().post(new ChangeToListDoneViewEvent());
+            model.setCurrentListToBeDoneList();
             return new CommandResult(DONE_MESSAGE_SUCCESS);
         } else {
             EventsCenter.getInstance().post(new ChangeToListUndoneViewEvent());
+            model.setCurrentListToBeUndoneList();
             model.updateFilteredListToShowAll();
             return new CommandResult(MESSAGE_SUCCESS);
         }

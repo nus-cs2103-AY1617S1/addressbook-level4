@@ -29,7 +29,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredUndoneTasks;
     private final FilteredList<Task> filteredDoneTasks;
-
+    private Boolean isDoneList = false;
+    
     /**
      * Initializes a ModelManager with the given AddressBook
      * AddressBook and its variables should not be null
@@ -137,6 +138,21 @@ public class ModelManager extends ComponentManager implements Model {
                 e.printStackTrace();
             }
         }
+    }
+    
+    @Override
+    public Boolean isCurrentListDoneList() {
+        return isDoneList;
+    }
+    
+    @Override
+    public void setCurrentListToBeDoneList() {
+        isDoneList = true;
+    }
+    
+    @Override
+    public void setCurrentListToBeUndoneList() {
+        isDoneList = false;
     }
     
     @Override
