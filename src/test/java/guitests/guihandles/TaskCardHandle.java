@@ -12,6 +12,7 @@ public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String OPEN_TIME_FIELD_ID = "#openTime";
     private static final String CLOSE_TIME_FIELD_ID = "#closeTime";
+    private static final String DETAILS_FIELD_ID = "#cardDetails";
 
     private Node node;
 
@@ -41,9 +42,8 @@ public class TaskCardHandle extends GuiHandle {
     }
     
     public boolean isDetailsShown() {
-        Node openTimeNode = getNode(OPEN_TIME_FIELD_ID, node);
-        Node closeTimeNode = getNode(CLOSE_TIME_FIELD_ID, node);
-        return openTimeNode.isVisible() && openTimeNode.isManaged() && closeTimeNode.isVisible() && closeTimeNode.isManaged();
+        Node detailsNode = getNode(DETAILS_FIELD_ID, node);
+        return detailsNode.isVisible() && detailsNode.isManaged();
     }
 
     public boolean isSameTask(ReadOnlyTask task){
