@@ -556,7 +556,7 @@ Day:
 3i. It can be used online or offline.<br>
 3j. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
 
-#### Any.do
+### Any.do
 ##### Strengths
 
 1. It has support for events, deadlines, floating tasks.<br>
