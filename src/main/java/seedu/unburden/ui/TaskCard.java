@@ -15,6 +15,8 @@ public class TaskCard extends UiPart{
     @FXML
     private Label name;
     @FXML
+    private Label taskD;
+    @FXML
     private Label date;
     @FXML
     private Label startTime;
@@ -44,6 +46,7 @@ public class TaskCard extends UiPart{
         
         id.setText(displayedIndex + ". ");
         name.setText(person.getName().fullName);
+        taskD.setText("Task Description : " + person.getTaskDescription().fullTaskDescriptions);
         date.setText("Date: " + person.getDate().fullDate);
         startTime.setText("Start Time: " + person.getStartTime().fullTime);
         endTime.setText("End Time: " + person.getEndTime().fullTime);

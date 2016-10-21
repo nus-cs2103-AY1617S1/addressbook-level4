@@ -38,13 +38,14 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
+        this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
     }
     
     // adds Task name, date, start time and end time of the task 
-    public Task(Name name,Date date, Time startTime, Time endTime, UniqueTagList tags) {
+    public Task(Name name,Date date, Time startTime, Time endTime, UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
+        this.taskD = new TaskDescription("NIL");
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -55,6 +56,7 @@ public class Task implements ReadOnlyTask {
     public Task(Name name, UniqueTagList tags) throws IllegalValueException {
 		assert !CollectionUtil.isAnyNull(name, tags);
 		this.name = name;
+		this.taskD = new TaskDescription("NIL");
 		this.date = new Date("NIL");
 		this.startTime = new Time("NIL");
 		this.endTime = new Time("NIL");
@@ -65,6 +67,7 @@ public class Task implements ReadOnlyTask {
 	public Task(Name name, Date date, UniqueTagList tags) throws IllegalValueException {
 		assert!CollectionUtil.isAnyNull(name, date, tags);
 		this.name = name;
+		this.taskD = new TaskDescription("NIL");
 		this.date = date;
 		this.startTime = new Time("NIL");
 		this.endTime = new Time("NIL");
@@ -75,6 +78,7 @@ public class Task implements ReadOnlyTask {
 	public Task(Name name, Date date, Time endTime, UniqueTagList tags) throws IllegalValueException {
 		assert!CollectionUtil.isAnyNull(name, date, endTime, tags);
 		this.name = name;
+		this.taskD = new TaskDescription("NIL");
 		this.date = date;
 		this.startTime = new Time("NIL");
 		this.endTime = endTime;
