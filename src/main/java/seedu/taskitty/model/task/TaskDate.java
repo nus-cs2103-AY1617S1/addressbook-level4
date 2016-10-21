@@ -25,7 +25,7 @@ public class TaskDate {
     //format: dd/mm/yyyy
     private static final String DATE_VALIDATION_REGEX = "[\\p{Digit}]{1,2}/[\\p{Digit}]{1,2}/[\\p{Digit}]{4}";
 
-    public final LocalDate date;
+    private final LocalDate date;
 
     /**
      * Validates given date. The date should be parsed by Natty and
@@ -56,7 +56,10 @@ public class TaskDate {
     public static boolean isValidDateFormat(String test) {
         return test.matches(DATE_VALIDATION_REGEX);
     }
-
+    
+    public boolean isBefore(TaskDate date) {
+        return this.date.isBefore(date.getDate());
+    }
 
     @Override
     public String toString() {
@@ -68,6 +71,18 @@ public class TaskDate {
         return other == this // short circuit if same object
                 || (other instanceof TaskDate // instanceof handles nulls
                 && this.date.equals(((TaskDate) other).date)); // state check
+    }
+    
+    public static boolean isEquals(TaskDate left, TaskDate right) {
+        if (left == right) {
+            return true;
+        }
+        
+        if (left == null || right == null) {
+            return false;
+        }
+        
+        return left.equals(right);
     }
 
     @Override

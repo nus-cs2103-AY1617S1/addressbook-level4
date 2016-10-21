@@ -25,7 +25,7 @@ public class TaskTime {
     //format: hh:mm
     private static final String TIME_VALIDATION_FORMAT = "[\\p{Digit}]{1,2}:[\\p{Digit}]{2}";
 
-    public final LocalTime time;
+    private final LocalTime time;
 
     /**
      * Validates given time. The time should be parsed by Natty and
@@ -57,7 +57,10 @@ public class TaskTime {
     public static boolean isValidTimeFormat(String test) {
         return test.matches(TIME_VALIDATION_FORMAT);
     }
-
+    
+    public boolean isBefore(TaskTime time) {
+        return this.time.isBefore(time.getTime());
+    }
 
     @Override
     public String toString() {
@@ -70,10 +73,26 @@ public class TaskTime {
                 || (other instanceof TaskTime // instanceof handles nulls
                 && this.time.equals(((TaskTime) other).time)); // state check
     }
+    
+    public static boolean isEquals(TaskTime left, TaskTime right) {
+        if (left == right) {
+            return true;
+        }
+        
+        if (left == null || right == null) {
+            return false;
+        }
+        
+        return left.equals(right);
+    }
 
     @Override
     public int hashCode() {
         return time.hashCode();
+    }
+    
+    public LocalTime getTime() {
+        return time;
     }
 
 }
