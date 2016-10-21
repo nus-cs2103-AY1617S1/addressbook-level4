@@ -61,6 +61,12 @@ public class Parser {
                     + " n/(?<name>.+)" 
                     + " d/(?<date>[^/]+)"
                     + " e/(?<endTime>[^/]+)");
+    
+    private static final Pattern name_ARGS_FORMAT = Pattern.compile("n/(?<name>.+)");
+    private static final Pattern priority_ARGS_FORMAT = Pattern.compile("p/(?<priority>.+)");
+    private static final Pattern date_ARGS_FORMAT = Pattern.compile("d/(?<date>.+)");
+    private static final Pattern startTime_ARGS_FORMAT = Pattern.compile("s/(?<startTime>.+)");
+    private static final Pattern endTime_ARGS_FORMAT = Pattern.compile("e/(?<endTime>.+)");
 
     public Parser() {
     }
@@ -262,19 +268,26 @@ public class Parser {
         final Matcher matcher_task = task_EDIT_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcher_event = event_EDIT_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcher_deadline = deadline_EDIT_ARGS_FORMAT.matcher(args.trim());
+
+        final Matcher matcher_name = name_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_priority = priority_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_date = date_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_st = startTime_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_et = endTime_ARGS_FORMAT.matcher(args.trim());
+        
         Optional<String> dataType = parseDataType(args);
         if (!dataType.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-
+        // I STOPPED HERE
         // check user input to edit todolist
         if (dataType.get().equals("todo")) {
-            if (matcher_task.matches()) {
+            if (matcher_task.matches() || matcher_name.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_task.group("name"), 
-                            matcher_task.group("date"),
-                            Integer.parseInt(matcher_task.group("priority")),
+                            matcher_name.group("name"), 
+                            matcher_date.group("date"),
+                            Integer.parseInt(matcher_priority.group("priority")),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get());
                 } catch (IllegalValueException ive) {
@@ -283,10 +296,10 @@ public class Parser {
             } else if (matcher_event.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_event.group("name"), 
-                            matcher_event.group("date"),
-                            matcher_event.group("startTime"), 
-                            matcher_event.group("endTime"),
+                            matcher_name.group("name"), 
+                            matcher_date.group("date"),
+                            matcher_st.group("startTime"), 
+                            matcher_et.group("endTime"),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
                             dataType.get());
                 } catch (IllegalValueException ive) {
@@ -295,9 +308,9 @@ public class Parser {
             } else if (matcher_deadline.matches()) {
                 try {
                     return new EditCommand(
-                            matcher_deadline.group("name"), 
-                            matcher_deadline.group("date"),
-                            matcher_deadline.group("endTime"), 
+                            matcher_name.group("name"), 
+                            matcher_date.group("date"),
+                            matcher_et.group("endTime"), 
                             Integer.parseInt(matcher_deadline.group("targetIndex")),
                             dataType.get());
                 } catch (IllegalValueException ive) {
