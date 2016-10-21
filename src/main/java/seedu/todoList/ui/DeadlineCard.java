@@ -40,7 +40,7 @@ public class DeadlineCard extends UiPart{
         name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
         date.setText(task.getDate().date);
-        endTime.setText(task.getEndTime().endTime);
+        endTime.setText("End Time: " + task.getEndTime().endTime);
     }
 
     public HBox getLayout() {
