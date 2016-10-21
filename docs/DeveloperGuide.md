@@ -556,8 +556,9 @@ Day:
 3i. It can be used online or offline.<br>
 3j. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
 
-3. **Any.do**
-Strengths<br>
+#### Any.do
+##### Strengths
+
 1. It has support for events, deadlines, floating tasks.<br>
 2. It has CRUD.<br>
 3. It has a power search function for all tasks.<br>
@@ -572,7 +573,8 @@ Strengths<br>
 12. It can be synced across all devices such as computers, phones, tablets.<br>
 13. Easy to shift tasks between categories.<br>
 
-Weaknesses<br>
+##### Weaknesses
+
 1. It has premium features that require payment.<br>
 2. No auto clear of done tasks or the option to auto clear done tasks after a certain period.<br>
 3. No levels of priority. Only priority or no priorty.<br>
