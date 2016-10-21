@@ -98,14 +98,27 @@ public class LogicManager extends ComponentManager implements Logic {
         return redone;
     }
     
-    public void addPreprocessSymbol(String symbol, String representation) {
-        assert symbol != null;
-        assert representation != null;
+    public boolean addPreprocessSymbol(String symbol, String representation) {
+        boolean success = parser.addPreprocessSymbol(symbol, representation);
         
+        if (success) {
+            /* TODO :Inform model */
+        }
         
+        return success;
     }
     
-    public void removePreprocessingSymbol(String symbol) {
-        assert symbol != null;
+    public boolean removePreprocessingSymbol(String symbol) {
+        boolean success = parser.removePreprocessingSymbol(symbol);
+        
+        if (success) {
+            /* TODO :Inform model */
+        }
+        
+        return success;
+    }
+    
+    public boolean doesPreprocessingSymbolExist(String symbol) {
+        return parser.doesPreprocessingSymbolExist(symbol);
     }
 }

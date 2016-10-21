@@ -17,9 +17,11 @@ public class MasterParser {
             Pattern.compile("(?<header>\\S+).*");
     
     private final Map<String, CommandParser<? extends Command>> commandParsers;
+    private final Map<String, String> preprocessingTokens;
     
     public MasterParser() {
         this.commandParsers = new HashMap<String, CommandParser<? extends Command>>();
+        this.preprocessingTokens = new HashMap<String, String>();
     }
 
     public Command parse(String userInput) {
@@ -70,7 +72,7 @@ public class MasterParser {
      * @return true if such a command parser is registered, false otherwise
      */
     public boolean isCommandParserRegistered(String header) {
-        return (commandParsers.get(header) != null);
+        return commandParsers.containsKey(header);
     }
     
     /**
@@ -82,5 +84,48 @@ public class MasterParser {
      */
     public CommandParser<? extends Command> unregisterCommandParser(String header) {
         return commandParsers.remove(header);
+    }
+
+    /**
+     * Adds a preprocessing symbol representing a string of text, which will be used 
+     * be the parser to replace all such symbols with its representation before parsing.
+     * If an existing symbol exists, calling this method has no effect and just returns false.
+     * 
+     * @param symbol the preprocessing symbol or keyword. Must be a single token.
+     * @param representation the text that the symbol represents. Must not be an empty string.
+     * @return true if the symbol does not previously exist and is added successfully, false otherwise
+     */
+    public boolean addPreprocessSymbol(String symbol, String representation) {
+        assert symbol != null && !symbol.matches(".*\\s+.*");
+        assert representation != null && !representation.isEmpty();
+        
+        if (preprocessingTokens.containsKey(symbol))
+            return false;
+        
+        preprocessingTokens.put(symbol, representation);
+        return true;
+    }
+    
+    /**
+     * Removes a preprocessing symbol. The parser will no longer replace all symbols before parsing.
+     * 
+     * @param symbol the symbol to remove.
+     * @return true if the symbol exists and is removed, false otherwise
+     */
+    public boolean removePreprocessingSymbol(String symbol) {
+        assert symbol != null;
+        
+        return preprocessingTokens.remove(symbol) != null;
+    }
+    
+    /**
+     * Returns true if specified preprocessing symbol currently exists, false otherwise.
+     * @param symbol the symbol to check for existence
+     * @return true if the symbol exists, false otherwise
+     */
+    public boolean doesPreprocessingSymbolExist(String symbol) {
+        assert symbol != null;
+        
+        return preprocessingTokens.containsKey(symbol);
     }
 }

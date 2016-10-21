@@ -2,6 +2,7 @@ package seedu.savvytasker.logic;
 
 import javafx.collections.ObservableList;
 import seedu.savvytasker.logic.commands.CommandResult;
+import seedu.savvytasker.logic.parser.MasterParser;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
 /**
@@ -24,12 +25,27 @@ public interface Logic {
      * 
      * @return true if a command was undone, false otherwise
      */
-    boolean undo();
+    public boolean undo();
     
     /**
      * Redoes the previous undone command. Does nothing if there is nothing to redo.
      * 
      * @return true if a command was redone, false otherwise
      */
-    boolean redo();
+    public boolean redo();
+    
+    /**
+     * Refer to {@link MasterParser#addPreprocessSymbol(String,String)}
+     */
+    public boolean addPreprocessSymbol(String symbol, String representation);
+
+    /**
+     * Refer to {@link MasterParser#removePreprocessingSymbol(String)}
+     */
+    public boolean removePreprocessingSymbol(String symbol);
+    
+    /**
+     * Refer to {@link MasterParser#doesPreprocessingSymbolExist(String)}
+     */
+    public boolean doesPreprocessingSymbolExist(String symbol);
 }

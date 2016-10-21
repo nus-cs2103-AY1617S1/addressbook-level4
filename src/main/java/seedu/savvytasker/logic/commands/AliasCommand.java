@@ -18,18 +18,18 @@ public class AliasCommand extends LogicRequiringCommand {
     public static final String MESSAGE_SUCCESS = "New alias added: %1$s";
     public static final String MESSAGE_DUPLICATE_ALIAS = "This alias is already in use";
 
-    private final Task toAdd;
-
+    private AliasCommandModel commandModel;
     /**
      * Creates an alias command
      */
     public AliasCommand(AliasCommandModel commandModel) {
-        // create new alias mapping
-        toAdd = null;
+        assert commandModel != null;
+        this.commandModel = commandModel;
     }
 
     @Override
     public CommandResult execute() {
+        assert logic != null;
         return null;
     }
     
