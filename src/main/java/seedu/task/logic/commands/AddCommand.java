@@ -1,5 +1,7 @@
 package seedu.task.logic.commands;
 
+import seedu.task.commons.core.EventsCenter;
+import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.task.*;
 import seedu.task.model.tag.Tag;
@@ -67,6 +69,7 @@ public class AddCommand extends Command {
 			for (Task task : tasksToAdd) {
 				model.addTask(task);
 			}
+			EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredTaskList().size()-1));
 			if(tasksToAdd.size()==1)
 				return new CommandResult(String.format(MESSAGE_SUCCESS,tasksToAdd.get(0).getTitle()
 				        + " Description: " + tasksToAdd.get(0).getDescription()
