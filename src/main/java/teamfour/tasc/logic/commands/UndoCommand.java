@@ -1,7 +1,5 @@
 package teamfour.tasc.logic.commands;
 
-import teamfour.tasc.logic.LogicManager;
-
 /**
  * Undo the last (n) commands.
  */
@@ -14,9 +12,8 @@ public class UndoCommand extends Command {
             + "Example: " + COMMAND_WORD + " 5";
 
     public static final String MESSAGE_SUCCESS = "Last %1$s undone.";
-    public static final String MESSAGE_NO_COMMAND_ENTERED = "There is no command entered.";
     public static final String MESSAGE_NUM_COMMANDS_NOT_ENOUGH = 
-            "You can onlt undo the last %1$s.";
+            "There is no past command to undo.";
 
     private final int numCommandsToBeUndone;
 
@@ -32,19 +29,20 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        try {
-            LogicManager.executeUndo(numCommandsToBeUndone);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, numCommandsToBeUndone == 1 ? 
-                    "command" : numCommandsToBeUndone + " commands"));
-        } catch (LogicManager.UndoableTaskNotEnoughException e) {
-            indicateAttemptToExecuteIncorrectCommand();
-            int numUndoableCommands = LogicManager.numUndoableCommands();
-            if (numUndoableCommands == 0) {
-                return new CommandResult(MESSAGE_NO_COMMAND_ENTERED);
-            } else {
-                return new CommandResult(String.format(MESSAGE_NUM_COMMANDS_NOT_ENOUGH, numUndoableCommands));
+        
+        int numCommandsUndone = 0;
+        for (int i = 0; i < numCommandsToBeUndone; i++) {
+            if (model.undoTaskListHistory()) {
+                numCommandsUndone++;
             }
         }
+        
+        if (numCommandsUndone == 0) {
+            return new CommandResult(MESSAGE_NUM_COMMANDS_NOT_ENOUGH);
+        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS, 
+                numCommandsUndone == 1 ? 
+                "command" : numCommandsUndone + " commands"));
     }
 
     @Override
