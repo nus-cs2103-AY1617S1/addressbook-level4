@@ -12,7 +12,6 @@ import java.util.Objects;
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
-
     private Title title;
     private Description description;
     private DateTime startDateTime;
@@ -35,21 +34,9 @@ public class Task implements ReadOnlyTask {
         this.endDateTime = endDateTime;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isCompleted = false;
-        this.isOverdue = false;
-        this.isFloating = false;
         
-        if (!endDateTime.getDate().toString().isEmpty()) {
-            if (endDateTime.getDate().getDate().isBefore(LocalDate.now())) {
-                this.isOverdue = true;
-            } else if (endDateTime.getDate().getDate().isEqual(LocalDate.now()) && endDateTime.getTime().getTime().isBefore(LocalTime.now())) {
-                this.isOverdue = false;
-            }
-        }
-        
-        if (startDateTime.getDate().toString().isEmpty() && startDateTime.getTime().toString().isEmpty() 
-                && endDateTime.getDate().toString().isEmpty() && endDateTime.getTime().toString().isEmpty()) {
-            this.isFloating = true;
-        }
+        initializeOverdue(endDateTime);
+        initializeFloating(startDateTime, endDateTime);
     }
     
     /**
@@ -65,6 +52,9 @@ public class Task implements ReadOnlyTask {
         this.isCompleted = isCompleted;
         this.isOverdue = isOverdue;
         this.isFloating = isFloating;
+        
+        initializeOverdue(endDateTime);  //Check for errors
+        initializeFloating(startDateTime, endDateTime); //Check for errors
     }
 
     /**
@@ -73,7 +63,40 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getTitle(), source.getStartDateTime(), source.getDescription(), source.getEndDateTime(), source.getTags(), source.isCompleted(), source.isOverdue(), source.isFloating());
     }
+    
 
+    /**
+     * Check and assign task overdue status 
+     * @param startDateTime cannot be null
+     * @param endDateTime cannot be null
+     */
+    private void initializeOverdue(DateTime endDateTime) {
+        if (!endDateTime.getDate().toString().isEmpty()) {
+            if (endDateTime.getDate().getDate().isBefore(LocalDate.now())) {
+                this.isOverdue = true;
+            } else if (!endDateTime.getTime().toString().isEmpty() 
+                    && endDateTime.getDate().getDate().isEqual(LocalDate.now()) 
+                    && endDateTime.getTime().getTime().isBefore(LocalTime.now())) {
+                this.isOverdue = true;
+            }
+        }
+    }
+    
+    /**
+     * Check and assign task floating status
+     * @param startDateTime cannot be null
+     * @param endDateTime cannot be null
+     */
+    private void initializeFloating(DateTime startDateTime, DateTime endDateTime) {
+        if (startDateTime.getDate().toString().isEmpty() 
+                && startDateTime.getTime().toString().isEmpty() 
+                && endDateTime.getDate().toString().isEmpty() && endDateTime.getTime().toString().isEmpty()) {
+            this.isFloating = true;
+        } else {
+            this.isFloating = false;
+        }
+    }
+    
     @Override
     public Title getTitle() {
         return title;
