@@ -245,6 +245,40 @@ public class TodoListDB {
         }
     }
     
+    public List<Event> getAllCurrentEvents() {
+        ArrayList<Event> currentEvents = new ArrayList<Event>();
+        Iterator<Event> iterator = events.iterator();
+        while (iterator.hasNext()) {
+            Event currEvent = iterator.next();
+            if (!currEvent.isOver()) {
+                currentEvents.add(currEvent);
+            }
+        }
+        return currentEvents;
+    }
+    
+    /**
+     * Get a list of Incomplte Tasks in the DB.
+     * 
+     * @return tasks
+     */
+    public List<Task> getIncompleteTasksAndTaskWithTodayDate() {
+        ArrayList<Task> incompleteTasks = new ArrayList<Task>();
+        Iterator<Task> iterator = tasks.iterator();
+        LocalDateTime todayDate = DateUtil.floorDate(LocalDateTime.now());
+        while (iterator.hasNext()) {
+            Task currTask = iterator.next();
+            if (!currTask.isCompleted()) { //if incompleted
+                incompleteTasks.add(currTask);
+            } else {
+                if (currTask.getDueDate() != null && DateUtil.floorDate(currTask.getDueDate()).equals(todayDate)) {
+                    incompleteTasks.add(currTask);
+                }
+            }
+        }
+        return incompleteTasks;
+    }
+    
     /**
      * Get a list of Task in the DB filtered by status and one date.
      * 
