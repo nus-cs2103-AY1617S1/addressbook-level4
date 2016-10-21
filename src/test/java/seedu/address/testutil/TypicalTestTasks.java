@@ -22,18 +22,18 @@ public class TypicalTestTasks {
             daniel = new TaskBuilder().withName("Groupwork Discussion").withAddress("")
                     .withEndDate("").withStartDate("").withTags().build(); // floating task
             elle = new TaskBuilder().withName("CS2103 Lecture").withAddress("ICube Lecture Hall")
-                    .withEndDate("311247").withStartDate("010417").withTags("Event").build();
+                    .withEndDate("31 Dec 2018").withStartDate("01 Jan 2018").withTags("Event").build();
             fiona = new TaskBuilder().withName("Send kid to NUS").withAddress("NUS")
-                    .withEndDate("010451").withStartDate("010847").withTags("Event").build();
+                    .withEndDate("01 Apri 2038").withStartDate("01 Jan 2034").withTags("Event").build();
             george = new TaskBuilder().withName("Project Briefing").withAddress("ICube Lecture Hall")
-                    .withEndDate("020491").withStartDate("020451").withTags("Event").build();
+                    .withEndDate("01 Jan 2034").withStartDate("01 Jan 2034").withTags("Event").build();
             //Manually added
             hoon = new TaskBuilder().withName("Wildlife Photoshoot").withAddress("Wildlife Reserves")
                     .withEndDate("today").withStartDate("yesterday").build();
             ida = new TaskBuilder().withName("University Graduation").withAddress("University Cultural Centre")
                     .withEndDate("15 July 2016").withStartDate("7 July 2016").build();
             overdue = new TaskBuilder().withName("Overdue Task Colour Test").withAddress("At ICube Lecture Hall")
-                    .withEndDate("071016").withStartDate("071016").build();
+                    .withEndDate("10 years ago").withStartDate("10 years ago").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
