@@ -86,19 +86,6 @@
     -fx-background-color: gray;
 }
 
-.list-cell {
-	-fx-background-color: white;
-    -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
-}
-
-
-.list-cell .label {
-    -fx-text-fill: #010504;
-}
-
-
 .anchor-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }
@@ -280,19 +267,19 @@
 
 /* @@author A0139515A */
 #eventCardPane {
-    -fx-background-color: #ffa07a;
+    -fx-background-color: transparent;
     -fx-border-color: #ffa07a;
     -fx-border-width: 1 1 1 1;
 }
 
 #taskCardPane {
-    -fx-background-color: #87cefa;
+    -fx-background-color: transparent;
     -fx-border-color: #87cefa;
     -fx-border-width: 1 1 1 1;
 }
 
 #floatingTaskCardPane {
-    -fx-background-color: #fafad2;
+    -fx-background-color: transparent;
     -fx-border-color: #fafad2;
     -fx-border-width: 1 1 1 1;
 }
@@ -302,13 +289,40 @@
 }
 
 .cell_big_label {
+	-fx-font-family: Times new roman;
     -fx-font-size: 18px;
+    -fx-font-style: italic;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
+	-fx-font-family: Times new roman;
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
 }
 
+.list-view-event .list-cell {
+	-fx-background-color: #ffa07a;
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+}
+
+.list-view-task .list-cell {
+	-fx-background-color: #87cefa;
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+}
+
+.list-view-floating .list-cell {
+	-fx-background-color: #fafad2;
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+}
+
+.list-cell .label {
+    -fx-text-fill: #010504;
+}
 /* @@author */
