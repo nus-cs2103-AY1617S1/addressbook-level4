@@ -16,167 +16,178 @@ import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 
+/**
+ * Represents a manager for filtered lists used in the UI component.
+ * Respective UI components should already be listeners to each of the lists in {@code listMap}.
+ */
 public class FilteredListManager {
     private static final Logger logger = LogsCenter.getLogger(FilteredListManager.class);
-
-    public enum ListIdentifier {
-        DAY_AHEAD_0, DAY_AHEAD_1, DAY_AHEAD_2, DAY_AHEAD_3, DAY_AHEAD_4, DAY_AHEAD_5, DAY_AHEAD_6, FLOATING_TASKS, COMPLETED, INCOMPLETE, TASKS_AGENDA, EVENTS_AGENDA
+    
+    public enum ListId {
+        DAY_AHEAD_0, 
+        DAY_AHEAD_1, 
+        DAY_AHEAD_2, 
+        DAY_AHEAD_3, 
+        DAY_AHEAD_4, 
+        DAY_AHEAD_5, 
+        DAY_AHEAD_6, 
+        FLOATING_TASKS, 
+        COMPLETED, 
+        INCOMPLETE, 
+        TASKS_AGENDA, 
+        EVENTS_AGENDA
     }
-
-    private final HashMap<ListIdentifier, FilteredList<ReadOnlyTask>> filteredMap = new HashMap<ListIdentifier, FilteredList<ReadOnlyTask>>();
-
+    
+    private final HashMap<ListId, FilteredList<ReadOnlyTask>> listMap =
+            new HashMap<ListId, FilteredList<ReadOnlyTask>>();
+    
     public FilteredListManager(TaskBook taskBook) {
-        for (ListIdentifier li : ListIdentifier.values()) {
-            filteredMap.put(li, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
+        for (ListId li : ListId.values()) {
+            listMap.put(li, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
         }
-
-        updateFilteredListToShowAll();
+        
+        updateFilteredListToDefault();
     }
-
-    public void updateFilteredListToShowAll() {
-        filteredMap.get(ListIdentifier.FLOATING_TASKS)
+    
+    public void updateFilteredListToDefault() {
+        listMap.get(ListId.FLOATING_TASKS)
                 .setPredicate(new PredicateExpression(new FloatingTaskQualifier(false))::satisfies);
-
-        filteredMap.get(ListIdentifier.COMPLETED)
+        
+        listMap.get(ListId.COMPLETED)
                 .setPredicate(new PredicateExpression(new CompletedTaskQualifier(true))::satisfies);
-        filteredMap.get(ListIdentifier.INCOMPLETE)
+        listMap.get(ListId.INCOMPLETE)
                 .setPredicate(new PredicateExpression(new CompletedTaskQualifier(false))::satisfies);
-
-        filteredMap.get(ListIdentifier.DAY_AHEAD_0)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_0))::satisfies);
-        filteredMap.get(ListIdentifier.DAY_AHEAD_1)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_1))::satisfies);
-        filteredMap.get(ListIdentifier.DAY_AHEAD_2)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_2))::satisfies);
-        filteredMap.get(ListIdentifier.DAY_AHEAD_3)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_3))::satisfies);
-        filteredMap.get(ListIdentifier.DAY_AHEAD_4)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_4))::satisfies);
-        filteredMap.get(ListIdentifier.DAY_AHEAD_5)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_5))::satisfies);
-        filteredMap.get(ListIdentifier.DAY_AHEAD_6)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_6))::satisfies);
-
-        filteredMap.get(ListIdentifier.TASKS_AGENDA)
+        
+        listMap.get(ListId.DAY_AHEAD_0)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_0))::satisfies);
+        listMap.get(ListId.DAY_AHEAD_1)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_1))::satisfies);
+        listMap.get(ListId.DAY_AHEAD_2)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_2))::satisfies);
+        listMap.get(ListId.DAY_AHEAD_3)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_3))::satisfies);
+        listMap.get(ListId.DAY_AHEAD_4)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_4))::satisfies);
+        listMap.get(ListId.DAY_AHEAD_5)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_5))::satisfies);
+        listMap.get(ListId.DAY_AHEAD_6)
+                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_6))::satisfies);
+        
+        listMap.get(ListId.TASKS_AGENDA)
                 .setPredicate(new PredicateExpression(new TaskQualifier(true))::satisfies);
-        filteredMap.get(ListIdentifier.EVENTS_AGENDA)
+        listMap.get(ListId.EVENTS_AGENDA)
                 .setPredicate(new PredicateExpression(new EventQualifier(true))::satisfies);
     }
-
-    public void updateAllDefault() {
-
+    
+    public UnmodifiableObservableList<ReadOnlyTask> getRequiredFilteredTaskList(ListId li) {
+        return new UnmodifiableObservableList<>(listMap.get(li));
     }
-
-    public UnmodifiableObservableList<ReadOnlyTask> getRequiredFilteredTaskList(ListIdentifier li) {
-        return new UnmodifiableObservableList<>(filteredMap.get(li));
-    }
-
-    public void updateRequiredFilteredTaskList(ListIdentifier li, Set<String> keywords) {
+    
+    public void updateRequiredFilteredTaskList(ListId li, Set<String> keywords) {
         updateFilteredTaskList(li, new PredicateExpression(new NameQualifier(keywords)));
     }
-
-    private void updateFilteredTaskList(ListIdentifier li, Expression expression) {
-        filteredMap.get(li).setPredicate(expression::satisfies);
+    
+    private void updateFilteredTaskList(ListId li, Expression expression) {
+        listMap.get(li).setPredicate(expression::satisfies);
     }
-
-    // ========== Inner classes/interfaces used for filtering
+    
+    // Inner classes/interfaces used for filtering
     // ==================================================
-
+    
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
-
         String toString();
     }
-
+    
     private class PredicateExpression implements Expression {
-
+        
         private final Qualifier qualifier;
-
+        
         PredicateExpression(Qualifier qualifier) {
             this.qualifier = qualifier;
         }
-
+        
         @Override
         public boolean satisfies(ReadOnlyTask task) {
             return qualifier.run(task);
         }
-
+        
         @Override
         public String toString() {
             return qualifier.toString();
         }
     }
-
+    
     interface Qualifier {
         boolean run(ReadOnlyTask task);
-
+        
         String toString();
     }
-
+    
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
-
+        
         NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
         }
-
+        
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword)).findAny()
                     .isPresent();
         }
-
+        
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
+    
     private class DateQualifier implements Qualifier {
-        private ListIdentifier identifier;
+        private ListId id;
         private DayOfWeek dayOfWeek;
         private DayOfWeek currentDay;
-
-        DateQualifier(ListIdentifier i) {
-            identifier = i;
+        
+        DateQualifier(ListId i) {
+            id = i;
         }
-
+        
         @Override
         public boolean run(ReadOnlyTask task) {
             if (task.isCompleted()) {
                 return false;
             }
-
+            
             currentDay = new DateTime().getLocalDateTime().getDayOfWeek();
-
+            
             // dynamically set the day that each list corresponds to
-            switch (identifier) {
-            case DAY_AHEAD_0:
+            switch (id) {
+            case DAY_AHEAD_0 :
                 dayOfWeek = currentDay;
                 break;
-            case DAY_AHEAD_1:
+            case DAY_AHEAD_1 :
                 dayOfWeek = currentDay.plus(1);
                 break;
-            case DAY_AHEAD_2:
+            case DAY_AHEAD_2 :
                 dayOfWeek = currentDay.plus(2);
                 break;
-            case DAY_AHEAD_3:
+            case DAY_AHEAD_3 :
                 dayOfWeek = currentDay.plus(3);
                 break;
-            case DAY_AHEAD_4:
+            case DAY_AHEAD_4 :
                 dayOfWeek = currentDay.plus(4);
                 break;
-            case DAY_AHEAD_5:
+            case DAY_AHEAD_5 :
                 dayOfWeek = currentDay.plus(5);
                 break;
-            case DAY_AHEAD_6:
+            case DAY_AHEAD_6 :
                 dayOfWeek = currentDay.plus(6);
                 break;
-            default:
+            default :
                 break;
             }
-
+            
             if (task instanceof DeadlineTask) {
                 return isTaskSameWeekDate((DeadlineTask) task, dayOfWeek);
             } else if (task instanceof Event) {
@@ -185,7 +196,7 @@ public class FilteredListManager {
                 return false;
             }
         }
-
+        
         /**
          * Checks if the task is at most 1 week ahead of current time.
          * 
@@ -195,14 +206,14 @@ public class FilteredListManager {
          */
         private boolean isTaskSameWeekDate(DeadlineTask task, DayOfWeek day) {
             long daysDifference = new DateTime().getDifferenceInDays(task.getDeadline());
-
+            
             if (daysDifference > 0) {
                 return task.getDeadline().getLocalDateTime().getDayOfWeek().getValue() == day.getValue(); // check if day of the week
             }
-
+            
             return false;
         }
-
+        
         /**
          * Checks if the event is at most 1 week ahead of current time or is
          * occuring now.
@@ -214,7 +225,7 @@ public class FilteredListManager {
          */
         private boolean isEventSameWeekDate(Event event, DayOfWeek day) {
             long daysDifference = new DateTime().getDifferenceInDays(event.getStart());
-
+            
             // checks if event is not within only at most a week ahead
             if (!(daysDifference >= 0 && daysDifference <= 7)) {
                 return false;
@@ -223,35 +234,35 @@ public class FilteredListManager {
             int eventStartDay = event.getStart().getLocalDateTime().getDayOfWeek().getValue();
             DateTime eventEndDate = event.getEnd();
             Optional<DateTime> ed = Optional.ofNullable(eventEndDate);
-
+            
             logger.info("Checking event: " + day + " " + daysDifference);
-
+            
             if (ed.isPresent()) {
                 Integer eventEndDay = ed.get().getLocalDateTime().getDayOfWeek().getValue();
-
+                
                 Optional<Integer> endDay = Optional.ofNullable(eventEndDay);
-
+                
                 return day.getValue() >= eventStartDay && day.getValue() <= endDay.orElse(0);
             } else {
                 return day.getValue() == eventStartDay;
             }
         }
     }
-
+    
     private class CompletedTaskQualifier implements Qualifier {
-
+        
         boolean isCompleteState;
-
+        
         public CompletedTaskQualifier(boolean isCompleteState) {
             this.isCompleteState = isCompleteState;
         }
-
+        
         @Override
         public boolean run(ReadOnlyTask task) {
             if (task instanceof Event) {
                 return false;
             }
-
+            
             if (isCompleteState == true) { // if want to check completed task
                 return task.isCompleted();
             } else {
@@ -266,7 +277,7 @@ public class FilteredListManager {
      * @param checkCompleted If true, checks for event completion as well.
      */
     private class EventQualifier implements Qualifier {
-
+        
         boolean checkCompleted;
         
         public EventQualifier(boolean checkCompleted) {
@@ -283,7 +294,7 @@ public class FilteredListManager {
             return task instanceof Event;
         }
     }
-
+    
     /**
      * Predicate for filtering floatingTasks from the internal list.
      * @author zexuan
@@ -308,14 +319,13 @@ public class FilteredListManager {
         }
     }
     
-    
     /**
      * Predicate for filtering tasks from the internal list.
      * @author zexuan
      * @param checkCompleted If true, checks for task completion as well.
      */
     private class TaskQualifier implements Qualifier {
-
+        
         boolean checkCompleted;
         
         public TaskQualifier(boolean checkCompleted) {
