@@ -15,7 +15,7 @@ import seedu.address.commons.events.model.NewTaskListEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.Alias;
-import seedu.address.model.UndoManager;
+import seedu.address.model.ModelHistory;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -25,7 +25,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	private UniqueItemCollection<Task> tasks;
 	private UniqueItemCollection<Alias> aliases;
 	private FilteredList<Task> filteredTasks;
-	private final UndoManager undoManager;
+	private final ModelHistory modelHistory; // Stores tasks & aliases to support undo & redo commands
 
 	public TaskManager() {
 		this(new UniqueItemCollection<Task>(), new UniqueItemCollection<Alias>(), null);		
@@ -34,7 +34,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	public TaskManager(UniqueItemCollection<Task> tasks, UniqueItemCollection<Alias> aliases, UserPrefs userPrefs) {
 		this.tasks = tasks;
 		this.aliases = aliases;
-		this.undoManager = new UndoManager();
+		this.modelHistory = new ModelHistory();
 		filteredTasks = new FilteredList<>(this.tasks.getInternalList());
 		filterUncompletedTasks();
 	}
@@ -47,7 +47,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		tasks.add(toAdd);
 	
 		// Update stored values of tasks
-		undoManager.storeOldTasks(tempTasks);
+		modelHistory.storeOldTasks(tempTasks);
 		indicateTaskManagerChanged();
 	}
 	
@@ -61,7 +61,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		tasks.replace(toUpdate, newTask);
 		
 		// Update stored values of tasks
-		undoManager.storeOldTasks(tempTasks);
+		modelHistory.storeOldTasks(tempTasks);
 		indicateTaskManagerChanged();
 	}
 
@@ -73,7 +73,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	    tasks.remove(toRemove);
 	    
 	    // Update stored values of tasks
-	 	undoManager.storeOldTasks(tempTasks);
+	 	modelHistory.storeOldTasks(tempTasks);
 	    indicateTaskManagerChanged();
 	}
 	
@@ -87,7 +87,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		toFavorite.setAsFavorite();
 		
 		// Update stored values of tasks
-		undoManager.storeOldTasks(tempTasks);
+		modelHistory.storeOldTasks(tempTasks);
 		indicateTaskManagerChanged();
 	}
 
@@ -101,7 +101,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		toUnfavorite.setAsNotFavorite();
 		
 		// Update stored values of tasks
-		undoManager.storeOldTasks(tempTasks);
+		modelHistory.storeOldTasks(tempTasks);
 		indicateTaskManagerChanged();
 	}
 	
@@ -115,7 +115,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		toComplete.setAsComplete();
 		
 		// Update stored values of tasks
-		undoManager.storeOldTasks(tempTasks);
+		modelHistory.storeOldTasks(tempTasks);
 		indicateTaskManagerChanged();
 	}
 	
@@ -129,7 +129,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		toUncomplete.setAsUncomplete();
 		
 		// Update stored values of tasks
-		undoManager.storeOldTasks(tempTasks);
+		modelHistory.storeOldTasks(tempTasks);
 		indicateTaskManagerChanged();
 	}
 	
@@ -141,7 +141,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		aliases.add(toAdd);
 		
 		// Update stored values of aliases
-	    undoManager.storeOldAliases(tempAliases);
+	    modelHistory.storeOldAliases(tempAliases);
 	    indicateAliasChanged();
 	}
 	
@@ -153,29 +153,30 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		aliases.remove(toRemove);
 	    
 	    // Update stored values of aliases
-	    undoManager.storeOldAliases(tempAliases);
+	    modelHistory.storeOldAliases(tempAliases);
 	    indicateAliasChanged();
 	}
 	
 	/**
 	 * Undoes the previous command that has to do with tasks or aliases
+	 * (Can only be called if the previous successful command was a successful task/alias command)
 	 */
 	@Override
 	public void undo() throws IllegalStateException {
 		// Undoing task type command
-		if (undoManager.canUndoTasks()) {
+		if (modelHistory.canUndoTasks()) {
 			// Current values of tasks passed to undoManager to be stored to allow user to redo.
 			// Tasks that will replace the current list is returned.
-			UniqueItemCollection<Task> replacingTasks = undoManager.undoTasks(tasks);
+			UniqueItemCollection<Task> replacingTasks = modelHistory.undoTasks(tasks);
 			
 			// The current tasks have been reinstated to their older versions
 			tasks = replacingTasks;
 			
 		// Undoing alias type command
-		} else if (undoManager.canUndoAliases()) {
+		} else if (modelHistory.canUndoAliases()) {
 			// Current values of aliases passed to undoManager to be stored to allow user to redo.
 			// Aliases that will replace the current list is returned
-			UniqueItemCollection<Alias> replacingAliases = undoManager.undoAliases(aliases);
+			UniqueItemCollection<Alias> replacingAliases = modelHistory.undoAliases(aliases);
 			
 			// The current aliases have been reinstated to their older versions
 			aliases = replacingAliases;
@@ -184,7 +185,45 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 			throw new IllegalStateException("Unable to undo because there is no previous state to revert to"); 
 		}
 		// Clear old values of tasks & aliases
-		undoManager.clearOldCopies();
+		modelHistory.clearOldCopies();
+		
+		// Refresh the filtered tasks
+		filteredTasks = new FilteredList<>(tasks.getInternalList());
+		
+		// Raise the changes
+		indicateNewTaskListEvent();
+		indicateAliasChanged();
+	}
+	
+	/**
+	 * Redoes the command that has been undone
+	 * (Can only be called if the previous successful command was a successful undo command)
+	 */
+	@Override
+	public void redo() throws IllegalStateException {
+		// Redoing task type command
+		if (modelHistory.canRedoTasks()) {
+			// Current values of tasks passed to undoManager to be stored to allow user to undo.
+			// Tasks that will replace the current list is returned.
+			UniqueItemCollection<Task> replacingTasks = modelHistory.redoTasks(tasks);
+			
+			// The current tasks have been reinstated to the versions before 'undo' has been called
+			tasks = replacingTasks;
+			
+		// Undoing alias type command
+		} else if (modelHistory.canRedoAliases()) {
+			// Current values of aliases passed to undoManager to be stored to allow user to undo.
+			// Aliases that will replace the current list is returned
+			UniqueItemCollection<Alias> replacingAliases = modelHistory.redoAliases(aliases);
+			
+			// The current aliases have been reinstated to the versions before 'undo' has been called
+			aliases = replacingAliases;
+			
+		} else { 
+			throw new IllegalStateException("Unable to redo because the previous successful command was not an undo command"); 
+		}
+		// Clear values of tasks & aliases that have been stored due to 'undo'
+		modelHistory.clearUndoneCopies();
 		
 		// Refresh the filtered tasks
 		filteredTasks = new FilteredList<>(tasks.getInternalList());
@@ -204,6 +243,10 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
     
     private void indicateNewTaskListEvent() {
     	raise(new NewTaskListEvent(tasks, filteredTasks));
+    }
+    
+    private void indicateAliasChanged() {
+        raise(new AliasChangedEvent(aliases));
     }
 
 	@Override
@@ -242,11 +285,6 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	public UnmodifiableObservableList<Task> getCurrentFilteredTasks() {
 		return new UnmodifiableObservableList<>(filteredTasks);
 	}
-	
-	/** Raises an event to indicate the model has changed */
-    private void indicateAliasChanged() {
-        raise(new AliasChangedEvent(aliases));
-    }
     
     @Override
 	public UnmodifiableObservableList<Alias> getAlias() {

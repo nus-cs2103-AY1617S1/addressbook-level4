@@ -18,7 +18,6 @@ public class UndoTaskCommand extends TaskCommand {
     public CommandResult execute() {
     	try {
     		model.undo();
-    		
     	} catch (IllegalStateException ise) {
     		return new CommandResult(MESSAGE_UNDO_INVALID_STATE);
     	}

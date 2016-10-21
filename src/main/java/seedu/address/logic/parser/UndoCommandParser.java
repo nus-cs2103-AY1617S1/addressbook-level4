@@ -13,5 +13,4 @@ public class UndoCommandParser extends CommandParser{
     public TaskCommand prepareCommand(String arguments) {
         return new UndoTaskCommand();
     }
-
 }
