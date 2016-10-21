@@ -23,39 +23,69 @@ public class Parser {
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
+                                                                                                           // or
+                                                                                                           // more
+                                                                                                           // keywords
+                                                                                                           // separated
+                                                                                                           // by
+                                                                                                           // whitespace
 
-    private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)"
-                    + "from/(?<startTime>[^/]+)"
-                    + "to/(?<endTime>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = // '/'
+                                                                    // forward
+                                                                    // slashes
+                                                                    // are
+                                                                    // reserved
+                                                                    // for
+                                                                    // delimiter
+                                                                    // prefixes
+            Pattern.compile("(?<name>.+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of
+                                                         // tags
 
-    private static final Pattern TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)"
-                    + "by/(?<dueDate>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    private static final Pattern TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT = // '/'
+                                                                       // forward
+                                                                       // slashes
+                                                                       // are
+                                                                       // reserved
+                                                                       // for
+                                                                       // delimiter
+                                                                       // prefixes
+            Pattern.compile("(?<name>.+)" + "by/(?<dueDate>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable
+                                                                                                        // number
+                                                                                                        // of
+                                                                                                        // tags
 
-    private static final Pattern TASK_FLOATING_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    
+    private static final Pattern TASK_FLOATING_TYPE_DATA_ARGS_FORMAT = // '/'
+                                                                       // forward
+                                                                       // slashes
+                                                                       // are
+                                                                       // reserved
+                                                                       // for
+                                                                       // delimiter
+                                                                       // prefixes
+            Pattern.compile("(?<name>.+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable
+                                                                               // number
+                                                                               // of
+                                                                               // tags
+
     private static final Pattern EDIT_COMMAND_FORMAT = Pattern.compile("(?<index>[0-9]+)(?<arguments>.*)");
-    
+
     private static final Pattern EDIT_ARGS_NAME = Pattern.compile("n/\\s*(?<name>.+)");
     private static final Pattern EDIT_ARGS_DUEDATE = Pattern.compile("by/\\s*(?<dueDate>[^/]+)");
     private static final Pattern EDIT_ARGS_STARTTIME = Pattern.compile("from/\\s*(?<startTime>[^/]+)");
     private static final Pattern EDIT_ARGS_ENDTIME = Pattern.compile("to/\\s*(?<endTime>[^/]+)");
-    
+
     public final static String EMPTY_TIME_INFO = "Feb 29 2000 00:00:00";
-    
-    public Parser() {}
+
+    public Parser() {
+    }
 
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput full user input string
+     * @param userInput
+     *            full user input string
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
@@ -76,7 +106,7 @@ public class Parser {
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
-            
+
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
 
@@ -85,10 +115,10 @@ public class Parser {
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
-            
+
         case MarkCommand.COMMAND_WORD:
             return prepareMark(arguments);
-            
+
         case UnmarkCommand.COMMAND_WORD:
             return prepareUnmark(arguments);
 
@@ -104,152 +134,141 @@ public class Parser {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
-    }   
-    
-    private Command prepareEdit(String arguments) {
-		
-    	int index;
-    	String args;
-    	String[] passing = new String[4];
-    	
-    	final Matcher matcherEdit = EDIT_COMMAND_FORMAT.matcher(arguments.trim());
-    	
-    	if(!matcherEdit.matches()){
-    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-    	}else{
-    		index = Integer.parseInt(matcherEdit.group("index"));
-    		args = matcherEdit.group("arguments");
-    	}
-    	
-    	final Matcher matcherName = EDIT_ARGS_NAME.matcher(args.trim());
-    	final Matcher matcherDueDate = EDIT_ARGS_DUEDATE.matcher(args.trim());
-    	final Matcher matcherStartTime = EDIT_ARGS_STARTTIME.matcher(args.trim());
-    	final Matcher matcherEndTime = EDIT_ARGS_ENDTIME.matcher(args.trim());
-    	
-    	boolean namePresent = matcherName.find();
-    	boolean dueDatePresent = matcherDueDate.find();
-    	boolean startTimePresent = matcherStartTime.find();
-		boolean endTimePresent = matcherEndTime.find();
-    	
-		if(!namePresent && !dueDatePresent && !startTimePresent && !endTimePresent){
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-		}
-		
-    	if(namePresent){
-    		passing[0] = matcherName.group("name");
-    	}else{
-    		passing[0] = null;
-    	}
-    	
-    	if(dueDatePresent){
-    		if(startTimePresent || endTimePresent){
-    			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-    		}else{
-    			passing[1] = matcherDueDate.group("dueDate");
-    		}
-    	}else{
-    		passing[1] = null;
-    	}
-    	
-    	if(startTimePresent){
-    		passing [2] = matcherStartTime.group("startTime");
-    	}else{
-    		passing [2] = null;
-    	}
-    	
-    	if(endTimePresent){
-    		passing [3] = matcherEndTime.group("endTime");
-    	}else{
-    		passing [3] = null;
-    	}
-    		
-    	return new EditCommand(index, passing);
-	}
+    }
 
-	/**
+    private Command prepareEdit(String arguments) {
+
+        int index;
+        String args;
+        String[] passing = new String[4];
+
+        final Matcher matcherEdit = EDIT_COMMAND_FORMAT.matcher(arguments.trim());
+
+        if (!matcherEdit.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        } else {
+            index = Integer.parseInt(matcherEdit.group("index"));
+            args = matcherEdit.group("arguments");
+        }
+
+        final Matcher matcherName = EDIT_ARGS_NAME.matcher(args.trim());
+        final Matcher matcherDueDate = EDIT_ARGS_DUEDATE.matcher(args.trim());
+        final Matcher matcherStartTime = EDIT_ARGS_STARTTIME.matcher(args.trim());
+        final Matcher matcherEndTime = EDIT_ARGS_ENDTIME.matcher(args.trim());
+
+        boolean namePresent = matcherName.find();
+        boolean dueDatePresent = matcherDueDate.find();
+        boolean startTimePresent = matcherStartTime.find();
+        boolean endTimePresent = matcherEndTime.find();
+
+        if (!namePresent && !dueDatePresent && !startTimePresent && !endTimePresent) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+
+        if (namePresent) {
+            passing[0] = matcherName.group("name");
+        } else {
+            passing[0] = null;
+        }
+
+        if (dueDatePresent) {
+            if (startTimePresent || endTimePresent) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            } else {
+                passing[1] = matcherDueDate.group("dueDate");
+            }
+        } else {
+            passing[1] = null;
+        }
+
+        if (startTimePresent) {
+            passing[2] = matcherStartTime.group("startTime");
+        } else {
+            passing[2] = null;
+        }
+
+        if (endTimePresent) {
+            passing[3] = matcherEndTime.group("endTime");
+        } else {
+            passing[3] = null;
+        }
+
+        return new EditCommand(index, passing);
+    }
+
+    /**
      * Parses arguments in the context of the add task command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareUnmark(String args) {
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
         }
 
         return new UnmarkCommand(index.get());
     }
-    
+
     /**
      * Parses arguments in the context of the add task command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareMark(String args) {
 
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         }
 
-        return new MarkCommand(index.get());            
+        return new MarkCommand(index.get());
     }
 
     /**
      * Parses arguments in the context of the add task command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
+    private Command prepareAdd(String args) {
         final Matcher matcherEvent = TASK_EVENT_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcherDeadline = TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcherFloating = TASK_FLOATING_TYPE_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
-        try{
+        try {
             if (matcherEvent.matches()) {
                 return addEventTask(matcherEvent);
-            } else if (matcherDeadline.matches()){
+            } else if (matcherDeadline.matches()) {
                 return addDeadlineTask(matcherDeadline);
-            } else if (matcherFloating.matches()){
+            } else if (matcherFloating.matches()) {
                 return addFloatingTask(matcherFloating);
             } else {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
-        }catch (IllegalValueException ive) {
+        } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
 
     private AddCommand addFloatingTask(Matcher matcher) throws IllegalValueException {
-        return new AddCommand(
-                matcher.group("name"),
-                EMPTY_TIME_INFO,EMPTY_TIME_INFO,EMPTY_TIME_INFO,
-                getTagsFromArgs(matcher.group("tagArguments"))
-                );
+        return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, EMPTY_TIME_INFO, EMPTY_TIME_INFO,
+                getTagsFromArgs(matcher.group("tagArguments")));
     }
 
     private AddCommand addDeadlineTask(Matcher matcher) throws IllegalValueException {
-        return new AddCommand(
-                matcher.group("name"),
-                matcher.group("dueDate"),
-                EMPTY_TIME_INFO,EMPTY_TIME_INFO,
-                getTagsFromArgs(matcher.group("tagArguments"))
-                );
+        return new AddCommand(matcher.group("name"), matcher.group("dueDate"), EMPTY_TIME_INFO, EMPTY_TIME_INFO,
+                getTagsFromArgs(matcher.group("tagArguments")));
     }
 
     private AddCommand addEventTask(Matcher matcher) throws IllegalValueException {
-        return new AddCommand(
-                matcher.group("name"),
-                EMPTY_TIME_INFO,
-                matcher.group("startTime"),
-                matcher.group("endTime"),
-                getTagsFromArgs(matcher.group("tagArguments"))
-                );
+        return new AddCommand(matcher.group("name"), EMPTY_TIME_INFO, matcher.group("startTime"),
+                matcher.group("endTime"), getTagsFromArgs(matcher.group("tagArguments")));
     }
 
     /**
@@ -269,15 +288,15 @@ public class Parser {
     /**
      * Parses arguments in the context of the delete task command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
 
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
 
         return new DeleteCommand(index.get());
@@ -286,22 +305,23 @@ public class Parser {
     /**
      * Parses arguments in the context of the select task command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         }
 
         return new SelectCommand(index.get());
     }
 
     /**
-     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
+     * Returns the specified index in the {@code command} IF a positive unsigned
+     * integer is given as the index. Returns an {@code Optional.empty()}
+     * otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
@@ -310,7 +330,7 @@ public class Parser {
         }
 
         String index = matcher.group("targetIndex");
-        if(!StringUtil.isUnsignedInteger(index)){
+        if (!StringUtil.isUnsignedInteger(index)) {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
@@ -320,24 +340,24 @@ public class Parser {
     /**
      * Parses arguments in the context of the find task command.
      *
-     * @param args full command args string
+     * @param args
+     *            full command args string
      * @return the prepared command
      */
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
-        
+
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FindCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
-        
-        if(matcher.group("keywords").contains("f/")) {
-           return new FindCommand(matcher.group("keywords").trim());
+
+        if (matcher.group("keywords").contains("f/")) {
+            return new FindCommand(matcher.group("keywords").trim());
         }
-               
+
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
- 
+
         return new FindCommand(keywordSet);
     }
 

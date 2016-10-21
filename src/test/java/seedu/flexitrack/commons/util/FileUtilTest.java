@@ -1,6 +1,5 @@
 package seedu.flexitrack.commons.util;
 
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -15,12 +14,11 @@ import static org.junit.Assert.assertEquals;
 public class FileUtilTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
 
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void getPath(){
+    public void getPath() {
 
         // valid case
         assertEquals("folder" + File.separator + "sub-folder", FileUtil.getPath("folder/sub-folder"));
@@ -48,8 +46,8 @@ public class FileUtilTest {
     public void deserializeObjectFromJsonFile_noExceptionThrown() throws IOException {
         FileUtil.writeToFile(SERIALIZATION_FILE, SerializableTestClass.JSON_STRING_REPRESENTATION);
 
-        SerializableTestClass serializableTestClass = FileUtil
-                .deserializeObjectFromJsonFile(SERIALIZATION_FILE, SerializableTestClass.class);
+        SerializableTestClass serializableTestClass = FileUtil.deserializeObjectFromJsonFile(SERIALIZATION_FILE,
+                SerializableTestClass.class);
 
         assertEquals(serializableTestClass.getName(), SerializableTestClass.getNameTestValue());
         assertEquals(serializableTestClass.getListOfLocalDateTimes(), SerializableTestClass.getListTestValues());

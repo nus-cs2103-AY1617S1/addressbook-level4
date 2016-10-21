@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 
-public class TaskCard extends UiPart{
+public class TaskCard extends UiPart {
 
     private static final String FXML = "TaskListCard.fxml";
 
@@ -24,11 +24,11 @@ public class TaskCard extends UiPart{
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public TaskCard(){
+    public TaskCard() {
 
     }
 
-    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex) {
         TaskCard card = new TaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
@@ -37,15 +37,15 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-    	String dateInfo;
-    	if(task.getIsTask()){
-    	    dateInfo = " by " + task.getDueDate();
-    	}else if(task.getIsEvent()){
-    	    dateInfo =  " from " + task.getStartTime() +" to "+ task.getEndTime();
-    	}else{
-    	    dateInfo = "";
-    	}
-    	dateTime.setText(dateInfo);
+        String dateInfo;
+        if (task.getIsTask()) {
+            dateInfo = " by " + task.getDueDate();
+        } else if (task.getIsEvent()) {
+            dateInfo = " from " + task.getStartTime() + " to " + task.getEndTime();
+        } else {
+            dateInfo = "";
+        }
+        dateTime.setText(dateInfo);
         title.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         tags.setText(task.tagsString());
@@ -57,7 +57,7 @@ public class TaskCard extends UiPart{
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        cardPane = (HBox) node;
     }
 
     @Override

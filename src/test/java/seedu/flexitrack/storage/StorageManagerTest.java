@@ -1,6 +1,5 @@
 package seedu.flexitrack.storage;
 
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -26,22 +25,20 @@ public class StorageManagerTest {
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
-
     @Before
     public void setup() {
         storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
     }
 
-
     private String getTempFilePath(String fileName) {
         return testFolder.getRoot().getPath() + fileName;
     }
 
-
     /*
-     * Note: This is an integration test that verifies the StorageManager is properly wired to the
-     * {@link JsonUserPrefsStorage} class.
-     * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefsStorageTest} class.
+     * Note: This is an integration test that verifies the StorageManager is
+     * properly wired to the {@link JsonUserPrefsStorage} class. More extensive
+     * testing of UserPref saving/reading is done in {@link
+     * JsonUserPrefsStorageTest} class.
      */
 
     @Test
@@ -59,28 +56,30 @@ public class StorageManagerTest {
         storageManager.saveFlexiTrack(original);
         ReadOnlyFlexiTrack retrieved = storageManager.readFlexiTrack().get();
         assertEquals(original, new FlexiTrack(retrieved));
-        //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
+        // More extensive testing of AddressBook saving/reading is done in
+        // XmlAddressBookStorageTest
     }
 
     @Test
-    public void getAddressBookFilePath(){
+    public void getAddressBookFilePath() {
         assertNotNull(storageManager.getFlexiTrackFilePath());
     }
 
     @Test
     public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() throws IOException {
-        //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        // Create a StorageManager while injecting a stub that throws an
+        // exception when the save method is called
+        Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"),
+                new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleFlexiTrackChangedEvent(new FlexiTrackChangedEvent(new FlexiTrack()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
-
     /**
      * A Stub class to throw an exception when the save method is called
      */
-    class XmlAddressBookStorageExceptionThrowingStub extends XmlFlexiTrackStorage{
+    class XmlAddressBookStorageExceptionThrowingStub extends XmlFlexiTrackStorage {
 
         public XmlAddressBookStorageExceptionThrowingStub(String filePath) {
             super(filePath);
@@ -91,6 +90,5 @@ public class StorageManagerTest {
             throw new IOException("dummy exception");
         }
     }
-
 
 }

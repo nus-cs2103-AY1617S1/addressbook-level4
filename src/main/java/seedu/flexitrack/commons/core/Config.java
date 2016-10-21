@@ -17,7 +17,6 @@ public class Config {
     private String flexiTrackFilePath = "tasktracker.xml";
     private String flexiTrackName = "MyTaskTracker";
 
-
     public Config() {
     }
 
@@ -61,20 +60,18 @@ public class Config {
         this.flexiTrackName = flexiTrackName;
     }
 
-
     @Override
     public boolean equals(Object other) {
-        if (other == this){
+        if (other == this) {
             return true;
         }
-        if (!(other instanceof Config)){ //this handles null as well.
+        if (!(other instanceof Config)) { // this handles null as well.
             return false;
         }
 
-        Config o = (Config)other;
+        Config o = (Config) other;
 
-        return Objects.equals(appTitle, o.appTitle)
-                && Objects.equals(logLevel, o.logLevel)
+        return Objects.equals(appTitle, o.appTitle) && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
                 && Objects.equals(flexiTrackFilePath, o.flexiTrackFilePath)
                 && Objects.equals(flexiTrackName, o.flexiTrackName);
@@ -86,7 +83,7 @@ public class Config {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);

@@ -31,9 +31,9 @@ public interface Storage extends FlexiTrackStorage, UserPrefsStorage {
     void saveFlexiTrack(ReadOnlyFlexiTrack flexiTrack) throws IOException;
 
     /**
-     * Saves the current version of the FlexiTrack to the hard disk.
-     *   Creates the data file if it is missing.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
+     * Saves the current version of the FlexiTrack to the hard disk. Creates the
+     * data file if it is missing. Raises {@link DataSavingExceptionEvent} if
+     * there was an error during saving.
      */
     void handleFlexiTrackChangedEvent(FlexiTrackChangedEvent abce);
 }

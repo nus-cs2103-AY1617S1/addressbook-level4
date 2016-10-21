@@ -40,7 +40,7 @@ public class LogicManagerTest {
     private Model model;
     private Logic logic;
 
-    //These are for checking the correctness of the events raised
+    // These are for checking the correctness of the events raised
     private ReadOnlyFlexiTrack latestSavedFlexiTracker;
     private boolean helpShown;
     private int targetedJumpIndex;
@@ -68,7 +68,15 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempFlexiTrackerFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedFlexiTracker = new FlexiTrack(model.getFlexiTrack()); // last saved assumed to be up to date before.
+        latestSavedFlexiTracker = new FlexiTrack(model.getFlexiTrack()); // last
+                                                                         // saved
+                                                                         // assumed
+                                                                         // to
+                                                                         // be
+                                                                         // up
+                                                                         // to
+                                                                         // date
+                                                                         // before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -81,13 +89,14 @@ public class LogicManagerTest {
     @Test
     public void execute_invalid() throws Exception {
         String invalidCommand = "       ";
-        assertCommandBehavior(invalidCommand,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        assertCommandBehavior(invalidCommand, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
     }
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'FlexiTracker' and the 'last shown list' are expected to be empty.
+     * Both the 'FlexiTracker' and the 'last shown list' are expected to be
+     * empty.
+     * 
      * @see #assertCommandBehavior(String, String, ReadOnlyFlexiTrack, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -96,27 +105,27 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct and
-     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal FlexiTracker data are same as those in the {@code expectedFlexiTracker} <br>
-     *      - the backing list shown by UI matches the {@code shownList} <br>
-     *      - {@code expectedFlexiTracker} was saved to the storage file. <br>
+     * also confirms that the following three parts of the LogicManager object's
+     * state are as expected:<br>
+     * - the internal FlexiTracker data are same as those in the
+     * {@code expectedFlexiTracker} <br>
+     * - the backing list shown by UI matches the {@code shownList} <br>
+     * - {@code expectedFlexiTracker} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyFlexiTrack expectedFlexiTracker,
-                                       List<? extends ReadOnlyTask> expectedShownList) throws Exception {
+            ReadOnlyFlexiTrack expectedFlexiTracker, List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
-        //Execute the command
+        // Execute the command
         CommandResult result = logic.execute(inputCommand);
 
-        //Confirm the ui display elements should contain the right data;
+        // Confirm the ui display elements should contain the right data;
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredTaskList());
 
-        //Confirm the state of data (saved and in-memory) is as expected
+        // Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedFlexiTracker, model.getFlexiTrack());
         assertEquals(expectedFlexiTracker, latestSavedFlexiTracker);
     }
-
 
     @Test
     public void execute_unknownCommandWord() throws Exception {
@@ -127,7 +136,7 @@ public class LogicManagerTest {
     @Test
     public void execute_help() throws Exception {
         assertCommandBehavior("help", HelpCommand.HELP_MESSAGE_USAGE);
-//        assertTrue(helpShown);
+        // assertTrue(helpShown);
     }
 
     @Test
@@ -145,24 +154,27 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new FlexiTrack(), Collections.emptyList());
     }
 
-//TODO: What is the limitation of add???? 
-//    @Test
-//    public void execute_add_invalidArgsFormat() throws Exception {
-//        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-//        assertCommandBehavior(
-//                "adds wrong args wrong args", expectedMessage);
-//        assertCommandBehavior(
-//                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-//        assertCommandBehavior(
-//                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-//        assertCommandBehavior(
-//                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
-//    }
-   
+    // TODO: What is the limitation of add????
+    // @Test
+    // public void execute_add_invalidArgsFormat() throws Exception {
+    // String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+    // AddCommand.MESSAGE_USAGE);
+    // assertCommandBehavior(
+    // "adds wrong args wrong args", expectedMessage);
+    // assertCommandBehavior(
+    // "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address",
+    // expectedMessage);
+    // assertCommandBehavior(
+    // "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address",
+    // expectedMessage);
+    // assertCommandBehavior(
+    // "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address",
+    // expectedMessage);
+    // }
+
     @Test
     public void execute_add_invalidTimeData() throws Exception {
-        assertCommandBehavior(
-                "add Apply for job by/ mondat", DateTimeInfo.MESSAGE_DATETIMEINFO_CONSTRAINTS);
+        assertCommandBehavior("add Apply for job by/ mondat", DateTimeInfo.MESSAGE_DATETIMEINFO_CONSTRAINTS);
 
     }
 
@@ -176,9 +188,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getTaskList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedAB, expectedAB.getTaskList());
 
     }
 
@@ -194,15 +204,12 @@ public class LogicManagerTest {
         model.addTask(toBeAdded); // task already in internal FlexiTracker
 
         // execute command and verify result
-        assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_TASK,
-                expectedAB,
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded), AddCommand.MESSAGE_DUPLICATE_TASK, expectedAB,
                 expectedAB.getTaskList());
 
     }
 
-  //TODO: need to change all the test casses 
+    // TODO: need to change all the test casses
     @Test
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
@@ -213,30 +220,41 @@ public class LogicManagerTest {
         // prepare FlexiTracker state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
+        assertCommandBehavior("list", ListCommand.MESSAGE_SUCCESS, expectedAB, expectedList);
     }
 
-
     /**
-     * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single task in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
+     * Confirms the 'invalid argument index number behaviour' for the given
+     * command targeting a single task in the shown list, using visible index.
+     * 
+     * @param commandWord
+     *            to test assuming it targets a single task in the last shown
+     *            list based on visible index.
      */
-    private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
-        assertCommandBehavior(commandWord , expectedMessage); //index missing
-        assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
-        assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
-        assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
+    private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage)
+            throws Exception {
+        assertCommandBehavior(commandWord, expectedMessage); // index missing
+        assertCommandBehavior(commandWord + " +1", expectedMessage); // index
+                                                                     // should
+                                                                     // be
+                                                                     // unsigned
+        assertCommandBehavior(commandWord + " -1", expectedMessage); // index
+                                                                     // should
+                                                                     // be
+                                                                     // unsigned
+        assertCommandBehavior(commandWord + " 0", expectedMessage); // index
+                                                                    // cannot be
+                                                                    // 0
         assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
     }
 
     /**
-     * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single task in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
+     * Confirms the 'invalid argument index number behaviour' for the given
+     * command targeting a single task in the shown list, using visible index.
+     * 
+     * @param commandWord
+     *            to test assuming it targets a single task in the last shown
+     *            list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
@@ -262,8 +280,8 @@ public class LogicManagerTest {
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("select");
     }
-    
-  //TODO: need to change all the test casses 
+
+    // TODO: need to change all the test casses
     @Test
     public void execute_select_jumpsToCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -272,14 +290,11 @@ public class LogicManagerTest {
         FlexiTrack expectedAB = helper.generateFlexiTracker(threePersons);
         helper.addToModel(model, threePersons);
 
-        assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
-                expectedAB,
+        assertCommandBehavior("select 2", String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2), expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
     }
-
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -301,12 +316,9 @@ public class LogicManagerTest {
         expectedAB.removeTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
-        assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)),
-                expectedAB,
-                expectedAB.getTaskList());
+        assertCommandBehavior("delete 2", String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)),
+                expectedAB, expectedAB.getTaskList());
     }
-
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
@@ -327,9 +339,7 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourPersons);
 
-        assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
+        assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
                 expectedList);
     }
 
@@ -346,9 +356,7 @@ public class LogicManagerTest {
         List<Task> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
 
-        assertCommandBehavior("find KEY",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
+        assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
                 expectedList);
     }
 
@@ -365,17 +373,14 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
 
-        assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForTaskListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
+        assertCommandBehavior("find key rAnDoM", Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB, expectedList);
     }
-
 
     /**
      * A utility class to generate test data.
      */
-    class TestDataHelper{
+    class TestDataHelper {
 
         Task midterm() throws Exception {
             Name name = new Name("Midter cs 2101");
@@ -387,20 +392,18 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates a valid person using the given seed.
-         * Running this function with the same parameter values guarantees the returned person will have the same state.
-         * Each unique seed will generate a unique Person object.
+         * Generates a valid person using the given seed. Running this function
+         * with the same parameter values guarantees the returned person will
+         * have the same state. Each unique seed will generate a unique Person
+         * object.
          *
-         * @param seed used to generate the person data field values
+         * @param seed
+         *            used to generate the person data field values
          */
         Task generateTask(int seed) throws Exception {
-            return new Task(
-                    new Name("Person " + seed),
-                    new DateTimeInfo("" + Math.abs(seed)),
-                    new DateTimeInfo(seed + "@email"),
-                    new DateTimeInfo("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
-            );
+            return new Task(new Name("Person " + seed), new DateTimeInfo("" + Math.abs(seed)),
+                    new DateTimeInfo(seed + "@email"), new DateTimeInfo("House of " + seed),
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))));
         }
 
         /** Generates the correct add command based on the person given */
@@ -410,15 +413,15 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            if (p.getIsTask()){
+            if (p.getIsTask()) {
                 cmd.append(" by/ ").append(p.getDueDate());
-            } else if (p.getIsEvent()){
+            } else if (p.getIsEvent()) {
                 cmd.append(" from/ ").append(p.getStartTime());
                 cmd.append(" to/ ").append(p.getEndTime());
             }
 
             UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
+            for (Tag t : tags) {
                 cmd.append(" t/").append(t.tagName);
             }
 
@@ -428,7 +431,7 @@ public class LogicManagerTest {
         /**
          * Generates an AddressBook with auto-generated tasks.
          */
-        FlexiTrack generateFlexiTracker(int numGenerated) throws Exception{
+        FlexiTrack generateFlexiTracker(int numGenerated) throws Exception {
             FlexiTrack addressBook = new FlexiTrack();
             addToAddressBook(addressBook, numGenerated);
             return addressBook;
@@ -437,7 +440,7 @@ public class LogicManagerTest {
         /**
          * Generates an AddressBook based on the list of tasks given.
          */
-        FlexiTrack generateFlexiTracker(List<Task> tasks) throws Exception{
+        FlexiTrack generateFlexiTracker(List<Task> tasks) throws Exception {
             FlexiTrack flexiTracker = new FlexiTrack();
             addToFlexiTracker(flexiTracker, tasks);
             return flexiTracker;
@@ -445,34 +448,38 @@ public class LogicManagerTest {
 
         /**
          * Adds auto-generated task objects to the given AddressBook
-         * @param addressBook The AddressBook to which the tasks will be added
+         * 
+         * @param addressBook
+         *            The AddressBook to which the tasks will be added
          */
-        void addToAddressBook(FlexiTrack addressBook, int numGenerated) throws Exception{
+        void addToAddressBook(FlexiTrack addressBook, int numGenerated) throws Exception {
             addToFlexiTracker(addressBook, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given AddressBook
          */
-        void addToFlexiTracker(FlexiTrack flexiTracker, List<Task> tasksToAdd) throws Exception{
-            for(Task p: tasksToAdd){
+        void addToFlexiTracker(FlexiTrack flexiTracker, List<Task> tasksToAdd) throws Exception {
+            for (Task p : tasksToAdd) {
                 flexiTracker.addTask(p);
             }
         }
 
         /**
          * Adds auto-generated Task objects to the given model
-         * @param model The model to which the Tasks will be added
+         * 
+         * @param model
+         *            The model to which the Tasks will be added
          */
-        void addToModel(Model model, int numGenerated) throws Exception{
+        void addToModel(Model model, int numGenerated) throws Exception {
             addToModel(model, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given model
          */
-        void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
-            for(Task p: tasksToAdd){
+        void addToModel(Model model, List<Task> tasksToAdd) throws Exception {
+            for (Task p : tasksToAdd) {
                 model.addTask(p);
             }
         }
@@ -480,9 +487,9 @@ public class LogicManagerTest {
         /**
          * Generates a list of Tasks based on the flags.
          */
-        List<Task> generateTaskList(int numGenerated) throws Exception{
+        List<Task> generateTaskList(int numGenerated) throws Exception {
             List<Task> tasks = new ArrayList<>();
-            for(int i = 1; i <= numGenerated; i++){
+            for (int i = 1; i <= numGenerated; i++) {
                 tasks.add(generateTask(i));
             }
             return tasks;
@@ -493,16 +500,12 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates a Task object with given name. Other fields will have some dummy values.
+         * Generates a Task object with given name. Other fields will have some
+         * dummy values.
          */
         Task generateTaskWithName(String name) throws Exception {
-            return new Task(
-                    new Name(name),
-                    new DateTimeInfo("1/1/2011"),
-                    new DateTimeInfo("2/2/2012"),
-                    new DateTimeInfo("3/3/2013"),
-                    new UniqueTagList(new Tag("tag"))
-            );
+            return new Task(new Name(name), new DateTimeInfo("1/1/2011"), new DateTimeInfo("2/2/2012"),
+                    new DateTimeInfo("3/3/2013"), new UniqueTagList(new Tag("tag")));
         }
     }
 }

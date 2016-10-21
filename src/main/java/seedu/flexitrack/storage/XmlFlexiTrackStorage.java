@@ -20,26 +20,30 @@ public class XmlFlexiTrackStorage implements FlexiTrackStorage {
 
     private String filePath;
 
-    public XmlFlexiTrackStorage(String filePath){
+    public XmlFlexiTrackStorage(String filePath) {
         this.filePath = filePath;
     }
 
-    public String getFlexiTrackFilePath(){
+    public String getFlexiTrackFilePath() {
         return filePath;
     }
 
     /**
      * Similar to {@link #readFlexiTrack()}
-     * @param filePath location of the data. Cannot be null
-     * @throws DataConversionException if the file is not in the correct format.
+     * 
+     * @param filePath
+     *            location of the data. Cannot be null
+     * @throws DataConversionException
+     *             if the file is not in the correct format.
      */
-    public Optional<ReadOnlyFlexiTrack> readFlexiTrack(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyFlexiTrack> readFlexiTrack(String filePath)
+            throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File flexiTrackFile = new File(filePath);
 
         if (!flexiTrackFile.exists()) {
-            logger.info("FlexiTrack file "  + flexiTrackFile + " not found");
+            logger.info("FlexiTrack file " + flexiTrackFile + " not found");
             return Optional.empty();
         }
 
@@ -50,7 +54,9 @@ public class XmlFlexiTrackStorage implements FlexiTrackStorage {
 
     /**
      * Similar to {@link #saveFlexiTrack(ReadOnlyFlexiTrack)}
-     * @param filePath location of the data. Cannot be null
+     * 
+     * @param filePath
+     *            location of the data. Cannot be null
      */
     public void saveFlexiTrack(ReadOnlyFlexiTrack flexiTrack, String filePath) throws IOException {
         assert flexiTrack != null;

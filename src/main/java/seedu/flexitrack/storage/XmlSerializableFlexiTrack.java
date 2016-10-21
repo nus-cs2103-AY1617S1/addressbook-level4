@@ -33,7 +33,8 @@ public class XmlSerializableFlexiTrack implements ReadOnlyFlexiTrack {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableFlexiTrack() {}
+    public XmlSerializableFlexiTrack() {
+    }
 
     /**
      * Conversion
@@ -48,7 +49,7 @@ public class XmlSerializableFlexiTrack implements ReadOnlyFlexiTrack {
         try {
             return new UniqueTagList(tags);
         } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
+            // TODO: better error handling
             e.printStackTrace();
             return null;
         }
@@ -61,7 +62,7 @@ public class XmlSerializableFlexiTrack implements ReadOnlyFlexiTrack {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
-                //TODO: better error handling
+                // TODO: better error handling
             }
         }
         return lists;
@@ -74,7 +75,7 @@ public class XmlSerializableFlexiTrack implements ReadOnlyFlexiTrack {
                 return p.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();
-                //TODO: better error handling
+                // TODO: better error handling
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));

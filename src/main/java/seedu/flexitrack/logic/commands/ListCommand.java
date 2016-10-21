@@ -1,6 +1,5 @@
 package seedu.flexitrack.logic.commands;
 
-
 /**
  * Lists all task in the FlexiTrack to the user.
  */
@@ -12,7 +11,8 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
-    public ListCommand() {}
+    public ListCommand() {
+    }
 
     @Override
     public CommandResult execute() {

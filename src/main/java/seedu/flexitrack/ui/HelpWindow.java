@@ -19,8 +19,7 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/task_tracker.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-F09-C3/main/blob/master/docs/UserGuide.md";
+    private static final String USERGUIDE_URL = "https://github.com/CS2103AUG2016-F09-C3/main/blob/master/docs/UserGuide.md";
 
     private AnchorPane mainPane;
 
@@ -43,11 +42,12 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
-    private void configure(){
+    private void configure() {
         Scene scene = new Scene(mainPane);
-        //Null passed as the parent stage to make it non-modal.
+        // Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
+        dialogStage.setMaximized(true); // TODO: set a more appropriate initial
+                                        // size
         setIcon(dialogStage, ICON);
 
         WebView browser = new WebView();

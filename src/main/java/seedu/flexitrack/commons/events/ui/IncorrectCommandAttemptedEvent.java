@@ -8,7 +8,8 @@ import seedu.flexitrack.logic.commands.Command;
  */
 public class IncorrectCommandAttemptedEvent extends BaseEvent {
 
-    public IncorrectCommandAttemptedEvent(Command command) {}
+    public IncorrectCommandAttemptedEvent(Command command) {
+    }
 
     @Override
     public String toString() {

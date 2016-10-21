@@ -7,15 +7,15 @@ import seedu.flexitrack.model.task.UniqueTaskList;
 import seedu.flexitrack.model.FlexiTrack;
 
 /**
- * A utility class to help with building FlexiTrack objects.
- * Example usage: <br>
- * TODO:    {@code FlexiTrack ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ * A utility class to help with building FlexiTrack objects. Example usage: <br>
+ * TODO:
+ * {@code FlexiTrack ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
  */
 public class FlexiTrackBuilder {
 
     private FlexiTrack flexiTrack;
 
-    public FlexiTrackBuilder(FlexiTrack flexiTrack){
+    public FlexiTrackBuilder(FlexiTrack flexiTrack) {
         this.flexiTrack = flexiTrack;
     }
 
@@ -29,7 +29,7 @@ public class FlexiTrackBuilder {
         return this;
     }
 
-    public FlexiTrack build(){
+    public FlexiTrack build() {
         return flexiTrack;
     }
 }

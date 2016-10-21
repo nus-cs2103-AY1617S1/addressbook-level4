@@ -15,12 +15,16 @@ public class XmlUtil {
     /**
      * Returns the xml data in the file as an object of the specified type.
      *
-     * @param file           Points to a valid xml file containing data that match the {@code classToConvert}.
-     *                       Cannot be null.
-     * @param classToConvert The class corresponding to the xml data.
-     *                       Cannot be null.
-     * @throws FileNotFoundException Thrown if the file is missing.
-     * @throws JAXBException         Thrown if the file is empty or does not have the correct format.
+     * @param file
+     *            Points to a valid xml file containing data that match the
+     *            {@code classToConvert}. Cannot be null.
+     * @param classToConvert
+     *            The class corresponding to the xml data. Cannot be null.
+     * @throws FileNotFoundException
+     *             Thrown if the file is missing.
+     * @throws JAXBException
+     *             Thrown if the file is empty or does not have the correct
+     *             format.
      */
     @SuppressWarnings("unchecked")
     public static <T> T getDataFromFile(File file, Class<T> classToConvert)
@@ -42,11 +46,14 @@ public class XmlUtil {
     /**
      * Saves the data in the file in xml format.
      *
-     * @param file Points to a valid xml file containing data that match the {@code classToConvert}.
-     *             Cannot be null.
-     * @throws FileNotFoundException Thrown if the file is missing.
-     * @throws JAXBException         Thrown if there is an error during converting the data
-     *                               into xml and writing to the file.
+     * @param file
+     *            Points to a valid xml file containing data that match the
+     *            {@code classToConvert}. Cannot be null.
+     * @throws FileNotFoundException
+     *             Thrown if the file is missing.
+     * @throws JAXBException
+     *             Thrown if there is an error during converting the data into
+     *             xml and writing to the file.
      */
     public static <T> void saveDataToFile(File file, T data) throws FileNotFoundException, JAXBException {
 

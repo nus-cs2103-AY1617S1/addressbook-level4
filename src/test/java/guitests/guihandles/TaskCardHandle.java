@@ -14,7 +14,7 @@ public class TaskCardHandle extends GuiHandle {
 
     private Node node;
 
-    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node) {
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -31,27 +31,28 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(DATETIMEINFO_DATE_ID);
     }
 
-    public boolean isSameTask(ReadOnlyTask task){
-        return getName().equals(task.getName().fullName) 
-                && getTime().equals(getTimingShown(task));
+    public boolean isSameTask(ReadOnlyTask task) {
+        return getName().equals(task.getName().fullName) && getTime().equals(getTimingShown(task));
     }
 
     private String getTimingShown(ReadOnlyTask task) {
-        if (task.getIsEvent()){
+        if (task.getIsEvent()) {
             return " from " + task.getStartTime().toString() + " to " + task.getEndTime().toString();
-        } else if (task.getIsTask()){
+        } else if (task.getIsTask()) {
             return " by " + task.getDueDate().toString();
-        } else { 
-            return ""; 
+        } else {
+            return "";
         }
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof TaskCardHandle) {
+        if (obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getName().equals(handle.getName())
-                    && getTime().equals(handle.getTime()); //TODO: compare the rest
+            return getName().equals(handle.getName()) && getTime().equals(handle.getTime()); // TODO:
+                                                                                             // compare
+                                                                                             // the
+                                                                                             // rest
         }
         return super.equals(obj);
     }

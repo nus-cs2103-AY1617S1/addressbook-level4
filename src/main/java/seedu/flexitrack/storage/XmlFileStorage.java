@@ -14,8 +14,7 @@ public class XmlFileStorage {
     /**
      * Saves the given FlexiTrack data to the specified file.
      */
-    public static void saveDataToFile(File file, XmlSerializableFlexiTrack flexiTrack)
-            throws FileNotFoundException {
+    public static void saveDataToFile(File file, XmlSerializableFlexiTrack flexiTrack) throws FileNotFoundException {
         try {
             XmlUtil.saveDataToFile(file, flexiTrack);
         } catch (JAXBException e) {
@@ -26,8 +25,8 @@ public class XmlFileStorage {
     /**
      * Returns FlexiTrack in the file or an empty FlexiTrack
      */
-    public static XmlSerializableFlexiTrack loadDataFromSaveFile(File file) throws DataConversionException,
-                                                                            FileNotFoundException {
+    public static XmlSerializableFlexiTrack loadDataFromSaveFile(File file)
+            throws DataConversionException, FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableFlexiTrack.class);
         } catch (JAXBException e) {

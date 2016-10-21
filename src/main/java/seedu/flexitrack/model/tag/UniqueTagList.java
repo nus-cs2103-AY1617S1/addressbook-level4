@@ -18,7 +18,8 @@ import java.util.*;
 public class UniqueTagList implements Iterable<Tag> {
 
     /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
+     * Signals that an operation would have violated the 'no duplicates'
+     * property of the list.
      */
     public static class DuplicateTagException extends DuplicateDataException {
         protected DuplicateTagException() {
@@ -31,7 +32,8 @@ public class UniqueTagList implements Iterable<Tag> {
     /**
      * Constructs empty TagList.
      */
-    public UniqueTagList() {}
+    public UniqueTagList() {
+    }
 
     /**
      * Varargs/array constructor, enforces no nulls or duplicates.
@@ -68,11 +70,13 @@ public class UniqueTagList implements Iterable<Tag> {
      * Copy constructor, insulates from changes in source.
      */
     public UniqueTagList(UniqueTagList source) {
-        internalList.addAll(source.internalList); // insulate internal list from changes in argument
+        internalList.addAll(source.internalList); // insulate internal list from
+                                                  // changes in argument
     }
 
     /**
-     * All tags in this list as a Set. This set is mutable and change-insulated against the internal list.
+     * All tags in this list as a Set. This set is mutable and change-insulated
+     * against the internal list.
      */
     public Set<Tag> toSet() {
         return new HashSet<>(internalList);
@@ -87,7 +91,8 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
-     * Adds every tag from the argument list that does not yet exist in this list.
+     * Adds every tag from the argument list that does not yet exist in this
+     * list.
      */
     public void mergeFrom(UniqueTagList tags) {
         final Set<Tag> alreadyInside = this.toSet();
@@ -99,7 +104,8 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
-     * Returns true if the list contains an equivalent Tag as the given argument.
+     * Returns true if the list contains an equivalent Tag as the given
+     * argument.
      */
     public boolean contains(Tag toCheck) {
         assert toCheck != null;
@@ -109,7 +115,9 @@ public class UniqueTagList implements Iterable<Tag> {
     /**
      * Adds a Tag to the list.
      *
-     * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
+     * @throws DuplicateTagException
+     *             if the Tag to add is a duplicate of an existing Tag in the
+     *             list.
      */
     public void add(Tag toAdd) throws DuplicateTagException {
         assert toAdd != null;
@@ -132,8 +140,7 @@ public class UniqueTagList implements Iterable<Tag> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueTagList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueTagList) other).internalList));
+                        && this.internalList.equals(((UniqueTagList) other).internalList));
     }
 
     @Override

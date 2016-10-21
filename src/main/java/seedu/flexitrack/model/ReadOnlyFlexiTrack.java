@@ -1,6 +1,5 @@
 package seedu.flexitrack.model;
 
-
 import seedu.flexitrack.model.tag.Tag;
 import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.ReadOnlyTask;

@@ -3,8 +3,8 @@ package seedu.flexitrack.model.task;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Represents a Person's name in the address book. Guarantees: immutable; is
+ * valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
@@ -16,7 +16,8 @@ public class Name {
     /**
      * Validates given name.
      *
-     * @throws IllegalValueException if given name string is invalid.
+     * @throws IllegalValueException
+     *             if given name string is invalid.
      */
     public Name(String name) throws IllegalValueException {
         assert name != null;
@@ -34,8 +35,8 @@ public class Name {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
-    public void setName (String name){
-        this.fullName = name; 
+    public void setName(String name) {
+        this.fullName = name;
     }
 
     @Override
@@ -47,7 +48,8 @@ public class Name {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                && this.fullName.equals(((Name) other).fullName)); // state check
+                        && this.fullName.equals(((Name) other).fullName)); // state
+                                                                           // check
     }
 
     @Override

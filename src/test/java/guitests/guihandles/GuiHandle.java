@@ -31,8 +31,7 @@ public class GuiHandle {
 
     public void focusOnWindow(String stageTitle) {
         logger.info("Focusing " + stageTitle);
-        java.util.Optional<Window> window = guiRobot.listTargetWindows()
-                .stream()
+        java.util.Optional<Window> window = guiRobot.listTargetWindows().stream()
                 .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
 
         if (!window.isPresent()) {
@@ -55,8 +54,9 @@ public class GuiHandle {
 
     protected void setTextField(String textFieldId, String newText) {
         guiRobot.clickOn(textFieldId);
-        ((TextField)guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
-        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
+        ((TextField) guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
+        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a
+                             // short period
     }
 
     public void pressEnter() {
@@ -78,8 +78,7 @@ public class GuiHandle {
     }
 
     public void closeWindow() {
-        java.util.Optional<Window> window = guiRobot.listTargetWindows()
-                .stream()
+        java.util.Optional<Window> window = guiRobot.listTargetWindows().stream()
                 .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
 
         if (!window.isPresent()) {
@@ -87,7 +86,7 @@ public class GuiHandle {
         }
 
         guiRobot.targetWindow(window.get());
-        guiRobot.interact(() -> ((Stage)window.get()).close());
+        guiRobot.interact(() -> ((Stage) window.get()).close());
         focusOnMainApp();
     }
 }

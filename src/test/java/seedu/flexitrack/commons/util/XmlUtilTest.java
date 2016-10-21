@@ -80,14 +80,15 @@ public class XmlUtilTest {
         XmlSerializableFlexiTrack dataToWrite = new XmlSerializableFlexiTrack(new FlexiTrack());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableFlexiTrack dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableFlexiTrack.class);
-        assertEquals((new FlexiTrack(dataToWrite)).toString(),(new FlexiTrack(dataFromFile)).toString());
-        //TODO: use equality instead of string comparisons
+        assertEquals((new FlexiTrack(dataToWrite)).toString(), (new FlexiTrack(dataFromFile)).toString());
+        // TODO: use equality instead of string comparisons
 
         FlexiTrackBuilder builder = new FlexiTrackBuilder(new FlexiTrack());
-        dataToWrite = new XmlSerializableFlexiTrack(builder.withPerson(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
+        dataToWrite = new XmlSerializableFlexiTrack(
+                builder.withPerson(TestUtil.generateSampleTaskData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableFlexiTrack.class);
-        assertEquals((new FlexiTrack(dataToWrite)).toString(),(new FlexiTrack(dataFromFile)).toString());
+        assertEquals((new FlexiTrack(dataToWrite)).toString(), (new FlexiTrack(dataFromFile)).toString());
     }
 }

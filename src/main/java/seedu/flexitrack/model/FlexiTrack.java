@@ -15,8 +15,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the task-tracker level
- * Duplicates are not allowed (by .equals comparison)
+ * Wraps all data at the task-tracker level Duplicates are not allowed (by
+ * .equals comparison)
  */
 public class FlexiTrack implements ReadOnlyFlexiTrack {
 
@@ -28,7 +28,8 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         tags = new UniqueTagList();
     }
 
-    public FlexiTrack() {}
+    public FlexiTrack() {
+    }
 
     /**
      * Tasks are copied into this taskstracker
@@ -48,7 +49,7 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         return new FlexiTrack();
     }
 
-//// list overwrite operations
+    //// list overwrite operations
 
     public ObservableList<Task> getTasks() {
         return task.getInternalList();
@@ -71,14 +72,15 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         resetData(newData.getTaskList(), newData.getTagList());
     }
 
-//// task-level operations
+    //// task-level operations
 
     /**
-     * Adds a task to the tasks tracker.
-     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     * Adds a task to the tasks tracker. Also checks the new task's tags and
+     * updates {@link #tags} with any new tags found, and updates the Tag
+     * objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws UniqueTaskList.DuplicateTaskException
+     *             if an equivalent task already exists.
      */
     public void addTask(Task p) throws DuplicateTaskException {
         syncTagsWithMasterList(p);
@@ -87,17 +89,20 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
 
     /**
      * Edits a Task in the tasks tracker.
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
-     * @throws TaskNotFoundException if specified task is not found.
+     * 
+     * @throws UniqueTaskList.DuplicateTaskException
+     *             if an equivalent task already exists.
+     * @throws TaskNotFoundException
+     *             if specified task is not found.
      */
-    public String editTask(int taskToEdit, String[] args) throws TaskNotFoundException, IllegalEditException, IllegalValueException{
+    public String editTask(int taskToEdit, String[] args)
+            throws TaskNotFoundException, IllegalEditException, IllegalValueException {
         return task.edit(taskToEdit, args);
     }
-    
+
     /**
-     * Ensures that every tag in this task:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
+     * Ensures that every tag in this task: - exists in the master list
+     * {@link #tags} - points to a Tag object in the master list
      */
     private void syncTagsWithMasterList(Task task) {
         final UniqueTagList taskTags = task.getTags();
@@ -125,17 +130,17 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         }
     }
 
-//// tag-level operations
+    //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
 
-//// util methods
+    //// util methods
 
     @Override
     public String toString() {
-        return task.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+        return task.getInternalList().size() + " tasks, " + tags.getInternalList().size() + " tags";
         // TODO: refine later
     }
 
@@ -159,25 +164,24 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         return this.tags;
     }
 
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof FlexiTrack // instanceof handles nulls
-                && this.task.equals(((FlexiTrack) other).task)
-                && this.tags.equals(((FlexiTrack) other).tags));
+                        && this.task.equals(((FlexiTrack) other).task) && this.tags.equals(((FlexiTrack) other).tags));
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use this method for custom fields hashing instead of implementing
+        // your own
         return Objects.hash(task, tags);
     }
 
     public void markTask(int targetIndex) {
-        task.mark(targetIndex,Boolean.TRUE);
+        task.mark(targetIndex, Boolean.TRUE);
     }
-    
+
     public void unmarkTask(int targetIndex) {
         task.mark(targetIndex, Boolean.FALSE);
     }

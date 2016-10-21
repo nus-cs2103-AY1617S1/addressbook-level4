@@ -16,10 +16,10 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
-//    @XmlElement(required = true)
-//    private Boolean isEvent;
-//    @XmlElement(required = true)
-//    private Boolean isTask;
+    // @XmlElement(required = true)
+    // private Boolean isEvent;
+    // @XmlElement(required = true)
+    // private Boolean isTask;
     @XmlElement
     private String dueDate;
     @XmlElement
@@ -33,13 +33,15 @@ public class XmlAdaptedTask {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTask() {}
-
+    public XmlAdaptedTask() {
+    }
 
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedTask
+     * @param source
+     *            future changes to this will not affect the created
+     *            XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
@@ -53,9 +55,12 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's Task
+     * object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted task
+     * @throws IllegalValueException
+     *             if there were any data constraints violated in the adapted
+     *             task
      */
     public Task toModelType() throws IllegalValueException {
         final List<Tag> taskTags = new ArrayList<>();
@@ -67,6 +72,6 @@ public class XmlAdaptedTask {
         final DateTimeInfo startTime = new DateTimeInfo(this.startTime);
         final DateTimeInfo endTime = new DateTimeInfo(this.endTime);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, dueDate,startTime,endTime, tags);
+        return new Task(name, dueDate, startTime, endTime, tags);
     }
 }

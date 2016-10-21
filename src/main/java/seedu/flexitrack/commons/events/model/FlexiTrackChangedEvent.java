@@ -3,12 +3,12 @@ package seedu.flexitrack.commons.events.model;
 import seedu.flexitrack.commons.events.BaseEvent;
 import seedu.flexitrack.model.ReadOnlyFlexiTrack;
 
-/** Indicates the FlexiTrack in the model has changed*/
+/** Indicates the FlexiTrack in the model has changed */
 public class FlexiTrackChangedEvent extends BaseEvent {
 
     public final ReadOnlyFlexiTrack data;
 
-    public FlexiTrackChangedEvent(ReadOnlyFlexiTrack data){
+    public FlexiTrackChangedEvent(ReadOnlyFlexiTrack data) {
         this.data = data;
     }
 

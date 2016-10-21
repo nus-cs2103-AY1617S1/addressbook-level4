@@ -10,18 +10,19 @@ public class FindCommandTest extends FlexiTrackGuiTest {
 
     @Test
     public void find_nonEmptyList() {
-        assertFindResult("find Mark"); //no results
-        assertFindResult("find homework soccer", td.homework1, td.homework2, td.homework3, td.soccer); //multiple results
+        assertFindResult("find Mark"); // no results
+        assertFindResult("find homework soccer", td.homework1, td.homework2, td.homework3, td.soccer); // multiple
+                                                                                                       // results
 
-        //find after deleting one result
+        // find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find soccer",td.soccer);
+        assertFindResult("find soccer", td.soccer);
     }
 
     @Test
-    public void find_emptyList(){
+    public void find_emptyList() {
         commandBox.runCommand("clear");
-        assertFindResult("find Jean"); //no results
+        assertFindResult("find Jean"); // no results
     }
 
     @Test
@@ -30,7 +31,7 @@ public class FindCommandTest extends FlexiTrackGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, TestTask... expectedHits ) {
+    private void assertFindResult(String command, TestTask... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");

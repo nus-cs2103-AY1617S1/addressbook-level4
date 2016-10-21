@@ -43,13 +43,13 @@ public class TestUtil {
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
             executable.run();
-        }
-        catch (Throwable actualException) {
+        } catch (Throwable actualException) {
             if (!actualException.getClass().isAssignableFrom(expected)) {
                 String message = String.format("Expected thrown: %s, actual: %s", expected.getName(),
                         actualException.getClass().getName());
                 throw new AssertionFailedError(message);
-            } else return;
+            } else
+                return;
         }
         throw new AssertionFailedError(
                 String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
@@ -64,20 +64,28 @@ public class TestUtil {
 
     private static Task[] getSampleTaskData() {
         try {
-            return new Task[]{
-                    new Task(new Name("Go shopping"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("13 Jan 4pm"), new DateTimeInfo("13 Jan 6pm"), new UniqueTagList()),
-                    new Task(new Name("Buy books"), new DateTimeInfo("11 May"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("29 Feb 23.23"), new UniqueTagList()),
-                    new Task(new Name("Go for jogging"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("8 Apr 5.30"), new DateTimeInfo("8 Apr 6.30"), new UniqueTagList()),
-                    new Task(new Name("Dinner with friends"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("10 Dec 8.30am"), new DateTimeInfo("10 Dec 11am"), new UniqueTagList()),
-                    new Task(new Name("CS2103 homework"), new DateTimeInfo("12 Jun 7.30"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("29 Feb 23.23"), new UniqueTagList()),
-                    new Task(new Name("Cs2103 exam"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("7 Jun 3pm"), new DateTimeInfo("7 Jun 5pm"), new UniqueTagList()),
-                    new Task(new Name("Ma1505 midterm"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("9 Aug 7pm"), new DateTimeInfo("9 Aug 11pm"), new UniqueTagList()),
-                    new Task(new Name("Cycling"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("14 Nov 10.30"), new DateTimeInfo("14 Nov 12.30"), new UniqueTagList()),
-                    new Task(new Name("Movie time"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("today 2pm"), new DateTimeInfo("today 6pm"), new UniqueTagList())                                
-            };
+            return new Task[] {
+                    new Task(new Name("Go shopping"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("13 Jan 4pm"),
+                            new DateTimeInfo("13 Jan 6pm"), new UniqueTagList()),
+                    new Task(new Name("Buy books"), new DateTimeInfo("11 May"), new DateTimeInfo("29 Feb 23.23"),
+                            new DateTimeInfo("29 Feb 23.23"), new UniqueTagList()),
+                    new Task(new Name("Go for jogging"), new DateTimeInfo("29 Feb 23.23"),
+                            new DateTimeInfo("8 Apr 5.30"), new DateTimeInfo("8 Apr 6.30"), new UniqueTagList()),
+                    new Task(new Name("Dinner with friends"), new DateTimeInfo("29 Feb 23.23"),
+                            new DateTimeInfo("10 Dec 8.30am"), new DateTimeInfo("10 Dec 11am"), new UniqueTagList()),
+                    new Task(new Name("CS2103 homework"), new DateTimeInfo("12 Jun 7.30"),
+                            new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("29 Feb 23.23"), new UniqueTagList()),
+                    new Task(new Name("Cs2103 exam"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("7 Jun 3pm"),
+                            new DateTimeInfo("7 Jun 5pm"), new UniqueTagList()),
+                    new Task(new Name("Ma1505 midterm"), new DateTimeInfo("29 Feb 23.23"),
+                            new DateTimeInfo("9 Aug 7pm"), new DateTimeInfo("9 Aug 11pm"), new UniqueTagList()),
+                    new Task(new Name("Cycling"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("14 Nov 10.30"),
+                            new DateTimeInfo("14 Nov 12.30"), new UniqueTagList()),
+                    new Task(new Name("Movie time"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("today 2pm"),
+                            new DateTimeInfo("today 6pm"), new UniqueTagList()) };
         } catch (IllegalValueException e) {
             assert false;
-            //not possible
+            // not possible
             return null;
         }
     }
@@ -86,14 +94,11 @@ public class TestUtil {
 
     private static Tag[] getSampleTagData() {
         try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
-            };
+            return new Tag[] { new Tag("relatives"), new Tag("friends") };
         } catch (IllegalValueException e) {
             assert false;
             return null;
-            //not possible
+            // not possible
         }
     }
 
@@ -102,8 +107,9 @@ public class TestUtil {
     }
 
     /**
-     * Appends the file name to the sandbox folder path.
-     * Creates the sandbox folder if it doesn't exist.
+     * Appends the file name to the sandbox folder path. Creates the sandbox
+     * folder if it doesn't exist.
+     * 
      * @param fileName
      * @return
      */
@@ -143,8 +149,8 @@ public class TestUtil {
     }
 
     /**
-     * Tweaks the {@code keyCodeCombination} to resolve the {@code KeyCode.SHORTCUT} to their
-     * respective platform-specific keycodes
+     * Tweaks the {@code keyCodeCombination} to resolve the
+     * {@code KeyCode.SHORTCUT} to their respective platform-specific keycodes
      */
     public static KeyCode[] scrub(KeyCodeCombination keyCodeCombination) {
         List<KeyCode> keys = new ArrayList<>();
@@ -161,7 +167,7 @@ public class TestUtil {
             keys.add(KeyCode.CONTROL);
         }
         keys.add(keyCodeCombination.getCode());
-        return keys.toArray(new KeyCode[]{});
+        return keys.toArray(new KeyCode[] {});
     }
 
     public static boolean isHeadlessEnvironment() {
@@ -180,17 +186,17 @@ public class TestUtil {
 
     public static String descOnFail(Object... comparedObjects) {
         return "Comparison failed \n"
-                + Arrays.asList(comparedObjects).stream()
-                .map(Object::toString)
-                .collect(Collectors.joining("\n"));
+                + Arrays.asList(comparedObjects).stream().map(Object::toString).collect(Collectors.joining("\n"));
     }
 
-    public static void setFinalStatic(Field field, Object newValue) throws NoSuchFieldException, IllegalAccessException{
+    public static void setFinalStatic(Field field, Object newValue)
+            throws NoSuchFieldException, IllegalAccessException {
         field.setAccessible(true);
         // remove final modifier from field
         Field modifiersField = Field.class.getDeclaredField("modifiers");
         modifiersField.setAccessible(true);
-        // ~Modifier.FINAL is used to remove the final modifier from field so that its value is no longer
+        // ~Modifier.FINAL is used to remove the final modifier from field so
+        // that its value is no longer
         // final and can be changed
         modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
         field.set(null, newValue);
@@ -206,10 +212,11 @@ public class TestUtil {
     }
 
     /**
-     * Gets private method of a class
-     * Invoke the method using method.invoke(objectInstance, params...)
+     * Gets private method of a class Invoke the method using
+     * method.invoke(objectInstance, params...)
      *
-     * Caveat: only find method declared in the current Class, not inherited from supertypes
+     * Caveat: only find method declared in the current Class, not inherited
+     * from supertypes
      */
     public static Method getPrivateMethod(Class objectClass, String methodName) throws NoSuchMethodException {
         Method method = objectClass.getDeclaredMethod(methodName);
@@ -227,28 +234,31 @@ public class TestUtil {
 
     /**
      * Gets mid point of a node relative to the screen.
+     * 
      * @param node
      * @return
      */
     public static Point2D getScreenMidPoint(Node node) {
         double x = getScreenPos(node).getMinX() + node.getLayoutBounds().getWidth() / 2;
         double y = getScreenPos(node).getMinY() + node.getLayoutBounds().getHeight() / 2;
-        return new Point2D(x,y);
+        return new Point2D(x, y);
     }
 
     /**
      * Gets mid point of a node relative to its scene.
+     * 
      * @param node
      * @return
      */
     public static Point2D getSceneMidPoint(Node node) {
         double x = getScenePos(node).getMinX() + node.getLayoutBounds().getWidth() / 2;
         double y = getScenePos(node).getMinY() + node.getLayoutBounds().getHeight() / 2;
-        return new Point2D(x,y);
+        return new Point2D(x, y);
     }
 
     /**
      * Gets the bound of the node relative to the parent scene.
+     * 
      * @param node
      * @return
      */
@@ -274,8 +284,11 @@ public class TestUtil {
 
     /**
      * Removes a subset from the list of tasks.
-     * @param tasks The list of tasks
-     * @param tasksToRemove The subset of tasks.
+     * 
+     * @param tasks
+     *            The list of tasks
+     * @param tasksToRemove
+     *            The subset of tasks.
      * @return The modified tasks after removal of the subset from tasks.
      */
     public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
@@ -284,21 +297,28 @@ public class TestUtil {
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
-
     /**
      * Returns a copy of the list with the task at specified index removed.
-     * @param list original list to copy from
-     * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
+     * 
+     * @param list
+     *            original list to copy from
+     * @param targetIndexInOneIndexedFormat
+     *            e.g. if the first element to be removed, 1 should be given as
+     *            index.
      */
     public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
-        return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
+        return removeTasksFromList(list, list[targetIndexInOneIndexedFormat - 1]);
     }
 
     /**
      * Replaces tasks[i] with a task.
-     * @param tasks The array of tasks.
-     * @param task The replacement task
-     * @param index The index of the task to be replaced.
+     * 
+     * @param tasks
+     *            The array of tasks.
+     * @param task
+     *            The replacement task
+     * @param index
+     *            The index of the task to be replaced.
      * @return
      */
     public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
@@ -308,8 +328,11 @@ public class TestUtil {
 
     /**
      * Appends tasks to the array of tasks.
-     * @param tasks A array of tasks.
-     * @param tasksToAdd The tasks that are to be appended behind the original array.
+     * 
+     * @param tasks
+     *            A array of tasks.
+     * @param tasksToAdd
+     *            The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
     public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
@@ -317,7 +340,7 @@ public class TestUtil {
         listOfTasks.addAll(asList(tasksToAdd));
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
-    
+
     public static TestTask[] editTasksToList(final TestTask[] tasks, int index, TestTask EditedTask) {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.set(index, EditedTask);
@@ -326,7 +349,7 @@ public class TestUtil {
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
-        for(T obj : objs) {
+        for (T obj : objs) {
             list.add(obj);
         }
         return list;
@@ -339,7 +362,7 @@ public class TestUtil {
     public static Tag[] getTagList(String tags) {
 
         if (tags.equals("")) {
-            return new Tag[]{};
+            return new Tag[] {};
         }
 
         final String[] split = tags.split(", ");
@@ -348,7 +371,7 @@ public class TestUtil {
             try {
                 return new Tag(e.replaceFirst("Tag: ", ""));
             } catch (IllegalValueException e1) {
-                //not possible
+                // not possible
                 assert false;
                 return null;
             }
@@ -359,20 +382,22 @@ public class TestUtil {
 
     /**
      * Mark a task as done.
-     * @param tasks A array of tasks.
-     * @param taskToMark The tasks that are to be appended behind the original array.
+     * 
+     * @param tasks
+     *            A array of tasks.
+     * @param taskToMark
+     *            The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
     public static TestTask[] markTasksToList(final TestTask[] tasks, int taskToMark) {
-        taskToMark=taskToMark-1;
+        taskToMark = taskToMark - 1;
         List<TestTask> listOfTasks = asList(tasks);
-        if (taskToMark > listOfTasks.size()){
+        if (taskToMark > listOfTasks.size()) {
             throw new IllegalArgumentException("The task index provided is invalid");
         }
-        if(!listOfTasks.get(taskToMark).getIsDone()){
+        if (!listOfTasks.get(taskToMark).getIsDone()) {
             try {
-                listOfTasks.get(taskToMark).
-                        setName(new Name("(Done)"+listOfTasks.get(taskToMark).getName()));
+                listOfTasks.get(taskToMark).setName(new Name("(Done)" + listOfTasks.get(taskToMark).getName()));
                 listOfTasks.get(taskToMark).setIsDone(true);
             } catch (IllegalValueException e) {
                 throw new IllegalArgumentException("The task index provided is invalid");
@@ -380,23 +405,26 @@ public class TestUtil {
         }
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
-    
+
     /**
      * Mark a task as undone.
-     * @param tasks A array of tasks.
-     * @param taskToMark The tasks that are to be appended behind the original array.
+     * 
+     * @param tasks
+     *            A array of tasks.
+     * @param taskToMark
+     *            The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
     public static TestTask[] unMarkTasksToList(TestTask[] currentList, int taskToUnMark) {
-        taskToUnMark=taskToUnMark-1;
+        taskToUnMark = taskToUnMark - 1;
         List<TestTask> listOfTasks = asList(currentList);
-        if (taskToUnMark > listOfTasks.size()){
+        if (taskToUnMark > listOfTasks.size()) {
             throw new IllegalArgumentException("The task index provided is invalid");
         }
-        if(!listOfTasks.get(taskToUnMark).getIsDone()){
+        if (!listOfTasks.get(taskToUnMark).getIsDone()) {
             try {
-                listOfTasks.get(taskToUnMark).
-                        setName(new Name(listOfTasks.get(taskToUnMark).getName().toString().replace("(Done)", "")));
+                listOfTasks.get(taskToUnMark)
+                        .setName(new Name(listOfTasks.get(taskToUnMark).getName().toString().replace("(Done)", "")));
                 listOfTasks.get(taskToUnMark).setIsDone(false);
             } catch (IllegalValueException e) {
                 throw new IllegalArgumentException("The task index provided is invalid");
@@ -404,6 +432,5 @@ public class TestUtil {
         }
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
-    
 
 }

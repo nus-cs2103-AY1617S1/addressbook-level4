@@ -25,7 +25,10 @@ import static org.junit.Assert.assertTrue;
  */
 public abstract class FlexiTrackGuiTest {
 
-    /* The TestName Rule makes the current test name available inside test methods */
+    /*
+     * The TestName Rule makes the current test name available inside test
+     * methods
+     */
     @Rule
     public TestName name = new TestName();
 
@@ -34,8 +37,8 @@ public abstract class FlexiTrackGuiTest {
     protected TypicalTestTasks td = new TypicalTestTasks();
 
     /*
-     *   Handles to GUI elements present at the start up are created in advance
-     *   for easy access from child classes.
+     * Handles to GUI elements present at the start up are created in advance
+     * for easy access from child classes.
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
@@ -67,13 +70,14 @@ public abstract class FlexiTrackGuiTest {
         EventsCenter.clearSubscribers();
         testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
-        while (!stage.isShowing());
+        while (!stage.isShowing())
+            ;
         mainGui.focusOnMainApp();
     }
 
     /**
-     * Override this in child classes to set the initial local data.
-     * Return null to use the data in the file specified in {@link #getDataFileLocation()}
+     * Override this in child classes to set the initial local data. Return null
+     * to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected FlexiTrack getInitialData() {
         FlexiTrack ab = TestUtil.generateEmptyFlexiTrack();
@@ -83,6 +87,7 @@ public abstract class FlexiTrackGuiTest {
 
     /**
      * Override this in child classes to set the data file location.
+     * 
      * @return
      */
     protected String getDataFileLocation() {
@@ -110,7 +115,9 @@ public abstract class FlexiTrackGuiTest {
     }
 
     /**
-     * Asserts the message shown in the Result Display area is same as the given string.
+     * Asserts the message shown in the Result Display area is same as the given
+     * string.
+     * 
      * @param expected
      */
     protected void assertResultMessage(String expected) {

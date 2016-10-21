@@ -14,7 +14,9 @@ import java.util.Set;
  * The API of the Model component.
  */
 public interface Model {
-    /** Clears existing backing model and replaces with the provided new data. */
+    /**
+     * Clears existing backing model and replaces with the provided new data.
+     */
     void resetData(ReadOnlyFlexiTrack newData);
 
     /** Returns the FLexiTrack */
@@ -26,25 +28,41 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws DuplicateTaskException;
 
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    /**
+     * Returns the filtered task list as an
+     * {@code UnmodifiableObservableList<ReadOnlyTask>}
+     */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    /**
+     * Updates the filter of the filtered task list to filter by the given
+     * keywords
+     */
     void updateFilteredTaskList(Set<String> keywords);
-    
-    /** Marks the given task as done 
-     * @throws TaskNotFoundException */
+
+    /**
+     * Marks the given task as done
+     * 
+     * @throws TaskNotFoundException
+     */
     void markTask(int taskToMark);
-    
-    /** Unmarks the given task as done 
-     * @throws TaskNotFoundException */
+
+    /**
+     * Unmarks the given task as done
+     * 
+     * @throws TaskNotFoundException
+     */
     void unmarkTask(int taskToMark);
-    
-    /** Edits the given task 
-     * @throws TaskNotFoundException*/
-    String editTask(int taskToEdit, String[] args) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.IllegalEditException, IllegalValueException;
+
+    /**
+     * Edits the given task
+     * 
+     * @throws TaskNotFoundException
+     */
+    String editTask(int taskToEdit, String[] args)
+            throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.IllegalEditException, IllegalValueException;
 
 }

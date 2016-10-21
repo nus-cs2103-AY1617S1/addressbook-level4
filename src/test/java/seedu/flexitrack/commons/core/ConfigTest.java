@@ -14,21 +14,18 @@ public class ConfigTest {
 
     @Test
     public void toString_defaultObject_stringReturned() {
-        String defaultConfigAsString = "App title : FlexiTrack\n" +
-                "Current log level : INFO\n" +
-                "Preference file Location : preferences.json\n" +
-                "Local data file location : tasktracker.xml\n" +
-                "FlexiTrack name : MyTaskTracker";
+        String defaultConfigAsString = "App title : FlexiTrack\n" + "Current log level : INFO\n"
+                + "Preference file Location : preferences.json\n" + "Local data file location : tasktracker.xml\n"
+                + "FlexiTrack name : MyTaskTracker";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }
 
     @Test
-    public void equalsMethod(){
+    public void equalsMethod() {
         Config defaultConfig = new Config();
         assertFalse(defaultConfig.equals(null));
         assertTrue(defaultConfig.equals(defaultConfig));
     }
-
 
 }

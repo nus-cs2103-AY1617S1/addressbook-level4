@@ -21,8 +21,6 @@ public class CollectionUtil {
         return false;
     }
 
-
-
     /**
      * Throws an assertion error if the collection or any item in it is null.
      */
@@ -32,12 +30,14 @@ public class CollectionUtil {
     }
 
     /**
-     * Returns true if every element in a collection are unique by {@link Object#equals(Object)}.
+     * Returns true if every element in a collection are unique by
+     * {@link Object#equals(Object)}.
      */
     public static boolean elementsAreUnique(Collection<?> items) {
         final Set<Object> testSet = new HashSet<>();
         for (Object item : items) {
-            final boolean itemAlreadyExists = !testSet.add(item); // see Set documentation
+            final boolean itemAlreadyExists = !testSet.add(item); // see Set
+                                                                  // documentation
             if (itemAlreadyExists) {
                 return false;
             }

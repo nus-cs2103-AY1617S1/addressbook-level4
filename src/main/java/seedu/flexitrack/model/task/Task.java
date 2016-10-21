@@ -7,8 +7,8 @@ import seedu.flexitrack.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
- * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated.
+ * Represents a Person in the address book. Guarantees: details are present and
+ * not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
@@ -21,6 +21,7 @@ public class Task implements ReadOnlyTask {
     private boolean isDone = false;
 
     private UniqueTagList tags;
+
     /**
      * Every field must be present and not null.
      */
@@ -30,9 +31,10 @@ public class Task implements ReadOnlyTask {
         this.dueDate = dueDate;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        this.isTask = dueDate.isDateNull()?false:true;
-        this.isEvent = startTime.isDateNull()?false:true;
+        this.tags = new UniqueTagList(tags); // protect internal tags from
+                                             // changes in the arg list
+        this.isTask = dueDate.isDateNull() ? false : true;
+        this.isEvent = startTime.isDateNull() ? false : true;
         this.endTime.isEndTimeInferred();
     }
 
@@ -57,22 +59,22 @@ public class Task implements ReadOnlyTask {
     public boolean getIsEvent() {
         return isEvent;
     }
-    
+
     @Override
     public boolean getIsDone() {
         return isDone;
     }
-    
+
     @Override
     public DateTimeInfo getDueDate() {
         return dueDate;
     }
-    
+
     @Override
     public DateTimeInfo getStartTime() {
         return startTime;
     }
-    
+
     @Override
     public DateTimeInfo getEndTime() {
         return endTime;
@@ -94,12 +96,13 @@ public class Task implements ReadOnlyTask {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+                        && this.isSameStateAs((ReadOnlyTask) other));
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use this method for custom fields hashing instead of implementing
+        // your own
         return Objects.hash(name, dueDate, startTime, endTime, isTask, isEvent, tags);
     }
 
@@ -109,39 +112,39 @@ public class Task implements ReadOnlyTask {
     }
 
     private void setIsDone(boolean isDone) {
-        if(isDone && !this.isDone) {
-            name.setName("(Done)"+name.toString());
-        } else if(!isDone &&!this.isDone){
+        if (isDone && !this.isDone) {
+            name.setName("(Done)" + name.toString());
+        } else if (!isDone && !this.isDone) {
             name.setName(name.toString().replace("(Done)", ""));
         }
         this.isDone = isDone;
     }
-    
+
     public void markTask(boolean isDone) {
-       setIsDone(isDone);
-    }
-    
-    public void setName(String name){
-    	this.name.setName(name);
-    }
-    
-    public void setDueDate(String dueDate) throws IllegalValueException{
-    	this.dueDate = new DateTimeInfo(dueDate);
+        setIsDone(isDone);
     }
 
-    public void setStartTime(String startTime) throws IllegalValueException{
-    	this.startTime = new DateTimeInfo(startTime);
-    }
-    
-    public void setEndTime(String endTime) throws IllegalValueException{
-    	this.endTime = new DateTimeInfo(endTime);
-    }
-    
-    public void setIsTask(Boolean bool){
-    	this.isTask = bool;
+    public void setName(String name) {
+        this.name.setName(name);
     }
 
-    public void setIsEvent(Boolean bool){
-    	this.isEvent = bool;
+    public void setDueDate(String dueDate) throws IllegalValueException {
+        this.dueDate = new DateTimeInfo(dueDate);
+    }
+
+    public void setStartTime(String startTime) throws IllegalValueException {
+        this.startTime = new DateTimeInfo(startTime);
+    }
+
+    public void setEndTime(String endTime) throws IllegalValueException {
+        this.endTime = new DateTimeInfo(endTime);
+    }
+
+    public void setIsTask(Boolean bool) {
+        this.isTask = bool;
+    }
+
+    public void setIsEvent(Boolean bool) {
+        this.isEvent = bool;
     }
 }

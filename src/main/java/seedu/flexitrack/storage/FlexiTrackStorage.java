@@ -17,10 +17,13 @@ public interface FlexiTrackStorage {
     String getFlexiTrackFilePath();
 
     /**
-     * Returns FlexiTrack data as a {@link ReadOnlyFlexiTrack}.
-     *   Returns {@code Optional.empty()} if storage file is not found.
-     * @throws DataConversionException if the data in storage is not in the expected format.
-     * @throws IOException if there was any problem when reading from the storage.
+     * Returns FlexiTrack data as a {@link ReadOnlyFlexiTrack}. Returns
+     * {@code Optional.empty()} if storage file is not found.
+     * 
+     * @throws DataConversionException
+     *             if the data in storage is not in the expected format.
+     * @throws IOException
+     *             if there was any problem when reading from the storage.
      */
     Optional<ReadOnlyFlexiTrack> readFlexiTrack() throws DataConversionException, IOException;
 
@@ -31,8 +34,11 @@ public interface FlexiTrackStorage {
 
     /**
      * Saves the given {@link ReadOnlyFlexiTrack} to the storage.
-     * @param FlexiTrack cannot be null.
-     * @throws IOException if there was any problem writing to the file.
+     * 
+     * @param FlexiTrack
+     *            cannot be null.
+     * @throws IOException
+     *             if there was any problem writing to the file.
      */
     void saveFlexiTrack(ReadOnlyFlexiTrack flexiTrack) throws IOException;
 

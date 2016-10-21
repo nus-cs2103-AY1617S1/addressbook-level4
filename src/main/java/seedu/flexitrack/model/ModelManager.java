@@ -18,8 +18,8 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the tasktracker data.
- * All changes to any model should be synchronized.
+ * Represents the in-memory model of the tasktracker data. All changes to any
+ * model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
@@ -28,8 +28,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given FlexiTracker
-     * FlexiTracker and its variables should not be null
+     * Initializes a ModelManager with the given FlexiTracker FlexiTracker and
+     * its variables should not be null
      */
     public ModelManager(FlexiTrack src, UserPrefs userPrefs) {
         super();
@@ -85,20 +85,23 @@ public class ModelManager extends ComponentManager implements Model {
         flexiTracker.markTask(targetIndex);
         indicateFlexiTrackerChanged();
     }
+
     @Override
     public void unmarkTask(int targetIndex) {
         flexiTracker.unmarkTask(targetIndex);
         indicateFlexiTrackerChanged();
     }
-    
+
     @Override
-	public String editTask(int taskToEdit, String[] args) throws TaskNotFoundException, IllegalEditException, IllegalValueException{
-    	String duration = flexiTracker.editTask(taskToEdit, args);
+    public String editTask(int taskToEdit, String[] args)
+            throws TaskNotFoundException, IllegalEditException, IllegalValueException {
+        String duration = flexiTracker.editTask(taskToEdit, args);
         indicateFlexiTrackerChanged();
         return duration;
-	}
+    }
 
-    //=========== Filtered Tasks List Accessors ===============================================================
+    // =========== Filtered Tasks List Accessors
+    // ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
@@ -111,7 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
+    public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
@@ -119,10 +122,12 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
-    //========== Inner classes/interfaces used for filtering ==================================================
+    // ========== Inner classes/interfaces used for filtering
+    // ==================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyTask task);
+
         String toString();
     }
 
@@ -147,6 +152,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     interface Qualifier {
         boolean run(ReadOnlyTask task);
+
         String toString();
     }
 
@@ -160,16 +166,14 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             if (nameKeyWords.toString().contains("f/")) {
-               return nameKeyWords.stream()
-                        .filter(keyword -> StringUtil.equalsIgnoreCase(task.getName().fullName, keyword))
-                        .findAny()
+                return nameKeyWords.stream()
+                        .filter(keyword -> StringUtil.equalsIgnoreCase(task.getName().fullName, keyword)).findAny()
                         .isPresent();
             }
-            
+
             return nameKeyWords.stream()
-                .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
-                .findAny()
-                .isPresent();
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword)).findAny()
+                    .isPresent();
         }
 
         @Override
@@ -177,7 +181,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
-	
 
 }

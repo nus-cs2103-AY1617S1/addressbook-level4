@@ -1,6 +1,5 @@
 package seedu.flexitrack.storage;
 
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -37,9 +36,7 @@ public class XmlFlexiTrackTest {
     }
 
     private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
-        return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER + prefsFileInTestDataFolder
-                : null;
+        return prefsFileInTestDataFolder != null ? TEST_DATA_FOLDER + prefsFileInTestDataFolder : null;
     }
 
     @Test
@@ -53,8 +50,10 @@ public class XmlFlexiTrackTest {
         thrown.expect(DataConversionException.class);
         readAddressBook("NotXmlFormatFlexiTrack.xml");
 
-        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-         * That means you should not have more than one exception test in one method
+        /*
+         * IMPORTANT: Any code below an exception-throwing line (like the one
+         * above) will be ignored. That means you should not have more than one
+         * exception test in one method
          */
     }
 
@@ -65,22 +64,25 @@ public class XmlFlexiTrackTest {
         FlexiTrack original = td.getTypicalFlexiTrack();
         XmlFlexiTrackStorage xmlAddressBookStorage = new XmlFlexiTrackStorage(filePath);
 
-        //Save in new file and read back
+        // Save in new file and read back
         xmlAddressBookStorage.saveFlexiTrack(original, filePath);
         ReadOnlyFlexiTrack readBack = xmlAddressBookStorage.readFlexiTrack(filePath).get();
         assertEquals(original, new FlexiTrack(readBack));
 
-        //Modify data, overwrite exiting file, and read back
+        // Modify data, overwrite exiting file, and read back
         original.addTask(new Task(TypicalTestTasks.basketball));
         original.removeTask(new Task(TypicalTestTasks.homework1));
         xmlAddressBookStorage.saveFlexiTrack(original, filePath);
         readBack = xmlAddressBookStorage.readFlexiTrack(filePath).get();
         assertEquals(original, new FlexiTrack(readBack));
 
-        //Save and read without specifying file path
+        // Save and read without specifying file path
         original.addTask(new Task(TypicalTestTasks.lecture));
-        xmlAddressBookStorage.saveFlexiTrack(original); //file path not specified
-        readBack = xmlAddressBookStorage.readFlexiTrack().get(); //file path not specified
+        xmlAddressBookStorage.saveFlexiTrack(original); // file path not
+                                                        // specified
+        readBack = xmlAddressBookStorage.readFlexiTrack().get(); // file path
+                                                                 // not
+                                                                 // specified
         assertEquals(original, new FlexiTrack(readBack));
 
     }
@@ -100,6 +102,5 @@ public class XmlFlexiTrackTest {
         thrown.expect(AssertionError.class);
         saveAddressBook(new FlexiTrack(), null);
     }
-
 
 }

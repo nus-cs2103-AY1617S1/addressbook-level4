@@ -9,13 +9,13 @@ import seedu.flexitrack.commons.events.ui.ExitAppRequestEvent;
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
-    
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exit the program.\n"
-            + "Example: " + COMMAND_WORD;
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Exit the program.\n" + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting FlexiTrack as requested ...";
 
-    public ExitCommand() {}
+    public ExitCommand() {
+    }
 
     @Override
     public CommandResult execute() {
