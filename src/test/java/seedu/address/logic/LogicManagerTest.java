@@ -164,7 +164,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add deadline; 123123", Date.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add [events; 121212; 5555]", Start.MESSAGE_START_CONSTRAINTS);
+                "add [events; 121221; 5555]", Start.MESSAGE_START_CONSTRAINTS);
         assertCommandBehavior(
                 "add deadlines; 121212; 12.30am #..", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -485,7 +485,7 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Date("12121" + Math.abs(seed)),
+                    new Date("12122" + Math.abs(seed)),
                     new Start("125" + seed),
                     new End("235" + seed),
                     1,
@@ -503,7 +503,7 @@ public class LogicManagerTest {
         Task generateDeadline(int seed) throws Exception {
             return new Task(
                     new Name("DTask " + seed),
-                    new Date("12121" + Math.abs(seed)),
+                    new Date("12122" + Math.abs(seed)),
                     new Start("no start"),
                     new End("235" + seed),
                     2,
