@@ -3,6 +3,9 @@ package seedu.cmdo.model.task;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 
@@ -59,19 +62,18 @@ public class DueByDate {
         return isRange;
     }
     
-    /*
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DueDay // instanceof handles nulls
-                && this.value.equals(((DueDay) other).value)); // state check
+                || (other instanceof DueByDate // instanceof handles nulls
+                && this.equals((DueByDate) other));
     }
-    */
 
-//    @Override
-//    public int hashCode() {
-//    }
-//    
+    @Override
+    public int hashCode() {
+    	return Objects.hash(start, end);
+    }
+    
     /*
      * Produces a friendly string of values in the format MM/DD/YYYY
      * 
