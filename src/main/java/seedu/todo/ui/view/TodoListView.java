@@ -19,7 +19,7 @@ import seedu.todo.model.task.ImmutableTask;
 import java.util.logging.Logger;
 
 /**
- * A panel that holds all the tasks inflated from TaskCard.
+ * A panel that holds all the tasks inflated from TaskCardView.
  */
 public class TodoListView extends UiPart {
     /*Constants*/
@@ -87,9 +87,9 @@ public class TodoListView extends UiPart {
      * @param task to be expanded or collapsed from view.
      */
     public void toggleExpandCollapsed(ImmutableTask task) {
-        TaskCard taskCard = TaskCard.getTaskCard(task);
-        if (taskCard != null) {
-            taskCard.toggleCardCollapsing();
+        TaskCardView taskCardView = TaskCardView.getTaskCard(task);
+        if (taskCardView != null) {
+            taskCardView.toggleCardCollapsing();
         }
     }
 
@@ -108,8 +108,8 @@ public class TodoListView extends UiPart {
      * @param task for the list to scroll to.
      */
     public void scrollAndSelect(ImmutableTask task) {
-        TaskCard taskCard = TaskCard.getTaskCard(task);
-        int listIndex = FxViewUtil.convertToListIndex(taskCard.getDisplayedIndex());
+        TaskCardView taskCardView = TaskCardView.getTaskCard(task);
+        int listIndex = FxViewUtil.convertToListIndex(taskCardView.getDisplayedIndex());
         scrollAndSelect(listIndex);
     }
 
@@ -145,18 +145,18 @@ public class TodoListView extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                TaskCard taskCard = TaskCard.load(task, FxViewUtil.convertToUiIndex(getIndex()));
-                setGraphic(taskCard.getLayout());
-                setTaskCardStyleProperties(taskCard);
+                TaskCardView taskCardView = TaskCardView.load(task, FxViewUtil.convertToUiIndex(getIndex()));
+                setGraphic(taskCardView.getLayout());
+                setTaskCardStyleProperties(taskCardView);
             }
         }
 
         /**
          * Sets the style properties of a cell on the to-do list, that cannot be done in any other places.
          */
-        private void setTaskCardStyleProperties(TaskCard taskCard) {
+        private void setTaskCardStyleProperties(TaskCardView taskCardView) {
             this.setPadding(Insets.EMPTY);
-            this.selectedProperty().addListener((observable, oldValue, newValue) -> taskCard.markAsSelected(newValue));
+            this.selectedProperty().addListener((observable, oldValue, newValue) -> taskCardView.markAsSelected(newValue));
         }
     }
 

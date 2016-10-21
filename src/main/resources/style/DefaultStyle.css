@@ -130,7 +130,7 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
-/***TaskCard Styles Start***/
+/***TaskCardView Styles Start***/
 /*Default and Base*/
 .taskCard .label {
     -fx-text-fill: #2D2D2D;
@@ -265,7 +265,7 @@
     -fx-min-height: 0px;
 }
 
-/***TaskCard Styles End***/
+/***TaskCardView Styles End***/
 
 /**Modern UI***/
 /*
