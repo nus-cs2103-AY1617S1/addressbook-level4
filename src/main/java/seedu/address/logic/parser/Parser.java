@@ -80,6 +80,9 @@ public class Parser {
             
         case ChangeCommand.COMMAND_WORD:
             return prepareChange(arguments);
+            
+        case FilterCommand.COMMAND_WORD:
+            return prepareFilter(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -242,6 +245,26 @@ public class Parser {
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                 ChangeCommand.MESSAGE_USAGE)); 
+    }
+    
+    /**
+     * Parses arguments in the context of the filter attributes command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareFilter(String arguments) {
+        ArgumentTokenizer argsTokenizer=new ArgumentTokenizer(deadlinePrefix,startDatePrefix);
+        argsTokenizer.tokenize(arguments);
+        if (argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
+            if(!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)) {
+                return new FilterCommand(argsTokenizer.getValue(deadlinePrefix).get(), false);
+            }
+        } else if(argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)) {
+            return new FilterCommand(argsTokenizer.getValue(startDatePrefix).get(), true);
+        }
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                FilterCommand.MESSAGE_USAGE)); 
     }
 
 

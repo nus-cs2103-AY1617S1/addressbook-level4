@@ -34,6 +34,9 @@ public interface Model {
 
 	void updateFilteredTaskList(String keyword);
 	
+	/** Updates the filter of the filtered task list to filter by the given date*/
+	void updateFilteredTaskList(String dateValue, boolean isEventDate);
+	
 	/** Update the task manager to the new file path*/
 	void updateTaskManager(String filePath, boolean isToClearOld);
 
