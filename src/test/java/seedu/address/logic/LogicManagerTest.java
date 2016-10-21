@@ -36,16 +36,15 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Date;
-import seedu.address.model.person.Datetime;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.Task;
+import seedu.address.model.ReadOnlyTaskBook;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Datetime;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Status;
+import seedu.address.model.task.Task;
 import seedu.address.storage.StorageManager;
 
 public class LogicManagerTest {
@@ -60,7 +59,7 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyAddressBook latestSavedAddressBook;
+    private ReadOnlyTaskBook latestSavedAddressBook;
     private boolean helpShown;
     private int targetedJumpIndex;
 
@@ -107,7 +106,7 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
+     * @see #assertCommandBehavior(String, String, ReadOnlyTaskBook, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
         assertCommandBehavior(inputCommand, expectedMessage, new AddressBook(), Collections.emptyList());
@@ -121,7 +120,7 @@ public class LogicManagerTest {
      *      - {@code expectedAddressBook} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyAddressBook expectedAddressBook,
+                                       ReadOnlyTaskBook expectedAddressBook,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
 
         //Execute the command
@@ -184,7 +183,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] d/task description date/11-11-2018 1111", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name d/can_be_anything date/ab-cd-ef", Date.MESSAGE_DATE_CONSTRAINTS);
+                "add Valid Name d/can_be_anything date/ab-cd-ef", Datetime.MESSAGE_DATETIME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name d/can_be_anything date/11-11-2018 1111 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
         assertCommandBehavior(
@@ -203,7 +202,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getDatedTaskList());
 
     }
     
@@ -225,7 +224,7 @@ public class LogicManagerTest {
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_PERSON,
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getDatedTaskList());
 
     }
 
@@ -284,7 +283,7 @@ public class LogicManagerTest {
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getDatedTaskList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
     }
@@ -313,7 +312,7 @@ public class LogicManagerTest {
         assertCommandBehavior("delete 12",
                 String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
                 expectedAB,
-                expectedAB.getPersonList());
+                expectedAB.getDatedTaskList());
     }
 
     @Test
@@ -335,7 +334,7 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateEditCommand(1, "new name"),
                     String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, toBeEdited),
                     expectedAB,
-                    expectedAB.getPersonList());
+                    expectedAB.getDatedTaskList());
     }
 
     
@@ -477,7 +476,6 @@ public class LogicManagerTest {
                 break;
             case 5:
                 String [] tagsArray = params.split(" ");
-                UniqueTagList tags = new UniqueTagList();
                 for(String t: tagsArray){
                     cmd.append(" t/").append(t);
                 }

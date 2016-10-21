@@ -4,15 +4,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Datetime;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.Status.State;
-import seedu.address.model.person.Task;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Datetime;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.Status;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.Status.State;
 
 /**
  * Adds a person to the address book.
@@ -55,7 +55,7 @@ public class AddCommand extends Command {
 		try {
 			model.addPerson(toAdd);
 			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-		} catch (UniquePersonList.DuplicatePersonException e) {
+		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_PERSON);
 		}
 

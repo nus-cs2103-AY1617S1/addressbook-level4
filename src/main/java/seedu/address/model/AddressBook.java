@@ -1,11 +1,11 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Task;
-import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,15 +16,15 @@ import edu.emory.mathcs.backport.java.util.Collections;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class AddressBook implements ReadOnlyTaskBook {
 
-    private final UniquePersonList persons;
-    private final UniquePersonList undatedList;
+    private final UniqueTaskList persons;
+    private final UniqueTaskList undatedList;
     private final UniqueTagList tags;
 
     {
-        persons = new UniquePersonList();
-        undatedList = new UniquePersonList();
+        persons = new UniqueTaskList();
+        undatedList = new UniqueTaskList();
         tags = new UniqueTagList();
     }
 
@@ -33,18 +33,18 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueUndatedTaskList(), toBeCopied.getUniqueTagList());
+    public AddressBook(ReadOnlyTaskBook toBeCopied) {
+        this(toBeCopied.getUniqueDatedTaskList(), toBeCopied.getUniqueUndatedTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(UniquePersonList persons, UniquePersonList undatedTasks, UniqueTagList tags) {
+    public AddressBook(UniqueTaskList persons, UniqueTaskList undatedTasks, UniqueTagList tags) {
         resetData(persons.getInternalList(), undatedTasks.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyAddressBook getEmptyAddressBook() {
+    public static ReadOnlyTaskBook getEmptyAddressBook() {
         return new AddressBook();
     }
 
@@ -88,8 +88,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         setTags(newTags);
     }
 
-    public void resetData(ReadOnlyAddressBook newData) {
-        resetData(newData.getPersonList(), newData.getUndatedTaskList(), newData.getTagList());
+    public void resetData(ReadOnlyTaskBook newData) {
+        resetData(newData.getDatedTaskList(), newData.getUndatedTaskList(), newData.getTagList());
     }
 
 //// person-level operations
@@ -99,9 +99,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Also checks the new person's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the person to point to those in {@link #tags}.
      *
-     * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
      */
-    public void addPerson(Task p) throws UniquePersonList.DuplicatePersonException {
+    public void addPerson(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         if (checkIfDated(p)){
             persons.add(p);
@@ -112,7 +112,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     
     private boolean checkIfDated(ReadOnlyTask d){
-        if(d.getDatetime().toString().equals("") && d.getTime().toString().equals("")){
+        if(d.getDatetime().toString().equals("")){
             return false;
         }
         else{
@@ -143,7 +143,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         person.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyTask key) throws UniquePersonList.PersonNotFoundException {       
+    public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {       
         if (persons.contains(key)) {
             persons.remove(key);
             return true;
@@ -153,11 +153,11 @@ public class AddressBook implements ReadOnlyAddressBook {
             return true;
         }
         else {
-            throw new UniquePersonList.PersonNotFoundException();
+            throw new UniqueTaskList.TaskNotFoundException();
         }
     }
    
-    public boolean completeTask(ReadOnlyTask key) throws UniquePersonList.PersonNotFoundException {
+    public boolean completeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (persons.contains(key)) {
             persons.complete(key);
             return true;
@@ -167,7 +167,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             return true;
         }
         else {
-            throw new UniquePersonList.PersonNotFoundException();
+            throw new UniqueTaskList.TaskNotFoundException();
         }
     }
     
@@ -187,7 +187,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //this gets called when ModelManager.indicateAddressBookChanged() 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getDatedTaskList() {
     	sortPersonFilteredLists();
         return Collections.unmodifiableList(persons.getInternalList());
     }
@@ -205,13 +205,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public UniquePersonList getUniquePersonList() {
+    public UniqueTaskList getUniqueDatedTaskList() {
     	sortPersonFilteredLists();
         return this.persons;
     }
     
     @Override
-    public UniquePersonList getUniqueUndatedTaskList() {
+    public UniqueTaskList getUniqueUndatedTaskList() {
     	sortUndatedFilteredLists();
         return this.undatedList;
     }

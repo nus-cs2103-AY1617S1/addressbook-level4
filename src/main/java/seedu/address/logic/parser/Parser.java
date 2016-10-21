@@ -54,14 +54,7 @@ public class Parser {
                     + "( d/(?<description>[^/]+)){0,1}"
                     + "( date/(?<date>[^/\\.]*)){0,1}" // group <date> can be blank to edit DatedTask -> UndatedTask
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
-    //    private static final Pattern USA_DATE_FORMAT = 
-    //            Pattern.compile("(?<MM>(0?[1-9]|1[012]))"
-    //                            	+ "\\."
-    //                            	+ "(?<DD>(0?[1-9]|[12][0-9]|3[01]))"
-    //                            	+ "\\."
-    //                            	+ "(?<YY>\\d{2})");
-
+    
     public Parser() {}
 
     /**

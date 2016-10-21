@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.person.*;
+import seedu.address.model.task.*;
 
 /**
  *
@@ -27,11 +27,6 @@ public class DatedTaskBuilder {
         return this;
     }
 
-    public DatedTaskBuilder withTime(String time) throws IllegalValueException {
-        this.person.setTime(new Time(time));
-        return this;
-    }
-
     public DatedTaskBuilder withStatus(String statusStr) throws IllegalValueException {
         this.person.setStatus(new Status(statusStr));
         return this;
@@ -42,8 +37,8 @@ public class DatedTaskBuilder {
         return this;
     }
 
-    public DatedTaskBuilder withDate(String date) throws IllegalValueException {
-        this.person.setDate(new Date(date));
+    public DatedTaskBuilder withDatetime(String date) throws IllegalValueException {
+        this.person.setDatetime(new Datetime(date));
         return this;
     }
 

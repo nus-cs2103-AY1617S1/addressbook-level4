@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 import seedu.address.model.tag.UniqueTagList;
 
@@ -31,9 +31,6 @@ public interface ReadOnlyTask {
 		return other == this // short circuit if same object
 				|| (other != null // this is first to avoid NPE below
 						&& other.getName().equals(this.getName()) // state
-																	// checks
-																	// here
-																	// onwards
 						&& other.getDescription().equals(this.getDescription())
 						&& other.getDatetime().equals(this.getDatetime())
 						&& other.getStatus().equals(this.getStatus()));

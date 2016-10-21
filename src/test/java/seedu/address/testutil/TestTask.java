@@ -1,11 +1,11 @@
 package seedu.address.testutil;
 
-import seedu.address.model.person.Datetime;
-import seedu.address.model.person.Description;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.model.person.Status;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Datetime;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Status;
 
 /**
  * A mutable person object. For testing only.
@@ -37,6 +37,7 @@ public class TestTask implements ReadOnlyTask {
     public void setStatus(Status status) {
         this.status = status;
     }
+    
     @Override
     public Name getName() {
         return name;
@@ -70,9 +71,12 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        sb.append("d/" + this.getDescription().value + " ");
-        sb.append("date/" + this.getDatetime().getTimeString() + " ");
-        sb.append(" " + this.getDatetime().getTimeString() + " ");
+        if (!this.getDescription().value.isEmpty()){
+            sb.append("d/" + this.getDescription().value + " ");
+        }
+        if (!this.getDatetime().toString().isEmpty()){
+            sb.append("date/" + this.getDatetime().toString() + " ");
+        }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

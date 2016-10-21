@@ -4,12 +4,13 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Status;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.UniqueTaskList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.model.person.Task;
-import seedu.address.model.person.ReadOnlyTask;
-import seedu.address.model.person.Status;
-import seedu.address.model.person.UniquePersonList;
+
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -44,20 +45,20 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
         filteredUndatedTasks = new FilteredList<>(addressBook.getUndatedTasks());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyTaskBook newData) {
         addressBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
+    public ReadOnlyTaskBook getAddressBook() {
         return addressBook;
     }
 
@@ -67,20 +68,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyTask target) throws UniquePersonList.PersonNotFoundException {
+    public synchronized void deletePerson(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void addPerson(Task person) throws UniquePersonList.DuplicatePersonException {
+    public synchronized void addPerson(Task person) throws UniqueTaskList.DuplicateTaskException {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
     
     @Override
-    public void completeTask(ReadOnlyTask target) throws UniquePersonList.PersonNotFoundException {
+    public void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         addressBook.completeTask(target);
         indicateAddressBookChanged();
     }
@@ -105,7 +106,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredPersonList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredPersonList(new PredicateExpression(new TaskQualifier(keywords)));
     }
 
     public void updateFilteredPersonList(String keyword){
@@ -148,32 +149,28 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
+    private class TaskQualifier implements Qualifier {
+        private Set<String> taskKeyWords;
 
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
+        TaskQualifier(Set<String> taskKeyWords) {
+            this.taskKeyWords = taskKeyWords;
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return (nameKeyWords.stream()
+            return (taskKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
                     .findAny()
                     .isPresent()
-                    || nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTime().value, keyword))
+                    || taskKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDatetime().toString(), keyword))
                     .findAny()
                     .isPresent()
-                    || nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getDatetime().value, keyword))
-                    .findAny()
-                    .isPresent()
-                    || nameKeyWords.stream()
+                    || taskKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getDescription().value, keyword))
                     .findAny()
                     .isPresent()
-                    || nameKeyWords.stream()
+                    || taskKeyWords.stream()
                     .filter(keyword -> StringUtil.containsIgnoreCase(task.getTags().toString(), keyword))
                     .findAny()
                     .isPresent());
@@ -181,7 +178,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
+            return "task=" + String.join(", ", taskKeyWords);
         }
     }
     

@@ -1,8 +1,8 @@
 package guitests;
 
-import seedu.address.model.person.ReadOnlyTask;
-
 import static org.junit.Assert.assertEquals;
+
+import seedu.address.model.task.ReadOnlyTask;
 
 public class SelectCommandTest extends AddressBookGuiTest {
 
