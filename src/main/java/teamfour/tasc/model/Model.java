@@ -24,7 +24,16 @@ public interface Model {
     /** Returns the TaskList */
     ReadOnlyTaskList getTaskList();
 
-    /** Deletes the given task. */
+    /** Saves the current state of the TaskList into history */
+    void saveTaskListHistory();
+    
+    /**
+     * Reverts the task list to the most recent past state
+     * @return true if successful
+     */
+    boolean undoTaskListHistory();
+    
+    /** Deletes the given task */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
