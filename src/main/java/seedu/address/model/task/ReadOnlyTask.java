@@ -37,8 +37,8 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Date: ")
-                .append(getDone())
+//                .append(" Date: ")
+//                .append(getDone())
                 .append(" StartTime: ")
                 .append(getStartTime())
                 .append(" EndTime: ")

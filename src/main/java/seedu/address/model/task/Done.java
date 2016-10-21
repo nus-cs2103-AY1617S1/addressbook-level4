@@ -29,5 +29,17 @@ public class Done {
     public Boolean getDone() {
     	return this.value;
     }
+    
+    @Override
+    public String toString() {
+    	return "";
+    }
+    
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Done // instanceof handles nulls
+                && this.value.equals(((Done) other).value)); // state check
+    }
 
 }
