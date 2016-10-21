@@ -14,32 +14,32 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyTaskBook newData);
 
-    /** Returns the AddressBook */
-    ReadOnlyTaskBook getAddressBook();
+    /** Returns the TaskBook */
+    ReadOnlyTaskBook getTaskBook();
 
     /** Deletes the given task. */
-    void deletePerson(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
-    void addPerson(Task person) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task toAdd) throws UniqueTaskList.DuplicateTaskException;
 
     /** Marks the given task as completed */
     void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredPersonList();
+    /** Returns the filtered dated task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDatedTaskList();
     
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
+    /** Returns the filtered undated task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredUndatedTaskList();
 
-    /** Updates the filter of the filtered person list to show all persons */
+    /** Updates the filter of the filtered tasks list to show all persons */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
-    void updateFilteredPersonList(Set<String> keywords);
+    /** Updates the filter of the filtered tasks list to filter by the given keywords*/
+    void updateFilteredTaskList(Set<String> keywords);
 
-    /** Updates the filter of the filtered person list to filter by the given keyword (od/done)*/
-    void updateFilteredPersonList(String keyword);
+    /** Updates the filter of the filtered tasks list to filter by the given keyword (od/done)*/
+    void updateFilteredTaskList(String keyword);
 
     
 

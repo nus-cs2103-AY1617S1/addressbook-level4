@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredDatedTaskList();
         UnmodifiableObservableList<ReadOnlyTask> lastUndatedTaskList = model.getFilteredUndatedTaskList();
 
         if ((targetIndex <= PersonListPanel.DATED_DISPLAY_INDEX_OFFSET 
@@ -50,7 +50,7 @@ public class DeleteCommand extends Command {
         }
 
         try {
-            model.deletePerson(personToDelete);
+            model.deleteTask(personToDelete);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";
         }

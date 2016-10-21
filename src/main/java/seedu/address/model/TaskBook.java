@@ -16,74 +16,74 @@ import edu.emory.mathcs.backport.java.util.Collections;
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class AddressBook implements ReadOnlyTaskBook {
+public class TaskBook implements ReadOnlyTaskBook {
 
-    private final UniqueTaskList persons;
-    private final UniqueTaskList undatedList;
+    private final UniqueTaskList datedTasks;
+    private final UniqueTaskList undatedTasks;
     private final UniqueTagList tags;
 
     {
-        persons = new UniqueTaskList();
-        undatedList = new UniqueTaskList();
+        datedTasks = new UniqueTaskList();
+        undatedTasks = new UniqueTaskList();
         tags = new UniqueTagList();
     }
 
-    public AddressBook() {}
+    public TaskBook() {}
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Persons and Tags are copied into this taskbook
      */
-    public AddressBook(ReadOnlyTaskBook toBeCopied) {
+    public TaskBook(ReadOnlyTaskBook toBeCopied) {
         this(toBeCopied.getUniqueDatedTaskList(), toBeCopied.getUniqueUndatedTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Persons and Tags are copied into this taskbook
      */
-    public AddressBook(UniqueTaskList persons, UniqueTaskList undatedTasks, UniqueTagList tags) {
+    public TaskBook(UniqueTaskList persons, UniqueTaskList undatedTasks, UniqueTagList tags) {
         resetData(persons.getInternalList(), undatedTasks.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyTaskBook getEmptyAddressBook() {
-        return new AddressBook();
+        return new TaskBook();
     }
 
 //// list overwrite operations
 
-    public ObservableList<Task> getPersons() {
-    	sortPersonFilteredLists();
-        return persons.getInternalList();
+    public ObservableList<Task> getDatedTasks() {
+    	sortDatedTaskFilteredLists();
+        return datedTasks.getInternalList();
     }
     
     public ObservableList<Task> getUndatedTasks() {
-    	sortUndatedFilteredLists();
-        return undatedList.getInternalList();
+    	sortUndatedTaskFilteredLists();
+        return undatedTasks.getInternalList();
     }
     
-    private void sortUndatedFilteredLists(){
-   	undatedList.sort(Task.Comparators.NAME);
+    private void sortUndatedTaskFilteredLists(){
+   	undatedTasks.sort(Task.Comparators.NAME);
     }
 
-    private void sortPersonFilteredLists(){
-        persons.sort(Task.Comparators.DATE);
+    private void sortDatedTaskFilteredLists(){
+        datedTasks.sort(Task.Comparators.DATE);
     }
     
-    public void setPersons(List<Task> persons) {
-        this.persons.getInternalList().setAll(persons);
+    public void setDatedTasks(List<Task> datedTasks) {
+        this.datedTasks.getInternalList().setAll(datedTasks);
     }
     
     public void setUndatedTasks(List<Task> undatedTasks) {
-        this.undatedList.getInternalList().setAll(undatedTasks);
+        this.undatedTasks.getInternalList().setAll(undatedTasks);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newPersons, 
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, 
             Collection<? extends ReadOnlyTask> newUndatedTasks,
             Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
+        setDatedTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setUndatedTasks(newUndatedTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
@@ -92,22 +92,22 @@ public class AddressBook implements ReadOnlyTaskBook {
         resetData(newData.getDatedTaskList(), newData.getUndatedTaskList(), newData.getTagList());
     }
 
-//// person-level operations
+//// task-level operations
 
     /**
-     * Adds a person to the address book.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * Adds a task to the task book.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addPerson(Task p) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         if (checkIfDated(p)){
-            persons.add(p);
+            datedTasks.add(p);
         }
         else{
-            undatedList.add(p);
+            undatedTasks.add(p);
         }
     }
     
@@ -121,13 +121,13 @@ public class AddressBook implements ReadOnlyTaskBook {
     }
 
     /**
-     * Ensures that every tag in this person:
+     * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncTagsWithMasterList(Task person) {
-        final UniqueTagList personTags = person.getTags();
-        tags.mergeFrom(personTags);
+    private void syncTagsWithMasterList(Task task) {
+        final UniqueTagList taskTags = task.getTags();
+        tags.mergeFrom(taskTags);
 
         // Create map with values = tag object references in the master list
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
@@ -137,19 +137,19 @@ public class AddressBook implements ReadOnlyTaskBook {
 
         // Rebuild the list of person tags using references from the master list
         final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : personTags) {
+        for (Tag tag : taskTags) {
             commonTagReferences.add(masterTagObjects.get(tag));
         }
-        person.setTags(new UniqueTagList(commonTagReferences));
+        task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {       
-        if (persons.contains(key)) {
-            persons.remove(key);
+    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {       
+        if (datedTasks.contains(key)) {
+            datedTasks.remove(key);
             return true;
         } 
-        else if (undatedList.contains(key)){
-            undatedList.remove(key);
+        else if (undatedTasks.contains(key)){
+            undatedTasks.remove(key);
             return true;
         }
         else {
@@ -158,12 +158,12 @@ public class AddressBook implements ReadOnlyTaskBook {
     }
    
     public boolean completeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (persons.contains(key)) {
-            persons.complete(key);
+        if (datedTasks.contains(key)) {
+            datedTasks.complete(key);
             return true;
         } 
-        else if (undatedList.contains(key)){
-            undatedList.complete(key);
+        else if (undatedTasks.contains(key)){
+            undatedTasks.complete(key);
             return true;
         }
         else {
@@ -181,22 +181,22 @@ public class AddressBook implements ReadOnlyTaskBook {
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return datedTasks.getInternalList().size() + " datedTasks, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     //this gets called when ModelManager.indicateAddressBookChanged() 
     @Override
     public List<ReadOnlyTask> getDatedTaskList() {
-    	sortPersonFilteredLists();
-        return Collections.unmodifiableList(persons.getInternalList());
+    	sortDatedTaskFilteredLists();
+        return Collections.unmodifiableList(datedTasks.getInternalList());
     }
     
     //this also gets called when ModelManager.indicateAddressBookChanged() 
     @Override
     public List<ReadOnlyTask> getUndatedTaskList() {
-    	sortUndatedFilteredLists();
-        return Collections.unmodifiableList(undatedList.getInternalList());
+    	sortUndatedTaskFilteredLists();
+        return Collections.unmodifiableList(undatedTasks.getInternalList());
     }
 
     @Override
@@ -206,14 +206,14 @@ public class AddressBook implements ReadOnlyTaskBook {
 
     @Override
     public UniqueTaskList getUniqueDatedTaskList() {
-    	sortPersonFilteredLists();
-        return this.persons;
+    	sortDatedTaskFilteredLists();
+        return this.datedTasks;
     }
     
     @Override
     public UniqueTaskList getUniqueUndatedTaskList() {
-    	sortUndatedFilteredLists();
-        return this.undatedList;
+    	sortUndatedTaskFilteredLists();
+        return this.undatedTasks;
     }
 
     @Override
@@ -225,16 +225,16 @@ public class AddressBook implements ReadOnlyTaskBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.persons.equals(((AddressBook) other).persons)
-                && this.undatedList.equals(((AddressBook) other).undatedList)
-                && this.tags.equals(((AddressBook) other).tags));
+                || (other instanceof TaskBook // instanceof handles nulls
+                && this.datedTasks.equals(((TaskBook) other).datedTasks)
+                && this.undatedTasks.equals(((TaskBook) other).undatedTasks)
+                && this.tags.equals(((TaskBook) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, undatedList, tags);
+        return Objects.hash(datedTasks, undatedTasks, tags);
     }
 
 }

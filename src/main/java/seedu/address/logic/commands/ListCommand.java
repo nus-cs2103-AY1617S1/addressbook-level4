@@ -49,11 +49,11 @@ public class ListCommand extends Command {
             break;
             
         case LIST_KEYWORD_DONE:
-            model.updateFilteredPersonList("DONE");
+            model.updateFilteredTaskList("DONE");
             break;
             
         case LIST_KEYWORD_OD:
-            model.updateFilteredPersonList("OVERDUE");
+            model.updateFilteredTaskList("OVERDUE");
             break;
         }
         
