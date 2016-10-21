@@ -58,7 +58,7 @@ public class TaskCardHandle extends GuiHandle {
     }
     
     public boolean isUnmarkedTask(ReadOnlyTask task) {
-        return node.getStyle().equals("-fx-background-color: white;")
+        return (node.getStyle().equals("-fx-background-color: white;") || node.getStyle().equals("-fx-background-color: #ff9999;"))
                 && !task.isCompleted()
                 && getTitle().equals(task.getTitle().fullTitle)
                 && getDescription().equals(task.getDescription().description)

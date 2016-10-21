@@ -20,7 +20,7 @@ public class MarkCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks a task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: \n" + COMMAND_WORD + " 1\n" + COMMAND_WORD + " 2";
 
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Task marked: %1$s";
     public static final String MESSAGE_MARKED_TASK = "This task is already marked in the task list.";

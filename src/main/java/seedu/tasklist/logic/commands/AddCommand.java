@@ -20,8 +20,10 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task list. "
             + "Parameters: TITLE [d/DESCRIPTION]  [s/START DATE TIME] [e/END DATE TIME] [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " CS2103 d/Pre tutorial 1 s/15102016 2100 e/15112016 2300 t/urgent";
+            + "Example: \n"
+            + COMMAND_WORD + " CS2103 d/Pre tutorial 1 s/15102016 2100 e/15112016 2300 t/urgent\n"
+            + COMMAND_WORD + " CS1020 Tutorial d/many questions e/05102016 1200 t/needhelp\n"
+            + COMMAND_WORD + " Meeting";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";

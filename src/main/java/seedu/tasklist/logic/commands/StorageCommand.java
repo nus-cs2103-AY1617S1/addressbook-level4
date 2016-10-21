@@ -21,10 +21,12 @@ public class StorageCommand extends Command {
 
 	public static final String COMMAND_WORD = "storage";
 
-	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change the filepath.\n"
-			+ "Parameters: file directory\n" + "Example: " + COMMAND_WORD + " C:/tasklist.xml";
-	public static final String MESSAGE_CHANGE_PATH_SUCCESS = "File Path updated at ";
-	public static final String MESSAGE_FILE_PATH_NOT_EXIST = "File Path not exist!";
+	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Change the storage file location.\n"
+			+ "Parameters: FILEPATH\n" + "Example: \n" 
+			+ COMMAND_WORD + " \\data\\tasklist.xml\n"
+			+ COMMAND_WORD + " \\storagefile.xml";
+	public static final String MESSAGE_CHANGE_PATH_SUCCESS = "Storage file location has been updated to ";
+	public static final String MESSAGE_FILE_PATH_NOT_EXIST = "Requested storage file location does not exist!";
 
 	public StorageCommand() {
 	}
