@@ -142,19 +142,6 @@ public class UpdateCommand extends Command {
         return true;
     }
 
-    @Override
-    public CommandResult executeUndo() {
-        Task oldTask = new Task(oldReadOnlyTask);
-
-        try {
-            model.updateTask(newTask, oldTask);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        }
-
-        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_UNDO_SUCCESS, oldTask));
-    }
-
     /**
      * Update the task details of the old task by creating a new task with the
      * new details.

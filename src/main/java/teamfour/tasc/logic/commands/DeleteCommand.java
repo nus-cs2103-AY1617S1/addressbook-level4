@@ -53,10 +53,4 @@ public class DeleteCommand extends Command {
         return true;
     }
 
-
-    @Override
-    public CommandResult executeUndo() {
-        return null;
-    }
-
 }

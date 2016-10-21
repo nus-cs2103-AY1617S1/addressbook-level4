@@ -50,9 +50,4 @@ public class UndoCommand extends Command {
         return false;
     }
 
-    @Override
-    public CommandResult executeUndo() {
-        return null;
-    }
-
 }
