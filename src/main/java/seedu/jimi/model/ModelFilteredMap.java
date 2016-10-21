@@ -61,7 +61,7 @@ public class ModelFilteredMap {
                 .setPredicate(new PredicateExpression(new DateQualifier(ListIdentifier.DAY_AHEAD_6))::satisfies);
 
         filteredMap.get(ListIdentifier.TASKS_AGENDA)
-                .setPredicate(new PredicateExpression(new FloatingTaskQualifier())::satisfies);
+                .setPredicate(new PredicateExpression(new TaskQualifier())::satisfies);
         filteredMap.get(ListIdentifier.EVENTS_AGENDA)
                 .setPredicate(new PredicateExpression(new EventQualifier())::satisfies);
     }
@@ -276,6 +276,14 @@ public class ModelFilteredMap {
         @Override
         public boolean run(ReadOnlyTask task) {
             return !(task instanceof DeadlineTask) && !(task instanceof Event) && task instanceof FloatingTask;
+        }
+    }
+    
+    private class TaskQualifier implements Qualifier {
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return task instanceof DeadlineTask || task instanceof FloatingTask;
         }
     }
 }
