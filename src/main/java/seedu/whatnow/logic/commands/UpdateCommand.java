@@ -129,10 +129,6 @@ public class UpdateCommand extends UndoAndRedo {
         toUpdate.setStatus(taskToUpdate.getStatus());
     }
     
-    private void undoUpdateTheCorrectField(ReadOnlyTask tasktoUndoUpdate) {
-    	
-    }
-    
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList;
