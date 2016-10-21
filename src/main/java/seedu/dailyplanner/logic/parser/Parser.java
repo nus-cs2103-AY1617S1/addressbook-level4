@@ -119,10 +119,9 @@ public class Parser {
     	}
     	if (mapArgs.containsKey("date")) {
     	    date = mapArgs.get("date");
-    	} else {
-    	    date = "today";
+    	    date = natty.parseDate(date);
     	}
-    	date = natty.parseDate(date);
+    
     	if (mapArgs.containsKey("startTime")) {
     	    startTime = mapArgs.get("startTime");
     	    startTime = natty.parseTime(startTime);
@@ -193,9 +192,7 @@ public class Parser {
 
 	try {
 	    
-	    return new AddCommand(taskName, date, startTime, endTime, emptySet
-	    // getTagsFromArgs(matcher.group("tagArguments")
-	    );
+	    return new AddCommand(taskName, date, startTime, endTime, emptySet);
 	} catch (IllegalValueException ive) {
 	    return new IncorrectCommand(ive.getMessage());
 	}
@@ -215,44 +212,7 @@ public class Parser {
 	    String[] splitArgs = arguments.substring(taskName.length() + 1).split(" ");
 	    // loop through rest of arguments, add them to hashmap if valid
 
-	    for (int i = 0; i < splitArgs.length; i++) {
-		if (splitArgs[i].substring(0, 2).equals("d/")) {
-		    int j = i + 1;
-		    String arg = splitArgs[i].substring(2);
-		    while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-			arg += " " + splitArgs[j];
-			j++;
-		    }
-		    mapArgs.put("date", arg);
-		}
-		if (splitArgs[i].substring(0, 2).equals("s/")) {
-		    int j = i + 1;
-		    String arg = splitArgs[i].substring(2);
-		    while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-			arg += " " + splitArgs[j];
-			j++;
-		    }
-		    mapArgs.put("startTime", arg);
-		}
-		if (splitArgs[i].substring(0, 2).equals("e/")) {
-		    int j = i + 1;
-		    String arg = splitArgs[i].substring(2);
-		    while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-			arg += " " + splitArgs[j];
-			j++;
-		    }
-		    mapArgs.put("endTime", arg);
-		}
-		if (splitArgs[i].substring(0, 2).equals("r/")) {
-		    int j = i + 1;
-		    String arg = splitArgs[i].substring(2);
-		    while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-			arg += " " + splitArgs[j];
-			j++;
-		    }
-		    mapArgs.put("isRecurring", arg);
-		}
-	    }
+	    argumentArrayToHashMap(mapArgs, splitArgs);
 	}
 
 	return mapArgs;
@@ -268,54 +228,73 @@ public class Parser {
     	mapArgs.put("index", index);
     	
     	arguments = arguments.substring(indexStringLength+1);
-    	String taskName = getTaskNameFromArguments(arguments);
+    	String taskName="";
+    	if (hasTaskName(arguments)) {
+    	    taskName = getTaskNameFromArguments(arguments);
+    	}
     	mapArgs.put("taskName", taskName);
-    	if (arguments.contains("/")) {
+    	if (hasTaskName(arguments) && arguments.contains("/")) {
     	    String[] splitArgs = arguments.substring(taskName.length() + 1).split(" ");
-    	    // loop through rest of arguments, add them to hashmap if valid
-
-    	    for (int i = 0; i < splitArgs.length; i++) {
-    		if (splitArgs[i].substring(0, 2).equals("d/")) {
-    		    int j = i + 1;
-    		    String arg = splitArgs[i].substring(2);
-    		    while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-    			arg += " " + splitArgs[j];
-    			j++;
-    		    }
-    		    mapArgs.put("date", arg);
-    		}
-    		if (splitArgs[i].substring(0, 2).equals("s/")) {
-    		    int j = i + 1;
-    		    String arg = splitArgs[i].substring(2);
-    		    while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-    			arg += " " + splitArgs[j];
-    			j++;
-    		    }
-    		    mapArgs.put("startTime", arg);
-    		}
-    		if (splitArgs[i].substring(0, 2).equals("e/")) {
-    		    int j = i + 1;
-    		    String arg = splitArgs[i].substring(2);
-    		    while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-    			arg += " " + splitArgs[j];
-    			j++;
-    		    }
-    		    mapArgs.put("endTime", arg);
-    		}
-    		if (splitArgs[i].substring(0, 2).equals("r/")) {
-    		    int j = i + 1;
-    		    String arg = splitArgs[i].substring(2);
-    		    while (j < splitArgs.length && !splitArgs[j].contains("/")) {
-    			arg += " " + splitArgs[j];
-    			j++;
-    		    }
-    		    mapArgs.put("isRecurring", arg);
-    		}
-    	    }
+    	    argumentArrayToHashMap(mapArgs, splitArgs);
+    	} else if (arguments.contains("/")) {
+    	    String[] splitArgs = arguments.split(" ");
+    	    argumentArrayToHashMap(mapArgs,splitArgs);
     	}
 
     	return mapArgs;
         }
+    
+    /*
+     * Loops through arguments, adds them to hashmap if valid
+     */
+    private void argumentArrayToHashMap(HashMap<String, String> mapArgs, String[] splitArgs) {
+        for (int i = 0; i < splitArgs.length; i++) {
+        if (splitArgs[i].substring(0, 2).equals("d/")) {
+            int j = i + 1;
+            String arg = splitArgs[i].substring(2);
+            while (j < splitArgs.length && !splitArgs[j].contains("/")) {
+        	arg += " " + splitArgs[j];
+        	j++;
+            }
+            mapArgs.put("date", arg);
+        }
+        if (splitArgs[i].substring(0, 2).equals("s/")) {
+            int j = i + 1;
+            String arg = splitArgs[i].substring(2);
+            while (j < splitArgs.length && !splitArgs[j].contains("/")) {
+        	arg += " " + splitArgs[j];
+        	j++;
+            }
+            mapArgs.put("startTime", arg);
+        }
+        if (splitArgs[i].substring(0, 2).equals("e/")) {
+            int j = i + 1;
+            String arg = splitArgs[i].substring(2);
+            while (j < splitArgs.length && !splitArgs[j].contains("/")) {
+        	arg += " " + splitArgs[j];
+        	j++;
+            }
+            mapArgs.put("endTime", arg);
+        }
+        if (splitArgs[i].substring(0, 2).equals("r/")) {
+            int j = i + 1;
+            String arg = splitArgs[i].substring(2);
+            while (j < splitArgs.length && !splitArgs[j].contains("/")) {
+        	arg += " " + splitArgs[j];
+        	j++;
+            }
+            mapArgs.put("isRecurring", arg);
+        }
+        }
+    }
+
+    private boolean hasTaskName(String arguments) {
+        if (arguments.substring(0,3).contains("/")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     private String getTaskNameFromArguments(String arguments) {
 	if (arguments.contains("/")) {

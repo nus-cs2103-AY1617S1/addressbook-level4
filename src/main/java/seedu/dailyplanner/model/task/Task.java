@@ -38,6 +38,26 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
+    public void setName(Name name) {
+        this.name = name;
+    }
+
+    @Override
+    public void setDate(Date date) {
+        this.phone = date;
+    }
+
+    @Override
+    public void setStartTime(StartTime time) {
+        this.email = time;
+    }
+
+    @Override
+    public void setEndTime(EndTime time) {
+        this.address = time;
+    }
+    
+    @Override
     public Name getName() {
         return name;
     }

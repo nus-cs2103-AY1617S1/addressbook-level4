@@ -61,5 +61,9 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+    void setName(Name name);
+    void setDate(Date date);
+    void setStartTime(StartTime time);
+    void setEndTime(EndTime time);
 
 }

@@ -64,6 +64,42 @@ import seedu.dailyplanner.model.task.UniqueTaskList.PersonNotFoundException;
 	        }
 
 	        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+	        
+	        Name taskToEditName = taskToEdit.getName();
+	        Date taskToEditDate = taskToEdit.getPhone();
+	        StartTime taskToEditStartTime = taskToEdit.getEmail();
+	        EndTime taskToEditEndTime = taskToEdit.getAddress();
+	        System.out.println("Task to be edited: ");
+	        System.out.println(taskToEditName);
+	        System.out.println(taskToEditDate);
+	        System.out.println(taskToEditStartTime);
+	        System.out.println(taskToEditEndTime);
+	        System.out.println("....");
+	        
+	        Name toAddName = toAdd.getName();
+            Date toAddDate = toAdd.getPhone();
+            StartTime toAddStartTime = toAdd.getEmail();
+            EndTime toAddEndTime = toAdd.getAddress();
+            System.out.println("To be replaced with: ");
+            System.out.println(toAddName);
+            System.out.println(toAddDate);
+            System.out.println(toAddStartTime);
+            System.out.println(toAddEndTime);
+            
+            if (toAddName.toString().equals("")) {
+                toAdd.setName(taskToEditName);
+            }
+            
+            if (toAddDate.toString().equals("")) {
+                toAdd.setDate(taskToEditDate);
+            }
+            if (toAddStartTime.toString().equals("")) {
+                toAdd.setStartTime(taskToEditStartTime);
+            }
+            if (toAddEndTime.toString().equals("")) {
+                toAdd.setEndTime(taskToEditEndTime);
+            }
+            
 
 	        try {
 	            model.deletePerson(taskToEdit);
