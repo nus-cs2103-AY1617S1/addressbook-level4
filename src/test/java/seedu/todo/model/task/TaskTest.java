@@ -1,16 +1,12 @@
 package seedu.todo.model.task;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 import static seedu.todo.testutil.TestUtil.assertAllPropertiesEqual;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
-import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,64 +15,6 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
 
 public class TaskTest {
-    /**
-     * A mock Task class with setable UUID for testing equality
-     */
-    private class UUIDTestTask implements ImmutableTask {
-        private UUID uuid;
-
-        public UUIDTestTask(UUID uuid) {
-            this.uuid = uuid;
-        }
-
-        @Override
-        public String getTitle() {
-            return null;
-        }
-
-        @Override
-        public Optional<String> getDescription() {
-            return null;
-        }
-
-        @Override
-        public Optional<String> getLocation() {
-            return null;
-        }
-
-        @Override
-        public Optional<LocalDateTime> getStartTime() {
-            return null;
-        }
-
-        @Override
-        public Optional<LocalDateTime> getEndTime() {
-            return null;
-        }
-
-        @Override
-        public boolean isPinned() {
-            return false;
-        }
-
-        @Override
-        public boolean isCompleted() {
-            return false;
-        }
-
-        @Override
-        public Set<Tag> getTags() {
-            return null;
-        }
-
-        public LocalDateTime getCreatedAt() { return null; }
-
-        @Override
-        public UUID getUUID() {
-            return uuid;
-        }
-    }
-
     private Task task;
 
     @Before
@@ -201,8 +139,9 @@ public class TaskTest {
 
     @Test
     public void testEqualsObject() {
-        UUIDTestTask testTask = new UUIDTestTask(task.getUUID());
-        assertEquals(task, testTask);
+        ImmutableTask stubTask = mock(ImmutableTask.class);
+        when(stubTask.getUUID()).thenReturn(task.getUUID());
+        assertEquals(task, stubTask);
         assertFalse(task.equals(12));
     }
 
