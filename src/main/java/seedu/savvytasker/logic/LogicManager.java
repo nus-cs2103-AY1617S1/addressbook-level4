@@ -7,7 +7,7 @@ import seedu.savvytasker.logic.commands.Command;
 import seedu.savvytasker.logic.commands.CommandResult;
 import seedu.savvytasker.logic.parser.*;
 import seedu.savvytasker.model.Model;
-import seedu.savvytasker.model.person.ReadOnlyTask;
+import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.storage.Storage;
 
 import java.util.Stack;

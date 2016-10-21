@@ -12,10 +12,10 @@ import seedu.savvytasker.logic.LogicManager;
 import seedu.savvytasker.logic.commands.*;
 import seedu.savvytasker.model.Model;
 import seedu.savvytasker.model.ModelManager;
-import seedu.savvytasker.model.ReadOnlyAddressBook;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
 import seedu.savvytasker.model.SavvyTasker;
-import seedu.savvytasker.model.person.*;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.storage.StorageManager;
 
 import org.junit.After;

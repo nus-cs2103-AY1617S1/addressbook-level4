@@ -1,11 +1,11 @@
 package seedu.savvytasker.model;
 
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
-import seedu.savvytasker.model.person.ReadOnlyTask;
-import seedu.savvytasker.model.person.Task;
-import seedu.savvytasker.model.person.TaskList.DuplicateTaskException;
-import seedu.savvytasker.model.person.TaskList.TaskNotFoundException;
 import seedu.savvytasker.model.task.FindType;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 /**
  * The API of the Model component.

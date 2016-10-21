@@ -3,8 +3,9 @@ package seedu.savvytasker.logic.commands;
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.logic.commands.models.ModifyCommandModel;
-import seedu.savvytasker.model.person.*;
-import seedu.savvytasker.model.person.TaskList.TaskNotFoundException;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 /**
  * Adds a person to the address book.

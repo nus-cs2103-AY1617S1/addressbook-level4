@@ -5,9 +5,10 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.savvytasker.commons.exceptions.IllegalValueException;
-import seedu.savvytasker.model.person.*;
 import seedu.savvytasker.model.task.PriorityLevel;
+import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.RecurrenceType;
+import seedu.savvytasker.model.task.Task;
 
 /**
  * JAXB-friendly version of the Task.

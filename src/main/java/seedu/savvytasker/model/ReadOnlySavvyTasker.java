@@ -2,8 +2,8 @@ package seedu.savvytasker.model;
 
 import java.util.List;
 
-import seedu.savvytasker.model.person.ReadOnlyTask;
-import seedu.savvytasker.model.person.TaskList;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.TaskList;
 
 /**
  * Unmodifiable view of a task list

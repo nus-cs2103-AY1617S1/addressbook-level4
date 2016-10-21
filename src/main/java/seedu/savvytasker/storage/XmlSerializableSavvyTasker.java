@@ -5,8 +5,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.savvytasker.commons.exceptions.IllegalValueException;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
-import seedu.savvytasker.model.person.ReadOnlyTask;
-import seedu.savvytasker.model.person.TaskList;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.TaskList;
 
 import java.util.ArrayList;
 import java.util.List;
