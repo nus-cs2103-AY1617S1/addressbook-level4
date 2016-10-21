@@ -301,6 +301,8 @@ public class LogicManagerTest {
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("delete E5");
+        assertIndexNotFoundBehaviorForCommand("delete D5");
+        assertIndexNotFoundBehaviorForCommand("delete T5");
     }
 
     @Test
