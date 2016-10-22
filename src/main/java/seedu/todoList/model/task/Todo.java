@@ -13,7 +13,7 @@ import seedu.todoList.model.task.attributes.Priority;
  */
 public class Todo extends Task implements ReadOnlyTask {
     
-    private StartDate date;
+    private StartDate startDate;
     private EndDate endDate;
     private Priority priority;
     private Done isDone;
@@ -22,10 +22,10 @@ public class Todo extends Task implements ReadOnlyTask {
      * Every field must be present and not null.
      * @param date 
      */
-    public Todo(Name name, StartDate date, EndDate endDate, Priority priority, Done isDone) {
-        assert !CollectionUtil.isAnyNull(name, date, endDate, priority);
+    public Todo(Name name, StartDate startDate, EndDate endDate, Priority priority, Done isDone) {
+        assert !CollectionUtil.isAnyNull(name, startDate, endDate, priority);
         super.name = name;
-        this.date = date;
+        this.startDate = startDate;
         this.endDate = endDate;
         this.priority = priority;
         this.isDone = isDone;
@@ -35,11 +35,11 @@ public class Todo extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Todo(Todo source) {
-        this(source.getName(), source.getDate() , source.getEndDate(), source.getPriority(), source.getDone());
+        this(source.getName(), source.getStartDate() , source.getEndDate(), source.getPriority(), source.getDone());
     }
 
-    public StartDate getDate() {
-        return date;
+    public StartDate getStartDate() {
+        return startDate;
     }
     
     public EndDate getEndDate() {
@@ -63,7 +63,7 @@ public class Todo extends Task implements ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other instanceof Todo // instanceof handles nulls
                 && super.name.equals(((Todo) other).getName()))
-                && this.date.equals(((Todo) other).getDate())
+                && this.startDate.equals(((Todo) other).getStartDate())
                 && this.endDate.equals(((Todo) other).getEndDate())
                 && this.priority.equals(((Todo) other).getPriority());
     }
@@ -72,9 +72,9 @@ public class Todo extends Task implements ReadOnlyTask {
     public String toString() {
     	final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append("\nDate: ")
-                .append(getDate())
-                .append("\nEnd Date: ")
+                .append("\nStart Date: ")
+                .append(getStartDate())
+                .append(" End Date: ")
                 .append(getEndDate())
                 .append("\nPriority: ")
                 .append(getPriority());

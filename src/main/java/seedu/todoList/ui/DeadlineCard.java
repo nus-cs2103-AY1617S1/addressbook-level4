@@ -41,7 +41,7 @@ public class DeadlineCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
-        date.setText(task.getDate().date);
+        date.setText("Date: " + task.getDate().date);
         endTime.setText("End Time: " + task.getEndTime().endTime);
         done.setText("Completed: " + task.getDone().isDone);
     }

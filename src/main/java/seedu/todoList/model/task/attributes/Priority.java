@@ -4,10 +4,12 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
 
 public class Priority {
 
-    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Priority should only contain numbers";
-    public static final String PRIORITY_VALIDATION_REGEX = "\\d+";
+    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Priority should only contain 1, 2 or 3\n"
+                                                               + "1 is HIGH, 2 is MEDIUM , 3 is LOW";
+    public static final String PRIORITY_VALIDATION_REGEX = "^[1-3]$";
     
-    public final int priority;
+    public final String priority;
+    public String level = "HIGH";
     
 	public Priority(String priority) throws IllegalValueException {
 	    assert priority != null;
@@ -15,7 +17,13 @@ public class Priority {
         if (!isValidPriority(priority)) {
             throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
         }
-	    this.priority = Integer.parseInt(priority);
+        
+        switch(Integer.parseInt(priority)){
+            case 1: level = "HIGH"; break;
+            case 2: level = "MEDIUM"; break;
+            case 3: level = "LOW"; break;
+        }
+	    this.priority = level;
 	}
     
 	/**
@@ -27,7 +35,7 @@ public class Priority {
     
 	@Override
     public String toString() {
-        return Integer.toString(priority);
+        return priority;
     }
 	
 	@Override
@@ -39,7 +47,7 @@ public class Priority {
 
     @Override
     public int hashCode() {
-        return Integer.toString(priority).hashCode();
+        return priority.hashCode();
     }
 
 }

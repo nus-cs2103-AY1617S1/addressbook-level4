@@ -18,7 +18,7 @@ public class XmlAdaptedDeadline implements XmlAdaptedTask {
 	@XmlElement(required = true)
 	private String name;
 	@XmlElement(required = true)
-	private String date;
+	private String startDate;
 	@XmlElement(required = true)
     private String endTime;
 	@XmlElement(required = true)
@@ -37,7 +37,7 @@ public class XmlAdaptedDeadline implements XmlAdaptedTask {
      */
     public XmlAdaptedDeadline(Deadline source) {
     	name = source.getName().name;
-    	date = source.getDate().date;
+    	startDate = source.getDate().date;
         endTime = source.getEndTime().endTime;
         isDone = source.getDone().isDone;
     }
@@ -48,7 +48,7 @@ public class XmlAdaptedDeadline implements XmlAdaptedTask {
 
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
-        final StartDate date = new StartDate(this.date);
+        final StartDate date = new StartDate(this.startDate);
         final EndTime endTime = new EndTime(this.endTime);
         final Done isDone = new Done(this.isDone);
         return new Deadline(name, date, endTime, isDone);

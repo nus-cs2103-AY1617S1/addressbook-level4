@@ -160,8 +160,12 @@ public class Parser {
                         matcher_task.group("name"), 
                         matcher_task.group("date"),
                         isInputPresent(matcher_task.group("endDate")),
+<<<<<<< HEAD
                         Integer.parseInt(matcher_task.group("priority")),
                         "false");
+=======
+                        matcher_task.group("priority"));
+>>>>>>> c6b72d5dbdab837ea4947703f3621f2404c69eb6
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
@@ -329,7 +333,7 @@ public class Parser {
                             matcher_task.group("name"), 
                             matcher_task.group("date"),
                             isInputPresent(matcher_task.group("endDate")),
-                            Integer.parseInt(matcher_task.group("priority")),
+                            matcher_task.group("priority"),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get());
                 } catch (IllegalValueException ive) {
@@ -371,7 +375,7 @@ public class Parser {
                             matcher_task.group("name"), 
                             matcher_task.group("date"),
                             isInputPresent(matcher_task.group("endDate")),
-                            Integer.parseInt(matcher_task.group("priority")),
+                            matcher_task.group("priority"),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get());
                 } catch (IllegalValueException ive) {
@@ -413,7 +417,7 @@ public class Parser {
                             matcher_task.group("name"), 
                             matcher_task.group("date"),
                             isInputPresent(matcher_task.group("endDate")),
-                            Integer.parseInt(matcher_task.group("priority")),
+                            matcher_task.group("priority"),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get());
                 } catch (IllegalValueException ive) {
