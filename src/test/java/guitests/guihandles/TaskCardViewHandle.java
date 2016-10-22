@@ -107,6 +107,12 @@ public class TaskCardViewHandle extends GuiHandle {
     }
 
     /* General Methods */
+    /**
+     * Given an {@link ImmutableTask} and a displayed index, check if this view is displayed correctly.
+     * @param displayedIndex Index displayed in the view.
+     * @param task Task displayed in the view.
+     * @return Returns true only if and only if the elements in this view is displayed correctly.
+     */
     public boolean isDisplayedCorrectly(int displayedIndex, ImmutableTask task) {
         boolean isCorrectTitle = isTitleCorrect(displayedIndex, task);
         boolean isCorrectDescription = isDescriptionCorrect(task);
@@ -267,9 +273,39 @@ public class TaskCardViewHandle extends GuiHandle {
         if(obj instanceof TaskCardViewHandle) {
             TaskCardViewHandle handle = (TaskCardViewHandle) obj;
 
+            boolean hasEqualTitle = this.getDisplayedTitle()
+                    .equals(handle.getDisplayedTitle());
+            boolean hasEqualDescription = this.getDisplayedDescription()
+                    .equals(handle.getDisplayedDescription());
+            boolean hasEqualDateText = this.getDisplayedDateText()
+                    .equals(handle.getDisplayedDateText());
+            boolean hasEqualLocation = this.getDisplayedLocation()
+                    .equals(handle.getDisplayedLocation());
+            boolean hasEqualType = this.getDisplayedTypeLabel()
+                    .equals(handle.getDisplayedTypeLabel());
+            boolean hasEqualMoreInfoVisibility = this.getMoreInfoLabelVisibility()
+                    == handle.getMoreInfoLabelVisibility();
+            boolean hasEqualDescriptionBoxVisibility = this.getDescriptionBoxVisibility()
+                    == handle.getDescriptionBoxVisibility();
+            boolean hasEqualDateBoxVisibility = this.getDateBoxVisibility()
+                    == handle.getDateBoxVisibility();
+            boolean hasEqualLocationBoxVisibility = this.getLocationBoxVisibility()
+                    == handle.getLocationBoxVisibility();
+            boolean hasEqualPinImageVisibility = this.getPinImageVisibility()
+                    == handle.getPinImageVisibility();
+            boolean hasEqualSelectedStyleApplied = this.isSelectedStyleApplied()
+                    == handle.isSelectedStyleApplied();
+            boolean hasEqualCompletedStyleApplied = this.isCompletedStyleApplied()
+                    == handle.isCompletedStyleApplied();
+            boolean hasEqualOverdueStyleApplied = this.isOverdueStyleApplied()
+                    == handle.isOverdueStyleApplied();
 
-            return this.getDisplayedTitle().equals(handle.getDisplayedTitle())
-                    && getDisplayedDescription().equals(handle.getDisplayedDescription()); //TODO: compare the rest
+            return hasEqualTitle && hasEqualDescription && hasEqualDateText
+                    && hasEqualLocation && hasEqualType && hasEqualMoreInfoVisibility
+                    && hasEqualDescriptionBoxVisibility && hasEqualDateBoxVisibility
+                    && hasEqualLocationBoxVisibility && hasEqualPinImageVisibility
+                    && hasEqualSelectedStyleApplied && hasEqualCompletedStyleApplied
+                    && hasEqualOverdueStyleApplied;
         }
         return super.equals(obj);
     }
