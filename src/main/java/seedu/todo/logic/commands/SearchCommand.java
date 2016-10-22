@@ -8,6 +8,7 @@ import java.util.Set;
 
 import seedu.todo.commons.core.Messages;
 import seedu.todo.commons.util.DateTimeUtil;
+import seedu.todo.model.task.TaskDate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -35,7 +36,7 @@ public class SearchCommand extends Command {
         switch (whichSearch) {
         case 0 : //on date search
             try {
-                LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data);
+                LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_ON);
                 model.updateFilteredTaskListOnDate(datetime);
                 return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
             } catch (DateTimeParseException e) {
@@ -43,7 +44,7 @@ public class SearchCommand extends Command {
             }
         case 1 : //before date search
             try {
-                LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data);
+                LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_BY);
                 model.updateFilteredTaskListBeforeDate(datetime);
                     
                 return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
@@ -54,7 +55,7 @@ public class SearchCommand extends Command {
                 
         case 2 : //after date search
             try {
-                LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data);
+                LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_ON);
                 model.updateFilteredTaskListAfterDate(datetime);
                     
                 return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
@@ -66,10 +67,10 @@ public class SearchCommand extends Command {
         case 3 : //from till date search
             try {
                 String fromDateString = data.split("@")[0].trim();
-                LocalDateTime fromDateTime = DateTimeUtil.parseDateTimeString(fromDateString);
+                LocalDateTime fromDateTime = DateTimeUtil.parseDateTimeString(fromDateString, TaskDate.TASK_DATE_ON);
                     
                 String tillDateString = data.split("@")[1].trim();
-                LocalDateTime tillDateTime = DateTimeUtil.parseDateTimeString(tillDateString);
+                LocalDateTime tillDateTime = DateTimeUtil.parseDateTimeString(tillDateString, TaskDate.TASK_DATE_BY);
                     
                 model.updateFilteredTaskListFromTillDate(fromDateTime, tillDateTime);
                 return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));

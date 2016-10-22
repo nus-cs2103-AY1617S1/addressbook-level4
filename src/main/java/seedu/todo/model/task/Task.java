@@ -89,6 +89,11 @@ public class Task implements ReadOnlyTask {
         return this.recurrence;
     }
     
+    @Override
+    public boolean isRecurring() {
+        return !this.recurrence.isNull();
+    }
+    
     public void setName(Name n) {
         this.name = n;
     }

@@ -41,8 +41,8 @@ public class AddCommand extends Command {
         this.toAdd = new Task(
                 new Name(name),
                 new Detail(detail),
-                new TaskDate(onDate),
-                new TaskDate(byDate),
+                new TaskDate(onDate, TaskDate.TASK_DATE_ON),
+                new TaskDate(byDate, TaskDate.TASK_DATE_BY),
                 recurrence
         );
     }

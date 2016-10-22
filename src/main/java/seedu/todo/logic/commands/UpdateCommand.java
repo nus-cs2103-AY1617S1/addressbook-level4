@@ -73,13 +73,13 @@ public class UpdateCommand extends Command{
             if (this.byDateTime == null) {
                 newByDate = taskToUpdate.getByDate();
             } else {
-                newByDate = this.byDateTime.trim().equals("-") ?  new TaskDate("") : new TaskDate(this.byDateTime);
+                newByDate = this.byDateTime.trim().equals("-") ?  new TaskDate("", TaskDate.TASK_DATE_BY) : new TaskDate(this.byDateTime, TaskDate.TASK_DATE_BY);
             }
             
             if (this.onDateTime == null) {
                 newOnDate = taskToUpdate.getOnDate();
             } else {
-                newOnDate = this.onDateTime.trim().equals("-") ?  new TaskDate("") : new TaskDate(this.onDateTime);
+                newOnDate = this.onDateTime.trim().equals("-") ?  new TaskDate("", TaskDate.TASK_DATE_ON) : new TaskDate(this.onDateTime, TaskDate.TASK_DATE_ON);
             }
             
             Task newTask = new Task(newName, newDetail, taskToUpdate.getCompletion(), 

@@ -14,7 +14,8 @@ public interface ReadOnlyTask {
     TaskDate getByDate();
     Completion getCompletion();
     Recurrence getRecurrence();
-
+    boolean isRecurring();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the person's internal tags.

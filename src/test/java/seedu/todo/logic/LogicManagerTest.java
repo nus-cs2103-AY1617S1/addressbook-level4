@@ -123,7 +123,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name on vdvd ; a line of details", TaskDate.MESSAGE_DATETIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name on 12/12/1234 by 09:00 ; a line of details", TaskDate.MESSAGE_DATETIME_CONSTRAINTS);
+                "add Valid Name on 12/12/1234 by asdasdsad ; a line of details", TaskDate.MESSAGE_DATETIME_CONSTRAINTS);
 
     }
 
@@ -462,7 +462,7 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(t1, t2);
         helper.addToModel(model, twoTasks);
 
-        assertCommandBehavior("search from 12/12/2013 till 12/12/2019",
+        assertCommandBehavior("search from 12/12/2013 to 12/12/2019",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);

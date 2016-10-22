@@ -18,6 +18,9 @@ public class TaskDate {
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Tasks' dates and time need to follow predefined format.";
     
+    public static final String TASK_DATE_ON = "START";
+    public static final String TASK_DATE_BY = "END";
+    
     private LocalDate date;
     private LocalTime time;
     
@@ -26,7 +29,7 @@ public class TaskDate {
      *
      * @throws IllegalValueException if given date and time string is invalid.
      */
-    public TaskDate(String dateTimeString) throws IllegalValueException {
+    public TaskDate(String dateTimeString, String onOrBy) throws IllegalValueException {
         
         if (DateTimeUtil.isEmptyDateTimeString(dateTimeString)) {
             this.date = null;
@@ -34,7 +37,7 @@ public class TaskDate {
         
         } else {
             
-            LocalDateTime ldt = DateTimeUtil.parseDateTimeString(dateTimeString);
+            LocalDateTime ldt = DateTimeUtil.parseDateTimeString(dateTimeString, onOrBy);
             
             if (ldt == null) {
                 throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);

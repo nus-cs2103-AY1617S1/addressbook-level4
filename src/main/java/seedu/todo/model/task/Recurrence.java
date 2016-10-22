@@ -77,10 +77,10 @@ public class Recurrence {
                 matcher = p.matcher(this.desc);
                 if (matcher.matches()) {
                     if (p.equals(RECURRENCE_WEEK_DAY)) {
-                        task.setOnDate(new TaskDate(this.desc));
+                        task.setOnDate(new TaskDate(this.desc, TaskDate.TASK_DATE_ON));
                     } else if (p.equals(RECURRENCE_END_SAME_DAY) || p.equals(RECURRENCE_END_DIFF_DAY)) {
-                        task.setOnDate(new TaskDate(matcher.group("fromDateTime")));
-                        task.setByDate(new TaskDate(matcher.group("tillDateTime")));
+                        task.setOnDate(new TaskDate(matcher.group("fromDateTime"), TaskDate.TASK_DATE_ON));
+                        task.setByDate(new TaskDate(matcher.group("tillDateTime"), TaskDate.TASK_DATE_BY));
                     } 
                 }
             }

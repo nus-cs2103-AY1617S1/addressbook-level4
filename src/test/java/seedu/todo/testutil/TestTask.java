@@ -75,6 +75,11 @@ public class TestTask implements ReadOnlyTask {
     }
     
     @Override
+    public boolean isRecurring() {
+        return !this.recurrence.isNull();
+    }
+    
+    @Override
     public UniqueTagList getTags() {
         return tags;
     }

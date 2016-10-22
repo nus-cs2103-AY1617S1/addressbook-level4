@@ -71,8 +71,8 @@ public class XmlAdaptedTask {
         final Name name = new Name(this.name);
         final Detail detail = new Detail(this.detail);
         final Completion completion = new Completion(Boolean.parseBoolean(this.completion));
-        final TaskDate onDate = new TaskDate(this.onDate);
-        final TaskDate byDate = new TaskDate(this.byDate);
+        final TaskDate onDate = new TaskDate(this.onDate, TaskDate.TASK_DATE_ON);
+        final TaskDate byDate = new TaskDate(this.byDate, TaskDate.TASK_DATE_BY);
         final Recurrence recurrence = new Recurrence(this.recurrence);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(name, detail, completion, onDate, byDate, recurrence, tags);

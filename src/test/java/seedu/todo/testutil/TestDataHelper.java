@@ -28,8 +28,8 @@ public class TestDataHelper{
         return new Task(
                 new Name("Task " + seed),
                 new Detail("House of " + seed),
-                new TaskDate("2/3/2017 12:34 pm"),
-                new TaskDate("2/3/2017 12:34 pm"),
+                new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_ON),
+                new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_BY),
                 new Recurrence(null)
         );
     }
@@ -121,8 +121,8 @@ public class TestDataHelper{
         return new Task(
                 new Name(name),
                 new Detail("1"),
-                new TaskDate("5/3/2017 12:44 pm"),
-                new TaskDate("5/3/2017 12:44 pm"),
+                new TaskDate("5/3/2017 12:44 pm", TaskDate.TASK_DATE_ON),
+                new TaskDate("5/3/2017 12:44 pm", TaskDate.TASK_DATE_BY),
                 new Recurrence(null)
         );
     }
