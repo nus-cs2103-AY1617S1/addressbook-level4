@@ -1,8 +1,5 @@
 package seedu.todo.logic;
 
-import java.util.logging.Logger;
-
-import javafx.collections.ObservableList;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
@@ -13,7 +10,8 @@ import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.logic.parser.Parser;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.Model;
-import seedu.todo.model.task.ImmutableTask;
+
+import java.util.logging.Logger;
 
 /**
  * Central controller for the application, abstracting application logic from the UI

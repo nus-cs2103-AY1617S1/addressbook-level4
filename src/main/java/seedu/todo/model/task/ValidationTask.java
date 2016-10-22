@@ -138,7 +138,7 @@ public class ValidationTask implements MutableTask {
         return Collections.unmodifiableSet(tags);
     }
 
-    public LocalDateTime getCreatedAt() { return lastUpdated; };
+    public LocalDateTime getCreatedAt() { return lastUpdated; }
 
     @Override
     public UUID getUUID() {

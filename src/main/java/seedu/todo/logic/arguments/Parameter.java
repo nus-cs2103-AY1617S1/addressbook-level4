@@ -7,19 +7,19 @@ import seedu.todo.commons.exceptions.IllegalValueException;
  * input into
  */
 public interface Parameter {
-    public void setValue(String input) throws IllegalValueException;
+    void setValue(String input) throws IllegalValueException;
     
-    public boolean isPositional();
+    boolean isPositional();
     
-    public boolean hasBoundValue();
+    boolean hasBoundValue();
     
-    public boolean isOptional();
+    boolean isOptional();
     
-    public String getFlag();
+    String getFlag();
     
-    public String getName();
+    String getName();
     
-    public String getDescription();
+    String getDescription();
     
-    public void checkRequired() throws IllegalValueException;
+    void checkRequired() throws IllegalValueException;
 }

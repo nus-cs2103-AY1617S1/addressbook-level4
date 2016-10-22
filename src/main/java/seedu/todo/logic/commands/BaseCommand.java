@@ -1,15 +1,15 @@
 package seedu.todo.logic.commands;
 
-import java.util.List;
-import java.util.Map.Entry;
-import java.util.StringJoiner;
-
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.Model;
+
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.StringJoiner;
 
 /**
  * The base class for commands. All commands need to implement an execute function 

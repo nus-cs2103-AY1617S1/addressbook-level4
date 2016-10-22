@@ -1,14 +1,13 @@
 package seedu.todo.logic.commands;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
-
 import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
+
+import java.util.List;
 
 public class ViewCommand extends BaseCommand {
     private static final String FEEDBACK_FORMAT = "Displaying %s view";

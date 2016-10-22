@@ -98,7 +98,7 @@ public class Task implements MutableTask {
     }
     
     @Override
-    public LocalDateTime getCreatedAt() { return createdAt; };
+    public LocalDateTime getCreatedAt() { return createdAt; }
 
     @Override
     public void setTitle(String title) {

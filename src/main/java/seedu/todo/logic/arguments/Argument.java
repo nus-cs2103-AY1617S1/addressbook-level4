@@ -1,10 +1,10 @@
 package seedu.todo.logic.arguments;
 
-import java.util.logging.Logger;
-
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.parser.TodoParser;
+
+import java.util.logging.Logger;
 
 abstract public class Argument<T> implements Parameter {
     private static final String REQUIRED_ERROR_FORMAT = "The %s parameter is required";
