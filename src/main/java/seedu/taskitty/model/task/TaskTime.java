@@ -1,4 +1,3 @@
-//@@author A0139930B
 package seedu.taskitty.model.task;
 
 import java.time.LocalTime;
@@ -7,8 +6,9 @@ import java.time.format.DateTimeParseException;
 
 import seedu.taskitty.commons.exceptions.IllegalValueException;
 
+//@@author A0139930B
 /**
- * Represents a Task's name in the task manager.
+ * Represents a Task's time in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
 public class TaskTime {
@@ -58,6 +58,11 @@ public class TaskTime {
         return test.matches(TIME_VALIDATION_FORMAT);
     }
     
+    /**
+     * Returns true if this TaskTime is before the given TaskTime.
+     * 
+     * @param time to be compared
+     */
     public boolean isBefore(TaskTime time) {
         return this.time.isBefore(time.getTime());
     }

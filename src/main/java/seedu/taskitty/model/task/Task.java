@@ -1,4 +1,3 @@
-//@@author A0139930B
 package seedu.taskitty.model.task;
 
 import seedu.taskitty.commons.util.CollectionUtil;
@@ -6,6 +5,7 @@ import seedu.taskitty.model.tag.UniqueTagList;
 
 import java.util.Objects;
 
+//@@author A0139930B
 /**
  * Represents a Task in the taskManager.
  * Guarantees: details are present and not null, field values are validated.
@@ -34,8 +34,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private UniqueTagList tags;
 
     /**
-     * Constructor for a "todo" Task.
-     * "todo" is a Task only has name
+     * Constructor for a Task.
+     * The type of Task it is is dependent on the period given.
+     * 
      * Every field must be present and not null.
      */
     public Task(Name name, TaskPeriod period, UniqueTagList tags) {

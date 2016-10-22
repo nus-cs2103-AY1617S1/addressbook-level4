@@ -9,6 +9,7 @@ import seedu.taskitty.model.task.*;
  */
 public class TypicalTestTask {
 
+    //@@author A0139930B
     public static TestTask read, spring, shop, dinner, todo, deadline, event;
     
     public TypicalTestTask() {
@@ -54,7 +55,8 @@ public class TypicalTestTask {
     public TestTask[] getTypicalTasks() {
         return new TestTask[]{read, spring, shop, dinner};
     }
-
+    
+    //@@author
     public TaskManager getTypicalTaskManager(){
         TaskManager ab = new TaskManager();
         loadTaskManagerWithSampleData(ab);

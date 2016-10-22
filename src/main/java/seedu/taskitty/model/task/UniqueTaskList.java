@@ -117,10 +117,17 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList;
     }
     
+    //@@author A0139930B
+    /**
+     * Returns the internal list, filtered to view only the specified type of Task
+     * 
+     * @param filter according to Task.
+     */
     public FilteredList<Task> getFilteredTaskList(int filter) {
         return internalList.filtered(p -> p.getPeriod().getNumArgs() == filter);
     }
 
+    //@@author
     @Override
     public Iterator<Task> iterator() {
         return internalList.iterator();

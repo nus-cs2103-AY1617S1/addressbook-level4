@@ -1,4 +1,3 @@
-//@@author A0139930B
 package seedu.taskitty.model.task;
 
 import java.time.LocalDate;
@@ -7,6 +6,7 @@ import java.time.format.DateTimeParseException;
 
 import seedu.taskitty.commons.exceptions.IllegalValueException;
 
+//@@author A0139930B
 /**
  * Represents a Task's date in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidDateFormat(String)}
@@ -57,6 +57,11 @@ public class TaskDate {
         return test.matches(DATE_VALIDATION_REGEX);
     }
     
+    /**
+     * Returns true if this TaskDate is before the given TaskDate.
+     * 
+     * @param date to be compared
+     */
     public boolean isBefore(TaskDate date) {
         return this.date.isBefore(date.getDate());
     }

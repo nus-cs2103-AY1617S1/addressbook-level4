@@ -2,8 +2,9 @@ package seedu.taskitty.model.task;
 
 import seedu.taskitty.model.tag.UniqueTagList;
 
+//@@author A0139930B
 /**
- * A read-only immutable interface for a Person in the taskmanager.
+ * A read-only immutable interface for a Task in the taskmanager.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
@@ -44,6 +45,7 @@ public interface ReadOnlyTask {
         return builder.toString();
     }
 
+    //@@author
     /**
      * Returns a string representation of this Task's tags
      */

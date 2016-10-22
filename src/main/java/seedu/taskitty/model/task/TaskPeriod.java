@@ -1,9 +1,9 @@
-//@@author A0139930B
 package seedu.taskitty.model.task;
 
 import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.CollectionUtil;
 
+//@@author A0139930B
 /**
  * Represents a Task's startDate, startTime, endDate and endTime in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidDateFormat(String)}
