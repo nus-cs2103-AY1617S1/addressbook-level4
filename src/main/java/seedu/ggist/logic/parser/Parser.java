@@ -60,7 +60,7 @@ public class Parser {
     //regex for edit
     private static final Pattern EDIT_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<index>\\d+?)"
-                    + "\\s+?(?<field>(task|start date|start time|end date|end time))"
+                    + "\\s+?(?<field>(task|start date|start time|end date|end time|priority))"
                     + "\\s+?(?<value>.+)" , Pattern.CASE_INSENSITIVE);
    
     public static final Pattern PRIORITY_MATCHER_REGEX = Pattern.compile("(?:.*-\\s*(?<priority>.+))");

@@ -98,7 +98,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
 
-    public void editTask(ReadOnlyTask key, String field, String value) throws UniqueTaskList.TaskNotFoundException {
+    public void editTask(ReadOnlyTask key, String field, String value) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         if (tasks.contains(key)) {
             tasks.edit(key, field, value);
         } else {
