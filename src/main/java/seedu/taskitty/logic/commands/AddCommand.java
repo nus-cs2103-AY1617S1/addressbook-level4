@@ -18,19 +18,20 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task to the task manager. "
-            + "Parameters: NAME [DATE] [START_TIME] [END_TIME] [t/TAG]...\n"
+            + "Parameters: NAME [START_DATE_TIME] to [END_DATE_TIME] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " finish CS2103T t/friends t/owesMoney";
+            + " meeting 1 jan 4pm to 6pm t/work t/salesReview";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
 
     private final Task toAdd;
 
+    //@@author A0139930B
     /**
-     * Convenience constructor using raw values.
+     * Convenience constructor using values parsed from Natty
      *
-     * @throws IllegalValueException if any of the raw values are invalid
+     * @throws IllegalValueException if any of the values are invalid or there are too many inputs
      */
     public AddCommand(String[] data, Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
@@ -64,6 +65,7 @@ public class AddCommand extends Command {
         }
     }
 
+    //@@author
     @Override
     public CommandResult execute() {
         assert model != null;

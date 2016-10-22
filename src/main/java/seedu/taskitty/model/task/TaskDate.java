@@ -1,20 +1,20 @@
+//@@author A0139930B
 package seedu.taskitty.model.task;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import seedu.taskitty.commons.exceptions.IllegalValueException;
-import seedu.taskitty.commons.util.DateUtil;
 
 /**
  * Represents a Task's date in the task manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidDateFormat(String)}
  */
 public class TaskDate {
 
     public static final String MESSAGE_DATE_CONSTRAINTS =
-            "Task dates should be in the format dd/mm/yyyy or ddmmyyyy or dd monthname yyyy";
+            "Task dates should be in the format dd/mm/yyyy";
     public static final String MESSAGE_DATE_INVALID =
             "Task date provided is invalid!";
     public static final String MESSAGE_DATE_MISSING =
@@ -22,36 +22,44 @@ public class TaskDate {
     public static final String DATE_FORMAT_STRING = "dd/MM/yyyy";
     public static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMAT_STRING);
     
-    //format: mm/dd/yyyy
+    //format: dd/mm/yyyy
     private static final String DATE_VALIDATION_REGEX = "[\\p{Digit}]{1,2}/[\\p{Digit}]{1,2}/[\\p{Digit}]{4}";
 
-    public final LocalDate date;
+    private final LocalDate date;
 
     /**
-     * Validates given name.
+     * Validates given date. The date should be parsed by Natty and
+     * be in the format according to DATE_FORMAT_STRING
      *
-     * @throws IllegalValueException if given name string is invalid.
+     * @throws IllegalValueException if given date is invalid.
      */
     public TaskDate(String date) throws IllegalValueException {
-        if (date == null) {
-            throw new IllegalValueException(MESSAGE_DATE_MISSING);
-        }
+        //date cannot be null after being parsed by natty
+        assert date != null;
         
         date = date.trim();
-        if (!isValidDate(date)) {
+        //This is not an assert because user can change the database and input wrong formats
+        if (!isValidDateFormat(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         
-        this.date = LocalDate.parse(date, DATE_FORMATTER);
+        try {
+            this.date = LocalDate.parse(date, DATE_FORMATTER);
+        } catch (DateTimeParseException dtpe){
+            throw new IllegalValueException(MESSAGE_DATE_INVALID);
+        }
     }
 
     /**
      * Returns true if a given string is a valid person name.
      */
-    public static boolean isValidDate(String test) {
+    public static boolean isValidDateFormat(String test) {
         return test.matches(DATE_VALIDATION_REGEX);
     }
-
+    
+    public boolean isBefore(TaskDate date) {
+        return this.date.isBefore(date.getDate());
+    }
 
     @Override
     public String toString() {
@@ -63,6 +71,22 @@ public class TaskDate {
         return other == this // short circuit if same object
                 || (other instanceof TaskDate // instanceof handles nulls
                 && this.date.equals(((TaskDate) other).date)); // state check
+    }
+    
+    /**
+     * This method can be used when unsure which dates are null
+     */
+    public static boolean isEquals(TaskDate date, TaskDate other) {
+        if (date == other) {
+            return true;
+        }
+        
+        //if either one is null, they are not equal
+        if (date == null || other == null) {
+            return false;
+        }
+        
+        return date.equals(other);
     }
 
     @Override

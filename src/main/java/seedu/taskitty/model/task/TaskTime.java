@@ -1,21 +1,20 @@
+//@@author A0139930B
 package seedu.taskitty.model.task;
 
-import java.time.DateTimeException;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import seedu.taskitty.commons.exceptions.IllegalValueException;
-import seedu.taskitty.commons.util.TimeUtil;
 
 /**
  * Represents a Task's name in the task manager.
- * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
 public class TaskTime {
 
-    //TODO add more ways to type the time. eg. am/pm
     public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Task times should be in the format hh:mm"; //or hhmm
+            "Task time should be in the format hh:mm";
     public static final String MESSAGE_TIME_INVALID =
             "Task time provided is invalid!";
     public static final String MESSAGE_TIME_MISSING =
@@ -26,12 +25,13 @@ public class TaskTime {
     //format: hh:mm
     private static final String TIME_VALIDATION_FORMAT = "[\\p{Digit}]{1,2}:[\\p{Digit}]{2}";
 
-    public final LocalTime time;
+    private final LocalTime time;
 
     /**
-     * Validates given name.
+     * Validates given time. The time should be parsed by Natty and
+     * be in the format according to TIME_FORMAT_STRING
      *
-     * @throws IllegalValueException if given name string is invalid.
+     * @throws IllegalValueException if given time is invalid or null.
      */
     public TaskTime(String time) throws IllegalValueException {
         if (time == null) {
@@ -39,20 +39,28 @@ public class TaskTime {
         }
         
         time = time.trim();
-        if (!isValidName(time)) {
+        //This is not an assert because user can change the database and input wrong formats
+        if (!isValidTimeFormat(time)) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
         
-        this.time = LocalTime.parse(time, TIME_FORMATTER);
+        try {
+            this.time = LocalTime.parse(time, TIME_FORMATTER);
+        } catch (DateTimeParseException dtpe){
+            throw new IllegalValueException(MESSAGE_TIME_INVALID);
+        }
     }
 
     /**
      * Returns true if a given string is a valid person name.
      */
-    public static boolean isValidName(String test) {
+    public static boolean isValidTimeFormat(String test) {
         return test.matches(TIME_VALIDATION_FORMAT);
     }
-
+    
+    public boolean isBefore(TaskTime time) {
+        return this.time.isBefore(time.getTime());
+    }
 
     @Override
     public String toString() {
@@ -65,10 +73,30 @@ public class TaskTime {
                 || (other instanceof TaskTime // instanceof handles nulls
                 && this.time.equals(((TaskTime) other).time)); // state check
     }
+    
+    /**
+     * This method can be used when unsure which times are null
+     */
+    public static boolean isEquals(TaskTime time, TaskTime other) {
+        if (time == other) {
+            return true;
+        }
+        
+        //if either one is null, they are not equal
+        if (time == null || other == null) {
+            return false;
+        }
+        
+        return time.equals(other);
+    }
 
     @Override
     public int hashCode() {
         return time.hashCode();
+    }
+    
+    public LocalTime getTime() {
+        return time;
     }
 
 }
