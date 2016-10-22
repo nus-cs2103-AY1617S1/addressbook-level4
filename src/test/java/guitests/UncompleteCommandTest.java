@@ -24,7 +24,7 @@ public class UncompleteCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("complete " + targetIndex);
         commandBox.runCommand("uncomplete " + targetIndex);
         ReadOnlyTask newTask = taskListPanel.getTask(targetIndex - 1);
-        assertFalse(Messages.MESSAGE_INVALID_UNCOMPLETE_TASK,newTask.getComplete());
+        assertFalse(newTask.getComplete());
         assertResultMessage(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, newTask));  
 
         // unmark another task
@@ -32,7 +32,7 @@ public class UncompleteCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("complete " + targetIndex);
         commandBox.runCommand("uncomplete " + targetIndex);
         newTask = taskListPanel.getTask(targetIndex - 1);
-        assertFalse(Messages.MESSAGE_INVALID_UNCOMPLETE_TASK,newTask.getComplete());
+        assertFalse(newTask.getComplete());
         assertResultMessage(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, newTask));
 
         // unmark a task which is not marked as complete before
@@ -40,7 +40,7 @@ public class UncompleteCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("uncomplete " + targetIndex);
         newTask = taskListPanel.getTask(targetIndex - 1);
         //this task should still be marked as not complete
-        assertFalse(Messages.MESSAGE_INVALID_UNCOMPLETE_TASK,newTask.getComplete());
+        assertFalse(newTask.getComplete());
         assertResultMessage(Messages.MESSAGE_INVALID_UNCOMPLETE_TASK);
        
         // mark at an empty list
