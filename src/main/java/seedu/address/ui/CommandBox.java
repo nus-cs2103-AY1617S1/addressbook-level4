@@ -73,7 +73,8 @@ public class CommandBox extends UiPart {
     }
     
     /**
-     * Attempt to parse a possibly incomplete command in the command box and display the command format matching that.
+     * Attempt to parse a possibly incomplete command in the command box and display the command format
+     * matching that.
      */
     @FXML
     private void handleCommandInputChanged(KeyEvent event){
@@ -85,10 +86,15 @@ public class CommandBox extends UiPart {
         }
         
         // do not update tooltip if user clears textfield
-        if (commandTextField.getText().equals("")) return;
+        else if (commandTextField.getText().equals("")) {
+            return;
+        }
                
-        // only update if user uses a backspace or enters a valid character
-        if (keyCode != KeyCode.BACK_SPACE && !keyCode.isDigitKey() && !keyCode.isLetterKey()) return;
+        // only update if user uses a backspace or enters a valid character or is accessing previous/next 
+        // input (covered above)
+        else if (keyCode != KeyCode.BACK_SPACE && !keyCode.isDigitKey() && !keyCode.isLetterKey()) {
+            return;
+        }
         
         String toDisplay = logic.generateToolTip(commandTextField.getText());
         resultDisplay.postMessage(toDisplay);
