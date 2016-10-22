@@ -45,8 +45,7 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void testEditTitle() throws Exception {
-        setParameter("1");
-        setParameter("t", "New Title");
+        setParameter("1 New Title");
         execute(true);
         
         ImmutableTask task = getTaskAt(1);
@@ -145,8 +144,7 @@ public class EditCommandTest extends CommandTest {
 
     @Test
     public void testEditMoreThanOneParameter() throws Exception {
-        setParameter("t", "New Title");
-        setParameter("1");
+        setParameter("1 New Title");
         setParameter("m", "New description");
         setParameter("l", "Singapura");
         execute(true);

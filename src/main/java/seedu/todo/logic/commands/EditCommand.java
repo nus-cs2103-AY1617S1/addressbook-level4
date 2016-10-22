@@ -1,19 +1,21 @@
 package seedu.todo.logic.commands;
 
+import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
+import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.*;
 import seedu.todo.model.task.ImmutableTask;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class EditCommand extends BaseCommand {
     private static final String VERB = "edited";
     
+    // These parameters will be sorted out manually
     private Argument<Integer> index = new IntArgument("index").required();
-    
-    private Argument<String> title = new StringArgument("title")
-            .flag("t");
+    private Argument<String> title = new StringArgument("title");
     
     private Argument<String> description = new StringArgument("description")
             .flag("m");
@@ -42,6 +44,25 @@ public class EditCommand extends BaseCommand {
         return ImmutableList.of(new CommandSummary("Edit task", getCommandName(), 
             getArgumentSummary()));
 
+    }
+
+    @Override
+    protected void setPositionalArgument(String argument) {
+        String[] tokens = argument.trim().split("\\s+", 2);
+
+        try {
+            index.setValue(tokens[0].trim());
+        } catch (IllegalValueException e) {
+            errors.put(index.getName(), e.getMessage());
+        }
+        
+        if (tokens.length > 1) {
+            try {
+                title.setValue(tokens[1].trim());
+            } catch (IllegalValueException e) {
+                errors.put(index.getName(), e.getMessage());
+            }
+        }
     }
 
     @Override
