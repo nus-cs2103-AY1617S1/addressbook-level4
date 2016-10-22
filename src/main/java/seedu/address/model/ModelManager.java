@@ -145,6 +145,8 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+
 
 
     //=========== Filtered Task List Accessors ===============================================================

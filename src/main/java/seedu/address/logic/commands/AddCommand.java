@@ -28,8 +28,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in ForgetMeNot";
-    private static final String DEFAULT_DATE = "Thu Jan 01 07:30:00 SGT 1970";
-
+    
     private final Task toAdd;
 
     /**

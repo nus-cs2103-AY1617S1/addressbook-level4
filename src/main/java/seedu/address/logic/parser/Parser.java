@@ -66,6 +66,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case SetStorageCommand.COMMAND_WORD:
+    		return prepareSetStorage(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -113,6 +116,15 @@ public class Parser {
     	}
     	else
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
+    }
+    
+    private Command prepareSetStorage(String args) {
+    	if(args != null) {
+    		args = args.trim();
+    		return new SetStorageCommand(args);
+    	}
+    	else
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetStorageCommand.MESSAGE_USAGE));
     }
     
     private Command prepareEdit(String args) {

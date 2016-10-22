@@ -198,6 +198,13 @@ public class MainWindow extends UiPart {
     public ContentBox getContentBox() {
     	return this.contentBox;
     }
+    
+    /**
+     * Render Status Bar Footer again, used when storage location in config changes
+     */
+    public void rerenderStatusBarFooter() {
+    	statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
+    }
 
 /*    public void loadTaskPage(ReadOnlyTask task) {
         browserPanel.loadTaskPage(task);

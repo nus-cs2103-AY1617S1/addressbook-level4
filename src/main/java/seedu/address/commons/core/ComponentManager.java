@@ -1,6 +1,7 @@
 package seedu.address.commons.core;
 
 import seedu.address.commons.events.BaseEvent;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Base class for *Manager classes
@@ -8,6 +9,7 @@ import seedu.address.commons.events.BaseEvent;
  * Registers the class' event handlers in eventsCenter
  */
 public abstract class ComponentManager {
+	@JsonIgnore
     protected EventsCenter eventsCenter;
 
     /**

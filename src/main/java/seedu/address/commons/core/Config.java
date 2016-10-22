@@ -2,11 +2,17 @@ package seedu.address.commons.core;
 
 import java.util.Objects;
 import java.util.logging.Level;
+import java.io.IOException;
 
+import com.google.common.eventbus.Subscribe;
+
+import seedu.address.commons.events.storage.ConfigFilePathChangedEvent;
+import seedu.address.commons.events.storage.StorageLocationChangedEvent;
+import seedu.address.commons.util.ConfigUtil;
 /**
  * Config values used by the app
  */
-public class Config {
+public class Config extends ComponentManager{
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
@@ -19,6 +25,7 @@ public class Config {
 
 
     public Config() {
+    	super();
     }
 
     public String getAppTitle() {
@@ -94,6 +101,17 @@ public class Config {
         sb.append("\nLocal data file location : " + taskManagerFilePath);
         sb.append("\nTaskManager name : " + taskManagerName);
         return sb.toString();
+    }
+    
+    @Subscribe
+    public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
+    	setTaskManagerFilePath(event.filePath);
+    	try {
+			ConfigUtil.saveConfig(this, DEFAULT_CONFIG_FILE);
+			raise(new ConfigFilePathChangedEvent(event.filePath));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
 }
