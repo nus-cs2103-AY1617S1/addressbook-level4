@@ -8,11 +8,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.flexitrack.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.flexitrack.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.flexitrack.logic.Logic;
 import seedu.flexitrack.logic.commands.*;
 import seedu.flexitrack.commons.util.FxViewUtil;
 import seedu.flexitrack.commons.core.LogsCenter;
+import javafx.collections.ObservableList;
 
+import java.util.Observable;
 import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
@@ -68,8 +71,16 @@ public class CommandBox extends UiPart {
 
     @FXML
     private void handleCommandInputChanged() {
-        // Take a copy of the command text
+     // Take a copy of the command text
         previousCommandTest = commandTextField.getText();
+        
+        commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue != null){
+                if(!newValue.equals(previousCommandTest))
+                    commandTextField.getStyleClass().remove("error");
+            }
+        });
+        
 
         /*
          * We assume the command is correct. If it is incorrect, the command box
