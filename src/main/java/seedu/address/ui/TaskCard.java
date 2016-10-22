@@ -90,7 +90,7 @@ public class TaskCard extends UiPart{
     	if(task.getName().fullName.equals("BLOCKED SLOT"))
     		cardPane.setStyle("-fx-background-color : rgba(148, 93, 96, 0.3);");
     	//Completed
-    	if(task.getTaskType() == TaskType.COMPLETED){
+    	if(dateComponent.isArchived()){
     		cardPane.setStyle("-fx-background-color : rgba(102,171,140,0.3);");
     		name.setStyle("-fx-text-fill : derive(#F0F0F0, 20%);");
     		id.setStyle("-fx-text-fill : derive(#F0F0F0, 20%);");
