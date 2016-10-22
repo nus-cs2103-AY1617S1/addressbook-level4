@@ -81,6 +81,10 @@ public class TaskPeriod {
         return isValid;
     }
     
+    public int getNumArgs() {
+        return numArgs;
+    }
+    
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
