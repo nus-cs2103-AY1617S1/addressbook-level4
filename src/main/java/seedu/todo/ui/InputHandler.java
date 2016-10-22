@@ -11,7 +11,7 @@ public class InputHandler {
     
     private static final int MAX_HISTORY_SIZE = 20;
     private static LinkedList<String> commandHistory = new LinkedList<String>();
-    private static ListIterator<String> commandHistoryIterator;
+    private static ListIterator<String> commandHistoryIterator = commandHistory.listIterator();
 
     private Controller handlingController = null;
     
@@ -31,20 +31,23 @@ public class InputHandler {
     }
     
     /**
-     * Pushes a command to the start of a LinkedList.
+     * Pushes a command to the end of a LinkedList.
+     * Commands are stored like a queue, where the oldest items 
+     * are at the start of the List and will be popped off first.
+     * 
      * @param command   Command string
      */
     private void pushCommand(String command) {
-        // Adds to the start of the LinkedList.
-        commandHistory.addFirst(command);
+        // Adds to the end of the LinkedList.
+        commandHistory.addLast(command);
         
         // Truncates the list when it gets too big.
         if (commandHistory.size() > MAX_HISTORY_SIZE) {
-            commandHistory.removeLast();
+            commandHistory.removeFirst();
         }
         
-        // Create a new iterator
-        commandHistoryIterator = commandHistory.listIterator();
+        // Create a new iterator, initialize position to point right at the end.
+        commandHistoryIterator = commandHistory.listIterator(commandHistory.size());
     }
     
     /**
@@ -53,11 +56,11 @@ public class InputHandler {
      * @return  The input command earlier than what was previously retrieved
      */
     public String getPreviousCommandFromHistory() {
-        if (!commandHistoryIterator.hasNext()) {
+        if (!commandHistoryIterator.hasPrevious()) {
             return "";
         }
         
-        return commandHistoryIterator.next();
+        return commandHistoryIterator.previous();
     }
     
     /**
@@ -66,11 +69,11 @@ public class InputHandler {
      * @return  The input command later than what was previously retrieved
      */
     public String getNextCommandFromHistory() {
-        if (!commandHistoryIterator.hasPrevious()) {
+        if (!commandHistoryIterator.hasNext()) {
             return "";
         }
         
-        return commandHistoryIterator.previous();
+        return commandHistoryIterator.next();
     }
 
     public boolean processInput(String input) {
