@@ -16,8 +16,9 @@ public class MarkCommand extends Command {
     public final int targetIndex;
 
     public static final String COMMAND_WORD = "mark";
+    public static final String COMMAND_SHORTCUT = "m";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ", Shortcut [" + COMMAND_SHORTCUT + "]"
             + ": Marks the task identified by the index number used in the task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 

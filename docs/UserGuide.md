@@ -36,29 +36,33 @@
 > * The order of parameters is fixed.
 
 #### Viewing help : `help`
+#### Shortcut : `h`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 #### Adding a task: `add`
+#### Shortcut : `a`
 Adds a task to the FlexiTrack.<br>
 Format: `add [task title] < by/ [deadline] >`
 
 Examples: 
 * `add CS2103 tutorial 3 `
 * `add CS2103 tutorial 3 by/ Saturday`
-* `add CS2103 tutorial 3 by/ tmr 9am`
+* `a CS2103 tutorial 3 by/ tmr 9am`
 
 
 #### Adding an event: `add`
+#### Shortcut : `h`
 Adds a task to the FlexiTrack.<br>
 Format: `add [event title] from/ [starting time] to/ [ending time]`
 
 Examples: 
 * `add Bintan trip from/ Saturday to/ Sunday`
-* `add CS2103 Lecture from/ Friday 2pm to/ Friday 4pm `
+* `a CS2103 Lecture from/ Friday 2pm to/ Friday 4pm `
 
 #### Finding a task or an event containing any keyword in their title: `find`
+#### Shortcut : `f`
 Finds a task ot an event whose title contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -74,11 +78,12 @@ Examples:
 * `find Soccer`<br>
   Returns `Soccer training` but not `soccer training`
 * `find assignment dinner mid-term`<br>
-  Returns Any task/event having title `assignment`, `dinner`, or `mid-term`
-* `find attend CS2103 lecture`<br>
-  Returns Any task/event having exact title "attend CS2103 lecture"
+  Returns Any task/event having `assignment`, `dinner`, or `mid-term` in the title
+* `f attend CS2103 lecture`<br>
+  Returns Any task/event having `attend`, `CS2103`, or `lecture`
 
 #### Finding a specific task or an event containing an exact phrase in their title: `find f/`
+#### Shortcut : `f f/`
 Finds a task ot an event whose title contain any of the given keywords.<br>
 Format: `find f/ EXACT PHRASE`
 
@@ -86,14 +91,15 @@ Format: `find f/ EXACT PHRASE`
 > * Only the task/event title is searched..
 
 Examples: 
-* `find Soccer`<br>
-  Returns `Soccer training` but not `soccer training`
-* `find cn homework`<br>
+* `find f/ Soccer training`<br>
+  Returns `Soccer training` but not `Soccer`
+* `find f/ cn homework`<br>
   Returns Any task/event containing the exact phrase `cn homework` in their title
-* `find attend CS2103 lecture`<br>
+* `f f/ attend CS2103 lecture`<br>
   Returns Any task/event having exact title `attend CS2103 lecture`
 
 #### Deleting a person : `delete`
+#### Shortcut : `d`
 Deletes the specified task/event from the FlexiTrack. Irreversible.<br>
 Format: `delete [index]`
 
@@ -103,9 +109,8 @@ Format: `delete [index]`
 
 Examples: 
 * `delete 2`<br>
-  Deletes the 2nd task/event in the address book.
-* `find soccer`<br> 
-  `delete 1`<br>
+  Deletes the 2nd task/event in the address book. 
+* `d 1`<br>
   Deletes the 1st task/event in the results of the `find` command.
 
 #### Undo operations : `undo`
@@ -122,6 +127,7 @@ Examples:
   Undo the operations 4 times. 
   
 #### Mark a task as complete : `mark`
+#### Shortcut : `m`
 Mark an existing task to complete and move it to the bottom of the list.<br>
 Format: `mark [index]`  
 
@@ -165,23 +171,8 @@ Examples:
 * `find time 5 3 `<br>	
 	You have a minimum of 5 hours free time slot between: Monday 2pm - 9pm, Tuesday 1pm - 6pm and Saturday 9am - 5pm. 
 
-#### Use shortcut to key in tasks and events details: `shortcut`
-Enable the use a shorter command word.<br>
-Format: `enable shortcut`
-Format: `disable shortcut` 
-
-> Existing Command Word 				Shortcut Command word
-> add											a/
-> by 											b/
-> from											f/
-> to											t/
-> delete										d/
-> mark 											m/
-> storage 										s/ 
-> block 										bk/
-> find time 									ft/
-
 #### Exiting the program : `exit`
+#### Shortcut : `q`
 Exits the program.<br>
 Format: `exit`  
 
