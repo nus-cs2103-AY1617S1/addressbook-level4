@@ -50,7 +50,9 @@ public class EditCommand extends Command {
 					toRemove = task;
 			}
 			model.deleteTask(toRemove);
-			return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
+			String message = String.format(MESSAGE_SUCCESS, toEdit);
+			model.saveState(message);
+			return new CommandResult(message);
 		} catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }  catch (TaskNotFoundException e) {

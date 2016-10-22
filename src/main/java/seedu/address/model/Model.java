@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.StateLimitException;
+import seedu.address.model.state.TaskManagerState;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -43,4 +45,13 @@ public interface Model {
 	/** Update the task manager to the new file path*/
 	void updateTaskManager(String filePath, boolean isToClearOld);
 
+	/** Saves the current state of the task manager. */
+    public void saveState(String message);
+	
+	/** Update the task manager to the previous state. */
+	String getPreviousState() throws StateLimitException;
+    
+    /** Update the task manager to the next state. */
+    String getNextState() throws StateLimitException;
+	
 }
