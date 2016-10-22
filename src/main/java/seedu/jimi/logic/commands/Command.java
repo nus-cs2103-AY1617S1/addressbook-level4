@@ -1,17 +1,24 @@
 package seedu.jimi.logic.commands;
 
+import java.util.Optional;
+
 import seedu.jimi.commons.core.EventsCenter;
 import seedu.jimi.commons.core.Messages;
+import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.events.storage.StoragePathChangedEvent;
 import seedu.jimi.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.jimi.model.Model;
+import seedu.jimi.model.task.ReadOnlyTask;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
     protected Model model;
-
+    
+    protected static final String INDEX_TASK_LIST_PREFIX = "t";
+    protected static final String INDEX_EVENT_LIST_PREFIX = "e";
+    
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
      *
@@ -56,6 +63,16 @@ public abstract class Command {
     /** Raises an event to indicate the storage has changed */
     protected void indicateStoragePathChanged(String oldPath, String newPath) {
         EventsCenter.getInstance().post(new StoragePathChangedEvent(oldPath, newPath));
+    }
+    
+    /** Determines the list type according to the index prefix. */
+    protected Optional<UnmodifiableObservableList<ReadOnlyTask>> determineListFromIndexPrefix(String idx) {
+        if (idx.trim().startsWith(INDEX_TASK_LIST_PREFIX)) {
+            return Optional.of(model.getFilteredAgendaTaskList());
+        } else if (idx.startsWith(INDEX_EVENT_LIST_PREFIX)) {
+            return Optional.of(model.getFilteredAgendaEventList());
+        }
+        return Optional.empty();
     }
 
 }

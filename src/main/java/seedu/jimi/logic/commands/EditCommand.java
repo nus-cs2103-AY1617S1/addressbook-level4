@@ -106,16 +106,19 @@ public class EditCommand extends Command {
     
     @Override
     public CommandResult execute() {
-        Optional<UnmodifiableObservableList<ReadOnlyTask>> optionalList = determineListFromIndexPrefix();
-        int actualIdx = Integer.parseInt(taskIndex.substring(1).trim()); // actual index is everything after the 1 character prefix.
+        Optional<UnmodifiableObservableList<ReadOnlyTask>> optionalList = 
+                determineListFromIndexPrefix(taskIndex);
         
+        // actual index is everything after the 1 character prefix.
+        int actualIdx = Integer.parseInt(taskIndex.substring(1).trim());
         if (!optionalList.isPresent() || optionalList.get().size() < actualIdx) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = optionalList.get();
-        ReadOnlyTask oldTask = lastShownList.get(actualIdx - 1);
+        
+        ReadOnlyTask oldTask = lastShownList.get(actualIdx - 1);        
         Optional<ReadOnlyTask> newTask = determineNewTask(oldTask);
         if (!newTask.isPresent()) {
             new CommandResult(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
@@ -219,16 +222,6 @@ public class EditCommand extends Command {
                     newTagList == null ? t.getTags() : newTagList, 
                     t.isCompleted());
         }
-    }
-
-    /** Determines the list type according to the index prefix. */
-    private Optional<UnmodifiableObservableList<ReadOnlyTask>> determineListFromIndexPrefix() {
-        if (taskIndex.startsWith(INDEX_TASK_PREFIX)) {
-            return Optional.of(model.getFilteredAgendaTaskList());
-        } else if (taskIndex.startsWith(INDEX_EVENT_PREFIX)) {
-            return Optional.of(model.getFilteredAgendaEventList());
-        }
-        return Optional.empty();
     }
 
 
