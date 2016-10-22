@@ -11,7 +11,6 @@ import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Task;
 import seedu.todo.models.Event;
-import seedu.todo.ui.UiPartLoader;
 
 public class TaskListDateItem extends MultiComponent {
 
@@ -66,7 +65,7 @@ public class TaskListDateItem extends MultiComponent {
 
     private void loadTaskItems() {
         for (Task task : tasks) {
-            TaskListTaskItem item = UiPartLoader.loadUiPart(primaryStage, dateCalendarItemsPlaceholder, TaskListTaskItem.class);
+            TaskListTaskItem item = load(primaryStage, dateCalendarItemsPlaceholder, TaskListTaskItem.class);
 
             // Add to EphemeralDB and get the index.
             int displayIndex = ephemeralDb.addToDisplayedCalendarItems(task);
@@ -80,7 +79,7 @@ public class TaskListDateItem extends MultiComponent {
     
     private void loadEventItems() {
         for (Event event : events) {
-            TaskListEventItem item = UiPartLoader.loadUiPart(primaryStage, dateCalendarItemsPlaceholder, TaskListEventItem.class);
+            TaskListEventItem item = load(primaryStage, dateCalendarItemsPlaceholder, TaskListEventItem.class);
 
             // Add to EphemeralDB and get the index.
             int displayIndex = ephemeralDb.addToDisplayedCalendarItems(event);

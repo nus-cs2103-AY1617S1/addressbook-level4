@@ -15,7 +15,6 @@ import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.CalendarItem;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
-import seedu.todo.ui.UiPartLoader;
 
 public class TaskList extends Component {
     
@@ -67,7 +66,7 @@ public class TaskList extends Component {
             List<Task> tasksForDate = tasksByDate.get(dateTime);
             List<Event> eventsForDate = eventsByDate.get(dateTime);
             
-            TaskListDateItem item = UiPartLoader.loadUiPart(primaryStage, taskListDateItemsPlaceholder, TaskListDateItem.class);
+            TaskListDateItem item = load(primaryStage, taskListDateItemsPlaceholder, TaskListDateItem.class);
             item.dateTime = dateTime;
             
             if (tasksForDate != null) {

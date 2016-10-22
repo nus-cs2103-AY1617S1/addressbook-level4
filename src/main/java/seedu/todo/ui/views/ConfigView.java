@@ -10,7 +10,6 @@ import javafx.scene.text.Text;
 import seedu.todo.MainApp;
 import seedu.todo.commons.core.ConfigDefinition;
 import seedu.todo.commons.util.FxViewUtil;
-import seedu.todo.ui.UiPartLoader;
 import seedu.todo.ui.components.ConfigItem;
 
 public class ConfigView extends View {
@@ -52,7 +51,7 @@ public class ConfigView extends View {
 
         // Load items
         for (ConfigDefinition definition : configDefinitions) {
-            ConfigItem item = UiPartLoader.loadUiPart(primaryStage, configsPlaceholder, ConfigItem.class);
+            ConfigItem item = load(primaryStage, configsPlaceholder, ConfigItem.class);
             item.configDefinition = definition;
             item.render();
         }

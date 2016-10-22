@@ -4,8 +4,10 @@ import java.util.logging.Logger;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.ui.UiPart;
+import seedu.todo.ui.UiPartLoader;
 import seedu.todo.ui.views.View;
 
 public abstract class Component extends UiPart {
@@ -14,6 +16,23 @@ public abstract class Component extends UiPart {
 
     protected Pane placeHolderPane;
     protected Pane mainNode;
+    
+    /**
+     * Loads a component into a placeholder.
+     * 
+     * <ul>
+     * <li>Gets the FXML file specified in the {@link Component}, and loads the JavaFX node.</li>
+     * <li>Loads a view controller that controls the node, and returns the view controller (ie. {@link Component}).</li>
+     * </ul>
+     * 
+     * @param primaryStage      Stage to load the component on. Typically, a Component rendering other Components should pass in primaryStage.
+     * @param placeholder       Placeholder {@code Pane} to render the component in.
+     * @param componentClass    Class of the Component to render.
+     * @return                  The Component, that controls the rendered JavaFX node.
+     */
+    public <T extends Component> T load(Stage primaryStage, Pane placeholder, Class<T> componentClass) {
+        return UiPartLoader.loadUiPart(primaryStage, placeholder, componentClass);
+    }
 
     /**
      * This method renders the View in the specified placeholder, if provided.

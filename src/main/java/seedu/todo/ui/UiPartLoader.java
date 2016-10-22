@@ -48,18 +48,6 @@ public class UiPartLoader {
         return controller;
     }
 
-    /**
-     * Loads the UiPart and returns the view controller, without a placeholder.
-     * Should only be used for MainWindow.
-     *
-     * @param primaryStage The primary stage for the view.
-     * @param uiPartClass  The UiPart class to load.
-     * @param <T>          The type of the UiPart
-     */
-    public static <T extends UiPart> T loadUiPart(Stage primaryStage, Class<T> uiPartClass) {
-        return loadUiPart(primaryStage, null, uiPartClass);
-    }
-
 
     private static Node loadLoader(FXMLLoader loader, String fxmlFileName) {
         try {

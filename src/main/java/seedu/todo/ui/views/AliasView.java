@@ -15,7 +15,6 @@ import javafx.scene.text.Text;
 import seedu.todo.commons.core.AliasDefinition;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.models.TodoListDB;
-import seedu.todo.ui.UiPartLoader;
 import seedu.todo.ui.components.AliasItem;
 
 public class AliasView extends View {
@@ -68,7 +67,7 @@ public class AliasView extends View {
 
         // Load items
         for (Map.Entry<String, String> aliasPair : aliasDefinitions) {
-            AliasItem item = UiPartLoader.loadUiPart(primaryStage, aliasesPlaceholder, AliasItem.class);
+            AliasItem item = load(primaryStage, aliasesPlaceholder, AliasItem.class);
             item.aliasDefinition = new AliasDefinition(aliasPair.getKey(), aliasPair.getValue());
             item.render();
         }

@@ -110,7 +110,7 @@ public class MainWindow extends Component {
     }
 
     protected <T extends View> T loadView(Class<T> viewClass) {
-        return UiPartLoader.loadUiPart(primaryStage, getChildrenPlaceholder(), viewClass);
+        return load(primaryStage, getChildrenPlaceholder(), viewClass);
     }
 
     /** ================ FXML COMPONENTS ================== **/

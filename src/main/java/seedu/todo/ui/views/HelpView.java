@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.controllers.CommandDefinition;
-import seedu.todo.ui.UiPartLoader;
 import seedu.todo.ui.components.HelpCommandItem;
 
 public class HelpView extends View {
@@ -36,7 +35,7 @@ public class HelpView extends View {
         
         // Load help commands
         for (CommandDefinition command : commandDefinitions) {
-            HelpCommandItem item = UiPartLoader.loadUiPart(primaryStage, helpCommandsPlaceholder, HelpCommandItem.class);
+            HelpCommandItem item = load(primaryStage, helpCommandsPlaceholder, HelpCommandItem.class);
             item.commandName = command.getCommandName();
             item.commandDescription = command.getCommandDescription();
             item.commandSyntax = command.getCommandSyntax();
