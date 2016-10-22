@@ -77,7 +77,16 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
-    }
+    }       
+
+	@Override
+	public void undoDelete(int index, Activity taskToAdd) throws UniqueTaskList.DuplicateTaskException {
+		addressBook.addPerson(index, taskToAdd);
+		updateFilteredListToShowAll();
+		indicateAddressBookChanged();
+
+	}
+
     
     @Override
     public synchronized Activity editTask(Activity oldTask, Activity newParams) throws TaskNotFoundException, DuplicateTaskException {
@@ -180,6 +189,8 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
+
 
 
 
