@@ -1,10 +1,7 @@
 package seedu.taskitty.ui;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
@@ -18,18 +15,13 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of tasks.
+ * Base class for the 3 panels containing the list of tasks.
  */
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "TaskListPanel.fxml";
-    private VBox panel;
-    private AnchorPane placeHolderPane;
-
-    @FXML
-    private Label header;
-    @FXML
-    private ListView<ReadOnlyTask> taskListView;
+    private static final String FXML = null;
+    protected VBox panel;
+    protected AnchorPane placeHolderPane;
 
     public TaskListPanel() {
         super();
@@ -50,45 +42,32 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+    public static <T extends TaskListPanel> T load(Stage primaryStage, AnchorPane taskListPlaceholder,
+                                       ObservableList<ReadOnlyTask> taskList, T listPanel) {
+        T taskListPanel =  UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, listPanel);
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
-
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
-    	header.setText("TODOS [t]");
-    	header.setStyle("-fx-text-fill: white");
-        setConnections(taskList);
-        addToPlaceholder();
-    }
-
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+    
+    protected void configure(ObservableList<ReadOnlyTask> taskList) {};
+    
+    protected void setConnections(ListView<ReadOnlyTask> taskListView, ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
-        setEventHandlerForSelectionChangeEvent();
+        setEventHandlerForSelectionChangeEvent(taskListView);
     }
 
-    private void addToPlaceholder() {
+    protected void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
     }
 
-    private void setEventHandlerForSelectionChangeEvent() {
+    private void setEventHandlerForSelectionChangeEvent(ListView<ReadOnlyTask> taskListView) {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
-        });
-    }
-
-    public void scrollTo(int index) {
-        Platform.runLater(() -> {
-            taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
 

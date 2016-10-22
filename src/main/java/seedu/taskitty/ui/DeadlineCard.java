@@ -8,8 +8,9 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
 
-public class DeadlineCard extends UiPart{
-
+public class DeadlineCard //extends UiPart
+{
+    /*
     private static final String FXML = "DeadlineListCard.fxml";
 
     @FXML
@@ -106,4 +107,5 @@ public class DeadlineCard extends UiPart{
     public String getFxmlPath() {
         return FXML;
     }
+    */
 }
