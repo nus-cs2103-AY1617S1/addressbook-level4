@@ -151,10 +151,10 @@ public class EditCommand extends Command {
             this.editType = EditType.REMOVE_DATES;
         } else if (newName != null && deadline == null && eventStart == null && eventEnd == null) {
             this.editType = EditType.ONLY_NAME;
-        } else if (eventStart != null && deadline == null) {
-            this.editType = EditType.TO_EVENT;
         } else if (eventStart == null && eventEnd == null && deadline != null) {
             this.editType = EditType.TO_DEADLINE;
+        } else if (deadline == null && (eventStart != null || eventEnd != null)) {
+            this.editType = EditType.TO_EVENT;
         }
     }
     
