@@ -152,7 +152,9 @@ public class Parser {
                         matcher_event.group("name"), 
                         matcher_event.group("date"),
                         matcher_event.group("startTime"), 
-                        matcher_event.group("endTime"));
+                        matcher_event.group("endTime"),
+                        "false"
+                        );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
@@ -161,7 +163,9 @@ public class Parser {
                 return new AddCommand(
                         matcher_deadline.group("name"), 
                         matcher_deadline.group("date"),
-                        matcher_deadline.group("endTime"));
+                        matcher_deadline.group("endTime"),
+                        "false"
+                        );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }

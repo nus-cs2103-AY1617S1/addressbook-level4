@@ -21,6 +21,8 @@ public class XmlAdaptedDeadline implements XmlAdaptedTask {
 	private String date;
 	@XmlElement(required = true)
     private String endTime;
+	@XmlElement(required = true)
+    private String isDone;
 
     /**
      * No-arg constructor for JAXB use.
@@ -47,7 +49,8 @@ public class XmlAdaptedDeadline implements XmlAdaptedTask {
         final Name name = new Name(this.name);
         final Date date = new Date(this.date);
         final EndTime endTime = new EndTime(this.endTime);
-        return new Deadline(name, date, endTime);
+        final Done isDone = new Done(this.isDone);
+        return new Deadline(name, date, endTime, isDone);
     }
 }
 
