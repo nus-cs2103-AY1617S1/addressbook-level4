@@ -489,6 +489,21 @@ Use case ends.
 
 > 3a1. Happy Jim Task Manager shows an error message <br>
   Use case resumes at step 2
+  
+#### Use case: UC08 - View agenda for a day
+
+**MSS**
+
+1. User request to view one day's agenda.
+2. Happy Jim Task Manager shows agenda. <br>
+Use case ends.
+
+**Extensions**
+
+1a. Invalid command
+
+> 1a1. Happy Jim Task Manager shows an error message <br>
+  Use case resumes at step 1
 
 #### Use case: UC09 - Block Timeslot
 
