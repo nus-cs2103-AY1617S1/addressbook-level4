@@ -1,6 +1,6 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static seedu.task.logic.commands.UnpinCommand.MESSAGE_UNPIN_TASK_SUCCESS;
 
 import org.junit.Test;
@@ -24,14 +24,15 @@ public class UnpinCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("pin " + targetIndex);
         commandBox.runCommand("unpin " + targetIndex);
         ReadOnlyTask newTask = taskListPanel.getTask(targetIndex - 1);
-        assertTrue(!newTask.getImportance());
-        // confirm the result message is correct
+        assertFalse(newTask.getImportance());
         assertResultMessage(String.format(MESSAGE_UNPIN_TASK_SUCCESS, newTask));
 
        // unpin a task which is not pinned
         targetIndex = 3;
         commandBox.runCommand("unpin " + targetIndex);
-        ReadOnlyTask otherTask = taskListPanel.getTask(targetIndex - 1);
+        newTask = taskListPanel.getTask(targetIndex - 1);
+        //check that the task is still not pinned
+        assertFalse(newTask.getImportance());
         assertResultMessage(Messages.MESSAGE_INVALID_UNPIN_TASK);
 
         // unpin one more task
@@ -39,7 +40,7 @@ public class UnpinCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("pin " + targetIndex);
         commandBox.runCommand("unpin " + targetIndex);
         newTask = taskListPanel.getTask(targetIndex - 1);
-        assertTrue(!newTask.getImportance());
+        assertFalse(newTask.getImportance());
         assertResultMessage(String.format(MESSAGE_UNPIN_TASK_SUCCESS, newTask));
 
         // unpin at an empty list
