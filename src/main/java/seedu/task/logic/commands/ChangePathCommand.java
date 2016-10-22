@@ -1,5 +1,12 @@
+//@@author A0144939R
 package seedu.task.logic.commands;
 
+import seedu.task.commons.core.EventsCenter;
+import seedu.task.commons.events.storage.FilePathChangedEvent;
+
+/**
+ * Change the file path
+ */
 public class ChangePathCommand extends UndoableCommand{
     
     public static final String COMMAND_WORD = "change-to";
@@ -9,8 +16,8 @@ public class ChangePathCommand extends UndoableCommand{
             + "Example: " + COMMAND_WORD
             + "taskmanager.xml";
     
-    public static final String MESSAGE_SUCCESS = "File path successfully changed: %1$s";
-    public static final String MESSAGE_ROLLBACK_SUCCESS = "Path change reverted: %1$s";
+    public static final String MESSAGE_PATH_CHANGE_SUCCESS = "Success! New File path: %1$s";
+    public static final String MESSAGE_PATH_CHANGE_ROLLBACK_SUCCESS = "Path change reverted.";
     public static final String MESSAGE_DUPLICATE_PATH = "This is the same path as the one being used.";
     
     private final String newFilePath;
@@ -22,14 +29,14 @@ public class ChangePathCommand extends UndoableCommand{
     
 
     @Override
-    public CommandResult rollback() {
-        // TODO Auto-generated method stub
-        return null;
+    public CommandResult execute() {
+        EventsCenter.getInstance().post(new FilePathChangedEvent(newFilePath));
+        return new CommandResult(true, String.format(MESSAGE_PATH_CHANGE_SUCCESS, newFilePath));
     }
 
     @Override
-    public CommandResult execute() {
-        // TODO Auto-generated method stub
+    public CommandResult rollback() {
+        //send event to Config
         return null;
     }
     
