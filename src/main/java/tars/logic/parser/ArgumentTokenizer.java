@@ -63,6 +63,7 @@ public class ArgumentTokenizer {
 
             do {
                 curIndexPos = args.indexOf(EMPTY_SPACE_ONE + prefixes[i].prefix, curIndexPos + 1);
+                
                 if (curIndexPos >= 0) {
                     prefixPosMap.put(curIndexPos, prefixes[i]);
                 }
@@ -78,29 +79,26 @@ public class ArgumentTokenizer {
     private HashMap<Prefix, String> extractArguments() {
         prefixValueMap = new HashMap<Prefix, String>();
 
-        if (args != null && args.length() > 0 && prefixes != null && prefixes.length > 0) {
-            args = args.trim();
+        int endPos = args.length();
 
-            int endPos = args.length();
+        for (Map.Entry<Integer, Prefix> entry : prefixPosMap.descendingMap().entrySet()) {
+            Prefix prefix = entry.getValue();
+            Integer pos = entry.getKey();
 
-            for (Map.Entry<Integer, Prefix> entry : prefixPosMap.descendingMap().entrySet()) {
-                Prefix prefix = entry.getValue();
-                Integer pos = entry.getKey();
-
-                if (pos == INVALID_POS) {
-                    continue;
-                }
-
-                String arg = args.substring(pos, endPos).trim();
-                endPos = pos;
-
-                if (prefixValueMap.containsKey(prefix)) {
-                    prefixValueMap.put(prefix, prefixValueMap.get(prefix).concat(EMPTY_SPACE_ONE).concat(arg));
-                } else {
-                    prefixValueMap.put(prefix, arg);
-                }
-
+            if (pos == INVALID_POS) {
+                continue;
             }
+
+            String arg = args.substring(pos, endPos).trim();
+            endPos = pos;
+
+            if (prefixValueMap.containsKey(prefix)) {
+                prefixValueMap.put(prefix,
+                        prefixValueMap.get(prefix).concat(EMPTY_SPACE_ONE).concat(arg));
+            } else {
+                prefixValueMap.put(prefix, arg);
+            }
+
         }
 
         return prefixValueMap;
@@ -111,7 +109,7 @@ public class ArgumentTokenizer {
             return Optional.empty();
         }
         
-        return Optional.of(getMultipleValues(prefix).get().iterator().next());
+        return Optional.of(getMultipleValues(prefix).get().iterator().next().trim());
     }
 
     public Optional<Set<String>> getMultipleValues(Prefix prefix) {
@@ -134,13 +132,12 @@ public class ArgumentTokenizer {
     }
 
     public Optional<String> getPreamble() {
-        args = args.trim();
-        if (args.length() == 0) {
+        if (args.trim().length() == 0) {
             return Optional.empty();
         }
 
         if (prefixPosMap.size() == 0) {
-            return Optional.of(args);
+            return Optional.of(args.trim());
         } else if (prefixPosMap.firstKey() == 0) {
             return Optional.empty();
         }
