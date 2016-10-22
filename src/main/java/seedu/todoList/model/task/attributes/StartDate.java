@@ -18,6 +18,7 @@ public class StartDate {
     public static final String DATE_VALIDATION_REGEX = "^(\\d{2}-\\d{2}-\\d{4})$";
     
     public final String date;
+    public final String saveDate;
     public int day_lastdigit;
     public String day;
     public String month;
@@ -28,6 +29,7 @@ public class StartDate {
      */
     public StartDate(String date) throws IllegalValueException {
         assert date != null;
+        saveDate = date.trim();
         date = date.trim(); 
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);

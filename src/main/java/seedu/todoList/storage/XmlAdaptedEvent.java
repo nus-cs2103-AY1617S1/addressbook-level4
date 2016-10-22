@@ -40,8 +40,8 @@ public class XmlAdaptedEvent implements XmlAdaptedTask {
      */
     public XmlAdaptedEvent(Event source) {
     	name = source.getName().name;
-    	startDate = source.getStartDate().date;
-    	endDate = source.getEndDate().endDate;
+    	startDate = source.getStartDate().saveDate;
+    	endDate = source.getEndDate().saveEndDate;
         startTime = source.getStartTime().startTime;
         endTime = source.getEndTime().endTime;
         isDone = source.getDone().isDone;

@@ -39,8 +39,8 @@ public class XmlAdaptedTodo implements XmlAdaptedTask {
      */
     public XmlAdaptedTodo(Todo source) {
     	this.name = source.getName().name;
-    	this.startDate = source.getStartDate().date;
-    	this.endDate = source.getEndDate().endDate;
+    	this.startDate = source.getStartDate().saveDate;
+    	this.endDate = source.getEndDate().saveEndDate;
     	this.priority = source.getPriority().toString();
     	this.isDone = source.getDone().isDone;
     }
