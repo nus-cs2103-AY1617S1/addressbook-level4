@@ -8,13 +8,13 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import seedu.todo.ui.UiPartLoader;
 
-public class TagListLink extends MultiComponent {
+public class SidebarCounter extends MultiComponent {
 
-    private static final String FXML_PATH = "components/TagListLink.fxml";
+    private static final String FXML_PATH = "components/SidebarCounter.fxml";
 
     // Props
     public String iconPath;
-    public String linkLabel;
+    public String label;
 
     // FXML
     @FXML
@@ -22,8 +22,8 @@ public class TagListLink extends MultiComponent {
     @FXML
     private Text labelText;
 
-    public static TagListLink load(Stage primaryStage, Pane placeholderPane) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TagListLink());
+    public static SidebarCounter load(Stage primaryStage, Pane placeholderPane) {
+        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new SidebarCounter());
     }
 
     @Override
@@ -34,7 +34,7 @@ public class TagListLink extends MultiComponent {
     @Override
     public void componentDidMount() {
         imageView.setImage(new Image(iconPath));
-        labelText.setText(linkLabel);
+        labelText.setText(label);
     }
 
 }
