@@ -16,27 +16,35 @@ public class AddCommandTest extends TaskListGuiTest {
     public void add() {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.hoon;
+        TestTask taskToAdd = td.task8;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another task
-        taskToAdd = td.ida;
+        taskToAdd = td.task9;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate task
-        commandBox.runCommand(td.hoon.getAddCommand());
+        commandBox.runCommand(td.task8.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.alice);
+        assertAddSuccess(td.task1);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        commandBox.runCommand("add task1 s/12129999 e/01010000 ");
+        assertResultMessage(Messages.MESSAGE_INVALID_DATE_TIME_ENTRY);
+        commandBox.runCommand("add task2 s/2359 e/0000 ");
+        assertResultMessage(Messages.MESSAGE_INVALID_DATE_TIME_ENTRY);
+        commandBox.runCommand("add task3 s/01019999 0000 e/01019999 0000");
+        assertResultMessage(Messages.MESSAGE_INVALID_DATE_TIME_ENTRY);
+        commandBox.runCommand("add task3 s/01019999 2359 e/01019999 0000");
+        assertResultMessage(Messages.MESSAGE_INVALID_DATE_TIME_ENTRY);
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {

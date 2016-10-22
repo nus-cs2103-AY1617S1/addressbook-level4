@@ -1,25 +1,18 @@
 package guitests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.tasklist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.io.File;
-import java.io.IOException;
-
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 import seedu.tasklist.commons.core.Config;
 import seedu.tasklist.commons.core.Messages;
-import seedu.tasklist.commons.util.ConfigUtil;
 import seedu.tasklist.logic.commands.StorageCommand;
 import seedu.tasklist.storage.Storage;
 
 public class StorageCommandTest extends TaskListGuiTest {
 
-	private String testStorageCommandFilePath = "src/test/data/StorageCommandTestFolder/tesTaskList.xml";
-	private String testFileName = "tesTaskList.xml";
+	private String testStorageCommandFilePath = "src/test/data/StorageCommandTestFolder/testTaskList.xml";
+	private String testFileName = "testTaskList.xml";
 	private final String COMMAND_WORD = "storage ";
 	private String defaultFilePath = "src/test/data/sandbox/tempTaskList.xml";
 	private String defaultConfigFile = "src/test/data/ConfigUtilTest/TestConfig.json";

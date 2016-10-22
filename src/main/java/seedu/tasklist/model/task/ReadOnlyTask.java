@@ -9,10 +9,12 @@ import seedu.tasklist.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Title getTitle();
-    StartDate getStartDate();
     Description getDescription();
-    DueDate getDueDate();
+    DateTime getStartDateTime();
+    DateTime getEndDateTime();
     boolean isCompleted();
+    boolean isOverdue();
+    boolean isFloating();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -26,10 +28,11 @@ public interface ReadOnlyTask {
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getTitle().equals(this.getTitle()) // state checks here onwards
-                && other.getStartDate().equals(this.getStartDate())
-                && other.getDescription().equals(this.getDescription())
-                && other.getDueDate().equals(this.getDueDate()));
+                && other.getTitle().toString().equals(this.getTitle().toString())
+                && other.getDescription().toString().equals(this.getDescription().toString())
+                && other.getStartDateTime().toString().equals(this.getStartDateTime().toString())
+                && other.getEndDateTime().toString().equals(this.getEndDateTime().toString())
+                && String.valueOf(other.isCompleted()).equals(String.valueOf(this.isCompleted())));
     }
 
     /**
@@ -41,9 +44,9 @@ public interface ReadOnlyTask {
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Start: ")
-                .append(getStartDate())
+                .append(getStartDateTime())
                 .append(" End: ")
-                .append(getDueDate())
+                .append(getEndDateTime())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

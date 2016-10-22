@@ -17,13 +17,17 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String title;
     @XmlElement(required = true)
-    private String startDate;
-    @XmlElement(required = true)
     private String description;
     @XmlElement(required = true)
-    private String dueDate;
+    private String startDateTime;
+    @XmlElement(required = true)
+    private String endDateTime;
     @XmlElement(required = true)
     private boolean isCompleted;
+    @XmlElement(required = true)
+    private boolean isOverdue;
+    @XmlElement(required = true)
+    private boolean isFloating;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -41,10 +45,12 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         title = source.getTitle().fullTitle;
-        startDate = source.getStartDate().toString().replaceAll(":", "").replaceAll("-", "");
         description = source.getDescription().description;
-        dueDate = source.getDueDate().toString().replaceAll(":", "").replaceAll("-", "");
+        startDateTime = source.getStartDateTime().toString().replaceAll(":", "").replaceAll("-", "");
+        endDateTime = source.getEndDateTime().toString().replaceAll(":", "").replaceAll("-", "");
         isCompleted = source.isCompleted();
+        isOverdue = source.isOverdue();
+        isFloating = source.isFloating();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -62,10 +68,10 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Title title = new Title(this.title);
-        final StartDate startDate = new StartDate(this.startDate);
         final Description description = new Description(this.description);
-        final DueDate dueDate = new DueDate(this.dueDate);
+        final DateTime startDateTime = new DateTime(this.startDateTime);
+        final DateTime endDateTime = new DateTime(this.endDateTime);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(title, startDate, description, dueDate, tags, this.isCompleted);
+        return new Task(title, startDateTime, description, endDateTime, tags, this.isCompleted, this.isOverdue, this.isFloating);
     }
 }

@@ -1,8 +1,7 @@
 package seedu.tasklist.logic.parser;
 
+import seedu.tasklist.commons.core.Messages;
 import seedu.tasklist.logic.commands.*;
-import static seedu.tasklist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.tasklist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,8 +24,10 @@ public class Parser {
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 
+        CommandParser incorrectCommandParser = new IncorrectCommand();
+        
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            return incorrectCommandParser.prepare(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -37,10 +38,10 @@ public class Parser {
             Class<?> classDefinition = Class.forName("seedu.tasklist.logic.commands."
                     + commandWord.substring(0, 1).toUpperCase() + commandWord.substring(1).toLowerCase() + "Command");
             object = classDefinition.newInstance();
-
+            
             return ((CommandParser) object).prepare(arguments);
         } catch (Exception e) {
-            return new IncorrectCommand(String.format(MESSAGE_UNKNOWN_COMMAND));
+            return incorrectCommandParser.prepare(Messages.MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Title("CS1010"), new StartDate("01012001"), new Description("to1be completed"), new DueDate("01012001"), new UniqueTagList()),
-                    new Task(new Title("CS1020"), new StartDate("01022001"), new Description("to be2completed"), new DueDate("02012001"), new UniqueTagList()),
-                    new Task(new Title("CS1030"), new StartDate("01032001"), new Description("to3be completed"), new DueDate("03012001"), new UniqueTagList()),
-                    new Task(new Title("CS1040"), new StartDate("01042001"), new Description("to be6completed"), new DueDate("04012001"), new UniqueTagList()),
-                    new Task(new Title("CS1050"), new StartDate("01052001"), new Description("to9be completed"), new DueDate("05012001"), new UniqueTagList()),
-                    new Task(new Title("CS1060"), new StartDate("01062001"), new Description("to be6completed"), new DueDate("06012001"), new UniqueTagList()),
-                    new Task(new Title("CS1070"), new StartDate("01072001"), new Description("to2be completed"), new DueDate("07012001"), new UniqueTagList()),
-                    new Task(new Title("CS1080"), new StartDate("01082001"), new Description("to be4completed"), new DueDate("08012001"), new UniqueTagList()),
-                    new Task(new Title("CS1090"), new StartDate("01092001"), new Description("toAbe completed"), new DueDate("09012001"), new UniqueTagList())
+                    new Task(new Title("CS1010 Tutorial"), new DateTime("01012001 1200"), new Description("to1be completed"), new DateTime("01112001"), new UniqueTagList()),
+                    new Task(new Title("Exam"), new DateTime("01022001"), new Description("to be2completed"), new DateTime("02112001 1230"), new UniqueTagList()),
+                    new Task(new Title("Homework 1"), new DateTime("01032001 1400"), new Description("to3be completed"), new DateTime("03112001"), new UniqueTagList()),
+                    new Task(new Title("Task 23"), new DateTime("01042001"), new Description("to be6completed"), new DateTime("04112001 2200"), new UniqueTagList()),
+                    new Task(new Title("Work to be done"), new DateTime("01052001 1300"), new Description("to9be completed"), new DateTime("05112001"), new UniqueTagList()),
+                    new Task(new Title("Must do"), new DateTime("01062001"), new Description("to be6completed"), new DateTime("06112001 1234"), new UniqueTagList()),
+                    new Task(new Title("Finish this asap"), new DateTime("01072001 0500"), new Description("to2be completed"), new DateTime("07112001"), new UniqueTagList()),
+                    new Task(new Title("Test revision"), new DateTime("01082001"), new Description("to be4completed"), new DateTime("08112001 1432"), new UniqueTagList()),
+                    new Task(new Title("Quiz"), new DateTime("01092001 2340"), new Description("toAbe completed"), new DateTime("09112001"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

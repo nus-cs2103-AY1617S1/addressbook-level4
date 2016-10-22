@@ -106,7 +106,7 @@ public class TaskListPanel extends UiPart {
     
     public void selectFirst() {
         Platform.runLater(() -> {
-            taskListView.getSelectionModel().selectFirst();;
+            taskListView.getSelectionModel().selectFirst();
         });
     }
 

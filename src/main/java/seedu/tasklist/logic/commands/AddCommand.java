@@ -19,9 +19,11 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task list. "
-            + "Parameters: TITLE [d/DESCRIPTION]  [s/START DATE TIME] [e/DUE DATE TIME] [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " CS2103 d/Pre tutorial 1 s/15102016 2100 e/15112016 2300 t/urgent";
+            + "Parameters: TITLE [d/DESCRIPTION]  [s/DDMMYYYY [HHMM]] [e/DDMMYYYY [HHMM]] [t/TAG]...\n"
+            + "Example: \n"
+            + COMMAND_WORD + " CS2103 d/Pre tutorial 1 s/15102016 2100 e/15112016 2300 t/urgent\n"
+            + COMMAND_WORD + " CS1020 Tutorial d/many questions e/05102016 t/needhelp\n"
+            + COMMAND_WORD + " Meeting";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
@@ -35,7 +37,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String title, String startDate, String description, String dueDate, Set<String> tags)
+    public AddCommand(String title, String startDateTime, String description, String endDateTime, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -43,9 +45,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Title(title),
-                new StartDate(startDate),
+                new DateTime(startDateTime),
                 new Description(description),
-                new DueDate(dueDate),
+                new DateTime(endDateTime),
                 new UniqueTagList(tagSet)
         );
     }
@@ -71,18 +73,18 @@ public class AddCommand extends Command {
     @Override
     public Command prepare(String args) {
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-
+        
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
-       
+        
         try {
             return new AddCommand(
                     matcher.group("title"),
-                    getDetailsFromArgs(matcher.group("startDate")),
+                    getDetailsFromArgs(matcher.group("startDateTime")),
                     getDetailsFromArgs(matcher.group("description")),
-                    getDetailsFromArgs(matcher.group("dueDate")),
+                    getDetailsFromArgs(matcher.group("endDateTime")),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
