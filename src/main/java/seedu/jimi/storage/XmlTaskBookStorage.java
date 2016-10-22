@@ -41,10 +41,10 @@ public class XmlTaskBookStorage implements TaskBookStorage {
             throws DataConversionException, FileNotFoundException {
         assert filePath != null;
         
-        File addressBookFile = new File(filePath);
+        File taskBookFile = new File(filePath);
         
-        if (!addressBookFile.exists()) {
-            logger.info("TaskBook file " + addressBookFile + " not found");
+        if (!taskBookFile.exists()) {
+            logger.info("TaskBook file " + taskBookFile + " not found");
             return Optional.empty();
         }
         

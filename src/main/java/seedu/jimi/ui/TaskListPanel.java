@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.jimi.commons.core.LogsCenter;
-import seedu.jimi.commons.events.model.AddressBookChangedEvent;
+import seedu.jimi.commons.events.model.TaskBookChangedEvent;
 import seedu.jimi.commons.events.ui.ShowTaskPanelSectionEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.jimi.model.datetime.DateTime;
@@ -98,40 +98,32 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-            ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList,
-            ObservableList<ReadOnlyTask> eventList) {
+            ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
+            ObservableList<ReadOnlyTask> completedTaskList, ArrayList<ObservableList<ReadOnlyTask>> daysList) {
         TaskListPanel taskListPanel = UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(taskList, deadlineTaskList, eventList);
+        taskListPanel.configure(floatingTaskList, incompleteTaskList, completedTaskList, daysList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList,
-            ObservableList<ReadOnlyTask> eventList) {
-        instantiateLists();
-        
-        updateFloatingTaskList(taskList);
-        updateCompletedAndIncompleteTaskList(taskList, deadlineTaskList);
-        updateTasksAndEventsForDays(deadlineTaskList, eventList);
-        
-        setConnections(taskList, deadlineTaskList, eventList);
+    private void configure(ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
+            ObservableList<ReadOnlyTask> completedTaskList, ArrayList<ObservableList<ReadOnlyTask>> daysList) {
+        instantiateLists(floatingTaskList, incompleteTaskList, completedTaskList, daysList);
+        setConnections();
         showFloatingTasks();
+        updateAllTitles();
         addToPlaceholder();
-        registerAsAnEventHandler(this); //to update labels
+        registerAsAnEventHandler(this); // to update labels
     }
 
-    private void instantiateLists() {
-        this.floatingTaskList = FXCollections.observableArrayList();
-        this.completedTaskList = FXCollections.observableArrayList();
-        this.incompleteTaskList = FXCollections.observableArrayList();
-        this.daysTaskList = new ArrayList<>(7); //7 days in a week
-        
-        for(int i = 0; i < 7; i++) {
-            this.daysTaskList.add(FXCollections.observableArrayList());
-        }
+    private void instantiateLists(ObservableList<ReadOnlyTask> floatingTaskList, ObservableList<ReadOnlyTask> incompleteTaskList,
+            ObservableList<ReadOnlyTask> completedTaskList, ArrayList<ObservableList<ReadOnlyTask>> daysList) {
+        this.floatingTaskList = floatingTaskList;
+        this.incompleteTaskList = incompleteTaskList;
+        this.completedTaskList = completedTaskList;
+        this.daysTaskList = daysList;
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList,
-            ObservableList<ReadOnlyTask> eventList) {
+    private void setConnections() {
         setupListViews();
         setEventHandlerForSelectionChangeEvent();
     }
@@ -148,6 +140,11 @@ public class TaskListPanel extends UiPart {
                 taskListViewDay5, taskListViewDay6, taskListViewDay7);
     }
     
+    /**
+     * Checks the listview's respective DayOfWeek and then assigns the list matched to it.
+     * @param daysTaskList
+     * @param taskListViewDays
+     */
     private void setupDaysListViews(ArrayList<ObservableList<ReadOnlyTask>> daysTaskList,
             ListView<ReadOnlyTask>... taskListViewDays) {
         int i = 0;
@@ -184,99 +181,6 @@ public class TaskListPanel extends UiPart {
         });
     }
     
-    private void updateFloatingTaskList(List<ReadOnlyTask> floatingTaskList) {
-        ObservableList<ReadOnlyTask> newFloatingTaskList = FXCollections.observableArrayList();
-        
-        for(ReadOnlyTask t : floatingTaskList) {
-            if(!(t instanceof DeadlineTask) && 
-                    !(t instanceof Event) && 
-                    !(t.isCompleted())){
-                newFloatingTaskList.add(t);
-            }
-        }
-        
-        this.floatingTaskList.setAll(newFloatingTaskList);
-        
-        updateFloatingTasksTitle();
-    }
-    
-    private void updateCompletedAndIncompleteTaskList(List<ReadOnlyTask> floatingTaskList, List<ReadOnlyTask> deadlineTaskList) {
-        ObservableList<ReadOnlyTask> newCompletedTaskList = FXCollections.observableArrayList();
-        ObservableList<ReadOnlyTask> newIncompleteTaskList = FXCollections.observableArrayList();
-        
-        //populate complete and incomplete task lists
-        for(ReadOnlyTask t : floatingTaskList){
-            if(t.isCompleted()){
-                newCompletedTaskList.add(t);
-            }
-            else {
-                newIncompleteTaskList.add(t);
-            }
-        }
-        
-        for(ReadOnlyTask t : deadlineTaskList){
-            if(t.isCompleted()){
-                newCompletedTaskList.add(t);
-            }
-            else {
-                newIncompleteTaskList.add(t);
-            }
-        }
-        
-        this.completedTaskList.setAll(newCompletedTaskList);
-        this.incompleteTaskList.setAll(newIncompleteTaskList);
-       
-        updateCompleteTasksTitle();
-        updateIncompleteTasksTitle();
-    }
-
-    /**
-     * Populates all the individual listViews for days with respective tasks due on the specific day.
-     * @param taskList
-     */
-    private void updateTasksAndEventsForDays(List<ReadOnlyTask> deadlineTaskList, List<ReadOnlyTask> eventList) {
-        ArrayList<ObservableList<ReadOnlyTask>> newDaysList = new ArrayList<>(7); //7 days in a week
-        
-        //initialise newDaysList
-        for(int i = 0; i < 7; i++) {
-            newDaysList.add(FXCollections.observableArrayList());
-        }
-        
-        //filter the tasks and events by days and populate each day with corresponding tasks and events
-        for(ReadOnlyTask t : deadlineTaskList) {
-            DateTime timeOfTask = ((DeadlineTask) t).getDeadline();
-            DateTime timeNow = new DateTime();
-
-            long dayToAdd = timeNow.getDifferenceInDays(timeOfTask); //checks for how many days ahead the task is
-            
-            logger.info("dayToAdd is :" + dayToAdd);
-            
-            if(dayToAdd >= 0) {
-                newDaysList.get((int) dayToAdd).add(t); //add the task to the respective day
-            }
-        }
-        
-        for(ReadOnlyTask t : eventList) {
-            DateTime timeOfEvent = ((Event) t).getStart();
-            DateTime timeNow = new DateTime();
-            
-            long dayToAdd = timeNow.getDifferenceInDays(timeOfEvent); //checks for how many days ahead the event is
-            
-            if(dayToAdd >= 0) {
-                newDaysList.get((int) dayToAdd).add(t); //add the event to the respective day
-            }
-        }
-        
-        //manually set all list to the new updated ones
-        int i = 0;
-        for(ObservableList<ReadOnlyTask> t : this.daysTaskList) {
-            t.setAll(newDaysList.get(i++));
-        }
-        
-        updateDaysTitles(titleTaskDay1, titleTaskDay2, titleTaskDay3, titleTaskDay4, titleTaskDay5, titleTaskDay6,
-                titleTaskDay7);
-    }
-
     private void updateFloatingTasksTitle() {
         this.titleFloatingTasks.setText("Floating Tasks (" + this.floatingTaskList.size() + ")");
     }
@@ -297,10 +201,18 @@ public class TaskListPanel extends UiPart {
             } else if(i == 1) {
                 t.setText("Tomorrow (" + this.daysTaskList.get(i++).size() + ")");
             } else {
-                String dayOfWeek = LocalDateTime.now().getDayOfWeek().plus(i + 1).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+                String dayOfWeek = LocalDateTime.now().getDayOfWeek().plus(i).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
                 t.setText(dayOfWeek + " (" + this.daysTaskList.get(i++).size() + ")");
             }
         }
+    }
+    
+    private void updateAllTitles() {
+        updateFloatingTasksTitle();
+        updateCompleteTasksTitle();
+        updateIncompleteTasksTitle();
+        updateDaysTitles(titleTaskDay1, titleTaskDay2, titleTaskDay3, titleTaskDay4, titleTaskDay5, titleTaskDay6,
+                titleTaskDay7);
     }
     
     //========== Event handlers ================================================================================
@@ -308,15 +220,13 @@ public class TaskListPanel extends UiPart {
     
     /**
      * Updates all the titles when taskBook is changed. Updates remaining tasks for each title.
-     * @param abce
+     * @param tbce
      */
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        updateFloatingTaskList(abce.data.getTaskList());
-        updateCompletedAndIncompleteTaskList(abce.data.getTaskList(), abce.data.getDeadlineTaskList());
-        updateTasksAndEventsForDays(abce.data.getDeadlineTaskList(), abce.data.getEventList());
+    public void handleTaskBookChangedEvent(TaskBookChangedEvent tbce) {
+        updateAllTitles();
         
-        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting floatingTaskListSize label to : " + ""+abce.data.getTaskList().size()));
+        logger.info(LogsCenter.getEventHandlingLogMessage(tbce, "Setting floatingTaskListSize label to : " + ""+tbce.data.getTaskList().size()));
     }
     
     /**
@@ -347,8 +257,9 @@ public class TaskListPanel extends UiPart {
         case "friday":
         case "saturday":
         case "sunday":
-        default:
             showRequiredDay(event.sectionToDisplay);
+        default:
+            break;
         }
     }
     /**

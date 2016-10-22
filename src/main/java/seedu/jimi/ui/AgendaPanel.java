@@ -29,7 +29,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import seedu.jimi.commons.core.LogsCenter;
-import seedu.jimi.commons.events.model.AddressBookChangedEvent;
+import seedu.jimi.commons.events.model.TaskBookChangedEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.jimi.commons.util.FxViewUtil;
 import seedu.jimi.model.datetime.DateTime;
@@ -98,18 +98,15 @@ public class AgendaPanel extends UiPart{
     }
     
     
-    public static AgendaPanel load(Stage primaryStage, AnchorPane agendaPlaceholder, ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList, ObservableList<ReadOnlyTask> eventList) {
+    public static AgendaPanel load(Stage primaryStage, AnchorPane agendaPlaceholder, ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList) {
         AgendaPanel agendaPanel = 
                 UiPartLoader.loadUiPart(primaryStage, agendaPlaceholder, new AgendaPanel());
-        agendaPanel.configure(taskList, deadlineTaskList, eventList);
+        agendaPanel.configure(taskList, eventList);
         return agendaPanel;
     }
     
-    private void configure(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> deadlineTaskList, ObservableList<ReadOnlyTask> eventList) {
-        instantiateObjectLists();
-        updateTasksList(taskList, deadlineTaskList);
-        updateEventsList(eventList);
-        
+    private void configure(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList) {
+        instantiateObjectLists(taskList, eventList);
         configureTaskColumnsCellFactories();
         configureEventsColumnsCellFactories();
         setConnections(taskList);
@@ -136,9 +133,9 @@ public class AgendaPanel extends UiPart{
     /**
      * Instantiates the tasks and events lists.
      */
-    private void instantiateObjectLists() {
-        this.tasksList = FXCollections.observableArrayList();
-        this.eventsList = FXCollections.observableArrayList();
+    private void instantiateObjectLists(ObservableList<ReadOnlyTask> taskList, ObservableList<ReadOnlyTask> eventList) {
+        this.tasksList = taskList;
+        this.eventsList = eventList;
     }
 
     /**
@@ -238,56 +235,6 @@ public class AgendaPanel extends UiPart{
                return new SimpleStringProperty();
             }
         });
-    }
-    
-    /**
-     * Runs every time the task list need to be re-populated.
-     * 
-     * @param taskList
-     */
-    private void updateTasksList(List<ReadOnlyTask> taskList, List<ReadOnlyTask> deadlineTaskList) {
-        ObservableList<ReadOnlyTask> newTasksList = FXCollections.observableArrayList();
-
-        for (ReadOnlyTask t : taskList) {
-            if (!(t instanceof Event) && !t.isCompleted()) {// TODO: add checks for due dates                    
-                newTasksList.add(t);
-            }
-        }
-        
-        for(ReadOnlyTask t : deadlineTaskList) {
-            if(t instanceof DeadlineTask) {
-                newTasksList.add(t);
-            }
-        }
-
-        this.tasksList.setAll(newTasksList);
-    }
-    
-    /**
-     * Runs every time the events list need to be re-populated.
-     * @param taskList
-     */
-    private void updateEventsList(List<ReadOnlyTask> eventList) {
-        ObservableList<ReadOnlyTask> newEventsList = FXCollections.observableArrayList();
-        
-        for(ReadOnlyTask t : eventList){
-            if(t instanceof Event) { //checks if startDate is ahead of current system time
-                newEventsList.add(t);
-            }
-        }
-        
-        this.eventsList.setAll(newEventsList);
-    }
-
-    /**
-     * Updates all the titles when taskBook is changed. Updates remaining tasks for each title.
-     * @param abce
-     */
-    @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        updateTasksList(abce.data.getTaskList(), abce.data.getDeadlineTaskList());
-        updateEventsList(abce.data.getEventList());
-        //TODO: update THIS - logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Reloading lists : " + ""+abce.data.getTaskList().size()));
     }
 }
    

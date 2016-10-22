@@ -22,31 +22,53 @@ public interface Model {
     /** Adds the given task */
     void addTask(ReadOnlyTask floatingTask) throws UniqueTaskList.DuplicateTaskException;
     
-    /** Adds the given deadlineTask */
-    void addDeadlineTask(ReadOnlyTask deadlineTask) throws UniqueTaskList.DuplicateTaskException;
-    
-    /** Adds the given event */
-    void addEvent(ReadOnlyTask event) throws UniqueTaskList.DuplicateTaskException;
-
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     
-    /** Returns the filtered deadlineTask list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
     
-    /** Returns the filtered event list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredCompletedTaskList();
+
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredIncompleteTaskList();
+    
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay1TaskList();
+    
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay2TaskList();
+    
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay3TaskList();
+    
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay4TaskList();
+    
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay5TaskList();
+    
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay6TaskList();
+    
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredDay7TaskList();
+    
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaTaskList();
+
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaEventList();
+
 
     /** Updates the filter of the filtered task list to show all task */
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+    
+    void updateFilteredFloatingTaskList(Set<String> keywords);
+    
+    void updateFilteredCompletedTaskList(Set<String> keywords);
 
+    void updateFilteredIncompleteTaskList(Set<String> keywords);
+
+    void updateFilteredAgendaTaskList(Set<String> keywords);
+
+    void updateFilteredAgendaEventList(Set<String> keywords);
+    
     /** Edits the floating task at the specified index */
-    void editReadOnlyTask(int targetIdx, ReadOnlyTask floatingTask);
+    void editReadOnlyTask(int targetIdx, ReadOnlyTask task);
 
     /** Sets the task to be completed/incomplete */
     void completeTask(ReadOnlyTask taskToComplete, boolean isComplete);
-
 }

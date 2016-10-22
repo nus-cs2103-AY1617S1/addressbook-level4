@@ -12,6 +12,7 @@ import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.ReadOnlyTaskBook;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.storage.XmlTaskBookStorage;
+import seedu.jimi.testutil.TestFloatingTask;
 import seedu.jimi.testutil.TypicalTestFloatingTasks;
 
 import java.io.IOException;

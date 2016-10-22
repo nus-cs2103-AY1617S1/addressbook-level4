@@ -1,7 +1,7 @@
 package guitests;
 
 import static org.junit.Assert.*;
-import static seedu.jimi.logic.commands.EditCommand.MESSAGE_EDIT_TASK_SUCCESS;
+import static seedu.jimi.logic.commands.EditCommand.MESSAGE_EDIT_SUCCESS;
 
 import org.junit.Test;
 
@@ -68,7 +68,7 @@ public class EditCommandTest extends AddressBookGuiTest{
         assertTrue(taskListPanel.isListMatching(expectedList));
         
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_EDIT_TASK_SUCCESS, expectedTask));
+        assertResultMessage(String.format(MESSAGE_EDIT_SUCCESS, expectedTask));
     }
 
 }

@@ -107,13 +107,13 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        agendaPanel = AgendaPanel.load(primaryStage, getAgendaPlaceholder(), logic.getFilteredTaskList(),
-                logic.getFilteredDeadlineTaskList(), logic.getFilteredEventList());
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(),
-                logic.getFilteredDeadlineTaskList(), logic.getFilteredEventList());
+        agendaPanel = AgendaPanel.load(primaryStage, getAgendaPlaceholder(), logic.getFilteredAgendaTaskList(),
+                logic.getFilteredAgendaEventList());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredFloatingTaskList(),
+                logic.getFilteredIncompleteTaskList(), logic.getFilteredCompletedTaskList(),
+                logic.getFilteredDaysTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), 
-                config.getTaskBookFilePath());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 

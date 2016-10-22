@@ -1,5 +1,7 @@
 package seedu.jimi.logic;
 
+import java.util.ArrayList;
+
 import javafx.collections.ObservableList;
 import seedu.jimi.logic.commands.CommandResult;
 import seedu.jimi.model.task.ReadOnlyTask;
@@ -18,10 +20,29 @@ public interface Logic {
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
     
-    /** Returns the filtered list of deadlineTasks */
-    ObservableList<ReadOnlyTask> getFilteredDeadlineTaskList();
-    
-    /** Returns the filtered list of events */
-    ObservableList<ReadOnlyTask> getFilteredEventList();
+    ObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
 
+    ObservableList<ReadOnlyTask> getFilteredCompletedTaskList();
+    
+    ObservableList<ReadOnlyTask> getFilteredIncompleteTaskList();
+    
+    ArrayList<ObservableList<ReadOnlyTask>> getFilteredDaysTaskList();
+    
+    ObservableList<ReadOnlyTask> getFilteredDay1TaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredDay2TaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredDay3TaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredDay4TaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredDay5TaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredDay6TaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredDay7TaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredAgendaTaskList();
+
+    ObservableList<ReadOnlyTask> getFilteredAgendaEventList();
 }
