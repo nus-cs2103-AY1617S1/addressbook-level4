@@ -121,7 +121,6 @@ Task-list data are saved in the hard disk automatically after any command that c
 ## Command Summary
 
 Command 	| Format  
-
 --------------- | :-------- 
 Add	Todo	| `add TASK_NAME from/DATE to/ENDDATE p/PRIORITY`
 Add	Event	| `add TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`
@@ -129,7 +128,6 @@ Add	Deadline| `add TASK_NAME on/DATE at/END_TIME`
 Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE p/PRIORITY`
 Edit	Event	| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`
 Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME on/DATE at/END_TIME`
-
 --------------- | :--------
 Add	Todo	| `add TASK_NAME d/DATE p/PRIORITY`
 Add	Event	| `add TASK_NAME d/DATE s/START_TIME e/END_TIME`
@@ -137,7 +135,6 @@ Add	Deadline| `add TASK_NAME d/DATE e/END_TIME`
 Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE p/PRIORITY`
 Edit	Event	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME`
 Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME`
-
 Delete		| `delete TASK_TYPE INDEX_NUMBER`
 Done		| `done TASK_TYPE INDEX_NUMBER`
 List		| `list TASK_TYPE`
