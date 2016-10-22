@@ -69,8 +69,7 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         if (contains(toAdd)) {
             throw new DuplicateFloatingTaskException();
         }
-        internalList.add(index, toAdd);
-        
+        internalList.add(index, toAdd);        
     }
     
     public void edit(FloatingTask edited, ReadOnlyFloatingTask beforeEdit) throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {

@@ -16,44 +16,36 @@ import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
-public class UndoCommand extends Command {
+public class RedoCommand extends Command {
 
-    public static final String COMMAND_WORD = "undo";
+    public static final String COMMAND_WORD = "redo";
     public String result;
     
     @Override
     public CommandResult execute() {
 
-        Stack<InputHistory> history = model.getHistory();
-        if (history.isEmpty()) {
-            return new CommandResult("No action to undo!");
+        Stack<InputHistory> future = model.getFuture();
+        if (future.isEmpty()) {
+            return new CommandResult("No action to redo!");
         }
-        InputHistory previous = history.pop();
+        InputHistory previous = future.pop();
         
         switch (previous.getUndoCommand()) {
 
         case AddCommand.COMMAND_WORD:
             result = executeAdd((InputDeleteHistory) previous);
-            model.getFuture().push(history.pop());
-            showAllPanels();
             return new CommandResult(result);
 
         case DeleteCommand.COMMAND_WORD:
             result = executeDelete((InputAddHistory) previous);
-            model.getFuture().push(history.pop());
-            showAllPanels();
             return new CommandResult(result);
 
         case EditCommand.COMMAND_WORD:
             result = executeEdit((InputEditHistory) previous);
-            model.getFuture().push(history.pop());
-            showAllPanels();
             return new CommandResult(result);
         
         case ClearCommand.COMMAND_WORD:
             result = executeClear((InputClearHistory)previous);
-            model.getFuture().push(history.pop());
-            showAllPanels();
             return new CommandResult(result);
 
         }
@@ -64,7 +56,7 @@ public class UndoCommand extends Command {
         System.out.println(previous.getFloatingTask().getInternalList().isEmpty());
         ReadOnlyMalitio previousModel = new Malitio(previous.getFloatingTask(), previous.getDeadline(), previous.getEvent(), previous.getTag());
         model.resetData(previousModel);
-        return "Undo clear successful.";
+        return "Redo clear successful.";
         
     }
 
@@ -72,7 +64,7 @@ public class UndoCommand extends Command {
         if (previous.getType().equals("floating task")) {
             try {
                 model.editFloatingTask(previous.getEditedTask(), previous.getTaskToEdit());
-                return ("Undo edit successful. Revert edit from" + previous.getTaskToEdit().toString() + " to "+ previous.getEditedTask().toString());
+                return ("Redo successful. Redo edit from" + previous.getTaskToEdit().toString() + " to "+ previous.getEditedTask().toString());
             } catch (DuplicateFloatingTaskException e) {
                 assert false : "not possible";
             } catch (FloatingTaskNotFoundException e) {
@@ -83,7 +75,7 @@ public class UndoCommand extends Command {
         else if (previous.getType().equals("deadline")) {
             try {
                 model.editDeadline(previous.getEditedDeadline(), previous.getDeadlineToEdit());
-                return ("Undo edit successful. Revert edit from" + previous.getDeadlineToEdit().toString() + " to "+ previous.getEditedDeadline().toString());
+                return ("Redo successful. Redo edit from" + previous.getDeadlineToEdit().toString() + " to "+ previous.getEditedDeadline().toString());
             } catch (DuplicateDeadlineException e) {
                 assert false : "not possible";
             } catch (DeadlineNotFoundException e) {
@@ -93,7 +85,7 @@ public class UndoCommand extends Command {
         else {
             try {
                 model.editEvent(previous.getEditedEvent(), previous.getEventToEdit());
-                return ("Undo edit successful. Revert edit from" + previous.getEventToEdit().toString() + " to "+ previous.getEditedEvent().toString());
+                return ("Redo successful. Redo edit from" + previous.getEventToEdit().toString() + " to "+ previous.getEditedEvent().toString());
             } catch (DuplicateEventException e) {
                 assert false : "not possible";
             } catch (EventNotFoundException e) {
@@ -108,26 +100,26 @@ public class UndoCommand extends Command {
         if (previous.getType().equals("floating task")) {
             try {
                 model.addFloatingTaskAtSpecificPlace(previous.getFloatingTask(), previous.getPositionOfFloatingTask());
-                return "Successful. Undo delete Floating Task: " + previous.getFloatingTask().toString();
+                return "Redo successful. Redo delete Floating Task: " + previous.getFloatingTask().toString();
             } catch (DuplicateFloatingTaskException e) {
                 assert false : "not possible";
             }
         } else if (previous.getType().equals("deadline")) {
             try {
                 model.addDeadline(previous.getDeadline());
-                return "Successful. Undo delete Deadline: " + previous.getDeadline().toString();
+                return "Redo successful. Redo delete Deadline: " + previous.getDeadline().toString();
             } catch (DuplicateDeadlineException e) {
                 assert false : "not possible";
             }
         } else {
             try {
                 model.addEvent(previous.getEvent());
-                return "Successful. Undo delete Event: " + previous.getEvent().toString();
+                return "Redo successful. Redo delete Event: " + previous.getEvent().toString();
             } catch (DuplicateEventException e) {
                 assert false : "not possible";
             }
         }
-        return "Undo failed";
+        return "Redo failed";
     }
 
     public String executeDelete(InputAddHistory previous) {
@@ -135,34 +127,25 @@ public class UndoCommand extends Command {
         if (previous.getType().equals("floating task")) {
             try {
                 model.deleteTask(previous.getFloatingTask());
-                return "Successful: Undo add Floating Task: " + previous.getFloatingTask().toString();
+                return "Redo Successful: Redo add Floating Task: " + previous.getFloatingTask().toString();
             } catch (FloatingTaskNotFoundException e) {
                 assert false : "not possible";
             }
         } else if (previous.getType().equals("deadline")) {
             try {
                 model.deleteTask(previous.getDeadline());
-                return "Successful. Undo add Deadline: " + previous.getDeadline().toString();
+                return "Redo Successful. Redo add Deadline: " + previous.getDeadline().toString();
             } catch (DeadlineNotFoundException e) {
                 assert false : "not possible";
             }
         } else {
             try {
                 model.deleteTask(previous.getEvent());
-                return "Successful. Undo add Event: " + previous.getEvent().toString();
+                return "Redo successful. Redo add Event: " + previous.getEvent().toString();
             } catch (EventNotFoundException e) {
                 assert false : "not possible";
             }
         }
-        return "Undo Failed";
-    }
-    
-    /**
-     * A method to show all panels on the model.
-     */
-    private void showAllPanels() {
-        model.updateFilteredTaskListToShowAll();
-        model.updateFilteredDeadlineListToShowAll();
-        model.updateFilteredEventListToShowAll();
+        return "Redo Failed";
     }
 }

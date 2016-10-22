@@ -41,6 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Deadline> filteredDeadlines;
     private final FilteredList<Event> filteredEvents;
     private Stack<InputHistory> history;
+    private Stack<InputHistory> future;
 
     /**
      * Initializes a ModelManager with the given Malitio
@@ -58,6 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlines = new FilteredList<>(malitio.getDeadlines());
         filteredEvents = new FilteredList<>(malitio.getEvents());
         history = new Stack<InputHistory>();
+        future = new Stack<InputHistory>();
     }
 
     public ModelManager() {
@@ -70,6 +72,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlines = new FilteredList<>(malitio.getDeadlines());
         filteredEvents = new FilteredList<>(malitio.getEvents());
         history = new Stack<InputHistory>();
+        future = new Stack<InputHistory>();
     }
 
     @Override
@@ -160,6 +163,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public Stack<InputHistory> getHistory() {
         return history;
+    }
+    
+    @Override
+    public Stack<InputHistory> getFuture() {
+        return future;
     }
     
 

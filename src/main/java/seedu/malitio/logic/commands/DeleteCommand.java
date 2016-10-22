@@ -70,16 +70,19 @@ public class DeleteCommand extends Command {
         case 'f':
             ReadOnlyFloatingTask taskToDelete = model.getFilteredFloatingTaskList().get(targetIndex - 1);
             executeDelete(taskToDelete);
+            model.getFuture().clear();
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
 
         case 'd':
             ReadOnlyDeadline deadlineToDelete = model.getFilteredDeadlineList().get(targetIndex - 1);
             executeDelete(deadlineToDelete);
+            model.getFuture().clear();
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deadlineToDelete));
 
         default:
             ReadOnlyEvent eventToDelete = model.getFilteredEventList().get(targetIndex - 1);
             executeDelete(eventToDelete);
+            model.getFuture().clear();
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, eventToDelete));
         }
     }

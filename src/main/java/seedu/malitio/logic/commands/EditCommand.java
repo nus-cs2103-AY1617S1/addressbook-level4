@@ -182,14 +182,17 @@ public class EditCommand extends Command{
         CommandResult result;
         if (taskType=='f') {
             result = executeEditFloatingTask();
+            model.getFuture().clear();
             return result;
         }
         else if (taskType=='d') {
             result = executeEditDeadline();
+            model.getFuture().clear();
             return result;
         }
         else {
             result = executeEditEvent();
+            model.getFuture().clear();
             return result;
         }
         

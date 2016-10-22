@@ -63,6 +63,9 @@ public interface Model {
     
     /** Returns the History of the Model so far */
     Stack<InputHistory> getHistory();
+    
+    /** Returns the Future of the Model so far which are commands that are undo-ed */
+    Stack<InputHistory> getFuture();
 
     /** Updates the filter of the filtered floating task list to show all tasks */
     void updateFilteredTaskListToShowAll();
