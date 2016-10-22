@@ -154,6 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(allTasks);
     }
     
+    //@@author A0139930B
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList() {
         return new UnmodifiableObservableList<>(filteredTodos);
@@ -168,7 +169,8 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
         return new UnmodifiableObservableList<>(filteredEvents);
     }
-
+    
+    //@@author
     @Override
     public void updateFilteredListToShowAll() {
         allTasks.setPredicate(null);
