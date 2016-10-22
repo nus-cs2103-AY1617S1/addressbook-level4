@@ -12,6 +12,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     private Name name;
     private TaskPeriod period;
     private boolean isDone;
+    private boolean isOverdue;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -91,6 +92,11 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 	@Override
 	public boolean isEvent() {
 		return period.isEvent();
+	}
+	
+	@Override
+	public boolean isOverdue() {
+		return isOverdue;
 	}
 	
 	//@@author

@@ -26,7 +26,8 @@ public class XmlAdaptedTask {
     private String endTime;
     @XmlElement
     private boolean isDone;
-
+    @XmlElement
+    private boolean isOverdue;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -61,16 +62,13 @@ public class XmlAdaptedTask {
             endTime = sourceEndTime.toString();
         }
         isDone = source.getIsDone();
+        
+        isOverdue = source.isOverdue();
+        
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
-    }
-    
-    public void markAsDone() {
-    	if (!isDone) {
-    		isDone = true;
-    	}
     }
 
     /**
@@ -109,7 +107,10 @@ public class XmlAdaptedTask {
         Task task = new Task(name, new TaskPeriod(startDate, startTime, endDate, endTime), tags);
         
        if (isDone) {
-        	task.markAsDone();
+    	   task.markAsDone();
+       }
+       if (isOverdue) {
+    	   task.markAsOverdue();
        }
         
         return task;

@@ -14,6 +14,7 @@ public interface ReadOnlyTask {
     boolean isTodo();
     boolean isDeadline();
     boolean isEvent();
+    boolean isOverdue();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -58,5 +59,4 @@ public interface ReadOnlyTask {
         }
     }
 	
-
 }
