@@ -30,10 +30,14 @@ public class ClearCommand extends UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
-        if (!getIsRedo()) {
+        
+        // record the target list if this is a new action (and not a redo action)
+        if (!isRedoAction()) {
             viewingDoneList = model.isCurrentListDoneList();
         }
         
+        // save the list in clearedTasks for undo/redo purposes
+        // clear the appropriate list
         if (viewingDoneList) {
             clearedTasks = new ArrayList<Task>(model.getTaskManager().getUniqueDoneTaskList().getInternalList());
             model.resetDoneData(TaskManager.getEmptyTaskManager());
@@ -42,19 +46,26 @@ public class ClearCommand extends UndoableCommand {
             model.resetData(TaskManager.getEmptyTaskManager());
         }
        
+        // update the history with this command
         updateHistory();
+          
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
 
     @Override
     public CommandResult undo() {
+        assert model != null && clearedTasks != null;
+           
+        // attempt to undo the clear by adding back the list of tasks that was cleared
+        // add back to the list the user was viewing when clear was executed
         if (viewingDoneList) {
             model.addDoneTasks(clearedTasks);
         }
         else {
             model.addTasks(clearedTasks);
         }
+        
         return new CommandResult(MESSAGE_UNDO_SUCCESS);
     }
 }

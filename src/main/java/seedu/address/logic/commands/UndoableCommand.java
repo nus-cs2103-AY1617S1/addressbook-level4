@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 public abstract class UndoableCommand extends Command {
     
-    // Temporary fix, don't really like this.
     private boolean isRedo;
     
     /**
@@ -12,19 +11,29 @@ public abstract class UndoableCommand extends Command {
      */
     public abstract CommandResult undo();   
     
+    /**
+     * Updates the history of undoable commands with this command, if this command is not a 
+     * command that was executed as part of a redo command.
+     *
+     */
     public void updateHistory(){
         
-        // temporary fix, don't really like this.
         if (isRedo) {
             return;
         }
         
         history.updateCommandHistory(this);
         history.resetRedo();
+        
         isRedo = true;
     }
     
-    public boolean getIsRedo() {
+    /**
+     * Getter method to check if the current command is a new command or is a command executed
+     * as part of a redo command.
+     * @return boolean representing if the current command is executed as part of a redo command
+     */
+    public boolean isRedoAction() {
         return isRedo;
     }
 

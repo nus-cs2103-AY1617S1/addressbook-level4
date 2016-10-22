@@ -27,8 +27,9 @@ public class DoneCommand extends UndoableCommand {
     public static final String MESSAGE_DONE_ITEM_SUCCESS = "Archived Task: %1$s";
     public static final String MESSAGE_DONE_ITEMS_SUCCESS = "Archived Tasks: %1$s";
     
-    // temporary TODO
     public static final String MESSAGE_DONE_UNDO_SUCCESS = "Undid archive tasks! Tasks restored to undone list!";
+    
+    
 
     
     private List<Task> doneTasks;
@@ -51,7 +52,7 @@ public class DoneCommand extends UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
-        if (!getIsRedo()) {
+        if (!isRedoAction()) {
             viewingDoneList = model.isCurrentListDoneList();
         }
         if (viewingDoneList) {

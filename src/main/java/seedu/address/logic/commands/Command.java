@@ -12,8 +12,7 @@ import seedu.address.model.Model;
  */
 public abstract class Command {
     protected Model model;
-    protected UndoableCommandHistory history; // TODO: Not sure if this is a good idea, not all commands need to know about command history.
-                                              // although the same applies for model, e.g. help and exit do not need to know about model..
+    protected UndoableCommandHistory history; 
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.

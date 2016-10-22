@@ -42,9 +42,10 @@ public class DeleteCommand extends UndoableCommand {
 
     @Override
     public CommandResult execute() {
-        assert model != null;
+        assert model != null && targetIndexes != null;
+        
         displayDeletedTasks = new ArrayList<String>();
-        if (!getIsRedo()) {
+        if (!isRedoAction()) {
             viewingDoneList = model.isCurrentListDoneList();
         }
         Collections.sort(targetIndexes);
@@ -137,12 +138,17 @@ public class DeleteCommand extends UndoableCommand {
 
     @Override
     public CommandResult undo() {
+        assert model != null && deletedTasks != null;    
+        
+        // attempt to undo the delete by adding back the list of tasks that was deleted
+        // add back to the list the user was viewing when clear was executed
         if (viewingDoneList) {
             model.addDoneTasks(deletedTasks);
         }
         else {
             model.addTasks(deletedTasks);
         }
+        
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, displayDeletedTasks));
     }
 
