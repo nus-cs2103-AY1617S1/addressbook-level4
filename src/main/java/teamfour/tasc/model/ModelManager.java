@@ -90,6 +90,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+
+
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -106,49 +108,49 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
-    
+
     @Override
     public void resetTaskListFilter() {
         taskListFilter = new PredicateExpression(new AllQualifier());
     }
-    
+
     @Override
     public void addTaskListFilterByType(String type, boolean negated) {
         assert type != null;
         taskListFilter.and(new PredicateExpression(new TypeQualifier(type), negated));
     }
-    
+
     @Override
     public void addTaskListFilterByDeadline(Date deadline, boolean negated) {
         assert deadline != null;
         taskListFilter.and(new PredicateExpression(new DeadlineQualifier(deadline), negated));
     }
-    
+
     @Override
     public void addTaskListFilterByStartTime(Date startTime, boolean negated) {
         assert startTime != null;
         taskListFilter.and(new PredicateExpression(new StartTimeQualifier(startTime), negated));
     }
-    
+
     @Override
     public void addTaskListFilterByEndTime(Date endTime, boolean negated) {
         assert endTime != null;
         taskListFilter.and(new PredicateExpression(new EndTimeQualifier(endTime), negated));
     }
-    
+
     @Override
     public void addTaskListFilterByStartToEndTime(Date startTime, Date endTime, boolean negated) {
         assert startTime != null;
         assert endTime != null;
         taskListFilter.and(new PredicateExpression(new StartToEndTimeQualifier(startTime, endTime), negated));
     }
-    
+
     @Override
     public void addTaskListFilterByTags(Set<String> tags, boolean negated) {
         assert tags != null;
         taskListFilter.and(new PredicateExpression(new TagQualifier(tags), negated));
     }
-    
+
     @Override
     public void sortFilteredTaskListByOrder(String sortOrder) {
         assert sortOrder != null;
@@ -171,7 +173,7 @@ public class ModelManager extends ComponentManager implements Model {
             break;
         }
     }
-    
+
     @Override
     public void updateFilteredTaskListByFilter() {
         updateFilteredTaskList(taskListFilter);
@@ -197,13 +199,13 @@ public class ModelManager extends ComponentManager implements Model {
         PredicateExpression(Qualifier qualifier) {
             this(qualifier, false);
         }
-        
+
         PredicateExpression(Qualifier qualifier, boolean negated) {
             this.qualifier = qualifier;
             this.and = null;
             this.isNegated = negated;
         }
-        
+
         /**
          * Chains the predicate using logical AND of this predicate and another.
          * @param and The other predicate
@@ -243,7 +245,7 @@ public class ModelManager extends ComponentManager implements Model {
         boolean run(ReadOnlyTask task);
         String toString();
     }
-    
+
     private class AllQualifier implements Qualifier {
         AllQualifier() {}
 
@@ -268,7 +270,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().getName(), keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCasePartial(task.getName().getName(), keyword))
                     .findAny()
                     .isPresent();
         }
@@ -278,7 +280,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-    
+
     private class TypeQualifier implements Qualifier {
         private String type;
 
@@ -290,7 +292,7 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
             String[] typeWords = type.toLowerCase().split(" ");
             String taskType = (" " + task.getAsTypeKeywords()).toLowerCase();
-            
+
             for (String typeWord : typeWords) {
                 if (!taskType.contains(" " + typeWord))
                     return false;
@@ -303,7 +305,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "type=" + type;
         }
     }
-    
+
     private class DeadlineQualifier implements Qualifier {
         private Date deadline;
 
@@ -324,7 +326,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "deadline=" + deadline;
         }
     }
-    
+
     private class StartTimeQualifier implements Qualifier {
         private Date startTime;
 
@@ -347,7 +349,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "startTime=" + startTime;
         }
     }
-    
+
     private class EndTimeQualifier implements Qualifier {
         private Date endTime;
 
@@ -370,7 +372,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "endTime=" + endTime;
         }
     }
-    
+
     private class StartToEndTimeQualifier implements Qualifier {
         private Date startTime;
         private Date endTime;
@@ -397,7 +399,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "startTime=" + startTime + ",endTime=" + endTime;
         }
     }
-    
+
     private class TagQualifier implements Qualifier {
         private Set<String> tagNames;
 
@@ -422,7 +424,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "tags=" + String.join(", ", tagNames);
         }
     }
-    
+
 
     //========== Inner classes/interfaces used for sorting ==================================================
 
@@ -434,13 +436,13 @@ public class ModelManager extends ComponentManager implements Model {
                 timeA = (int)(a.getDeadline().getDeadline().getTime() / 1000);
             else if (a.getPeriod().hasPeriod())
                 timeA = (int)(a.getPeriod().getStartTime().getTime() / 1000);
-            
+
             int timeB = 0;
             if (b.getDeadline().hasDeadline())
                 timeB = (int)(b.getDeadline().getDeadline().getTime() / 1000);
             else if (b.getPeriod().hasPeriod())
                 timeB = (int)(b.getPeriod().getStartTime().getTime() / 1000);
-            
+
             return timeA - timeB;
         }
     }
@@ -453,24 +455,25 @@ public class ModelManager extends ComponentManager implements Model {
                 timeA = (int)(a.getDeadline().getDeadline().getTime() / 1000);
             else if (a.getPeriod().hasPeriod())
                 timeA = (int)(a.getPeriod().getStartTime().getTime() / 1000);
-            
+
             int timeB = 0;
             if (b.getDeadline().hasDeadline())
                 timeB = (int)(b.getDeadline().getDeadline().getTime() / 1000);
             else if (b.getPeriod().hasPeriod())
                 timeB = (int)(b.getPeriod().getStartTime().getTime() / 1000);
-            
+
             return timeB - timeA;
         }
     }
-    
+   
     private class AToZComparator implements Comparator<ReadOnlyTask> {
+
         @Override
         public int compare(ReadOnlyTask a, ReadOnlyTask b) {
             return a.getName().getName().compareTo(b.getName().getName());
         }
     }
-    
+
     private class ZToAComparator implements Comparator<ReadOnlyTask> {
         @Override
         public int compare(ReadOnlyTask a, ReadOnlyTask b) {

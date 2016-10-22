@@ -17,7 +17,7 @@ public interface Model {
     public static final String SORT_ORDER_BY_LATEST_FIRST = "latest first";
     public static final String SORT_ORDER_BY_A_TO_Z = "a-z";
     public static final String SORT_ORDER_BY_Z_TO_A = "z-a";
-    
+
     /** Clears existing backing model and replaces with the provided new data */
     void resetData(ReadOnlyTaskList newData);
 
@@ -38,47 +38,47 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords */
     void updateFilteredTaskList(Set<String> keywords);
-    
+
     /** Removes all filters of the filtered task list */
     void resetTaskListFilter();
 
-    /** 
+    /**
      * Precondition: arguments are not null.
-     * Adds the filter of the filtered task list by the given type 
+     * Adds the filter of the filtered task list by the given type
      */
     void addTaskListFilterByType(String type, boolean negated);
 
-    /** 
+    /**
      * Precondition: arguments are not null.
-     * Adds the filter of the filtered task list by the given deadline 
+     * Adds the filter of the filtered task list by the given deadline
      */
     void addTaskListFilterByDeadline(Date deadline, boolean negated);
-    
-    /** 
+
+    /**
      * Precondition: arguments are not null.
-     * Adds the filter of the filtered task list by the given start time 
+     * Adds the filter of the filtered task list by the given start time
      */
     void addTaskListFilterByStartTime(Date startTime, boolean negated);
 
-    /** 
+    /**
      * Precondition: arguments are not null.
-     * Adds the filter of the filtered task list by the given end time 
+     * Adds the filter of the filtered task list by the given end time
      */
     void addTaskListFilterByEndTime(Date endTime, boolean negated);
-    
-    /** 
+
+    /**
      * Precondition: arguments are not null.
-     * Adds the filter of the filtered task list by between start time and end time 
+     * Adds the filter of the filtered task list by between start time and end time
      */
     void addTaskListFilterByStartToEndTime(Date startTime, Date endTime, boolean negated);
-    
-    /** 
+
+    /**
      * Precondition: arguments are not null.
-     * Adds the filter of the filtered task list by the given tag names 
+     * Adds the filter of the filtered task list by the given tag names
      */
     void addTaskListFilterByTags(Set<String> tags, boolean negated);
-    
-    /** 
+
+    /**
      * Precondition: arguments are not null.
      * Sorts the filtered task list by the given sorting order
      */
