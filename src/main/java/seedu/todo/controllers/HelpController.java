@@ -50,6 +50,8 @@ public class HelpController implements Controller {
                                          DestroyController.getCommandDefinition(),
                                          ConfigController.getCommandDefinition(),
                                          DestroyController.getCommandDefinition(),
+                                         ClearController.getCommandDefinition(),
+                                         FindController.getCommandDefinition(),
                                          ExitController.getCommandDefinition() };
     }
 }

@@ -5,6 +5,7 @@ import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -20,20 +21,15 @@ import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.models.TodoListDB;
 
-/**
- * Controller to list CalendarItems.
- * 
- * @author Tiong Yaocong
- *
- */
-public class ListController implements Controller {
+public class FindController implements Controller {
     
-    private static final String NAME = "List";
-    private static final String DESCRIPTION = "Lists all tasks and events.";
-    private static final String COMMAND_SYNTAX = "list [task/event] [complete/incomplete] [on date] or [from date to date]";
-    private static final String COMMAND_WORD = "list";
+    private static final String NAME = "Find";
+    private static final String DESCRIPTION = "Find all tasks and events based on the provided keywords.\n" + 
+    "This command will be search with non-case sensitive keywords.";
+    private static final String COMMAND_SYNTAX = "find [name] or/and [on date]";
+    private static final String COMMAND_WORD = "find";
     
-    private static final String MESSAGE_LISTING_SUCCESS = "Listing a total of %s";
+    private static final String MESSAGE_LISTING_SUCCESS = "A total of %s found!";
     private static final String MESSAGE_LISTING_FAILURE = "No task or event found!";
     
     private static CommandDefinition commandDefinition =
@@ -45,17 +41,19 @@ public class ListController implements Controller {
 
     @Override
     public float inputConfidence(String input) {
-        return (input.toLowerCase().startsWith("list")) ? 1 : 0;
+        return (input.toLowerCase().startsWith(COMMAND_WORD)) ? 1 : 0;
     }
     
     private static Map<String, String[]> getTokenDefinitions() {
         Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
-        tokenDefinitions.put("default", new String[] {"list"});
+        tokenDefinitions.put("default", new String[] {"find"});
         tokenDefinitions.put("eventType", new String[] { "event", "events", "task", "tasks"});
-        tokenDefinitions.put("status", new String[] { "complete" , "completed", "incomplete", "incompleted"});
+        tokenDefinitions.put("status", new String[] { "complete" , "completed", "uncomplete", "uncompleted"});
         tokenDefinitions.put("time", new String[] { "at", "by", "on", "time" });
         tokenDefinitions.put("timeFrom", new String[] { "from" });
         tokenDefinitions.put("timeTo", new String[] { "to", "before" });
+        tokenDefinitions.put("name", new String[] { "name" });
+        tokenDefinitions.put("tag", new String [] { "tag" }); //TODO
         return tokenDefinitions;
     }
 
@@ -70,8 +68,13 @@ public class ListController implements Controller {
             return ;
         }
         
-        boolean isExactCommand = parseExactListCommand(parsedResult);
+        HashSet<String> itemNameList = new HashSet<String>();
         
+        parseExactFindCommand(parsedResult, itemNameList);
+        
+        parseName(parsedResult, itemNameList); //parse addtional name enter by user
+        System.out.println(Arrays.toString(parsedResult.get("name")));
+        System.out.println(itemNameList);
         // Task or event?
         boolean listAll = parseListAllType(parsedResult);
         
@@ -83,20 +86,26 @@ public class ListController implements Controller {
         
         boolean listAllStatus = parseListAllStatus(parsedResult);
         boolean isCompleted = false; //default 
-        //if listing all status, isCompleted will be ignored, listing both complete and incomplete
+        //if listing all status, isCompleted will be ignored, listing both complete and uncomplete
         if (!listAllStatus) {
-            isCompleted = !parseIsIncomplete(parsedResult);
+            isCompleted = !parseIsUncomplete(parsedResult);
         }
         
         String[] parsedDates = parseDates(parsedResult);
-        boolean isDateProvided = true;
+        if (parsedDates == null && listAllStatus == true && listAll == true 
+                && parsedResult.size() == 1 && itemNameList.size() == 0) {
+            //display error message, no keyword provided
+            String disambiguationString = String.format("%s %s %s %s", COMMAND_WORD, "<name>" , 
+                    "<complete/incomplete>", "<task/event>");  
+            Renderer.renderDisambiguation(disambiguationString, input);
+            return ;
+        }
+        
         LocalDateTime dateOn = null;
         LocalDateTime dateFrom = null;
         LocalDateTime dateTo = null;
         
-        if (parsedDates == null) {
-            isDateProvided = false;
-        } else {
+        if (parsedDates != null) {
             String naturalOn = parsedDates[0];
             String naturalFrom = parsedDates[1];
             String naturalTo = parsedDates[2];
@@ -105,12 +114,9 @@ public class ListController implements Controller {
             dateOn = naturalOn == null ? null : parseNatural(naturalOn); 
             dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
             dateTo = naturalTo == null ? null : parseNatural(naturalTo);
-            
-            //setting up view
-            
         }
-        setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided, 
-                parsedDates, isExactCommand, input);
+        //setting up view
+        setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList);
         
     }
 
@@ -135,32 +141,23 @@ public class ListController implements Controller {
      *            End date for Event
      */
     private void setupView(boolean isTask, boolean listAll, boolean isCompleted,
-            boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom, 
-            LocalDateTime dateTo, boolean isDateProvided, String[] parsedDates, boolean isExactCommand, String input) {
+            boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
+            LocalDateTime dateTo, HashSet<String> itemNameList) {
         TodoListDB db = TodoListDB.getInstance();
         List<Task> tasks = null;
         List<Event> events = null;
         // isTask and isEvent = true, list all type
-        if (listAll) { //task or event not specify
+        if (listAll) {
             //no event or task keyword found
             isTask = false;
-            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
-                    isExactCommand, listAll, db);
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
-                    isExactCommand, listAll, db);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
         }
         
         if (isTask) {
-            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
-                    isExactCommand, listAll, db);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
         } else {
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
-                    isExactCommand, listAll, db);
-        }
-        
-        if (tasks == null && events == null) {
-            displayErrorMessage(input, listAll, listAllStatus, isCompleted, isTask, parsedDates);
-            return ; //display error message
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, itemNameList, db);
         }
         
         // Update console message
@@ -175,64 +172,18 @@ public class ListController implements Controller {
             numEvents = events.size();
         }
         
-        String consoleMessage = "";
+        String consoleMessage = MESSAGE_LISTING_FAILURE;
         if (numTasks != 0 || numEvents != 0) {
             consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, formatDisplayMessage(numTasks, numEvents));
-        } else {
-            consoleMessage = MESSAGE_LISTING_FAILURE;
         }
         
         Renderer.renderSelected(db, consoleMessage, tasks, events);
        
     }
     
-    /**
-     * display error message due to invalid clear command
-     * 
-     * @param input
-     *            based on user input
-     * @param parsedDate            
-     *            the date entered by the user      
-     */
-    private void displayErrorMessage(String input, boolean listAll, boolean listAllStatus, boolean isCompleted,
-            boolean isTask, String[] parsedDates) {
-        String consoleDisplayMessage = String.format("You have entered : %s.",input);
-        String commandLineMessage = COMMAND_WORD;
-        String commandLineCompleteSuggestMessage = "complete";
-        String commandLineIncompleteSuggestMessage = "incomplete";
-        String commandLineTaskSuggestMessage = "task";
-        String commandLineEventSuggestMessage = "event";
-        
-        if (!listAll) {
-            if (isTask) {
-                commandLineMessage = String.format("%s %s", commandLineMessage, commandLineTaskSuggestMessage);
-            } else {
-                commandLineMessage = String.format("%s %s", commandLineMessage, commandLineEventSuggestMessage);
-            }
-        }
-        
-        if (!listAllStatus) {
-            if (isCompleted) {
-                commandLineMessage = String.format("%s %s", commandLineMessage, commandLineCompleteSuggestMessage);
-            } else {
-                commandLineMessage = String.format("%s %s", commandLineMessage, commandLineIncompleteSuggestMessage);
-            }
-        }
-        
-        if (parsedDates != null) {
-            if (parsedDates[0] != null) {
-                commandLineMessage = String.format("%s by <date>", commandLineMessage);
-            } else {
-                commandLineMessage = String.format("%s from <date> to <date>", commandLineMessage);
-            } 
-        }
-        
-        Renderer.renderDisambiguation(commandLineMessage, consoleDisplayMessage);
-    }
-    
     private String formatDisplayMessage (int numTasks, int numEvents) {
         if (numTasks != 0 && numEvents != 0) {
-            return String.format("%s and %s.", formatTaskMessage(numTasks), formatEventMessage(numEvents));
+            return String.format("%s and %s", formatTaskMessage(numTasks), formatEventMessage(numEvents));
         } else if (numTasks != 0) {
             return formatTaskMessage(numTasks);
         } else {
@@ -248,53 +199,69 @@ public class ListController implements Controller {
         return String.format("%d %s", numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"));
     }
     
-    private List<Event> setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn,
-            LocalDateTime dateFrom, LocalDateTime dateTo, boolean isDateProvided, 
-            boolean isExactCommand, boolean listAll, TodoListDB db) {
+    private List<Event> setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, 
+            LocalDateTime dateFrom, LocalDateTime dateTo, HashSet<String> itemNameList, TodoListDB db) {
+        final LocalDateTime NO_DATE = null;
         if (dateFrom == null && dateTo == null && dateOn == null) {
-            if (listAllStatus) { // not specify
-                if (isExactCommand && isDateProvided == false) {
-                    if (listAll) {
-                        return db.getAllCurrentEvents();
-                    } else {
-                        return db.getAllEvents();
-                    }
-                } else {
-                    return null;
-                }
-            } else if (isCompleted) {
-                return db.getEventByRange(null, LocalDateTime.now());
-            } else {
-                return db.getEventByRange(LocalDateTime.now(), null);
+            if (listAllStatus && itemNameList.size() == 0) {
+                System.out.println("error"); //TODO : Nothing found
+                return null;
+            } else if (listAllStatus && itemNameList.size() != 0) {
+                return db.getEventByName(db.getAllEvents(), itemNameList);
             }
+            else if (isCompleted) {
+                return db.getEventByRangeWithName(NO_DATE, LocalDateTime.now(), itemNameList);
+            } else {
+                return db.getEventByRangeWithName(LocalDateTime.now(), NO_DATE, itemNameList);
+            } 
         } else if (dateOn != null) { //by keyword found
-            return db.getEventByDate(dateOn);
+            return db.getEventbyDateWithName(dateOn, itemNameList);
         } else {
-            return db.getEventByRange(dateFrom, dateTo);
+            return db.getEventByRangeWithName(dateFrom, dateTo, itemNameList);
         }
     }
 
-    private List<Task> setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
-            LocalDateTime dateTo, boolean isDateProvided, boolean isExactCommand, boolean listAll, TodoListDB db) {
+    private List<Task> setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, 
+            LocalDateTime dateFrom, LocalDateTime dateTo, HashSet<String> itemNameList, TodoListDB db) {
         if (dateFrom == null && dateTo == null && dateOn == null) {
-            if (listAllStatus) { // not specify
-                if (isExactCommand && isDateProvided == false) {
-                    if (listAll) {
-                        return db.getIncompleteTasksAndTaskFromTodayDate();
-                    } else {
-                        return db.getAllTasks();
-                    }
-                } else {
-                    return null;
-                }
+            if (listAllStatus && itemNameList.size() == 0) {
+                System.out.println("error"); //TODO : Nothing found
+                return null;
             } else {
-                return db.getTaskByRangeWithStatus(dateFrom, dateTo, isCompleted, listAllStatus);
+                return db.getTaskByRangeWithName(dateFrom, dateTo, isCompleted, listAllStatus, itemNameList);
             }
         } else if (dateOn != null) { //by keyword found
-            return db.getTaskByDateWithStatus(dateOn, isCompleted, listAllStatus);
+            return db.getTaskByDateWithStatusAndName(dateOn, isCompleted, listAllStatus, itemNameList);
         } else {
-            return db.getTaskByRangeWithStatus(dateFrom, dateTo, isCompleted, listAllStatus);
+            return db.getTaskByRangeWithName(dateFrom, dateTo, isCompleted, listAllStatus, itemNameList);
         }
+    }
+    
+    /**
+     * Extract the name keyword enter by the user and put in the hashset of name keywords
+     * @param parsedResult
+     */
+    private void parseExactFindCommand(Map<String, String[]> parsedResult, HashSet<String> itemNameList) {
+        if (parsedResult.get("default")[1] != null) {
+            String[] result = parsedResult.get("default")[1].trim().split(" ");
+            for (int i = 0; i < result.length; i ++) {
+                itemNameList.add(result[i]);
+            }
+        } 
+    }
+    
+    /**
+     * Extract the name keyword enter by the user and put in the hashset of name keywords
+     * @param parsedResult
+     */
+    
+    private void parseName(Map<String, String[]> parsedResult, HashSet<String> itemNameList) {
+        if (parsedResult.get("name") != null) {
+            String[] result = parsedResult.get("name")[1].trim().split(" ");
+            for (int i = 0; i < result.length; i ++) {
+                itemNameList.add(result[i]);
+            }
+        } 
     }
     
     /**
@@ -315,10 +282,6 @@ public class ListController implements Controller {
         }
         LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
         return DateUtil.floorDate(ldt);
-    }
-    
-    private boolean parseExactListCommand(Map<String, String[]> parsedResult) {
-        return parsedResult.get("default")[1] == null;
     }
     
     /**
@@ -345,10 +308,10 @@ public class ListController implements Controller {
      * Extracts the intended CalendarItem status from parsedResult.
      * 
      * @param parsedResult
-     * @return true if incomplete, false if complete
+     * @return true if uncomplete, false if complete
      */
-    private boolean parseIsIncomplete (Map<String, String[]> parsedResult) {
-        return parsedResult.get("status")[0].contains("incomplete");
+    private boolean parseIsUncomplete (Map<String, String[]> parsedResult) {
+        return parsedResult.get("status")[0].contains("uncomplete");
     }
     
     /**
@@ -365,7 +328,7 @@ public class ListController implements Controller {
      * Extracts the natural dates from parsedResult.
      * 
      * @param parsedResult
-     * @return { naturalOn, naturalFrom, naturalTo } or null if no date provided
+     * @return { naturalOn, naturalFrom, naturalTo }
      */
     private String[] parseDates(Map<String, String[]> parsedResult) {
         String naturalFrom = null;
@@ -383,11 +346,11 @@ public class ListController implements Controller {
             naturalOn = parsedResult.get("time")[1];
         }
         
-        if (naturalFrom != null || naturalTo != null || naturalOn != null) {
-            return new String[] { naturalOn, naturalFrom, naturalTo };
-        } else {
+        if (naturalFrom == null && naturalTo == null && naturalOn == null) {
+            // no date found
             return null;
         }
+        return new String[] { naturalOn, naturalFrom, naturalTo };
     }
     
 

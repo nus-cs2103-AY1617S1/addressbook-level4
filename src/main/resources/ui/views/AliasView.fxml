@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="100" minWidth="100" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.views.AliasView">
+  <children>
+    <HBox alignment="CENTER_LEFT">
+      <children>
+        <ImageView fitHeight="32.0" fitWidth="32.0" fx:id="aliasImageView" pickOnBounds="true" preserveRatio="true">
+          <HBox.margin>
+            <Insets right="10.0" />
+          </HBox.margin>
+        </ImageView>
+        <Text styleClass="font-300, view-title-text" text="Command Aliases" />
+      </children>
+      <VBox.margin>
+        <Insets bottom="20.0" />
+      </VBox.margin>
+    </HBox>
+    
+    <Text fx:id="aliasInstructionsText">
+      <VBox.margin>
+        <Insets bottom="20.0" />
+      </VBox.margin>
+    </Text>
+
+    <ScrollPane fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS">
+      <content>
+        <VBox styleClass="alias-pane" fx:id="aliasesPlaceholder" VBox.vgrow="ALWAYS">
+          <padding>
+            <Insets bottom="20.0" />
+          </padding>
+        </VBox>
+      </content>
+    </ScrollPane>
+  </children>
+
+  <padding>
+    <Insets top="20.0" left="20.0" bottom="20.0" right="20.0" />
+  </padding>
+</VBox>
