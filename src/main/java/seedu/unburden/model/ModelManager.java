@@ -84,8 +84,16 @@ public class ModelManager extends ComponentManager implements Model {
         listOfTask.editTask(target, args);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
-
     }
+    
+    @Override 
+    public synchronized void doneTask(ReadOnlyTask taskToDone, boolean isDone){
+    	listOfTask.doneTask(taskToDone,isDone);
+    	updateFilteredListToShowAll();
+    	indicateAddressBookChanged();
+    }
+    
+    
 
     //=========== Filtered Task List Accessors ===============================================================
 
