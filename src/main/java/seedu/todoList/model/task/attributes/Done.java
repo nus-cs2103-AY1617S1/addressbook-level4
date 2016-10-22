@@ -11,14 +11,14 @@ public class Done {
     //public static final String MESSAGE_NAME_CONSTRAINTS = "Done should only contain numbers";
     //public static final String NAME_VALIDATION_REGEX = "\\d+";
 
-    public boolean isDone;
+    public String isDone;
 
     /**
      * Validates given name.
      *
      * @throws IllegalValueException if given name string is invalid.
      */
-    public Done(boolean isDone) {
+    public Done(String isDone) {
         this.isDone = isDone;
     }
 }

@@ -102,6 +102,14 @@ public class TaskList implements ReadOnlyTaskList {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public boolean doneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.done(key)) {
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
 
 //// util methods
 

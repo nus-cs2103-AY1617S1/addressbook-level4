@@ -21,7 +21,7 @@ public class DoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " event 1\n"
             + "Example: " + COMMAND_WORD + " deadline 1";
 
-    public static final String MESSAGE_SELECT_task_SUCCESS = "Completed task: %1$s";
+    public static final String MESSAGE_DONE_task_SUCCESS = "Completed task: %1$s";
     
     public final String dataType;
     public final int targetIndex;
@@ -50,15 +50,15 @@ public class DoneCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_task_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deleteTask(taskToDelete, dataType);
+            model.doneTask(taskToDone, dataType);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_task_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_DONE_task_SUCCESS, taskToDone));
     }
 
 }
