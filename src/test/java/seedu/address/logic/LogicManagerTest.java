@@ -375,6 +375,34 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
+    }
+
+    @Test
+    public void execute_doneIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("done");
+    }
+    
+    @Test
+    public void execute_done_success() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> oneTasks = helper.generateTaskList(1);
+        helper.addToModel(model, oneTasks);
+        String expectedTask = "Task 1 "
+                + "Description: Description 1 "
+                + "Start Date: 01-01-2016 "
+                + "Due Date: 01-01-2016 "
+                + "Status: Completed "
+                + "Tags: [tag1][tag2]";
+        String expectedMessage = String.format(DoneCommand.MESSAGE_COMPLETED_TASK_SUCCESS, expectedTask);
+        //assertCommandBehavior("done 1", expectedMessage);
+        CommandResult result = logic.execute("done 1");
+        assertEquals(expectedMessage, result.feedbackToUser);
+    }
 
 
     /**
