@@ -57,6 +57,9 @@ public class MainWindow extends UiPart {
     
     @FXML
     private MenuItem listMenuItem;
+    
+    @FXML
+    private MenuItem exitMenuItem;
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
@@ -119,6 +122,9 @@ public class MainWindow extends UiPart {
 
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        exitMenuItem.setAccelerator(KeyCombination.valueOf("Esc"));
+        undoMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + Z"));
+        listMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + L"));
     }
 
     void fillInnerParts() {
