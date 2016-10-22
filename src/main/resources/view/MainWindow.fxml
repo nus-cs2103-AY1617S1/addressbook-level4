@@ -64,7 +64,7 @@
                   </SplitPane>
                </children>
             </VBox>
-            <TabPane tabClosingPolicy="UNAVAILABLE" tabMaxHeight="15.0" tabMaxWidth="70.0">
+            <TabPane fx:id="tabPane" onKeyPressed="#handleQuickView" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="15.0" tabMaxWidth="70.0">
                <tabs>
                   <Tab text="Today">
                      <content>

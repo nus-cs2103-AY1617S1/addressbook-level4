@@ -1,11 +1,15 @@
 package seedu.address.ui;
 
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -49,13 +53,16 @@ public class MainWindow extends UiPart {
     private Scene scene;
 
     private String taskManagerName;
+    
+    @FXML
+    private TabPane tabPane;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
-
+    
     @FXML
     private AnchorPane taskListLeftPanelPlaceholder;
 
@@ -120,7 +127,6 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-
         setAccelerators();
     }
 
@@ -229,6 +235,26 @@ public class MainWindow extends UiPart {
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
+    }
+    
+    @FXML
+    private void handleQuickView() {
+    	tabPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == (KeyCode.DIGIT1)) {
+                	tabPane.getSelectionModel().select(0);
+                } else if (event.getCode() == KeyCode.DIGIT2) {
+                	tabPane.getSelectionModel().select(1);
+                } else if (event.getCode() == KeyCode.DIGIT3) {
+                	tabPane.getSelectionModel().select(2);
+                } else if (event.getCode() == KeyCode.DIGIT4) {
+                	tabPane.getSelectionModel().select(3);
+                } else if (event.getCode() == KeyCode.DIGIT5) {
+                	tabPane.getSelectionModel().select(4);
+                }
+            }
+        });
     }
 
     public TaskListPanel getTaskListPanel() {

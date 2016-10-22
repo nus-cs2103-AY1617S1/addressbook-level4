@@ -41,6 +41,10 @@ public class TaskListPanel extends UiPart {
     public String getFxmlPath() {
         return FXML;
     }
+    
+    public AnchorPane getPlaceHolderPane() {
+    	return placeHolderPane;
+    }
 
     @Override
     public void setPlaceholder(AnchorPane pane) {
@@ -63,6 +67,7 @@ public class TaskListPanel extends UiPart {
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
+        taskListView.setSelectionModel(null);
     }
 
     private void addToPlaceholder() {
