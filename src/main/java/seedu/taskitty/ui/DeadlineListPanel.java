@@ -21,7 +21,7 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 // Dummy Placeholder for Deadline List Panel
 // TO BE UPDATED
 
-public class DeadlineListPanel extends UiPart{
+public class DeadlineListPanel extends TaskListPanel {
     private final Logger logger = LogsCenter.getLogger(DeadlineListPanel.class);
     private static final String FXML = "DeadlineListPanel.fxml";
     private VBox panel;

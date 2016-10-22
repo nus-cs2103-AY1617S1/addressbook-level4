@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of tasks.
  */
-public class TaskListPanel extends UiPart {
+public class TodoListPanel extends TaskListPanel {
     private final Logger logger = LogsCenter.getLogger(TodoListPanel.class);
     private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
@@ -31,7 +31,7 @@ public class TaskListPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyTask> taskListView;
 
-    public TaskListPanel() {
+    public TodoListPanel() {
         super();
     }
 
@@ -50,17 +50,17 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
+    public static TodoListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+        TodoListPanel taskListPanel =
+                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TodoListPanel());
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {
-        header.setText("TODOS [t]");
-        header.setStyle("-fx-text-fill: white");
+    	header.setText("TODOS [t]");
+    	header.setStyle("-fx-text-fill: white");
         setConnections(taskList);
         addToPlaceholder();
     }

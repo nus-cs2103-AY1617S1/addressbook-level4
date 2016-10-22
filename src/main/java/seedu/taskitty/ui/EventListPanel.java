@@ -24,7 +24,7 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 // Dummy Placeholder for Event List Panel
 // TO BE UPDATED
 
-public class EventListPanel extends UiPart{
+public class EventListPanel extends TaskListPanel {
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
     private static final String FXML = "EventListPanel.fxml";
     private VBox panel;
