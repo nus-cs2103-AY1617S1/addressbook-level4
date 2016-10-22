@@ -59,7 +59,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
      * @param currentList A copy of the current list of persons (before deletion).     
      */
     private void assertDeleteSuccess(int targetIndexOneIndexed, String category, final TestTaskList currentList) {
-        TestTask personToDelete = currentList.getTaskFromList(targetIndexOneIndexed - 1, category); //-1 because array uses zero indexing
+        TestTask taskToDelete = currentList.getTaskFromList(targetIndexOneIndexed - 1, category); //-1 because array uses zero indexing
         
         currentList.removeTaskFromList(targetIndexOneIndexed - 1, category);
         commandBox.runCommand("delete " + category + " " + targetIndexOneIndexed);
@@ -69,6 +69,6 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertTrue(currentList.isListMatching(taskListPanel));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, Task.CATEGORIES[categoryIndex], personToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, Task.CATEGORIES[categoryIndex], taskToDelete));
     }
 }
