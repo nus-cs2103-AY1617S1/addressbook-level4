@@ -20,7 +20,7 @@ public class ConsoleInput extends Component {
     private String lastCommandEntered;
     
     // Input handler
-    private InputHandler inputHandler = new InputHandler();
+    private InputHandler inputHandler = InputHandler.getInstance();
     
     // Components
     Console console;
