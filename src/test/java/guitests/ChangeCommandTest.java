@@ -3,6 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import seedu.address.commons.util.XmlUtil;
+import seedu.address.logic.commands.ChangeCommand;
 import seedu.address.storage.XmlSerializableTaskManager;
 import seedu.address.testutil.TestUtil;
 
@@ -43,6 +44,12 @@ public class ChangeCommandTest extends TaskManagerGuiTest {
         XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(file, XmlSerializableTaskManager.class);
         assertEquals(n, dataFromFile.getTaskList().size());
         assertEquals(2, dataFromFile.getTagList().size());
+    }
+    
+    @Test
+    public void change_invalidCommand_fail() {
+        commandBox.runCommand("change dummyfile");
+        assertResultMessage(ChangeCommand.MESSAGE_INVALID_FILE_PATH);
     }
 
 }
