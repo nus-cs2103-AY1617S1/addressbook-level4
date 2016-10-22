@@ -35,7 +35,7 @@ public class Todo extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Todo(Todo source) {
-        this(source.getName(), source.getDate() , source.getEndDate(), source.getPriority().priority source.getDone());
+        this(source.getName(), source.getDate() , source.getEndDate(), source.getPriority(), source.getDone());
     }
 
     public StartDate getDate() {

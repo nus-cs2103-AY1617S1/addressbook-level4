@@ -54,6 +54,7 @@ public class XmlAdaptedTodo implements XmlAdaptedTask {
         final StartDate date = new StartDate(this.date);
         final EndDate endDate = new EndDate(this.endDate);
         final Priority priority = new Priority(this.priority);
+        final Done isDone = new Done(this.isDone);
         return new Todo(name, date, endDate, priority, isDone);
     }
 }
