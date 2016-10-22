@@ -68,24 +68,21 @@ public class DateParser {
 		dateString = dateString.trim();
 
 		LocalDateTime dateTime = parseStandardFormat(dateString);
-		System.out.println("1 success");
 		
 		if (dateTime == null) {
+			dateTime = parseNaturalLanguage(dateString);
+		}
+		if (dateTime == null) {
 			dateTime = parseAmPmFormat(dateString);
-			System.out.println("DateParser first try");
 		}
 		if (dateTime == null) {
 			dateTime = parseNoMinutesAmPmFormat(dateString);
-			System.out.println("DateParser second try");
-		}
-		if (dateTime == null) {
-			dateTime = parseNaturalLanguage(dateString);
-			System.out.println("DateParser third try");
 		}
 		if (dateTime == null) {
 			throw new ParseException("dateTime is null", -1);
 		}
-
+		
+		System.out.println("date parser result: " + dateTime);
 		return dateTime;
 	}
 
@@ -281,9 +278,12 @@ public class DateParser {
 	private static int parseHour(String hour12, String meridiem) throws ParseException {
 		meridiem = meridiem.toLowerCase();
 		int hour;
-
-		if (meridiem.equals("pm")) {
-			hour = 12 +Integer.parseInt(hour12);
+		
+		if (meridiem.equals("am") && hour12.equals("12")) {
+			hour = 0;
+		}
+		else if (meridiem.equals("pm") && !hour12.equals("12")) {
+			hour = 12 + Integer.parseInt(hour12);
 		}
 		else {
 			hour = Integer.parseInt(hour12);
