@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-F09-C2/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-F09-C2/main)
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-F09-C2/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-F09-C2/main?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e1c149a4ea9b4801b2478f724e4bc5c2)](https://www.codacy.com/app/e0012835/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-F09-C2/main&amp;utm_campaign=Badge_Grade)
 
 # Task Scheduler
 
