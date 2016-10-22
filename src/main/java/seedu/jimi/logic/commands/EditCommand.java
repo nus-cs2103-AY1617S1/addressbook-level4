@@ -27,6 +27,7 @@ import seedu.jimi.model.task.ReadOnlyTask;
 public class EditCommand extends Command {
     
     public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_REMOVE_DATES = "float";
     
     public static final String INDEX_TASK_PREFIX = "t";
     public static final String INDEX_EVENT_PREFIX = "e";
@@ -44,6 +45,9 @@ public class EditCommand extends Command {
             + "Here's an example of converting an event to a task: \n"
             + "Example: " + COMMAND_WORD + " e2 due sunday\n"
             + "\n"
+            + "If you wish to remove all dates from an existing task i.e. make it floating: \n"
+            + "Example: " + COMMAND_WORD + " e1 float \n"
+            + "\n"
             + "> Tip: Typing 'e', 'ed', 'edi' instead of 'edit' works too.";
     
     public static final String MESSAGE_EDIT_SUCCESS = "Updated details: %1$s";
@@ -57,7 +61,12 @@ public class EditCommand extends Command {
     private DateTime eventEnd;
     
     public EditCommand() {
-        taskIndex = null;
+        this(null);
+    }
+    
+    /** Constructor used to remove all dates from task specified at {@code taskIndex}. */
+    public EditCommand(String taskIndex) {
+        this.taskIndex = taskIndex;
     }
     
     public EditCommand(String name, Set<String> tags, List<Date> deadline, List<Date> eventStart, List<Date> eventEnd,
@@ -124,6 +133,8 @@ public class EditCommand extends Command {
     
     /** Generates the new task to replace the current task */
     private Optional<ReadOnlyTask> determineNewTask(ReadOnlyTask oldTask) {
+        final boolean removeDatesEdit = 
+                newName == null && deadline == null && eventStart == null && eventEnd == null && newTagList == null;
         final boolean onlyNameEdit = 
                 newName != null && deadline == null && eventStart == null && eventEnd == null;
         final boolean toEventEdit = 
@@ -131,7 +142,9 @@ public class EditCommand extends Command {
         final boolean toDeadlineTaskEdit =
                 eventStart == null && eventEnd == null && deadline != null;
         
-        if (onlyNameEdit) {
+        if (removeDatesEdit) {
+            return Optional.of(toFloatingTypeWithChanges(oldTask));
+        } else if (onlyNameEdit) {
             return Optional.of(toSameTaskTypeWithChanges(oldTask));
         } else if (toEventEdit) {
             return Optional.of(toEventTypeWithChanges(oldTask));
@@ -140,6 +153,14 @@ public class EditCommand extends Command {
         }
         
         return Optional.empty();
+    }
+
+    /** Generates a floating task with changes */
+    private ReadOnlyTask toFloatingTypeWithChanges(ReadOnlyTask t) {
+        return new FloatingTask(
+                newName == null ? t.getName() : newName, 
+                newTagList == null ? t.getTags() : newTagList, 
+                t.isCompleted());
     }
 
     /** Generates a deadline task with changes. */

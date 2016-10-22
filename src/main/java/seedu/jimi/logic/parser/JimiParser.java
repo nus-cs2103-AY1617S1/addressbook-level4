@@ -254,6 +254,11 @@ public class JimiParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
+        // User wishes to remove dates
+        if (editArgsMatcher.group("editDetails").trim().equals(EditCommand.COMMAND_REMOVE_DATES)) {
+            return new EditCommand(editArgsMatcher.group("targetIndex"));
+        }
+        
         final Matcher editDetailsMatcher =
                 EDIT_DETAILS_FORMAT.matcher(editArgsMatcher.group("editDetails").trim());
         if (!editDetailsMatcher.matches()) {
