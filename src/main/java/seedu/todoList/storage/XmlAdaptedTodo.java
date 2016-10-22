@@ -18,7 +18,7 @@ public class XmlAdaptedTodo implements XmlAdaptedTask {
 	@XmlElement(required = true)
 	private String name;
 	@XmlElement(required = true)
-	private String date;
+	private String startDate;
 	@XmlElement(required = true)
 	private String endDate;
 	@XmlElement(required = true)
@@ -37,7 +37,11 @@ public class XmlAdaptedTodo implements XmlAdaptedTask {
      */
     public XmlAdaptedTodo(Todo source) {
     	this.name = source.getName().name;
+<<<<<<< HEAD
     	this.date = source.getStartDate().date;
+=======
+    	this.startDate = source.getDate().date;
+>>>>>>> d876d25f67ebfba58b9d933e317b1adad2bd2edc
     	this.endDate = source.getEndDate().endDate;
     	this.priority = source.getPriority().toString();
     }
@@ -48,7 +52,7 @@ public class XmlAdaptedTodo implements XmlAdaptedTask {
 
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
-        final StartDate date = new StartDate(this.date);
+        final StartDate date = new StartDate(this.startDate);
         final EndDate endDate = new EndDate(this.endDate);
         final Priority priority = new Priority(this.priority);
         return new Todo(name, date, endDate, priority);
