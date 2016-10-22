@@ -32,12 +32,12 @@ public class AliasCommand extends ModelRequiringCommand {
     public CommandResult execute() {
         assert model != null;
 
-        AliasSymbol symbolToAdd = new AliasSymbol(commandModel.getKeyword(),
+        AliasSymbol toAdd = new AliasSymbol(commandModel.getKeyword(),
                 commandModel.getRepresentingText());
         
         try {
-            model.addAliasSymbol(symbolToAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, symbolToAdd));
+            model.addAliasSymbol(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateSymbolKeywordException e) {
             return new CommandResult(MESSAGE_DUPLICATE_ALIAS);
         }

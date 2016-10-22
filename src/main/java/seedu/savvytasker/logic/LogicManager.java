@@ -74,6 +74,7 @@ public class LogicManager extends ComponentManager implements Logic {
         parser.registerCommandParser(new UndoCommandParser());
         parser.registerCommandParser(new RedoCommandParser());
         parser.registerCommandParser(new AliasCommandParser());
+        parser.registerCommandParser(new UnaliasCommandParser());
     }
     
     private void loadAllAliasSymbols() {

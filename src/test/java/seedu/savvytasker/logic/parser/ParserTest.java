@@ -20,6 +20,7 @@ public class ParserTest {
     private UndoCommandParser undoParser;
     private RedoCommandParser redoParser;
     private AliasCommandParser aliasParser;
+    private UnaliasCommandParser unaliasParser;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -39,6 +40,7 @@ public class ParserTest {
         undoParser = new UndoCommandParser();
         redoParser = new RedoCommandParser();
         aliasParser = new AliasCommandParser();
+        unaliasParser = new UnaliasCommandParser();
     }
     
     @Test
@@ -432,5 +434,18 @@ public class ParserTest {
     @Test
     public void parse_alias_fullValid() throws ParseException {
         assertNotEquals(aliasParser.parse("alias   k/ pjm  t/  project management  "), null);
+    }
+
+    //==================================================================================
+
+    @Test
+    public void parse_unalias_emptyKeyword() throws ParseException {
+        thrown.expect(ParseException.class);
+        unaliasParser.parse("unalias    ");
+    }
+
+    @Test
+    public void parse_unalias_valid() throws ParseException {
+        assertNotEquals(unaliasParser.parse("unalias  something "), null);
     }
 }

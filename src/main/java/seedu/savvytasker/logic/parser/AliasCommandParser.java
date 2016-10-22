@@ -9,14 +9,14 @@ import seedu.savvytasker.logic.commands.models.AliasCommandModel;
 
 public class AliasCommandParser implements CommandParser<AliasCommand> {
     private static final String HEADER = "alias";
-    private static final String READABLE_FORMAT = HEADER+" t/TEXT k/KEYWORD";
+    private static final String READABLE_FORMAT = HEADER+" k/KEYWORD r/REPRESENTATION";
     
     private static final String REGEX_REF_REPRESENTATION = "Text";
     private static final String REGEX_REF_KEYWORD = "Keyword";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
             HEADER+"\\s+((?<=\\s)(" +
-                    "(t/(?<"+REGEX_REF_REPRESENTATION+">[^/]+)(?!.*\\st/))|" +
+                    "(r/(?<"+REGEX_REF_REPRESENTATION+">[^/]+)(?!.*\\sr/))|" +
                     "(k/(?<"+REGEX_REF_KEYWORD+">[^/]+)(?!.*\\sk/))" +
                     ")(\\s|$)){2}"
     );
@@ -44,16 +44,16 @@ public class AliasCommandParser implements CommandParser<AliasCommand> {
                 Messages.MESSAGE_INVALID_COMMAND_FORMAT, getRequiredFormat()));
     }
     
-    private static String parseRepresentation(String originalText) throws ParseException {
+    private String parseRepresentation(String originalText) throws ParseException {
         String trimmedText = originalText.trim();
         
         if (trimmedText.isEmpty())
-            throw new ParseException(trimmedText, "TEXT: Needs to be at least one character!");
+            throw new ParseException(trimmedText, "REPRESENTATION: Needs to be at least one character!");
         
         return trimmedText;
     }
 
-    private static String parseKeyword(String keywordText) throws ParseException {
+    private String parseKeyword(String keywordText) throws ParseException {
         String trimmedKeywordText = keywordText.trim();
         if (trimmedKeywordText.length() < 2) {
             throw new ParseException(trimmedKeywordText, "KEYWORD: Needs to consist at least 2 character.");
