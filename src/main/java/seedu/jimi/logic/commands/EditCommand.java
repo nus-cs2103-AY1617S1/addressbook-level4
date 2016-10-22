@@ -69,6 +69,7 @@ public class EditCommand extends Command {
     
     private EditType editType;
     
+    /** Empty constructor for stub usage */
     public EditCommand() {
         this(null);
     }
@@ -145,7 +146,7 @@ public class EditCommand extends Command {
      * ====================================================================
      */
     
-    /** Determines the type of edit based on user input */
+    /** Determines the type of edit based on user input. */
     private void determineEditType() {
         if (newName == null && deadline == null && eventStart == null && eventEnd == null && newTagList == null) {
             this.editType = EditType.REMOVE_DATES;
@@ -223,6 +224,4 @@ public class EditCommand extends Command {
                     t.isCompleted());
         }
     }
-
-
 }
