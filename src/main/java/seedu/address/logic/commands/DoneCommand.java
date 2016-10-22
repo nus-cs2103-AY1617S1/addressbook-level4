@@ -31,7 +31,7 @@ public class DoneCommand extends Command {
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredDatedTaskList();
         UnmodifiableObservableList<ReadOnlyTask> lastUndatedTaskList = model.getFilteredUndatedTaskList();
-
+ 
         if ((targetIndex <= PersonListPanel.DATED_DISPLAY_INDEX_OFFSET 
                 && lastUndatedTaskList.size() < targetIndex)  // index <= 10 && index > size of list
            || (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET  // index > 10 && index - 10 > size of list 
