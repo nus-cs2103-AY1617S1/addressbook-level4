@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
@@ -43,54 +42,72 @@ public class FilteredListManager {
     private final HashMap<ListId, FilteredList<ReadOnlyTask>> listMap =
             new HashMap<ListId, FilteredList<ReadOnlyTask>>();
     
+    private final HashMap<ListId, Expression> defaultExpressions = new HashMap<ListId, Expression>();
+    
     public FilteredListManager(TaskBook taskBook) {
-        // Initializing each list with taskBook's own internal list
+        initDefaultExpressions();
+        
+        /*
+         *  Initializing each list with taskBook's own internal list.
+         *  Initializing default filters for each list.
+         */
         for (ListId id : ListId.values()) {
             listMap.put(id, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
+            listMap.get(id).setPredicate(defaultExpressions.get(id)::satisfies);
         }
-        initFilters();
     }
     
-    public void initFilters() {
-        listMap.get(ListId.FLOATING_TASKS)
-                .setPredicate(new PredicateExpression(new FloatingTaskQualifier(false))::satisfies);
+    private void initDefaultExpressions() {
+        defaultExpressions.put(
+                ListId.FLOATING_TASKS, new PredicateExpression(new FloatingTaskQualifier(false)));
+        defaultExpressions.put(
+                ListId.COMPLETED, new PredicateExpression(new CompletedTaskQualifier(true)));
+        defaultExpressions.put(
+                ListId.INCOMPLETE, new PredicateExpression(new CompletedTaskQualifier(false)));
         
-        listMap.get(ListId.COMPLETED)
-                .setPredicate(new PredicateExpression(new CompletedTaskQualifier(true))::satisfies);
-        listMap.get(ListId.INCOMPLETE)
-                .setPredicate(new PredicateExpression(new CompletedTaskQualifier(false))::satisfies);
+        defaultExpressions.put(
+                ListId.DAY_AHEAD_0, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_0)));
+        defaultExpressions.put(
+                ListId.DAY_AHEAD_1, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_1)));
+        defaultExpressions.put(
+                ListId.DAY_AHEAD_2, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_2)));
+        defaultExpressions.put(
+                ListId.DAY_AHEAD_3, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_3)));
+        defaultExpressions.put(
+                ListId.DAY_AHEAD_4, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_4)));
+        defaultExpressions.put(
+                ListId.DAY_AHEAD_5, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_5)));
+        defaultExpressions.put(
+                ListId.DAY_AHEAD_6, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_6)));
         
-        listMap.get(ListId.DAY_AHEAD_0)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_0))::satisfies);
-        listMap.get(ListId.DAY_AHEAD_1)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_1))::satisfies);
-        listMap.get(ListId.DAY_AHEAD_2)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_2))::satisfies);
-        listMap.get(ListId.DAY_AHEAD_3)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_3))::satisfies);
-        listMap.get(ListId.DAY_AHEAD_4)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_4))::satisfies);
-        listMap.get(ListId.DAY_AHEAD_5)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_5))::satisfies);
-        listMap.get(ListId.DAY_AHEAD_6)
-                .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_6))::satisfies);
-        
-        listMap.get(ListId.TASKS_AGENDA)
-                .setPredicate(new PredicateExpression(new TaskQualifier(false))::satisfies);
-        listMap.get(ListId.EVENTS_AGENDA)
-                .setPredicate(new PredicateExpression(new EventQualifier(false))::satisfies);
-
+        defaultExpressions.put(
+                ListId.TASKS_AGENDA, new PredicateExpression(new TaskQualifier(false)));
+        defaultExpressions.put(
+                ListId.EVENTS_AGENDA, new PredicateExpression(new EventQualifier(false)));
     }
+    
+    /*
+     * ===========================================================
+     *                  Getters for Filtered Lists
+     * ===========================================================
+     */
+    
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredList(ListId id) {
+        return new UnmodifiableObservableList<ReadOnlyTask>(listMap.get(id));
+    }
+    
+    
+    /*
+     * ===========================================================
+     *                  Updating Filtered Lists
+     * ===========================================================
+     */
     
     public void updateFilteredListToDefault() {
         listMap.get(ListId.TASKS_AGENDA)
-                .setPredicate(new PredicateExpression(new TaskQualifier(false))::satisfies);
+                .setPredicate(defaultExpressions.get(ListId.TASKS_AGENDA)::satisfies);
         listMap.get(ListId.EVENTS_AGENDA)
-                .setPredicate(new PredicateExpression(new EventQualifier(false))::satisfies);
-    }
-    
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredList(ListId id) {
-        return new UnmodifiableObservableList<>(listMap.get(id));
+                .setPredicate(defaultExpressions.get(ListId.EVENTS_AGENDA)::satisfies);
     }
     
     public void updateFilteredList(ListId id, Set<String> keywords) {
@@ -103,17 +120,15 @@ public class FilteredListManager {
      * @author Clarence 
      */
     private void updateFilteredList(ListId id, Expression... expressions) {
-        updateFilteredListToDefault(); // first reset to default
-        Predicate<? super ReadOnlyTask> defaultPredicate = listMap.get(id).getPredicate();
-        Predicate<? super ReadOnlyTask> updatedPredicate = 
-                t -> defaultPredicate.test(t) && Arrays.stream(expressions).allMatch(ex -> ex.satisfies(t));
-        listMap.get(id).setPredicate(updatedPredicate);
+        Expression defaultExp = defaultExpressions.get(id);
+        listMap.get(id).setPredicate(
+                t -> defaultExp.satisfies(t) && Arrays.stream(expressions).allMatch(e -> e.satisfies(t)));
     }
     
     /*
-     *  ============================================
-     *  Private qualifier classes used for filtering
-     *  ============================================
+     * ===========================================================
+     *        Private qualifier classes used for filtering
+     * ===========================================================
      */
     
     interface Expression {
