@@ -1,21 +1,44 @@
 package seedu.address.logic.parser;
-import seedu.address.logic.commands.*;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.RecurringDateParser;
-import seedu.address.model.task.RecurringType;
-import seedu.address.model.task.TaskDate;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.exceptions.IllegalValueException;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.joestelmach.natty.DateGroup;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddFloatingCommand;
+import seedu.address.logic.commands.AddNonFloatingCommand;
+import seedu.address.logic.commands.BlockCommand;
+import seedu.address.logic.commands.ChangeDirectoryCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CompleteCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.task.RecurringType;
+import seedu.address.model.task.TaskDate;
 
 /**
  * Parses user input.
@@ -76,8 +99,10 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
             		+ "((?<startTime>(?: from [^/]+)(?<endTime>(?: to [^/]+)))|"
     				+ "(?<deadline>(?: by [^/]+)))"
-                    + "(?<recurring>(?: [^/(t/) ]+)*)"
                     + "(?<tagArguments>(?: t/[^ ]+)*)"); // variable number of tags
+    
+    private static final Pattern RECURRING_TASK_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<recurring>\\b(?i)daily|weekly|monthly|yearly(?i)\\b)");
         
     private static final Pattern BLOCK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<startTime>(?:from [^/]+)(?<endTime>(?: to [^/]+)))"
@@ -212,28 +237,32 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));
         }
         try {
-            RecurringType recurringType = RecurringType.NONE;
-            
-            if (matcher.group("recurring").isEmpty()) {
-                recurringType = RecurringType.NONE;
-            }
-            else {
-                try{
-                    recurringType = extractRecurringInfo(matcher.group("recurring"));
-                } catch (IllegalArgumentException iae) {
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));                    
-                }
-            }
-            
             if(matcher.group("deadline") != null) {
-                return prepareAddNonFloatingByDate(matcher, recurringType);
+                return prepareAddNonFloatingByDate(matcher);
             } else {
-                return prepareAddNonFloatingFromDateToDate(matcher, recurringType);
+                return prepareAddNonFloatingFromDateToDate(matcher);
             }
-
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (IllegalArgumentException iae) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));
         }
+    }
+
+    private RecurringType checkForRecurringTask(String args) throws IllegalArgumentException {
+        final Matcher matcher = RECURRING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        RecurringType recurringType = RecurringType.NONE;
+        if (!matcher.find()) {
+            return recurringType;
+        }
+        else {
+            try{
+                recurringType = extractRecurringInfo(matcher.group("recurring"));
+            } catch (IllegalArgumentException iae) {
+                throw iae;                 
+            }
+        }
+        return recurringType;
     }
 
     /**
@@ -243,8 +272,9 @@ public class Parser {
      * @return the prepared add non floating command
      * @throws IllegalValueException Signals for incorrect command
      */
-    private Command prepareAddNonFloatingByDate(Matcher matcher, RecurringType recurringType) throws IllegalValueException {
+    private Command prepareAddNonFloatingByDate(Matcher matcher) throws IllegalValueException {
         String endInput = matcher.group("deadline");
+        RecurringType recurringType = checkForRecurringTask(endInput);
         return new AddNonFloatingCommand(
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
@@ -261,10 +291,10 @@ public class Parser {
      * @return the prepared add non floating command
      * @throws IllegalValueException Signals for incorrect command
      */    
-    private Command prepareAddNonFloatingFromDateToDate(Matcher matcher, RecurringType recurringType) throws IllegalValueException {
+    private Command prepareAddNonFloatingFromDateToDate(Matcher matcher) throws IllegalValueException {
         String startInput = matcher.group("startTime");
         String endInput = matcher.group("endTime");
-        
+        RecurringType recurringType = checkForRecurringTask(endInput);
         return new AddNonFloatingCommand(
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
@@ -593,7 +623,7 @@ public class Parser {
         return dateGroups.get(0).getDates().get(0);
     }
     
-    public static RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {
+    private static RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {
         recurringInfo = recurringInfo.toUpperCase().trim();
         RecurringDateParser recurringParser = RecurringDateParser.getInstance();
         return recurringParser.getRecurringType(recurringInfo);

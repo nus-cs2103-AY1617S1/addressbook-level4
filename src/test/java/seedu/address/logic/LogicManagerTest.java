@@ -1,40 +1,62 @@
 package seedu.address.logic;
 
-import com.google.common.eventbus.Subscribe;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import com.google.common.eventbus.Subscribe;
+
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.logic.commands.*;
+import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.events.model.TaskListChangedEvent;
-import seedu.address.model.TaskMaster;
+import seedu.address.logic.commands.AddFloatingCommand;
+import seedu.address.logic.commands.AddNonFloatingCommand;
+import seedu.address.logic.commands.BlockCommand;
+import seedu.address.logic.commands.ChangeDirectoryCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.CompleteCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskMaster;
+import seedu.address.model.TaskMaster;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.task.*;
+import seedu.address.model.task.Name;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.RecurringType;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskDate;
+import seedu.address.model.task.TaskType;
 import seedu.address.storage.StorageManager;
-import java.io.IOException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.*;
 
 public class LogicManagerTest {
 
@@ -859,7 +881,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_findbyTag_Successful() throws Exception{
+    public void execute_findbyTag_Successful() throws Exception {
     	TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task test = helper.nonFloatingFromDateToDate();
@@ -880,6 +902,84 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedComponentList);
         
+    }
+    
+    @Test
+    public void execute_add_recurringTask_byDate_unsuccessful_addAsNonFloatingTask() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        TaskMaster expectedTM = new TaskMaster();
+        Task toAdd = helper.nonFloatingByDate();
+        expectedTM.addTask(toAdd);
+        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
+        assertCommandBehavior("add non floating task by XXXX by 20 oct 11am dai t/tag1 t/tag2", 
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
+                expectedTM,
+                expectedComponentList);
+    }
+    
+    @Test
+    public void execute_add_recurringTask_byDate_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        TaskMaster expectedTM = new TaskMaster();
+        Task toAdd = helper.nonFloatingRecurringByDate(RecurringType.DAILY);
+        expectedTM.addTask(toAdd);
+        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
+        assertCommandBehavior("add non floating task by XXXX by 20 oct 11am daily t/tag1 t/tag2",
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
+                expectedTM,
+                expectedComponentList);
+    }
+    
+    @Test
+    public void execute_add_recurringTask_daily_ByDate_daily_caseInsensitive() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        TaskMaster expectedTM = new TaskMaster();
+        Task toAdd = helper.nonFloatingRecurringByDate(RecurringType.DAILY);
+        expectedTM.addTask(toAdd);
+        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
+        assertCommandBehavior("add non floating task by XXXX by 20 oct 11am dAIly t/tag1 t/tag2",
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
+                expectedTM,
+                expectedComponentList);
+    }    
+    
+    @Test
+    public void execute_add_recurringTask_FromDateToDate_unsuccessful_addAsNonFloatingTask() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        TaskMaster expectedTM = new TaskMaster();
+        Task toAdd = helper.nonFloatingFromDateToDate();
+        expectedTM.addTask(toAdd);
+        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
+        assertCommandBehavior("add non floating task from XXXX to XXXX from 19 oct 10pm to 20 oct 11am dai t/tag1 t/tag2", 
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
+                expectedTM,
+                expectedComponentList);
+    }
+    
+    @Test
+    public void execute_add_recurringTask_FromDateToDate_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        TaskMaster expectedTM = new TaskMaster();
+        Task toAdd = helper.nonFloatingRecurringFromDateToDate(RecurringType.DAILY);
+        expectedTM.addTask(toAdd);
+        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
+        assertCommandBehavior("add non floating task from XXXX to XXXX from 19 oct 10pm to 20 oct 11am daily t/tag1 t/tag2",
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
+                expectedTM,
+                expectedComponentList);
+    }
+    
+    @Test
+    public void execute_add_recurringTask_daily_FromDateToDate_daily_caseInsensitive() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        TaskMaster expectedTM = new TaskMaster();
+        Task toAdd = helper.nonFloatingRecurringFromDateToDate(RecurringType.DAILY);
+        expectedTM.addTask(toAdd);
+        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
+        assertCommandBehavior("add non floating task from XXXX to XXXX from 19 oct 10pm to 20 oct 11am dAIly t/tag1 t/tag2",
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
+                expectedTM,
+                expectedComponentList);
     }
     
 //    /** tests for edit command*/   
@@ -1094,7 +1194,6 @@ public class LogicManagerTest {
 //                expectedComponentList);
 //    }
 
-
     /**
      * A utility class to generate test data.
      */
@@ -1124,7 +1223,7 @@ public class LogicManagerTest {
             return dateComponentList;
         }
 
-        Task nonFloatingFromDateToDate() throws Exception {
+        public Task nonFloatingFromDateToDate() throws Exception {
             Name name = new Name("non floating task from XXXX to XXXX");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -1133,8 +1232,14 @@ public class LogicManagerTest {
             TaskDate endDate = new TaskDate("20 oct 11am");
             return new Task(name, tags, startDate, endDate, RecurringType.NONE);
         }
+        
+        public Task nonFloatingRecurringFromDateToDate(RecurringType recurringType) throws Exception {
+            Task nonFloatingRecurringTask = nonFloatingFromDateToDate();
+            nonFloatingRecurringTask.setRecurringType(recurringType);
+            return nonFloatingRecurringTask;
+        }
 
-        Task nonFloatingByDate() throws Exception {
+        public Task nonFloatingByDate() throws Exception {
             Name name = new Name(" non floating task by XXXX");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -1142,8 +1247,13 @@ public class LogicManagerTest {
             TaskDate startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
             TaskDate endDate = new TaskDate("20 oct 11am");
             return new Task(name, tags, startDate, endDate, RecurringType.NONE);
-        }        
+        }
         
+        public Task nonFloatingRecurringByDate(RecurringType recurringType) throws Exception {
+            Task nonFloatingRecurringTask = nonFloatingByDate();
+            nonFloatingRecurringTask.setRecurringType(recurringType);
+            return nonFloatingRecurringTask;
+        }        
         /**
          * Generates a valid task using the given seed.
          * Running this function with the same parameter values guarantees the returned task will have the same state.

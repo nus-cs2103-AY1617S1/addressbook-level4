@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
@@ -105,6 +106,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         syncTagsWithMasterList(p);
         tasks.add(p);
+        RecurringTaskManager.getInstance().correctAddingOverdueTasks(p);
     }
 
     /**
