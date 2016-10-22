@@ -57,6 +57,7 @@ public class Todo extends Task implements ReadOnlyTask {
                 || (other instanceof Todo // instanceof handles nulls
                 && super.name.equals(((Todo) other).getName()))
                 && this.date.equals(((Todo) other).getDate())
+                && this.endDate.equals(((Todo) other).getEndDate())
                 && this.priority.equals(((Todo) other).getPriority());
     }
 
@@ -66,6 +67,8 @@ public class Todo extends Task implements ReadOnlyTask {
         builder.append(getName())
                 .append(" Date: ")
                 .append(getDate())
+                .append(" End Date: ")
+                .append(getEndDate())
                 .append(" Priority: ")
                 .append(getPriority());
         return builder.toString();

@@ -62,6 +62,7 @@ public class Event extends Task implements ReadOnlyTask {
                 || (other instanceof Event // instanceof handles nulls
                 && super.name.equals(((Event) other).getName())
                 && this.date.equals(((Event) other).getDate())
+                && this.endDate.equals(((Event) other).getEndDate())
 				&& this.startTime.equals(((Event) other).getStartTime())
 				&& this.endTime.equals(((Event) other).getEndTime()));
 
@@ -73,6 +74,8 @@ public class Event extends Task implements ReadOnlyTask {
         builder.append(getName())
                 .append(" Date: ")
                 .append(getDate())
+                .append(" End Date: ")
+                .append(getEndDate())
                 .append(" StartTime: ")
                 .append(getStartTime())
                 .append(" EndTime: ")

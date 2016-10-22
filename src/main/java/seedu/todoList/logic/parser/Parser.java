@@ -30,21 +30,21 @@ public class Parser {
      */
     private static final Pattern task_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" 
-                    + " d/(?<date>[^/]+)" 
-                    + " ( ed/(?<endDate>[^/]+))?"
+                    + " from/(?<date>[^/]+)" 
+                    + "( to/(?<endDate>[^/]+))?"
                     + " p/(?<priority>[^/]+)");
 
     private static final Pattern event_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" 
-                    + " d/(?<date>[^/]+)" 
-                    + " ed/(?<endDate>[^/]+)"
-                    + " s/(?<startTime>[^/]+)"
-                    + " e/(?<endTime>[^/]+)");
+                    + " from/(?<date>[^/]+)" 
+                    + "( to/(?<endDate>[^/]+))?"
+                    + " at/(?<startTime>[^/]+)"
+                    + " to/(?<endTime>[^/]+)");
 
     private static final Pattern deadline_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" 
-                    + " d/(?<date>[^/]+)" 
-                    + " e/(?<endTime>[^/]+)");
+                    + " on/(?<date>[^/]+)" 
+                    + " at/(?<endTime>[^/]+)");
 
     /*
      * Edit Command, task,event,deadline pattern
@@ -52,26 +52,26 @@ public class Parser {
     private static final Pattern task_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<dataType>.+)" 
                     + " (?<targetIndex>.+)" 
-                    + " n/(?<name>.+)" 
-                    + " d/(?<date>[^/]+)"
-                    + " ed/(?<endDate>[^/]+)"
+                    + " name/(?<name>.+)" 
+                    + " from/(?<date>[^/]+)"
+                    + "( to/(?<endDate>[^/]+))?"
                     + " p/(?<priority>[^/]+)");
 
     private static final Pattern event_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<dataType>.+)" 
                     + " (?<targetIndex>.+)" 
-                    + " n/(?<name>.+)" 
-                    + " d/(?<date>[^/]+)"
-                    + " ed/(?<endDate>[^/]+)"
-                    + " s/(?<startTime>[^/]+)" 
-                    + " e/(?<endTime>[^/]+)");
+                    + " name/(?<name>.+)" 
+                    + " from/(?<date>[^/]+)"
+                    + "( to/(?<endDate>[^/]+))?"
+                    + " at/(?<startTime>[^/]+)" 
+                    + " to/(?<endTime>[^/]+)");
 
     private static final Pattern deadline_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<dataType>.+)" 
                     + " (?<targetIndex>.+)" 
-                    + " n/(?<name>.+)" 
-                    + " d/(?<date>[^/]+)"
-                    + " e/(?<endTime>[^/]+)");
+                    + " name/(?<name>.+)" 
+                    + " on/(?<date>[^/]+)"
+                    + " at/(?<endTime>[^/]+)");
     
     private static final Pattern name_ARGS_FORMAT = Pattern.compile("n/(?<name>.+)");
     private static final Pattern priority_ARGS_FORMAT = Pattern.compile("p/(?<priority>.+)");
@@ -156,7 +156,7 @@ public class Parser {
                 return new AddCommand(
                         matcher_task.group("name"), 
                         matcher_task.group("date"),
-                        isInputPresent(matcher_event.group("endDate")),
+                        isInputPresent(matcher_task.group("endDate")),
                         Integer.parseInt(matcher_task.group("priority")));
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
@@ -302,7 +302,7 @@ public class Parser {
                     return new EditCommand(
                             matcher_task.group("name"), 
                             matcher_task.group("date"),
-                            isInputPresent(matcher_event.group("endDate")),
+                            isInputPresent(matcher_task.group("endDate")),
                             Integer.parseInt(matcher_task.group("priority")),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get());
@@ -344,7 +344,7 @@ public class Parser {
                     return new EditCommand(
                             matcher_task.group("name"), 
                             matcher_task.group("date"),
-                            isInputPresent(matcher_event.group("endDate")),
+                            isInputPresent(matcher_task.group("endDate")),
                             Integer.parseInt(matcher_task.group("priority")),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get());
@@ -386,7 +386,7 @@ public class Parser {
                     return new EditCommand(
                             matcher_task.group("name"), 
                             matcher_task.group("date"),
-                            isInputPresent(matcher_event.group("endDate")),
+                            isInputPresent(matcher_task.group("endDate")),
                             Integer.parseInt(matcher_task.group("priority")),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get());
@@ -429,6 +429,6 @@ public class Parser {
      *  Check whether the attribute is set
      */
     private String isInputPresent(String input){
-        return input == null ? "Not Set" : input;
+        return input == null ? "No End Date" : input;
     }
 }

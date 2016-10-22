@@ -16,12 +16,12 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits information of the task in the task-list.\n"
-            + "Parameters: TASK_TYPE INDEX_NUMBER n/TASK_NAME p/PRIORITY\n"
-            + "Example: " + COMMAND_WORD + " todo 1 n/Assignment 1 d/25-12-2016 p/2\n"
-            + "Parameters: TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME\n"
-            + "Example: " + COMMAND_WORD + " event 1 n/Time's birthday party d/25-12-2016 s/1200 e/1600\n"
-            + "Parameters: TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME\n"
-            + "Example: " + COMMAND_WORD + " deadline 1 n/CS2103 v0.2 d/25-12-2016 e/1400";
+            + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE(Optional) p/PRIORITY\n"
+            + "Example: " + COMMAND_WORD + " todo 1 name/Assignment 1 from/25-12-2016 p/2\n"
+            + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME\n"
+            + "Example: " + COMMAND_WORD + " event 1 name/Time's birthday party from/25-12-2016 to/26-12-2016 at/1200 to/1600\n"
+            + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME on/DATE at/END_TIME\n"
+            + "Example: " + COMMAND_WORD + " deadline 1 name/CS2103 v0.2 on/25-12-2016 at/1400";
 
     public static final String MESSAGE_EDIT_task_SUCCESS = "Edited task: %1$s";
     public static final String INVALID_VALUE = "Invalid value";
