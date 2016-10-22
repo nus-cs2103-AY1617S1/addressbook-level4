@@ -49,10 +49,6 @@ public interface ReadOnlyTask {
                 .append(getStartDate())
                 .append(" Due Date: ")
                 .append(getDueDate())
-                .append(" Interval: ")
-                .append(getInterval())
-                .append(" Time Interval: ")
-                .append(getTimeInterval())
                 .append(" Status: ")
                 .append(getStatus())
                 .append(" Tags: ");
