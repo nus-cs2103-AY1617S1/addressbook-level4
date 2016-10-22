@@ -1,22 +1,19 @@
 package seedu.jimi.storage;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.model.ReadOnlyTaskBook;
-import seedu.jimi.model.event.Event;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
-import seedu.jimi.model.task.DeadlineTask;
-import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * An Immutable TaskBook that is serializable to XML format
@@ -60,8 +57,8 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
     }
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
-        UniqueTaskList lists = new UniqueTaskList();
+    public UniqueTaskList<ReadOnlyTask> getUniqueTaskList() {
+        UniqueTaskList<ReadOnlyTask> lists = new UniqueTaskList<ReadOnlyTask>();
         for (XmlAdaptedTask p : tasks) {
             try {
                 lists.add(p.toModelType());
