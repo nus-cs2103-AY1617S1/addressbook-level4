@@ -10,7 +10,7 @@ public class SetStorageCommand extends Command {
 	public static final String COMMAND_WORD = "setstorage";
 	
     public static final String MESSAGE_SUCCESS = "Changed storage location to %1$s. "
-    		+ "Make a change to Task Ninja to save your data in the new location";
+    		+ "Make a change to ForgetMeNot to save your data in the new location";
     public static final String MESSAGE_USAGE = COMMAND_WORD
 			+ ": Sets the storage file path\n"
 			+ "Parameters: [valid file path]\n"
@@ -19,9 +19,9 @@ public class SetStorageCommand extends Command {
     public static final String MESSAGE_CANNOT_CREATE = "Unable to create file, please check path provided";
     public static final String MESSAGE_ALREADY_EXISTS_SUCCESS = MESSAGE_SUCCESS
     			+ ".\nWarning - file already exists, please check that the old file does not contain any important information."
-    			+ "\nIf you wish to undo this action, change storage location BEFORE making any changes to the data and BEFORE exiting Task Ninja";
+    			+ "\nIf you wish to undo this action, change storage location BEFORE making any changes to the data and BEFORE exiting ForgetMeNot";
     public static final String MESSAGE_ALREADY_EXISTS_NO_OVERWRITE = "File already exists, and I don't have permission to overwrite it";
-    public static final String MESSAGE_NO_PERMISSION = "I don't have permission to access this location";
+    public static final String MESSAGE_NO_PERMISSION = "Please provide an accessible location";
     
     private String filePath;
     
@@ -71,6 +71,8 @@ public class SetStorageCommand extends Command {
 	
 	private boolean canWriteToFile(String filePath) {
 		File file = new File(filePath).getParentFile();
+		if(file == null)
+			return false;
 		return file.canWrite();
 	}
 }
