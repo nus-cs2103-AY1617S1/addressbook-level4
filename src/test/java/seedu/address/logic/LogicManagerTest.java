@@ -972,9 +972,9 @@ public class LogicManagerTest {
     
     @Test
     public void execute_view_successful() throws Exception {
-    	String test = "23 oct";
+    	String test = "23 oct 12am";
     	TaskDate testDate = new TaskDate(test);
-    	assertCommandBehavior("view 23 oct",
+    	assertCommandBehavior("view 23 oct 12am",
     			String.format(ViewCommand.MESSAGE_UPDATE_AGENDA_SUCCESS, testDate.getFormattedDate()));
     	assertEquals(testDate, checkDate);
     	assertEquals(latestSavedTaskList.getTaskComponentList(), checkList);
