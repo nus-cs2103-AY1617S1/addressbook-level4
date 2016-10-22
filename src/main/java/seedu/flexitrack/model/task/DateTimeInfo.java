@@ -131,49 +131,36 @@ public class DateTimeInfo {
 
     private static String combineDuratingOfEvent(int years, int months, int days, int hours, int minutes) {
         String duration1 = new String("");
-        boolean lessThanAnHour = false;
-        boolean lessThanADay = false;
-        boolean lessThanAMonth = false;
-        boolean lessThanAYear = false;
 
         if (minutes > 0 || minutes < 0) {
             if (minutes < 0) {
                 minutes = Math.floorMod(minutes, 60);
-                lessThanAnHour = true;
+                hours=hours-1;
             }
             duration1 = " " + minutes + " minute" + ((minutes == 1) ? "" : "s");
         }
-        if (hours > 0 || hours < 0) {
-            if (hours < 0) {
-                hours = Math.floorMod(hours, 24);
-                lessThanADay = true;
-            }
-            if (lessThanAnHour) {
-                hours = hours - 1;
-            }
+        if (hours < 0) {
+            hours = Math.floorMod(hours, 24);
+            days=days-1;
+        } 
+        if(hours > 0){
             duration1 = " " + hours + " hour" + ((hours == 1) ? "" : "s" + duration1);
         }
-        if (days != 0) {
-            if (days < 0) {
-                days = Math.floorMod(days, 31);
-                lessThanAMonth = true;
-            }
-            if (lessThanADay) {
-                days = days - 1;
-            }
+        if (days < 0) {
+            days = Math.floorMod(days, 31);
+            months=months-1;
+        }
+        if(days>0){
             duration1 = " " + days + " day" + ((days == 1) ? "" : "s" + duration1);
         }
-        if (months > 0 || months < 0) {
-            if (months < 0) {
-                months = Math.floorMod(months, 12);
-                lessThanAYear = true;
-            }
-            if (lessThanAMonth) {
-                months = months - 1;
-            }
+        if (months < 0) {
+            months = Math.floorMod(months, 12);
+            years=years-1;
+        }
+        if(months>0){
             duration1 = " " + months + " month" + ((months == 1) ? "" : "s" + duration1);
         }
-        if (years < 0 || lessThanAYear) {
+        if (years < 0) {
             return MESSAGE_FROM_IS_AFTER_TO;
         } else if (years > 0) {
             duration1 = " " + years + " year" + ((years == 1) ? "" : "s" + duration1);
@@ -263,8 +250,7 @@ public class DateTimeInfo {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DateTimeInfo // instanceof handles nulls
-                        && this.setTime.equals(((DateTimeInfo) other).setTime)); // state
-                                                                                 // check
+                        && this.setTime.equals(((DateTimeInfo) other).setTime)); // state check
     }
 
     @Override
@@ -287,7 +273,6 @@ public class DateTimeInfo {
         try {
             result = durationBetweenTwoTiming(new DateTimeInfo ("now").toString(),Date.toString());
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return !result.equals(MESSAGE_FROM_IS_AFTER_TO);
@@ -298,7 +283,6 @@ public class DateTimeInfo {
         try {
             result = durationBetweenTwoTiming(Date.toString(),new DateTimeInfo ("now").toString());
         } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return !result.equals(MESSAGE_FROM_IS_AFTER_TO);
