@@ -303,11 +303,6 @@ public class ActivityManager implements ReadOnlyActivityManager {
         dub.setActivityEndDateTime(newDate, newTime);
         events.getInternalList().set(index, dub);
     }
-    
-    public void editEventAllDateTime(int index, String startNewDate, String startNewTime, String endNewDate,
-            String endNewTime) {
-
-    }
 
     public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
         if (tasks.remove(key)) {

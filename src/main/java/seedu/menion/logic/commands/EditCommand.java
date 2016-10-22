@@ -32,10 +32,14 @@ public class EditCommand extends Command {
     public static final String NOT_TO_EDIT = "-";
     public static final String SEPARATOR = "/ ";
     
-    public static final String MESSAGE_INVALID_PARAMETER = "Menion detected an invalid parameter! \n" +
-            "Please make sure it is : " + NAME_PARAM + SEPARATOR + NOTE_PARAM + SEPARATOR + TASK_DEADLINE_PARAM
-            + SEPARATOR + EVENT_FROM_PARAM + SEPARATOR + EVENT_TO_PARAM;
-
+    public static final String MESSAGE_INVALID_PARAMETER = "Menion detected an invalid parameter for the current type! \n" +
+            "Please make sure it is, for: \n" + 
+            Activity.FLOATING_TASK_TYPE + ": "  + NAME_PARAM + SEPARATOR + NOTE_PARAM + "\n" +
+            Activity.TASK_TYPE + ": " + NAME_PARAM + SEPARATOR + NOTE_PARAM + SEPARATOR + TASK_DEADLINE_PARAM + "\n" +
+            Activity.EVENT_TYPE + ": " + NAME_PARAM + SEPARATOR + NOTE_PARAM + SEPARATOR + EVENT_FROM_PARAM + SEPARATOR + EVENT_TO_PARAM;
+    
+            
+    
     public final int targetIndex;
     public final String targetType;
     public final String[] changes;
@@ -200,7 +204,7 @@ public class EditCommand extends Command {
      *         1 = note (For all) 
      *         2 = by (For Tasks only) 
      *         3 = from (For Event's Start Date & Time)
-     *         4 = to (For EVent's End Date & Time)
+     *         4 = to (For Event's End Date & Time)
      */
     private int checkParam(String paramToChange) throws IllegalValueException {
 
@@ -208,11 +212,11 @@ public class EditCommand extends Command {
             return 0;
         } else if (paramToChange.equals(NOTE_PARAM)) {
             return 1;
-        } else if (paramToChange.equals(TASK_DEADLINE_PARAM)) {
+        } else if (paramToChange.equals(TASK_DEADLINE_PARAM) && this.targetType.equals(Activity.TASK_TYPE)) {
             return 2;
-        } else if (paramToChange.equals(EVENT_FROM_PARAM)) {
+        } else if (paramToChange.equals(EVENT_FROM_PARAM) && this.targetType.equals(Activity.EVENT_TYPE)) {
             return 3;
-        } else if (paramToChange.equals(EVENT_TO_PARAM)) {
+        } else if (paramToChange.equals(EVENT_TO_PARAM) && this.targetType.equals(Activity.EVENT_TYPE) ) {
             return 4;
         }
 
