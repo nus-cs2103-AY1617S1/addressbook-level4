@@ -1,5 +1,8 @@
 package seedu.jimi.logic.commands;
 
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.jimi.model.ModelManager;
 
 /**
@@ -10,6 +13,21 @@ import seedu.jimi.model.ModelManager;
 public class ShowCommand extends Command {
 
     public static final String COMMAND_WORD = "show";
+    
+    public static final List<String> VALID_KEYWORDS = Arrays.asList(
+            "floating", 
+            "incomplete", 
+            "complete",
+            "today", 
+            "tomorrow", 
+            "Monday", 
+            "Tuesday", 
+            "Wednesday", 
+            "Thursday", 
+            "Friday", 
+            "Saturday", 
+            "Sunday" 
+    );
     
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Shows certain sections of the task panel in the agenda panel. \n"
