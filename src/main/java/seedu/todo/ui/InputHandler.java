@@ -1,6 +1,7 @@
 package seedu.todo.ui;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 import seedu.todo.controllers.*;
 
@@ -9,9 +10,8 @@ public class InputHandler {
     private static InputHandler instance;
     
     private static final int MAX_HISTORY_SIZE = 20;
-    private static final int INITIAL_HISTORY_INDEX = -1;
     private static LinkedList<String> commandHistory = new LinkedList<String>();
-    private static int commandHistoryCurrentIndex = INITIAL_HISTORY_INDEX;
+    private static ListIterator<String> commandHistoryIterator;
 
     private Controller handlingController = null;
     
@@ -35,15 +35,16 @@ public class InputHandler {
      * @param command   Command string
      */
     private void pushCommand(String command) {
-        // Resets current pointer.
-        commandHistoryCurrentIndex = INITIAL_HISTORY_INDEX;
-        
         // Adds to the start of the LinkedList.
         commandHistory.addFirst(command);
         
+        // Truncates the list when it gets too big.
         if (commandHistory.size() > MAX_HISTORY_SIZE) {
             commandHistory.removeLast();
         }
+        
+        // Create a new iterator
+        commandHistoryIterator = commandHistory.listIterator();
     }
     
     /**
@@ -52,18 +53,11 @@ public class InputHandler {
      * @return  The input command earlier than what was previously retrieved
      */
     public String getPreviousCommandFromHistory() {
-        // Advance index only up to commandHistory.size()
-        // Advances down the list
-        if (commandHistoryCurrentIndex < commandHistory.size()) {
-            commandHistoryCurrentIndex++;
+        if (!commandHistoryIterator.hasNext()) {
+            return "";
         }
         
-        // Returns empty String for index out of bounds
-        if (commandHistoryCurrentIndex >= commandHistory.size()) {
-            return "";
-        } else {
-            return commandHistory.get(commandHistoryCurrentIndex);
-        }
+        return commandHistoryIterator.next();
     }
     
     /**
@@ -72,18 +66,11 @@ public class InputHandler {
      * @return  The input command later than what was previously retrieved
      */
     public String getNextCommandFromHistory() {
-        // Advance index only up to INITIAL_HISTORY_INDEX
-        // Advance up the list
-        if (commandHistoryCurrentIndex - 1 >= INITIAL_HISTORY_INDEX) {
-            commandHistoryCurrentIndex--;
-        }
-
-        // Returns empty String for index out of bounds
-        if (commandHistoryCurrentIndex < 0) {
+        if (!commandHistoryIterator.hasPrevious()) {
             return "";
-        } else {
-            return commandHistory.get(commandHistoryCurrentIndex);
         }
+        
+        return commandHistoryIterator.previous();
     }
 
     public boolean processInput(String input) {
