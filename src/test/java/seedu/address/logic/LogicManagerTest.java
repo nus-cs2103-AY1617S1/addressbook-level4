@@ -152,15 +152,18 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessageInvalidFormat = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        String expectedMessageInvalidActivity = Command.MESSAGE_INVALID_ACTIVITY_TYPE;
+        String expectedMessageInvalidPriority = Priority.MESSAGE_PRIORITY_CONSTRAINTS;
+        String expectedMessageInvalidReminder = Reminder.MESSAGE_REMINDER_CONSTRAINTS;
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
+                "add task d/11-11-2103 1000 e/12-11-2103", expectedMessageInvalidActivity);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid Name 12345 p/isNotInteger", expectedMessageInvalidPriority);
         assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid Name s/12/11 2016", expectedMessageInvalidFormat);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Name r/laterIsNotAccepted", expectedMessageInvalidReminder);
     }
 
     @Test
