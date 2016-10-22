@@ -76,7 +76,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
-     * Renames the equivalent task (to toUpdate) in the list.
+     * Replaces the equivalent task (to toUpdate) in the list with a new task (updatedTask).
      *
      * @throws TaskNotFoundException if no such task (toUpdate) could be found in the list.
      * @throws DuplicateTaskException if the updated task is a duplicate of an existing task in the list.
@@ -85,14 +85,18 @@ public class UniqueTaskList implements Iterable<Task> {
             throws TaskNotFoundException, DuplicateTaskException {
         assert toUpdate != null;
         assert updatedTask != null;
+
         final int taskIndex = internalList.indexOf(toUpdate);
         final boolean taskFoundAndUpdated = (taskIndex != -1);
+
         if (!taskFoundAndUpdated) {
             throw new TaskNotFoundException();
         }
+
         if (contains(updatedTask)) {
             throw new DuplicateTaskException();
         }
+
         internalList.set(taskIndex, updatedTask);
         return taskFoundAndUpdated;
     }
@@ -104,14 +108,18 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean mark(ReadOnlyTask toMark) throws TaskNotFoundException {
         assert toMark != null;
+
         final int taskIndex = internalList.indexOf(toMark);
         final boolean taskFoundAndMarked = (taskIndex != -1);
+
         if (!taskFoundAndMarked) {
             throw new TaskNotFoundException();
         }
+
         Task markedTask = new Task(toMark);
         markedTask.markAsCompleted();
         internalList.set(taskIndex, markedTask);
+
         return taskFoundAndMarked;
     }
     
@@ -122,14 +130,18 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean unmark(ReadOnlyTask toUnmark) throws TaskNotFoundException {
         assert toUnmark != null;
+
         final int taskIndex = internalList.indexOf(toUnmark);
         final boolean taskFoundAndUnmarked = (taskIndex != -1);
+
         if (!taskFoundAndUnmarked) {
             throw new TaskNotFoundException();
         }
+
         Task unmarkedTask = new Task(toUnmark);
         unmarkedTask.markAsUncompleted();
         internalList.set(taskIndex, unmarkedTask);
+
         return taskFoundAndUnmarked;
     }
 

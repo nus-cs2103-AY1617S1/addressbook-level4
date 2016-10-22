@@ -1,7 +1,10 @@
 package guitests;
 
 import org.junit.Test;
+
+import seedu.agendum.logic.commands.CommandResult;
 import seedu.agendum.logic.commands.DeleteCommand;
+import seedu.agendum.model.task.ReadOnlyTask;
 import seedu.agendum.commons.core.Messages;
 import seedu.agendum.testutil.TestTask;
 import seedu.agendum.testutil.TestUtil;
@@ -51,9 +54,13 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        ArrayList<TestTask> deletedTasks = new ArrayList<TestTask>();
+        ArrayList<Integer> deletedTaskVisibleIndices = new ArrayList<Integer>();
+        deletedTaskVisibleIndices.add(targetIndexOneIndexed);
+        ArrayList<ReadOnlyTask> deletedTasks = new ArrayList<ReadOnlyTask>();
         deletedTasks.add(taskToDelete);
-        assertResultMessage(String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, deletedTasks));
+
+        assertResultMessage(String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS,
+                CommandResult.tasksToString(deletedTasks, deletedTaskVisibleIndices)));
     }
 
 }

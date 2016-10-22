@@ -8,7 +8,7 @@ import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 
 
 /**
- * Renames a task in the to do list.
+ * Renames a task in the task listing.
  */
 public class RenameCommand extends Command {
 

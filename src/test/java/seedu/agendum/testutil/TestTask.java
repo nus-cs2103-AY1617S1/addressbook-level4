@@ -31,7 +31,7 @@ public class TestTask implements ReadOnlyTask {
         this.isCompleted = other.isCompleted;
         this.startDateTime = other.startDateTime;
         this.endDateTime = other.endDateTime;
-    }    
+    }
 
     public void setName(Name name) {
         this.name = name;
@@ -63,21 +63,19 @@ public class TestTask implements ReadOnlyTask {
         return isCompleted;
     }
 
-    @Override
-    public boolean isOverdue() {
-        if (!getTaskTime().isPresent()) {
-            return false;
-        }
-        return !isCompleted() && getTaskTime().get().isBefore(LocalDateTime.now());
+    public boolean isUpcoming() {
+        return  !isCompleted() && hasTime() && getTaskTime().isBefore(
+                LocalDateTime.now().plusDays(UPCOMING_DAYS_THRESHOLD));
     }
 
     @Override
-    public boolean isUpcoming() {
-        if (!getTaskTime().isPresent()) {
-            return false;
-        }
-        return !isCompleted() && getTaskTime().get().isBefore(
-                LocalDateTime.now().plusDays(UPCOMING_DAYS_THRESHOLD));
+    public boolean isOverdue() {
+        return !isCompleted() && hasTime() && getTaskTime().isBefore(LocalDateTime.now());
+    }
+
+    @Override
+    public boolean hasTime() {
+        return (getStartDateTime().isPresent() || getEndDateTime().isPresent());
     }
 
     @Override
@@ -90,12 +88,13 @@ public class TestTask implements ReadOnlyTask {
         return Optional.ofNullable(endDateTime);
     }
 
-    private Optional<LocalDateTime> getTaskTime() {
-        if (getStartDateTime().isPresent()) {
-            return getStartDateTime();
-        } else {
-            return getEndDateTime();
-        }
+    /**
+     * Pre-condition: Task has a start or end time
+     * Return the (earlier) time associated with the task
+     */
+    private LocalDateTime getTaskTime() {
+        assert hasTime();
+        return getStartDateTime().orElse(getEndDateTime().get());
     }
 
     @Override

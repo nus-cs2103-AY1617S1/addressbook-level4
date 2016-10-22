@@ -10,7 +10,7 @@ import seedu.agendum.model.task.ReadOnlyTask;
 import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes task(s) identified using their last displayed indices from the to do list.
+ * Deletes task(s) identified using their last displayed indices from the task listing.
  */
 public class DeleteCommand extends Command {
 
@@ -59,7 +59,8 @@ public class DeleteCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, tasksToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS,
+                CommandResult.tasksToString(tasksToDelete, targetIndexes)));
     }
 
     private boolean isAnyIndexInvalid(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {

@@ -10,7 +10,7 @@ import seedu.agendum.model.task.ReadOnlyTask;
 import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Mark task(s) identified using their last displayed indices from the to do list.
+ * Mark task(s) identified using their last displayed indices in the task listing.
  */
 public class MarkCommand extends Command {
 
@@ -58,7 +58,8 @@ public class MarkCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndexes.toString()));
+        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, 
+                CommandResult.tasksToString(tasksToMark, targetIndexes)));
     }
 
     private boolean isAnyIndexInvalid(UnmodifiableObservableList<ReadOnlyTask> lastShownList) {

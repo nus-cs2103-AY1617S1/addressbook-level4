@@ -8,7 +8,6 @@ import java.util.Optional;
 
 /**
  * Represents a Task in the to do list.
- * Only the task name is compulsory and it cannot be an empty string.
  */
 public class Task implements ReadOnlyTask, Comparable<Task> {
 
@@ -42,12 +41,12 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.startDateTime = null;
         this.endDateTime = deadline.orElse(null);
     }
-
+    
     /**
-     * Constructor for a task with start and end datetime
+     * Constructor for a task (event) with both a start and end time
      */
     public Task(Name name, Optional<LocalDateTime> startDateTime,
-        Optional<LocalDateTime> endDateTime) {
+            Optional<LocalDateTime> endDateTime) {
         assert !CollectionUtil.isAnyNull(name);
         this.name = name;
         this.isCompleted = false;
@@ -59,8 +58,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDateTime(),
-                source.getEndDateTime());
+        this(source.getName(), source.getStartDateTime(), source.getEndDateTime());
         if (source.isCompleted()) {
             this.markAsCompleted();
         }
@@ -79,20 +77,19 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
     @Override
-    public boolean isOverdue() {
-        if (!getTaskTime().isPresent()) {
-            return false;
-        }
-        return !isCompleted() && getTaskTime().get().isBefore(LocalDateTime.now());
+    public boolean isUpcoming() {
+        return !isCompleted() && hasTime() && getTaskTime().isBefore(
+                LocalDateTime.now().plusDays(UPCOMING_DAYS_THRESHOLD));
     }
 
     @Override
-    public boolean isUpcoming() {
-        if (!getTaskTime().isPresent()) {
-            return false;
-        }
-        return !isCompleted() && !isOverdue() && getTaskTime().get().isBefore(
-                LocalDateTime.now().plusDays(UPCOMING_DAYS_THRESHOLD));
+    public boolean isOverdue() {
+        return !isCompleted() && hasTime() && getTaskTime().isBefore(LocalDateTime.now());
+    }
+
+    @Override
+    public boolean hasTime() {
+        return (getStartDateTime().isPresent() || getEndDateTime().isPresent());
     }
 
     @Override
@@ -105,12 +102,13 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return Optional.ofNullable(endDateTime);
     }
 
-    private Optional<LocalDateTime> getTaskTime() {
-        if (getStartDateTime().isPresent()) {
-            return getStartDateTime();
-        } else {
-            return getEndDateTime();
-        }
+    /**
+     * Pre-condition: Task has a start or end time
+     * Return the (earlier) time associated with the task (assumed to be start time)
+     */
+    private LocalDateTime getTaskTime() {
+        assert hasTime();
+        return getStartDateTime().orElse(getEndDateTime().get());
     }
     
     // ================ Setter methods ==============================
@@ -134,7 +132,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public void setEndDateTime(Optional<LocalDateTime> endDateTime) {
         this.endDateTime = endDateTime.orElse(null);
     }
-    
+
     // ================ Other methods ==============================
 
     @Override
@@ -145,42 +143,44 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
     @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name);
+    public int compareTo(Task other) {
+        int comparedCompletionStatus = compareCompletionStatus(other);
+        if (comparedCompletionStatus != 0) {
+            return comparedCompletionStatus;
+        }
+
+        int comparedTime = compareTime(other);
+        if (comparedTime != 0) {
+            return comparedTime;
+        }
+        
+        return compareName(other);
     }
 
-    @Override
-    public int compareTo(Task other) {
-//        int compareCompletionStatus = compareCompletionStatus(other);
-//        if (compareCompletionStatus != 0) {
-//            return compareCompletionStatus;
-//        }
-        int compareTime = compareTime(other);
-        if (compareTime != 0) {
-            return compareTime;
-        }
-        int compareName = compareName(other);
-        return compareName;
-    }
-    
-    public int compareTime(Task other) {
-        if (this.getTaskTime().isPresent() && other.getTaskTime().isPresent()) {
-           return this.getTaskTime().get().compareTo(other.getTaskTime().get());
-        } else if (this.getTaskTime().isPresent()) {
-            return 1;
-        } else if (other.getTaskTime().isPresent()) {
-            return -1;
-        }
-        return 0;     
-    }
-    
     public int compareCompletionStatus(Task other) {
-        return Boolean.compare(this.isCompleted, other.isCompleted);
+        return Boolean.compare(this.isCompleted(), other.isCompleted);
+    }
+
+    public int compareTime(Task other) {
+        if (this.hasTime() && other.hasTime()) {
+            return this.getTaskTime().compareTo(other.getTaskTime());
+        } else if (this.hasTime()) {
+            return -1;
+        } else if (other.hasTime()) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     public int compareName(Task other) {
         return this.getName().toString().compareTo(other.getName().toString());
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(name, isCompleted, startDateTime, endDateTime);
     }
 
     @Override
