@@ -121,6 +121,11 @@ public class ListOfTask implements ReadOnlyListOfTask {
         }
                     
     }
+    
+    public void doneTask(ReadOnlyTask key, boolean isDone){
+    	tasks.done(key,isDone);
+    }
+    
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
