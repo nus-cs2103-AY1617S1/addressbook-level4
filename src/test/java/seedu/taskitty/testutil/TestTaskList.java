@@ -60,18 +60,7 @@ public class TestTaskList {
     }
     
     public TestTask getTaskFromList(int index, String category) {
-        switch (category) {
-        
-        case ("d") :
-            return deadlineList.get(index);
-            
-        case ("e") :
-            return eventList.get(index);
-            
-        default :
-            return todoList.get(index);
-        }
-            
+        return getCategoryList(category).get(index);  
     }
     
     public void editTaskFromList(int index, String category, TestTask task) {
@@ -80,32 +69,27 @@ public class TestTaskList {
     }
     
     public void removeTaskFromList(int index, String category) {
-        switch (category) {
-        
-        case ("d") :
-            deadlineList.remove(index);
-            break;
-            
-        case ("e") :
-            eventList.remove(index);
-            break;
-            
-        default :
-            todoList.remove(index);
-        }
+        getCategoryList(category).remove(index);
     }
     
     public int size(String category) {
+        return getCategoryList(category).size();
+    }
+    
+    public List<TestTask> getCategoryList(String category) {
         switch (category) {
         
-        case ("d") :
-            return deadlineList.size();
+        case(Task.TODO_CATEGORY_CHAR) :
+            return todoList;
+        
+        case (Task.DEADLINE_CATEGORY_CHAR) :
+            return deadlineList;
             
-        case ("e") :
-            return eventList.size();
+        case (Task.EVENT_CATEGORY_CHAR) :
+            return eventList;
             
         default :
-            return todoList.size();
+            return todoList;
         }
     }
     
