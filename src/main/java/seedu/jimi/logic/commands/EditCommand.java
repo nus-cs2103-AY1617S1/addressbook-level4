@@ -60,6 +60,15 @@ public class EditCommand extends Command {
     private DateTime eventStart;
     private DateTime eventEnd;
     
+    private enum EditType {
+        REMOVE_DATES,
+        ONLY_NAME,
+        TO_EVENT,
+        TO_DEADLINE
+    }
+    
+    private EditType editType;
+    
     public EditCommand() {
         this(null);
     }
@@ -67,6 +76,7 @@ public class EditCommand extends Command {
     /** Constructor used to remove all dates from task specified at {@code taskIndex}. */
     public EditCommand(String taskIndex) {
         this.taskIndex = taskIndex;
+        determineEditType();
     }
     
     public EditCommand(String name, Set<String> tags, List<Date> deadline, List<Date> eventStart, List<Date> eventEnd,
@@ -91,6 +101,7 @@ public class EditCommand extends Command {
         this.eventStart = (eventStart.size() != 0) ? new DateTime(eventStart.get(0)) : null;
         this.eventEnd = (eventEnd.size() != 0) ? new DateTime(eventEnd.get(0)) : null;
         
+        determineEditType();
     }
     
     @Override
@@ -131,28 +142,33 @@ public class EditCommand extends Command {
      * ==================================================
      */
     
+    /** Determines the type of edit based on user input */
+    private void determineEditType() {
+        if (newName == null && deadline == null && eventStart == null && eventEnd == null && newTagList == null) {
+            this.editType = EditType.REMOVE_DATES;
+        } else if (newName != null && deadline == null && eventStart == null && eventEnd == null) {
+            this.editType = EditType.ONLY_NAME;
+        } else if (eventStart != null && deadline == null) {
+            this.editType = EditType.TO_EVENT;
+        } else if (eventStart == null && eventEnd == null && deadline != null) {
+            this.editType = EditType.TO_DEADLINE;
+        }
+    }
+    
     /** Generates the new task to replace the current task */
     private Optional<ReadOnlyTask> determineNewTask(ReadOnlyTask oldTask) {
-        final boolean removeDatesEdit = 
-                newName == null && deadline == null && eventStart == null && eventEnd == null && newTagList == null;
-        final boolean onlyNameEdit = 
-                newName != null && deadline == null && eventStart == null && eventEnd == null;
-        final boolean toEventEdit = 
-                eventStart != null && deadline == null;
-        final boolean toDeadlineTaskEdit =
-                eventStart == null && eventEnd == null && deadline != null;
-        
-        if (removeDatesEdit) {
+        switch (editType) {
+        case REMOVE_DATES :
             return Optional.of(toFloatingTypeWithChanges(oldTask));
-        } else if (onlyNameEdit) {
+        case ONLY_NAME :
             return Optional.of(toSameTaskTypeWithChanges(oldTask));
-        } else if (toEventEdit) {
+        case TO_EVENT :
             return Optional.of(toEventTypeWithChanges(oldTask));
-        } else if (toDeadlineTaskEdit) {
+        case TO_DEADLINE :
             return Optional.of(toDeadlineTaskTypeWithChanges(oldTask));
+        default :
+            return Optional.empty();
         }
-        
-        return Optional.empty();
     }
 
     /** Generates a floating task with changes */
