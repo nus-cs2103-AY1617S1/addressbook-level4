@@ -61,8 +61,7 @@ public class TestApp extends MainApp {
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(1200.0, 900.0, (int) x, (int) y));
         return userPrefs;
     }
-
-
+    
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);

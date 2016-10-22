@@ -62,7 +62,7 @@ public abstract class TaskMasterGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            taskListPanel = mainGui.getFloatingTaskListPanel();
+            taskListPanel = mainGui.getTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             navbar = mainGui.getNavbar();
@@ -130,5 +130,4 @@ public abstract class TaskMasterGuiTest {
         assertEquals(expected, resultDisplay.getText());
     }
     
-
 }
