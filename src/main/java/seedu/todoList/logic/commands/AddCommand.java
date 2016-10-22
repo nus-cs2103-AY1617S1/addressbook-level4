@@ -30,13 +30,13 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String date, String endDate ,int priority)
-            throws IllegalValueException {
+    public AddCommand(String name, String date, String endDate ,String priority)
+            throws IllegalValueException {       
         this.toAdd = new Todo(
                 new Name(name),
                 new StartDate(date),
                 new EndDate(endDate),
-                new Priority(Integer.toString(priority))
+                new Priority(priority)
         );
     }
     
