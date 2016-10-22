@@ -1,6 +1,6 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static seedu.task.logic.commands.UncompleteCommand.MESSAGE_UNCOMPLETE_TASK_SUCCESS;
 
 import org.junit.Test;
@@ -24,26 +24,25 @@ public class UncompleteCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("complete " + targetIndex);
         commandBox.runCommand("uncomplete " + targetIndex);
         ReadOnlyTask newTask = taskListPanel.getTask(targetIndex - 1);
-        assertTrue(!newTask.getComplete());
-        
-        // confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, newTask));
+        assertFalse(Messages.MESSAGE_INVALID_UNCOMPLETE_TASK,newTask.getComplete());
+        assertResultMessage(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, newTask));  
 
         // unmark another task
         targetIndex = 3;
         commandBox.runCommand("complete " + targetIndex);
         commandBox.runCommand("uncomplete " + targetIndex);
-        ReadOnlyTask otherTask = taskListPanel.getTask(targetIndex - 1);
-        assertTrue(!otherTask.getComplete());
-        assertResultMessage(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, otherTask));
+        newTask = taskListPanel.getTask(targetIndex - 1);
+        assertFalse(Messages.MESSAGE_INVALID_UNCOMPLETE_TASK,newTask.getComplete());
+        assertResultMessage(String.format(MESSAGE_UNCOMPLETE_TASK_SUCCESS, newTask));
 
         // unmark a task which is not marked as complete before
         targetIndex = currentList.length;
         commandBox.runCommand("uncomplete " + targetIndex);
         newTask = taskListPanel.getTask(targetIndex - 1);
-        assertTrue(!newTask.getComplete());
+        //this task should still be marked as not complete
+        assertFalse(Messages.MESSAGE_INVALID_UNCOMPLETE_TASK,newTask.getComplete());
         assertResultMessage(Messages.MESSAGE_INVALID_UNCOMPLETE_TASK);
-
+       
         // mark at an empty list
         commandBox.runCommand("clear");
         commandBox.runCommand("uncomplete " + (currentList.length + 1));
