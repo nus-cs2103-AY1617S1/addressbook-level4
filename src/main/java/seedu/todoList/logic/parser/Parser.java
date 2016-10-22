@@ -126,15 +126,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-<<<<<<< HEAD
 
-//        case StorageCommand.COMMAND_WORD:
-//            return new StorageCommand(arguments);
-=======
-            
         case StorageCommand.COMMAND_WORD:
-        	return new StorageCommand(arguments);
->>>>>>> a6d44dc7e69055ef975aa340b5da8a8ec532aa33
+            return new StorageCommand(arguments);
             
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
