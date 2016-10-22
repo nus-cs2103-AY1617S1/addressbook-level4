@@ -157,7 +157,7 @@ public class Parser {
                         matcher_task.group("name"), 
                         matcher_task.group("date"),
                         isInputPresent(matcher_task.group("endDate")),
-                        Integer.parseInt(matcher_task.group("priority")));
+                        matcher_task.group("priority"));
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
@@ -303,7 +303,7 @@ public class Parser {
                             matcher_task.group("name"), 
                             matcher_task.group("date"),
                             isInputPresent(matcher_task.group("endDate")),
-                            Integer.parseInt(matcher_task.group("priority")),
+                            matcher_task.group("priority"),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get());
                 } catch (IllegalValueException ive) {
@@ -345,7 +345,7 @@ public class Parser {
                             matcher_task.group("name"), 
                             matcher_task.group("date"),
                             isInputPresent(matcher_task.group("endDate")),
-                            Integer.parseInt(matcher_task.group("priority")),
+                            matcher_task.group("priority"),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get());
                 } catch (IllegalValueException ive) {
@@ -387,7 +387,7 @@ public class Parser {
                             matcher_task.group("name"), 
                             matcher_task.group("date"),
                             isInputPresent(matcher_task.group("endDate")),
-                            Integer.parseInt(matcher_task.group("priority")),
+                            matcher_task.group("priority"),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
                             dataType.get());
                 } catch (IllegalValueException ive) {

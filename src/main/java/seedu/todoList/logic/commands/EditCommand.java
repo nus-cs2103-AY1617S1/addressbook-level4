@@ -37,7 +37,7 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, String endDate, int priority, int targetIndex, String dataType)
+    public EditCommand(String name, String date, String endDate, String priority, int targetIndex, String dataType)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.dataType = dataType;
@@ -45,7 +45,7 @@ public class EditCommand extends Command {
                 new Name(name),
                 new StartDate(date),
                 new EndDate(endDate),
-                new Priority(Integer.toString(priority))
+                new Priority(priority)
         );
     }
     

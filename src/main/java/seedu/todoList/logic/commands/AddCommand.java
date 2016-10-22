@@ -17,7 +17,7 @@ public class AddCommand extends Command {
             + "Parameters: TASK_NAME from/DATE to/ENDDATE(Optional) at/START_TIME to/END_TIME\n"
             + "Example: " + COMMAND_WORD + " Time's birthday party from/25-12-2016 to/26-12-2016 at/1400 to/1600\n"
             + "Parameters: TASK_NAME on/DATE at/END_TIME\n"
-            + "Example: " + COMMAND_WORD + " CS2103 v0.2 from/25-12-2016 at/1600\n";
+            + "Example: " + COMMAND_WORD + " CS2103 v0.2 on/25-12-2016 at/1600\n";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String INVALID_VALUE = "Invalid value";
@@ -30,13 +30,13 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String date, String endDate ,int priority)
-            throws IllegalValueException {
+    public AddCommand(String name, String date, String endDate ,String priority)
+            throws IllegalValueException {       
         this.toAdd = new Todo(
                 new Name(name),
                 new StartDate(date),
                 new EndDate(endDate),
-                new Priority(Integer.toString(priority))
+                new Priority(priority)
         );
     }
     

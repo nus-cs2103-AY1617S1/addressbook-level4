@@ -13,7 +13,7 @@ import seedu.todoList.model.task.attributes.StartTime;
  */
 public class Event extends Task implements ReadOnlyTask {
 
-	private StartDate date;
+	private StartDate startDate;
 	private EndDate endDate;
     private StartTime startTime;
     private EndTime endTime;
@@ -21,10 +21,10 @@ public class Event extends Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, StartDate Date, EndDate endDate, StartTime startTime, EndTime endTime) {
-        assert !CollectionUtil.isAnyNull(name, Date, endDate, startTime, endTime);
+    public Event(Name name, StartDate startDate, EndDate endDate, StartTime startTime, EndTime endTime) {
+        assert !CollectionUtil.isAnyNull(name, startDate, endDate, startTime, endTime);
         super.name = name;
-        this.date = Date;
+        this.startDate = startDate;
         this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -42,7 +42,7 @@ public class Event extends Task implements ReadOnlyTask {
     };
 
     public StartDate getDate() {
-        return date;
+        return startDate;
     }
     
     public EndDate getEndDate() {
@@ -61,7 +61,7 @@ public class Event extends Task implements ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other instanceof Event // instanceof handles nulls
                 && super.name.equals(((Event) other).getName())
-                && this.date.equals(((Event) other).getDate())
+                && this.startDate.equals(((Event) other).getDate())
                 && this.endDate.equals(((Event) other).getEndDate())
 				&& this.startTime.equals(((Event) other).getStartTime())
 				&& this.endTime.equals(((Event) other).getEndTime()));
@@ -72,7 +72,7 @@ public class Event extends Task implements ReadOnlyTask {
     public String toString() {
     	final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Date: ")
+                .append(" Start Date: ")
                 .append(getDate())
                 .append(" End Date: ")
                 .append(getEndDate())
