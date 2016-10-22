@@ -10,7 +10,7 @@ import seedu.menion.logic.commands.ListCommand;
 public class ListCommndTest {
 
 	@Test
-	public void checkListType_returnsCorrectTypeOfList () throws IllegalValueException{
+	public void checkListType_returnsListTypeAll () throws IllegalValueException{
 		
 		String argument = "all";
 		ListCommand list = new ListCommand(argument);
@@ -19,4 +19,21 @@ public class ListCommndTest {
 		
 	}
 
+	@Test
+	public void checkListType_returnsListTypeDate() throws IllegalValueException{
+		
+		String argument = "19-08-1994";
+		ListCommand list = new ListCommand(argument);
+		
+		assertEquals(list.LIST_DATE, list.checkListType(argument));
+	}
+	
+	@Test
+	public void checkListType_returnsListTypeMonth() throws IllegalValueException {
+		
+		String argument = "deCemBer";
+		ListCommand list = new ListCommand(argument);
+		
+		assertEquals(list.LIST_MONTH, list.checkListType(argument));
+	}
 }
