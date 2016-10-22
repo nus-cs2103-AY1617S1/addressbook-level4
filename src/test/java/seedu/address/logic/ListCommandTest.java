@@ -7,7 +7,8 @@ import org.junit.Test;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.logic.commands.ListCommand;
 
-public class ListCommndTest {
+//@@author A0139277U
+public class ListCommandTest {
 
 	@Test
 	public void checkListType_returnsListTypeAll () throws IllegalValueException{
