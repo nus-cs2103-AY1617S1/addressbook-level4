@@ -25,10 +25,10 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final FilteredList<Task> filteredTasks;
     
-    private FilteredList<Task> filteredCompleteTasks;
-    private FilteredList<Task> filteredIncompleteTasks;
+    private final FilteredList<Task> filteredAllTasks;
+    private final FilteredList<Task> filteredCompleteTasks;
+    private final FilteredList<Task> filteredIncompleteTasks;
     
     private final Stack<ReadOnlyAddressBook> addressBookHistory;
 
@@ -44,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         addressBook = new AddressBook(src);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
+        filteredAllTasks = new FilteredList<>(addressBook.getAllTasks());
         filteredCompleteTasks = new FilteredList<>(addressBook.getCompletedTasks());
         filteredIncompleteTasks = new FilteredList<>(addressBook.getIncompleteTasks());
         addressBookHistory = new Stack<ReadOnlyAddressBook>();
@@ -56,7 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
-        filteredTasks = new FilteredList<>(addressBook.getTasks());
+        filteredAllTasks = new FilteredList<>(addressBook.getAllTasks());
         filteredCompleteTasks = new FilteredList<>(addressBook.getCompletedTasks());
         filteredIncompleteTasks = new FilteredList<>(addressBook.getIncompleteTasks());
         addressBookHistory = new Stack<ReadOnlyAddressBook>();
@@ -117,8 +117,8 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredAllTaskList() {
+        return new UnmodifiableObservableList<>(filteredAllTasks);
     }
     
     @Override
@@ -133,7 +133,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+        filteredAllTasks.setPredicate(null);
+        filteredCompleteTasks.setPredicate(null);
+        filteredIncompleteTasks.setPredicate(null);
     }
 
     @Override
@@ -142,7 +144,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
+        filteredAllTasks.setPredicate(expression::satisfies);
         filteredCompleteTasks.setPredicate(expression::satisfies);
         filteredIncompleteTasks.setPredicate(expression::satisfies);
     }

@@ -112,7 +112,7 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredTaskList());
+        assertEquals(expectedShownList, model.getFilteredAllTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedAddressBook, model.getAddressBook());
@@ -261,7 +261,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
+        assertEquals(model.getFilteredAllTaskList().get(1), threeTasks.get(1));
     }
 
 
