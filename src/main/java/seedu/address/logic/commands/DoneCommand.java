@@ -60,7 +60,7 @@ public class DoneCommand extends Command {
                 model.loadPreviousState();
         		indicateAttemptToExecuteIncorrectCommand();
                 return (Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX 
-                		+ "for " + status + " command");
+                		+ " for " + status + " command");
             }
 
             taskChanged = new Task(lastShownList.get(indices[i] - 1));

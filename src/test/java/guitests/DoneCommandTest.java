@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.DoneCommand;
 import seedu.address.model.task.Status;
 
@@ -44,9 +45,12 @@ public class DoneCommandTest extends TaskManagerGuiTest{
 		
 		//mark index out of bound
 		command = "done 15";
-		doneIndices = new int[] {15};
-		notDoneIndices = new int[0];
-		assertDoneSuccess(command, doneIndices, notDoneIndices, currentList);
+		commandBox.runCommand(command);
+		String doneMessage = Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX 
+				+ " for done command"; 
+		String notDoneMessage = String.format(DoneCommand.MESSAGE_NOT_DONE_TASK_SUCCESS, 
+				new ArrayList<TestTask>());
+		assertResultMessage(doneMessage + "\n" + notDoneMessage);
 		
 	}
 	
