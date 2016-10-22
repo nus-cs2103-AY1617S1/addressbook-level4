@@ -1,5 +1,7 @@
 package seedu.taskitty.commons.util;
 
+import seedu.taskitty.model.task.Task;
+
 public class TaskUtil {
     
     /**
@@ -8,11 +10,15 @@ public class TaskUtil {
      */
     public static int getCategoryIndex(String command) {
         switch(command) {
-            case("d"): 
-                return 1;
+        
+            case(Task.TODO_CATEGORY_CHAR) :
+                return Task.TODO_CATEGORY_INDEX;
             
-            case("e"): 
-                return 2;
+            case(Task.DEADLINE_CATEGORY_CHAR): 
+                return Task.DEADLINE_CATEGORY_INDEX;
+            
+            case(Task.EVENT_CATEGORY_CHAR): 
+                return Task.EVENT_CATEGORY_INDEX;
             
             default: 
                 return 0;
