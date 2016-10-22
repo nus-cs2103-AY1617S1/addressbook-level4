@@ -38,14 +38,17 @@ public class TestTaskList {
         
         case Task.TASK_COMPONENT_COUNT :
             todoList.add(task);
+            todoList.sort(null);
             break;
             
         case Task.DEADLINE_COMPONENT_COUNT :
             deadlineList.add(task);
+            deadlineList.sort(null);
             break;
             
         case Task.EVENT_COMPONENT_COUNT :
             eventList.add(task);
+            eventList.sort(null);
             break;
             
         default :

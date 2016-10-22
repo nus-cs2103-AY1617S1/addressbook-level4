@@ -6,7 +6,7 @@ import seedu.taskitty.model.task.*;
 /**
  * A mutable person object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 
     private Name name;
     private TaskDate startDate;
@@ -123,4 +123,36 @@ public class TestTask implements ReadOnlyTask {
 	public boolean isEvent() {
 		return numArgs == 5;
 	}
+	
+	@Override
+    public int compareTo(TestTask taskToCompare) {
+	    // sort all tasks that are done to the back of the list
+        if (this.getIsDone() && !taskToCompare.getIsDone()) {
+            return 1;
+        } else if (!this.getIsDone() && taskToCompare.getIsDone()) {
+            return -1;
+        }
+        if (this.getNumArgs() == taskToCompare.getNumArgs()) {
+         // sort events according to their start time and end time
+            if (this.isEvent()) {
+                if (!this.getStartDate().equals(taskToCompare.getStartDate())) {
+                    return this.getStartDate().getDate().compareTo(taskToCompare.getStartDate().getDate());
+                } else if (!this.getStartTime().equals(taskToCompare.getStartTime())) {
+                    return this.getStartTime().time.compareTo(taskToCompare.getStartTime().time);                    
+                }
+            }
+         // if event has same start date and start time, sort it by its end date or end time like deadline
+            if (this.isEvent() || this.isDeadline()) {
+                if (!this.getEndDate().equals(taskToCompare.getEndDate())) {
+                    return this.getEndDate().getDate().compareTo(taskToCompare.getEndDate().getDate());
+                } else if (!this.getEndTime().equals(taskToCompare.getEndTime())) {
+                    return this.getEndTime().time.compareTo(taskToCompare.getEndTime().time);                    
+                } 
+            }
+         // if event and deadline has all the same dates and times, sort by the name of the task like todo
+            return this.getAsText().compareTo(taskToCompare.getAsText());
+        } else {
+            return this.getNumArgs() - taskToCompare.getNumArgs();
+        } 
+    }
 }

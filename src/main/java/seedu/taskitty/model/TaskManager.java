@@ -80,6 +80,10 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void resetData(ReadOnlyTaskManager newData) {
         resetData(newData.getTaskList(), newData.getTagList());
     }
+    
+    public void sortList() {
+        tasks.sort();
+    }
 
 //// task-level operations
 
@@ -105,18 +109,6 @@ public class TaskManager implements ReadOnlyTaskManager {
     	tasks.mark(key);
     }
     
-    /**
-     * Adds a task to the task manager.
-     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
-     *
-     * @throws UniqueTaskList.DuplicatePersonException if an equivalent person already exists.
-     */
-    public void addTask(Task p, int index) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(p);
-        tasks.add(index, p);
-    }
-
     /**
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}

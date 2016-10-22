@@ -64,6 +64,12 @@ public class UniqueTaskList implements Iterable<Task> {
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
         }
+        for (int i = 0; i < internalList.size(); i++) {
+            if (toAdd.compareTo(internalList.get(i)) < 0) {
+                internalList.add(i, toAdd);
+                return;
+            }
+        }
         internalList.add(toAdd);
     }
     
@@ -84,19 +90,13 @@ public class UniqueTaskList implements Iterable<Task> {
     	if (!taskFoundAndMarkedAsDone) {
     		throw new TaskNotFoundException();
     	}
-    }
+    }   
     
     /**
-     * Adds a task to the list.
-     *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
+     * Sorts the task list according to compareTo method in Task
      */
-    public void add(int index, Task toAdd) throws DuplicateTaskException {
-        assert toAdd != null;
-        if (contains(toAdd)) {
-            throw new DuplicateTaskException();
-        }
-        internalList.add(index, toAdd);
+    public void sort() {
+        internalList.sort(null);
     }
 
     /**

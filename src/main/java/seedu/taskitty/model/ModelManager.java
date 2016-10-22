@@ -56,6 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
         historyTaskManagers = new Stack<ReadOnlyTaskManager>();
         historyCommands = new Stack<String>();
         historyPredicates = new Stack<Predicate>();
+        taskManager.sortList();
     }
 
     public ModelManager() {
@@ -136,10 +137,10 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskManagerChanged();
     }
    	@Override
-    public synchronized void editTask(ReadOnlyTask target, Task task, int index) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
+    public synchronized void editTask(ReadOnlyTask target, Task task) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
-        taskManager.addTask(task, index);
+        taskManager.addTask(task);
         updateFilters();
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
