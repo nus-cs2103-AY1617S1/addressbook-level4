@@ -763,14 +763,17 @@ public class LogicManagerTest {
         Task pTarget3 = helper.generateTaskWithName("key key");
         Task p1 = helper.generateTaskWithName("sduauo");
         Task test = helper.nonFloatingByDate();
+        Task test2 = helper.nonFloatingFromDateToDate();
 
         List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
         TaskMaster expectedAB = helper.generateTaskList(fourTasks);
         List<Task> expectedList = helper.generateTasks(test);
         
         expectedAB.addTask(test);
+        expectedAB.addTask(test2);
         helper.addToModel(model, fourTasks);
         model.addTask(test);
+        model.addTask(test2);
         
         List<TaskComponent> componentList = helper.buildTaskComponentsFromTaskList(expectedList);
         
@@ -799,15 +802,18 @@ public class LogicManagerTest {
         Task pTarget3 = helper.generateTaskWithName("key key");
         Task p1 = helper.generateTaskWithName("sduauo");
         Task test = helper.nonFloatingFromDateToDate();
+        Task test2 = helper.nonFloatingByDate();
 
         List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
         TaskMaster expectedAB = helper.generateTaskList(fourTasks);
         List<Task> expectedList = helper.generateTasks(test);
         
         expectedAB.addTask(test);
+        expectedAB.addTask(test2);
 
         helper.addToModel(model, fourTasks);
         model.addTask(test);
+        model.addTask(test2);
         List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
         
         //find by exact boundary successful
@@ -816,7 +822,12 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedComponentList);
         //find by smaller boundary lists nothing
-        assertCommandBehavior("find from 19 oct 11pm to 20 oct 11am",
+        assertCommandBehavior("find from 19 oct 10.01pm to 20 oct 11am",
+                Command.getMessageForTaskListShownSummary(0),
+                expectedAB,
+                new TaskMaster().getTaskComponentList());
+        
+        assertCommandBehavior("find from 19 oct 10pm to 20 oct 10.59am",
                 Command.getMessageForTaskListShownSummary(0),
                 expectedAB,
                 new TaskMaster().getTaskComponentList());
@@ -836,14 +847,17 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithName("sduauo");
         Task test = helper.nonFloatingFromDateToDate();
 
-        List<Task> fourTasks = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
-        TaskMaster expectedAB = helper.generateTaskList(fourTasks);
-        List<Task> expectedList = helper.generateTasks(pTarget1, p1, pTarget2, pTarget3);
+        List<Task> threeTasks = helper.generateTasks(pTarget1, pTarget2, pTarget3);
+        TaskMaster expectedAB = helper.generateTaskList(threeTasks);
+        List<Task> expectedList = helper.generateTasks(pTarget1, pTarget2, pTarget3);
         
         expectedAB.addTask(test);
+        expectedAB.addTask(p1);
 
-        helper.addToModel(model, fourTasks);
+        helper.addToModel(model, threeTasks);
         model.addTask(test);
+        model.addTask(p1);
+        logic.execute("done 5");
         
         List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
 

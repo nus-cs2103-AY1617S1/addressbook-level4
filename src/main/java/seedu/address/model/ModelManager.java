@@ -194,7 +194,8 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(TaskComponent task) {
 
-            return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.isArchived();
+        	return task.getTaskReference().getTaskType().equals(typeKeyWords);
+            
         }
 
         @Override
@@ -299,8 +300,7 @@ public class ModelManager extends ComponentManager implements Model {
 				return null;
 			}
 			
-			if(task.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT
-					|| task.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
+			if(task.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
 				return null;
 			}
 			
@@ -312,7 +312,7 @@ public class ModelManager extends ComponentManager implements Model {
 		@Override
 		public boolean run(TaskComponent task) {
 			
-			if(this.startTime == null || this.endTime == null)
+			if(this.endTime == null)
 				return true;
 				
 			Date[] timeArray = extractTaskPeriod(task);
@@ -351,9 +351,6 @@ public class ModelManager extends ComponentManager implements Model {
 				return true;
 			
 			if(task.getTaskReference().getTaskType().equals(TaskType.FLOATING))
-				return false;
-			
-			if(task.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
 				return false;
 			
 			Date deadline = new Date(task.getEndDate().getDateInLong());
