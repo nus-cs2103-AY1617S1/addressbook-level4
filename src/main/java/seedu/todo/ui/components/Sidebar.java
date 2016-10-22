@@ -3,10 +3,8 @@ package seedu.todo.ui.components;
 import java.util.List;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiPartLoader;
 
@@ -35,11 +33,7 @@ public class Sidebar extends Component {
     @FXML
     private VBox sidebarTagsPlaceholder;
 
-    public static Sidebar load(Stage primaryStage, Pane placeholderPane) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new Sidebar());
-    }
-
-    @Override
+   @Override
     public String getFxmlPath() {
         return FXML_PATH;
     }
@@ -71,7 +65,7 @@ public class Sidebar extends Component {
         String[] linkIconPaths = { TASKS_ICON_PATH, OVERDUE_ICON_PATH, EVENTS_ICON_PATH };
 
         for (int i = 0; i < linkLabels.length; i++) {
-            SidebarCounter counter = SidebarCounter.load(primaryStage, sidebarCountersPlaceholder);
+            SidebarCounter counter = UiPartLoader.loadUiPart(primaryStage, sidebarCountersPlaceholder, SidebarCounter.class);
             counter.label = linkLabels[i];
             counter.iconPath = linkIconPaths[i];
             counter.render();
@@ -82,7 +76,7 @@ public class Sidebar extends Component {
         TagListItem.reset(sidebarTagsPlaceholder);
 
         for (String tag : tags) {
-            TagListItem item = TagListItem.load(primaryStage, sidebarTagsPlaceholder);
+            TagListItem item = UiPartLoader.loadUiPart(primaryStage, sidebarTagsPlaceholder, TagListItem.class);
             item.tag = tag;
             item.render();
         }

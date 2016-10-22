@@ -14,18 +14,32 @@ import seedu.todo.MainApp;
 public class UiPartLoader {
     private final static String FXML_FILE_FOLDER = "/ui/";
     private final static String FXML_ERROR_MESSAGE = "FXML Load Error for ";
+    private final static String INSTANTION_EXCEPTION_ERROR_MESSAGE = "Could not instantiate ";
+    
     /**
      * Loads the UiPart and returns the view controller.
      *
      * @param primaryStage The primary stage for the view.
-     * @param placeholder The placeholder where the loaded Ui Part is added.
-     * @param sampleUiPart The sample instance of the expected UiPart class.
-     * @param <T> The type of the UiPart
+     * @param placeholder  The placeholder where the loaded Ui Part is added.
+     * @param uiPartClass  The UiPart class to load.
+     * @param <T>          The type of the UiPart
      */
-    public static <T extends UiPart> T loadUiPart(Stage primaryStage, Pane placeholder, T sampleUiPart) {
+    public static <T extends UiPart> T loadUiPart(Stage primaryStage, Pane placeholder, Class<T> uiPartClass) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getFXMLResource(sampleUiPart.getFxmlPath()));
-        Node mainNode = loadLoader(loader, sampleUiPart.getFxmlPath());
+        
+        // Get FXML path
+        T instance = null;
+        try {
+            instance = uiPartClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            String errorMessage = INSTANTION_EXCEPTION_ERROR_MESSAGE + uiPartClass.getName();
+            throw new RuntimeException(errorMessage, e);
+        }
+        String fxmlPath = instance.getFxmlPath();
+        
+        // Continue with loading
+        loader.setLocation(getFXMLResource(fxmlPath));
+        Node mainNode = loadLoader(loader, fxmlPath);
 
         T controller = loader.getController();
         controller.setStage(primaryStage);
@@ -34,23 +48,16 @@ public class UiPartLoader {
         return controller;
     }
 
-    public static <T extends UiPart> T loadUiPart(Stage primaryStage, T sampleUiPart) {
-        return loadUiPart(primaryStage, null, sampleUiPart);
-    }
-
     /**
-     * Returns the ui class for a specific UI Part.
+     * Loads the UiPart and returns the view controller, without a placeholder.
+     * Should only be used for MainWindow.
      *
-     * @param seedUiPart The UiPart object to be used as the ui.
-     * @param <T> The type of the UiPart
+     * @param primaryStage The primary stage for the view.
+     * @param uiPartClass  The UiPart class to load.
+     * @param <T>          The type of the UiPart
      */
-
-    public static <T extends UiPart> T loadUiPart(T seedUiPart) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getFXMLResource(seedUiPart.getFxmlPath()));
-        loader.setController(seedUiPart);
-        loadLoader(loader, seedUiPart.getFxmlPath());
-        return seedUiPart;
+    public static <T extends UiPart> T loadUiPart(Stage primaryStage, Class<T> uiPartClass) {
+        return loadUiPart(primaryStage, null, uiPartClass);
     }
 
 

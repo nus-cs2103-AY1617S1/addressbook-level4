@@ -12,8 +12,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import seedu.todo.MainApp;
 import seedu.todo.commons.core.AliasDefinition;
 import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.models.TodoListDB;
@@ -35,10 +33,6 @@ public class AliasView extends View {
     private ImageView aliasImageView;
     @FXML
     private Pane aliasesPlaceholder;
-
-    public static AliasView load(Stage primaryStage, Pane placeholder) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholder, new AliasView());
-    }
 
     @Override
     public String getFxmlPath() {
@@ -74,7 +68,7 @@ public class AliasView extends View {
 
         // Load items
         for (Map.Entry<String, String> aliasPair : aliasDefinitions) {
-            AliasItem item = AliasItem.load(primaryStage, aliasesPlaceholder);
+            AliasItem item = UiPartLoader.loadUiPart(primaryStage, aliasesPlaceholder, AliasItem.class);
             item.aliasDefinition = new AliasDefinition(aliasPair.getKey(), aliasPair.getValue());
             item.render();
         }

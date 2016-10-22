@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Task;
@@ -33,10 +31,6 @@ public class TaskListDateItem extends MultiComponent {
     private Text dateLabel;
     @FXML
     private VBox dateCalendarItemsPlaceholder;
-
-    public static TaskListDateItem load(Stage primaryStage, Pane placeholderPane) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TaskListDateItem());
-    }
 
     @Override
     public String getFxmlPath() {
@@ -72,7 +66,7 @@ public class TaskListDateItem extends MultiComponent {
 
     private void loadTaskItems() {
         for (Task task : tasks) {
-            TaskListTaskItem item = TaskListTaskItem.load(primaryStage, dateCalendarItemsPlaceholder);
+            TaskListTaskItem item = UiPartLoader.loadUiPart(primaryStage, dateCalendarItemsPlaceholder, TaskListTaskItem.class);
 
             // Add to EphemeralDB and get the index.
             int displayIndex = ephemeralDb.addToDisplayedCalendarItems(task);
@@ -86,7 +80,7 @@ public class TaskListDateItem extends MultiComponent {
     
     private void loadEventItems() {
         for (Event event : events) {
-            TaskListEventItem item = TaskListEventItem.load(primaryStage, dateCalendarItemsPlaceholder);
+            TaskListEventItem item = UiPartLoader.loadUiPart(primaryStage, dateCalendarItemsPlaceholder, TaskListEventItem.class);
 
             // Add to EphemeralDB and get the index.
             int displayIndex = ephemeralDb.addToDisplayedCalendarItems(event);

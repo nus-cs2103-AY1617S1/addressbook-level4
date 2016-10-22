@@ -5,13 +5,10 @@ import java.time.LocalDateTime;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.Task;
-import seedu.todo.ui.UiPartLoader;
 
 public class TaskListTaskItem extends MultiComponent {
 
@@ -33,10 +30,6 @@ public class TaskListTaskItem extends MultiComponent {
     private Circle taskCheckMarkCircle;
     @FXML
     private ImageView taskCheckMarkImage;
-
-    public static TaskListTaskItem load(Stage primaryStage, Pane placeholderPane) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TaskListTaskItem());
-    }
 
     @Override
     public String getFxmlPath() {

@@ -1,10 +1,7 @@
 package seedu.todo.ui.components;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import seedu.todo.ui.UiPartLoader;
 
 public class HelpCommandItem extends MultiComponent {
 
@@ -23,9 +20,6 @@ public class HelpCommandItem extends MultiComponent {
     @FXML
     private Text commandSyntaxText;
 
-    public static HelpCommandItem load(Stage primaryStage, Pane placeholderPane) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new HelpCommandItem());
-    }
     
     @Override
     public String getFxmlPath() {

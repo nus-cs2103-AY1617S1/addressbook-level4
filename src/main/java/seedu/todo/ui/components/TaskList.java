@@ -9,9 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import seedu.todo.commons.EphemeralDB;
 import seedu.todo.commons.util.DateUtil;
 import seedu.todo.models.CalendarItem;
@@ -44,10 +42,6 @@ public class TaskList extends Component {
         loadTasks();
     }
 
-    public static TaskList load(Stage primaryStage, Pane placeholderPane) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TaskList());
-    }
-
     private void loadTasks() {
         TaskListDateItem.reset(taskListDateItemsPlaceholder);
 
@@ -73,7 +67,7 @@ public class TaskList extends Component {
             List<Task> tasksForDate = tasksByDate.get(dateTime);
             List<Event> eventsForDate = eventsByDate.get(dateTime);
             
-            TaskListDateItem item = TaskListDateItem.load(primaryStage, taskListDateItemsPlaceholder);
+            TaskListDateItem item = UiPartLoader.loadUiPart(primaryStage, taskListDateItemsPlaceholder, TaskListDateItem.class);
             item.dateTime = dateTime;
             
             if (tasksForDate != null) {
