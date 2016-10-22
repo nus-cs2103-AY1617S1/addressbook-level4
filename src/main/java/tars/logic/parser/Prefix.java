@@ -1,16 +1,10 @@
 package tars.logic.parser;
 
+/**
+ * A prefix that marks the beginning of an argument
+ * e.g. '/t' in 'add CS2103 Project Meeting /t meeting'
+ */
 public class Prefix {
-    public static final String NAME = "/n";
-    public static final String PRIORITY = "/p";
-    public static final String DATETIME = "/dt";
-    public static final String TAG = "/t";
-    public static final String ADDTAG = "/ta";
-    public static final String REMOVETAG = "/tr";
-    public static final String DONE = "/do";
-    public static final String UNDONE = "/ud";
-    public static final String LIST = "/ls";
-
     public final String prefix;
 
     public Prefix(String prefix) {
