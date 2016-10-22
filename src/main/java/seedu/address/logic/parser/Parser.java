@@ -51,9 +51,9 @@ public class Parser {
 			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+(on\\s+)*(?<date>\\S+)\\s+'(?<taskName>.*\\S+.*)'");
 	// Start and end on different days
 	private static final Pattern EVENT_ARGS_FORMAT_4 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)");
+			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>.+)\\s+to\\s+(?<endTime>.+)");
 	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile(
-			"(?i)from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)\\s+'(?<taskName>.*\\S+.*)'");
+			"(?i)from\\s+(?<startTime>.+)\\s+to\\s+(?<endTime>.+)\\s+'(?<taskName>.*\\S+.*)'");
 
 
 	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern
@@ -64,7 +64,7 @@ public class Parser {
 
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>.*\\S+.*)'");
 
-	
+	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
 		if (!matcher.matches()) {
@@ -204,6 +204,8 @@ public class Parser {
 		matchers.add(EVENT_ARGS_FORMAT_1.matcher(arguments));
 		matchers.add(EVENT_ARGS_FORMAT_2.matcher(arguments));
 		matchers.add(EVENT_ARGS_FORMAT_3.matcher(arguments));
+		matchers.add(EVENT_ARGS_FORMAT_4.matcher(arguments));
+		matchers.add(EVENT_ARGS_FORMAT_5.matcher(arguments));
 
 		// Null values will always be overwritten if the matcher matches.
 		String taskName = null;
@@ -212,17 +214,19 @@ public class Parser {
 		
 		boolean isAnyMatch = false;
 		
-		int i = -1;
 		for (Matcher matcher : matchers) {
-			i++;
 			if (matcher.matches()) {
-				System.out.println("i: " + i);
-				
-				
 				isAnyMatch = true;
 
 				taskName = matcher.group("taskName").trim();
-				String date = matcher.group("date").trim();
+				
+				String date;
+				try {
+					date = matcher.group("date").trim();
+				} catch (IllegalArgumentException e) {
+					date = "";
+				}
+				
 				String startTime = matcher.group("startTime").trim();
 				String endTime = matcher.group("endTime").trim();
 				
@@ -247,40 +251,11 @@ public class Parser {
 			}
 		}
 
-		ArrayList<Matcher> diffDayMatchers = new ArrayList<>();
-		diffDayMatchers.add(EVENT_ARGS_FORMAT_4.matcher(arguments));
-		diffDayMatchers.add(EVENT_ARGS_FORMAT_5.matcher(arguments));
-		
-		for (Matcher matcher : diffDayMatchers) {
-			if (matcher.matches()) {
-				isAnyMatch = true;
-
-				taskName = matcher.group("taskName").trim();
-				String startDayAndTime = matcher.group("startDateTime").trim();
-				String endDayAndTime = matcher.group("endDateTime").trim();
-				
-				try {
-					startDateTime = DateParser.parse(startDayAndTime);
-					endDateTime = DateParser.parse(endDayAndTime);
-				} catch (ParseException e) {
-					// TODO better command
-					return new IncorrectCommand(e.getMessage());
-				}				
-
-				break;
-			}
-		}
-
-		//System.out.println("task name: " + taskName);
-		//System.out.println("start date: " + startDateTime.toString());
-		//System.out.println("end date: " + endDateTime.toString());
-		
 		if (!isAnyMatch) {
 			System.out.println("no match");
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 
-		// TODO format date properly
 		try {
 			return new AddCommand(taskName, startDateTime, endDateTime);
 		} catch (IllegalValueException e) {
