@@ -14,8 +14,11 @@ import seedu.taskitty.commons.util.FxViewUtil;
 public class ResultDisplay extends UiPart {
     public static final String RESULT_DISPLAY_ID = "resultDisplay";
     private static final String STATUS_BAR_STYLE_SHEET = "result-display";
+    private static final String WELCOME_MESSAGE = "Welcome! Here is your agenda for today:";
+    private static final String WELCOME_MESSAGE_WITH_OVERDUE_DEADLINES = "Welcome! You have overdue tasks.";
     private TextArea resultDisplayArea;
     private final StringProperty displayed = new SimpleStringProperty("");
+    private static boolean hasOverdue;
 
     private static final String FXML = "ResultDisplay.fxml";
 
@@ -37,7 +40,12 @@ public class ResultDisplay extends UiPart {
         resultDisplayArea.getStyleClass().add(STATUS_BAR_STYLE_SHEET);
         resultDisplayArea.setText("");
         resultDisplayArea.textProperty().bind(displayed);
-        postMessage("Welcome User! Here is your agenda for today:");
+        if (!hasOverdue) {
+        	System.out.println("isnt overdue");
+        	postMessage(WELCOME_MESSAGE);
+        } else {
+        	displayOverdueWelcomeMessage();
+        }
         FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(resultDisplayArea);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
@@ -61,6 +69,14 @@ public class ResultDisplay extends UiPart {
 
     public void postMessage(String message) {
         displayed.setValue(message);
+    }
+    
+    public void displayOverdueWelcomeMessage() {
+    	postMessage(WELCOME_MESSAGE_WITH_OVERDUE_DEADLINES);
+    }
+    
+    public static void setOverdue() {
+    	hasOverdue = true;
     }
 
 }
