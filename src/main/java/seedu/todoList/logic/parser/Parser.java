@@ -111,6 +111,9 @@ public class Parser {
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
+            
+        case DoneCommand.COMMAND_WORD:
+        	return prepareDone(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand(arguments);
@@ -127,8 +130,8 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case StorageCommand.COMMAND_WORD:
-            return new StorageCommand(arguments);
+        //case StorageCommand.COMMAND_WORD:
+         //   return new StorageCommand(arguments);
             
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -157,7 +160,8 @@ public class Parser {
                         matcher_task.group("name"), 
                         matcher_task.group("date"),
                         isInputPresent(matcher_task.group("endDate")),
-                        matcher_task.group("priority"));
+                        matcher_task.group("priority"),
+                        "false");
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
@@ -168,7 +172,9 @@ public class Parser {
                         matcher_event.group("date"),
                         isInputPresent(matcher_event.group("endDate")),
                         matcher_event.group("startTime"), 
-                        matcher_event.group("endTime"));
+                        matcher_event.group("endTime"),
+                        "false"
+                        );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
@@ -177,7 +183,9 @@ public class Parser {
                 return new AddCommand(
                         matcher_deadline.group("name"), 
                         matcher_deadline.group("date"),
-                        matcher_deadline.group("endTime"));
+                        matcher_deadline.group("endTime"),
+                        "false"
+                        );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
@@ -203,6 +211,24 @@ public class Parser {
         }
 
         return new DeleteCommand(dataType.get(), index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the done task command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
+    private Command prepareDone(String args) {
+        Optional<String> dataType = parseDataType(args);
+        Optional<Integer> index = parseIndex(args);
+        if (!dataType.isPresent() || !((dataType.get().equals("todo")) || (dataType.get().equals("event"))
+                || (dataType.get().equals("deadline"))) || !index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+
+        return new DoneCommand(dataType.get(), index.get());
     }
 
     /**

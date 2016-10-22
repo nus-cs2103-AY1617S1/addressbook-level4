@@ -6,6 +6,7 @@ import seedu.todoList.model.task.attributes.StartDate;
 import seedu.todoList.model.task.attributes.EndDate;
 import seedu.todoList.model.task.attributes.EndTime;
 import seedu.todoList.model.task.attributes.StartTime;
+import seedu.todoList.model.task.attributes.Done;
 
 /**
  * Represents a task in the TodoList.
@@ -17,30 +18,36 @@ public class Event extends Task implements ReadOnlyTask {
 	private EndDate endDate;
     private StartTime startTime;
     private EndTime endTime;
+    private Done isDone;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, StartDate startDate, EndDate endDate, StartTime startTime, EndTime endTime) {
+    public Event(Name name, StartDate startDate, EndDate endDate, StartTime startTime, EndTime endTime, Done isDone) {
         assert !CollectionUtil.isAnyNull(name, startDate, endDate, startTime, endTime);
         super.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isDone = isDone;
     }
 
     /**
      * Copy constructor.
      */
     public Event(Event source) {
-        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getStartTime(), source.getEndTime());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getStartTime(), source.getEndTime(), source.getDone());
     }
     
     public Event(ReadOnlyTask source) {
     	this((Event) source);
     };
 
+    public Done getDone(){
+    	return isDone;
+    }
+    
     public StartDate getStartDate() {
         return startDate;
     }
@@ -72,13 +79,13 @@ public class Event extends Task implements ReadOnlyTask {
     public String toString() {
     	final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Start Date: ")
+                .append("\nStart Date: ")
                 .append(getStartDate())
-                .append(" End Date: ")
+                .append("\nEnd Date: ")
                 .append(getEndDate())
-                .append(" StartTime: ")
+                .append("\nStartTime: ")
                 .append(getStartTime())
-                .append(" EndTime: ")
+                .append("\nEndTime: ")
                 .append(getEndTime());
         return builder.toString();
     }

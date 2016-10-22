@@ -1,6 +1,7 @@
 package seedu.todoList.model.task;
 
 import seedu.todoList.commons.util.CollectionUtil;
+import seedu.todoList.model.task.attributes.Done;
 import seedu.todoList.model.task.attributes.StartDate;
 import seedu.todoList.model.task.attributes.EndDate;
 import seedu.todoList.model.task.attributes.Name;
@@ -15,24 +16,26 @@ public class Todo extends Task implements ReadOnlyTask {
     private StartDate startDate;
     private EndDate endDate;
     private Priority priority;
+    private Done isDone;
 
     /**
      * Every field must be present and not null.
      * @param date 
      */
-    public Todo(Name name, StartDate startDate, EndDate endDate, Priority priority) {
+    public Todo(Name name, StartDate startDate, EndDate endDate, Priority priority, Done isDone) {
         assert !CollectionUtil.isAnyNull(name, startDate, endDate, priority);
         super.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
         this.priority = priority;
+        this.isDone = isDone;
     }
 
     /**
      * Copy constructor.
      */
     public Todo(Todo source) {
-        this(source.getName(), source.getStartDate() , source.getEndDate(), source.getPriority());
+        this(source.getName(), source.getStartDate() , source.getEndDate(), source.getPriority(), source.getDone());
     }
 
     public StartDate getStartDate() {
@@ -45,6 +48,10 @@ public class Todo extends Task implements ReadOnlyTask {
 
     public Priority getPriority() {
         return priority;
+    }
+    
+    public Done getDone() {
+    	return isDone;
     }
     
     public Todo(ReadOnlyTask source) {
@@ -65,11 +72,11 @@ public class Todo extends Task implements ReadOnlyTask {
     public String toString() {
     	final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Start Date: ")
+                .append("\nStart Date: ")
                 .append(getStartDate())
                 .append(" End Date: ")
                 .append(getEndDate())
-                .append(" Priority: ")
+                .append("\nPriority: ")
                 .append(getPriority());
         return builder.toString();
     }

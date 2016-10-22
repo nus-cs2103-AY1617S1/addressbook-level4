@@ -18,6 +18,7 @@ public class EndDate {
     public static final String DATE_VALIDATION_REGEX = "^(\\d{2}-\\d{2}-\\d{4})$";
     
     public final String endDate;
+    public final String saveEndDate;
     public int day_lastdigit;
     public String day;
     public String month;
@@ -28,6 +29,7 @@ public class EndDate {
      * @throws IllegalValueException if given date is invalid.
      */
     public EndDate(String endDate) throws IllegalValueException {
+    	saveEndDate = endDate.trim();
         endDate = endDate.trim();
         String [] dateArr = endDate.split("-");
         if (!endDate.equals("No End Date") && !isValidDate(endDate)) {

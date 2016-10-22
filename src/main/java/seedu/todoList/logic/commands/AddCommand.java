@@ -22,7 +22,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String INVALID_VALUE = "Invalid value";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Task-list";
-
+        
     private final Task toAdd;
 
     /**
@@ -30,13 +30,14 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String date, String endDate ,String priority)
-            throws IllegalValueException {       
+    public AddCommand(String name, String date, String endDate ,String priority, String isDone)
+            throws IllegalValueException {      
         this.toAdd = new Todo(
                 new Name(name),
                 new StartDate(date),
                 new EndDate(endDate),
-                new Priority(priority)
+                new Priority(priority),
+                new Done(isDone)
         );
     }
     
@@ -45,14 +46,15 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String date, String endDate, String startTime, String endTime)
+    public AddCommand(String name, String date, String endDate, String startTime, String endTime, String isDone)
             throws IllegalValueException {
         this.toAdd = new Event(
                 new Name(name),
                 new StartDate(date),
                 new EndDate(endDate),
                 new StartTime(startTime),
-                new EndTime(endTime)
+                new EndTime(endTime),
+                new Done(isDone)
         );
     }
     
@@ -61,12 +63,13 @@ public class AddCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String date, String endTime)
+    public AddCommand(String name, String date, String endTime, String isDone)
             throws IllegalValueException {
         this.toAdd = new Deadline(
                 new Name(name),
                 new StartDate(date),
-                new EndTime(endTime)
+                new EndTime(endTime),
+                new Done(isDone)
         );
     }
     
