@@ -7,6 +7,7 @@ import seedu.cmdo.logic.commands.Command;
 import seedu.cmdo.logic.commands.CommandResult;
 import seedu.cmdo.logic.parser.MainParser;
 import seedu.cmdo.model.Model;
+import seedu.cmdo.model.StatusSaver;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.storage.Storage;
 
@@ -20,10 +21,13 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final MainParser parser;
+    private final StatusSaver statusSaver;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = MainParser.getInstance();
+        this.statusSaver = new StatusSaver();
+
     }
 
     @Override	
@@ -31,6 +35,7 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         command.setData(model);
+        command.setStatusSaver(statusSaver);
         return command.execute();
     }
 
