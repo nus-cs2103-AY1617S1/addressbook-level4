@@ -59,10 +59,8 @@ public class BrowserPanel extends UiPart{
     public static BrowserPanel load(AnchorPane placeholder, ObservableList<TaskComponent> taskList){
         logger.info("Initializing Calendar");
         BrowserPanel browserPanel = new BrowserPanel();
-        //browserPanel.browser = new WebView();
         browserPanel.agenda = new MyAgenda();
         browserPanel.initialize(taskList);
-        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
         FxViewUtil.applyAnchorBoundaryParameters(browserPanel.agenda, 0.0, 0.0, 0.0, 0.0);
         placeholder.getChildren().add(browserPanel.agenda);
         return browserPanel;
@@ -70,11 +68,17 @@ public class BrowserPanel extends UiPart{
     
     
     private void initialize(ObservableList<TaskComponent> taskList){
+    	agenda.setDisplayedDateTime(new TaskDate(new Date(System.currentTimeMillis())));
     	loadTaskList(taskList);
     }
 
     public void loadTaskPage(ReadOnlyTask task) {
-        //loadPage("https://www.google.com.sg/#safe=off&q=" + task.getName().fullName.replaceAll(" ", "+"));
+        //Deprecated method
+    }
+    
+    public void updateAgenda(TaskDate inputDate, ObservableList<TaskComponent> taskList){
+    	agenda.setDisplayedDateTime(inputDate);
+    	loadTaskList(taskList);
     }
 
     /**
@@ -84,7 +88,7 @@ public class BrowserPanel extends UiPart{
         agenda = null;
     }
     
-    public void loadTaskList(ObservableList<TaskComponent> taskList){
+    public void loadTaskList(ObservableList<TaskComponent> taskList){   	
     	agenda.addAllToAgenda(taskList);    		
     }
     

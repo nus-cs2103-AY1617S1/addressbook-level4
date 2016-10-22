@@ -86,10 +86,12 @@ public class URManager {
 	
 	/**
 	 * Returns true if the command does not need to be added in undo/redo queue.
+	 * Exclusion for view command is just tentative and needs further consideration.
 	 */
 	public Boolean isIgnored(Command command){
 		return command instanceof RedoCommand || 
 			   command instanceof UndoCommand ||
+			   command instanceof ViewCommand ||
 			   command instanceof IncorrectCommand;
 	}
 	

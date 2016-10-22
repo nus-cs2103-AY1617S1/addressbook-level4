@@ -76,45 +76,32 @@ public class TaskCard extends UiPart{
         }
     }
     
-    private void setCellColor(){
-    	
+    /** Sets cell color for the task list. Style the css here to prevent overriding. */
+    private void setCellColor(){   	
     	//normal non-floating task
-    	cardPane.setStyle("-fx-background-color : rgba(152, 208, 255, 0.3);");
+    	cardPane.setStyle("-fx-background-color : rgba(110, 196, 219, 0.3);");
     	//Deadline
-    	if(dateComponent.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT
-    			&& dateComponent.getEndDate().getDateInLong() != TaskDate.DATE_NOT_PRESENT)
-    		cardPane.setStyle("-fx-background-color : rgba(255, 0, 0, 0.3);");
+    	if(dateComponent.hasOnlyEndDate())
+    		cardPane.setStyle("-fx-background-color : rgba(250, 124, 146, 0.3);");
     	//Floating task
     	if(task.getTaskType() == TaskType.FLOATING)
-    		cardPane.setStyle("-fx-background-color : rgba(255, 249, 152, 0.3);");
+    		cardPane.setStyle("-fx-background-color : rgba(255, 247, 192, 0.3);");
     	//Blocked Slot
     	if(task.getName().fullName.equals("BLOCKED SLOT"))
-    		cardPane.setStyle("-fx-background-color : rgba(255, 0, 221, 0.3);");
+    		cardPane.setStyle("-fx-background-color : rgba(148, 93, 96, 0.3);");
     	//Completed
     	if(task.getTaskType() == TaskType.COMPLETED){
-    		cardPane.setStyle("-fx-background-color : rgba(34,51,34,0.3);");
+    		cardPane.setStyle("-fx-background-color : rgba(102,171,140,0.3);");
     		name.setStyle("-fx-text-fill : derive(#F0F0F0, 20%);");
     		id.setStyle("-fx-text-fill : derive(#F0F0F0, 20%);");
     		startDate.setStyle("-fx-text-fill : derive(#F0F0F0, 20%);");
     		endDate.setStyle("-fx-text-fill : derive(#F0F0F0, 20%);");
-    	}
-    	
-    	
+    	}  	
     }
 
-
-
-    public HBox getLayout() {
-    	
+    public HBox getLayout() {    	
         return cardPane;
     }
-    
-    public HBox getNewLayout() {
-    	cardPane.setStyle("-fx-background-color : derive(#00ffff, 20%);");
-		name.setStyle("-fx-text-fill : derive(#F0F0F0, 20%);");
-        return cardPane;
-    }
-
 
     @Override
     public void setNode(Node node) {

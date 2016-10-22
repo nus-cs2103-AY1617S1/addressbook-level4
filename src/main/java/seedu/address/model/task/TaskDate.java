@@ -31,7 +31,7 @@ public class TaskDate {
         this.date = copy.date;
     }
     
-    //For sake of testing, not implemeted in main app
+    //For sake of testing, not implemented in main app
     public TaskDate(String inputDate) {
         this.date = new com.joestelmach.natty.Parser().parse(inputDate).get(0).getDates().get(0).getTime();
     }

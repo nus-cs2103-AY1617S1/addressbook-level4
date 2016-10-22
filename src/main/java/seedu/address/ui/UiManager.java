@@ -13,6 +13,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.AgendaTimeRangeChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.NavigationSelectionChangedEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
@@ -143,6 +144,11 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleTaskListChangedEvent(TaskListChangedEvent tlce){
     	mainWindow.getBrowserPanel().loadTaskList((ObservableList<TaskComponent>) tlce.data.getTaskComponentList());
+    }
+    
+    @Subscribe
+    private void handleAgendaTimeRangeChangedEvent(AgendaTimeRangeChangedEvent event){
+    	mainWindow.getBrowserPanel().updateAgenda(event.getInputDate(), event.getData());
     }
 
 }
