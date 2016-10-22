@@ -1,10 +1,7 @@
 package seedu.cmdo.model.task;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 
 import seedu.cmdo.commons.exceptions.IllegalValueException;
@@ -16,11 +13,13 @@ import seedu.cmdo.commons.exceptions.IllegalValueException;
 public class DueByDate {
 
     public static final String MESSAGE_DUEBYDATE_CONSTRAINTS = "Due by? You should enter a day, or a date.";
-//    public static final String DUEBYDATE_VALIDATION_REGEX = ".*";
+    private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("MM/dd/uuuu");
+    private final LocalDate NO_DATE = LocalDate.MIN;
 
     public final LocalDate start;
     public final LocalDate end;
     public final Boolean isRange;
+    private Boolean isFloating = false; // Floating date is found in task with no date.
 
     /**
      * Takes in a single date.

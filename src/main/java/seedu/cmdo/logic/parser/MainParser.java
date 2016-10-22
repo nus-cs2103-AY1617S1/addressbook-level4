@@ -38,8 +38,8 @@ public class MainParser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 	
-	public static final String NO_DATE_DEFAULT = LocalDate.MIN.toString();	// All floating tasks are giving this date.
-	public static final String NO_TIME_DEFAULT = LocalTime.MAX.toString();	// All timeless tasks are given this time.
+	public static final LocalDate NO_DATE_DEFAULT = LocalDate.MIN;	// All floating tasks are giving this date.
+	public static final LocalTime NO_TIME_DEFAULT = LocalTime.MAX;	// All timeless tasks are given this time.
 	
 	// Singleton
 	private static MainParser mainParser;
@@ -194,8 +194,7 @@ public class MainParser {
         		dtEnd = datesAndTimes.get(1);
         		dataMode = 2;
         	} else {
-        		dt = LocalDateTime.of(LocalDate.parse(NO_DATE_DEFAULT, DateTimeFormatter.ISO_LOCAL_DATE), 
-        								LocalTime.MAX);
+        		dt = LocalDateTime.of(NO_DATE_DEFAULT, NO_TIME_DEFAULT);
         		dataMode = 0;
         	}
     		if (dataMode <= 1) {
@@ -319,8 +318,7 @@ public class MainParser {
         if (datesAndTimes.size() != 0)
         	dt = datesAndTimes.get(0);
         else
-        	dt = LocalDateTime.of(LocalDate.parse(NO_DATE_DEFAULT, DateTimeFormatter.ISO_LOCAL_DATE), 
-        			LocalTime.MAX);
+        	dt = LocalDateTime.of(NO_DATE_DEFAULT, NO_TIME_DEFAULT);
         // For testing purposes
         datesAndTimes.clear();
     	
