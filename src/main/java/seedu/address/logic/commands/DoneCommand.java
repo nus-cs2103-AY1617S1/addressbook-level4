@@ -22,35 +22,51 @@ public class DoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 3";
  
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Task(s) done: %1$s";
+    public static final String MESSAGE_NOT_DONE_TASK_SUCCESS = "Task(s) not done: %1$s";
 
-    public final int[] targetIndices;
+    private final int[] doneIndices;
+    private final int[] notDoneIndices;
 
-    public DoneCommand(int[] targetIndices) {
-        this.targetIndices = targetIndices;
+    public DoneCommand(int[] doneIndices, int[] notDoneIndices) {
+        this.doneIndices = doneIndices;
+        this.notDoneIndices = notDoneIndices;
     }
 
 
     @Override
     public CommandResult execute() {
 
-        model.saveState();
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         UnmodifiableObservableList<ReadOnlyTask> fullList = model.getUnfilteredTaskList();
 
-        ArrayList<ReadOnlyTask> tasksDoneList = new ArrayList<>();
+        String doneMessage = changeStatus(lastShownList, fullList, doneIndices, "done");
+        String notDoneMessage = changeStatus(lastShownList, fullList, notDoneIndices, "not done");
+        
+        return new CommandResult(doneMessage + "\n" + notDoneMessage);
+    }
+    
+    private String changeStatus(UnmodifiableObservableList<ReadOnlyTask> lastShownList,
+    		UnmodifiableObservableList<ReadOnlyTask> fullList,
+    		int[] indices, String status) {
+    	
+    	assert status.equals("done") || status.equals("not done");
+    	model.saveState();
+    	
+    	ArrayList<ReadOnlyTask> tasksList = new ArrayList<>();
         Task taskDone;
         
-        for (int i=0; i<targetIndices.length; i++) {
-            if (lastShownList.size() < targetIndices[i]) {
+        for (int i=0; i<indices.length; i++) {
+            if (lastShownList.size() < indices[i]) {
                 model.loadPreviousState();
         		indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                return (Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX 
+                		+ "for " + status + " command");
             }
 
-            taskDone = new Task(lastShownList.get(targetIndices[i] - 1));
+            taskDone = new Task(lastShownList.get(indices[i] - 1));
             int index = fullList.indexOf(taskDone);
-            taskDone.setStatus(new Status("done"));
-            tasksDoneList.add(taskDone);
+            taskDone.setStatus(new Status(status));
+            tasksList.add(taskDone);
         	
             try {
                 model.editTask(index, taskDone);
@@ -59,7 +75,13 @@ public class DoneCommand extends Command {
                 assert false : "The target task cannot be missing";
             }
         }
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, tasksDoneList));
+        String successMessage = "";
+        if(status.equals("done")) {
+            successMessage = String.format(MESSAGE_DONE_TASK_SUCCESS, tasksList);
+        } else if(status.equals("not done")) {
+        	successMessage =  String.format(MESSAGE_NOT_DONE_TASK_SUCCESS, tasksList);
+        }
+        return successMessage;
     }
 
 }
