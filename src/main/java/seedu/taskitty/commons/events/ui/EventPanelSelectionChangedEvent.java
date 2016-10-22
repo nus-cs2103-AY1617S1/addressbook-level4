@@ -6,9 +6,10 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 /**
  * Represents a selection change in the Person List Panel
  */
-public class EventPanelSelectionChangedEvent extends BaseEvent {
+public class EventPanelSelectionChangedEvent //extends BaseEvent 
+{
 
-
+/*
     private final ReadOnlyTask newSelection;
 
     public EventPanelSelectionChangedEvent(ReadOnlyTask newSelection){
@@ -23,4 +24,5 @@ public class EventPanelSelectionChangedEvent extends BaseEvent {
     public ReadOnlyTask getNewSelection() {
         return newSelection;
     }
+    */
 }
