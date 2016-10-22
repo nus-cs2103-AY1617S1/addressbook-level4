@@ -20,8 +20,8 @@ public class DoneCommandTest extends TaskManagerGuiTest{
 		int[] notDoneIndices = new int[0];
 		
 		//mark tasks as done
-		String command = "done 1 2 3 4";
-		doneIndices = new int[] {1,2,3,4};
+		String command = "done 1 2 3 14";
+		doneIndices = new int[] {1,2,3,14};
 		assertDoneSuccess(command, doneIndices, notDoneIndices, currentList);
 		
 		//mark tasks as not done
@@ -31,8 +31,8 @@ public class DoneCommandTest extends TaskManagerGuiTest{
 		assertDoneSuccess(command, doneIndices, notDoneIndices, currentList);
 		
 		//mark some tasks as done and some tasks as not done
-		command = "done 1 2 not 3 4";
-		doneIndices = new int[] {1,2};
+		command = "done 6 7 not 3 4";
+		doneIndices = new int[] {6,7};
 		notDoneIndices = new int[] {3,4};
 		assertDoneSuccess(command, doneIndices, notDoneIndices, currentList);
 		
@@ -41,6 +41,13 @@ public class DoneCommandTest extends TaskManagerGuiTest{
 		doneIndices = new int[] {3};
 		notDoneIndices = new int[] {3};
 		assertDoneSuccess(command, doneIndices, notDoneIndices, currentList);
+		
+		//mark index out of bound
+		command = "done 15";
+		doneIndices = new int[] {15};
+		notDoneIndices = new int[0];
+		assertDoneSuccess(command, doneIndices, notDoneIndices, currentList);
+		
 	}
 	
 	public TestTask[] assertDoneSuccess (String command, int[] doneIndices, 
