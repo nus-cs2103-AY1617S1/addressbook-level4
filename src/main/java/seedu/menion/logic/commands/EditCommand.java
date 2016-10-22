@@ -166,7 +166,7 @@ public class EditCommand extends Command {
                     newDate = changes[0];
                 }
             }
-            model.editTaskDateTime(index, newDate, newTime);
+            model.editEventStartDateTime(index, newDate, newTime);
             break;
         case 4:
 

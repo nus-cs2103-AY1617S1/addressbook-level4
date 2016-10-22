@@ -180,14 +180,20 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
-
+    @Override 
+    public void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException {
+        activityManager.editEventStartDateTime(index, newDate, newTime);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+        
+    }
     @Override
     public void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException {
         activityManager.editEventEndDateTime(index, newDate, newTime);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
-
+    
     @Override
     public void editEventAllDateTime(int index, String startNewDate, String startNewTime, String endNewDate,
             String endNewTime) throws IllegalValueException {
