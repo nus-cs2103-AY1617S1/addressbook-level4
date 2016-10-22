@@ -52,6 +52,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         return tasks.getInternalList();
     }
     
+    //@@author A0139930B
     public ObservableList<Task> getFilteredTodos() {
         return tasks.getFilteredTaskList(Task.TASK_COMPONENT_COUNT);
     }
@@ -64,6 +65,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         return tasks.getFilteredTaskList(Task.EVENT_COMPONENT_COUNT);
     }
 
+    //@@author
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
