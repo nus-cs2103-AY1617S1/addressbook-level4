@@ -10,7 +10,7 @@ public class StartTime {
 
     public static final String MESSAGE_STARTTIME_CONSTRAINTS =
             "Event Start time should be written in this format, must be 4 digits '10:00' and within 24 hrs format (0000 to 2359)";
-    public static final String STARTTIME_VALIDATION_REGEX = "^(\\d{2}:\\{2})$";
+    public static final String STARTTIME_VALIDATION_REGEX = "^(\\d{2}:\\d{2})$";
     
     public final String startTime;
     public final String saveStartTime;
@@ -21,8 +21,8 @@ public class StartTime {
      */
     public StartTime(String startTime) throws IllegalValueException {
         assert startTime != null;
-        saveStartTime = startTime.trim();
         startTime = startTime.trim();
+        saveStartTime = startTime.trim();
         if (!isValidStartTime(startTime)) {
             throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
         }
