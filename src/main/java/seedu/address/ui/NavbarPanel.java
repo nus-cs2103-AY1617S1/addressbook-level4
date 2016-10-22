@@ -84,6 +84,7 @@ public class NavbarPanel extends UiPart {
     	setEventHandlerForSelectionChangeEvent();
     }
     
+    //@@author A0147967J
     private void setEventHandlerForSelectionChangeEvent() {
         navbarView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -100,6 +101,7 @@ public class NavbarPanel extends UiPart {
         });
     }
     
+    //@@author A0147967J
     public String getNavigationCommand(String navigation){
     	switch(navigation){
     		

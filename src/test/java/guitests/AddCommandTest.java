@@ -1,5 +1,5 @@
 package guitests;
-
+//@@author A0147967J-reused
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -53,10 +53,25 @@ public class AddCommandTest extends TaskMasterGuiTest {
         //add to empty list
         commandBox.runCommand("clear");
         assertAddSuccess(td.trash);
+        currentList = new TestTask[]{td.trash};
 
         //invalid command
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+        //======Cases for handling recurring tasks==================================================
+        
+        //Out dated Recurring task got updated
+        taskToAdd = td.recurrence;
+        commandBox.runCommand("add Recurring Task from yesterday 8pm to yesterday 11pm daily");
+        //confirm the new card contains the right data
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
+        assertMatching(taskToAdd.getTaskDateComponent().get(0), addedCard);
+        //confirm the list now contains all previous floatingTasks plus the new floatingTask
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);       
+        assertTrue(taskListPanel.isListMatching(taskComponents));
+        
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {

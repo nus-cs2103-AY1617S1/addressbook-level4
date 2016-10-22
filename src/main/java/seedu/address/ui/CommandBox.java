@@ -48,7 +48,6 @@ public class CommandBox extends UiPart {
 
     private void addToPlaceholder() {
     	
-    	//TextFields.bindAutoCompletion(commandTextField, setDictionary());
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
@@ -85,6 +84,7 @@ public class CommandBox extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
     
+    //@@author A0147967J-reused
     public void handleNavigationChanged(String command) {
         
         previousCommandTest = command;
@@ -114,6 +114,7 @@ public class CommandBox extends UiPart {
         restoreCommandText();
     }
     
+    //@@author A0147967J
     @Subscribe
     private void handleFailedCommandAttempted(FailedCommandAttemptedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event,"Failed command: " + previousCommandTest +"\n"));
@@ -135,6 +136,7 @@ public class CommandBox extends UiPart {
         commandTextField.getStyleClass().add("error");
     }
     
+    //@@author A0147967J
     /**
      * Sets the command box style to indicate a failed attempt
      */

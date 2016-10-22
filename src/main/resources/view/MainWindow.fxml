@@ -9,9 +9,9 @@
 <?import java.net.URL?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
-   <stylesheets>
-      
+<!-- @@author A0147967J -->
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1010.0" prefWidth="1210.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
+   <stylesheets>     
       <URL value="@Extensions.css" />
    </stylesheets>
    <children>

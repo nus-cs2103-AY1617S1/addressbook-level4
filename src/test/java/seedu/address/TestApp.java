@@ -8,6 +8,7 @@ import seedu.address.model.ReadOnlyTaskMaster;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.XmlSerializableTaskList;
 import seedu.address.testutil.TestUtil;
+import seedu.address.ui.MyAgenda;
 
 import java.util.function.Supplier;
 
@@ -61,8 +62,7 @@ public class TestApp extends MainApp {
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(1200.0, 900.0, (int) x, (int) y));
         return userPrefs;
     }
-
-
+    
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);
@@ -73,4 +73,5 @@ public class TestApp extends MainApp {
     	StatusLogger.getLogger().setLevel(Level.OFF);
         launch(args);
     }
+
 }
