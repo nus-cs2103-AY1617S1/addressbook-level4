@@ -52,12 +52,16 @@ public class JimiParser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
+    
     private static final Pattern TAGGABLE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<detailsArguments>[^/]+)(?<tagArguments>(?: t/[^/]+)?)"); // zero or one tag only
+            Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)"); // zero or one tag only
 
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
-            Pattern.compile("(?<targetIndex>\\d+\\s)(\"(?<name>[^/]+)\")");
+            Pattern.compile("(?<targetIndex>[te]\\d+\\s)(?<editDetails>.+)");
+    
+    // acccepts in the format of a deadline task or event
+    private static final Pattern EDIT_DETAILS_FORMAT = Pattern.compile(
+            "(\"(?<taskDetails>.+)\"\\s?)?(((due (?<deadline>.+))?)|((on (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?))");
     
     private static final Pattern ADD_TASK_DATA_ARGS_FORMAT = 
             Pattern.compile("(\"(?<taskDetails>.+)\")( due (?<dateTime>.+))?");
@@ -65,8 +69,7 @@ public class JimiParser {
     private static final Pattern ADD_EVENT_DATA_ARGS_FORMAT =
             Pattern.compile("(\"(?<taskDetails>.+)\") on (?<startDateTime>((?! to ).)*)( to (?<endDateTime>.+))?");
     
-    private static final Pattern SHOW_COMMAND_ARGS_FORMAT =
-            Pattern.compile("(?<sectionToShow>.+)");
+    private static final Pattern SHOW_COMMAND_ARGS_FORMAT = Pattern.compile("(?<sectionToShow>.+)");
     
     private static final Pattern SAVE_DIRECTORY_ARGS_FORMAT = Pattern.compile("(?<filePath>.+).xml");
     
@@ -89,9 +92,6 @@ public class JimiParser {
             );
 
     private static final String XML_FILE_EXTENSION = ".xml";
-    
-    private static final String[] showCommandValidKeywords = { "floating tasks", "incomplete tasks", "complete tasks",
-            "today", "tomorrow", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
     
     public JimiParser() {}
 
@@ -164,9 +164,9 @@ public class JimiParser {
         }
         
         final Matcher taskDetailsMatcher =
-                ADD_TASK_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("detailsArguments").trim());
+                ADD_TASK_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("ArgsDetails").trim());
         final Matcher eventDetailsMatcher =
-                ADD_EVENT_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("detailsArguments").trim());
+                ADD_EVENT_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("ArgsDetails").trim());
         
         if (taskDetailsMatcher.matches()) { // if user trying to add task 
             return generateAddCommandForTask(detailsAndTagsMatcher, taskDetailsMatcher);
@@ -224,8 +224,10 @@ public class JimiParser {
         if (str == null) {
             return new ArrayList<Date>();
         }
+        
         final Parser dateParser = new Parser();
         final List<DateGroup> groups = dateParser.parse(str);
+        
         if (!groups.isEmpty()) {
             return groups.get(0).getDates();
         } else {
@@ -237,7 +239,7 @@ public class JimiParser {
      * Parses arguments in context of the edit task command.
      * 
      * @param args Full user command input args
-     * @return  the prepared edit command
+     * @return the prepared edit command
      */
     private Command prepareEdit(String args) {
         final Matcher detailsAndTagsMatcher = TAGGABLE_DATA_ARGS_FORMAT.matcher(args.trim());
@@ -246,31 +248,52 @@ public class JimiParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
-        final Matcher detailsMatcher =
-                EDIT_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("detailsArguments").trim());
-        if (detailsMatcher.matches()) { // if user input matches format
-            return generateEditCommandForTask(detailsAndTagsMatcher, detailsMatcher);
+        final Matcher editArgsMatcher =
+                EDIT_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("ArgsDetails").trim());
+        if (!editArgsMatcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
-        /* default return IncorrectCommand */
-        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-    }
-    
-    /**
-     * Creates an EditCommand in the context of editing an task.
-     * 
-     * @return an EditCommand if raw args is valid, else IncorrectCommand
-     */
-    private Command generateEditCommandForTask(final Matcher detailsAndTagsMatcher, final Matcher detailsMatcher) {
+        // User wishes to remove dates
+        if (editArgsMatcher.group("editDetails").trim().equals(EditCommand.COMMAND_REMOVE_DATES)) {
+            return new EditCommand(editArgsMatcher.group("targetIndex"));
+        }
+        
+        final Matcher editDetailsMatcher =
+                EDIT_DETAILS_FORMAT.matcher(editArgsMatcher.group("editDetails").trim());
+        if (!editDetailsMatcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
         try {
-            return new EditCommand(
-                    detailsMatcher.group("name"),
-                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
-                    Integer.parseInt(detailsMatcher.group("targetIndex").trim())
-            );
+            return generateEditCommand(detailsAndTagsMatcher, editArgsMatcher, editDetailsMatcher);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    /** Generates an edit command */
+    private Command generateEditCommand(Matcher detailsAndTagsMatcher, Matcher editArgsMatcher,
+            Matcher editDetailsMatcher) throws IllegalValueException {
+        
+        List<Date> deadline = parseStringToDate(editDetailsMatcher.group("deadline"));
+        List<Date> eventStart = parseStringToDate(editDetailsMatcher.group("startDateTime"));
+        List<Date> eventEnd = parseStringToDate(editDetailsMatcher.group("endDateTime"));
+        
+        /* validating integer index */
+        Optional<Integer> index = parseIndex(editArgsMatcher.group("targetIndex").substring(1));
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        return new EditCommand(
+                editDetailsMatcher.group("taskDetails"),
+                getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
+                deadline,
+                eventStart,
+                eventEnd,
+                editArgsMatcher.group("targetIndex")
+        );
     }
     
     /**
@@ -296,8 +319,7 @@ public class JimiParser {
     private Command prepareComplete(String args) {
         Optional<Integer> index = parseIndex(args);
         if (!index.isPresent()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
         }
         
         return new CompleteCommand(index.get());
@@ -311,11 +333,10 @@ public class JimiParser {
      */
     private Command prepareDelete(String args) {
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-
+        
         return new DeleteCommand(index.get());
     }
 
@@ -327,9 +348,8 @@ public class JimiParser {
      */
     private Command prepareSelect(String args) {
         Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         }
 
         return new SelectCommand(index.get());
@@ -337,17 +357,18 @@ public class JimiParser {
     
     /**
      * Parses arguments to filter section of task panel to be displayed to user.
-     * @param arguments
-     * @return
+     * @param args full command args string
+     * @return the prepared command
      */
     private Command prepareShow(String args) {
         final Matcher matcher = SHOW_COMMAND_ARGS_FORMAT.matcher(args.trim());
         boolean keywordFound = false;
         
         //goes through list of keywords to check if user input is valid
-        for(int i = 0; i < this.showCommandValidKeywords.length ; i++) {
-            if(showCommandValidKeywords[i].contains(args)) {
+        for (String validKey : ShowCommand.VALID_KEYWORDS) {
+            if (validKey.contains(args)) {
                 keywordFound = true;
+                break;
             }
         }
         

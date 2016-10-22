@@ -79,23 +79,24 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
-        updateFilteredListToShowAll();
+        updateAllFilteredListsShowDefault();
         indicateTaskBookChanged();
     }
     
     /**
+     * Replaces a task in task book.
      * 
      * @param newTask Task to be replaced with.
      * @param targetIndex Index of oldTask to be replaced by.
      */
     @Override
-    public synchronized void editReadOnlyTask(int targetIndex, ReadOnlyTask newTask) {
-        taskBook.editTask(targetIndex, newTask);
-        updateFilteredListToShowAll();
+    public void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) {
+        taskBook.replaceTask(oldTask, newTask);
         indicateTaskBookChanged();
     }
     
     /**
+     * Completes a task in task book.
      * 
      * @param taskToComplete Task to set to complete/incomplete.
      * @param isComplete True, if task is to be set to completed.
@@ -103,45 +104,40 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) {
         taskBook.completeTask(taskToComplete, isComplete);
-        updateFilteredListToShowAll();
+        updateAllFilteredListsShowDefault();
         indicateTaskBookChanged();
     }
     
-    //=========== Filtered list accessors ===============================================================
+    /*
+     * ==================================================================
+     *                  Updating Filtered Lists 
+     * ==================================================================
+     */
     
     @Override
-    public void updateFilteredListToShowAll() {
+    public void updateAllFilteredListsShowDefault() {
         this.filteredListManager.updateFilteredListToDefault();
     }
     
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return this.filteredListManager.getRequiredFilteredTaskList(ListId.TASKS_AGENDA);
-    }
-    
-    @Override
-    public void updateFilteredTaskList(Set<String> keywords) {
+    public void updateFilteredAgendaTaskList(Set<String> keywords) {
         this.filteredListManager.updateRequiredFilteredTaskList(ListId.TASKS_AGENDA, keywords);
     }
+
+    @Override
+    public void updateFilteredAgendaEventList(Set<String> keywords) {
+        this.filteredListManager.updateRequiredFilteredTaskList(ListId.EVENTS_AGENDA, keywords);
+    }
+    
+    /*
+     * ==================================================================
+     *                  Accessing Filtered Lists 
+     * ==================================================================
+     */
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList() {
         return this.filteredListManager.getRequiredFilteredTaskList(ListId.FLOATING_TASKS);
-    }
-    
-    @Override
-    public void updateFilteredFloatingTaskList(Set<String> keywords) {
-        this.filteredListManager.updateRequiredFilteredTaskList(ListId.FLOATING_TASKS, keywords);
-    }
-    
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredCompletedTaskList() {
-        return this.filteredListManager.getRequiredFilteredTaskList(ListId.COMPLETED);
-    }
-    
-    @Override
-    public void updateFilteredCompletedTaskList(Set<String> keywords) {
-        this.filteredListManager.updateRequiredFilteredTaskList(ListId.COMPLETED, keywords);
     }
     
     @Override
@@ -150,30 +146,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredIncompleteTaskList(Set<String> keywords) {
-        this.filteredListManager.updateRequiredFilteredTaskList(ListId.INCOMPLETE, keywords);
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredCompletedTaskList() {
+        return this.filteredListManager.getRequiredFilteredTaskList(ListId.COMPLETED);
     }
-    
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaTaskList() {
-        return this.filteredListManager.getRequiredFilteredTaskList(ListId.TASKS_AGENDA);
-    }
-    
-    @Override
-    public void updateFilteredAgendaTaskList(Set<String> keywords) {
-        this.filteredListManager.updateRequiredFilteredTaskList(ListId.TASKS_AGENDA, keywords);
-    }
-    
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaEventList() {
-        return this.filteredListManager.getRequiredFilteredTaskList(ListId.EVENTS_AGENDA);
-    }
-    
-    @Override
-    public void updateFilteredAgendaEventList(Set<String> keywords) {
-        this.filteredListManager.updateRequiredFilteredTaskList(ListId.EVENTS_AGENDA, keywords);
-    }
-    
+
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay1TaskList() {
         return this.filteredListManager.getRequiredFilteredTaskList(ListId.DAY_AHEAD_0);
@@ -207,5 +183,15 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay7TaskList() {
         return this.filteredListManager.getRequiredFilteredTaskList(ListId.DAY_AHEAD_6);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaTaskList() {
+        return this.filteredListManager.getRequiredFilteredTaskList(ListId.TASKS_AGENDA);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaEventList() {
+        return this.filteredListManager.getRequiredFilteredTaskList(ListId.EVENTS_AGENDA);
     }
 }

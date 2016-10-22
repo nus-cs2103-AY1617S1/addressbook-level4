@@ -23,8 +23,6 @@ public interface Model {
     void addTask(ReadOnlyTask floatingTask) throws UniqueTaskList.DuplicateTaskException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-    
     UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
     
     UnmodifiableObservableList<ReadOnlyTask> getFilteredCompletedTaskList();
@@ -50,25 +48,18 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaEventList();
 
 
-    /** Updates the filter of the filtered task list to show all task */
-    void updateFilteredListToShowAll();
+    /** Updates the filter of the filtered task list to show the default listings */
+    void updateAllFilteredListsShowDefault();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
-    
-    void updateFilteredFloatingTaskList(Set<String> keywords);
-    
-    void updateFilteredCompletedTaskList(Set<String> keywords);
-
-    void updateFilteredIncompleteTaskList(Set<String> keywords);
-
+    /** Updates the filter of the filtered task list to filter by the given keywords */
     void updateFilteredAgendaTaskList(Set<String> keywords);
-
+    
+    /** Updates the filter of the filtered event list to filter by the given keywords */
     void updateFilteredAgendaEventList(Set<String> keywords);
     
-    /** Edits the floating task at the specified index */
-    void editReadOnlyTask(int targetIdx, ReadOnlyTask task);
-
     /** Sets the task to be completed/incomplete */
     void completeTask(ReadOnlyTask taskToComplete, boolean isComplete);
+    
+    /** Replaces {@code oldTask} with {@code newTask} */
+    void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask);
 }

@@ -118,7 +118,7 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredTaskList());
+        assertEquals(expectedShownList, model.getFilteredAgendaTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskBook, model.getTaskBook());
@@ -364,42 +364,42 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threeFloatingTasks.get(1));
+        assertEquals(model.getFilteredAgendaTaskList().get(1), threeFloatingTasks.get(1));
         
         assertCommandBehavior("s 1",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 1),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(0, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(0), threeFloatingTasks.get(0));
+        assertEquals(model.getFilteredAgendaTaskList().get(0), threeFloatingTasks.get(0));
         
         assertCommandBehavior("se 2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threeFloatingTasks.get(1));
+        assertEquals(model.getFilteredAgendaTaskList().get(1), threeFloatingTasks.get(1));
         
         assertCommandBehavior("sel 1",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 1),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(0, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(0), threeFloatingTasks.get(0));
+        assertEquals(model.getFilteredAgendaTaskList().get(0), threeFloatingTasks.get(0));
         
         assertCommandBehavior("sele 2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threeFloatingTasks.get(1));
+        assertEquals(model.getFilteredAgendaTaskList().get(1), threeFloatingTasks.get(1));
         
         assertCommandBehavior("selec 1",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 1),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(0, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(0), threeFloatingTasks.get(0));
+        assertEquals(model.getFilteredAgendaTaskList().get(0), threeFloatingTasks.get(0));
     }
 
 

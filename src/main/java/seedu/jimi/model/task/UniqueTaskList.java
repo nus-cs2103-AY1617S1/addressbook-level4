@@ -94,9 +94,10 @@ public class UniqueTaskList<T> implements Iterable<T> {
     /**
      * Replaces the floating task at the specified index with {@code toEdit}
      */
-    public void edit(int targetIndex, T toEdit) {
-        assert toEdit != null;
-        internalList.set(targetIndex, toEdit);
+    public void replace(T oldTask, T newTask) {
+        assert newTask != null;
+        int oldIdx = internalList.indexOf(oldTask);
+        internalList.set(oldIdx, newTask);
     }
 
     public ObservableList<T> getInternalList() {

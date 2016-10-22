@@ -134,8 +134,8 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
     
-    public void editTask(int targetIndex, ReadOnlyTask newTask) {
-        tasks.edit(targetIndex, newTask);
+    public void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) {
+        tasks.replace(oldTask, newTask);
     }
 
     public void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) {

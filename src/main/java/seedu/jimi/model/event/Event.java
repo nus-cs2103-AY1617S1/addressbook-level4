@@ -108,7 +108,7 @@ public class Event implements ReadOnlyTask {
                .append(" Start: ")
                .append(getStart())
                .append(" End: ")
-               .append(getEnd())
+               .append(getEnd() == null ? "none" : getEnd())
                .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
