@@ -1,6 +1,7 @@
 package seedu.cmdo.model.task;
 
 import java.util.Objects;
+import java.util.UUID;
 
 import seedu.cmdo.commons.util.CollectionUtil;
 import seedu.cmdo.model.tag.UniqueTagList;
@@ -8,7 +9,7 @@ import seedu.cmdo.model.tag.UniqueTagList;
 /**
  * Represents a Task in the To Do List.
  * Guarantees: details are present and not null, field values are validated.
- */
+ **/
 public class Task implements ReadOnlyTask {
 
 	
@@ -18,6 +19,8 @@ public class Task implements ReadOnlyTask {
     private DueByTime dueByTime; 
     private Priority priority;
     private UniqueTagList tags;
+    // ObjectID assign each Task instance a distinct ID
+    private String objectID = null;
 
     /**
      * Every field must be present and not null.
@@ -86,6 +89,10 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
+    
+    public void updateObjectID() {
+        objectID = UUID.randomUUID().toString();
+    }
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.
@@ -130,5 +137,21 @@ public class Task implements ReadOnlyTask {
      */
     public String getFriendlyTime() {
     	return dueByTime.getFriendlyString();
+    }
+    
+    /**
+     * Copy related methods
+     * @author A0141128R
+     */
+    @Override
+    public Task makeCopy() {
+        Task taskObject = null;
+        try {
+            taskObject = (Task) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        taskObject.updateObjectID();
+        return taskObject;
     }
 }
