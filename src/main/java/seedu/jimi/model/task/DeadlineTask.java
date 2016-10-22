@@ -57,6 +57,7 @@ public class DeadlineTask extends FloatingTask implements ReadOnlyTask {
     public String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+               .append(" ")
                .append(getDeadline())
                .append(" Tags: ");
         getTags().forEach(builder::append);
