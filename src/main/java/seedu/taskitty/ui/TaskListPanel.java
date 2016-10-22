@@ -26,11 +26,6 @@ public class TaskListPanel extends UiPart {
     protected VBox panel;
     protected AnchorPane placeHolderPane;
 
-    @FXML
-    private Label header;
-    @FXML
-    private ListView<ReadOnlyTask> taskListView;
-
     public TaskListPanel() {
         super();
     }
@@ -50,45 +45,33 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+    public static <T extends TaskListPanel> T load(Stage primaryStage, AnchorPane taskListPlaceholder,
+                                       ObservableList<ReadOnlyTask> taskList, T listPanel) {
+        T taskListPanel =
+                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, listPanel);
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
-
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
-        header.setText("TODOS [t]");
-        header.setStyle("-fx-text-fill: white");
-        setConnections(taskList);
-        addToPlaceholder();
-    }
-
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+    
+    protected void configure(ObservableList<ReadOnlyTask> taskList) {};
+    
+    protected void setConnections(ListView<ReadOnlyTask> taskListView, ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
-        setEventHandlerForSelectionChangeEvent();
+        setEventHandlerForSelectionChangeEvent(taskListView);
     }
 
-    private void addToPlaceholder() {
+    protected void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
     }
 
-    private void setEventHandlerForSelectionChangeEvent() {
+    private void setEventHandlerForSelectionChangeEvent(ListView<ReadOnlyTask> taskListView) {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
             }
-        });
-    }
-
-    public void scrollTo(int index) {
-        Platform.runLater(() -> {
-            taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
 

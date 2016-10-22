@@ -38,39 +38,11 @@ public class TodoListPanel extends TaskListPanel {
         return FXML;
     }
 
-    public static TodoListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
-        TodoListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TodoListPanel());
-        taskListPanel.configure(taskList);
-        return taskListPanel;
-    }
-
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
+    protected void configure(ObservableList<ReadOnlyTask> taskList) {
     	header.setText("TODOS [t]");
     	header.setStyle("-fx-text-fill: white");
-        setConnections(taskList);
+        setConnections(todoListView, taskList);
         addToPlaceholder();
-    }
-
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        todoListView.setItems(taskList);
-        todoListView.setCellFactory(listView -> new TaskListViewCell());
-        setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(panel);
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        todoListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
-            }
-        });
     }
 
     public void scrollTo(int index) {

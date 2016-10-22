@@ -39,40 +39,12 @@ public class DeadlineListPanel extends TaskListPanel {
     public String getFxmlPath() {
         return FXML;
     }
-    
-    public static DeadlineListPanel load(Stage primaryStage, AnchorPane deadlineListPlaceholder,
-            ObservableList<ReadOnlyTask> deadlineList) {
-        DeadlineListPanel deadlineListPanel =
-                UiPartLoader.loadUiPart(primaryStage, deadlineListPlaceholder, new DeadlineListPanel());
-        deadlineListPanel.configure(deadlineList);
-        return deadlineListPanel;
-    }
 
-    private void configure(ObservableList<ReadOnlyTask> deadlineList) {
+    protected void configure(ObservableList<ReadOnlyTask> deadlineList) {
     	header.setText("DEADLINES [d]");
     	header.setStyle("-fx-text-fill: white");
-        setConnections(deadlineList);
+        setConnections(deadlineListView, deadlineList);
         addToPlaceholder();
-    }
-    
-    private void setConnections(ObservableList<ReadOnlyTask> deadlineList) {
-        deadlineListView.setItems(deadlineList);
-        deadlineListView.setCellFactory(listView -> new TaskListViewCell());
-        setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(panel);
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        deadlineListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in deadline list panel changed to : '" + newValue + "'");
-                raise(new DeadlinePanelSelectionChangedEvent(newValue));
-            }
-        });
     }
 
     public void scrollTo(int index) {

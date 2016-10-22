@@ -137,9 +137,9 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
 
-        taskListPanel = TodoListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
-        deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredDeadlineList());
-        eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(), new TodoListPanel());
+        deadlineListPanel = TaskListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredDeadlineList(), new DeadlineListPanel());
+        eventListPanel = TaskListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList(), new EventListPanel());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);

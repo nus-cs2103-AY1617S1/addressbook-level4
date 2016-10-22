@@ -45,20 +45,12 @@ public class EventListPanel extends TaskListPanel {
     public String getFxmlPath() {
         return FXML;
     }
-    
-    public static EventListPanel load(Stage primaryStage, AnchorPane eventListPlaceholder,
-            ObservableList<ReadOnlyTask> eventList) {
-        EventListPanel eventListPanel =
-                UiPartLoader.loadUiPart(primaryStage, eventListPlaceholder, new EventListPanel());
-        eventListPanel.configure(eventList);
-        return eventListPanel;
-    }
 
-    private void configure(ObservableList<ReadOnlyTask> eventList) {
+    protected void configure(ObservableList<ReadOnlyTask> eventList) {
     	header.setText("EVENTS [e]");
     	header.setStyle("-fx-text-fill: white");
     	setDate();
-        setConnections(eventList);
+        setConnections(eventListView, eventList);
         addToPlaceholder();
     }
     
@@ -68,26 +60,6 @@ public class EventListPanel extends TaskListPanel {
     	date.setText(df.format(dateobj) + " (Today)");
     	date.setStyle("-fx-text-fill: black");
     	date.setStyle("-fx-background-color: white");
-    }
-    
-    private void setConnections(ObservableList<ReadOnlyTask> eventList) {
-        eventListView.setItems(eventList);
-        eventListView.setCellFactory(listView -> new TaskListViewCell());
-        setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(panel);
-    }
-
-    private void setEventHandlerForSelectionChangeEvent() {
-        eventListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in event list panel changed to : '" + newValue + "'");
-                raise(new EventPanelSelectionChangedEvent(newValue));
-            }
-        });
     }
 
     public void scrollTo(int index) {
