@@ -89,29 +89,13 @@ Examples:
 * `find lunch dinner breakfast`<br>
   Returns Any task having names `lunch`, `dinner`, or `breakfast`
 
-#### Deleting a task : `delete`
-Deletes the specified task from the to-do list. Irreversible.<br>
-Format: `delete INDEX`
-
-> Deletes the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd task in the to-do list.
-* `find lunch`<br> 
-  `delete 1`<br>
-  Deletes the 1st task in the results of the `find` command. 
-
 #### Deleting a task: `delete`
 Deletes the specified task from the to-do list.<br>
 Format: `delete INDEX`
 
 > Deletes the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+  The index **must have either 'f','d' or 'e' as a prefix and also a positive integer** eg. f1, e2, d3, ...
 
 Examples: 
 * `list`<br>
@@ -146,22 +130,6 @@ Examples:
   Edits the 1st task in the results of the `find` or ‘ command.<br>
   Need to put at least one field
 
-#### Select a task : `select`
-Selects the task identified by the index number used in the last task listing.<br>
-Format: `select INDEX`
-
-> Selects the task and loads the Google search page the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd task in Malitio.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st task in the results of the `find` command.
-
 #### Clearing all entries : `clear`
 Clears all entries from the to-do list.<br>
 Format: `clear`  
@@ -169,10 +137,6 @@ Format: `clear`
 #### Undo the most recent action: `undo`
 Undo the most recent action and reverts the to-do list to previous state. <br>
 Format: `undo`
-
-#### Redo the most recent undo action: `redo` 
-Redo the action<br>
-Format: `redo`
 
 #### Exiting the program : `exit`
 Exits the program.<br>
@@ -196,13 +160,11 @@ Command | Format
 -------- | :-------- 
 Add | `add TASK_NAME [by DDMMYYYY TTTT] [start DDMMYYYY TTTT end DDMMYYYY TTTT] [t/TAG]...`
 Clear | `clear`
-Delete | `delete INDEX`
+Delete | `delete f/d/e+INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS] [t/TYPE]`
 List | `list`
 Edit | `edit f\d\e+INDEX [NAME] [by DDMMYYYY TTTT] [start DDMMYYYY TTTT] [end DDMMYYYY TTTT] [t/TAG] `
 Help | `help`
-Select | `select INDEX`
 Undo | `undo`
-Edit | `edit INDEX [n/TASK_NAME] [s/DDMMYYYY TTTT] [e/DDMMYYYY TTTT] [t/TAG]`
 
 
