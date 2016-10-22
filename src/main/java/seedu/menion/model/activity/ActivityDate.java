@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 import java.text.DateFormatSymbols;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.commons.util.DateChecker;
 
 /**
  * Represents a Activity's date date in the task manager.
@@ -16,7 +17,7 @@ public class ActivityDate {
 
 
     public static final String MESSAGE_ACTIVITYDATE_CONSTRAINTS = "Activity date should be in mm-dd-yy or mm-dd-yyyy format";
-
+    public static final String MESSAGE_ACTIVITYDATE_INVALID = "Oh no! Menion has detected an invalid date! Please ensure that day-month-year is valid";
     public static final String ACTIVITYDATE_VALIDATION_REGEX = "(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9])";
 
     public final String value;
@@ -29,22 +30,23 @@ public class ActivityDate {
     public ActivityDate(String date) throws IllegalValueException {
         assert date != null;
         date = date.trim();
-        if (!isValidDate(date)) {
-            throw new IllegalValueException(MESSAGE_ACTIVITYDATE_CONSTRAINTS);
-        }
+        isValidDate(date);
         this.value = date;
     }
-
+    
+    //@@author: A0139164A
     /**
-     * Returns true if a given string is a valid task date.
+     * Returns true if a given string is a valid activity date.
+     * @throws IllegalValueException 
      */
-    public static boolean isValidDate(String test) {
-        boolean result = false;
+    public static void isValidDate(String test) throws IllegalValueException {
+        DateChecker dateCheck = new DateChecker();
         
-        if (test.matches(ACTIVITYDATE_VALIDATION_REGEX)) {
-            result = true;
+        if (!test.matches(ACTIVITYDATE_VALIDATION_REGEX)) {
+            throw new IllegalValueException(MESSAGE_ACTIVITYDATE_CONSTRAINTS);
         }
-        return result;
+        dateCheck.validDate(test);
+        return;
     }
 
     private static String formatNiceDate(String dateToFormat){

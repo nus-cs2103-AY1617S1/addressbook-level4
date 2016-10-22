@@ -1,6 +1,7 @@
 package seedu.menion.logic.commands;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.commons.util.DateChecker;
 import seedu.menion.model.ActivityManager;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.*;
@@ -23,7 +24,7 @@ public class AddCommand extends Command {
     		+ "Adding a Event: "+ COMMAND_WORD + " project meeting from: 10-10-2016 1400 to: 10-10-2016 1800 n: celebrate\n";
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This activity already exists in the Menion";
+    public static final String MESSAGE_DUPLICATE_TASK = "Oh no! This activity already exists in the Menion";
 
     private final Activity toAdd;
     public final EventStub eventStub = null;
@@ -36,7 +37,8 @@ public class AddCommand extends Command {
     private Note note;
     private String activityType;
     private Completed status = new Completed(false);
-
+    private DateChecker datecheck = new DateChecker();
+    
     /**
      * Convenience constructor using raw values.
      *
@@ -64,6 +66,7 @@ public class AddCommand extends Command {
             startTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_STARTTIME));
             endDate = new ActivityDate(activityDetails.get(Activity.INDEX_ACTIVITY_ENDDATE));
             endTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_ENDTIME));
+            datecheck.validEventDate(startDate, startTime, endDate, endTime); // Throws error if invalid date.
             this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime, status);
         }
     }
@@ -102,5 +105,4 @@ public class AddCommand extends Command {
         ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
     	model.addStateToUndoStack(beforeState);
     }
-    //@@author
 }
