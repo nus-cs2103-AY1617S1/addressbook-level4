@@ -23,5 +23,7 @@ public interface Logic {
     
     /** Returns the filtered incomplete list of tasks */
     ObservableList<ReadOnlyTask> getFilteredIncompleteTaskList();
+    
+    void setCurrentTab(String tab);
 
 }

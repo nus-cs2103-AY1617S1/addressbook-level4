@@ -12,9 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity"
-	minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="seedu.todolist.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todolist.ui.MainWindow">
 	<stylesheets>
 		<URL value="@DarkTheme.css" />
 		<URL value="@Extensions.css" />
@@ -24,44 +22,36 @@
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleExit"
-							text="Exit" />
+						<MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">
 					<items>
-						<MenuItem fx:id="helpMenuItem" mnemonicParsing="false"
-							onAction="#handleHelp" text="Help" />
+						<MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
 					</items>
 				</Menu>
 			</menus>
 		</MenuBar>
-		<AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border"
-			VBox.vgrow="NEVER">
+		<AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
 			<padding>
 				<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
 			</padding>
 		</AnchorPane>
-		<AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100"
-			minHeight="100" prefHeight="100" styleClass="anchor-pane-with-border"
-			VBox.vgrow="NEVER">
+		<AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
 			<padding>
 				<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
 			</padding>
 		</AnchorPane>
-		<SplitPane id="splitPane" fx:id="splitPane"
-			dividerPositions="0.3" VBox.vgrow="ALWAYS">
+		<SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.3" VBox.vgrow="ALWAYS">
 			<items>
-				<SplitPane dividerPositions="0.5" orientation="VERTICAL"
-					prefHeight="200.0" prefWidth="160.0">
+				<SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0">
 					<items>
 						<TitledPane animated="false" collapsible="false" text="Notification">
 							<padding>
 								<Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
 							</padding>
 							<content>
-								<AnchorPane fx:id="notificationPlaceHolder"
-									minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+								<AnchorPane fx:id="notificationPlaceHolder" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
 							</content>
 						</TitledPane>
 						<TitledPane animated="false" collapsible="false" text="Overdue">
@@ -69,8 +59,7 @@
 								<Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
 							</padding>
 							<content>
-								<AnchorPane fx:id="overduePlaceHolder" minHeight="0.0"
-									minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+								<AnchorPane fx:id="overduePlaceHolder" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
 							</content>
 						</TitledPane>
 					</items>
@@ -79,14 +68,13 @@
 					<padding>
 						<Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
 					</padding>
-					<TabPane fx:id="allTasksTabPane" prefWidth="500"
-						VBox.vgrow="ALWAYS">
+					<TabPane fx:id="allTasksTabPane" prefWidth="500" VBox.vgrow="ALWAYS">
 
-						<Tab closable="false" text="Incomplete">
+						<Tab closable="false" onSelectionChanged="#OnTabSelectionChanged" text="Incomplete">
 							<AnchorPane fx:id="taskListPanelPlaceholder">
 							</AnchorPane>
 						</Tab>
-						<Tab closable="false" text="Completed">
+						<Tab closable="false" onSelectionChanged="#OnTabSelectionChanged" text="Completed">
 							<AnchorPane fx:id="completeTaskListPanelPlaceholder">
 							</AnchorPane>
 						</Tab>

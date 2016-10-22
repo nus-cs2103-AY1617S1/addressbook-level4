@@ -4,6 +4,7 @@ import seedu.todolist.commons.core.Messages;
 import seedu.todolist.commons.core.UnmodifiableObservableList;
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.todolist.ui.MainWindow;
 
 /**
  * Deletes a task identified using it's last displayed index from the address book.
@@ -29,8 +30,15 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredAllTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
+        
+        if (model.getCurrentTab().equals(MainWindow.TAB_TASK_COMPLETE)) {
+            lastShownList = model.getFilteredCompleteTaskList();
+        }
+        else {
+            lastShownList = model.getFilteredIncompleteTaskList();
+        }
+        
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

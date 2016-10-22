@@ -11,6 +11,7 @@ import seedu.todolist.model.task.Status;
 import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.todolist.ui.MainWindow;
 
 import java.util.EmptyStackException;
 import java.util.Set;
@@ -31,6 +32,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredIncompleteTasks;
     
     private final Stack<ReadOnlyAddressBook> addressBookHistory;
+    
+    private String currentTab;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -48,6 +51,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCompleteTasks = new FilteredList<>(addressBook.getCompletedTasks());
         filteredIncompleteTasks = new FilteredList<>(addressBook.getIncompleteTasks());
         addressBookHistory = new Stack<ReadOnlyAddressBook>();
+        currentTab = MainWindow.TAB_TASK_INCOMPLETE;
     }
 
     public ModelManager() {
@@ -60,6 +64,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredCompleteTasks = new FilteredList<>(addressBook.getCompletedTasks());
         filteredIncompleteTasks = new FilteredList<>(addressBook.getIncompleteTasks());
         addressBookHistory = new Stack<ReadOnlyAddressBook>();
+        currentTab = MainWindow.TAB_TASK_INCOMPLETE;
     }
 
     @Override
@@ -83,6 +88,17 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
+    }
+    
+    
+    @Override
+    public void setCurrentTab(String tab) {
+        currentTab = tab;
+    }
+    
+    @Override
+    public String getCurrentTab() {
+        return currentTab;
     }
     
     @Override
@@ -142,7 +158,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
-
+    
     private void updateFilteredTaskList(Expression expression) {
         filteredAllTasks.setPredicate(expression::satisfies);
         filteredCompleteTasks.setPredicate(expression::satisfies);

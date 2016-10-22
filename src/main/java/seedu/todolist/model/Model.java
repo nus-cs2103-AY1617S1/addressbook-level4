@@ -47,5 +47,11 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+    
+    /** Set the current tab the user is looking at */
+    void setCurrentTab(String tab);
+    
+    /** Get the current tab the user is looking at */
+    String getCurrentTab();
 
 }

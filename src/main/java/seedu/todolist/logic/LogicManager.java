@@ -48,4 +48,9 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyTask> getFilteredIncompleteTaskList() {
         return model.getFilteredIncompleteTaskList();
     }
+    
+    @Override
+    public void setCurrentTab(String tab) {
+        model.setCurrentTab(tab);
+    }
 }
