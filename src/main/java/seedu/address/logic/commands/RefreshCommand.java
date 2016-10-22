@@ -25,12 +25,10 @@ public class RefreshCommand extends Command {
         	if(target.getDatetime().getEnd() == null){
         		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm");
         		LocalDateTime dateTime = LocalDateTime.parse(target.getDatetime().toString(), formatter);
-        		if(dateTime.isAfter(currentTime)){
+        		if(dateTime.isBefore(currentTime)){
         			try {
         				model.overdueTask(target);
-        			} catch (TaskNotFoundException e) {
-        				System.out.println("hello world!");
-        			}				
+        			} catch (TaskNotFoundException e) {}				
 				
         		}
         	}

@@ -126,6 +126,8 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public void overdueTask(ReadOnlyTask target) throws TaskNotFoundException {
 		taskBook.overdueTask(target);
+        updateFilteredListToShowAll();
+        indicateTaskBookChanged();
 		
 	}
     
