@@ -106,19 +106,19 @@ public class TaskQuery extends Task {
         final StringBuilder builder = new StringBuilder();
         builder.append("Filter Search Keywords: ");
 
-        if (getName().toString() != "") {
+        if (!getName().toString().equals("")) {
             builder.append("[Task Name: ").append(getName()).append("] ");
         }
         if (getDateTime().getEndDate() != null) {
             builder.append("[DateTime: ").append(getDateTime()).append("] ");
         }
-        if (priorityString() != "") {
+        if (!priorityString().equals("")) {
             builder.append("[Priority: ").append(priorityString()).append("] ");
         }
-        if (statusString != "") {
+        if (!statusString.equals("")) {
             builder.append("[Status: ").append(statusString).append("] ");
         }
-        if (tagQuery != "") {
+        if (!tagQuery.equals("")) {
             builder.append("[Tags: ").append(tagQuery).append("]");
         }
 

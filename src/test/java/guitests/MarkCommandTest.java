@@ -23,7 +23,7 @@ public class MarkCommandTest extends TarsGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
 
         // Mark tasks as done
-        commandBox.runCommand("mark -do 1 2 3 4 5 6 7");
+        commandBox.runCommand("mark /do 1 2 3 4 5 6 7");
 
         // Confirm the list now contains the specified tasks to be mark as done
         Status done = new Status(true);
@@ -32,7 +32,7 @@ public class MarkCommandTest extends TarsGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedDoneList));
 
         // Mark tasks as undone
-        commandBox.runCommand("mark -ud 1 2 3 4 5 6 7");
+        commandBox.runCommand("mark /ud 1 2 3 4 5 6 7");
         
         // Confirm the list now contains the specified tasks to be mark as undone
         Status undone = new Status(false);
@@ -45,7 +45,7 @@ public class MarkCommandTest extends TarsGuiTest {
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
         
         // invalid index
-        commandBox.runCommand("mark -do 8");
+        commandBox.runCommand("mark /do 8");
         assertResultMessage("The task index provided is invalid");
     }
 
