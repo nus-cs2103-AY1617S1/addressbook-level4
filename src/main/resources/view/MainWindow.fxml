@@ -22,20 +22,20 @@
                   <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Undo">
+            <Menu mnemonicParsing="false" text="Edit">
               <items>
                 <MenuItem fx:id="undoMenuItem" mnemonicParsing="false" onAction="#handleUndo" text="Undo" />
               </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="List">
+            <Menu mnemonicParsing="false" text="View">
               <items>
                 <MenuItem fx:id="listMenuItem" mnemonicParsing="false" onAction="#handleList" text="List" />
               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+               </items>
             </Menu>
          </menus>
       </MenuBar>
