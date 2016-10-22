@@ -1,18 +1,11 @@
 package guitests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.tasklist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.io.File;
-import java.io.IOException;
-
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 import seedu.tasklist.commons.core.Config;
 import seedu.tasklist.commons.core.Messages;
-import seedu.tasklist.commons.util.ConfigUtil;
 import seedu.tasklist.logic.commands.StorageCommand;
 import seedu.tasklist.storage.Storage;
 
