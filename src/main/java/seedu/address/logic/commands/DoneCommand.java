@@ -53,7 +53,7 @@ public class DoneCommand extends Command {
     	model.saveState();
     	
     	ArrayList<ReadOnlyTask> tasksList = new ArrayList<>();
-    	Task taskDone;
+    	Task taskChanged;
         
         for (int i=0; i<indices.length; i++) {
             if (lastShownList.size() < indices[i]) {
@@ -63,13 +63,13 @@ public class DoneCommand extends Command {
                 		+ "for " + status + " command");
             }
 
-            taskDone = new Task(lastShownList.get(indices[i] - 1));
-            int index = fullList.indexOf(taskDone);
-            taskDone.setStatus(new Status(status));
-            tasksList.add(taskDone);
+            taskChanged = new Task(lastShownList.get(indices[i] - 1));
+            int index = fullList.indexOf(taskChanged);
+            taskChanged.setStatus(new Status(status));
+            tasksList.add(taskChanged);
         	
             try {
-                model.editTask(index, taskDone);
+                model.editTask(index, taskChanged);
             } catch (TaskNotFoundException pnfe) {
                 model.loadPreviousState();
                 assert false : "The target task cannot be missing";
