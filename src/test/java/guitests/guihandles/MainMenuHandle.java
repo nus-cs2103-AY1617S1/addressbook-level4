@@ -26,23 +26,28 @@ public class MainMenuHandle extends GuiHandle {
     }
 
     public HelpWindowHandle openHelpWindowUsingAccelerator() {
-        useF1Accelerator();
+        useAccelerator("F1");
         return new HelpWindowHandle(guiRobot, primaryStage);
     }
     
     public void useClearCommandUsingAccelerator() {
-        guiRobot.push(KeyCode.CONTROL, KeyCode.SHIFT, KeyCode.C);
+        useAccelerator("Ctrl", "Shift", "C");
         guiRobot.sleep(500);
     }
     
     public void useUndoCommandUsingAccelerator() {
-        guiRobot.push(KeyCode.CONTROL, KeyCode.SHIFT, KeyCode.Z);
+        useAccelerator("Ctrl", "Shift", "Z");
         guiRobot.sleep(500);
     }
     
-    private void useF1Accelerator() {
-        guiRobot.push(KeyCode.F1);
+    
+    private void useAccelerator(String... buttonsToPress) {
+        KeyCode[] buttons = new KeyCode[buttonsToPress.length];
+        for (int i = 0; i < buttonsToPress.length; i++) {
+            buttons[i] = KeyCode.getKeyCode(buttonsToPress[i]);
+        }   
+        guiRobot.push(buttons);
         guiRobot.sleep(500);
-    }
-      
+    }  
+    
 }
