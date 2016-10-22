@@ -5,8 +5,12 @@ import javafx.collections.transformation.SortedList;
 import seedu.savvytasker.commons.core.ComponentManager;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
+import seedu.savvytasker.commons.events.model.AliasSymbolChangedEvent;
 import seedu.savvytasker.commons.events.model.SavvyTaskerChangedEvent;
 import seedu.savvytasker.commons.util.StringUtil;
+import seedu.savvytasker.model.alias.AliasSymbol;
+import seedu.savvytasker.model.alias.DuplicateSymbolKeywordException;
+import seedu.savvytasker.model.alias.SymbolKeywordNotFoundException;
 import seedu.savvytasker.model.task.FindType;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
@@ -58,7 +62,7 @@ public class ModelManager extends ComponentManager implements Model {
         sortedAndFilteredTasks = new SortedList<>(filteredTasks, new TaskSortedByDefault());
         updateFilteredListToShowActive(); // shows only active tasks on start
     }
-
+    
     @Override
     public void resetData(ReadOnlySavvyTasker newData) {
         savvyTasker.resetData(newData);
@@ -74,6 +78,15 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateSavvyTaskerChanged() {
         raise(new SavvyTaskerChangedEvent(savvyTasker));
     }
+
+    private void indicateAliasSymbolAdded(AliasSymbol symbol) {
+        raise(new AliasSymbolChangedEvent(symbol, AliasSymbolChangedEvent.Action.Added));
+    }
+    
+    private void indicateAliasSymbolRemoved(AliasSymbol symbol) {
+        raise(new AliasSymbolChangedEvent(symbol, AliasSymbolChangedEvent.Action.Removed));
+    }
+
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
@@ -93,6 +106,20 @@ public class ModelManager extends ComponentManager implements Model {
         savvyTasker.addTask(t);
         updateFilteredListToShowActive();
         indicateSavvyTaskerChanged();
+    }
+
+    @Override
+    public synchronized void addAliasSymbol(AliasSymbol symbol) throws DuplicateSymbolKeywordException {
+        savvyTasker.addAliasSymbol(symbol);
+        indicateSavvyTaskerChanged();
+        indicateAliasSymbolAdded(symbol);
+    }
+
+    @Override
+    public synchronized void removeAliasSymbol(AliasSymbol symbol) throws SymbolKeywordNotFoundException {
+        savvyTasker.removeAliasSymbol(symbol);
+        indicateSavvyTaskerChanged();
+        indicateAliasSymbolRemoved(symbol);
     }
 
     //=========== Filtered/Sorted Task List Accessors ===============================================================

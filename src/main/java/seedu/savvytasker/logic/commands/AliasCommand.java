@@ -1,12 +1,13 @@
 package seedu.savvytasker.logic.commands;
 
 import seedu.savvytasker.logic.commands.models.AliasCommandModel;
-import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.alias.AliasSymbol;
+import seedu.savvytasker.model.alias.DuplicateSymbolKeywordException;
 
 /**
  * Command to create aliases
  */
-public class AliasCommand extends LogicRequiringCommand {
+public class AliasCommand extends ModelRequiringCommand {
 
     public static final String COMMAND_WORD = "alias";
 
@@ -29,8 +30,17 @@ public class AliasCommand extends LogicRequiringCommand {
 
     @Override
     public CommandResult execute() {
-        assert logic != null;
-        return null;
+        assert model != null;
+
+        AliasSymbol symbolToAdd = new AliasSymbol(commandModel.getKeyword(),
+                commandModel.getRepresentingText());
+        
+        try {
+            model.addAliasSymbol(symbolToAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, symbolToAdd));
+        } catch (DuplicateSymbolKeywordException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_ALIAS);
+        }
     }
     
     @Override

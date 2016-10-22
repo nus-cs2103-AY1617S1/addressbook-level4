@@ -1,6 +1,9 @@
 package seedu.savvytasker.model;
 
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
+import seedu.savvytasker.model.alias.AliasSymbol;
+import seedu.savvytasker.model.alias.DuplicateSymbolKeywordException;
+import seedu.savvytasker.model.alias.SymbolKeywordNotFoundException;
 import seedu.savvytasker.model.task.FindType;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
@@ -46,4 +49,9 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(FindType findType, String[] keywords);
 
+    /** Adds the given AliasSymbol */
+    void addAliasSymbol(AliasSymbol symbol) throws DuplicateSymbolKeywordException;
+    
+    /** Removes an the given AliasSymbol. */
+    void removeAliasSymbol(AliasSymbol symbol) throws SymbolKeywordNotFoundException;
 }

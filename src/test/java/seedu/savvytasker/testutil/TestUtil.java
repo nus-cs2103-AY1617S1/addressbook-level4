@@ -17,6 +17,7 @@ import seedu.savvytasker.TestApp;
 import seedu.savvytasker.commons.util.FileUtil;
 import seedu.savvytasker.commons.util.XmlUtil;
 import seedu.savvytasker.model.SavvyTasker;
+import seedu.savvytasker.model.alias.AliasSymbolList;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList;
@@ -109,7 +110,7 @@ public class TestUtil {
     }
 
     public static SavvyTasker generateEmptySavvyTasker() {
-        return new SavvyTasker(new TaskList());
+        return new SavvyTasker(new TaskList(), new AliasSymbolList());
     }
 
     public static XmlSerializableSavvyTasker generateSampleStorageSavvyTasker() {

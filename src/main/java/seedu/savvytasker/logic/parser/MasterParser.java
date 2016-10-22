@@ -11,17 +11,18 @@ import java.util.regex.Pattern;
 import seedu.savvytasker.logic.commands.Command;
 import seedu.savvytasker.logic.commands.HelpCommand;
 import seedu.savvytasker.logic.commands.IncorrectCommand;
+import seedu.savvytasker.model.alias.AliasSymbol;
 
 public class MasterParser {
     private static final Pattern BASIC_COMMAND_FORMAT = 
             Pattern.compile("(?<header>\\S+).*");
     
     private final Map<String, CommandParser<? extends Command>> commandParsers;
-    private final Map<String, String> preprocessingTokens;
+    private final Map<String, AliasSymbol> aliasingSymbols;
     
     public MasterParser() {
         this.commandParsers = new HashMap<String, CommandParser<? extends Command>>();
-        this.preprocessingTokens = new HashMap<String, String>();
+        this.aliasingSymbols = new HashMap<String, AliasSymbol>();
     }
 
     public Command parse(String userInput) {
@@ -87,45 +88,53 @@ public class MasterParser {
     }
 
     /**
-     * Adds a preprocessing symbol representing a string of text, which will be used 
-     * be the parser to replace all such symbols with its representation before parsing.
-     * If an existing symbol exists, calling this method has no effect and just returns false.
+     * Adds an aliasing symbol to be used by the parser to replace all such the symbol's keyword with 
+     * its representation before parsing. If a symbol with an identical keyword exists, calling this
+     * method has no effect and just returns false.
      * 
-     * @param symbol the preprocessing symbol or keyword. Must be a single token.
-     * @param representation the text that the symbol represents. Must not be an empty string.
-     * @return true if the symbol does not previously exist and is added successfully, false otherwise
+     * @param symbol the symbol, cannot be null.
+     * @return true if this symbol is added successfully, false if another symbol with the same keyword
+     * already exists and this symbol cannot be added.
      */
-    public boolean addPreprocessSymbol(String symbol, String representation) {
-        assert symbol != null && !symbol.matches(".*\\s+.*");
-        assert representation != null && !representation.isEmpty();
+    public boolean addAliasSymbol(AliasSymbol symbol) {
+        assert symbol != null;
         
-        if (preprocessingTokens.containsKey(symbol))
+        if (aliasingSymbols.containsKey(symbol.getKeyword()))
             return false;
         
-        preprocessingTokens.put(symbol, representation);
+        aliasingSymbols.put(symbol.getKeyword(), symbol);
         return true;
     }
     
     /**
-     * Removes a preprocessing symbol. The parser will no longer replace all symbols before parsing.
+     * Removes an aliasing symbol, identified by its keyword. The parser will no longer replace the 
+     * keyword of this symbol with its representation before parsing.
      * 
-     * @param symbol the symbol to remove.
+     * @param symbol the symbol to remove, cannot be null
      * @return true if the symbol exists and is removed, false otherwise
      */
-    public boolean removePreprocessingSymbol(String symbol) {
-        assert symbol != null;
+    public boolean removeAliasSymbol(String symbolKeyword) {
+        assert symbolKeyword != null;
         
-        return preprocessingTokens.remove(symbol) != null;
+        return aliasingSymbols.remove(symbolKeyword) != null;
     }
     
     /**
-     * Returns true if specified preprocessing symbol currently exists, false otherwise.
-     * @param symbol the symbol to check for existence
+     * Returns true if a symbol with the specified keyword exists, false otherwise.
+     * @param symbolKeyword the keyword to check for, cannot be null
      * @return true if the symbol exists, false otherwise
      */
-    public boolean doesPreprocessingSymbolExist(String symbol) {
-        assert symbol != null;
+    public boolean doesAliasSymbolExist(String symbolKeyword) {
+        assert symbolKeyword != null;
         
-        return preprocessingTokens.containsKey(symbol);
+        return aliasingSymbols.containsKey(symbolKeyword);
+    }
+    
+    /**
+     * Clears all existing symbols.
+     * @see #removeAliasSymbol
+     */
+    public void clearAllAliasSymbols() {
+        aliasingSymbols.clear();
     }
 }

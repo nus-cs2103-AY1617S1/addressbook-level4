@@ -11,13 +11,13 @@ public class AliasCommandParser implements CommandParser<AliasCommand> {
     private static final String HEADER = "alias";
     private static final String READABLE_FORMAT = HEADER+" t/TEXT k/KEYWORD";
     
-    private static final String REGEX_REF_ORIGINAL = "Text";
-    private static final String REGEX_REF_REPLACEMENT = "Keyword";
+    private static final String REGEX_REF_REPRESENTATION = "Text";
+    private static final String REGEX_REF_KEYWORD = "Keyword";
     
     private static final Pattern REGEX_PATTERN = Pattern.compile(
             HEADER+"\\s+((?<=\\s)(" +
-                    "(t/(?<"+REGEX_REF_ORIGINAL+">[^/]+)(?!.*\\st/))|" +
-                    "(k/(?<"+REGEX_REF_REPLACEMENT+">[^/]+)(?!.*\\sk/))" +
+                    "(t/(?<"+REGEX_REF_REPRESENTATION+">[^/]+)(?!.*\\st/))|" +
+                    "(k/(?<"+REGEX_REF_KEYWORD+">[^/]+)(?!.*\\sk/))" +
                     ")(\\s|$)){2}"
     );
     
@@ -35,16 +35,16 @@ public class AliasCommandParser implements CommandParser<AliasCommand> {
     public AliasCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            String original = parseOriginal(matcher.group(REGEX_REF_ORIGINAL));
-            String replacement = parseReplacement(matcher.group(REGEX_REF_REPLACEMENT));
-            return new AliasCommand(new AliasCommandModel(original, replacement));
+            String representation = parseRepresentation(matcher.group(REGEX_REF_REPRESENTATION));
+            String keyword = parseKeyword(matcher.group(REGEX_REF_KEYWORD));
+            return new AliasCommand(new AliasCommandModel(keyword, representation));
         }
 
         throw new ParseException(commandText, String.format(
                 Messages.MESSAGE_INVALID_COMMAND_FORMAT, getRequiredFormat()));
     }
     
-    private static String parseOriginal(String originalText) throws ParseException {
+    private static String parseRepresentation(String originalText) throws ParseException {
         String trimmedText = originalText.trim();
         
         if (trimmedText.isEmpty())
@@ -53,7 +53,7 @@ public class AliasCommandParser implements CommandParser<AliasCommand> {
         return trimmedText;
     }
 
-    private static String parseReplacement(String keywordText) throws ParseException {
+    private static String parseKeyword(String keywordText) throws ParseException {
         String trimmedKeywordText = keywordText.trim();
         if (trimmedKeywordText.length() < 2) {
             throw new ParseException(trimmedKeywordText, "KEYWORD: Needs to consist at least 2 character.");

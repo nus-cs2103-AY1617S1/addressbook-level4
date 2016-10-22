@@ -1,6 +1,10 @@
 package seedu.savvytasker.model;
 
 import javafx.collections.ObservableList;
+import seedu.savvytasker.model.alias.AliasSymbol;
+import seedu.savvytasker.model.alias.AliasSymbolList;
+import seedu.savvytasker.model.alias.DuplicateSymbolKeywordException;
+import seedu.savvytasker.model.alias.SymbolKeywordNotFoundException;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList;
@@ -17,32 +21,28 @@ import java.util.stream.Collectors;
 public class SavvyTasker implements ReadOnlySavvyTasker {
 
     private final TaskList tasks;
+    private final AliasSymbolList symbols;
 
-    {
-        tasks = new TaskList();
+    public SavvyTasker() {
+        this.tasks = new TaskList();
+        this.symbols = new AliasSymbolList();
     }
 
-    public SavvyTasker() {}
-
-    /**
-     * Persons and Tags are copied into this savvytasker
-     */
     public SavvyTasker(ReadOnlySavvyTasker toBeCopied) {
-        this(toBeCopied.getTaskList());
+        this(toBeCopied.getTaskList(), toBeCopied.getAliasSymbolList());
     }
 
-    /**
-     * Persons and Tags are copied into this savvytasker
-     */
-    public SavvyTasker(TaskList tasks) {
+    public SavvyTasker(TaskList tasks, AliasSymbolList symbols) {
+        this();
         resetData(tasks.getInternalList());
+        this.symbols.reset(symbols);
     }
 
     public static ReadOnlySavvyTasker getEmptySavvyTasker() {
         return new SavvyTasker();
     }
 
-//// list overwrite operations
+//// task list overwrite operations
 
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
@@ -60,7 +60,7 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
         resetData(newData.getReadOnlyListOfTasks());
     }
 
-//// task-level operations
+//// symbol/task-level operations
     
     /**
      * Returns the next available id for use to uniquely identify a task.
@@ -106,12 +106,31 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
             throw new TaskList.TaskNotFoundException();
         }
     }
+    
+    /**
+     * Adds an alias symbol to savvy tasker.
+     * @param symbol the symbol to add
+     * @throws DuplicateSymbolKeywordException if another symbol with the same keyword already exists
+     */
+    public void addAliasSymbol(AliasSymbol symbol) throws DuplicateSymbolKeywordException {
+        symbols.addAliasSymbol(symbol);
+    }
+    
+    /**
+     * Removes an alias symbol from savvy tasker.
+     * @param symbol the symbol to remove
+     * @throws SymbolKeywordNotFoundException  if there is no such symbol
+     */
+    public void removeAliasSymbol(AliasSymbol symbol) throws SymbolKeywordNotFoundException {
+        symbols.removeAliasSymbol(symbol);
+    }
+    
 
 //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks";
+        return tasks.getInternalList().size() + " tasks, " + symbols.size() + " symbols";
         // TODO: refine later
     }
 
@@ -122,19 +141,32 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
 
     @Override
     public TaskList getTaskList() {
-        return tasks;
+        TaskList defensiveCopy = new TaskList();
+        defensiveCopy.getInternalList().addAll(tasks.getInternalList());
+        return defensiveCopy;
+    }
+
+    @Override
+    public List<AliasSymbol> getReadOnlyListOfAliasSymbols() {
+        return symbols.asReadonly();
+    }
+
+    @Override
+    public AliasSymbolList getAliasSymbolList() {
+        return new AliasSymbolList(symbols);
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof SavvyTasker // instanceof handles nulls
-                && this.tasks.equals(((SavvyTasker) other).tasks));
+                && this.tasks.equals(((SavvyTasker) other).tasks)
+                && this.symbols.equals(((SavvyTasker) other).symbols));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks);
+        return Objects.hash(tasks, symbols);
     }
 }
