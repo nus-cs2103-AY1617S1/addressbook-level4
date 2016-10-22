@@ -92,10 +92,11 @@ public class TaskCard extends UiPart{
     	//Completed
     	if(dateComponent.isArchived()){
     		cardPane.setStyle("-fx-background-color : rgba(102,171,140,0.3);");
-    		name.setStyle("-fx-text-fill : derive(#F0F0F0, 20%);");
-    		id.setStyle("-fx-text-fill : derive(#F0F0F0, 20%);");
-    		startDate.setStyle("-fx-text-fill : derive(#F0F0F0, 20%);");
-    		endDate.setStyle("-fx-text-fill : derive(#F0F0F0, 20%);");
+    		name.setStyle("-fx-text-fill : derive(#373737, 20%);");
+    		id.setStyle("-fx-text-fill : derive(#373737, 20%);");
+    		startDate.setStyle("-fx-text-fill : derive(#373737, 20%);");
+    		endDate.setStyle("-fx-text-fill : derive(#373737, 20%);");
+    		recurringType.setStyle("-fx-text-fill : derive(#373737, 20%);");
     	}  	
     }
 
