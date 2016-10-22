@@ -39,8 +39,12 @@ public class Parser {
                     + "(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
     
-    private static final Set<String> TYPES_OF_TASKS = new HashSet<String>(Arrays.asList("f", "d", "e" ));
+    //represents the position of task type and task number in a valid argument string for delete, edit
+    private static final int TASK_TYPE_INDEX = 0;
+    private static final int TASK_NUM_INDEX = 1;
 
+    private static final String[] TYPES_OF_TASKS = {"f","d", "e"}; 
+    
     public Parser() {}
 
     /**
@@ -281,12 +285,17 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-        String index = parseIndex(args);
-        char taskType = index.charAt(0);
-        int taskNum = Integer.parseInt(index.substring(1));
-        if(index.isEmpty()){
+        if(args == null || args.isEmpty()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        }
+        String taskType = "";
+        int taskNum = 0;
+        
+        String index = parseIndex(args);
+        if(!index.isEmpty()) {
+        taskType = index.substring(TASK_TYPE_INDEX, TASK_NUM_INDEX);
+        taskNum = Integer.parseInt(index.substring(TASK_NUM_INDEX));
         }
         return new DeleteCommand(taskType, taskNum);
     }
@@ -319,10 +328,10 @@ public class Parser {
         // keywords delimited by whitespace
         String[] keywords = matcher.group("keywords").split("\\s+");
         String typeOfTask = "";
-        
-        if(TYPES_OF_TASKS.contains(keywords[0])) {
-            typeOfTask = keywords[0];
+        if(Arrays.asList(TYPES_OF_TASKS).contains(keywords[TASK_TYPE_INDEX])) {
+            typeOfTask = keywords[TASK_TYPE_INDEX];
         }
+                
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(typeOfTask, keywordSet);
     }

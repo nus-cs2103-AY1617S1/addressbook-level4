@@ -39,8 +39,8 @@ public interface ReadOnlyEvent {
         default String getAsText() {
             final StringBuilder builder = new StringBuilder();
             builder.append(getName())
-                    .append(getStart())
-                    .append(getEnd())
+                    .append(" start: " + getStart())
+                    .append(" end: " + getEnd())
                     .append(" Tags: ");
             getTags().forEach(builder::append);
             return builder.toString();
