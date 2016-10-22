@@ -147,7 +147,29 @@ public class EditCommand extends Command {
             String newNote = arrayToString(changes);
             model.editEventNote(index, newNote);
             break;
-        case 3:
+        case 3: // Only change the start Date & Time. We can call the same method as task.
+            String newDate = NOT_TO_EDIT;
+            String newTime = NOT_TO_EDIT;
+            // User passed in both date and time
+            if (changes.length == 2) {
+                newDate = changes[0];
+                newTime = changes[1];
+            }
+            // Either date, or time passed in
+            else {
+                // Must be time, does not contain "-"
+                if (!changes[0].contains("-")) {
+                    newTime = changes[0];
+                }
+                // Must be date.
+                else {
+                    newDate = changes[0];
+                }
+            }
+            model.editTaskDateTime(index, newDate, newTime);
+            break;
+        case 4:
+
             break;
         }
     }

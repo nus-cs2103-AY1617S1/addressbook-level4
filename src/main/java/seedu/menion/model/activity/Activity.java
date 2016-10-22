@@ -174,6 +174,13 @@ public class Activity implements ReadOnlyActivity {
     }
     
     @Override
+    public void setActivityEndDateTime(String newDate, String newTime) throws IllegalValueException {
+        boolean isEvent = this.activityType.equals(Activity.EVENT_TYPE);
+        assert (isEvent);
+        this.endDate = new ActivityDate(newDate);
+        this.endTime = new ActivityTime(newTime);
+    }
+    @Override
     public Note getNote() {
         return this.note;
     }

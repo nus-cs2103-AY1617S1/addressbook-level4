@@ -50,7 +50,7 @@ public interface ReadOnlyActivity {
     void setActivityName(String newName) throws IllegalValueException;
     void setActivityNote(String newNote) throws IllegalValueException;
     void setActivityStartDateTime(String newDate, String newTime) throws IllegalValueException;
-    
+    void setActivityEndDateTime(String newDate, String newTime) throws IllegalValueException;
     
     /**
      * For Floating Task

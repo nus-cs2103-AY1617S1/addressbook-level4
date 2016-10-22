@@ -56,7 +56,9 @@ public interface Model {
      * @throws IllegalValueException 
      */
     void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException;
-
+    void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException;
+    void editEventAllDateTime(int index, String startNewDate, String startNewTime, String endNewDate, String endNewTime) throws IllegalValueException;
+    
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
     

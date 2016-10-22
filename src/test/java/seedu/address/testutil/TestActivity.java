@@ -264,4 +264,10 @@ public class TestActivity implements ReadOnlyActivity {
         } 
     }
 
+    @Override
+    public void setActivityEndDateTime(String newDate, String newTime) throws IllegalValueException {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

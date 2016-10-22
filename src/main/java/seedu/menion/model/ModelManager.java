@@ -182,6 +182,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException {
+        activityManager.editEventEndDateTime(index, newDate, newTime);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+
+    @Override
+    public void editEventAllDateTime(int index, String startNewDate, String startNewTime, String endNewDate,
+            String endNewTime) throws IllegalValueException {
+        activityManager.editEventAllDateTime(index, startNewDate, startNewTime, endNewDate, endNewTime);
+        updateFilteredListToShowAll();
+        indicateActivityManagerChanged();
+    }
+    
+    @Override
     public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
         activityManager.removeTask(target);
         indicateActivityManagerChanged();
