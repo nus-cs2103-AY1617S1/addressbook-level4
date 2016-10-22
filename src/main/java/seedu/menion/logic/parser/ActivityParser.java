@@ -68,9 +68,8 @@ public class ActivityParser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            System.out.println("here");
-            System.out.println("Arguments = " + arguments);
-        	//return new ListCommand();
+            
+        	return prepareList(arguments);
             
         case UndoCommand.COMMAND_WORD:
         	return new UndoCommand(previousCommand);
@@ -95,12 +94,14 @@ public class ActivityParser {
         }
     }
     
-   /* 
+   
     private Command prepareList(String args){
     	
+    	args = args.trim();
     	
+    	return new ListCommand(args);
     	
-    }*/
+    }
     private Command prepareComplete(String args) {
 
         String[] splited = args.split("\\s+");
