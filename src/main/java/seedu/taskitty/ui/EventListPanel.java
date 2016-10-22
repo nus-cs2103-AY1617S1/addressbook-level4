@@ -84,7 +84,7 @@ public class EventListPanel extends TaskListPanel {
     
     private void setConnections(ObservableList<ReadOnlyTask> eventList) {
         eventListView.setItems(eventList);
-        eventListView.setCellFactory(listView -> new EventListViewCell());
+        eventListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -107,23 +107,5 @@ public class EventListPanel extends TaskListPanel {
             eventListView.scrollTo(index);
            eventListView.getSelectionModel().clearAndSelect(index);
         });
-    }
-
-    class EventListViewCell extends ListCell<ReadOnlyTask> {
-
-        public EventListViewCell() {
-        }
-
-        @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
-            super.updateItem(task, empty);
-
-            if (empty || task == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(EventCard.load(task, getIndex() + 1).getLayout());
-            }
-        }
     }
 }

@@ -92,22 +92,4 @@ public class TodoListPanel extends TaskListPanel {
         });
     }
 
-    class TaskListViewCell extends ListCell<ReadOnlyTask> {
-
-        public TaskListViewCell() {
-        }
-
-        @Override
-        protected void updateItem(ReadOnlyTask task, boolean empty) {
-            super.updateItem(task, empty);
-
-            if (empty || task == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
-            }
-        }
-    }
-
 }

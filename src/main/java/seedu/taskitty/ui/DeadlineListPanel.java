@@ -69,7 +69,7 @@ public class DeadlineListPanel extends TaskListPanel {
     
     private void setConnections(ObservableList<ReadOnlyTask> deadlineList) {
         deadlineListView.setItems(deadlineList);
-        deadlineListView.setCellFactory(listView -> new DeadlineListViewCell());
+        deadlineListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -92,23 +92,5 @@ public class DeadlineListPanel extends TaskListPanel {
             deadlineListView.scrollTo(index);
             deadlineListView.getSelectionModel().clearAndSelect(index);
         });
-    }
-
-    class DeadlineListViewCell extends ListCell<ReadOnlyTask> {
-
-        public DeadlineListViewCell() {
-        }
-
-        @Override
-        protected void updateItem(ReadOnlyTask deadline, boolean empty) {
-            super.updateItem(deadline, empty);
-
-            if (empty || deadline == null) {
-                setGraphic(null);
-                setText(null);
-            } else {
-                setGraphic(DeadlineCard.load(deadline, getIndex() + 1).getLayout());
-            }
-        }
     }
 }
