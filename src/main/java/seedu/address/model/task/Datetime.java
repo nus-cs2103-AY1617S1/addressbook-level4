@@ -93,7 +93,7 @@ public class Datetime {
     @Override
     public String toString() {
         if (end != null){ //event
-            return processDate(start) + " to " + processDate(end);
+            return processDate(start) + " " + processDate(end);
         }
         else if (start != null){ //deadline
             return processDate(start);
