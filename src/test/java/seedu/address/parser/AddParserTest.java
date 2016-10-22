@@ -104,6 +104,7 @@ public class AddParserTest {
 		assertEquals("important", AddParser.parseCommand(arguments).get(2));
 		
 	}
+	
 
 	
 }

@@ -26,13 +26,8 @@ public class AddCommandTest extends AddressBookGuiTest {
         activityToAdd = td.floatingTask;
         assertAddSuccess(activityToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
-        
-        /*
-        //add duplicate activity
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(personListPanel.isListMatching(currentList));
-         */
+       */
+         
         
         //add to empty list
         commandBox.runCommand("clear");
@@ -48,7 +43,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(activityToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        ActivityCardHandle addedCard = activityListPanel.navigateToPerson(activityToAdd.getActivityName().toString());
+        ActivityCardHandle addedCard = activityListPanel.navigateToActivity(activityToAdd.getActivityName().toString());
         assertMatching(activityToAdd, addedCard);
 
         //confirm the list now contains all previous activities plus the new activity

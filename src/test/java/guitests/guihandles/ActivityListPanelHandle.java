@@ -100,7 +100,7 @@ public class ActivityListPanelHandle extends GuiHandle {
     }
 
 
-    public ActivityCardHandle navigateToPerson(String name) {
+    public ActivityCardHandle navigateToActivity(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyActivity> activity = getListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
         if (!activity.isPresent()) {
