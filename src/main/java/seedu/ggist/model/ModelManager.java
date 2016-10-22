@@ -52,12 +52,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager() {
         this(new TaskManager(), new UserPrefs());
-        today = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM YY"));
     }
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        today = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM YY"));
         updateFilteredListToShowDate(today);
     }
     
