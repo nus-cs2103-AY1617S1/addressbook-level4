@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import seedu.address.logic.commands.taskcommands.HelpTaskCommand;
+import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
 public class HelpCommandParser extends CommandParser {
@@ -16,8 +18,9 @@ public class HelpCommandParser extends CommandParser {
 
     @Override
     public TaskCommand prepareCommand(String arguments) {
-        // TODO Auto-generated method stub
+        if(!arguments.equals("")){
+        	return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpTaskCommand.MESSAGE_USAGE));
+        }
         return new HelpTaskCommand();
     }
-
 }
