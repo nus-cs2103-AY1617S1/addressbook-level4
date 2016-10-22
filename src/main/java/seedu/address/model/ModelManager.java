@@ -4,6 +4,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.state.StateManager;
+import seedu.address.model.state.TaskManagerState;
 import seedu.address.model.task.EventDate;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
@@ -11,6 +13,7 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.events.storage.StoragePathChangedEvent;
+import seedu.address.commons.exceptions.StateLimitException;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.EventsCenter;
 
@@ -26,6 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    private final StateManager stateManager;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -40,6 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        stateManager = new StateManager(new TaskManagerState(taskManager, ""));
     }
 
     public ModelManager() {
@@ -49,6 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        stateManager = new StateManager(new TaskManagerState(taskManager, ""));
     }
 
     @Override
@@ -91,6 +97,28 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateTaskManager(String filePath, boolean isToClearOld) {
         EventsCenter.getInstance().post(new StoragePathChangedEvent(filePath, isToClearOld));
         indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public void saveState(String message) {
+        stateManager.saveState(new TaskManagerState(taskManager, message));
+    }
+    
+    @Override
+    public String getPreviousState() throws StateLimitException {
+        TaskManagerState previousState = stateManager.getPreviousState();
+        return getState(previousState);
+    }
+    
+    @Override
+    public String getNextState() throws StateLimitException {
+        TaskManagerState nextState = stateManager.getNextState();
+        return getState(nextState);
+    }
+    
+    private String getState(TaskManagerState state) {
+        resetData(state.getTaskManager());
+        return state.getMessage();
     }
 
     //=========== Filtered Task List Accessors ===============================================================

@@ -17,6 +17,8 @@ public class ClearCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         model.resetData(TaskManager.getEmptyTaskManager());
-        return new CommandResult(MESSAGE_SUCCESS);
+        String message = MESSAGE_SUCCESS;
+        model.saveState(message);
+        return new CommandResult(message);
     }
 }

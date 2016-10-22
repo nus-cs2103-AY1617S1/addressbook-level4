@@ -1,0 +1,26 @@
+package seedu.address.model.state;
+
+import seedu.address.model.ReadOnlyTaskManager;
+import seedu.address.model.TaskManager;
+
+/**
+ * Represent the state of task manager.
+ */
+public class TaskManagerState {
+    
+    private final ReadOnlyTaskManager taskManager;
+    private final String message;
+    
+    public TaskManagerState(ReadOnlyTaskManager taskManager, String message) {
+        this.taskManager = new TaskManager(taskManager);
+        this.message = message;
+    }
+    
+    public ReadOnlyTaskManager getTaskManager() {
+        return taskManager;
+    }
+    
+    public String getMessage() {
+        return message;
+    }
+}
