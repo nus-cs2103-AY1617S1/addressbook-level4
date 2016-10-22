@@ -155,6 +155,15 @@ Examples:
 
  > <img src="images/ugblock_0.png" width="600">
  > <img src="images/ugblock_1.png" width="600">
+ 
+#### View one week's agenda : `view`
+Format: view DATE [TIME]
+
+> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
+
+Examples:
+* `view next wednesday`
+
 
 #### Undo tasks : `undo`
 Format: u
@@ -233,6 +242,7 @@ Edit | `edit TASK_ID [from EDIT_START_DATE EDIT_START_TIME to EDIT_END_DATE EDIT
 Delete | `delete TASK_ID`
 Complete | `done TASK_ID`
 Block | `block TASK_NAME from [START_DATE] START_TIME to [START_DATE] START_TIME [t/TAG]...`
+View | `view DATE [TIME]`
 Redo | `r`
 Undo | `u`
 Clear | `clear`
