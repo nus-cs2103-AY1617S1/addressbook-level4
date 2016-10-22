@@ -2,6 +2,8 @@ package seedu.todo.ui.components;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import seedu.todo.commons.util.FxViewUtil;
@@ -67,6 +69,17 @@ public class ConsoleInput extends Component {
     }
 
     /** ================ ACTION HANDLERS ================== **/
+    @FXML
+    public void handleConsoleInputKeyPress(KeyEvent event) {
+        if (event.getCode() == KeyCode.UP) {
+            String command = inputHandler.getPreviousCommandFromHistory();
+            consoleInputTextField.setText(command);
+        } else if (event.getCode() == KeyCode.DOWN) {
+            String command = inputHandler.getNextCommandFromHistory();
+            consoleInputTextField.setText(command);
+        }
+    }
+    
     @FXML
     public void handleConsoleInputChanged() {
         lastCommandEntered = consoleInputTextField.getText();
