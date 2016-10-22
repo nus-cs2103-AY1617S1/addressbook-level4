@@ -113,4 +113,13 @@ public class UniqueTaskList implements Iterable<Task> {
     public void sort(Comparator<Task> c){
     	internalList.sort(c);
     }
+
+	public boolean overdue(ReadOnlyTask target) throws TaskNotFoundException {
+		if (!internalList.contains(target)) {
+            throw new TaskNotFoundException();
+        }
+        Task taskFoundAndSetAsOverdue = internalList.get(internalList.indexOf(target));
+        return taskFoundAndSetAsOverdue.setAsOverdue();
+	}	
+
 }

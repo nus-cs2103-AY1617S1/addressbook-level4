@@ -8,6 +8,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 
@@ -87,6 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
+    
 
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -120,6 +122,12 @@ public class ModelManager extends ComponentManager implements Model {
         }
         updateFilteredTaskList(new PredicateExpression(new StatusQualifier(listOfKeywords)));
     }
+    
+	@Override
+	public void overdueTask(ReadOnlyTask target) throws TaskNotFoundException {
+		taskBook.overdueTask(target);
+		
+	}
     
     private void updateFilteredTaskList(Expression expression) {
         filteredDatedTasks.setPredicate(expression::satisfies);
@@ -215,4 +223,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "status=" + statusList.toString();
         }
     }
+
 }
