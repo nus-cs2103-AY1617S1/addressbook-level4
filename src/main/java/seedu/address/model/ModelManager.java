@@ -102,6 +102,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         taskMaster.addTask(task);
+        RecurringTaskManager.getInstance().correctAddingOverdueTasks(task);
         updateFilteredListToShowAll();
         indicateTaskListChanged();
     }

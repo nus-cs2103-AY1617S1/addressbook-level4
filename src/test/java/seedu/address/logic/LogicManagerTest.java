@@ -923,6 +923,7 @@ public class LogicManagerTest {
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringByDate(RecurringType.DAILY);
         expectedTM.addTask(toAdd);
+        RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
         List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior("add non floating task by XXXX by 20 oct 11am daily t/tag1 t/tag2",
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
@@ -936,6 +937,7 @@ public class LogicManagerTest {
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringByDate(RecurringType.DAILY);
         expectedTM.addTask(toAdd);
+        RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
         List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior("add non floating task by XXXX by 20 oct 11am dAIly t/tag1 t/tag2",
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
@@ -949,6 +951,7 @@ public class LogicManagerTest {
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingFromDateToDate();
         expectedTM.addTask(toAdd);
+        RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
         List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior("add non floating task from XXXX to XXXX from 19 oct 10pm to 20 oct 11am dai t/tag1 t/tag2", 
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
@@ -962,6 +965,7 @@ public class LogicManagerTest {
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringFromDateToDate(RecurringType.DAILY);
         expectedTM.addTask(toAdd);
+        RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
         List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior("add non floating task from XXXX to XXXX from 19 oct 10pm to 20 oct 11am daily t/tag1 t/tag2",
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
@@ -975,6 +979,7 @@ public class LogicManagerTest {
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingRecurringFromDateToDate(RecurringType.DAILY);
         expectedTM.addTask(toAdd);
+        RecurringTaskManager.getInstance().correctAddingOverdueTasks(toAdd);
         List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedTM.getTasks());
         assertCommandBehavior("add non floating task from XXXX to XXXX from 19 oct 10pm to 20 oct 11am dAIly t/tag1 t/tag2",
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
