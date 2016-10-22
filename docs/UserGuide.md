@@ -13,12 +13,12 @@ Tdoo Schedule Manager is a Command Line Interface Task Management Application th
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
-   
+
 1. Download the latest `Tdoo.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your TodoList.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+3. Double-click the file to start the app. The GUI should appear in a few seconds.
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
+   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
 5. Refer to the [Features](#features) section below for details of each command.<br>
 
 ## Features
@@ -72,8 +72,10 @@ Delete a task with given type and index number.<br>
 
 #### Marking a completed task : `done`
 Mark a Todo-task with given index number as done.<br>
-> Format: `done INDEX_NUMBER`<br>
-> Example: `done 1`
+> Format: `done TASK_TYPE INDEX_NUMBER`<br>
+> Example(Todo): `done todo 1` <br>
+> Example(Event): `done event 1` <br>
+> Example(Deadline): `done deadline 1`
 
 #### Listing all tasks : `list`
 Shows a list of all tasks in the task-list.<br>
@@ -119,7 +121,7 @@ Task-list data are saved in the hard disk automatically after any command that c
 ## Command Summary
 
 Command 	| Format  
---------------- | :-------- 
+--------------- | :--------
 Add	Todo	| `add TASK_NAME d/DATE p/PRIORITY`
 Add	Event	| `add TASK_NAME d/DATE s/START_TIME e/END_TIME`
 Add	Deadline| `add TASK_NAME d/DATE e/END_TIME`
@@ -127,7 +129,7 @@ Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE p/PRIORITY`
 Edit	Event	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME`
 Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME`
 Delete		| `delete TASK_TYPE INDEX_NUMBER`
-Done		| `done INDEX_NUMBER`
+Done		| `done TASK_TYPE INDEX_NUMBER`
 List		| `list TASK_TYPE`
 Find		| `find TASK_TYPE KEYWORD [MORE_KEYWORDS]`
 Help		| `help`
@@ -135,5 +137,3 @@ Clear		| `clear TASK_TYPE`
 Undo		| `undo`
 Storage		| `storage DIRECTORY`
 Exit		| `exit`
-
-
