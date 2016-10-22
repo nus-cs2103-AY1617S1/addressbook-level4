@@ -405,15 +405,16 @@ public class Parser {
 
 		String[] args = arguments.split(" ");
 
-		System.out.println(Arrays.toString(args));
-
 		String taskType = null;
 		String done = null;
 		for (int i = 0; i < args.length; i++) {
 			switch (args[i].trim()) {
 			case "event":
+			case "ev":
 			case "deadline":
+			case "dl":
 			case "someday":
+			case "sd":
 				taskType = args[i];
 				break;
 			case "done":
@@ -425,16 +426,7 @@ public class Parser {
 			}
 		}
 
-		System.out.println("task type: " + taskType);
-		System.out.println("done: " + done);
-
-		// TODO return new listcommand(taskType, done)
-		// Since both taskType and done may be supplied as the only parameter to
-		// the listcommand constructor,
-		// the listcommand constructor must make null checks. Alternatively, the
-		// parameters can be encapsulated in an object
-		// and the constructor overloaded.
-		return new ListCommand();
+		return new ListCommand(taskType, done);
 	}
 	
 	//@@author
