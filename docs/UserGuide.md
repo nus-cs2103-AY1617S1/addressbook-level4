@@ -416,4 +416,5 @@ Clear | `clear`
 Switch List | `switchlist FILENAME`
 Rename List | `renamelist FILENAME`
 Relocate | `relocate PATH`
+Calendar | `calendar day|week`
 Help | `help`
