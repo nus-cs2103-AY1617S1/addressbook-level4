@@ -51,6 +51,21 @@ public class MainWindow extends UiPart {
 
     @FXML
     private MenuItem helpMenuItem;
+    
+    @FXML
+    private MenuItem undoMenuItem;
+    
+    @FXML
+    private MenuItem listMenuItem;
+    
+    @FXML
+    private MenuItem exitMenuItem;
+    
+    @FXML
+    private MenuItem clearMenuItem;
+    
+    @FXML
+    private MenuItem viewDoneMenuItem;
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
@@ -113,6 +128,11 @@ public class MainWindow extends UiPart {
 
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        exitMenuItem.setAccelerator(KeyCombination.valueOf("Esc"));
+        undoMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + U"));
+        listMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + L"));
+        clearMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + C"));
+        viewDoneMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + D"));
     }
 
     void fillInnerParts() {
@@ -191,7 +211,27 @@ public class MainWindow extends UiPart {
     public void show() {
         primaryStage.show();
     }
-
+    
+    @FXML
+    public void handleUndo() {
+        commandBox.handleCommands("undo");
+    }
+    
+    @FXML
+    public void handleList() {
+        commandBox.handleCommands("list");
+    }
+    
+    @FXML
+    public void handleClear() {
+        commandBox.handleCommands("clear");
+    }
+    
+    @FXML
+    public void handleViewDone() {
+        commandBox.handleCommands("view done");
+    }
+    
     /**
      * Closes the application.
      */

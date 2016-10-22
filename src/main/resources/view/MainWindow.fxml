@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskitty.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskitty.ui.MainWindow">
    <stylesheets>
       <URL value="@DarkTheme.css" />
       <URL value="@Extensions.css" />
@@ -19,8 +19,20 @@
          <menus>
             <Menu mnemonicParsing="false" text="File">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+                  <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+              <items>
+                <MenuItem fx:id="undoMenuItem" mnemonicParsing="false" onAction="#handleUndo" text="Undo" />
+                  <MenuItem fx:id="clearMenuItem" mnemonicParsing="false" onAction="#handleClear" text="Clear" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="View">
+              <items>
+                <MenuItem fx:id="listMenuItem" mnemonicParsing="false" onAction="#handleList" text="List" />
+                  <MenuItem fx:id="viewDoneMenuItem" mnemonicParsing="false" onAction="#handleViewDone" text="View Done" />
+              </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
                <items>
