@@ -6,12 +6,11 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
-import seedu.address.ui.TaskCard;
+import seedu.taskscheduler.commons.core.Messages;
+import seedu.taskscheduler.logic.commands.Command;
+import seedu.taskscheduler.testutil.TestTask;
+import seedu.taskscheduler.testutil.TestUtil;
+import seedu.taskscheduler.ui.TaskCard;
 
 
 public class EditCommandTest extends TaskSchedulerGuiTest {

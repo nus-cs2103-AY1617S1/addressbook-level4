@@ -4,12 +4,12 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.CommandHistory;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
+import seedu.taskscheduler.commons.core.Messages;
+import seedu.taskscheduler.logic.commands.CommandHistory;
+import seedu.taskscheduler.logic.commands.UndoCommand;
+import seedu.taskscheduler.model.task.ReadOnlyTask;
+import seedu.taskscheduler.testutil.TestTask;
+import seedu.taskscheduler.testutil.TestUtil;
 
 public class UndoCommandTest extends TaskSchedulerGuiTest {
 	

@@ -1,10 +1,11 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.logic.commands.MarkCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestTask;
-import seedu.address.ui.TaskCard;
+
+import seedu.taskscheduler.commons.core.Messages;
+import seedu.taskscheduler.logic.commands.MarkCommand;
+import seedu.taskscheduler.testutil.TestTask;
+import seedu.taskscheduler.ui.TaskCard;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

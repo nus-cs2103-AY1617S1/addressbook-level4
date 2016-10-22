@@ -6,10 +6,10 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.CommandHistory;
-import seedu.address.logic.commands.RecurCommand;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
+import seedu.taskscheduler.logic.commands.CommandHistory;
+import seedu.taskscheduler.logic.commands.RecurCommand;
+import seedu.taskscheduler.testutil.TestTask;
+import seedu.taskscheduler.testutil.TestUtil;
 
 public class RecurCommandTest extends TaskSchedulerGuiTest {
 
