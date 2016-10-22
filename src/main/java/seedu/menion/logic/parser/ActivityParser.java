@@ -71,7 +71,7 @@ public class ActivityParser {
         	
         case RedoCommand.COMMAND_WORD:
         	return new RedoCommand();
-        	
+        	//@@author: A0139164A
         case CompleteCommand.COMMAND_WORD:
             return prepareComplete(arguments);
             
@@ -98,6 +98,7 @@ public class ActivityParser {
     	
     	
     }*/
+    //@@author: A0139164A
     private Command prepareComplete(String args) {
 
         String[] splited = args.split("\\s+");
@@ -158,11 +159,6 @@ public class ActivityParser {
         return new UnCompleteCommand(splited);
     }
     
-    /**
-     * @author Marx Low A0139164A
-     * @param args
-     * @return
-     */
     private Command prepareEdit(String args) {
 
         String[] splited = args.split("\\s+");

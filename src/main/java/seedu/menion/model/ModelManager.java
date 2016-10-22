@@ -117,8 +117,8 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean checkStatesInRedoStack() {
     	return this.activityManagerRedoStack.isEmpty();
     }
-    //@@author
-    
+
+    //@@author: A0139164A
     /**
      * Methods for Completing an activity
      */
@@ -166,8 +166,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateActivityManagerChanged();
     }
     
+    //@@author: A0139164A
     /**
-     * @author Marx Low A0139164A
      * Methods for editting Activity's name
      * @throws IllegalValueException 
      */
@@ -193,7 +193,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * @author Marx Low A0139164A
      * Methods for editting Activity's note
      * @throws IllegalValueException 
      */
@@ -210,6 +209,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
+    
     @Override
     public void editEventNote(int index, String changes) throws IllegalValueException {
         activityManager.editEventNote(index, changes);
@@ -218,7 +218,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     /**
-     * @author Marx Low A0139164A
      * Methods for editting Event/Task Starting Date & Time
      * @throws IllegalValueException 
      */

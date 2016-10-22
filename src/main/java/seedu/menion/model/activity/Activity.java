@@ -145,9 +145,9 @@ public class Activity implements ReadOnlyActivity {
         return this.name;
     }
     
+    //@@author: A0139164A
     /**
      * @throws IllegalValueException 
-     * @Author Marx Low A0139164A
      * List of methods to set Activity's param : Name, Note, startDate, startTime
      * Exception handling to be editted ----------> ALERT! (Assumes User to pass in correct parameters)
      */
@@ -163,6 +163,7 @@ public class Activity implements ReadOnlyActivity {
         this.note = new Note(newNote);
 
     }
+    
     // Only can be called by Task & Events
     @Override
     public void setActivityStartDateTime(String newDate, String newTime) throws IllegalValueException {

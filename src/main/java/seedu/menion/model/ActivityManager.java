@@ -138,6 +138,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         events.add(t);
     }
     
+    //@@author: A0139164A
     /**
      * Methods, Completes an activity in the activity manager.
      * Passes in the index of the list to complete
@@ -168,7 +169,6 @@ public class ActivityManager implements ReadOnlyActivityManager {
     /**
      * Methods, UnCompletes an activity in the activity manager.
      * Passes in the index of the list to complete
-     * 
      * @param index
      */
     public void unCompleteFloatingTask(int index) {
@@ -193,7 +193,6 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
     /**
-     * @author Marx Low A0139164A
      * Methods, edits an activity's NAME in the activity manager.
      * Passes in the index of the list to complete, and changes to make
      * @param index
@@ -221,7 +220,6 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
     /**
-     * @author Marx Low A0139164A
      * Methods, edits an activity's NOTE in the activity manager.
      * Passes in the index of the list to complete, and changes to make
      * @param index
@@ -249,7 +247,6 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
     /**
-     * @author Marx Low A0139164A
      * Methods, edits a Task/Event's starting Date & Time in the activity manager.
      * Passes in the index of the list to complete, and changes to make
      * @param index
@@ -288,6 +285,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         dub.setActivityStartDateTime(newDate, newTime);
         events.getInternalList().set(index, dub);
     }
+    
     public void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException {    
         Activity dub;
         dub = events.getInternalList().get(index);

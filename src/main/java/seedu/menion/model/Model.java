@@ -22,6 +22,7 @@ public interface Model {
     /** Deletes the given task */
     void deleteTask(ReadOnlyActivity target) throws UniqueActivityList.TaskNotFoundException;
     
+    //@@author: A0139164A
     /** Completes the given Activity, given it's index. */
     void completeFloatingTask(int index);
     void completeTask(int index);
@@ -31,7 +32,31 @@ public interface Model {
     void UncompleteFloatingTask(int index);
     void UncompleteTask(int index);
     void UncompleteEvent(int index);
-  
+ 
+    /** 
+     * Edits the name of the given Activity, given it's index. 
+     * @throws IllegalValueException 
+     */
+    void editFloatingTaskName(int index, String changes) throws IllegalValueException;
+    void editTaskName(int index, String changes) throws IllegalValueException;
+    void editEventName(int index, String changes) throws IllegalValueException;
+    
+    /**
+     * Edits the note of the given Activity, given it's index. 
+     * @throws IllegalValueException 
+     */
+    void editFloatingTaskNote(int index, String changes) throws IllegalValueException;
+    void editTaskNote(int index, String changes) throws IllegalValueException;
+    void editEventNote(int index, String changes) throws IllegalValueException;
+    
+    /**
+     * Edits the Start Date & Time of the given Task/Event, given it's index. 
+     * @throws IllegalValueException 
+     */
+    void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException;
+    void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException;
+    void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException;
+    
     //@@author A0139515A
     /**
      * Methods for undo 
@@ -62,35 +87,7 @@ public interface Model {
     /** check if there is any previous activity manager in redo stack */
     boolean checkStatesInRedoStack();
     //@@author
-    
-    /** 
-     * @author Marx  Low A0139164A
-     * Edits the name of the given Activity, given it's index. 
-     * @throws IllegalValueException 
-     */
-    void editFloatingTaskName(int index, String changes) throws IllegalValueException;
-    void editTaskName(int index, String changes) throws IllegalValueException;
-    void editEventName(int index, String changes) throws IllegalValueException;
-    
 
-    /**
-     * @author Marx Low A0139164A
-     * Edits the note of the given Activity, given it's index. 
-     * @throws IllegalValueException 
-     */
-    void editFloatingTaskNote(int index, String changes) throws IllegalValueException;
-    void editTaskNote(int index, String changes) throws IllegalValueException;
-    void editEventNote(int index, String changes) throws IllegalValueException;
-    
-    /**
-     * @author Marx Low A0139164A
-     * Edits the Start Date & Time of the given Task/Event, given it's index. 
-     * @throws IllegalValueException 
-     */
-    void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException;
-    void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException;
-    void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException;
-    
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
     
