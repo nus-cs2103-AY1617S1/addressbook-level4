@@ -13,13 +13,13 @@ import org.junit.Test;
 public class AddCommandTest {
 
 	
-	@Test
+	/*@Test
 	public void testIsValidDateFromActivityDate() throws IllegalValueException{
 		
 		assertTrue(ActivityDate.isValidDate("31-08-2016"));
 		
 		
-	}
+	}/*
 	/*
     @Test
     public void testIsEventObjectCreatedSuccessfully() throws IllegalValueException {
