@@ -42,23 +42,6 @@ public abstract class DateTime {
         return date;
     }
 
-    public static Date setTime(Date date, String dateString, boolean isStartDate) {
-        assert date != null && isValidDate(dateString);
-        
-        List<DateGroup> dates = new Parser().parse(dateString);
-        
-        assert dates.get(BASE_INDEX) != null;
-        
-        String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
-        
-        if (!syntaxTree.contains(TIME) && isStartDate) {
-            date = setTimeToStartOfDay(date);
-        } else if (!syntaxTree.contains(TIME) && !isStartDate) {
-            date = setTimeToEndOfDay(date);
-        }
-        return date;
-    }
-    
     public static boolean hasDateValue(String dateString) {
         List<DateGroup> dates = new Parser().parse(dateString);
         
@@ -73,18 +56,35 @@ public abstract class DateTime {
         }
     }
     
+    public static boolean hasTimeValue(String dateString) {
+        List<DateGroup> dates = new Parser().parse(dateString);
+        
+        assert dates.get(BASE_INDEX) != null;
+        
+        String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
+
+        if (syntaxTree.contains(TIME)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public static Date setEndDateToStartDate(Date startDate, Date endDate) {
         Calendar calendarStartDate = Calendar.getInstance();
         calendarStartDate.setTime(startDate);
         int date = calendarStartDate.get(Calendar.DATE);
         int month = calendarStartDate.get(Calendar.MONTH);
         int year = calendarStartDate.get(Calendar.YEAR);
-        
+
         Calendar calendarEndDate = Calendar.getInstance();
         calendarEndDate.setTime(endDate);
         calendarEndDate.set(Calendar.DATE, date);
         calendarEndDate.set(Calendar.MONTH, month);
         calendarEndDate.set(Calendar.YEAR, year);
+        if (calendarEndDate.getTimeInMillis() <= calendarStartDate.getTimeInMillis()) {
+            calendarEndDate.set(Calendar.DATE, date+1);
+        } 
         
         Date updatedDate = calendarEndDate.getTime();
         return updatedDate;
@@ -130,12 +130,10 @@ public abstract class DateTime {
         return date;
     }
     
-
-
     /**
      * Sets time of Date object to start of the day i.e "00:00:00"
      */
-    private static Date setTimeToStartOfDay(Date date) {
+    public static Date setTimeToStartOfDay(Date date) {
         assert date != null;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -150,7 +148,7 @@ public abstract class DateTime {
     /**
      * Sets time of Date object to end of the day i.e "23:59:59"
      */
-    private static Date setTimeToEndOfDay(Date date) {
+    public static Date setTimeToEndOfDay(Date date) {
         assert date != null;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

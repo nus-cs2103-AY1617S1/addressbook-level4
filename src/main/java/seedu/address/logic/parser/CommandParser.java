@@ -181,7 +181,7 @@ public class CommandParser {
         try {  
             HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareEdit(argsTrimmed);
             
-            logger.finer("Exiting CommandParser, prepareAdd()");
+            logger.finer("Exiting CommandParser, prepareEdit()");
             /*logger.log(Level.FINEST, "taskName, startDate, endDate, rate, timePeriod and "
                     + "priority have these values respectively:", 
                     new Object[] {taskName, startDate, endDate, rate, timePeriod, priority});*/
@@ -189,6 +189,7 @@ public class CommandParser {
             if(split.length == 2){
                	resetField = split[1];
             }
+            
             System.out.println(extractedValues.get("taskName"));
 
             return new EditCommand(index, extractedValues.get("taskName"), extractedValues.get("startDate"), 
