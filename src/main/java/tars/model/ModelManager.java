@@ -286,7 +286,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private class FlagSearchQualifier implements Qualifier {
-        TaskQuery taskQuery;
+        private TaskQuery taskQuery;
         private final static String EMPTY_STRING = "";
 
         FlagSearchQualifier(TaskQuery taskQuery) {

@@ -39,6 +39,8 @@ public class Tars implements ReadOnlyTars {
 
 	private static final int DATETIME_INDEX_OF_ENDDATE = 1;
 	private static final int DATETIME_INDEX_OF_STARTDATE = 0;
+	
+	private static final String EMPTY_STRING = "";
 
 	{
 		tasks = new UniqueTaskList();
@@ -177,19 +179,19 @@ public class Tars implements ReadOnlyTars {
 		Task taskToEdit = new Task(toEdit);
 
 		// Edit Name
-		if (argsTokenizer.getValue(namePrefix).orElse("") != "") {
+		if (!argsTokenizer.getValue(namePrefix).orElse(EMPTY_STRING).equals(EMPTY_STRING)) {
 			Name editedName = new Name(argsTokenizer.getValue(namePrefix).get());
 			taskToEdit.setName(editedName);
 		}
 
         // Edit Priority
-        if (argsTokenizer.getValue(priorityPrefix).orElse("") != "") {
+        if (!argsTokenizer.getValue(priorityPrefix).orElse(EMPTY_STRING).equals(EMPTY_STRING)) {
             Priority editedPriority = new Priority(argsTokenizer.getValue(priorityPrefix).get());
             taskToEdit.setPriority(editedPriority);
         }
 
 		// Edit DateTime
-        if (argsTokenizer.getValue(dateTimePrefix).orElse("") != "") {
+        if (!argsTokenizer.getValue(dateTimePrefix).orElse(EMPTY_STRING).equals(EMPTY_STRING)) {
             String[] dateTimeArray =
                     DateTimeUtil.getDateTimeFromArgs(argsTokenizer.getValue(dateTimePrefix).get());
             DateTime editedDateTime = new DateTime(dateTimeArray[DATETIME_INDEX_OF_STARTDATE],
@@ -232,7 +234,7 @@ public class Tars implements ReadOnlyTars {
 	 * @throws DuplicateTaskException
 	 */
 	public void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException {
-		if (status.equals("/do")) {
+		if ("/do".equals(status)) {
 			Status done = new Status(true);
 			for (ReadOnlyTask t : toMarkList) {
 				if (!t.getStatus().equals(done)) {
@@ -242,7 +244,7 @@ public class Tars implements ReadOnlyTars {
 					replaceTask(t, toMark);
 				}
 			}
-		} else if (status.equals("/ud")) {
+		} else if ("/ud".equals(status)) {
 			Status undone = new Status(false);
 			for (ReadOnlyTask t : toMarkList) {
 				if (!t.getStatus().equals(undone)) {

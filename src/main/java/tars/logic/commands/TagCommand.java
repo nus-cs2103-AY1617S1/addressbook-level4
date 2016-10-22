@@ -40,23 +40,24 @@ public class TagCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        if (prefix.prefix.equals("/ls")) {
+        if ("/ls".equals(prefix.prefix)) {
             ObservableList<? extends ReadOnlyTag> allTags = model.getUniqueTagList();
             return new CommandResult(new Formatter().formatTags(allTags));
-        } else if (prefix.prefix.equals("/e")) {
+        } else if ("/e".equals(prefix.prefix)) {
             try {
                 int targetedIndex = Integer.parseInt(args[0]);
                 String newTagName = args[1];
-                
+
                 if (model.getUniqueTagList().size() < targetedIndex || targetedIndex == 0) {
                     return new CommandResult(Messages.MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
                 }
-                
-                ReadOnlyTag toBeRename = model.getUniqueTagList().get(targetedIndex - DISPLAYED_INDEX_OFFSET);
+
+                ReadOnlyTag toBeRename =
+                        model.getUniqueTagList().get(targetedIndex - DISPLAYED_INDEX_OFFSET);
                 model.renameTag(toBeRename, newTagName);
                 return new CommandResult(String.format(String.format(MESSAGE_RENAME_TAG_SUCCESS,
                         toBeRename.getAsText(), newTagName)));
-                
+
             } catch (DuplicateTagException e) {
                 return new CommandResult(e.getMessage());
             } catch (IllegalValueException e) {

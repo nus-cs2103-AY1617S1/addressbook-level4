@@ -55,8 +55,22 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more whitespace
 
     private static final Pattern TAG_EDIT_COMMAND_FORMAT = Pattern.compile("\\d+ \\w+$");
-
-    public Parser() {}
+    
+    private static final Prefix namePrefix = new Prefix("/n");
+    private static final Prefix tagPrefix = new Prefix("/t");
+    private static final Prefix priorityPrefix = new Prefix("/p");
+    private static final Prefix dateTimePrefix = new Prefix("/dt");
+    private static final Prefix recurringPrefix = new Prefix("/r");
+    private static final Prefix deletePrefix = new Prefix("/del");
+    private static final Prefix addTagPrefix = new Prefix("/ta");
+    private static final Prefix removeTagPrefix = new Prefix("/tr");
+    private static final Prefix donePrefix = new Prefix("/do");
+    private static final Prefix undonePrefix = new Prefix("/ud");
+    private static final Prefix listPrefix = new Prefix("/ls");
+    private static final Prefix editPrefix = new Prefix("/e");
+    
+    private static final String EMPTY_STRING = "";
+    private static final String EMPTY_SPACE_ONE = " ";
 
     /**
      * Parses user input into command for execution.
@@ -127,21 +141,6 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
-    
-    private Prefix namePrefix = new Prefix("/n");
-    private Prefix tagPrefix = new Prefix("/t");
-    private Prefix priorityPrefix = new Prefix("/p");
-    private Prefix dateTimePrefix = new Prefix("/dt");
-    private Prefix recurringPrefix = new Prefix("/r");
-    private Prefix deletePrefix = new Prefix("/del");
-    private Prefix addTagPrefix = new Prefix("/ta");
-    private Prefix removeTagPrefix = new Prefix("/tr");
-    private Prefix donePrefix = new Prefix("/do");
-    private Prefix undonePrefix = new Prefix("/ud");
-    private Prefix listPrefix = new Prefix("/ls");
-    private Prefix editPrefix = new Prefix("/e");
-    
-    private static final String EMPTY_STRING = "";
 
     /**
      * Parses arguments in the context of the add task command.
@@ -238,8 +237,8 @@ public class Parser {
     private Command prepareEdit(String args) {
         args = args.trim();
         int targetIndex = 0;
-        if (args.indexOf(" ") != -1) {
-            targetIndex = args.indexOf(" ");
+        if (args.indexOf(EMPTY_SPACE_ONE) != -1) {
+            targetIndex = args.indexOf(EMPTY_SPACE_ONE);
         }
 
         Optional<Integer> index = parseIndex(args.substring(0, targetIndex));
@@ -269,7 +268,7 @@ public class Parser {
      */
     private Command prepareDelete(String args) {
         args = args.trim();
-        if (args.equals("")) {
+        if (EMPTY_STRING.equals(args)) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         try {
@@ -297,7 +296,7 @@ public class Parser {
         
         try {
             String indexArgs = argsTokenizer.getPreamble().get();
-            String[] indexStringArray = StringUtil.indexString(indexArgs).split(" ");
+            String[] indexStringArray = StringUtil.indexString(indexArgs).split(EMPTY_SPACE_ONE);
             if (indexStringArray.length > 2) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         ConfirmCommand.MESSAGE_USAGE));
@@ -314,7 +313,7 @@ public class Parser {
         
         try {
             return new ConfirmCommand(taskIndex, dateTimeIndex,
-                    argsTokenizer.getValue(priorityPrefix).orElse(""),
+                    argsTokenizer.getValue(priorityPrefix).orElse(EMPTY_STRING),
                     argsTokenizer.getMultipleValues(tagPrefix).orElse(new HashSet<>()));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(
@@ -335,8 +334,8 @@ public class Parser {
         ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(donePrefix, undonePrefix);
         argsTokenizer.tokenize(args);
 
-        String markDone = argsTokenizer.getValue(donePrefix).orElse("");
-        String markUndone = argsTokenizer.getValue(undonePrefix).orElse("");
+        String markDone = argsTokenizer.getValue(donePrefix).orElse(EMPTY_STRING);
+        String markUndone = argsTokenizer.getValue(undonePrefix).orElse(EMPTY_STRING);
 
         try {
             String indexesToMarkDone = StringUtil.indexString(markDone);
@@ -407,21 +406,21 @@ public class Parser {
         Boolean statusDone = true;
         Boolean statusUndone = false;
 
-        taskQuery.createNameQuery(argsTokenizer.getValue(namePrefix).orElse("").replaceAll("( )+", " "));
+        taskQuery.createNameQuery(argsTokenizer.getValue(namePrefix).orElse(EMPTY_STRING).replaceAll("( )+", EMPTY_SPACE_ONE));
         taskQuery.createDateTimeQuery(
-                DateTimeUtil.getDateTimeFromArgs(argsTokenizer.getValue(dateTimePrefix).orElse("")));
-        taskQuery.createPriorityQuery(argsTokenizer.getValue(priorityPrefix).orElse(""));
-        if (!argsTokenizer.getValue(donePrefix).orElse("").isEmpty() && !argsTokenizer.getValue(undonePrefix).orElse("").isEmpty()) {
+                DateTimeUtil.getDateTimeFromArgs(argsTokenizer.getValue(dateTimePrefix).orElse(EMPTY_STRING)));
+        taskQuery.createPriorityQuery(argsTokenizer.getValue(priorityPrefix).orElse(EMPTY_STRING));
+        if (!argsTokenizer.getValue(donePrefix).orElse(EMPTY_STRING).isEmpty() && !argsTokenizer.getValue(undonePrefix).orElse(EMPTY_STRING).isEmpty()) {
             throw new IllegalValueException(TaskQuery.MESSAGE_BOTH_STATUS_SEARCHED_ERROR);
         } else {
-            if (!argsTokenizer.getValue(donePrefix).orElse("").isEmpty()) {
+            if (!argsTokenizer.getValue(donePrefix).orElse(EMPTY_STRING).isEmpty()) {
                 taskQuery.createStatusQuery(statusDone);
             }
-            if (!argsTokenizer.getValue(undonePrefix).orElse("").isEmpty()) {
+            if (!argsTokenizer.getValue(undonePrefix).orElse(EMPTY_STRING).isEmpty()) {
                 taskQuery.createStatusQuery(statusUndone);
             }
         }
-        taskQuery.createTagsQuery(argsTokenizer.getMultipleRawValues(tagPrefix).orElse("").replaceAll("( )+", " "));
+        taskQuery.createTagsQuery(argsTokenizer.getMultipleRawValues(tagPrefix).orElse(EMPTY_STRING).replaceAll("( )+", EMPTY_SPACE_ONE));
 
         return taskQuery;
     }
@@ -497,7 +496,7 @@ public class Parser {
             String editArgs = argsTokenizer.getValue(editPrefix).get();
             final Matcher matcher = TAG_EDIT_COMMAND_FORMAT.matcher(editArgs);
             if (matcher.matches()) {
-                return new TagCommand(editPrefix, editArgs.split(" "));
+                return new TagCommand(editPrefix, editArgs.split(EMPTY_SPACE_ONE));
             }
         }
 

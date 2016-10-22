@@ -37,7 +37,7 @@ public class ConfirmCommand extends UndoableCommand {
     private final int taskIndex;
     private final int dateTimeIndex;
     private final String priority;
-    final Set<Tag> tagSet = new HashSet<>();
+    private final Set<Tag> tagSet = new HashSet<>();
     
     public ConfirmCommand(int taskIndex, int dateTimeIndex, String priority, Set<String> tags) throws IllegalValueException {
         this.taskIndex = taskIndex;
