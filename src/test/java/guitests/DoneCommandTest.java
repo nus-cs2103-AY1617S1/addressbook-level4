@@ -20,10 +20,27 @@ public class DoneCommandTest extends TaskManagerGuiTest{
 		int[] notDoneIndices = new int[0];
 		
 		//mark tasks as done
-		String command = "done 1 2";
-		doneIndices = new int[] {1,2};
+		String command = "done 1 2 3 4";
+		doneIndices = new int[] {1,2,3,4};
 		assertDoneSuccess(command, doneIndices, notDoneIndices, currentList);
 		
+		//mark tasks as not done
+		command = "done not 1 2";
+		doneIndices = new int[0];
+		notDoneIndices = new int[] {1,2};
+		assertDoneSuccess(command, doneIndices, notDoneIndices, currentList);
+		
+		//mark some tasks as done and some tasks as not done
+		command = "done 1 2 not 3 4";
+		doneIndices = new int[] {1,2};
+		notDoneIndices = new int[] {3,4};
+		assertDoneSuccess(command, doneIndices, notDoneIndices, currentList);
+		
+		//mark the same task as done and not done
+		command = "done 3 not 3";
+		doneIndices = new int[] {3};
+		notDoneIndices = new int[] {3};
+		assertDoneSuccess(command, doneIndices, notDoneIndices, currentList);
 	}
 	
 	public TestTask[] assertDoneSuccess (String command, int[] doneIndices, 
@@ -39,6 +56,7 @@ public class DoneCommandTest extends TaskManagerGuiTest{
 			taskDone.add(taskChanged);
 			currentList = TestUtil.replaceTaskFromList(currentList, taskChanged, doneIndices[i]-1);
 		}
+		String doneMessage = String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, taskDone);
 		
 		for(int i = 0; i < notDoneIndices.length; i++) {
 			TestTask taskChanged = currentList[notDoneIndices[i]-1];
@@ -46,13 +64,13 @@ public class DoneCommandTest extends TaskManagerGuiTest{
 			taskNotDone.add(taskChanged);
 			currentList = TestUtil.replaceTaskFromList(currentList, taskChanged, notDoneIndices[i]-1);
 		}
+		String notDoneMessage = String.format(DoneCommand.MESSAGE_NOT_DONE_TASK_SUCCESS, taskNotDone);
 
         //confirm the targeted tasks are replaced
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, taskDone) + "\n"
-        		+ String.format(DoneCommand.MESSAGE_NOT_DONE_TASK_SUCCESS, taskNotDone));
+        assertResultMessage(doneMessage + "\n" + notDoneMessage);
         
         return currentList;
 	}
