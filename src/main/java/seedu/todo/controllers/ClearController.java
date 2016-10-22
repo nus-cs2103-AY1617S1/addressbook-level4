@@ -91,20 +91,23 @@ public class ClearController implements Controller {
         
         String[] parsedDates = parseDates(parsedResult);
         
-        // Task or event?
+        // Task or event specified?
         boolean deleteAll = parseDeleteAllType(parsedResult);
         
+        // Task or event?
         boolean isTask = true; //default
-        //if listing all type , set isTask and isEvent true
+        
+        // task or event keyword is been found
         if (!deleteAll) {
             isTask = parseIsTask(parsedResult);
         }
         
-        //no dates provided
+        //no dates provided and input is exactly the same as COMMAND_WORD
         if (parsedDates == null && parseExactClearCommand(parsedResult) && deleteAll) {
             destroyAll(db);
             return;
         } else {
+            //invalid date provide by user with no date keywords parsed by natty
             if (deleteAll && !parseExactClearCommand(parsedResult) && parsedDates == null) { //no item type and date provided
                 LocalDateTime date = parseDateWithNoKeyword(parsedResult);
                 if (date == null) {
@@ -114,6 +117,7 @@ public class ClearController implements Controller {
             }
         }
         
+        //parsing of dates with keywords with natty
         LocalDateTime dateOn = parseDateWithNoKeyword(parsedResult);
         LocalDateTime dateFrom = DATE_NOT_FOUND;
         LocalDateTime dateTo = DATE_NOT_FOUND;
@@ -129,8 +133,8 @@ public class ClearController implements Controller {
             dateTo = naturalTo == INVALID_DATE ? DATE_NOT_FOUND : parseNatural(naturalTo);
         }
         
+        //invokey destroy command
         destroyByDate(db, parsedDates, dateOn, dateFrom, dateTo, deleteAll, isTask, input);
-
     }
 
     /** ================ DESTROY TASKS/EVENTS WITH FILTERED KEYWORDS ================== **/
