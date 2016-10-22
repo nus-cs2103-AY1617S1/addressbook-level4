@@ -132,6 +132,16 @@ you may choose to use tags as a way to prioritize or to classify tasks.
 *Figure 3: The `add` command allows you to add a new task easily*
 <br><br>
 
+In general, you may use this format to add tasks with various parameters.<br>
+`add NAME [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag TAG...]`
+
+ * Words in lower case are the keywords for setting the task parameters (e.g. use "by" to set deadline for task)
+ * Words in UPPER CASE are the parameters associated with the keyword. Replace the parameters with the information you want to set. (e.g. replace "DEADLINE" with "1 April" to set task deadline as 1 April)
+ * Keywords and parameters surrounded by '[' and ']' are optional. (e.g. both "add project" and "add project by tomorrow" are valid commands)
+ *Parameters followed by "..." can have multiple instances in one command. (e.g. "add project tag important tag work" will add a task with two tags, "important" and "work") 
+
+<br>
+
 ### Listing all tasks/events with specified conditions: `list`
 
 You may have a lot of tasks in your task list after using TaSc for a
@@ -194,6 +204,9 @@ Finally, if you need to sort your tasks, enter the following:
 *Figure 4b: The `list` command allows you to filter your tasks easily.*
 <br><br>
 
+In general, you may use this format to list tasks with various filters<br>
+`list [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag TAG...] [sort SORTING_ORDER]`
+
 ### Narrowing listing results with specified type, date or tags: `show`
 
 Already typed your list command, only to find out that you have more filters
@@ -213,6 +226,10 @@ enter this instead:
 > **Tip:**<br>
 > Because this is an extension of the `list` command, any parameters that is
 > accepted by the `list` command is also accepted by the `show` command.
+<br><br>
+
+In general, you may use this format to show various tasks from the tasks listed.<br>
+`show [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag TAG...]`
 
 <br>
 
@@ -224,7 +241,12 @@ To list every uncompleted tasks **except** for those tagged as "CS2103", enter t
 
 `list uncompleted tasks`<br>
 `hide tag "CS2103"`
-<br><br>
+<br>
+
+In general, you may use this format to hide various tasks from the tasks listed.<br>
+`hide [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag TAG...]`
+
+<br>
 
 ### Finding tasks/events which match keywords: `find`
 
@@ -244,6 +266,9 @@ To show your task named "**V0.0 Deliverables**" in **Sep**tember:
 > Words enclosed in quotation marks `" "` use exact match and are case-sensitive.<br>
 > The task list results are shown in an order which prioritizes the closest match, followed by completion status and date.
 
+<br>
+In general, you may use this format to find tasks using keywords.<br>
+`find KEYWORD...`
 <br>
 
 ### Changing the details of a task/event: `update`
@@ -277,6 +302,10 @@ Or if the deadline is no longer valid, remove it by adding `remove` before the k
 > like `removefrom`, `removeto`, `removerepeat`, `removetag` etc.
 
 <br>
+In general, you may use this format to update your tasks' various parameters.
+`update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [repeat PATTERN FREQUENCY] [tag TAG...]`
+ * INDEX refers to the task's index number as shown in the task list.
+<br>
 
 ### Marking a task as complete: `complete`
 
@@ -287,6 +316,9 @@ Once you have completed a task, you can mark it as complete.
 <img src="images/Ui-Complete.png" width="600"><br>
 *Figure 5: Marking a task as complete*
 <br><br>
+In general, you may use this format to mark your tasks as complete.
+`complete INDEX`
+<br>
 
 ###  Undoing the last action: `undo`
 
@@ -302,6 +334,11 @@ last 5 actions taken:
 `undo last 5`
 
 <br>
+In general, you may use this format to undo various number of changes.
+`undo [LAST STEPS]`
+ * LAST STEPS refer to the number of steps to undo, starting from the lastest step. 
+<br>
+
 
 ### Deleting a task/event: `delete`
 
@@ -315,6 +352,10 @@ your task list to save disk space on your computer.
 > wish to keep the details of the task, use `complete` instead.
 
 <br>
+In general, you may use this format to delete your tasks.
+`delete INDEX`
+<br>
+
 
 ### Clearing all data: `clear`
 
@@ -343,6 +384,10 @@ To do so, simply type the switch list command:
 > task list, and will create an empty file for you automatically.
 
 <br>
+In general, you may use this format to switch to different lists.
+`switchlist FILENAME`
+<br>
+
 
 ### Renaming the task list file: `renamelist`
 
@@ -351,6 +396,9 @@ currently named `life.xml` and you would like to rename it to `family.xml`, ente
 
 `renamelist family`
 
+<br>
+In general, you may use this format to rename lists.
+`renamelist FILENAME`
 <br>
 
 ### Relocating the data storage location: `relocate`
@@ -362,6 +410,9 @@ folder is at `/dropbox/`, you may do so by typing:
 
 `relocate /dropbox/tasklist/`
 
+<br>
+In general, you may use this format to relocate your data to different location.
+`relocate PATH`
 <br>
 
 ### Viewing help: `help`
