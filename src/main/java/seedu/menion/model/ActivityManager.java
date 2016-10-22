@@ -2,6 +2,7 @@ package seedu.menion.model;
 
 import javafx.collections.ObservableList;
 import seedu.menion.model.activity.ReadOnlyActivity;
+import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
 
@@ -195,22 +196,23 @@ public class ActivityManager implements ReadOnlyActivityManager {
      * Methods, edits an activity's NAME in the activity manager.
      * Passes in the index of the list to complete, and changes to make
      * @param index
+     * @throws IllegalValueException 
      */
-    public void editFloatingTaskName(int index, String changes) {
+    public void editFloatingTaskName(int index, String changes) throws IllegalValueException {
         Activity dub;
         dub = floatingTasks.getInternalList().get(index);
         dub.setActivityName(changes);
         floatingTasks.getInternalList().set(index, dub);   
     }
     
-    public void editTaskName(int index, String changes) {
+    public void editTaskName(int index, String changes) throws IllegalValueException {
         Activity dub;
         dub = tasks.getInternalList().get(index);
         dub.setActivityName(changes);
         tasks.getInternalList().set(index, dub);   
     }
     
-    public void editEventName(int index, String changes) {
+    public void editEventName(int index, String changes) throws IllegalValueException {
         Activity dub;
         dub = events.getInternalList().get(index);
         dub.setActivityName(changes);
@@ -222,22 +224,23 @@ public class ActivityManager implements ReadOnlyActivityManager {
      * Methods, edits an activity's NOTE in the activity manager.
      * Passes in the index of the list to complete, and changes to make
      * @param index
+     * @throws IllegalValueException 
      */
-    public void editFloatingTaskNote(int index, String changes) {
+    public void editFloatingTaskNote(int index, String changes) throws IllegalValueException {
         Activity dub;
         dub = floatingTasks.getInternalList().get(index);
         dub.setActivityNote(changes);
         floatingTasks.getInternalList().set(index, dub);   
     }
     
-    public void editTaskNote(int index, String changes) {
+    public void editTaskNote(int index, String changes) throws IllegalValueException {
         Activity dub;
         dub = tasks.getInternalList().get(index);
         dub.setActivityNote(changes);
         tasks.getInternalList().set(index, dub);   
     }
     
-    public void editEventNote(int index, String changes) {
+    public void editEventNote(int index, String changes) throws IllegalValueException {
         Activity dub;
         dub = events.getInternalList().get(index);
         dub.setActivityNote(changes);
@@ -249,8 +252,9 @@ public class ActivityManager implements ReadOnlyActivityManager {
      * Methods, edits a Task/Event's starting Date & Time in the activity manager.
      * Passes in the index of the list to complete, and changes to make
      * @param index
+     * @throws IllegalValueException 
      */
-    public void editTaskDateTime(int index, String newDate, String newTime) {
+    public void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException {
         Activity dub;
         dub = tasks.getInternalList().get(index);
         dub.setActivityStartDateTime(newDate, newTime);

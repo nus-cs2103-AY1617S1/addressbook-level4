@@ -2,6 +2,8 @@ package seedu.menion.model.activity;
 
 import java.util.ArrayList;
 
+import seedu.menion.commons.exceptions.IllegalValueException;
+
 
 /**
  * A read-only immutable interface for a Task in the task manager.
@@ -45,9 +47,9 @@ public interface ReadOnlyActivity {
      */
     void setCompleted();
     void setUncompleted();
-    void setActivityName(String newName);
-    void setActivityNote(String newNote);
-    void setActivityStartDateTime(String newDate, String newTime);
+    void setActivityName(String newName) throws IllegalValueException;
+    void setActivityNote(String newNote) throws IllegalValueException;
+    void setActivityStartDateTime(String newDate, String newTime) throws IllegalValueException;
     
     
     /**

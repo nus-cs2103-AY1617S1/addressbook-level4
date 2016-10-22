@@ -110,7 +110,8 @@ public class ActivityParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.INDEX_MISSING_MESSAGE));
         }
         
-        boolean isValidType = false; // Checks that the activity type is of valid type
+        // Checks that the activity type is of valid type
+        boolean isValidType = false;
         String activityType = splited[1];
 
         if (activityType.equals(Activity.FLOATING_TASK_TYPE) || activityType.equals(Activity.TASK_TYPE) || activityType.equals(Activity.EVENT_TYPE)) {
@@ -135,8 +136,8 @@ public class ActivityParser {
     private Command prepareUnComplete(String args) {
 
         String[] splited = args.split("\\s+");
-        // Should only contain a space, Activity Type and Index
         
+        // Should only contain a space, Activity Type and Index
         if (splited.length != 3) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnCompleteCommand.INDEX_MISSING_MESSAGE));
         }
@@ -174,25 +175,24 @@ public class ActivityParser {
         boolean isValidType = false; // Checks that the activity type is of valid type
         String activityType = splited[1];
         
-        // Checks for valid activtiyType
+        // Checks for valid activityType
         if (activityType.equals(Activity.FLOATING_TASK_TYPE) || activityType.equals(Activity.TASK_TYPE) || activityType.equals(Activity.EVENT_TYPE)) {
-            isValidType = true;
-        }
-        if (!isValidType) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+           
+            // Checks for valid index 
+            Optional<Integer> index = Optional.of(Integer.valueOf(splited[2]));
+            if(index.isPresent()){
+                
+                // Checks for valid number of parameters.
+                // Must be 5 and above. [Command] + [Type] + [index] + [parameter] + [changes]
+                if (splited.length > 4) {
+                    return new EditCommand(splited);
+                }
+            }
         }
         
-        // Checks for valid index 
-        Optional<Integer> index = Optional.of(Integer.valueOf(splited[2]));
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-        // Checks for valid parameters.
-        // Assumes they are valid
-        
-        return new EditCommand(splited);
+        // Only get here if invalid command!
+        return new IncorrectCommand(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
     /**
      * Parses arguments in the context of the add task command.

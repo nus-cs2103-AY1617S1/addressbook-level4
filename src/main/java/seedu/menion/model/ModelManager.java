@@ -5,6 +5,7 @@ import seedu.menion.commons.core.ComponentManager;
 import seedu.menion.commons.core.LogsCenter;
 import seedu.menion.commons.core.UnmodifiableObservableList;
 import seedu.menion.commons.events.model.ActivityManagerChangedEvent;
+import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.StringUtil;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
@@ -120,23 +121,24 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * @author Marx Low A0139164A
      * Methods for editting Activity's name
+     * @throws IllegalValueException 
      */
     @Override
-    public void editFloatingTaskName(int index, String changes) {
+    public void editFloatingTaskName(int index, String changes) throws IllegalValueException{
         activityManager.editFloatingTaskName(index, changes);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
     
     @Override 
-    public void editTaskName(int index, String changes) {
+    public void editTaskName(int index, String changes) throws IllegalValueException {
         activityManager.editTaskName(index, changes);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
     
     @Override
-    public void editEventName(int index, String changes) {
+    public void editEventName(int index, String changes) throws IllegalValueException{
         activityManager.editEventName(index, changes);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
@@ -145,22 +147,23 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * @author Marx Low A0139164A
      * Methods for editting Activity's note
+     * @throws IllegalValueException 
      */
     @Override
-    public void editFloatingTaskNote(int index, String changes) {
+    public void editFloatingTaskNote(int index, String changes) throws IllegalValueException {
         activityManager.editFloatingTaskNote(index, changes);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
 
     @Override
-    public void editTaskNote(int index, String changes) {
+    public void editTaskNote(int index, String changes) throws IllegalValueException {
         activityManager.editTaskNote(index, changes);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
     @Override
-    public void editEventNote(int index, String changes) {
+    public void editEventNote(int index, String changes) throws IllegalValueException {
         activityManager.editEventNote(index, changes);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
@@ -169,9 +172,10 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * @author Marx Low A0139164A
      * Methods for editting Event/Task Starting Date & Time
+     * @throws IllegalValueException 
      */
     @Override
-    public void editTaskDateTime(int index, String newDate, String newTime) {
+    public void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException {
         activityManager.editTaskDateTime(index, newDate, newTime);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();

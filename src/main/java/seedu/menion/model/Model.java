@@ -1,6 +1,7 @@
 package seedu.menion.model;
 
 import seedu.menion.commons.core.UnmodifiableObservableList;
+import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
@@ -33,25 +34,28 @@ public interface Model {
     /** 
      * @author Marx  Low A0139164A
      * Edits the name of the given Activity, given it's index. 
+     * @throws IllegalValueException 
      */
-    void editFloatingTaskName(int index, String changes);
-    void editTaskName(int index, String changes);
-    void editEventName(int index, String changes);
+    void editFloatingTaskName(int index, String changes) throws IllegalValueException;
+    void editTaskName(int index, String changes) throws IllegalValueException;
+    void editEventName(int index, String changes) throws IllegalValueException;
     
 
     /**
      * @author Marx Low A0139164A
      * Edits the note of the given Activity, given it's index. 
+     * @throws IllegalValueException 
      */
-    void editFloatingTaskNote(int index, String changes);
-    void editTaskNote(int index, String changes);
-    void editEventNote(int index, String changes);
+    void editFloatingTaskNote(int index, String changes) throws IllegalValueException;
+    void editTaskNote(int index, String changes) throws IllegalValueException;
+    void editEventNote(int index, String changes) throws IllegalValueException;
     
     /**
      * @author Marx Low A0139164A
      * Edits the Start Date & Time of the given Task/Event, given it's index. 
+     * @throws IllegalValueException 
      */
-    void editTaskDateTime(int index, String newDate, String newTime);
+    void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException;
 
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;

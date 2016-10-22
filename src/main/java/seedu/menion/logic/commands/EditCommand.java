@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.core.UnmodifiableObservableList;
+import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.UniqueActivityList.DuplicateTaskException;
@@ -16,17 +17,18 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": edit an activity using their type, index, [Parameters to change] and new changes: "
-            + "\n" + "Parameters: [Activity_Type] + [Activity_Index] [ 'name', 'note', 'by (Date & Time)', 'from (Date & Time) - to (Date & Time)' ], + [Changes]\n" 
-            + "Example: " + COMMAND_WORD + " task 1 by 10-10-2016 1900 \n"
-            + "Example: " + COMMAND_WORD + " task 1 note write in red ink \n"
-            + "Example: " + COMMAND_WORD + " event 1 name ORD";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": edit an activity using their type, index, [Parameters to change] and new changes: " + "\n"
+            + "Parameters: [Activity_Type] + [Activity_Index] [ 'name', 'note', 'by (Date & Time)', 'from (Date & Time) - to (Date & Time)' ], + [Changes]\n"
+            + "Example: " + COMMAND_WORD + " task 1 by 10-10-2016 1900 \n" + "Example: " + COMMAND_WORD
+            + " task 1 note write in red ink \n" + "Example: " + COMMAND_WORD + " event 1 name ORD";
 
     public static final String MESSAGE_EDITTED_ACTIVITY_SUCCESS = "Menion editted your Activity to: %1$s";
     public static final String NAME_PARAM = "name";
     public static final String NOTE_PARAM = "note";
-    public static final String TASK_DEADLINE_PARAM = "by"; 
-    
+    public static final String TASK_DEADLINE_PARAM = "by";
+    public static final String NOT_TO_EDIT = "-";
+
     public final int targetIndex;
     public final String targetType;
     public final String[] changes;
@@ -44,32 +46,37 @@ public class EditCommand extends Command {
     public CommandResult execute() {
 
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
-
-        if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
-            lastShownList = model.getFilteredFloatingTaskList();
-            floatingTaskEdit(this.targetIndex, this.paramToChange, this.changes);
-        } else if (targetType.equals(Activity.TASK_TYPE)) {
-            lastShownList = model.getFilteredTaskList();
-            taskEdit(this.targetIndex, this.paramToChange, this.changes);
-        } else {
-            lastShownList = model.getFilteredEventList();
-            eventEdit(this.targetIndex, this.paramToChange, this.changes);
+        
+        try {
+            if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
+                lastShownList = model.getFilteredFloatingTaskList();
+                floatingTaskEdit(this.targetIndex, this.paramToChange, this.changes);
+            } else if (targetType.equals(Activity.TASK_TYPE)) {
+                lastShownList = model.getFilteredTaskList();
+                taskEdit(this.targetIndex, this.paramToChange, this.changes);
+            } else {
+                lastShownList = model.getFilteredEventList();
+                eventEdit(this.targetIndex, this.paramToChange, this.changes);
+            }
+        } catch (IllegalValueException e) {
+            return new CommandResult(e.getMessage());
         }
+        
         // Validates valid index is an index of an activity in the correct list
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
-        
-        ReadOnlyActivity activityToEdit= lastShownList.get(targetIndex);
+
+        ReadOnlyActivity activityToEdit = lastShownList.get(targetIndex);
         return new CommandResult(String.format(MESSAGE_EDITTED_ACTIVITY_SUCCESS, activityToEdit));
     }
-    
-    private void floatingTaskEdit(int index, String paramToChange, String[] changes) {
+
+    private void floatingTaskEdit(int index, String paramToChange, String[] changes) throws IllegalValueException {
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
         switch (indexOfParam) {
-        
+
         case 0:
             String newName = arrayToString(changes);
             model.editFloatingTaskName(index, newName);
@@ -79,14 +86,15 @@ public class EditCommand extends Command {
             model.editFloatingTaskNote(index, newNote);
             break;
         }
-        
+
     }
-    private void taskEdit(int index, String paramToChange, String[] changes) {
+
+    private void taskEdit(int index, String paramToChange, String[] changes) throws IllegalValueException {
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
-        
+
         switch (indexOfParam) {
-        
+
         case 0:
             String newName = arrayToString(changes);
             model.editTaskName(index, newName);
@@ -96,18 +104,22 @@ public class EditCommand extends Command {
             model.editTaskNote(index, newNote);
             break;
         case 2:
-            String newDate = changes[0];
-            String newTime = changes[1];
+            String newDate;
+            String newTime;
+
+            newDate = changes[0];
+            newTime = changes[1];
+
             model.editTaskDateTime(index, newDate, newTime);
             break;
         }
     }
-    
-    private void eventEdit(int index, String paramToChange, String[] changes) {
+
+    private void eventEdit(int index, String paramToChange, String[] changes) throws IllegalValueException {
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
         switch (indexOfParam) {
-        
+
         case 0:
             String newName = arrayToString(changes);
             model.editEventName(index, newName);
@@ -120,43 +132,41 @@ public class EditCommand extends Command {
             break;
         }
     }
+
     /**
      * 
      * @param paramToChange
-     * @return an integer to match with the param to change, refer below for index
-     * 0 = name (For all)
-     * 1 = note (For all)
-     * 2 = by (For Tasks only)
-     * 3 = from: to: (For Events only)
+     * @return an integer to match with the param to change, refer below for
+     *         index 0 = name (For all) 1 = note (For all) 2 = by (For Tasks
+     *         only) 3 = from: to: (For Events only)
      */
     private int checkParam(String paramToChange) {
 
         if (paramToChange.equals(NAME_PARAM)) {
             return 0;
-        }
-        else if (paramToChange.equals(NOTE_PARAM)) {
+        } else if (paramToChange.equals(NOTE_PARAM)) {
             return 1;
-        }
-        else if (paramToChange.equals(TASK_DEADLINE_PARAM)) {
+        } else if (paramToChange.equals(TASK_DEADLINE_PARAM)) {
             return 2;
         }
-        
+
         return 100;
     }
-    
+
     private String arrayToString(String[] changes) {
         StringBuilder sb = new StringBuilder();
-       
+
         if (changes.length == 1) {
             return changes[0];
         }
-        
+
         for (int i = 0; i < changes.length; i++) {
             sb.append(changes[i]);
             sb.append(" ");
         }
         return sb.toString();
     }
+
     /*
      * Complete command supports undo
      */

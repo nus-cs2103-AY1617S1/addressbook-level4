@@ -146,41 +146,31 @@ public class Activity implements ReadOnlyActivity {
     }
     
     /**
+     * @throws IllegalValueException 
      * @Author Marx Low A0139164A
      * List of methods to set Activity's param : Name, Note, startDate, startTime
      * Exception handling to be editted ----------> ALERT! (Assumes User to pass in correct parameters)
      */
     @Override
-    public void setActivityName(String newName) {
+    public void setActivityName(String newName) throws IllegalValueException {
         assert (newName != null);
-        try {
             this.name = new ActivityName(newName);
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
-    public void setActivityNote(String newNote) {
+    public void setActivityNote(String newNote) throws IllegalValueException {
         assert (newNote != null);
-        try {
-            this.note = new Note(newNote);
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-        }
+        this.note = new Note(newNote);
+
     }
     // Only can be called by Task & Events
     @Override
-    public void setActivityStartDateTime(String newDate, String newTime) {
+    public void setActivityStartDateTime(String newDate, String newTime) throws IllegalValueException {
         boolean isTask = this.activityType.equals(Activity.TASK_TYPE);
         boolean isEvent = this.activityType.equals(Activity.EVENT_TYPE);
         assert (isTask || isEvent);
-        try {
-            this.startDate = new ActivityDate(newDate);
-            this.startTime = new ActivityTime(newTime);
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-        }
+        this.startDate = new ActivityDate(newDate);
+        this.startTime = new ActivityTime(newTime);
     }
     
     @Override
