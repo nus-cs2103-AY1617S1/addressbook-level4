@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
@@ -9,8 +8,6 @@ import seedu.address.model.task.UniqueTaskList;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.function.Predicate;
-
-import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
@@ -44,8 +41,28 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
     
     //@@author A0142184L
-    /** Returns the full task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-	UnmodifiableObservableList<ReadOnlyTask> getFullTaskList();
+    /** Returns the list showing only non-done tasks (not-done and overdue tasks) as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getNonDoneTaskList();
+
+    /** Returns the today task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getTodayTaskList();
+
+    /** Returns the tomorrow task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getTomorrowTaskList();
+
+    /** Returns the in-7-days task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getIn7DaysTaskList();
+
+    /** Returns the in-30-days task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getIn30DaysTaskList();
+
+    /** Returns the someday task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getSomedayTaskList();
+	
+    //@@author A0139339W
+    /** Returns the unfiltered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getUnfilteredTaskList();
+    //@@author
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
@@ -55,4 +72,6 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+
+
 }
