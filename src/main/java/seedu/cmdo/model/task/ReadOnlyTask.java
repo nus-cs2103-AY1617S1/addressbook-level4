@@ -6,7 +6,7 @@ import seedu.cmdo.model.tag.UniqueTagList;
  * A read-only immutable interface for a task in the To Do List.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyTask {
+public interface ReadOnlyTask extends Cloneable {
 	
     Detail getDetail();
     Done checkDone();
@@ -74,5 +74,9 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+    /*@@author A0141128R
+     * To clone task
+     */
+    public Task makeCopy();
 
 }
