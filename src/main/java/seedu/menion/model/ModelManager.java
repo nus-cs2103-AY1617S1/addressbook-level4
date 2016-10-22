@@ -180,6 +180,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
+    
     @Override 
     public void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException {
         activityManager.editEventStartDateTime(index, newDate, newTime);
@@ -187,6 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateActivityManagerChanged();
         
     }
+    
     @Override
     public void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException {
         activityManager.editEventEndDateTime(index, newDate, newTime);

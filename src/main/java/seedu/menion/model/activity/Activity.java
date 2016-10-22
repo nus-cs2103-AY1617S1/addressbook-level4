@@ -180,6 +180,7 @@ public class Activity implements ReadOnlyActivity {
         this.endDate = new ActivityDate(newDate);
         this.endTime = new ActivityTime(newTime);
     }
+    
     @Override
     public Note getNote() {
         return this.note;

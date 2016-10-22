@@ -288,8 +288,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         dub.setActivityStartDateTime(newDate, newTime);
         events.getInternalList().set(index, dub);
     }
-    public void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException {
-        
+    public void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException {    
         Activity dub;
         dub = events.getInternalList().get(index);
         String currentEndTime = dub.getActivityEndTime().toString();
@@ -302,7 +301,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
             newTime = currentEndTime;
         }
         dub.setActivityEndDateTime(newDate, newTime);
-        tasks.getInternalList().set(index, dub);
+        events.getInternalList().set(index, dub);
     }
     
     public void editEventAllDateTime(int index, String startNewDate, String startNewTime, String endNewDate,

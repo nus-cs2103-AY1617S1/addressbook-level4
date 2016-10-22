@@ -169,7 +169,25 @@ public class EditCommand extends Command {
             model.editEventStartDateTime(index, newDate, newTime);
             break;
         case 4:
-
+            String newEndDate = NOT_TO_EDIT;
+            String newEndTime = NOT_TO_EDIT;
+            // User passed in both date and time
+            if (changes.length == 2) {
+                newEndDate = changes[0];
+                newEndTime = changes[1];
+            }
+            // Either date, or time passed in
+            else {
+                // Must be time, does not contain "-"
+                if (!changes[0].contains("-")) {
+                    newEndTime = changes[0];
+                }
+                // Must be date.
+                else {
+                    newEndDate = changes[0];
+                }
+            }
+            model.editEventEndDateTime(index, newEndDate, newEndTime);
             break;
         }
     }
