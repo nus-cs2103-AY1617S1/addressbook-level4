@@ -331,7 +331,8 @@ public class Parser {
                             isInputPresent(matcher_task.group("endDate")),
                             matcher_task.group("priority"),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -344,7 +345,8 @@ public class Parser {
                             matcher_event.group("startTime"), 
                             matcher_event.group("endTime"),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -355,7 +357,8 @@ public class Parser {
                             matcher_deadline.group("date"),
                             matcher_deadline.group("endTime"), 
                             Integer.parseInt(matcher_deadline.group("targetIndex")),
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -373,7 +376,8 @@ public class Parser {
                             isInputPresent(matcher_task.group("endDate")),
                             matcher_task.group("priority"),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -386,7 +390,8 @@ public class Parser {
                             matcher_event.group("startTime"), 
                             matcher_event.group("endTime"),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -397,7 +402,8 @@ public class Parser {
                             matcher_deadline.group("date"),
                             matcher_deadline.group("endTime"), 
                             Integer.parseInt(matcher_deadline.group("targetIndex")),
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -415,7 +421,8 @@ public class Parser {
                             isInputPresent(matcher_task.group("endDate")),
                             matcher_task.group("priority"),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -428,7 +435,8 @@ public class Parser {
                             matcher_event.group("startTime"), 
                             matcher_event.group("endTime"),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -439,7 +447,8 @@ public class Parser {
                             matcher_deadline.group("date"),
                             matcher_deadline.group("endTime"), 
                             Integer.parseInt(matcher_deadline.group("targetIndex")),
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
