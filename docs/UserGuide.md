@@ -1,8 +1,9 @@
-﻿# User Guide
+# User Guide
 
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
+* [Support Date Format](#supported-date-formats)
 * [Command Summary](#command-summary)
 
 ## Quick Start
@@ -238,6 +239,76 @@ There is no need to save manually.
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous TARS app.
+       
+## Supported Date Formats
+#### formal dates
+Formal dates are those in which the day, month, and year are represented as integers separated by a common separator character. The year is optional and may preceed the month or succeed the day of month. If a two-digit year is given, it must succeed the day of month.
+
+Examples:
+* `28-01-2016`
+* `28/01/2016`
+* `1/02/2016`
+* `2/2/16`
+
+#### formal dates
+Relaxed dates are those in which the month, day of week, day of month, and year may be given in a loose, non-standard manner, with most parts being optional.
+
+Examples:
+* `The 31st of April in the year 2008`
+* `Fri, 21 Nov 1997`
+* `Jan 21, '97`
+* `Sun, Nov 21`
+* `jan 1st`
+* `february twenty-eighth`
+
+#### relative dates
+Relative dates are those that are relative to the current date.
+
+Examples:
+* `next thursday`
+* `last wednesday`
+* `today`
+* `tomorrow`
+* `yesterday`
+* `next week`
+* `next month`
+* `next year`
+* `3 days from now`
+* `three weeks ago`
+
+#### prefixes
+Most of the above date formats may be prefixed with a modifier.
+
+Examples:
+`day after`
+`the day before`
+`the monday after`
+`the monday before`
+`2 fridays before`
+`4 tuesdays after`
+
+#### time
+The above date formats may be prefixed or suffixed with time information.
+
+Examples:
+* `0600h`
+* `06:00 hours`
+* `6pm`
+* `5:30 a.m.`
+* `5`
+* `12:59`
+* `23:59`
+* `8p`
+* `noon`
+* `afternoon`
+* `midnight`
+
+#### relative times
+
+Examples:
+* `10 seconds ago`
+* `in 5 minutes`
+* `4 minutes from now`
        
 ## Command Summary
 
