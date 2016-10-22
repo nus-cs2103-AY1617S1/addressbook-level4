@@ -31,7 +31,7 @@ public class EventBuilder extends ActivityBuilder {
 
     public EventBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
-            event.getTags().add(new Tag(tag));
+            event.addTags(new Tag(tag));
         }
         return this;
     }

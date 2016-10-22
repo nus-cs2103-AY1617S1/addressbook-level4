@@ -66,6 +66,18 @@ public class TestActivity implements ReadOnlyActivity {
         return tags;
     }
     
+    public void addTags(Tag tag) throws DuplicateTagException {
+        if(tags != null){
+        	tags.add(tag);
+        } else {
+        	tags = new UniqueTagList();
+        	tags.add(tag);
+        }
+    	
+    	
+    	return;
+    }
+    
 	@Override
 	public String toStringCompletionStatus() {
         if(isCompleted) {

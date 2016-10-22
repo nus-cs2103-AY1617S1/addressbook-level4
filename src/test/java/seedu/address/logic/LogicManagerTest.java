@@ -390,10 +390,10 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Activity adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            DueDate privatePhone = new DueDate("111111");
-            Priority email = new Priority("adam@gmail.com");
-            Reminder privateAddress = new Reminder("111, alpha street");
+            Name name = new Name("Play");
+            DueDate privatePhone = new DueDate("11-11-2211 1100");
+            Priority email = new Priority("1");
+            Reminder privateAddress = new Reminder("11-11-2211 1000");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -410,7 +410,7 @@ public class LogicManagerTest {
         Activity generatePerson(int seed) throws Exception {
             return new Activity(
                     new Name("Person " + seed),
-                    new Reminder("House of " + seed),
+                    new Reminder("10-10-2019" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -505,7 +505,7 @@ public class LogicManagerTest {
         Activity generatePersonWithName(String name) throws Exception {
             return new Activity(
                     new Name(name),
-                    new Reminder("House of 1"),
+                    new Reminder("11-11-2103 1100"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

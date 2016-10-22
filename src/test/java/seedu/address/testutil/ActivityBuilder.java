@@ -30,7 +30,7 @@ public class ActivityBuilder {
 
     public ActivityBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
-            activity.getTags().add(new Tag(tag));
+            activity.addTags(new Tag(tag));
         }
         return this;
     }
