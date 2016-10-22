@@ -82,6 +82,10 @@ public class BrowserPanel extends UiPart{
     	agenda.setDisplayedDateTime(inputDate);
     	loadTaskList(taskList);
     }
+    
+    public void reloadAgenda(List<TaskComponent> taskList){
+    	loadTaskList(taskList);
+    }
 
     /**
      * Frees resources allocated to the browser.

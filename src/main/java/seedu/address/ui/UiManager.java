@@ -143,9 +143,9 @@ public class UiManager extends ComponentManager implements Ui {
     }
     
     @Subscribe
-    private void handleTaskListChangedEvent(TaskListChangedEvent tlce){
-    	logger.info(LogsCenter.getEventHandlingLogMessage(tlce));
-    	mainWindow.getBrowserPanel().loadTaskList((ObservableList<TaskComponent>) tlce.data.getTaskComponentList());
+    private void handleTaskListChangedEvent(TaskListChangedEvent event){
+    	logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    	mainWindow.getBrowserPanel().reloadAgenda(event.data.getTaskComponentList());
     }
     
     @Subscribe
