@@ -5,6 +5,7 @@ import seedu.taskitty.model.tag.UniqueTagList;
 import seedu.taskitty.model.task.Name;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.TaskDate;
+import seedu.taskitty.model.task.TaskPeriod;
 import seedu.taskitty.model.task.TaskTime;
 
 import org.junit.Rule;
@@ -38,5 +39,20 @@ public class TaskTest {
     public void invalidTime_exceptionThrown() throws Exception {
         thrown.expect(IllegalValueException.class);
         TaskDate date = new TaskDate("25:00");
+    }
+    
+    @Test
+    public void invalidPeriod_startDateAfterEndDate_exceptionThrown() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        TaskPeriod period = new TaskPeriod(new TaskDate("25/12/2016"), new TaskTime("10:00"),
+                        new TaskDate("24/12/2016"), new TaskTime("12:00"));
+    }
+    
+    @Test
+    public void invalidPeriod_startTimeAfterEndTime_exceptionThrown() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        TaskDate date = new TaskDate("25/12/2016");
+        TaskPeriod period = new TaskPeriod(date, new TaskTime("10:00"),
+                        date, new TaskTime("9:00"));
     }
 }
