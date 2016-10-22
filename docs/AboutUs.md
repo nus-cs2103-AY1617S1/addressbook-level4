@@ -31,3 +31,10 @@ We are a team of four 2nd Year Computer Engineering students based in the [Schoo
 **Responsibilities**: UI
 
 -----
+
+## Project Mentor
+ 
+#### [Nirandika Wanigasekara](https://github.com/nirandiw) <br>
+<img src="images/ProjectMentor.png" width="150">
+
+-----
