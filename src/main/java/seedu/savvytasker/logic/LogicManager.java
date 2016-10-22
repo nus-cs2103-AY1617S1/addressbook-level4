@@ -130,4 +130,9 @@ public class LogicManager extends ComponentManager implements Logic {
             }
         }
     }
+    
+    @Override
+    public boolean canParseHeader(String header) {
+        return parser.isCommandParserRegistered(header);
+    }
 }

@@ -26,6 +26,11 @@ public class UnaliasCommandParser implements CommandParser<UnaliasCommand> {
     public String getRequiredFormat() {
         return READABLE_FORMAT;
     }
+    
+    @Override
+    public boolean shouldPreprocess() {
+        return false;
+    }
 
     @Override
     public UnaliasCommand parse(String commandText) throws ParseException {

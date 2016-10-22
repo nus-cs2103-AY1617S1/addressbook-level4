@@ -1,5 +1,6 @@
 package seedu.savvytasker.logic.commands;
 
+import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.logic.commands.models.AliasCommandModel;
 import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.alias.DuplicateSymbolKeywordException;
@@ -18,8 +19,10 @@ public class AliasCommand extends ModelRequiringCommand {
 
     public static final String MESSAGE_SUCCESS = "New alias added: %1$s";
     public static final String MESSAGE_DUPLICATE_ALIAS = "This alias is already in use";
+    public static final String MESSAGE_INVALID_KEYWORD = "Unable to use a command name as a keyword!";
 
     private AliasCommandModel commandModel;
+    private Logic logic;
     /**
      * Creates an alias command
      */
@@ -35,12 +38,22 @@ public class AliasCommand extends ModelRequiringCommand {
         AliasSymbol toAdd = new AliasSymbol(commandModel.getKeyword(),
                 commandModel.getRepresentingText());
         
+        if (logic.canParseHeader(toAdd.getKeyword())) {
+            return new CommandResult(MESSAGE_INVALID_KEYWORD);
+        }
+        
         try {
             model.addAliasSymbol(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateSymbolKeywordException e) {
             return new CommandResult(MESSAGE_DUPLICATE_ALIAS);
         }
+    }
+    
+    @Override
+    public void setLogic(Logic logic) {
+        assert logic != null;
+        this.logic = logic;
     }
     
     @Override

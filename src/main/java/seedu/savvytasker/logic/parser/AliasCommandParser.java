@@ -32,6 +32,11 @@ public class AliasCommandParser implements CommandParser<AliasCommand> {
     }
 
     @Override
+    public boolean shouldPreprocess() {
+        return false;
+    }
+    
+    @Override
     public AliasCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {

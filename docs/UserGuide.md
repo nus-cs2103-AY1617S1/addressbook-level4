@@ -206,7 +206,6 @@ inside another word
   `add pjm2 s/05-10-2016 st/14:00 et/18:00 r/daily n/2 c/CS2103`<br>
 Add "pjm2" to task list, and <b>not</b> "Project Meeting2"<br>
 
-
   
 #### Unalias a keyword : `unalias`
 Unalias a keyword <br>

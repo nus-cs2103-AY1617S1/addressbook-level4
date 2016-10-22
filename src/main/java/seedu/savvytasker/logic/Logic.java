@@ -19,4 +19,7 @@ public interface Logic {
 
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** */
+    boolean canParseHeader(String keyword);
 }
