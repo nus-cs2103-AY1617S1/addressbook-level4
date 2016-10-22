@@ -51,6 +51,12 @@ public class MainWindow extends UiPart {
 
     @FXML
     private MenuItem helpMenuItem;
+    
+    @FXML
+    private MenuItem undoMenuItem;
+    
+    @FXML
+    private MenuItem listMenuItem;
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
@@ -191,7 +197,17 @@ public class MainWindow extends UiPart {
     public void show() {
         primaryStage.show();
     }
+    
+    @FXML
+    public void handleUndo() {
 
+    }
+    
+    @FXML
+    public void handleList() {
+
+    }
+    
     /**
      * Closes the application.
      */

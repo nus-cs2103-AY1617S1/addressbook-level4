@@ -29,12 +29,12 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Undo">
               <items>
-                <MenuItem fx:id="undoMenuItem" mnemonicParsing="false" text="Undo" />
+                <MenuItem fx:id="undoMenuItem" mnemonicParsing="false" onAction="#handleUndo" text="Undo" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="List">
               <items>
-                <MenuItem fx:id="listMenuItem" mnemonicParsing="false" text="List" />
+                <MenuItem fx:id="listMenuItem" mnemonicParsing="false" onAction="#handleList" text="List" />
               </items>
             </Menu>
          </menus>
