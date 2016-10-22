@@ -1,103 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todolist.ui.MainWindow">
-   <stylesheets>
-      <URL value="@DarkTheme.css" />
-      <URL value="@Extensions.css" />
-   </stylesheets>
-   <children>
-      <MenuBar VBox.vgrow="NEVER">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <AnchorPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
-         <padding>
-            <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
-         </padding>
-      </AnchorPane>
-       <AnchorPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="anchor-pane-with-border" minHeight="100" prefHeight="100" maxHeight="100">
-           <padding>
-               <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
-           </padding>
-       </AnchorPane>
-      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.1" VBox.vgrow="ALWAYS">
-         <items>
-         	<!-- TODO: Notification panel -->
-            <!-- <VBox fx:id="notificationList" prefHeight="100.0" prefWidth="100">
-                <padding>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                </padding>
-               <children>
-                  <TilePane fx:id="notificationListPanelPlaceholder" VBox.vgrow="ALWAYS" style="-fx-background-color: White"/>
-               </children>
-            </VBox> -->
-            <TabPane fx:id="incompleteTasks" prefWidth="500" VBox.vgrow="ALWAYS">
-               <Tab text="Incomplete">
-                   <content>
-                       <SplitPane fx:id="incompleteEventsAndDeadlines" dividerPositions="0.5">
-                           <items>
-                               <VBox fx:id="incompleteEvents"  prefHeight="400.0" prefWidth="100">
-                               		<padding>
-                    					<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                					</padding>    
-                                   	<children>
-                  						<AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-               						</children>                        
-                               </VBox>
-                               <VBox fx:id="incompleteDeadlines"  prefHeight="400.0" prefWidth="100">
-                                   <padding>
-                    					<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                					</padding>    
-                                   	<children>
-                  						<TilePane fx:id="incompleteDeadlineListPanelPlaceholder" VBox.vgrow="ALWAYS" style="-fx-background-color: White"/>
-               						</children>
-                               </VBox>
-                           </items>
-                       </SplitPane>
-                   </content>
-                </Tab>
-                <Tab text="Completed">
-                    <content>
-                       <SplitPane fx:id="completedEventsAndDeadlines" dividerPositions="0.5">
-                           <items>
-                               <VBox fx:id="completedEvents"  prefHeight="400.0" prefWidth="100">
-                               		<padding>
-                    					<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                					</padding>
-                					<children>
-                                   		<AnchorPane fx:id="completeTaskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>                        
-                               		</children>
-                               </VBox>
-                               <VBox fx:id="completedDeadlines"  prefHeight="400.0" prefWidth="100">
-                                   <padding>
-                    					<Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                					</padding>
-                					<children>
-                                   		<TilePane fx:id="completeDeadlinesListPanelPlaceholder" VBox.vgrow="ALWAYS" style="-fx-background-color: White"/>
-                               		</children>
-                               </VBox>
-                           </items>
-                       </SplitPane>
-                   </content>
-                </Tab>
-            </TabPane>
-         </items>
-      </SplitPane>
-      <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-   </children>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity"
+	minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="seedu.todolist.ui.MainWindow">
+	<stylesheets>
+		<URL value="@DarkTheme.css" />
+		<URL value="@Extensions.css" />
+	</stylesheets>
+	<children>
+		<MenuBar VBox.vgrow="NEVER">
+			<menus>
+				<Menu mnemonicParsing="false" text="File">
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#handleExit"
+							text="Exit" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Help">
+					<items>
+						<MenuItem fx:id="helpMenuItem" mnemonicParsing="false"
+							onAction="#handleHelp" text="Help" />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+		<AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border"
+			VBox.vgrow="NEVER">
+			<padding>
+				<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+			</padding>
+		</AnchorPane>
+		<AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100"
+			minHeight="100" prefHeight="100" styleClass="anchor-pane-with-border"
+			VBox.vgrow="NEVER">
+			<padding>
+				<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+			</padding>
+		</AnchorPane>
+		<SplitPane id="splitPane" fx:id="splitPane"
+			dividerPositions="0.3" VBox.vgrow="ALWAYS">
+			<items>
+				<SplitPane dividerPositions="0.5" orientation="VERTICAL"
+					prefHeight="200.0" prefWidth="160.0">
+					<items>
+						<TitledPane animated="false" collapsible="false" text="Notification">
+							<padding>
+								<Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+							</padding>
+							<content>
+								<AnchorPane fx:id="notificationPlaceHolder"
+									minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+							</content>
+						</TitledPane>
+						<TitledPane animated="false" collapsible="false" text="Overdue">
+							<padding>
+								<Insets bottom="5.0" left="10.0" right="5.0" top="5.0" />
+							</padding>
+							<content>
+								<AnchorPane fx:id="overduePlaceHolder" minHeight="0.0"
+									minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+							</content>
+						</TitledPane>
+					</items>
+				</SplitPane>
+				<VBox>
+					<padding>
+						<Insets bottom="5.0" left="5.0" right="10.0" top="5.0" />
+					</padding>
+					<TabPane fx:id="allTasksTabPane" prefWidth="500"
+						VBox.vgrow="ALWAYS">
+
+						<Tab closable="false" text="Incomplete">
+							<AnchorPane fx:id="taskListPanelPlaceholder">
+							</AnchorPane>
+						</Tab>
+						<Tab closable="false" text="Completed">
+							<AnchorPane fx:id="completeTaskListPanelPlaceholder">
+							</AnchorPane>
+						</Tab>
+					</TabPane>
+				</VBox>
+			</items>
+		</SplitPane>
+		<AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+	</children>
 </VBox>
