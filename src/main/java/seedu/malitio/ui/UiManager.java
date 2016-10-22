@@ -11,7 +11,6 @@ import seedu.malitio.commons.core.ComponentManager;
 import seedu.malitio.commons.core.Config;
 import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.events.storage.DataSavingExceptionEvent;
-import seedu.malitio.commons.events.ui.JumpToListRequestEvent;
 import seedu.malitio.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.malitio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.malitio.commons.util.StringUtil;
@@ -108,12 +107,6 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.handleHelp();
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
     @Subscribe

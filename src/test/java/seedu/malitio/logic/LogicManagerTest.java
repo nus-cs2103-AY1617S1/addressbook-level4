@@ -9,7 +9,6 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.malitio.commons.core.EventsCenter;
 import seedu.malitio.commons.events.model.MalitioChangedEvent;
-import seedu.malitio.commons.events.ui.JumpToListRequestEvent;
 import seedu.malitio.commons.events.ui.ShowHelpRequestEvent;
 import seedu.malitio.logic.Logic;
 import seedu.malitio.logic.LogicManager;
@@ -57,12 +56,7 @@ public class LogicManagerTest {
     private void handleShowHelpRequestEvent(ShowHelpRequestEvent she) {
         helpShown = true;
     }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = je.targetIndex;
-    }
-
+    
     @Before
     public void setup() {
         model = new ModelManager();
@@ -250,34 +244,6 @@ public class LogicManagerTest {
 
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getMalitio(), floatingTaskList);
     }
-
-    @Test
-    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
-    }
-
-    @Test
-    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
-    }
-
-    @Test
-    public void execute_select_jumpsToCorrectTask() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<FloatingTask> threeTasks = helper.generateFloatingTaskList(3);
-
-        Malitio expectedAB = helper.generateMalitio(threeTasks);
-        helper.addToModel(model, threeTasks);
-
-        assertCommandBehavior("select f2",
-                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
-                expectedAB,
-                expectedAB.getFloatingTaskList());
-        assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredFloatingTaskList().get(1), threeTasks.get(1));
-    }
-
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
