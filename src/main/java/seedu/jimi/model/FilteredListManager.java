@@ -66,19 +66,19 @@ public class FilteredListManager {
                 ListId.INCOMPLETE, new PredicateExpression(new CompletedTaskQualifier(false)));
         
         defaultExpressions.put(
-                ListId.DAY_AHEAD_0, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_0)));
+                ListId.DAY_AHEAD_0, new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_0)));
         defaultExpressions.put(
-                ListId.DAY_AHEAD_1, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_1)));
+                ListId.DAY_AHEAD_1, new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_1)));
         defaultExpressions.put(
-                ListId.DAY_AHEAD_2, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_2)));
+                ListId.DAY_AHEAD_2, new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_2)));
         defaultExpressions.put(
-                ListId.DAY_AHEAD_3, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_3)));
+                ListId.DAY_AHEAD_3, new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_3)));
         defaultExpressions.put(
-                ListId.DAY_AHEAD_4, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_4)));
+                ListId.DAY_AHEAD_4, new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_4)));
         defaultExpressions.put(
-                ListId.DAY_AHEAD_5, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_5)));
+                ListId.DAY_AHEAD_5, new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_5)));
         defaultExpressions.put(
-                ListId.DAY_AHEAD_6, new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_6)));
+                ListId.DAY_AHEAD_6, new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_6)));
         
         defaultExpressions.put(
                 ListId.TASKS_AGENDA, new PredicateExpression(new TaskQualifier(false)));
