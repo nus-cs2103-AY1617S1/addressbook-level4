@@ -83,7 +83,7 @@ public abstract class BaseCommand {
         // Does no additional validation by default 
     }
     
-    private void setPositionalArgument(String argument) {
+    protected void setPositionalArgument(String argument) {
         for (Parameter p : getArguments()) {
             if (p.isPositional()) {
                 try {
@@ -95,7 +95,7 @@ public abstract class BaseCommand {
         }
     }
     
-    private void setNameArgument(String flag, String argument) {
+    protected void setNameArgument(String flag, String argument) {
         for (Parameter p : getArguments()) {
             if (flag.equals(p.getFlag())) {
                 try {
