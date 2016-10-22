@@ -11,7 +11,7 @@ import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends ModelRequiringCommand {
 
     public static final String COMMAND_WORD = "delete";
     public static final String COMMAND_FORMAT = "delete INDEX [MORE_INDEX]";

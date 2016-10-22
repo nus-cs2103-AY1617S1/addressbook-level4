@@ -6,16 +6,16 @@ package seedu.savvytasker.logic.commands.models;
 public class AliasCommandModel extends CommandModel {
     
     private String keyword;
-    private String shortKeyword;
+    private String representingText;
     
     /**
      * Creates the model to be used with the alias command.
-     * @param keyword The keyword to replace.
-     * @param shortKeyword The keyword to replace with.
+     * @param keyword The keyword.
+     * @param representingText The text that the keyword represents.
      */
-    public AliasCommandModel(String keyword, String shortKeyword) {
+    public AliasCommandModel(String keyword, String representingText) {
         this.keyword = keyword;
-        this.shortKeyword = shortKeyword;
+        this.representingText = representingText;
     }
     
     public String getKeyword() {
@@ -26,11 +26,11 @@ public class AliasCommandModel extends CommandModel {
         this.keyword = keyword;
     }
     
-    public String getShortKeyword() {
-        return shortKeyword;
+    public String getRepresentingText() {
+        return representingText;
     }
 
-    public void setShortKeyword(String shortKeyword) {
-        this.shortKeyword = shortKeyword;
+    public void setRepresentingText(String shortKeyword) {
+        this.representingText = shortKeyword;
     }
 }

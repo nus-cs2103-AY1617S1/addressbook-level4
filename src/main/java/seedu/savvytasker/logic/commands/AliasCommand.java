@@ -1,13 +1,14 @@
 package seedu.savvytasker.logic.commands;
 
+import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.logic.commands.models.AliasCommandModel;
-import seedu.savvytasker.model.task.Task;
-import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.alias.AliasSymbol;
+import seedu.savvytasker.model.alias.DuplicateSymbolKeywordException;
 
 /**
  * Command to create aliases
  */
-public class AliasCommand extends Command {
+public class AliasCommand extends ModelRequiringCommand {
 
     public static final String COMMAND_WORD = "alias";
 
@@ -18,27 +19,41 @@ public class AliasCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New alias added: %1$s";
     public static final String MESSAGE_DUPLICATE_ALIAS = "This alias is already in use";
+    public static final String MESSAGE_INVALID_KEYWORD = "Unable to use a command name as a keyword!";
 
-    private final Task toAdd;
-
+    private AliasCommandModel commandModel;
+    private Logic logic;
     /**
      * Creates an alias command
      */
     public AliasCommand(AliasCommandModel commandModel) {
-        // create new alias mapping
-        toAdd = null;
+        assert commandModel != null;
+        this.commandModel = commandModel;
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
+
+        AliasSymbol toAdd = new AliasSymbol(commandModel.getKeyword(),
+                commandModel.getRepresentingText());
+        
+        if (logic.canParseHeader(toAdd.getKeyword())) {
+            return new CommandResult(MESSAGE_INVALID_KEYWORD);
+        }
+        
         try {
-            model.addTask(toAdd);
+            model.addAliasSymbol(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (DuplicateTaskException e) {
+        } catch (DuplicateSymbolKeywordException e) {
             return new CommandResult(MESSAGE_DUPLICATE_ALIAS);
         }
-
+    }
+    
+    @Override
+    public void setLogic(Logic logic) {
+        assert logic != null;
+        this.logic = logic;
     }
     
     @Override

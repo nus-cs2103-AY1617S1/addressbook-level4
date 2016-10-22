@@ -5,23 +5,23 @@ package seedu.savvytasker.logic.commands.models;
  */
 public class UnaliasCommandModel extends CommandModel {
     
-    private String shortKeyword;
+    private String keyword;
     
     /**
      * Creates the model to be used with the unalias command.
      * @param shortKeyword The keyword to replace with.
      */
-    public UnaliasCommandModel(String shortKeyword) {
-        assert(shortKeyword != null && !shortKeyword.isEmpty());
-        this.shortKeyword = shortKeyword;
+    public UnaliasCommandModel(String keyword) {
+        assert(keyword != null && !keyword.isEmpty());
+        this.keyword = keyword;
     }
     
-    public String getShortKeyword() {
-        return shortKeyword;
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setShortKeyword(String shortKeyword) {
-        assert(shortKeyword != null && !shortKeyword.isEmpty());
-        this.shortKeyword = shortKeyword;
+    public void setKeyword(String keyword) {
+        assert(keyword != null && !keyword.isEmpty());
+        this.keyword = keyword;
     }
 }

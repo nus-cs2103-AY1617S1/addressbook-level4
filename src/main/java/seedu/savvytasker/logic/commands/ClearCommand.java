@@ -5,7 +5,7 @@ import seedu.savvytasker.model.SavvyTasker;
 /**
  * Clears the address book.
  */
-public class ClearCommand extends Command {
+public class ClearCommand extends ModelRequiringCommand {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Savvy Tasker has been cleared!";

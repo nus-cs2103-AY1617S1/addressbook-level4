@@ -9,7 +9,7 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
 /**
  * Selects a person identified using it's last displayed index from the address book.
  */
-public class SelectCommand extends Command {
+public class SelectCommand extends ModelRequiringCommand {
 
     public final int targetIndex;
 

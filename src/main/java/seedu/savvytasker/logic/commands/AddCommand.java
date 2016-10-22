@@ -7,7 +7,7 @@ import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends ModelRequiringCommand {
 
     public static final String COMMAND_WORD = "add";
 

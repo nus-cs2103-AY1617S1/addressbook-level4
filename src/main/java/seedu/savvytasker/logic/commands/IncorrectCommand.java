@@ -5,10 +5,11 @@ package seedu.savvytasker.logic.commands;
  * Represents an incorrect command. Upon execution, produces some feedback to the user.
  */
 public class IncorrectCommand extends Command {
-
+    public final String resolvedText;
     public final String feedbackToUser;
 
-    public IncorrectCommand(String feedbackToUser){
+    public IncorrectCommand(String resolvedText, String feedbackToUser){
+        this.resolvedText = resolvedText;
         this.feedbackToUser = feedbackToUser;
     }
 
