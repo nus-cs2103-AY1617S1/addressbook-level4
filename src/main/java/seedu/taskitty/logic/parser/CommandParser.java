@@ -107,9 +107,6 @@ public class CommandParser {
         case DoneCommand.COMMAND_WORD:
         	return prepareDone(arguments);
         	
-        case ViewDoneCommand.COMMAND_WORD:
-        	return new ViewDoneCommand();
-        
         case ViewCommand.COMMAND_WORD:
         	if (userInput.equals("view")) {
         		return prepareView(null);
@@ -132,7 +129,7 @@ public class CommandParser {
 			return new ViewCommand(); // view events today, and all deadlines and todos
 		}
     	if (arguments.trim().equals("done")) {
-    		return new ViewDoneCommand(); // defaults to viewDone command
+    		return new ViewCommand("done"); // view done command
     	}
 		String[] details = extractTaskDetailsNatty(arguments);
 		if (details.length!= 3) { // no date was successfully extracted
