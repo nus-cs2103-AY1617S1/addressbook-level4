@@ -74,9 +74,9 @@ public class Todo extends Task implements ReadOnlyTask {
         builder.append(getName())
                 .append("\nDate: ")
                 .append(getDate())
-                .append(" End Date: ")
+                .append("\nEnd Date: ")
                 .append(getEndDate())
-                .append(" Priority: ")
+                .append("\nPriority: ")
                 .append(getPriority());
         return builder.toString();
     }
