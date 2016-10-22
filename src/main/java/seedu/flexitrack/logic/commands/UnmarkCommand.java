@@ -2,6 +2,7 @@ package seedu.flexitrack.logic.commands;
 
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
+import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 
 /**
@@ -33,9 +34,12 @@ public class UnmarkCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        model.unmarkTask(targetIndex - 1);
-
-        return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, targetIndex));
+        try {
+            model.unmarkTask(lastShownList.get(targetIndex - 1));
+            return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, targetIndex));
+        } catch (IllegalValueException e) {
+            return new CommandResult(e.getMessage());
+        }
 
     }
 }

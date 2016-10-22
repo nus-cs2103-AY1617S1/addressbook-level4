@@ -3,6 +3,7 @@ package seedu.flexitrack.logic.commands;
 import seedu.flexitrack.commons.core.EventsCenter;
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.commons.events.ui.JumpToListRequestEvent;
+import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
@@ -28,19 +29,20 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute(){
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        model.markTask(targetIndex - 1);
-
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex));
-
+        
+        try {
+            model.markTask(lastShownList.get(targetIndex-1));
+            return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, targetIndex));
+        } catch (IllegalValueException e) {
+            return new CommandResult(e.getMessage());
+        }
     }
 
 }

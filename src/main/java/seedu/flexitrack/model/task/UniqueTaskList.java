@@ -3,13 +3,15 @@ package seedu.flexitrack.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.flexitrack.commons.util.CollectionUtil;
+import seedu.flexitrack.model.Model;
+import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.DuplicateDataException;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 
 import java.util.*;
 
 /**
- * A list of persons that enforces uniqueness between its elements and does not
+ * A list of tasks that enforces uniqueness between its elements and does not
  * allow nulls.
  *
  * Supports a minimal set of list operations.
@@ -25,7 +27,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class DuplicateTaskException extends DuplicateDataException {
         protected DuplicateTaskException() {
-            super("Operation would result in duplicate persons");
+            super("Operation would result in duplicate tasks");
         }
     }
 
@@ -107,8 +109,9 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.hashCode();
     }
 
-    public void mark(int targetIndex, boolean isDone) {
-        assert targetIndex >= 0;
+    public void mark(ReadOnlyTask targetTask, boolean isDone) throws IllegalValueException {
+        assert targetTask != null;      
+        int targetIndex = internalList.indexOf(targetTask);
         Task markTask = internalList.get(targetIndex);
         markTask.markTask(isDone);
         internalList.set(targetIndex, markTask);

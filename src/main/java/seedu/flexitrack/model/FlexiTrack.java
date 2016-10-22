@@ -178,11 +178,11 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
         return Objects.hash(task, tags);
     }
 
-    public void markTask(int targetIndex) {
+    public void markTask(ReadOnlyTask targetIndex) throws IllegalValueException {
         task.mark(targetIndex, Boolean.TRUE);
     }
 
-    public void unmarkTask(int targetIndex) {
+    public void unmarkTask(ReadOnlyTask targetIndex) throws IllegalValueException {
         task.mark(targetIndex, Boolean.FALSE);
     }
 }

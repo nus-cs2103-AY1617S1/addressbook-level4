@@ -81,13 +81,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void markTask(int targetIndex) {
+    public void markTask(ReadOnlyTask targetIndex) throws IllegalValueException {
         flexiTracker.markTask(targetIndex);
         indicateFlexiTrackerChanged();
     }
 
     @Override
-    public void unmarkTask(int targetIndex) {
+    public void unmarkTask(ReadOnlyTask targetIndex) throws IllegalValueException {
         flexiTracker.unmarkTask(targetIndex);
         indicateFlexiTrackerChanged();
     }
