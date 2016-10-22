@@ -69,7 +69,6 @@ public class Parser {
 
 
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>.*\\S+.*)'");
-
 	
 	public Command parseCommand(String userInput) {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -123,15 +122,28 @@ public class Parser {
 	}
 	
 	//@@author A0139339W
+	/**
+	 * parse the argument based on first occurrence of keyword "not"
+	 * indices before not are for tasks to be marked done
+	 * indices after not are for tasks to be marked not done
+	 * missing keyword "not" means all indices are for tasks to be marked done
+	 */
 	private Command prepareDone(String arguments) {
-		int[] indices;
+		String[] args = arguments.split("not");
+		int[] doneIndices = new int[0];
+		int[] notDoneIndices = new int[0];
 		try {
-			indices = prepareIndexList(arguments);
+			if(!args[0].equals("")) {
+			    doneIndices = prepareIndexList(args[0]);
+			}
+			if(args.length > 1) {
+				notDoneIndices = prepareIndexList(args[1].trim());
+			}
 		} catch (IncorrectCommandException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
 		}
 
-		return new DoneCommand(indices);
+		return new DoneCommand(doneIndices, notDoneIndices);
 	}
 
 
@@ -556,6 +568,7 @@ public class Parser {
 		ArrayList<Optional<Integer>> optionals = new ArrayList<>();
 
 		for (int i = 0; i < indexStrings.length; i++) {
+			System.out.println("parseIndices: " + indexStrings[i].trim());
 			if (!StringUtil.isUnsignedInteger(indexStrings[i].trim())) {
 				optionals = new ArrayList<>();
 				optionals.add(Optional.empty());

@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskFilter;
+import seedu.address.model.task.ReadOnlyTaskFilter;
 
 /**
  * Lists all tasks in the address book to the user.
@@ -44,15 +45,15 @@ public class ListCommand extends Command {
     		switch(taskType.get()) {
     		case "someday":
     		case "sd":
-    			taskTypePredicate = (TaskFilter.isSomedayTask());
+    			taskTypePredicate = (ReadOnlyTaskFilter.isSomedayTask());
     			break;
     		case "deadline":
     		case "dl":
-    			taskTypePredicate = (TaskFilter.isDeadlineTask());
+    			taskTypePredicate = (ReadOnlyTaskFilter.isDeadlineTask());
     			break;
     		case "event":
     		case "ev":
-    			taskTypePredicate = (TaskFilter.isEventTask());
+    			taskTypePredicate = (ReadOnlyTaskFilter.isEventTask());
     			break;
     		}
     	}
@@ -60,10 +61,10 @@ public class ListCommand extends Command {
     		assert doneStatus.get().equals("done") || doneStatus.get().equals("not-done");
     		switch(doneStatus.get()) {
     		case "done":
-    			donePredicate = TaskFilter.isDone();
+    			donePredicate = ReadOnlyTaskFilter.isDone();
     			break;
     		case "not-done":
-    			donePredicate = TaskFilter.isDone().negate();
+    			donePredicate = ReadOnlyTaskFilter.isDone().negate();
     		}
     	}
     	
