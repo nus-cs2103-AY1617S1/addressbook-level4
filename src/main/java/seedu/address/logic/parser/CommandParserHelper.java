@@ -53,102 +53,84 @@ public class CommandParserHelper {
     private Pattern pattern;
     private Matcher matcher;
 
-    public HashMap<String, Optional<String>> prepareAdd(String args) {
+    public HashMap<String, Optional<String>> prepareAdd(String args) throws IllegalValueException {
         assert args != null;
         
         OptionalStringTask task = new OptionalStringTask();
-        String startOfRegex;
-        String startOfRegexCopy;
-
+        String regex;
         int numberOfKeywords = generateNumberOfKeywords(args);
 
         logger.log(Level.FINEST, "Number of keywords in \"" + args + "\" = " + numberOfKeywords);
 
-        try {
-            startOfRegex = generateStartOfRegex(numberOfKeywords);
+        regex = generateStartOfRegex(numberOfKeywords);
 
-            if (numberOfKeywords == ZERO) {
-                matcher = generateMatcherForNoKeyword(startOfRegex, args);
-            } else if (numberOfKeywords == ONE) {
-                startOfRegexCopy = startOfRegex + REGEX_CLOSE_BRACE + REGEX_FIRST_DATE
-                        + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
-
-                matcher = generateMatcher(startOfRegexCopy, args);
-
-                HashMap<String, Optional<String>> map = setStartOrEndDate(matcher);
-                task.startDate = map.get("startDate");
-                task.endDate = map.get("endDate");
-
-                if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
-                    startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
-                    matcher = generateMatcherForNoKeyword(startOfRegex, args);
-                }
-            } else if (numberOfKeywords >= TWO) {
-                startOfRegexCopy = startOfRegex + REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_SECOND_DATE
-                        + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
-
-                matcher = generateMatcher(startOfRegexCopy, args);
-
-                HashMap<String, Optional<String>> map = setStartOrEndDate(matcher);
-                task.startDate = map.get("startDate");
-                task.endDate = map.get("endDate");
-
-                boolean isValidEndDate = true;
-
-                if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
-                    isValidEndDate = false;
-                    task.startDate = Optional.empty();
-                    task.endDate = Optional.empty();
-                    startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
-                    startOfRegexCopy = startOfRegex + REGEX_CLOSE_BRACE + REGEX_FIRST_DATE
-                            + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
-                    matcher = generateMatcher(startOfRegexCopy, args);
-
-                    map = setStartOrEndDate(matcher);
-                    task.startDate = map.get("startDate");
-                    task.endDate = map.get("endDate");
-                    
-                    if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
-                        startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
-                        matcher = generateMatcherForNoKeyword(startOfRegex, args);
-                    }
-                }
-
-
-
-                if (isValidEndDate) {
-                    task.endDate = validateEndDateFormatsFourToSix(matcher);
-                }
-            }
-
-            // assign everything
-            assert matcher != null;
-            validateMatcherMatches(matcher);
-
-            assert matcher.group("taskName") != null;
-            task.taskName = Optional.of(matcher.group("taskName").trim());
-
-            // TODO: Works but looks sloppy
-            if (!matcher.toString().contains(REGEX_FIRST_DATE)) {
-                task.startDate = Optional.empty();
-            }
-
-            if (!matcher.toString().contains(REGEX_FIRST_DATE) && !matcher.toString().contains(REGEX_SECOND_DATE)) {
-                task.endDate = Optional.empty();
-            }
-
-            HashMap<String, Optional<String>> recurrenceRateMap = generateRateAndTimePeriod(matcher);
-            task.rate = recurrenceRateMap.get("rate");
-            task.timePeriod = recurrenceRateMap.get("timePeriod");
-
-            task.priority = Optional.of(assignPriority(matcher));
-            
-            return putVariablesInMap(task);
-        } catch (IllegalValueException ive) {
-            logger.finer("IllegalValueException caught in CommandParser, prepareAdd()");
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE + "\n" + ive.getMessage()));
+        if (numberOfKeywords == ZERO) {
+            validateMatcherForNoKeyword(regex, args);
+        } else if (numberOfKeywords == ONE) {
+            validateMatcherForOneKeyword(args, task, regex);
+        } else if (numberOfKeywords >= TWO) {
+            validateMatcherForTwoKeywords(args, task, regex);
         }
+
+        assert matcher.group("taskName") != null;
+        task.taskName = Optional.of(matcher.group("taskName").trim());
+        // TODO: Works but looks sloppy
+        if (!matcher.toString().contains(REGEX_FIRST_DATE)) {
+            task.startDate = Optional.empty();
+        }
+        if (!matcher.toString().contains(REGEX_FIRST_DATE) && !matcher.toString().contains(REGEX_SECOND_DATE)) {
+            task.endDate = Optional.empty();
+        }
+        HashMap<String, Optional<String>> recurrenceRateMap = generateRateAndTimePeriod(matcher);
+        task.rate = recurrenceRateMap.get("rate");
+        task.timePeriod = recurrenceRateMap.get("timePeriod");
+        task.priority = Optional.of(assignPriority(matcher));
+            
+        return putVariablesInMap(task);
+    }
+
+    public void validateMatcherForTwoKeywords(String args, OptionalStringTask task, String regex)
+            throws IllegalValueException {
+        generateMatcherForTwoKeywords(args, regex);
+        setStartOrEndDate(task, matcher);
+        if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
+            task.startDate = Optional.empty();
+            task.endDate = Optional.empty();
+            regex += REGEX_KEYWORD_GREEDY_SELECT;
+            
+            validateMatcherForOneKeyword(args, task, regex);
+        } else { // endDate is valid
+            task.endDate = validateEndDateFormatsFourToSix(matcher);
+        }
+    }
+
+    public void validateMatcherForOneKeyword(String args, OptionalStringTask task, String regex)
+            throws IllegalValueException {
+        generateMatcherForOneKeyword(args, regex);
+        setStartOrEndDate(task, matcher);
+        if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
+            regex += REGEX_KEYWORD_GREEDY_SELECT;
+            validateMatcherForNoKeyword(regex, args);
+        }
+    }
+
+    public void generateMatcherForOneKeyword(String args, String regex) throws IllegalValueException {
+        String regexCopy = generateRegexForOneKeyword(regex);
+        generateMatcher(regexCopy, args);
+    }
+
+    public void generateMatcherForTwoKeywords(String args, String regex) throws IllegalValueException {
+        String regexCopy = generateRegexForTwoKeywords(regex);
+        generateMatcher(regexCopy, args);
+    }
+
+    public String generateRegexForTwoKeywords(String regex) {
+        return regex + REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_SECOND_DATE
+                + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
+    }
+
+    public String generateRegexForOneKeyword(String regex) {
+        return regex + REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
     }
 
     public HashMap<String, Optional<String>> putVariablesInMap(OptionalStringTask task) {
@@ -156,6 +138,7 @@ public class CommandParserHelper {
         
         map.put("taskName", task.taskName);
         map.put("startDate", task.startDate);
+        map.put("endDate", task.endDate);
         map.put("rate", task.rate);
         map.put("timePeriod", task.timePeriod);
         map.put("priority", task.priority);
@@ -178,10 +161,9 @@ public class CommandParserHelper {
                 || endDate.isPresent() && !DateTime.isValidDate(endDate.get());
     }
 
-    private Matcher generateFloatingTaskMatcherIfInvalidDates(String regex, String args) throws IllegalValueException {
+    private void generateFloatingTaskMatcherIfInvalidDates(String regex, String args) throws IllegalValueException {
         regex += REGEX_KEYWORD_GREEDY_SELECT;
-        Matcher matcher = generateMatcherForNoKeyword(regex, args);
-        return matcher;
+        validateMatcherForNoKeyword(regex, args);
     }
 
     private HashMap<String, Optional<String>> generateRateAndTimePeriod(Matcher matcher) throws IllegalValueException {
@@ -209,18 +191,10 @@ public class CommandParserHelper {
         return map;
     }
 
-    private HashMap<String, Optional<String>> setStartOrEndDate(Matcher matcher) {
-        HashMap<String, Optional<String>> map = new HashMap<String, Optional<String>>();
-
-        Optional<String> startDate = validateStartDateFormatsOneToThree(matcher);
-        Optional<String> endDate = validateEndDateFormatsOneToThree(matcher);
-
-        assert startDate.isPresent() ^ endDate.isPresent();
-
-        map.put("startDate", startDate);
-        map.put("endDate", endDate);
-
-        return map;
+    private void setStartOrEndDate(OptionalStringTask task, Matcher matcher) {
+        task.startDate = validateStartDateFormatsOneToThree(matcher);
+        task.endDate = validateEndDateFormatsOneToThree(matcher);
+        assert task.startDate.isPresent() ^ task.endDate.isPresent();
     }
 
     private String generateStartOfRegex(int numberOfKeywords) {
@@ -237,16 +211,15 @@ public class CommandParserHelper {
         return regex;
     }
 
-    private Matcher generateMatcherForNoKeyword(String regex, String args) throws IllegalValueException {
+    private void validateMatcherForNoKeyword(String regex, String args) throws IllegalValueException {
         regex += REGEX_CLOSE_BRACE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
-        return generateMatcher(regex, args);
+        generateMatcher(regex, args);
     }
 
-    private Matcher generateMatcher(String regex, String args) throws IllegalValueException {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(args);
+    private void generateMatcher(String regex, String args) throws IllegalValueException {
+        pattern = Pattern.compile(regex);
+        matcher = pattern.matcher(args);
         validateMatcherMatches(matcher);
-        return matcher;
     }
 
     private Optional<String> validateEndDateFormatsFourToSix(Matcher matcher) {

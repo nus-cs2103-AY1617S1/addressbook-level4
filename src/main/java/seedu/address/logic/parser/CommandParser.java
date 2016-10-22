@@ -106,18 +106,21 @@ public class CommandParser {
         }
         
         try {  
-            
+            HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareAdd(argsTrimmed);
             
             logger.finer("Exiting CommandParser, prepareAdd()");
-            logger.log(Level.FINEST, "taskName, startDate, endDate, rate, timePeriod and "
+            /*logger.log(Level.FINEST, "taskName, startDate, endDate, rate, timePeriod and "
                     + "priority have these values respectively:", 
-                    new Object[] {taskName, startDate, endDate, rate, timePeriod, priority});
+                    new Object[] {taskName, startDate, endDate, rate, timePeriod, priority});*/
             
-            return new AddCommand(taskName, startDate, endDate, rate, timePeriod, priority);
+            return new AddCommand(extractedValues.get("taskName"), extractedValues.get("startDate"), 
+                    extractedValues.get("endDate"), extractedValues.get("rate"), 
+                    extractedValues.get("timePeriod"), extractedValues.get("priority"));
             
         } catch (IllegalValueException ive) {
             logger.finer("IllegalValueException caught in CommandParser, prepareAdd()");
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE + "\n" + ive.getMessage()));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    AddCommand.MESSAGE_USAGE + "\n" + ive.getMessage()));
         }
     }
 
