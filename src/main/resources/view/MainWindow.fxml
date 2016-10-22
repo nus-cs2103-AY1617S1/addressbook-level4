@@ -25,11 +25,13 @@
             <Menu mnemonicParsing="false" text="Edit">
               <items>
                 <MenuItem fx:id="undoMenuItem" mnemonicParsing="false" onAction="#handleUndo" text="Undo" />
+                  <MenuItem fx:id="clearMenuItem" mnemonicParsing="false" onAction="#handleClear" text="Clear" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="View">
               <items>
                 <MenuItem fx:id="listMenuItem" mnemonicParsing="false" onAction="#handleList" text="List" />
+                  <MenuItem fx:id="viewDoneMenuItem" mnemonicParsing="false" onAction="#handleViewDone" text="View Done" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">

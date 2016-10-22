@@ -60,6 +60,12 @@ public class MainWindow extends UiPart {
     
     @FXML
     private MenuItem exitMenuItem;
+    
+    @FXML
+    private MenuItem clearMenuItem;
+    
+    @FXML
+    private MenuItem viewDoneMenuItem;
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
@@ -212,6 +218,16 @@ public class MainWindow extends UiPart {
     @FXML
     public void handleList() {
         commandBox.handleCommands("list");
+    }
+    
+    @FXML
+    public void handleClear() {
+        commandBox.handleCommands("clear");
+    }
+    
+    @FXML
+    public void handleViewDone() {
+        commandBox.handleCommands("view done");
     }
     
     /**
