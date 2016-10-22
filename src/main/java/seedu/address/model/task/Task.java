@@ -5,6 +5,11 @@ import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
 
+import javafx.beans.Observable;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.util.Callback;
+
 /**
  * Represents an event or a task (with or without deadline) in the task manager.
  * Guarantees: details are present and not null, field values are validated.
@@ -15,6 +20,7 @@ public class Task implements ReadOnlyTask {
     private Name name;
     private Date date;
     private boolean isDone;
+    private BooleanProperty done; // Use Observable so that listeners can know when the task's done status is updated
 
     private UniqueTagList tags;
 
@@ -36,6 +42,7 @@ public class Task implements ReadOnlyTask {
         }
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isDone = isDone;
+        this.done = new SimpleBooleanProperty(isDone);
     }
 
     /**
@@ -47,7 +54,6 @@ public class Task implements ReadOnlyTask {
     
     public Task(Name name) {
     	this.name=name;
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -68,6 +74,13 @@ public class Task implements ReadOnlyTask {
     @Override
     public boolean isDone(){
     	return isDone;
+    }
+    
+    /**
+     * Returns the Observable wrapper of the done status
+     */
+    public BooleanProperty getDone() {
+        return done;
     }
     
     @Override
@@ -103,7 +116,14 @@ public class Task implements ReadOnlyTask {
 	@Override
 	public void markAsDone() {
 		isDone=true;
-		
+		done.set(true);
+	}
+	
+	/*
+	 * Makes Task observable by its done status
+	 */
+	public static Callback<Task, Observable[]> extractor() {
+	    return (Task task) -> new Observable[]{task.getDone()};
 	}
 
 }
