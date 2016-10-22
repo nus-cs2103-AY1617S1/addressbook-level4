@@ -106,7 +106,6 @@ public class TaskMaster implements ReadOnlyTaskMaster {
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         syncTagsWithMasterList(p);
         tasks.add(p);
-        RecurringTaskManager.getInstance().correctAddingOverdueTasks(p);
     }
 
     /**

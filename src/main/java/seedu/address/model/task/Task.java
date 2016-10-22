@@ -93,7 +93,7 @@ public class Task implements ReadOnlyTask {
         return recurringType;
     }
     
-    public void setType(TaskType type) {
+    public void setTaskType(TaskType type) {
         this.taskType = type;
     }
     public void setRecurringType(RecurringType type) {
@@ -179,6 +179,11 @@ public class Task implements ReadOnlyTask {
 	public TaskComponent getComponentForNonRecurringType() {
 	    assert recurringDates.size() == 1 : "This method should only be used for non recurring tasks";
 	    return recurringDates.get(0);
+	}
+	
+	@Override
+	public TaskComponent getLastAppendedComponent() {
+	    return recurringDates.get(recurringDates.size()-1);
 	}
 
 	@Override
