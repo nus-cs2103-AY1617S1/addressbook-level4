@@ -211,15 +211,18 @@ public class ClearController implements Controller {
         int numTasks = db.getTaskByRange(dateFrom, dateTo).size();
         int numEvents = db.getEventByRange(dateFrom, dateTo).size();
         
+        //if no tasks or events are been found
         if (numTasks == EMPTY && numEvents == EMPTY) {
             Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
             return;
         }
         
+        //if CalendarItem type not specified
         if (deleteAll) {
             db.destroyAllEventByRange(dateFrom, dateTo);
             db.destroyAllTaskByRange(dateFrom, dateTo);
         } else if (isTask) {
+            // no task is been found
             if (numTasks == EMPTY) {
                 Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
                 return;
@@ -227,6 +230,7 @@ public class ClearController implements Controller {
             db.destroyAllTaskByRange(dateFrom, dateTo);
             numEvents = EMPTY;
         } else {
+            // no event is been found
             if (numEvents == EMPTY) {
                 Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
                 return;
@@ -234,6 +238,8 @@ public class ClearController implements Controller {
             db.destroyAllEventByRange(dateFrom, dateTo);
             numTasks = EMPTY;
         }
+        
+        //save and render
         db.save();
         Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, formatSuccessMessage(numTasks, numEvents)));
     }
@@ -253,29 +259,34 @@ public class ClearController implements Controller {
     private void destroyBySelectedDate(TodoListDB db, LocalDateTime givenDate, boolean deleteAll, boolean isTask) {
         int numTasks = db.getTaskByDate(givenDate).size();
         int numEvents = db.getEventByDate(givenDate).size();
+        
+        // no tasks or events are been found
         if (numTasks == EMPTY && numEvents == EMPTY) {
             Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
             return;
         }
         
+        // task or event is not specified
         if (deleteAll) {
             db.destroyAllEventByDate(givenDate);
             db.destroyAllTaskByDate(givenDate);
-        } else if (isTask) {
-            if (numTasks == EMPTY) {
+        } else if (isTask) { //deleting task
+            if (numTasks == EMPTY) { //if no task is found
                 Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
                 return;
             }
             db.destroyAllTaskByDate(givenDate);
             numEvents = EMPTY;
-        } else {
-            if (numEvents == EMPTY) {
+        } else { //deleting events
+            if (numEvents == EMPTY) { //if no event is found
                 Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
                 return;
             }
             db.destroyAllEventByDate(givenDate);
             numTasks = EMPTY;
         }
+        
+        //save and render
         db.save();
         Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, formatSuccessMessage(numTasks, numEvents)));
     }
@@ -337,11 +348,6 @@ public class ClearController implements Controller {
             date = groups.get(0).getDates().get(0);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Error!"); // TODO
-//            if (invalidDate != null) {
-//                invalidDate = String.format("from %s to %s", invalidDate, natural);
-//            } else {
-//                invalidDate = natural;
-//            }
             return null;
         }
         LocalDateTime ldt = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
