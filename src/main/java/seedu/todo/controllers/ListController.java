@@ -52,7 +52,7 @@ public class ListController implements Controller {
         Map<String, String[]> tokenDefinitions = new HashMap<String, String[]>();
         tokenDefinitions.put("default", new String[] {"list"});
         tokenDefinitions.put("eventType", new String[] { "event", "events", "task", "tasks"});
-        tokenDefinitions.put("status", new String[] { "complete" , "completed", "uncomplete", "uncompleted"});
+        tokenDefinitions.put("status", new String[] { "complete" , "completed", "incomplete", "incompleted"});
         tokenDefinitions.put("time", new String[] { "at", "by", "on", "time" });
         tokenDefinitions.put("timeFrom", new String[] { "from" });
         tokenDefinitions.put("timeTo", new String[] { "to", "before" });
@@ -83,9 +83,9 @@ public class ListController implements Controller {
         
         boolean listAllStatus = parseListAllStatus(parsedResult);
         boolean isCompleted = false; //default 
-        //if listing all status, isCompleted will be ignored, listing both complete and uncomplete
+        //if listing all status, isCompleted will be ignored, listing both complete and incomplete
         if (!listAllStatus) {
-            isCompleted = !parseIsUncomplete(parsedResult);
+            isCompleted = !parseIsIncomplete(parsedResult);
         }
         
         String[] parsedDates = parseDates(parsedResult);
@@ -144,14 +144,18 @@ public class ListController implements Controller {
         if (listAll) { //task or event not specify
             //no event or task keyword found
             isTask = false;
-            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided, isExactCommand, db);
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided, isExactCommand, db);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
+                    isExactCommand, listAll, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
+                    isExactCommand, listAll, db);
         }
         
         if (isTask) {
-            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided, isExactCommand, db);
+            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
+                    isExactCommand, listAll, db);
         } else {
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided, isExactCommand, db);
+            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
+                    isExactCommand, listAll, db);
         }
         
         if (tasks == null && events == null) {
@@ -245,11 +249,16 @@ public class ListController implements Controller {
     }
     
     private List<Event> setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn,
-            LocalDateTime dateFrom, LocalDateTime dateTo, boolean isDateProvided, boolean isExactCommand, TodoListDB db) {
+            LocalDateTime dateFrom, LocalDateTime dateTo, boolean isDateProvided, 
+            boolean isExactCommand, boolean listAll, TodoListDB db) {
         if (dateFrom == null && dateTo == null && dateOn == null) {
             if (listAllStatus) { // not specify
                 if (isExactCommand && isDateProvided == false) {
-                    return db.getAllEvents();
+                    if (listAll) {
+                        return db.getAllCurrentEvents();
+                    } else {
+                        return db.getAllEvents();
+                    }
                 } else {
                     return null;
                 }
@@ -266,11 +275,15 @@ public class ListController implements Controller {
     }
 
     private List<Task> setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
-            LocalDateTime dateTo, boolean isDateProvided, boolean isExactCommand, TodoListDB db) {
+            LocalDateTime dateTo, boolean isDateProvided, boolean isExactCommand, boolean listAll, TodoListDB db) {
         if (dateFrom == null && dateTo == null && dateOn == null) {
             if (listAllStatus) { // not specify
                 if (isExactCommand && isDateProvided == false) {
-                    return db.getAllTasks();
+                    if (listAll) {
+                        return db.getIncompleteTasksAndTaskFromTodayDate();
+                    } else {
+                        return db.getAllTasks();
+                    }
                 } else {
                     return null;
                 }
@@ -332,10 +345,10 @@ public class ListController implements Controller {
      * Extracts the intended CalendarItem status from parsedResult.
      * 
      * @param parsedResult
-     * @return true if uncomplete, false if complete
+     * @return true if incomplete, false if complete
      */
-    private boolean parseIsUncomplete (Map<String, String[]> parsedResult) {
-        return parsedResult.get("status")[0].contains("uncomplete");
+    private boolean parseIsIncomplete (Map<String, String[]> parsedResult) {
+        return parsedResult.get("status")[0].contains("incomplete");
     }
     
     /**
