@@ -50,9 +50,10 @@ public class EditCommand extends UndoableCommand {
     Priority priority;
     boolean removeRepeat, removeStart, removeEnd;
 
-	public EditCommand(int targetIndex,String taskNameString, String startDateString, String endDateString, 
-            String recurrenceRateString, String timePeriodString, String priorityString, String resetFieldString)  throws IllegalValueException {
-        	
+	public EditCommand(int targetIndex, Optional<String> taskNameString, Optional<String> startDateString,
+			Optional<String> endDateString, Optional<String> rateString, Optional<String> timePeriodString,
+			Optional<String> priorityString, String resetFieldString)throws IllegalValueException {       
+		
 		this.targetIndex = targetIndex;
 		taskName = null;
 		startDate = null;
@@ -62,25 +63,26 @@ public class EditCommand extends UndoableCommand {
         removeStart = false;
         removeEnd = false;
         
-        if ( taskNameString!=null && !taskNameString.trim().equals("")) {
-    		taskName = new Name(taskNameString);
+        if (taskNameString.isPresent() && !taskNameString.get().toString().trim().equals("")) {
+    		taskName = new Name(taskNameString.get());
         } 
         
-        if (startDateString != null) {
-            assert DateTime.isValidDate(startDateString);
-            startDate = DateTime.convertStringToStartDate(startDateString);
+        if (startDateString.isPresent()) {
+            startDate = DateTime.convertStringToDate(startDateString.get());
         }
 
-        if (endDateString != null) {
-            assert DateTime.isValidDate(endDateString);
-            endDate = DateTime.convertStringToEndDate(endDateString, startDate);
+        if (endDateString.isPresent()) {
+            endDate = DateTime.convertStringToDate(endDateString.get());
+            if (startDate != null && !DateTime.hasDateValue(endDateString.get())) {
+                endDate = DateTime.setEndDateToStartDate(startDate, endDate);
+            }
         }
 
-        if (recurrenceRateString != null && timePeriodString != null) {
-            recurrenceRate = new RecurrenceRate(recurrenceRateString, timePeriodString);
-        } else if (recurrenceRateString == null && timePeriodString != null) {
-            recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString);
-        } else if (recurrenceRateString != null && timePeriodString == null) {
+        if (rateString.isPresent() && timePeriodString.isPresent()) {
+            recurrenceRate = new RecurrenceRate(rateString.get(), timePeriodString.get());
+        } else if (!rateString.isPresent() && timePeriodString.isPresent()) {
+            recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString.get());
+        } else if (rateString.isPresent() && !timePeriodString.isPresent()) {
             throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
         } 
         
@@ -89,15 +91,9 @@ public class EditCommand extends UndoableCommand {
                 startDate == null && endDate == null) {
             startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
         }
-        
-        if(priorityString != null){
-        	switch (priorityString) {
-            	case ("low"): case ("l"): priority = Priority.LOW; break; 
-            	case ("high"): case ("h"): priority = Priority.HIGH; break;
-            	case ("medium"): case ("m"): case ("med"): priority = Priority.MEDIUM; break;
-        	}
-        } 
-        
+
+        priority = Priority.stringToPriority(priorityString.get());
+                
         /*
          * Check which field is to be reset
          */

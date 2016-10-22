@@ -1,6 +1,6 @@
 package seedu.address.model.item;
 
-import java.util.HashMap;
+import java.util.Optional;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -14,33 +14,7 @@ public class RecurrenceRate {
             + "or days of the week such as \"Monday\", \"Wed\"\n"
             + "For example: \"repeat every 3 days\", \"repeat every week\", \"repeat every Wed\"";
     
-    public static final HashMap<String, TimePeriod> INPUT_TO_TIME_PERIOD_MAP = new HashMap<String, TimePeriod>() {{
-        put("hour", TimePeriod.HOUR);
-        put("hours", TimePeriod.HOUR);
-        put("day", TimePeriod.DAY);
-        put("days", TimePeriod.DAY);
-        put("week", TimePeriod.WEEK);
-        put("weeks", TimePeriod.WEEK);
-        put("month", TimePeriod.MONTH);
-        put("months", TimePeriod.MONTH);
-        put("year", TimePeriod.YEAR);
-        put("years", TimePeriod.YEAR);
-        put("mon", TimePeriod.MONDAY);
-        put("monday", TimePeriod.MONDAY);
-        put("tues", TimePeriod.TUESDAY);
-        put("tuesday", TimePeriod.TUESDAY);
-        put("wed", TimePeriod.WEDNESDAY);
-        put("wednesday", TimePeriod.WEDNESDAY);
-        put("thur", TimePeriod.THURSDAY);
-        put("thurs", TimePeriod.THURSDAY);
-        put("thursday", TimePeriod.THURSDAY);
-        put("fri", TimePeriod.FRIDAY);
-        put("friday", TimePeriod.FRIDAY);
-        put("sat", TimePeriod.SATURDAY);
-        put("saturday", TimePeriod.SATURDAY);
-        put("sun", TimePeriod.SUNDAY);
-        put("sunday", TimePeriod.SUNDAY);
-    }};
+    
     
     public Integer rate;
     public TimePeriod timePeriod;
@@ -50,11 +24,11 @@ public class RecurrenceRate {
      *
      * @throws IllegalValueException if either values are invalid.
      */
-    public RecurrenceRate(String rate, String timePeriod) throws IllegalValueException {
+    public RecurrenceRate(String rate, String timePeriodString) throws IllegalValueException {
+        assert rate != null && timePeriodString != null;
         
-        if (!isValidTimePeriod(timePeriod.trim())) {
-            throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
-        }
+        Optional<TimePeriod> timePeriod = TimePeriod.validateTimePeriodInput(timePeriodString.trim());
+        this.timePeriod = timePeriod.orElseThrow(() -> new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS));
         
         if (Integer.valueOf(rate) <= 0) {   
             throw new IllegalValueException(MESSAGE_VALUE_CONSTRAINTS);
@@ -69,21 +43,6 @@ public class RecurrenceRate {
     
     public RecurrenceRate(String timePeriod) throws IllegalValueException {
         this(STRING_CONSTANT_ONE, timePeriod);
-    }
-
-    /**
-     * Validates user input and converts it into TimePeriod.
-     *
-     * @return true if user input is recognised as a valid TimePeriod.
-     */
-    private boolean isValidTimePeriod(String timePeriod) {
-        for (String key : INPUT_TO_TIME_PERIOD_MAP.keySet()) {
-            if (key.equals(timePeriod.toLowerCase())) {
-                this.timePeriod = INPUT_TO_TIME_PERIOD_MAP.get(key);
-                return true;
-            }
-        }
-        return false;
     }
     
     @Override
