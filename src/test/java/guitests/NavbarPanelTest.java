@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 
-public class NavbarTest extends TaskMasterGuiTest {
+public class NavbarPanelTest extends TaskMasterGuiTest {
 	
 	private final String NAVBAR_TASKS = " Tasks";
     private final String NAVBAR_DEADLINES = " Deadlines";

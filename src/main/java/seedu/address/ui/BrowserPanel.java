@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskComponent;
@@ -21,6 +22,7 @@ public class BrowserPanel extends UiPart{
 
     private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
     private static final String FXML = "BrowserPanel.fxml";
+
     
     @FXML
     private MyAgenda agenda;
@@ -34,6 +36,7 @@ public class BrowserPanel extends UiPart{
 
     @Override
     public void setNode(Node node) {
+    	
     }
 
     @Override
@@ -43,6 +46,7 @@ public class BrowserPanel extends UiPart{
     
     @Override
     public void setPlaceholder(AnchorPane pane) {
+    	
     }
 
     /**
@@ -58,6 +62,10 @@ public class BrowserPanel extends UiPart{
         FxViewUtil.applyAnchorBoundaryParameters(browserPanel.agenda, 0.0, 0.0, 0.0, 0.0);
         placeholder.getChildren().add(browserPanel.agenda);
         return browserPanel;
+    }
+    
+    public void configure(ObservableList<TaskComponent> taskList){
+    	initialize(taskList);
     }
     
   //@@author A0147967J
@@ -88,6 +96,10 @@ public class BrowserPanel extends UiPart{
     
     public void loadTaskList(List<TaskComponent> taskList){   	
     	agenda.addAllToAgenda(taskList);    		
+    }
+    
+    public MyAgenda getAgenda(){
+    	return agenda;
     }
     
 }

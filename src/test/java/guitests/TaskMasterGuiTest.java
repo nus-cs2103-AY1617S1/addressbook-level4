@@ -2,6 +2,8 @@ package guitests;
 
 import guitests.guihandles.*;
 import javafx.stage.Stage;
+import jfxtras.scene.control.agenda.Agenda.AppointmentImplLocal;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -16,6 +18,7 @@ import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
+import seedu.address.ui.MyAgenda;
 
 import java.util.concurrent.TimeoutException;
 

@@ -22,6 +22,9 @@ public class TypicalTestTasks {
     /** Blocked slots. */
     public static TestTask block1, block2, block3;
 
+    /** Recurring Task. */
+    public static TestTask recurrence;
+    
     public TypicalTestTasks() {
         try {
         	//Floating tasks
@@ -47,7 +50,10 @@ public class TypicalTestTasks {
             //Add non-floating overlapped timeslot
             movie = new TaskBuilder().withName("movie").withStartDate("17 oct 8pm").withEndDate("17 oct 11pm").build();
             //Block overlapped timeslot
-            block2 = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("17 oct 8pm").withEndDate("17 oct 11pm").build();
+            block2 = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("17 oct 8pm").withEndDate("17 oct 11pm").build(); 
+            //Recurring Type
+            recurrence = new TaskBuilder().withName("Recurring Task").withStartDate("today 8pm").withEndDate("today 11pm")
+            		.withRecurringType(RecurringType.DAILY).build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
