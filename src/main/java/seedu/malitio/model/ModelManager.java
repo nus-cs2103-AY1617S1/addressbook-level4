@@ -8,6 +8,7 @@ import seedu.malitio.commons.events.model.MalitioChangedEvent;
 import seedu.malitio.commons.util.StringUtil;
 import seedu.malitio.model.history.InputAddHistory;
 import seedu.malitio.model.history.InputDeleteHistory;
+import seedu.malitio.model.history.InputEditHistory;
 import seedu.malitio.model.history.InputHistory;
 import seedu.malitio.model.task.Deadline;
 import seedu.malitio.model.task.Event;
@@ -129,6 +130,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void editFloatingTask(FloatingTask edited, ReadOnlyFloatingTask beforeEdit) throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
         malitio.editFloatingTask(edited, beforeEdit);
+        history.add(new InputEditHistory(edited, beforeEdit));
         updateFilteredTaskListToShowAll();
         indicatemalitioChanged();
     }
@@ -136,6 +138,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void editDeadline(Deadline edited, ReadOnlyDeadline beforeEdit) throws DuplicateDeadlineException, DeadlineNotFoundException {
         malitio.editDeadline(edited, beforeEdit);
+        history.add(new InputEditHistory(edited, beforeEdit));
         updateFilteredDeadlineListToShowAll();
         indicatemalitioChanged();
     }
@@ -143,6 +146,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void editEvent(Event edited, ReadOnlyEvent beforeEdit) throws DuplicateEventException, EventNotFoundException {
         malitio.editEvent(edited, beforeEdit);
+        history.add(new InputEditHistory(edited, beforeEdit));
         updateFilteredEventListToShowAll();
         indicatemalitioChanged();
     }
