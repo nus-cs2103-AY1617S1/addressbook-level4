@@ -69,7 +69,7 @@ public abstract class Command {
     protected Optional<UnmodifiableObservableList<ReadOnlyTask>> determineListFromIndexPrefix(String idx) {
         if (idx.trim().startsWith(INDEX_TASK_LIST_PREFIX)) {
             return Optional.of(model.getFilteredAgendaTaskList());
-        } else if (idx.startsWith(INDEX_EVENT_LIST_PREFIX)) {
+        } else if (idx.trim().startsWith(INDEX_EVENT_LIST_PREFIX)) {
             return Optional.of(model.getFilteredAgendaEventList());
         }
         return Optional.empty();
