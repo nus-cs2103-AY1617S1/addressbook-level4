@@ -12,7 +12,7 @@ import seedu.address.testutil.TestUtil;
 public class ListTaskCommandTest {
     
     @Test
-    public void listCommand_noTasks() {
+    public void listCommand_noTasks() throws IllegalValueException{
         /* CommandResult should return a string that denotes that 
          * there are no tasks to list.
          */
@@ -72,7 +72,7 @@ public class ListTaskCommandTest {
 	 * CommandResult should return a string that indicates 0 completed tasks found
 	 * (since there are no completed tasks).
 	 */
-	public void listCompletedTask_noTasksAdded() {
+	public void listCompletedTask_noTasksAdded() throws IllegalValueException{
     	InMemoryTaskList model;
 		model = TestUtil.setupEmptyTaskList();
 		ListTaskCommand command = new ListTaskCommand("completed");

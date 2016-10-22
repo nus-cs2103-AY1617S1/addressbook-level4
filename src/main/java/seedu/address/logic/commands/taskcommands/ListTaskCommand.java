@@ -57,5 +57,9 @@ public class ListTaskCommand extends TaskCommand {
         }
 
     }
+    
+    public String getType(){
+    	return argument;
+    }
 
 }
