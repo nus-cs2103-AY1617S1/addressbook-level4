@@ -33,8 +33,19 @@ public class ListCommandTest extends TaskManagerGuiTest {
 		assertListResult("list event", expectedList);
 		assertListResult("list ev", expectedList);
 		
-		//TODO: list done & not done, currently have problem
-		//TODO: list taskType and doneStatus
+		//list done
+		expectedList = new TestTask[] {td.someday1, td.deadlineToday, td.deadlineIn7Days,
+				td.deadline1, td.eventToday, td.eventIn7Days, td.event1};
+		assertListResult("list done", expectedList);
+		
+		//list not done
+		expectedList = new TestTask[] {td.deadlineTomorrow, td.deadlineIn30Days, 
+				td.someday2, td.deadline2, td.eventTomorrow, td.eventIn30Days, td.event2};
+		assertListResult("list not-done", expectedList);
+		
+		//list done and deadline
+		expectedList = new TestTask[] {td.deadlineToday, td.deadlineIn7Days, td.deadline1};
+		assertListResult("list done dl", expectedList);
 		
 		//list contains invalid input
 		commandBox.runCommand("list ss done");
