@@ -1,12 +1,12 @@
 package seedu.jimi.model;
 
 import java.time.DayOfWeek;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.jimi.commons.core.LogsCenter;
@@ -98,11 +98,16 @@ public class FilteredListManager {
         updateFilteredList(id, new PredicateExpression(new NameQualifier(keywords)));
     }
     
+    /** 
+     * Updates filtered list with a filter that matches the default filter 
+     * along with all predicate expressions in {@code expressions}.
+     * @author Clarence 
+     * */
     private void updateFilteredList(ListId id, Expression... expressions) {
         updateFilteredListToDefault(); // first reset to default
         Predicate<? super ReadOnlyTask> defaultPredicate = listMap.get(id).getPredicate();
         Predicate<? super ReadOnlyTask> updatedPredicate = 
-                t -> defaultPredicate.test(t) && Stream.of(expressions).allMatch(ex -> ex.satisfies(t));
+                t -> defaultPredicate.test(t) && Arrays.stream(expressions).allMatch(ex -> ex.satisfies(t));
         listMap.get(id).setPredicate(updatedPredicate);
     }
     
