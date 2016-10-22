@@ -37,6 +37,14 @@ public class AddCommandTest extends TaskListGuiTest {
         //invalid command
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        commandBox.runCommand("add task1 s/12129999 e/01010000 ");
+        assertResultMessage(Messages.MESSAGE_INVALID_DATE_TIME_ENTRY);
+        commandBox.runCommand("add task2 s/2359 e/0000 ");
+        assertResultMessage(Messages.MESSAGE_INVALID_DATE_TIME_ENTRY);
+        commandBox.runCommand("add task3 s/01019999 0000 e/01019999 0000");
+        assertResultMessage(Messages.MESSAGE_INVALID_DATE_TIME_ENTRY);
+        commandBox.runCommand("add task3 s/01019999 2359 e/01019999 0000");
+        assertResultMessage(Messages.MESSAGE_INVALID_DATE_TIME_ENTRY);
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {

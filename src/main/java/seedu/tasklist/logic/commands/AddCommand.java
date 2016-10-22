@@ -19,10 +19,10 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task list. "
-            + "Parameters: TITLE [d/DESCRIPTION]  [s/START DATE TIME] [e/END DATE TIME] [t/TAG]...\n"
+            + "Parameters: TITLE [d/DESCRIPTION]  [s/DDMMYYYY [HHMM]] [e/DDMMYYYY [HHMM]] [t/TAG]...\n"
             + "Example: \n"
             + COMMAND_WORD + " CS2103 d/Pre tutorial 1 s/15102016 2100 e/15112016 2300 t/urgent\n"
-            + COMMAND_WORD + " CS1020 Tutorial d/many questions e/05102016 1200 t/needhelp\n"
+            + COMMAND_WORD + " CS1020 Tutorial d/many questions e/05102016 t/needhelp\n"
             + COMMAND_WORD + " Meeting";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
@@ -73,12 +73,12 @@ public class AddCommand extends Command {
     @Override
     public Command prepare(String args) {
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-
+        
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
-       
+        
         try {
             return new AddCommand(
                     matcher.group("title"),

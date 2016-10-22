@@ -1,5 +1,7 @@
 package seedu.tasklist.model.task;
 
+import seedu.tasklist.commons.core.Messages;
+import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.CollectionUtil;
 import seedu.tasklist.model.tag.UniqueTagList;
 
@@ -11,7 +13,7 @@ import java.util.Objects;
  * Represents a Task in the task list.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask {    
     private Title title;
     private Description description;
     private DateTime startDateTime;
@@ -25,9 +27,13 @@ public class Task implements ReadOnlyTask {
 
     /**
      * Every field must be present and not null.
+     * @throws IllegalValueException 
      */
-    public Task(Title title, DateTime startDateTime, Description description, DateTime endDateTime, UniqueTagList tags) {
+    public Task(Title title, DateTime startDateTime, Description description, DateTime endDateTime, UniqueTagList tags) throws IllegalValueException {
         assert !CollectionUtil.isAnyNull(title, startDateTime, description, endDateTime, tags);
+        
+        validateDateTime(startDateTime, endDateTime);
+        
         this.title = title;
         this.startDateTime = startDateTime;
         this.description = description;
@@ -35,8 +41,8 @@ public class Task implements ReadOnlyTask {
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isCompleted = false;
         
-        initializeOverdue(endDateTime);
-        initializeFloating(startDateTime, endDateTime);
+        initializeOverdue();
+        initializeFloating();
     }
     
     /**
@@ -44,6 +50,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(Title title, DateTime startDateTime, Description description, DateTime endDateTime, UniqueTagList tags, boolean isCompleted, boolean isOverdue, boolean isFloating) {
         assert !CollectionUtil.isAnyNull(title, startDateTime, description, endDateTime, tags, isCompleted, isOverdue, isFloating);
+        
         this.title = title;
         this.startDateTime = startDateTime;
         this.description = description;
@@ -52,9 +59,6 @@ public class Task implements ReadOnlyTask {
         this.isCompleted = isCompleted;
         this.isOverdue = isOverdue;
         this.isFloating = isFloating;
-        
-        initializeOverdue(endDateTime);  //Check for errors
-        initializeFloating(startDateTime, endDateTime); //Check for errors
     }
 
     /**
@@ -64,33 +68,32 @@ public class Task implements ReadOnlyTask {
         this(source.getTitle(), source.getStartDateTime(), source.getDescription(), source.getEndDateTime(), source.getTags(), source.isCompleted(), source.isOverdue(), source.isFloating());
     }
     
-
     /**
-     * Check and assign task overdue status 
-     * @param startDateTime cannot be null
-     * @param endDateTime cannot be null
+     * Check whether startDateTime is before endDateTime
+     * @throws IllegalValueException if startDateTime is before endDateTime
      */
-    private void initializeOverdue(DateTime endDateTime) {
-        if (!endDateTime.getDate().toString().isEmpty()) {
-            if (endDateTime.getDate().getDate().isBefore(LocalDate.now())) {
-                this.isOverdue = true;
-            } else if (!endDateTime.getTime().toString().isEmpty() 
-                    && endDateTime.getDate().getDate().isEqual(LocalDate.now()) 
-                    && endDateTime.getTime().getTime().isBefore(LocalTime.now())) {
-                this.isOverdue = true;
-            }
+    private void validateDateTime(DateTime startDateTime, DateTime endDateTime) throws IllegalValueException {
+        if (startDateTime.isDateTimeAfter(endDateTime)) {
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_DATE_TIME_ENTRY);
         }
     }
     
     /**
-     * Check and assign task floating status
-     * @param startDateTime cannot be null
-     * @param endDateTime cannot be null
+     * Initialize overdue task status 
      */
-    private void initializeFloating(DateTime startDateTime, DateTime endDateTime) {
-        if (startDateTime.getDate().toString().isEmpty() 
-                && startDateTime.getTime().toString().isEmpty() 
-                && endDateTime.getDate().toString().isEmpty() && endDateTime.getTime().toString().isEmpty()) {
+    private void initializeOverdue() {
+        if (this.endDateTime.isDateTimeAfterCurrentDateTime()) {
+            this.isOverdue = true;
+        } else {
+            this.isOverdue = false;
+        }
+    }
+    
+    /**
+     * Initialize floating task status
+     */
+    private void initializeFloating() {
+        if (this.startDateTime.isDateTimeEmpty() && this.endDateTime.isDateTimeEmpty()) {
             this.isFloating = true;
         } else {
             this.isFloating = false;

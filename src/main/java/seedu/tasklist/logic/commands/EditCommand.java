@@ -1,7 +1,5 @@
 package seedu.tasklist.logic.commands;
 
-import static seedu.tasklist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -69,7 +67,7 @@ public class EditCommand extends Command {
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         } catch (IllegalValueException e) {
-            assert false : "The target task cannot be illegal";
+            return new CommandResult(String.format(e.getMessage()));
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
     }
@@ -150,14 +148,14 @@ public class EditCommand extends Command {
 
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         
         // Validate arg index
         Optional<Integer> index = parseIndex(matcher.group("targetIndex"));
         
         if(!index.isPresent()){
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         
         try {            
