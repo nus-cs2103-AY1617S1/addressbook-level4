@@ -363,7 +363,7 @@ public class LogicManagerTest {
         // expected result after edit
         toBeEdited.setName(new Name("new name"));
         expectedAB.addTask(toBeEdited);
-            
+        
         // execute command and verify result
         assertCommandBehavior(helper.generateEditCommand(1, "new name"),
                     String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, toBeEdited),
@@ -382,60 +382,80 @@ public class LogicManagerTest {
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Task p1 = helper.generatePersonWithName("KE Y");
-        Task p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
+        Task pTarget1 = helper.generateDatedTaskWithName("bla bla KEY bla");
+        Task pTarget2 = helper.generateUndatedTaskWithName("bla KEY bla bceofeia");
+        Task p1 = helper.generateDatedTaskWithName("KE Y");
+        Task p2 = helper.generateUndatedTaskWithName("KEYKEYKEY sduauo");
 
-        List<Task> fourPersons = helper.generateDatedTaskList(p1, pTarget1, p2, pTarget2);
-        TaskBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Task> expectedList = helper.generateDatedTaskList(pTarget1, pTarget2);
-        helper.addToModel(model, fourPersons);
+        List<Task> twoDated = helper.generateDatedTaskList(p1, pTarget1);
+        List<Task> twoUndated = helper.generateUndatedTaskList(p2, pTarget2);
+        TaskBook expectedAB = new TaskBook();
+        helper.addToAddressBook(expectedAB, twoUndated);
+        helper.addToAddressBook(expectedAB, twoDated);
+        List<Task> expectedDatedTaskList = helper.generateDatedTaskList(pTarget1);
+        List<Task> expectedUndatedTaskList = helper.generateUndatedTaskList(pTarget2);
+        helper.addToModel(model, twoUndated);
+        helper.addToModel(model, twoDated);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
+                (Command.getMessageForPersonListShownSummary(
+                        expectedDatedTaskList.size()+expectedUndatedTaskList.size())),
+                        expectedAB, expectedDatedTaskList, expectedUndatedTaskList);
     }
 
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generatePersonWithName("bla bla KEY bla");
-        Task p2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Task p3 = helper.generatePersonWithName("key key");
-        Task p4 = helper.generatePersonWithName("KEy sduauo");
+        Task pTarget1a = helper.generateDatedTaskWithName("bla bla KEY bla");
+        Task pTarget1b = helper.generateDatedTaskWithName("bla key bla");
+        Task pTarget2a = helper.generateUndatedTaskWithName("bla KEY bla bceofeia");
+        Task pTarget2b = helper.generateUndatedTaskWithName("bla key bceofeia");
+        Task p1 = helper.generateDatedTaskWithName("KE Y");
+        Task p2 = helper.generateUndatedTaskWithName("KEYKEYKEY sduauo");
 
-        List<Task> fourPersons = helper.generateDatedTaskList(p3, p1, p4, p2);
-        TaskBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Task> expectedList = fourPersons;
-        helper.addToModel(model, fourPersons);
+        List<Task> threeDated = helper.generateDatedTaskList(p1, pTarget1a, pTarget1b);
+        List<Task> threeUndated = helper.generateUndatedTaskList(p2, pTarget2a, pTarget2b);
+        TaskBook expectedAB = new TaskBook();
+        helper.addToAddressBook(expectedAB, threeUndated);
+        helper.addToAddressBook(expectedAB, threeDated);
+        List<Task> expectedDatedTaskList = helper.generateDatedTaskList(pTarget1a, pTarget1b);
+        List<Task> expectedUndatedTaskList = helper.generateUndatedTaskList(pTarget2a, pTarget2b);
+        helper.addToModel(model, threeUndated);
+        helper.addToModel(model, threeDated);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
+                (Command.getMessageForPersonListShownSummary(
+                        expectedDatedTaskList.size()+expectedUndatedTaskList.size())),
+                        expectedAB, expectedDatedTaskList, expectedUndatedTaskList);
     }
 
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generatePersonWithName("key key");
-        Task p1 = helper.generatePersonWithName("sduauo");
+        Task pTarget1a = helper.generateDatedTaskWithName("bla bla KEY bla");
+        Task pTarget1b = helper.generateDatedTaskWithName("bla rAnDoM bla bceofeia");
+        Task pTarget1c = helper.generateDatedTaskWithName("key key");
+        Task pTarget2a = helper.generateUndatedTaskWithName("bla bla KEY bla");
+        Task pTarget2b = helper.generateUndatedTaskWithName("bla rAnDoM bla bceofeia");
+        Task pTarget2c = helper.generateUndatedTaskWithName("key key");
+        Task p1 = helper.generateDatedTaskWithName("KE Y");
+        Task p2 = helper.generateUndatedTaskWithName("KEYKEYKEY sduauo");
 
-        List<Task> fourPersons = helper.generateDatedTaskList(pTarget1, p1, pTarget2, pTarget3);
-        TaskBook expectedAB = helper.generateAddressBook(fourPersons);
-        List<Task> expectedList = helper.generateDatedTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourPersons);
+        List<Task> fourDated = helper.generateDatedTaskList(p1, pTarget1a, pTarget1b, pTarget1c);
+        List<Task> fourUndated = helper.generateUndatedTaskList(p2, pTarget2a, pTarget2b, pTarget2c);
+        TaskBook expectedAB = new TaskBook();
+        helper.addToAddressBook(expectedAB, fourUndated);
+        helper.addToAddressBook(expectedAB, fourDated);
+        List<Task> expectedDatedTaskList = helper.generateDatedTaskList(pTarget1a, pTarget1b, pTarget1c);
+        List<Task> expectedUndatedTaskList = helper.generateUndatedTaskList(pTarget2a, pTarget2b, pTarget2c);
+        helper.addToModel(model, fourUndated);
+        helper.addToModel(model, fourDated);
 
         assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
+                (Command.getMessageForPersonListShownSummary(
+                        expectedDatedTaskList.size()+expectedUndatedTaskList.size())),
+                        expectedAB, expectedDatedTaskList, expectedUndatedTaskList);
     }
-
 
     /**
      * A utility class to generate test data.
@@ -456,18 +476,18 @@ public class LogicManagerTest {
         Task deadlineA() throws Exception {
             Name name = new Name("File income tax");
             Description description = new Description("tax online portal");
-            Datetime datetime = new Datetime("14-OCT-2017 11pm");
-            Tag tag1 = new Tag("tax");
-            Tag tag2 = new Tag("epic");
+            Datetime datetime = new Datetime("14-JAN-2017 11pm");
+            Tag tag1 = new Tag("epic");
+            Tag tag2 = new Tag("tax");
             Status status = new Status(Status.State.NONE);
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Task(name, description, datetime, status, tags);
         }
         
         Task eventA() throws Exception {
-            Name name = new Name("Jim birthday party");
+            Name name = new Name("Jim party");
             Description description = new Description("Wave house");
-            Datetime datetime = new Datetime("12-DEC-2016 6pm to 12-DEC-2016 9pm");
+            Datetime datetime = new Datetime("13-OCT-2017 6pm to 9pm");
             Tag tag1 = new Tag("jim");
             Tag tag2 = new Tag("party");
             Status status = new Status(Status.State.NONE);
@@ -647,16 +667,28 @@ public class LogicManagerTest {
         /**
          * Generates a Person object with given name. Other fields will have some dummy values.
          */
-        Task generatePersonWithName(String name) throws Exception {
+        Task generateDatedTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Description("Describes task"),
-                    new Datetime("10-11-2019 1111"),
+                    new Description("Dated task"),
+                    new Datetime("10-NOV-2019 2359"),
                     new Status(Status.State.NONE),
                     new UniqueTagList(new Tag("tag"))
             );
         }
         
+        /**
+         * Generates a Undated task with given name. Other fields will have some dummy values.
+         */
+        Task generateUndatedTaskWithName(String name) throws Exception {
+            return new Task(
+                    new Name(name),
+                    new Description("Undated task"),
+                    new Datetime(null),
+                    new Status(Status.State.NONE),
+                    new UniqueTagList(new Tag("tag"))
+            );
+        }
         
     }
 }
