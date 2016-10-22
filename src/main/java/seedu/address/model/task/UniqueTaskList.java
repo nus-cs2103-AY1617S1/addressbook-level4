@@ -37,6 +37,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {}
     
+    //@@author A0147967J
     /**
      * Signals that an operation adding/blocking a time slot in the list would fail because
      * the timeslot is already occupied.
@@ -48,7 +49,8 @@ public class UniqueTaskList implements Iterable<Task> {
 			super("Operation cannot be done due to overlapping with blocked slots.");
 		}
 	}
-
+    //@@author
+    
     private final List<Task> internalList = new ArrayList<Task>();
     private final ObservableList<TaskComponent> internalComponentList = FXCollections.observableArrayList();
     /**
@@ -65,6 +67,7 @@ public class UniqueTaskList implements Iterable<Task> {
         		&& internalList.contains(toCheck);
     }
     
+    //@@author A0147967J
     /**
      * Returns true if the given task requests to use a blocked time slot.
      */
@@ -93,7 +96,8 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return false;
     }
-
+    //@@author
+    
     /**
      * Adds a task to the list.
      *
@@ -164,7 +168,9 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
-
+    
+    //@@author A0147967J
+    /** Returns true if the specified task component is successfully archived.*/
 	public boolean archive(TaskComponent target) {
 		assert target != null;
         boolean taskFoundAndArchived = false;
@@ -178,6 +184,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndArchived;
 	}
+	//@@author
 	
 	private boolean checkUpdateOverlapping(ReadOnlyTask target, TaskDate startDate,
 			TaskDate endDate) {

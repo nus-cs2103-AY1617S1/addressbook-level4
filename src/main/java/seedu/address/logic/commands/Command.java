@@ -40,10 +40,6 @@ public abstract class Command {
         this.model = model;
     }
     
-    public void assignManager(URManager urManager) {
-        this.urManager = urManager;
-    }
-
     /**
      * Raises an event to indicate an attempt to execute an incorrect command
      */
@@ -51,8 +47,16 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
+    //@@author A0147967J
     /**
-     * Raises an event to indicate an attempt to execute an incorrect command
+     * Assigns an undo/redo manager to the command to manage undo/redo operation.
+     */
+    public void assignManager(URManager urManager) {
+        this.urManager = urManager;
+    }
+
+    /**
+     * Raises an event to indicate an attempt to execute a failed command
      */
     protected void indicateAttemptToExecuteFailedCommand() {
         EventsCenter.getInstance().post(new FailedCommandAttemptedEvent(this));

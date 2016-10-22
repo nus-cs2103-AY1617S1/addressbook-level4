@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
@@ -9,6 +10,7 @@
 <?import java.net.URL?>
 <?import javafx.scene.layout.AnchorPane?>
 
+<!-- @@author A0147967J -->
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1010.0" prefWidth="1210.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
    <stylesheets>     
       <URL value="@Extensions.css" />

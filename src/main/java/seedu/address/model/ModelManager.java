@@ -97,12 +97,7 @@ public class ModelManager extends ComponentManager implements Model {
     	updateFilteredListToShowAll();
     }
     
-    @Override
-    public synchronized void archiveTask(TaskComponent target) throws TaskNotFoundException {
-        taskMaster.archiveTask(target);
-        indicateTaskListChanged();
-        updateFilteredListToShowAll();
-    }
+    
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
@@ -111,12 +106,19 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
 
+    //@@author A0147967J
+    @Override
+    public synchronized void archiveTask(TaskComponent target) throws TaskNotFoundException {
+        taskMaster.archiveTask(target);
+        indicateTaskListChanged();
+        updateFilteredListToShowAll();
+    }
     
     @Override
 	public void changeDirectory(String filePath) {
-		// TODO Auto-generated method stub
 		raise(new FilePathChangeEvent(filePath));
 	}
+    //@@author A0147967J
 
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -180,6 +182,7 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
     
+    //@@author A0147967J
     private class TypeQualifier implements Qualifier {
         private TaskType typeKeyWords;
 
@@ -198,6 +201,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "type=" + typeKeyWords.toString();
         }
     }
+    //@@author
 
     private class ArchiveQualifier implements Qualifier {
         private boolean isArchived;

@@ -189,7 +189,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
         return Objects.hash(tasks, tags);
     }
 
-
+    //@@author A0147967J
 	public boolean archiveTask(TaskComponent target) throws TaskNotFoundException {
 		// TODO Auto-generated method stub
 		if (tasks.archive(target)) {
@@ -198,6 +198,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
             throw new UniqueTaskList.TaskNotFoundException();
         }
 	}
+	//@@author
 	
 	public boolean updateTask(Task target, Name name, UniqueTagList tags,
     		TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException {

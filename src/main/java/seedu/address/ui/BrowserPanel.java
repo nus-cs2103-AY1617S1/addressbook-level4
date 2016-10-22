@@ -18,10 +18,12 @@ import seedu.address.commons.core.LogsCenter;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
+//@@author A0147967J-reused
 /**
- * The Browser Panel of the App.
+ * The Browser Panel of the App modified to display the agenda.
  */
 public class BrowserPanel extends UiPart{
 
@@ -66,7 +68,7 @@ public class BrowserPanel extends UiPart{
         return browserPanel;
     }
     
-    
+  //@@author A0147967J
     private void initialize(ObservableList<TaskComponent> taskList){
     	agenda.setDisplayedDateTime(new TaskDate(new Date(System.currentTimeMillis())));
     	loadTaskList(taskList);
@@ -76,7 +78,7 @@ public class BrowserPanel extends UiPart{
         //Deprecated method
     }
     
-    public void updateAgenda(TaskDate inputDate, ObservableList<TaskComponent> taskList){
+    public void updateAgenda(TaskDate inputDate, List<TaskComponent> taskList){
     	agenda.setDisplayedDateTime(inputDate);
     	loadTaskList(taskList);
     }
@@ -88,7 +90,7 @@ public class BrowserPanel extends UiPart{
         agenda = null;
     }
     
-    public void loadTaskList(ObservableList<TaskComponent> taskList){   	
+    public void loadTaskList(List<TaskComponent> taskList){   	
     	agenda.addAllToAgenda(taskList);    		
     }
     

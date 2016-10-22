@@ -8,10 +8,16 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyTaskMaster;
 import seedu.address.model.TaskMaster;
 
+//@@author A0147967J
+/**
+ * Stores and provides context for undo/redo operations.
+ */
 public class URManager {
 	
 	private ArrayDeque<Context> undoQueue;
 	private ArrayDeque<Context> redoQueue;
+	
+	/** Arbitrarily chosen number to ensure overall performance. */
 	private final int MAX_TIMES = 3;
 	
 	public URManager(){		

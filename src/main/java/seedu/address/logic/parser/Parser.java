@@ -305,8 +305,8 @@ public class Parser {
                 );
     }
     
+    //@@author A0147967J
     private Command prepareBlock(String args) {
-		// TODO Auto-generated method stub
     	Matcher matcher = BLOCK_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BlockCommand.MESSAGE_USAGE));
@@ -325,7 +325,8 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
 	}
-
+    //@@author
+    
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
@@ -357,6 +358,13 @@ public class Parser {
         return new DeleteCommand(index.get());
     }
     
+    //@@author A0147967J
+    /**
+     * Parses arguments in the context of the complete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareComplete(String args) {
 
         Optional<Integer> index = parseIndex(args);
@@ -367,7 +375,7 @@ public class Parser {
 
         return new CompleteCommand(index.get());
     }
-    
+    //@@author
     
 
     /**
@@ -578,6 +586,12 @@ public class Parser {
         }   
     }
     
+    //@@author A0147967J
+    /**
+     * Returns the view command with input date parsed 
+     * @param arguments passed by user
+     * @return prepared view command
+     */
     private Command prepareView(String arguments) {
 		// TODO Auto-generated method stub
     	Date date;
@@ -588,6 +602,7 @@ public class Parser {
     	}
 		return new ViewCommand(new TaskDate(date));
 	}
+    //@@author
     
     /**
      * Reformats any date into the format that we are storing and using in this software 

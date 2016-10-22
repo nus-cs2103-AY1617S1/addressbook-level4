@@ -8,6 +8,10 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.model.task.Task;
 import seedu.address.storage.XmlTaskListStorage;
 
+//@@author A0147967J
+/**
+ * Changes the file path of the file and exports all existing data to the specified file.
+ */
 public class ChangeDirectoryCommand extends Command{
 	
 	public static final String COMMAND_WORD = "cd";
@@ -29,7 +33,6 @@ public class ChangeDirectoryCommand extends Command{
 
 	@Override
 	public CommandResult execute() {
-		// TODO Auto-generated method stub
 		try{
 			if(!filePath.endsWith(".xml"))
 				throw new DataConversionException(null);

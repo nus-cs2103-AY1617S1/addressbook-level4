@@ -4,8 +4,9 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.AgendaTimeRangeChangedEvent;
 import seedu.address.model.task.TaskDate;
 
+//@@author A0147967J
 /**
- * Selects a task identified using it's last displayed index from the task list.
+ * Views the agenda for the week specified by (contains) input date.
  */
 public class ViewCommand extends Command {
 
@@ -29,7 +30,7 @@ public class ViewCommand extends Command {
     	
     	//assert false : "Select does not support recurring tasks"; // Should use TaskComponent instead of task
 
-        EventsCenter.getInstance().post(new AgendaTimeRangeChangedEvent(inputDate, model.getFilteredTaskComponentList()));
+        EventsCenter.getInstance().post(new AgendaTimeRangeChangedEvent(inputDate, model.getTaskMaster().getTaskComponentList()));
         return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, inputDate.getFormattedDate()));
 
     }

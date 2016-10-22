@@ -61,7 +61,7 @@ public class TaskCard extends UiPart{
         recurringType.setText(recurringTypeToShow);
     }
 
-    
+    //@@author A0147967J
     private void initializeDate() {
     	if (dateComponent.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
             startDate.setText("");

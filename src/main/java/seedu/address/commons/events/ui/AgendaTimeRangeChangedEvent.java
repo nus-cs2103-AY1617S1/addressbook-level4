@@ -1,22 +1,25 @@
 package seedu.address.commons.events.ui;
 
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskDate;
 
+//@@author A0147967J
 /**
- * Represents a selection change in the Task List Panel
+ * Indicates a change in the displayed time range of the agenda.
  */
 public class AgendaTimeRangeChangedEvent extends BaseEvent {
 
 
     private final TaskDate inputDate;
-    private final ObservableList<TaskComponent> taskComponentList;
+    private final List<TaskComponent> taskComponentList;
 
-    public AgendaTimeRangeChangedEvent(TaskDate inputDate, ObservableList<TaskComponent> taskComponentList){
+    public AgendaTimeRangeChangedEvent(TaskDate inputDate, List<TaskComponent> list){
         this.inputDate = inputDate;
-        this.taskComponentList = taskComponentList;
+        this.taskComponentList = list;
     }
 
     @Override
@@ -28,7 +31,7 @@ public class AgendaTimeRangeChangedEvent extends BaseEvent {
         return inputDate;
     }
     
-    public ObservableList<TaskComponent> getData() {
+    public List<TaskComponent> getData() {
         return taskComponentList;
     }
 }
