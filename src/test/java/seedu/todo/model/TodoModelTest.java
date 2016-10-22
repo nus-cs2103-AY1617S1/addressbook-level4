@@ -15,6 +15,7 @@ import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.storage.MovableStorage;
+import seedu.todo.testutil.TaskFactory;
 import seedu.todo.testutil.TimeUtil;
 
 import java.util.Collections;
@@ -186,6 +187,26 @@ public class TodoModelTest {
         model.add("Test task 1");
         model.undo();
         verify(storage, times(2)).save(todolist);
+    }
+    
+    @Test
+    public void testUndoStackSize() throws Exception {
+        final int STACK_SIZE = 10;
+        
+        // Add 11 items (which will add 11 to the undo stack) 
+        for (int i = 0; i < STACK_SIZE + 1; i++) {
+            model.add(TaskFactory.taskTitle());
+        }
+        
+        // Undo until the undo stack is empty 
+        for (int i = 0; i < STACK_SIZE; i++) {
+            model.undo();
+        }
+        
+        // Make sure the last undo throws an exception, even though 11 add 
+        // events were recorded 
+        exception.expect(ValidationException.class);
+        model.undo();
     }
     
     @Test(expected = ValidationException.class)
