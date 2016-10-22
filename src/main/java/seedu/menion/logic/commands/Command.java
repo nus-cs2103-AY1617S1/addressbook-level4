@@ -3,7 +3,9 @@ package seedu.menion.logic.commands;
 import seedu.menion.commons.core.EventsCenter;
 import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.menion.model.ActivityManager;
 import seedu.menion.model.Model;
+import seedu.menion.model.ReadOnlyActivityManager;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -43,6 +45,4 @@ public abstract class Command {
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
-
-	public abstract boolean undo();
 }

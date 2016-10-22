@@ -1,6 +1,8 @@
 package seedu.menion.logic.commands;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.model.ActivityManager;
+import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.*;
 import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
 
@@ -14,6 +16,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
+    //@@author A0139515A
     public static final String MESSAGE_USAGE = "Make sure the date is a valid date. If not the date will be set to today. \n" + 
     		"Adding a Floating Task: "+ COMMAND_WORD + " buy lunch n: hawker food\n"
             + "Adding a Task: "+ COMMAND_WORD + " complete cs2103t by: 10-08-2016 1900 n: must complete urgent\n"
@@ -68,6 +71,9 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
     	assert model != null;
+    	
+    	storePreviousState();
+    	
         try {
             if (toAdd.getActivityType().equals("task")){
                 model.addTask(toAdd);
@@ -78,33 +84,23 @@ public class AddCommand extends Command {
             else {
                 model.addFloatingTask(toAdd);
             }
+
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueActivityList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
     }
-
-    /*
-     * undo delete the added activity previously
+    
+    //@@author A0139515A
+    /**
+     * Add command will store previous activity manager to support undo command
+     * 
      */
-	@Override
-	public boolean undo() {
-		assert model != null;
-		 try {
-	            if (toAdd.getActivityType().equals("task")){
-	                model.deleteTask(toAdd);
-	            }
-	            else if (toAdd.getActivityType().equals("event")){
-	                model.deleteEvent(toAdd);
-	            }
-	            else {
-	                model.deleteFloatingTask(toAdd);
-	            }
-	            return true;
-	     } 
-		 catch (TaskNotFoundException pnfe) {
-	            // there will not be a task not found exception here
-	        	return false;
-	     }
-	}
+    public void storePreviousState() {
+        assert model != null;
+
+        ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
+    	model.addStateToUndoStack(beforeState);
+    }
+    //@@author
 }

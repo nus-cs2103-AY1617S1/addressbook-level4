@@ -2,6 +2,8 @@ package seedu.menion.logic.commands;
 
 import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.core.UnmodifiableObservableList;
+import seedu.menion.model.ActivityManager;
+import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
 /**
@@ -33,6 +35,9 @@ public class UnCompleteCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        assert model != null;
+        
+        storePreviousState();
         
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
 
@@ -70,18 +75,6 @@ public class UnCompleteCommand extends Command {
         }
     }
 
-    /*
-     * Complete command supports undo
-     */
-    @Override
-    public boolean undo() {
-        assert model != null;
-
-        callCompleteActivity(this.targetType);
-        
-        return true;
-    }
-
     private void callCompleteActivity(String targetType) {
 
         if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
@@ -92,4 +85,17 @@ public class UnCompleteCommand extends Command {
             model.completeEvent(targetIndex);
         }
     }
+    
+    //@@author A0139515A
+    /**
+     * Uncomplete command will store previous activity manager to support undo command
+     *
+     */
+    public void storePreviousState() {
+        assert model != null;
+
+        ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
+    	model.addStateToUndoStack(beforeState);
+    }
+    //@@author
 }

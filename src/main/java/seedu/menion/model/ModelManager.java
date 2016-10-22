@@ -13,6 +13,7 @@ import seedu.menion.model.activity.UniqueActivityList;
 import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
 
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -26,7 +27,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Activity> filteredTasks;
     private final FilteredList<Activity> filteredFloatingTasks;
     private final FilteredList<Activity> filteredEvents;
-
+    private Stack<ReadOnlyActivityManager> activityManagerUndoStack;
+    private Stack<ReadOnlyActivityManager> activityManagerRedoStack;
     /**
      * Initializes a ModelManager with the given Activity Manager
      * ActivityManager and its variables should not be null
@@ -42,6 +44,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(activityManager.getTasks());
         filteredFloatingTasks = new FilteredList<>(activityManager.getFloatingTasks());
         filteredEvents = new FilteredList<>(activityManager.getEvents());
+        activityManagerUndoStack = new Stack<ReadOnlyActivityManager>();
+        activityManagerRedoStack = new Stack<ReadOnlyActivityManager>();
     }
 
     public ModelManager() {
@@ -53,6 +57,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(activityManager.getTasks());
         filteredFloatingTasks = new FilteredList<>(activityManager.getFloatingTasks());
         filteredEvents = new FilteredList<>(activityManager.getEvents());
+        activityManagerUndoStack = new Stack<ReadOnlyActivityManager>();
+        activityManagerRedoStack = new Stack<ReadOnlyActivityManager>();
     }
 
     @Override
@@ -71,6 +77,48 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ActivityManagerChangedEvent(activityManager));
     }
 
+    //@@author A0139515A
+    /**
+     * Methods for undo 
+     * 
+     */
+
+    @Override
+    public void addStateToUndoStack(ReadOnlyActivityManager activityManager) {
+    	activityManagerUndoStack.push(activityManager);
+    }
+
+    @Override
+    public ReadOnlyActivityManager retrievePreviousStateFromUndoStack() {
+    	return activityManagerUndoStack.pop();
+    }
+
+    @Override
+    public boolean checkStatesInUndoStack() {
+    	return this.activityManagerUndoStack.isEmpty();
+    }
+    
+    /**
+     * Methods for redo
+     * 
+     */
+
+    @Override
+    public void addStateToRedoStack(ReadOnlyActivityManager activityManager) {
+    	activityManagerRedoStack.push(activityManager);
+    }
+
+    @Override
+    public ReadOnlyActivityManager retrievePreviousStateFromRedoStack() {
+    	return activityManagerRedoStack.pop();
+    }
+
+    @Override
+    public boolean checkStatesInRedoStack() {
+    	return this.activityManagerRedoStack.isEmpty();
+    }
+    //@@author
+    
     /**
      * Methods for Completing an activity
      */

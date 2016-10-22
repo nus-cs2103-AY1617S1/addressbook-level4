@@ -26,14 +26,4 @@ public class FindCommand extends Command {
         model.updateFilteredTaskList(keywords);
         return new CommandResult(getMessageForActivityListShownSummary(model.getFilteredTaskList().size()));
     }
-
-    /*
-     * find command does not support undo
-     */
-	@Override
-	public boolean undo() {
-		
-		return false;
-	}
-
 }

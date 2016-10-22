@@ -4,9 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
 
+//@@author A0139515A
 public class FloatingTaskCard extends UiPart{
 
     private static final String FXML = "FloatingTaskCard.fxml";
@@ -44,6 +44,7 @@ public class FloatingTaskCard extends UiPart{
         status.setText(floatingTask.getActivityStatus().toString());
         id.setText(displayedIndex + ". ");    
     }
+    //@@author
 
     public HBox getLayout() {
         return floatingTaskCardPane;

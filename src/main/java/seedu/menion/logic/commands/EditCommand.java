@@ -5,14 +5,12 @@ import java.util.Arrays;
 import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.core.UnmodifiableObservableList;
 import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.model.ActivityManager;
+import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
-import seedu.menion.model.activity.UniqueActivityList.DuplicateTaskException;
 
-/**
- * 
- * @author Marx A0139164A
- */
+//@@author A0139164A
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -55,7 +53,10 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
+    	assert model != null;
+    	
+    	storePreviousState();
+    	
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
         
         try {
@@ -236,14 +237,17 @@ public class EditCommand extends Command {
         }
         return sb.toString();
     }
-
-    /*
-     * Complete command supports undo
+    
+    //@@author A0139515A
+    /**
+     * Edit command will store previous activity manager to support undo command
+     * 
      */
-    @Override
-    public boolean undo() {
+    public void storePreviousState() {
         assert model != null;
-        return true;
-    }
 
+        ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
+    	model.addStateToUndoStack(beforeState);
+    }
+    //@@author
 }

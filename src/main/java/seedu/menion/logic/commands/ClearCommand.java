@@ -10,7 +10,6 @@ public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Menion has been cleared!";
-    private ReadOnlyActivityManager beforeClear;
     
     public ClearCommand() {}
 
@@ -19,19 +18,22 @@ public class ClearCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         
-    	this.beforeClear = new ActivityManager(model.getActivityManager());
+    	storePreviousState();
+        
         model.resetData(ActivityManager.getEmptyActivityManager());
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
-    /*
-     * revert the Activity Manager to the state before it was cleared
+    
+    //@@author A0139515A
+    /**
+     * Clear command will store previous activity manager to support undo command
+     * 
      */
-	@Override
-	public boolean undo() {
-		assert model != null;
-        
-        model.resetData(beforeClear);
-        return true;
-	}
+    public void storePreviousState() {
+        assert model != null;
+
+        ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
+    	model.addStateToUndoStack(beforeState);
+    }
+    //@@author
 }

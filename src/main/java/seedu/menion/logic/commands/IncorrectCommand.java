@@ -17,15 +17,5 @@ public class IncorrectCommand extends Command {
         indicateAttemptToExecuteIncorrectCommand();
         return new CommandResult(feedbackToUser);
     }
-
-    /*
-     * incorrect command does not support undo
-     */
-	@Override
-	public boolean undo() {
-		
-		return false;
-	}
-
 }
 
