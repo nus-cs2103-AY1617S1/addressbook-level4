@@ -30,6 +30,7 @@ public class FindCommandTest extends TaskMasterGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
     
+    //@@author A0147967J
     @Test
     public void find_byDeadline(){
     	try{
@@ -71,7 +72,7 @@ public class FindCommandTest extends TaskMasterGuiTest {
     	commandBox.runCommand("done 1");
     	assertFindResult("find -C", td.trash.getTaskDateComponent().get(0));    	
     }
-    
+    //@@author
     private void assertFindResult(String command, TaskComponent... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);

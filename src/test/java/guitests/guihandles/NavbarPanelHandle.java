@@ -11,6 +11,7 @@ import seedu.address.TestApp;
 import seedu.address.testutil.TestUtil;
 import java.util.List;
 
+//@@author A0147967J
 /**
  * Provides a handle for the panel containing the task list.
  */
@@ -45,7 +46,7 @@ public class NavbarPanelHandle extends GuiHandle {
     }
 
     /**
-     * Navigates the listview to display and select the task.
+     * Navigates the list view to display and select the task.
      */
     public void navigateTo(String nav) {
         int index = navbarElement.indexOf(nav);
