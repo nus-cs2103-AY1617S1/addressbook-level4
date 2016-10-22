@@ -87,52 +87,63 @@ This guide describes the design and implementation of Agendum. It will help deve
 
 <img src="images/Architecture.png" width="600"><br>
 
-The **_Architecture Diagram_** given above explains the high-level design of the App.
-Given below is a quick overview of each component.
+The **_Architecture Diagram_** given above summarizes the high-level design of Agendum.
+Here is a quick overview of the main components of Agendum and their main responsibilities.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/agendum/MainApp.java). It is responsible for the following:
+#### `Main`
+The **`Main`** component has only one class called [`MainApp`](../src/main/java/seedu/agendum/MainApp.java). It is responsible for initializing all components in the correct sequence and connecting them up with each other at app launch. It is also responsible for shutting down the other components and invoking the necessary clean up methods when Agendum is shut down.
 
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
 
+#### `Commons`
 [**`Commons`**](#6-common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter` : This class is used by many classes to write log messages to Agendum's log file to record noteworthy system information and events.
 
-The rest of the App comprises four components:
 
-* [**`UI`**](#2-ui-component) - Interacts with and display results to the user.
-* [**`Logic`**](#3-logic-component) - Processes and executes the command of the user.
-* [**`Model`**](#4-model-component) - Holds the data of the App in-memory.
-* [**`Storage`**](#5-storage-component) - Reads data from, and writes data to, the hard disk.
+#### `UI`
+The [**`UI`**](#2-ui-component) component is responsible for interacting with the user by accepting commands, displaying data and results such as updates to the task list.
 
-Each of the four components has the following properties:
 
-* Defines its _API_ in an `interface` with the same name as the Component.
+#### `Logic`
+The [**`Logic`**](#3-logic-component) component is responsible for processing and executing the user's commands.
+
+
+#### `Model`
+The [**`Model`**](#4-model-component) component is responsible for representing and holding Agendum's data.
+
+
+#### `Storage`
+The [**`Storage`**](#5-storage-component) component is responsible for reading data from and writing data to the hard disk.
+
+
+Each of the `UI`, `Logic`, `Model` and `Storage` components:
+
+* Defines its _API_ in an `interface` with the same name as the Component
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
+
+#### Event Driven Approach
+Agendum applies an Event-Driven approach to reduce direct coupling between components. For example, consider the scenario where the user inputs `delete 1` described in the  _Sequence Diagram_ below. The `UI` component will invoke the `Logic` component’s  _execute_ method to carry out the given command, `delete 1`. The `Logic` component will identify the corresponding task and will call the `Model` component _deleteTasks_ method to update Agendum’s data and raise a `ToDoListChangedEvent`.
+
 The _Sequence Diagram_ below illustrates how the components interact for the scenario where the user issues the
 command `delete 1` to delete the first task in the displayed list. The `UI` component will invoke the `Logic` component's _execute_ method to carry out the given command. In this scenario, the `Logic` component will identify the corresponding task and invoke `Model`'s  _deleteTask(task)_ method to update the in-app memory and raise a `ToDoListChangedEvent`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 
->Note how the `Model` simply raises a `ToDoListChangedEvent` when the Agendum data are changed,
- instead of directly asking the `Storage` to save the updates to the hard disk.
+> Note: When Agendum's data is changed, the `Model` simply raises a `ToDoListChangedEvent`.
+  It does not directly request the `Storage` component to save the updates to the hard disk.
+  Hence, `Model` is not directly coupled to `Storage`.
 
-The diagram below shows how the `EventsCenter` reacts to that raised event. The subscribers (the `UI` and `Storage` components) are informed and will respond accordingly. The status bar of the UI will be updated to reflect the 'Last Updated' time and the updates to the task data will also be saved to hard disk. <br>
+The diagram below shows what happens after a `ToDoListChangedEvent` is raised. `EventsCenter` will inform the subscribers (the `UI` and `Storage` components). Both components will then respond accordingly. `UI` will update the status bar to reflect the 'Last Updated' time while `Storage` will save the updates to the task data to hard disk. <br>
 
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
-
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This application of Event Driven approach helps us reduce direct
-  coupling between components.
 
 The following sections will then give more details of each individual component.
 
@@ -176,41 +187,30 @@ You can view the Sequence Diagram below for interactions within the `Logic` comp
 
 ### 4. Model component
 
-The structure and relationship of the various classes in the Model component is described in the diagram below.
+As mentioned above, the `Model` component stores and manage Agendum's task list data and user's preferences. It also exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' by other components e.g. the UI can be bound to this list and will automatically update when the data in the list change. It does not depend on other components such as `Logic` and `Storage`.  
+
+The `Model` class is the interface of the `Model` component. It provides several APIs for the `Logic` and `UI` components to update and retrieve Agendum’s task list data. The **API** of the model component can be found at [`Model.java`](../src/main/java/seedu/agendum/model/Model.java).  
+
+The structure and relationship of the various classes in the `Model` component is described in the diagram below.    
+
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-To modify the in-app data and retrieve the various task lists, other components such as Logic and UI will have to make use of the API provided by the model interface.
-**API** : [`Model.java`](../src/main/java/seedu/agendum/model/Model.java)
+`ModelManager` implements the `Model` Interface. It stores a `UserPref` Object which represents the user’s preference. It stores multiple `ToDoList` objects, including the current and recent lists.  
 
-The `Model` has the following functions:
+Each `ToDoList` object has one `UniqueTaskList` object. A `UniqueTaskList` can contain multiple `Task` objects but does not allow duplicates.  
 
-* stores a `UserPref` object that represents the user's preferences.
-* stores and manages Agendum's task list data.
-* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' by other components e.g. the UI can be bound to this list
-  so that the UI will automatically update when the data in the list change.
+The `ReadOnlyToDoList` and `ReadOnlyTask` interfaces allow other classes and components, such as the `UI`, to access but not modify the list of tasks and their details.  
 
-The `Model` component does not depend on any of the other three components and has the following classes and interfaces.
+> * `ToDoList` can potentially be extended to have another `UniqueTagList` object to keep track of tags associated with each task and `ToDoList` will be responsible for syncing the tasks and tags.
+> * `Name` is a class as it might be modified to have its own validation regex e.g. can only contain alphanumeric characters.
 
-#### `Model Manager` class
-The `Model Manager` class implements the `Model` interface. When the in-memory model of the to-do list data is updated, a ToDoListChangedEvent will be raised.
+Using the same example, if the `Logic` component requests `Model` to _deleteTasks(task)_, the subsequent interactions between objects can be described by the following sequence diagram.  
 
-#### `User Pref`
-This class represents user's preferences such as their preferences about `Gui Settings`.
+<img src="images\SDforDeleteTaskModelComponent.png" width="800">
 
-#### `ToDoList`
-This class wraps all the data at the to-do list level. Currently, each `ToDoList` object has a single `UniqueTaskList`. In the future, this class can be extended to keep track of the tags associated with tasks (`UniqueTagList`) and sync the tasks and tags.
+The identified task is removed from the `UniqueTaskList`. The `ModelManager` raises a `ToDoListChangedEvent` and back up the new to-do list to its history of saved lists.  
 
-#### `ReadOnlyToDoList` class
-This interface provides an unmodifiable view of the internal to-do list. It will return a task list consisting of read-only tasks.
-
-#### `Unique Task List` class
-This class represents a list of tasks. Each task must be unique and must not be null. It supports a minimal set of list operations such as adding a `Task` to the list and deleting or replacing a `Task` in the list. Exceptions will be raised if any of the list operations invoked violates the 'no duplicates' property of the list or when a target task cannot be found.
-
-#### `Task` class
-This class represents a task in the Unique Task List. Each `Task` must have a name and a completion status. It is optional for a `Task` to have a start time and a end time. Accessor methods are also defined for other classes such as the `Model Manager` class to identify if a task is overdue, upcoming or incomplete.
-
-#### `ReadOnlyTask` interface
-This interface allows other Objects to view the details of a `Task` but does not allow them to modify the details. For example, an unmodifiable observable list of read-only tasks will be shown on the UI.
+> `Model`’s _deleteTasks_ methods actually take in `ArrayList<ReadOnlyTask>` instead of a single task. We use _deleteTasks(task)_ for simplicity in the sequence diagram.
 
 
 ### 5. Storage component
@@ -330,11 +330,11 @@ They are in the `guitests` package.
 
 #### 2. Non-GUI Tests
 
-These are tests not involving the GUI. They include,
+These are tests that do not involve the GUI. They include,
    * _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.agendum.commons.StringUtilTest` tests the correctness of StringUtil methods e.g. if a source string contains a query string, ignoring letter cases.
    * _Integration tests_ that are checking the integration of multiple code units
-     (those code units are assumed to be working).<br>
+     (individual code units are assumed to be working).<br>
       e.g. `seedu.agendum.storage.StorageManagerTest` tests if StorageManager is correctly connected to other storage components such as JsonUserPrefsStorage.
    * Hybrids of _unit and integration tests_. These tests are checking multiple code units as well as
       how the are connected together.<br>
@@ -355,7 +355,8 @@ See [UsingGradle.md](UsingGradle.md#running-tests)  for instructions on how to r
 
 #### 2. Using Gradle
 
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+* Launch a terminal on Mac or command window in Windows. Navigate to Agendum’s project directory. We recommend cleaning the project before running all tests in headless mode with the following command `./gradlew clean headless allTests` on Mac and `gradlew clean headless allTests` on Windows.
+* See [UsingGradle.md](UsingGradle.md) for more details on how to run tests using Gradle.
 
 >#### Troubleshooting tests
 >**Problem: Tests fail because NullPointException when AssertionError is expected**
@@ -374,12 +375,11 @@ See [UsingGradle.md](UsingGradle.md#running-tests)  for instructions on how to r
 
 ### 1. Build Automation
 
-We use Gradle to run tests and manage library dependencies. The Gradle configuration for this project is defined in _build.gradle_. Refer to [UsingGradle.md](UsingGradle.md) for more instructions on how to use Gradle for build automation.
+We use Gradle to run tests and manage library dependencies. The Gradle configuration for this project is defined in _build.gradle_.
 
 ### 2. Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our project. When code is pushed to this repository, Travis CI will run the project tests automatically to ensure that existing functionality will not be negatively affected by the changes.
-Refer to [UsingTravis.md](UsingTravis.md) for more details.
 
 ### 3. Making a Release
 

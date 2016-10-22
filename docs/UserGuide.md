@@ -1,10 +1,28 @@
 # User Guide
+* [Introduction](#introduction)
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
 &nbsp;
+
+## Introduction
+Hi there! Do you have too many tasks and are unable to keep track of all of them? Are you looking for a hassle-free task maanger which works swiftly?  
+
+Enter Agendum.  
+
+This task manager will assist you in completing all your tasks on time. It will helpfully and automatically sort your tasks by date so you can always see the most urgent tasks standing out at the top of the list!  
+
+With just one line of keyboard command, Agendum will carry out your wishes. You don't ever have to worry about having to click multiple buttons and links. Agendum is even capable of allowing you to create your own custom commands! This means that you can things done even faster, your way.  
+
+As shown below, Agendum has 3 panels: **"Do It Soon"**, **"Do It Anytime"** and **"Done"**. These panels show tasks with time restrictions, tasks without any time restrictions and completed tasks respectively. Initially, the panels will be empty. Fill them up with tasks soon!
+
+<img src="images/UiScreenshot.png" width="800"><br>
+
+
+&nbsp;
+
 
 ## Quick Start
 
@@ -39,7 +57,7 @@
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
 > * Parameters in `SQUARE_BRACKETS` are optional.
-> * Parameters with `...` after them can have multiple instances.
+> * Parameters with `...` after them can have multiple instances (separated by whitespace).
 > * The order of parameters is fixed.
 > * Commands and parameters are not case-sensitive e.g `list` will match `List`  
 
@@ -150,6 +168,9 @@ Format: `rename INDEX NEW_TASK_NAME`
 > * Index refers to the index number shown in the most recent listing.
 > * The index **must be a positive integer** 1, 2, 3, ...
 
+
+> * Note that it is not possible to rename a task name to its original name and it might not be possible for the task to have the same name as another existing task
+
 Examples:  
 
 * `list` <br>
@@ -199,14 +220,16 @@ Format: `mark INDEX...`
 Examples:  
 
 * `list`<br>
-  `mark 2`<br>
-  Marks the 2nd task in the list.
+  `mark 5`<br>
+  Marks the 5nd task in the list. Task 5 will then be moved to the **"Done"** panel as described below<br>
+  <img src="images/UiMarkTask.png" width="800"><br>
+
 
 * `find Homework`<br>
   `mark 1`<br>
   Marks the 1st task in the list of results of the `find` command.
 
-You can also mark multiple tasks as completed with a single command.
+If you had a productive day, Agendum can save you the hassle of marking multiple tasks one by one. You can also mark multiple tasks as completed with a single command.
 
 Examples:
 
@@ -219,9 +242,9 @@ Examples:
 
 #### Unmarking a task as completed : `unmark`
 
-You might change your mind and want to continue working on a completed task. To reflect these changes in Agendum, follow this command: <br>
+You might change your mind and want to continue working on a recently completed task. To reflect these changes in Agendum, follow this command: <br>
 Format: `unmark INDEX...`
-This works in a same way as the `mark` command.<br>
+This works in the same way as the `mark` command. The tasks will then be moved to the **"Do It Soon"** or **"Do It Anytime"** panel accordingly. <br>
 
 
 #### Undo the last command : `undo`  
@@ -342,7 +365,7 @@ Agendum saves its data into the specified data storage location, or by default i
 
 Command  | Format  
 :-------:| :--------
-Add      | `add TASK_NAME [by DATE_TIME] [from START_DATE_TIME to END_DATE_TIME]`
+Add      | `add TASK_NAME` or `add TASK_NAME by DATE_TIME` or `add TASK_NAME from START_DATE_TIME to END_DATE_TIME`
 Alias    | `alias ORIGINAL_COMMAND_NAME NEW_COMMAND_NAME`
 Delete   | `delete INDEX...`
 Exit     | `exit`
@@ -352,9 +375,13 @@ List     | `list`
 Load     | `load PATH_TO_FILE`
 Mark     | `mark INDEX...`
 Rename   | `rename INDEX NEW_NAME`
-Schedule | `schedule INDEX [by DATE_TIME] [from START_DATE_TIME to END_DATE_TIME]`
+Schedule | `schedule INDEX` or `schedule INDEX by DATE_TIME` or `schedule INDEX from START_DATE_TIME to END_DATE_TIME`
 Select   | `select INDEX`
 Store    | `store PATH_TO_FILE`
 Unalias  | `unalias NEW_COMMAND_NAME` or `unalias ORIGINAL_COMMAND_NAME`
 Undo     | `undo`
 Unmark   | `unmark INDEX...`
+
+For a quick reference,
+> * Words in `UPPER_CASE` are the parameters.
+> * Parameters with `...` after them can have multiple instances (separated by whitespace).
