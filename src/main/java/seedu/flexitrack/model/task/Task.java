@@ -111,19 +111,27 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
 
-    private void setIsDone(boolean isDone) {
+    private void setIsDone(boolean isDone) {     
         if (isDone && !this.isDone) {
-            name.setName("(Done)" + name.toString());
+            name.setName("(Done) " + name.toString());
             this.isDone = true;
         } else if (!isDone && this.isDone) {
+            name.setName(name.toString().replace("(Done) ", ""));
             name.setName(name.toString().replace("(Done)", ""));
             this.isDone = false;
         }
-        this.isDone = isDone;//
+        //this.isDone = isDone;//
     }
 
-    public void markTask(boolean isDone) {
-        setIsDone(isDone);
+    public void markTask(boolean isDone) throws IllegalValueException {
+        this.isDone = this.name.toString().contains("(Done) ") || this.name.toString().contains("(Done)"); 
+        if(this.isDone && isDone) {
+            throw new IllegalValueException("Task already marked!");
+        } else if(!this.isDone && !isDone) {
+            throw new IllegalValueException("Task already unmarked!");
+        } else {
+            setIsDone(isDone);
+        }
     }
 
     public void setName(String name) {
