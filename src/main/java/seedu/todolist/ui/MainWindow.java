@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -25,6 +26,8 @@ public class MainWindow extends UiPart {
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
+    public static final String TAB_TASK_COMPLETE = "Completed";
+    public static final String TAB_TASK_INCOMPLETE = "Incomplete";
 
     private Logic logic;
 
@@ -63,6 +66,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private TabPane allTasksTabPane;
 
 
     public MainWindow() {
@@ -187,6 +193,16 @@ public class MainWindow extends UiPart {
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
+    }
+    
+    @FXML
+    public void OnTabSelectionChanged() {
+        try {
+            logic.setCurrentTab(allTasksTabPane.getSelectionModel().getSelectedItem().getText());
+        } catch (NullPointerException ex) {
+            //Default tab is incomplete tab
+            
+        }
     }
 
     public TaskListPanel getTaskListPanel() {
