@@ -104,7 +104,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         } else {        
             int periodCompare = this.period.compareTo(taskToCompare.getPeriod());
             //If no difference is found in period, compare using name
-            if (periodCompare != 0) {
+            if (periodCompare == 0) {
                 return this.getName().fullName.compareTo(taskToCompare.getName().fullName);
             } else {
                 return periodCompare;

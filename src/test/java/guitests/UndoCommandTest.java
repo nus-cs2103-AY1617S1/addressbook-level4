@@ -36,9 +36,9 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         
         TestTask taskToEdit = td.event;
         testTaskListStack.push(editTask(1, taskToEdit, "t", testTaskListStack.peek()));
-        commandBox.runCommand("find xmass");        
+        commandBox.runCommand("find xmas");        
                            
-        assertUndoSuccess(testTaskListStack.pop(), "find xmass");
+        assertUndoSuccess(testTaskListStack.pop(), "find xmas");
         assertUndoSuccess(testTaskListStack.pop(), taskToEdit.getEditCommand(1, "t"));
         assertUndoSuccess(testTaskListStack.pop(), taskToAdd.getAddCommand());
         assertNoMoreUndos();        
