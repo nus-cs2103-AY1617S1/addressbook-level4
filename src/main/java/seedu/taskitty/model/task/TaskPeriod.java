@@ -73,7 +73,9 @@ public class TaskPeriod {
             TaskDate endDate, TaskTime endTime) {
         
         boolean isValid = false;
-        if (startDate.isBefore(endDate)) {
+        if (startDate == null || endDate == null) {
+            isValid = true;
+        }else if (startDate.isBefore(endDate)) {
             isValid = true;
         } else if (startDate.equals(endDate) && startTime.isBefore(endTime)) {
                 isValid = true;
