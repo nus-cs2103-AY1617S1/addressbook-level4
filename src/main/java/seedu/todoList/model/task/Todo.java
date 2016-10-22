@@ -32,10 +32,10 @@ public class Todo extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Todo(Todo source) {
-        this(source.getName(), source.getDate() , source.getEndDate(), source.getPriority());
+        this(source.getName(), source.getStartDate() , source.getEndDate(), source.getPriority());
     }
 
-    public StartDate getDate() {
+    public StartDate getStartDate() {
         return startDate;
     }
     
@@ -56,7 +56,7 @@ public class Todo extends Task implements ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other instanceof Todo // instanceof handles nulls
                 && super.name.equals(((Todo) other).getName()))
-                && this.startDate.equals(((Todo) other).getDate())
+                && this.startDate.equals(((Todo) other).getStartDate())
                 && this.endDate.equals(((Todo) other).getEndDate())
                 && this.priority.equals(((Todo) other).getPriority());
     }
@@ -66,7 +66,7 @@ public class Todo extends Task implements ReadOnlyTask {
     	final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Start Date: ")
-                .append(getDate())
+                .append(getStartDate())
                 .append(" End Date: ")
                 .append(getEndDate())
                 .append(" Priority: ")

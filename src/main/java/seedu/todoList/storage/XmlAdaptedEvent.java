@@ -39,7 +39,7 @@ public class XmlAdaptedEvent implements XmlAdaptedTask {
      */
     public XmlAdaptedEvent(Event source) {
     	name = source.getName().name;
-    	date = source.getDate().date;
+    	date = source.getStartDate().date;
     	endDate = source.getEndDate().endDate;
         startTime = source.getStartTime().startTime;
         endTime = source.getEndTime().endTime;

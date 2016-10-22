@@ -34,14 +34,14 @@ public class Event extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Event(Event source) {
-        this(source.getName(), source.getDate(), source.getEndDate(), source.getStartTime(), source.getEndTime());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getStartTime(), source.getEndTime());
     }
     
     public Event(ReadOnlyTask source) {
     	this((Event) source);
     };
 
-    public StartDate getDate() {
+    public StartDate getStartDate() {
         return startDate;
     }
     
@@ -61,7 +61,7 @@ public class Event extends Task implements ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other instanceof Event // instanceof handles nulls
                 && super.name.equals(((Event) other).getName())
-                && this.startDate.equals(((Event) other).getDate())
+                && this.startDate.equals(((Event) other).getStartDate())
                 && this.endDate.equals(((Event) other).getEndDate())
 				&& this.startTime.equals(((Event) other).getStartTime())
 				&& this.endTime.equals(((Event) other).getEndTime()));
@@ -73,7 +73,7 @@ public class Event extends Task implements ReadOnlyTask {
     	final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Start Date: ")
-                .append(getDate())
+                .append(getStartDate())
                 .append(" End Date: ")
                 .append(getEndDate())
                 .append(" StartTime: ")
