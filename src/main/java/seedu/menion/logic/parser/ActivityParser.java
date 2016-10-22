@@ -123,7 +123,6 @@ public class ActivityParser {
         }
 
         Optional<Integer> index = Optional.of(Integer.valueOf(splited[2]));
-        System.out.println("This is index: " + index);
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
