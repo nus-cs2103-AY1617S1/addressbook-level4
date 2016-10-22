@@ -129,7 +129,7 @@ public class MainWindow extends UiPart {
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
         exitMenuItem.setAccelerator(KeyCombination.valueOf("Esc"));
-        undoMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + Z"));
+        undoMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + U"));
         listMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + L"));
         clearMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + C"));
         viewDoneMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + D"));
