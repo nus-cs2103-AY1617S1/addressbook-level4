@@ -4,12 +4,14 @@ import seedu.cmdo.commons.core.EventsCenter;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.cmdo.model.Model;
+import seedu.cmdo.model.StatusSaver;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
     protected Model model;
+    protected StatusSaver statusSaver;
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
@@ -47,6 +49,10 @@ public abstract class Command {
      */
     public void setData(Model model) {
         this.model = model;
+    }
+    
+    public void setStatusSaver(StatusSaver ss) {
+    	this.statusSaver = ss;
     }
 
     /**
