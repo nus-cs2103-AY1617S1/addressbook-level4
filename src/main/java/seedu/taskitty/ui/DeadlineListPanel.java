@@ -8,9 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import seedu.taskitty.model.task.ReadOnlyTask;
 
-// Dummy Placeholder for Deadline List Panel
-// TO BE UPDATED
-
+/**
+ * Panel containing the list of deadline tasks.
+ */
 public class DeadlineListPanel extends TaskListPanel {
     private static final String FXML = "DeadlineListPanel.fxml";
     

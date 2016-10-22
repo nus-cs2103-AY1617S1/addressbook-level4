@@ -11,9 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import seedu.taskitty.model.task.ReadOnlyTask;
 
-// Dummy Placeholder for Event List Panel
-// TO BE UPDATED
-
+/**
+ * Panel containing the list of event tasks.
+ */
 public class EventListPanel extends TaskListPanel {
     private static final String FXML = "EventListPanel.fxml";
     
@@ -54,7 +54,7 @@ public class EventListPanel extends TaskListPanel {
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             eventListView.scrollTo(index);
-           eventListView.getSelectionModel().clearAndSelect(index);
+            eventListView.getSelectionModel().clearAndSelect(index);
         });
     }
     

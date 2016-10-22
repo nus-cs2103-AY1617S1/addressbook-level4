@@ -15,7 +15,7 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of tasks.
+ * Base class for the 3 panels containing the list of tasks.
  */
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);

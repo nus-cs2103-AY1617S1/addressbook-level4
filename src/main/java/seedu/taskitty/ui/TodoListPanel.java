@@ -9,7 +9,7 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 
 
 /**
- * Panel containing the list of tasks.
+ * Panel containing the list of todo tasks.
  */
 public class TodoListPanel extends TaskListPanel {
     private static final String FXML = "TodoListPanel.fxml";
