@@ -49,13 +49,5 @@ public class StringUtilTest {
         thrown.expect(AssertionError.class);
         StringUtil.getDetails(null);
     }
-
-    @Test
-    public void getCategoryIndex(){
-        assertEquals(StringUtil.getCategoryIndex("t") , 0);
-        assertEquals(StringUtil.getCategoryIndex("d") , 1);        
-        assertEquals(StringUtil.getCategoryIndex("e") , 2);
-        assertEquals(StringUtil.getCategoryIndex("a") , 0);
-        assertEquals(StringUtil.getCategoryIndex("random") , 0);
-    }
+   
 }

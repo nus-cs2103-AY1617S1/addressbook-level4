@@ -3,7 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import seedu.taskitty.commons.core.Messages;
-import seedu.taskitty.commons.util.StringUtil;
+import seedu.taskitty.commons.util.TaskUtil;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
 
@@ -64,7 +64,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         currentList.removeTaskFromList(targetIndexOneIndexed - 1, category);
         commandBox.runCommand("delete " + category + " " + targetIndexOneIndexed);
         
-        int categoryIndex = StringUtil.getCategoryIndex(category);
+        int categoryIndex = TaskUtil.getCategoryIndex(category);
         //confirm the list now contains all previous persons except the deleted person
         assertTrue(currentList.isListMatching(taskListPanel));
 
