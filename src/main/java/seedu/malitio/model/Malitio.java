@@ -126,6 +126,12 @@ public class Malitio implements ReadOnlyMalitio {
         tasks.add(p);
     }
     
+    public void addFloatingTask(FloatingTask p, int index) throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
+        syncTagsWithMasterList(p);
+        tasks.add(p, index);
+        
+    }
+    
     /**
      * Adds a deadline to Malitio.
      * Also checks the new Deadline's tags and updates {@link #tags} with any new tags found,
@@ -333,5 +339,6 @@ public class Malitio implements ReadOnlyMalitio {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, deadlines, events, tags);
     }
+
 
 }
