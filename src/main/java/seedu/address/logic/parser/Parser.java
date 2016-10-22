@@ -123,7 +123,7 @@ public class Parser {
 	
 	//@@author A0139339W
 	/**
-	 * parse the argument based on keyword "not"
+	 * parse the argument based on first occurrence of keyword "not"
 	 * indices before not are for tasks to be marked done
 	 * indices after not are for tasks to be marked not done
 	 * missing keyword "not" means all indices are for tasks to be marked done
