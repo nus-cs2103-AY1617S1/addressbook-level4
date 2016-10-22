@@ -2,7 +2,10 @@ package seedu.malitio.logic.commands;
 
 import java.util.Stack;
 
+import seedu.malitio.model.Malitio;
+import seedu.malitio.model.ReadOnlyMalitio;
 import seedu.malitio.model.history.InputAddHistory;
+import seedu.malitio.model.history.InputClearHistory;
 import seedu.malitio.model.history.InputDeleteHistory;
 import seedu.malitio.model.history.InputEditHistory;
 import seedu.malitio.model.history.InputHistory;
@@ -42,9 +45,21 @@ public class UndoCommand extends Command {
             executeEdit((InputEditHistory) previous);
             history.pop();
             return new CommandResult("Undo Successful");
+        
+        case ClearCommand.COMMAND_WORD:
+            executeClear((InputClearHistory)previous);
+            history.pop();
+            return new CommandResult("Undo Clear Successful");
 
         }
         return null;
+    }
+
+    private void executeClear(InputClearHistory previous) {
+        System.out.println(previous.getFloatingTask().getInternalList().isEmpty());
+        ReadOnlyMalitio previousModel = new Malitio(previous.getFloatingTask(), previous.getDeadline(), previous.getEvent(), previous.getTag());
+        model.resetData(previousModel);
+        
     }
 
     private void executeEdit(InputEditHistory previous) {

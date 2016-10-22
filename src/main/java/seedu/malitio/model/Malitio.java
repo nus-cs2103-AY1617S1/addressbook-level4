@@ -112,6 +112,7 @@ public class Malitio implements ReadOnlyMalitio {
         resetData(newData.getFloatingTaskList(), newData.getDeadlineList(), newData.getEventList(), newData.getTagList());
     }
 
+
 //// task-level operations
 
     /**

@@ -7,6 +7,7 @@ import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.commons.events.model.MalitioChangedEvent;
 import seedu.malitio.commons.util.StringUtil;
 import seedu.malitio.model.history.InputAddHistory;
+import seedu.malitio.model.history.InputClearHistory;
 import seedu.malitio.model.history.InputDeleteHistory;
 import seedu.malitio.model.history.InputEditHistory;
 import seedu.malitio.model.history.InputHistory;
@@ -73,9 +74,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyMalitio newData) {
+        history.add(new InputClearHistory(malitio.getUniqueFloatingTaskList(), 
+                malitio.getUniqueDeadlineList(), 
+                malitio.getUniqueEventList(), 
+                malitio.getUniqueTagList()));
         malitio.resetData(newData);
         indicatemalitioChanged();
     }
+    
 
     @Override
     public ReadOnlyMalitio getMalitio() {
