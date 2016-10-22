@@ -118,7 +118,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     public FilteredList<Task> getFilteredTaskList(int filter) {
-        return internalList.filtered(p -> p.getNumArgs() == filter);
+        return internalList.filtered(p -> p.getPeriod().getNumArgs() == filter);
     }
 
     @Override

@@ -51,22 +51,22 @@ public class DeadlineCard extends UiPart{
         endDate.setText("");
         endTime.setText("");
         
-        TaskDate startTaskDate = task.getStartDate();
+        TaskDate startTaskDate = task.getPeriod().getStartDate();
         if (startTaskDate != null) {
             startDate.setText(startTaskDate.toString());
         }
         
-        TaskTime taskStartTime = task.getStartTime();
+        TaskTime taskStartTime = task.getPeriod().getStartTime();
         if (taskStartTime != null) {
             startTime.setText(taskStartTime.toString());
         }
         
-        TaskDate endTaskDate = task.getEndDate();
+        TaskDate endTaskDate = task.getPeriod().getEndDate();
         if (endTaskDate != null) {
             endDate.setText(endTaskDate.toString());
         }
         
-        TaskTime taskEndTime = task.getEndTime();
+        TaskTime taskEndTime = task.getPeriod().getEndTime();
         if (taskEndTime != null) {
             endTime.setText(taskEndTime.toString());
         }

@@ -28,11 +28,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public static final int EVENT_COMPONENT_COUNT = 5;
 
     private Name name;
-    private TaskDate startDate;
-    private TaskTime startTime;
-    private TaskDate endDate;
-    private TaskTime endTime;
-    private int numArgs;
+    private TaskPeriod period;
     private boolean isDone;
 
     private UniqueTagList tags;
@@ -42,89 +38,25 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      * "todo" is a Task only has name
      * Every field must be present and not null.
      */
-    public Task(Name name, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, tags);
+    public Task(Name name, TaskPeriod period, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, period, tags);
         
         this.name = name;
+        this.period = period;
         this.tags = new UniqueTagList(tags);
-        this.numArgs = TASK_COMPONENT_COUNT;
-    }
-    
-    /**
-     * Constructor for a "deadline" Task.
-     * "deadline" is a Task only has name, endDate and endTime
-     * Every field must be present and not null.
-     */
-    public Task(Name name, TaskDate endDate, TaskTime endTime, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, endDate, endTime, tags);
-        
-        this.name = name;
-        this.endDate = endDate;
-        this.endTime = endTime;
-        this.tags = new UniqueTagList(tags);
-        this.numArgs = DEADLINE_COMPONENT_COUNT;
-    }
-    
-    /**
-     * Constructor for a "event" Task.
-     * "event" is a Task with all fields.
-     * This constructor allows nulls and can be used when unsure which values are null
-     */
-    public Task(Name name, TaskDate startDate, TaskTime startTime,
-            TaskDate endDate, TaskTime endTime, UniqueTagList tags) {
-        this.name = name;
-        this.startDate = startDate;
-        this.startTime = startTime;
-        this.endDate = endDate;
-        this.endTime = endTime;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-        
-        if (this.startDate != null && this.startTime != null) {
-            numArgs = EVENT_COMPONENT_COUNT;
-        } else if (this.endDate != null && this.endTime != null) {
-            numArgs = DEADLINE_COMPONENT_COUNT;
-        } else {
-            numArgs = TASK_COMPONENT_COUNT;
-        }
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartDate(), source.getStartTime(),
-                source.getEndDate(), source.getEndTime(), source.getTags());
+        this(source.getName(), source.getPeriod(), source.getTags());
         this.isDone = source.getIsDone();
     }
 
     @Override
     public Name getName() {
         return name;
-    }
-    
-    @Override
-    public TaskDate getStartDate() {
-        return startDate;
-    }
-    
-    @Override
-    public TaskDate getEndDate() {
-        return endDate;
-    }
-
-    @Override
-    public TaskTime getStartTime() {
-        return startTime;
-    }
-
-    @Override
-    public TaskTime getEndTime() {
-        return endTime;
-    }
-    
-    @Override
-    public int getNumArgs() {
-        return numArgs;
     }
 
     //@@author
@@ -173,18 +105,23 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	}
 	
 	@Override
+	public TaskPeriod getPeriod() {
+	    return period;
+	}
+	
+	@Override
 	public boolean isTodo() {
-		return numArgs == 1;
+		return period.isTodo();
 	}
 	
 	@Override
 	public boolean isDeadline() {
-		return numArgs == 3;
+		return period.isDeadline();
 	}
 	
 	@Override
 	public boolean isEvent() {
-		return numArgs == 5;
+		return period.isEvent();
 	}
 	
 	@Override

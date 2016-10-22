@@ -43,11 +43,11 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        TaskDate sourceStartDate = source.getStartDate();
-        TaskDate sourceEndDate = source.getEndDate();
-        TaskTime sourceStartTime = source.getStartTime();
-        TaskTime sourceEndTime = source.getEndTime();
-        boolean sourceIsDone = source.getIsDone();
+        TaskDate sourceStartDate = source.getPeriod().getStartDate();
+        TaskDate sourceEndDate = source.getPeriod().getEndDate();
+        TaskTime sourceStartTime = source.getPeriod().getStartTime();
+        TaskTime sourceEndTime = source.getPeriod().getEndTime();
+        
         if (sourceStartDate != null) {
             startDate = sourceStartDate.toString();
         }
@@ -106,7 +106,7 @@ public class XmlAdaptedTask {
         }
         final UniqueTagList tags = new UniqueTagList(taskTags);
         
-        Task task = new Task(name, startDate, startTime, endDate, endTime, tags);
+        Task task = new Task(name, new TaskPeriod(startDate, startTime, endDate, endTime), tags);
         
        if (isDone) {
         	task.markAsDone();

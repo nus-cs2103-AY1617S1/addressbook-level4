@@ -10,40 +10,25 @@ import seedu.taskitty.model.task.*;
 public class TaskBuilder {
 
     private TestTask task;
-    private int numArgs;
 
     public TaskBuilder() {
         this.task = new TestTask();
-        numArgs = 0;
     }
 
     public TaskBuilder withName(String name) throws IllegalValueException {
         this.task.setName(new Name(name));
-        numArgs++;
+        this.task.setPeriod(new TaskPeriod());
         return this;
     }
     
-    public TaskBuilder withStartDate(String startDate) throws IllegalValueException {
-        this.task.setStartDate(new TaskDate(startDate));
-        numArgs++;
+    public TaskBuilder withDeadline(String endDate, String endTime) throws IllegalValueException {
+        this.task.setPeriod(new TaskPeriod(new TaskDate(endDate), new TaskTime(endTime)));
         return this;
     }
     
-    public TaskBuilder withStartTime(String startTime) throws IllegalValueException {
-        this.task.setStartTime(new TaskTime(startTime));
-        numArgs++;
-        return this;
-    }
-    
-    public TaskBuilder withEndDate(String endDate) throws IllegalValueException {
-        this.task.setEndDate(new TaskDate(endDate));
-        numArgs++;
-        return this;
-    }
-    
-    public TaskBuilder withEndTime(String endTime) throws IllegalValueException {
-        this.task.setEndTime(new TaskTime(endTime));
-        numArgs++;
+    public TaskBuilder withEvent(String startDate, String startTime, String endDate, String endTime) throws IllegalValueException {
+        this.task.setPeriod(new TaskPeriod(new TaskDate(startDate), new TaskTime(startTime),
+                        new TaskDate(endDate), new TaskTime(endTime)));
         return this;
     }
 
@@ -55,7 +40,6 @@ public class TaskBuilder {
     }
 
     public TestTask build() {
-        task.setNumArgs(numArgs);
         return this.task;
     }
 

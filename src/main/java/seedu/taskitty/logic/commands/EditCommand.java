@@ -15,6 +15,7 @@ import seedu.taskitty.model.task.Name;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.TaskDate;
+import seedu.taskitty.model.task.TaskPeriod;
 import seedu.taskitty.model.task.TaskTime;
 import seedu.taskitty.model.task.UniqueTaskList;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
@@ -68,22 +69,23 @@ public class EditCommand extends Command{
         if (data.length == Task.TASK_COMPONENT_COUNT) {
             this.toEdit = new Task(
                 new Name(data[Task.TASK_COMPONENT_INDEX_NAME]),
+                new TaskPeriod(),
                 new UniqueTagList(tagSet)
             );
         } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
             this.toEdit = new Task(
                 new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
-                new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_END_DATE]),
-                new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME]),
+                new TaskPeriod(new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_END_DATE]),
+                        new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME])),
                 new UniqueTagList(tagSet)
             );
         } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
             this.toEdit = new Task(
                 new Name(data[Task.EVENT_COMPONENT_INDEX_NAME]),
-                new TaskDate(data[Task.EVENT_COMPONENT_INDEX_START_DATE]),
-                new TaskTime(data[Task.EVENT_COMPONENT_INDEX_START_TIME]),
-                new TaskDate(data[Task.EVENT_COMPONENT_INDEX_END_DATE]),
-                new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME]),
+                new TaskPeriod(new TaskDate(data[Task.EVENT_COMPONENT_INDEX_START_DATE]),
+                        new TaskTime(data[Task.EVENT_COMPONENT_INDEX_START_TIME]),
+                        new TaskDate(data[Task.EVENT_COMPONENT_INDEX_END_DATE]),
+                        new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME])),
                 new UniqueTagList(tagSet)
             );
         } else {

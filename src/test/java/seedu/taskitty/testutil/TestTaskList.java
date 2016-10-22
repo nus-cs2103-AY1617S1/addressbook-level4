@@ -37,7 +37,7 @@ public class TestTaskList {
     }
     
     public void addTaskToList(TestTask task) {
-        switch (task.getNumArgs()) {
+        switch (task.getPeriod().getNumArgs()) {
         
         case Task.TASK_COMPONENT_COUNT :
             todoList.add(task);

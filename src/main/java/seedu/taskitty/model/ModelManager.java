@@ -271,7 +271,7 @@ public class ModelManager extends ComponentManager implements Model {
      * @return the evaluated boolean expression
      */
     private boolean isDeadlineAndIsNotAfterDate(Task task, LocalDate date) {
-		return task.isDeadline() && !task.getEndDate().getDate().isAfter(date);
+		return task.isDeadline() && !task.getPeriod().getEndDate().getDate().isAfter(date);
 	}
 	/**
 	 * Evaluates if the task is an event and the specified date is within the event period.
@@ -280,7 +280,7 @@ public class ModelManager extends ComponentManager implements Model {
 	 * @return the evaluated boolean expression
 	 */
 	private boolean isEventAndDateIsWithinEventPeriod(Task task, LocalDate date) {
-		return task.isEvent() && !(task.getEndDate().getDate().isBefore(date) || task.getStartDate().getDate().isAfter(date));
+		return task.isEvent() && !(task.getPeriod().getEndDate().getDate().isBefore(date) || task.getPeriod().getStartDate().getDate().isAfter(date));
 	}
 
 

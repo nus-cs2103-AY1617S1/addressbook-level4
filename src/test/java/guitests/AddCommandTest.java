@@ -7,7 +7,6 @@ import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.logic.commands.AddCommand;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
-import seedu.taskitty.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
@@ -18,11 +17,11 @@ public class AddCommandTest extends TaskManagerGuiTest {
         //add one task
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         TestTask taskToAdd = td.todo;
-        assertAddSuccess(taskToAdd, td.todo.getNumArgs(), currentList);
+        assertAddSuccess(taskToAdd, td.todo.getPeriod().getNumArgs(), currentList);
 
         //add another task
         taskToAdd = td.deadline;
-        assertAddSuccess(taskToAdd, td.deadline.getNumArgs(), currentList);
+        assertAddSuccess(taskToAdd, td.deadline.getPeriod().getNumArgs(), currentList);
 
         //add duplicate task
         commandBox.runCommand(td.deadline.getAddCommand());
@@ -32,7 +31,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         //add to empty list
         commandBox.runCommand("clear");
         currentList.clear();
-        assertAddSuccess(td.deadline, td.deadline.getNumArgs(), currentList);
+        assertAddSuccess(td.deadline, td.deadline.getPeriod().getNumArgs(), currentList);
 
         //invalid command
         commandBox.runCommand("adds party");
