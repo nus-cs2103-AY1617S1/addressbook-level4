@@ -35,6 +35,11 @@ public class MainMenuHandle extends GuiHandle {
         guiRobot.sleep(500);
     }
     
+    public void useUndoCommandUsingAccelerator() {
+        guiRobot.push(KeyCode.CONTROL, KeyCode.SHIFT, KeyCode.Z);
+        guiRobot.sleep(500);
+    }
+    
     private void useF1Accelerator() {
         guiRobot.push(KeyCode.F1);
         guiRobot.sleep(500);
