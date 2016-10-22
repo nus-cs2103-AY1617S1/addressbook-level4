@@ -36,7 +36,7 @@ public class Parser {
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT =
             Pattern.compile("(?<targetIndex>[e|d|f]\\d+)"
-                    + "(?<name>[^/]+)"
+                    + "(?<name>(?:[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
     
     private static final Set<String> TYPES_OF_TASKS = new HashSet<String>(Arrays.asList("f", "d", "e" ));
@@ -219,12 +219,6 @@ public class Parser {
     }
     
     
-    /**
-     * 
-     * @param arguments
-     * @return the prepared command
-     * @author Bel
-     */
     private Command prepareEdit(String args) {
         final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -239,6 +233,9 @@ public class Parser {
             char taskType = index.charAt(0);
             int taskNum = Integer.parseInt(index.substring(1));
             String name = matcher.group("name");
+            if (name.equals("") && getTagsFromArgs(matcher.group("tagArguments")).isEmpty()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            }
             String deadline = getDeadlineFromArgs(name);
             if (!deadline.isEmpty()) {
                 name = name.replaceAll(" by " + deadline, "");
