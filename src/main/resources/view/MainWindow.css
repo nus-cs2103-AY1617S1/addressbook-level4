@@ -134,6 +134,17 @@
     -fx-font-size: 18px;
 }
 
+.pretty-date{
+    -fx-font-weight:bold;
+}
+
+.ugly-date{
+    -fx-font-size:10px;
+}
+
+.tags{
+    -fx-font-weight: bold;
+}
 
 .normal{
     -fx-fill: deepSkyBlue;

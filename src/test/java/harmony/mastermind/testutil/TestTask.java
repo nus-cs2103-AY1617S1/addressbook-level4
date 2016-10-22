@@ -1,5 +1,6 @@
 package harmony.mastermind.testutil;
 
+import java.time.Duration;
 import java.util.Date;
 
 import guitests.TaskManagerGuiTest;
@@ -156,6 +157,24 @@ public class TestTask implements ReadOnlyTask {
     public TestTask mark() {
         this.marked = true;
         return this;
+    }
+
+    @Override
+    public boolean isDue() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isHappening() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public Duration getDurationDue() {
+        // TODO Auto-generated method stub
+        return null;
     }
     
 }
