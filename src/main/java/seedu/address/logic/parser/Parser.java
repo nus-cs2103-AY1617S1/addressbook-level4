@@ -3,6 +3,9 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -117,6 +120,21 @@ public class Parser {
     	}
     	else if (args.equals("")) {
     		return new ShowCommand();
+    	}
+    	
+    	else if (args.equals("today") || args.equals("tdy") ) {
+    		Calendar cal = Calendar.getInstance();
+    		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    		System.out.println(dateFormat.format(cal.getTime()).toString());
+    		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
+    	}
+    	
+    	else if (args.equals("tomorrow") || args.equals("tmr") ) {
+    		Calendar cal = Calendar.getInstance();
+    		cal.add(Calendar.DATE, 1);
+    		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    		System.out.println(dateFormat.format(cal.getTime()).toString());
+    		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
     	}
     	
     	else if (matcher.matches()){
