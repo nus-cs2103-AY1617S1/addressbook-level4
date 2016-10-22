@@ -224,14 +224,13 @@ public class Parser {
 				try {
 					date = matcher.group("date").trim();
 				} catch (IllegalArgumentException e) {
-					date = "today";
+					date = "";
 				}
 				
 				String startTime = matcher.group("startTime").trim();
 				String endTime = matcher.group("endTime").trim();
 				
 				try {
-					
 					System.out.println("start: " + date + " " + startTime);
 					System.out.println("end: " + date + " " + endTime);
 					

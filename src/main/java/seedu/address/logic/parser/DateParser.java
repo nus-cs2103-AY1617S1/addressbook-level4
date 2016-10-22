@@ -60,7 +60,14 @@ public class DateParser {
 			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)\\s(?<day>today|tomorrow|next week)$"), // 2:30pm tomorrw 
 			Pattern.compile("^(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)\\s(?<day>today|tomorrow|next week)$") // 2 pm next week
 	};
+	
+	private static final Pattern[] NATURAL_LANGUAGE_NO_DATE = new Pattern[] {
+			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // today 14:30
+			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // tomorrow 2:30 pm
+			Pattern.compile("^(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // next week 2 pm
+	};
 
+	
 	/**
 	 * @return LocalDateTime if valid date format, null if unable to parse
 	 */
@@ -71,6 +78,9 @@ public class DateParser {
 		
 		if (dateTime == null) {
 			dateTime = parseNaturalLanguage(dateString);
+		}
+		if (dateTime == null) {
+			dateTime = parseNaturalLanguageNoDate(dateString);
 		}
 		if (dateTime == null) {
 			dateTime = parseAmPmFormat(dateString);
@@ -86,6 +96,95 @@ public class DateParser {
 		return dateTime;
 	}
 
+	private static LocalDateTime parseNaturalLanguage(String dateString) throws ParseException {
+		ArrayList<Matcher> matchers = new ArrayList<>();
+		for (int i=0; i<NATURAL_LANGUAGE.length; i++) {
+			matchers.add(NATURAL_LANGUAGE[i].matcher(dateString));
+		}
+		
+		LocalDateTime now = LocalDateTime.now();
+		
+		for (Matcher matcher : matchers) {
+			if (matcher.matches()) {				
+				int month, day;
+				switch(matcher.group("day")) {
+				case "today":
+					month = now.getMonthValue();
+					day = now.getDayOfMonth();
+					break;
+				case "tomorrow":
+					month = now.plusDays(1).getMonthValue();
+					day = now.plusDays(1).getDayOfMonth();
+					break;
+				case "next week":
+					month = now.plusDays(7).getMonthValue();
+					day = now.plusDays(7).getDayOfMonth();
+					break;
+				default:
+					throw new ParseException("Day phrase in not today, tomorrow, or next week.", -1);
+				}
+				
+				String meridiem;
+				try {
+					meridiem = matcher.group("meridiem");
+				} catch (IllegalArgumentException e) {
+					meridiem = "";
+				}
+				
+				int hour = parseHour(matcher.group("hour"), meridiem);
+				
+				String minuteString;
+				try {
+					minuteString = matcher.group("minute");
+					System.out.println(minuteString);
+				} catch (IllegalArgumentException e) {
+					minuteString = "0";
+				}
+				int minute = parseMinute(minuteString);
+
+				return LocalDateTime.of(now.getYear(), month, day, hour, minute);
+			}
+		}
+
+		// if matcher did not match
+		return null;
+	}
+	
+	private static LocalDateTime parseNaturalLanguageNoDate(String dateString) throws ParseException {
+		ArrayList<Matcher> matchers = new ArrayList<>();
+		for (int i=0; i<NATURAL_LANGUAGE_NO_DATE.length; i++) {
+			matchers.add(NATURAL_LANGUAGE_NO_DATE[i].matcher(dateString));
+		}
+		
+		LocalDateTime now = LocalDateTime.now();
+		
+		for (Matcher matcher : matchers) {
+			if (matcher.matches()) {	
+				String meridiem;
+				try {
+					meridiem = matcher.group("meridiem");
+				} catch (IllegalArgumentException e) {
+					meridiem = "";
+				}
+				
+				int hour = parseHour(matcher.group("hour"), meridiem);
+				
+				String minuteString;
+				try {
+					minuteString = matcher.group("minute");
+					System.out.println(minuteString);
+				} catch (IllegalArgumentException e) {
+					minuteString = "0";
+				}
+				int minute = parseMinute(minuteString);
+
+				return LocalDateTime.of(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), hour, minute);
+			}
+		}
+		
+		// if matcher did not match
+		return null;
+	}
 
 	private static LocalDateTime parseStandardFormat(String dateString) throws ParseException {
 		ArrayList<Matcher> matchers = new ArrayList<>();
@@ -153,59 +252,6 @@ public class DateParser {
 		return null;
 	}
 	
-	private static LocalDateTime parseNaturalLanguage(String dateString) throws ParseException {
-		ArrayList<Matcher> matchers = new ArrayList<>();
-		for (int i=0; i<NATURAL_LANGUAGE.length; i++) {
-			matchers.add(NATURAL_LANGUAGE[i].matcher(dateString));
-		}
-		
-		LocalDateTime now = LocalDateTime.now();
-		
-		for (Matcher matcher : matchers) {
-			if (matcher.matches()) {				
-				int month, day;
-				switch(matcher.group("day")) {
-				case "today":
-					month = now.getMonthValue();
-					day = now.getDayOfMonth();
-					break;
-				case "tomorrow":
-					month = now.plusDays(1).getMonthValue();
-					day = now.plusDays(1).getDayOfMonth();
-					break;
-				case "next week":
-					month = now.plusDays(7).getMonthValue();
-					day = now.plusDays(7).getDayOfMonth();
-					break;
-				default:
-					throw new ParseException("Day phrase in not today, tomorrow, or next week.", -1);
-				}
-				
-				String meridiem;
-				try {
-					meridiem = matcher.group("meridiem");
-				} catch (IllegalArgumentException e) {
-					meridiem = "";
-				}
-				
-				int hour = parseHour(matcher.group("hour"), meridiem);
-				
-				String minuteString;
-				try {
-					minuteString = matcher.group("minute");
-					System.out.println(minuteString);
-				} catch (IllegalArgumentException e) {
-					minuteString = "0";
-				}
-				int minute = parseMinute(minuteString);
-
-				return LocalDateTime.of(now.getYear(), month, day, hour, minute);
-			}
-		}
-
-		// if matcher did not match
-		return null;
-	}
 
 	private static int parseYear(String yearString) {
 		int year;
