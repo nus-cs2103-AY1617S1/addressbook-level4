@@ -1,9 +1,17 @@
 package tars.ui;
 
+import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import tars.commons.core.LogsCenter;
+import tars.commons.events.model.TarsChangedEvent;
 import tars.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
@@ -12,6 +20,9 @@ public class TaskCard extends UiPart{
     private static final String PRIORITY_HIGH = "high";
     private static final String PRIORITY_MEDIUM = "medium";
     private static final String PRIORITY_LOW = "low";
+    private static final String STATUS_UNDONE = "Undone";
+    
+    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
     @FXML
     private HBox cardPane;
@@ -24,11 +35,15 @@ public class TaskCard extends UiPart{
     @FXML
     private Label endDate;
     @FXML
-    private Label priority;
+    private Label statusTick;
+    @FXML
+    private Label tags;
+    @FXML
+    private Circle priorityCircle;
     @FXML
     private Label status;
     @FXML
-    private Label tags;
+    private Label priority;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -41,23 +56,77 @@ public class TaskCard extends UiPart{
         TaskCard card = new TaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
+        card.registerAsAnEventHandler(card);
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
+        setName();
+        setIndex();
+        setDate();
+        setPriority();
+        setStatus();
+        setTags();
+    }
+    
+    private void setName() {
         name.setText(task.getName().taskName);
-        setPriority(task);
+    }   
+    
+    private void setIndex() {
         id.setText(displayedIndex + ". ");
-        if (task.getDateTime().startDateString != null) {
-            startDate.setText(task.getDateTime().startDateString);
-        } else {
+    }
+    
+    private void setDate() {
+        String startDateString = task.getDateTime().startDateString;
+        String endDateString = task.getDateTime().endDateString;
+        if (startDateString == null) {
             startDate.setVisible(false);
             startDate.setManaged(false);
+        } else if (startDateString != null) {
+            startDate.setText(startDateString);
         }
-        endDate.setText(task.getDateTime().endDateString);
+        if (endDateString == null) {
+            endDate.setVisible(false);
+            endDate.setManaged(false);
+        } else if (endDateString != null){
+            endDate.setText(endDateString);
+        }      
+    }
+    
+    /**
+     * Sets tick color based on task's status
+     */
+    private void setStatus() {
+        if (task.getStatus().toString().equals(STATUS_UNDONE)) {
+            String tickColor = "";
+            switch (task.priorityString()) {
+            case PRIORITY_HIGH:
+                tickColor = "red";
+                break;
+            case PRIORITY_MEDIUM:
+                tickColor = "orange";
+                break;
+            case PRIORITY_LOW:
+                tickColor = "green";
+                break;  
+            default:
+                tickColor = "darkgrey";
+            }
+            statusTick.setStyle("-fx-text-fill: " + tickColor);
+        } else {
+            statusTick.setStyle("-fx-text-fill: white");
+        }
         status.setText(task.getStatus().toString());
-        tags.setText(task.tagsString());
+        status.setVisible(false);
+        status.setManaged(false);
+    }
+    
+    @Subscribe
+    private void handleTarsChangeEvent(TarsChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Setting status tick"));
+        setStatus();
     }
 
     /**
@@ -65,23 +134,27 @@ public class TaskCard extends UiPart{
      * 
      * @@author A0121533W
      */
-    private void setPriority(ReadOnlyTask task) {
+    private void setPriority() {
         switch (task.priorityString()) {
         case PRIORITY_HIGH:
-            priority.setText(task.priorityString());
-            priority.setStyle("-fx-text-fill: red");
+            priorityCircle.setFill(Color.RED);
             break;
         case PRIORITY_MEDIUM:
-            priority.setText(task.priorityString());
-            priority.setStyle("-fx-text-fill: orange");
+            priorityCircle.setFill(Color.ORANGE);
             break;
         case PRIORITY_LOW:
-            priority.setText(task.priorityString());
-            priority.setStyle("-fx-text-fill: green");
+            priorityCircle.setFill(Color.GREEN);
             break;  
         default:
-            priority.setText(task.priorityString());
+            priorityCircle.setFill(Color.DARKGREY);
         }
+        priority.setText(task.priorityString());
+        priority.setVisible(false);
+        priority.setManaged(false);
+    }
+    
+    private void setTags() {
+        tags.setText(task.tagsString());        
     }
 
     public HBox getLayout() {
