@@ -12,17 +12,19 @@ import seedu.todoList.model.task.attributes.StartTime;
  */
 public class Event extends Task implements ReadOnlyTask {
 
-	private Date date;
+	private Date startDate;
+	private Date endDate;
     private StartTime startTime;
     private EndTime endTime;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, Date date, StartTime startTime, EndTime endTime) {
-        assert !CollectionUtil.isAnyNull(name, date, startTime, endTime);
+    public Event(Name name, Date startDate, Date endDate, StartTime startTime, EndTime endTime) {
+        assert !CollectionUtil.isAnyNull(name, startDate, endDate, startTime, endTime);
         super.name = name;
-        this.date = date;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -31,15 +33,19 @@ public class Event extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Event(Event source) {
-        this(source.getName(), source.getDate(), source.getStartTime(), source.getEndTime());
+        this(source.getName(), source.getStartDate(), source,getEndDate(), source.getStartTime(), source.getEndTime());
     }
     
     public Event(ReadOnlyTask source) {
     	this((Event) source);
     };
 
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
     }
 
     public StartTime getStartTime() {
