@@ -262,7 +262,7 @@ public class TodoListDB {
      * 
      * @return tasks
      */
-    public List<Task> getIncompleteTasksAndTaskWithTodayDate() {
+    public List<Task> getIncompleteTasksAndTaskFromTodayDate() {
         ArrayList<Task> incompleteTasks = new ArrayList<Task>();
         Iterator<Task> iterator = tasks.iterator();
         LocalDateTime todayDate = DateUtil.floorDate(LocalDateTime.now());
@@ -271,7 +271,7 @@ public class TodoListDB {
             if (!currTask.isCompleted()) { //if incompleted
                 incompleteTasks.add(currTask);
             } else {
-                if (currTask.getDueDate() != null && DateUtil.floorDate(currTask.getDueDate()).equals(todayDate)) {
+                if (currTask.getDueDate() != null && DateUtil.floorDate(currTask.getDueDate()).compareTo(todayDate) >= 0) {
                     incompleteTasks.add(currTask);
                 }
             }

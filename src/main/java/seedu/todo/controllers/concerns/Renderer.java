@@ -71,7 +71,7 @@ public class Renderer {
      */
     public static void renderIndex(TodoListDB db, String consoleMessage) {
         IndexView view = UiManager.loadView(IndexView.class);
-        view.tasks = db.getIncompleteTasksAndTaskWithTodayDate();
+        view.tasks = db.getIncompleteTasksAndTaskFromTodayDate();
         view.events = db.getAllCurrentEvents();
         UiManager.renderView(view);
         

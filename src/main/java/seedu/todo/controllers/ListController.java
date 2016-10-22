@@ -279,7 +279,7 @@ public class ListController implements Controller {
             if (listAllStatus) { // not specify
                 if (isExactCommand && isDateProvided == false) {
                     if (listAll) {
-                        return db.getIncompleteTasksAndTaskWithTodayDate();
+                        return db.getIncompleteTasksAndTaskFromTodayDate();
                     } else {
                         return db.getAllTasks();
                     }
