@@ -44,6 +44,7 @@ public abstract class TaskMasterGuiTest {
     protected TaskListPanelHandle taskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
+    protected NavbarPanelHandle navbar;
     private Stage stage;
 
     @BeforeClass
@@ -64,6 +65,7 @@ public abstract class TaskMasterGuiTest {
             taskListPanel = mainGui.getFloatingTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
+            navbar = mainGui.getNavbar();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
@@ -127,4 +129,6 @@ public abstract class TaskMasterGuiTest {
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
     }
+    
+
 }

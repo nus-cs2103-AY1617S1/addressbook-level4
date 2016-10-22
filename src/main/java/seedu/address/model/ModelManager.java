@@ -194,7 +194,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(TaskComponent task) {
 
-        	return task.getTaskReference().getTaskType().equals(typeKeyWords);
+        	return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.isArchived();
             
         }
 
@@ -351,6 +351,9 @@ public class ModelManager extends ComponentManager implements Model {
 				return true;
 			
 			if(task.getTaskReference().getTaskType().equals(TaskType.FLOATING))
+				return false;
+			
+			if(task.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
 				return false;
 			
 			Date deadline = new Date(task.getEndDate().getDateInLong());
