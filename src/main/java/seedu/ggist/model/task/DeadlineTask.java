@@ -3,6 +3,7 @@ package seedu.ggist.model.task;
 import java.util.Objects;
 
 import seedu.ggist.commons.util.CollectionUtil;
+import seedu.ggist.logic.parser.DateTimeParser;
 import seedu.ggist.model.tag.UniqueTagList;
 
 /**
@@ -16,8 +17,10 @@ public class DeadlineTask extends Task implements ReadOnlyTask {
      */
     public DeadlineTask(TaskName taskName, TaskDate taskDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority) {
         super(taskName, taskDate, startTime, endDate, endTime, priority);
+        constructStartDateTime(null, null);
+        constructEndTDateTime(endDate endTime);
     }
-
+    
     /**
      * Copy constructor.
      */

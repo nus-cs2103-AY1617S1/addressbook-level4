@@ -1,5 +1,6 @@
 package seedu.ggist.model.task;
 
+import java.util.Date;
 import java.util.Objects;
 
 import seedu.ggist.commons.util.CollectionUtil;
@@ -19,6 +20,9 @@ public class Task implements ReadOnlyTask{
     protected TaskTime endTime;
     protected Priority priority;
     protected boolean done;
+    
+    protected Date start;
+    protected Date end;
 
     /**
      * Every field must be present and not null.
@@ -91,6 +95,16 @@ public class Task implements ReadOnlyTask{
     @Override
     public Priority getPriority() {
         return priority;
+    }
+    
+    @Override
+    public Date getStartDateTime() {
+        return start;
+    }
+    
+    @Override
+    public Date getEndDateTime() {
+        return end;
     }
     
     @Override

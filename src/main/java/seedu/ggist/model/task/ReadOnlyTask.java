@@ -1,5 +1,7 @@
 package seedu.ggist.model.task;
 
+import java.util.Date;
+
 import seedu.ggist.model.tag.UniqueTagList;
 
 /**
@@ -14,6 +16,8 @@ public interface ReadOnlyTask {
     TaskDate getEndDate();
     TaskTime getEndTime();
     Priority getPriority();
+    Date getStartDateTime();
+    Date getEndDateTime();
     boolean getDone();
     void setDone();
     void setUnDone();
@@ -29,6 +33,7 @@ public interface ReadOnlyTask {
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndDate().equals(this.getEndDate())
                 && other.getEndTime().equals(this.getEndTime())
+                && other.getPriority().equals(this.getPriority())
          );
     }
 
