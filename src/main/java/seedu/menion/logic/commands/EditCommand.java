@@ -27,7 +27,14 @@ public class EditCommand extends Command {
     public static final String NAME_PARAM = "name";
     public static final String NOTE_PARAM = "note";
     public static final String TASK_DEADLINE_PARAM = "by";
+    public static final String EVENT_FROM_PARAM = "from";
+    public static final String EVENT_TO_PARAM = "to";
     public static final String NOT_TO_EDIT = "-";
+    public static final String SEPARATOR = "/ ";
+    
+    public static final String MESSAGE_INVALID_PARAMETER = "Menion detected an invalid parameter! \n" +
+            "Please make sure it is : " + NAME_PARAM + SEPARATOR + NOTE_PARAM + SEPARATOR + TASK_DEADLINE_PARAM
+            + SEPARATOR + EVENT_FROM_PARAM + SEPARATOR + EVENT_TO_PARAM;
 
     public final int targetIndex;
     public final String targetType;
@@ -148,11 +155,14 @@ public class EditCommand extends Command {
     /**
      * 
      * @param paramToChange
-     * @return an integer to match with the param to change, refer below for
-     *         index 0 = name (For all) 1 = note (For all) 2 = by (For Tasks
-     *         only) 3 = from: to: (For Events only)
+     * @return an integer to match with the param to change, refer below for index:
+     *         0 = name (For all) 
+     *         1 = note (For all) 
+     *         2 = by (For Tasks only) 
+     *         3 = from (For Event's Start Date & Time)
+     *         4 = to (For EVent's End Date & Time)
      */
-    private int checkParam(String paramToChange) {
+    private int checkParam(String paramToChange) throws IllegalValueException {
 
         if (paramToChange.equals(NAME_PARAM)) {
             return 0;
@@ -160,9 +170,13 @@ public class EditCommand extends Command {
             return 1;
         } else if (paramToChange.equals(TASK_DEADLINE_PARAM)) {
             return 2;
+        } else if (paramToChange.equals(EVENT_FROM_PARAM)) {
+            return 3;
+        } else if (paramToChange.equals(EVENT_TO_PARAM)) {
+            return 4;
         }
 
-        return 100;
+        throw new IllegalValueException(MESSAGE_INVALID_PARAMETER);
     }
 
     private String arrayToString(String[] changes) {
