@@ -54,8 +54,8 @@ public class ShowCommand extends Command {
     public CommandResult execute() {
         ((ModelManager) model).showTaskPanelSection(sectionToShow);
         
-        model.updateFilteredAgendaTaskList(new HashSet<>(Arrays.asList(sectionToShow)));
-        model.updateFilteredAgendaEventList(new HashSet<>(Arrays.asList(sectionToShow)));
+        model.updateFilteredAgendaTaskList(null, sectionToShow);
+        model.updateFilteredAgendaEventList(null, sectionToShow);
         
         return new CommandResult(MESSAGE_SUCCESS);
     }
