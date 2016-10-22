@@ -160,9 +160,9 @@ public class ValidationTaskTest {
 
     @Test
     public void testLastUpdated() {
-        assertNotNull(task.getLastUpdated());
-        task.setLastUpdated();
-        assertEquals(LocalDateTime.now(), task.getLastUpdated());
+        assertNotNull(task.getCreatedAt());
+        task.setCreatedAt();
+        assertEquals(LocalDateTime.now(), task.getCreatedAt());
     }
 
     @Test

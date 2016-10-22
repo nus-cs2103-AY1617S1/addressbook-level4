@@ -23,19 +23,17 @@ public class CompleteCommandTest extends CommandTest {
     public void setUp() throws Exception {
         model.add("Task 3");
         model.add("Task 2");
-        model.add("Task 1", task-> task.setCompleted(true));
+        model.add("Task 1", task -> task.setCompleted(true));
     }
 
     @Test
     public void testMarkComplete() throws Exception {
-        ImmutableTask toMarkComplete = getTaskAt(3);
         setParameter("3");
         execute(true);
-        ImmutableTask markedComplete = getTaskAt(3);
+        ImmutableTask markedComplete = getTaskAt(1);
         assertThat(result.getFeedback(), containsString(VERB_COMPLETE));
-        assertEquals(markedComplete, toMarkComplete);
-        assertTrue(toMarkComplete.isCompleted());
-        
+        assertEquals(markedComplete, markedComplete);
+        assertTrue(markedComplete.isCompleted());
     }
 
     @Test

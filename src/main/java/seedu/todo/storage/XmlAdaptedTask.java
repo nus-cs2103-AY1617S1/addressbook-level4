@@ -72,7 +72,7 @@ public class XmlAdaptedTask {
             tags.add(new XmlAdaptedTag(tag));
         }
 
-        lastUpdated = source.getLastUpdated();
+        lastUpdated = source.getCreatedAt();
         uuid = source.getUUID();
     }
 
@@ -101,7 +101,7 @@ public class XmlAdaptedTask {
         }
         task.setTags(setOfTags);
 
-        task.setLastUpdated(lastUpdated);
+        task.setCreatedAt(lastUpdated);
         return task;
     }
 }

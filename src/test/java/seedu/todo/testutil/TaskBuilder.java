@@ -14,6 +14,10 @@ import seedu.todo.model.task.Task;
 public class TaskBuilder {
 
     private Task task;
+    private boolean defaultTime = true; 
+    
+    // Set the time back six hours to ensure lastModified can be set properly 
+    private static LocalDateTime now = LocalDateTime.now();
 
     private TaskBuilder(String name) {
         task = new Task(name);
@@ -34,7 +38,8 @@ public class TaskBuilder {
     }
 
     public TaskBuilder lastUpdated(LocalDateTime lastUpdated) throws IllegalValueException {
-        task.setLastUpdated(lastUpdated);
+        defaultTime = false;
+        task.setCreatedAt(lastUpdated);
         return this;
     }
 
@@ -77,6 +82,12 @@ public class TaskBuilder {
     }
     
     public Task build() {
+        // Push the time up by 1s to avoid colliding with previously created tasks 
+        if (defaultTime) {
+            now = now.plusSeconds(1);
+            task.setCreatedAt(now);
+        }
+        
         return task;
     }
 

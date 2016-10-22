@@ -184,6 +184,7 @@ public class TestUtil {
                     task.getLocation().equals(otherTask.getLocation()) &&
                     task.getStartTime().equals(otherTask.getStartTime()) &&
                     task.getEndTime().equals(otherTask.getEndTime()) &&
+                    task.getCreatedAt().equals(otherTask.getCreatedAt()) &&
                     task.getTags().containsAll(otherTask.getTags());
             if (!isSame) {
                 return false;

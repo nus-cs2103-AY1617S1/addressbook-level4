@@ -14,6 +14,7 @@ import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.commons.events.ui.*;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.Logic;
+import seedu.todo.model.Model;
 import seedu.todo.model.UserPrefs;
 
 import java.util.logging.Logger;
@@ -29,12 +30,14 @@ public class UiManager extends ComponentManager implements Ui {
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
+    private Model model; 
 
-    public UiManager(Logic logic, Config config, UserPrefs prefs) {
+    public UiManager(Logic logic, Config config, UserPrefs prefs, Model model) {
         super();
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+        this.model = model;
     }
 
     @Override
@@ -46,7 +49,7 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
+            mainWindow = MainWindow.load(primaryStage, config, prefs, logic, model);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
@@ -118,12 +121,6 @@ public class UiManager extends ComponentManager implements Ui {
     private void handleHighlightTaskEvent(HighlightTaskEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getTodoListView().scrollAndSelect(event.getTask());
-    }
-
-    @Subscribe
-    private void handleViewChangedEvent(ChangeViewRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getFilterBarView().selectOneViewFilter(event.getNewView());
     }
 
     @Subscribe
