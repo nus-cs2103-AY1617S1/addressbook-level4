@@ -95,7 +95,6 @@ public class AddCommand extends Command {
         try {
         	model.saveState();
             model.addTask(toAdd);
-            model.updateFilteredTaskList(ReadOnlyTaskFilter.isDone().negate());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
         	// If adding was unsuccessful, then the state should not be saved - no change was made.

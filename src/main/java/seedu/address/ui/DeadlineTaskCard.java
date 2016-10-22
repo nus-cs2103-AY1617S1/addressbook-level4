@@ -3,15 +3,20 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Status;
+import seedu.address.model.task.TaskType;
 
 public class DeadlineTaskCard extends UiPart{
 
     private static final String FXML = "DeadlineTaskCard.fxml";
 
     @FXML
-    private HBox cardPane;
+    private VBox cardPane;
     @FXML
     private Label taskName;
     @FXML
@@ -19,7 +24,11 @@ public class DeadlineTaskCard extends UiPart{
     @FXML
     private Label taskType;
     @FXML
+    private Label taskStatus;
+    @FXML
     private Label dueDateAndTime;
+    @FXML
+    private Label tags;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -41,15 +50,27 @@ public class DeadlineTaskCard extends UiPart{
         id.setText(displayedIndex + ". ");
         taskType.setText(task.getTaskType().toString());
         dueDateAndTime.setText(task.getEndDate().get().toString());
+        setTaskStatus();
+        tags.setText(task.tagsString());
     }
 
-    public HBox getLayout() {
+    private void setTaskStatus() {
+		if (task.getStatus().value.equals(Status.DoneStatus.DONE)) {
+			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
+			taskStatus.setStyle("-fx-text-fill: green");
+		} else if (task.getStatus().value.equals(Status.DoneStatus.OVERDUE)) {
+			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
+			taskStatus.setStyle("-fx-text-fill: red");
+		}
+	}
+    
+    public VBox getLayout() {
         return cardPane;
     }
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        cardPane = (VBox)node;
     }
 
     @Override
@@ -57,4 +78,3 @@ public class DeadlineTaskCard extends UiPart{
         return FXML;
     }
 }
-// Note: translate V-box Y: -18

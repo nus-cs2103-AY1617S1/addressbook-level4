@@ -9,8 +9,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskFilter;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.ReadOnlyTaskFilter;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayList;
@@ -117,29 +117,27 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredTaskList(ReadOnlyTaskFilter.isDone().negate());
         indicateTaskManagerChanged();
     }
     
     @Override
     public synchronized void editTask(int index, Task task) throws TaskNotFoundException {
         taskManager.editTask(index, task);
-        updateFilteredListToShowAll();
         indicateTaskManagerChanged();
 	}
     
-    @Override
-    public synchronized void putDoneTaskToLast(int index, Task task) throws TaskNotFoundException, DuplicateTaskException {
-    	taskManager.removeTask(task);
-    	taskManager.addTask(task);
-        updateFilteredListToShowAll();
-    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getUnfilteredTaskList() {
+        return new UnmodifiableObservableList<>(taskManager.getFilteredTasks());
     }
     
     //@@author A0142184L
@@ -179,10 +177,12 @@ public class ModelManager extends ComponentManager implements Model {
        filteredTasks.setPredicate(null);;
     }
     
+    //@@author A0139339W
     @Override
     public void updateFilteredTaskList(Predicate<ReadOnlyTask> taskFilter) {
     	filteredTasks.setPredicate(taskFilter);
     }
+    //@@author
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
