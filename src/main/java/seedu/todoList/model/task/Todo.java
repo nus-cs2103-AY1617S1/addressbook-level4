@@ -14,23 +14,26 @@ public class Todo extends Task implements ReadOnlyTask {
     
     private Date date;
     private Priority priority;
+    private Done isDone;
 
     /**
      * Every field must be present and not null.
      * @param date 
      */
-    public Todo(Name name, Date date, Priority priority) {
+    public Todo(Name name, Date date, Priority priority, Done isDone) {
         assert !CollectionUtil.isAnyNull(name, date, priority);
         super.name = name;
         this.date = date;
         this.priority = priority;
+        this.isDone = isDone;
     }
 
     /**
      * Copy constructor.
      */
     public Todo(Todo source) {
-        this(source.getName(), source.getDate() , source.getPriority());
+        this(source.getName(), source.getDate() , source.getPriority(),
+        		source.getDone());
     }
 
     public Date getDate() {
@@ -39,6 +42,10 @@ public class Todo extends Task implements ReadOnlyTask {
 
     public Priority getPriority() {
         return priority;
+    }
+    
+    public Done getDone() {
+    	return isDone;
     }
     
     public Todo(ReadOnlyTask source) {
