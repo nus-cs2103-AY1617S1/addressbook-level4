@@ -113,10 +113,11 @@ public class EditCommand extends Command {
             }
             // Either date, or time passed in
             else {
-                // must be time.
-                if (changes[0].length() == 4) {
+                // Must be time, does not contain "-"
+                if (!changes[0].contains("-")) {
                     newTime = changes[0];
                 }
+                // Must be date.
                 else {
                     newDate = changes[0];
                 }
