@@ -257,7 +257,7 @@ public class TaskListPanel extends UiPart {
         case "friday":
         case "saturday":
         case "sunday":
-            showRequiredDay(event.sectionToDisplay);
+            showRequiredDay(event.sectionToDisplay.toLowerCase());
         default:
             break;
         }
