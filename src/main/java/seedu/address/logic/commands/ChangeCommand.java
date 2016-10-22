@@ -3,9 +3,6 @@ package seedu.address.logic.commands;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.storage.StoragePathChangedEvent;
-
 /**
  * Change the default storage location of the task manager.
  */

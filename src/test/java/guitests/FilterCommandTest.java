@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 public class FilterCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void find_nonEmptyList() {
+    public void filter_nonEmptyList() {
         assertFilterResult("filter d/12.10.2016"); //no results
         commandBox.runCommand("list");
         assertFilterResult("filter d/11.10.2016", td.friendEvent, td.work); //multiple results
@@ -24,13 +24,13 @@ public class FilterCommandTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void find_emptyList(){
+    public void filter_emptyList(){
         commandBox.runCommand("clear");
         assertFilterResult("filter d/11.10.2016"); //no results
     }
 
     @Test
-    public void find_invalidCommand_fail() {
+    public void filter_invalidCommand_fail() {
         commandBox.runCommand("filterd/11.10.2016");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
