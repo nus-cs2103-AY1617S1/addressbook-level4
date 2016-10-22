@@ -77,9 +77,6 @@ public class InputHandler {
     }
 
     public boolean processInput(String input) {
-        // Push to history
-        pushCommand(input);
-        
         if (this.handlingController != null) {
             handlingController.process(input);
         } else {
@@ -114,6 +111,9 @@ public class InputHandler {
             maxController.process(input);
 
         }
+        
+        // Since command is not invalid, we push it to history
+        pushCommand(input);
 
         return true;
     }
