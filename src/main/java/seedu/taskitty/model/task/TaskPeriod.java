@@ -8,7 +8,7 @@ import seedu.taskitty.commons.util.CollectionUtil;
  * Represents a Task's startDate, startTime, endDate and endTime in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidDateFormat(String)}
  */
-public class TaskPeriod {
+public class TaskPeriod implements Comparable<TaskPeriod>{
 
     public static final String MESSAGE_PERIOD_INVALID =
             "Task start datetime cannot be after end datetime!";
@@ -141,6 +141,32 @@ public class TaskPeriod {
     
     public boolean isEvent() {
         return numArgs == Task.EVENT_COMPONENT_COUNT;
+    }
+
+    //@@author
+    @Override
+    public int compareTo(TaskPeriod periodToCompare) {
+        if (this.getNumArgs() == periodToCompare.getNumArgs()) {
+            // sort events according to their start time and end time
+            if (this.isEvent()) {
+                if (!this.getStartDate().equals(periodToCompare.getStartDate())) {
+                    return this.getStartDate().getDate().compareTo(periodToCompare.getStartDate().getDate());
+                } else if (!this.getStartTime().equals(periodToCompare.getStartTime())) {
+                    return this.getStartTime().getTime().compareTo(periodToCompare.getStartTime().getTime());                    
+                }
+            }
+            // if event has same start date and start time, sort it by its end date or end time like deadline
+            if (this.isEvent() || this.isDeadline()) {
+                if (!this.getEndDate().equals(periodToCompare.getEndDate())) {
+                    return this.getEndDate().getDate().compareTo(periodToCompare.getEndDate().getDate());
+                } else if (!this.getEndTime().equals(periodToCompare.getEndTime())) {
+                    return this.getEndTime().getTime().compareTo(periodToCompare.getEndTime().getTime());                    
+                } 
+            }
+            return 0; //no difference found
+        } else {
+            return this.getNumArgs() - periodToCompare.getNumArgs();
+        } 
     }
 
 }

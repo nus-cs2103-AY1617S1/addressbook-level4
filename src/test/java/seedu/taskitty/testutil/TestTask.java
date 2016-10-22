@@ -1,3 +1,4 @@
+//@@author A0139930B
 package seedu.taskitty.testutil;
 
 import seedu.taskitty.model.tag.UniqueTagList;
@@ -63,14 +64,15 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         return sb.toString();
     }
     
+    //@@author
     public String getEditCommand(int index, String category) {
         StringBuilder sb = new StringBuilder();
         sb.append("edit " + category + " " + index + " " + this.getName().fullName + " ");
-        if (startDate != null && startTime != null) {
-            sb.append(startDate.toString() + " " + startTime.toString() + " to ");
+        if (period.getStartDate() != null && period.getStartTime() != null) {
+            sb.append(period.getStartDate().toString() + " " + period.getStartTime().toString() + " to ");
         }
-        if (endDate != null && endTime != null) {
-            sb.append(endDate.toString() + " " + endTime.toString() + " ");
+        if (period.getEndDate() != null && period.getEndTime() != null) {
+            sb.append(period.getEndDate().toString() + " " + period.getEndTime().toString() + " ");
         }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
@@ -91,6 +93,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 		return period.isEvent();
 	}
 	
+	//@@author
 	@Override
     public int compareTo(TestTask taskToCompare) {
 	    // sort all tasks that are done to the back of the list
@@ -98,28 +101,15 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
             return 1;
         } else if (!this.getIsDone() && taskToCompare.getIsDone()) {
             return -1;
+        } else {        
+            int periodCompare = this.period.compareTo(taskToCompare.getPeriod());
+            //If no difference is found in period, compare using name
+            if (periodCompare != 0) {
+                return this.getName().fullName.compareTo(taskToCompare.getName().fullName);
+            } else {
+                return periodCompare;
+            }
         }
-        if (this.getNumArgs() == taskToCompare.getNumArgs()) {
-         // sort events according to their start time and end time
-            if (this.isEvent()) {
-                if (!this.getStartDate().equals(taskToCompare.getStartDate())) {
-                    return this.getStartDate().getDate().compareTo(taskToCompare.getStartDate().getDate());
-                } else if (!this.getStartTime().equals(taskToCompare.getStartTime())) {
-                    return this.getStartTime().getTime().compareTo(taskToCompare.getStartTime().getTime());                    
-                }
-            }
-         // if event has same start date and start time, sort it by its end date or end time like deadline
-            if (this.isEvent() || this.isDeadline()) {
-                if (!this.getEndDate().equals(taskToCompare.getEndDate())) {
-                    return this.getEndDate().getDate().compareTo(taskToCompare.getEndDate().getDate());
-                } else if (!this.getEndTime().equals(taskToCompare.getEndTime())) {
-                    return this.getEndTime().getTime().compareTo(taskToCompare.getEndTime().getTime());                    
-                } 
-            }
-         // if event and deadline has all the same dates and times, sort by the name of the task like todo
-            return this.getAsText().compareTo(taskToCompare.getAsText());
-        } else {
-            return this.getNumArgs() - taskToCompare.getNumArgs();
-        } 
+        
     }
 }
