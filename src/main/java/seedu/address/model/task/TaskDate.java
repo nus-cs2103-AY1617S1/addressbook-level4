@@ -74,15 +74,11 @@ public class TaskDate {
     	return new Date(date);
     }
     
-    public void extendByDay() {
-        
-    }
-    
     @Override
     public boolean equals(Object other){
 		return other == this ||
 				(other instanceof TaskDate // instanceof handles nulls
-		                && this.getDateInLong() == ((TaskDate) other).getDateInLong());
+		         && this.getDate().equals(((TaskDate) other).getDate()));
     }
 
     public boolean isValid() {

@@ -40,7 +40,7 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && ((other.getTaskType().equals(this.getTaskType())) || !other.getRecurringType().equals(RecurringType.NONE))
-                );
+                && other.getTaskDateComponent().equals(this.getTaskDateComponent()));
     }
 
     /**
@@ -73,4 +73,6 @@ public interface ReadOnlyTask {
     TaskComponent getComponentForNonRecurringType();
     
     void appendRecurringDate(TaskComponent componentToBeAppended);
+
+    TaskComponent getLastAppendedComponent();
 }

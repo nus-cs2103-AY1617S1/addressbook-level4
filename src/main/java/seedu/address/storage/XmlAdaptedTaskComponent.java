@@ -93,7 +93,7 @@ public class XmlAdaptedTaskComponent {
     	Task task = new Task(name, tags);
     	
     	if(isArchived){
-    		task.setType(TaskType.COMPLETED);
+    		task.setTaskType(TaskType.COMPLETED);
         	for(TaskComponent t: task.getTaskDateComponent()){
         		t.archive();
         	}
@@ -112,7 +112,7 @@ public class XmlAdaptedTaskComponent {
         
         Task task = new Task(name, tags, taskStartDate, taskEndDate, toBeAdded);
         if(isArchived){
-        	task.setType(TaskType.COMPLETED);
+        	task.setTaskType(TaskType.COMPLETED);
         	for(TaskComponent t: task.getTaskDateComponent()){
         		t.archive();
         	}

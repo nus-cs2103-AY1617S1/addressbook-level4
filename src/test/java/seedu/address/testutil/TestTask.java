@@ -40,7 +40,7 @@ public class TestTask extends Task implements ReadOnlyTask {
         this.name = name;
     }
     
-    public void setType(TaskType type){
+    public void setTaskType(TaskType type){
     	this.type = type;
     }
     
@@ -54,7 +54,7 @@ public class TestTask extends Task implements ReadOnlyTask {
     	TaskDate startDate = new TaskDate(p.parse(date).get(0).getDates().get(0).getTime());
     	for(TaskComponent taskComponent: recurringDates)
     		taskComponent.setStartDate(startDate);
-    	setType(TaskType.NON_FLOATING);
+    	setTaskType(TaskType.NON_FLOATING);
     }
     
     public void setEndDate(String date){
@@ -62,7 +62,11 @@ public class TestTask extends Task implements ReadOnlyTask {
     	TaskDate endDate = new TaskDate(p.parse(date).get(0).getDates().get(0).getTime());
     	for(TaskComponent taskComponent: recurringDates)
     		taskComponent.setEndDate(endDate);
-    	setType(TaskType.NON_FLOATING);
+    	setTaskType(TaskType.NON_FLOATING);
+    }
+    
+    public void setRecurringType(RecurringType type) {
+        this.recurringType = type;
     }
 
     @Override
@@ -90,6 +94,11 @@ public class TestTask extends Task implements ReadOnlyTask {
 	    assert recurringDates.size() == 1 : "This method should only be used for non recurring tasks";
 	    return recurringDates.get(0);
 	}
+    
+    @Override
+    public TaskComponent getLastAppendedComponent() {
+        return recurringDates.get(recurringDates.size()-1);
+    }
 
     @Override
     public String toString() {
@@ -99,6 +108,12 @@ public class TestTask extends Task implements ReadOnlyTask {
     @Override
     public TaskType getTaskType(){
     	return type;
+    }
+    
+    @Override
+    public void appendRecurringDate(TaskComponent componentToBeAppended) {
+        assert !recurringType.equals(RecurringType.NONE) : "You cannot append new dates to non recurring tasks";
+        recurringDates.add(componentToBeAppended);        
     }
 
     public String getAddFloatingCommand() {
@@ -131,5 +146,9 @@ public class TestTask extends Task implements ReadOnlyTask {
         sb.append("to "+ this.getComponentForNonRecurringType().getEndDate().getInputDate() + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
+    }
+    
+    public boolean equals(TestTask toCompare) {
+        return this.isSameStateAs(toCompare);
     }
 }
