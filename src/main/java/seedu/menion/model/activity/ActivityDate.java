@@ -37,7 +37,7 @@ public class ActivityDate {
         isValidDate(date);
          
         extractMonth(date);
-        this.value = formatNiceDate(date);
+        this.value = date;
     }
 
     //@@author: A0139277U
