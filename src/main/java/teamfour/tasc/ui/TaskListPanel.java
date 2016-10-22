@@ -28,6 +28,8 @@ public class TaskListPanel extends UiPart {
     private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    private boolean isCollapsed = false;
+    private int selectedIndex = -1;
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
@@ -84,7 +86,7 @@ public class TaskListPanel extends UiPart {
             }
         });
     }
-    
+
     private void setEventHandlerForListChangeEvent() {
         taskListView.getItems().addListener(new ListChangeListener<ReadOnlyTask>() {
 
@@ -93,7 +95,7 @@ public class TaskListPanel extends UiPart {
                 logger.fine("List has changed!");
                 raise(new TaskPanelListChangedEvent(taskListView.getItems()));
             }
-            
+
         });
     }
 
@@ -102,6 +104,11 @@ public class TaskListPanel extends UiPart {
             taskListView.scrollTo(index);
             taskListView.getSelectionModel().clearAndSelect(index);
         });
+        selectedIndex = index;
+    }
+
+    public void setCollapse(boolean collapse){
+        this.isCollapsed = collapse;
     }
 
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
@@ -117,7 +124,16 @@ public class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                if (isCollapsed && getIndex() != selectedIndex){
+                    setGraphic(TaskCardCollapsed.load(task, getIndex() + 1).getLayout());
+                }
+                else if(getIndex() == selectedIndex){
+                    setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                    selectedIndex = -1;
+                }
+                else{
+                    setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                }
             }
         }
     }
