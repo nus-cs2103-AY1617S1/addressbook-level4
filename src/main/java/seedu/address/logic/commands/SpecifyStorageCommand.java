@@ -23,7 +23,11 @@ public class SpecifyStorageCommand extends Command {
     public SpecifyStorageCommand(String folderPath) {
         this.folderPath = folderPath;
     }
-
+    
+    public String getTargetFilePath() {
+        return this.folderPath;
+    }
+    
     @Override
     public CommandResult execute() {
         try {
@@ -56,6 +60,9 @@ public class SpecifyStorageCommand extends Command {
             e.printStackTrace();
 
         }
+        
+        //need to have some sort of flag to notify on exit need to shift the file to the new destination in config file
+        
         return new CommandResult(String.format(SPECIFY_STORAGE_SUCCESS, this.folderPath));
 
     }
