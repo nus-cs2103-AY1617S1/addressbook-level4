@@ -22,7 +22,7 @@ public class CommandBox extends UiPart {
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
-    String previousCommandTest;
+    String previousCommandText;
 
     private Logic logic;
 
@@ -70,12 +70,12 @@ public class CommandBox extends UiPart {
     @FXML
     private void handleCommandInputChanged() {
         //Take a copy of the command text
-        previousCommandTest = commandTextField.getText();
+        previousCommandText = commandTextField.getText();
 
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
-        handleCommands(previousCommandTest);
+        handleCommands(previousCommandText);
     }
 
     public void handleCommands(String command) {
@@ -95,7 +95,7 @@ public class CommandBox extends UiPart {
 
     @Subscribe
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandTest));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandText));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
     }
@@ -104,7 +104,7 @@ public class CommandBox extends UiPart {
      * Restores the command box text to the previously entered command
      */
     private void restoreCommandText() {
-        commandTextField.setText(previousCommandTest);
+        commandTextField.setText(previousCommandText);
     }
 
     /**

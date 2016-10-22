@@ -200,12 +200,12 @@ public class MainWindow extends UiPart {
     
     @FXML
     public void handleUndo() {
-
+        commandBox.handleCommands("undo");
     }
     
     @FXML
     public void handleList() {
-
+        commandBox.handleCommands("list");
     }
     
     /**
