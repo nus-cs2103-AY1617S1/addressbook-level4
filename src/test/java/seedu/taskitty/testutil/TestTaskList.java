@@ -72,6 +72,12 @@ public class TestTaskList {
         getCategoryList(category).remove(index);
     }
     
+    public void markTaskAsDoneInList(int index, String category, TestTask task) {
+    	removeTaskFromList(index, category);
+    	task.markAsDone();
+    	addTaskToList(task);
+    }
+    
     public int size(String category) {
         return getCategoryList(category).size();
     }
