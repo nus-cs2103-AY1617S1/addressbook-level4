@@ -35,16 +35,16 @@ Different Types of tasks (Todo/Event/Deadline) have different command format.<br
 
 ###### Adding a Todo:
 Todos will be rearranged in the Todo-List based on their priority.<br>
-> Format: `add TASK_NAME d/DATE p/PRIORITY`<br>
-> Example: `add Assignment 3 d/25-12/2015 p/1`
+> Format: `add TASK_NAME from/DATE to/ENDDATE p/PRIORITY`<br>
+> Example: `add Assignment 3 from/25-12-2016 to/26-12-2016 p/1`
 
 ###### Adding an Event:
-> Format: `add TASK_NAME d/DATE s/START_TIME e/END_TIME`<br>
-> Example: `add Time's birthday party d/25-12-2016 s/1400 e/1600`
+> Format: `add TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`<br>
+> Example: `add Time's birthday party from/25-12-2016 to/26-12-2016 at/1400 to/1600`
 
 ###### Adding a Deadline:
-> Format: `add TASK_NAME d/DATE e/END_TIME`<br>
-> Example: `add CS2103 v0.2 d/25-12-2016 e/1600`
+> Format: `add TASK_NAME on/DATE at/END_TIME`<br>
+> Example: `add CS2103 v0.2 on/25-12-2016 at/1600`
 
 #### Editing a task: `edit`
 Edits information of the task in the task-list.<br>
@@ -52,16 +52,16 @@ Different Types of tasks (Todo/Event/Deadline) have different command format.<br
 
 ###### Editing a Todo:
 Todos will be rearranged in the Todo-List based on their priority.<br>
-> Format: `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE p/PRIORITY`<br>
-> Example: `edit todo 1 d/25-12/2015 n/Assignment 1 p/2`
+> Format: `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE p/PRIORITY`<br>
+> Example: `edit todo 1 name/Assignment from/25-12-2016 to/26-12-2016 p/2`
 
 ###### Editing an Event:
-> Format: `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME`<br>
-> Example: `edit event 1 n/Time's birthday party d/25-12-2016 s/1200 e/1600`
+> Format: `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`<br>
+> Example: `edit event 1 name/Time's birthday party from/25-12-2016 to/26-12-2016 at/1200 to/1600`
 
 ###### Editing a Deadline:
-> Format: `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME`<br>
-> Example: `edit deadline 1 n/CS2103 v0.2 d/25-12-2016 e/1400`
+> Format: `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME on/DATE at/END_TIME`<br>
+> Example: `edit deadline 1 name/CS2103 v0.2 on/25-12-2016 at/1400`
 
 #### Deleting a task : `delete`
 Delete a task with given type and index number.<br>
@@ -121,12 +121,12 @@ Task-list data are saved in the hard disk automatically after any command that c
 
 Command 	| Format  
 --------------- | :-------- 
-Add	Todo	| `add TASK_NAME d/DATE p/PRIORITY`
-Add	Event	| `add TASK_NAME d/DATE s/START_TIME e/END_TIME`
-Add	Deadline| `add TASK_NAME d/DATE e/END_TIME`
-Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE p/PRIORITY`
-Edit	Event	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME`
-Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME`
+Add	Todo	| `add TASK_NAME from/DATE to/ENDDATE p/PRIORITY`
+Add	Event	| `add TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`
+Add	Deadline| `add TASK_NAME on/DATE at/END_TIME`
+Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE p/PRIORITY`
+Edit	Event	| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`
+Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME on/DATE at/END_TIME`
 Delete		| `delete TASK_TYPE INDEX_NUMBER`
 Done		| `done INDEX_NUMBER`
 List		| `list TASK_TYPE`
