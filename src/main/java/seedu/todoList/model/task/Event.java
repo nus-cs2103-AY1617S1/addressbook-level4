@@ -13,18 +13,30 @@ import seedu.todoList.model.task.attributes.StartTime;
  */
 public class Event extends Task implements ReadOnlyTask {
 
+<<<<<<< HEAD
 	private Date date;
 	private EndDate endDate;
+=======
+	private Date startDate;
+	private Date endDate;
+>>>>>>> a6d44dc7e69055ef975aa340b5da8a8ec532aa33
     private StartTime startTime;
     private EndTime endTime;
 
     /**
      * Every field must be present and not null.
      */
+<<<<<<< HEAD
     public Event(Name name, Date date, EndDate endDate, StartTime startTime, EndTime endTime) {
         assert !CollectionUtil.isAnyNull(name, date, startTime, endTime);
         super.name = name;
         this.date = date;
+=======
+    public Event(Name name, Date startDate, Date endDate, StartTime startTime, EndTime endTime) {
+        assert !CollectionUtil.isAnyNull(name, startDate, endDate, startTime, endTime);
+        super.name = name;
+        this.startDate = startDate;
+>>>>>>> a6d44dc7e69055ef975aa340b5da8a8ec532aa33
         this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -34,15 +46,23 @@ public class Event extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Event(Event source) {
+<<<<<<< HEAD
         this(source.getName(), source.getDate(), source.getEndDate(), source.getStartTime(), source.getEndTime());
+=======
+        this(source.getName(), source.getStartDate(), source,getEndDate(), source.getStartTime(), source.getEndTime());
+>>>>>>> a6d44dc7e69055ef975aa340b5da8a8ec532aa33
     }
     
     public Event(ReadOnlyTask source) {
     	this((Event) source);
     };
 
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
     }
     
     public EndDate getEndDate() {
