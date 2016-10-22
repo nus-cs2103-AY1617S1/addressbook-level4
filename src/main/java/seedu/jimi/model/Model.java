@@ -20,7 +20,7 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
-    void addTask(ReadOnlyTask floatingTask) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
