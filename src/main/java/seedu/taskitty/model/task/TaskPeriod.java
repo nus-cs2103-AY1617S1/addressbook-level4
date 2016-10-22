@@ -57,9 +57,11 @@ public class TaskPeriod implements Comparable<TaskPeriod>{
         this.endDate = endDate;
         this.endTime = endTime;
         
-        if (this.startDate != null && this.startTime != null) {
+        if (this.startDate != null) {
+            assert this.startTime != null;
             numArgs = Task.EVENT_COMPONENT_COUNT;
-        } else if (this.endDate != null && this.endTime != null) {
+        } else if (this.endDate != null) {
+            assert this.endTime != null;
             numArgs = Task.DEADLINE_COMPONENT_COUNT;
         } else {
             numArgs = Task.TASK_COMPONENT_COUNT;
