@@ -4,12 +4,12 @@ import org.junit.Test;
 
 import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.util.TaskUtil;
+import seedu.taskitty.model.task.Task;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.taskitty.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
-import static seedu.taskitty.logic.commands.DeleteCommand.CATEGORIES;
 
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
@@ -69,6 +69,6 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertTrue(currentList.isListMatching(taskListPanel));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, CATEGORIES[categoryIndex], personToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, Task.CATEGORIES[categoryIndex], personToDelete));
     }
 }
