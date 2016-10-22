@@ -227,13 +227,13 @@ public class TaskListPanel extends UiPart {
     @Subscribe
     public void handleShowTaskPanelSelectionEvent(ShowTaskPanelSectionEvent event) {
         switch (event.sectionToDisplay) {
-        case "floating tasks":
+        case "floating":
             showFloatingTasks();
             break;
-        case "incomplete tasks":
+        case "incomplete":
             showIncompleteTasks();
             break;
-        case "completed tasks":
+        case "complete":
             showCompleteTasks();
             break;
         case "today":
