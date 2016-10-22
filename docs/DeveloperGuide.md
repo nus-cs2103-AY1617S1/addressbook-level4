@@ -274,17 +274,17 @@ Priorities: High - `* * *` Medium - `* *`  Low - `*`
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
+`* * *` | new user | see instructions on how to use the app | refer to instructions when I forget how to use the App
 `* * *` | user | add tasks to the todo list | be reminded of what to do
 `* * *` | user | add tasks with deadline | remember by what time I have to complete a task
 `* * *` | user | add tasks with timeframe | know what I have to attend an event
 `* * *` | user | view upcoming tasks | check what I need to do / have to do soon
 `* * *` | user | search for details on a task or event | view what needs to be done
-`* * *` | user | delete task that has been completed | completely remove it from my task manager	
-`* * *` | user | mark the task as completed upon completion | keep an archive of tasks that I have completed
+`* * *` | user | delete a task that has been completed | completely remove it from my task manager	
+`* * *` | user | mark a task as completed upon completion | keep an archive of tasks that I have completed
 `* * *` | user | view tasks that I have completed | recall what I have completed
 `* * *` | user | call up the todo list with a simple keystroke | start the application anytime during my workflow
-`* * *` | user | undo my actions | reverse any mistakes that I have made
+`* * *` | user | undo my actions | reverse any mistake that I have made
 `* * *` | user | redo my undo | correct any accidental undo
 `* * *` | user | edit tasks | keep them up to date
 `* *` | user | sync my task with other computers | keep track of what to do anywhere
@@ -299,7 +299,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 **MSS**
 
-1. User enters an `add` command, specifying details of the task to be added, following the `add` command format
+1. User enters an `add` command, specifying details of the task to be added
 2. TaskManager parses the `add` command, and adds the task to the current task list
 3. TaskManager saves the current task list to storage and updates the GUI to display the updated list with the newly added task<br>
 Use case ends
@@ -344,7 +344,7 @@ Use case ends
 
 1. User requests to list undone tasks (UC02)
 2. TaskManager shows the list of all undone tasks
-3. User enters the `edit` command, specifying the `INDEX` of the task in the list to be edited, the fields to be edited and their new values, following the `edit` command format
+3. User enters the `edit` command, specifying the `INDEX` of the task in the list to be edited, the fields to be edited and their new values
 4. TaskManager parses the `edit` command and looks for the task in the list
 5. TaskManager edits the requested fields on the specified task according to the command entered
 6. TaskManager updates the GUI to display the new list of undone tasks<br>
@@ -373,7 +373,7 @@ Use case ends
 
 1. User requests to list undone tasks (UC02)
 2. TaskManager shows the list of all undone tasks
-3. User enters the `delete` command, specifying the `INDEX` of the task in the list to be deleted, following the `delete` command format
+3. User enters the `delete` command, specifying the `INDEX` of the task in the list to be deleted
 4. TaskManager parses the `delete` command and looks for the task in the list
 5. TaskManager deletes the task from the list
 6. TaskManager updates the GUI to display the new list of undone tasks<br>
@@ -430,11 +430,11 @@ Use case ends
 
 ## Appendix E : Product Survey
 
-Product | Pros | Cons |
+Product | Strength | Weaknesses |
 -------- | :-------- | :--------- 
 Wunderlist | <ol> <li> Beautiful background </li> <li> Cloud sync </li> <li> Able to create folders to group similar tasks </li> <li> Able to add tags to tasks to filter them </li> </ol>  | <ol> <li> No start date or repeat options for tasks </li> <li> No options for subtasks </li> </ol> 
 Todo.txt | <ol> <li> Works on many platforms, can be accessed on devices that support Dropbox </li> <li> Easily editable format, can be edited in plain text and then displayed with neat styles </li> <li> Can edit with any text editor </li> <li> Easy syncing - can sync through Dropbox </li> <li> Command line support - can edit using command line by a supplied bash script </li> </ol> | <ol> <li> No support for recurring tasks </li> <li> No options for subtasks </li> <li> Only supports Dropbox, not flexible </li> </ol> 
 Google Calendar | <ol> <li> Can be synced to mobile devices </li> <li> Alerts via notifications on phones </li> <li> Switches between views easily </li> <li> Minimalistic interface </li>  </ol>  | <ol> <li> Requires an Internet connection to be used </li> <li> Cannot be brought up with a keyboard shortcut </li> </ol> 
-Remember the milk | <ol> <li> Supports email, text, IM, Twitter, and mobile notifications </li> <li> Able to share lists and tasks with others</li> <li> Synchronises across on all devices </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Search tasks and notes, and save favorite searches </li> <li> Integrates with Gmail, Google Calendar, Twitter, Evernote, and more </li>  </ol> | <ol> <li> Free version lacks features: E.g. splitting into subtasks </li> <li> Lack keyboard shortcuts</li> </ol>
+Remember the milk | <ol> <li> Able to support email, text, IM, Twitter, and mobile notifications </li> <li> Able to share lists and tasks with others</li> <li> Synchronises across on all devices </li> <li> Organize with priorities, due dates, repeats, lists, tags </li> <li> Search tasks and notes, and save favorite searches </li> <li> Integrates with Gmail, Google Calendar, Twitter, Evernote, and more </li>  </ol> | <ol> <li> Free version lacks features: E.g. splitting into subtasks </li> <li> Lack keyboard shortcuts</li> </ol>
 
-<strong>Summary:</strong> We noticed that these products have very good features, but we realised that none of these products have the specific combination of products that caters to our target audience. Therefore, we are incorporating some of the good features such as minimalistic interface and ability to sync with multiple computers while designing DearJim carefully to avoid the pitfalls found in these products, to make a targeted product for our intended audience.
+<strong>Summary:</strong> We observed that these products have very good features, but we realise that none of these products have the specific combination of features that caters to our target audience. Therefore, we are incorporating some of the good features such as minimalistic interface and ability to sync with multiple computers while designing DearJim carefully to avoid the pitfalls found in these products, to make a targeted product for our intended audience.
