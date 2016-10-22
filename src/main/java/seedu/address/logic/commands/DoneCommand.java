@@ -53,7 +53,7 @@ public class DoneCommand extends Command {
     	model.saveState();
     	
     	ArrayList<ReadOnlyTask> tasksList = new ArrayList<>();
-        Task taskDone;
+    	Task taskDone;
         
         for (int i=0; i<indices.length; i++) {
             if (lastShownList.size() < indices[i]) {
@@ -79,7 +79,7 @@ public class DoneCommand extends Command {
         if(status.equals("done")) {
             successMessage = String.format(MESSAGE_DONE_TASK_SUCCESS, tasksList);
         } else if(status.equals("not done")) {
-        	successMessage =  String.format(MESSAGE_NOT_DONE_TASK_SUCCESS, tasksList);
+            successMessage =  String.format(MESSAGE_NOT_DONE_TASK_SUCCESS, tasksList);
         }
         return successMessage;
     }
