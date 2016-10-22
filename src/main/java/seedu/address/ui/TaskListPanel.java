@@ -67,7 +67,6 @@ public class TaskListPanel extends UiPart {
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
-        taskListView.setSelectionModel(null);
     }
 
     private void addToPlaceholder() {
