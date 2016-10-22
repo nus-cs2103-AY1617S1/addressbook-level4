@@ -48,7 +48,6 @@ public class FilteredListManager {
         for (ListId id : ListId.values()) {
             listMap.put(id, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
         }
-        
         initFilters();
     }
     
@@ -77,17 +76,17 @@ public class FilteredListManager {
                 .setPredicate(new PredicateExpression(new DateQualifier(ListId.DAY_AHEAD_6))::satisfies);
         
         listMap.get(ListId.TASKS_AGENDA)
-                .setPredicate(new PredicateExpression(new TaskQualifier(true))::satisfies);
+                .setPredicate(new PredicateExpression(new TaskQualifier(false))::satisfies);
         listMap.get(ListId.EVENTS_AGENDA)
-                .setPredicate(new PredicateExpression(new EventQualifier(true))::satisfies);
+                .setPredicate(new PredicateExpression(new EventQualifier(false))::satisfies);
 
     }
     
     public void updateFilteredListToDefault() {
         listMap.get(ListId.TASKS_AGENDA)
-                .setPredicate(new PredicateExpression(new TaskQualifier(true))::satisfies);
+                .setPredicate(new PredicateExpression(new TaskQualifier(false))::satisfies);
         listMap.get(ListId.EVENTS_AGENDA)
-                .setPredicate(new PredicateExpression(new EventQualifier(true))::satisfies);
+                .setPredicate(new PredicateExpression(new EventQualifier(false))::satisfies);
     }
     
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredList(ListId id) {
@@ -102,7 +101,7 @@ public class FilteredListManager {
      * Updates filtered list with a filter that matches the default filter 
      * along with all predicate expressions in {@code expressions}.
      * @author Clarence 
-     * */
+     */
     private void updateFilteredList(ListId id, Expression... expressions) {
         updateFilteredListToDefault(); // first reset to default
         Predicate<? super ReadOnlyTask> defaultPredicate = listMap.get(id).getPredicate();
@@ -280,7 +279,6 @@ public class FilteredListManager {
             if (task instanceof Event) {
                 return false;
             }
-            
             return isCheckCompleted == task.isCompleted();
         }
     }
@@ -300,10 +298,10 @@ public class FilteredListManager {
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            if (isCheckCompleted && task.isCompleted()) {
+            if (!(task instanceof Event)) {
                 return false;
             }
-            return task instanceof Event;
+            return isCheckCompleted == task.isCompleted();
         }
     }
     
@@ -322,13 +320,10 @@ public class FilteredListManager {
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            if (isCheckCompleted && task.isCompleted()) {
+            if (task instanceof Event || task instanceof DeadlineTask) {
                 return false;
             }
-            
-            return !(task instanceof DeadlineTask) 
-                    && !(task instanceof Event) 
-                    && task instanceof FloatingTask;
+            return isCheckCompleted == task.isCompleted();
         }
     }
     
@@ -347,10 +342,10 @@ public class FilteredListManager {
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            if (isCheckCompleted && task.isCompleted()) {
+            if (!(task instanceof FloatingTask)) {
                 return false;
             }
-            return task instanceof FloatingTask;
+            return isCheckCompleted == task.isCompleted();
         }
     }
 }
