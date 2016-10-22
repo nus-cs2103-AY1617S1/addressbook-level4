@@ -70,7 +70,6 @@ public class StartDate {
      * Returns if a given string is a valid event date.
      */
     public static boolean isValidDate(String date) {
-        boolean isValid = true;
         boolean checkDay = true, checkMonth = true, checkYear = true;
         
         //Date object
@@ -96,12 +95,10 @@ public class StartDate {
       
         //Check if date is valid
         if(date.matches(DATE_VALIDATION_REGEX) && checkDay && checkMonth && checkYear){
-            isValid = true;
+            return true;
         }else{
-            isValid = false;
+            return false;
         }
-        
-        return isValid;
     }
     
     @Override

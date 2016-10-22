@@ -9,11 +9,11 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
 public class StartTime {
 
     public static final String MESSAGE_STARTTIME_CONSTRAINTS =
-            "Event Start time should be written in this format, must be 4 digits '1000'";
-    public static final String STARTTIME_VALIDATION_REGEX = "^(\\d{4})$";
+            "Event Start time should be written in this format, must be 4 digits '10:00' and within 24 hrs format (0000 to 2359)";
+    public static final String STARTTIME_VALIDATION_REGEX = "^(\\d{2}:\\{2})$";
     
     public final String startTime;
-    
+    public final String saveStartTime;
     /**
      * Validates given start time.
      *
@@ -21,21 +21,56 @@ public class StartTime {
      */
     public StartTime(String startTime) throws IllegalValueException {
         assert startTime != null;
+        saveStartTime = startTime.trim();
         startTime = startTime.trim();
         if (!isValidStartTime(startTime)) {
             throw new IllegalValueException(MESSAGE_STARTTIME_CONSTRAINTS);
         }
-        this.startTime = startTime;
+        
+        //Checking time in 24-Hr format
+        String[] stimeArr = startTime.split(":");
+        String hour = "";
+        switch(stimeArr[0]){
+            case "00" : hour = "12:"; break;
+            case "23" : hour = "11:"; break;
+            case "22" : hour = "10:"; break;
+            case "21" : hour = "09:"; break;
+            case "20" : hour = "08:"; break;
+            case "19" : hour = "07:"; break;
+            case "18" : hour = "06:"; break;
+            case "17" : hour = "05:"; break;
+            case "16" : hour = "04:"; break;
+            case "15" : hour = "03:"; break;
+            case "14" : hour = "02:"; break;
+            case "13" : hour = "01:"; break;
+            default: hour = stimeArr[0] + ":";
+        }
+        if(Integer.parseInt(stimeArr[0]) > 11){
+            startTime = hour + stimeArr[1] + "pm";
+            this.startTime = startTime;
+        }else{
+            startTime = hour + stimeArr[1] + "am";
+            this.startTime = startTime;
+        }
     }
     
     /**
      * Returns if a given string is a valid event start time.
      */
-    public static boolean isValidStartTime(String starttime) {
-        return starttime.matches(STARTTIME_VALIDATION_REGEX);
+    public static boolean isValidStartTime(String starttime) {   
+        String[] stimeArr = starttime.split(":");
+        boolean checkTime = true;
+        if(Integer.parseInt(stimeArr[0]) > 23 || Integer.parseInt(stimeArr[1]) > 59){
+            checkTime = false;
+        }
+        
+        if(starttime.matches(STARTTIME_VALIDATION_REGEX) && checkTime){
+            return true;
+        }else{
+            return false;
+        }
     }
-    
-    
+  
     @Override
     public String toString() {
         return startTime;

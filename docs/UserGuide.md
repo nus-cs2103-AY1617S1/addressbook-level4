@@ -40,11 +40,11 @@ Todos will be rearranged in the Todo-List based on their priority.<br>
 
 ###### Adding an Event:
 > Format: `add TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`<br>
-> Example: `add Time's birthday party from/25-12-2016 to/26-12-2016 at/1400 to/1600`
+> Example: `add Time's birthday party from/25-12-2016 to/26-12-2016 at/14:00 to/16:00`
 
 ###### Adding a Deadline:
 > Format: `add TASK_NAME on/DATE at/END_TIME`<br>
-> Example: `add CS2103 v0.2 on/25-12-2016 at/1600`
+> Example: `add CS2103 v0.2 on/25-12-2016 at/16:00`
 
 #### Editing a task: `edit`
 Edits information of the task in the task-list.<br>
@@ -57,11 +57,11 @@ Todos will be rearranged in the Todo-List based on their priority.<br>
 
 ###### Editing an Event:
 > Format: `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`<br>
-> Example: `edit event 1 name/Time's birthday party from/25-12-2016 to/26-12-2016 at/1200 to/1600`
+> Example: `edit event 1 name/Time's birthday party from/25-12-2016 to/26-12-2016 at/12:00 to/16:00`
 
 ###### Editing a Deadline:
 > Format: `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME on/DATE at/END_TIME`<br>
-> Example: `edit deadline 1 name/CS2103 v0.2 on/25-12-2016 at/1400`
+> Example: `edit deadline 1 name/CS2103 v0.2 on/25-12-2016 at/14:00`
 
 #### Deleting a task : `delete`
 Delete a task with given type and index number.<br>
@@ -121,7 +121,7 @@ Task-list data are saved in the hard disk automatically after any command that c
 ## Command Summary
 
 Command 	| Format  
-<<<<<<< HEAD
+
 --------------- | :-------- 
 Add	Todo	| `add TASK_NAME from/DATE to/ENDDATE p/PRIORITY`
 Add	Event	| `add TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`
@@ -129,7 +129,7 @@ Add	Deadline| `add TASK_NAME on/DATE at/END_TIME`
 Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE p/PRIORITY`
 Edit	Event	| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME`
 Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER name/TASK_NAME on/DATE at/END_TIME`
-=======
+
 --------------- | :--------
 Add	Todo	| `add TASK_NAME d/DATE p/PRIORITY`
 Add	Event	| `add TASK_NAME d/DATE s/START_TIME e/END_TIME`
@@ -137,7 +137,7 @@ Add	Deadline| `add TASK_NAME d/DATE e/END_TIME`
 Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE p/PRIORITY`
 Edit	Event	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME`
 Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME`
->>>>>>> a6d44dc7e69055ef975aa340b5da8a8ec532aa33
+
 Delete		| `delete TASK_TYPE INDEX_NUMBER`
 Done		| `done TASK_TYPE INDEX_NUMBER`
 List		| `list TASK_TYPE`
