@@ -94,7 +94,7 @@ public class ActivityParser {
         }
     }
     
-   
+   //@@author: A0139277U
     private Command prepareList(String args){
     	
     	args = args.trim();

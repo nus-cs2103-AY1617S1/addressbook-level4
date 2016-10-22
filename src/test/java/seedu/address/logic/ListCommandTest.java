@@ -36,5 +36,19 @@ public class ListCommandTest {
 		ListCommand list = new ListCommand(argument);
 		
 		assertEquals(list.LIST_MONTH, list.checkListType(argument));
+		
 	}
+	
+	@Test
+	public void checkListTypeNoArguments_returnsListTypeAll() throws IllegalValueException {
+		
+		String argument = "";
+		ListCommand list = new ListCommand(argument);
+		
+		assertEquals(list.LIST_ALL, list.checkListType(argument));
+	}
+	
+
+	
+	
 }

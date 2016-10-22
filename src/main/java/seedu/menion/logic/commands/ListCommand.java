@@ -24,7 +24,7 @@ public class ListCommand extends Command {
     
     public static final String WRONG_ARGUMENT = "Wrong argument! Please input either list all, list DATE or list MONTH";
     public static final String MESSAGE_SUCCESS_ALL = "Listed all activities";
-    public static final String MESSAGE_SUCCESS_DATE_MONTH = "Listed all activities which falls on : ";
+    public static final String MESSAGE_SUCCESS_DATE_MONTH = "Menion lists all activities that falls on ";
 
     private String listArgument;
     private String listType;
@@ -38,6 +38,7 @@ public class ListCommand extends Command {
     public ListCommand(String args){
     	argumentsToList = new HashSet<String>();
     	this.listArgument = args;
+    	System.out.println("args = " + args);
     }
 
     /**
@@ -48,11 +49,12 @@ public class ListCommand extends Command {
      */
     public String checkListType(String args) throws IllegalValueException{
     	
-    	if (args.toLowerCase().equals(LIST_ALL)){
+    	if (args.equals("") || args.toLowerCase().equals(LIST_ALL)){
     		return LIST_ALL;
     	}
     	
     	else if (isMonth(args)){
+    		
     		return LIST_MONTH;
     	}
     	
@@ -121,16 +123,16 @@ public class ListCommand extends Command {
         		
         	case LIST_DATE:
         		
-//        		model.updateFilteredTaskList(this.argumentsToList);
-//        		model.updateFilteredEventList(this.argumentsToList);
-//        		model.updateFilteredFloatingTaskList(this.argumentsToList);
+        		model.updateFilteredTaskList(this.argumentsToList);
+        		model.updateFilteredEventList(this.argumentsToList);
+        		model.updateFilteredFloatingTaskList(this.argumentsToList);
         		return new CommandResult(MESSAGE_SUCCESS_DATE_MONTH + this.dateToList);
         	
         	case LIST_MONTH:
         		
-//        		model.updateFilteredTaskList(this.argumentsToList);
-//        		model.updateFilteredEventList(this.argumentsToList);
-//        		model.updateFilteredFloatingTaskList(this.argumentsToList);
+        		model.updateFilteredTaskList(this.argumentsToList);
+        		model.updateFilteredEventList(this.argumentsToList);
+        		model.updateFilteredFloatingTaskList(this.argumentsToList);
         		return new CommandResult(MESSAGE_SUCCESS_DATE_MONTH + this.monthToList);
         		
         	default:

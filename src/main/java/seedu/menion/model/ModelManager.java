@@ -298,10 +298,24 @@ public class ModelManager extends ComponentManager implements Model {
             this.nameKeyWords = nameKeyWords;
         }
 
+        //@@author: A0139277U
         @Override
         public boolean run(ReadOnlyActivity activity) {
+        	String activityKeyWords;
+        	
+        	if (activity.getActivityType().equals(Activity.TASK_TYPE)){
+        		activityKeyWords = activity.getActivityName().fullName + " " + activity.getActivityStartDate().toString();
+        	}
+        	else if (activity.getActivityType().equals(Activity.EVENT_TYPE)){
+        		activityKeyWords = activity.getActivityName().fullName + " " + activity.getActivityStartDate().toString() + 
+        				" " + activity.getActivityEndDate();
+        	}
+        	else {
+        		activityKeyWords = activity.getActivityName().fullName;
+        	}
+        	
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(activity.getActivityName().fullName, keyword)).findAny()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(activityKeyWords, keyword)).findAny()
                     .isPresent();
         }
 
