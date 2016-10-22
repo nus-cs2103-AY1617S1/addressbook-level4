@@ -198,11 +198,15 @@ public class MainApp extends Application {
         System.out.println(sourceFilePath.toString());
         System.out.println(targetFilePath.toString());
         
+        assert sourceFilePath != null;
+        assert targetFilePath != null;
+        
         try {
             Files.move(sourceFilePath, targetFilePath);
         } catch (IOException e) {
             System.out.println("This should never appear");
         }
+        
         Platform.exit();
         System.exit(0);
     }
