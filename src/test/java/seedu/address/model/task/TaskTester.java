@@ -8,12 +8,12 @@ import org.junit.Test;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * Tests the functionalities of Task class
+ * Unit Tester that tests the methods of the Task class
  * 
  * @author User
  *
  */
-public class TaskTest {
+public class TaskTester {
    private Task task;
     
    @Test

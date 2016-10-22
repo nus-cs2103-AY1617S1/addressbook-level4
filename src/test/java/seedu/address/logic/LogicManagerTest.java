@@ -960,7 +960,7 @@ public class LogicManagerTest {
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toAdd),
                 expectedTM,
                 expectedComponentList);
-    }    
+    }
     
 //    /** tests for edit command*/   
 //    @Test
