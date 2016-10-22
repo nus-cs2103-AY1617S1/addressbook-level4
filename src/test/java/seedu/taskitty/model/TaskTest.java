@@ -1,4 +1,4 @@
-//@@author A013990B
+//@@author A0139930B
 package seedu.taskitty.model;
 
 import seedu.taskitty.commons.exceptions.IllegalValueException;
