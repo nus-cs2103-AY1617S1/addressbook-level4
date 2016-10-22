@@ -47,7 +47,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getTasks() {
+    public ObservableList<Task> getAllTasks() {
         return tasks.getInternalList();
     }
     

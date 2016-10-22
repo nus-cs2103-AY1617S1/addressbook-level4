@@ -34,7 +34,7 @@ public interface Model {
     void editTask(ReadOnlyTask task, Task replacement) throws UniqueTaskList.TaskNotFoundException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredAllTaskList();
     
     /** Returns the filtered complete task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredCompleteTaskList();
