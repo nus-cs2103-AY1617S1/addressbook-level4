@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.HashMap;
 import java.util.Optional;
@@ -11,8 +10,6 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.model.item.DateTime;
 
 public class CommandParserHelper {
@@ -29,6 +26,7 @@ public class CommandParserHelper {
     private static final String REGEX_CASE_IGNORE = "?i:";
     private static final String REGEX_CLOSE_BRACE = ")";
     private static final String REGEX_GREEDY_SELECT = ".*?";
+    private static final String REGEX_ESCAPE = "\"";
 
     private static final String REGEX_NAME = "?<taskName>.*?";
     private static final String REGEX_ADDITIONAL_KEYWORD = "(?:" + "(?: from )" + "|(?: at )" + "|(?: start )"
@@ -44,6 +42,8 @@ public class CommandParserHelper {
     private static final String REGEX_RECURRENCE_AND_PRIORITY = "(?: repeat every (?<recurrenceRate>.*?))?"
             + "(?: -(?<priority>.*?))?";
 
+    private static final String REGEX_OPEN_BRACE_CASE_IGNORE_NAME_ESCAPE = REGEX_OPEN_BRACE + REGEX_CASE_IGNORE
+            + REGEX_ESCAPE + REGEX_OPEN_BRACE + REGEX_NAME + REGEX_CLOSE_BRACE + REGEX_ESCAPE;
     private static final String REGEX_OPEN_BRACE_CASE_IGNORE_NAME = REGEX_OPEN_BRACE + REGEX_CASE_IGNORE
             + REGEX_OPEN_BRACE + REGEX_NAME;
     private static final String REGEX_KEYWORD_GREEDY_SELECT = REGEX_ADDITIONAL_KEYWORD + REGEX_GREEDY_SELECT;
@@ -55,85 +55,149 @@ public class CommandParserHelper {
 
     public HashMap<String, Optional<String>> prepareAdd(String args) throws IllegalValueException {
         assert args != null;
-        
         OptionalStringTask task = new OptionalStringTask();
+        int numberOfKeywords;
         String regex;
-        int numberOfKeywords = generateNumberOfKeywords(args);
-
+        if (args.contains("\"")) {
+            String nonName = args.substring(args.lastIndexOf("\"") + 1);
+            numberOfKeywords = generateNumberOfKeywords(nonName);
+            regex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME_ESCAPE;
+            generateCorrectMatcherEscape(args, task, numberOfKeywords, regex);
+        } else {
+            numberOfKeywords = generateNumberOfKeywords(args);
+            regex = generateStartOfRegex(numberOfKeywords);
+            generateCorrectMatcher(args, task, regex, numberOfKeywords);
+        }
+        
         logger.log(Level.FINEST, "Number of keywords in \"" + args + "\" = " + numberOfKeywords);
+        
+        assignTaskParameters(task);
+        return putVariablesInMap(task);
+    }
 
-        regex = generateStartOfRegex(numberOfKeywords);
-
+    public void generateCorrectMatcherEscape(String args, OptionalStringTask task, int numberOfKeywords, String regex)
+            throws IllegalValueException {
         if (numberOfKeywords == ZERO) {
-            validateMatcherForNoKeyword(regex, args);
+            validateMatcherForNoKeywordEscape(args, regex);
+        } else if (numberOfKeywords == ONE) {
+            validateMatcherForOneKeywordEscape(args, task, regex);
+        } else if (numberOfKeywords >= TWO) {
+            validateMatcherForTwoKeywordsEscape(args, task, regex);
+        }
+    }
+
+    private void assignTaskParameters(OptionalStringTask task) throws IllegalValueException {
+        assert matcher.group("taskName") != null;
+        task.taskName = Optional.of(matcher.group("taskName").trim());
+        HashMap<String, Optional<String>> recurrenceRateMap = generateRateAndTimePeriod(matcher);
+        task.rate = recurrenceRateMap.get("rate");
+        task.timePeriod = recurrenceRateMap.get("timePeriod");
+        task.priority = Optional.of(assignPriority(matcher));
+    }
+
+    private void generateCorrectMatcher(String args, OptionalStringTask task, String regex, int numberOfKeywords)
+            throws IllegalValueException {
+        if (numberOfKeywords == ZERO) {
+            validateMatcherForNoKeyword(args, regex);
         } else if (numberOfKeywords == ONE) {
             validateMatcherForOneKeyword(args, task, regex);
         } else if (numberOfKeywords >= TWO) {
             validateMatcherForTwoKeywords(args, task, regex);
         }
-
-        assert matcher.group("taskName") != null;
-        task.taskName = Optional.of(matcher.group("taskName").trim());
-        // TODO: Works but looks sloppy
-        if (!matcher.toString().contains(REGEX_FIRST_DATE)) {
-            task.startDate = Optional.empty();
-        }
-        if (!matcher.toString().contains(REGEX_FIRST_DATE) && !matcher.toString().contains(REGEX_SECOND_DATE)) {
-            task.endDate = Optional.empty();
-        }
-        HashMap<String, Optional<String>> recurrenceRateMap = generateRateAndTimePeriod(matcher);
-        task.rate = recurrenceRateMap.get("rate");
-        task.timePeriod = recurrenceRateMap.get("timePeriod");
-        task.priority = Optional.of(assignPriority(matcher));
-            
-        return putVariablesInMap(task);
+    }
+    
+    private void validateMatcherForTwoKeywordsEscape(String args, OptionalStringTask task, String regex)
+            throws IllegalValueException {
+        generateMatcherForTwoKeywordsEscape(args, regex);
+        setStartOrEndDate(task, matcher);
+        validateStartAndEndDates(task);
     }
 
-    public void validateMatcherForTwoKeywords(String args, OptionalStringTask task, String regex)
+    private void validateMatcherForTwoKeywords(String args, OptionalStringTask task, String regex)
             throws IllegalValueException {
         generateMatcherForTwoKeywords(args, regex);
         setStartOrEndDate(task, matcher);
         if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
-            task.startDate = Optional.empty();
-            task.endDate = Optional.empty();
+            reinitialiseStartAndEndDatesToEmpty(task);
             regex += REGEX_KEYWORD_GREEDY_SELECT;
-            
             validateMatcherForOneKeyword(args, task, regex);
-        } else { // endDate is valid
-            task.endDate = validateEndDateFormatsFourToSix(matcher);
+        } else { 
+            validateStartAndEndDates(task);
         }
     }
 
-    public void validateMatcherForOneKeyword(String args, OptionalStringTask task, String regex)
+    private void validateStartAndEndDates(OptionalStringTask task) throws IllegalValueException {
+        if (!task.endDate.isPresent()) { // i.e does not allow by 1030pm by 1050pm
+            task.endDate = validateEndDateFormatsFourToSix(matcher);
+        } else {
+            throw new IllegalValueException("Repeated end times are not allowed.");
+        }
+        if (!task.endDate.isPresent()) {
+            throw new IllegalValueException("Repeated start times are not allowed.");
+        }
+    }
+
+    private void reinitialiseStartAndEndDatesToEmpty(OptionalStringTask task) {
+        task.startDate = Optional.empty();
+        task.endDate = Optional.empty();
+    }
+    
+    private void validateMatcherForOneKeywordEscape(String args, OptionalStringTask task, String regex)
+            throws IllegalValueException {
+        generateMatcherForOneKeywordEscape(args, regex);
+        setStartOrEndDate(task, matcher);
+    }
+
+    private void validateMatcherForOneKeyword(String args, OptionalStringTask task, String regex)
             throws IllegalValueException {
         generateMatcherForOneKeyword(args, regex);
         setStartOrEndDate(task, matcher);
         if (startOrEndDateIsInvalid(task.startDate, task.endDate)) {
+            reinitialiseStartAndEndDatesToEmpty(task);
             regex += REGEX_KEYWORD_GREEDY_SELECT;
-            validateMatcherForNoKeyword(regex, args);
+            validateMatcherForNoKeyword(args, regex);
         }
     }
+    
+    private void generateMatcherForOneKeywordEscape(String args, String regex) throws IllegalValueException {
+        String regexCopy = generateRegexForOneKeywordEscape(regex);
+        generateMatcher(regexCopy, args);
+    }
 
-    public void generateMatcherForOneKeyword(String args, String regex) throws IllegalValueException {
+    private void generateMatcherForOneKeyword(String args, String regex) throws IllegalValueException {
         String regexCopy = generateRegexForOneKeyword(regex);
         generateMatcher(regexCopy, args);
     }
-
-    public void generateMatcherForTwoKeywords(String args, String regex) throws IllegalValueException {
-        String regexCopy = generateRegexForTwoKeywords(regex);
+    
+    private void generateMatcherForTwoKeywordsEscape(String args, String regex) throws IllegalValueException {
+        String regexCopy = generateRegexForTwoKeywordsEscape(regex);
         generateMatcher(regexCopy, args);
     }
 
-    public String generateRegexForTwoKeywords(String regex) {
-        return regex + REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_SECOND_DATE
+    private void generateMatcherForTwoKeywords(String args, String regex) throws IllegalValueException {
+        String regexCopy = generateRegexForTwoKeywords(regex);
+        generateMatcher(regexCopy, args);
+    }
+    
+    private String generateRegexForTwoKeywordsEscape(String regex) {
+        return regex + REGEX_FIRST_DATE + REGEX_SECOND_DATE
                 + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
     }
 
-    public String generateRegexForOneKeyword(String regex) {
+    private String generateRegexForTwoKeywords(String regex) {
+        return regex + REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_SECOND_DATE
+                + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
+    }
+    
+    private String generateRegexForOneKeywordEscape(String regex) {
+        return regex + REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
+    }
+
+    private String generateRegexForOneKeyword(String regex) {
         return regex + REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
     }
 
-    public HashMap<String, Optional<String>> putVariablesInMap(OptionalStringTask task) {
+    private HashMap<String, Optional<String>> putVariablesInMap(OptionalStringTask task) {
         HashMap<String, Optional<String>> map = new HashMap<String, Optional<String>>();
         
         map.put("taskName", task.taskName);
@@ -144,6 +208,16 @@ public class CommandParserHelper {
         map.put("priority", task.priority);
         
         return map;
+    }
+    
+    private int generateNumberOfKeywordsEscape(String args) {    
+        int numberOfKeywords = ZERO;
+        pattern = Pattern.compile(REGEX_ADDITIONAL_KEYWORD);
+        matcher = pattern.matcher(args);
+        while (matcher.find()) {
+            numberOfKeywords++;
+        }
+        return numberOfKeywords;
     }
     
     private int generateNumberOfKeywords(String args) {    
@@ -161,13 +235,7 @@ public class CommandParserHelper {
                 || endDate.isPresent() && !DateTime.isValidDate(endDate.get());
     }
 
-    private void generateFloatingTaskMatcherIfInvalidDates(String regex, String args) throws IllegalValueException {
-        regex += REGEX_KEYWORD_GREEDY_SELECT;
-        validateMatcherForNoKeyword(regex, args);
-    }
-
     private HashMap<String, Optional<String>> generateRateAndTimePeriod(Matcher matcher) throws IllegalValueException {
-
         HashMap<String, Optional<String>> map = new HashMap<String, Optional<String>>();
 
         Optional<String> rate = Optional.empty();
@@ -199,7 +267,7 @@ public class CommandParserHelper {
 
     private String generateStartOfRegex(int numberOfKeywords) {
         assert numberOfKeywords >= 0;
-
+        
         String regex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME;
 
         if (numberOfKeywords > TWO) {
@@ -210,8 +278,13 @@ public class CommandParserHelper {
         }
         return regex;
     }
+    
+    private void validateMatcherForNoKeywordEscape(String args, String regex) throws IllegalValueException {
+        regex += REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
+        generateMatcher(regex, args);
+    }
 
-    private void validateMatcherForNoKeyword(String regex, String args) throws IllegalValueException {
+    private void validateMatcherForNoKeyword(String args, String regex) throws IllegalValueException {
         regex += REGEX_CLOSE_BRACE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
         generateMatcher(regex, args);
     }

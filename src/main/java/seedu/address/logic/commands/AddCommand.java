@@ -64,12 +64,18 @@ public class AddCommand extends UndoableCommand {
 
         if (startDateString.isPresent()) {
             startDate = DateTime.convertStringToDate(startDateString.get());
+            if (!DateTime.hasTimeValue(startDateString.get())) {
+                startDate = DateTime.setTimeToStartOfDay(startDate);
+            }
         }
 
         if (endDateString.isPresent()) {
             endDate = DateTime.convertStringToDate(endDateString.get());
             if (startDate != null && !DateTime.hasDateValue(endDateString.get())) {
                 endDate = DateTime.setEndDateToStartDate(startDate, endDate);
+            }
+            if (!DateTime.hasTimeValue(endDateString.get())) {
+                endDate = DateTime.setTimeToEndOfDay(endDate);
             }
         }
 
@@ -87,7 +93,6 @@ public class AddCommand extends UndoableCommand {
             startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
         }
         
-        //TODO: Design decision
         if (recurrenceRate != null && startDate == null && endDate == null) {
             throw new IllegalValueException(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
         }
