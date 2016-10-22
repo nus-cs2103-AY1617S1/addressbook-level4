@@ -159,7 +159,15 @@ public class Task implements ReadOnlyTask {
     public void setEndTime(Time endTime) {
         this.endTime = endTime;
     }
-
+    
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+    
+    public boolean done(){
+    	return false;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
