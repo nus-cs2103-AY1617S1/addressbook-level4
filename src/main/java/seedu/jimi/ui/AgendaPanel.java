@@ -94,7 +94,6 @@ public class AgendaPanel extends UiPart{
         instantiateObjectLists(taskList, eventList);
         configureTaskColumnsCellFactories();
         configureEventsColumnsCellFactories();
-        setConnections();
         addToPlaceholder();
         registerAsAnEventHandler(this); //to update labels
     }
