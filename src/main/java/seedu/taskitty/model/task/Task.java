@@ -201,7 +201,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
                 if (!this.getStartDate().equals(taskToCompare.getStartDate())) {
                     return this.getStartDate().getDate().compareTo(taskToCompare.getStartDate().getDate());
                 } else if (!this.getStartTime().equals(taskToCompare.getStartTime())) {
-                    return this.getStartTime().time.compareTo(taskToCompare.getStartTime().time);                    
+                    return this.getStartTime().getTime().compareTo(taskToCompare.getStartTime().getTime());                    
                 }
             }
             // if event has same start date and start time, sort it by its end date or end time like deadline
@@ -209,7 +209,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
                 if (!this.getEndDate().equals(taskToCompare.getEndDate())) {
                     return this.getEndDate().getDate().compareTo(taskToCompare.getEndDate().getDate());
                 } else if (!this.getEndTime().equals(taskToCompare.getEndTime())) {
-                    return this.getEndTime().time.compareTo(taskToCompare.getEndTime().time);                    
+                    return this.getEndTime().getTime().compareTo(taskToCompare.getEndTime().getTime());                    
                 } 
             }
             // if event and deadline has all the same dates and times, sort by the name of the task like todo
