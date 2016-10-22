@@ -36,7 +36,7 @@ public class UnpinCommand extends UndoableCommand {
         ReadOnlyTask orginialTask = lastShownList.get(targetIndex - 1);
         try {
             Task taskToUnpin = new Task(orginialTask);
-            if(taskToUnpin.getImportance()==true){
+            if(taskToUnpin.getImportance()){
                 taskToUnpin.setIsImportant(false);
                 model.unpinTask(orginialTask, taskToUnpin);
             }else{
