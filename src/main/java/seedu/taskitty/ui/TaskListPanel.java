@@ -1,10 +1,7 @@
 package seedu.taskitty.ui;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
@@ -47,8 +44,7 @@ public class TaskListPanel extends UiPart {
 
     public static <T extends TaskListPanel> T load(Stage primaryStage, AnchorPane taskListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList, T listPanel) {
-        T taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, listPanel);
+        T taskListPanel =  UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, listPanel);
         taskListPanel.configure(taskList);
         return taskListPanel;
     }

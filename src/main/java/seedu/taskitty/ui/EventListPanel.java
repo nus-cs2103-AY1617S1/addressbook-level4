@@ -3,29 +3,18 @@ package seedu.taskitty.ui;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Logger;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import seedu.taskitty.commons.core.LogsCenter;
-import seedu.taskitty.commons.events.ui.EventPanelSelectionChangedEvent;
-import seedu.taskitty.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.taskitty.model.task.ReadOnlyTask;
 
 // Dummy Placeholder for Event List Panel
 // TO BE UPDATED
 
 public class EventListPanel extends TaskListPanel {
-    private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
     private static final String FXML = "EventListPanel.fxml";
     
     @FXML
@@ -68,4 +57,5 @@ public class EventListPanel extends TaskListPanel {
            eventListView.getSelectionModel().clearAndSelect(index);
         });
     }
+    
 }
