@@ -44,16 +44,16 @@ public class Parser {
 	
 	// Start and end on same day
 	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+(on\\s+)*(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
+		"(?i)'(?<taskName>.*\\S+.*)'\\s+(on\\s+)*(?<date>\\S+)\\s+from\\s+(?<startTime>\\d{1,2}\\s?(am|pm))\\s+to\\s+(?<endTime>\\d{1,2}\\s?(am|pm))");
 	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+(on\\s+)*(?<date>\\S+)");
+		"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>\\d{1,2}\\s?(am|pm))\\s+to\\s+(?<endTime>\\d{1,2}\\s?(am|pm))\\s+(on\\s+)*(?<date>\\S+)");
 	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile(
-			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+(on\\s+)*(?<date>\\S+)\\s+'(?<taskName>.*\\S+.*)'");
-	// Start and end on different days
+		"(?i)from\\s+(?<startTime>\\d{1,2}\\s?(am|pm))\\s+to\\s+(?<endTime>\\d{1,2}\\s?(am|pm))\\s+(on\\s+)*(?<date>\\S+)\\s+'(?<taskName>.*\\S+.*)'");
+		// Start and end on different days
 	private static final Pattern EVENT_ARGS_FORMAT_4 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>.+)\\s+to\\s+(?<endTime>.+)");
+		"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>\\d{1,2}\\s?(am|pm))\\s+to\\s+(?<endTime>\\d{1,2}\\s?(am|pm))");
 	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile(
-			"(?i)from\\s+(?<startTime>.+)\\s+to\\s+(?<endTime>.+)\\s+'(?<taskName>.*\\S+.*)'");
+		"(?i)from\\s+(?<startTime>\\d{1,2}\\s?(am|pm))\\s+to\\s+(?<endTime>\\d{1,2}\\s?(am|pm))\\s+'(?<taskName>.*\\S+.*)'");
 
 
 	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern
@@ -224,7 +224,7 @@ public class Parser {
 				try {
 					date = matcher.group("date").trim();
 				} catch (IllegalArgumentException e) {
-					date = "";
+					date = "today";
 				}
 				
 				String startTime = matcher.group("startTime").trim();
@@ -237,8 +237,6 @@ public class Parser {
 					
 					startDateTime = DateParser.parse(date + " " + startTime);
 					endDateTime = DateParser.parse(date + " " + endTime);
-					
-					System.out.println("startDateTime: " + startDateTime.toString());
 				} catch (ParseException e) {
 					return new IncorrectCommand(e.getMessage());
 				}				
@@ -285,8 +283,7 @@ public class Parser {
 				try {
 					dateTime = DateParser.parse(dateTimeString);
 				} catch (ParseException e) {
-					// TODO better command
-					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+					return new IncorrectCommand(e.getMessage());
 				}
 
 				break;
