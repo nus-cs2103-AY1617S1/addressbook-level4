@@ -381,11 +381,13 @@ public class ModelManager extends ComponentManager implements Model {
         	String activityKeyWords;
         	
         	if (activity.getActivityType().equals(Activity.TASK_TYPE)){
-        		activityKeyWords = activity.getActivityName().fullName + " " + activity.getActivityStartDate().toString();
+        		activityKeyWords = activity.getActivityName().fullName + " " + activity.getActivityStartDate().toString() +
+        				" " + activity.getActivityStartDate().getMonth();
         	}
         	else if (activity.getActivityType().equals(Activity.EVENT_TYPE)){
         		activityKeyWords = activity.getActivityName().fullName + " " + activity.getActivityStartDate().toString() + 
-        				" " + activity.getActivityEndDate();
+        				" " + activity.getActivityEndDate() + " " + activity.getActivityStartDate().getMonth() + " " + 
+        				activity.getActivityEndDate().getMonth(); 
         	}
         	else {
         		activityKeyWords = activity.getActivityName().fullName;

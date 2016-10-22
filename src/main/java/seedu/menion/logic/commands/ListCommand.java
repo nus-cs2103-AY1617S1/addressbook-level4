@@ -97,7 +97,7 @@ public class ListCommand extends Command {
     	for (Integer i = 0 ; i < 12; i ++){
     		monthString = new DateFormatSymbols().getMonths()[i];
     		if (args.toLowerCase().equals(monthString.toLowerCase())){
-    			this.argumentsToList.add(monthToList);
+    			this.argumentsToList.add(monthString);
     			this.monthToList = monthString;
     			return true;
     		}

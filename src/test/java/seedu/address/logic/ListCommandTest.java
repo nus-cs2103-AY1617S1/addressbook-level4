@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.logic.commands.ListCommand;
+import seedu.menion.model.activity.ActivityDate;
 
 //@@author A0139277U
 public class ListCommandTest {
@@ -47,6 +48,7 @@ public class ListCommandTest {
 		
 		assertEquals(list.LIST_ALL, list.checkListType(argument));
 	}
+	
 	
 
 	

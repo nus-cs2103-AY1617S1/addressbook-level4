@@ -15,11 +15,12 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 public class ActivityDate {
 
 
-    public static final String MESSAGE_ACTIVITYDATE_CONSTRAINTS = "Activity date should be in mm-dd-yy or mm-dd-yyyy format";
+    public static final String MESSAGE_ACTIVITYDATE_CONSTRAINTS = "Activity date should be in dd-mm-yyyy format";
 
     public static final String ACTIVITYDATE_VALIDATION_REGEX = "(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9])";
 
     public final String value;
+    private String month;
 
     /**
      * Validates given date.
@@ -32,9 +33,17 @@ public class ActivityDate {
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_ACTIVITYDATE_CONSTRAINTS);
         }
-        this.value = date;
+        extractMonth(date);
+        this.value = formatNiceDate(date);
     }
 
+    //@@author: A0139277U
+    private void extractMonth(String date){
+    	String [] parts = date.split("-");
+    	String month = parts[1];
+    	month = new DateFormatSymbols().getMonths()[Integer.parseInt(month) - 1];
+    	this.month = month;
+    }
     /**
      * Returns true if a given string is a valid task date.
      */
@@ -46,15 +55,14 @@ public class ActivityDate {
         }
         return result;
     }
-
+   
+    //@@author: A0139277U
     private static String formatNiceDate(String dateToFormat){
-    	Pattern p = Pattern.compile("(.+)-(.+)-(.+)");
-    	Matcher m = p.matcher(dateToFormat);
-    	
-    	String day = m.group(0);
-    	String month = m.group(1);
-    	String year = m.group(2);
-    	
+    	String [] parts = dateToFormat.split("-");
+    	String day = parts[0];
+    	String month = parts[1];
+    	String year = parts[2];
+
     	Integer monthInt = Integer.parseInt(month);
     	month = new DateFormatSymbols().getMonths()[monthInt - 1];
     	
@@ -64,6 +72,9 @@ public class ActivityDate {
     	
     }
     
+    public String getMonth(){
+    	return this.month;
+    }
     
     @Override
     public String toString() {
