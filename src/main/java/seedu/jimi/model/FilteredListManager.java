@@ -4,7 +4,9 @@ import java.time.DayOfWeek;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.jimi.commons.core.LogsCenter;
@@ -47,10 +49,10 @@ public class FilteredListManager {
             listMap.put(id, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
         }
         
-        updateFilteredListToDefault();
+        initFilters();
     }
     
-    public void updateFilteredListToDefault() {
+    public void initFilters() {
         listMap.get(ListId.FLOATING_TASKS)
                 .setPredicate(new PredicateExpression(new FloatingTaskQualifier(false))::satisfies);
         
@@ -78,18 +80,30 @@ public class FilteredListManager {
                 .setPredicate(new PredicateExpression(new TaskQualifier(true))::satisfies);
         listMap.get(ListId.EVENTS_AGENDA)
                 .setPredicate(new PredicateExpression(new EventQualifier(true))::satisfies);
+
     }
     
-    public UnmodifiableObservableList<ReadOnlyTask> getRequiredFilteredTaskList(ListId id) {
+    public void updateFilteredListToDefault() {
+        listMap.get(ListId.TASKS_AGENDA)
+                .setPredicate(new PredicateExpression(new TaskQualifier(true))::satisfies);
+        listMap.get(ListId.EVENTS_AGENDA)
+                .setPredicate(new PredicateExpression(new EventQualifier(true))::satisfies);
+    }
+    
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredList(ListId id) {
         return new UnmodifiableObservableList<>(listMap.get(id));
     }
     
-    public void updateRequiredFilteredTaskList(ListId id, Set<String> keywords) {
-        updateFilteredTaskList(id, new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredList(ListId id, Set<String> keywords) {
+        updateFilteredList(id, new PredicateExpression(new NameQualifier(keywords)));
     }
     
-    private void updateFilteredTaskList(ListId id, Expression expression) {
-        listMap.get(id).setPredicate(expression::satisfies);
+    private void updateFilteredList(ListId id, Expression... expressions) {
+        updateFilteredListToDefault(); // first reset to default
+        Predicate<? super ReadOnlyTask> defaultPredicate = listMap.get(id).getPredicate();
+        Predicate<? super ReadOnlyTask> updatedPredicate = 
+                t -> defaultPredicate.test(t) && Stream.of(expressions).allMatch(ex -> ex.satisfies(t));
+        listMap.get(id).setPredicate(updatedPredicate);
     }
     
     /*
@@ -262,11 +276,7 @@ public class FilteredListManager {
                 return false;
             }
             
-            if (isCheckCompleted) {
-                return task.isCompleted();
-            } else {
-                return !task.isCompleted();
-            }
+            return isCheckCompleted == task.isCompleted();
         }
     }
     
