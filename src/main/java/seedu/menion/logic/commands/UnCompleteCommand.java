@@ -17,6 +17,9 @@ public class UnCompleteCommand extends Command {
             + "Parameters: [Activity_Type] + [Activity_Index] \n"
             + "Example: " + COMMAND_WORD + " " + Activity.EVENT_TYPE + " 1";
     
+    public static final String INDEX_MISSING_MESSAGE = "Oh no, your index is missing! Try: " + COMMAND_WORD + " [Activity Type] [Activity_index]" 
+            + "\n" + "Example: " + COMMAND_WORD + " task 1";
+    
     public static final String MESSAGE_UNCOMPLETED_ACTIVITY_SUCCESS = "UnCompleted Activity: %1$s";
     
     public final int targetIndex;

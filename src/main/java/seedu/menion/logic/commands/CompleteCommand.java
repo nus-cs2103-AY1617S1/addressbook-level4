@@ -18,7 +18,10 @@ public class CompleteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Completes an activity using their type and index: "
             + "\n" + "Parameters: [Activity_Type] + [Activity_Index] \n" + "Example: " + COMMAND_WORD + " "
             + Activity.EVENT_TYPE + " 1";
-
+    
+    public static final String INDEX_MISSING_MESSAGE = "Oh no, your index is missing! Try: " + COMMAND_WORD + " [Activity Type] [Activity_index]" 
+            + "\n" + "Example: complete task 1";
+    
     public static final String MESSAGE_COMPLETED_ACTIVITY_SUCCESS = "Completed Activity: %1$s";
 
     public final int targetIndex;

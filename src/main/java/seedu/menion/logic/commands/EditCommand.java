@@ -71,11 +71,11 @@ public class EditCommand extends Command {
         switch (indexOfParam) {
         
         case 0:
-            String newName = changes[0];
+            String newName = arrayToString(changes);
             model.editFloatingTaskName(index, newName);
             break;
         case 1:
-            String newNote = changes[0];
+            String newNote = arrayToString(changes);
             model.editFloatingTaskNote(index, newNote);
             break;
         }
@@ -84,16 +84,15 @@ public class EditCommand extends Command {
     private void taskEdit(int index, String paramToChange, String[] changes) {
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
-        System.out.println("This is indexOfParam:  " + indexOfParam);
         
         switch (indexOfParam) {
         
         case 0:
-            String newName = changes[0];
+            String newName = arrayToString(changes);
             model.editTaskName(index, newName);
             break;
         case 1:
-            String newNote = changes[0];
+            String newNote = arrayToString(changes);
             model.editTaskNote(index, newNote);
             break;
         case 2:
@@ -103,17 +102,18 @@ public class EditCommand extends Command {
             break;
         }
     }
+    
     private void eventEdit(int index, String paramToChange, String[] changes) {
         int indexOfParam;
         indexOfParam = checkParam(paramToChange);
         switch (indexOfParam) {
         
         case 0:
-            String newName = changes[0];
+            String newName = arrayToString(changes);
             model.editEventName(index, newName);
             break;
         case 1:
-            String newNote = changes[0];
+            String newNote = arrayToString(changes);
             model.editEventNote(index, newNote);
             break;
         case 3:
@@ -142,6 +142,20 @@ public class EditCommand extends Command {
         }
         
         return 100;
+    }
+    
+    private String arrayToString(String[] changes) {
+        StringBuilder sb = new StringBuilder();
+       
+        if (changes.length == 1) {
+            return changes[0];
+        }
+        
+        for (int i = 0; i < changes.length; i++) {
+            sb.append(changes[i]);
+            sb.append(" ");
+        }
+        return sb.toString();
     }
     /*
      * Complete command supports undo

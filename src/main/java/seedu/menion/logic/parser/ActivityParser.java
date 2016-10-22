@@ -104,7 +104,12 @@ public class ActivityParser {
     private Command prepareComplete(String args) {
 
         String[] splited = args.split("\\s+");
-        assert(splited.length == 3); // Should only contain a space, Activity Type and Index
+        
+        // Should only contain a space, Activity Type and Index
+        if (splited.length != 3) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.INDEX_MISSING_MESSAGE));
+        }
+        
         boolean isValidType = false; // Checks that the activity type is of valid type
         String activityType = splited[1];
 
@@ -117,7 +122,7 @@ public class ActivityParser {
         }
 
         Optional<Integer> index = Optional.of(Integer.valueOf(splited[2]));
-
+        System.out.println("This is index: " + index);
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
@@ -130,7 +135,12 @@ public class ActivityParser {
     private Command prepareUnComplete(String args) {
 
         String[] splited = args.split("\\s+");
-        assert(splited.length == 3); // Should only contain a space, Activity Type and Index
+        // Should only contain a space, Activity Type and Index
+        
+        if (splited.length != 3) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnCompleteCommand.INDEX_MISSING_MESSAGE));
+        }
+        
         boolean isValidType = false; // Checks that the activity type is of valid type
         String activityType = splited[1];
 
