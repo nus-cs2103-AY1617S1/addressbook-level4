@@ -22,15 +22,21 @@ public class ViewCommand extends Command {
     		+ "if no date is entered, events for today, all deadline tasks and all todo tasks will be displayed."
             + "Parameters: [DATE] \n"
             + "Example: " + COMMAND_WORD + " 16 Oct 2016 \n"
-            + "Note: if \"view done\" or \"viewdone\" is entered instead, the list of done tasks will be shown.";
+            + "Note: if \"view done\" is entered instead, the list of done tasks will be shown.";
 
     private LocalDate date;
     private boolean hasDate;
+    private boolean isViewDoneCommand;
 
-    public ViewCommand(String date) {
-    	assert date !=null;
-        this.date = LocalDate.parse(date, TaskDate.DATE_FORMATTER);
-        this.hasDate = true;
+    public ViewCommand(String parameter) {
+    	assert parameter !=null;
+    	if (parameter.equals("done")) {
+    		isViewDoneCommand = true;
+    	} else { // parameter is a date
+    		this.date = LocalDate.parse(parameter, TaskDate.DATE_FORMATTER);
+    		this.hasDate = true;
+    		isViewDoneCommand = false;
+    	}
     }
     
     public ViewCommand() {
@@ -41,8 +47,13 @@ public class ViewCommand extends Command {
     
     @Override
     public CommandResult execute() {
-        model.updateFilteredDateTaskList(date, hasDate);
-        return new CommandResult(getMessageForTaskListShownSummary(model.getTaskList().size()));
+    	if (isViewDoneCommand) {
+    		model.updateFilteredDoneList();
+            return new CommandResult(getMessageForTaskListShownSummary(model.getTaskList().size()));
+    	} else {
+    		model.updateFilteredDateTaskList(date, hasDate);
+    		return new CommandResult(getMessageForTaskListShownSummary(model.getTaskList().size()));
+    	}
     }
 
     @Override

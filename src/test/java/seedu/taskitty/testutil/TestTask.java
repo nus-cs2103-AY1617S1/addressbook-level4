@@ -118,4 +118,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         }
         
     }
+	public void markAsDone() {
+		isDone = true;
+	}
 }
