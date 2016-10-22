@@ -131,6 +131,8 @@ public class MainWindow extends UiPart {
         exitMenuItem.setAccelerator(KeyCombination.valueOf("Esc"));
         undoMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + Z"));
         listMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + L"));
+        clearMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + C"));
+        viewDoneMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + D"));
     }
 
     void fillInnerParts() {
