@@ -2,6 +2,10 @@ package seedu.taskitty.commons.util;
 
 import seedu.taskitty.model.task.Task;
 
+/**
+ * Helper functions for handling tasks.
+ *
+ */
 public class TaskUtil {
     
     /**
@@ -21,7 +25,7 @@ public class TaskUtil {
                 return Task.EVENT_CATEGORY_INDEX;
             
             default: 
-                return 0;
+                return Task.DEFAULT_CATEGORY_INDEX;
             
         }
     }
