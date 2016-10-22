@@ -21,13 +21,13 @@ public class ShowCommand extends Command {
             "complete",
             "today", 
             "tomorrow", 
-            "Monday", 
-            "Tuesday", 
-            "Wednesday", 
-            "Thursday", 
-            "Friday", 
-            "Saturday", 
-            "Sunday" 
+            "monday", 
+            "tuesday", 
+            "wednesday", 
+            "thursday", 
+            "friday", 
+            "saturday", 
+            "sunday" 
     );
     
     public static final String MESSAGE_USAGE = 

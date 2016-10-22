@@ -366,7 +366,7 @@ public class JimiParser {
         
         //goes through list of keywords to check if user input is valid
         for (String validKey : ShowCommand.VALID_KEYWORDS) {
-            if (validKey.contains(args)) {
+            if (validKey.toLowerCase().contains(args.toLowerCase())) {
                 keywordFound = true;
                 break;
             }
@@ -380,7 +380,7 @@ public class JimiParser {
         // keywords delimited by whitespace
         final String sectionToShow = matcher.group("sectionToShow");
         
-        return new ShowCommand(sectionToShow);
+        return new ShowCommand(sectionToShow.toLowerCase().trim());
     }
 
     
