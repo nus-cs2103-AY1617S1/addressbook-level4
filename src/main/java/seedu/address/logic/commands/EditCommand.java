@@ -188,39 +188,28 @@ public class EditCommand extends UndoableCommand {
     	Date undoStartDate;
         Date undoEndDate;
         RecurrenceRate undoRecurrenceRate;
-
-        //model.editName(toUndo, oldTaskName);
-        
-        //model.editPriority(toUndo, oldPriority);
- 
-        
+       
         // edit back the start date
         if (!oldStartDate.isPresent()) {
-            //model.editStartDate(toUndo, oldStartDate.get());
         	undoStartDate = null;
         }
         else {
-            //model.editStartDate(toUndo, null);
         	undoStartDate = oldStartDate.get();
         }
         
         // edit back the end date
         if (!oldEndDate.isPresent()) {
-            //model.editEndDate(toUndo, oldEndDate.get());
         	undoEndDate = null;
         }
         else {
-            //model.editEndDate(toUndo, null);
         	undoEndDate = oldEndDate.get();
         }
         
         // edit back the recurrence rate
         if (!oldReccurence.isPresent()) {
-            //model.editRecurrence(toUndo, oldReccurence.get());
         	undoRecurrenceRate = null;
         }
         else {
-            //model.editRecurrence(toUndo, null);
         	undoRecurrenceRate =  oldReccurence.get();
         }
         
