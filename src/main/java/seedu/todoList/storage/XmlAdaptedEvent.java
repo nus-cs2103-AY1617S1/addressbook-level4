@@ -51,7 +51,7 @@ public class XmlAdaptedEvent implements XmlAdaptedTask {
     
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
-        final Date date = new Date(this.date);
+        final StartDate date = new StartDate(this.date);
         final EndDate endDate = new EndDate(this.endDate);
         final StartTime startTime = new StartTime(this.startTime);
         final EndTime endTime = new EndTime(this.endTime);

@@ -43,7 +43,7 @@ public class EditCommand extends Command {
     	this.dataType = dataType;
         this.toEdit = new Todo(
                 new Name(name),
-                new Date(date),
+                new StartDate(date),
                 new EndDate(endDate),
                 new Priority(Integer.toString(priority))
         );
@@ -60,7 +60,7 @@ public class EditCommand extends Command {
     	this.dataType = dataType;
         this.toEdit = new Event(
                 new Name(name),
-                new Date(date),
+                new StartDate(date),
                 new EndDate(endDate),
                 new StartTime(startTime),
                 new EndTime(endTime)
@@ -78,7 +78,7 @@ public class EditCommand extends Command {
     	this.dataType = dataType;
         this.toEdit = new Deadline(
                 new Name(name),
-                new Date(date),
+                new StartDate(date),
                 new EndTime(endTime)
         );
     }

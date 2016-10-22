@@ -48,7 +48,7 @@ public class XmlAdaptedTodo implements XmlAdaptedTask {
 
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
-        final Date date = new Date(this.date);
+        final StartDate date = new StartDate(this.date);
         final EndDate endDate = new EndDate(this.endDate);
         final Priority priority = new Priority(this.priority);
         return new Todo(name, date, endDate, priority);

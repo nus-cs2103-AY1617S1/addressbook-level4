@@ -45,7 +45,7 @@ public class XmlAdaptedDeadline implements XmlAdaptedTask {
 
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
-        final Date date = new Date(this.date);
+        final StartDate date = new StartDate(this.date);
         final EndTime endTime = new EndTime(this.endTime);
         return new Deadline(name, date, endTime);
     }

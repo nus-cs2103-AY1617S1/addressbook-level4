@@ -1,6 +1,6 @@
 package seedu.todoList.model.task;
 
-import seedu.todoList.model.task.attributes.Date;
+import seedu.todoList.model.task.attributes.StartDate;
 import seedu.todoList.model.task.attributes.EndTime;
 import seedu.todoList.model.task.attributes.StartTime;
 
@@ -11,7 +11,7 @@ import seedu.todoList.model.task.attributes.StartTime;
 public interface ReadOnlyEvent {
 
     Todo getTodo();
-    Date getDate();
+    StartDate getDate();
     StartTime getStartTime();
     EndTime getEndTime();
 

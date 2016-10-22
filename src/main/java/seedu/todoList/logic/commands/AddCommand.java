@@ -34,7 +34,7 @@ public class AddCommand extends Command {
             throws IllegalValueException {
         this.toAdd = new Todo(
                 new Name(name),
-                new Date(date),
+                new StartDate(date),
                 new EndDate(endDate),
                 new Priority(Integer.toString(priority))
         );
@@ -49,7 +49,7 @@ public class AddCommand extends Command {
             throws IllegalValueException {
         this.toAdd = new Event(
                 new Name(name),
-                new Date(date),
+                new StartDate(date),
                 new EndDate(endDate),
                 new StartTime(startTime),
                 new EndTime(endTime)
@@ -65,7 +65,7 @@ public class AddCommand extends Command {
             throws IllegalValueException {
         this.toAdd = new Deadline(
                 new Name(name),
-                new Date(date),
+                new StartDate(date),
                 new EndTime(endTime)
         );
     }

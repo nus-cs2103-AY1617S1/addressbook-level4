@@ -2,7 +2,7 @@ package seedu.todoList.model.task;
 
 import seedu.todoList.commons.util.CollectionUtil;
 import seedu.todoList.model.task.attributes.Name;
-import seedu.todoList.model.task.attributes.Date;
+import seedu.todoList.model.task.attributes.StartDate;
 import seedu.todoList.model.task.attributes.EndDate;
 import seedu.todoList.model.task.attributes.EndTime;
 import seedu.todoList.model.task.attributes.StartTime;
@@ -13,7 +13,7 @@ import seedu.todoList.model.task.attributes.StartTime;
  */
 public class Event extends Task implements ReadOnlyTask {
 
-	private Date date;
+	private StartDate date;
 	private EndDate endDate;
     private StartTime startTime;
     private EndTime endTime;
@@ -21,7 +21,7 @@ public class Event extends Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, Date Date, EndDate endDate, StartTime startTime, EndTime endTime) {
+    public Event(Name name, StartDate Date, EndDate endDate, StartTime startTime, EndTime endTime) {
         assert !CollectionUtil.isAnyNull(name, Date, endDate, startTime, endTime);
         super.name = name;
         this.date = Date;
@@ -41,7 +41,7 @@ public class Event extends Task implements ReadOnlyTask {
     	this((Event) source);
     };
 
-    public Date getDate() {
+    public StartDate getDate() {
         return date;
     }
     
