@@ -18,6 +18,7 @@ import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
+import seedu.todo.ui.components.Component;
 import seedu.todo.ui.components.Console;
 import seedu.todo.ui.components.Header;
 import seedu.todo.ui.views.View;
@@ -26,7 +27,7 @@ import seedu.todo.ui.views.View;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends View {
+public class MainWindow extends Component {
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
 
@@ -82,8 +83,8 @@ public class MainWindow extends View {
 
         // Load ConsoleInput
         Console console = Console.load(primaryStage, getConsoleInputPlaceholder());
-        console.consoleOutput = consoleMessage;
-        console.consoleInputValue = consoleInputValue;
+        console.consoleOutput = UiManager.getConsoleMessage();
+        console.consoleInputValue = UiManager.getConsoleInputValue();
         console.render();
     }
 

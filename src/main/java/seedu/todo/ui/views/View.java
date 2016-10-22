@@ -5,9 +5,6 @@ import seedu.todo.ui.components.Component;
 
 public abstract class View extends Component {
     
-    public static String consoleMessage = "";
-    public static String consoleInputValue = "";
-    
     public static View load(Stage primaryStage, Pane placeholder) {
         return null;
     }
