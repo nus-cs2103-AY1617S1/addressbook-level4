@@ -499,7 +499,7 @@ public class CommandParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-        /*
+        /* TODO: don't check natty twice. Maybe we shouldn't allow them to use find/view interchangably.
         //check if the keyword given is a single date, if so give a view command
         String[] date = extractTaskDetailsNatty(args);
         if (containsOnlyOneDate(date)) {
