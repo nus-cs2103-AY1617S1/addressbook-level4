@@ -66,9 +66,9 @@ public interface Model {
 
     void updateFilteredAgendaEventList(Set<String> keywords);
     
-    /** Edits the floating task at the specified index */
-    void editReadOnlyTask(int targetIdx, ReadOnlyTask task);
-
     /** Sets the task to be completed/incomplete */
     void completeTask(ReadOnlyTask taskToComplete, boolean isComplete);
+    
+    /** Replaces {@code oldTask} with {@code newTask} */
+    void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask);
 }

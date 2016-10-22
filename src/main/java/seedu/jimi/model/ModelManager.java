@@ -84,18 +84,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     /**
+     * Replaces a task in task book.
      * 
      * @param newTask Task to be replaced with.
      * @param targetIndex Index of oldTask to be replaced by.
      */
     @Override
-    public synchronized void editReadOnlyTask(int targetIndex, ReadOnlyTask newTask) {
-        taskBook.editTask(targetIndex, newTask);
-        updateFilteredListToShowAll();
+    public void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) {
+        taskBook.replaceTask(oldTask, newTask);
         indicateTaskBookChanged();
     }
     
     /**
+     * Completes a task in task book.
      * 
      * @param taskToComplete Task to set to complete/incomplete.
      * @param isComplete True, if task is to be set to completed.
@@ -208,4 +209,5 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDay7TaskList() {
         return this.filteredListManager.getRequiredFilteredTaskList(ListId.DAY_AHEAD_6);
     }
+
 }
