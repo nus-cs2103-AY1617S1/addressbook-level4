@@ -106,21 +106,53 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void editTask(ReadOnlyTask target, String dataType, Task task) throws IllegalValueException, TaskNotFoundException {
     	
+        /*
+         *  Scenario: User wants to edit todo to change to event or deadline
+         *  User enters edit todo 1 n/test d/01-01-2016 e/1000
+         *  This will remove index 1 of todolist and add into deadlinelist
+         *  
+         *  During edit process, example: edit todo 1 with parameters of deadline
+         *  todolist will remove the task index 1 and deadlinelist will add the edited task
+         */
     	if(task instanceof Todo) {
-    	    todoList.removeTask(target);
-    		todoList.addTask(task);
+    	    if(dataType.equals("todo")){
+                todoList.addTask(task);
+                todoList.removeTask(target);
+            }else if(dataType.equals("event")){
+                todoList.addTask(task);
+                eventList.removeTask(target);
+            }else if(dataType.equals("deadline")){
+                todoList.addTask(task);
+                deadlineList.removeTask(target);
+            }
     		updateFilteredTodoListToShowAll();
     		indicateTodoListChanged();
     	}
     	else if(task instanceof Event) {
-    	    eventList.removeTask(target);
-    		eventList.addTask(task);
+    	    if(dataType.equals("todo")){
+                eventList.addTask(task);
+                todoList.removeTask(target);
+            }else if(dataType.equals("event")){
+                eventList.addTask(task);
+                eventList.removeTask(target);
+            }else if(dataType.equals("deadline")){
+                eventList.addTask(task);
+                deadlineList.removeTask(target);
+            }
     		updateFilteredEventListToShowAll();
     		indicateEventListChanged();
     	}
     	else if(task instanceof Deadline) {
-    	    deadlineList.removeTask(target);
-    	    deadlineList.addTask(task);
+    	    if(dataType.equals("todo")){
+    	        deadlineList.addTask(task);
+    	        todoList.removeTask(target);
+    	    }else if(dataType.equals("event")){
+    	        deadlineList.addTask(task);
+                eventList.removeTask(target);
+    	    }else if(dataType.equals("deadline")){
+    	        deadlineList.addTask(task);
+                deadlineList.removeTask(target);
+    	    }
     		updateFilteredDeadlineListToShowAll();
     		indicateDeadlineListChanged();
     	}
