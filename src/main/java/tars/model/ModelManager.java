@@ -8,10 +8,10 @@ import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
-import tars.commons.flags.Flag;
 import tars.commons.util.DateTimeUtil;
 import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
+import tars.logic.parser.ArgumentTokenizer;
 import tars.model.task.Task;
 import tars.model.task.TaskQuery;
 import tars.model.tag.ReadOnlyTag;
@@ -25,7 +25,6 @@ import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
 import java.time.DateTimeException;
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.Stack;
@@ -113,10 +112,10 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * @@author A0121533W
      */
-    public synchronized Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit)
+    public synchronized Task editTask(ReadOnlyTask toEdit, ArgumentTokenizer argsTokenizer)
             throws TaskNotFoundException, DateTimeException, IllegalDateException,
             DuplicateTagException, TagNotFoundException, IllegalValueException {
-        Task editedTask = tars.editTask(toEdit, argsToEdit);
+        Task editedTask = tars.editTask(toEdit, argsTokenizer);
         indicateTarsChanged();
         return editedTask;
     }
