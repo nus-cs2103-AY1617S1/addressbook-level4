@@ -8,6 +8,7 @@ import seedu.todo.testutil.EventsCollector;
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
+//@@author A0135817B
 public class HelpCommandTest extends CommandTest {
     @Override
     protected BaseCommand commandUnderTest() {

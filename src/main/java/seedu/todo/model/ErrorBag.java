@@ -7,6 +7,7 @@ import java.util.Map;
 
 import seedu.todo.commons.exceptions.ValidationException;
 
+//@@author A0135817B
 public class ErrorBag {
     private List<String> nonFieldErrors = new ArrayList<>();
     private Map<String, String> fieldErrors = new HashMap<>();

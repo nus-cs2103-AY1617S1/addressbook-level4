@@ -1,4 +1,4 @@
-package seedu.todo.commons.enumerations;
+package seedu.todo.commons.core;
 
 import org.junit.Test;
 import seedu.todo.commons.core.TaskViewFilter;
@@ -8,6 +8,7 @@ import java.util.Set;
 
 import static org.junit.Assert.*;
 
+//@@author A0135817B
 public class TaskViewFilterTest {
     @Test
     public void testNoOverlappingShortcut() {

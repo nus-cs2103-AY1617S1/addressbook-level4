@@ -20,6 +20,7 @@ import seedu.todo.model.Model;
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
+//@@author A0135817B
 public class TodoLogicTest {
     private static final String INPUT = "input";
     private static final String COMMAND = "command";

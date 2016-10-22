@@ -12,7 +12,7 @@ import seedu.todo.model.task.Task;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-
+//@@author A0135817B
 public interface Model {
     /**
      * Adds a new task or event with title only to the todo list.

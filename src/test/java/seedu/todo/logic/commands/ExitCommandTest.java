@@ -10,6 +10,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.testutil.EventsCollector;
 
+//@@author A0135817B
 public class ExitCommandTest extends CommandTest {
     @Override
     protected BaseCommand commandUnderTest() {

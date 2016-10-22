@@ -36,6 +36,7 @@ public class StringUtil {
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
 
+    //@@author A0135817B
     /**
      * Returns true if the string is null, of length zero, or contains only whitespace 
      */

@@ -1,5 +1,6 @@
 package seedu.todo.logic.commands;
 
+//@@author A0135817B
 public class CommandSummary {
     /**
      * The scenario the summary is aiming to describe, eg. add event, delete task, etc. 

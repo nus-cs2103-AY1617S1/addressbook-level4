@@ -37,7 +37,7 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder lastUpdated(LocalDateTime lastUpdated) throws IllegalValueException {
+    public TaskBuilder createdAt(LocalDateTime lastUpdated) {
         defaultTime = false;
         task.setCreatedAt(lastUpdated);
         return this;

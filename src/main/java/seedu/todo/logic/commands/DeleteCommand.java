@@ -9,12 +9,10 @@ import seedu.todo.model.task.ImmutableTask;
 
 import java.util.List;
 
+//@@author A0135817B
 public class DeleteCommand extends BaseCommand {
     private static final String VERB = "deleted";
     
-    // TODO: Consider either creating a new subclass for indices 
-    // or create constraints framework for adding additional validation 
-    // to ensure this is always a position, non-zero number
     private Argument<Integer> index = new IntArgument("index").required();
 
     @Override
@@ -29,7 +27,7 @@ public class DeleteCommand extends BaseCommand {
 
     @Override
     public List<CommandSummary> getCommandSummary() {
-        return ImmutableList.of(new CommandSummary("Delete a task", getCommandName(), 
+        return ImmutableList.of(new CommandSummary("Delete task", getCommandName(), 
             getArgumentSummary()));
     }
 

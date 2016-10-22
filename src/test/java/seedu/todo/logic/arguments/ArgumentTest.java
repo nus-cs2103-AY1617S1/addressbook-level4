@@ -7,16 +7,8 @@ import org.junit.Test;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.logic.arguments.Argument;
 
+//@@author A0135817B
 public class ArgumentTest {
-    
-    private class TestArgument extends Argument<String> {
-
-        public TestArgument() {
-            super("Test");
-        }
-        
-    }
-    
     private Argument<String> arg = new TestArgument();
 
     @Test
@@ -79,5 +71,10 @@ public class ArgumentTest {
         assertEquals("/t Test", arg.toString());
         assertEquals("/t Something", arg.toString("Something"));
     }
-
+    
+    private class TestArgument extends Argument<String> {
+        public TestArgument() {
+            super("Test");
+        }
+    }
 }

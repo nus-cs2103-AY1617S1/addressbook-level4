@@ -9,8 +9,9 @@ import seedu.todo.logic.arguments.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 
+//@@author A0135817B
 /**
- * Shows the help 
+ * Shows the help panel
  */
 public class HelpCommand extends BaseCommand {
     private final static String HELP_MESSAGE = "Showing help...";
@@ -39,7 +40,7 @@ public class HelpCommand extends BaseCommand {
 
     @Override
     public List<CommandSummary> getCommandSummary() {
-        return ImmutableList.of(new CommandSummary("Get summary of commands", getCommandName()));
+        return ImmutableList.of(new CommandSummary("Show help", getCommandName()));
     }
     
     private List<CommandSummary> collectCommandSummaries() {
