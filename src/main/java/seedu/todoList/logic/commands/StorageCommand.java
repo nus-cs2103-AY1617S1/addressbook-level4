@@ -35,7 +35,7 @@ public class StorageCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
-        	storage.setStoragePath(newDirectory);
+        	storage.changeStorage(newDirectory);
             return new CommandResult(String.format(MESSAGE_SUCCESS, this.newDirectory));
         } catch (IllegalValueException ive) {
         	return new CommandResult(INVALID_VALUE);

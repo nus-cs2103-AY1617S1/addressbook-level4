@@ -45,10 +45,10 @@ public class Deadline extends Task implements ReadOnlyTask {
 
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Event // instanceof handles nulls
-                && super.name.equals(((Event) other).getName())
-                && this.date.equals(((Event) other).getDate())
-				&& this.endTime.equals(((Event) other).getEndTime()));
+                || (other instanceof Deadline // instanceof handles nulls
+                && super.name.equals(((Deadline) other).getName())
+                && this.date.equals(((Deadline) other).getDate())
+				&& this.endTime.equals(((Deadline) other).getEndTime()));
 
     }
 

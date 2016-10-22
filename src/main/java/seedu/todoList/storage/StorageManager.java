@@ -64,10 +64,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
     
     @Override
-    public void setStoragePath(String path) throws IllegalValueException {
-    	setTodoListFilePath(path + "/TodoList.xml");
-    	setEventListFilePath(path + "/EventList.xml");
-    	setDeadlineListFilePath(path + "/DeadlineList.xml");
+    public void changeStorage(String path) throws IllegalValueException {
     	raise(new StorageLocationChangedEvent(path));
     }
 

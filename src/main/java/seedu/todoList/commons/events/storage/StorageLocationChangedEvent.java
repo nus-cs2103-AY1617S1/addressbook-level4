@@ -12,6 +12,10 @@ public class StorageLocationChangedEvent extends BaseEvent {
     public StorageLocationChangedEvent(String directory) {
         this.newDirectory = directory;
     }
+    
+    public String getNewDirectory() {
+    	return newDirectory;
+    }
 
     @Override
     public String toString(){
