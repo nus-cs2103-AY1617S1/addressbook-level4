@@ -11,7 +11,6 @@ public interface ReadOnlyTask {
     Name getName();
     boolean getIsDone();
     TaskPeriod getPeriod();
-    int getNumArgs();
     boolean isTodo();
     boolean isDeadline();
     boolean isEvent();

@@ -29,7 +29,6 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     private TaskPeriod period;
-    private int numArgs;
     private boolean isDone;
 
     private UniqueTagList tags;
@@ -45,7 +44,6 @@ public class Task implements ReadOnlyTask {
         this.name = name;
         this.period = period;
         this.tags = new UniqueTagList(tags);
-        this.numArgs = TASK_COMPONENT_COUNT;
     }
 
     /**
@@ -59,11 +57,6 @@ public class Task implements ReadOnlyTask {
     @Override
     public Name getName() {
         return name;
-    }
-    
-    @Override
-    public int getNumArgs() {
-        return numArgs;
     }
 
     //@@author
