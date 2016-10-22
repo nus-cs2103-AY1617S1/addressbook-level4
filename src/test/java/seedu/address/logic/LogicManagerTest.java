@@ -158,6 +158,23 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add d/description", expectedMessage);
     }
+    
+    @Test
+    public void execute_add_event_noDueDate() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EVENT_USAGE);
+        assertCommandBehavior("add event d/without due date sd/12-12-2016", expectedMessage);
+    }
+    
+//    @Test
+//    public void execute_add_withoutOptionalInput() throws Exception {
+//        String expectedTask = "floating task "
+//                + "Description: without optional input "
+//                + "Start Date: Not Set "
+//                + "Due Date: Not Set "
+//                + "Status: Ongoing";
+//        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, expectedTask);
+//        assertCommandBehavior("add floating task d/without optional input", expectedMessage);
+//    }
         
     @Test
     public void execute_add_invalidTaskData() throws Exception {
@@ -167,19 +184,19 @@ public class LogicManagerTest {
     @Test
     public void execute_add_successful() throws Exception {
     	//TODO
-        /*
-    	// setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.homework();
-        TaskManager expectedAB = new TaskManager();
-        expectedAB.addTask(toBeAdded);
-
-        // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getTaskList());
-                */
+        
+//    	// setup expectations
+//        TestDataHelper helper = new TestDataHelper();
+//        Task toBeAdded = helper.homework();
+//        TaskManager expectedAB = new TaskManager();
+//        expectedAB.addTask(toBeAdded);
+//
+//        // execute command and verify result
+//        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+//                String.format(AddCommand.MESSAGE_SUCCESS_MANY_TASKS, toBeAdded.getInterval(), toBeAdded.getTitle()),
+//                expectedAB,
+//                expectedAB.getTaskList());
+                
 
     }
 
