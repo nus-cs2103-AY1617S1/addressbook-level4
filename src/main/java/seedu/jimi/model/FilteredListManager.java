@@ -3,6 +3,7 @@ package seedu.jimi.model;
 import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -110,8 +111,15 @@ public class FilteredListManager {
                 .setPredicate(defaultExpressions.get(ListId.EVENTS_AGENDA)::satisfies);
     }
     
-    public void updateFilteredList(ListId id, Set<String> keywords) {
-        updateFilteredList(id, new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredList(ListId id, Set<String> keywords, ListId sectionToShow) {
+        PredicateExpression nameQualifier = new PredicateExpression(new NameQualifier(keywords));
+        
+        if(keywords != null && !keywords.isEmpty()) {
+            updateFilteredList(id, nameQualifier, 
+                    defaultExpressions.get(sectionToShow));
+        }
+        
+        updateFilteredList(id, defaultExpressions.get(sectionToShow));
     }
     
     /** 
