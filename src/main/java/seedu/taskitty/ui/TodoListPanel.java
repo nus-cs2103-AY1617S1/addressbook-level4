@@ -22,14 +22,14 @@ import java.util.logging.Logger;
  */
 public class TodoListPanel extends TaskListPanel {
     private final Logger logger = LogsCenter.getLogger(TodoListPanel.class);
-    private static final String FXML = "TaskListPanel.fxml";
+    private static final String FXML = "TodoListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
     private Label header;
     @FXML
-    private ListView<ReadOnlyTask> taskListView;
+    private ListView<ReadOnlyTask> todoListView;
 
     public TodoListPanel() {
         super();
@@ -66,8 +66,8 @@ public class TodoListPanel extends TaskListPanel {
     }
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new TaskListViewCell());
+        todoListView.setItems(taskList);
+        todoListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -77,7 +77,7 @@ public class TodoListPanel extends TaskListPanel {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        todoListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
@@ -87,8 +87,8 @@ public class TodoListPanel extends TaskListPanel {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
+            todoListView.scrollTo(index);
+            todoListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
