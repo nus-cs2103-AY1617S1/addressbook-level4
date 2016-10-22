@@ -73,7 +73,7 @@ public class EditCommand extends Command {
         this(null);
     }
     
-    /** Constructor used to remove all dates from task specified at {@code taskIndex}. */
+    /** Constructor nullifying everything except {@code taskIndex}. */
     public EditCommand(String taskIndex) {
         this.taskIndex = taskIndex;
         determineEditType();
