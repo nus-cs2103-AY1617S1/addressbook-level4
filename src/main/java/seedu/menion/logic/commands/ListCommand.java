@@ -11,7 +11,7 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 /**
  * Lists all tasks in the task manager to the user.
  */
-// @@author A0139277U
+//@@author: A0139277U
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
@@ -38,7 +38,6 @@ public class ListCommand extends Command {
     public ListCommand(String args){
     	argumentsToList = new HashSet<String>();
     	this.listArgument = args;
-    	System.out.println("args = " + args);
     }
 
     /**
