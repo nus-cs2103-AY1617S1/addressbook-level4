@@ -48,4 +48,7 @@ public class ParserFormats {
                     + "(?<onDateTime>[^(by|;)]+)?|by (?<byDateTime>[^;]+)))*?"
                     + "(?: ?;(?<detail>.+))?$", Pattern.CASE_INSENSITIVE);
     
+    public static final Pattern RECURRENCE_WEEK_DAY = Pattern
+            .compile("every (monday|tuesday|wednesday|thursday|friday|saturday|sunday|mon|tue|wed|thurs|fri|sat|sun)");
+    
 }

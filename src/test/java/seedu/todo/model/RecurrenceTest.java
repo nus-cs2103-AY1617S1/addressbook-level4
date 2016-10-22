@@ -24,8 +24,7 @@ public class RecurrenceTest {
     public void test_isValidRecurrenceDesc() throws IllegalValueException {
         Recurrence recurrence = new Recurrence(null);
         
-        String[] validInputs = {"every monday", "every week", "every year", "everyday", 
-                                "every friday 16:00 to 18:00", null};
+        String[] validInputs = {"every monday", "every week", "every year", "everyday", null};
         String[] invalidInputs = {"tomorrow", "randome", "every happy hour"};
         
         
@@ -38,49 +37,6 @@ public class RecurrenceTest {
         }
     }
         
-    @Test
-    public void test_updateTaskDateWeek() throws IllegalValueException {
-        
-        Task tEveryWeek = new Task(new Name("tEveryMonday"), new Detail(""), 
-                new TaskDate("today", TaskDate.TASK_DATE_ON), 
-                new TaskDate("", TaskDate.TASK_DATE_BY), 
-                new Recurrence("every week"));
-        
-        LocalDate expectedDate = tEveryWeek.getOnDate().getDate().plusWeeks(1);
-        tEveryWeek.getRecurrence().updateTaskDate(tEveryWeek);
-        LocalDate actualDate = tEveryWeek.getOnDate().getDate();
-        
-        assertEquals(expectedDate, actualDate);
-    }
-    
-    @Test
-    public void test_updateTaskDateYear() throws IllegalValueException {
-        
-        Task tEveryWeek = new Task(new Name("tEveryMonday"), new Detail(""), 
-                new TaskDate("today", TaskDate.TASK_DATE_ON), 
-                new TaskDate("", TaskDate.TASK_DATE_BY), 
-                new Recurrence("every year"));
-        
-        LocalDate expectedDate = tEveryWeek.getOnDate().getDate().plusYears(1);
-        tEveryWeek.getRecurrence().updateTaskDate(tEveryWeek);
-        LocalDate actualDate = tEveryWeek.getOnDate().getDate();
-        
-        assertEquals(expectedDate, actualDate);
-    }
-    
-    @Test
-    public void test_updateTaskDateDay() throws IllegalValueException {
-        
-        Task tEveryWeek = new Task(new Name("tEveryMonday"), new Detail(""), 
-                new TaskDate("today", TaskDate.TASK_DATE_ON), 
-                new TaskDate("", TaskDate.TASK_DATE_BY), 
-                new Recurrence("every day"));
-        
-        LocalDate expectedDate = tEveryWeek.getOnDate().getDate().plusDays(1);
-        tEveryWeek.getRecurrence().updateTaskDate(tEveryWeek);
-        LocalDate actualDate = tEveryWeek.getOnDate().getDate();
-        
-        assertEquals(expectedDate, actualDate);
-    }
+   
     
 }

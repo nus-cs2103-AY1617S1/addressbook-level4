@@ -1,6 +1,9 @@
 package seedu.todo.logic.commands;
 
+import java.time.LocalDate;
+
 import seedu.todo.commons.exceptions.IllegalValueException;
+import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.model.task.*;
 
 /**
@@ -25,25 +28,22 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String detail, String onDate, String byDate)
+    public AddCommand(String name, String detail, String onDateString, String byDateString)
             throws IllegalValueException {
         
-        Recurrence recurrence;
-        if (onDate != null && onDate.contains("every")) {
-            if (byDate != null && byDate.length() > 0) {
-                recurrence = new Recurrence("every " + onDate + " to " + byDate);
-            } else {
-                recurrence = new Recurrence(onDate);
-            }
-        } else {
-            recurrence = new Recurrence(null);
+        TaskDate onDate = new TaskDate(onDateString, TaskDate.TASK_DATE_ON);
+        TaskDate byDate = new TaskDate(byDateString, TaskDate.TASK_DATE_BY);
+        if (byDate.getDate() != null && !DateTimeUtil.containsDateField(byDateString)) {
+            byDate.setDate(LocalDate.of(onDate.getDate().getYear(), 
+                    onDate.getDate().getMonth(), onDate.getDate().getDayOfMonth()));
         }
+        
         this.toAdd = new Task(
                 new Name(name),
                 new Detail(detail),
-                new TaskDate(onDate, TaskDate.TASK_DATE_ON),
-                new TaskDate(byDate, TaskDate.TASK_DATE_BY),
-                recurrence
+                onDate,
+                byDate,
+                new Recurrence(null)
         );
     }
 

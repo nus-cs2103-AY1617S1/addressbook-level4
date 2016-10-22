@@ -24,6 +24,18 @@ public class DateTimeUtil {
         return (dateTimeString == null || dateTimeString.equals("") || dateTimeString.equals(" "));
     }
 
+    /**
+     * Attempts to parse a String into LocalDateTime.
+     * 
+     * If the String does not contains date information, the default date used is the current date.
+     * 
+     * If the String does not contains time information, the default time used is the 0000hrs if
+     * it is an onDate and 2359 if it is a byDate.
+     * 
+     * @param dateTimeString
+     * @param onOrBy
+     * @return LocalDateTime
+     */
     public static LocalDateTime parseDateTimeString(String dateTimeString, String onOrBy) {
         Parser nattyParser = new Parser();
         List<DateGroup> groups = nattyParser.parse(dateTimeString);
@@ -63,6 +75,13 @@ public class DateTimeUtil {
         }
     }
 
+    /**
+     * Checks whether date information is able to be parsed out 
+     * from a String
+     * 
+     * @param dateTimeString
+     * @return boolean
+     */
     public static boolean containsDateField(String dateTimeString) {
         Parser nattyParser = new Parser();
         List<DateGroup> groups = nattyParser.parse(dateTimeString);
@@ -76,6 +95,13 @@ public class DateTimeUtil {
         }
     }
     
+    /**
+     * Checks whether time information is able to be parsed out 
+     * from a String
+     * 
+     * @param dateTimeString
+     * @return boolean
+     */
     public static boolean containsTimeField(String dateTimeString) {
         Parser nattyParser = new Parser();
         List<DateGroup> groups = nattyParser.parse(dateTimeString);

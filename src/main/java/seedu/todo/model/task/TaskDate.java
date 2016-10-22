@@ -68,6 +68,14 @@ public class TaskDate {
     public LocalTime getTime() {
         return this.time;
     }
+    
+    public LocalDate setDate(LocalDate date) {
+        return this.date = date;
+    }
+    
+    public LocalTime setTime(LocalTime time) {
+        return this.time = time;
+    }
 
     @Override
     public String toString() {
