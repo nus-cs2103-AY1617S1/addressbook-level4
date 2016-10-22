@@ -75,12 +75,13 @@ public class TypicalTestTasks {
     public TestTask[] getTypicalTasks() {
         return new TestTask[]{someday1, deadlineToday, deadlineTomorrow, deadlineIn7Days, deadlineIn30Days, someday2, deadline1, deadline2, eventToday, eventTomorrow, eventIn7Days, eventIn30Days, event1, event2};
     }
-
+    
+    //@@author A0141019U
     public TestTask[] getSortedTypicalTasks() {
     	return new TestTask[]{deadline1, event1, deadline2, event2, deadlineToday, eventToday, deadlineTomorrow, eventTomorrow, eventIn7Days, deadlineIn7Days, deadlineIn30Days, eventIn30Days, someday1, someday2};
     }
-
     
+    //@@author
     public TestTask[] getTodayTasks() {
         return new TestTask[] {deadlineToday, eventToday};
     }
