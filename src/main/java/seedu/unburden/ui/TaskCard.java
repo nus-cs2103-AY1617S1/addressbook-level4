@@ -26,6 +26,8 @@ public class TaskCard extends UiPart{
     private Label id;
     @FXML
     private Label tags;
+    @FXML
+    private Label done;
 
     private ReadOnlyTask person;
     private int displayedIndex;
@@ -50,7 +52,9 @@ public class TaskCard extends UiPart{
         date.setText("Date: " + person.getDate().fullDate);
         startTime.setText("Start Time: " + person.getStartTime().fullTime);
         endTime.setText("End Time: " + person.getEndTime().fullTime);
+        done.setText(" [ " + person.getDoneString() + " ] ");
         tags.setText("      " + person.tagsString());
+        
         /*
     	if(person.getDate().fullDate != "NIL" && person.getStartTime().fullTime != "NIL"){
         name.setText(
