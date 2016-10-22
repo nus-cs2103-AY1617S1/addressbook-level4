@@ -1,8 +1,13 @@
 package seedu.taskitty.commons.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Date;
+
+import seedu.taskitty.model.task.TaskDate;
 
 /**
  * Converts a String to Date and vice versa.
@@ -150,4 +155,11 @@ public class DateUtil {
         }
         return fullMonthName;
     }
+    
+    public static LocalDate createCurrentDate() {
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    	Date dateobj = new Date();
+    	String date = df.format(dateobj);
+    	return LocalDate.parse(date, TaskDate.DATE_FORMATTER);
+	}
 }

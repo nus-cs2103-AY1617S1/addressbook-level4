@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
+import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.model.task.TaskDate;
 
 /**
@@ -33,16 +34,10 @@ public class ViewCommand extends Command {
     }
     
     public ViewCommand() {
-    	this.date = createTaskDate();
+    	this.date = DateUtil.createCurrentDate();
     	this.hasDate = false;
     }
 
-    private LocalDate createTaskDate() {
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-    	Date dateobj = new Date();
-    	String date = df.format(dateobj);
-    	return LocalDate.parse(date, TaskDate.DATE_FORMATTER);
-	}
     
     @Override
     public CommandResult execute() {
