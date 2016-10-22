@@ -214,6 +214,9 @@ public class AgendaPanel extends UiPart{
             public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {  
                 if(cd.getValue() instanceof Event){
                     Event a = (Event) cd.getValue();
+                    if (a.getEnd() == null) {
+                        return Bindings.createStringBinding(() -> "");
+                    }                        
                     return Bindings.createStringBinding(() -> a.getEnd().toString());
                 }
                return new SimpleStringProperty();
