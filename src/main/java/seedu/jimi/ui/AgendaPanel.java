@@ -258,7 +258,7 @@ public class AgendaPanel extends UiPart{
     /**
      * Expands the relevant task panels according to user input.
      */
-    @Subscribe
+    
     public void handleShowTaskPanelSelectionEvent(ShowTaskPanelSectionEvent event) {
         switch (event.sectionToDisplay) {
         case "all":
@@ -295,7 +295,7 @@ public class AgendaPanel extends UiPart{
         int differenceInDays = 0;
         //find required datetime 
         for(int i = 0; i < 7; i++) {
-            if (dayRequired.getDayOfWeek().plus(i).toString().toLowerCase().equals(sectionToDisplay)) {
+            if (dayRequired.getDayOfWeek().plus(i).toString().toLowerCase().contains(sectionToDisplay)) {
                 differenceInDays = i;
             }
         }
@@ -312,24 +312,25 @@ public class AgendaPanel extends UiPart{
     
     public void showFloatingTasks() {
         tasksTableView.setItems(this.floatingTaskList);
-        eventsTableView.setItems(null);
+        eventsTableView.setItems(FXCollections.observableArrayList());
     }
     
     public void showIncompleteTasks() {
         tasksTableView.setItems(this.incompleteTaskList);
-        eventsTableView.setItems(null);
+        eventsTableView.setItems(FXCollections.observableArrayList());
     }
     
     public void showCompleteTasks() {
         tasksTableView.setItems(this.completedTaskList);
-        eventsTableView.setItems(null);
+        eventsTableView.setItems(FXCollections.observableArrayList());
     }
     
     /**
-     * Loads the list respective to which day is required.
+     * Loads the events and task lists respective to which day is required.
      * @param index must be 0 to 6, inlclusive.
      */
     public void showDayRequired(int index) {
+
         tasksTableView.setItems(this.daysTaskList.get(index));
     }
 }
