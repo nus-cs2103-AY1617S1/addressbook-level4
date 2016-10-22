@@ -35,7 +35,7 @@ public class UncompleteCommand extends UndoableCommand {
         ReadOnlyTask orginialTask = lastShownList.get(targetIndex - 1);
         try {
             Task uncompletedTask = new Task(orginialTask);
-            if(uncompletedTask.getComplete()==true) {
+            if(uncompletedTask.getComplete()) {
                 uncompletedTask.setIsCompleted(false);
             }else {
                 return new CommandResult(false, Messages.MESSAGE_INVALID_UNCOMPLETE_TASK);
