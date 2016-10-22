@@ -1,10 +1,16 @@
 package seedu.jimi.logic.commands;
 
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.format.TextStyle;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 
+import seedu.jimi.model.FilteredListManager.ListId;
 import seedu.jimi.model.ModelManager;
+import seedu.jimi.model.datetime.DateTime;
 
 /**
  * Shows certain sections of the task panel to the user.
@@ -38,14 +44,14 @@ public class ShowCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Displayed tasks and events.";
     
-    private final String sectionToShow; //section name from user input
+    private final String userSelection; //section name from user input
     
     public ShowCommand() {
-        this.sectionToShow = "";
+        this.userSelection = "";
     }
     
     public ShowCommand(String args) {
-        this.sectionToShow = args;
+        this.userSelection = args.toLowerCase().trim();
     }
     
     /**
@@ -53,14 +59,60 @@ public class ShowCommand extends Command {
      */
     @Override
     public CommandResult execute() {
-        ((ModelManager) model).showTaskPanelSection(sectionToShow);
+        ((ModelManager) model).showTaskPanelSection(userSelection);
         
-        model.updateFilteredAgendaTaskList(new HashSet<>(Arrays.asList(sectionToShow)));
-        model.updateFilteredAgendaEventList(new HashSet<>(Arrays.asList(sectionToShow)));
+        ListId sectionToShow = null;
+        
+        switch(userSelection) {
+        case "floating":
+            sectionToShow = ListId.FLOATING_TASKS;
+            break;
+        case "incomplete":
+            sectionToShow = ListId.INCOMPLETE;
+            break;
+        case "complete":
+            sectionToShow = ListId.COMPLETED;
+            break;
+        case "today":
+            sectionToShow = ListId.DAY_AHEAD_0;
+            break;
+        case "tomorrow":
+            sectionToShow = ListId.DAY_AHEAD_1;
+            break;
+        case "monday":
+        case "tuesday": 
+        case "wednesday":
+        case "thursday":
+        case "friday":
+        case "saturday": 
+        case "sunday":
+            sectionToShow = findSectionToShow(userSelection);
+            break;
+        default:
+                break;
+        }
+        
+        model.updateFilteredAgendaTaskList(null, sectionToShow);
+        model.updateFilteredAgendaEventList(null, sectionToShow);
         
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    private ListId findSectionToShow(String userSelection) {
+        ListId sectionToShow = null;
+        
+        LocalDateTime dateTime = new DateTime().getLocalDateTime();
+        
+        for(int i=0; i<7; i++) {
+            String dayOfWeek = dateTime.getDayOfWeek().plus(i).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+            if(dayOfWeek.toLowerCase().contains(userSelection)) {
+                sectionToShow = ListId.values()[i];
+            }
+        }
+        
+        return sectionToShow;
+    }
+    
     @Override
     public boolean isValidCommandWord(String commandWord) {
         for (int i = 1; i <= COMMAND_WORD.length(); i++) {
