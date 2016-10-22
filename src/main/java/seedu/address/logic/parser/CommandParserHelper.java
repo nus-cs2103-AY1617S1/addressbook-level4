@@ -89,6 +89,42 @@ public class CommandParserHelper {
         return putVariablesInMap(task);
     }
 
+    public HashMap<String, Optional<String>> prepareEdit(String args) throws IllegalValueException {
+        assert args != null;
+        
+        OptionalStringTask task = new OptionalStringTask();
+        String regex;
+        int numberOfKeywords = generateNumberOfKeywords(args);
+
+        logger.log(Level.FINEST, "Number of keywords in \"" + args + "\" = " + numberOfKeywords);
+
+        regex = generateStartOfRegex(numberOfKeywords);
+
+        if (numberOfKeywords == ZERO) {
+            validateMatcherForNoKeyword(regex, args);
+        } else if (numberOfKeywords == ONE) {
+            validateMatcherForOneKeyword(args, task, regex);
+        } else if (numberOfKeywords >= TWO) {
+            validateMatcherForTwoKeywords(args, task, regex);
+        }
+
+        assert matcher.group("taskName") != null;
+        task.taskName = Optional.of(matcher.group("taskName").trim());
+        // TODO: Works but looks sloppy
+        if (!matcher.toString().contains(REGEX_FIRST_DATE)) {
+            task.startDate = Optional.empty();
+        }
+        if (!matcher.toString().contains(REGEX_FIRST_DATE) && !matcher.toString().contains(REGEX_SECOND_DATE)) {
+            task.endDate = Optional.empty();
+        }
+        HashMap<String, Optional<String>> recurrenceRateMap = generateRateAndTimePeriod(matcher);
+        task.rate = recurrenceRateMap.get("rate");
+        task.timePeriod = recurrenceRateMap.get("timePeriod");
+        task.priority = Optional.of(assignPriority(matcher));
+            
+        return putVariablesInMap(task);
+    }
+    
     public void validateMatcherForTwoKeywords(String args, OptionalStringTask task, String regex)
             throws IllegalValueException {
         generateMatcherForTwoKeywords(args, regex);
