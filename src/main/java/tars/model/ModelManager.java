@@ -43,8 +43,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<Command> undoableCmdHistStack;
     private final Stack<Command> redoableCmdHistStack;
 
-	private static final String LIST_ARG_DATETIME = "-dt";
-	private static final String LIST_ARG_PRIORITY = "-p";
+	private static final String LIST_ARG_DATETIME = "/dt";
+	private static final String LIST_ARG_PRIORITY = "/p";
 	private static final String LIST_KEYWORD_DESCENDING = "dsc";
 
 	/**
