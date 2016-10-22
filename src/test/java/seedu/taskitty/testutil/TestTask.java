@@ -103,9 +103,16 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         return sb.toString();
     }
     
-    public String getEditCommand(int index) {
+    public String getEditCommand(int index, String category) {
         StringBuilder sb = new StringBuilder();
-        sb.append("edit " + index + " " + this.getName().fullName);        
+        sb.append("edit " + category + " " + index + " " + this.getName().fullName + " ");
+        if (startDate != null && startTime != null) {
+            sb.append(startDate.toString() + " " + startTime.toString() + " to ");
+        }
+        if (endDate != null && endTime != null) {
+            sb.append(endDate.toString() + " " + endTime.toString() + " ");
+        }
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 

@@ -25,6 +25,9 @@ public class TestTaskList {
         this.todoList = new ArrayList<TestTask>(Arrays.asList(todoList));
         this.deadlineList = new ArrayList<TestTask>(Arrays.asList(deadlineList));
         this.eventList = new ArrayList<TestTask>(Arrays.asList(eventList));
+        this.todoList.sort(null);
+        this.deadlineList.sort(null);
+        this.eventList.sort(null);
     }
     
     private void splitTaskList(TestTask[] taskList) {
@@ -56,8 +59,54 @@ public class TestTaskList {
         }
     }
     
-    public void removeTaskFromList(TestTask task) {
+    public TestTask getTaskFromList(int index, String category) {
+        switch (category) {
         
+        case ("d") :
+            return deadlineList.get(index);
+            
+        case ("e") :
+            return eventList.get(index);
+            
+        default :
+            return todoList.get(index);
+        }
+            
+    }
+    
+    public void editTaskFromList(int index, String category, TestTask task) {
+        removeTaskFromList(index, category);
+        addTaskToList(task);
+    }
+    
+    public void removeTaskFromList(int index, String category) {
+        switch (category) {
+        
+        case ("d") :
+            deadlineList.remove(index);
+            break;
+            
+        case ("e") :
+            eventList.remove(index);
+            break;
+            
+        default :
+            todoList.remove(index);
+        }
+    }
+    
+    public int size(String category) {
+        switch (category) {
+        
+        case ("d") :
+            return deadlineList.size();
+            
+        case ("e") :
+            return eventList.size();
+            
+        default :
+            return todoList.size();
+        }
     }
     
     public void clear() {

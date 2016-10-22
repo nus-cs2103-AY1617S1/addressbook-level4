@@ -126,6 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     public synchronized void removeUnchangedState() {
         historyTaskManagers.pop();
+        historyCommands.pop();
         historyPredicates.pop();
     }
     

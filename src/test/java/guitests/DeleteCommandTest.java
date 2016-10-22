@@ -2,83 +2,54 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.testutil.TestTask;
-import seedu.taskitty.testutil.TestUtil;
+import seedu.taskitty.testutil.TestTaskList;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.taskitty.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 import static seedu.taskitty.logic.commands.DeleteCommand.CATEGORIES;
 
 public class DeleteCommandTest extends TaskManagerGuiTest {
-/*
+
     @Test
-    public void deleteWithoutCategory() {
+    public void delete() {
 
-        //delete the first in the list
-        TestTask[] currentList = td.getTypicalTasks();
-        int targetIndex = 1;
+        //delete using todo/default
+        TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
+        
+        int targetIndex = currentList.size("");
         assertDeleteSuccess(targetIndex, currentList);
 
-        //delete the last in the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-        targetIndex = currentList.length;
-        assertDeleteSuccess(targetIndex, currentList);
+        //delete from deadline
+        targetIndex = currentList.size("d");
+        assertDeleteSuccess(targetIndex, "d", currentList);
 
-        //delete from the middle of the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-        targetIndex = currentList.length/2;
-        assertDeleteSuccess(targetIndex, currentList);
+        //delete from event
+        targetIndex = currentList.size("e");
+        assertDeleteSuccess(targetIndex, "e", currentList);
         
         //invalid index
-        commandBox.runCommand("delete " + currentList.length + 1);
+        commandBox.runCommand("delete t " + (currentList.size("t") + 1));
         assertResultMessage("The task index provided is invalid");
+        
+        //invalid command
+        commandBox.runCommand("deletes e " + (currentList.size("e")));
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
     }
     
-    @Test
-    public void deleteWithCategory() {
-
-        //delete first todo in the list
-        TestTask[] currentList = td.getTypicalTasks();
-        int targetIndex = 1;
-        String category = "t";
-        assertDeleteSuccess(targetIndex, category, currentList);
-
-        //delete the last deadline in the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-        category = "d";
-        targetIndex = currentList.length;
-        assertDeleteSuccess(targetIndex, category, currentList);
-
-        //delete from the middle of the list event
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-        category = "e";
-        targetIndex = currentList.length/2;
-        assertDeleteSuccess(targetIndex, category, currentList);
-        
-        //invalid index
-        commandBox.runCommand("delete " + category + " " + currentList.length + 1);
-        assertResultMessage("The task index provided is invalid");
-        
-    }*/
     /**
-     * Runs the delete command to delete the person at specified index and confirms the result is correct.
+     * 
+     * Runs the delete command to delete the person at specified index and confirms the result is correct 
+     * with todo as the default category.
      * @param targetIndexOneIndexed e.g. to delete the first person in the list, 1 should be given as the target index.
-     * @param currentList A copy of the current list of persons (before deletion).
+     * @param currentList A copy of the current list of persons (before deletion).     
      */
-    /*private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
-        TestTask personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestTask[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
-
-        commandBox.runCommand("delete " + targetIndexOneIndexed);
-
-        //confirm the list now contains all previous persons except the deleted person
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
-
-        //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, CATEGORIES[0], personToDelete));
-    }*/
+    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTaskList currentList) {
+        assertDeleteSuccess(targetIndexOneIndexed, "t", currentList);
+    }
     
     /**
      * 
@@ -87,15 +58,17 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
      * @param category the category in which to delete from
      * @param currentList A copy of the current list of persons (before deletion).     
      */
-    /*private void assertDeleteSuccess(int targetIndexOneIndexed, String category, final TestTask[] currentList) {
-        TestTask personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestTask[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
+    private void assertDeleteSuccess(int targetIndexOneIndexed, String category, final TestTaskList currentList) {
+        TestTask personToDelete = currentList.getTaskFromList(targetIndexOneIndexed - 1, category); //-1 because array uses zero indexing
+        
+        currentList.removeTaskFromList(targetIndexOneIndexed - 1, category);
         commandBox.runCommand("delete " + category + " " + targetIndexOneIndexed);
+        
         int categoryIndex = StringUtil.getCategoryIndex(category);
         //confirm the list now contains all previous persons except the deleted person
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        assertTrue(currentList.isListMatching(taskListPanel));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, CATEGORIES[categoryIndex], personToDelete));
-    }*/
+    }
 }
