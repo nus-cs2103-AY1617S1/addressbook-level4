@@ -33,10 +33,11 @@ public class Date {
         //assert date != null;
         if (date == null)
     		date = "default";
-        date = standardFormatDate(date.trim());
+        date = date.trim();
         if (!isValidDate(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
+        date = standardFormatDate(date);
         if (!isAfterCurrentDate(date)) {
         	throw new IllegalValueException(MESSAGE_PAST_DATE);
         }
