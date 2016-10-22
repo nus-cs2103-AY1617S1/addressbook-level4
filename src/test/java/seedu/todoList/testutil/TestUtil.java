@@ -74,13 +74,13 @@ public class TestUtil {
     private static Task[] getSampletaskData() {
         try {
             return new Task[]{
-                    new Todo(new Name("TT 11"), new Date("01-11-2016"), new Priority("1")),
-                    new Todo(new Name("Assignment 12"), new Date("02-11-2016"), new Priority("2")),
-                    new Todo(new Name("Assignment 13"), new Date("03-11-2016"), new Priority("3")),
-                    new Todo(new Name("Assignment 14"), new Date("04-11-2016"), new Priority("4")),
-                    new Todo(new Name("Assignment 15"), new Date("05-11-2016"), new Priority("5")),
-                    new Todo(new Name("Assignment 16"), new Date("06-11-2016"), new Priority("6")),
-                    new Todo(new Name("Assignment 17"), new Date("07-11-2016"), new Priority("7")),
+                    new Todo(new Name("TT 11"), new StartDate("01-11-2016"), new Priority("1")),
+                    new Todo(new Name("Assignment 12"), new StartDate("02-11-2016"), new Priority("2")),
+                    new Todo(new Name("Assignment 13"), new StartDate("03-11-2016"), new Priority("3")),
+                    new Todo(new Name("Assignment 14"), new StartDate("04-11-2016"), new Priority("4")),
+                    new Todo(new Name("Assignment 15"), new StartDate("05-11-2016"), new Priority("5")),
+                    new Todo(new Name("Assignment 16"), new StartDate("06-11-2016"), new Priority("6")),
+                    new Todo(new Name("Assignment 17"), new StartDate("07-11-2016"), new Priority("7")),
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -92,13 +92,13 @@ public class TestUtil {
     private static Event[] getSampleeventData() {
         try {
             return new Event[]{
-                    new Event(new Name("EE 11"), new Date("01-11-2016"), new StartTime("1000"), new EndTime("1030")),
-                    new Event(new Name("Essignment 12"), new Date("02-11-2016"), new StartTime("1000"), new EndTime("1030")),
-                    new Event(new Name("Essignment 13"), new Date("03-11-2016"), new StartTime("1100"), new EndTime("1130")),
-                    new Event(new Name("Essignment 14"), new Date("04-11-2016"), new StartTime("1200"), new EndTime("1230")),
-                    new Event(new Name("Essignment 15"), new Date("05-11-2016"), new StartTime("1300"), new EndTime("1330")),
-                    new Event(new Name("Essignment 16"), new Date("06-11-2016"), new StartTime("1400"), new EndTime("1430")),
-                    new Event(new Name("Essignment 17"), new Date("07-11-2016"), new StartTime("1500"), new EndTime("1530")),
+                    new Event(new Name("EE 11"), new StartDate("01-11-2016"), new StartTime("1000"), new EndTime("1030")),
+                    new Event(new Name("Essignment 12"), new StartDate("02-11-2016"), new StartTime("1000"), new EndTime("1030")),
+                    new Event(new Name("Essignment 13"), new StartDate("03-11-2016"), new StartTime("1100"), new EndTime("1130")),
+                    new Event(new Name("Essignment 14"), new StartDate("04-11-2016"), new StartTime("1200"), new EndTime("1230")),
+                    new Event(new Name("Essignment 15"), new StartDate("05-11-2016"), new StartTime("1300"), new EndTime("1330")),
+                    new Event(new Name("Essignment 16"), new StartDate("06-11-2016"), new StartTime("1400"), new EndTime("1430")),
+                    new Event(new Name("Essignment 17"), new StartDate("07-11-2016"), new StartTime("1500"), new EndTime("1530")),
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -110,13 +110,13 @@ public class TestUtil {
     private static Deadline[] getSampledeadlineData() {
         try {
             return new Deadline[]{
-                    new Deadline(new Name("DD 11"), new Date("01-11-2016"), new EndTime("1100")),
-                    new Deadline(new Name("Dssignment 12"), new Date("02-11-2016"), new EndTime("1200")),
-                    new Deadline(new Name("Dssignment 13"), new Date("03-11-2016"), new EndTime("1300")),
-                    new Deadline(new Name("Dssignment 14"), new Date("04-11-2016"), new EndTime("1400")),
-                    new Deadline(new Name("Dssignment 15"), new Date("05-11-2016"), new EndTime("1500")),
-                    new Deadline(new Name("Dssignment 16"), new Date("06-11-2016"), new EndTime("1600")),
-                    new Deadline(new Name("Dssignment 17"), new Date("07-11-2016"), new EndTime("1700")),
+                    new Deadline(new Name("DD 11"), new StartDate("01-11-2016"), new EndTime("1100")),
+                    new Deadline(new Name("Dssignment 12"), new StartDate("02-11-2016"), new EndTime("1200")),
+                    new Deadline(new Name("Dssignment 13"), new StartDate("03-11-2016"), new EndTime("1300")),
+                    new Deadline(new Name("Dssignment 14"), new StartDate("04-11-2016"), new EndTime("1400")),
+                    new Deadline(new Name("Dssignment 15"), new StartDate("05-11-2016"), new EndTime("1500")),
+                    new Deadline(new Name("Dssignment 16"), new StartDate("06-11-2016"), new EndTime("1600")),
+                    new Deadline(new Name("Dssignment 17"), new StartDate("07-11-2016"), new EndTime("1700")),
             };
         } catch (IllegalValueException e) {
             assert false;

@@ -12,7 +12,7 @@ public class TestEvent extends Event implements ReadOnlyTask {
     //private Name name;
     private Event event;
     private static Name name;
-    private static Date date;
+    private static StartDate date;
     private static StartTime startTime;
     private static EndTime endTime;
 
@@ -30,7 +30,7 @@ public class TestEvent extends Event implements ReadOnlyTask {
         TestEvent.name = name;
     }
 
-    public void setDate(Date date) {
+    public void setDate(StartDate date) {
         TestEvent.date = date;
     }
     
@@ -57,7 +57,7 @@ public class TestEvent extends Event implements ReadOnlyTask {
         return name;
     }
 
-    public Date getDate() {
+    public StartDate getDate() {
         return date;
     }
     
