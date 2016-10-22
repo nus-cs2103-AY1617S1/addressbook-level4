@@ -12,7 +12,7 @@ import seedu.todoList.model.task.attributes.Priority;
  */
 public class Todo extends Task implements ReadOnlyTask {
     
-    private Date date;
+    private Date startDate;
     private EndDate endDate;
     private Priority priority;
 
@@ -23,7 +23,7 @@ public class Todo extends Task implements ReadOnlyTask {
     public Todo(Name name, Date date, EndDate endDate, Priority priority) {
         assert !CollectionUtil.isAnyNull(name, date, endDate, priority);
         super.name = name;
-        this.date = date;
+        this.startDate = date;
         this.endDate = endDate;
         this.priority = priority;
     }
@@ -32,11 +32,11 @@ public class Todo extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Todo(Todo source) {
-        this(source.getName(), source.getDate() , source.getEndDate(), source.getPriority());
+        this(source.getName(), source.getStartDate() , source.getEndDate(), source.getPriority());
     }
 
-    public Date getDate() {
-        return date;
+    public Date getStartDate() {
+        return startDate;
     }
     
     public EndDate getEndDate() {
@@ -56,7 +56,7 @@ public class Todo extends Task implements ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other instanceof Todo // instanceof handles nulls
                 && super.name.equals(((Todo) other).getName()))
-                && this.date.equals(((Todo) other).getDate())
+                && this.startDate.equals(((Todo) other).getStartDate())
                 && this.endDate.equals(((Todo) other).getEndDate())
                 && this.priority.equals(((Todo) other).getPriority());
     }
@@ -66,7 +66,7 @@ public class Todo extends Task implements ReadOnlyTask {
     	final StringBuilder builder = new StringBuilder();
         builder.append(getName())
                 .append(" Date: ")
-                .append(getDate())
+                .append(getStartDate())
                 .append(" End Date: ")
                 .append(getEndDate())
                 .append(" Priority: ")

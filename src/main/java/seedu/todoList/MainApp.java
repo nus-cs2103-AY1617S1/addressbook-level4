@@ -214,7 +214,7 @@ public class MainApp extends Application {
     private void handleStorageLocationChangedEvent (StorageLocationChangedEvent event) throws Exception {
     	logger.info(LogsCenter.getEventHandlingLogMessage(event));
     	
-    	this.stop();
+    	// ui.stop();
     	
     	logger.info("=============================[ Reinitializing TodoList ]===========================");
         super.init();
@@ -234,9 +234,7 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
-        ui = new UiManager(logic, config, userPrefs);
-
-        initEventsCenter();
+        this.stop();
     }
 
     public static void main(String[] args) {

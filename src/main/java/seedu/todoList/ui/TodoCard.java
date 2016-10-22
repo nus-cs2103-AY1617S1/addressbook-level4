@@ -17,7 +17,7 @@ public class TodoCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label date;
+    private Label startDate;
     @FXML
     private Label endDate;
     @FXML
@@ -41,8 +41,8 @@ public class TodoCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
-        date.setText(task.getDate().date);
-        endDate.setText(task.getEndDate().endDate);
+        startDate.setText("Start Date: " + task.getStartDate().date);
+        endDate.setText("End Date: " + task.getEndDate().endDate);
         priority.setText("Priority: " + task.getPriority().toString());
     }
 

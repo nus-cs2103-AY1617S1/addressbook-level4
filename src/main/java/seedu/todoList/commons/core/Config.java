@@ -27,9 +27,10 @@ public class Config {
     }
     
     public Config(String newDirectory) {
-    	this.todoListFilePath = newDirectory + "/" + todoListFilePath;
-    	this.eventListFilePath = newDirectory + "/" + eventListFilePath;
-    	this.deadlineListFilePath = newDirectory + "/" + deadlineListFilePath;
+    	newDirectory = newDirectory.trim();
+    	this.todoListFilePath = newDirectory + "/" + "TodoList.xml";
+    	this.eventListFilePath = newDirectory + "/" + "EventList.xml";
+    	this.deadlineListFilePath = newDirectory + "/" + "DeadlineList.xml";
     }
 
     public String getAppTitle() {
