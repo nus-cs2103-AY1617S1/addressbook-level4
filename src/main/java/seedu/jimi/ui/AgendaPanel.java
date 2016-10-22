@@ -94,11 +94,12 @@ public class AgendaPanel extends UiPart{
         instantiateObjectLists(taskList, eventList);
         configureTaskColumnsCellFactories();
         configureEventsColumnsCellFactories();
+        setConnections();
         addToPlaceholder();
         registerAsAnEventHandler(this); //to update labels
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+    private void setConnections() {
         tasksTableView.setItems(this.tasksList);
         eventsTableView.setItems(this.eventsList);
         
