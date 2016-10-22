@@ -3,6 +3,7 @@ package seedu.menion.model;
 import javafx.collections.ObservableList;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.logic.commands.EditCommand;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
 
@@ -257,6 +258,16 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException {
         Activity dub;
         dub = tasks.getInternalList().get(index);
+        String currentTime = dub.getActivityStartTime().toString();
+        String currentDate = dub.getActivityStartDate().toString();
+        
+        if (newDate.equals(EditCommand.NOT_TO_EDIT)) {
+            newDate = currentDate;
+        }
+        if (newTime.equals(EditCommand.NOT_TO_EDIT)) {
+            newTime = currentTime;
+        }
+        
         dub.setActivityStartDateTime(newDate, newTime);
         tasks.getInternalList().set(index, dub);
     }

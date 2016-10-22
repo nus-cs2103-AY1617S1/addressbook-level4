@@ -104,12 +104,23 @@ public class EditCommand extends Command {
             model.editTaskNote(index, newNote);
             break;
         case 2:
-            String newDate;
-            String newTime;
-
-            newDate = changes[0];
-            newTime = changes[1];
-
+            String newDate = NOT_TO_EDIT;
+            String newTime = NOT_TO_EDIT;
+            // User passed in both date and time
+            if (changes.length == 2) {
+                newDate = changes[0];
+                newTime = changes[1];
+            }
+            // Either date, or time passed in
+            else {
+                // must be time.
+                if (changes[0].length() == 4) {
+                    newTime = changes[0];
+                }
+                else {
+                    newDate = changes[0];
+                }
+            }
             model.editTaskDateTime(index, newDate, newTime);
             break;
         }
