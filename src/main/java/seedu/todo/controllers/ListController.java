@@ -76,24 +76,28 @@ public class ListController implements Controller {
         boolean listAll = parseListAllType(parsedResult);
         
         boolean isTask = true; //default
-        //if listing all type , set isTask and isEvent true
+        
+        // Task or Event specified by user, set the item type
         if (!listAll) {
             isTask = parseIsTask(parsedResult);
         }
         
         boolean listAllStatus = parseListAllStatus(parsedResult);
         boolean isCompleted = false; //default 
-        //if listing all status, isCompleted will be ignored, listing both complete and incomplete
+        
+        //if complete or incomplete is specified by user, set the status
         if (!listAllStatus) {
             isCompleted = !parseIsIncomplete(parsedResult);
         }
         
+        // parsing of dates
         String[] parsedDates = parseDates(parsedResult);
         boolean isDateProvided = true;
-        LocalDateTime dateOn = null;
+        LocalDateTime dateOn = parseDateWithNoKeyword(parsedResult);
         LocalDateTime dateFrom = null;
         LocalDateTime dateTo = null;
         
+        //check if any date is provided by the user
         if (parsedDates == null) {
             isDateProvided = false;
         } else {
@@ -105,10 +109,9 @@ public class ListController implements Controller {
             dateOn = naturalOn == null ? null : parseNatural(naturalOn); 
             dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
             dateTo = naturalTo == null ? null : parseNatural(naturalTo);
-            
-            //setting up view
-            
         }
+        
+        //setting up view
         setupView(isTask, listAll, isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided, 
                 parsedDates, isExactCommand, input);
         
@@ -385,6 +388,18 @@ public class ListController implements Controller {
         
         if (naturalFrom != null || naturalTo != null || naturalOn != null) {
             return new String[] { naturalOn, naturalFrom, naturalTo };
+        } else {
+            return null;
+        }
+    }
+    
+    private LocalDateTime parseDateWithNoKeyword(Map<String, String[]> parsedResult) {
+        if (parsedResult.get("default").length == 2) { // user enter more than 1 date with no keyword
+            if (parsedResult.get("default")[1] != null) {
+                return parseNatural(parsedResult.get("default")[1]);
+            } else {
+                return null;
+            }
         } else {
             return null;
         }
