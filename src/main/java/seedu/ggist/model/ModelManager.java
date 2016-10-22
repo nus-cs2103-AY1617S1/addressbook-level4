@@ -17,6 +17,8 @@ import seedu.ggist.model.task.UniqueTaskList;
 import seedu.ggist.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -29,6 +31,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
+    private String today;
 
     public String lastListing;
 
@@ -49,12 +52,13 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager() {
         this(new TaskManager(), new UserPrefs());
+        today = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM YY"));
     }
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        updateFilteredListToShowAllUndone();
+        updateFilteredListToShowDate(today);
     }
     
     public void setLastListing(String listing) {
@@ -88,9 +92,29 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-    public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException {
-    	taskManager.editTask(target, field, value);
-    	if (lastListing == null || lastListing.equals("")) {
+    public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException, IllegalValueException {
+ 
+        taskManager.editTask(target, field, value);
+        updateListing();
+    	indicateTaskManagerChanged();
+    }
+
+    @Override
+    public synchronized void addTask(Task task) throws DuplicateTaskException {
+        taskManager.addTask(task);
+        updateListing();
+        indicateTaskManagerChanged();
+    }
+
+    //=========== Filtered Task List Accessors ===============================================================
+
+    /**
+     * Updates filtered list to show based on last shown listing choice
+     */
+    private void updateListing() {
+        if (lastListing == null) {
+            updateFilteredListToShowDate(today);
+        } else if (lastListing.equals("")) {
             updateFilteredListToShowAllUndone();
         } else if (lastListing.equals("done")) {
             updateFilteredListToShowAllDone();
@@ -98,19 +122,9 @@ public class ModelManager extends ComponentManager implements Model {
             updateFilteredListToShowDate(lastListing);
         } else if (lastListing.equals("all")){
             updateFilteredListToShowAll();
-        }
-    	indicateTaskManagerChanged();
+        } 
     }
-
-    @Override
-    public synchronized void addTask(Task task) throws DuplicateTaskException {
-        taskManager.addTask(task);
-        updateFilteredListToShowAllUndone();
-        indicateTaskManagerChanged();
-    }
-
-    //=========== Filtered Task List Accessors ===============================================================
-
+     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);

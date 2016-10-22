@@ -18,7 +18,7 @@ public class Priority {
 
     public static final String PRIORITY_VALIDATION_REGEX = "low|med|high";
 
-    public final String value;
+    public String value;
 
     /**
      * Validates given priority.
@@ -35,7 +35,21 @@ public class Priority {
             value = priority;
         }
     }
-
+    
+    /**
+     * Changes the value attribute
+     * @param String
+     * @throws IllegalValueException
+     */
+    public void editPriority(String newPriority) throws IllegalValueException {
+        assert newPriority!= null;
+        newPriority = newPriority.trim();
+        if (!isValidPriority(newPriority)) {
+            throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
+        }
+        this.value = newPriority;
+    }
+    
     /**
      * Returns the matched string
      */
