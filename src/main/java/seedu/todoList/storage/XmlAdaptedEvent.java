@@ -19,6 +19,8 @@ public class XmlAdaptedEvent implements XmlAdaptedTask {
 	@XmlElement(required = true)
 	private String date;
 	@XmlElement(required = true)
+	private String endDate;
+	@XmlElement(required = true)
     private String startTime;
 	@XmlElement(required = true)
     private String endTime;
@@ -39,6 +41,7 @@ public class XmlAdaptedEvent implements XmlAdaptedTask {
     public XmlAdaptedEvent(Event source) {
     	name = source.getName().name;
     	date = source.getDate().date;
+    	endDate = source.getEndDate().endDate;
         startTime = source.getStartTime().startTime;
         endTime = source.getEndTime().endTime;
         isDone = source.getDone().isDone;
@@ -50,11 +53,12 @@ public class XmlAdaptedEvent implements XmlAdaptedTask {
     
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
-        final Date date = new Date(this.date);
+        final StartDate date = new StartDate(this.date);
+        final EndDate endDate = new EndDate(this.endDate);
         final StartTime startTime = new StartTime(this.startTime);
         final EndTime endTime = new EndTime(this.endTime);
         final Done isDone = new Done(this.isDone);
-        return new Event(name, date, startTime, endTime, isDone);
+        return new Event(name, date, endDate, startTime, endTime, isDone);
     }
 }
 

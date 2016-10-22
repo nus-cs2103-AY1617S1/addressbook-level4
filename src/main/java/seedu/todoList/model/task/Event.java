@@ -2,7 +2,8 @@ package seedu.todoList.model.task;
 
 import seedu.todoList.commons.util.CollectionUtil;
 import seedu.todoList.model.task.attributes.Name;
-import seedu.todoList.model.task.attributes.Date;
+import seedu.todoList.model.task.attributes.StartDate;
+import seedu.todoList.model.task.attributes.EndDate;
 import seedu.todoList.model.task.attributes.EndTime;
 import seedu.todoList.model.task.attributes.StartTime;
 import seedu.todoList.model.task.attributes.Done;
@@ -13,7 +14,8 @@ import seedu.todoList.model.task.attributes.Done;
  */
 public class Event extends Task implements ReadOnlyTask {
 
-	private Date date;
+	private StartDate date;
+	private EndDate endDate;
     private StartTime startTime;
     private EndTime endTime;
     private Done isDone;
@@ -21,10 +23,11 @@ public class Event extends Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, Date date, StartTime startTime, EndTime endTime, Done isDone) {
-        assert !CollectionUtil.isAnyNull(name, date, startTime, endTime);
+    public Event(Name name, StartDate Date, EndDate endDate, StartTime startTime, EndTime endTime, Done isDone) {
+        assert !CollectionUtil.isAnyNull(name, Date, endDate, startTime, endTime);
         super.name = name;
-        this.date = date;
+        this.date = Date;
+        this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
         this.isDone = isDone;
@@ -34,8 +37,7 @@ public class Event extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Event(Event source) {
-        this(source.getName(), source.getDate(), source.getStartTime(), source.getEndTime(),
-        		source.getDone());
+        this(source.getName(), source.getDate(), source.getEndDate(), source.getStartTime(), source.getEndTime(), source.getDone());
     }
     
     public Event(ReadOnlyTask source) {
@@ -45,9 +47,13 @@ public class Event extends Task implements ReadOnlyTask {
     public Done getDone(){
     	return isDone;
     }
-    
-    public Date getDate() {
+
+    public StartDate getDate() {
         return date;
+    }
+    
+    public EndDate getEndDate() {
+        return endDate;
     }
 
     public StartTime getStartTime() {
@@ -63,6 +69,7 @@ public class Event extends Task implements ReadOnlyTask {
                 || (other instanceof Event // instanceof handles nulls
                 && super.name.equals(((Event) other).getName())
                 && this.date.equals(((Event) other).getDate())
+                && this.endDate.equals(((Event) other).getEndDate())
 				&& this.startTime.equals(((Event) other).getStartTime())
 				&& this.endTime.equals(((Event) other).getEndTime()));
 
@@ -74,6 +81,8 @@ public class Event extends Task implements ReadOnlyTask {
         builder.append(getName())
                 .append("\nDate: ")
                 .append(getDate())
+                .append("\nEnd Date: ")
+                .append(getEndDate())
                 .append("\nStartTime: ")
                 .append(getStartTime())
                 .append("\nEndTime: ")

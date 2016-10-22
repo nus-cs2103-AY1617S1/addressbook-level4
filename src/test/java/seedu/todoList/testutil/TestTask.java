@@ -13,7 +13,7 @@ public class TestTask extends Todo implements ReadOnlyTask {
     private Todo Todo;
     private static Name name;
     private static Priority priority;
-    private static Date date;
+    private static StartDate date;
 
 
     public TestTask() {
@@ -33,7 +33,7 @@ public class TestTask extends Todo implements ReadOnlyTask {
         this.priority = priority;
     }
     
-    public void setDate(Date date) {
+    public void setDate(StartDate date) {
         this.date = date;
     }
 
@@ -52,7 +52,7 @@ public class TestTask extends Todo implements ReadOnlyTask {
         return name;
     }
 
-    public Date getDate() {
+    public StartDate getDate() {
         return date;
     }
 

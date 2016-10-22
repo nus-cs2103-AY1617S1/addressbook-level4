@@ -1,8 +1,9 @@
 package seedu.todoList.model.task;
 
 import seedu.todoList.commons.util.CollectionUtil;
-import seedu.todoList.model.task.attributes.Date;
 import seedu.todoList.model.task.attributes.Done;
+import seedu.todoList.model.task.attributes.StartDate;
+import seedu.todoList.model.task.attributes.EndDate;
 import seedu.todoList.model.task.attributes.Name;
 import seedu.todoList.model.task.attributes.Priority;
 
@@ -12,7 +13,8 @@ import seedu.todoList.model.task.attributes.Priority;
  */
 public class Todo extends Task implements ReadOnlyTask {
     
-    private Date date;
+    private StartDate date;
+    private EndDate endDate;
     private Priority priority;
     private Done isDone;
 
@@ -20,10 +22,11 @@ public class Todo extends Task implements ReadOnlyTask {
      * Every field must be present and not null.
      * @param date 
      */
-    public Todo(Name name, Date date, Priority priority, Done isDone) {
-        assert !CollectionUtil.isAnyNull(name, date, priority);
+    public Todo(Name name, StartDate date, EndDate endDate, Priority priority, Done isDone) {
+        assert !CollectionUtil.isAnyNull(name, date, endDate, priority);
         super.name = name;
         this.date = date;
+        this.endDate = endDate;
         this.priority = priority;
         this.isDone = isDone;
     }
@@ -32,12 +35,15 @@ public class Todo extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Todo(Todo source) {
-        this(source.getName(), source.getDate() , source.getPriority(),
-        		source.getDone());
+        this(source.getName(), source.getDate() , source.getEndDate(), source.getPriority().priority source.getDone());
     }
 
-    public Date getDate() {
+    public StartDate getDate() {
         return date;
+    }
+    
+    public EndDate getEndDate() {
+        return endDate;
     }
 
     public Priority getPriority() {
@@ -58,6 +64,7 @@ public class Todo extends Task implements ReadOnlyTask {
                 || (other instanceof Todo // instanceof handles nulls
                 && super.name.equals(((Todo) other).getName()))
                 && this.date.equals(((Todo) other).getDate())
+                && this.endDate.equals(((Todo) other).getEndDate())
                 && this.priority.equals(((Todo) other).getPriority());
     }
 
@@ -67,7 +74,9 @@ public class Todo extends Task implements ReadOnlyTask {
         builder.append(getName())
                 .append("\nDate: ")
                 .append(getDate())
-                .append("\nPriority: ")
+                .append(" End Date: ")
+                .append(getEndDate())
+                .append(" Priority: ")
                 .append(getPriority());
         return builder.toString();
     }

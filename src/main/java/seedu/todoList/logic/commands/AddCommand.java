@@ -12,13 +12,12 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the TodoList.\n"
-            + "Parameters: TASK_NAME d/DATE s/START_TIME e/END_TIME\n"
-            + "Example: " + COMMAND_WORD
-            + " Assignment 3 d/25-12-2016 p/1\n"
-            + "Example: " + COMMAND_WORD
-            + " Time's birthday party d/25-12-2016 s/1400 e/1600\n"
-            + "Example: " + COMMAND_WORD
-            + " CS2103 v0.2 d/25-12-2016 e/1600\n";
+            + "Parameters: TASK_NAME from/DATE to/ENDDATE(Optional) p/PRIORITY\n"
+            + "Example: " + COMMAND_WORD + " Assignment 3 from/25-12-2016 to/26-12-2016 p/1\n"
+            + "Parameters: TASK_NAME from/DATE to/ENDDATE(Optional) at/START_TIME to/END_TIME\n"
+            + "Example: " + COMMAND_WORD + " Time's birthday party from/25-12-2016 to/26-12-2016 at/1400 to/1600\n"
+            + "Parameters: TASK_NAME on/DATE at/END_TIME\n"
+            + "Example: " + COMMAND_WORD + " CS2103 v0.2 from/25-12-2016 at/1600\n";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String INVALID_VALUE = "Invalid value";
@@ -50,7 +49,8 @@ public class AddCommand extends Command {
             throws IllegalValueException {
         this.toAdd = new Event(
                 new Name(name),
-                new Date(date),
+                new StartDate(date),
+                new EndDate(endDate),
                 new StartTime(startTime),
                 new EndTime(endTime),
                 new Done(isDone)
@@ -66,7 +66,7 @@ public class AddCommand extends Command {
             throws IllegalValueException {
         this.toAdd = new Deadline(
                 new Name(name),
-                new Date(date),
+                new StartDate(date),
                 new EndTime(endTime),
                 new Done(isDone)
         );
