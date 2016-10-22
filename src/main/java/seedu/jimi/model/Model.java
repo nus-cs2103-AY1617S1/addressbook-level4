@@ -3,6 +3,7 @@ package seedu.jimi.model;
 import java.util.Set;
 
 import seedu.jimi.commons.core.UnmodifiableObservableList;
+import seedu.jimi.model.FilteredListManager.ListId;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
 
@@ -52,10 +53,10 @@ public interface Model {
     void updateAllFilteredListsShowDefault();
 
     /** Updates the filter of the filtered task list to filter by the given keywords */
-    void updateFilteredAgendaTaskList(Set<String> keywords);
+    void updateFilteredAgendaTaskList(Set<String> keywords, ListId sectionToShow);
     
     /** Updates the filter of the filtered event list to filter by the given keywords */
-    void updateFilteredAgendaEventList(Set<String> keywords);
+    void updateFilteredAgendaEventList(Set<String> keywords, ListId sectionToShow);
     
     /** Sets the task to be completed/incomplete */
     void completeTask(ReadOnlyTask taskToComplete, boolean isComplete);
