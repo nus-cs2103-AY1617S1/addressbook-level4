@@ -1,9 +1,15 @@
 package seedu.jimi.ui;
 
+import java.time.LocalDateTime;
+import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
@@ -18,21 +24,7 @@ import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.events.model.TaskBookChangedEvent;
 import seedu.jimi.commons.events.ui.ShowTaskPanelSectionEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.jimi.model.datetime.DateTime;
-import seedu.jimi.model.task.DeadlineTask;
-import seedu.jimi.model.event.Event;
 import seedu.jimi.model.task.ReadOnlyTask;
-
-import java.time.LocalDateTime;
-import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.logging.Logger;
-
-import com.google.common.eventbus.Subscribe;
 
 /**
  * Panel containing the list of tasks.
