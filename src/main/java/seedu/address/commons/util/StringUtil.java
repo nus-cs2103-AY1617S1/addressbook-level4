@@ -10,6 +10,9 @@ import java.util.List;
  */
 public class StringUtil {
     public static boolean containsIgnoreCase(String source, String query) {
+    	if(query.equals("")){
+    		return false;
+    	}
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
         return strings.stream().filter(s -> s.contains(query.toLowerCase())).count() > 0;
