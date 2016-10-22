@@ -322,22 +322,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new task |
-`* * *` | user | delete a task | remove tasks that I no longer need
-`* * *` | user | edit a task | edit task that I enter wrongly
-`* * *` | user | list all tasks | list all the tasks that are created
-`* * *` | user | find a task by name or tag | locate details of the tasks without having to go through the entire list
-`* * *` | user | complete a task | complete the task and stored in the completed list in the application
-`* * *` | user | undo | undo the previous command
+`* * *` | user | add a new task/event |
+`* * *` | user | delete an item | remove tasks/events that I no longer need
+`* * *` | user | edit an item | edit tasks/events that need to be updated
+`* * *` | user | list all items | list all the tasks/events that are created
+`* * *` | user | find items by name | search for tasks/events without looking through the entire list
 `* * *` | user | exit | save and quit the application
-`* * *` | advanced user | add alias to command | enter the command quickly
-`* * ` | user | view a task | view the complete details of the task
-`* * ` | user | remove a tag | remove a tag on an exisiting task
-`* * ` | user | uncomplete a task | uncomplete the task that was previously completed
-`* * ` | user | redo | redo a undo command
-`* * ` | user | remove alias | remove alias that is tagged to the command
-`*` | user with many tasks in the application | sort task by name/start date/end date/deadline | locate a task easily
-`*` | user | change theme of the application | change to the user's favourite theme
+`* * ` | user | mark a task as complete | keep track of what I have already completed
+`* * ` | user | mark a task as incomplete | reset marking of task as complete
+`* * ` | user | add tag to item | organise my tasks/events
+`* * ` | user | untag from item | organise my tasks/events
+`* * ` | user | delete a tag | organise my tasks/events
+`* * ` | user | undo | undo the previous command
+`* * ` | user | redo | redo the previous undo
+`* ` | advanced user | add alias | enter commands more quickly
+`* ` | advanced user | unalias | remove aliases associated with commands
+`* ` | advanced user | view aliases | view all aliases currently set
+`* ` | advanced user | use keyboard arrows to scroll through command history | perform previous commands without re-typing the entire command
 
 ## Appendix B : Use Cases
 
