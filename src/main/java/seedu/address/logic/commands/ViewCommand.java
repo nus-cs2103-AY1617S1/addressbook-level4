@@ -19,7 +19,7 @@ public class ViewCommand extends Command {
             + "Parameters: DATE_TIME \n"
             + "Example: " + COMMAND_WORD + " next WednesDay";
 
-    public static final String MESSAGE_SELECT_TASK_SUCCESS = "Agenda Updated to Week specified by: %1$s";
+    public static final String MESSAGE_UPDATE_AGENDA_SUCCESS = "Agenda Updated to Week specified by: %1$s";
 
     public ViewCommand(TaskDate inputDate) {
         this.inputDate = inputDate;
@@ -27,11 +27,9 @@ public class ViewCommand extends Command {
 
     @Override
     public CommandResult execute() {
-    	
-    	//assert false : "Select does not support recurring tasks"; // Should use TaskComponent instead of task
 
         EventsCenter.getInstance().post(new AgendaTimeRangeChangedEvent(inputDate, model.getTaskMaster().getTaskComponentList()));
-        return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, inputDate.getFormattedDate()));
+        return new CommandResult(String.format(MESSAGE_UPDATE_AGENDA_SUCCESS, inputDate.getFormattedDate()));
 
     }
 

@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -624,7 +623,7 @@ public class Parser {
 				resultSet.add(getDateFromString(time[START_TIME_INDEX]));
 	    		resultSet.add(getDateFromString(time[END_TIME_INDEX]));
 			} catch(Exception cnp) {
-				throw new IllegalArgumentException("Illegal date input");
+				throw new IllegalArgumentException(MESSAGE_ILLEGAL_DATE_INPUT);
 			}
 			
 		} catch(Exception ise) {
@@ -632,7 +631,7 @@ public class Parser {
 			try {
 				resultSet.add(getDateFromString(m.group("deadline").replace(" by ", "")));
 			} catch(Exception cnp) {
-				throw new IllegalArgumentException("Illegal date input");
+				throw new IllegalArgumentException(MESSAGE_ILLEGAL_DATE_INPUT);
 			}
     	} 	
     	return resultSet;
@@ -648,7 +647,7 @@ public class Parser {
         try{
         	return dateGroups.get(0).getDates().get(0);
         }catch (Exception e){
-        	throw new IllegalArgumentException("Illegal date input");
+        	throw new IllegalArgumentException(MESSAGE_ILLEGAL_DATE_INPUT);
         }
     }
     
