@@ -9,11 +9,7 @@ import seedu.taskitty.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private TaskDate startDate;
-    private TaskTime startTime;
-    private TaskDate endDate;
-    private TaskTime endTime;
-    private int numArgs;
+    private TaskPeriod period;
     private boolean isDone;
     private UniqueTagList tags;
 
@@ -25,24 +21,8 @@ public class TestTask implements ReadOnlyTask {
         this.name = name;
     }
     
-    public void setStartDate(TaskDate startDate) {
-        this.startDate = startDate;
-    }
-    
-    public void setStartTime(TaskTime startTime) {
-        this.startTime = startTime;
-    }
-    
-    public void setEndDate(TaskDate endDate) {
-        this.endDate = endDate;
-    }
-    
-    public void setEndTime(TaskTime endTime) {
-        this.endTime = endTime;
-    }
-    
-    public void setNumArgs(int numArgs) {
-        this.numArgs = numArgs;
+    public void setPeriod(TaskPeriod period) {
+        this.period = period;
     }
 
     @Override
@@ -51,28 +31,8 @@ public class TestTask implements ReadOnlyTask {
     }
     
     @Override
-    public TaskDate getStartDate() {
-        return startDate;
-    }
-    
-    @Override
-    public TaskDate getEndDate() {
-        return endDate;
-    }
-
-    @Override
-    public TaskTime getStartTime() {
-        return startTime;
-    }
-
-    @Override
-    public TaskTime getEndTime() {
-        return endTime;
-    }
-    
-    @Override
-    public int getNumArgs() {
-        return numArgs;
+    public TaskPeriod getPeriod() {
+        return period;
     }
     
     @Override
@@ -93,11 +53,11 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        if (startDate != null && startTime != null) {
-            sb.append(startDate.toString() + " " + startTime.toString() + " to ");
+        if (period.getStartDate() != null && period.getStartTime() != null) {
+            sb.append(period.getStartDate().toString() + " " + period.getStartTime().toString() + " to ");
         }
-        if (endDate != null && endTime != null) {
-            sb.append(endDate.toString() + " " + endTime.toString() + " ");
+        if (period.getEndDate() != null && period.getEndTime() != null) {
+            sb.append(period.getEndDate().toString() + " " + period.getEndTime().toString() + " ");
         }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
@@ -111,16 +71,16 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
 	public boolean isTodo() {
-		return numArgs == 1;
+		return period.isTodo();
 	}
 	
 	@Override
 	public boolean isDeadline() {
-		return numArgs == 3;
+		return period.isDeadline();
 	}
 	
 	@Override
 	public boolean isEvent() {
-		return numArgs == 5;
+		return period.isEvent();
 	}
 }
