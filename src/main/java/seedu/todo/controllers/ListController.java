@@ -141,16 +141,9 @@ public class ListController implements Controller {
         List<Task> tasks = null;
         List<Event> events = null;
         // isTask and isEvent = true, list all type
-        if (listAll) { //task or event not specify
+        if (listAll || isTask) { //task or event not specify
             //no event or task keyword found
             isTask = false;
-            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
-                    isExactCommand, listAll, db);
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
-                    isExactCommand, listAll, db);
-        }
-        
-        if (isTask) {
             tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
                     isExactCommand, listAll, db);
         } else {
