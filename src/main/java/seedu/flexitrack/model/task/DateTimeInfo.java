@@ -111,20 +111,22 @@ public class DateTimeInfo {
      * To check if the minute inputed in 'from' is before the minute inputed in
      * 'to'
      * 
-     * @param starting
-     *            Time
-     * @param ending
-     *            Time
-     * @return 0 if it is after, 1 if it is before and 2 if they are the same
+     * @param starting Time
+     * @param ending Time
+     * @return the duration of the event
      */
     public static String durationOfTheEvent(String startingTime, String endingTime) {
+        return durationBetweenTwoTiming(startingTime,endingTime);
+    }
+
+    private static String durationBetweenTwoTiming(String startingTime, String endingTime) {
         int years = yearsOfTheEvent(startingTime, endingTime);
         int months = monthsOfTheEvent(startingTime, endingTime);
         int days = daysOfTheEvent(startingTime, endingTime);
         int hours = hoursOfTheEvent(startingTime, endingTime);
         int minutes = minutesOfTheEvent(startingTime, endingTime);
 
-        return combineDuratingOfEvent(years, months, days, hours, minutes);
+        return combineDuratingOfEvent(years, months, days, hours, minutes);        
     }
 
     private static String combineDuratingOfEvent(int years, int months, int days, int hours, int minutes) {
@@ -278,5 +280,27 @@ public class DateTimeInfo {
         if (setTime.substring(12, 17).equals("07:59")) {
             setTime = setTime.substring(0, 12) + "16:59";
         }
+    }
+
+    public static boolean isInTheFuture(DateTimeInfo Date) {
+        String result = MESSAGE_FROM_IS_AFTER_TO;
+        try {
+            result = durationBetweenTwoTiming(new DateTimeInfo ("now").toString(),Date.toString());
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return !result.equals(MESSAGE_FROM_IS_AFTER_TO);
+    }
+
+    public static boolean isInThePast(DateTimeInfo Date) {
+        String result = MESSAGE_FROM_IS_AFTER_TO;
+        try {
+            result = durationBetweenTwoTiming(Date.toString(),new DateTimeInfo ("now").toString());
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return !result.equals(MESSAGE_FROM_IS_AFTER_TO);
     }
 }

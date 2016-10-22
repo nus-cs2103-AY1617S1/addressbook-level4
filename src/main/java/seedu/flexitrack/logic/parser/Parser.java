@@ -123,7 +123,7 @@ public class Parser {
             return prepareUnmark(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -133,6 +133,17 @@ public class Parser {
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+        }
+    }
+
+    private Command prepareList(String arguments) {
+        arguments=arguments.trim();
+        if (arguments.equals(ListCommand.LIST_FUTURE_COMMAND) || arguments.equals(ListCommand.LIST_MARK_COMMAND)
+                || arguments.equals(ListCommand.LIST_PAST_COMMAND) || arguments.equals(ListCommand.LIST_UNMARK_COMMAND)
+                || arguments.equals(ListCommand.LIST_UNSPECIFIED_COMMAND)) {
+            return new ListCommand(arguments);
+        } else {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
     }
 

@@ -4,6 +4,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.util.StringUtil;
+import seedu.flexitrack.logic.commands.ListCommand;
+import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList;
@@ -114,6 +116,26 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void updateFilteredListToShowFutureTasks(){
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_FUTURE_COMMAND)));
+    }
+    
+    @Override
+    public void updateFilteredListToShowPastTasks(){
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_PAST_COMMAND)));
+    }
+    
+    @Override
+    public void updateFilteredListToShowMarkTasks(){
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_MARK_COMMAND)));
+    }
+    
+    @Override
+    public void updateFilteredListToShowUnmarkTasks(){
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_UNMARK_COMMAND)));
+    }
+    
+    @Override
     public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
@@ -180,6 +202,47 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+    
+    //TODO: 
+    private class DateQualifier implements Qualifier {
+        private String keyWord;
+
+        DateQualifier(String keyWord) {
+            this.keyWord = keyWord;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            switch (keyWord){
+            case ListCommand.LIST_FUTURE_COMMAND: 
+                if (task.getIsTask()){ 
+                    return DateTimeInfo.isInTheFuture(task.getDueDate());
+                } else if (task.getIsEvent()){
+                    return DateTimeInfo.isInTheFuture(task.getEndTime());
+                }else { 
+                    return !task.getIsDone();
+                }
+            case ListCommand.LIST_PAST_COMMAND:
+                if (task.getIsTask()){ 
+                    return DateTimeInfo.isInThePast(task.getDueDate());
+                } else {
+                    return DateTimeInfo.isInThePast(task.getEndTime());
+                } 
+            case ListCommand.LIST_MARK_COMMAND:
+                return task.getIsDone();
+            case ListCommand.LIST_UNMARK_COMMAND:
+                return !task.getIsDone();
+            default: 
+                return false; 
+            }
+            
+        }
+
+//        @Override
+//        public String toString() {
+//            return "name=" + String.join(", ", dateKeyWords);
+//        }
     }
 
 }
