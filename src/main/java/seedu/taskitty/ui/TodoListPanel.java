@@ -23,8 +23,6 @@ import java.util.logging.Logger;
 public class TodoListPanel extends TaskListPanel {
     private final Logger logger = LogsCenter.getLogger(TodoListPanel.class);
     private static final String FXML = "TodoListPanel.fxml";
-    private VBox panel;
-    private AnchorPane placeHolderPane;
 
     @FXML
     private Label header;
@@ -36,18 +34,8 @@ public class TodoListPanel extends TaskListPanel {
     }
 
     @Override
-    public void setNode(Node node) {
-        panel = (VBox) node;
-    }
-
-    @Override
     public String getFxmlPath() {
         return FXML;
-    }
-
-    @Override
-    public void setPlaceholder(AnchorPane pane) {
-        this.placeHolderPane = pane;
     }
 
     public static TodoListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,

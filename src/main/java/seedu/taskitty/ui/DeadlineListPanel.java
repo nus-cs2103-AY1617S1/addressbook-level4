@@ -24,8 +24,6 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 public class DeadlineListPanel extends TaskListPanel {
     private final Logger logger = LogsCenter.getLogger(DeadlineListPanel.class);
     private static final String FXML = "DeadlineListPanel.fxml";
-    private VBox panel;
-    private AnchorPane placeHolderPane;
     
     @FXML
     private Label header;
@@ -38,18 +36,8 @@ public class DeadlineListPanel extends TaskListPanel {
     }
     
     @Override
-    public void setNode(Node node) {
-        panel = (VBox) node;
-    }
-
-    @Override
     public String getFxmlPath() {
         return FXML;
-    }
-    
-    @Override
-    public void setPlaceholder(AnchorPane pane) {
-        this.placeHolderPane = pane;
     }
     
     public static DeadlineListPanel load(Stage primaryStage, AnchorPane deadlineListPlaceholder,

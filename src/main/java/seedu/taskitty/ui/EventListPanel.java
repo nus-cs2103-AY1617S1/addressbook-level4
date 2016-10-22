@@ -27,8 +27,6 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 public class EventListPanel extends TaskListPanel {
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
     private static final String FXML = "EventListPanel.fxml";
-    private VBox panel;
-    private AnchorPane placeHolderPane;
     
     @FXML
     private Label date;
@@ -44,18 +42,8 @@ public class EventListPanel extends TaskListPanel {
     }
     
     @Override
-    public void setNode(Node node) {
-        panel = (VBox) node;
-    }
-
-    @Override
     public String getFxmlPath() {
         return FXML;
-    }
-    
-    @Override
-    public void setPlaceholder(AnchorPane pane) {
-        this.placeHolderPane = pane;
     }
     
     public static EventListPanel load(Stage primaryStage, AnchorPane eventListPlaceholder,
