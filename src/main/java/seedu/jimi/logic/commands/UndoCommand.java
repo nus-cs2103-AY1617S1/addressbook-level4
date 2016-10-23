@@ -13,7 +13,9 @@ public class UndoCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return History.getInstance().undo();
+        return new CommandResult(COMMAND_WORD 
+                + ": " 
+                + History.getInstance().undo().feedbackToUser);
     }
 
     @Override

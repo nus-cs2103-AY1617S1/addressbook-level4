@@ -14,7 +14,9 @@ public class RedoCommand extends Command{
 
     @Override
     public CommandResult execute() {
-        return History.getInstance().redo();
+        return new CommandResult(COMMAND_WORD 
+                + ": " 
+                + History.getInstance().redo().feedbackToUser);
     }
 
     @Override
