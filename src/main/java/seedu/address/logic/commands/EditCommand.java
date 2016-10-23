@@ -36,7 +36,7 @@ public class EditCommand extends Command{
             +"Example: " + COMMAND_WORD + " 1 " + END_WORD + " 2300\n"
     		+"Example: " + COMMAND_WORD + " 1 " + TAG_WORD + " sentosa";
     
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s%2$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s%2$s       Changes:  %3$s";
     
     public final Integer targetIndex;
     public final String editArgs;
@@ -76,7 +76,7 @@ public class EditCommand extends Command{
                 return command.execute();
             }
 
-            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex, editArgs));
         }
         else if(category == 'D'){
             if (lastShownDeadlineList.size() < targetIndex) {
@@ -98,7 +98,7 @@ public class EditCommand extends Command{
                 return command.execute();
             }
 
-            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex, editArgs));
         }
         else{
             if (lastShownTodoList.size() < targetIndex) {
@@ -119,8 +119,7 @@ public class EditCommand extends Command{
                 Command command = new IncorrectCommand(ive.getMessage());
                 return command.execute();
             }
-
-            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex));
+            return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex, editArgs));
         }
     }
 
