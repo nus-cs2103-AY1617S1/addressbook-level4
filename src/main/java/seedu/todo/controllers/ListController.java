@@ -141,14 +141,24 @@ public class ListController implements Controller {
         List<Task> tasks = null;
         List<Event> events = null;
         // isTask and isEvent = true, list all type
-        if (listAll || isTask) { //task or event not specify
-            //no event or task keyword found
-            isTask = false;
-            tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
-                    isExactCommand, listAll, db);
+        if (listAll) { //task or event not specify
+             //no event or task keyword found
+            if (listAllStatus) {
+                tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
+                        isExactCommand, listAll, db);
+                events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
+                        isExactCommand, listAll, db);
+            } else {
+                System.out.println("DO HERE");
+            }
         } else {
-            events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
-                    isExactCommand, listAll, db);
+            if (isTask) {
+                tasks = setupTaskView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
+                        isExactCommand, listAll, db);
+            } else {
+                events = setupEventView(isCompleted, listAllStatus, dateOn, dateFrom, dateTo, isDateProvided,
+                        isExactCommand, listAll, db);
+            }
         }
         
         if (tasks == null && events == null) {
