@@ -35,11 +35,12 @@ public class TodoListPanel extends TaskListPanel {
         addToPlaceholder();
     }
 
-    public void scrollTo(int index) {
-        Platform.runLater(() -> {
-            todoListView.scrollTo(index);
-            todoListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
+    // since we have no more select command this becomes useless... right?
+//    public void scrollTo(int index) {
+//        Platform.runLater(() -> {
+//            todoListView.scrollTo(index);
+//            todoListView.getSelectionModel().clearAndSelect(index);
+//        });
+//    }
 
 }

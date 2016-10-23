@@ -110,11 +110,12 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.handleHelp();
     }
 
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
-    }
+    // since we have no more select command this becomes useless... right?
+//    @Subscribe
+//    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+//        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+//        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
+//    }
 
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
