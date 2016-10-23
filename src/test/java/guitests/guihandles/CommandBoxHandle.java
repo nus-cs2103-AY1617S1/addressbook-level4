@@ -4,7 +4,7 @@ import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import seedu.address.ui.*;
 /**
  * A handle to the Command Box in the GUI.
  */
