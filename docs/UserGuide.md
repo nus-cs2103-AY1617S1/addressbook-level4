@@ -65,7 +65,7 @@
 
 2. `add` can be replaced by `a`. `deadline` can be replaced by `d`.
 
-3. If et is not specified, et is assumed to be 23:59 and press `Enter`.
+3. If et is not specified, et is assumed to be 23:59. Press `Enter`.
 
 4. The deadline will be added to your to do list and message "Added deadline" is displayed on console.
 
@@ -73,7 +73,7 @@
 
 1. Type `a[dd] t[ask] [n/]NAME`.
 
-2. `add` can be replaced by `a`. `task` can be replaced by `t` and press `Enter`.
+2. `add` can be replaced by `a`. `task` can be replaced by `t`. Press `Enter`.
 
 3. The task will be added to your to do list and message "Added task" is displayed on console..
 
