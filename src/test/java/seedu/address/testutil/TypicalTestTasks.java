@@ -23,7 +23,7 @@ public class TypicalTestTasks {
     public static TestTask block1, block2, block3;
 
     /** Recurring Task. */
-    public static TestTask daily, weekly, monthly, yearly, none;
+    public static TestTask daily, weekly, monthly, yearly, none, block;
     
     public TypicalTestTasks() {
         try {
@@ -44,7 +44,7 @@ public class TypicalTestTasks {
             ida = new TaskBuilder().withName("play with Ida Mueller").build();
             project = new TaskBuilder().withName("project discussion").withStartDate("19 oct 4pm").withEndDate("19 oct 5pm").build();
             paper = new TaskBuilder().withName("cs paper").withEndDate("18 oct 5pm").build();
-            block1 = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("20 oct 2pm").withEndDate("20 oct 3pm").build();
+            block1 = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("20 oct 2pm").withEndDate("20 oct 3pm").withTags("tag").build();
             incoming = new TaskBuilder().withName("incoming").withEndDate("tomorrow 5pm").build();
             //Exceptions
             //Add non-floating overlapped timeslot
@@ -61,6 +61,8 @@ public class TypicalTestTasks {
             yearly = new TaskBuilder().withName("Yearly Task").withStartDate("3am").withEndDate("5am")
             		.withRecurringType(RecurringType.YEARLY).build();
             none = new TaskBuilder().withName("Normal Task").withStartDate("1am").withEndDate("3am")
+            		.withRecurringType(RecurringType.NONE).build();
+            block = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("8am").withEndDate("9am")
             		.withRecurringType(RecurringType.NONE).build();
         } catch (IllegalValueException e) {
             e.printStackTrace();

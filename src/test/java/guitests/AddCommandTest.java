@@ -39,6 +39,12 @@ public class AddCommandTest extends TaskMasterGuiTest {
         assertAddNonFloatingSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
+        //Unrecognizable recurring type recognized as normaltask
+        //duplicate non-floating not allowed
+        commandBox.runCommand(td.project.getAddNonFloatingCommand() + "not a type");
+        assertResultMessage(AddNonFloatingCommand.MESSAGE_DUPLICATE_TASK);
+        assertTrue(taskListPanel.isListMatching(TestUtil.convertTasksToDateComponents(currentList)));
+        
         //add deadline task
         taskToAdd = td.paper;
         assertAddNonFloatingSuccess(taskToAdd, currentList);
@@ -67,7 +73,7 @@ public class AddCommandTest extends TaskMasterGuiTest {
         
         //Out dated Recurring task got updated
         taskToAdd = td.daily;
-        assertAddCommandSuccess("add Daily Task from yesterday 8pm to yesterday 11pm daily", 
+        assertAddCommandSuccess("add Daily Task from yesterday 7am to yesterday 8am daily", 
         		taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
@@ -75,6 +81,7 @@ public class AddCommandTest extends TaskMasterGuiTest {
         taskToAdd = td.weekly;
         assertAddCommandSuccess(taskToAdd.getAddRecurringCommand(), 
         		taskToAdd, currentList);
+        
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
