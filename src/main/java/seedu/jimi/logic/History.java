@@ -31,7 +31,7 @@ public final class History {
     public void redo() {
         if(!redoStack.isEmpty()) {
             Command cmd = redoStack.pop();
-            cmd.redo();
+            cmd.execute();
             undoStack.push(cmd);
         } else {
             throw new NoRedoableOperationException("Already most recent operation!");

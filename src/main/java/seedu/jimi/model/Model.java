@@ -9,7 +9,7 @@ import seedu.jimi.model.task.UniqueTaskList;
 /**
  * The API of the Model component.
  */
-public interface Model {
+public interface Model{
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyTaskBook newData);
 
@@ -62,4 +62,8 @@ public interface Model {
     
     /** Replaces {@code oldTask} with {@code newTask} */
     void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask);
+
+    UserPrefs getUserPrefs();
+    
+    Model clone();
 }
