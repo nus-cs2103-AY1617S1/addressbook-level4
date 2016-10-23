@@ -27,6 +27,7 @@ import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
@@ -630,6 +631,7 @@ public class MainWindow extends UiPart {
                     CheckBox box = new CheckBox();
                     box.setSelected(isRecur);
                     
+                    this.setAlignment(Pos.CENTER);
                     this.setGraphic(box);
                 }else{
                     this.setGraphic(null);;
