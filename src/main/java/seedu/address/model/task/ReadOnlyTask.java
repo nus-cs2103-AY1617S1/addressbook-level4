@@ -46,8 +46,8 @@ public interface ReadOnlyTask {
     	
     	builder.append(getName().toString());
     	builder.append(" Task type: " + getTaskType().toString());
-    	getStartDate().ifPresent(startDate -> builder.append(" Start date: " + startDate.toString()));
-    	getEndDate().ifPresent(endDate -> builder.append(" End date: " + endDate.toString()));
+    	getStartDate().ifPresent(startDate -> builder.append(" Start date: " + TaskDateTimeFormatter.formatToShowDateAndTime(startDate)));
+    	getEndDate().ifPresent(endDate -> builder.append(" End date: " + TaskDateTimeFormatter.formatToShowDateAndTime(endDate)));
     	builder.append(" Status: " + getStatus().toString());
     	builder.append(" Tags: ");
     	getTags().forEach(builder::append);

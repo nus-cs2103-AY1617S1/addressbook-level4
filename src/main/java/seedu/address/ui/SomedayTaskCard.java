@@ -1,11 +1,10 @@
+//@@author A0142184L
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
 
