@@ -154,6 +154,10 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalComponentList;
     }
 
+    public void appendTaskComponent(TaskComponent component) {
+        internalComponentList.add(component);
+    }
+    
     @Override
     public Iterator<Task> iterator() {
         return internalList.iterator();
