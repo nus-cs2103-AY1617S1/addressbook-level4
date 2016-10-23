@@ -49,8 +49,8 @@ public class FilteredListManager {
         initDefaultExpressions();
         
         /*
-         *  Initializing each list with taskBook's own internal list.
-         *  Initializing default filters for each list.
+         *  1. Initializing each list with taskBook's own internal list.
+         *  2. Setting default filters for each list.
          */
         for (ListId id : ListId.values()) {
             listMap.put(id, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
@@ -128,7 +128,8 @@ public class FilteredListManager {
     /** 
      * Updates filtered list identified by {@code id} with the filter in {@code other}, along with the original 
      * default filter of list identified by {@code id}.  
-     * @author Clarence  */
+     * @author Clarence  
+     */
     public void updateFilteredList(ListId id, ListId other) {
         updateFilteredList(id, defaultExpressions.get(id), defaultExpressions.get(other));
     }
