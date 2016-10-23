@@ -2,12 +2,11 @@ package seedu.todo;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.todo.MainApp;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
-import seedu.todo.model.ReadOnlyAddressBook;
+import seedu.todo.model.ImmutableTodoList;
 import seedu.todo.model.UserPrefs;
-import seedu.todo.storage.XmlSerializableAddressBook;
+import seedu.todo.storage.XmlSerializableTodoList;
 import seedu.todo.testutil.TestUtil;
 
 import java.util.function.Supplier;
@@ -18,17 +17,25 @@ import java.util.function.Supplier;
  */
 public class TestApp extends MainApp {
 
+    /* Constants */
+    public static final String APP_TITLE = "UJDTDL Testing App";
+    protected static final String TODO_LIST_NAME = "Test";
+
     public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    public static final String APP_TITLE = "Test App";
-    protected static final String ADDRESS_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+
+    /* Variables */
+    protected Supplier<ImmutableTodoList> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
+    /* Default Constructor */
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, String saveFileLocation) {
+    /**
+     * Constructs a Test App with custom data supplier, and file location for saving.
+     */
+    public TestApp(Supplier<ImmutableTodoList> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
@@ -36,7 +43,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+                    new XmlSerializableTodoList(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
@@ -47,7 +54,7 @@ public class TestApp extends MainApp {
         config.setAppTitle(APP_TITLE);
         config.setTodoListFilePath(saveFileLocation);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
-        config.setTodoListName(ADDRESS_BOOK_NAME);
+        config.setTodoListName(TODO_LIST_NAME);
         return config;
     }
 
