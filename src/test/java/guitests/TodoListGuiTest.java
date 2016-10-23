@@ -1,5 +1,6 @@
 package guitests;
 
+import guitests.guihandles.CommandFeedbackViewHandle;
 import guitests.guihandles.CommandInputViewHandle;
 import guitests.guihandles.MainGuiHandle;
 import guitests.guihandles.TodoListViewHandle;
@@ -38,6 +39,7 @@ public abstract class TodoListGuiTest {
     protected MainGuiHandle mainGui;
     protected TodoListViewHandle todoListView;
     protected CommandInputViewHandle commandInputView;
+    protected CommandFeedbackViewHandle commandFeedbackView;
 
     private Stage stage;
 
@@ -59,6 +61,7 @@ public abstract class TodoListGuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             todoListView = mainGui.getTodoListView();
             commandInputView = mainGui.getCommandInputView();
+            commandFeedbackView = mainGui.getCommandFeedbackView();
         });
         EventsCenter.clearSubscribers();
         /*

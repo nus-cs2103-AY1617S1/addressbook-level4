@@ -22,6 +22,10 @@ public class MainGuiHandle extends GuiHandle {
         return new CommandInputViewHandle(guiRobot, primaryStage);
     }
 
+    public CommandFeedbackViewHandle getCommandFeedbackView() {
+        return new CommandFeedbackViewHandle(guiRobot, primaryStage);
+    }
+
     @Deprecated
     public PersonListPanelHandle getPersonListPanel() {
         return new PersonListPanelHandle(guiRobot, primaryStage);
