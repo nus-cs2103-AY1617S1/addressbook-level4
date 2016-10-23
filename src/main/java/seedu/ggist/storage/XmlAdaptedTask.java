@@ -57,7 +57,6 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> taskTags = new ArrayList<>();
         final TaskName taskName = new TaskName(this.taskName);
         final TaskDate startDate = new TaskDate(this.startDate);
         final TaskTime startTime = new TaskTime(this.startTime);

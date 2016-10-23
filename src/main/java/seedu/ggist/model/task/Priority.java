@@ -16,7 +16,7 @@ public class Priority {
     public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority must be prefixed with -\n "
             + "Valid priority level are -low , -med , -high";
 
-    public static final String PRIORITY_VALIDATION_REGEX = "low|med|high";
+    public static final String PRIORITY_VALIDATION_REGEX = "low|med|high|"+ Messages.MESSAGE_NO_PRIORITY_VALUE;
 
     public String value;
 
