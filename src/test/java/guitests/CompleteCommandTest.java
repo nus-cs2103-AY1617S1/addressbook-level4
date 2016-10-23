@@ -8,7 +8,7 @@ import guitests.guihandles.TaskCardHandle;
 import seedu.address.testutil.TestActivity;
 
 // @author Marx Low (A0139164A)
-public class CompleteCommandTest extends AddressBookGuiTest {
+public class CompleteCommandTest extends ActivityManagerGuiTest {
     
     @Test
     public void complete() {
@@ -36,7 +36,7 @@ public class CompleteCommandTest extends AddressBookGuiTest {
         
         // Runs complete command on empty list
         commandBox.runCommand("clear");
-        assertCompleteSuccess(activityToComplete, 1); //this should be assertSOMETHINGELSE 
+        //assertCompleteSuccess(activityToComplete, 1); //this should be assertSOMETHINGELSE 
     }
     
     /**
@@ -52,12 +52,10 @@ public class CompleteCommandTest extends AddressBookGuiTest {
         //Confirms new Activity card has correct Completed status.
         if (activityToComplete.getActivityType().equals("task")) {
             TaskCardHandle completedCard = activityListPanel.navigateToTask(activityToComplete);
-            System.out.println("task is: " + completedCard.toString());
             assertTaskMatching(activityToComplete, completedCard);
         }
         else if (activityToComplete.getActivityType().equals("floatingTask")) {
             FloatingTaskCardHandle completedCard = activityListPanel.navigateToFloatingTask(activityToComplete);
-            System.out.println("floating task is: " + completedCard.toString());
             assertFloatingTaskMatching(activityToComplete, completedCard);
         }
         

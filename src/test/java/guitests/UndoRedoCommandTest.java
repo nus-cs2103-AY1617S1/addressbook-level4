@@ -8,25 +8,25 @@ import seedu.address.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 
 //@@author A0139515A
-public class UndoRedoCommandTest extends AddressBookGuiTest {
+public class UndoRedoCommandTest extends ActivityManagerGuiTest {
 
     @Test
     public void add() {
         //add one activity
-        TestActivity[] originalList = td.getTypicalActivity();
+        TestActivity[] originalList = td.getTypicalTask();
         TestActivity activityToAdd = td.task;
         
         assertAddSuccess(activityToAdd, originalList);
-        TestActivity[] currentList = TestUtil.addPersonsToList(originalList, activityToAdd);
+        TestActivity[] currentList = TestUtil.addTasksToList(originalList, activityToAdd);
 
         //testing undo command for adding of task
         commandBox.runCommand("undo");
-        assertTrue(activityListPanel.isListMatching(originalList));
+        assertTrue(activityListPanel.isTaskListMatching(originalList));
         assertResultMessage("Menion successfully undo your previous changes");
         
         //testing redo command 
         commandBox.runCommand("redo");
-        assertTrue(activityListPanel.isListMatching(currentList));
+        assertTrue(activityListPanel.isTaskListMatching(currentList));
         assertResultMessage("Menion successfully redo your previous changes");
         
         
@@ -34,22 +34,22 @@ public class UndoRedoCommandTest extends AddressBookGuiTest {
         TestActivity[] beforeDeleteList = currentList;
        
         commandBox.runCommand("delete task 2");
-        assertTrue(activityListPanel.isListMatching(originalList));
+        assertTrue(activityListPanel.isTaskListMatching(originalList));
         
         commandBox.runCommand("undo");
-        assertTrue(activityListPanel.isListMatching(beforeDeleteList));
+        assertTrue(activityListPanel.isTaskListMatching(beforeDeleteList));
         assertResultMessage("Menion successfully undo your previous changes");
         
         //testing redo command
         commandBox.runCommand("redo");
-        assertTrue(activityListPanel.isListMatching(originalList));
+        assertTrue(activityListPanel.isTaskListMatching(originalList));
         assertResultMessage("Menion successfully redo your previous changes");
        
     
         //testing undo for clear command
         commandBox.runCommand("clear");
         commandBox.runCommand("undo");
-        assertTrue(activityListPanel.isListMatching(originalList));
+        assertTrue(activityListPanel.isTaskListMatching(originalList));
         assertResultMessage("Menion successfully undo your previous changes");
         
         //testing redo command
@@ -78,11 +78,11 @@ public class UndoRedoCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(activityToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = activityListPanel.navigateToActivity(activityToAdd.getActivityName().fullName);
+        TaskCardHandle addedCard = activityListPanel.navigateToTask(activityToAdd.getActivityName().fullName);
         assertTaskMatching(activityToAdd, addedCard);
 
         //confirm the list now contains all previous activities plus the new activity
-        TestActivity[] expectedList = TestUtil.addPersonsToList(currentList, activityToAdd);
-        assertTrue(activityListPanel.isListMatching(expectedList));
+        TestActivity[] expectedList = TestUtil.addTasksToList(currentList, activityToAdd);
+        assertTrue(activityListPanel.isTaskListMatching(expectedList));
     }
 }

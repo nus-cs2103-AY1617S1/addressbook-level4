@@ -22,24 +22,32 @@ public class TypicalTestActivities {
         }
     }
 
-    public static void loadAddressBookWithSampleData(ActivityManager ab) {
+    public static void loadActivityManagerWithSampleData(ActivityManager ab) {
 
         try {
-           // ab.addTask(new Activity(floatingTask));
+            ab.addFloatingTask(new Activity(floatingTask));
             ab.addTask(new Activity(task));
-           // ab.addTask(new Activity(event));
+            ab.addEvent(new Activity(event));
         } catch (UniqueActivityList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
-    public TestActivity[] getTypicalActivity() {
+    public TestActivity[] getTypicalTask() {
         return new TestActivity[]{task};
+    }
+    
+    public TestActivity[] getTypicalFloatingTask() {
+        return new TestActivity[]{floatingTask};
+    }
+    
+    public TestActivity[] getTypicalEvent() {
+        return new TestActivity[]{event};
     }
 
     public ActivityManager getTypicalActivityManager(){
         ActivityManager ab = new ActivityManager();
-        loadAddressBookWithSampleData(ab);
+        loadActivityManagerWithSampleData(ab);
         return ab;
     }
 }
