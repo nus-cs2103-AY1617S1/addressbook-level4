@@ -2,56 +2,56 @@
 <taskmanager>
     <tasks>
         <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@google.com</email>
-        <address isPrivate="false">4th street</address>
+        <priority isPrivate="false">9482424</priority>
+        <endTime isPrivate="false">hans@google.com</endTime>
+        <startTime isPrivate="false">4th street</startTime>
     </tasks>
     <tasks>
         <name>Ruth Mueller</name>
-        <phone isPrivate="false">87249245</phone>
-        <email isPrivate="false">ruth@google.com</email>
-        <address isPrivate="false">81th street</address>
+        <priority isPrivate="false">87249245</priority>
+        <endTime isPrivate="false">ruth@google.com</endTime>
+        <startTime isPrivate="false">81th street</startTime>
     </tasks>
     <tasks>
         <name>Heinz Kurz</name>
-        <phone isPrivate="false">95352563</phone>
-        <email isPrivate="false">heinz@yahoo.com</email>
-        <address isPrivate="false">wall street</address>
+        <priority isPrivate="false">95352563</priority>
+        <endTime isPrivate="false">heinz@yahoo.com</endTime>
+        <startTime isPrivate="false">wall street</startTime>
     </tasks>
     <tasks>
         <name>Cornelia Meier</name>
-        <phone isPrivate="false">87652533</phone>
-        <email isPrivate="false">cornelia@google.com</email>
-        <address isPrivate="false">10th street</address>
+        <priority isPrivate="false">87652533</priority>
+        <endTime isPrivate="false">cornelia@google.com</endTime>
+        <startTime isPrivate="false">10th street</startTime>
     </tasks>
     <tasks>
         <name>Werner Meyer</name>
-        <phone isPrivate="false">9482224</phone>
-        <email isPrivate="false">werner@gmail.com</email>
-        <address isPrivate="false">michegan ave</address>
+        <priority isPrivate="false">9482224</priority>
+        <endTime isPrivate="false">werner@gmail.com</endTime>
+        <startTime isPrivate="false">michegan ave</startTime>
     </tasks>
     <tasks>
         <name>Lydia Kunz</name>
-        <phone isPrivate="false">9482427</phone>
-        <email isPrivate="false">lydia@gmail.com</email>
-        <address isPrivate="false">little tokyo</address>
+        <priority isPrivate="false">9482427</priority>
+        <endTime isPrivate="false">lydia@gmail.com</endTime>
+        <startTime isPrivate="false">little tokyo</startTime>
     </tasks>
     <tasks>
         <name>Anna Best</name>
-        <phone isPrivate="false">9482442</phone>
-        <email isPrivate="false">anna@google.com</email>
-        <address isPrivate="false">4th street</address>
+        <priority isPrivate="false">9482442</priority>
+        <endTime isPrivate="false">anna@google.com</endTime>
+        <startTime isPrivate="false">4th street</startTime>
     </tasks>
     <tasks>
         <name>Stefan Meier</name>
-        <phone isPrivate="false">8482424</phone>
-        <email isPrivate="false">stefan@mail.com</email>
-        <address isPrivate="false">little india</address>
+        <priority isPrivate="false">8482424</priority>
+        <endTime isPrivate="false">stefan@mail.com</endTime>
+        <startTime isPrivate="false">little india</startTime>
     </tasks>
     <tasks>
         <name>Martin Mueller</name>
-        <phone isPrivate="false">8482131</phone>
-        <email isPrivate="false">hans@google.com</email>
-        <address isPrivate="false">chicago ave</address>
+        <priority isPrivate="false">8482131</priority>
+        <endTime isPrivate="false">hans@google.com</endTime>
+        <startTime isPrivate="false">chicago ave</startTime>
     </tasks>
 </taskmanager>

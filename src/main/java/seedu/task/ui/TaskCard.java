@@ -17,11 +17,11 @@ public class TaskCard extends UiPart {
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label priority;
     @FXML
-    private Label address;
+    private Label startTime;
     @FXML
-    private Label email;
+    private Label endTime;
     @FXML
     private Label tags;
     @FXML
@@ -45,9 +45,9 @@ public class TaskCard extends UiPart {
     public void initialize() {
         name.setText(task.getDescription().fullDescription);
         id.setText(displayedIndex + ". ");
-        phone.setText("Priority: " + task.getPriority().toString());
-        address.setText("Start Time: " + task.getTimeStart().toString());
-        email.setText("End Time: "+ task.getTimeEnd().toString());
+        priority.setText("Priority: " + task.getPriority().toString());
+        startTime.setText("Start Time: " + task.getTimeStart().toString());
+        endTime.setText("End Time: "+ task.getTimeEnd().toString());
         tags.setText("Tags: " + task.tagsString());
         complete.setText(task.getCompleteStatus()? "  [Completed]": "  [Not Completed]");
     }
