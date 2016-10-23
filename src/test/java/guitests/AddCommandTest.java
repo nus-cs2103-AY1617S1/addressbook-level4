@@ -7,6 +7,7 @@ import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 import seedu.taskmanager.commons.core.Messages;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.logic.commands.AddCommand;
+import seedu.taskmanager.logic.commands.Command;
 import seedu.taskmanager.logic.commands.IncorrectCommand;
 import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
@@ -166,7 +167,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         if (itemType.equals(ItemType.EVENT_WORD)) {
             processedStartDateTime = startDateTimes.get(0);
             if (processedEndDateTime.before(processedStartDateTime)) {
-                assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
+                assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Command.MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
             }
             startDate = dateFormat.format(processedStartDateTime);
             startTime = timeFormat.format(processedStartDateTime);

@@ -204,7 +204,7 @@ public class LogicManagerTest {
                 "add deadline n/12345 ed/2016-08-08 et/18:00 #invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
         // Invalid Event endDate and endTime
         assertCommandBehavior(
-                "add event n/12345 sd/2016-08-08 st/19:00 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
+                "add event n/12345 sd/2016-08-08 st/19:00 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, Command.MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
        // Invalid Date
         assertCommandBehavior(
                 "add event n/12345 sd/2016-02-30 st/19:00 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));

@@ -11,6 +11,7 @@ import seedu.taskmanager.model.Model;
 public abstract class Command {
     protected Model model;
     
+    public static final String MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME = "Start datetime must come before end datetime";
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the task manager";
     
     /**

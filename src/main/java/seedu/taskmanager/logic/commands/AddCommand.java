@@ -23,8 +23,6 @@ public class AddCommand extends Command {
     public static final String DEFAULT_END_TIME = "23:59";
     public static final String DEFAULT_START_TIME = "00:00";
         
-    public static final String EVENT_MESSAGE_USAGE = "Event start datetime must come before end datetime";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task, deadline or event to the task manager. \n"
             + "Task Parameters: " + ItemType.TASK_WORD + " n/NAME \n"
             + "Deadline Parameters: " + ItemType.DEADLINE_WORD + " n/NAME ed/DATE et/TIME \n"

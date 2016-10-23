@@ -262,7 +262,7 @@ public class Parser {
         Date processedStartDateTime = startDateTimes.get(0);
         Date processedEndDateTime = endDateTimes.get(0);
         if (processedEndDateTime.before(processedStartDateTime)) {
-	        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
+	        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Command.MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
 	    }
         SimpleDateFormat dateFormat = new SimpleDateFormat(ItemDate.DATE_FORMAT);
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -337,7 +337,7 @@ public class Parser {
 		        startTime = AddCommand.DEFAULT_START_TIME;
 		    }
 		    if (sdf.parse(endDateString + " " + endTime).before(sdf.parse(startDateString + " " + startTime))) {
-		        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.EVENT_MESSAGE_USAGE));
+		        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Command.MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
 		    }
 		} catch (ParseException e) {
 		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
