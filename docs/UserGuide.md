@@ -65,7 +65,7 @@ _Mastermind_ helps you to organize your task into three main categories:
 #### Adds an event  
 _Format:_
 ```java
-(add|do) '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_seperated_tags>...']
+(add|do) '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_separated_tags>...']
 ```
 
 _Example:_
@@ -76,7 +76,7 @@ _Example:_
 _Format:_
 
 ```java
-(add|do) '<name>' [ed/'<end_date>'] [t/'<comma_seperated_tags>...']
+(add|do) '<name>' [ed/'<end_date>'] [t/'<comma_separated_tags>...']
 ```  
 
 _Example:_
@@ -87,7 +87,7 @@ _Example:_
 #### Adds a floating task
 _Format:_
 ```java
-(add|do) '<name>' [t/'<comma_seperated_tags>...']
+(add|do) '<name>' [t/'<comma_separated_tags>...']
 ```  
 
 _Example:_
@@ -98,7 +98,7 @@ _Example:_
 #### Adds a recurring Deadline
 _Format:_
 ```java
-(add|do) [r/'recurrence'] <name>' [ed/'<end_date>'] [t/'<comma_seperated_tags>...']
+(add|do) [r/'recurrence'] <name>' [ed/'<end_date>'] [t/'<comma_separated_tags>...']
 ```  
 
 _Example:_
@@ -171,7 +171,7 @@ Perhaps now you have a change of schedule, or you are unsatisfied with the task 
 
 _Format:_
 ```java
-edit <index> '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_seperated_tags>...']
+edit <index> '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_separated_tags>...']
 ```
 
 >* At least one optional parameter is required.
