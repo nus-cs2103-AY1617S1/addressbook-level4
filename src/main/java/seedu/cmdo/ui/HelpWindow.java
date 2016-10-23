@@ -3,10 +3,9 @@ package seedu.cmdo.ui;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.cmdo.commons.core.LogsCenter;
-import seedu.cmdo.commons.util.FxViewUtil;
+
 
 import java.util.logging.Logger;
 
@@ -19,11 +18,8 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md";
-
+    
     private AnchorPane mainPane;
-
     private Stage dialogStage;
 
     public static HelpWindow load(Stage primaryStage) {
@@ -45,15 +41,9 @@ public class HelpWindow extends UiPart {
 
     private void configure(){
         Scene scene = new Scene(mainPane);
-        //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
-        setIcon(dialogStage, ICON);
-
-        WebView browser = new WebView();
-        browser.getEngine().load(USERGUIDE_URL);
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
-        mainPane.getChildren().add(browser);
+        setIcon(dialogStage, ICON);        
+        mainPane.getChildren().add(new HelpCard().getHelpCardPane());
     }
 
     public void show() {
