@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.StringUtil;
 import seedu.ggist.logic.commands.*;
+import seedu.ggist.model.task.Priority;
 
 /**
  * Parses user input.
@@ -29,24 +30,40 @@ public class Parser {
     private static final Pattern LIST_ARGS_FORMAT =
             Pattern.compile("(?<listing>.*)", Pattern.CASE_INSENSITIVE);
 
-    //regex for tasks without deadline
+    //regex for floating
     private static final Pattern FLOATING_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)" , Pattern.CASE_INSENSITIVE); // variable number of tags;
+            Pattern.compile("(?<taskName>.+)" , Pattern.CASE_INSENSITIVE); 
+    
+  //regex for floating with priority
+    private static final Pattern FLOATING_WITH_PRIORITY = 
+            Pattern.compile("(?<taskName>.+)"
+                    + "\\s*(?:-)(?<priority>.+)" , Pattern.CASE_INSENSITIVE); 
     
     //regex for tasks with deadline
     private static final Pattern DEADLINE_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)((\\s*,\\s*)|(\\s+?(by|on)\\s+?))(?<dateTime>.+)\\s*,*\\s*(?<tagArguments>(?: t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
+            Pattern.compile("(?<taskName>.+)"
+                    + "((\\s*,\\s*)|(\\s+?(by|on)\\s+?))(?<dateTime>.+)" , Pattern.CASE_INSENSITIVE);
         
     //regex for tasks with start and end time spanning diff days
     private static final Pattern EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)((\\s*,\\s*)|(\\s+?(from)\\s+?))(?<startDateTime>.+)((\\s*(,|-)\\s*)|(\\s+?to\\s+?))(?<endDateTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
+            Pattern.compile("(?<taskName>.+)"
+                    + "((\\s*,\\s*)|(\\s+?(from)\\s+?))(?<startDateTime>.+)"
+                    + "((\\s*(,)\\s*)|(\\s+?to\\s+?))(?<endDateTime>.+)" , Pattern.CASE_INSENSITIVE);
+    
   //regex for tasks with start and end time on same days
     private static final Pattern EVENT_TASK_SAME_DAY_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<taskName>.+)((\\s*,\\s*)|(\\s+?(by|on)\\s+))(?<day>.+)((\\s*,\\s*)|(\\s+?(from)\\s+))(?<startTime>.+)((\\s*(,|-)\\s*)|(\\s+?to\\s+?))(?<endTime>.+)\\s*,*\\s*(?<tagArguments>(?:t/[^,]+)*)" , Pattern.CASE_INSENSITIVE);
+            Pattern.compile("(?<taskName>.+)"
+                    + "((\\s*,\\s*)|(\\s+?(by|on)\\s+))(?<day>.+"
+                    + ")((\\s*,\\s*)|(\\s+?(from)\\s+))(?<startTime>.+)"
+                    + "((\\s*(,)\\s*)|(\\s+?to\\s+?))(?<endTime>.+)" , Pattern.CASE_INSENSITIVE);
+    
     //regex for edit
     private static final Pattern EDIT_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<index>\\d+?)\\s+?(?<field>(task|start date|start time|end date|end time))\\s+?(?<value>.+)" , Pattern.CASE_INSENSITIVE);
+            Pattern.compile("(?<index>\\d+?)"
+                    + "\\s+?(?<field>(task|start date|start time|end date|end time|priority))"
+                    + "\\s+?(?<value>.+)" , Pattern.CASE_INSENSITIVE);
    
+    public static final Pattern PRIORITY_MATCHER_REGEX = Pattern.compile("(?:.*-\\s*(?<priority>.+))");
     
     public Parser() {}
     /**
@@ -120,6 +137,7 @@ public class Parser {
         final String taskType = matchTaskType(args.trim());
         Matcher matcher;
         Matcher matcherTwo;
+        String priority;
         if (taskType.equals("taskTypeNotFound")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }    
@@ -128,45 +146,50 @@ public class Parser {
                 matcher = EVENT_TASK_DIFF_DAYS_DATA_ARGS_FORMAT.matcher(args.trim());
                 matcherTwo = EVENT_TASK_SAME_DAY_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcherTwo.matches()){
-                    System.out.println("events same");
+                    priority = parsePriority(matcherTwo.group("endTime"));
                     return new AddCommand(
                             matcherTwo.group("taskName"),
                             new DateTimeParser(matcherTwo.group("day")).getDate(),
                             new DateTimeParser(matcherTwo.group("startTime")).getTime(),
                             new DateTimeParser(matcherTwo.group("day")).getDate(),
                             new DateTimeParser(matcherTwo.group("endTime")).getTime(),
-                            getTagsFromArgs(matcherTwo.group("tagArguments"))
+                            priority
                             );
                 
                     } else if (matcher.matches()) {
-                    System.out.println("events diff");
+                        priority = parsePriority(matcher.group("endDateTime"));
                         return new AddCommand(
                                 matcher.group("taskName"),
                                 new DateTimeParser(matcher.group("startDateTime")).getDate(),
                                 new DateTimeParser(matcher.group("startDateTime")).getTime(),
                                 new DateTimeParser(matcher.group("endDateTime")).getDate(),
                                 new DateTimeParser(matcher.group("endDateTime")).getTime(),
-                                getTagsFromArgs(matcher.group("tagArguments"))
+                                priority
                                 );
                     }
             } else if (taskType.equals("deadlineTask")) {
                 matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
                 if (matcher.matches()) {
-                    System.out.println("deadline");
+                    priority = parsePriority(matcher.group("dateTime"));
                     return new AddCommand(
                         matcher.group("taskName"),
                         new DateTimeParser(matcher.group("dateTime")).getDate(),
                         new DateTimeParser(matcher.group("dateTime")).getTime(),
-                        getTagsFromArgs(matcher.group("tagArguments"))
+                        priority
                      );
                 }
             } else if (taskType.equals("floatingTask")) {
                 matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-                if (matcher.matches()) {
-                    System.out.println("floating");
+                matcherTwo = FLOATING_WITH_PRIORITY.matcher(args.trim());
+                if (matcherTwo.matches()) {
+                    return new AddCommand(
+                        matcherTwo.group("taskName"),
+                        matcherTwo.group("priority")
+                    );
+                } else if (matcher.matches()) {
                     return new AddCommand(
                         matcher.group("taskName"),
-                        getTagsFromArgs(matcher.group("tagArguments"))
+                        null
                     );
                 }
             }                         
@@ -189,24 +212,19 @@ public class Parser {
             return new String("eventTask");
         } else if ((matcher = DEADLINE_TASK_DATA_ARGS_FORMAT.matcher(args)).matches()) {
             return new String("deadlineTask");
-        } else if ((matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args)).matches()) {
+        } else if ((matcher = FLOATING_TASK_DATA_ARGS_FORMAT.matcher(args)).matches() || 
+                ((matcher = FLOATING_WITH_PRIORITY.matcher(args)).matches())) {
             return new String("floatingTask");
         }       
         return new String("taskTypeNotFound");
     }
-
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
+    
+    private String parsePriority(String args) {
+        Matcher matcherPriority = PRIORITY_MATCHER_REGEX.matcher(args);
+        if (!matcherPriority.matches()) {
+            return null;
         }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
+        return matcherPriority.group("priority");
     }
 
     /**

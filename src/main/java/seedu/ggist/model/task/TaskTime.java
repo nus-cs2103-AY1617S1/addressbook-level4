@@ -34,6 +34,11 @@ public class TaskTime {
         this.value = time;
     }
     
+    /**
+     * Changes the value attribute
+     * @param String
+     * @throws IllegalValueException
+     */
     public void editTime(String newTime) throws IllegalValueException {
         assert newTime != null;
         newTime = newTime.trim();

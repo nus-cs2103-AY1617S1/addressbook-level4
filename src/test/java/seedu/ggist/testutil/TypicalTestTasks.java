@@ -19,13 +19,13 @@ public class TypicalTestTasks {
             		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
             		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
             		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
-            		.withTags("Misc").build();
+            		.withPriority("low").build();
             assignment = new TaskBuilder().withName("complete assignment")
             		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
             		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
             		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
             		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
-            		.withTags("CS2103","CS2101").build();
+            		.withPriority("high").build();
             movie = new TaskBuilder().withName("watch movie")
             		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED).withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
             		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
@@ -40,7 +40,8 @@ public class TypicalTestTasks {
             		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
             		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
             		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
-            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
+            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
+                    .withPriority("med").build();
             dinner = new TaskBuilder()
             		.withName("dinner appointment")
             		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)

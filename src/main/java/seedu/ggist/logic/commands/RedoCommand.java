@@ -1,6 +1,7 @@
 package seedu.ggist.logic.commands;
 
 import seedu.ggist.commons.core.Messages;
+import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.Task;
 import seedu.ggist.model.task.UniqueTaskList.DuplicateTaskException;
@@ -64,26 +65,24 @@ public class RedoCommand extends Command {
                 
                 editTaskField.push(redoEditTaskField.peek());
                 
-                if (editTaskField.peek().equals("task")){
+                if (editTaskField.peek().equals("task")) {
                     editTaskValue.push(redoEdit.getTaskName().toString()); 
-                    }
-                else if (editTaskField.peek().equals("start date")){
+                } else if (editTaskField.peek().equals("start date")) {
                     editTaskValue.push(redoEdit.getStartDate().toString());
-                    }
-                else if (editTaskField.peek().equals("end date")){
+                } else if (editTaskField.peek().equals("end date")) {
                     editTaskValue.push(redoEdit.getEndDate().toString()); 
-                    }
-                else if (editTaskField.peek().equals("start time")){
+                } else if (editTaskField.peek().equals("start time")) {
                     editTaskValue.push(redoEdit.getStartTime().toString()); 
-                    }
-                else if (editTaskField.peek().equals("end time")){
+                } else if (editTaskField.peek().equals("end time")) {
                     editTaskValue.push(redoEdit.getEndTime().toString());
-                    }
-        
+                } else if (editTaskField.peek().equals("priority")) {
+                    editTaskValue.push(redoEdit.getPriority().toString());
+                }
                 model.editTask(redoEdit, redoEditTaskField.pop(), redoEditTaskValue.pop());
             } catch (TaskNotFoundException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
+            } catch (IllegalValueException ive) {
+                return new CommandResult(ive.getMessage());
             }
         }
 

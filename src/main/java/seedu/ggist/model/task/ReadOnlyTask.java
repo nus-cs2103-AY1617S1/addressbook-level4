@@ -13,15 +13,10 @@ public interface ReadOnlyTask {
     TaskTime getStartTime();
     TaskDate getEndDate();
     TaskTime getEndTime();
+    Priority getPriority();
     boolean getDone();
     void setDone();
     void setUnDone();
-    
-    /**
-     * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the person's internal tags.
-     */
-    UniqueTagList getTags();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -53,23 +48,9 @@ public interface ReadOnlyTask {
                 .append(getEndDate())
                 .append(" End Time: ")
                 .append(getEndTime())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Priority: ")
+                .append(getPriority());
         return builder.toString();
-    }
-
-    /**
-     * Returns a string representation of this Task's tags
-     */
-    default String tagsString() {
-        final StringBuffer buffer = new StringBuffer();
-        final String separator = ", ";
-        getTags().forEach(tag -> buffer.append(tag).append(separator));
-        if (buffer.length() == 0) {
-            return "";
-        } else {
-            return buffer.substring(0, buffer.length() - separator.length());
-        }
     }
 
 }
