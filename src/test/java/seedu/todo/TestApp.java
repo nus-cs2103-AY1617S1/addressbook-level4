@@ -18,15 +18,17 @@ import java.util.function.Supplier;
 public class TestApp extends MainApp {
 
     /* Constants */
+    //App and To-do list names
     public static final String APP_TITLE = "UJDTDL Testing App";
-    protected static final String TODO_LIST_NAME = "Test";
+    private static final String TODO_LIST_NAME = "Test";
 
+    //Saving locations
     public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
-    protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
+    private static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
 
     /* Variables */
-    protected Supplier<ImmutableTodoList> initialDataSupplier = () -> null;
-    protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+    private Supplier<ImmutableTodoList> initialDataSupplier = () -> null;
+    private String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     /* Default Constructor */
     public TestApp() {
