@@ -14,6 +14,8 @@ import com.google.common.eventbus.Subscribe;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
+import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
+import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
@@ -21,6 +23,7 @@ import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.events.ui.TaskPanelListChangedEvent;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
 import teamfour.tasc.commons.util.FxViewUtil;
+import teamfour.tasc.logic.commands.CalendarCommand;
 import teamfour.tasc.model.task.Deadline;
 import teamfour.tasc.model.task.Period;
 import teamfour.tasc.model.task.ReadOnlyTask;
@@ -35,14 +38,23 @@ import teamfour.tasc.ui.calendar.CalendarReadOnlyRecurredAppointment;
 public class CalendarPanel extends UiPart {
 
     private static Logger logger = LogsCenter.getLogger(CalendarPanel.class);
+    private static String currentCalendarView = "";
    
     private Agenda agendaView;
+    private ReadOnlyTask lastSelectedTask;
 
     /**
      * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a CalendarPanel.
      */
     private CalendarPanel() {
-        
+        lastSelectedTask = null;
+    }
+    
+    /**
+     * Get current calendar view type.
+     */
+    public static String getCalendarView() {
+        return currentCalendarView;
     }
     
     public static CalendarPanel load(AnchorPane placeholder, List<ReadOnlyTask> initialTaskList) {
@@ -70,6 +82,7 @@ public class CalendarPanel extends UiPart {
                 return null;
             }            
         });
+        changeView(CalendarCommand.KEYWORD_CALENDAR_VIEW_WEEK);
     }
 
     @Override
@@ -89,6 +102,29 @@ public class CalendarPanel extends UiPart {
     public void freeResources() {
         // TODO Auto-generated method stub
         agendaView = null;
+    }
+    
+    /**
+     * Precondition: argument is not null.
+     * Change the view of the calendar.
+     */
+    public void changeView(String view) {
+        assert view != null;
+        
+        switch(view) {
+        case CalendarCommand.KEYWORD_CALENDAR_VIEW_DAY:
+            agendaView.setSkin(new AgendaDaySkin(agendaView));
+            currentCalendarView = CalendarCommand.KEYWORD_CALENDAR_VIEW_DAY;
+            break;
+        case CalendarCommand.KEYWORD_CALENDAR_VIEW_WEEK:
+            agendaView.setSkin(new AgendaWeekSkin(agendaView));
+            currentCalendarView = CalendarCommand.KEYWORD_CALENDAR_VIEW_WEEK;
+            break;
+        default:
+            logger.warning("Calendar view type is invalid: " + view);
+            break;
+        }
+        selectLastSelectedTask();
     }
 
     /** 
@@ -171,8 +207,20 @@ public class CalendarPanel extends UiPart {
                 logger.fine("Calendar found the right task to select!");
                 agendaView.setDisplayedLocalDateTime(taskAppointment.getStartLocalDateTime());
                 agendaView.selectedAppointments().add(appointment);
+                lastSelectedTask = taskToSelect;
                 break;
             }
+        }
+    }
+    
+    /**
+     * Re-selects the last selected task.
+     */
+    public void selectLastSelectedTask() {
+        LocalDateTime time = (new Date()).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+        agendaView.setDisplayedLocalDateTime(time);
+        if (lastSelectedTask != null) {
+            selectTask(lastSelectedTask);
         }
     }
     

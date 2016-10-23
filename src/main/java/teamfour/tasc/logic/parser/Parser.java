@@ -110,6 +110,9 @@ public class Parser {
         case RelocateCommand.COMMAND_WORD:
             return prepareRelocate(arguments);
 
+        case CalendarCommand.COMMAND_WORD:
+            return prepareCalendar(arguments);
+            
         case CollapseCommand.COMMAND_WORD:
             return new CollapseCommand();
 
@@ -333,6 +336,23 @@ public class Parser {
         }
 
         return new RelocateCommand(args.trim());
+    }
+    
+    /**
+     * Parses arguments in the context of the change calendar view command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareCalendar(String args) {
+        if (args.equals("")) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CalendarCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new CalendarCommand(args.trim());
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CalendarCommand.MESSAGE_USAGE));
+        }
     }
 
     /**
