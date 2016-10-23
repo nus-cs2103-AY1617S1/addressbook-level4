@@ -93,8 +93,8 @@ public class ModelManager extends ComponentManager implements Model {
         TaskList historyTaskList = null;
         try {
             for (int i = 0; i < numToUndo; i++) {
+                redoTaskListHistory.pushState(historyTaskList == null ? taskList : historyTaskList);
                 historyTaskList = taskListHistory.popState();
-                redoTaskListHistory.pushState(taskList);
                 numUndone++;
             }
         } catch (OutOfHistoryException e) {
@@ -115,8 +115,8 @@ public class ModelManager extends ComponentManager implements Model {
         TaskList historyTaskList = null;
         try {
             for (int i = 0; i < numToRedo; i++) {
+                taskListHistory.pushState(historyTaskList == null ? taskList : historyTaskList);
                 historyTaskList = redoTaskListHistory.popState();
-                taskListHistory.pushState(taskList);
                 numRedone++;
             }
         } catch (OutOfHistoryException e) {
