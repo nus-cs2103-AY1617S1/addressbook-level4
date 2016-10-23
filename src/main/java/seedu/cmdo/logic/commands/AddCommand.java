@@ -1,24 +1,16 @@
 package seedu.cmdo.logic.commands;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import seedu.cmdo.commons.core.Messages;
-import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.exceptions.TaskBlockedException;
 import seedu.cmdo.logic.parser.Blocker;
-import seedu.cmdo.model.ToDoList;
 import seedu.cmdo.model.tag.Tag;
 import seedu.cmdo.model.tag.UniqueTagList;
 import seedu.cmdo.model.task.Detail;
-import seedu.cmdo.model.task.Done;
 import seedu.cmdo.model.task.DueByDate;
 import seedu.cmdo.model.task.DueByTime;
 import seedu.cmdo.model.task.Priority;
@@ -34,9 +26,9 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
-            + "Parameters: <details> by/on <date> at <time> /<priority> /<TAG...>\n"
+            + "\n" + "Parameters: add '<details>' from <date> at <time> to <date> at <time> /<priority> -<TAG>\n"
             + "Example: " + COMMAND_WORD
-            + " bring dog to the vet on Thursday at noon /high -dog";
+            + " bring dog to the vet from Thursday at 1200 to 1400 /high -dog";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in CMDo";

@@ -131,22 +131,17 @@ public class HelpCard extends UiPart{
 	public ScrollPane getHelpCardPane() {
 		ScrollPane helpCardScrollPane = new ScrollPane();
 		AnchorPane testPane = new AnchorPane();
-		VBox helpCardPane = new VBox();	
-		setPaneSizes();
-		setHelpCards();
+		VBox helpCardPane = new VBox();			
+		FxViewUtil.applyFullWidth(helpCardScrollPane);		
+		helpCardScrollPane.setPrefViewportWidth(600);
+		helpCardScrollPane.setPrefViewportHeight(600);
+		setHelpCards();		
 		helpCardPane.getChildren().addAll(
 				addCard, blockCard, clearCard, deleteCard, doneCard, editCard, 
-				exitCard,findCard, helpCard, listCard, selectCard, storageCard);
+				findCard, helpCard, listCard, selectCard, storageCard, exitCard);
 		testPane.getChildren().add(helpCardPane);
 		helpCardScrollPane.setContent(testPane);
 		return helpCardScrollPane;
-	}
-	
-	private void setPaneSizes() {
-		testPane.setPrefSize(1000, 1000);	
-		helpCardScrollPane.setPrefViewportWidth(600);
-		helpCardScrollPane.setPrefViewportHeight(600);
-		FxViewUtil.applyFullWidth(helpCardScrollPane);		
 	}
 
 	private void setHelpCards() {
@@ -170,7 +165,7 @@ public class HelpCard extends UiPart{
 		exitNameLabel = new Label();
 		exitNameLabel.setText("12. " + ExitCommand.COMMAND_WORD);
 		exitDescriptionLabel = new Label();
-		exitDescriptionLabel.setText("null");
+		exitDescriptionLabel.setText(ExitCommand.MESSAGE_USAGE);
 		exitCard.getChildren().addAll(exitNameLabel, exitDescriptionLabel);
 	}
 	
@@ -198,7 +193,7 @@ public class HelpCard extends UiPart{
 		listNameLabel = new Label();
 		listNameLabel.setText("9. " + ListCommand.COMMAND_WORD);
 		listDescriptionLabel = new Label();
-		listDescriptionLabel.setText("null");
+		listDescriptionLabel.setText(ListCommand.MESSAGE_USAGE);
 		listCard.getChildren().addAll(listNameLabel, listDescriptionLabel);	
 	}
 	private void setHelpInfo() {
@@ -234,7 +229,7 @@ public class HelpCard extends UiPart{
 		doneNameLabel = new Label();
 		doneNameLabel.setText("5. " + DoneCommand.COMMAND_WORD);
 		doneDescriptionLabel = new Label();
-		doneDescriptionLabel.setText("null");
+		doneDescriptionLabel.setText(DoneCommand.MESSAGE_USAGE);
 		doneCard.getChildren().addAll(doneNameLabel, doneDescriptionLabel);		
 	}
 	private void setDeleteInfo() {
@@ -243,7 +238,7 @@ public class HelpCard extends UiPart{
 		deleteNameLabel = new Label();
 		deleteNameLabel.setText("4. " + DeleteCommand.COMMAND_WORD);
 		deleteDescriptionLabel = new Label();
-		deleteDescriptionLabel.setText("null");
+		deleteDescriptionLabel.setText(DeleteCommand.MESSAGE_USAGE);
 		deleteCard.getChildren().addAll(deleteNameLabel, deleteDescriptionLabel);	
 	}
 	private void setClearInfo() {
@@ -252,7 +247,7 @@ public class HelpCard extends UiPart{
 		clearNameLabel = new Label();
 		clearNameLabel.setText("3. " + ClearCommand.COMMAND_WORD);
 		clearDescriptionLabel = new Label();
-		clearDescriptionLabel.setText("null");
+		clearDescriptionLabel.setText(ClearCommand.MESSAGE_USAGE);
 		clearCard.getChildren().addAll(clearNameLabel, clearDescriptionLabel);		
 	}
 	private void setBlockInfo() {
