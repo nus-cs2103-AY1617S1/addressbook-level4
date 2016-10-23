@@ -12,6 +12,7 @@ public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String DATE_FIELD_ID = "#date";
     private static final String DONE_FIELD_ID = "#done";
+    private static final String RECURRING_FIELD_ID="#recurring";
 
     private Node node;
 
@@ -36,10 +37,14 @@ public class TaskCardHandle extends GuiHandle {
     public boolean isDone() {
         return getTextFromLabel(DONE_FIELD_ID).equals("done");
     }
+    
+    public boolean isRecurring(){
+        return getTextFromLabel(RECURRING_FIELD_ID).equals("recurring");
+    }
 
     public boolean isSameTask(ReadOnlyTask task){
         return getName().equals(task.getName().taskName) && getDate().equals(task.getDate().getValue())
-                && isDone() == task.isDone();
+                && isDone() == task.isDone()&&isRecurring()==task.isRecurring();
     }
 
     @Override
@@ -48,13 +53,14 @@ public class TaskCardHandle extends GuiHandle {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getName().equals(handle.getName())
                     && getDate().equals(handle.getDate())
-                    && isDone() == handle.isDone(); //TODO: compare the rest
+                    && isDone() == handle.isDone()
+                    && isRecurring()==handle.isRecurring(); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getName() + " " + getDate() + " " + isDone();
+        return getName() + " " + getDate() + " " + isDone()+" "+isRecurring();
     }
 }

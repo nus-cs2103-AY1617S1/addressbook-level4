@@ -20,6 +20,8 @@ public class TaskCard extends UiPart{
     private Label date;
     @FXML
     private Label done;
+    @FXML
+    private Label recurring;
 //    @FXML
 //    private Label tags;
 //    @FXML
@@ -51,6 +53,7 @@ public class TaskCard extends UiPart{
         // Temporary design
         done.setText(task.isDone() ? "done" : "");
 //        tags.setText(task.tagsString());
+        recurring.setText(task.isRecurring()? "recurring":"");
     }
 
     public HBox getLayout() {

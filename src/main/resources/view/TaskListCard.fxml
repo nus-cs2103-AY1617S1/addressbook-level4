@@ -29,6 +29,7 @@
                                 </HBox>
                                 <Label fx:id="date" styleClass="cell_small_label" text="\$deadline" />
                                 <Label fx:id="done" styleClass="cell_small_label" text="\$isDone" />
+                                <Label fx:id="recurring" styleClass="cell_small_label" text="\$isRecurring"/>
                             </children>
                         </HBox>
 
