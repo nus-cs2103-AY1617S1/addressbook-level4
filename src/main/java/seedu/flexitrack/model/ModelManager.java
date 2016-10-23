@@ -211,8 +211,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         DateQualifier(String keyWord) {
             this.keyWords = keyWord;
-            this.dateInfo = keyWord.replace(ListCommand.LIST_FUTURE_COMMAND, "").replace(ListCommand.LIST_PAST_COMMAND, "").
-                    replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "").trim();
+            this.dateInfo = keyWord.replace(ListCommand.LIST_FUTURE_COMMAND, "").replace(ListCommand.LIST_PAST_COMMAND, "")
+                    .replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "")
+                    .replace(ListCommand.LIST_LAST_WEEK_COMMAND, "").replace(ListCommand.LIST_LAST_MONTH_COMMAND, "")
+                    .replace(ListCommand.LIST_NEXT_WEEK_COMMAND, "").replace(ListCommand.LIST_NEXT_MONTH_COMMAND, "").trim();
         }
 
         @Override
@@ -229,14 +231,20 @@ public class ModelManager extends ComponentManager implements Model {
                 }
             } else if (keyWords.contains(ListCommand.LIST_PAST_COMMAND)){
                 if (task.getIsTask()){ 
-                  willBeShown = DateTimeInfo.isInThePast(task.getDueDate());
-              } else {
-                  willBeShown = DateTimeInfo.isInThePast(task.getEndTime());
-              } 
+                    willBeShown = DateTimeInfo.isInThePast(task.getDueDate());
+                } else {
+                    willBeShown = DateTimeInfo.isInThePast(task.getEndTime());
+                } 
+            } else if (keyWords.contains(ListCommand.LIST_LAST_COMMAND) || keyWords.contains(ListCommand.LIST_NEXT_COMMAND)){
+                System.out.println("MODEL MANAGER: does it come here??");
+                // TODO: amkdsa
+                
+                
+                willBeShown = DateTimeInfo.withInTheDuration(keyWords,task);
             } else if (!dateInfo.equals("")){
                 willBeShown = DateTimeInfo.isOnTheDate(keyWords, task);
             }
-            
+
             if (willBeShown==false){ 
                 return false; 
             }

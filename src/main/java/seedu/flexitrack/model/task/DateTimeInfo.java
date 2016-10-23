@@ -18,7 +18,9 @@ public class DateTimeInfo {
     public static final boolean END_TIME = false;
     private static final Pattern TIME_TYPE_DATA_ARGS_FORMAT = Pattern.compile("(?<info>.+)");
     private static final String MESSAGE_FROM_IS_AFTER_TO = "Please check the timing inputed! The given starting time is after the ending time.";
-
+    private static final int AVERAGE_DAYS_IN_A_MONTH = 30; 
+    private static final int DAYS_IN_A_WEEK = 7; 
+    
     private String setTime;
 
     public DateTimeInfo(String givenTime) throws IllegalValueException {
@@ -295,5 +297,87 @@ public class DateTimeInfo {
             return true; 
         }
         return false;
+    }
+
+    public static boolean withInTheDuration(String keyWords, ReadOnlyTask task) {
+        System.out.println("DateTimeInfo: start of withInTheDuration");
+        System.out.println("keyword: "+ keyWords);
+
+        // TODO: amkdsa
+        
+        
+        String dateNow = null; 
+        boolean timeDifference = (Boolean) null; 
+        try {
+            dateNow = new DateTimeInfo ("now").toString();
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+        
+        System.out.println("DateTimeInfo: after the datetimeinfo now");
+
+        if ( keyWords.contains(ListCommand.LIST_LAST_WEEK_COMMAND) ){
+            System.out.println("DateTimeInfo: ListCommand.LIST_LAST_WEEK_COMMAND");
+
+            if (task.getIsTask()){
+                timeDifference = isDurationLessThanSpecified(dateNow, task.getDueDate().toString(), DAYS_IN_A_WEEK);
+            } else if (task.getIsEvent()){
+                timeDifference = isDurationLessThanSpecified(dateNow, task.getEndTime().toString(), DAYS_IN_A_WEEK);
+            } else { 
+                return false; 
+            }
+        } else if ( keyWords.contains(ListCommand.LIST_LAST_MONTH_COMMAND) ){
+            if (task.getIsTask()){
+                timeDifference = isDurationLessThanSpecified(dateNow, task.getDueDate().toString(), AVERAGE_DAYS_IN_A_MONTH);
+            } else if (task.getIsEvent()){
+                timeDifference = isDurationLessThanSpecified(dateNow, task.getEndTime().toString(), AVERAGE_DAYS_IN_A_MONTH);
+            } else { 
+                return false; 
+            }
+        } else if ( keyWords.contains(ListCommand.LIST_NEXT_MONTH_COMMAND) ){
+            if (task.getIsTask()){
+                timeDifference = isDurationLessThanSpecified(task.getDueDate().toString(), dateNow, AVERAGE_DAYS_IN_A_MONTH);
+            } else if (task.getIsEvent()){
+                timeDifference = isDurationLessThanSpecified(task.getEndTime().toString(), dateNow, AVERAGE_DAYS_IN_A_MONTH);
+            } else { 
+                return false; 
+            }
+        } else if ( keyWords.contains(ListCommand.LIST_NEXT_WEEK_COMMAND) ){
+            if (task.getIsTask()){
+                timeDifference = isDurationLessThanSpecified(task.getDueDate().toString(), dateNow, DAYS_IN_A_WEEK);
+            } else if (task.getIsEvent()){
+                timeDifference = isDurationLessThanSpecified(task.getEndTime().toString(), dateNow, DAYS_IN_A_WEEK);
+            } else { 
+                return false; 
+            }
+        }
+        return false;
+    }
+
+    private static boolean isDurationLessThanSpecified(String startTime, String endTime, int maxDuration) {
+        int years = yearsOfTheEvent(startTime, endTime);
+        int months = monthsOfTheEvent(startTime, endTime);
+        int days = daysOfTheEvent(startTime, endTime);
+        int hours = hoursOfTheEvent(startTime, endTime);
+        
+        if (hours < 0) {
+            hours = Math.floorMod(hours, 24);
+            days=days-1;
+        } 
+        if (days < 0) {
+            return false; 
+        }
+        if(days>0 || days < maxDuration){
+            return true; 
+        }
+        if (months < 0 || months>0) {
+            return false; 
+        }
+        if (years < 0 || years > 0) {
+            return false;
+        } 
+        else {
+            return false; 
+        }
     }
 }
