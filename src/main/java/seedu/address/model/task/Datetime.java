@@ -53,9 +53,21 @@ public class Datetime {
             end = null;
         }
         //deadline task
-        else if (listOfDate.size() == 1){
-            start = listOfDate.get(0);
-            end = null;
+        else if (listOfDate.size() == 1){ 	
+        	// date and time were specified 
+        	if (listOfDate.get(0).getSeconds() == 0){
+        		start = listOfDate.get(0);
+        		end = null;
+        	}
+        	// only date was specified; default time will be set to 23:59
+        	else{  		
+        		Date newDate = listOfDate.get(0);
+        		newDate.setHours(23);
+        		newDate.setMinutes(59);
+        		newDate.setSeconds(0);
+        		start = newDate;
+        		end = null;
+        	}
         }
         //event task
         else if (listOfDate.size() == 2){
