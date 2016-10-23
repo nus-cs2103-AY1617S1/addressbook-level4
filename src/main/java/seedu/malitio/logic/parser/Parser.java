@@ -25,7 +25,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>)[e|d|f]\\d+");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>)[e|d|f|E|D|F]\\d+");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -35,7 +35,7 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<targetIndex>[e|d|f]\\d+)"
+            Pattern.compile("(?<targetIndex>[e|d|f|E|D|F]\\d+)"
                     + "(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
     
@@ -320,7 +320,7 @@ public class Parser {
         if (!matcher.matches()) {
             return "";
         }
-        String index = command.trim();
+        String index = command.trim().toLowerCase();
         return index;
     }
 
@@ -352,7 +352,11 @@ public class Parser {
         if (args.isEmpty()) {
             return new ListCommand();
         }
+        try {
         args = args.trim().toLowerCase();
         return new ListCommand(args);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        }
     }
 }

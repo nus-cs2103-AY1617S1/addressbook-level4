@@ -1,6 +1,7 @@
 package seedu.malitio.model;
 
 import seedu.malitio.commons.core.UnmodifiableObservableList;
+import seedu.malitio.model.task.DateTime;
 import seedu.malitio.model.task.Deadline;
 import seedu.malitio.model.task.Event;
 import seedu.malitio.model.task.FloatingTask;
@@ -70,9 +71,15 @@ public interface Model {
     
     /** Updates the filter of the filtered deadlines to filter by the given keywords*/
     void updateFilteredDeadlineList(Set<String> keywords);
+   
+    /** Updates the filter of the filtered deadlines to filter by the given time*/
+    void updateFilteredDeadlineList(DateTime keyword);
     
     /** Updates the filter of the filtered events to filter by the given keywords*/
     void updateFilteredEventList(Set<String> keywords);
+    
+    /** Updates the filter of the filtered deadlines to filter by the given time*/
+    void updateFilteredEventList(DateTime keyword);
     
     /** Replaces the floating task with the intended edit.*/
     void editFloatingTask(FloatingTask editedTask, ReadOnlyFloatingTask taskToEdit) throws FloatingTaskNotFoundException, DuplicateFloatingTaskException;
