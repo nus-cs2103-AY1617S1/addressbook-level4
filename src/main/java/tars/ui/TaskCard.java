@@ -1,7 +1,5 @@
 package tars.ui;
 
-import java.util.logging.Logger;
-
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
@@ -10,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import tars.commons.core.LogsCenter;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.model.task.ReadOnlyTask;
 
@@ -22,8 +19,6 @@ public class TaskCard extends UiPart{
     private static final String PRIORITY_LOW = "low";
     private static final String STATUS_UNDONE = "Undone";
     
-    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-
     @FXML
     private HBox cardPane;
     @FXML
@@ -68,6 +63,7 @@ public class TaskCard extends UiPart{
         setPriority();
         setStatus();
         setTags();
+        setTextFill();
     }
     
     private void setName() {
@@ -123,12 +119,29 @@ public class TaskCard extends UiPart{
         status.setManaged(false);
     }
     
+    /**
+     * Set text to different color based on status of task
+     */
+    private void setTextFill() {
+        if (task.getStatus().toString().equals(STATUS_UNDONE)) {
+            id.setStyle("-fx-text-fill: black");
+            name.setStyle("-fx-text-fill: black");
+            startDate.setStyle("-fx-text-fill: black");
+            endDate.setStyle("-fx-text-fill: black");
+        } else {
+            id.setStyle("-fx-text-fill: lightgrey");
+            name.setStyle("-fx-text-fill: lightgrey");
+            startDate.setStyle("-fx-text-fill: lightgrey");
+            endDate.setStyle("-fx-text-fill: lightgrey");
+        }
+    }
+    
     @Subscribe
     private void handleTarsChangeEvent(TarsChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Setting status tick"));
+        setTextFill();
         setStatus();
     }
-
+    
     /**
      * Sets colors to priority label based on task's priority
      * 

@@ -84,10 +84,6 @@
 .list-cell:empty {
     -fx-background-color: derive(#4C5564, 100%);
 }
- 
- .list-cell .label {
-    -fx-text-fill: #010504;
-}
 
 .cell_index_label {
 	-fx-font-size: 16px;
@@ -100,8 +96,8 @@
 }
 
 .cell_medium_label {
-    -fx-font-size: 14px;
-    -fx-text-fill: darkgrey;
+    -fx-font-size: 12px;
+    -fx-text-fill: grey;
 }
 
 .cell_small_label {
@@ -187,6 +183,7 @@
 	-fx-text-fill: #4C5564;
 	-fx-background-color: derive(#4C5564, 100%);
 }
+
 
 /*
  * Metro style Push Button
@@ -286,6 +283,10 @@
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
     -fx-padding: 8 1 8 1;
+}
+
+.statusTick {
+	-fx-font-size: 12px;
 }
 
 #cardPane {
