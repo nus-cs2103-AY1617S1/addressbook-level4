@@ -424,7 +424,6 @@ Todo.txt        | Works across devices and operating systems    | Quite complica
 Swipes          | Simple, cross-platform                        | Unable to specify data storage location  | Our application allows users to specify a location to save data
 Fantastical     | Uses NLP, quick access in mini window         | Works only on Mac/iOS platform | Our application works on major computer operating systems, and since it allows syncing onto Google Calendar, one can even use mobile devices to view and update their task manager
 Apple Reminders | Easy-to-use, fast, backed up on the cloud     | Only works in Apple's ecosystem  | Our application allows users to back up to Google Calendar, which works on most devices and thus most people can use it, along with backing up their data to the cloud through Google Calendar
-<<<<<<< HEAD
-=======
 Sunrise  | Works across platforms and devices     | Requires internet access to work | Our application works both online and offline
->>>>>>> 00bbf386d891ab531bc3fbdee6d5bfed2c1b952f
+
+
