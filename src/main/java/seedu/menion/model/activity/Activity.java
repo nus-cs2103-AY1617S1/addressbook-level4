@@ -2,6 +2,7 @@ package seedu.menion.model.activity;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.CollectionUtil;
+import seedu.menion.commons.util.DateChecker;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -43,7 +44,7 @@ public class Activity implements ReadOnlyActivity {
     private Note note;
     private String activityType;
     private Completed status;
- 
+    
     // Every Activity Object will have an array list of it's details for ease of
     // accessibility
     private ArrayList<String> activityDetails;
@@ -167,19 +168,32 @@ public class Activity implements ReadOnlyActivity {
     // Only can be called by Task & Events
     @Override
     public void setActivityStartDateTime(String newDate, String newTime) throws IllegalValueException {
+
         boolean isTask = this.activityType.equals(Activity.TASK_TYPE);
         boolean isEvent = this.activityType.equals(Activity.EVENT_TYPE);
         assert (isTask || isEvent);
-        this.startDate = new ActivityDate(newDate);
-        this.startTime = new ActivityTime(newTime);
+        
+        ActivityDate newDateObject = new ActivityDate(newDate);
+        ActivityTime newTimeObject = new ActivityTime(newTime);
+        if (isEvent) {
+            DateChecker check = new DateChecker();
+            check.validEventDate(newDateObject, newTimeObject, this.endDate, this.endTime);
+        }
+        this.startDate = newDateObject;
+        this.startTime = newTimeObject;
+
     }
     
     @Override
     public void setActivityEndDateTime(String newDate, String newTime) throws IllegalValueException {
         boolean isEvent = this.activityType.equals(Activity.EVENT_TYPE);
+        DateChecker check = new DateChecker();
         assert (isEvent);
-        this.endDate = new ActivityDate(newDate);
-        this.endTime = new ActivityTime(newTime);
+        ActivityDate newDateObject = new ActivityDate(newDate);
+        ActivityTime newTimeObject = new ActivityTime(newTime);
+        check.validEventDate(this.startDate, this.startTime, newDateObject, newTimeObject);
+        this.endDate = newDateObject;
+        this.endTime = newTimeObject;
     }
     
     @Override
