@@ -14,11 +14,10 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Datetime {
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date can be DD-MMM-YYYY and Time can be 24h format";
-    public static final String MESSAGE_DATETIME_CONTAINS_DOTS = "Date cannot contain '.' character";
 
-    //public static final String MESSAGE_DATE_CONSTRAINTS = "Date should be in MM-DD-YYYY format";
-    //    public static final String DATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])" + "-" + "(0?[1-9]|1[012])" + "-"
-    //            + "\\d{4}";
+    public static final String MESSAGE_DATE_CONSTRAINTS = "Date should be in MM-DD-YYYY format";
+        public static final String DATE_INCORRECT_REGEX = ".*" + "(0?[1-9]|[12][0-9]|3[01])" + "\\." 
+        		+ "(0?[1-9]|1[012])" + "\\." + "\\d{2}(\\{2}){0,1}" + ".*";
 
     //public static final String MESSAGE_TIME_CONSTRAINTS = "Time should be in 24hr format. Eg. 2359";
     //    public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3])[0-5][0-9]";
@@ -36,8 +35,8 @@ public class Datetime {
             listOfDate = null;
         }
         // check input for '.' characters in date
-        else if (input.contains(".")){
-    		throw new IllegalValueException(MESSAGE_DATETIME_CONTAINS_DOTS);
+        else if (input.matches(DATE_INCORRECT_REGEX)){
+    		throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
     	}
         // empty string preceding "date/" -> convert deadline or event to floating task
         else if (input.equals("")) {
