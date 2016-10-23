@@ -79,14 +79,6 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parseCommand_addEventNoDate_incorrectCommandReturned() {
-		String userInput = "add event ' party' from 8:00 to 9:00";
-		Command command = parser.parseCommand(userInput);
-
-		assertEquals(incorrectCommand.getClass(), command.getClass());
-	}
-	
-	@Test
 	public void parseCommand_addEventNoEndTime_incorrectCommandReturned() {
 		String userInput = "add event ' party hehehe yay' from 8:00 on 12-12-12";
 		Command command = parser.parseCommand(userInput);
@@ -109,31 +101,46 @@ public class ParserTest {
 
 		assertEquals(incorrectCommand.getClass(), command.getClass());
 	}
-
+	
+	@Test
+	public void parseCommand_addEventInvalidOrder2_incorrectCommandReturned() {
+		String userInput = "add event from 8:00 to 10:00 'party' on 12-10-12";
+		Command command = parser.parseCommand(userInput);
+		
+		assertEquals(incorrectCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_addEventNoDate_addCommandReturned() {
+		String userInput = "add event ' party' from 8:00 to 9:00";
+		Command command = parser.parseCommand(userInput);
+		
+		assertEquals(addCommand.getClass(), command.getClass());
+	}
+	
 	@Test
 	public void parseCommand_addEventValidOrder_addCommandReturned() {
 		String userInput = "add event 'party' from 5:00 to 5:00 on 12-12-12";
 		Command command = parser.parseCommand(userInput);
-
+		
 		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
 	public void parseCommand_addEventValidOrder2_addCommandReturned() {
-		String userInput = "add event from 8:00 to 10:00 'party' on 12-10-12";
+		String userInput = "add event 'party' on 12-12-12 from 8:00 to 10:00";
 		Command command = parser.parseCommand(userInput);
-
+		
 		assertEquals(addCommand.getClass(), command.getClass());
 	}
 	
 	@Test
 	public void parseCommand_addEventValidOrder3_addCommandReturned() {
-		String userInput = "add event on 12-12-12 from 8:00 to 10:00 'party'";
+		String userInput = "add event 'party' from 8:00 12-5-13 to 10:00 13-5-13";
 		Command command = parser.parseCommand(userInput);
-
+		
 		assertEquals(addCommand.getClass(), command.getClass());
 	}
-	
 	
 	/*
 	 * Tests for the `add deadline` command
