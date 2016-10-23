@@ -239,7 +239,7 @@ public class CommandParser {
         return returnDetails;
     }
     
-    //@@author
+    //@@author A0139052L
     /**
      * Converts any number formats of date from the local format to one which can be parsed by natty
      * @param arguments
@@ -282,15 +282,25 @@ public class CommandParser {
     private String convertToNattyFormat(String arguments, String localDateString, String dateSeparator) {
         String[] dateComponents = localDateString.split(dateSeparator);
         int indexOfDate = arguments.indexOf(localDateString);
-        StringBuilder nattyDateStringBuilder =  new StringBuilder();
+        String nattyDateString = swapDayAndMonth(dateComponents, dateSeparator);
+        arguments = arguments.replace(localDateString, nattyDateString);
+        String stringFromConvertedDate = arguments.substring(indexOfDate);
+        String stringUpToConvertedDate = arguments.substring(0, indexOfDate);
+        return convertToNattyDateFormat(stringUpToConvertedDate) + stringFromConvertedDate;
+    }
+    
+    /**
+     * Swaps the day and month component of the date
+     * @param dateComponents the String array obtained after separting the date string
+     * @param dateSeparator the Separator used in the date string
+     * @return the date string with its day and month component swapped
+     */
+    private String swapDayAndMonth(String[] dateComponents, String dateSeparator) {
+        StringBuilder nattyDateStringBuilder = new StringBuilder();
         nattyDateStringBuilder.append(dateComponents[1]);
         nattyDateStringBuilder.append(dateSeparator);
         nattyDateStringBuilder.append(dateComponents[0]);
-        StringBuilder convertDateStringBuilder = new StringBuilder(arguments);
-        convertDateStringBuilder.replace(indexOfDate, indexOfDate + localDateString.length(), nattyDateStringBuilder.toString());
-        String stringFromConvertedDate = convertDateStringBuilder.substring(indexOfDate);
-        String stringUpToConvertedDate = convertDateStringBuilder.substring(0, indexOfDate);
-        return convertToNattyDateFormat(stringUpToConvertedDate) + stringFromConvertedDate;
+        return nattyDateStringBuilder.toString();
     }
     
     //@@author A0139930B
