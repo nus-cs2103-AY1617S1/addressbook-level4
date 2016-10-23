@@ -109,9 +109,4 @@ public class AddCommand extends Command {
         return true;
     }
 
-    @Override
-    public CommandResult executeUndo() {
-        return null;
-    }
-
 }

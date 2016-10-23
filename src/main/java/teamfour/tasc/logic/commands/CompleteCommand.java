@@ -76,21 +76,4 @@ public class CompleteCommand extends Command {
         return true;
     }
 
-    @Override
-    public CommandResult executeUndo() {
-        Task oldTask = new Task(oldReadOnlyTask);
-
-        try {
-            model.updateTask(newTasks.getCompletedTask(), oldTask);
-            
-            if (newTasks.getUncompletedRemainingRecurringTask() != null) {
-                model.deleteTask(newTasks.getUncompletedRemainingRecurringTask());
-            }
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        }
-
-        return new CommandResult(String.format(MESSAGE_COMPLETE_TASK_UNDO_SUCCESS, oldTask));
-    }
-
 }

@@ -26,9 +26,4 @@ public class ClearCommand extends Command {
         return true;
     }
 
-
-    @Override
-    public CommandResult executeUndo() {
-        return null;
-    }
 }

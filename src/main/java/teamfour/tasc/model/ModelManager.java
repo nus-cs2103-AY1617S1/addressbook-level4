@@ -1,12 +1,13 @@
 package teamfour.tasc.model;
 
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import teamfour.tasc.commons.core.ComponentManager;
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.core.UnmodifiableObservableList;
 import teamfour.tasc.commons.events.model.TaskListChangedEvent;
 import teamfour.tasc.commons.util.StringUtil;
+import teamfour.tasc.model.history.HistoryStack;
+import teamfour.tasc.model.history.HistoryStack.OutOfHistoryException;
 import teamfour.tasc.model.task.ReadOnlyTask;
 import teamfour.tasc.model.task.Task;
 import teamfour.tasc.model.task.UniqueTaskList;
@@ -27,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskList taskList;
     private final FilteredList<Task> filteredTasks;
     private PredicateExpression taskListFilter;
+    private HistoryStack<TaskList> taskListHistory;
 
     /**
      * Initializes a ModelManager with the given TaskList
@@ -42,6 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskList = new TaskList(src);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
+        taskListHistory = new HistoryStack<TaskList>();
     }
 
     public ModelManager() {
@@ -52,12 +55,13 @@ public class ModelManager extends ComponentManager implements Model {
         taskList = new TaskList(initialData);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
+        taskListHistory = new HistoryStack<TaskList>();
     }
 
     @Override
     public void resetData(ReadOnlyTaskList newData) {
         taskList.resetData(newData);
-        indicateAddressBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
@@ -65,29 +69,58 @@ public class ModelManager extends ComponentManager implements Model {
         return taskList;
     }
 
-    /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
+    /** 
+     * Raises an event to indicate the model has changed.
+     * Also saves a history state of the task list. 
+     */
+    private void indicateTaskListChanged() {
         raise(new TaskListChangedEvent(taskList));
+    }
+    
+    @Override
+    public void saveTaskListHistory() {
+        taskListHistory.pushState(taskList);
+    }
+    
+    @Override
+    public int undoTaskListHistory(int numToUndo) {
+        assert numToUndo > 0;
+        
+        int numUndone = 0;
+        TaskList historyTaskList = null;
+        try {
+            for (int i = 0; i < numToUndo; i++) {
+                historyTaskList = taskListHistory.popState();
+                numUndone++;
+            }
+        } catch (OutOfHistoryException e) {
+            logger.fine(e.getMessage());
+        }
+        
+        if (historyTaskList != null) {
+            resetData(historyTaskList);
+        }
+        return numUndone;
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
-        indicateAddressBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskList.addTask(task);
         updateFilteredTaskToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
     public synchronized void updateTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException {
         taskList.updateTask(oldTask, newTask);
         updateFilteredTaskToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskListChanged();
     }
 
 

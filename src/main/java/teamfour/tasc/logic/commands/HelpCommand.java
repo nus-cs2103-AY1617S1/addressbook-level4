@@ -29,8 +29,4 @@ public class HelpCommand extends Command {
         return false;
     }
 
-    @Override
-    public CommandResult executeUndo() {
-        return null;
-    }
 }

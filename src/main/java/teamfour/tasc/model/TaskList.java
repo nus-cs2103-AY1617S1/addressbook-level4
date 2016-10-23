@@ -2,6 +2,7 @@ package teamfour.tasc.model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import teamfour.tasc.model.history.HistoryItem;
 import teamfour.tasc.model.tag.Tag;
 import teamfour.tasc.model.tag.UniqueTagList;
 import teamfour.tasc.model.task.ReadOnlyTask;
@@ -15,7 +16,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the task-list level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TaskList implements ReadOnlyTaskList {
+public class TaskList implements ReadOnlyTaskList, HistoryItem<TaskList> {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -43,6 +44,11 @@ public class TaskList implements ReadOnlyTaskList {
 
     public static ReadOnlyTaskList getEmptyTaskList() {
         return new TaskList();
+    }
+    
+    @Override
+    public TaskList createStateAsDeepCopy() {
+        return new TaskList(this);
     }
 
 //// list overwrite operations
