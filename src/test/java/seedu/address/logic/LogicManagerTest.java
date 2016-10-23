@@ -224,6 +224,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskComponentList());
     }
     
+    //@@author A0135782Y
     @Test
     public void execute_add_successful_non_floating_from_date_to_date() throws Exception {
         // setup expectations
@@ -253,7 +254,6 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskComponentList());        
     }
-    
     
     //@@author A0147967J
     @Test
@@ -982,6 +982,7 @@ public class LogicManagerTest {
     }
     //@@author
     
+    //@@author A0135782Y
     @Test
     public void execute_add_recurringTask_byDate_unsuccessful_addAsNonFloatingTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -1064,6 +1065,7 @@ public class LogicManagerTest {
                 expectedTM,
                 expectedComponentList);
     }
+    //@@author
     
 //    /** tests for edit command*/   
 //    @Test

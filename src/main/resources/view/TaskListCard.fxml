@@ -40,7 +40,9 @@
                                        <Label fx:id="name" alignment="BOTTOM_LEFT" maxHeight="25.0" maxWidth="180.0" minHeight="25.0" minWidth="75.0" styleClass="cell_big_label" text="\$first" />
                                    </children>
                                 </HBox>
+                                <!-- @@author A0135782Y -->
                         <Label fx:id="recurringType" minHeight="-Infinity" minWidth="-Infinity" prefHeight="21.0" prefWidth="73.0" text="\$recurringType" translateX="-145.0" translateY="25.0" />
+                                <!-- @@author -->
                                 <Label fx:id="tags" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="75.0" styleClass="cell_small_label" text="\$tags" translateX="-220.0" translateY="-25.0" />
                             </children>
                         </HBox>
