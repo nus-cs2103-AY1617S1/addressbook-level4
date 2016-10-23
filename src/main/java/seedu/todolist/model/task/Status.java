@@ -9,43 +9,47 @@ public class Status {
     public static final String STATUS_COMPLETE = "complete";
     public static final String STATUS_INCOMPLETE = "incomplete";
 
-    private String status;
+    private boolean isComplete;
 
     /**
      * Set task's status. Default status is incomplete.
      */
-    public Status(String status) {
-        if (status != null) {
-            this.status = status;
+    public Status(boolean isComplete) {
+        setStatus(isComplete);
+    }
+    
+    public Status(String isComplete) {
+        if (isComplete.equals(STATUS_COMPLETE)) {
+            this.isComplete = true;
         }
         else {
-            this.status = STATUS_INCOMPLETE;
+            this.isComplete = false;
         }
     }
     
-    public void setStatus(boolean complete) {
-        if (complete) {
-            this.status = STATUS_COMPLETE;
-        }
-        else {
-            this.status = STATUS_INCOMPLETE;
-        }
+    public void setStatus(boolean isComplete) {
+        this.isComplete = isComplete;
+    }
+    
+    public boolean isComplete() {
+        return this.isComplete;
     }
 
     @Override
     public String toString() {
-        return status;
+        if (this.isComplete) {
+            return STATUS_COMPLETE;
+        }
+        else {
+            return STATUS_INCOMPLETE;
+        }
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Status // instanceof handles nulls
-                && this.status.equals(((Status) other).status)); // state check
+                && this.isComplete == ((Status) other).isComplete); // state check
     }
 
-    @Override
-    public int hashCode() {
-        return status.hashCode();
-    }
 }

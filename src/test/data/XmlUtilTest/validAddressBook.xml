@@ -8,6 +8,7 @@
         <endTime>06:00PM</endTime>
         <location>NUS</location>
         <remarks>print flyers</remarks>
+        <status>incomplete</status>
     </tasks>
     <tasks>
         <name>Dinner with mum</name>
@@ -17,6 +18,7 @@
         <endTime>08:30PM</endTime>
         <location>Orchard</location>
         <remarks>make reservation</remarks>
+        <status>incomplete</status>
     </tasks>
     <tasks>
         <name>Dinner with dad</name>
@@ -26,6 +28,7 @@
         <endTime>08:30PM</endTime>
         <location>Orchard</location>
         <remarks>make reservation</remarks>
+        <status>incomplete</status>
     </tasks>
     <tasks>
         <name>Christmas dinner</name>
@@ -35,5 +38,6 @@
         <endTime>08:30PM</endTime>
         <location>Orchard</location>
         <remarks>make reservation</remarks>
+        <status>incomplete</status>
     </tasks>
 </addressbook>

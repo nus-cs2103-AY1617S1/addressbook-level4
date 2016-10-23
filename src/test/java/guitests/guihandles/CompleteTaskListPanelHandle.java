@@ -1,5 +1,10 @@
 package guitests.guihandles;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 import guitests.GuiRobot;
 import javafx.geometry.Point2D;
@@ -11,23 +16,17 @@ import seedu.task.testutil.TestUtil;
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.Task;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import static org.junit.Assert.assertTrue;
-
 /**
- * Provides a handle for the panel containing the task list.
+ * Provides a handle for the panel containing the completed task list.
  */
-public class TaskListPanelHandle extends GuiHandle {
-
+public class CompleteTaskListPanelHandle extends GuiHandle {
+    
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
-    private static final String TASK_LIST_VIEW_ID = "#taskListView";
+    private static final String TASK_LIST_VIEW_ID = "#completeTaskListView";
 
-    public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
+    public CompleteTaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
@@ -85,7 +84,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
         if (tasks.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
-                    "Expected " + (getListView().getItems().size() - 1) + " tasks" + tasks.length);
+                    "Expected " + (getListView().getItems().size() - 1) + " tasks");
         }
         assertTrue(this.containsInOrder(startPosition, tasks));
         for (int i = 0; i < tasks.length; i++) {
@@ -169,4 +168,5 @@ public class TaskListPanelHandle extends GuiHandle {
     public int getNumberOfTask() {
         return getListView().getItems().size();
     }
+
 }

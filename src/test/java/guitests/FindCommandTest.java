@@ -12,11 +12,11 @@ public class FindCommandTest extends AddressBookGuiTest {
     @Test
     public void find_nonEmptyList() {
         assertFindResult("find NonExistentTask"); //no results
-        assertFindResult("find Dinner", td.dinnerMum, td.dinnerFriend, td.dinnerChristmas); //multiple results
+        assertFindResult("find Event", td.eventWithoutParameters, td.eventWithLocation, td.eventWithRemarks, td.eventWithLocationAndRemarks); //multiple results
 
         //find after deleting one result
         commandBox.runCommand("delete 1");
-        assertFindResult("find Dinner",td.dinnerFriend, td.dinnerChristmas);
+        assertFindResult("find Event",td.eventWithLocation, td.eventWithRemarks, td.eventWithLocationAndRemarks);
     }
 
     @Test
@@ -33,7 +33,7 @@ public class FindCommandTest extends AddressBookGuiTest {
 
     private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
-        assertListSize(expectedHits.length);
+        assertIncompleteListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }

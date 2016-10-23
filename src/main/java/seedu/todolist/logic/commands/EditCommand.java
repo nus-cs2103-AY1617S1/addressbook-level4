@@ -39,7 +39,7 @@ public class EditCommand extends Command {
                 new Interval(startDate, startTime, endDate, endTime),
                 new Location(location),
                 new Remarks(remarks),
-                new Status(null)
+                new Status(false)
         );
     }
     
