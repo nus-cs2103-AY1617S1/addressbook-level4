@@ -3,10 +3,13 @@ package seedu.menion.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
 
+//@@author A0139515A
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskCard.fxml";
@@ -24,7 +27,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label startTime;
     @FXML
-    private Label status;
+    private ImageView completionStatus;
     
     private ReadOnlyActivity task;
     
@@ -47,7 +50,12 @@ public class TaskCard extends UiPart{
         note.setText(task.getNote().toString());
         startDate.setText(task.getActivityStartDate().toString());
         startTime.setText(task.getActivityStartTime().toString());
-        status.setText(task.getActivityStatus().toString());
+        if (task.getActivityStatus().toString().equals("Completed")) {
+        	completionStatus.setImage(new Image("/images/complete.png"));
+        }
+        else {
+        	completionStatus.setImage(new Image("/images/uncomplete.png"));
+        }
         id.setText(displayedIndex + ". ");    
     }
 
