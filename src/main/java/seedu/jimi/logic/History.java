@@ -6,6 +6,7 @@ package seedu.jimi.logic;
 import java.util.Stack;
 
 import seedu.jimi.logic.commands.Command;
+import seedu.jimi.logic.commands.CommandResult;
 
 /**
  * History of the operations
@@ -14,32 +15,32 @@ import seedu.jimi.logic.commands.Command;
 public final class History {
 
     private static History instance = null;
-    private final Stack<Command> undoStack = new Stack<>();
+    private final Stack<Context> undoStack = new Stack<>();
     private final Stack<Command> redoStack = new Stack<>();
     
     
-    public void undo() {
+    public CommandResult undo() {
         if(!undoStack.isEmpty()) {
-            Command cmd = undoStack.pop();
-            cmd.undo();
-            redoStack.push(cmd);
-        } else {
-            throw new NoUndoableOperationException("Already earliest operation!");
-        }
+            Context previous = undoStack.pop();
+            previous.cmd.undo();
+            redoStack.push(previous.cmd);
+            return previous.result;
+        } 
+        return new CommandResult("Already earlist operation!");
     }
     
-    public void redo() {
+    public CommandResult redo() {
         if(!redoStack.isEmpty()) {
             Command cmd = redoStack.pop();
-            cmd.execute();
-            undoStack.push(cmd);
-        } else {
-            throw new NoRedoableOperationException("Already most recent operation!");
+            CommandResult result = cmd.execute();
+            undoStack.push(new Context(cmd, result));
+            return result;
         }
+        return new CommandResult("Already most recent operation!");
     }
     
-    public void execute(final Command cmd) {
-        undoStack.push(cmd);
+    public void execute(final Command cmd, final CommandResult result) {
+        undoStack.push(new Context(cmd, result));
         redoStack.clear();
     }
     
@@ -51,5 +52,14 @@ public final class History {
     }
 
     public History() { };
+    
+    private class Context {
+        private Command cmd;
+        private CommandResult result;
+        private Context(final Command cmd, final CommandResult result) {
+            this.cmd = cmd;
+            this.result = result;
+        }
+    }
 
 }

@@ -33,9 +33,10 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = jimiParser.parseCommand(commandText);
-        history.execute(command);
         command.setData(model);
-        return command.execute();
+        CommandResult result = command.execute();
+        history.execute(command, result);
+        return result;
     }
 
     @Override

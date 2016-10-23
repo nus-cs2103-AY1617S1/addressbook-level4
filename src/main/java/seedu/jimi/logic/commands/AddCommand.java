@@ -34,7 +34,7 @@ public class AddCommand extends Command {
             + "Parameters: \"TASK_DETAILS\" on START_DATE_TIME [to END_DATE_TIME] [t/TAG]\n"
             + "Example: " + COMMAND_WORD + " \"linkin park concert\" on sunday 2pm t/fun\n"
             + "\n"
-            + "> Tip: Typing 'a' or 'ad' instead of 'add' works too.";
+            + "> Tip: Typing 'a' or 'ad' instead of 'add' works too.\n";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
