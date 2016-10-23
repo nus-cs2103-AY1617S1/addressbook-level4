@@ -7,6 +7,7 @@ import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.util.StringUtil;
+import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.task.DateTime;
 import seedu.emeraldo.model.task.Description;
 import seedu.emeraldo.model.task.ReadOnlyTask;
@@ -14,10 +15,13 @@ import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList;
 import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.EmptyStackException;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.swing.text.html.HTML.Tag;
+import java.util.Stack;
 
 /**
  * Represents the in-memory model of the Emeraldo data.
@@ -29,7 +33,9 @@ public class ModelManager extends ComponentManager implements Model {
     private final Emeraldo emeraldo;
 
     private final FilteredList<Task> filteredTasks;
-
+    
+    private final Stack<Emeraldo> savedStates;
+    
     /**
      * Initializes a ModelManager with the given Emeraldo
      * Emeraldo and its variables should not be null
@@ -44,7 +50,17 @@ public class ModelManager extends ComponentManager implements Model {
         emeraldo = new Emeraldo(src);
 
         filteredTasks = new FilteredList<>(emeraldo.getTasks());
+        
+        savedStates = new Stack<Emeraldo>();
+        
+        saveState();
     }
+    
+    //Saves the new state of emeraldo into the stack, after changes has been made
+	private void saveState() {
+		Emeraldo temp = new Emeraldo(emeraldo);
+        savedStates.push(temp);
+	}
 
     public ModelManager() {
         this(new Emeraldo(), new UserPrefs());
@@ -54,8 +70,34 @@ public class ModelManager extends ComponentManager implements Model {
         emeraldo = new Emeraldo(initialData);
 
         filteredTasks = new FilteredList<>(emeraldo.getTasks());
+        
+        savedStates = new Stack<Emeraldo>();
+        
+        saveState();
     }
-
+    
+    public void undoChanges() throws EmptyStackException, UndoException{
+    	
+    	
+    	if(savedStates.size() > 1){
+    	    savedStates.pop();    	    
+	        emeraldo.resetData(savedStates.peek());
+    	    indicateEmeraldoChanged();
+    	}
+    	else if(savedStates.size() == 1){
+    	    throw new UndoException();
+    	}
+    	else{
+    	    System.out.println("savedState.size = " + savedStates.size());
+    	}
+    }
+    
+    public void clearEmeraldo(){
+    	emeraldo.resetData(Emeraldo.getEmptyEmeraldo());
+    	saveState();
+    	indicateEmeraldoChanged();
+    }
+    
     @Override
     public void resetData(ReadOnlyEmeraldo newData) {
         emeraldo.resetData(newData);
@@ -75,12 +117,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         emeraldo.removeTask(target);
+        saveState();
         indicateEmeraldoChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        emeraldo.addTask(task);
+    	emeraldo.addTask(task);
+    	saveState();
         updateFilteredListToShowAll();
         indicateEmeraldoChanged();
     }
@@ -90,6 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
             throws TaskNotFoundException {
         try {
             emeraldo.editTask(target, index, description, dateTime);
+            saveState();
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
@@ -121,7 +166,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
+            updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
+    }
+    
+    @Override
+    public void updateFilteredTaskList(String keyword){
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(keyword)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
@@ -159,6 +209,9 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
+    /*
+     * Compare tasks description with keywords
+     */
     private class DescriptionQualifier implements Qualifier {
         private Set<String> descriptionKeyWords;
 
@@ -179,5 +232,36 @@ public class ModelManager extends ComponentManager implements Model {
             return "description=" + String.join(", ", descriptionKeyWords);
         }
     }
+    
+    /*
+     *  Compare tasks tags with keywords
+     */
+    private class TagQualifier implements Qualifier {
+        private String tagKeyWord;
 
+        TagQualifier(String keyWord) {
+            this.tagKeyWord = keyWord;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            boolean tagMatcher = false;
+            Tag tag;
+            Iterator<Tag> tagIterator = task.getTags().iterator();
+            while(tagIterator.hasNext()){
+                tag = tagIterator.next();
+                tagMatcher = tagMatcher || run(tag);
+            }
+            return tagMatcher;
+        }
+        
+        private boolean run(Tag tag){
+            return tag.tagName.equalsIgnoreCase(tagKeyWord);
+        }
+
+        @Override
+        public String toString() {
+            return "tag=" + String.join(", ", tagKeyWord);
+        }
+    }
 }

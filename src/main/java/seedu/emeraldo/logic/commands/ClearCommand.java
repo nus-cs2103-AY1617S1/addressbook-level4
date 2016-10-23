@@ -16,7 +16,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(Emeraldo.getEmptyEmeraldo());
+        model.clearEmeraldo();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

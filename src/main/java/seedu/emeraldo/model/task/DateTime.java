@@ -5,7 +5,6 @@ import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Represents a Task's date and time in Emeraldo.
@@ -13,56 +12,17 @@ import java.util.regex.Pattern;
  */
 public class DateTime {
     
-    private static final String OPTIONAL_TIME_REGEX = "( (?<hour>([01][0-9]|[2][0-3])))?"
-                        + "(:(?<minute>([0-5][0-9])))?";
-
-    private static final String OPTIONAL_END_DATE_TIME_REGEX = "( (?<aftKeyword>(to )))?"
-                        + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))?"
-                        + "(/(?<monthEnd>(0?[1-9]|[1][0-2]))/)?"
-                        + "(?<yearEnd>(([0-9][0-9])?[0-9][0-9]))?"
-                        + "( (?<hourEnd>([01][0-9]|[2][0-3])))?"
-                        + "(:(?<minuteEnd>([0-5][0-9])))?";
-
-    private static final String END_DATE_TIME_REGEX = "( (?<aftKeyword>(to )))"
-                        + "(?<dayEnd>(0?[1-9]|[12][0-9]|3[01]))"
-                        + "(/(?<monthEnd>(0?[1-9]|[1][0-2]))/)"
-                        + "(?<yearEnd>(([0-9][0-9])?[0-9][0-9]))"
-                        + "( (?<hourEnd>([01][0-9]|[2][0-3])))"
-                        + "(:(?<minuteEnd>([0-5][0-9])))";
-
-    private static final String TIME_VALIDATION_REGEX = "( (?<hour>([01][0-9]|[2][0-3])))"
-                    + "(:(?<minute>([0-5][0-9])))";
-
-    private static final String DATE_VALIDATION_REGEX = "(?<day>(0?[1-9]|[12][0-9]|3[01]))"
-                    + "/(?<month>(0?[1-9]|[1][0-2]))/"
-                    + "(?<year>(([0-9][0-9])?[0-9][0-9]))";
-
     private static final String MESSAGE_KEYWORD_FROM_CONSTRAINTS = "Invalid format! It should be "
-                    + "'from DD/MM/YYYY HH:MM to DD/MM/YYYY HH:MM'";
+            + "'from DD/MM/YYYY HH:MM to DD/MM/YYYY HH:MM'";
 
     private static final String MESSAGE_KEYWORD_BY_CONSTRAINTS = "Invalid format! It should be "
-                    + "'by DD/MM/YYYY HH:MM'";
+            + "'by DD/MM/YYYY HH:MM'";
 
     private static final String MESSAGE_KEYWORD_ON_CONSTRAINTS = "Invalid format! It should be "
-                    + "'on DD/MM/YYYY'";
+            + "'on DD/MM/YYYY'";
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date must follow this format DD/MM/YYYY "
-                    + "and time must follow this format HH:MM in 24 hours format";
-    
-    public static final String ON_KEYWORD_VALIDATION_REGEX = "on " + DATE_VALIDATION_REGEX;
-    
-    public static final String BY_KEYWORD_VALIDATION_REGEX = "by " + DATE_VALIDATION_REGEX
-                    + TIME_VALIDATION_REGEX;
-    
-    public static final String FROM_KEYWORD_VALIDATION_REGEX = "from " + DATE_VALIDATION_REGEX
-                    + TIME_VALIDATION_REGEX
-                    + END_DATE_TIME_REGEX;
-    
-    public static final Pattern DATETIME_VALIDATION_REGEX =
-            Pattern.compile("(?<preKeyword>((by )|(on )|(from )))"      //Preceding keyword regex
-                    + DATE_VALIDATION_REGEX
-                    + OPTIONAL_TIME_REGEX
-                    + OPTIONAL_END_DATE_TIME_REGEX);
+            + "and time must follow this format HH:MM in 24 hours format";
     
     public final String value;
     public final String context;
@@ -81,7 +41,7 @@ public class DateTime {
      */
     public DateTime(String dateTime) throws IllegalValueException {
         assert dateTime != null;
-        final Matcher matcher = DATETIME_VALIDATION_REGEX.matcher(dateTime);
+        final Matcher matcher = DateTimeParser.DATETIME_VALIDATION_REGEX.matcher(dateTime);
         
         if (!dateTime.isEmpty() && !matcher.matches()) {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
@@ -160,11 +120,11 @@ public class DateTime {
     private boolean isValidFormatFor_GivenKeyword(String dateTime, String keyword){
         switch(keyword){
             case "on":
-                return dateTime.matches(ON_KEYWORD_VALIDATION_REGEX);
+                return dateTime.matches(DateTimeParser.ON_KEYWORD_VALIDATION_REGEX);
             case "by": 
-                return dateTime.matches(BY_KEYWORD_VALIDATION_REGEX);
+                return dateTime.matches(DateTimeParser.BY_KEYWORD_VALIDATION_REGEX);
             case "from":
-                return dateTime.matches(FROM_KEYWORD_VALIDATION_REGEX);
+                return dateTime.matches(DateTimeParser.FROM_KEYWORD_VALIDATION_REGEX);
             default:
                 return false;
         }
