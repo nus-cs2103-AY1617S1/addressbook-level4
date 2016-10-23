@@ -53,14 +53,14 @@ help
 
 ### Adding a task: `add`, `do`
 
-For now, an empty list is not very interesting. Try to create a new task using `add` or `do` command. Both commands are equivalent. They exist to help you in constructing a more fluent command structure.
+For now, an empty list is not very interesting. Try to create a new task using `add` or `do` command. Both commands are equivalent. They exist to help you in constructing a more fluent command structure. 
 
 _Mastermind_ helps you to organize your task into three main categories:
 - **Event**: Task with `startDate` and `endDate` specified.
 - **Deadline**: Task with only `endDate` specified.
 - **Floating Task**: Task without `startDate` nor `endDate`.
 
-> Quick Tip: Tag your task so you can find them easier with `findtag` command!
+> Quick Tip: Tag your task so you can find them easier with `find` command!
 
 #### Adds an event  
 _Format:_
