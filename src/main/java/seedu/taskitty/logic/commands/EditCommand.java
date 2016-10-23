@@ -32,7 +32,7 @@ public class EditCommand extends Command{
     public static final String MESSAGE_USAGE = COMMAND_WORD 
             + ": Edits the floating task identified by the index number used in the last task listing.\n "
             + "Parameters: NAME [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
+            + "Example: " + COMMAND_WORD + " " + Task.CATEGORY_CHARS
             + " 1 finish CS2103T";
 
     public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
