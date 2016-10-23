@@ -15,12 +15,14 @@ import seedu.taskitty.logic.commands.HelpCommand;
 import seedu.taskitty.logic.commands.UndoCommand;
 import seedu.taskitty.logic.commands.ViewCommand;
 
+import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+
 import static org.junit.Assert.assertTrue;
 
 public class ToolTipTest extends TaskManagerGuiTest {
 
     @Test
-    public void validInput() {
+    public void validInput_commandBeginning() {
         assertToolTip("a", AddCommand.MESSAGE_USAGE);
         assertToolTip("v", ViewCommand.MESSAGE_USAGE);
         assertToolTip("f", FindCommand.MESSAGE_USAGE);
@@ -31,7 +33,24 @@ public class ToolTipTest extends TaskManagerGuiTest {
         assertToolTip("c", ClearCommand.MESSAGE_USAGE);
         assertToolTip("h", HelpCommand.MESSAGE_USAGE);
         assertToolTip("ex", ExitCommand.MESSAGE_USAGE);
+    }
+    
+    @Test
+    public void validInput_commandFull() {
+        assertToolTip("add test 12 oct 3pm", AddCommand.MESSAGE_USAGE);
+        assertToolTip("edit e 1 hello", EditCommand.MESSAGE_USAGE);
+    }
+    
+    @Test
+    public void validInput_multipleMatch() {
+        assertToolTip("e", buildToolTip("edit", "exit"));
+        assertToolTip("d", buildToolTip("delete", "done"));
         assertToolTip("", buildToolTip());
+    }
+    
+    @Test
+    public void unknownCommand() {
+        assertToolTip("adds", MESSAGE_UNKNOWN_COMMAND);
     }
     
     private String buildToolTip() {
