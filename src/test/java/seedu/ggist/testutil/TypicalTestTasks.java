@@ -10,49 +10,31 @@ import seedu.ggist.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask milk, assignment, movie, jog, holiday, dinner, dance;
+    public static TestTask floating, deadline, event, dance;
 
     public TypicalTestTasks() {
         try {
-            milk =  new TaskBuilder().withName("go buy milk")
+            floating =  new TaskBuilder().withName("go buy milk")
             		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
             		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
             		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
             		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
-            		.withTags("Misc").build();
-            assignment = new TaskBuilder().withName("complete assignment")
+            		.build();
+            deadline = new TaskBuilder().withName("complete assignment")
             		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
             		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
-            		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
-            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
-            		.withTags("CS2103","CS2101").build();
-            movie = new TaskBuilder().withName("watch movie")
-            		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED).withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
-            		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
-            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
-            jog = new TaskBuilder().withName("go for a jog")
-            		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
-            		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
-            		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
-            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
-            holiday = new TaskBuilder()
-            		.withName("plan holiday")
-            		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
-            		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
-            		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
-            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
-            dinner = new TaskBuilder()
-            		.withName("dinner appointment")
-            		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
-            		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
-            		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
-            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
+            		.withEndDate("Thu, 21 Oct 16").withEndTime("23:59").build();
+            event = new TaskBuilder().withName("watch movie")
+            		.withStartDate("Fri, 22 Oct 16").withStartTime("21:00")
+            		.withEndDate("Fri, 22 Oct 16").withEndTime("23:00").build();
             
             //Manually added
-            dance = new TaskBuilder().withName("dance practice").withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
-            		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
-            		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
-            		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET).build();
+            dance = new TaskBuilder()
+            		.withName("dance practice")
+            		.withStartDate("Wed, 12 Oct 16")
+            		.withStartTime("12:00")
+            		.withEndDate("Wed, 12 Oct 16")
+            		.withEndTime("13:00").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -62,12 +44,10 @@ public class TypicalTestTasks {
     public static void loadTaskManagerWithSampleData(TaskManager ab) {
 
         try {
-            ab.addTask(new Task(milk));
-            ab.addTask(new Task(assignment));
-            ab.addTask(new Task(movie));
-            ab.addTask(new Task(jog));
-            ab.addTask(new Task(holiday));
-            ab.addTask(new Task(dinner));
+            ab.addTask(new Task(floating));
+            ab.addTask(new Task(deadline));
+            ab.addTask(new Task(event));
+            ab.addTask(new Task(dance));
           
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
@@ -75,7 +55,7 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{milk, assignment, movie, jog, holiday, dinner};
+        return new TestTask[]{floating,deadline,event,dance};
     }
 
     public TaskManager getTypicalTaskManager(){

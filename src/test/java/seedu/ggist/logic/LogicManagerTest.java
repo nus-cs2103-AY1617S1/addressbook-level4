@@ -382,10 +382,10 @@ public class LogicManagerTest {
 
         Task bungee() throws Exception {
             TaskName taskName = new TaskName("go bungee jumping");
-            TaskDate startDate = new TaskDate("16 Oct");
-            TaskTime startTime = new TaskTime("1800");
-            TaskDate endDate = new TaskDate("18 Oct");
-            TaskTime endTime = new TaskTime("2000");
+            TaskDate startDate = new TaskDate("Sun, 16 Oct 16");
+            TaskTime startTime = new TaskTime("18:00");
+            TaskDate endDate = new TaskDate("Tue, 18 Oct 16");
+            TaskTime endTime = new TaskTime("20:00");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -402,10 +402,10 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new TaskName("Task " + seed),
-                    new TaskDate("Oct 1" + Math.abs(seed)),
-                    new TaskTime("123"+seed),
-                    new TaskDate("Oct 2" + Math.abs(seed)),
-                    new TaskTime("213" + seed),
+                    new TaskDate("Wed, 16 Oct 1" + Math.abs(seed)),
+                    new TaskTime("12:3"+seed),
+                    new TaskDate("Thu, 20 Oct 2" + Math.abs(seed)),
+                    new TaskTime("21:3" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -418,9 +418,9 @@ public class LogicManagerTest {
 
             cmd.append(p.getTaskName().toString());
             cmd.append(",").append(p.getStartDate());
-            cmd.append(",").append(p.getStartTime());
+            cmd.append(" ").append(p.getStartTime());
             cmd.append(",").append(p.getEndDate());
-            cmd.append("-").append(p.getEndTime());
+            cmd.append(" ").append(p.getEndTime());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -503,10 +503,10 @@ public class LogicManagerTest {
         Task generateTaskWithTaskName(String taskName) throws Exception {
             return new Task(
                     new TaskName(taskName),
-                    new TaskDate("12 Oct"),
-                    new TaskTime("1800"),
-                    new TaskDate("13 Oct"),
-                    new TaskTime("2000"),
+                    new TaskDate("Wed, 12 Oct 16"),
+                    new TaskTime("18:00"),
+                    new TaskDate("Thu, 13 Oct 16"),
+                    new TaskTime("20:00"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
