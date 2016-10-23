@@ -31,11 +31,11 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertDeleteSuccess(targetIndex, "e", currentList);
         
         //invalid index
-        commandBox.runCommand("delete t " + (currentList.size("t") + 1));
+        commandBox.runCommand("delete t" + (currentList.size("t") + 1));
         assertResultMessage("The task index provided is invalid");
         
         //invalid command
-        commandBox.runCommand("deletes e " + (currentList.size("e")));
+        commandBox.runCommand("deletes e" + (currentList.size("e")));
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
     }

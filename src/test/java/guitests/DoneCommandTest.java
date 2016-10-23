@@ -31,11 +31,11 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertMarkAsDoneSuccess(targetIndex, "e", currentList);
         
         //invalid index
-        commandBox.runCommand("done t " + (currentList.size("t") + 1));
+        commandBox.runCommand("done t" + (currentList.size("t") + 1));
         assertResultMessage("The task index provided is invalid");
         
         //invalid command
-        commandBox.runCommand("donee e " + (currentList.size("e")));
+        commandBox.runCommand("donee e" + (currentList.size("e")));
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
     }
