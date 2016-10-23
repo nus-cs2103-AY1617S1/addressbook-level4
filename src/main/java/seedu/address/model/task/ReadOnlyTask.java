@@ -12,6 +12,7 @@ public interface ReadOnlyTask {
     Date getDate();
     Start getStart();
     End getEnd();
+    int getOverdue();
     int getTaskCategory();
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -29,6 +30,7 @@ public interface ReadOnlyTask {
                 && other.getDate().equals(this.getDate())
                 && other.getStart().equals(this.getStart())
                 && other.getEnd().equals(this.getEnd())
+                && other.getOverdue() == this.getOverdue()
                 && (other.getTaskCategory() == this.getTaskCategory()));
     }
 
