@@ -7,6 +7,7 @@ import seedu.todo.model.ErrorBag;
 import seedu.todo.ui.view.CommandErrorView;
 import seedu.todo.ui.view.CommandFeedbackView;
 import seedu.todo.ui.view.CommandInputView;
+import seedu.todo.ui.view.CommandLivePreview;
 
 //@@author A0315805H
 /**
@@ -18,6 +19,7 @@ public class CommandController {
 
     private Logic logic;
     private CommandInputView inputView;
+    private CommandLivePreview previewView;
     private CommandFeedbackView feedbackView;
     private CommandErrorView errorView;
 
@@ -29,11 +31,13 @@ public class CommandController {
     /**
      * Constructs a link between the classes defined in the parameters.
      */
-    public static CommandController constructLink(Logic logic, CommandInputView inputView,
+    public static CommandController constructLink(Logic logic,
+                                                  CommandInputView inputView, CommandLivePreview previewView,
                                                   CommandFeedbackView feedbackView, CommandErrorView errorView) {
         CommandController controller = new CommandController();
         controller.logic = logic;
         controller.inputView = inputView;
+        controller.previewView = previewView;
         controller.feedbackView = feedbackView;
         controller.errorView = errorView;
         controller.start();
