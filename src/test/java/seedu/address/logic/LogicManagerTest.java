@@ -169,13 +169,13 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;]", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
+                "add Valid Name d/11111212 p/1 r/11-11-2016 1200", DueDate.MESSAGE_DUEDATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
+                "add Valid Name d/11-11-2017 12:00 p/-99 r/11-11-2016 1200", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name d/11-11-2017 12:00 p/1 r/11-11-2016 1200 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -183,7 +183,7 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Activity toBeAdded = helper.adam();
+        Activity toBeAdded = helper.assignment();
         AddressBook expectedAB = new AddressBook();
         expectedAB.addPerson(toBeAdded);
 
@@ -199,7 +199,7 @@ public class LogicManagerTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Activity toBeAdded = helper.adam();
+        Activity toBeAdded = helper.assignment();
         AddressBook expectedAB = new AddressBook();
         expectedAB.addPerson(toBeAdded);
 
@@ -329,10 +329,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Activity pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Activity pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Activity p1 = helper.generatePersonWithName("KE Y");
-        Activity p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
+        Activity pTarget1 = helper.generateActivityWithName("bla bla KEY bla");
+        Activity pTarget2 = helper.generateActivityWithName("bla KEY bla bceofeia");
+        Activity p1 = helper.generateActivityWithName("KE Y");
+        Activity p2 = helper.generateActivityWithName("KEYKEYKEY sduauo");
 
         List<Activity> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
@@ -348,10 +348,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Activity p1 = helper.generatePersonWithName("bla bla KEY bla");
-        Activity p2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Activity p3 = helper.generatePersonWithName("key key");
-        Activity p4 = helper.generatePersonWithName("KEy sduauo");
+        Activity p1 = helper.generateActivityWithName("bla bla KEY bla");
+        Activity p2 = helper.generateActivityWithName("bla KEY bla bceofeia");
+        Activity p3 = helper.generateActivityWithName("key key");
+        Activity p4 = helper.generateActivityWithName("KEy sduauo");
 
         List<Activity> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
@@ -367,10 +367,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Activity pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Activity pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia");
-        Activity pTarget3 = helper.generatePersonWithName("key key");
-        Activity p1 = helper.generatePersonWithName("sduauo");
+        Activity pTarget1 = helper.generateActivityWithName("bla bla KEY bla");
+        Activity pTarget2 = helper.generateActivityWithName("bla rAnDoM bla bceofeia");
+        Activity pTarget3 = helper.generateActivityWithName("key key");
+        Activity p1 = helper.generateActivityWithName("sduauo");
 
         List<Activity> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
         AddressBook expectedAB = helper.generateAddressBook(fourPersons);
@@ -389,20 +389,18 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Activity adam() throws Exception {
-            Name name = new Name("Play");
-            DueDate privatePhone = new DueDate("11-11-2211 1100");
-            Priority email = new Priority("1");
-            Reminder privateAddress = new Reminder("11-11-2211 1000");
+        Activity assignment() throws Exception {
+            Name name = new Name("assignment");
+            Reminder reminder = new Reminder("11-11-2211 1000");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Activity(name, privateAddress, tags);
+            return new Activity(name, reminder, tags);
         }
 
         /**
-         * Generates a valid person using the given seed.
-         * Running this function with the same parameter values guarantees the returned person will have the same state.
+         * Generates a valid activity using the given seed.
+         * Running this function with the same parameter values guarantees the returned activity will have the same state.
          * Each unique seed will generate a unique Person object.
          *
          * @param seed used to generate the person data field values
@@ -422,8 +420,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" a/").append(p.getReminder());
-
+            cmd.append(" r/").append(p.getReminder());
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
@@ -502,7 +499,7 @@ public class LogicManagerTest {
         /**
          * Generates a Person object with given name. Other fields will have some dummy values.
          */
-        Activity generatePersonWithName(String name) throws Exception {
+        Activity generateActivityWithName(String name) throws Exception {
             return new Activity(
                     new Name(name),
                     new Reminder("11-11-2103 1100"),
