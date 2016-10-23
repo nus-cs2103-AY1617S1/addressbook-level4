@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-W11-C2/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W11-C2/main)
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W11-C2/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W11-C2/main?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b2c2cb7e938f4d9eb626926dc3670f3c)](https://www.codacy.com/app/vishnu/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-W11-C2/main&amp;utm_campaign=Badge_Grade)
 
 # Agendum
 
@@ -13,9 +14,13 @@
 * [License](#4-license)
 
 
-### 1. IntroductionHello! Do you have too many tasks and are unable to finish all of them? Are you looking for a hassle-free task manager which works swiftly?Enter Agendum.
-This task manager will assist you in completing all your tasks on time. It will automatically sort your tasks by date, so you can always see the most urgent tasks at the top of list!
-With just one line of command, Agendum will carry out your wishes. You don’t ever have to worry about having to click multiple links. It is even capable of allowing you to create your own custom commands! This means that you can get things done even faster, your way.
+### 1. Introduction
+Hello! Do you have too many tasks and are unable to finish all of them? Are you looking for a hassle-free task manager which works swiftly?
+Enter Agendum.
+
+This task manager will assist you in completing all your tasks on time. It will automatically sort your tasks by date, so you can always see the most urgent tasks at the top of list!
+
+With just one line of command, Agendum will carry out your wishes. You don’t ever have to worry about having to click multiple links. It is even capable of allowing you to create your own custom commands! This means that you can get things done even faster, your way.
   
 ### 2. Site Map
 * [User Guide](docs/UserGuide.md) 
