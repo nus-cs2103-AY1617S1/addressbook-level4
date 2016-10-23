@@ -1,5 +1,6 @@
 package seedu.menion.logic.parser;
 
+import seedu.menion.commons.core.Messages;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.StringUtil;
 import seedu.menion.logic.commands.*;
@@ -162,28 +163,25 @@ public class ActivityParser {
     }
     
     private Command prepareEdit(String args) {
-
+        
         String[] splited = args.split("\\s+");
-        boolean isValidType = false; // Checks that the activity type is of valid type
         
-        String activityType = splited[1];
-        
-        // Checks for valid activityType
-        if (activityType.equals(Activity.FLOATING_TASK_TYPE) || activityType.equals(Activity.TASK_TYPE) || activityType.equals(Activity.EVENT_TYPE)) {
-           
-            // Checks for valid index 
-            Optional<Integer> index = Optional.of(Integer.valueOf(splited[2]));
-            if(index.isPresent()){
-                
-                // Checks for valid number of parameters.
-                // Must be 5 and above. [Command] + [Type] + [index] + [parameter] + [changes]
-                if (splited.length > 4) {
+        // Checks for valid number of parameters.
+        // Must be 5 and above. [Command] + [Type] + [index] + [parameter] + [changes]
+        if (splited.length > 4) {
+            String activityType = splited[1];
+            // Checks for valid activityType
+            if (activityType.equals(Activity.FLOATING_TASK_TYPE) || activityType.equals(Activity.TASK_TYPE) || activityType.equals(Activity.EVENT_TYPE)) {  
+                // Checks for valid index 
+                Optional<Integer> index = Optional.of(Integer.valueOf(splited[2]));
+                if(index.isPresent()){
                     return new EditCommand(splited);
                 }
             }
         }
         
         // Only get here if invalid command!
+        System.out.println("Invalid command leh");
         return new IncorrectCommand(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
