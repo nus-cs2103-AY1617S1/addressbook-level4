@@ -12,7 +12,7 @@ public class Config {
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
-    private String appTitle = "Task App";
+    private String appTitle = "OneLine";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String taskBookFileName = "taskbook.xml";
