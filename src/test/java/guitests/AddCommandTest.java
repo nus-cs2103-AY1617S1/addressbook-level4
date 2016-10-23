@@ -1,6 +1,6 @@
 package guitests;
 
-import guitests.guihandles.ActivityCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import seedu.address.testutil.TestActivity;
@@ -43,8 +43,8 @@ public class AddCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(activityToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        ActivityCardHandle addedCard = activityListPanel.navigateToActivity(activityToAdd.getActivityName().fullName);
-        assertMatching(activityToAdd, addedCard);
+        TaskCardHandle addedCard = activityListPanel.navigateToActivity(activityToAdd.getActivityName().fullName);
+        assertTaskMatching(activityToAdd, addedCard);
 
         //confirm the list now contains all previous activities plus the new activity
         TestActivity[] expectedList = TestUtil.addPersonsToList(currentList, activityToAdd);

@@ -97,10 +97,17 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
-     * Asserts the person shown in the card is same as the given person
+     * Asserts the task shown in the card is same as the given task
      */
-    public void assertMatching(ReadOnlyActivity person, ActivityCardHandle card) {
-        assertTrue(TestUtil.compareCardAndPerson(card, person));
+    public void assertTaskMatching(ReadOnlyActivity person, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, person));
+    }
+    
+    /**
+     * Asserts the floating task shown in the card is same as the given floating task
+     */
+    public void assertFloatingTaskMatching(ReadOnlyActivity person, FloatingTaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndFloatingTask(card, person));
     }
 
     /**
