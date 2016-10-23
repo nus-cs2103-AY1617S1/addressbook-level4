@@ -8,6 +8,7 @@ import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.emeraldo.model.task.UniqueTaskList;
 
+import java.util.EmptyStackException;
 import java.util.Set;
 
 /**
@@ -15,7 +16,7 @@ import java.util.Set;
  */
 public interface Model {
 	
-	void undoChanges();
+	void undoChanges() throws EmptyStackException;
 	
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyEmeraldo newData);

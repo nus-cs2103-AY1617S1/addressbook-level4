@@ -14,6 +14,7 @@ import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList;
 import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -76,18 +77,20 @@ public class ModelManager extends ComponentManager implements Model {
         System.out.println("After initialisation: " + savedStates);
     }
     
-    public void undoChanges(){
+    public void undoChanges() throws EmptyStackException{
     	//TODO: handle cases where undo cannot be done anymore
     	savedStates.pop();
     	System.out.println("After pop: " + savedStates.toString());
-    	if(!savedStates.empty()){
+    	//if(!savedStates.empty()){
     		resetData(savedStates.peek());
 	    	indicateEmeraldoChanged();
 	    	System.out.println("YAY!");
-    	}
+    	//}
+    	/*
     	else{
     		System.out.println("oops");
     	}
+    	*/
     }
     
     @Override

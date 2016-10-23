@@ -1,5 +1,7 @@
 package seedu.emeraldo.logic.commands;
 
+import java.util.EmptyStackException;
+
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
@@ -11,8 +13,12 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
     	assert model != null;
-        model.undoChanges();
-        return new CommandResult(MESSAGE_SUCCESS);
+    	try{
+	        model.undoChanges();
+	        return new CommandResult(MESSAGE_SUCCESS);
+    	} catch(EmptyStackException e) {
+    		return new CommandResult(MESSAGE_UNSUCCESSFUL);
+    	}
     }
 
 }
