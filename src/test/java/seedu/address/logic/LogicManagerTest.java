@@ -358,6 +358,46 @@ public class LogicManagerTest {
     }
     
     @Test
+    public void execute_delete_removesCorrectDeadline() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+        
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        expectedAB.removeTask(threeDeadlines.get(1));
+        
+        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
+
+        assertCommandBehavior("delete D2",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, /*threePersons.get(1)*/ new String("[D2]")),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }
+    
+    @Test
+    public void execute_delete_removesCorrectTodo() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+        
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        expectedAB.removeTask(threeTodos.get(1));
+        
+        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
+
+        assertCommandBehavior("delete T2",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, /*threePersons.get(1)*/ new String("[T2]")),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }
+    
+    @Test
     public void execute_delete_removesCorrectPersonsEventMultiple() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generatePersonList(3);
