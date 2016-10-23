@@ -4,7 +4,7 @@ package seedu.taskmanager.model.item;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Item's time in the task maanger.
+ * Represents a Item's time in the task manager.
  * Can be startTime or endTime
  */
 public class ItemTime {
