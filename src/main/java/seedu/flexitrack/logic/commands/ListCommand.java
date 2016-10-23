@@ -27,22 +27,11 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        switch (arguments) {
-        case LIST_FUTURE_COMMAND:
-            model.updateFilteredListToShowFutureTasks();
-            break; 
-        case LIST_PAST_COMMAND:
-            model.updateFilteredListToShowPastTasks();
-            break;
-        case LIST_MARK_COMMAND:
-            model.updateFilteredListToShowMarkTasks();
-            break;
-        case LIST_UNMARK_COMMAND:
-            model.updateFilteredListToShowUnmarkTasks();
-            break;
-        case LIST_UNSPECIFIED_COMMAND: 
+        if (arguments.equals(LIST_UNSPECIFIED_COMMAND)){
             model.updateFilteredListToShowAll();
-            break;
+        }
+        else {
+            model.updateFilteredListToFitUserInput( arguments );
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }

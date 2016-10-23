@@ -38,16 +38,16 @@ public interface Model {
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered task list to show future tasks */
-    void updateFilteredListToShowFutureTasks();
+    void updateFilteredListToFitUserInput( String args );
     
-    /** Updates the filter of the filtered task list to show past tasks */
-    void updateFilteredListToShowPastTasks();
-    
-    /** Updates the filter of the filtered task list to show mark tasks */
-    void updateFilteredListToShowMarkTasks();
-    
-    /** Updates the filter of the filtered task list to show unmark tasks */
-    void updateFilteredListToShowUnmarkTasks();
+//    /** Updates the filter of the filtered task list to show past tasks */
+//    void updateFilteredListToShowPastTasks();
+//    
+//    /** Updates the filter of the filtered task list to show mark tasks */
+//    void updateFilteredListToShowMarkTasks();
+//    
+//    /** Updates the filter of the filtered task list to show unmark tasks */
+//    void updateFilteredListToShowUnmarkTasks();
     
     /**
      * Updates the filter of the filtered task list to filter by the given

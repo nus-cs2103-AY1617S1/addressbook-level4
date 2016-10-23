@@ -116,24 +116,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredListToShowFutureTasks(){
-        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_FUTURE_COMMAND)));
+    public void updateFilteredListToFitUserInput(String args){
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(args)));
     }
     
-    @Override
-    public void updateFilteredListToShowPastTasks(){
-        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_PAST_COMMAND)));
-    }
-    
-    @Override
-    public void updateFilteredListToShowMarkTasks(){
-        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_MARK_COMMAND)));
-    }
-    
-    @Override
-    public void updateFilteredListToShowUnmarkTasks(){
-        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_UNMARK_COMMAND)));
-    }
+//    @Override
+//    public void updateFilteredListToShowPastTasks(){
+//        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_PAST_COMMAND)));
+//    }
+//    
+//    @Override
+//    public void updateFilteredListToShowMarkTasks(){
+//        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_MARK_COMMAND)));
+//    }
+//    
+//    @Override
+//    public void updateFilteredListToShowUnmarkTasks(){
+//        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_UNMARK_COMMAND)));
+//    }
     
     @Override
     public void updateFilteredTaskList(Set<String> keywords) {
@@ -206,43 +206,56 @@ public class ModelManager extends ComponentManager implements Model {
     
     //TODO: 
     private class DateQualifier implements Qualifier {
-        private String keyWord;
+        private String keyWords;
+        private String dateInfo; 
 
         DateQualifier(String keyWord) {
-            this.keyWord = keyWord;
+            this.keyWords = keyWord;
+            this.dateInfo = keyWord.replace(ListCommand.LIST_FUTURE_COMMAND, "").replace(ListCommand.LIST_PAST_COMMAND, "").
+                    replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "").trim();
         }
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            switch (keyWord){
-            case ListCommand.LIST_FUTURE_COMMAND: 
+            boolean willBeShown=true; 
+
+            if (keyWords.contains(ListCommand.LIST_FUTURE_COMMAND)) {
                 if (task.getIsTask()){ 
-                    return DateTimeInfo.isInTheFuture(task.getDueDate());
+                    willBeShown = DateTimeInfo.isInTheFuture(task.getDueDate());
                 } else if (task.getIsEvent()){
-                    return DateTimeInfo.isInTheFuture(task.getEndTime());
+                    willBeShown = DateTimeInfo.isInTheFuture(task.getEndTime());
                 }else { 
-                    return !task.getIsDone();
+                    willBeShown = !task.getIsDone();
                 }
-            case ListCommand.LIST_PAST_COMMAND:
+            } else if (keyWords.contains(ListCommand.LIST_PAST_COMMAND)){
                 if (task.getIsTask()){ 
-                    return DateTimeInfo.isInThePast(task.getDueDate());
-                } else {
-                    return DateTimeInfo.isInThePast(task.getEndTime());
-                } 
-            case ListCommand.LIST_MARK_COMMAND:
-                return task.getIsDone();
-            case ListCommand.LIST_UNMARK_COMMAND:
-                return !task.getIsDone();
-            default: 
-                return false; 
+                  willBeShown = DateTimeInfo.isInThePast(task.getDueDate());
+              } else {
+                  willBeShown = DateTimeInfo.isInThePast(task.getEndTime());
+              } 
+            } else if (!dateInfo.equals("")){
+                willBeShown = DateTimeInfo.isOnTheDate(keyWords, task);
             }
             
+            if (willBeShown==false){ 
+                return false; 
+            }
+            if (keyWords.contains(ListCommand.LIST_UNMARK_COMMAND)){
+                return !task.getIsDone();
+            } else if (keyWords.contains(ListCommand.LIST_MARK_COMMAND)){
+                return task.getIsDone();
+            }
+            
+            return willBeShown;
+            
         }
-
+        
 //        @Override
 //        public String toString() {
 //            return "name=" + String.join(", ", dateKeyWords);
 //        }
     }
+    
+    
 
 }

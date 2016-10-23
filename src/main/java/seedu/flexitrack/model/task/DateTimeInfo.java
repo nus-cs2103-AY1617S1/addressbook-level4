@@ -5,9 +5,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.joestelmach.natty.DateGroup;
-import com.joestelmach.natty.Parser;
 
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
+import seedu.flexitrack.logic.commands.ListCommand;
 
 /**
  * Represents a DateTimeInfo class in FlexiTrack
@@ -16,12 +16,7 @@ public class DateTimeInfo {
     public static final String MESSAGE_DATETIMEINFO_CONSTRAINTS = "Invalid time inputed. Please check your spelling!";
     public static final boolean DUE_DATE_OR_START_TIME = true;
     public static final boolean END_TIME = false;
-    private static final Pattern TIME_TYPE_DATA_ARGS_FORMAT = // '/' forward
-                                                              // slashes are
-                                                              // reserved for
-                                                              // delimiter
-                                                              // prefixes
-            Pattern.compile("(?<info>.+)");
+    private static final Pattern TIME_TYPE_DATA_ARGS_FORMAT = Pattern.compile("(?<info>.+)");
     private static final String MESSAGE_FROM_IS_AFTER_TO = "Please check the timing inputed! The given starting time is after the ending time.";
 
     private String setTime;
@@ -286,5 +281,19 @@ public class DateTimeInfo {
             e.printStackTrace();
         }
         return !result.equals(MESSAGE_FROM_IS_AFTER_TO);
+    }
+
+    public static boolean isOnTheDate(String keyWords, ReadOnlyTask task) {
+        String dateInfo = keyWords.replace(ListCommand.LIST_MARK_COMMAND, "").replace(ListCommand.LIST_UNMARK_COMMAND, "").trim();
+        try {
+            dateInfo = new DateTimeInfo (dateInfo).toString().substring(0,11);
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+        if ( task.getDueDate().toString().contains(dateInfo) || task.getEndTime().toString().contains(dateInfo) 
+                || task.getStartTime().toString().contains(dateInfo)){
+            return true; 
+        }
+        return false;
     }
 }
