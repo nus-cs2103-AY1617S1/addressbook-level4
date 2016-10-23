@@ -114,8 +114,8 @@
 	-fx-text-fill: #ff0000;
 }
 
-#done-event {
-	-fx-text-fill: #FFFFFF;
+#done {
+	-fx-text-fill: white;
 	-fx-background-color: grey;
 }
 
