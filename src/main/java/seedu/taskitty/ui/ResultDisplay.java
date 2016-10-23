@@ -65,6 +65,7 @@ public class ResultDisplay extends UiPart {
         return FXML;
     }
 
+    //@@author A0139930B
     public void postMessage(String message) {
         toolTipLabel.setText(message);
         descriptionLabel.setText("");
@@ -75,6 +76,7 @@ public class ResultDisplay extends UiPart {
         descriptionLabel.setText(description);
     }
     
+    //@@author
     public void displayOverdueWelcomeMessage() {
     	postMessage(WELCOME_MESSAGE_WITH_OVERDUE_DEADLINES);
     }
