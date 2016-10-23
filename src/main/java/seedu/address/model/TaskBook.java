@@ -172,6 +172,18 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
     
+    public boolean overdueTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+        if(datedTasks.contains(target)){
+            datedTasks.overdue(target);
+            return true;
+        }
+        else{
+            throw new UniqueTaskList.TaskNotFoundException();	
+        }
+    }
+    
+
+    
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

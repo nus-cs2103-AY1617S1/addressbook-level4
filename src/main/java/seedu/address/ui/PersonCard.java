@@ -17,11 +17,11 @@ public class PersonCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private Label description;
     @FXML
-    private Label address;
+    private Label date;
     @FXML
-    private Label email;
+    private Label time;
     @FXML
     private Label tags;
 
@@ -46,9 +46,9 @@ public class PersonCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        phone.setText(task.getDescription().value);
-        address.setText(task.getDatetime().getDateString());
-        email.setText(task.getDatetime().getTimeString());
+        description.setText(task.getDescription().value);
+        date.setText(task.getDatetime().getDateString());
+        time.setText(task.getDatetime().getTimeString());
         tags.setText(task.tagsString());
         setStyleToIndicateOverdueTask(task);
     }
