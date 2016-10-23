@@ -391,7 +391,7 @@ public class Parser {
         try {
             return new SaveCommand(args.trim());
         } catch (IllegalValueException e) {
-            return new IncorrectCommand(e.getMessage());
+            return new IncorrectCommand(e.getMessage() + "\n" + SaveCommand.MESSAGE_USAGE);
         }
     }
 
