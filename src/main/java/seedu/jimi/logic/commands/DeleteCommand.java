@@ -18,7 +18,7 @@ public class DeleteCommand extends Command {
             + ": Deletes the specified task/event from Jimi.\n"
             + "You can specify the task/event by entering its index number given in the last listing. \n"
             + "If you need to recover your deleted task, you can use the undo command. \n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX (must be t<positive integer> or e<positive integer>)\n"
             + "Example: " + COMMAND_WORD + " t1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Jimi has deleted this task: %1$s";
