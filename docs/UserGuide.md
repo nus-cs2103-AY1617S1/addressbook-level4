@@ -53,14 +53,14 @@ help
 
 ### Adding a task: `add`, `do`
 
-For now, an empty list is not very interesting. Try to create a new task using `add` or `do` command. Both commands are equivalent. They exist to help you in constructing a more fluent command structure.
+For now, an empty list is not very interesting. Try to create a new task using `add` or `do` command. Both commands are equivalent. They exist to help you in constructing a more fluent command structure. 
 
 _Mastermind_ helps you to organize your task into three main categories:
 - **Event**: Task with `startDate` and `endDate` specified.
 - **Deadline**: Task with only `endDate` specified.
 - **Floating Task**: Task without `startDate` nor `endDate`.
 
-> Quick Tip: Tag your task so you can find them easier with `findtag` command!
+> Quick Tip: Tag your task so you can find them easier with `find` command!
 
 #### Adds an event  
 _Format:_
@@ -309,14 +309,13 @@ _Examples:_
 // select the "find" result and mark the task at index 1 as completed
 > mark 1
 ```
-### Repeating a previous command: <kbd>Up arrow</kdb>
+### Repeating a previous command: <kbd>↑</kdb>
 
 Lazy to retype a similar command? Want to paste the previous command back to the field?  
 _Mastermind_ can do just that!
 
 _Format:_
-``` <kbd>Up arrow</kdb>
-```
+<kbd>↑</kdb>
 
 _Example:_
 ```java
@@ -391,13 +390,12 @@ Help | `help`
 Add, Do | <code>(add &#124; do) [r/'&lt;reccurence&gt;'] '&lt;taskName&gt;' [sd/'&lt;start_date&gt;'] [ed/'&lt;end_date&gt;'] [t/'&lt;comma_separated_tags&gt;'];</code>
 List | `list [<category_name>]`
 Find | `find <keyword>...`
-Find Tag | `findtag <keyword>...`
 Edit | `edit <index>`
 Delete | `delete <index>`
 Undo | `undo`
 Redo | `redo`
 Mark | `mark <index>`
-Previous | `p`
+Previous | <kbd>↑</kdb>
 Clear | `clear`
 Relocate | `relocate <new_destination_folder>`
 Exit | `exit`
