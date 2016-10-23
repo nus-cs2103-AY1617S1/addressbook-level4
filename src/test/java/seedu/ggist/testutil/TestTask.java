@@ -1,5 +1,7 @@
 package seedu.ggist.testutil;
 
+import java.util.Date;
+
 import seedu.ggist.model.tag.UniqueTagList;
 import seedu.ggist.model.task.*;
 
@@ -14,6 +16,8 @@ public class TestTask implements ReadOnlyTask {
     private TaskDate endDate;    
     private TaskTime endTime;
     private Priority priority;
+    private Date start;
+    private Date end;
     private boolean done;
     private boolean undo;
 
@@ -102,6 +106,16 @@ public class TestTask implements ReadOnlyTask {
     public void setUnDone() {
         done = false;
         undo = true;
+    }
+
+    @Override
+    public Date getStartDateTime() {
+        return start;
+    }
+
+    @Override
+    public Date getEndDateTime() {
+        return end;
     }
 
 }

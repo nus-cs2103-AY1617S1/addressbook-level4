@@ -141,12 +141,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     private SortedList<Task> sortFilteredList() {
-        Comparator<? super Task> compareStartTime = new Comparator<Task>(){
+        Comparator<? super Task> compareDateTime = new Comparator<Task>(){
             public int compare (Task t1, Task t2){
-  
+                return t1.getStartDateTime().equals(t2.getStartDateTime()) ?
+                (t1.getEndDateTime().before(t2.getEndDateTime()) ? 
+                -1 : 1) : (t1.getStartDateTime().before(t2.getStartDateTime()) ?
+                -1 : 1);
             }
-        }
-        return null;
+        };
+        return new SortedList<Task>(filteredTasks, compareDateTime);
     }
 
     @Override

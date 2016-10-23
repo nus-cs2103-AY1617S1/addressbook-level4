@@ -1,10 +1,11 @@
 package seedu.ggist.model.task;
 
+
 import java.util.Date;
 import java.util.Objects;
 
-import seedu.ggist.commons.util.CollectionUtil;
-import seedu.ggist.model.tag.UniqueTagList;
+import seedu.ggist.commons.exceptions.IllegalValueException;
+import seedu.ggist.logic.parser.DateTimeParser;
 
 
 /**
@@ -54,6 +55,18 @@ public class Task implements ReadOnlyTask{
         done = false;
     }
       
+    public Date constructDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
+        if (date == null && time == null) {
+            return new DateTimeParser("1st January 2999 11:59pm").getDateTime();
+        } else if (date == null && time != null) {
+            return new DateTimeParser("1st January 2999 " + time.value).getDateTime();
+        } else if (date != null && time == null) {
+            return new DateTimeParser(date.value + " 11:59 pm").getDateTime();
+        } else {
+            return new DateTimeParser(date.value + " " + time.value).getDateTime();
+        }
+    }
+
     
     @Override
     public boolean getDone() {
