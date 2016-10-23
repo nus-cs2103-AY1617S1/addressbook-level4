@@ -9,7 +9,7 @@ import seedu.taskscheduler.model.task.UniqueTaskList;
 import java.util.List;
 
 /**
- * Unmodifiable view of an task scheduler
+ * Unmodifiable view of an Task Scheduler
  */
 public interface ReadOnlyTaskScheduler {
 

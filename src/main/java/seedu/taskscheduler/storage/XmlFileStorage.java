@@ -8,11 +8,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Stores taskscheduler data in an XML file
+ * Stores Task Scheduler data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given taskscheduler data to the specified file.
+     * Saves the given task scheduler data to the specified file.
      */
     public static void saveDataToFile(File file, XmlSerializableTaskScheduler taskScheduler)
             throws FileNotFoundException {
@@ -24,7 +24,7 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns address book in the file or an empty task scheduler
+     * Returns task scheduler in the file or an empty task scheduler
      */
     public static XmlSerializableTaskScheduler loadDataFromSaveFile(File file) throws DataConversionException,
                                                                             FileNotFoundException {

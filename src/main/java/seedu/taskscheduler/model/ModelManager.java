@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 import com.google.common.eventbus.Subscribe;
 
 /**
- * Represents the in-memory model of the address book data.
+ * Represents the in-memory model of the Task Scheduler data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -32,8 +32,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
 
     /**
-     * Initializes a ModelManager with the given TaskScheduler
-     * TaskScheduler and its variables should not be null
+     * Initializes a ModelManager with the given Task Scheduler
+     * Task Scheduler and its variables should not be null
      */
     public ModelManager(TaskScheduler src, UserPrefs userPrefs) {
         super();

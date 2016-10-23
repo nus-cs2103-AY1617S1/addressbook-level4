@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * Manages storage of TaskScheduler data in local storage.
+ * Manages storage of Task Scheduler data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 

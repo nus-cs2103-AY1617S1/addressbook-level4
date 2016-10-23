@@ -2,8 +2,9 @@ package seedu.taskscheduler.commons.events.ui;
 
 import seedu.taskscheduler.commons.events.BaseEvent;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
+
 /**
- * Represents a selection change in the Person List Panel
+ * Represents a selection change in the task List Panel
  */
 public class TaskPanelSelectionChangedEvent extends BaseEvent {
 

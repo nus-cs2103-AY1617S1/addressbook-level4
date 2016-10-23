@@ -10,7 +10,6 @@ import seedu.taskscheduler.logic.commands.MarkCommand;
 
 public class MarkCommandParser extends CommandParser {
 
-    
     /**
      * Parses arguments in the context of the mark task command.
      *

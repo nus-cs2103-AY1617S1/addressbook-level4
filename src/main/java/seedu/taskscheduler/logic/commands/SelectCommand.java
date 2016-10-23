@@ -7,7 +7,7 @@ import seedu.taskscheduler.commons.events.ui.JumpToListRequestEvent;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 
 /**
- * Selects a person identified using it's last displayed index from the address book.
+ * Selects a task identified using it's last displayed index from the Task Scheduler.
  */
 public class SelectCommand extends Command {
 

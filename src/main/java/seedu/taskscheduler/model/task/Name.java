@@ -3,20 +3,20 @@ package seedu.taskscheduler.model.task;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's name in the address book.
+ * Represents a Task's name in the Task Scheduler book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;
 
     /**
-     * Validates given name.
+     * Validates given task name.
      *
-     * @throws IllegalValueException if given name string is invalid.
+     * @throws IllegalValueException if given task name string is invalid.
      */
     public Name(String name) throws IllegalValueException {
         assert name != null;
@@ -28,7 +28,7 @@ public class Name {
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid Task name.
      */
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);

@@ -4,12 +4,12 @@ package seedu.taskscheduler.model.task;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a Task's address in the Task Scheduler.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Location {
     
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task addresses can be in any format";
     public static final String ADDRESS_VALIDATION_REGEX = ".*";
 
     public final String value;
@@ -18,9 +18,9 @@ public class Location {
         value = "";
     }
     /**
-     * Validates given address.
+     * Validates given task address.
      *
-     * @throws IllegalValueException if given address string is invalid.
+     * @throws IllegalValueException if given task address string is invalid.
      */
     public Location(String address) throws IllegalValueException {
         assert address != null;
@@ -31,7 +31,7 @@ public class Location {
     }
 
     /**
-     * Returns true if a given string is a valid person email.
+     * Returns true if a given string is a valid task address.
      */
     public static boolean isValidAddress(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);

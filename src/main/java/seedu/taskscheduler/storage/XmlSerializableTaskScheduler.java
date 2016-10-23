@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * An Immutable TaskScheduler that is serializable to XML format
+ * An Immutable Task Scheduler that is serializable to XML format
  */
 @XmlRootElement(name = "taskscheduler")
 public class XmlSerializableTaskScheduler implements ReadOnlyTaskScheduler {
