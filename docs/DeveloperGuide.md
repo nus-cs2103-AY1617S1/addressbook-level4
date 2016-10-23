@@ -112,6 +112,8 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
+[comment]: # (@@author A0140060A)
+
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -126,6 +128,8 @@ The `UI` component,
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("edit 1 n/Survive 2103")`
  API call.<br>
 <img src="images/EditItemSdForLogic.png" width="800"><br>
+
+[comment]: # (@@author )
 
 ### Model component
 
@@ -289,9 +293,11 @@ Use case ends.
 >1a1. TaskManager shows an error message. <br>
 >Use case resumes at step 1.
 
+[comment]: # (@@author A0140060A)
+
 #### Use case: Find an item
 1. User requests to find an item by searching for a keyword
-2. TaskManager lists the specific item
+2. TaskManager lists the items containing the keyword
 
 #### Use case: Edit a task/deadline/event
 **MSS**
@@ -301,18 +307,6 @@ Use case ends.
 3. User requests to edit specific details of a specific TDE in the list.
 4. TaskManager edits the TDE. <br>
 Use case ends.
-
-#### Use case: List all tasks
-1.User requests to list all tasks
-2.TaskManager shows a list of tasks
-
-#### Use case: List all deadlines
-1.User requests to list all deadlines
-2.TaskManager shows a list of deadlines
-
-#### Use case: List all events
-1.User requests to list all events
-2.TaskManager shows a list of events
 
 **Extensions**
 
@@ -328,6 +322,20 @@ Use case ends.
 >3b The given parameter is invalid.
 >3b1 TaskManager shows an error message. <br>
 >Use case resumes at step 2.
+
+[comment]: # (@@author )
+
+#### Use case: List all tasks
+1.User requests to list all tasks
+2.TaskManager shows a list of tasks
+
+#### Use case: List all deadlines
+1.User requests to list all deadlines
+2.TaskManager shows a list of deadlines
+
+#### Use case: List all events
+1.User requests to list all events
+2.TaskManager shows a list of events
 
 #### Use case: Delete an task/deadline/event
 
@@ -420,6 +428,3 @@ Swipes          | Simple, cross-platform                        | Unable to spec
 Fantastical     | Uses NLP, quick access in mini window         | Works only on Mac/iOS platform | Our application works on major computer operating systems, and since it allows syncing onto Google Calendar, one can even use mobile devices to view and update their task manager
 
 Apple Reminders | Easy-to-use, fast, backed up on the cloud     | Only works in Apple's ecosystem  | Our application allows users to back up to Google Calendar, which works on most devices and thus most people can use it, along with backing up their data to the cloud through Google Calendar
-
-
-
