@@ -38,21 +38,23 @@ public class RelocateCommand extends Command{
 
     private final String newFilePath;
 
-    /**
+    /** 
+     * @@author A0139194X
      * Convenience constructor using raw values.
      */
     public RelocateCommand(String newFilePath) {
         this.newFilePath = newFilePath.trim();
-        
     }
 
     //@@author A0139194X
     @Override
     public CommandResult execute() {
         assert model != null;
+        assert storage != null;
+        assert newFilePath != null;
         try {
-            storageManager.checkSaveLocation(newFilePath);
-            storageManager.checkWrittableDirectory(newFilePath);
+            storage.checkSaveLocation(newFilePath);
+            storage.checkWrittableDirectory(newFilePath);
             model.relocateSaveLocation(newFilePath);
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_SUCCESS, newFilePath));
         } catch (FolderDoesNotExistException fdnee) {

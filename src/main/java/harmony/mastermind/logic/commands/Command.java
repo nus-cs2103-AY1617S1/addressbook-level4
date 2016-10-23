@@ -9,6 +9,7 @@ import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.events.ui.ExecuteCommandEvent;
 import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.model.Model;
+import harmony.mastermind.storage.Storage;
 import harmony.mastermind.storage.StorageManager;
 
 /**
@@ -21,7 +22,7 @@ public abstract class Command {
     protected static final PrettyTimeParser prettyTimeParser = new PrettyTimeParser();
     
     protected Model model;
-    protected StorageManager storageManager;
+    protected Storage storage;
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
