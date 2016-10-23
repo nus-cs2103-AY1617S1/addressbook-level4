@@ -80,7 +80,7 @@ public interface Model {
 
     /**
      * Precondition: arguments are not null.
-     * Sort the filtered task list by the given order
+     * Sorts the filtered task list by the given sorting order
      */
     void sortFilteredTaskListByOrder(String sortOrder);
 

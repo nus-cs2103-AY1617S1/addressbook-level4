@@ -27,7 +27,6 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskList taskList;
     private final FilteredList<Task> filteredTasks;
     private PredicateExpression taskListFilter;
-    private final SortedList<Task> sortedTasks;
 
     /**
      * Initializes a ModelManager with the given TaskList
@@ -43,7 +42,6 @@ public class ModelManager extends ComponentManager implements Model {
         taskList = new TaskList(src);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
-        sortedTasks = new SortedList<>(filteredTasks);
     }
 
     public ModelManager() {
@@ -54,7 +52,6 @@ public class ModelManager extends ComponentManager implements Model {
         taskList = new TaskList(initialData);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
-        sortedTasks = new SortedList<>(filteredTasks);
     }
 
     @Override
@@ -99,7 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(sortedTasks);
+        return new UnmodifiableObservableList<>(filteredTasks);
     }
 
     @Override
@@ -156,21 +153,23 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void sortFilteredTaskListByOrder(String sortOrder) {
+        assert sortOrder != null;
         switch(sortOrder) {
         case Model.SORT_ORDER_BY_EARLIEST_FIRST:
-            sortedTasks.setComparator(new EarliestFirstComparator());
+            taskList.sortUsingComparator(new EarliestFirstComparator());
             break;
         case Model.SORT_ORDER_BY_LATEST_FIRST:
-            sortedTasks.setComparator(new LatestFirstComparator());
+            taskList.sortUsingComparator(new LatestFirstComparator());
             break;
         case Model.SORT_ORDER_BY_A_TO_Z:
-            sortedTasks.setComparator(new AToZComparator());
+            taskList.sortUsingComparator(new AToZComparator());
             break;
         case Model.SORT_ORDER_BY_Z_TO_A:
-            sortedTasks.setComparator(new ZToAComparator());
+            taskList.sortUsingComparator(new ZToAComparator());
             break;
         default:
-            sortedTasks.setComparator(null);
+            logger.warning("Unable to sort task list due to "
+                    + "unrecognized sort order string: " + sortOrder);
             break;
         }
     }
@@ -429,9 +428,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     //========== Inner classes/interfaces used for sorting ==================================================
 
-    private class EarliestFirstComparator implements Comparator<Task> {
+    private class EarliestFirstComparator implements Comparator<ReadOnlyTask> {
         @Override
-        public int compare(Task a, Task b) {
+        public int compare(ReadOnlyTask a, ReadOnlyTask b) {
             int timeA = 0;
             if (a.getDeadline().hasDeadline())
                 timeA = (int)(a.getDeadline().getDeadline().getTime() / 1000);
@@ -447,10 +446,10 @@ public class ModelManager extends ComponentManager implements Model {
             return timeA - timeB;
         }
     }
-
-    private class LatestFirstComparator implements Comparator<Task> {
+    
+    private class LatestFirstComparator implements Comparator<ReadOnlyTask> {
         @Override
-        public int compare(Task a, Task b) {
+        public int compare(ReadOnlyTask a, ReadOnlyTask b) {
             int timeA = 0;
             if (a.getDeadline().hasDeadline())
                 timeA = (int)(a.getDeadline().getDeadline().getTime() / 1000);
@@ -466,17 +465,18 @@ public class ModelManager extends ComponentManager implements Model {
             return timeB - timeA;
         }
     }
+   
+    private class AToZComparator implements Comparator<ReadOnlyTask> {
 
-    private class AToZComparator implements Comparator<Task> {
         @Override
-        public int compare(Task a, Task b) {
+        public int compare(ReadOnlyTask a, ReadOnlyTask b) {
             return a.getName().getName().compareTo(b.getName().getName());
         }
     }
 
-    private class ZToAComparator implements Comparator<Task> {
+    private class ZToAComparator implements Comparator<ReadOnlyTask> {
         @Override
-        public int compare(Task a, Task b) {
+        public int compare(ReadOnlyTask a, ReadOnlyTask b) {
             return b.getName().getName().compareTo(a.getName().getName());
         }
     }
