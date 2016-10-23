@@ -66,14 +66,12 @@ public class DateTime {
                 if(!isValidFormatFor_GivenKeyword(dateTime, preKeyword))
                     throw new IllegalValueException(MESSAGE_KEYWORD_ON_CONSTRAINTS);
                 
-                this.valueDate = valueDateFormatter(matcher, preKeyword);
+                this.valueDate = DateTimeParser.valueDateFormatter(matcher, preKeyword);
                 this.context = setContext(valueDate, null);
                 this.overdueContext = setOverdueContext(valueDate, null);
                 this.eventContext = "";
-                this.valueFormatted = valueFormatter(matcher, preKeyword) + context;
-                
-
-                
+                this.valueFormatted = DateTimeParser.valueFormatter(matcher, preKeyword) + context;
+             
                 this.valueTime = null;
                 this.valueDateEnd = null;
                 this.valueTimeEnd = null;
@@ -81,17 +79,14 @@ public class DateTime {
             }else if(preKeyword.equals("by")){
                 if(!isValidFormatFor_GivenKeyword(dateTime, preKeyword))
                     throw new IllegalValueException(MESSAGE_KEYWORD_BY_CONSTRAINTS);
-                
-
-                
-                this.valueDate = valueDateFormatter(matcher, preKeyword);                
-                this.valueTime = valueTimeFormatter(matcher, preKeyword); 
+                 
+                this.valueDate = DateTimeParser.valueDateFormatter(matcher, preKeyword);                
+                this.valueTime = DateTimeParser.valueTimeFormatter(matcher, preKeyword); 
                 this.context = setContext(valueDate, valueTime);
                 this.overdueContext = setOverdueContext(valueDate, valueTime);  
                 this.eventContext = "";
-                this.valueFormatted = valueFormatter(matcher, preKeyword) + context;
+                this.valueFormatted = DateTimeParser.valueFormatter(matcher, preKeyword) + context;
 
-                
                 this.valueDateEnd = null;
                 this.valueTimeEnd = null;
                 
@@ -101,17 +96,17 @@ public class DateTime {
                 
                 final String aftKeyword = matcher.group("aftKeyword").trim();
                 
-                this.valueDate = valueDateFormatter(matcher, preKeyword);                
-                this.valueTime = valueTimeFormatter(matcher, preKeyword);
+                this.valueDate = DateTimeParser.valueDateFormatter(matcher, preKeyword);                
+                this.valueTime = DateTimeParser.valueTimeFormatter(matcher, preKeyword);
                 this.context = setContext(valueDate, valueTime);
 
-                this.valueDateEnd = valueDateFormatter(matcher, aftKeyword);
-                this.valueTimeEnd = valueTimeFormatter(matcher, aftKeyword);
+                this.valueDateEnd = DateTimeParser.valueDateFormatter(matcher, aftKeyword);
+                this.valueTimeEnd = DateTimeParser.valueTimeFormatter(matcher, aftKeyword);
                 this.overdueContext = setOverdueContext(valueDateEnd, valueTimeEnd); 
                 this.eventContext = setEventContext(valueDate, valueTime, valueDateEnd, valueTimeEnd);
                 
-                this.valueFormatted = valueFormatter(matcher, preKeyword) + " "
-                                    + valueFormatter(matcher, aftKeyword) + context + eventContext;                     
+                this.valueFormatted = DateTimeParser.valueFormatter(matcher, preKeyword) + " "
+                                    + DateTimeParser.valueFormatter(matcher, aftKeyword) + context + eventContext;                     
             }
             this.value = dateTime;
         }
@@ -129,68 +124,6 @@ public class DateTime {
                 return false;
         }
     }
-    
-    private LocalDate valueDateFormatter(Matcher matcher, String keyword){
-        
-        String day = matcher.group("day");
-        String month = matcher.group("month");
-        String year = matcher.group("year");
-        
-        if(keyword.equals("to")){
-            day = matcher.group("dayEnd");
-            month = matcher.group("monthEnd");
-            year = matcher.group("yearEnd");
-        }
-        
-        int yearParsed = Integer.parseInt(year);
-        int monthParsed = Integer.parseInt(month);
-        int dayParsed = Integer.parseInt(day);
-            
-        return LocalDate.of(yearParsed, monthParsed, dayParsed);
-    }
-    
-    private LocalTime valueTimeFormatter(Matcher matcher, String keyword){
-        
-        String hour = matcher.group("hour");
-        String minute = matcher.group("minute");
-        
-        if(keyword.equals("to")){
-            hour = matcher.group("hourEnd");
-            minute = matcher.group("minuteEnd");
-        }
-        
-        int hourParsed = Integer.parseInt(hour);
-        int minuteParsed = Integer.parseInt(minute);
-        
-        return LocalTime.of(hourParsed, minuteParsed);
-    }
-    
-    private String valueFormatter(Matcher matcher, String keyword){
-        
-        String day = matcher.group("day");
-        String month = matcher.group("month");
-        String year = matcher.group("year");
-        String hour = matcher.group("hour");
-        String minute = matcher.group("minute");
-        
-        if(keyword.equals("to")){
-            day = matcher.group("dayEnd");
-            month = matcher.group("monthEnd");
-            year = matcher.group("yearEnd");
-            hour = matcher.group("hourEnd");
-            minute = matcher.group("minuteEnd");
-        }
-        
-        int monthParsed = Integer.parseInt(month);
-        
-        if(keyword.equals("on"))
-            return keyword + " " + day + " " + returnMonthInWords(monthParsed) + " " + year;
-        else{
-            return keyword + " " + day + " " + returnMonthInWords(monthParsed) +  " " 
-                    + year + ", " + hour + ":" + minute;
-        }
-    }
-    
 
     public String setContext(LocalDate valueDate, LocalTime valueTime) {
     	String context = ""; 
@@ -308,58 +241,12 @@ public class DateTime {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DateTime // instanceof handles nulls
-                && this.value.equals(((DateTime) other).value)); // state check
+                && this.valueFormatted.equals(((DateTime) other).valueFormatted)); // state check
     }
 
     @Override
     public int hashCode() {
         return value.hashCode();
-    }
-    
-    private String returnMonthInWords(int monthParsed){
-        String monthInWords;
-        
-        switch(monthParsed){
-            case 1:
-                monthInWords = "Jan";
-                break;
-            case 2:
-                monthInWords = "Feb";
-                break;
-            case 3:
-                monthInWords = "Mar";
-                break;
-            case 4:
-                monthInWords = "Apr";
-                break;
-            case 5:
-                monthInWords = "May";
-                break;
-            case 6:
-                monthInWords = "Jun";
-                break;
-            case 7:
-                monthInWords = "Jul";
-                break;
-            case 8:
-                monthInWords = "Aug";
-                break;
-            case 9:
-                monthInWords = "Sep";
-                break;
-            case 10:
-                monthInWords = "Oct";
-                break;
-            case 11:
-                monthInWords = "Nov";
-                break;
-            case 12:
-                monthInWords = "Dec";
-                break;             
-            default: monthInWords = "Invalid month";
-        }
-        
-        return monthInWords;
     }
     
 }
