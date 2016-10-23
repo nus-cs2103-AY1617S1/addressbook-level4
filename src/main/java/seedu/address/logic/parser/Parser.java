@@ -63,6 +63,7 @@ public class Parser {
 
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>.*\\S+.*)'");
 
+	
 	//@@author A0141019U-reused
 	public Command parseCommand(String userInput) {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -115,16 +116,29 @@ public class Parser {
 		}
 	}
 	
-	//@@author
+	//@@author A0139339W
+	/**
+	 * parse the argument based on first occurrence of keyword "not"
+	 * indices before not are for tasks to be marked done
+	 * indices after not are for tasks to be marked not done
+	 * missing keyword "not" means all indices are for tasks to be marked done
+	 */
 	private Command prepareDone(String arguments) {
-		int[] indices;
+		String[] args = arguments.split("not");
+		int[] doneIndices = new int[0];
+		int[] notDoneIndices = new int[0];
 		try {
-			indices = prepareIndexList(arguments);
+			if(!args[0].equals("")) {
+			    doneIndices = prepareIndexList(args[0]);
+			}
+			if(args.length > 1) {
+				notDoneIndices = prepareIndexList(args[1].trim());
+			}
 		} catch (IncorrectCommandException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
 		}
 
-		return new DoneCommand(indices);
+		return new DoneCommand(doneIndices, notDoneIndices);
 	}
 
 
@@ -351,15 +365,16 @@ public class Parser {
 
 		String[] args = arguments.split(" ");
 
-		System.out.println(Arrays.toString(args));
-
 		String taskType = null;
 		String done = null;
 		for (int i = 0; i < args.length; i++) {
 			switch (args[i].trim()) {
 			case "event":
+			case "ev":
 			case "deadline":
+			case "dl":
 			case "someday":
+			case "sd":
 				taskType = args[i];
 				break;
 			case "done":
@@ -371,16 +386,7 @@ public class Parser {
 			}
 		}
 
-		System.out.println("task type: " + taskType);
-		System.out.println("done: " + done);
-
-		// TODO return new listcommand(taskType, done)
-		// Since both taskType and done may be supplied as the only parameter to
-		// the listcommand constructor,
-		// the listcommand constructor must make null checks. Alternatively, the
-		// parameters can be encapsulated in an object
-		// and the constructor overloaded.
-		return new ListCommand();
+		return new ListCommand(taskType, done);
 	}
 	
 	//@@author
@@ -522,6 +528,7 @@ public class Parser {
 		ArrayList<Optional<Integer>> optionals = new ArrayList<>();
 
 		for (int i = 0; i < indexStrings.length; i++) {
+			System.out.println("parseIndices: " + indexStrings[i].trim());
 			if (!StringUtil.isUnsignedInteger(indexStrings[i].trim())) {
 				optionals = new ArrayList<>();
 				optionals.add(Optional.empty());

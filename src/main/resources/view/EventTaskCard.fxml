@@ -19,7 +19,7 @@
             <ColumnConstraints hgrow="NEVER" maxWidth="80.0" minWidth="80.0" />
          </columnConstraints>
          <children>
-            <Label fx:id="taskType" style="-fx-background-color: #38d0ff; -fx-font-weight: bold;" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="taskType" style="-fx-background-color: #38d0ff; -fx-font-weight: bold; -fx-font-size: 15;" text="\$taskType" textAlignment="RIGHT" textOverrun="CLIP" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -38,7 +38,7 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <HBox alignment="CENTER_LEFT" prefHeight="50.0" translateX="10.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="50.0" translateX="10.0" translateY="-4.0">
                <children>
                   <Label fx:id="id" minWidth="10.0" styleClass="cell_big_label" />
                   <Label fx:id="taskName" styleClass="cell_big_label" text="\$taskName" HBox.hgrow="ALWAYS">
@@ -72,7 +72,7 @@
             <RowConstraints />
          </rowConstraints>
       </GridPane>
-      <GridPane>
+      <GridPane prefHeight="38.0" prefWidth="600.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
@@ -83,27 +83,18 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" translateY="-8.0" GridPane.rowIndex="1">
                <children>
-                  <Label text="Tags: ">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="tags" prefWidth="500.0" styleClass="cell_small_label" text="\$tags">
-                     <stylesheets>
-                        <URL value="@DarkTheme.css" />
-                        <URL value="@Extensions.css" />
-                     </stylesheets>
-                  </Label>
+                  <Label style="-fx-text-fill: #3c3838; -fx-font-size: 13;" text="Tags: " />
+                  <Label fx:id="tags" prefWidth="500.0" style="-fx-text-fill: #3c3838; -fx-font-size: 13;" text="\$tags" textFill="#514545" />
                </children>
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
             </HBox>
-            <HBox alignment="CENTER_LEFT" translateY="-6.0">
+            <HBox alignment="CENTER_LEFT" translateY="-9.0">
                <children>
-                  <Label fx:id="startDateAndTime" text="\$startDateAndTime" textFill="#615b5b" />
-                  <Label text="  —  " textFill="#615b5b" />
-                  <Label fx:id="endDateAndTime" text="\$endDateAndTime" textFill="#615b5b" />
+                  <Label fx:id="startDateAndTime" style="-fx-font-size: 13; -fx-text-fill: #3c3838;" text="\$startDateAndTime" textFill="#615b5b" />
+                  <Label style="-fx-font-size: 10; -fx-text-fill: #3c3838;" text="  —  " textFill="#615b5b" />
+                  <Label fx:id="endDateAndTime" style="-fx-text-fill: #3c3838; -fx-font-size: 13;" text="\$endDateAndTime" textFill="#615b5b" />
                </children>
                <GridPane.margin>
                   <Insets left="20.0" />

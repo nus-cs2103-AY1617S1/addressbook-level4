@@ -1,14 +1,13 @@
+//@@author A0142184L
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
+import seedu.address.model.task.TaskDateTimeFormatter;
 
 public class EventTaskCard extends UiPart{
 
@@ -50,11 +49,20 @@ public class EventTaskCard extends UiPart{
         taskName.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         taskType.setText(task.getTaskType().toString());
-        startDateAndTime.setText(task.getStartDate().get().toString());
-        endDateAndTime.setText(task.getEndDate().get().toString());
+        setTaskDateTime();
         setTaskStatus();
         tags.setText(task.tagsString());
     }
+
+	private void setTaskDateTime() {
+		if (task.getStartDate().get().toLocalDate().equals(task.getEndDate().get().toLocalDate())) {
+            startDateAndTime.setText(TaskDateTimeFormatter.formatToShowDateAndTime(task.getStartDate().get()));
+            endDateAndTime.setText(TaskDateTimeFormatter.formatToShowTimeOnly(task.getEndDate().get().toLocalTime()));
+        } else {
+          startDateAndTime.setText(TaskDateTimeFormatter.formatToShowDateAndTime(task.getStartDate().get()));
+          endDateAndTime.setText(TaskDateTimeFormatter.formatToShowDateAndTime(task.getEndDate().get()));
+        }
+	}
 
     private void setTaskStatus() {
 		if (task.getStatus().value.equals(Status.DoneStatus.DONE)) {

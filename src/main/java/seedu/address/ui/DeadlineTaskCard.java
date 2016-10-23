@@ -1,15 +1,13 @@
+//@@author A0142184L
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
-import seedu.address.model.task.TaskType;
+import seedu.address.model.task.TaskDateTimeFormatter;
 
 public class DeadlineTaskCard extends UiPart{
 
@@ -49,7 +47,7 @@ public class DeadlineTaskCard extends UiPart{
         taskName.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         taskType.setText(task.getTaskType().toString());
-        dueDateAndTime.setText(task.getEndDate().get().toString());
+        dueDateAndTime.setText(TaskDateTimeFormatter.formatToShowDateAndTime(task.getEndDate().get()));
         setTaskStatus();
         tags.setText(task.tagsString());
     }

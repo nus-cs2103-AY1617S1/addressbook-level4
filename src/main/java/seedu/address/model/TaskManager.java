@@ -46,7 +46,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getTasks() {
+    public ObservableList<Task> getFilteredTasks() {
         return tasks.getInternalList();
     }
 

@@ -56,8 +56,10 @@ public class EditCommand extends Command {
         model.saveState();
         
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> fullList = model.getUnfilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
+            model.loadPreviousState();
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -65,27 +67,29 @@ public class EditCommand extends Command {
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
 
         try {
-        	Task postEdit = new Task(taskToEdit);
+            Task postEdit = new Task(taskToEdit);
+            int index = fullList.indexOf(postEdit);
+            if(newName.isPresent()) {
+        	    postEdit.setName(newName.get());
+            }
         	
-        	if(newName.isPresent()) {
-        		postEdit.setName(newName.get());
-        	}
+            if(newStartDateTime.isPresent()) {
+                postEdit.setStartDate(newStartDateTime.get());
+            }
         	
-        	if(newStartDateTime.isPresent()) {
-        		postEdit.setStartDate(newStartDateTime.get());
-        	}
+            if(newEndDateTime.isPresent()) {
+                postEdit.setEndDate(newEndDateTime.get());
+            }
         	
-        	if(newEndDateTime.isPresent()) {
-        		postEdit.setEndDate(newEndDateTime.get());
-        	}
+            if(lastShownList.contains(postEdit)) {
+                model.loadPreviousState();
+                return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            }
         	
-        	if(lastShownList.contains(postEdit)) {
-        		return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        	}
-        	
-            model.editTask(targetIndex, postEdit);
+            model.editTask(index, postEdit);
             
         } catch (TaskNotFoundException tnfe) {
+            model.loadPreviousState();
             assert false : "The target task cannot be missing";
         }
         
