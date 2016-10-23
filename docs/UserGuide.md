@@ -92,7 +92,7 @@
 
 5. Press `Enter`.
 
-[comment]: # (//@@author A0140060A)
+[comment]: # (@@author A0140060A)
 
 ### When you need to find a deadline, task or event
 1. Type `f[ind] KEYWORD` where `KEYWORD` is part of the item's name.
@@ -157,7 +157,8 @@ For deadlines, you can only edit the name, end date and time.
 
 #### Edit an event’s name, start date, start time, end date and end time
 
-For events, you can edit the name and both start and end dates and times.
+For events, you can edit the name and both start and end dates and times. <br>
+(Note: editing the end datetime to be before the start datetime is an illegal operation and is not allowed)
 
 ##### If you know the keyword of the event
 
@@ -178,6 +179,9 @@ If you know the index of the event in the displayed list
 
 2. Press `Enter`.
 
+> Example Command: `edit 1 n/CS2103 sdt/next friday 2 pm edt/next friday 4 pm #work #-play`
+
+[comment]: # (@@author )
 
 ### When you need to view your deadlines, tasks and events
 
