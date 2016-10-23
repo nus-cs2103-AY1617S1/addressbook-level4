@@ -333,7 +333,7 @@ Command | Format
 [Mark Undone](#marking-tasks--mark) | `mark /ud <INDEX>[ , <INDEX>, <INDEX>, ...]`
 [Reserve](#reserving-timeslots-for-a-task--rsv) | `rsv /n <TASK_NAME> /dt <START_DATE/TIME> to <END_DATE/TIME> [, <START_DATE/TIME> to <END_DATE/TIME>, …]`
 [Reserve [Delete]](#deleting-a-task-with-reserved-timeslots--rsv-d) | `rsv /d <INDEX>`
-[Tag [Delete]](#deleting-a-tag--tag-d) | `tag /d <INDEX>`
+[Tag [Delete]](#deleting-a-tag--tag-del) | `tag /del <INDEX>`
 [Tag [Edit]](#editing-a-tags-name--tag-e) | `tag /e <INDEX> <TAG>`
 [Tag [List]](#listing-all-tags--tag-ls) | `tag /ls`
 [Undo](#undoing-a-command--undo) | `undo`
