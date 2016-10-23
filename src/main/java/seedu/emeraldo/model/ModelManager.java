@@ -77,13 +77,11 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	
     	if(savedStates.size() > 1){
-    	    System.out.println("GREATER THAN ONE");
     	    savedStates.pop();    	    
 	        emeraldo.resetData(savedStates.peek());
     	    indicateEmeraldoChanged();
     	}
     	else if(savedStates.size() == 1){
-    	    System.out.println("SIZE == 1");
     	    throw new UndoException();
     	}
     	else{
