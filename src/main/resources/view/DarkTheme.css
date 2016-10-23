@@ -278,6 +278,18 @@
     -fx-border-width: 1 1 1 1;
 }
 
+#cardPane2 {
+    -fx-background-color: transparent;
+    -fx-border-color: #d6d6d6;
+    -fx-border-width: 1 1 1 1;
+}
+
+#cardPane3 {
+    -fx-background-color: transparent;
+    -fx-border-color: #d6d6d6;
+    -fx-border-width: 1 1 1 1;
+}
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;
