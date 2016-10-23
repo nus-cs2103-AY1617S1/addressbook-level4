@@ -8,10 +8,9 @@ import org.junit.Test;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.testutil.TaskBuilder;
 
+//@@author A0135782Y
 /**
  * Unit Tester that tests the methods of the Task class
- * 
- * @author User
  *
  */
 public class TaskTester {

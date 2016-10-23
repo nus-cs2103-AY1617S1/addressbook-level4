@@ -24,6 +24,7 @@ public class XmlAdaptedTaskComponent {
     private String name;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    //@@author A0135782Y
     @XmlElement
     private long startDate;
     @XmlElement
@@ -32,13 +33,14 @@ public class XmlAdaptedTaskComponent {
     private String recurringType;
     @XmlElement
     private boolean isArchived;
+    //@@author
     
     /**
      * No-arg constructor for JAXB use.
      */
     public XmlAdaptedTaskComponent() {}
 
-
+    //@@author A0135782Y
     /**
      * Converts a given Task into this class for JAXB use.
      *
@@ -50,6 +52,7 @@ public class XmlAdaptedTaskComponent {
         for (Tag tag : source.getTaskReference().getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
+
         if (source.getTaskReference().getTaskType() == TaskType.NON_FLOATING) {
             startDate = source.getStartDate().getDateInLong();
             endDate = source.getEndDate().getDateInLong();
@@ -69,7 +72,7 @@ public class XmlAdaptedTaskComponent {
         recurringType = source.getTaskReference().getRecurringType().name();
         isArchived = source.isArchived();
     }
-
+    
     /**
      * Converts this jaxb-friendly adapted task object into the model's Task object.
      *
@@ -82,12 +85,12 @@ public class XmlAdaptedTaskComponent {
         }
         final Name name = new Name(this.name);
         final UniqueTagList tags = new UniqueTagList(taskTags);
+        
         if (endDate != TaskDate.DATE_NOT_PRESENT) {
             return toModelTypeNonFloating(name, tags);
         }
         return toModelTypeFloating(name, tags);
     }
-
 
     private Task toModelTypeFloating(final Name name, final UniqueTagList tags) {
     	Task task = new Task(name, tags);
@@ -120,4 +123,5 @@ public class XmlAdaptedTaskComponent {
 
         return task;
     }
+    //@@author
 }

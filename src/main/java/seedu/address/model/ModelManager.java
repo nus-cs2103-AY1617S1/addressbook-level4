@@ -38,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final List<Task> tasks;
     private final FilteredList<TaskComponent> filteredTaskComponents;
     
+    //@@author A0135782Y
     /**
      * Initializes a ModelManager with the given TaskList
      * TaskList and its variables should not be null
@@ -52,20 +53,25 @@ public class ModelManager extends ComponentManager implements Model {
         tasks = taskMaster.getTasks();
         filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
         RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
-        RecurringTaskManager.getInstance().setInitialisedTime();
+        RecurringTaskManager.getInstance().updateAnyRecurringTasks();
+        
     }
-
+    //@@author
     public ModelManager() {
         this(new TaskMaster(), new UserPrefs());
     }
 
+    //@@author A0135782Y
     public ModelManager(ReadOnlyTaskMaster initialData, UserPrefs userPrefs) {
         taskMaster = new TaskMaster(initialData);
         tasks = taskMaster.getTasks();
+        
         filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
         RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
-        RecurringTaskManager.getInstance().setInitialisedTime();
+        RecurringTaskManager.getInstance().updateAnyRecurringTasks();
+      
     }
+    //@@author
 
     @Override
     public void resetData(ReadOnlyTaskMaster newData) {
@@ -97,8 +103,7 @@ public class ModelManager extends ComponentManager implements Model {
     	updateFilteredListToShowAll();
     }
     
-    
-
+    //@@author A0135782Y
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException {
         taskMaster.addTask(task);
@@ -193,9 +198,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(TaskComponent task) {
-
         	return task.getTaskReference().getTaskType().equals(typeKeyWords) && !task.isArchived();
-            
         }
 
         @Override
@@ -205,6 +208,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author
 
+    //@@author A0135782Y
     private class ArchiveQualifier implements Qualifier {
         private boolean isArchived;
 
@@ -214,7 +218,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(TaskComponent task) {
-
             return task.isArchived() == isArchived;
         }
 
@@ -223,7 +226,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "type=" + isArchived;
         }
     }
-    
+    //@@author
     
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;

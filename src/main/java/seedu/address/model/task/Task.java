@@ -78,7 +78,8 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-    
+
+    //@@author A0135782Y
     @Override
     public List<TaskComponent> getTaskDateComponent() {
         return recurringDates;
@@ -103,6 +104,7 @@ public class Task implements ReadOnlyTask {
         }
         this.recurringType = type;
     }
+    //@@author
     
     /**
      * Replaces this task's tags with the tags in the argument tag list.
@@ -129,6 +131,7 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
     
+    //@@author A0135782Y
     @Override
     public void completeTaskWhenAllComponentArchived() {
         for (TaskComponent c : recurringDates) {
@@ -138,7 +141,8 @@ public class Task implements ReadOnlyTask {
         }
         taskType = TaskType.COMPLETED;
     }
-
+    //@@author
+    
 	@Override
 	public void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) {
 		if(name != null)
@@ -176,6 +180,7 @@ public class Task implements ReadOnlyTask {
 		
 	}
 	
+	//@@author A0135782Y
 	@Override
 	public TaskComponent getComponentForNonRecurringType() {
 	    assert recurringDates.size() == 1 : "This method should only be used for non recurring tasks";
@@ -192,4 +197,5 @@ public class Task implements ReadOnlyTask {
 	    assert !recurringType.equals(RecurringType.NONE) : "You cannot append new dates to non recurring tasks";
 	    recurringDates.add(componentToBeAdded);
 	}
+	//@@author
 }
