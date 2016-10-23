@@ -19,7 +19,7 @@ import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList;
 
-//@@A0135782Y
+//@@author A0135782Y
 /**
  * Handles the behaviour of recurring tasks
  * Dictates when should the recurring tasks be shown
@@ -39,14 +39,6 @@ public class RecurringTaskManager {
     
     private UniqueTaskList repeatingTasks;
     private RecurringTaskManager() {}
-    
-    /**
-     * Initalised the time for recurring task manager to track
-     * Updates any of the outdated task to their recurring next date 
-     */
-    public void setInitialisedTime() {
-        updateAnyRecurringTasks(); // updates once every boot up
-    }
     
     public void setTaskList(UniqueTaskList referenceList) {
         assert referenceList != null : "Reference Task list cannot be null";
