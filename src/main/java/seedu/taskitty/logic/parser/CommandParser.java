@@ -358,24 +358,26 @@ public class CommandParser {
      */
     private Command prepareDelete(String args) {
         
-        args = args.trim();
-        if (args.length() != 1 && args.length() != 2) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-        //takes the last argument given for parsing index
-        Optional<Integer> index = parseIndex(args.substring(args.length() - 1));
+        args = args.trim();                
+        Optional<Integer> checkForCategory = parseIndex(args.substring(0, 1));
+        Optional<Integer> index;
+        int categoryIndex;
         
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        if (checkForCategory.isPresent()){
+            index = parseIndex(args);
+            categoryIndex = TaskUtil.getDefaultCategoryIndex();
+        } else {            
+            index = parseIndex(args.substring(1));
+            categoryIndex = TaskUtil.getCategoryIndex(args.substring(0,1));
         }
         
-        if (args.length() == 1) {
-            return new DeleteCommand(index.get());
-        } else {
-            return new DeleteCommand(index.get(), TaskUtil.getCategoryIndex(args.substring(0, 1)));
+        System.out.println(categoryIndex);
+        if (!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+        
+        return new DeleteCommand(index.get(), categoryIndex);
     }
     
     //@@author A0135793W
@@ -387,24 +389,25 @@ public class CommandParser {
      */
     private Command prepareDone(String args) {
         
-        args = args.trim();
-        if (args.length() != 1 && args.length() != 2) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        args = args.trim();                
+        Optional<Integer> checkForCategory = parseIndex(args.substring(0, 1));
+        Optional<Integer> index;
+        int categoryIndex;
+        
+        if (checkForCategory.isPresent()){
+            index = parseIndex(args);
+            categoryIndex = TaskUtil.getDefaultCategoryIndex();
+        } else {            
+            index = parseIndex(args.substring(1));
+            categoryIndex = TaskUtil.getCategoryIndex(args.substring(0,1));
         }
-        //takes the last argument given for parsing index
-        Optional<Integer> index = parseIndex(args.substring(args.length() - 1));
         
         if (!index.isPresent()){
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
-        if (args.length() == 1) {
-            return new DoneCommand(index.get());
-        } else {
-            return new DoneCommand(index.get(), TaskUtil.getCategoryIndex(args.substring(0, 1)));
-        }
+        return new DoneCommand(index.get(), categoryIndex);
     }
     
     /**
@@ -420,10 +423,19 @@ public class CommandParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
-        String indexWithCategory = splitArgs[0];
-        Optional<Integer> index = parseIndex(indexWithCategory.substring(indexWithCategory.length() - 1));
-
-        if(!index.isPresent() || (indexWithCategory.length() != 1 && indexWithCategory.length() != 2)){
+        Optional<Integer> checkForCategory = parseIndex(splitArgs[0].substring(0, 1));
+        Optional<Integer> index;
+        int categoryIndex;
+        
+        if (checkForCategory.isPresent()){
+            index = parseIndex(args);
+            categoryIndex = TaskUtil.getDefaultCategoryIndex();
+        } else {            
+            index = parseIndex(args.substring(1));
+            categoryIndex = TaskUtil.getCategoryIndex(splitArgs[0].substring(0,1));
+        }
+        
+        if (!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
@@ -437,18 +449,11 @@ public class CommandParser {
             String taskDetailArguments = getTaskDetailArguments(arguments);
             String tagArguments = getTagArguments(arguments);
 
-            if (indexWithCategory.length() == 1) {
-                return new EditCommand(
-                        extractTaskDetailsNatty(taskDetailArguments),
-                        getTagsFromArgs(tagArguments),
-                        index.get());  
-            } else {
-                return new EditCommand(
-                        extractTaskDetailsNatty(taskDetailArguments),
-                        getTagsFromArgs(tagArguments),
-                        index.get(),
-                        TaskUtil.getCategoryIndex(indexWithCategory.substring(0, 1)));            
-            }
+            return new EditCommand(
+                    extractTaskDetailsNatty(taskDetailArguments),
+                    getTagsFromArgs(tagArguments),
+                    index.get(),
+                    categoryIndex);            
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
