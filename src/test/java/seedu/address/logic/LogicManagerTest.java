@@ -34,10 +34,10 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.TaskBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskBook;
+import seedu.address.model.TaskBook;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Datetime;
@@ -45,6 +45,7 @@ import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
+import seedu.address.model.task.Status.State;
 import seedu.address.model.task.Task;
 import seedu.address.storage.StorageManager;
 
@@ -79,6 +80,7 @@ public class LogicManagerTest {
         targetedJumpIndex = je.targetIndex;
     }
 
+    // The annotation @Before marks a method to be executed before EACH test
     @Before
     public void setup() {
         model = new ModelManager();
@@ -128,7 +130,7 @@ public class LogicManagerTest {
 
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
-
+        
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedDatedList, model.getFilteredDatedTaskList());
@@ -394,13 +396,11 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeEdited);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateEditCommand(1, "new name"),
+        assertCommandBehavior(helper.generateEditCommand(1, 1, "new name"),
                 String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, toBeEdited),
                 expectedAB, expectedAB.getDatedTaskList(),
                 expectedAB.getUndatedTaskList());
     }
-
-
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
@@ -484,6 +484,59 @@ public class LogicManagerTest {
                 (Command.getMessageForPersonListShownSummary(
                         expectedDatedTaskList.size()+expectedUndatedTaskList.size())),
                 expectedAB, expectedDatedTaskList, expectedUndatedTaskList);
+    }
+
+    // TODO: currently, edits that don't include old tags removes all tags 
+    // masterlist of tags in TaskBook also need to be changed
+    @Test
+    public void execute_edit_dated_successful() throws Exception {
+
+        // initial task in actual model to be edited
+        Task original = new Task (new Name("adam"), new Description("111111"),
+                new Datetime("11-11-2011 1111"), new Status(State.NONE), 
+                new UniqueTagList(new Tag("tag1"), new Tag("tag2")));
+        
+        model.addTask(original);
+        
+    	String [] editInputs = new String [] {
+    		"edit 11 name changed t/tag1 t/tag2", // edit name
+    		"edit 11 d/change description too t/tag1 t/tag2", // edit description
+    		"edit 11 date/12-11-2011 1111 t/tag1 t/tag2", // edit date
+    		"edit 11 t/tag3 t/tag4", // edit tags
+    		"edit 11 date/ t/tag3 t/tag4" // edit dated -> undated
+    	};
+    	
+    	Task editedTasks [] = new Task [] {
+                new Task (new Name("name changed"), new Description("111111"), new Datetime("11-11-2011 1111"),
+                                new Status(State.NONE), new UniqueTagList(new Tag("tag1"), new Tag("tag2"))),
+                new Task (new Name("name changed"), new Description("change description too"), new Datetime("11-11-2011 1111"),
+                                new Status(State.NONE), new UniqueTagList(new Tag("tag1"), new Tag("tag2"))),
+                new Task (new Name("name changed"), new Description("change description too"), new Datetime("12-11-2011 1111"),
+                                new Status(State.NONE), new UniqueTagList(new Tag("tag1"), new Tag("tag2"))),
+                new Task (new Name("name changed"), new Description("change description too"), new Datetime("12-11-2011 1111"),
+                                new Status(State.NONE), new UniqueTagList(new Tag("tag3"), new Tag("tag4"))),
+                new Task (new Name("name changed"), new Description("change description too"), new Datetime(""),
+                                new Status(State.NONE), new UniqueTagList(new Tag("tag3"), new Tag("tag4")))
+        };
+    	
+    	// state of the TaskBook after each edit
+    	// for now it's simply editing a single person in the TaskBook
+    	TaskBook [] expectedTaskBooks = new TaskBook [10];
+    
+    	for (int i = 0; i < 3; i++){
+    		expectedTaskBooks[i] = new TaskBook();
+    		expectedTaskBooks[i].addTask(editedTasks[i]);
+    		execute_edit(editedTasks[i], expectedTaskBooks[i], editInputs[i]);
+    	}
+    }
+    
+    private void execute_edit(Task editedTask, TaskBook expectedTB, String editInput) throws Exception {
+    	
+        // execute command and verify result
+        assertCommandBehavior(editInput,
+                    String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedTask),
+                    expectedTB, expectedTB.getDatedTasks(),
+                    expectedTB.getUndatedTaskList());
     }
 
     /**
@@ -583,10 +636,10 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct edit command based on the person given */
-        String generateEditCommand(int field, String params) {
+        String generateEditCommand(int index, int field, String params) {
             StringBuffer cmd = new StringBuffer();
 
-            cmd.append("edit 11");
+            cmd.append("edit " + index);
 
             switch(field){
             case 1:
