@@ -6,7 +6,6 @@ import java.util.Stack;
 
 import org.junit.Test;
 
-import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.logic.commands.UndoCommand;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
@@ -92,6 +91,6 @@ public class UndoCommandTest extends TaskManagerGuiTest {
     
     private void assertNoMoreUndos() {
         commandBox.runCommand("undo");        
-        assertResultMessage(Messages.MESSAGE_NO_PREVIOUS_COMMANDS);
+        assertResultMessage(UndoCommand.MESSAGE_NO_PREVIOUS_COMMANDS);
     }
 }
