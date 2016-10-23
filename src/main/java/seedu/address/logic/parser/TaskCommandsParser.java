@@ -16,6 +16,8 @@ public class TaskCommandsParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private String commandWord;
+    private String arguments;
     
     public TaskCommandsParser() {}
     
@@ -30,10 +32,24 @@ public class TaskCommandsParser {
         if (!matcher.matches()) {
             return new IncorrectTaskCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, "Type help if you want to know the list of commands."));
         }
-
-        final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments").trim();
+        commandWord = matcher.group("commandWord");
+        arguments = matcher.group("arguments").trim();
         CommandParser command =  ParserSelector.getByCommandWord(commandWord);
         return command.prepareCommand(arguments);
+    }
+    
+    /** 
+     * Retrieves command word for testing purposes
+     * @return command word string
+     */
+    public String getCommandWord(){
+    	return commandWord;
+    }
+    /** 
+     * Retrieves arguments for testing purposes
+     * @return arguments string
+     */
+    public String getArguments(){
+    	return arguments;
     }
 }
