@@ -46,6 +46,12 @@ public class Task implements ReadOnlyTask{
             start = constructDateTime(startDate, startTime);
         }
         end = constructDateTime(endDate, endTime);
+        
+        Date currentDate  = new Date();
+        if (start.before(currentDate) || end.before(currentDate)) {
+            throw new IllegalValueException("You have enetered a past date or time!");
+        }
+        
     }
     
 

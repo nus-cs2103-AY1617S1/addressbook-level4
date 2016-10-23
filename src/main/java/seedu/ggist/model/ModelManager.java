@@ -153,7 +153,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         updateFilteredListToShowAll(new PredicateExpression(new AllQualifier()));
-//        sortFilteredList();
+//      sortFilteredList();
     }
     public void updateFilteredListToShowAll(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
@@ -192,7 +192,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
-        sortFilteredList();
+//        sortFilteredList();
     }
 
     public void updateFilteredTaskList(Expression expression) {
@@ -294,7 +294,7 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
             return taskDateKeyWords.equals(task.getStartDate().toString()) || 
                    taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString()) && !task.getDone() ||
-                   (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED));          
+                   (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) && !task.getDone());          
         }
 
         @Override
