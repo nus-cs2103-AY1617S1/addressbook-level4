@@ -62,10 +62,10 @@ public class EditCommand extends Command{
             }
 
             ReadOnlyTask eventToEdit = lastShownEventList.get(targetIndex - 1);
+            System.out.println(eventToEdit +"his adasd " + category + " " + editArgs );
 
             try {
                 model.editTask(eventToEdit, editArgs, category);
-                assert false: "The target task cannot be missing";
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -88,7 +88,6 @@ public class EditCommand extends Command{
 
             try {
                 model.editTask(deadlineToEdit, editArgs, category);
-                assert false: "The target Deadline cannot be missing";
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -111,7 +110,6 @@ public class EditCommand extends Command{
 
             try {
                 model.editTask(todoToEdit, editArgs, category);
-                assert false: "The target Todo cannot be missing";
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
