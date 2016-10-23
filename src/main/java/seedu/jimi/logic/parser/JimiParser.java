@@ -48,16 +48,16 @@ public class JimiParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("[te](?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     private static final Pattern TAGGABLE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)"); // zero or one tag only
-
+    
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
-            Pattern.compile("(?<targetIndex>[te]\\d+\\s)(?<editDetails>.+)");
+            Pattern.compile("(?<targetIndex>[^\\s]+) (?<editDetails>.+)");
     
     // acccepts in the format of a deadline task or event
     private static final Pattern EDIT_DETAILS_FORMAT = Pattern.compile(
@@ -243,11 +243,12 @@ public class JimiParser {
      */
     private Command prepareEdit(String args) {
         final Matcher detailsAndTagsMatcher = TAGGABLE_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
+        // Validate full raw args string format
         if (!detailsAndTagsMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
+        // Validate args in terms of <idx><details>
         final Matcher editArgsMatcher =
                 EDIT_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("ArgsDetails").trim());
         if (!editArgsMatcher.matches()) {
@@ -259,6 +260,7 @@ public class JimiParser {
             return new EditCommand(editArgsMatcher.group("targetIndex"));
         }
         
+        // Validate details in terms of <name><due X> or <name><on X><to X>
         final Matcher editDetailsMatcher =
                 EDIT_DETAILS_FORMAT.matcher(editArgsMatcher.group("editDetails").trim());
         if (!editDetailsMatcher.matches()) {
@@ -281,7 +283,7 @@ public class JimiParser {
         List<Date> eventEnd = parseStringToDate(editDetailsMatcher.group("endDateTime"));
         
         /* validating integer index */
-        Optional<Integer> index = parseIndex(editArgsMatcher.group("targetIndex").substring(1));
+        Optional<Integer> index = parseIndex(editArgsMatcher.group("targetIndex"));
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
@@ -332,12 +334,13 @@ public class JimiParser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-        Optional<Integer> index = parseIndex(args);
+        // actual integer index is everything after the first character prefix.
+        Optional<Integer> index = parseIndex(args); 
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         
-        return new DeleteCommand(index.get());
+        return new DeleteCommand(args.trim());
     }
 
     /**
