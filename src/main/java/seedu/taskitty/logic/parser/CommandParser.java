@@ -478,25 +478,11 @@ public class CommandParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-        /* TODO: don't check natty twice. Maybe we shouldn't allow them to use find/view interchangably.
-        //check if the keyword given is a single date, if so give a view command
-        String[] date = extractTaskDetailsNatty(args);
-        if (containsOnlyOneDate(date)) {
-            return new ViewCommand(date[1]);
-        }*/
         
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
-    
-    /**
-     * checks if the array obtained from extractTaskDetailsNatty obtains only a single date
-     * @param args the string array obtain from extractTaskDetailsNatty
-     * @return true if arguments contains only 1 date in it
-     */
-    private boolean containsOnlyOneDate(String[] args) {
-        return args.length == 3 && args[2] == null && args[0].equals("");
-    }
+
 }
