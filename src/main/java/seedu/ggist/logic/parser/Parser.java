@@ -234,13 +234,21 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-
-        Optional<Integer> index = parseIndex(args);
+        String[] parts = args.split(",");
+        int[] integers = new int[parts.length];
+        for (int i = 0; i < integers.length; i++){
+            integers[i] = Integer.parseInt(parts[0]);
+        }
+        
+        for(int i = 0; i < parts.length; i++){
+        Optional<Integer> index = parseIndex(parts[i]);
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }
         }
-        return new DeleteCommand(index.get());
+        
+        return new DeleteCommand(integers);
     }
     
     /**

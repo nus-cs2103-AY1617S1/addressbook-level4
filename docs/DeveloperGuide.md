@@ -13,9 +13,9 @@
 * [Appendix E : Product Survey](#appendix-e--product-survey)
 
 ## Introduction
-Welcome talented programmers, we are glad that you are willing to be part of team and help us in the development and improvement of GGist. To get you started, we have created this developer guide to aid new members like you to get familiar with overall coding design of GGist and clarify your doubts if any.
+Welcome talented programmers, we are glad that you are willing to be part of the team and help us in the development and improvement of GGist. To get you started, we have created this developer guide to aid new members like you to get familiar with overall coding design of GGist and clarify your doubts if any.
 
-In this guide, we will walk you through different components of GGist and how they interact with one another when a command is issued. To aid your understanding, component diagrams of GGist will be included to give you a clear overview of the program. We welcome you to create new commands or modify the existing commands that you think are necessary and you can use Gradle test to examine if they are working the way you intended. 
+In this guide, we will walk you through different components of GGist and how they interact with one another when a command is issued. To aid your understanding, component diagrams of GGist will be included to give you a clear overview of the program. We welcome you to create new commands or modify the existing commands that you think are necessary and you can use Gradle Testing to examine if they are working the way you intended. 
 
 Are you ready to begin this exciting and challenging journey? Let's go!
 
