@@ -18,19 +18,18 @@ public class EventTask extends Task implements ReadOnlyTask {
      */
     public EventTask(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority) throws IllegalValueException {
         super(taskName, startDate, startTime, endDate, endTime, priority);
-        start = constructDateTime(startDate, startTime);
-        end = constructDateTime(endDate, endTime);
     }
     
-    public EventTask(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority, boolean done) {
+    public EventTask(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority, boolean done) throws IllegalValueException {
         super(taskName, startDate, startTime, endDate, endTime, priority);
         this.done = done;
     }
    
     /**
      * Copy constructor.
+     * @throws IllegalValueException 
      */
-    public EventTask(ReadOnlyTask source) {
+    public EventTask(ReadOnlyTask source) throws IllegalValueException {
         this(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getPriority(), source.getDone());
     }
 

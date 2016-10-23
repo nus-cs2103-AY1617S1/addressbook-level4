@@ -19,8 +19,6 @@ public class DeadlineTask extends Task implements ReadOnlyTask {
      */
     public DeadlineTask(TaskName taskName, TaskDate taskDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority) throws IllegalValueException {
         super(taskName, taskDate, startTime, endDate, endTime, priority);
-        start = constructDateTime(endDate, endTime);
-        end = constructDateTime(null, null);
     }
     
     /**

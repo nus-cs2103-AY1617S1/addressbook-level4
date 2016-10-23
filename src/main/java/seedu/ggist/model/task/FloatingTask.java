@@ -18,8 +18,6 @@ public class FloatingTask extends Task implements ReadOnlyTask {
      */
     public FloatingTask(TaskName taskName, TaskDate taskDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority) throws IllegalValueException {
         super(taskName, taskDate, startTime, endDate, endTime, priority);
-        start = constructDateTime(null, null);
-        end = constructDateTime(null, null);
     }
 
     /**

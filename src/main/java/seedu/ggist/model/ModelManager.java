@@ -100,6 +100,7 @@ public class ModelManager extends ComponentManager implements Model {
  
         taskManager.editTask(target, field, value);
         updateListing();
+        sortFilteredList();
     	indicateTaskManagerChanged();
     }
 
@@ -107,6 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskManager.addTask(task);
         updateListing();
+        sortFilteredList();
         indicateTaskManagerChanged();
     }
 
@@ -141,12 +143,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     private SortedList<Task> sortFilteredList() {
-        Comparator<? super Task> compareDateTime = new Comparator<Task>(){
-            public int compare (Task t1, Task t2){
-                return t1.getStartDateTime().equals(t2.getStartDateTime()) ?
-                (t1.getEndDateTime().before(t2.getEndDateTime()) ? 
-                -1 : 1) : (t1.getStartDateTime().before(t2.getStartDateTime()) ?
-                -1 : 1);
+        Comparator<ReadOnlyTask> compareDateTime = new Comparator<ReadOnlyTask>(){
+            public int compare (ReadOnlyTask t1, ReadOnlyTask t2){
+                return t1.getStartDateTime().before(t2.getStartDateTime()) ? -1 : 
+                       (t1.getEndDateTime().before(t2.getEndDateTime()) ? -1 : 1);
             }
         };
         return new SortedList<Task>(filteredTasks, compareDateTime);
