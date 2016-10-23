@@ -14,17 +14,18 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the task type(E for event and D for deadline) and index number used in the last task listing.\n"
-            + "Parameters: TASK TYPE + INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " E1 \n"
-            + "Example: " + COMMAND_WORD + " D1";
+            + ": Deletes the task identified by the index number used in the last task listing.\n"
+            + "Parameters: TASK TYPE + INDEXES (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1 \n"
+            + "Example: " + COMMAND_WORD + " 1, 3, 4";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Task deleted!";
+    public static final int MULTIPLE_DELETE_OFFSET = 1;
 
-    public final int targetIndex;
+    public final int[] targetIndexes;
 
-    public DeleteCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeleteCommand(int[] targetIndexes) {
+        this.targetIndexes = targetIndexes;
     }
 
 
@@ -39,21 +40,32 @@ public class DeleteCommand extends Command {
             lastShownList = model.getFilteredIncompleteTaskList();
         }
         
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
+        if (!isValidIndexes(lastShownList, targetIndexes)) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-
-        try {
-            model.deleteTask(taskToDelete);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+        
+        for (int i = 0; i < targetIndexes.length; i++) {
+            ReadOnlyTask taskToDelete = lastShownList.get(targetIndexes[i] - (i + MULTIPLE_DELETE_OFFSET));
+            
+            try {
+                model.deleteTask(taskToDelete);
+            } catch (TaskNotFoundException tnfe) {
+                assert false : "The target task cannot be missing";
+            }
+            
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        return new CommandResult(MESSAGE_DELETE_TASK_SUCCESS);
+    }
+    
+    private boolean isValidIndexes(UnmodifiableObservableList<ReadOnlyTask> lastShownList, int[] targetIndex) {
+        for (int index : targetIndexes) {
+            if (lastShownList.size() < index) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return false;
+            }
+        }
+        return true;
     }
 
 }
