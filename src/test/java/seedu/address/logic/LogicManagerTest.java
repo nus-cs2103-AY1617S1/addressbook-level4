@@ -158,6 +158,23 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add d/description", expectedMessage);
     }
+    
+    @Test
+    public void execute_add_event_noDueDate() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EVENT_USAGE);
+        assertCommandBehavior("add event d/without due date sd/12-12-2016", expectedMessage);
+    }
+    
+//    @Test
+//    public void execute_add_withoutOptionalInput() throws Exception {
+//        String expectedTask = "floating task "
+//                + "Description: without optional input "
+//                + "Start Date: Not Set "
+//                + "Due Date: Not Set "
+//                + "Status: Ongoing";
+//        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, expectedTask);
+//        assertCommandBehavior("add floating task d/without optional input", expectedMessage);
+//    }
         
     @Test
     public void execute_add_invalidTaskData() throws Exception {
@@ -167,19 +184,19 @@ public class LogicManagerTest {
     @Test
     public void execute_add_successful() throws Exception {
     	//TODO
-        /*
-    	// setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.homework();
-        TaskManager expectedAB = new TaskManager();
-        expectedAB.addTask(toBeAdded);
-
-        // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getTaskList());
-                */
+        
+//    	// setup expectations
+//        TestDataHelper helper = new TestDataHelper();
+//        Task toBeAdded = helper.homework();
+//        TaskManager expectedAB = new TaskManager();
+//        expectedAB.addTask(toBeAdded);
+//
+//        // execute command and verify result
+//        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+//                String.format(AddCommand.MESSAGE_SUCCESS_MANY_TASKS, toBeAdded.getInterval(), toBeAdded.getTitle()),
+//                expectedAB,
+//                expectedAB.getTaskList());
+                
 
     }
 
@@ -308,11 +325,11 @@ public class LogicManagerTest {
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
         Task p1 = helper.generateTaskWithName("KE Y");
-        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+        Task pTarget3 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
+        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, pTarget2, pTarget3);
         TaskManager expectedAB = helper.generateTaskManager(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
+        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
@@ -357,6 +374,34 @@ public class LogicManagerTest {
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
+    }
+    
+    @Test
+    public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
+    }
+
+    @Test
+    public void execute_doneIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("done");
+    }
+    
+    @Test
+    public void execute_done_success() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> oneTasks = helper.generateTaskList(1);
+        helper.addToModel(model, oneTasks);
+        String expectedTask = "Task 1 "
+                + "Description: Description 1 "
+                + "Start Date: 01-01-2016 "
+                + "Due Date: 01-01-2016 "
+                + "Status: Completed "
+                + "Tags: [tag1][tag2]";
+        String expectedMessage = String.format(DoneCommand.MESSAGE_COMPLETED_TASK_SUCCESS, expectedTask);
+        //assertCommandBehavior("done 1", expectedMessage);
+        CommandResult result = logic.execute("done 1");
+        assertEquals(expectedMessage, result.feedbackToUser);
     }
 
 
