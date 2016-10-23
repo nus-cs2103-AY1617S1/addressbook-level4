@@ -37,6 +37,7 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    private FloatingPanel floatingPanel;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -45,7 +46,7 @@ public class MainWindow extends UiPart {
     private String taskManagerName;
     
     @FXML
-    private AnchorPane contentBoxPlaceHolder;
+    private AnchorPane contentBoxPlaceholder;
     
 //    @FXML
 //    private AnchorPane browserPlaceholder;
@@ -64,6 +65,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private AnchorPane floatingPanelPlaceholder;
 
 
     public MainWindow() {
@@ -112,6 +116,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
+    	floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredTaskList());
     	contentBox = ContentBox.load(primaryStage, getContentBoxPlaceholder(), logic.getFilteredTaskList());
 //        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
@@ -120,8 +125,12 @@ public class MainWindow extends UiPart {
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
     
+    private AnchorPane getFloatingPanelPlaceholder() {
+    	return floatingPanelPlaceholder;
+    }
+    
     private AnchorPane getContentBoxPlaceholder() {
-    	return contentBoxPlaceHolder;
+    	return contentBoxPlaceholder;
     }
     
     private AnchorPane getCommandBoxPlaceholder() {
@@ -197,6 +206,10 @@ public class MainWindow extends UiPart {
     
     public ContentBox getContentBox() {
     	return this.contentBox;
+    }
+    
+    public FloatingPanel getFloatingPanel() {
+    	return this.floatingPanel;
     }
     
     /**
