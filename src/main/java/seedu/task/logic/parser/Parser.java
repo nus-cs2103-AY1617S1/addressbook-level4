@@ -91,6 +91,9 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+        
+        case ChangePathCommand.COMMAND_WORD:
+            return new ChangePathCommand(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
