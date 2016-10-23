@@ -16,6 +16,7 @@ import java.util.Set;
  */
 public interface Model {
 	
+	/** Undo the previous changes made to the model */
 	void undoChanges() throws EmptyStackException;
 	
     /** Clears existing backing model and replaces with the provided new data. */
@@ -27,6 +28,7 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
+    /** Edits the field in the task */
     void editTask(Task target, int index, Description description, DateTime dateTime) throws TaskNotFoundException;
 
     /** Adds the given task */
