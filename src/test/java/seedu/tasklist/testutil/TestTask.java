@@ -133,8 +133,8 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 	@Override
 	public boolean isOverDue() {
 		if(!isFloating()){
-			if(!endTime.endTime.getTime().equals(new Date(0))){
-				return endTime.endTime.getTimeInMillis() < System.currentTimeMillis();
+			if(!endTime.time.getTime().equals(new Date(0))){
+				return endTime.time.getTimeInMillis() < System.currentTimeMillis();
 			}
 			else return false;
 		}
@@ -168,12 +168,12 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 	@Override
     public boolean isToday() {
     	if(!hasEndTime()) return false;
-    	return endTime.endTime.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+    	return endTime.time.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
     }
     
 	@Override
     public boolean isTomorrow() {
     	if(!hasEndTime()) return false;
-    	return endTime.endTime.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1;
+    	return endTime.time.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1;
     }
 }

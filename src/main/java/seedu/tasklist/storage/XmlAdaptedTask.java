@@ -44,8 +44,8 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getTaskDetails().taskDetails;
-        startTime = Long.toString(source.getStartTime().startTime.getTimeInMillis());
-        endTime = Long.toString(source.getEndTime().endTime.getTimeInMillis());
+        startTime = Long.toString(source.getStartTime().time.getTimeInMillis());
+        endTime = Long.toString(source.getEndTime().time.getTimeInMillis());
         priority = source.getPriority().priorityLevel;
         recurringFrequency = source.getRecurringFrequency();
         isComplete = String.valueOf(source.isComplete());
