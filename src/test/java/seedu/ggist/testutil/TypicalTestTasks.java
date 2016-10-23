@@ -36,7 +36,9 @@ public class TypicalTestTasks {
             		.withStartDate("Wed, 12 Oct 16")
             		.withStartTime("12:00")
             		.withEndDate("Wed, 12 Oct 16")
-            		.withEndTime("13:00").build();
+            		.withEndTime("13:00")
+            		.withPriority("high")
+            		.build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

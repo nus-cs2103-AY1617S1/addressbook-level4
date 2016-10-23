@@ -94,7 +94,8 @@ public class TestTask implements ReadOnlyTask {
         	sb.append(this.getEndDate().getTestValue() + " ");
         	sb.append(this.getEndTime().value);
         }
-        sb.append("-" + this.getPriority().value);
+        if (!(this.getPriority() == null))
+        	sb.append("-" + this.getPriority().value);
         return sb.toString();
     }
 
