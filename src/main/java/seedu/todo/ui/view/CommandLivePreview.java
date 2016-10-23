@@ -13,14 +13,14 @@ import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.util.logging.Logger;
 
-//@@author A0315805H
+//@@author A0139021U
 
 /**
  * Display textual feedback to command input via this view with {@link #displayMessage(String)}.
  */
 public class CommandLivePreview extends UiPart {
     /* Constants */
-    private static final String FXML = "CommandFeedbackView.fxml";
+    private static final String FXML = "CommandLivePreview.fxml";
 
     /* Variables */
     private final Logger logger = LogsCenter.getLogger(CommandLivePreview.class);

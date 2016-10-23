@@ -1,5 +1,6 @@
 package seedu.todo.ui.controller;
 
+import javafx.scene.input.KeyCode;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.Logic;
 import seedu.todo.logic.commands.CommandResult;
@@ -45,24 +46,42 @@ public class CommandController {
     }
 
     /**
-     * Asks {@link #inputView} to start listening for a new command.
-     * Once the callback returns a command, {@link #submitCommand(String)} will process this command.
+     * Asks {@link #inputView} to start listening for a new key strokes.
+     * Once the callback returns a command, {@link #handleInput(KeyCode, String)} will process the input.
      */
     private void start() {
-        inputView.listenToCommandExecution(this::submitCommand);
+        inputView.listenToInput(this::handleInput);
     }
 
     /**
-     * Submits a command to logic, and once logic is completed with a {@link CommandResult}, it will be processed
-     * by {@link #handleCommandResult(CommandResult)}
-     * @param commandText command submitted by user
+     * Handles a key stroke from input and sends it to logic. Once logic sends back a preview, it will be
+     * processed by {@link #handleCommandResult(CommandResult)}
+     * @param keyCode key pressed by user
+     * @param userInput text as shown in input view
      */
-    private void submitCommand(String commandText) {
-        //Note: Do not execute an empty command. TODO: This check should be done in the parser class.
-        if (!StringUtil.isEmpty(commandText)) {
-            CommandResult result = logic.execute(commandText);
-            handleCommandResult(result);
+    private void handleInput(KeyCode keyCode, String userInput) {
+        System.out.println("USER TYPED: " + userInput);
+        switch (keyCode) {
+        case ENTER :    // Submitting command
+            //Note: Do not execute an empty command. TODO: This check should be done in the parser class.
+            if (!StringUtil.isEmpty(userInput)) {
+                CommandResult result = logic.execute(userInput);
+                handleCommandResult(result);
+            }
+            break;
+        default :   // Typing command, show preview
+            CommandResult result = logic.execute("help");
+            handlePreviewResult(result);
+            break;
         }
+    }
+
+    /**
+     * Handles a CommandPreview object, and updates the user interface to reflect the result.
+     * @param preview produced by {@link Logic}
+     */
+    private void handlePreviewResult(CommandResult preview) {
+        previewView.displayMessage(preview.getFeedback());
     }
 
     /**
