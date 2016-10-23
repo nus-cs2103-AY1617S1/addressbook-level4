@@ -29,13 +29,12 @@
                         <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label" text="index">
+                                    <Label fx:id="id" styleClass="cell_id_label" text="index">
                               <HBox.margin>
-                                 <Insets top="2.0" />
+                                 <Insets right="5.0" />
                               </HBox.margin></Label>
                                     <Label fx:id="taskName" styleClass="cell_name_label" text="task name" wrapText="true" />
                                 </HBox>
-                                <Label fx:id="priority" styleClass="cell_small_label" />
                             </children>
                         </HBox>
                     </children>
