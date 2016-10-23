@@ -46,14 +46,14 @@ public class Parser {
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "( d/(?<description>[^/]+)){0,1}"
-                    + "( date/(?<date>[^/\\.]+)){0,1}"
+                    + "( date/(?<date>[^/]+)){0,1}"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[\\d]+)"
                     + "( (?<name>[^/]+)){0,1}"
                     + "( d/(?<description>[^/]+)){0,1}"
-                    + "( date/(?<date>[^/\\.]*)){0,1}" // group <date> can be blank to edit DatedTask -> UndatedTask
+                    + "( date/(?<date>[^/]*)){0,1}" // group <date> can be blank to edit DatedTask -> UndatedTask
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     public Parser() {}
