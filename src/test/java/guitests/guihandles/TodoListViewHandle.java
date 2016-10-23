@@ -2,6 +2,7 @@ package guitests.guihandles;
 
 
 import guitests.GuiRobot;
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
@@ -25,7 +26,7 @@ public class TodoListViewHandle extends GuiHandle {
     /* Constants */
     public static final int NOT_FOUND = -1;
     private static final String TASK_CARD_ID = "#taskCard";
-    private static final String TODO_LIST_VIEW_ID = "#personListView";
+    private static final String TODO_LIST_VIEW_ID = "#todoListView";
 
     /**
      * Constructs a handle for {@link seedu.todo.ui.view.TodoListView}.
@@ -37,12 +38,11 @@ public class TodoListViewHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-
     /* View Element Helper Methods */
     /**
      * Gets an instance of {@link ListView} of {@link seedu.todo.ui.view.TodoListView}
      */
-    public ListView<ImmutableTask> getListView() {
+    public ListView<ImmutableTask> getTodoListView() {
         return (ListView<ImmutableTask>) getNode(TODO_LIST_VIEW_ID);
     }
 
@@ -50,28 +50,14 @@ public class TodoListViewHandle extends GuiHandle {
      * Gets a list of {@link ImmutableTask}
      */
     public List<ImmutableTask> getImmutableTaskList() {
-        return getListView().getItems();
+        return getTodoListView().getItems();
     }
 
     /**
      * Gets a set of task card nodes in this to-do list.
      */
-    protected Set<Node> getAllTaskCardNodes() {
+    public Set<Node> getAllTaskCardNodes() {
         return guiRobot.lookup(TASK_CARD_ID).queryAll();
-    }
-
-    /**
-     * Returns the position of the given task stored in the list of {@link ImmutableTask} in the current view.
-     * The value is bounded from 0 to length - 1.
-     * Also returns {@code NOT_FOUND} (value of -1) if not found in the list.
-     */
-    public int getTaskIndex(ImmutableTask task) {
-        List<ImmutableTask> tasks = getImmutableTaskList();
-        if (tasks.contains(task)) {
-            return tasks.indexOf(task);
-        } else {
-            return NOT_FOUND;
-        }
     }
 
     /**
@@ -82,7 +68,30 @@ public class TodoListViewHandle extends GuiHandle {
     }
 
     /**
-     * Gets a {@link TaskCardViewHandle} object with the index {@code} listIndex in the to-do list.
+     * Gets the first occurring element from {@link #getImmutableTaskList()}
+     * where the detail matches the {@code task} param.
+     *
+     * @return Returns a value bounded from 0 to length - 1.
+     *         Also returns {@code NOT_FOUND} (value of -1) if not found in the list.
+     */
+    public int getFirstTaskIndex(ImmutableTask task) {
+        List<ImmutableTask> tasks = getImmutableTaskList();
+        for (int listIndex = 0; listIndex < tasks.size(); listIndex++) {
+            ImmutableTask taskInList = tasks.get(listIndex);
+            if (TestUtil.isShallowEqual(task, taskInList)) {
+                return listIndex;
+            }
+        }
+        return NOT_FOUND;
+    }
+
+    /**
+     * Gets a {@link TaskCardViewHandle} object with the position {@code listIndex} located in the to-do list view.
+     * Guaranteed unique result for identical tasks.
+     *
+     *
+     * @param listIndex Index of the {@link #getImmutableTaskList()}.
+     * @return An instance of the handle.
      */
     public TaskCardViewHandle getTaskCardViewHandle(int listIndex) {
         Optional<Node> taskCardNode = getTaskCardViewNode(listIndex);
@@ -91,18 +100,23 @@ public class TodoListViewHandle extends GuiHandle {
     }
 
     /**
-     * Gets an optional {@link Node} object with the index {@code} listIndex in the to-do list.
+     * Gets an optional {@link Node} object with the position {@code listIndex} located in the to-do list view.
+     * Guaranteed unique result for identical tasks. However, note that in order to retrieve nodes that are
+     * off the screen, the method will to scroll to that position first.
+     *
+     * @param listIndex Index of the {@link #getImmutableTaskList()}.
+     * @return An instance of the handle.
      */
     private Optional<Node> getTaskCardViewNode(int listIndex) {
-        ImmutableTask task = getTask(listIndex);
-        int displayedIndex = UiTestUtil.convertToUiIndex(listIndex);
+        Platform.runLater(() -> getTodoListView().scrollTo(listIndex));
+        guiRobot.sleep(100); //Allow the new nodes to be loaded from scrolling.
 
+        int displayedIndex = UiTestUtil.convertToUiIndex(listIndex);
         Set<Node> taskCardNodes = getAllTaskCardNodes();
         Stream<Node> nodesStream = taskCardNodes.stream().filter(node -> {
             TaskCardViewHandle taskCardView = new TaskCardViewHandle(guiRobot, primaryStage, node);
-            return taskCardView.matchesTask(displayedIndex, task);
+            return taskCardView.matchesTask(displayedIndex);
         });
-
         return nodesStream.findFirst();
     }
 
@@ -111,24 +125,29 @@ public class TodoListViewHandle extends GuiHandle {
      * Note: This does not check the sorted-ness of the list.
      * @return True if all the items are correctly displayed.
      */
-    public boolean isTodoListDisplayedCorrectly() {
-        return doesTodoListMatch(getImmutableTaskList());
+    public boolean isDisplayedCorrectly() {
+        return doesTodoListMatch();
     }
 
     /**
      * Given a list of tasks, check if all the tasks in the list are displayed correctly in the
      * {@link seedu.todo.ui.view.TodoListView}.
-     * Note: this does not check the sortedness of the list.
+     * Note: this does not check the sorted-ness of the list.
      *
-     * @param tasks List of tasks to be checked.
      * @return True if all the tasks in the {@code tasks} are displayed correctly.
      */
-    public boolean doesTodoListMatch(List<ImmutableTask> tasks) {
+    public boolean doesTodoListMatch() {
         boolean outcome = true;
-        for (ImmutableTask task : tasks) {
-            int listIndex = getTaskIndex(task);
+        List<ImmutableTask> tasks = getImmutableTaskList();
+        System.out.println("Task size: " + tasks.size() + " Nodes size" + getAllTaskCardNodes().size());
+        for (int listIndex = 0; listIndex < tasks.size(); listIndex++) {
+            System.out.println(listIndex);
+
+
+            ImmutableTask task = tasks.get(listIndex);
             TaskCardViewHandle handle = getTaskCardViewHandle(listIndex);
-            outcome &= handle.isDisplayedCorrectly(UiTestUtil.convertToUiIndex(listIndex), task);
+            int displayedIndex = UiTestUtil.convertToUiIndex(listIndex);
+            outcome &= handle.isDisplayedCorrectly(displayedIndex, task);
         }
         return outcome;
     }
@@ -137,7 +156,7 @@ public class TodoListViewHandle extends GuiHandle {
      * Clicks on the ListView.
      */
     public void clickOnListView() {
-        Point2D point= TestUtil.getScreenMidPoint(getListView());
+        Point2D point= TestUtil.getScreenMidPoint(getTodoListView());
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
@@ -166,25 +185,14 @@ public class TodoListViewHandle extends GuiHandle {
 
     /**
      * Navigates the {@link seedu.todo.ui.view.TodoListView} to display and select the task.
-     * @param task The task that the list view should navigate to.
-     * @return Handle of the selected task.
-     */
-    public TaskCardViewHandle navigateToTask(ImmutableTask task) {
-        int listIndex = getTaskIndex(task);
-        return navigateToTask(listIndex);
-    }
-
-    /**
-     * Navigates the {@link seedu.todo.ui.view.TodoListView} to display and select the task.
      * @param listIndex Index of the list that the list view should navigate to.
      * @return Handle of the selected task.
      */
     public TaskCardViewHandle navigateToTask(int listIndex) {
-
         guiRobot.interact(() -> {
-            getListView().scrollTo(listIndex);
+            getTodoListView().scrollTo(listIndex);
             guiRobot.sleep(150);
-            getListView().getSelectionModel().select(listIndex);
+            getTodoListView().getSelectionModel().select(listIndex);
         });
         guiRobot.sleep(100);
         return getTaskCardViewHandle(listIndex);

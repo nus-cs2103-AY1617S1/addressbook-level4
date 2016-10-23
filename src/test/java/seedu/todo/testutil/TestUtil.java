@@ -176,7 +176,7 @@ public class TestUtil {
     public static AddressBook generateEmptyAddressBook() {
         return new AddressBook(new UniquePersonList(), new UniqueTagList());
     }
-    
+
     @Deprecated
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
         return new XmlSerializableAddressBook(generateEmptyAddressBook());
@@ -197,21 +197,57 @@ public class TestUtil {
         for (int i = 0; i < list.size(); i++) {
             ImmutableTask task = list.get(i);
             ImmutableTask otherTask = otherList.get(i);
-            
-            boolean isSame = task.getTitle().equals(otherTask.getTitle()) &&
-                    task.isCompleted() == otherTask.isCompleted() &&
-                    task.isPinned() == otherTask.isPinned() &&
-                    task.getDescription().equals(otherTask.getDescription()) &&
-                    task.getLocation().equals(otherTask.getLocation()) &&
-                    task.getStartTime().equals(otherTask.getStartTime()) &&
-                    task.getEndTime().equals(otherTask.getEndTime()) &&
-                    task.getTags().containsAll(otherTask.getTags());
+            boolean isSame = isShallowEqual(task, otherTask);
+
             if (!isSame) {
                 return false;
             }
         }
 
         return true;
+    }
+
+    /**
+     * Compares whether 2 tasks contain the same vital information, such as:
+     *      title, details, start and end time, location, is pinned, is completed
+     * @return True when two tasks are the same.
+     */
+    public static boolean isShallowEqual(ImmutableTask task1, ImmutableTask task2) {
+        boolean hasSameTitle = task1.getTitle().equals(task2.getTitle());
+        boolean hasSameDescription = task1.getDescription().equals(task2.getDescription());
+        boolean hasSameStartTime = task1.getStartTime().equals(task2.getStartTime());
+        boolean hasSameEndTime = task1.getEndTime().equals(task2.getEndTime());
+        boolean hasSameLocation = task1.getLocation().equals(task2.getLocation());
+        boolean hasSamePinFlag = task1.isPinned() == task2.isPinned();
+        boolean hasSameCompletedFlag = task1.isCompleted() == task2.isCompleted();
+        boolean hasSameTags = task1.getTags().equals(task2.getTags());
+
+        return hasSameTitle && hasSameDescription && hasSameStartTime
+                && hasSameEndTime && hasSameLocation && hasSamePinFlag
+                && hasSameCompletedFlag && hasSameTags;
+    }
+
+    /**
+     * Compares two list that are almost similar, except that longer list has 1 item more than shorter list.
+     * So, return the index of that 1 item.
+     * @return Index of the item from longerList that is missing in shorterList.
+     *         If the two list are identical, returns -1.
+     */
+    public static int compareAndGetIndex(List<ImmutableTask> shorterList, List<ImmutableTask> longerList) {
+        for (int listIndex = 0; listIndex < longerList.size(); listIndex ++) {
+            ImmutableTask taskInLongerList = longerList.get(listIndex);
+
+            //Note, that ImmutableTask does not support *shallow* hashing and equals.
+            java.util.Optional<ImmutableTask> foundItem = shorterList.stream()
+                    .filter(taskInShorterList -> isShallowEqual(taskInLongerList, taskInShorterList))
+                    .findFirst();
+            if (foundItem.isPresent()) {
+                shorterList.remove(foundItem.get());
+            } else {
+                return listIndex;
+            }
+        }
+        return -2048;
     }
 
     /**
@@ -366,29 +402,7 @@ public class TestUtil {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
-    /**
-     * Replaces persons[i] with a person.
-     * @param persons The array of persons.
-     * @param person The replacement person
-     * @param index The index of the person to be replaced.
-     * @return
-     */
-    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
-        persons[index] = person;
-        return persons;
-    }
 
-    /**
-     * Appends persons to the array of persons.
-     * @param persons A array of persons.
-     * @param personsToAdd The persons that are to be appended behind the original array.
-     * @return The modified array of persons.
-     */
-    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
-        List<TestPerson> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
-    }
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
@@ -398,6 +412,8 @@ public class TestUtil {
         return list;
     }
 
+
+    @Deprecated
     public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
         return card.isSamePerson(person);
     }

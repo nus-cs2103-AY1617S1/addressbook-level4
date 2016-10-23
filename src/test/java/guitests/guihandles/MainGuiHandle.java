@@ -9,22 +9,30 @@ import seedu.todo.TestApp;
  */
 public class MainGuiHandle extends GuiHandle {
 
+    //TODO: Where should the TestApp.APP_TITLE be stored?
     public MainGuiHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
+    public TodoListViewHandle getTodoListView() {
+        return new TodoListViewHandle(guiRobot, primaryStage);
+    }
+
+    public CommandInputViewHandle getCommandInputView() {
+        return new CommandInputViewHandle(guiRobot, primaryStage);
+    }
+
+    @Deprecated
     public PersonListPanelHandle getPersonListPanel() {
         return new PersonListPanelHandle(guiRobot, primaryStage);
     }
 
+    @Deprecated
     public ResultDisplayHandle getResultDisplay() {
         return new ResultDisplayHandle(guiRobot, primaryStage);
     }
 
-    public CommandBoxHandle getCommandBox() {
-        return new CommandBoxHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
-    }
-
+    @Deprecated
     public MainMenuHandle getMainMenu() {
         return new MainMenuHandle(guiRobot, primaryStage);
     }

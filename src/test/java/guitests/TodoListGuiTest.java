@@ -27,8 +27,8 @@ public abstract class TodoListGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule public TestName name = new TestName();
-
-    TestApp testApp;
+    protected List<ImmutableTask> initialTaskData;
+    private TestApp testApp;
 
     /*
      * Handles to GUI elements present at the start up are created in advance
@@ -78,8 +78,8 @@ public abstract class TodoListGuiTest {
     protected TodoList getInitialData() {
         TodoList todoList = TestUtil.generateEmptyTodoList(getDataFileLocation());
         //TODO: You might need a default set of tasks (instead of randomly generated ones)
-        List<ImmutableTask> randomTasks = TaskFactory.list();
-        TestUtil.loadTodoListWithData(todoList, randomTasks);
+        initialTaskData = TaskFactory.list();
+        TestUtil.loadTodoListWithData(todoList, initialTaskData);
         return todoList;
     }
 

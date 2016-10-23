@@ -21,9 +21,8 @@ public class UiTestUtil {
         boolean isCollapsed = parentContainsStyleClass(node, "collapsed");
         boolean isCollapsible = containsStyleClass(node, "collapsible");
 
-        return isVisible || (isCollapsed && isCollapsible);
+        return isVisible && !(isCollapsed && isCollapsible);
     }
-
 
     public static boolean containsStyleClass(Node node, String styleClass) {
         return node.getStyleClass().contains(styleClass);
@@ -33,6 +32,18 @@ public class UiTestUtil {
         return node.getStyleableParent().getStyleClass().contains(styleClass);
     }
 
+    /**
+     * Converts an index from a list to the index that is displayed to the user via the Ui
+     */
+    public static int convertToListIndex(int uiIndex) {
+        return uiIndex - 1;
+    }
 
+    /**
+     * Converts an index displayed on the Ui to the user, to the index used on the list
+     */
+    public static int convertToUiIndex(int listIndex) {
+        return listIndex + 1;
+    }
 
 }

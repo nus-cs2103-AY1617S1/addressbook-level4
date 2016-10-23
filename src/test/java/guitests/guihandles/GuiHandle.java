@@ -44,13 +44,15 @@ public class GuiHandle {
     }
 
     protected Node getNode(String query) {
-        return guiRobot.lookup(query).tryQuery().get();
+        com.google.common.base.Optional<Node> node = guiRobot.lookup(query).tryQuery();
+        return (node.isPresent()) ? node.get()
+                                  : null;
     }
 
     public void pressEnter() {
         guiRobot.type(KeyCode.ENTER).sleep(500);
     }
-    
+
     public void focusOnSelf() {
         if (stageTitle != null) {
             focusOnWindow(stageTitle);

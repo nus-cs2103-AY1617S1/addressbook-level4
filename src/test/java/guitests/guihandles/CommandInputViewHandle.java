@@ -1,6 +1,7 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import seedu.todo.TestApp;
@@ -71,14 +72,8 @@ public class CommandInputViewHandle extends GuiHandle {
      */
     private void setTextAreaText(String textFieldId, String newText) {
         guiRobot.clickOn(textFieldId);
-        ((TextArea)guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
-        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
+        TextArea textArea = (TextArea)guiRobot.lookup(textFieldId).tryQuery().get();
+        Platform.runLater(() -> textArea.setText(newText));
+        guiRobot.sleep(200); // so that the texts stays visible on the GUI for a short period
     }
-
-    //TODO: To be removed
-//    public HelpWindowHandle runHelpCommand() {
-//        enterCommand("help");
-//        pressEnter();
-//        return new HelpWindowHandle(guiRobot, primaryStage);
-//    }
 }

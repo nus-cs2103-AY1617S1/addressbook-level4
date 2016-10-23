@@ -19,19 +19,19 @@ import java.time.LocalDateTime;
 public class TaskCardViewHandle extends GuiHandle {
 
     /* Constants */
-    private static final String TITLE_LABEL_ID = "titleLabel";
-    private static final String DESCRIPTION_LABEL_ID = "descriptionLabel";
-    private static final String DATE_LABEL_ID = "dateLabel";
-    private static final String LOCATION_LABEL_ID = "locationLabel";
+    private static final String TITLE_LABEL_ID = "#titleLabel";
+    private static final String DESCRIPTION_LABEL_ID = "#descriptionLabel";
+    private static final String DATE_LABEL_ID = "#dateLabel";
+    private static final String LOCATION_LABEL_ID = "#locationLabel";
 
-    private static final String DESCRIPTION_BOX_ID = "descriptionBox";
-    private static final String DATE_BOX_ID = "dateBox";
-    private static final String LOCATION_BOX_ID = "locationBox";
+    private static final String DESCRIPTION_BOX_ID = "#descriptionBox";
+    private static final String DATE_BOX_ID = "#dateBox";
+    private static final String LOCATION_BOX_ID = "#locationBox";
 
-    private static final String PIN_IMAGE_ID = "pinImage";
-    private static final String TYPE_LABEL_ID = "typeLabel";
+    private static final String PIN_IMAGE_ID = "#pinImage";
 
-    private static final String MOREINFO_LABEL_ID = "moreInfoLabel";
+    private static final String TYPE_LABEL_ID = "#typeLabel";
+    private static final String MOREINFO_LABEL_ID = "#moreInfoLabel";
 
     /* Variables */
     private Node rootNode;
@@ -108,10 +108,19 @@ public class TaskCardViewHandle extends GuiHandle {
 
     /* General Methods */
     /**
+     * Checks if the supplied index matches to what this node displays.
+     * To be used for nodes filtering.
+     */
+    public boolean matchesTask(int displayedIndex) {
+        return getDisplayedTitle().startsWith(displayedIndex + ". ");
+    }
+
+    /**
      * Given an {@link ImmutableTask} and a displayed index, check if this view is displayed correctly.
      * @param displayedIndex Index displayed in the view.
      * @param task Task displayed in the view.
      * @return Returns true only if and only if the elements in this view is displayed correctly.
+     * TODO: Maybe we do not need this at all.
      */
     public boolean isDisplayedCorrectly(int displayedIndex, ImmutableTask task) {
         boolean isCorrectTitle = isTitleCorrect(displayedIndex, task);
