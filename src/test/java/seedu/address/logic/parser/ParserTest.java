@@ -36,7 +36,7 @@ public class ParserTest {
 		addCommand = new AddCommand("test adding someday");
 		listCommand = new ListCommand();
 		deleteCommand = new DeleteCommand(new int[]{1});
-		doneCommand = new DoneCommand(new int[]{1});
+		doneCommand = new DoneCommand(new int[]{1}, new int[]{1});
 		editCommand = new EditCommand(1, "editing", LocalDateTime.now(), LocalDateTime.now());
 		undoCommand = new UndoCommand();
 		redoCommand = new RedoCommand();
@@ -366,6 +366,38 @@ public class ParserTest {
 		Command command = parser.parseCommand(userInput);
 
 		assertEquals(doneCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_notDoneValidIndices_doneCommandReturned() {
+		String userInput = "done not 3 2";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(doneCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_multipleNotDoneValidIndices_doneCommandReturned() {
+		String userInput = "done not 3 not -2";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(doneCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_doneAndNotDoneValidIndices_doneCommandReturned() {
+		String userInput = "done 3 not 2";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(doneCommand.getClass(), command.getClass());
+	}
+	
+	@Test
+	public void parseCommand_doneValidNotDoneInvalidIndices_doneCommandReturned() {
+		String userInput = "done 3 not -2";
+		Command command = parser.parseCommand(userInput);
+
+		assertEquals(incorrectCommand.getClass(), command.getClass());
 	}
 
 	/*

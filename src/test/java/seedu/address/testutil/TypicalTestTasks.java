@@ -17,11 +17,11 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            someday1 =  new TaskBuilder().withName("hw 1").withStatus("not done").withTaskType("someday").build();
+            someday1 =  new TaskBuilder().withName("hw 1").withStatus("done").withTaskType("someday").build();
             someday2 =  new TaskBuilder().withName("lab 1").withStatus("not done").withTaskType("someday").build();
-            deadline1 =  new TaskBuilder().withName("hw 2").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.of(2012, 1, 2, 3, 4)).build();
+            deadline1 =  new TaskBuilder().withName("hw 2").withStatus("done").withTaskType("deadline").withEndDate(LocalDateTime.of(2012, 1, 2, 3, 4)).build();
             deadline2 =  new TaskBuilder().withName("hw 3").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.of(2014, 1, 2, 3, 4)).build();
-            deadlineToday =  new TaskBuilder().withName("lab 2").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.now()).build();
+            deadlineToday =  new TaskBuilder().withName("lab 2").withStatus("done").withTaskType("deadline").withEndDate(LocalDateTime.now()).build();
             deadlineTomorrow = new TaskBuilder().withName("lab 3").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(1)).build();
             deadlineIn7Days = new TaskBuilder().withName("lab 4").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(5)).build();
             deadlineIn30Days = new TaskBuilder().withName("lab 5").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(17)).build();

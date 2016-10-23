@@ -1,17 +1,20 @@
+//@@author A0142184L
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Status;
+import seedu.address.model.task.TaskDateTimeFormatter;
 
 public class EventTaskCard extends UiPart{
 
     private static final String FXML = "EventTaskCard.fxml";
 
     @FXML
-    private HBox cardPane;
+    private VBox cardPane;
     @FXML
     private Label taskName;
     @FXML
@@ -19,9 +22,13 @@ public class EventTaskCard extends UiPart{
     @FXML
     private Label taskType;
     @FXML
+    private Label taskStatus;
+    @FXML
     private Label startDateAndTime;
     @FXML
     private Label endDateAndTime;
+    @FXML
+    private Label tags;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -42,17 +49,38 @@ public class EventTaskCard extends UiPart{
         taskName.setText(task.getName().value);
         id.setText(displayedIndex + ". ");
         taskType.setText(task.getTaskType().toString());
-        startDateAndTime.setText(task.getEndDate().get().toString());
-        endDateAndTime.setText(task.getEndDate().get().toString());
+        setTaskDateTime();
+        setTaskStatus();
+        tags.setText(task.tagsString());
     }
 
-    public HBox getLayout() {
+	private void setTaskDateTime() {
+		if (task.getStartDate().get().toLocalDate().equals(task.getEndDate().get().toLocalDate())) {
+            startDateAndTime.setText(TaskDateTimeFormatter.formatToShowDateAndTime(task.getStartDate().get()));
+            endDateAndTime.setText(TaskDateTimeFormatter.formatToShowTimeOnly(task.getEndDate().get().toLocalTime()));
+        } else {
+          startDateAndTime.setText(TaskDateTimeFormatter.formatToShowDateAndTime(task.getStartDate().get()));
+          endDateAndTime.setText(TaskDateTimeFormatter.formatToShowDateAndTime(task.getEndDate().get()));
+        }
+	}
+
+    private void setTaskStatus() {
+		if (task.getStatus().value.equals(Status.DoneStatus.DONE)) {
+			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
+			taskStatus.setStyle("-fx-text-fill: green");
+		} else if (task.getStatus().value.equals(Status.DoneStatus.OVERDUE)) {
+			taskStatus.setText(task.getStatus().value.toString().toUpperCase());
+			taskStatus.setStyle("-fx-text-fill: red");
+		}
+	}
+
+	public VBox getLayout() {
         return cardPane;
     }
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        cardPane = (VBox)node;
     }
 
     @Override
@@ -60,4 +88,3 @@ public class EventTaskCard extends UiPart{
         return FXML;
     }
 }
-// Note: translate V-box Y: -18

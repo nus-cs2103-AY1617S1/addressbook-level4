@@ -85,7 +85,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if (internalList.size() < key) {
             throw new TaskNotFoundException();
         } else {
-        	internalList.set(key-1, toSet);
+        	internalList.set(key, toSet);
         	isFound = true;
         }
         return isFound;

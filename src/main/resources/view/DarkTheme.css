@@ -103,8 +103,9 @@
 }
 
 .cell_small_label {
-    -fx-font-size: 11px;
+    -fx-font-size: 14px;
     -fx-text-fill: #010504;
+    -fx-font-style: italic;
 }
 
 .anchor-pane {

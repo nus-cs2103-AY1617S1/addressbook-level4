@@ -18,4 +18,23 @@ public interface Logic {
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
+    //@@author A0142184L
+    /** Returns the list of all non-done tasks (not-done and overdue tasks) */
+	ObservableList<ReadOnlyTask> getNonDoneTaskList();
+
+	/** Returns the list of all today tasks */
+	ObservableList<ReadOnlyTask> getTodayTaskList();
+
+	/** Returns the list of all tomorrow tasks */
+	ObservableList<ReadOnlyTask> getTomorrowTaskList();
+
+	/** Returns the list of all in-7-days tasks */
+	ObservableList<ReadOnlyTask> getIn7DaysTaskList();
+
+	/** Returns the list of all in-30-days tasks */
+	ObservableList<ReadOnlyTask> getIn30DaysTaskList();
+
+	/** Returns the list of all someday tasks */
+	ObservableList<ReadOnlyTask> getSomedayTaskList();
+
 }
