@@ -110,6 +110,20 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
     }
     
     /**
+     * Unmarks a task in the task scheduler as completed
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     *
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @throws DuplicateTagException 
+     */
+    public void unMarkTask(ReadOnlyTask task) 
+            throws UniqueTaskList.TaskNotFoundException, NullPointerException {
+        syncTagsWithMasterList((Task)task);
+        tasks.unMark(task);
+    }
+    
+    /**
      * Replace a task in the task scheduler with another task
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.

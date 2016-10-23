@@ -26,6 +26,9 @@ public interface Model {
     /** Marks the given task. */
     void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateTagException;
     
+    /** Unmarks the given task. */
+    void unMarkTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
     /** Adds the given task */
     void addTask(Task... tasks) throws UniqueTaskList.DuplicateTaskException;
 

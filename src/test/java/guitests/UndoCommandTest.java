@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.taskscheduler.commons.core.Messages;
+import seedu.taskscheduler.logic.commands.Command;
 import seedu.taskscheduler.logic.commands.CommandHistory;
 import seedu.taskscheduler.logic.commands.UndoCommand;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
@@ -37,7 +38,7 @@ public class UndoCommandTest extends TaskSchedulerGuiTest {
         commandKey = "edit";
         task = taskListPanel.getTask(1);
         commandBox.runCommand("edit " + 2 + " " + td.ida.getTaskString());
-        assertUndoSuccess(commandKey,currentList,task);
+        assertUndoSuccess(commandKey,currentList,td.ida);
 
         //undo mark command
         commandKey = "mark";
@@ -84,6 +85,6 @@ public class UndoCommandTest extends TaskSchedulerGuiTest {
             sb.append("\n");
             sb.append(testTask.getAsText());
         }
-        assertResultMessage(String.format(UndoCommand.MESSAGE_SUCCESS, commandKey, sb));
+        assertResultMessage(String.format(Command.MESSAGE_REVERT_COMMAND, commandKey, sb));
     }
 }

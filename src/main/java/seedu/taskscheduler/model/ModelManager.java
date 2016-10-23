@@ -2,12 +2,10 @@ package seedu.taskscheduler.model;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.taskscheduler.commons.core.ComponentManager;
-import seedu.taskscheduler.commons.core.Config;
 import seedu.taskscheduler.commons.core.LogsCenter;
 import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
 import seedu.taskscheduler.commons.events.model.TaskSchedulerChangedEvent;
 import seedu.taskscheduler.commons.events.storage.FilePathChangedEvent;
-import seedu.taskscheduler.commons.util.ConfigUtil;
 import seedu.taskscheduler.commons.util.StringUtil;
 import seedu.taskscheduler.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
@@ -15,7 +13,6 @@ import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
-import java.io.IOException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -100,11 +97,17 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void markTask(ReadOnlyTask task) 
             throws TaskNotFoundException, DuplicateTagException {
-    
         taskScheduler.markTask(task);
         updateFilteredListToShowAll();
         indicateTaskSchedulerChanged();
-        
+    }
+
+    @Override
+    public void unMarkTask(ReadOnlyTask task) 
+            throws TaskNotFoundException, NullPointerException {
+        taskScheduler.unMarkTask(task);
+        updateFilteredListToShowAll();
+        indicateTaskSchedulerChanged();
     }
     
     @Override
@@ -150,7 +153,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-
+    
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {

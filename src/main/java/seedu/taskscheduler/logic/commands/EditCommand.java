@@ -1,19 +1,11 @@
 package seedu.taskscheduler.logic.commands;
 
-import java.util.HashSet;
-import java.util.Set;
 
 import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
-import seedu.taskscheduler.model.Undo;
-import seedu.taskscheduler.model.tag.Tag;
-import seedu.taskscheduler.model.tag.UniqueTagList;
-import seedu.taskscheduler.model.task.Location;
-import seedu.taskscheduler.model.task.Name;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
-import seedu.taskscheduler.model.task.TaskDateTime;
 import seedu.taskscheduler.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -37,6 +29,7 @@ public class EditCommand extends Command {
     
     public final int targetIndex;
     private final Task toCopy;
+    private Task toEdit;
 
     /**
      * Convenience constructor using raw values.
@@ -59,17 +52,29 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask personToEdit = lastShownList.get(targetIndex - 1);
+        toEdit = (Task)lastShownList.get(targetIndex - 1);
 
         try {
-//            toCopy.setTags(personToEdit.getTags());
-            model.editTask(personToEdit, toCopy);
-            CommandHistory.addMutateCmd(new Undo(COMMAND_WORD, targetIndex, (Task)personToEdit));
+            model.editTask(toEdit, toCopy);
+            CommandHistory.addExecutedCommand(this);
         } catch (DuplicateTaskException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing"; 
+            assert false : Messages.MESSAGE_TASK_CANNOT_BE_MISSING;
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, personToEdit));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
+    }
+
+    @Override
+    public CommandResult revert() {
+        try {
+            model.editTask(toCopy, toEdit);
+            CommandHistory.addRevertedCommand(this);
+        } catch (DuplicateTaskException e) {
+            assert false : Messages.MESSAGE_TASK_CANNOT_BE_DUPLICATED;
+        } catch (TaskNotFoundException e) {
+            assert false : Messages.MESSAGE_TASK_CANNOT_BE_MISSING;
+        }
+        return new CommandResult(String.format(MESSAGE_REVERT_COMMAND, COMMAND_WORD, "\n" + toCopy));
     }
 }

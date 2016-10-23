@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import seedu.taskscheduler.commons.exceptions.DuplicateDataException;
 import seedu.taskscheduler.commons.util.CollectionUtil;
 
+import java.rmi.NoSuchObjectException;
 import java.util.*;
 
 /**
@@ -117,6 +118,16 @@ public class UniqueTagList implements Iterable<Tag> {
             throw new DuplicateTagException();
         }
         internalList.add(toAdd);
+    }
+    
+    /**
+     * Removes a Tag in the list.
+     *
+     * @throws NullPointerException if the Tag does not exist in the list.
+     */
+    public void remove(Tag toRemove) throws NullPointerException {
+        assert toRemove != null;
+        internalList.remove(toRemove);
     }
 
     @Override

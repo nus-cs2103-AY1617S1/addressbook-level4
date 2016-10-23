@@ -12,7 +12,7 @@ public class SetpathCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " TaskSchedulerData\n";
 
-    public static final String MESSAGE_SUCCESS = "File path changed";
+    public static final String MESSAGE_SUCCESS = "File path changed: %s";
     
     private String savedPathLink;
     
@@ -23,7 +23,15 @@ public class SetpathCommand extends Command {
     @Override
     public CommandResult execute() {
         EventsCenter.getInstance().post(new FilePathChangedEvent(savedPathLink));
-        return new CommandResult("File path changed");
+        CommandHistory.addExecutedCommand(this);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, savedPathLink));
+    }
+
+    @Override
+    public CommandResult revert() {
+        EventsCenter.getInstance().post(new FilePathChangedEvent(savedPathLink));
+        CommandHistory.addRevertedCommand(this);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, savedPathLink));
     }
 
 }

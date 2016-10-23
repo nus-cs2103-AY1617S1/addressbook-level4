@@ -95,6 +95,24 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(index, newTask);
     }
     
+
+    /**
+     * Unmarks a task to the list as completed.
+     *
+     * @throws TaskNotFoundException
+     * @throws DuplicateTagException if the task is already complete.
+     */
+    public void unMark(ReadOnlyTask toMark) throws TaskNotFoundException, NullPointerException {
+        assert toMark != null;
+        int index = internalList.indexOf(toMark);
+        if (index < 0) {
+            throw new TaskNotFoundException();
+        }
+        Task newTask = new Task(toMark);
+        newTask.unMarkComplete();
+        internalList.set(index, newTask);
+    }
+    
     /**
      * Replace a task in the list with another task.
      *

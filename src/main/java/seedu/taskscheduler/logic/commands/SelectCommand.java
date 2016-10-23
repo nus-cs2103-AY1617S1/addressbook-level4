@@ -41,4 +41,11 @@ public class SelectCommand extends Command {
 
     }
 
+    @Override
+    public CommandResult revert() {
+        // This command not available for revert
+        assert false : Messages.MESSAGE_PROGRAM_ERROR;
+        return null;
+    }
+
 }

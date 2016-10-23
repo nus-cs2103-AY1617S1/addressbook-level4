@@ -1,8 +1,10 @@
 package seedu.taskscheduler.logic.commands;
 
+import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.model.Undo;
 import seedu.taskscheduler.model.task.*;
+import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Adds a task to the Task Scheduler.
@@ -32,17 +34,31 @@ public class AddCommand extends Command {
     public AddCommand(Task toAdd) {
         this.toAdd = toAdd;
     }
+    
     @Override
     public CommandResult execute() {
         assert model != null;
         try {
             model.addTask(toAdd);
             CommandHistory.setModTask(toAdd);
-            CommandHistory.addMutateCmd(new Undo(COMMAND_WORD, 0, toAdd));
+            CommandHistory.addExecutedCommand(this);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
+    }
+    
+    @Override
+    public CommandResult revert() {
+        assert model != null;
+        try {
+            model.deleteTask(toAdd);
+            CommandHistory.setModTask(null);
+            CommandHistory.addRevertedCommand(this);
+        } catch (TaskNotFoundException e) {
+            assert false : "The target task cannot be missing";
+        }
+        return new CommandResult(String.format(MESSAGE_REVERT_COMMAND, COMMAND_WORD, "\n" + toAdd));
     }
 
 }

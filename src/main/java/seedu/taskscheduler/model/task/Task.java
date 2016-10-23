@@ -93,6 +93,20 @@ public class Task implements ReadOnlyTask {
             throw dte;
         } catch (IllegalValueException ive) {
             assert false : "The tag cannot be illegal value";
+        } 
+    }
+
+    /**
+     * Add completed tag to indicate task done.
+     */
+    public void unMarkComplete() throws NullPointerException {
+        try {
+            this.tags.remove(new Tag("Completed"));
+        }
+        catch (NullPointerException npe) { 
+            throw npe;
+        } catch (IllegalValueException ive) {
+            assert false : "The tag cannot be illegal value";
         }
     }
     
