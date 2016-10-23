@@ -41,7 +41,7 @@ public abstract class CommandParser {
             Pattern.compile("(?<name>[\\p{Alnum} ]+)");
 
     protected static final Pattern SETPATH_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<name>[\\p{Alnum}|/|:|\\s+]+)");   //    data/  <---
+            Pattern.compile("(?<name>[\\p{Alnum}|/|:|\\s+]+)"); 
     
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.

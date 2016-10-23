@@ -12,7 +12,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the task-scheduler level
+ * Wraps all data at the Task Scheduler level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class TaskScheduler implements ReadOnlyTaskScheduler {
@@ -73,7 +73,7 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
     /**
      * Adds a task to the task scheduler
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */

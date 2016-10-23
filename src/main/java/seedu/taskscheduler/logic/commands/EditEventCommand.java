@@ -7,6 +7,7 @@ import seedu.taskscheduler.model.task.Name;
 import seedu.taskscheduler.model.task.TaskDateTime;
 
 public class EditEventCommand extends EditCommand {
+    
     /**
      * Convenience constructor using raw values.
      *

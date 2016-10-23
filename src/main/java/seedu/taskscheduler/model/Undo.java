@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import seedu.taskscheduler.model.task.Task;
 
+/**
+ * Represents the undo model.
+ */
+
 public class Undo {
 	
 	private final ArrayList<Task> taskList = new ArrayList<Task>();

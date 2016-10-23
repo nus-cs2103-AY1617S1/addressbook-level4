@@ -8,7 +8,7 @@ import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a task identified using it's last displayed index from the Task Scheduler.
  */
 public class DeleteCommand extends Command {
 

@@ -5,7 +5,7 @@ import seedu.taskscheduler.model.Undo;
 import seedu.taskscheduler.model.task.*;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to the Task Scheduler.
  */
 public class AddCommand extends Command {
 
@@ -16,7 +16,7 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " Do CS2103 Pretut\n"
             + "Example: " + COMMAND_WORD
-            + " Do CS2103 Pretut by 01-Oct-16 8am\n"
+            + " Do CS2103 Pretut by 8am 01-Oct-16\n"
             + "Example: " + COMMAND_WORD
             + " CS2103 Tutorial s/today 8am e/tomorrow 9am at NUS COM1-B103\n";
 

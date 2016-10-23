@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * A class to access TaskScheduler data stored as an xml file on the hard disk.
+ * A class to access Task Scheduler data stored as an xml file on the hard disk.
  */
 public class XmlTaskSchedulerStorage implements TaskSchedulerStorage {
 

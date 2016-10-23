@@ -7,7 +7,7 @@ public class SetpathCommand extends Command {
 
     public static final String COMMAND_WORD = "setpath";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Set custom save path for Taskscheduler. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Set custom save path for Task Scheduler. "
             + "Parameters: <filename>\n"
             + "Example: " + COMMAND_WORD
             + " TaskSchedulerData\n";

@@ -6,7 +6,7 @@ import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 
 /**
- * Clears the address book.
+ * Clears the Task Scheduler.
  */
 public class ClearCommand extends Command {
 
