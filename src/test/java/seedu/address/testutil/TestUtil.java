@@ -1,7 +1,9 @@
 package seedu.address.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.ActivityCardHandle;
+
+import guitests.guihandles.FloatingTaskCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -306,8 +308,12 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(ActivityCardHandle card, ReadOnlyActivity activity) {
-        return card.isSameActivity(activity);
+    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyActivity task) {
+        return card.isSameActivity(task);
+    }
+    
+    public static boolean compareCardAndFloatingTask(FloatingTaskCardHandle card, ReadOnlyActivity floatingTask) {
+        return card.isSameActivity(floatingTask);
     }
 
 

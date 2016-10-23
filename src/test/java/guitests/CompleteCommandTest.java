@@ -2,7 +2,9 @@ package guitests;
 
 import static seedu.menion.logic.commands.CompleteCommand.MESSAGE_COMPLETED_ACTIVITY_SUCCESS;
 import org.junit.Test;
-import guitests.guihandles.ActivityCardHandle;
+
+import guitests.guihandles.FloatingTaskCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import seedu.address.testutil.TestActivity;
 
 // @author Marx Low (A0139164A)
@@ -15,11 +17,6 @@ public class CompleteCommandTest extends AddressBookGuiTest {
         // Runs complete command on a task.
         activityToComplete = td.task;
         commandBox.runCommand("clear");
-        commandBox.runCommand(activityToComplete.getAddCommand());
-        assertCompleteSuccess(activityToComplete, 1);
-        
-        // Runs complete command on an event.
-        activityToComplete = td.event;
         commandBox.runCommand(activityToComplete.getAddCommand());
         assertCompleteSuccess(activityToComplete, 1);
         
@@ -39,7 +36,7 @@ public class CompleteCommandTest extends AddressBookGuiTest {
         
         // Runs complete command on empty list
         commandBox.runCommand("clear");
-        assertCompleteSuccess(activityToComplete, 1);
+        assertCompleteSuccess(activityToComplete, 1); //this should be assertSOMETHINGELSE 
     }
     
     /**
@@ -54,19 +51,14 @@ public class CompleteCommandTest extends AddressBookGuiTest {
         
         //Confirms new Activity card has correct Completed status.
         if (activityToComplete.getActivityType().equals("task")) {
-            ActivityCardHandle completedCard = activityListPanel.navigateToTask(activityToComplete);
+            TaskCardHandle completedCard = activityListPanel.navigateToTask(activityToComplete);
             System.out.println("task is: " + completedCard.toString());
-            assertMatching(activityToComplete, completedCard);
+            assertTaskMatching(activityToComplete, completedCard);
         }
         else if (activityToComplete.getActivityType().equals("floatingTask")) {
-            ActivityCardHandle completedCard = activityListPanel.navigateToFloatingTask(activityToComplete);
+            FloatingTaskCardHandle completedCard = activityListPanel.navigateToFloatingTask(activityToComplete);
             System.out.println("floating task is: " + completedCard.toString());
-            assertMatching(activityToComplete, completedCard);
-        }
-        else if (activityToComplete.getActivityType().equals("event")) {
-            ActivityCardHandle completedCard = activityListPanel.navigateToEvent(activityToComplete);
-            System.out.println("event is: " + completedCard.toString());
-            assertMatching(activityToComplete, completedCard);
+            assertFloatingTaskMatching(activityToComplete, completedCard);
         }
         
         // Confirms the result message is correct
