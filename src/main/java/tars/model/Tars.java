@@ -222,8 +222,6 @@ public class Tars implements ReadOnlyTars {
 		replaceTask(toEdit, taskToEdit);
 		syncTagsWithMasterList(taskToEdit);
 		
-		System.out.println("edut: " + taskToEdit.getName());
-		
 		return taskToEdit;
 	}
 
