@@ -59,7 +59,7 @@ public class JimiParser {
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
             Pattern.compile("(?<targetIndex>[te]\\d+\\s)(?<editDetails>.+)");
     
-    // acccepts in the format of a deadline task or event
+    // accepts in the format of a deadline task or event
     private static final Pattern EDIT_DETAILS_FORMAT = Pattern.compile(
             "(\"(?<taskDetails>.+)\"\\s?)?(((due (?<deadline>.+))?)|((on (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?))");
     
@@ -366,7 +366,7 @@ public class JimiParser {
         
         //goes through list of keywords to check if user input is valid
         for (String validKey : ShowCommand.VALID_KEYWORDS) {
-            if (validKey.toLowerCase().contains(args.toLowerCase())) {
+            if (validKey.toLowerCase().equals(args.toLowerCase())) {
                 keywordFound = true;
                 break;
             }

@@ -1,10 +1,8 @@
 package seedu.jimi.logic.commands;
 
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,14 +38,14 @@ public class ShowCommand extends Command {
             COMMAND_WORD + ": Shows certain sections of the task panel in the agenda panel. \n"
             + "Parameters: NAME_OF_SECTION_TO_DISPLAY\n" 
             + "Example: " + COMMAND_WORD + " floating tasks\n"
-            + "> Valid Keywords: Floating, Complete, Incompletes, Today, Tomorrow, {day of week displayed}";
+            + "> Valid case-insensitive keywords: Floating, Complete, Incomplete, Today, Tomorrow, {day of week displayed}";
 
     public static final String MESSAGE_SUCCESS = "Displayed tasks and events.";
     
     private final String userSelection; //section name from user input
     
     public ShowCommand() {
-        this.userSelection = "";
+        this.userSelection = null;
     }
     
     public ShowCommand(String args) {
@@ -63,37 +61,37 @@ public class ShowCommand extends Command {
         
         ListId sectionToShow = null;
         
-        switch(userSelection) {
-        case "floating":
+        switch (userSelection) {
+        case "floating" :
             sectionToShow = ListId.FLOATING_TASKS;
             break;
-        case "incomplete":
+        case "incomplete" :
             sectionToShow = ListId.INCOMPLETE;
             break;
-        case "complete":
+        case "complete" :
             sectionToShow = ListId.COMPLETED;
             break;
-        case "today":
+        case "today" :
             sectionToShow = ListId.DAY_AHEAD_0;
             break;
-        case "tomorrow":
+        case "tomorrow" :
             sectionToShow = ListId.DAY_AHEAD_1;
             break;
-        case "monday":
-        case "tuesday": 
-        case "wednesday":
-        case "thursday":
-        case "friday":
-        case "saturday": 
-        case "sunday":
+        case "monday" :
+        case "tuesday" :
+        case "wednesday" :
+        case "thursday" :
+        case "friday" :
+        case "saturday" :
+        case "sunday" :
             sectionToShow = findSectionToShow(userSelection);
             break;
-        default:
-                break;
+        default :
+            break;
         }
         
-        model.updateFilteredAgendaTaskList(null, sectionToShow);
-        model.updateFilteredAgendaEventList(null, sectionToShow);
+        model.updateFilteredAgendaTaskList(sectionToShow);
+        model.updateFilteredAgendaEventList(sectionToShow);
         
         return new CommandResult(MESSAGE_SUCCESS);
     }
@@ -103,10 +101,11 @@ public class ShowCommand extends Command {
         
         LocalDateTime dateTime = new DateTime().getLocalDateTime();
         
-        for(int i=0; i<7; i++) {
+        for (int i = 0; i < 7; i++) {
             String dayOfWeek = dateTime.getDayOfWeek().plus(i).getDisplayName(TextStyle.FULL, Locale.ENGLISH);
-            if(dayOfWeek.toLowerCase().contains(userSelection)) {
+            if (dayOfWeek.toLowerCase().equals(userSelection)) {
                 sectionToShow = ListId.values()[i];
+                break;
             }
         }
         

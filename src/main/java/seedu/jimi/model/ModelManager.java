@@ -120,13 +120,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredAgendaTaskList(Set<String> keywords, ListId sectionToShow) {
-        this.filteredListManager.updateFilteredList(ListId.TASKS_AGENDA, keywords, sectionToShow);
+    public void updateFilteredAgendaTaskList(Set<String> keywords) {
+        this.filteredListManager.updateFilteredList(ListId.TASKS_AGENDA, keywords);
     }
 
     @Override
-    public void updateFilteredAgendaEventList(Set<String> keywords, ListId sectionToShow) {
-        this.filteredListManager.updateFilteredList(ListId.EVENTS_AGENDA, keywords, sectionToShow);
+    public void updateFilteredAgendaEventList(Set<String> keywords) {
+        this.filteredListManager.updateFilteredList(ListId.EVENTS_AGENDA, keywords);
+    }
+    
+    @Override
+    public void updateFilteredAgendaTaskList(ListId other) {
+        this.filteredListManager.updateFilteredList(ListId.TASKS_AGENDA, other);
+        
+    }
+
+    @Override
+    public void updateFilteredAgendaEventList(ListId other) {
+        this.filteredListManager.updateFilteredList(ListId.EVENTS_AGENDA, other);
     }
     
     /*

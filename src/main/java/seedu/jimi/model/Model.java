@@ -23,6 +23,12 @@ public interface Model {
     /** Adds the given task */
     void addTask(ReadOnlyTask floatingTask) throws UniqueTaskList.DuplicateTaskException;
     
+    /** Sets the task to be completed/incomplete */
+    void completeTask(ReadOnlyTask taskToComplete, boolean isComplete);
+    
+    /** Replaces {@code oldTask} with {@code newTask} */
+    void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask);
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
     
@@ -48,19 +54,18 @@ public interface Model {
 
     UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaEventList();
 
-
     /** Updates the filter of the filtered task list to show the default listings */
     void updateAllFilteredListsShowDefault();
 
     /** Updates the filter of the filtered task list to filter by the given keywords */
-    void updateFilteredAgendaTaskList(Set<String> keywords, ListId sectionToShow);
+    void updateFilteredAgendaTaskList(Set<String> keywords);
     
     /** Updates the filter of the filtered event list to filter by the given keywords */
-    void updateFilteredAgendaEventList(Set<String> keywords, ListId sectionToShow);
+    void updateFilteredAgendaEventList(Set<String> keywords);
     
-    /** Sets the task to be completed/incomplete */
-    void completeTask(ReadOnlyTask taskToComplete, boolean isComplete);
+    /** Updates the filter of the filtered task list to copy the filter of the list identified by {@code other} */
+    void updateFilteredAgendaTaskList(ListId other);
     
-    /** Replaces {@code oldTask} with {@code newTask} */
-    void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask);
+    /** Updates the filter of the filtered event list to copy the filter of the list identified by {@code other} */
+    void updateFilteredAgendaEventList(ListId other);
 }
