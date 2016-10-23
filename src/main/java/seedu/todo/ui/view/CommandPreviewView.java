@@ -2,88 +2,113 @@ package seedu.todo.ui.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.logic.commands.CommandSummary;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.util.FxViewUtil;
 import seedu.todo.ui.util.UiPartLoaderUtil;
+import seedu.todo.ui.util.ViewGeneratorUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 //@@author A0139021U
 
 /**
- * Display textual feedback to command input via this view with {@link #displayMessage(String)}.
+ * A view that displays all the current relevant information.
  */
 public class CommandPreviewView extends UiPart {
+
     /* Constants */
     private static final String FXML = "CommandPreviewView.fxml";
 
     /* Variables */
     private final Logger logger = LogsCenter.getLogger(CommandPreviewView.class);
 
-    /* Layout Elements */
-    @FXML private Label commandLivePreviewLabel;
-    private AnchorPane textContainer;
+    /*Layouts*/
+    private AnchorPane placeholder;
+    private VBox previewPanelView;
+
+    @FXML
+    private GridPane previewGrid;
 
     /**
-     * Loads and initialise the feedback view element to the placeholder.
-     *
-     * @param primaryStage The main stage of the application.
-     * @param placeholder The place where the view element {@link #textContainer} should be placed.
-     * @return An instance of this class.
+     * Loads and initialise the feedback view element to the placeHolder
+     * @param primaryStage of the application
+     * @param placeholder where the view element {@link #previewPanelView} should be placed
+     * @return an instance of this class
      */
     public static CommandPreviewView load(Stage primaryStage, AnchorPane placeholder) {
-        CommandPreviewView feedbackView = UiPartLoaderUtil.loadUiPart(primaryStage, placeholder, new CommandPreviewView());
-        feedbackView.configureLayout();
-        return feedbackView;
+        CommandPreviewView previewView = UiPartLoaderUtil.loadUiPart(
+                primaryStage, placeholder, new CommandPreviewView());
+        previewView.configureLayout();
+        previewView.hidePreviewPanel();
+        return previewView;
     }
 
     /**
-     * Configure the UI layout of {@link CommandPreviewView}.
+     * Configure the UI layout of {@link CommandErrorView}
      */
     private void configureLayout() {
-        FxViewUtil.applyAnchorBoundaryParameters(textContainer, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(commandLivePreviewLabel, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(previewPanelView, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(previewGrid, 0.0, 0.0, 0.0, 0.0);
     }
 
     /* Interfacing Methods */
     /**
-     * Displays a message onto the {@link #commandLivePreviewLabel}.
-     * @param message The feedback message to be shown to the user.
+     * Displays a list of commands into the previewPanelView
      */
-    public void displayMessage(String message) {
-        commandLivePreviewLabel.setText(message);
+    public void displayCommandSummaries(List<CommandSummary> commandSummaries) {
+        this.showPreviewPanel();
+        previewGrid.getChildren().clear();
+        int rowIndex = 0;
+        for (CommandSummary commandSummary : commandSummaries) {
+            appendCommandSummary(rowIndex++, commandSummary);
+        }
     }
 
     /**
-     * Clears any message in {@link #commandLivePreviewLabel}.
+     * Add a command summary to each row of the previewGrid
+     * @param rowIndex the row number to which the command summary should append to
+     * @param commandSummary to be displayed
      */
-    public void clearMessage() {
-        commandLivePreviewLabel.setText("");
+    private void appendCommandSummary(int rowIndex, CommandSummary commandSummary) {
+        Text commandScenario = ViewGeneratorUtil.constructText(commandSummary.scenario, ViewStyleUtil.STYLE_TEXT_4);
+        Text commandName = ViewGeneratorUtil.constructText(commandSummary.command, ViewStyleUtil.STYLE_TEXT_4);
+        Text commandArgument = ViewGeneratorUtil.constructText(" " + commandSummary.arguments, ViewStyleUtil.STYLE_TEXT_4);
+
+        ViewStyleUtil.addClassStyles(commandArgument, ViewStyleUtil.STYLE_CODE);
+        ViewStyleUtil.addClassStyles(commandName, ViewStyleUtil.STYLE_CODE, ViewStyleUtil.STYLE_BOLDER);
+
+        TextFlow combinedCommand = ViewGeneratorUtil.placeIntoTextFlow(commandName, commandArgument);
+        previewGrid.addRow(rowIndex, commandScenario, combinedCommand);
     }
 
-    /**
-     * Indicate an error visually on the {@link #commandLivePreviewLabel}.
-     */
-    public void flagError() {
-        ViewStyleUtil.addClassStyles(commandLivePreviewLabel, ViewStyleUtil.STYLE_ERROR);
+    /* Ui Methods */
+    public void hidePreviewPanel() {
+        FxViewUtil.setCollapsed(previewPanelView, true);
     }
 
-    /**
-     * Remove the error flag visually on the {@link #commandLivePreviewLabel}.
-     */
-    public void unFlagError() {
-        ViewStyleUtil.removeClassStyles(commandLivePreviewLabel, ViewStyleUtil.STYLE_ERROR);
+    private void showPreviewPanel() {
+        FxViewUtil.setCollapsed(previewPanelView, false);
     }
 
     /* Override Methods */
     @Override
+    public void setPlaceholder(AnchorPane placeholder) {
+        this.placeholder = placeholder;
+    }
+
+    @Override
     public void setNode(Node node) {
-        this.textContainer = (AnchorPane) node;
+        this.previewPanelView = (VBox) node;
     }
 
     @Override
