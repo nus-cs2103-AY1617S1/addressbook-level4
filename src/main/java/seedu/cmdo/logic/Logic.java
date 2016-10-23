@@ -22,7 +22,9 @@ public interface Logic {
     /** Returns the first-run list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun);
     
-    UnmodifiableObservableList<ReadOnlyTask> getBlockedList();
+    ObservableList<ReadOnlyTask> getBlockedList();
+
+	ObservableList<ReadOnlyTask> getAllTaskList();
 
 
 }
