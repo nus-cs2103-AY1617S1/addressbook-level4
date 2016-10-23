@@ -31,26 +31,28 @@ public class ToolTip {
     private static final int COMMAND_WORD_COUNT_NO_MATCH = 0;
     private static final int COMMAND_WORD_COUNT_SINGLE_MATCH = 1;
     
+    private static ToolTip instance;
+    
     private FilteredList<String> commands;
     
-    private static ToolTip tooltip;
-    private String tip;
-    private String decription;
+    private String tooltip;
+    private String description;
     
     private ToolTip() {
         ObservableList<String> commandList = FXCollections.observableArrayList();
         commandList.addAll(Command.ALL_COMMAND_WORDS);
         commands = commandList.filtered(null);
+        clearToolTips();
     }
     
     /**
      * Gets the instance of tooltip to be used
      */
     public static ToolTip getInstance() {
-        if (tooltip == null) {
-            tooltip = new ToolTip();
+        if (instance == null) {
+            instance = new ToolTip();
         }
-        return tooltip;
+        return instance;
     }
     
     /**
@@ -58,21 +60,22 @@ public class ToolTip {
      * 
      * @param input to determine the tooltip to be shown
      */
-    public void setToolTip(String input) {
-        String[] splitInput = input.split(COMMAND_WORD_DELIMITER);
+    public void createToolTip(String input) {
+        clearToolTips();
+        String[] splitedInput = input.split(COMMAND_WORD_DELIMITER);
         
-        //only interested in the first word
-        String command = splitInput[COMMAND_WORD_POSITION];
+        //only interested in the first word, which is the command word
+        String command = splitedInput[COMMAND_WORD_POSITION];
         
         //filter the commands list to show only commands that match
         commands.setPredicate(p -> p.startsWith(command));
         
         if (!isCommandWordMatch()) {
-            tip = MESSAGE_UNKNOWN_COMMAND;
+            tooltip = MESSAGE_UNKNOWN_COMMAND;
         } else if (isSingleMatchFound()) {
-            tip = getMatchCommandToolTipSingle(command);
+            tooltip = getMatchCommandToolTipSingle(command);
         } else {
-            tip = getMatchCommandToolTipAll();
+            tooltip = getMatchCommandToolTipAll();
         }
     }
     
@@ -147,11 +150,19 @@ public class ToolTip {
         return builder.toString();
     }
     
+    /**
+     * Set the tooltip and description back to empty string
+     */
+    private void clearToolTips() {
+        tooltip = "";
+        description = "";
+    }
+    
     public String getToolTip() {
-        return tip;
+        return tooltip;
     }
     
     public String getDecription() {
-        return decription;
+        return description;
     }
 }
