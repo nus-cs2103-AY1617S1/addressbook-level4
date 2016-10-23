@@ -22,7 +22,6 @@ public class ListCommand extends Command {
 
     private String taskType = "";
     private DateTime timeKeyWord = null;
-    UnmodifiableObservableList<ReadOnlyDeadline> filteredDeadlines;
 
     public ListCommand() {}
 
@@ -64,9 +63,14 @@ public class ListCommand extends Command {
             }
             return new CommandResult(EVENT_MESSAGE_SUCCESS);
         } else {
-            model.updateFilteredTaskListToShowAll();
-            model.updateFilteredDeadlineListToShowAll();
-            model.updateFilteredEventListToShowAll();
+            if (timeKeyWord != null) {
+                model.updateFilteredDeadlineList(timeKeyWord);
+                model.updateFilteredEventList(timeKeyWord);
+            } else {
+                model.updateFilteredTaskListToShowAll();
+                model.updateFilteredDeadlineListToShowAll();
+                model.updateFilteredEventListToShowAll();
+            }
             return new CommandResult(ALL_MESSAGE_SUCCESS);
         }
     }
