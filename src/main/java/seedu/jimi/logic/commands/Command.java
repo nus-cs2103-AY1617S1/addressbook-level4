@@ -75,4 +75,8 @@ public abstract class Command {
         return Optional.empty();
     }
 
+    public abstract void undo();
+
+    public abstract void redo();
+
 }
