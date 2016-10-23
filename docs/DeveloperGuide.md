@@ -55,11 +55,11 @@ This guide describes the design and implementation of TasKitty. It will help you
 <p align="center">
 <img src="images/Architecture.png" width="800"><br>
 
-<em>Architecture Diagram</em>
+<em>Fig. 1 Architecture Diagram</em>
 </p>
 <br></br>
 
-The **_Architecture Diagram_** given above explains the high-level design of the task manager.
+The Figure 1 above, the _Architecture Diagram_, explains the high-level design of the task manager.
 Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/taskitty/MainApp.java). It is responsible for
@@ -67,13 +67,13 @@ Given below is a quick overview of each component.
 * shutting down the components and invoking the cleanup method where necessary at shut down.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.
+Two of those classes play important roles at the architecture level:
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design).
 * `LogsCenter` : This class is used by many classes to write log messages to the App's log file.
 
-The rest of the App consists four components.
-* [**`UI`**](#ui-component) : Handles UI.
+The rest of the App consists of four components.
+* [**`UI`**](#ui-component) : Handles user interactions with the application.
 * [**`Logic`**](#logic-component) : Executes commands.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
@@ -86,22 +86,22 @@ Each of the four components
 <p align="center">
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-<em>Logic Class Diagram</em>
+<em>Fig. 2 Logic Class Diagram</em>
 </p>
 <br></br>
 
-For example, the `Logic` component (see the class diagram given above) defines its API in the `Logic.java`
+For example, Figure 2 above shows the `Logic` component that defines its API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <br></br>
 
 <p align="center">
 <img src="images\SDforDeleteTask.png" width="800"><br>
 
-<em>Sequence Diagram for Delete Task</em>
+<em>Fig. 3 Sequence Diagram for Delete Task</em>
 </p>
 <br></br>
 
-The _Sequence Diagram_ above shows how the components interact for the scenario where the user issues the
+Figure 3 above, the _Sequence Diagram_, shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the TaskManager data are changed,
@@ -111,11 +111,11 @@ command `delete 1`.
 <p align="center">
 <img src="images\SDforDeleteTaskEventHandling.png" width="800"><br>
 
-<em>Sequence Diagram for Delete Task Event Handling</em>
+<em>Fig. 4 Sequence Diagram for Delete Task Event Handling</em>
 </p>
 <br></br>
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+Figure 4 above shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
@@ -129,21 +129,21 @@ The sections below give more details of each component.
 <p align="center">
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-<em>UI Class Diagram</em>
+<em>Fig. 5 UI Class Diagram</em>
 </p>
 <br></br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/taskitty/ui/Ui.java)
-
-* The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+**API** : [`Ui.java`](../src/main/java/seedu/taskitty/ui/Ui.java)<br>
+Figure 5 shows the UI class diagram.<br>
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `EventsListPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
-* The `UI` component uses JavaFx UI framework. The layouts of these UI parts are defined in matching `.fxml` files
+and they can be loaded using the `UiPartLoader`.<br>
+The `UI` component uses JavaFx UI framework. The layouts of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/taskitty/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml).
 
-The `UI` component
+The `UI` component:
 * executes user commands using the `Logic` component.
 * binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * responds to events raised from various parts of the App and updates the UI accordingly.
@@ -153,26 +153,26 @@ The `UI` component
 <p align="center">
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-<em>Logic Class Diagram</em>
+<em>Fig. 6 Logic Class Diagram</em>
 </p>
 <br></br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/taskitty/logic/Logic.java)
-
-* `Logic` uses the `Parser` class to parse the user command.
-* This results in a `Command` object which is executed by the `LogicManager`.
-* The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-* The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-<br></br>
+**API** : [`Logic.java`](../src/main/java/seedu/taskitty/logic/Logic.java)<br>
+Figure 6 shows the Logic class diagram.<br>
+`Logic` uses the `Parser` class to parse the user command.<br>
+This results in a `Command` object which is executed by the `LogicManager`.<br>
+The command execution can affect the `Model` (e.g. adding a task) and/or raise events.<br>
+The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+<br><br>
 
 <p align="center">
 <img src="images/DeleteTaskSDforLogic.png" width="800"><br>
 
-<em>Delete Task Sequence Diagram for Logic</em>
+<em>Fig. 7 Delete Task Sequence Diagram for Logic</em>
 </p>
 <br></br>
 
-Given above is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Figure 7 above shows the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
 API call.<br>
 
 ### Model component
@@ -180,13 +180,13 @@ API call.<br>
 <p align="center">
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-<em>Model Class Diagram</em>
+<em>Fig. 8 Model Class Diagram</em>
 </p>
 <br></br>
 
-**API** : [`Model.java`](../src/main/java/seedu/taskitty/model/Model.java)
-
-The `Model`component
+**API** : [`Model.java`](../src/main/java/seedu/taskitty/model/Model.java)<br>
+Figure 8 above shows the Model class diagram.<br>
+The `Model`component:
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Task Manager data.
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
@@ -198,13 +198,13 @@ The `Model`component
 <p align="center">
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-<em>Storage Class Diagram</em>
+<em>Fig. 9 Storage Class Diagram</em>
 </p>
 <br></br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/taskitty/storage/Storage.java)
-
-The `Storage` component
+**API** : [`Storage.java`](../src/main/java/seedu/taskitty/storage/Storage.java)<br>
+Figure 9 above shows the Storage class diagram.<br>
+The `Storage` component:
 * saves `UserPrefs` objects in json format and reads it back.
 * saves the Task Manager data in xml format and reads it back.
 
@@ -235,7 +235,7 @@ and logging destinations.
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 * `WARNING` : Can continue, but with caution
 * `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging
+* `FINE` : Details that are not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 
 ## Testing
@@ -248,7 +248,7 @@ Tests can be found in the `./src/test/java` folder.
 
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`.
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
+* To run a subset of tests, right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
 **Using Gradle**:
@@ -271,9 +271,9 @@ We have two types of tests:
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ our GUI tests can be run in the headless mode. 
  In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
+ That means the developer can do other things on the Computer while the tests are running.<br><br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
 ## Dev Ops
@@ -490,11 +490,6 @@ Use case ends
 
 **Extensions**
 
-* Keyword entered is a date
-
-> * Program returns same results as 'view tasks on specified date' command [(Use case: View all tasks at specified date)](#use-case-view-all-tasks-at-specified-date)<br>
-  Use case ends
-
 * Keyword is invalid
 
 > * Program returns errors message, saying that keyword given is invalid<br>
@@ -679,13 +674,13 @@ Use case ends
 * Can sync with Dropbox automatically and quickly, so the user can conveniently access the list at any place that has an internet connection.
 * Can be used on a command line interface e.g. terminal.
 * Can be used on virtually any platform and edited using any text editor.
-* Saves the list as a file in its original, human-readable format, so that even when the application is deleted or uninstalled, the file left behind retains the same readable format when opened by a text editor.
-* Sorts tasks based on 5 priority labels by default (alphabets A - E, where A corresponds to the highest priority), with non-prioritised tasks listed at the bottom.
+* Can save the list as a file in its original, human-readable format, so that even when the application is deleted or uninstalled, the file left behind retains the same readable format when opened by a text editor.
+* Can sort tasks based on 5 priority labels (alphabets A - E, where A corresponds to the highest priority), with non-prioritised tasks listed at the bottom.
 * Has a simple and minimalistic interface.
 
 **Cons**
 
-* Requires user to manually edit one of the downloaded files “todo.cfg” in order to specify the directory in which the user wishes the save the file when used on a desktop.
+* Has no support for editing of directory in the application, so user has to manually edit one of the downloaded files “todo.cfg” in order to specify the directory in which the user wishes the save the file when used on a desktop.
 * Has no support for routine tasks.
 * Has no support for subtasks under main tasks.
 * Has no undo function.
