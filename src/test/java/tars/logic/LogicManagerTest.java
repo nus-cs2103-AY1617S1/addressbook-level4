@@ -887,7 +887,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_confirmInvalidArgsFormat_success() throws Exception {
+    public void execute_confirm_success() throws Exception {
         TestDataHelper helper = new TestDataHelper();
 
         // Create added task
