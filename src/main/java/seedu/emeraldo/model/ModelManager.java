@@ -149,8 +149,8 @@ public class ModelManager extends ComponentManager implements Model {
     private class DescriptionQualifier implements Qualifier {
         private Set<String> descriptionKeyWords;
 
-        DescriptionQualifier(Set<String> nameKeyWords) {
-            this.descriptionKeyWords = nameKeyWords;
+        DescriptionQualifier(Set<String> descriptionKeyWords) {
+            this.descriptionKeyWords = descriptionKeyWords;
         }
 
         @Override
