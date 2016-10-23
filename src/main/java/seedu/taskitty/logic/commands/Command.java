@@ -16,8 +16,6 @@ public abstract class Command {
                 DeleteCommand.COMMAND_WORD, DoneCommand.COMMAND_WORD,
                 UndoCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
                 HelpCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
-                //TODO: remove unused commands..?
-                SelectCommand.COMMAND_WORD, ListCommand.COMMAND_WORD
             };
     
     protected Model model;
