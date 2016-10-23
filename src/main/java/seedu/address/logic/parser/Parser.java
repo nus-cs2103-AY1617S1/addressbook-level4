@@ -3,6 +3,9 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,6 +39,7 @@ public class Parser {
             + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?"
             + "(?<tagArguments>(?: t/[^;]+)*)"
             );
+    private static final Pattern DATE_ARGS_FORMAT = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/(\\d\\d)");
 
     public Parser() {}
 
@@ -76,6 +80,9 @@ public class Parser {
         case ShowCommand.COMMAND_WORD:
         	return prepareShow(arguments);
 
+        case ShowDateCommand.COMMAND_WORD:
+        	return new ShowDateCommand(arguments.trim());
+        	
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
         
@@ -93,6 +100,9 @@ public class Parser {
             
         case UndoneCommand.COMMAND_WORD:
         	return prepareUndone(arguments);
+        
+        case ClearDoneCommand.COMMAND_WORD:
+        	return new ClearDoneCommand();
         	
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -100,7 +110,10 @@ public class Parser {
     }
     
     private Command prepareShow(String args){
+    	final Matcher matcher = DATE_ARGS_FORMAT.matcher(args.trim());
+    	
     	args = args.trim();
+    	
     	if(args.equals("done")) {
     		return new ShowDoneCommand();
     	}
@@ -111,6 +124,25 @@ public class Parser {
     	else if (args.equals("")) {
     		return new ShowCommand();
     	}
+    	
+    	else if (args.equals("today") || args.equals("tdy") ) {
+    		Calendar cal = Calendar.getInstance();
+    		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    		System.out.println(dateFormat.format(cal.getTime()).toString());
+    		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
+    	}
+    	
+    	else if (args.equals("tomorrow") || args.equals("tmr") ) {
+    		Calendar cal = Calendar.getInstance();
+    		cal.add(Calendar.DATE, 1);
+    		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    		System.out.println(dateFormat.format(cal.getTime()).toString());
+    		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
+    	}
+    	
+    	else if (matcher.matches()){
+            return new ShowDateCommand(args.trim());
+        } 
     	else
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
     }
