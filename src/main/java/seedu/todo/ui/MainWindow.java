@@ -37,7 +37,7 @@ public class MainWindow extends UiPart {
 
     /* Independent Ui parts residing in this Ui container */
     private CommandInputView commandInputView;
-    private CommandLivePreview commandHelperView;
+    private CommandPreviewView commandPreviewView;
     private CommandFeedbackView commandFeedbackView;
     private CommandErrorView commandErrorView;
     private FilterBarView filterBarView;
@@ -50,7 +50,7 @@ public class MainWindow extends UiPart {
 
     @FXML private AnchorPane commandInputViewPlaceholder;
     @FXML private AnchorPane commandErrorViewPlaceholder;
-    @FXML private AnchorPane commandHelperViewPlaceholder;
+    @FXML private AnchorPane commandPreviewViewPlaceholder;
     @FXML private AnchorPane commandFeedbackViewPlaceholder;
     @FXML private AnchorPane todoListViewPlaceholder;
     @FXML private AnchorPane helpViewPlaceholder;
@@ -92,14 +92,14 @@ public class MainWindow extends UiPart {
         todoListView = TodoListView.load(primaryStage, todoListViewPlaceholder, model.getObservableList());
         helpView = HelpView.load(primaryStage, helpViewPlaceholder);
         filterBarView = FilterBarView.load(primaryStage, filterBarViewPlaceholder, model.getViewFilter());
-        commandHelperView = CommandLivePreview.load(primaryStage, commandHelperViewPlaceholder);
+        commandPreviewView = CommandPreviewView.load(primaryStage, commandPreviewViewPlaceholder);
         commandFeedbackView = CommandFeedbackView.load(primaryStage, commandFeedbackViewPlaceholder);
         commandInputView = CommandInputView.load(primaryStage, commandInputViewPlaceholder);
         commandErrorView = CommandErrorView.load(primaryStage, commandErrorViewPlaceholder);
 
         //Constructs a command communication link between the commandXViews and logic.
         CommandController.constructLink(logic,
-                commandInputView, commandHelperView, commandFeedbackView, commandErrorView);
+                commandInputView, commandPreviewView, commandFeedbackView, commandErrorView);
     }
 
 

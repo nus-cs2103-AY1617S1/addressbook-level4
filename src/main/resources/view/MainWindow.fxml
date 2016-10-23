@@ -26,7 +26,7 @@
             <Insets left="2.0" right="2.0" />
          </padding>
        </AnchorPane>
-       <AnchorPane fx:id="commandHelperViewPlaceholder" prefHeight="16.0" VBox.vgrow="NEVER">
+       <AnchorPane fx:id="commandPreviewViewPlaceholder" prefHeight="16.0" VBox.vgrow="NEVER">
            <VBox.margin>
                <Insets />
            </VBox.margin>

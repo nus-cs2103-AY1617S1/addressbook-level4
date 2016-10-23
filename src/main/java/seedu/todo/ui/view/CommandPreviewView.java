@@ -18,12 +18,12 @@ import java.util.logging.Logger;
 /**
  * Display textual feedback to command input via this view with {@link #displayMessage(String)}.
  */
-public class CommandLivePreview extends UiPart {
+public class CommandPreviewView extends UiPart {
     /* Constants */
-    private static final String FXML = "CommandLivePreview.fxml";
+    private static final String FXML = "CommandPreviewView.fxml";
 
     /* Variables */
-    private final Logger logger = LogsCenter.getLogger(CommandLivePreview.class);
+    private final Logger logger = LogsCenter.getLogger(CommandPreviewView.class);
 
     /* Layout Elements */
     @FXML private Label commandLivePreviewLabel;
@@ -36,14 +36,14 @@ public class CommandLivePreview extends UiPart {
      * @param placeholder The place where the view element {@link #textContainer} should be placed.
      * @return An instance of this class.
      */
-    public static CommandLivePreview load(Stage primaryStage, AnchorPane placeholder) {
-        CommandLivePreview feedbackView = UiPartLoaderUtil.loadUiPart(primaryStage, placeholder, new CommandLivePreview());
+    public static CommandPreviewView load(Stage primaryStage, AnchorPane placeholder) {
+        CommandPreviewView feedbackView = UiPartLoaderUtil.loadUiPart(primaryStage, placeholder, new CommandPreviewView());
         feedbackView.configureLayout();
         return feedbackView;
     }
 
     /**
-     * Configure the UI layout of {@link CommandLivePreview}.
+     * Configure the UI layout of {@link CommandPreviewView}.
      */
     private void configureLayout() {
         FxViewUtil.applyAnchorBoundaryParameters(textContainer, 0.0, 0.0, 0.0, 0.0);
