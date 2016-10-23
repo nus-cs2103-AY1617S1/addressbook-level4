@@ -20,7 +20,6 @@ public class EndTime {
 
     public static final String MESSAGE_END_TIME_CONSTRAINTS =
             "End time should only be entered in 24 hrs format or 12 hrs format.";
-    public static final String END_TIME_VALIDATION_REGEX = ".*";
     public static final int DEFAULT_HOUR_VAL = 23;
     public static final int DEFAULT_MINUTE_VAL = 59;
 

@@ -16,6 +16,8 @@ import com.joestelmach.natty.*;
 public class StartTime {
 
     public static final String MESSAGE_START_TIME_CONSTRAINTS = "Start time is invalid!";
+    public static final int DEFAULT_HOUR_VAL = 0;
+    public static final int DEFAULT_MINUTE_VAL = 0;
 
     public final Calendar startTime; 
 
@@ -40,6 +42,7 @@ public class StartTime {
     		}
     		else{
     			startTime.setTime(dates.get(0).getDates().get(0));
+    			setDefaultTime(dates.get(0));
     		}
     	}
 
@@ -50,6 +53,13 @@ public class StartTime {
     public StartTime(Long unixTime) {
     	startTime = Calendar.getInstance();
     	startTime.setTimeInMillis(unixTime);
+    }
+    
+    private void setDefaultTime(DateGroup dategroup){
+    	if (dategroup.isTimeInferred()) {
+			startTime.set(Calendar.HOUR_OF_DAY, DEFAULT_HOUR_VAL);
+			startTime.set(Calendar.MINUTE, DEFAULT_MINUTE_VAL);
+		}
     }
 
     @Override
