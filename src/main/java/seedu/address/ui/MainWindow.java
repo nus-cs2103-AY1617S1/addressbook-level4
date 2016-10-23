@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -183,7 +185,7 @@ public class MainWindow extends UiPart {
     }
 
     @FXML
-    public void handleHelp() {
+    public void handleHelp() throws IOException {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
         helpWindow.show();
     }
