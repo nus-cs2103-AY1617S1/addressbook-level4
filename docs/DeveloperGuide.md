@@ -77,23 +77,37 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
-<img src="images/SDFloatingTaskDelete.png" width="800">
+<img src="images/SD_Delete_Floating_Task.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `taskListChangedEvent` when the Task Master data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 
+<img src="images/SD_Update_Task.png" width="800">
+
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
+
+The _Sequence Diagram_ below show how recurring tasks are handled when they are first added by the user into Happy Jim Task Master. 
+
+<img src="images/SD_add_recurring_tasks.png" width="800"><br>
+
+> Note task is a Task reference from the Model and thus any changes made in the RecurringTaskManager will mutate the values of the task.
+
+The _Sequence Diagram_ below show how recurring tasks have dates appended to them every startup of Happy Jim Task Master
+
+<img src="images/SD_update_recurring_tasks.png" width="800"><br>
+
+> Note that repeatingTasks is a reference to the UniqueTaskList from the TaskMaster. Any changes made to repeatingTasks in RecurringTaskManager will affect TaskMaster's version of UniqueTaskList.
 
 The sections below give more details of each component.
 
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+<img src="images/UI Component.png" width="800"><br>
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
@@ -124,7 +138,7 @@ The `UI` component,
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/Logic Delete Floating Task.png" width="800"><br>
+<img src="images/SD_Delete_Floating_Interaction.png" width="800"><br>
 
 ### Model component
 
@@ -467,11 +481,7 @@ Use case ends.
 > 3a1. Happy Jim Task Manager shows an error message <br>
   Use case resumes at step 2
   
-<<<<<<< HEAD
-#### Use case: UC06 - Arichive Completed Task
-=======
 #### Use case: UC07 - Archive Completed Task
->>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 
 **MSS**
 
@@ -583,11 +593,7 @@ Use case ends
 
 3a. Not enough file space
 
-<<<<<<< HEAD
-> 3a1. Happy Jim Task Manager shows i/o error message<br>
-=======
 > 3a1. Happy Jim Task Manager shows i/o message<br>
->>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 Use case ends
 
 #### Use case: UC13 - Exit
@@ -642,8 +648,17 @@ Use case ends
 > Time is in 12 hours format 12pm, 7am
 
 ## Appendix E : Product Survey
-
-Remember the Milk:<br>
+Product Name | Strengths | Weaknesses
+---|---|---
+**Remember the Milk**|<li>Clean interface</li><li>Simple usage</li><li>Project hierachy</li><li>Handles multiple date/time formats</li> | <li>1 page of tasks: No scrolling</li><li>Heavily relies on mouse usage: not many keyboard shortcuts</li><li>No calendar display</li>
+**Wunderlist**|<li>Interface is elegant</li><li>Display updates in real time</li><li>Sound feedback</li><li>Manages recurring tasks</li><li>Sort by due date</li><li>Filter by date range</li>|	<li>Misleading icons and buttons</li><li>No clendar display</li><li>Does not open on startup</li><li>Deadline notification through email, not the app</li>
+**Google Calendar Quick Add**|	<li>Intuitive shortcuts and commands</li><li>Different command formats are acceptable</li><li>Clean interface</li><li>Task dependency cycles are detected when cyclic inputs are used</li>|	<li>No view/edit/delete/search</li><li>Rigid settings</li>
+**Todo.txt**|	<li>Search function works for phrases, case-insensitive flag like in google search to filter certain texts</li><li>Command history</li>| 	<li>Difficult setup</li><li>-h does not provide full list of commands</li><li>Tasks marked done are deleted permanently</li><li>Command formats are rigid</li><li>No undo of previous actions.</li><li>Too minimalistic, such as no time/date support</li>
+**Trello**|	<li>Cross-platform usage</li><li>Integrates with other calendars</li><li>Collaboration support</li><li>Hierachy of tasks</li>|<li>A lot of fields to fill in</li><li>Recurring tasks have to be manually added</li><li>One rigid view, no option for summary/overview/timeline views</li><li>Many features, which are not immediately apparent</li>
+**Apple Calendar**|	<li>Cross-platform support</li><li>Color-coding for tasks</li><li>Day, month and year view</li>|	<li>No collaboration</li><li>Rigid fields for adding</li>
+**S Planner**|	<li>Syncs to many calendar platforms</li><li>Google map support for locations</li><li>Supports recurring events</li><li>Collaboration support</li>|	<li>Mobile-only</li><li>Floating tasks only available in Agenda view</li><li>Many clicks required to add tasks</li>
+**Any.do**|	<li>Interface is clean and intuitive</li>	<li>Syncs between mobile devices and PC</li>	<li>Descriptions can be added to tasks</li>	<li>Support for recurring tasks</li>|	<li>Internet connection is required to access tasks</li><li>Fields need to be filled in to add tasks</li><li>Time/date is not easy to change</li><li>No alarm support</li>
+Remember the Milk | * Allows for recurring tasks | see usage instructions
 Strengths:<br>
 * Generally suitable for his requirements regarding scheduling events.<br>
 * And probably a database.<br>
