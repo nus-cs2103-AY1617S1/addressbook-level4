@@ -319,12 +319,12 @@ public class JimiParser {
      * @return the prepared command
      */
     private Command prepareComplete(String args) {
-        Optional<Integer> index = parseIndex(args);
+        Optional<Integer> index = parseIndex(args); 
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
         }
         
-        return new CompleteCommand(index.get());
+        return new CompleteCommand(args.trim());
     }
     
     /**

@@ -100,11 +100,12 @@ public class ModelManager extends ComponentManager implements Model {
      * 
      * @param taskToComplete Task to set to complete/incomplete.
      * @param isComplete True, if task is to be set to completed.
+     * @throws TaskNotFoundException 
      */
     @Override
-    public synchronized void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) {
+    public synchronized void completeTask(ReadOnlyTask taskToComplete, boolean isComplete)
+            throws TaskNotFoundException {
         taskBook.completeTask(taskToComplete, isComplete);
-        updateAllFilteredListsShowDefault();
         indicateTaskBookChanged();
     }
     

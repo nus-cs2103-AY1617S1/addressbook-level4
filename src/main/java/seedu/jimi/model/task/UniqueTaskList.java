@@ -78,10 +78,16 @@ public class UniqueTaskList<T> implements Iterable<T> {
     
     /**
      * Sets the selected task to be complete/incomplete.
+     * @throws TaskNotFoundException 
      */
-    public void complete(ReadOnlyTask toComplete, boolean isComplete) {
+    public void complete(ReadOnlyTask toComplete, boolean isComplete) throws TaskNotFoundException {
         assert toComplete != null;
         int targetIndex = internalList.indexOf(toComplete);
+        
+        if (targetIndex == -1) {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+        
         if (toComplete instanceof DeadlineTask) {
             ((DeadlineTask) internalList.get(targetIndex)).setCompleted(isComplete);
         } else if (toComplete instanceof Event) {

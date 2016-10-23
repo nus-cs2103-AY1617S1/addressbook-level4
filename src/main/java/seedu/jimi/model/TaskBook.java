@@ -19,6 +19,7 @@ import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
+import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -138,7 +139,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         tasks.replace(oldTask, newTask);
     }
 
-    public void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) {
+    public void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) throws TaskNotFoundException {
         tasks.complete(taskToComplete, isComplete);
     }
 //// tag-level operations

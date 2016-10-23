@@ -5,6 +5,7 @@ import java.util.Set;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
+import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * The API of the Model component.
@@ -57,8 +58,9 @@ public interface Model {
     /** Updates the filter of the filtered event list to filter by the given keywords */
     void updateFilteredAgendaEventList(Set<String> keywords);
     
-    /** Sets the task to be completed/incomplete */
-    void completeTask(ReadOnlyTask taskToComplete, boolean isComplete);
+    /** Sets the task to be completed/incomplete 
+     * @throws TaskNotFoundException */
+    void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) throws TaskNotFoundException;
     
     /** Replaces {@code oldTask} with {@code newTask} */
     void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask);
