@@ -91,6 +91,9 @@
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
 }
+.list-cell:empty {
+    -fx-background-color: derive(#fff, 20%);
+}
 
 .list-cell .label {
     -fx-text-fill: #010504;
@@ -130,13 +133,13 @@
 }
 
 .status-bar .label {
+    -fx-text-size: 8pt; 
     -fx-text-fill: black;
 }
 
 .status-bar-with-border {
     -fx-background-color: derive(#fff, 30%);
-    -fx-border-color: derive(#fff, 25%);
-    -fx-border-width: 1px;
+    -fx-border-top-color: #ddd; 
 }
 
 .status-bar-with-border .label {
