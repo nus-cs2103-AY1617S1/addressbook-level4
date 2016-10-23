@@ -70,7 +70,6 @@ public class CompleteCommandTest extends AddressBookGuiTest {
             activityToComplete = activityListPanel.returnsUpdatedFloatingTask(activityToComplete.getActivityName().fullName);
         }
         // Confirms the result message is correct
-        System.out.println(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
         assertResultMessage(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
     }
     

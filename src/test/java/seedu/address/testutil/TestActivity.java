@@ -3,6 +3,8 @@ package seedu.address.testutil;
 import java.util.ArrayList;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.logic.commands.CompleteCommand;
+import seedu.menion.logic.commands.UnCompleteCommand;
 import seedu.menion.model.activity.*;
 
 /**
@@ -221,27 +223,61 @@ public class TestActivity implements ReadOnlyActivity {
         return build.toString();
     }
     
+    //@@author A0139164A
     /**
-     * @author Marx Low (A0139164A)
      * @param index of the Activity to complete
-     * @returna complete command for the given Activity.
+     * @return complete command for the given Activity.
      */
     public String getCompleteCommand(int index) {
         
         StringBuilder build = new StringBuilder();
         
         if (activityType.equals(Activity.FLOATING_TASK_TYPE)) {
-            build.append("complete ");
+            build.append(CompleteCommand.COMMAND_WORD);
+            build.append(" ");
             build.append(Activity.FLOATING_TASK_TYPE);
             build.append(" ");
             build.append(String.valueOf(index));
         } else if (activityType.equals(Activity.TASK_TYPE)) {
-            build.append("complete ");
+            build.append(CompleteCommand.COMMAND_WORD);
+            build.append(" ");
             build.append(Activity.TASK_TYPE);
             build.append(" ");
             build.append(String.valueOf(index));
         } else if (activityType.equals(Activity.EVENT_TYPE)) {
-            build.append("complete ");
+            build.append(CompleteCommand.COMMAND_WORD);
+            build.append(" ");
+            build.append(Activity.EVENT_TYPE);
+            build.append(" ");
+            build.append(String.valueOf(index));
+        }
+        
+        return build.toString();
+    }
+    
+    /**
+     * @param index of the Activity to complete
+     * @return complete command for the given Activity.
+     */
+    public String getUncompleteCommand(int index) {
+        
+        StringBuilder build = new StringBuilder();
+        
+        if (activityType.equals(Activity.FLOATING_TASK_TYPE)) {
+            build.append(UnCompleteCommand.COMMAND_WORD);
+            build.append(" ");
+            build.append(Activity.FLOATING_TASK_TYPE);
+            build.append(" ");
+            build.append(String.valueOf(index));
+        } else if (activityType.equals(Activity.TASK_TYPE)) {
+            build.append(UnCompleteCommand.COMMAND_WORD);
+            build.append(" ");
+            build.append(Activity.TASK_TYPE);
+            build.append(" ");
+            build.append(String.valueOf(index));
+        } else if (activityType.equals(Activity.EVENT_TYPE)) {
+            build.append(UnCompleteCommand.COMMAND_WORD);
+            build.append(" ");
             build.append(Activity.EVENT_TYPE);
             build.append(" ");
             build.append(String.valueOf(index));
