@@ -264,13 +264,14 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
+
         int[] indexes;
         try {
              indexes = parseIndex(args);
         }
         catch (IllegalValueException ive) {
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_TASK_DISPLAYED_INDEX, DeleteCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         return new DeleteCommand(indexes);
     }
