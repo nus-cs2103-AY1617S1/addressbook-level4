@@ -37,7 +37,7 @@ public class Parser {
             + "(?<description>(\"[^\"]+\")?)"      //quote marks are reserved for start and end of description field
             + "( )?(?<dateTime>(((by )|(on )|(from ))[^#]+)?)"
             );
-
+    
     public Parser() {}
 
     /**
@@ -45,8 +45,9 @@ public class Parser {
      *
      * @param userInput full user input string
      * @return the command based on the user input
+     * @throws IllegalValueException 
      */
-    public Command parseCommand(String userInput) {
+    public Command parseCommand(String userInput) throws IllegalValueException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -67,7 +68,10 @@ public class Parser {
             
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
-
+       
+        case CompleteCommand.COMMAND_WORD:
+        	return prepareComplete(arguments);
+        
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -82,6 +86,8 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -178,6 +184,18 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }        
+    }
+    
+    Command prepareComplete(String args) throws IllegalValueException {
+    	
+    	  Optional<Integer> index = parseIndex(args);
+          if(!index.isPresent()){
+              return new IncorrectCommand(
+                      String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+          }
+
+          return new CompleteCommand(index.get());
+    	
     }
 
     /**

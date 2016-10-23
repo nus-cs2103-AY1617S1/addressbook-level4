@@ -17,6 +17,8 @@ import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import javax.swing.text.html.HTML.Tag;
+
 /**
  * Represents the in-memory model of the Emeraldo data.
  * All changes to any model should be synchronized.
@@ -92,6 +94,17 @@ public class ModelManager extends ComponentManager implements Model {
             e.printStackTrace();
         }
         indicateEmeraldoChanged();
+    }
+    
+    @Override 
+    public synchronized void completedTask(Task target, int index)
+    		throws TaskNotFoundException {
+    	try {
+    		emeraldo.completedTask(target, index);
+    	} catch (IllegalValueException e) {
+    		e.printStackTrace();
+    	}
+    	indicateEmeraldoChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================
