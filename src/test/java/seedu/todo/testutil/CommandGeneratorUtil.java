@@ -18,9 +18,11 @@ public class CommandGeneratorUtil {
         StringJoiner commandJoiner = new StringJoiner(" ");
         commandJoiner.add("add").add(task.getTitle());
 
+        //Note that we are using a Natty Time variant, we are not going to test the API.
         if (task.getStartTime().isPresent() && task.getEndTime().isPresent()) {
             commandJoiner.add("/d");
             commandJoiner.add(TimeUtil.getDateTimeText(task.getStartTime().get()));
+            commandJoiner.add("to");
             commandJoiner.add(TimeUtil.getDateTimeText(task.getEndTime().get()));
         } else if (task.getEndTime().isPresent()) {
             commandJoiner.add("/d");
