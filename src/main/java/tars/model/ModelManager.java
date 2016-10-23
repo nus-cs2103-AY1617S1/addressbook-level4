@@ -3,9 +3,11 @@ package tars.model;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import tars.commons.core.ComponentManager;
+import tars.commons.core.EventsCenter;
 import tars.commons.core.LogsCenter;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.events.model.TarsChangedEvent;
+import tars.commons.events.ui.TaskAddedEvent;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.flags.Flag;
@@ -149,6 +151,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         tars.addTask(task);
+        EventsCenter.getInstance().post(new TaskAddedEvent(tars.getTaskList().size()+1, task));
         updateFilteredListToShowAll();
         indicateTarsChanged();
     }
