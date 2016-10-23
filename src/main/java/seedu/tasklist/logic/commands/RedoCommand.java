@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.json.JSONException;
 import org.json.simple.parser.ParseException;
 
+import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.TaskList;
 import seedu.tasklist.model.UndoInfo;
 import seedu.tasklist.model.task.Task;
@@ -98,9 +99,9 @@ public class RedoCommand extends Command {
             model.updateTaskUndo(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority(), originalTask.getTags(), originalTask.getRecurringFrequency());
             model.updateTaskUndo(originalTask, stubTask.getTaskDetails(), stubTask.getStartTime(), stubTask.getEndTime(), stubTask.getPriority(), stubTask.getTags(), originalTask.getRecurringFrequency());
             model.getUndoStack().push(undoInfo);
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            e.printStackTrace();
-        }
+        } catch (IllegalValueException e) {
+			e.printStackTrace();
+		}
     }
 
     private void redoDone(Task task) {

@@ -22,12 +22,12 @@ public class UpdateCommand extends Command {
 
 
 	public static final String MESSAGE_UPDATE_TASK_SUCCESS = "Task successfully updated: %1$s";
-	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the to-do list.";
+	public static final String MESSAGE_ILLEGAL_VALUE = "Start or end time is invalid!";
 
 	private int targetIndex;
 	private TaskDetails taskDetails;
-	private StartTime startTime;
-	private EndTime endTime;
+	private String startTime;
+	private String endTime;
 	private Priority priority;
 	private UniqueTagList tags;
 	private String recurringFrequency;
@@ -38,9 +38,9 @@ public class UpdateCommand extends Command {
 		if (taskDetails != null)
 			this.taskDetails = new TaskDetails(taskDetails.replace("\\", ""));
 		if (startTime != null)
-			this.startTime = new StartTime(startTime);
+			this.startTime = startTime;
 		if (endTime != null)
-			this.endTime = new EndTime(endTime);
+			this.endTime = endTime;
 		if (priority != null)
 			this.priority = new Priority(priority);
 		this.tags = new UniqueTagList(tags);
@@ -58,8 +58,8 @@ public class UpdateCommand extends Command {
 			try {
 				model.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, tags, recurringFrequency);
 				return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
-			} catch (UniqueTaskList.DuplicateTaskException e) {
-				return new CommandResult(MESSAGE_DUPLICATE_TASK);
+			} catch (IllegalValueException e) {
+				return new CommandResult(MESSAGE_ILLEGAL_VALUE);
 			}
 		}
 	}

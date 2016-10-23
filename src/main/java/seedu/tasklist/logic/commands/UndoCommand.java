@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.simple.parser.ParseException;
 
+import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.UndoInfo;
 import seedu.tasklist.model.task.ReadOnlyTask;
 import seedu.tasklist.model.task.Task;
@@ -109,9 +110,9 @@ public class UndoCommand extends Command {
         try {
             model.updateTaskUndo(newTask, originalTask.getTaskDetails(), originalTask.getStartTime(), originalTask.getEndTime(), originalTask.getPriority(), originalTask.getTags(), originalTask.getRecurringFrequency());
             model.updateTaskUndo(originalTask, stubTask.getTaskDetails(), stubTask.getStartTime(), stubTask.getEndTime(), stubTask.getPriority(), stubTask.getTags(), originalTask.getRecurringFrequency());
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            e.printStackTrace();
-        }
+        } catch (IllegalValueException e) {
+			e.printStackTrace();
+		}
     }
 
     private void undoDone(ReadOnlyTask task){

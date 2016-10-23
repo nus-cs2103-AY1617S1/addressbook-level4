@@ -1,6 +1,7 @@
 package seedu.tasklist.model;
 
 import javafx.collections.ObservableList;
+import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.tag.Tag;
 import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.EndTime;
@@ -176,15 +177,28 @@ public class TaskList implements ReadOnlyTaskList{
 		return Objects.hash(tasks, tags);
 	}
 
+    public void updateTask(Task taskToUpdate, TaskDetails taskDetails, String startTime, String endTime,
+            Priority priority, String recurringFrequency) throws IllegalValueException {
+        if (taskDetails != null) 
+            taskToUpdate.setTaskDetails(taskDetails); 
+        if (startTime != null) 
+            taskToUpdate.getStartTime().updateTime(startTime); 
+        if (endTime != null) 
+            taskToUpdate.getEndTime().updateTime(endTime);
+        if (priority != null)
+            taskToUpdate.setPriority(priority);
+        if (recurringFrequency != null)
+            taskToUpdate.setRecurringFrequency(recurringFrequency);
+    }
+    
     public void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
-            Priority priority, String recurringFrequency) {
-        
+            Priority priority, String recurringFrequency) throws IllegalValueException {
         if (taskDetails != null) 
             taskToUpdate.setTaskDetails(taskDetails); 
         if (startTime != null) 
             taskToUpdate.setStartTime(startTime); 
         if (endTime != null) 
-            taskToUpdate.setEndTime(endTime); 
+            taskToUpdate.setEndTime(endTime);
         if (priority != null)
             taskToUpdate.setPriority(priority);
         if (recurringFrequency != null)
