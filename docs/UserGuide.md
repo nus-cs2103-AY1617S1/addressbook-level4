@@ -71,7 +71,7 @@
 
 4. Press `Enter`.
 
-5. The deadline will be added to your to do list.
+5. The deadline will be added to your to do list and message "Added deadline" is displayed on console.
 
 #### Add a task
 
@@ -81,7 +81,7 @@
 
 3. Press `Enter`.
 
-4. The task will be added to your to do list.
+4. The task will be added to your to do list and message "Added task" is displayed on console..
 
 #### Add an event
 
@@ -95,7 +95,7 @@
 
 5. Press `Enter`.
 
-6. The event will be added to your to do list.
+6. The event will be added to your to do list and message "Added event" is displayed on console..
 
 [comment]: # (@@author A0140060A)
 
