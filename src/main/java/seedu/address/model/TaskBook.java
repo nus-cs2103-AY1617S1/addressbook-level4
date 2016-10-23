@@ -127,21 +127,6 @@ public class TaskBook implements ReadOnlyTaskBook {
      *  - points to a Tag object in the master list
      */
     private void syncTagsWithMasterList(Task task) {
-        /*final UniqueTagList taskTags = task.getTags();
-        tags.mergeFrom(taskTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
-
-        // Rebuild the list of person tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : taskTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        task.setTags(new UniqueTagList(commonTagReferences));*/
         
         final UniqueTagList taskTags = task.getTags();
         tags.mergeFrom(taskTags);

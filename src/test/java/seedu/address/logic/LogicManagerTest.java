@@ -350,30 +350,34 @@ public class LogicManagerTest {
     @Test 
     public void execute_done_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> twoDatedTasks = helper.generateDatedTaskList(2);
-        List<Task> twoUndatedTasks = helper.generateUndatedTaskList(2);
-        TaskBook expectedAB = helper.generateAddressBook(twoDatedTasks);
-        helper.addToAddressBook(expectedAB, twoUndatedTasks);
-        Task completeDated = twoDatedTasks.get(1);
-        Task completeUndated = twoUndatedTasks.get(1);
-
-        helper.addToModel(model, twoDatedTasks);
-        helper.addToModel(model, twoUndatedTasks);
+        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
+        List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
+        TaskBook expectedAB = helper.generateAddressBook(expectedDatedTasks);
+        helper.addToAddressBook(expectedAB, expectedUndatedTasks);
+        
+        List<Task> toAddDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
+        List<Task> toAddUndatedTasks = helper.generateTaskList(helper.floatTaskA());
+        helper.addToModel(model, toAddDatedTasks);
+        helper.addToModel(model, toAddUndatedTasks);
+        
+        Task completeDated = expectedDatedTasks.get(1);
+        Task completeUndated = expectedUndatedTasks.get(0);
         expectedAB.completeTask(completeDated);
-
+        expectedDatedTasks = helper.generateTaskList(helper.deadlineA());
+        
         assertCommandBehavior("done 12",
                 String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, completeDated),
-                expectedAB, twoDatedTasks,
-                twoUndatedTasks);
+                expectedAB, expectedDatedTasks,
+                expectedUndatedTasks);
 
         expectedAB.completeTask(completeUndated);
-        twoUndatedTasks.remove(completeUndated);
-        assertCommandBehavior("done 2",
+        expectedUndatedTasks = helper.generateTaskList();
+        assertCommandBehavior("done 1",
                 String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, completeUndated),
-                expectedAB, twoDatedTasks,
-                twoUndatedTasks);
+                expectedAB, expectedDatedTasks,
+                expectedUndatedTasks);
     }
-
+    
     @Test
     public void execute_edit_name_successful() throws Exception {
         // setup expectations
