@@ -10,7 +10,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 public class Deadline {
     
     public static final String MESSAGE_DEADLINE_CONSTRAINTS = "Task deadline should be in hh.mmam or hh.mmpm format";
-    public static final String DEADLINE_VALIDATION_REGEX = "((1[012]|[1-9]).[0-5][0-9](\\s)?(?i)(am|pm)|(1[012]|[1-9])(\\s)?(?i)(am|pm))|(^.+)";
+    public static final String DEADLINE_VALIDATION_REGEX = "((1[012])|((0)?[0-9]))[:.][0-5][0-9](?i)(am|pm)?";
     public static final String NO_DEADLINE = "no deadline";
     public final String value;
 
