@@ -7,10 +7,10 @@ import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
 import seedu.task.testutil.TestUtil;
 import seedu.todolist.commons.core.Messages;
-import seedu.todolist.logic.commands.AddCommand;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0138601M
 public class AddCommandTest extends AddressBookGuiTest {
 
     @Test

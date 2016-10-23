@@ -2,58 +2,60 @@ package seedu.todolist.model.task;
 
 import seedu.todolist.commons.exceptions.IllegalValueException;
 
+//@@author A0138601M
 public class Interval {
     
     public static final String MESSAGE_INTERVAL_CONSTRAINTS_DATE = "End date cannot be earlier than start date";
     public static final String MESSAGE_INTERVAL_CONSTRAINTS_TIME = "End time cannot be earlier than start time";
     
-    private final TaskDate startDate;
-    private final TaskTime startTime;
-    private final TaskDate endDate;
-    private final TaskTime endTime;
+    private TaskDate startDate;
+    private TaskTime startTime;
+    private TaskDate endDate;
+    private TaskTime endTime;
 
+    
+    public Interval() {
+        this.startDate = null; 
+        this.startTime = null;
+        this.endDate = null;
+        this.endTime = null;
+    }
     /**
      * Validates given interval.
      *
-     * @throws IllegalValueException if given interval string is invalid.
+     * @throws IllegalValueException if given set of date is an invalid interval.
      */
     public Interval(String startDate, String startTime, String endDate, String endTime) throws IllegalValueException {
-        //Every task type has at least an end date
-        assert endDate != null;
-        
-        if (isDeadlineWithTime(startDate, startTime, endDate, endTime)) {
-            this.startDate = null;
-            this.startTime = null;
-            this.endDate = new TaskDate(endDate);
-            this.endTime = new TaskTime(endTime);
-        }
-        else if (isDeadlineWithoutTime(startDate, startTime, endDate, endTime)) {
-            this.startDate = null;
-            this.startTime = null;
-            this.endDate = new TaskDate(endDate);
-            this.endTime = null;
-        }
-        else {
-            this.startDate = new TaskDate(startDate);
-            this.startTime = new TaskTime(startTime);
-            this.endDate = new TaskDate(endDate);
-            this.endTime = new TaskTime(endTime);
-            
-            if (!isValidDateInterval(this.startDate, this.endDate)) {
-                throw new IllegalValueException(MESSAGE_INTERVAL_CONSTRAINTS_DATE);
+        this();
+        if (!isFloat(startDate, startTime, endDate, endTime)) {
+            if (isDeadlineWithTime(startDate, startTime, endDate, endTime)) {
+                this.endDate = new TaskDate(endDate);
+                this.endTime = new TaskTime(endTime);
             }
-            
-            if (!isValidTimeInterval(this.startDate, this.startTime, this.endDate, this.endTime)) {
-                throw new IllegalValueException(MESSAGE_INTERVAL_CONSTRAINTS_TIME);
+            else if (isDeadlineWithoutTime(startDate, startTime, endDate, endTime)) {
+                this.endDate = new TaskDate(endDate);
             }
-        } 
+            else {
+                this.startDate = new TaskDate(startDate);
+                this.startTime = new TaskTime(startTime);
+                this.endDate = new TaskDate(endDate);
+                this.endTime = new TaskTime(endTime);
+                
+                if (!isValidDateInterval(this.startDate, this.endDate)) {
+                    throw new IllegalValueException(MESSAGE_INTERVAL_CONSTRAINTS_DATE);
+                }
+                
+                if (!isValidTimeInterval(this.startDate, this.startTime, this.endDate, this.endTime)) {
+                    throw new IllegalValueException(MESSAGE_INTERVAL_CONSTRAINTS_TIME);
+                }
+            } 
+        }
     }
 
     /**
      * Returns true if a given interval has a valid task date interval.
      */
-    private static boolean isValidDateInterval(TaskDate startDate, TaskDate endDate) {
-        
+    private boolean isValidDateInterval(TaskDate startDate, TaskDate endDate) {
         if (endDate.isBefore(startDate)) {
             return false;
         }
@@ -63,7 +65,7 @@ public class Interval {
     /**
      * Returns true if a given interval has a valid task time interval.
      */
-    private static boolean isValidTimeInterval(TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime) {
+    private boolean isValidTimeInterval(TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime) {
         if (startDate.isEquals(endDate)) {
             if (endTime.isBefore(startTime)) {
                 return false;
@@ -72,6 +74,13 @@ public class Interval {
         return true;
     }
     
+    /**
+     * Returns the int if a the interval object is a deadline with time.
+     */
+    
+    /**
+     * Returns true if a the interval object is a deadline with time.
+     */
     public boolean isDeadlineWithTime() {
         if (this.startDate == null && this.startTime == null && this.endDate != null && this.endTime != null) {
             return true;
@@ -79,17 +88,10 @@ public class Interval {
         return false;
     }
     
-    public boolean isDeadlineWithoutTime() {
-        if (this.startDate == null && this.startTime == null && this.endDate != null && this.endTime == null) {
-            return true;
-        }
-        return false;
-    }
-    
     /**
-     * Returns true if a given interval is a deadline with time.
+     * Returns true if a given set of datetime is a deadline with time.
      */
-    public static boolean isDeadlineWithTime(String startDate, String startTime, String endDate, String endTime) {
+    private boolean isDeadlineWithTime(String startDate, String startTime, String endDate, String endTime) {
         if (startDate == null && startTime == null && endDate != null && endTime != null) {
             return true;
         }
@@ -97,10 +99,40 @@ public class Interval {
     }
     
     /**
-     * Returns true if a given interval is a deadline without time.
+     * Returns true if the interval object is a deadline without time.
      */
-    public static boolean isDeadlineWithoutTime(String startDate, String startTime, String endDate, String endTime) {
+    public boolean isDeadlineWithoutTime() {
+        if (this.startDate == null && this.startTime == null && this.endDate != null && this.endTime == null) {
+            return true;
+        }
+        return false;
+    } 
+    
+    /**
+     * Returns true if a given set of datetime is a deadline without time.
+     */
+    private boolean isDeadlineWithoutTime(String startDate, String startTime, String endDate, String endTime) {
         if (startDate == null && startTime == null && endDate != null && endTime == null) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Returns true if the interval object is a floating task
+     */
+    public boolean isFloat() {
+        if (this.startDate == null && this.startTime == null && this.endDate == null && this.endTime == null) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Returns true if a given interval is a floating task
+     */
+    private boolean isFloat(String startDate, String startTime, String endDate, String endTime) {
+        if (startDate == null && startTime == null && endDate == null && endTime == null) {
             return true;
         }
         return false;
@@ -123,15 +155,18 @@ public class Interval {
     }
     
     public String toString() {
-        if (startDate == null && startTime == null && endDate != null && endTime != null) {
-            return endDate + " " + endTime;
+        if (!this.isFloat()) {
+            if (this.isDeadlineWithTime()) {
+                return endDate + " " + endTime;
+            }
+            else if (this.isDeadlineWithoutTime()) {
+                return endDate + "";
+            }
+            else {
+                return startDate + " " + startTime + " to " + endDate + " " + endTime;
+            }
         }
-        else if (startDate == null && startTime == null && endDate != null && endTime == null) {
-            return endDate + "";
-        }
-        else {
-            return startDate + " " + startTime + " to " + endDate + " " + endTime;
-        }
+        return null;
     }
 
 }

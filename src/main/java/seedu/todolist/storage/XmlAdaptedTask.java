@@ -47,27 +47,27 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        
-        startDate = null;
-        if (source.getInterval().getStartDate() != null) {
-            startDate = source.getInterval().getStartDate().toString();
-        }
-        
-        startTime = null;
-        if (source.getInterval().getStartTime() != null) {
-            startTime = source.getInterval().getStartTime().toString();
-        }
-        
-        endDate = source.getInterval().getEndDate().toString();
-        
-        endTime = null;
-        if (source.getInterval().getEndTime() != null) {
-            endTime = source.getInterval().getEndTime().toString();
-        }
-        
+        startDate = setDate(source.getInterval().getStartDate());
+        startTime = setTime(source.getInterval().getStartTime());
+        endDate = setDate(source.getInterval().getEndDate());
+        endTime = setTime(source.getInterval().getEndTime());
         location = source.getLocation().toString();
         remarks = source.getRemarks().toString();
         status = source.getStatus().toString();
+    }
+    
+    private String setDate(TaskDate date) {
+        if (date != null) {
+            return date.toString();
+        }
+        return null;
+    }
+    
+    private String setTime(TaskTime time) {
+        if (time != null) {
+            return time.toString();
+        }
+        return null;
     }
 
     /**

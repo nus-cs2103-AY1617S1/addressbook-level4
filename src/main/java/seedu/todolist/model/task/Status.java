@@ -1,9 +1,9 @@
 package seedu.todolist.model.task;
 
-
+//@@author A0138601M
 /**
  * Represents a Task's status in the to do list.
- * Guarantees: is one of the two values 'completed' or 'incomplete'
+ * Guarantees: is one of the two values 'complete' or 'incomplete'
  */
 public class Status {
     public static final String STATUS_COMPLETE = "complete";
