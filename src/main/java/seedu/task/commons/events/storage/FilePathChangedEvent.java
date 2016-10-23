@@ -14,7 +14,7 @@ public class FilePathChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "The new file path is "+newFilePath;
+        return "The new file path specified is "+newFilePath;
     }
 
 }

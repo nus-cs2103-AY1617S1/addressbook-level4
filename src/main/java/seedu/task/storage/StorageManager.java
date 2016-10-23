@@ -4,8 +4,10 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.Config;
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
+import seedu.task.commons.events.storage.ConfigFilePathChangedEvent;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
 import seedu.task.commons.events.storage.FilePathChangedEvent;
 import seedu.task.commons.exceptions.DataConversionException;
@@ -104,7 +106,7 @@ public class StorageManager extends ComponentManager implements Storage {
             setTaskManagerFilePath(event.newFilePath);
             Config currentConfig = ConfigUtil.readConfig(currentFilePath).orElse(new Config());
             ConfigUtil.saveConfig(currentConfig, event.newFilePath);
-            
+            EventsCenter.getInstance().post(new ConfigFilePathChangedEvent(event.newFilePath));
         } catch (IOException e) {
             e.printStackTrace();
         }
