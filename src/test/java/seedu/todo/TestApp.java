@@ -67,7 +67,6 @@ public class TestApp extends MainApp {
         return userPrefs;
     }
 
-
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);
