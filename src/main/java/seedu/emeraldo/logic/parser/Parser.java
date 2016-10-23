@@ -158,7 +158,6 @@ public class Parser {
         
         // Validate arg string format
         if (!matcher.matches()) {
-            System.out.println("yoooo");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
