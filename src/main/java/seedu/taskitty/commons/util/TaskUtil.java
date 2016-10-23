@@ -37,7 +37,7 @@ public class TaskUtil {
      * Returns the default category index for when the user does not give any
      */
     public static int getDefaultCategoryIndex() {
-        return Task.DEADLINE_CATEGORY_INDEX;
+        return Task.DEFAULT_CATEGORY_INDEX;
     }
     
 }
