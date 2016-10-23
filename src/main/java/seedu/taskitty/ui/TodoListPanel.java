@@ -1,6 +1,5 @@
 package seedu.taskitty.ui;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -28,18 +27,19 @@ public class TodoListPanel extends TaskListPanel {
         return FXML;
     }
 
-    protected void configure(ObservableList<ReadOnlyTask> taskList) {
+    public void configure(ObservableList<ReadOnlyTask> taskList) {
     	header.setText("TODOS [t]");
     	header.setStyle("-fx-text-fill: white");
         setConnections(todoListView, taskList);
         addToPlaceholder();
     }
 
-    public void scrollTo(int index) {
-        Platform.runLater(() -> {
-            todoListView.scrollTo(index);
-            todoListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
+    // since we have no more select command this becomes useless... right?
+//    public void scrollTo(int index) {
+//        Platform.runLater(() -> {
+//            todoListView.scrollTo(index);
+//            todoListView.getSelectionModel().clearAndSelect(index);
+//        });
+//    }
 
 }
