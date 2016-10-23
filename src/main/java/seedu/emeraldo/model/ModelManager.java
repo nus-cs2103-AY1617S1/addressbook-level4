@@ -125,6 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
             throws TaskNotFoundException {
         try {
             emeraldo.editTask(target, index, description, dateTime);
+            saveState();
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
