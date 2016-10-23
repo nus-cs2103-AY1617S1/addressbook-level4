@@ -110,6 +110,9 @@ public class Parser {
         case RelocateCommand.COMMAND_WORD:
             return prepareRelocate(arguments);
 
+        case CalendarCommand.COMMAND_WORD:
+            return prepareCalendar(arguments);
+            
         case CollapseCommand.COMMAND_WORD:
             return new CollapseCommand();
 
