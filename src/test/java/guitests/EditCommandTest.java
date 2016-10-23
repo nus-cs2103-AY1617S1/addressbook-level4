@@ -7,7 +7,6 @@ import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.logic.commands.EditCommand;
 import seedu.taskmanager.model.item.ItemDate;
-import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
@@ -28,8 +27,8 @@ import static seedu.taskmanager.logic.commands.EditCommand.MESSAGE_TAG_NOT_FOUND
 import static seedu.taskmanager.model.item.ItemTime.MESSAGE_TIME_CONSTRAINTS;
 import static seedu.taskmanager.model.item.ItemDate.MESSAGE_DATE_CONSTRAINTS;
 import static seedu.taskmanager.logic.commands.Command.MESSAGE_DUPLICATE_ITEM;
+import static seedu.taskmanager.logic.commands.Command.MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -40,6 +39,10 @@ public class EditCommandTest extends TaskManagerGuiTest {
     private String secondTestName = "Survive the semester";
     private String thirdTestName = "Survive university";
     private String validStartDate = "1900-05-05";
+    private String invalidOrderStartDate = "2020-05-05";
+    private String invalidOrderEndDate = "1990-05-05";
+    private String invalidOrderEndTime = "01:06";
+    private String invalidOrderStartTime = "22:06";
     private String validStartTime = "22:06";
     private String validEndDate = "2320-12-05";
     private String validEndTime = "23:06";
@@ -189,6 +192,21 @@ public class EditCommandTest extends TaskManagerGuiTest {
         //invalid date
         commandBox.runCommand("edit " + currentList.length + " ed/" + invalidDate);
         assertResultMessage(MESSAGE_DATE_CONSTRAINTS);
+    }
+    
+    @Test
+    public void edit_endDateComesBeforeStartDate_endDateTimeBeforeStartDateTimeMessage() {
+        TestItem[] currentList = td.getTypicalItems();
+        commandBox.runCommand("edit " + currentList.length + " ed/" + invalidOrderEndDate + " sd/" + invalidOrderStartDate);
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
+    }
+    
+    @Test
+    public void edit_endTimeComesBeforeStartTimeOnSameStartEndDate_endDateTimeBeforeStartDateTimeMessage() {
+        TestItem[] currentList = td.getTypicalItems();
+        commandBox.runCommand("edit " + currentList.length + " ed/" + validStartDate + " sd/" + validStartDate + " st/" + validStartTime + " et/" + validEndTime);
+        commandBox.runCommand("edit " + currentList.length + " et/" + invalidOrderEndTime+ " st/" + invalidOrderStartTime);
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
     }
 
     /**
