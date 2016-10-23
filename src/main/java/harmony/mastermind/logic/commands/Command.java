@@ -46,8 +46,9 @@ public abstract class Command {
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
      */
-    public void setData(Model model) {
+    public void setData(Model model, Storage storage) {
         this.model = model;
+        this.storage = storage;
     }
 
     /**
