@@ -58,13 +58,22 @@ public class FilteredListManager {
         }
     }
     
+    /**
+     * Initializes default expressions used by all the filtered lists in {@code listMap}.
+     * 
+     * @author Clarence
+     */
     private void initDefaultExpressions() {
+        // Expression matches if it's an incomplete floating task.
         defaultExpressions.put(ListId.FLOATING_TASKS,
-                new PredicateExpression(new FloatingTaskQualifier(), new CompletedQualifier(false)));
+                new PredicateExpression(new FloatingTaskQualifier(true), new CompletedQualifier(false)));
         
+        // Expression matches if it's a completed item.
         defaultExpressions.put(ListId.COMPLETED, new PredicateExpression(new CompletedQualifier(true)));
+        // Expression matches if it's an incomplete item.
         defaultExpressions.put(ListId.INCOMPLETE, new PredicateExpression(new CompletedQualifier(false)));
         
+        // Expressions matche if they match the current relative day and are incomplete.
         defaultExpressions.put(ListId.DAY_AHEAD_0,
                 new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_0), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_1,
@@ -80,10 +89,12 @@ public class FilteredListManager {
         defaultExpressions.put(ListId.DAY_AHEAD_6,
                 new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_6), new CompletedQualifier(false)));
         
+        // Expression matches if it's an incomplete task.
         defaultExpressions.put(ListId.TASKS_AGENDA,
-                new PredicateExpression(new TaskQualifier(), new CompletedQualifier(false)));
+                new PredicateExpression(new TaskQualifier(true), new CompletedQualifier(false)));
+        // Expression matches if it's an incomplete event.
         defaultExpressions.put(ListId.EVENTS_AGENDA,
-                new PredicateExpression(new EventQualifier(), new CompletedQualifier(false)));
+                new PredicateExpression(new EventQualifier(true), new CompletedQualifier(false)));
     }
     
     /*
@@ -102,33 +113,32 @@ public class FilteredListManager {
      * ===========================================================
      */
     
-    /** Updates all filters of all filtered lists to default specified in {@code defaultExpressions} */
+    /** Updates filters of all filtered lists to default specified in {@code defaultExpressions} */
     public void updateFilteredListToDefault() {
         for (ListId id : ListId.values()) {
             listMap.get(id).setPredicate(defaultExpressions.get(id)::satisfies);
         }
     }
     
-    /** Updates filtered list identified by {@code id} with keyword filter. */
+    /** Updates filtered list identified by {@code id} with keyword filter along with its default filter. */
     public void updateFilteredList(ListId id, Set<String> keywords) {
-        updateFilteredList(id, new PredicateExpression(new NameQualifier(keywords)));
-    }
-    
-    /** Updates filtered list identified by {@code id} with the filter in {@code other}.  
-     *  @author Clarence  */
-    public void updateFilteredList(ListId id, ListId other) {
-        updateFilteredList(id, defaultExpressions.get(other));
+        updateFilteredList(id, defaultExpressions.get(id), new PredicateExpression(new NameQualifier(keywords)));
     }
     
     /** 
-     * Updates filtered list with a filter that matches the default filter 
-     * along with all predicate expressions in {@code expressions}.
+     * Updates filtered list identified by {@code id} with the filter in {@code other}, along with the original 
+     * default filter of list identified by {@code id}.  
+     * @author Clarence  */
+    public void updateFilteredList(ListId id, ListId other) {
+        updateFilteredList(id, defaultExpressions.get(id), defaultExpressions.get(other));
+    }
+    
+    /** 
+     * Updates filtered list identified by {@code id} with a filter that matches all filters in {@code expressions}.
      * @author Clarence 
      */
     private void updateFilteredList(ListId id, Expression... expressions) {
-        Expression defaultExp = defaultExpressions.get(id);
-        listMap.get(id).setPredicate(
-                t -> defaultExp.satisfies(t) && Arrays.stream(expressions).allMatch(e -> e.satisfies(t)));
+        listMap.get(id).setPredicate(t -> Arrays.stream(expressions).allMatch(e -> e.satisfies(t)));
     }
     
     /*
@@ -307,45 +317,57 @@ public class FilteredListManager {
     /**
      * Predicate for filtering events from the internal list.
      * @author zexuan
-     * @param isCheckCompleted If true, checks for event completion as well.
+     * @param isMatchingForEvent If true, matches events. Else matches anything that's not an event.
      */
     private class EventQualifier implements Qualifier {
         
-        public EventQualifier() {}
+        private final boolean isMatchingForEvent;
+        
+        public EventQualifier(boolean isMatchingForEvent) {
+            this.isMatchingForEvent = isMatchingForEvent;
+        }
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            return task instanceof Event;
+            return isMatchingForEvent == task instanceof Event;
         }
     }
     
     /**
      * Predicate for filtering floatingTasks from the internal list.
      * @author zexuan
-     * @param isCheckCompleted If true, checks for task completion as well.
+     * @param isMatchingForFloating If true, matches floating tasks. Else matches anything that's not a floating task.
      */
     private class FloatingTaskQualifier implements Qualifier {
         
-        public FloatingTaskQualifier() {}
+        private final boolean isMatchingForFloating;
+        
+        public FloatingTaskQualifier(boolean isMatchingForFloating) {
+            this.isMatchingForFloating = isMatchingForFloating;
+        }
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            return !(task instanceof Event || task instanceof DeadlineTask);
+            return isMatchingForFloating == !(task instanceof Event || task instanceof DeadlineTask);
         }
     }
     
     /**
      * Predicate for filtering tasks from the internal list.
      * @author zexuan
-     * @param isCheckCompleted If true, checks for task completion as well.
+     * @param isCheckCompleted If true, matches tasks. Else matches anything that's not a task.
      */
     private class TaskQualifier implements Qualifier {
         
-        public TaskQualifier() {}
+        private final boolean isMatchingForTask;
+        
+        public TaskQualifier(boolean isMatchingForTask) {
+            this.isMatchingForTask = isMatchingForTask;
+        }
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            return task instanceof FloatingTask;
+            return isMatchingForTask == task instanceof FloatingTask;
         }
     }
 }
