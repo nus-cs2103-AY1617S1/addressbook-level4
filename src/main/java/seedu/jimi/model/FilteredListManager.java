@@ -73,7 +73,7 @@ public class FilteredListManager {
         // Expression matches if it's an incomplete item.
         defaultExpressions.put(ListId.INCOMPLETE, new PredicateExpression(new CompletedQualifier(false)));
         
-        // Expressions matche if they match the current relative day and are incomplete.
+        // Expressions match if they match the current relative day and are incomplete.
         defaultExpressions.put(ListId.DAY_AHEAD_0,
                 new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_0), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_1,
