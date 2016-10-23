@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import seedu.task.model.task.ReadOnlyTask;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a task card in the task list panel.
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
@@ -41,9 +41,9 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(EMAIL_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getDescription().toString()) && getPhone().equals(person.getPriority().toString())
-                && getEmail().equals(person.getTimeEnd().toString()) && getAddress().equals(person.getTimeEnd().toString());
+    public boolean isSamePerson(ReadOnlyTask task){
+        return getFullName().equals(task.getDescription().toString()) && getPhone().equals(task.getPriority().toString())
+                && getEmail().equals(task.getTimeEnd().toString()) && getAddress().equals(task.getTimeEnd().toString());
     }
 
     @Override

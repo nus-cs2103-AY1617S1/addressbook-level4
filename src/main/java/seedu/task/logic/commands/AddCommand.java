@@ -14,7 +14,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 
 /**
- * Adds a person to the address book.
+ * Adds a task to the address book.
  */
 public class AddCommand extends Command {
 
@@ -105,10 +105,10 @@ public class AddCommand extends Command {
 	 public CommandResult undo(){
     	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
-        ReadOnlyTask personToDelete = lastShownList.get(lastShownList.size() - 1);
+        ReadOnlyTask taskToDelete = lastShownList.get(lastShownList.size() - 1);
 
         try {
-            model.deleteTask(personToDelete);
+            model.deleteTask(taskToDelete);
             undo = false;
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";

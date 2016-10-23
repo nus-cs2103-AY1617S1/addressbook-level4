@@ -18,7 +18,7 @@ public interface ReadOnlyTaskManager {
     UniqueTaskList getUniquePersonList();
 
     /**
-     * Returns an unmodifiable view of persons list
+     * Returns an unmodifiable view of tasks list
      */
     List<ReadOnlyTask> getPersonList();
 

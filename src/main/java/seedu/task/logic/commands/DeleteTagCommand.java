@@ -9,7 +9,7 @@ import seedu.task.model.tag.UniqueTagList.NotExistTagException;
 import seedu.task.model.task.*;
 
 /**
- * Adds a person to the address book.
+ * Adds a task to the address book.
  */
 public class DeleteTagCommand extends Command{
 

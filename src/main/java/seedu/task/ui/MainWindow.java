@@ -53,7 +53,7 @@ public class MainWindow extends UiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private AnchorPane taskListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -128,7 +128,7 @@ public class MainWindow extends UiPart {
     }
 
     public AnchorPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
+        return taskListPanelPlaceholder;
     }
 
     public void hide() {
@@ -186,8 +186,8 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyTask person) {
-        browserPanel.loadPersonPage(person);
+    public void loadPersonPage(ReadOnlyTask task) {
+        browserPanel.loadPersonPage(task);
     }
 
     public void releaseResources() {

@@ -4,7 +4,7 @@ import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable task object. For testing only.
  */
 public class TestTask implements ReadOnlyTask {
 

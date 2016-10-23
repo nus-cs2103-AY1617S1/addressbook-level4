@@ -207,7 +207,7 @@ public class LogicManagerTest {
             expectedAB.addTask(task);
 
         // setup starting state
-        model.addTask(task); // person already in internal address book
+        model.addTask(task); // task already in internal address book
 
         // execute command and verify result
         assertCommandBehavior(
@@ -238,8 +238,8 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list
      *                    based on visible index.
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage)
@@ -253,22 +253,22 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list
      *                    based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Task> personList = helper.generatePersonList(2);
+        List<Task> taskList = helper.generatePersonList(2);
 
-        // set AB state to 2 persons
+        // set AB state to 2 tasks
         model.resetData(new TaskManager());
-        for (Task p : personList) {
+        for (Task p : taskList) {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), taskList);
     }
 
     @Test
@@ -455,11 +455,11 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates a valid person using the given seed.
-         * Running this function with the same parameter values guarantees the returned person will have the same state.
+         * Generates a valid task using the given seed.
+         * Running this function with the same parameter values guarantees the returned task will have the same state.
          * Each unique seed will generate a unique Person object.
          *
-         * @param seed used to generate the person data field values
+         * @param seed used to generate the task data field values
          */
         Task generatePerson(int seed) throws Exception {
             return new Task(
@@ -471,7 +471,7 @@ public class LogicManagerTest {
             );
         }
 
-        /** Generates the correct add command based on the person given */
+        /** Generates the correct add command based on the task given */
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
@@ -492,7 +492,7 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates an AddressBook with auto-generated persons.
+         * Generates an AddressBook with auto-generated tasks.
          */
         TaskManager generateAddressBook(int numGenerated) throws Exception{
             TaskManager taskManager = new TaskManager();
@@ -503,9 +503,9 @@ public class LogicManagerTest {
         /**
          * Generates an AddressBook based on the list of Persons given.
          */
-        TaskManager generateAddressBook(List<Task> persons) throws Exception{
+        TaskManager generateAddressBook(List<Task> tasks) throws Exception{
             TaskManager taskManager = new TaskManager();
-            addToAddressBook(taskManager, persons);
+            addToAddressBook(taskManager, tasks);
             return taskManager;
         }
 
@@ -520,8 +520,8 @@ public class LogicManagerTest {
         /**
          * Adds the given list of Persons to the given AddressBook
          */
-        void addToAddressBook(TaskManager taskManager, List<Task> personsToAdd) throws Exception{
-            for(Task p: personsToAdd){
+        void addToAddressBook(TaskManager taskManager, List<Task> tasksToAdd) throws Exception{
+            for(Task p: tasksToAdd){
                 taskManager.addTask(p);
             }
         }
@@ -537,8 +537,8 @@ public class LogicManagerTest {
         /**
          * Adds the given list of Persons to the given model
          */
-        void addToModel(Model model, List<Task> personsToAdd) throws Exception{
-            for(Task p: personsToAdd){
+        void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
+            for(Task p: tasksToAdd){
                 model.addTask(p);
             }
         }
@@ -547,15 +547,15 @@ public class LogicManagerTest {
          * Generates a list of Persons based on the flags.
          */
         List<Task> generatePersonList(int numGenerated) throws Exception{
-            List<Task> persons = new ArrayList<>();
+            List<Task> tasks = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
-                persons.add(generatePerson(i));
+                tasks.add(generatePerson(i));
             }
-            return persons;
+            return tasks;
         }
 
-        List<Task> generatePersonList(Task... persons) {
-            return Arrays.asList(persons);
+        List<Task> generatePersonList(Task... tasks) {
+            return Arrays.asList(tasks);
         }
 
         /**

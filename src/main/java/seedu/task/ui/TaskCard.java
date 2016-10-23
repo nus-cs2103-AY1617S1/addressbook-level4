@@ -27,29 +27,29 @@ public class TaskCard extends UiPart {
     @FXML
     private Label complete;
 
-    private ReadOnlyTask person;
+    private ReadOnlyTask task;
     private int displayedIndex;
 
     public TaskCard() {
 
     }
 
-    public static TaskCard load(ReadOnlyTask person, int displayedIndex){
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
         TaskCard card = new TaskCard();
-        card.person = person;
+        card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(person.getDescription().fullDescription);
+        name.setText(task.getDescription().fullDescription);
         id.setText(displayedIndex + ". ");
-        phone.setText("Priority: " + person.getPriority().toString());
-        address.setText("Start Time: " + person.getTimeStart().toString());
-        email.setText("End Time: "+ person.getTimeEnd().toString());
-        tags.setText("Tags: " + person.tagsString());
-        complete.setText(person.getCompleteStatus()? "  [Completed]": "  [Not Completed]");
+        phone.setText("Priority: " + task.getPriority().toString());
+        address.setText("Start Time: " + task.getTimeStart().toString());
+        email.setText("End Time: "+ task.getTimeEnd().toString());
+        tags.setText("Tags: " + task.tagsString());
+        complete.setText(task.getCompleteStatus()? "  [Completed]": "  [Not Completed]");
     }
 
     public HBox getLayout() {
