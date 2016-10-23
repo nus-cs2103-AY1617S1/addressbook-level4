@@ -328,7 +328,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | enter commands in any format | insert tasks more intuitively according to my own style
 `* *` | user| be notified of overdue tasks | complete those tasks as soon as possible
 `*` | user | add recurring tasks | avoid adding the same commands multiple times
-`*` | user | have an autocomplete feature | type less
+`*` | user | view instructions as I type | remember less commands
 `*` | user | use keyboard shortcuts | use the task manager more quickly
 
 
