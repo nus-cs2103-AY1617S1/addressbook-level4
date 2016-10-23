@@ -12,18 +12,18 @@ import teamfour.tasc.model.Model;
  */
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
-    
+
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all tasks/events with filters. "
             + "Parameters: [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag \"TAG\"...] [sort SORTING_ORDER]\n"
             + "Example: " + COMMAND_WORD
             + " completed tasks, tag \"Important\", sort earliest first";
-    
+
     public static final String KEYWORD_DEADLINE = "by";
     public static final String KEYWORD_PERIOD_START_TIME = "from";
     public static final String KEYWORD_PERIOD_END_TIME = "to";
     public static final String KEYWORD_TAG = "tag";
     public static final String KEYWORD_SORT = "sort";
-    
+
     public static final String[] VALID_KEYWORDS = { COMMAND_WORD, KEYWORD_DEADLINE,
             KEYWORD_PERIOD_START_TIME, KEYWORD_PERIOD_END_TIME, KEYWORD_TAG, KEYWORD_SORT};
 
@@ -46,19 +46,19 @@ public class ListCommand extends Command {
         this.tags = new HashSet<>();
         this.sortOrder = Model.SORT_ORDER_BY_EARLIEST_FIRST;
     }
-    
+
     /**
      * List Command
      * Convenience constructor using raw values.
      * Set any parameter as null if it is not required.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public ListCommand(String type, String deadline, String startTime, String endTime, 
+    public ListCommand(String type, String deadline, String startTime, String endTime,
                         Set<String> tags, String sortingOrder) throws IllegalValueException {
         this.deadline = CommandHelper.convertStringToDateIfPossible(deadline);
         this.startTime = CommandHelper.convertStringToDateIfPossible(startTime);
         this.endTime = CommandHelper.convertStringToDateIfPossible(endTime);
-        
+
         this.tags = new HashSet<>();
         for (String tagName : tags) {
             this.tags.add(tagName);
@@ -66,10 +66,10 @@ public class ListCommand extends Command {
         this.type = type;
         this.sortOrder = sortingOrder;
     }
-    
+
     /**
      * Precondition: model is not null.
-     * Adds the filters in this command to the model. 
+     * Adds the filters in this command to the model.
      * Does not update the list yet.
      */
     private void addCommandFiltersToModel() {
@@ -90,13 +90,13 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        
+
         addCommandFiltersToModel();
         model.updateFilteredTaskListByFilter();
-        
+
         if (sortOrder != null)
             model.sortFilteredTaskListByOrder(sortOrder);
-        
+
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 
@@ -105,8 +105,4 @@ public class ListCommand extends Command {
         return false;
     }
 
-    @Override
-    public CommandResult executeUndo() {
-        return null;
-    }
 }

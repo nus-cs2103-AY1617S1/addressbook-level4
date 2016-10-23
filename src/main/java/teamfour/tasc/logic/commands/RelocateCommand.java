@@ -64,16 +64,4 @@ public class RelocateCommand extends Command {
         return undoable;
     }
 
-    @Override
-    public CommandResult executeUndo() {
-        assert model != null;
-        try {
-            MainApp.setDataStorageFilePath(originalDestination);
-            return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, 
-                    originalDestination + "/tasklist.xml"));
-        } catch (IOException | JAXBException e) {
-            return new CommandResult(MESSAGE_FILE_OPERATION_FAILURE);
-        }
-    }
-
 }

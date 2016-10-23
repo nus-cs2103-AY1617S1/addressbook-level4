@@ -238,7 +238,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_list_withSorting_showsUncompleted() throws Exception {
         // prepare expectations
@@ -274,7 +274,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_list_showsOverdue() throws Exception {
         // prepare expectations
@@ -294,7 +294,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_list_showsRecurring() throws Exception {
         // prepare expectations
@@ -995,7 +995,7 @@ public class LogicManagerTest {
 
         List<Task> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         TaskList expectedAB = helper.generateAddressBook(fourPersons);
-        List<Task> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        List<Task> expectedList = helper.generatePersonList(pTarget1, p2, pTarget2);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY",

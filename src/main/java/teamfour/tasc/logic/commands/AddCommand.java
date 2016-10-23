@@ -63,6 +63,13 @@ public class AddCommand extends Command {
             }
             period = new Period(dates.get(0), dates.get(1));
         }
+        else if((startTime != null) && (by != null)){
+            List<Date> dates = CommandHelper.convertStringToMultipleDates(startTime + " and " + by);
+            if(dates.size() < 2){
+                throw new IllegalValueException("Invalid Dates");
+            }
+            period = new Period(dates.get(0), dates.get(1));
+        }
         Recurrence taskRecurrence = new Recurrence();
         if(repeat != null) {
             if ((startTime != null && endTime != null) || deadline != null) {
@@ -100,11 +107,6 @@ public class AddCommand extends Command {
     @Override
     public boolean canUndo() {
         return true;
-    }
-
-    @Override
-    public CommandResult executeUndo() {
-        return null;
     }
 
 }

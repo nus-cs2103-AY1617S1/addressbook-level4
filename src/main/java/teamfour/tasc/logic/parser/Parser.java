@@ -19,6 +19,7 @@ import teamfour.tasc.logic.commands.SelectCommand;
 import teamfour.tasc.logic.commands.ShowCommand;
 import teamfour.tasc.logic.commands.UndoCommand;
 import teamfour.tasc.logic.commands.UpdateCommand;
+import teamfour.tasc.logic.commands.CollapseCommand;
 
 import static teamfour.tasc.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static teamfour.tasc.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -109,8 +110,11 @@ public class Parser {
         case RelocateCommand.COMMAND_WORD:
             return prepareRelocate(arguments);
 
-        case CalendarCommand.COMMAND_WORD:
-            return prepareCalendar(arguments);
+        case CollapseCommand.COMMAND_WORD:
+            return new CollapseCommand();
+
+        case ExpandCommand.COMMAND_WORD:
+            return new ExpandCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -173,7 +177,7 @@ public class Parser {
         string = string.replace(".", "");
         return string;
     }
-    
+
     /**
      * Precondition: argument string is not null.
      * Parses the command string in the context of the list task command.
@@ -207,7 +211,7 @@ public class Parser {
         } else {
             tags = removeFullStopsAndCommas(tags);
         }
-        
+
         if (sortingOrder != null) {
             sortingOrder = removeFullStopsAndCommas(sortingOrder);
         }
@@ -235,7 +239,7 @@ public class Parser {
      */
     private Command prepareShow(String args){
         assert args != null;
-        
+
         if (args.trim().equals("")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
@@ -254,7 +258,7 @@ public class Parser {
         } else {
             tags = removeFullStopsAndCommas(tags);
         }
-        
+
         try {
             return new ShowCommand(
                     type,
@@ -278,7 +282,7 @@ public class Parser {
      */
     private Command prepareHide(String args){
         assert args != null;
-        
+
         if (args.trim().equals("")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HideCommand.MESSAGE_USAGE));
         }
@@ -297,7 +301,7 @@ public class Parser {
         } else {
             tags = removeFullStopsAndCommas(tags);
         }
-        
+
         try {
             return new HideCommand(
                     type,
@@ -398,6 +402,12 @@ public class Parser {
         return new SelectCommand(index.get());
     }
 
+    /**
+     * Parses arguments in the context of the undo command.
+     * Special case: if no arg is provided, undoes 1 command.
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareUndo(String args) {
         if (args.equals("")) {
             return new UndoCommand(1);

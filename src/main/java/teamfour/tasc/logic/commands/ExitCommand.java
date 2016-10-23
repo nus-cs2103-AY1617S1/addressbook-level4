@@ -25,9 +25,4 @@ public class ExitCommand extends Command {
         return false;
     }
 
-    @Override
-    public CommandResult executeUndo() {
-        return null;
-    }
-
 }

@@ -13,6 +13,7 @@ import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.events.storage.DataSavingExceptionEvent;
 import teamfour.tasc.commons.events.ui.ChangeCalendarViewRequestEvent;
+import teamfour.tasc.commons.events.ui.CollapseChangeEvent;
 import teamfour.tasc.commons.events.ui.JumpToListRequestEvent;
 import teamfour.tasc.commons.events.ui.ShowHelpRequestEvent;
 import teamfour.tasc.commons.events.ui.TaskPanelListChangedEvent;
@@ -128,8 +129,7 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getCalendarPanel().selectTask(event.getNewSelection());
     }
 
-
-    /** 
+    /**
      * Handle the event when the task list is changed.
      */
     @Subscribe
@@ -146,5 +146,14 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getCalendarPanel().changeView(event.getCalendarViewType());
         prefs.setCalendarView(event.getCalendarViewType());
+
+    /**
+     * Handle the event when the task list view is collapsed
+     * @param event
+     */
+    @Subscribe
+    public void handleTaskListPanelCollapsedEvent(CollapseChangeEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getTaskListPanel().setCollapse(CollapseChangeEvent.getCollapsed());
     }
 }

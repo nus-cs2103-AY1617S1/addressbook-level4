@@ -289,6 +289,13 @@ Other components should reference this class indirectly by using the **`Model`**
 directly use this class outside the model component.
 <br><br>
 
+**`HistoryStack` and `HistoryItem<T>` Classes:**
+
+The `HistoryStack` class stores the most recent states of the implemented `HistoryItem<T>` objects.
+There is a maximum size for the stack, and older history states are discarded whenever new states are 
+pushed and the size is exceeded. History states stored in the stack can be popped and returned as type `T` objects.
+<br><br>
+
 **`ReadOnlyTaskList`, `ReadOnlyTask` Interfaces:**
 
 These interfaces allow you to retrieve tasks, but not modify them. You can retrieve the tasks

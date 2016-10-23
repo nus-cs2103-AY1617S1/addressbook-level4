@@ -99,8 +99,4 @@ public class HideCommand extends Command {
         return false;
     }
 
-    @Override
-    public CommandResult executeUndo() {
-        return null;
-    }
 }
