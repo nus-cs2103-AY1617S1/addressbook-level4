@@ -17,7 +17,7 @@
 
 4. Double-click the file to start the app. The GUI should appear in a few seconds.
 
-<div style="text-align:center"><img src="images/start_ui.png" width="600"><br>
+	> <div style="text-align:center"><img src="images/start_ui.png" width="600"><br>
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.<br>
@@ -79,7 +79,7 @@
 
 #### Add an event
 
-1. Add an event by typing `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME ed/END_DATE et/END_TIME` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT(e.g. two hours later) edt/END_DATE_TIME_TEXT(e.g. next wed 3pm)`.
+1. Type `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME ed/END_DATE et/END_TIME` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT(e.g. two hours later) edt/END_DATE_TIME_TEXT(e.g. next wed 3pm)`.
 
 2. `add` can be replaced by `a`. `event` can be replaced by `e`.
 
@@ -122,7 +122,7 @@ For tasks, you can only edit the name and its tags.
 	> Example Command:
 	> 1. `find random module`
 	> 2. `edit 6 n/CS2103 #work`
-	><div style="text-align:center"><img src="images/appResponses/edit_command_response.png" width="300"><br>
+	> <div style="text-align:center"><img src="images/appResponses/edit_command_response.png" width="300"><br>
 	> App Response for `edit 6 n/CS2103 #work`
 
 ##### If you know the index of the task in the displayed list
@@ -131,7 +131,7 @@ For tasks, you can only edit the name and its tags.
 
 2. Changes are reflected in the console immediately
 
-> Example Command: `edit 1 n/CS2103 #work #-play`
+	> Example Command: `edit 1 n/CS2103 #work #-play`
 
 #### Edit a deadline's name, end date and end time
 For deadlines, you can only edit the name, end date and time.
@@ -154,7 +154,7 @@ For deadlines, you can only edit the name, end date and time.
 
 2. Changes are reflected in the console immediately
 
-> Example Command: `edit 1 n/CS2103 edt/next thursday 2 pm #work #-play`
+	> Example Command: `edit 1 n/CS2103 edt/next thursday 2 pm #work #-play`
 
 #### Edit an event’s name, start date, start time, end date and end time
 
@@ -169,9 +169,9 @@ For events, you can edit the name and both start and end dates and times.
 
 3. Changes are reflected in the console immediately.
 
-> Example Command:
-> 1. `find random module`
-> 2. `edit 1 n/CS2103 sdt/next friday 2 pm edt/next friday 4 pm #work #-play`
+	> Example Command:
+	> 1. `find random module`
+	> 2. `edit 1 n/CS2103 sdt/next friday 2 pm edt/next friday 4 pm #work #-play`
 
 ##### If you know the index of the event in the displayed list
 
@@ -179,7 +179,7 @@ For events, you can edit the name and both start and end dates and times.
 
 2. Changes are reflected in the console immediately.
 
-> Example Command: `edit 1 n/CS2103 sdt/next friday 2 pm edt/next friday 4 pm #work #-play`
+	> Example Command: `edit 1 n/CS2103 sdt/next friday 2 pm edt/next friday 4 pm #work #-play`
 
 [comment]: # (@@author )
 
