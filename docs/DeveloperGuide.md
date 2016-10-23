@@ -34,10 +34,8 @@ The next segment will show you how to set-up to make sure that you have the nece
 #### Prerequisites
 
 1. **JDK `1.8.0_60`**  or later  
-
     > Having any Java 8 version is not enough.  
     This app will not work with earlier versions of Java 8.
-
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -62,13 +60,13 @@ The next segment will show you how to set-up to make sure that you have the nece
 ### Troubleshooting Project Setup
 **Eclipse reports compile errors after new commits are pulled from Git:**  
 
-* Reason: Eclipse fails to recognize new files that appeared due to the Git pull.  
-* Solution Refresh the project in Eclipse: Right click on the project (in Eclipse package explorer), choose Gradle -> Refresh Gradle Project  
+  Reason: Eclipse fails to recognize new files that appeared due to the Git pull.  
+  Solution Refresh the project in Eclipse: Right click on the project (in Eclipse package explorer), choose Gradle -> Refresh Gradle Project  
 
 **Eclipse reports some required libraries missing:**  
 
-* Reason: Required libraries may not have been downloaded during the project import.  
-* Solution: Run tests using Gradle once (to refresh the libraries).
+  Reason: Required libraries may not have been downloaded during the project import.  
+  Solution: Run tests using Gradle once (to refresh the libraries).
 
 
 
@@ -200,7 +198,7 @@ The details are shown in the following diagrams.
 <img src="images/Edit Command Sequence Diagram part 2.png" width="800">  
 
 ##### Exit
-This exit command runs when the user tries to exit the program, allowing the program to close.
+This `exit` command runs when the user tries to exit the program, allowing the program to close.
 
 
 ##### Find
@@ -208,7 +206,7 @@ To find an item, the user will search through the Storage by calling "find `task
 
 
 ##### Mark
-The `Mark` command allows users to mark their tasks/deadlines/events as completed. This removes the task from the tasks/deadlines/events field, and moves it into the Archive. The Mark command will not delete the task immediately. In the event that users want to unmark the task, users can do so due to using the Unmark Command. 
+The `mark` command allows users to mark their tasks/deadlines/events as completed. This removes the task from the tasks/deadlines/events field, and moves it into the Archive. The `mark` command will not delete the task immediately. In the event that users want to unmark the task, users can do so due to using the `unmark` Command. 
 
 
 ### Model component
