@@ -55,14 +55,16 @@ public class CommandBox extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
     
+    //@@author A0139930B
     private void setTooltipListener() {
         ToolTip tooltip = ToolTip.getInstance();
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             logger.info("Text changed: " + newValue);
-            tooltip.getToolTip(commandTextField.getText());
+            resultDisplay.postMessage(tooltip.getToolTip(commandTextField.getText()));
         });
     }
-
+    
+    //@@author
     @Override
     public void setNode(Node node) {
         commandPane = (AnchorPane) node;
@@ -89,13 +91,6 @@ public class CommandBox extends UiPart {
          */
         handleCommands(previousCommandText);
     }
-    /*
-    @FXML
-    private void handleCommandTextChanged() {
-        logger.info("Text changed.." + commandTextField.getText());
-        Tooltip tooltip = Tooltip.getInstance();
-        tooltip.getToolTip(commandTextField.getText());
-    }*/
 
     public void handleCommands(String command) {
         setStyleToIndicateCorrectCommand();
