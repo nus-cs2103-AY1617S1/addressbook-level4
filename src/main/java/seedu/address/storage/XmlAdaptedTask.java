@@ -23,6 +23,8 @@ public class XmlAdaptedTask {
     private String date;
     @XmlElement
     private boolean isDone;
+    @XmlElement
+    private boolean isRecurring;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -42,6 +44,7 @@ public class XmlAdaptedTask {
         name = source.getName().taskName;
         date = source.getDate().getValue();
         isDone = source.isDone();
+        isRecurring=source.isRecurring();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -68,6 +71,6 @@ public class XmlAdaptedTask {
             date = new EventDate(dates[START_DATE_INDEX], dates[END_DATE_INDEX]);
         }
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, date, tags, isDone);
+        return new Task(name, date, tags, isDone,isRecurring);
     }
 }

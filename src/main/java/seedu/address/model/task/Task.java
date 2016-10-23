@@ -22,17 +22,23 @@ public class Task implements ReadOnlyTask {
     private boolean isDone;
     private BooleanProperty done; // Use Observable so that listeners can know
                                   // when the task's done status is updated
-
+    private boolean isRecurring;
+    private Recurring recurring;
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
     public Task(Name name, Date date, UniqueTagList tags) {
-        this(name, date, tags, false);
+        this(name, date, tags, false,false);
+    }
+    
+    public Task(Name name,Date date,UniqueTagList tags, Recurring recurring){
+        this(name,date,tags,false,true);
+        this.recurring=recurring;
     }
 
-    public Task(Name name, Date date, UniqueTagList tags, boolean isDone) {
+    public Task(Name name, Date date, UniqueTagList tags, boolean isDone,boolean isRecurring) {
         assert !CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
         this.date = date;
@@ -45,13 +51,17 @@ public class Task implements ReadOnlyTask {
                                              // changes in the arg list
         this.isDone = isDone;
         this.done = new SimpleBooleanProperty(isDone);
+        this.isRecurring=isRecurring;
+        
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDate(), source.getTags(), source.isDone());
+        this(source.getName(), source.getDate(), source.getTags(), source.isDone(),source.isRecurring());
+        if(source.isRecurring())
+            this.recurring=source.getRecurring();
     }
 
     public Task(Name name) {
@@ -61,6 +71,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public Name getName() {
         return name;
+    }
+    
+    @Override
+    public Recurring getRecurring(){
+        return recurring;
     }
 
     @Override
@@ -88,6 +103,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
+    }
+    
+    @Override
+    public boolean isRecurring(){
+        return isRecurring;
     }
 
     /**

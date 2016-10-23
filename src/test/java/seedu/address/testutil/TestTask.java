@@ -10,8 +10,10 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Date date;
+    private Recurring recurring;
     private boolean isEvent;
     private boolean isDone;
+    private boolean isRecurring;
     
     private UniqueTagList tags;
 

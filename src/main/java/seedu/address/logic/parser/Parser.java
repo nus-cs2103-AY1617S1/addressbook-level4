@@ -45,6 +45,7 @@ public class Parser {
     public static final Prefix startDatePrefix=new Prefix("s/");
     public static final Prefix endDatePrefix=new Prefix("e/");
     public static final Prefix namePrefix=new Prefix("n/");
+    public static final Prefix recurringPrefix=new Prefix("r/");
     public Parser() {}
 
     /**
@@ -142,24 +143,36 @@ public class Parser {
      */
     private Command prepareAdd(String args) {
     	ArgumentTokenizer argsTokenizer=new ArgumentTokenizer(deadlinePrefix,namePrefix,
-    		tagPrefix,startDatePrefix,endDatePrefix);
+    		tagPrefix,startDatePrefix,endDatePrefix,recurringPrefix);
     	argsTokenizer.tokenize(args);
     	try{
     	    if (argsTokenizer.getTokenizedArguments().containsKey(namePrefix)) {
-        		if(argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix))
+        		if(argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)
+        		        &&argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix)){
         		return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
-        				argsTokenizer.getValue(deadlinePrefix).get(),toSet(argsTokenizer.getAllValues(tagPrefix)));
+        				argsTokenizer.getValue(deadlinePrefix).get(),toSet(argsTokenizer.getAllValues(tagPrefix)),
+        				argsTokenizer.getValue(recurringPrefix).get());
+        		}else if(argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)){
+        		    return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+        		            argsTokenizer.getValue(deadlinePrefix).get(),toSet(argsTokenizer.getAllValues(tagPrefix)),"");
+        		}
+    	    }
         		else if(!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix) 
         		        && !argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)){
         			return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
-        					"",toSet(argsTokenizer.getAllValues(tagPrefix)));
+        					"",toSet(argsTokenizer.getAllValues(tagPrefix)),"");
         		} else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)
         		        && argsTokenizer.getTokenizedArguments().containsKey(endDatePrefix)) {
+        		    if(!argsTokenizer.getTokenizedArguments().containsKey(recurringPrefix))
         			return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
         					argsTokenizer.getValue(startDatePrefix).get(),argsTokenizer.getValue(endDatePrefix).get(),
-        					toSet(argsTokenizer.getAllValues(tagPrefix)));
+        					toSet(argsTokenizer.getAllValues(tagPrefix)),"");
+        		    else
+        		        return new AddCommand(argsTokenizer.getValue(namePrefix).get(),
+        		                argsTokenizer.getValue(startDatePrefix).get(),argsTokenizer.getValue(endDatePrefix).get(),
+        		                toSet(argsTokenizer.getAllValues(tagPrefix)),argsTokenizer.getValue(recurringPrefix).get());
         		}
-    	    }
+    	    
     	    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
     	            AddCommand.MESSAGE_USAGE));
     	} catch(IllegalValueException ive){
@@ -346,7 +359,7 @@ public class Parser {
              if (taskMatcher.matches()) {
                  return new AddCommand(taskMatcher.group("name"),
                          getDeadlineFromArg(taskMatcher.group("deadline")),
-                         getTagsFromArgs(taskMatcher.group("tagArguments")));
+                         getTagsFromArgs(taskMatcher.group("tagArguments")),"");
              }
              final Matcher eventMatcher = EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
              // Validate arg string format if it is a valid add event command
@@ -354,7 +367,7 @@ public class Parser {
                  return new AddCommand(eventMatcher.group("name"),
                          eventMatcher.group("startDate"),
                          eventMatcher.group("endDate"),
-                         getTagsFromArgs(eventMatcher.group("tagArguments")));
+                         getTagsFromArgs(eventMatcher.group("tagArguments")),"");
              }
          } catch (IllegalValueException ive) {
              return new IncorrectCommand(ive.getMessage());
