@@ -203,7 +203,7 @@ public class Parser {
         	return new UndoCommand();
         	
         case SaveCommand.COMMAND_WORD:
-            return prepareSaveAs(arguments);
+            return prepareSave(arguments);
             
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -488,14 +488,25 @@ public class Parser {
      * @param arguments full argument args string
      * @return the prepared command
      */
-    private Command prepareSaveAs(String args) {
+    private Command prepareSave(String args) {
         args = args.trim();
-        if(!args.equals("") && args.endsWith(".xml")) {
+        if(parseSaveCommandFormat(args)) {
             return new SaveCommand(args);
         }
         
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
     }
+
+    /**
+     * Checks valid file path is given as argument for SaveCommand.
+     * @param args parameter input by user for save command
+     * @return true if parameter is valid
+     */
+    private boolean parseSaveCommandFormat(String args) {
+        return !args.equals("") && args.endsWith(".xml");
+    }
+    
+    
     
     /**
      * @param tag
