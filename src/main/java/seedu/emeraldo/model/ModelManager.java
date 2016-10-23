@@ -1,5 +1,11 @@
 package seedu.emeraldo.model;
 
+import java.util.EmptyStackException;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.Stack;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
 import seedu.emeraldo.commons.core.ComponentManager;
 import seedu.emeraldo.commons.core.LogsCenter;
@@ -14,14 +20,6 @@ import seedu.emeraldo.model.task.ReadOnlyTask;
 import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList;
 import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
-
-import java.util.EmptyStackException;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.logging.Logger;
-
-import javax.swing.text.html.HTML.Tag;
-import java.util.Stack;
 
 /**
  * Represents the in-memory model of the Emeraldo data.
@@ -149,6 +147,7 @@ public class ModelManager extends ComponentManager implements Model {
     	} catch (IllegalValueException e) {
     		e.printStackTrace();
     	}
+    	updateFilteredListToShowAll();
     	indicateEmeraldoChanged();
     }
 
@@ -158,15 +157,20 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-
+    
     @Override
     public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+    	filteredTasks.setPredicate(null);
+    }
+
+    @Override
+    public void updateFilteredListToShowUncompleted() {
+        updateFilteredTaskList(new PredicateExpression(new ListQualifier()));
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-            updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
+        updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
     }
     
     @Override
@@ -262,6 +266,33 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "tag=" + String.join(", ", tagKeyWord);
+        }
+    }
+    
+    private class ListQualifier implements Qualifier {
+    	private String completedTag = "Completed";
+    	
+        ListQualifier() {}
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            boolean completedFinder = false;
+            Tag tag;
+            Iterator<Tag> tagIterator = task.getTags().iterator();
+            while(tagIterator.hasNext()){
+                tag = tagIterator.next();
+                completedFinder = completedFinder || run(tag);
+            }
+            return !completedFinder;
+        }
+        
+        private boolean run(Tag tag){
+            return tag.tagName.equalsIgnoreCase(completedTag);
+        }
+
+        @Override
+        public String toString() {
+            return "tag=" + String.join(", ", completedTag);
         }
     }
 }
