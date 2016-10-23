@@ -5,6 +5,6 @@
 <?import seedu.address.ui.AutoCompleteTextField?>
 <AnchorPane styleClass="anchor-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="seedu.address.ui.CommandBox" stylesheets="@DarkTheme.css">
-   <AutoCompleteTextField fx:id="commandTextField" onAction="#handleCommandInputChanged" promptText="Enter command here..."/>
+   <AutoCompleteTextField id="commandTextField" fx:id="commandTextField" onAction="#handleCommandInputChanged" promptText="Enter command here..."/>
 </AnchorPane>
 

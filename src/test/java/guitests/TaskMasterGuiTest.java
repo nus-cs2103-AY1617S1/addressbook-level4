@@ -2,9 +2,6 @@ package guitests;
 
 import guitests.guihandles.*;
 import javafx.stage.Stage;
-import jfxtras.scene.control.agenda.Agenda;
-import jfxtras.scene.control.agenda.Agenda.AppointmentImplLocal;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -13,20 +10,14 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.logic.commands.BlockCommand;
 import seedu.address.model.TaskMaster;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskComponent;
-import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
 import seedu.address.ui.MyAgenda;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertEquals;
