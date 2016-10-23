@@ -28,7 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
-    private final FilteredList<Task> filteredPersons;
+    private final FilteredList<Task> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -42,7 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
 
         taskManager = new TaskManager(src);
-        filteredPersons = new FilteredList<>(taskManager.getPersons());
+        filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
 
     public ModelManager() {
@@ -51,7 +51,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
-        filteredPersons = new FilteredList<>(taskManager.getPersons());
+        filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
 
     @Override
@@ -72,7 +72,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskManager.removePerson(target);
+        taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
 
@@ -90,40 +90,40 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
 	}
 
-    //=========== Filtered Person List Accessors ===============================================================
+    //=========== Filtered Task List Accessors ===============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+        return new UnmodifiableObservableList<>(filteredTasks);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(null);
+        filteredTasks.setPredicate(null);
     }
 
     @Override
     public void updateFilteredTaskList(String operand, Set<String> keywords) throws IllegalValueException{
         switch (operand) {
         case "pr/":
-            updateFilteredPersonList(new PredicateExpression(new PriorityQualifier(keywords)));    
+            updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(keywords)));    
             break;
         case "t/":
-            updateFilteredPersonList(new PredicateExpression(new TagQualifier(keywords)));    
+            updateFilteredTaskList(new PredicateExpression(new TagQualifier(keywords)));    
             break;
         case "start/":
-            updateFilteredPersonList(new PredicateExpression(new TimeQualifier("start", keywords)));    
+            updateFilteredTaskList(new PredicateExpression(new TimeQualifier("start", keywords)));    
             break;
         case "end/":
-            updateFilteredPersonList(new PredicateExpression(new TimeQualifier("end", keywords)));    
+            updateFilteredTaskList(new PredicateExpression(new TimeQualifier("end", keywords)));    
             break;
         default:
-            updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+            updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
         }
     }
 
-    private void updateFilteredPersonList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
+    private void updateFilteredTaskList(Expression expression) {
+        filteredTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering =================================================

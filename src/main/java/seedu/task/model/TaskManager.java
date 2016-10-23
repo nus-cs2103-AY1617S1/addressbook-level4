@@ -27,14 +27,14 @@ public class TaskManager implements ReadOnlyTaskManager {
     public TaskManager() {}
 
     /**
-     * Persons and Tags are copied into this taskmanager
+     * Tasks and Tags are copied into this taskmanager
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Persons and Tags are copied into this taskmanager
+     * Tasks and Tags are copied into this taskmanager
      */
     public TaskManager(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
@@ -46,11 +46,11 @@ public class TaskManager implements ReadOnlyTaskManager {
 
 //// list overwrite operations
 
-    public ObservableList<Task> getPersons() {
+    public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
 
-    public void setPersons(List<Task> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
 
@@ -58,13 +58,13 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newPersons, Collection<Tag> newTags) {
-        setPersons(newPersons.stream().map(Task::new).collect(Collectors.toList()));
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getTagList());
     }
 
 //// task-level operations
@@ -74,7 +74,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicatePersonException if an equivalent task already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
@@ -86,7 +86,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicatePersonException if an equivalent task already exists.
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
 	public void insertTask(int index, Task p) throws UniqueTaskList.DuplicateTaskException {
 		syncTagsWithMasterList(p);
@@ -115,7 +115,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
@@ -138,7 +138,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
+    public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 
@@ -148,7 +148,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
+    public UniqueTaskList getUniqueTaskList() {
         return this.tasks;
     }
 

@@ -3,7 +3,7 @@ package seedu.task.model.task;
 import seedu.task.model.tag.UniqueTagList;
 
 /**
- * A read-only immutable interface for a Person in the taskmanager.
+ * A read-only immutable interface for a Task in the taskmanager.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
@@ -51,7 +51,7 @@ public interface ReadOnlyTask {
     }
 
     /**
-     * Returns a string representation of this Person's tags
+     * Returns a string representation of this Task's tags
      */
     default String tagsString() {
         final StringBuffer buffer = new StringBuffer();

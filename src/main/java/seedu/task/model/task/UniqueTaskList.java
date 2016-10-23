@@ -12,7 +12,7 @@ import java.util.*;
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#equals(Object)
+ * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTaskList implements Iterable<Task> {
@@ -35,7 +35,7 @@ public class UniqueTaskList implements Iterable<Task> {
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
-     * Constructs empty PersonList.
+     * Constructs empty TaskList.
      */
     public UniqueTaskList() {}
 

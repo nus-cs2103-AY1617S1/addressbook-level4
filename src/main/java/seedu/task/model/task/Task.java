@@ -6,7 +6,7 @@ import seedu.task.commons.util.CollectionUtil;
 import seedu.task.model.tag.UniqueTagList;
 
 /**
- * Represents a Person in the task manager.
+ * Represents a Task in the task manager.
  * Guarantees: details are present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {

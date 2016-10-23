@@ -108,7 +108,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredTaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(),
                                                config.getTaskManagerFilePath());
@@ -127,7 +127,7 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getPersonListPlaceholder() {
+    public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
     }
 
@@ -182,12 +182,12 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public TaskListPanel getPersonListPanel() {
+    public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyTask task) {
-        browserPanel.loadPersonPage(task);
+    public void loadTaskPage(ReadOnlyTask task) {
+        browserPanel.loadTaskPage(task);
     }
 
     public void releaseResources() {

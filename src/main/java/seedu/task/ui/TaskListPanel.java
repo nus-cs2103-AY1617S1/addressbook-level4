@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "PersonListPanel.fxml";
+    private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
@@ -62,7 +62,7 @@ public class TaskListPanel extends UiPart {
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new PersonListViewCell());
+        taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -88,9 +88,9 @@ public class TaskListPanel extends UiPart {
         });
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyTask> {
+    class TaskListViewCell extends ListCell<ReadOnlyTask> {
 
-        public PersonListViewCell() {
+        public TaskListViewCell() {
         }
 
         @Override

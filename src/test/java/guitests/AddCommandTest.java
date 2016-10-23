@@ -18,12 +18,12 @@ public class AddCommandTest extends TaskManagerGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = td.hoon;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, taskToAdd);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another task
         taskToAdd = td.ida;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, taskToAdd);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate task
         commandBox.runCommand(td.hoon.getAddCommand());
@@ -43,11 +43,11 @@ public class AddCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToPerson(taskToAdd.getDescription().fullDescription);
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getDescription().fullDescription);
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
-        TestTask[] expectedList = TestUtil.addPersonsToList(currentList, taskToAdd);
+        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
 

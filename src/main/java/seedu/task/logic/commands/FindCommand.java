@@ -35,7 +35,7 @@ public class FindCommand extends Command {
             } catch (IllegalValueException e) {
                 return new CommandResult(e.getMessage());
             }
-            return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredTaskList().size()));
+            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
         }
         
 }
