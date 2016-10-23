@@ -1,5 +1,6 @@
 package seedu.todo.ui.view;
 
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -8,7 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.WordUtils;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.enumerations.TaskViewFilter;
+import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.util.UiPartLoaderUtil;
@@ -20,7 +21,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * Shows a row of filter categories via {@link seedu.todo.commons.enumerations.TaskViewFilter}
+ * Shows a row of filter categories via {@link TaskViewFilter}
  * to filter the tasks in {@link TodoListView}
  */
 public class FilterBarView extends UiPart {
@@ -42,10 +43,11 @@ public class FilterBarView extends UiPart {
      * @param placeholder where the view element {@link #filterViewPane} should be placed
      * @return an instance of this class
      */
-    public static FilterBarView load(Stage primaryStage, AnchorPane placeholder) {
+    public static FilterBarView load(Stage primaryStage, AnchorPane placeholder, ObservableValue<TaskViewFilter> filter) {
         FilterBarView filterView = UiPartLoaderUtil.loadUiPart(primaryStage, placeholder, new FilterBarView());
         filterView.configureLayout();
         filterView.configureProperties();
+        filterView.bindListener(filter);
         return filterView;
     }
 
@@ -68,7 +70,7 @@ public class FilterBarView extends UiPart {
      * Display all the {@link TaskViewFilter} on the {@link #filterViewPane}
      */
     private void initialiseAllViewFilters() {
-        for (TaskViewFilter filter : TaskViewFilter.values()) {
+        for (TaskViewFilter filter : TaskViewFilter.all()) {
             appendEachViewFilter(filter);
         }
     }
@@ -90,8 +92,8 @@ public class FilterBarView extends UiPart {
      * @return a view element
      */
     private HBox constructViewFilterBox(TaskViewFilter filter) {
-        String filterName = WordUtils.capitalize(filter.getViewName());
-        String[] partitionedText = StringUtil.partitionStringAtPosition(filterName, filter.getUnderlineChar());
+        String filterName = WordUtils.capitalize(filter.name);
+        String[] partitionedText = StringUtil.partitionStringAtPosition(filterName, filter.shortcutCharPosition);
 
         Label leftText = new Label(partitionedText[0]);
         Label centreText = new Label(partitionedText[1]);
@@ -105,7 +107,13 @@ public class FilterBarView extends UiPart {
         return textContainer;
     }
 
-    /* Methods interfacing with UiManager */
+    /**
+     * Binds this component with the {@link TaskViewFilter} property it listens to
+     */
+    private void bindListener(ObservableValue<TaskViewFilter> filter) {
+        filter.addListener((observable, oldValue, newValue) -> selectOneViewFilter(newValue));
+    }
+    
     /**
      * Select exactly one filter from {@link #filterViewPane}
      */

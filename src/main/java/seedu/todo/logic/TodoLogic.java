@@ -1,8 +1,5 @@
 package seedu.todo.logic;
 
-import java.util.logging.Logger;
-
-import javafx.collections.ObservableList;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
@@ -13,8 +10,10 @@ import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.logic.parser.Parser;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.Model;
-import seedu.todo.model.task.ImmutableTask;
 
+import java.util.logging.Logger;
+
+//@@author A0135817B
 /**
  * Central controller for the application, abstracting application logic from the UI
  */
@@ -59,9 +58,5 @@ public class TodoLogic implements Logic {
             logger.info(e.getMessage());
             return new CommandResult(e.getMessage(), e.getErrors());
         }
-    }
-    
-    public ObservableList<ImmutableTask> getObservableTaskList() {
-        return model.getObservableList();
     }
 }

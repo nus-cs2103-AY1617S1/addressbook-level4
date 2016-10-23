@@ -197,8 +197,16 @@ public class TestUtil {
         for (int i = 0; i < list.size(); i++) {
             ImmutableTask task = list.get(i);
             ImmutableTask otherTask = otherList.get(i);
-            boolean isSame = isShallowEqual(task, otherTask);
-
+            
+            boolean isSame = task.getTitle().equals(otherTask.getTitle()) &&
+                    task.isCompleted() == otherTask.isCompleted() &&
+                    task.isPinned() == otherTask.isPinned() &&
+                    task.getDescription().equals(otherTask.getDescription()) &&
+                    task.getLocation().equals(otherTask.getLocation()) &&
+                    task.getStartTime().equals(otherTask.getStartTime()) &&
+                    task.getEndTime().equals(otherTask.getEndTime()) &&
+                    task.getCreatedAt().equals(otherTask.getCreatedAt()) &&
+                    task.getTags().containsAll(otherTask.getTags());
             if (!isSame) {
                 return false;
             }

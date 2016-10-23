@@ -8,27 +8,27 @@ import java.util.UUID;
 import seedu.todo.model.tag.Tag;
 
 public interface ImmutableTask {
-    public String getTitle();
+    String getTitle();
     
-    public Optional<String> getDescription();
+    Optional<String> getDescription();
     
-    public Optional<String> getLocation();
+    Optional<String> getLocation();
     
-    public Optional<LocalDateTime> getStartTime();
+    Optional<LocalDateTime> getStartTime();
 
-    public Optional<LocalDateTime> getEndTime();
+    Optional<LocalDateTime> getEndTime();
     
-    public boolean isPinned();
+    boolean isPinned();
     
-    public boolean isCompleted();
+    boolean isCompleted();
     
-    default public boolean isEvent() {
+    default boolean isEvent() {
         return this.getStartTime().isPresent();
     }
     
-    public Set<Tag> getTags();
+    Set<Tag> getTags();
 
-    public LocalDateTime getLastUpdated();
+    LocalDateTime getCreatedAt();
     
-    public UUID getUUID();
+    UUID getUUID();
 }

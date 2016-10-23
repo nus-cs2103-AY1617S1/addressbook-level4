@@ -2,6 +2,7 @@ package seedu.todo.logic.commands;
 
 import seedu.todo.model.ErrorBag;
 
+//@@author A0135817B
 /**
  * Represents the result of a command execution.
  */

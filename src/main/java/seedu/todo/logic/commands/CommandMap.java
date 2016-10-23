@@ -10,22 +10,22 @@ import java.util.Map;
 public class CommandMap {
     // List of command classes. Remember to register new commands here so that the
     // dispatcher can recognize them
-    public static List<Class<? extends BaseCommand>> commandClasses = ImmutableList.<Class<? extends BaseCommand>>builder()
-        .add(AddCommand.class)
-        .add(CompleteCommand.class)
-        .add(DeleteCommand.class)
-        .add(EditCommand.class)
-        .add(ExitCommand.class)
-        .add(HelpCommand.class)
-        .add(PinCommand.class)
-        .add(UndoCommand.class)
-        .add(RedoCommand.class)
-        .add(SaveCommand.class)
-        .add(LoadCommand.class)
-        .add(ShowCommand.class)
-        .add(FindCommand.class)
-        .add(ViewCommand.class)
-        .build();
+    public static List<Class<? extends BaseCommand>> commandClasses = ImmutableList.of(
+        AddCommand.class,
+        CompleteCommand.class,
+        DeleteCommand.class,
+        EditCommand.class,
+        ExitCommand.class,
+        HelpCommand.class,
+        PinCommand.class,
+        UndoCommand.class,
+        RedoCommand.class,
+        SaveCommand.class,
+        LoadCommand.class,
+        ShowCommand.class,
+        FindCommand.class,
+        ViewCommand.class
+    );
     
     private static Map<String, Class<? extends BaseCommand>> commandMap;
     

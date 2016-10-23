@@ -10,6 +10,7 @@ import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.GuiSettings;
 import seedu.todo.commons.events.ui.ExitAppRequestEvent;
 import seedu.todo.logic.Logic;
+import seedu.todo.model.Model;
 import seedu.todo.model.UserPrefs;
 import seedu.todo.ui.controller.CommandController;
 import seedu.todo.ui.util.UiPartLoaderUtil;
@@ -32,6 +33,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
     private Config config;
     private UserPrefs userPrefs;
+    private Model model;
 
     /* Independent Ui parts residing in this Ui container */
     private CommandInputView commandInputView;
@@ -61,17 +63,18 @@ public class MainWindow extends UiPart {
      * @param logic The main logic engine for commands to be executed.
      * @return An instance of the {@link MainWindow} element.
      */
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic, Model model) {
         MainWindow mainWindow = UiPartLoaderUtil.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config, prefs, logic);
+        mainWindow.configure(config.getAppTitle(), config, prefs, logic, model);
         return mainWindow;
     }
 
-    private void configure(String appTitle, Config config, UserPrefs prefs, Logic logic) {
+    private void configure(String appTitle, Config config, UserPrefs prefs, Logic logic, Model model) {
         //Set dependencies
         this.logic = logic;
         this.config = config;
         this.userPrefs = prefs;
+        this.model = model;
 
         //Configure the UI
         setTitle(appTitle);
@@ -84,9 +87,9 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         //Initialise the view elements to each placeholders.
-        todoListView = TodoListView.load(primaryStage, todoListViewPlaceholder, logic.getObservableTaskList());
+        todoListView = TodoListView.load(primaryStage, todoListViewPlaceholder, model.getObservableList());
         helpView = HelpView.load(primaryStage, helpViewPlaceholder);
-        filterBarView = FilterBarView.load(primaryStage, filterBarViewPlaceholder);
+        filterBarView = FilterBarView.load(primaryStage, filterBarViewPlaceholder, model.getViewFilter());
         commandFeedbackView = CommandFeedbackView.load(primaryStage, commandFeedbackViewPlaceholder);
         commandInputView = CommandInputView.load(primaryStage, commandInputViewPlaceholder);
         commandErrorView = CommandErrorView.load(primaryStage, commandErrorViewPlaceholder);
@@ -160,10 +163,6 @@ public class MainWindow extends UiPart {
 
     public HelpView getHelpView() {
         return this.helpView;
-    }
-
-    public FilterBarView getFilterBarView() {
-        return filterBarView;
     }
 
     public CommandFeedbackView getCommandFeedbackView() {

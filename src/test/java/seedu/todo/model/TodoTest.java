@@ -18,6 +18,8 @@ import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.storage.MovableStorage;
+import seedu.todo.testutil.TaskBuilder;
+import seedu.todo.testutil.TimeUtil;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -62,6 +64,21 @@ public class TodoTest {
         assertTrue(todo.getTasks().contains(task1));
         assertTrue(todo.getTasks().contains(task2));
     }
+    
+    @Test
+    public void testCompletedEvent() throws Exception {
+        LocalDateTime start = LocalDateTime.now().minusHours(4);
+        
+        when(storageData.getTasks()).thenReturn(ImmutableList.of(
+            TaskBuilder.name("Test task")
+                .event(start, start.plusHours(1))
+                .build()
+        ));
+        todo = new TodoList(storage);
+        
+        Thread.sleep(5);
+        assertTrue(todo.getTasks().get(0).isCompleted());
+    }
 
     @Test
     public void testAdd() throws Exception {
@@ -79,22 +96,16 @@ public class TodoTest {
     }
 
     @Test
-    public void testLastUpdated() throws Exception {
+    public void testCreatedAt() throws Exception {
         LocalDateTime initialTime = LocalDateTime.now().minusSeconds(1);
 
-        todo.add("Test Task 1");
-        LocalDateTime beforeUpdate = getTask(0).getLastUpdated();
-        assertTrue(beforeUpdate.isAfter(initialTime));
+        LocalDateTime firstCreatedAt = todo.add("Test Task 1").getCreatedAt();
+        assertTrue(firstCreatedAt.isAfter(initialTime));
 
         // Delay for a bit
         Thread.sleep(1);
-        assertTrue(beforeUpdate.isEqual(getTask(0).getLastUpdated()));
-
-        Thread.sleep(1);
-        todo.update(0, t -> t.setPinned(true));
-        LocalDateTime afterUpdate = getTask(0).getLastUpdated();
-
-        assertTrue(afterUpdate.isAfter(beforeUpdate));
+        LocalDateTime secondCreatedAt = todo.add("Test Task 2").getCreatedAt();
+        assertTrue(secondCreatedAt.isAfter(firstCreatedAt));
     }
 
     @Test

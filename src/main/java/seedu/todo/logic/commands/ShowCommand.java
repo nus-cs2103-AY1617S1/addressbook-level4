@@ -1,10 +1,6 @@
 package seedu.todo.logic.commands;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
-
-import javafx.collections.ObservableList;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
 import seedu.todo.commons.exceptions.ValidationException;
@@ -12,6 +8,8 @@ import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.model.task.ImmutableTask;
+
+import java.util.List;
 
 public class ShowCommand extends BaseCommand {
     private Argument<Integer> index = new IntArgument("index").required();

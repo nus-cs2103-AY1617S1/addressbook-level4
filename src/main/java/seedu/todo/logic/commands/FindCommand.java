@@ -1,17 +1,17 @@
 package seedu.todo.logic.commands;
 
-import java.util.List;
-import java.util.function.Predicate;
-
+import com.google.common.base.Splitter;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import org.atteo.evo.inflector.English;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
 import seedu.todo.model.task.ImmutableTask;
-import com.google.common.base.Splitter;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
+
+import java.util.List;
+import java.util.function.Predicate;
 
 public class FindCommand extends BaseCommand {
     private static final String TASK_FOUND_FORMAT = "%d %s found!";
@@ -45,7 +45,7 @@ public class FindCommand extends BaseCommand {
             return keywordList.stream().anyMatch(title::contains);
         };
         
-        model.view(filter, null);
+        model.find(filter);
         
         int resultSize = model.getObservableList().size();
         String feedback = String.format(TASK_FOUND_FORMAT, resultSize, English.plural("result", resultSize));

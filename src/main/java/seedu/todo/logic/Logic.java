@@ -1,9 +1,8 @@
 package seedu.todo.logic;
 
-import javafx.collections.ObservableList;
 import seedu.todo.logic.commands.CommandResult;
-import seedu.todo.model.task.ImmutableTask;
 
+//@@author A0135817B
 /**
  * API of the Logic component
  */
@@ -12,8 +11,5 @@ public interface Logic {
      * Executes the command and returns the result.
      * @param input The command as entered by the user.
      */
-    public CommandResult execute(String input);
-    
-    ObservableList<ImmutableTask> getObservableTaskList();
-
+    CommandResult execute(String input);
 }

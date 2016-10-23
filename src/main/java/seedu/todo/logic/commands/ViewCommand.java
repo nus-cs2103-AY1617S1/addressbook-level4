@@ -1,16 +1,13 @@
 package seedu.todo.logic.commands;
 
-import java.util.List;
-
 import com.google.common.collect.ImmutableList;
-
-import seedu.todo.commons.core.EventsCenter;
-import seedu.todo.commons.enumerations.TaskViewFilter;
-import seedu.todo.commons.events.ui.ChangeViewRequestEvent;
+import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
+
+import java.util.List;
 
 public class ViewCommand extends BaseCommand {
     private static final String FEEDBACK_FORMAT = "Displaying %s view";
@@ -36,12 +33,16 @@ public class ViewCommand extends BaseCommand {
     
     @Override
     protected void validateArguments(){
-        TaskViewFilter[] viewArray = TaskViewFilter.values();
+        TaskViewFilter[] viewArray = TaskViewFilter.all();
         String viewSpecified = view.getValue().trim().toLowerCase();
         
-        for (TaskViewFilter aViewArray : viewArray) {
-            if (aViewArray.getViewName().contentEquals(viewSpecified)) {
-                this.viewSpecified = aViewArray;
+        for (TaskViewFilter filter : viewArray) {
+            String viewName = filter.name;
+            char shortcut = viewName.charAt(filter.shortcutCharPosition);
+            boolean matchesShortcut = viewSpecified.length() == 1 && viewSpecified.charAt(0) == shortcut;
+            
+            if (viewName.contentEquals(viewSpecified) || matchesShortcut) {
+                this.viewSpecified = filter;
                 return;
             }
         }
@@ -52,8 +53,7 @@ public class ViewCommand extends BaseCommand {
 
     @Override
     public CommandResult execute() throws ValidationException {
-        model.view(viewSpecified.getFilter(), null);
-        EventsCenter.getInstance().post(new ChangeViewRequestEvent(viewSpecified));
+        model.view(viewSpecified);
         String feedback = String.format(ViewCommand.FEEDBACK_FORMAT, viewSpecified);
         return new CommandResult(feedback);
     }

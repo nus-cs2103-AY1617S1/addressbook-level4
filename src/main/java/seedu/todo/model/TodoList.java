@@ -2,8 +2,11 @@ package seedu.todo.model;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -22,9 +25,10 @@ import seedu.todo.model.task.Task;
 import seedu.todo.model.task.ValidationTask;
 import seedu.todo.storage.MovableStorage;
 
+//@@author A0135817B
 /**
  * Represents the todolist inside memory. While Model works as the external 
- * interface for handling data and application state, this interface is internal 
+ * interface for handling data and application state, this class is internal 
  * to Model and represents only CRUD operations to the todolist. 
  */
 public class TodoList implements TodoListModel {
@@ -46,6 +50,26 @@ public class TodoList implements TodoListModel {
             setTasks(storage.read().getTasks(), false);
         } catch (FileNotFoundException | DataConversionException e) {
             logger.info("Data file not found. Will be starting with an empty TodoList");
+        }
+        
+        // Update event status 
+        new Timer().scheduleAtFixedRate(new UpdateEventTask(), 0, 60 * 1000);
+    }
+    
+    private void updateEventStatus() {
+        LocalDateTime now = LocalDateTime.now();
+        boolean todoListModified = false;
+        
+        for (Task task : tasks) {
+            boolean isIncompleteEvent = !task.isCompleted() && task.isEvent();
+            if (isIncompleteEvent && now.isAfter(task.getEndTime().get())) {
+                task.setCompleted(true);
+                todoListModified = true;
+            }
+        }
+        
+        if (todoListModified) {
+            saveTodoList();
         }
     }
 
@@ -97,7 +121,6 @@ public class TodoList implements TodoListModel {
 
         // changes are validated and accepted
         update.accept(task);
-        task.setLastUpdated();
         saveTodoList();
         return task;
     }
@@ -151,4 +174,11 @@ public class TodoList implements TodoListModel {
     public List<ImmutableTask> getTasks() {
         return Collections.unmodifiableList(tasks);
     }
+    
+    private class UpdateEventTask extends TimerTask {
+        @Override
+        public void run() {
+            updateEventStatus();
+        }
+    } 
 }

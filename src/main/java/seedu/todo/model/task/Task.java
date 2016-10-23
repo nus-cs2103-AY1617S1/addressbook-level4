@@ -14,8 +14,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.tag.Tag;
 
 /**
@@ -33,7 +31,7 @@ public class Task implements MutableTask {
     private ObjectProperty<LocalDateTime> endTime = new SimpleObjectProperty<>();
 
     private ObjectProperty<Set<Tag>> tags = new SimpleObjectProperty<>(new HashSet<Tag>());
-    private ObjectProperty<LocalDateTime> lastUpdated = new SimpleObjectProperty<>();
+    private LocalDateTime createdAt = LocalDateTime.now();
     private UUID uuid;
 
     /**
@@ -41,7 +39,6 @@ public class Task implements MutableTask {
      */
     public Task(String title) {
         this.setTitle(title);
-        this.setLastUpdated();
         this.uuid = UUID.randomUUID();
     }
 
@@ -56,7 +53,7 @@ public class Task implements MutableTask {
         this.setEndTime(task.getEndTime().orElse(null));
         this.setCompleted(task.isCompleted());
         this.setPinned(task.isPinned());
-        this.setLastUpdated();
+        this.setCreatedAt(task.getCreatedAt());
         this.uuid = task.getUUID();
     }
 
@@ -99,9 +96,9 @@ public class Task implements MutableTask {
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags.get());
     }
-
+    
     @Override
-    public LocalDateTime getLastUpdated() { return lastUpdated.get(); };
+    public LocalDateTime getCreatedAt() { return createdAt; }
 
     @Override
     public void setTitle(String title) {
@@ -142,22 +139,18 @@ public class Task implements MutableTask {
     public void setTags(Set<Tag> tags) {
         this.tags.set(tags);
     }
-
-    @Override
-    public void setLastUpdated() { this.lastUpdated.set(LocalDateTime.now()); }
-
-    public void setLastUpdated(LocalDateTime lastUpdated) throws IllegalValueException {
-        if (lastUpdated == null) {
-            lastUpdated = LocalDateTime.now();
-        } else if (lastUpdated.isAfter(LocalDateTime.now())) {
-            throw new IllegalValueException("Task updated time cannot be in the future.");
+    
+    public void setCreatedAt(LocalDateTime createdAt) {
+        if (createdAt == null) {
+            createdAt = LocalDateTime.now();
         }
-        this.lastUpdated.set(lastUpdated);
+        
+        this.createdAt = createdAt;
     }
 
     public Observable[] getObservableProperties() {
         return new Observable[] {
-                title, description, location, startTime, endTime, tags, completed, pinned, lastUpdated
+            title, description, location, startTime, endTime, tags, completed, pinned,
         };
     }
 
@@ -182,5 +175,10 @@ public class Task implements MutableTask {
     @Override
     public int hashCode() {
         return uuid.hashCode();
+    }
+    
+    @Override
+    public String toString() {
+        return title.get();
     }
 }

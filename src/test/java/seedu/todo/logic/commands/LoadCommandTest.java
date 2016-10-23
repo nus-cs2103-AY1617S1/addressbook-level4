@@ -15,6 +15,11 @@ import java.io.FileNotFoundException;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+//@@author A0135817B
+/**
+ * This is an integration test for the {@code load} command. For tests on the 
+ * load functionality itself, see {@link seedu.todo.storage.TodoListStorageTest}
+ */
 public class LoadCommandTest extends CommandTest {
     @Rule
     public MockitoRule rule = MockitoJUnit.rule();

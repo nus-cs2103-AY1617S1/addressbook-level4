@@ -2,17 +2,20 @@ package seedu.todo.model;
 
 import com.google.common.collect.ImmutableList;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.storage.MovableStorage;
+import seedu.todo.testutil.TaskFactory;
 import seedu.todo.testutil.TimeUtil;
 
 import java.util.Collections;
@@ -97,8 +100,13 @@ public class TodoModelTest {
         model.add("Task 2", p -> p.setEndTime(TimeUtil.now.plusHours(2)));
         model.add("Task 1", p -> p.setEndTime(TimeUtil.now.plusHours(1)));
 
+        TaskViewFilter lexi = new TaskViewFilter("lexi", 
+            null, (a, b) -> a.getTitle().compareTo(b.getTitle()));
+        TaskViewFilter chrono = new TaskViewFilter("chrono", 
+            null, (a, b) -> a.getEndTime().get().compareTo(b.getEndTime().get()));
+
         // Check that the items are sorted in lexicographical order by title
-        model.view(null, (a, b) -> a.getTitle().compareTo(b.getTitle()));
+        model.view(lexi);
         assertEquals("Task 1", observableList.get(0).getTitle());
         assertEquals("Task 2", observableList.get(1).getTitle());
         assertEquals(3, observableList.size());
@@ -114,7 +122,7 @@ public class TodoModelTest {
 
         // Check that sorting by time works
         // Chronological ordering would give us Task 3, 1, 2, 4
-        model.view(null, (a, b) -> a.getEndTime().get().compareTo(b.getEndTime().get()));
+        model.view(chrono);
         assertEquals("Task 3", observableList.get(0).getTitle());
         assertEquals("Task 1", observableList.get(1).getTitle());
         assertEquals("Task 2", observableList.get(2).getTitle());
@@ -129,7 +137,7 @@ public class TodoModelTest {
         model.add("Bar Bar");
 
         // Give us only tasks with "Foo" in the title
-        model.view(t -> t.getTitle().contains("Foo"), null);
+        model.find(t -> t.getTitle().contains("Foo"));
         assertEquals(2, observableList.size());
     }
 
@@ -181,11 +189,31 @@ public class TodoModelTest {
         verify(storage, times(2)).save(todolist);
     }
     
+    @Test
+    public void testUndoStackSize() throws Exception {
+        final int STACK_SIZE = 10;
+        
+        // Add 11 items (which will add 11 to the undo stack) 
+        for (int i = 0; i < STACK_SIZE + 1; i++) {
+            model.add(TaskFactory.taskTitle());
+        }
+        
+        // Undo until the undo stack is empty 
+        for (int i = 0; i < STACK_SIZE; i++) {
+            model.undo();
+        }
+        
+        // Make sure the last undo throws an exception, even though 11 add 
+        // events were recorded 
+        exception.expect(ValidationException.class);
+        model.undo();
+    }
+    
     @Test(expected = ValidationException.class)
     public void testOnlyUndoDataChanges() throws Exception {
         // Actions that does not cause underlying data to change should not cause 
         // undo stack to increase
-        model.view(ImmutableTask::isCompleted, null);
+        model.find(ImmutableTask::isCompleted);
         model.undo();
     }
     

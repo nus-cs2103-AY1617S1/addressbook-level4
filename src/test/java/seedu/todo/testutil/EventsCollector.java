@@ -40,6 +40,10 @@ public class EventsCollector{
         return events.get(index);
     }
     
+    public BaseEvent last() {
+        return events.get(events.size() - 1);
+    }
+    
     public int size(){
         return events.size();
     }

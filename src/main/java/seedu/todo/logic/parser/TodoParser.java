@@ -1,14 +1,10 @@
 package seedu.todo.logic.parser;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.StringJoiner;
-
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 
 /**

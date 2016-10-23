@@ -6,24 +6,19 @@ import java.util.Set;
 import seedu.todo.model.tag.Tag;
 
 public interface MutableTask extends ImmutableTask {
-    public void setTitle(String title);
+    void setTitle(String title);
 
-    public void setPinned(boolean pinned);
+    void setPinned(boolean pinned);
 
-    public void setCompleted(boolean completed);
+    void setCompleted(boolean completed);
 
-    public void setDescription(String description);
+    void setDescription(String description);
 
-    public void setLocation(String location);
+    void setLocation(String location);
 
-    public void setStartTime(LocalDateTime startTime);
+    void setStartTime(LocalDateTime startTime);
 
-    public void setEndTime(LocalDateTime endTime);
+    void setEndTime(LocalDateTime endTime);
 
-    public void setTags(Set<Tag> tags);
-
-    /**
-     * Automatically updates the field to the current time.
-     */
-    public void setLastUpdated();
+    void setTags(Set<Tag> tags);
 }

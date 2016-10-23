@@ -4,9 +4,10 @@ import java.util.List;
 
 import seedu.todo.model.task.ImmutableTask;
 
+//@@author A0135817B
 public interface ImmutableTodoList {
     /**
      * Get an immutable list of tasks 
      */
-    public List<ImmutableTask> getTasks();
+    List<ImmutableTask> getTasks();
 }

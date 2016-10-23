@@ -2,24 +2,27 @@ package seedu.todo.logic.arguments;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
 
+//@@author A0135817B
 /**
  * Represents a single command parameter that the parser will try to feed the user 
- * input into
+ * input into. The Parameter interface is needed because the Argument base class is 
+ * typed, so this interface contains all of the non-typed methods that are common to 
+ * all argument subclasses
  */
 public interface Parameter {
-    public void setValue(String input) throws IllegalValueException;
+    void setValue(String input) throws IllegalValueException;
     
-    public boolean isPositional();
+    boolean isPositional();
     
-    public boolean hasBoundValue();
+    boolean hasBoundValue();
     
-    public boolean isOptional();
+    boolean isOptional();
     
-    public String getFlag();
+    String getFlag();
     
-    public String getName();
+    String getName();
     
-    public String getDescription();
+    String getDescription();
     
-    public void checkRequired() throws IllegalValueException;
+    void checkRequired() throws IllegalValueException;
 }
