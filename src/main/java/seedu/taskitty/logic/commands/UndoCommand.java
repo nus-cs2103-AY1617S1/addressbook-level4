@@ -1,6 +1,6 @@
 package seedu.taskitty.logic.commands;
 
-import java.util.EmptyStackException;
+import seedu.taskitty.commons.exceptions.NoPreviousCommandException;
 
 /**
  * Undoes previous command given
@@ -17,8 +17,6 @@ public class UndoCommand extends Command {
 
     public static final String MESSAGE_UNDO_SUCCESS = "Previous action undone: ";
     
-    public static final String MESSAGE_NO_PREVIOUS_COMMANDS = "There is no more previous command in this session.";
-    
     public UndoCommand() {}
     
     @Override
@@ -26,8 +24,8 @@ public class UndoCommand extends Command {
         try {
             String commandUndone = model.undo();
             return new CommandResult(MESSAGE_UNDO_SUCCESS + commandUndone);
-        } catch (EmptyStackException e) {
-            return new CommandResult(MESSAGE_NO_PREVIOUS_COMMANDS);
+        } catch (NoPreviousCommandException e) {
+            return new CommandResult(e.getMessage());
         }       
     }
 

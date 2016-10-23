@@ -1,6 +1,7 @@
 package seedu.taskitty.model;
 
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
+import seedu.taskitty.commons.exceptions.NoPreviousCommandException;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
@@ -32,8 +33,9 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
-    /** Undoes the previous command if there is any */
-    String undo();
+    /** Undoes the previous command if there is any 
+     * @throws NoPreviousCommandException */
+    String undo() throws NoPreviousCommandException;
     
     /** Saves the current state of the TaskManager andfilteredTasks to allow for undoing */
     void saveState(String command);

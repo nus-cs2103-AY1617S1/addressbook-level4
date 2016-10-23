@@ -3,8 +3,10 @@ package seedu.taskitty.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;
+import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
+import seedu.taskitty.commons.exceptions.NoPreviousCommandException;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
@@ -105,7 +107,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    public synchronized String undo() {
+    public synchronized String undo() throws NoPreviousCommandException {
+        if (noMorePreviousCommand()) {            
+            throw new NoPreviousCommandException(Messages.MESSAGE_NO_PREVIOUS_COMMANDS);
+        }
+        assert !historyPredicates.isEmpty() && !historyTaskManagers.isEmpty();
         resetData(getPreviousTaskManager());   
         updateFilteredTaskList(getPreviousPredicate());
         return getPreviousCommand();
@@ -133,6 +139,10 @@ public class ModelManager extends ComponentManager implements Model {
     
     private String getPreviousCommand() {
         return historyCommands.pop();
+    }
+    
+    private boolean noMorePreviousCommand () {
+        return historyCommands.isEmpty();
     }
     
     //@@author A0135793W
