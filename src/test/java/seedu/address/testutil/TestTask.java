@@ -118,24 +118,17 @@ public class TestTask extends Task implements ReadOnlyTask {
 
     public String getAddFloatingCommand() {
     	this.type = TaskType.FLOATING;
-        StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
-        return sb.toString();
+        return getAddCommand();
     }
     
     public String getAddNonFloatingCommand() {
     	this.type = TaskType.NON_FLOATING;
-        StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        if(this.getComponentForNonRecurringType().getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT){
-        	sb.append("by "+ this.getComponentForNonRecurringType().getEndDate().getInputDate() + " ");
-        }else{
-        	sb.append("from "+ this.getComponentForNonRecurringType().getStartDate().getInputDate() + " ");
-        	sb.append("to "+ this.getComponentForNonRecurringType().getEndDate().getInputDate() + " ");
-        }
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
-        return sb.toString();
+    	return getAddCommand();
+    }
+    
+    public String getAddRecurringCommand(){
+    	this.type = TaskType.NON_FLOATING;
+        return getAddCommand();
     }
     
     public String getBlockCommand() {
@@ -150,5 +143,22 @@ public class TestTask extends Task implements ReadOnlyTask {
     
     public boolean equals(TestTask toCompare) {
         return this.isSameStateAs(toCompare);
+    }
+    
+    private String getAddCommand(){
+    	StringBuilder sb = new StringBuilder();
+        sb.append("add " + this.getName().fullName + " ");
+        if(this.type != TaskType.FLOATING){
+        	if(this.getLastAppendedComponent().hasOnlyEndDate()){
+            	sb.append("by "+ this.getLastAppendedComponent().getEndDate().getInputDate() + " ");
+            }else{
+            	sb.append("from "+ this.getLastAppendedComponent().getStartDate().getInputDate() + " ");
+            	sb.append("to "+ this.getLastAppendedComponent().getEndDate().getInputDate() + " ");
+            }
+        	if(this.recurringType!=RecurringType.NONE)
+        		sb.append(this.getRecurringType().toString() + " ");
+        }
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        return sb.toString();       
     }
 }

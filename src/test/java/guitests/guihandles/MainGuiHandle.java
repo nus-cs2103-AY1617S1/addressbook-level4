@@ -32,5 +32,9 @@ public class MainGuiHandle extends GuiHandle {
     public NavbarPanelHandle getNavbar() {
     	return new NavbarPanelHandle(guiRobot, primaryStage);
     }
+    
+    public BrowserPanelHandle getBrowser() {
+    	return new BrowserPanelHandle(guiRobot, primaryStage);
+    }
 
 }

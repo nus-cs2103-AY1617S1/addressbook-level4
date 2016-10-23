@@ -1,0 +1,125 @@
+/* @@author A0147967J-reused */
+.MyAgenda .Week {
+	-fx-background-color: #efefef90;
+}
+
+.MyAgenda .HourLabel {
+	-fx-fill: #25242c;
+	-fx-font-family: "Segue UI Semibold";
+	-fx-alignment: center;
+	-fx-stroke: transparent;
+}
+
+.MyAgenda .HourLine {
+	-fx-fill: transparent;
+	-fx-stroke: LIGHTGRAY;
+}
+
+.MyAgenda .HalfHourLine {
+	-fx-fill: transparent;
+	-fx-stroke: LIGHTGRAY;
+	-fx-stroke-dash-array: 4 4 4 4;
+}
+
+.MyAgenda .DayHeader {
+	-fx-border-color:LIGHTGRAY;
+	-fx-text-fill: #25242c;
+	-fx-font-family:"Segue UI Semibold";
+	-fx-border-width: 0px 0px 0px 1px;
+	-fx-background-color: #efefef90;
+}
+
+
+.MyAgenda .DayHeader .weekend { 
+	-fx-text-fill: #25242c;
+	-fx-font-family:"Segue UI Semibold";
+	-fx-font-weight: bold;
+	
+}
+
+
+.MyAgenda .Day {
+	-fx-fill: transparent;
+	-fx-stroke: transparent;
+	-fx-border-color:LIGHTGRAY;
+	-fx-border-width: 0px 0px 0px 1px;
+}
+
+.MyAgenda .weekend {
+	-fx-background-color: rgba(221, 221, 214, 0.7);
+}
+
+.MyAgenda .today {
+	-fx-background-color: rgba(247, 155, 46, 0.3);
+	-fx-border-color: RED;
+	-fx-border-width: 1px;
+	-fx-background-insets: -1.4, 0, 1, 2;
+	-fx-background-radius: 6.4, 5, 4, 3;
+}
+
+.MyAgenda .Appointment {
+	-fx-border-color: WHITE;
+	-fx-border-width: 1px;
+}
+
+.MyAgenda .AppointmentTimeLabel {
+	-fx-fill: #32313b;
+	-fx-font-fmaily:"Segue UI Light";
+	-fx-stroke: transparent;
+	-fx-font-size: 0.8em;
+}
+
+.MyAgenda .AppointmentLabel {
+	-fx-fill: #152737;
+	-fx-font-fmaily:"Segue UI Light";
+	-fx-stroke: transparent;
+}
+
+.group0 { -fx-background-color: #AC725E; -fx-fill: #AC725E; }
+.group1 { -fx-background-color: #D06B64; -fx-fill: #D06B64; }
+.group2 { -fx-background-color: #F83A22; -fx-fill: #F83A22; }
+.group3 { -fx-background-color: #FA573C; -fx-fill: #FA573C; }
+.group4 { -fx-background-color: #FF7537; -fx-fill: #FF7537; }
+.group5 { -fx-background-color: #FFAD46; -fx-fill: #FFAD46; }
+.group6 { -fx-background-color: #42D692; -fx-fill: #42D692; }
+.group7 { -fx-background-color: #16A765; -fx-fill: #16A765; }
+.group8 { -fx-background-color: #7BD148; -fx-fill: #7BD148; }
+.group9 { -fx-background-color: #B3DC6C; -fx-fill: #B3DC6C; }
+.group10 { -fx-background-color: #FBE983; -fx-fill: #FBE983; }
+.group11 { -fx-background-color: #FAD165; -fx-fill: #FAD165; }
+.group12 { -fx-background-color: #92E1C0; -fx-fill: #92E1C0; }
+.group13 { -fx-background-color: #9FE1E7; -fx-fill: #9FE1E7; }
+.group14 { -fx-background-color: #9FC6E7; -fx-fill: #9FC6E7; }
+.group15 { -fx-background-color: #4986E7; -fx-fill: #4986E7; }
+.group16 { -fx-background-color: #9A9CFF; -fx-fill: #9A9CFF; }
+.group17 { -fx-background-color: #B99AFF; -fx-fill: #B99AFF; }
+.group18 { -fx-background-color: #C2C2C2; -fx-fill: #C2C2C2; }
+.group19 { -fx-background-color: #CABDBF; -fx-fill: #CABDBF; }
+.group20 { -fx-background-color: #CCA6AC; -fx-fill: #CCA6AC; }
+.group21 { -fx-background-color: #F691B2; -fx-fill: #F691B2; }
+.group22 { -fx-background-color: #CD74E6; -fx-fill: #CD74E6; }
+.group23 { -fx-background-color: #A47AE2; -fx-fill: #A47AE2; }
+ 
+.MyAgenda .GhostRectangle {
+	-fx-fill: rgba(247, 155, 46, 0.3);
+	-fx-stroke: #00000080;
+    -fx-stroke-width: 1;
+    -fx-stroke-dash-array: 4 4 4 4;
+}
+
+.MyAgenda .Selected { 
+	-xfx-color: -fx-focused-base;
+	-fx-background-color: -fx-focus-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+	-fx-background-insets: -1.4, 0, 1, 2;
+	-fx-background-radius: 6.4, 5, 4, 3;
+}
+
+.MyAgenda .Now {
+	-fx-fill: #FF000088;
+	-fx-stroke: RED;
+	-fx-stroke-width: 2;
+}
+.MyAgenda .History {
+	-fx-stroke: transparent;
+	-fx-fill: #EFEFEF70;
+}
