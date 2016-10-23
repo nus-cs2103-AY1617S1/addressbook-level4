@@ -1,4 +1,4 @@
-# User Guide
+﻿# User Guide
 
 * [Quick Start](#quick-start)
 * [Features](#features)
@@ -56,16 +56,18 @@ Examples:
 * `time format is from 0000 to 2359`
 
 #### Listing tasks: `list`
-Shows a list of all events/deadlines in the to-do list.<br>
-Format: `list`
+Shows a list of everything in the to-do list.<br>
+Format: `list [tasks|events|deadlines]`
 
-#### Listing tasks: `list deadlines`
-Shows a list of all deadlines in the to-do list.<br>
-Format: `list deadlines`
+Shows a list of all events and/or deadlines in the to-do list on and after that date.<br>
+Format: `list [deadlines|events] DDMMYYYY TTTT`
 
-#### Listing tasks: `list DATE`
-Shows a list of all events/deadlines in the to-do list on that date.<br>
-Format: `list 07102016`
+Examples:
+* `list`
+* `list deadlines`
+* `list deadlines 05102016 1400`
+* `list 05102016 1400`
+* `time format is from 0000 to 2359`
 
 #### Finding all deadlines/floating tasks/events containing any keyword in their names and tags: `find`
 Finds all input entries specified by the type (deadlines/ floating tasks/ events) whose names contain any of the given keywords.<br>
@@ -89,29 +91,13 @@ Examples:
 * `find lunch dinner breakfast`<br>
   Returns Any task having names `lunch`, `dinner`, or `breakfast`
 
-#### Deleting a task : `delete`
-Deletes the specified task from the to-do list. Irreversible.<br>
-Format: `delete INDEX`
-
-> Deletes the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd task in the to-do list.
-* `find lunch`<br> 
-  `delete 1`<br>
-  Deletes the 1st task in the results of the `find` command. 
-
 #### Deleting a task: `delete`
 Deletes the specified task from the to-do list.<br>
 Format: `delete INDEX`
 
 > Deletes the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+  The index **must have either 'f','d' or 'e' as a prefix and also a positive integer** eg. f1, e2, d3, ...
 
 Examples: 
 * `list`<br>
@@ -146,22 +132,6 @@ Examples:
   Edits the 1st task in the results of the `find` or ‘ command.<br>
   Need to put at least one field
 
-#### Select a task : `select`
-Selects the task identified by the index number used in the last task listing.<br>
-Format: `select INDEX`
-
-> Selects the task and loads the Google search page the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd task in Malitio.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st task in the results of the `find` command.
-
 #### Clearing all entries : `clear`
 Clears all entries from the to-do list.<br>
 Format: `clear`  
@@ -169,10 +139,6 @@ Format: `clear`
 #### Undo the most recent action: `undo`
 Undo the most recent action and reverts the to-do list to previous state. <br>
 Format: `undo`
-
-#### Redo the most recent undo action: `redo` 
-Redo the action<br>
-Format: `redo`
 
 #### Exiting the program : `exit`
 Exits the program.<br>
@@ -196,13 +162,11 @@ Command | Format
 -------- | :-------- 
 Add | `add TASK_NAME [by DDMMYYYY TTTT] [start DDMMYYYY TTTT end DDMMYYYY TTTT] [t/TAG]...`
 Clear | `clear`
-Delete | `delete INDEX`
+Delete | `delete f/d/e+INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS] [t/TYPE]`
 List | `list`
 Edit | `edit f\d\e+INDEX [NAME] [by DDMMYYYY TTTT] [start DDMMYYYY TTTT] [end DDMMYYYY TTTT] [t/TAG] `
 Help | `help`
-Select | `select INDEX`
 Undo | `undo`
-Edit | `edit INDEX [n/TASK_NAME] [s/DDMMYYYY TTTT] [e/DDMMYYYY TTTT] [t/TAG]`
 
 

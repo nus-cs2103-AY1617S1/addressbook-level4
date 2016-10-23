@@ -25,7 +25,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>)[e|d|f]\\d+");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>)[e|d|f|E|D|F]\\d+");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -35,7 +35,8 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT =
-            Pattern.compile("(?<targetIndex>[e|d|f]\\d+)"
+
+            Pattern.compile("(?<targetIndex>[e|d|f|E|D|F]\\d+)"
                     + "(?<name>(?:[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
     
@@ -99,6 +100,7 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
+     * @author Nathan A0153006W
      */
     private Command prepareAdd(String args){
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
@@ -110,20 +112,24 @@ public class Parser {
         }
         try {
             String name = matcher.group("name");
+            
             String deadline = getDeadlineFromArgs(name);
             if (!deadline.isEmpty()) {
                 name = name.replaceAll("by " + deadline, "");
             }
+            
             String start = getStartFromArgs(name);
             if (!start.isEmpty()) {
                 name = name.replaceAll("start " + start, "");
                 hasStart = true;
             }
+            
             String end = getEndFromArgs(name);
             if (!end.isEmpty()) {
                 name = name.replaceAll("end " + end, "");
                 hasEnd = true;
             }
+            
             if (!deadline.isEmpty()) {
                 return new AddCommand(
                         name,
@@ -148,76 +154,6 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-
-    private static String getDeadlineFromArgs(String args) throws IllegalValueException {
-        int byIndex = args.lastIndexOf("by");
-        String deadline = "";
-        if(byIndex > 0 && byIndex < args.length() - 2) {
-            try {
-                deadline = args.substring(byIndex + 3);
-                if (deadline.matches("[^\\d]+")) {
-                    return "";
-                } else if (!deadline.matches("\\d{8} \\d{4}")) {
-                    throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers\nExample: by 03122016 1320");
-                }
-            } catch (IndexOutOfBoundsException iob){
-                throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers\nExample: by 03122016 1320");
-            }
-        }
-        return deadline;
-    }
-
-    private static String getStartFromArgs(String args) throws IllegalValueException {
-        int startIndex = args.lastIndexOf("start");
-        String start = "";
-        if(startIndex > 0 && startIndex < args.length() - 2) {
-            try {
-                start = args.substring(startIndex + 6, startIndex + 19);
-                if (start.matches("[^\\d]+")) {
-                    return "";
-                }
-                else if (!start.matches("\\d{8} \\d{4}")) {
-                    throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
-                }
-            } catch (IndexOutOfBoundsException iob){
-                throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
-            }
-        }
-        return start;
-    }
-
-    private static String getEndFromArgs(String args) throws IllegalValueException {
-        int endIndex = args.lastIndexOf("end");
-        String end = "";
-        if(endIndex > 0 && endIndex < args.length() - 2) {
-            try {
-                end = args.substring(endIndex + 4, endIndex + 17);
-                if (end.matches("[^\\d]+")) {
-                    return "";
-                } else if (!end.matches("\\d{8} \\d{4}")) {
-                    throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
-                }
-            } catch (IndexOutOfBoundsException iob){
-                throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
-            }
-        }
-        return end;
-    }
-
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
-    }
-    
     
     private Command prepareEdit(String args) {
         final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
@@ -232,6 +168,7 @@ public class Parser {
             }
             char taskType = index.charAt(0);
             int taskNum = Integer.parseInt(index.substring(1));
+            
             String name = matcher.group("name");
             if (name.equals("") && getTagsFromArgs(matcher.group("tagArguments")).isEmpty()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -240,14 +177,17 @@ public class Parser {
             if (!deadline.isEmpty()) {
                 name = name.replaceAll(" by " + deadline, "");
             }
+            
             String start = getStartFromArgs(name);
             if (!start.isEmpty()) {
                 name = name.replaceAll(" start " + start, "");
             }
+            
             String end = getEndFromArgs(name);
             if (!end.isEmpty()) {
                 name = name.replaceAll(" end " + end, "");
             }
+            
             if (!deadline.isEmpty()) {
                 return new EditCommand(
                         taskType,
@@ -295,18 +235,6 @@ public class Parser {
     }
 
     /**
-     * Returns the specified index as a String in the {@code command}
-     */
-    private String parseIndex(String command) {
-        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
-        if (!matcher.matches()) {
-            return "";
-        }
-        String index = command.trim();
-        return index;
-    }
-
-    /**
      * Parses arguments in the context of the find task command.
      *
      * @param args full command args string
@@ -330,11 +258,113 @@ public class Parser {
         return new FindCommand(typeOfTask, keywordSet);
     }
 
+    /**
+     * Parses arguments in the context of the list task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     * @author Nathan A0153006W
+     */
     private Command prepareList(String args) {
         if (args.isEmpty()) {
             return new ListCommand();
         }
+        try {
         args = args.trim().toLowerCase();
         return new ListCommand(args);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        }
+    }
+    
+    /**
+     * Returns the specified index as a String in the {@code command}
+     */
+    private String parseIndex(String command) {
+        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
+        if (!matcher.matches()) {
+            return "";
+        }
+        String index = command.trim().toLowerCase();
+        return index;
+    }
+    
+    /**
+     * Extracts the task's deadline from the command's arguments string.
+     * @author Nathan A0153006W
+     */
+    private static String getDeadlineFromArgs(String args) throws IllegalValueException {
+        int byIndex = args.lastIndexOf("by");
+        String deadline = "";
+        if(byIndex > 0 && byIndex < args.length() - 2) {
+            try {
+                deadline = args.substring(byIndex + 3);
+                if (deadline.matches("[^\\d]+")) {
+                    return "";
+                } else if (!deadline.matches("\\d{8} \\d{4}")) {
+                    throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers\nExample: by 03122016 1320");
+                }
+            } catch (IndexOutOfBoundsException iob){
+                throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers\nExample: by 03122016 1320");
+            }
+        }
+        return deadline;
+    }
+
+    /**
+     * Extracts the task's event start from the command's arguments string.
+     */
+    private static String getStartFromArgs(String args) throws IllegalValueException {
+        int startIndex = args.lastIndexOf("start");
+        String start = "";
+        if(startIndex > 0 && startIndex < args.length() - 2) {
+            try {
+                start = args.substring(startIndex + 6, startIndex + 19);
+                if (start.matches("[^\\d]+")) {
+                    return "";
+                }
+                else if (!start.matches("\\d{8} \\d{4}")) {
+                    throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
+                }
+            } catch (IndexOutOfBoundsException iob){
+                throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
+            }
+        }
+        return start;
+    }
+
+    /**
+     * Extracts the task's event end from the command's arguments string.
+     */
+    private static String getEndFromArgs(String args) throws IllegalValueException {
+        int endIndex = args.lastIndexOf("end");
+        String end = "";
+        if(endIndex > 0 && endIndex < args.length() - 2) {
+            try {
+                end = args.substring(endIndex + 4, endIndex + 17);
+                if (end.matches("[^\\d]+")) {
+                    return "";
+                } else if (!end.matches("\\d{8} \\d{4}")) {
+                    throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
+                }
+            } catch (IndexOutOfBoundsException iob){
+                throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
+            }
+        }
+        return end;
+    }
+
+    /**
+     * Extracts the new task's tags from the add command's tag arguments string.
+     * Merges duplicate tag strings.
+     */
+    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
+        // no tags
+        if (tagArguments.isEmpty()) {
+            return Collections.emptySet();
+        }
+        // replace first delimiter prefix, then split
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        return new HashSet<>(tagStrings);
     }
 }
