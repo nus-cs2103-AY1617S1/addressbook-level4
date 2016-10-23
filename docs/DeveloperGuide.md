@@ -58,15 +58,14 @@ The next segment will show you how to set-up to make sure that you have the nece
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
 ### Troubleshooting Project Setup
-**Eclipse reports compile errors after new commits are pulled from Git:**  
+1. **Eclipse reports compile errors after new commits are pulled from Git:**  
 
-⋅⋅⋅Reason: Eclipse fails to recognize new files that appeared due to the Git pull.  
-⋅⋅⋅Solution Refresh the project in Eclipse: Right click on the project (in Eclipse package explorer), choose Gradle -> Refresh Gradle Project  
+Reason: Eclipse fails to recognize new files that appeared due to the Git pull.  
+Solution Refresh the project in Eclipse: Right click on the project (in Eclipse package explorer), choose Gradle -> Refresh Gradle Project  
 
 2. **Eclipse reports some required libraries missing:**  
 
-⋅⋅⋅Reason: Required libraries may not have been downloaded during the project import.  
-⋅⋅⋅Solution: Run tests using Gradle once (to refresh the libraries).
+Reason: Required libraries may not have been downloaded during the project import.  Solution: Run tests using Gradle once (to refresh the libraries).
 
 
 
