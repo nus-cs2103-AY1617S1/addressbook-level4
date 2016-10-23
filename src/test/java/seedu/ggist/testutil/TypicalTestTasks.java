@@ -45,7 +45,7 @@ public class TypicalTestTasks {
         }
     }
 
-    public static void loadTaskManagerWithSampleData(TaskManager ab) {
+    public static void loadTaskManagerWithSampleData(TaskManager ab) throws IllegalValueException {
 
         try {
             ab.addTask(new Task(floating));
@@ -62,7 +62,7 @@ public class TypicalTestTasks {
         return new TestTask[]{floating,deadline,event,dance};
     }
 
-    public TaskManager getTypicalTaskManager(){
+    public TaskManager getTypicalTaskManager() throws IllegalValueException{
         TaskManager ab = new TaskManager();
         loadTaskManagerWithSampleData(ab);
         return ab;
