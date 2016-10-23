@@ -97,9 +97,7 @@
 [comment]: # (@@author A0140060A)
 
 ### When you need to find a deadline, task or event
-1. Type `f[ind] KEYWORD` where `KEYWORD` is part of the item's name.
-
-2. Press `Enter`.
+1. Type `f[ind] KEYWORD` where `KEYWORD` is part of the item's name. Press `Enter`.
 
 3. App will display a list of items with names containing the keyword in the bottom left pane.
 
@@ -119,21 +117,21 @@ For tasks, you can only edit the name and its tags.
 
 ##### If you know a keyword in the task's name
 
-1. Type `f[ind] KEYWORD`.
+1. Type `f[ind] KEYWORD`. Press `Enter`.
 
-2. Type `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]`.
+2. Type `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
-3. Press `Enter`.
+4. App will display edited item's details in the results panel (below the command box)
 
 > Example Command:
 > 1. `find random module`
-> 2. `edit 1 n/CS2103 #work #-play`
+> 2. `edit 6 n/CS2103 #work`
+><div style="text-align:center"><img src="images/appResponses/edit_command_response.png" width="300"><br>
+> App Response for `edit 6 n/CS2103 #work`
 
 ##### If you know the index of the task in the displayed list
 
-1. Type `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]`.
-
-2. Press `Enter`.
+1. Type `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
 > Example Command: `edit 1 n/CS2103 #work #-play`
 
@@ -142,13 +140,9 @@ For deadlines, you can only edit the name, end date and time.
 
 ##### If you know the keyword of the deadline
 
-1. Type `f[ind] KEYWORD`.
+1. Type `f[ind] KEYWORD`. Press `Enter`.
 
-2. Press `Enter`.
-
-3. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`.
-
-4. Press `Enter`.
+3. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
 > Example Command:
 > 1. `find random module`
@@ -156,9 +150,7 @@ For deadlines, you can only edit the name, end date and time.
 
 ##### If you know the index of the deadline in the displayed list
 
-1. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`.
-
-2. Press `Enter`.
+1. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
 > Example Command: `edit 1 n/CS2103 edt/next thursday 2 pm #work #-play`
 
@@ -169,22 +161,16 @@ For events, you can edit the name and both start and end dates and times. <br>
 
 ##### If you know the keyword of the event
 
-1. Type `f[ind] KEYWORD`.
+1. Type `f[ind] KEYWORD`. Press `Enter`.
 
-2. Press `Enter`.
-
-3. Type `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME]  [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`.
-
-4. Press `Enter`.
+3. Type `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME]  [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
 > Example Command:
 > 1. `find random module`
 > 2. `edit 1 n/CS2103 sdt/next friday 2 pm edt/next friday 4 pm #work #-play`
 If you know the index of the event in the displayed list
 
-1. Type `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`.
-
-2. Press `Enter`.
+1. Type `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
 > Example Command: `edit 1 n/CS2103 sdt/next friday 2 pm edt/next friday 4 pm #work #-play`
 
