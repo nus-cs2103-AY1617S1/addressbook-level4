@@ -16,6 +16,8 @@
 
 3. Double-click the file to start the app. The GUI should appear in a few seconds.<br>
 
+<div style="text-align:center"><img src="images/start_ui.png" width="600"><br>
+
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.<br>
 
@@ -99,7 +101,12 @@
 
 2. Press `Enter`.
 
->  Example Command: `find CS2103`
+3. App will display a list of items with names containing the keyword in the bottom left pane.
+
+>  Example Command: `find CS2105` <br>
+
+><div style="text-align:center"><img src="images/appResponses/find_command_response.png" width="300"><br>
+> App Response for `find CS2105`
 
 ### When you need to edit a deadline, task or event
 * At least one optional parameter must be specified.
