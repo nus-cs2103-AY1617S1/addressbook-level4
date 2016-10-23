@@ -34,6 +34,8 @@ public class ToolTip {
     private FilteredList<String> commands;
     
     private static ToolTip tooltip;
+    private String tip;
+    private String decription;
     
     private ToolTip() {
         ObservableList<String> commandList = FXCollections.observableArrayList();
@@ -56,7 +58,7 @@ public class ToolTip {
      * 
      * @param input to determine the tooltip to be shown
      */
-    public String getToolTip(String input) {
+    public void setToolTip(String input) {
         String[] splitInput = input.split(COMMAND_WORD_DELIMITER);
         
         //only interested in the first word
@@ -65,16 +67,13 @@ public class ToolTip {
         //filter the commands list to show only commands that match
         commands.setPredicate(p -> p.startsWith(command));
         
-        String tooltip;
         if (!isCommandWordMatch()) {
-            tooltip = MESSAGE_UNKNOWN_COMMAND;
+            tip = MESSAGE_UNKNOWN_COMMAND;
         } else if (isSingleMatchFound()) {
-            tooltip = getMatchCommandToolTipSingle(command);
+            tip = getMatchCommandToolTipSingle(command);
         } else {
-            tooltip = getMatchCommandToolTipAll();
+            tip = getMatchCommandToolTipAll();
         }
-        
-        return tooltip;
     }
     
     /**
@@ -146,5 +145,13 @@ public class ToolTip {
         }
         
         return builder.toString();
+    }
+    
+    public String getToolTip() {
+        return tip;
+    }
+    
+    public String getDecription() {
+        return decription;
     }
 }
