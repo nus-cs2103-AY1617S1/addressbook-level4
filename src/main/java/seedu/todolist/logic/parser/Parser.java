@@ -30,7 +30,7 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>(.)+)"
-                    + "((\\bfrom\\b|\\bby\\b)(?<interval>(.)+?)){1}"
+                    + "((\\bfrom\\b|\\bby\\b)(?<interval>(.)+?))?"
                     + "((\\bat\\b)(?<location>(.)+?))?" 
                     + "((\\bremarks\\b)(?<remarks>(.)+?))?");
     
