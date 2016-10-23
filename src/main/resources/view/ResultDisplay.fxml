@@ -25,12 +25,12 @@
           <Double fx:value="-60.0" />
         </points>
       </Polygon>
-      <Pane minHeight="50.0" minWidth="200.0" styleClass="result-display" AnchorPane.topAnchor="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Pane minHeight="50.0" minWidth="200.0" styleClass="result-display" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
          <children>
             <VBox>
                <children>
-                  <Label fx:id="toolTipLabel" styleClass="label-bright" text="Label" />
-                  <Label fx:id="descriptionLabel" styleClass="label-bright" text="Label" />
+                  <Label fx:id="toolTipLabel" styleClass="label-tooltip" text="\$tooltip" />
+                  <Label fx:id="descriptionLabel" styleClass="label-description" text="\$description" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />

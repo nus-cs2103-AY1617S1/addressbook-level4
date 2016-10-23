@@ -25,6 +25,20 @@
     -fx-opacity: 1;
 }
 
+.label-tooltip {
+    -fx-font-size: 13pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: black;
+    -fx-opacity: 1;
+}
+
+.label-description {
+    -fx-font-size: 11pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #999999;
+    -fx-opacity: 0.8;
+}
+
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
@@ -152,10 +166,6 @@
     -fx-background-color: #ffffff;
     -fx-border-radius: 10 10 10 10;
   	-fx-background-radius: 10 10 10 10;
-}
-
-.result-display .label {
-    -fx-text-fill: black !important;
 }
 
 .status-bar .label {
