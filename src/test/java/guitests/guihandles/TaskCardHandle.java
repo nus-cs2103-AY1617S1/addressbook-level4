@@ -10,7 +10,7 @@ import seedu.task.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#startTime";
+    private static final String STARTTIME_FIELD_ID = "#startTime";
     private static final String PRIORITY_FIELD_ID = "#priority";
     private static final String ENDTIME_FIELD_ID = "#endTime";
 
@@ -29,11 +29,11 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+    public String getStartTime() {
+        return getTextFromLabel(STARTTIME_FIELD_ID);
     }
 
-    public String getPhone() {
+    public String getPriority() {
         return getTextFromLabel(PRIORITY_FIELD_ID);
     }
 
@@ -42,8 +42,8 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getDescription().toString()) && getPhone().equals(task.getPriority().toString())
-                && getEmail().equals(task.getTimeEnd().toString()) && getAddress().equals(task.getTimeEnd().toString());
+        return getFullName().equals(task.getDescription().toString()) && getPriority().equals(task.getPriority().toString())
+                && getEmail().equals(task.getTimeEnd().toString()) && getStartTime().equals(task.getTimeEnd().toString());
     }
 
     @Override
@@ -51,13 +51,13 @@ public class TaskCardHandle extends GuiHandle {
         if (obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+                    && getStartTime().equals(handle.getStartTime()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getFullName() + " " + getStartTime();
     }
 }

@@ -155,11 +155,11 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add Valid Name 12345 e/valid@endTime.butNoPhonePrefix a/valid, startTime", expectedMessage);
+                "add Valid Name 12345 e/valid@endTime.butNoPriorityPrefix a/valid, startTime", expectedMessage);
         assertCommandBehavior(
                 "add Valid Name p/12345 valid@endTime.butNoPrefix a/valid, startTime", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@endTime.butNoAddressPrefix valid, startTime", expectedMessage);
+                "add Valid Name p/12345 e/valid@endTime.butNoStartTimePrefix valid, startTime", expectedMessage);
     }
 
     @Test
