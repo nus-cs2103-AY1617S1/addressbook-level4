@@ -91,7 +91,7 @@ public class UpdateCommand extends UndoableCommand {
                     taskToUpdate.getImportance(),
                     taskToUpdate.getComplete(),
                     newTaskTags,
-                    taskToUpdate.getRecurrenceWeek()
+                    taskToUpdate.getRecurrentWeek()
             );
         } catch (IllegalValueException e1) {
             return new CommandResult(false, e1.getMessage()); 

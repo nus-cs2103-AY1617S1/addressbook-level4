@@ -31,7 +31,7 @@ public class AddCommand extends UndoableCommand {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String openTime, String closeTime, Set<String> tags, int recurrenceWeek) 
+    public AddCommand(String name, String openTime, String closeTime, Set<String> tags, int recurrentWeek) 
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -44,7 +44,7 @@ public class AddCommand extends UndoableCommand {
                 false,
                 false,
                 new UniqueTagList(tagSet),
-                recurrenceWeek
+                recurrentWeek
         );
     }
 

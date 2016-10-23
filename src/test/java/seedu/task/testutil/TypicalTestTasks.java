@@ -30,7 +30,7 @@ public class TypicalTestTasks {
 
             //Manually added
             hoon = new TaskBuilder().withName("Hoon Meier").withOpenTime("tomorrow")
-                    .withCloseTime("day after tomorrow").withTags("omg").withImportance(false).build();
+                    .withCloseTime("day after tomorrow").withTags("omg").withImportance(false).withRecurrentWeek(3).build();
             ida = new TaskBuilder().withName("Ida Mueller").withOpenTime("tomorrow")
                     .withCloseTime("day after tomorrow").build();
         } catch (IllegalValueException e) {
