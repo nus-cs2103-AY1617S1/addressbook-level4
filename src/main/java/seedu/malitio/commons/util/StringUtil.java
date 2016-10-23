@@ -33,4 +33,17 @@ public class StringUtil {
     public static boolean isUnsignedInteger(String s){
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
+    
+    /**
+     * Removes the tag arguments in a string
+     * @return
+     */
+    public static String removeTagsFromString(String arg) {
+        // string has no tags to begin with
+        if(arg.indexOf("t/") == -1) { 
+        return arg;
+        }
+        
+        return arg.substring(0,arg.indexOf("t/"));    
+    }
 }
