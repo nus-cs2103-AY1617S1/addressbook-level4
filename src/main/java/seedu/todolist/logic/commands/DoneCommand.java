@@ -18,14 +18,15 @@ public class DoneCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1 \n";
 
-    public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task: \t %1$s";
-    
+    public static final String MESSAGE_MARK_TASK_SUCCESS = "Task marked!";
     public static final String MESSAGE_MARK_COMPLETED_TASK = "This task is already completed!";
+    
+    public static final int MULTIPLE_MARK_OFFSET = 1;
 
-    public final int targetIndex;
+    public final int[] targetIndexes;
 
-    public DoneCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
+    public DoneCommand(int[] targetIndexes) {
+        this.targetIndexes = targetIndexes;
     }
 
 
@@ -41,19 +42,31 @@ public class DoneCommand extends Command {
             lastShownList = model.getFilteredIncompleteTaskList();
         }
 
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
+        if (!isValidIndexes(lastShownList, targetIndexes)) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
-
-        try {
-            model.markTask(taskToMark);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+        for (int i = 0; i < targetIndexes.length; i++) {
+            ReadOnlyTask taskToMark = lastShownList.get(targetIndexes[i] - (i + MULTIPLE_MARK_OFFSET));
+    
+            try {
+                model.markTask(taskToMark);
+            } catch (TaskNotFoundException pnfe) {
+                assert false : "The target task cannot be missing";
+            }
+            
         }
 
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
+        return new CommandResult(MESSAGE_MARK_TASK_SUCCESS);
+    }
+    
+    private boolean isValidIndexes(UnmodifiableObservableList<ReadOnlyTask> lastShownList, int[] targetIndex) {
+        for (int index : targetIndexes) {
+            if (lastShownList.size() < index) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return false;
+            }
+        }
+        return true;
     }
 }
