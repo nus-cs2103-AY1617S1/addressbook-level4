@@ -68,22 +68,15 @@ public class Task implements ReadOnlyTask{
         if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) && 
             (time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
             Date date4 = new DateTimeParser("1st January 2050 11:59pm").getDateTime();
-            System.out.println(date4.toString());
             return date4;
         } else if ((date.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED))){
-            System.out.println("1");
             Date date1 = new DateTimeParser("1st January 2050 " + time.value).getDateTime();
-            System.out.println(date1.toString());
             return date1;
         } else if ((time.value.equals(Messages.MESSAGE_NO_START_TIME_SET) || time.value.equals(Messages.MESSAGE_NO_END_TIME_SET))) {
-            System.out.println("2");
             Date date2 = new DateTimeParser("11:59 pm " + date.value).getDateTime();
-            System.out.println(date2.toString());
             return date2;
         } else {
-            System.out.println("3");
             Date date3 = new DateTimeParser(time.value + " " + date.value).getDateTime();
-            System.out.println(date3.toString());
             return date3;
         }
     }
