@@ -6,6 +6,7 @@ import seedu.malitio.model.task.*;
 
 /**
  * Lists all tasks in Malitio to the user.
+ * @author Nathan A0153006W
  */
 public class ListCommand extends Command {
 
