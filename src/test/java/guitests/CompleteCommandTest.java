@@ -6,6 +6,8 @@ import org.junit.Test;
 import guitests.guihandles.FloatingTaskCardHandle;
 import guitests.guihandles.TaskCardHandle;
 import seedu.address.testutil.TestActivity;
+import seedu.menion.commons.core.Messages;
+import seedu.menion.model.activity.Activity;
 
 // @author Marx Low (A0139164A)
 public class CompleteCommandTest extends AddressBookGuiTest {
@@ -25,18 +27,16 @@ public class CompleteCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(activityToComplete.getAddCommand());
         assertCompleteSuccess(activityToComplete, 1);
         
-        // Runs complete command on positive invalid index
+        // Runs complete command on positive/negative/0 invalid indexes
         commandBox.runCommand("clear");
         commandBox.runCommand(activityToComplete.getAddCommand());
-        assertCompleteSuccess(activityToComplete, 2);
-        
-        // Runs complete command on negative index
-        commandBox.runCommand(activityToComplete.getAddCommand());
-        assertCompleteSuccess(activityToComplete, -1);
-        
+        assertInvalidIndex(activityToComplete, 2); // Only 1 activity in the list.
+        assertInvalidIndex(activityToComplete, 0);
+        assertInvalidIndex(activityToComplete, -1);
+
         // Runs complete command on empty list
         commandBox.runCommand("clear");
-        assertCompleteSuccess(activityToComplete, 1); //this should be assertSOMETHINGELSE 
+        assertInvalidIndex(activityToComplete, 1);
     }
     
     /**
@@ -48,21 +48,34 @@ public class CompleteCommandTest extends AddressBookGuiTest {
     private void assertCompleteSuccess(TestActivity activityToComplete, int index) {
         
         commandBox.runCommand(activityToComplete.getCompleteCommand(index));
+        boolean isTask = false;
+        boolean isFloating = false;
         
         //Confirms new Activity card has correct Completed status.
-        if (activityToComplete.getActivityType().equals("task")) {
+        if (activityToComplete.getActivityType().equals(Activity.TASK_TYPE)) {
+            isTask = true;
             TaskCardHandle completedCard = activityListPanel.navigateToTask(activityToComplete);
-            System.out.println("task is: " + completedCard.toString());
             assertTaskMatching(activityToComplete, completedCard);
         }
-        else if (activityToComplete.getActivityType().equals("floatingTask")) {
+        else if (activityToComplete.getActivityType().equals(Activity.FLOATING_TASK_TYPE)) {
+            isFloating = true;
             FloatingTaskCardHandle completedCard = activityListPanel.navigateToFloatingTask(activityToComplete);
-            System.out.println("floating task is: " + completedCard.toString());
             assertFloatingTaskMatching(activityToComplete, completedCard);
         }
         
+        if (isTask) {
+            activityToComplete = activityListPanel.returnsUpdatedTask(activityToComplete.getActivityName().fullName);
+        }
+        else if (isFloating) {
+            activityToComplete = activityListPanel.returnsUpdatedFloatingTask(activityToComplete.getActivityName().fullName);
+        }
         // Confirms the result message is correct
-        // Debug System.out.println(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
-        // assertResultMessage(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
+        System.out.println(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
+        assertResultMessage(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
+    }
+    
+    private void assertInvalidIndex(TestActivity activityToComplete, int index) {
+        commandBox.runCommand(activityToComplete.getCompleteCommand(index));
+        assertResultMessage(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
     }
 }

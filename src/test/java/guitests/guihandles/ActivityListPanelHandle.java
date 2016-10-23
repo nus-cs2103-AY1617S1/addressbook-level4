@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
+import seedu.address.testutil.TestActivity;
 import seedu.address.testutil.TestUtil;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
@@ -118,7 +119,26 @@ public class ActivityListPanelHandle extends GuiHandle {
         return true;
     }
 
-
+    public TestActivity returnsUpdatedTask(String name) {
+        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
+        final Optional<ReadOnlyActivity> activity = getTaskListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
+        if (!activity.isPresent()) {
+            throw new IllegalStateException("Name not found: " + name);
+        }
+        TestActivity dub = new TestActivity(activity.get());
+        return dub;
+    }
+    
+    public TestActivity returnsUpdatedFloatingTask(String name) {
+        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
+        final Optional<ReadOnlyActivity> activity = getFloatingTaskListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
+        if (!activity.isPresent()) {
+            throw new IllegalStateException("Name not found: " + name);
+        }
+        TestActivity dub = new TestActivity(activity.get());
+        return dub;
+    }
+    
     public TaskCardHandle navigateToActivity(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyActivity> activity = getTaskListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
@@ -133,7 +153,6 @@ public class ActivityListPanelHandle extends GuiHandle {
      */
     public TaskCardHandle navigateToTask(ReadOnlyActivity activity) {
         int index = getTaskIndex(activity);
-        System.out.println("index = " + index);
         guiRobot.interact(() -> {
             getTaskListView().scrollTo(index);
             guiRobot.sleep(150);
@@ -142,14 +161,13 @@ public class ActivityListPanelHandle extends GuiHandle {
         guiRobot.sleep(100);
         return getTaskCardHandle(activity);
     }
-    
+
     /**
      * @author BrehmerChan (A0146752B)
      * Navigates the listview to display and select the floating task.
      */
     public FloatingTaskCardHandle navigateToFloatingTask(ReadOnlyActivity activity) {
         int index = getFloatingTaskIndex(activity);
-        System.out.println("index = " + index);
         guiRobot.interact(() -> {
             getFloatingTaskListView().scrollTo(index);
             guiRobot.sleep(150);
@@ -216,7 +234,7 @@ public class ActivityListPanelHandle extends GuiHandle {
         return NOT_FOUND;
     }
 
-    /**s
+    /**
      * Gets a person from the list by index
      */
     public ReadOnlyActivity getPerson(int index) {
@@ -249,10 +267,8 @@ public class ActivityListPanelHandle extends GuiHandle {
                 .filter(n -> new FloatingTaskCardHandle(guiRobot, primaryStage, n).isSameActivity(person))
                 .findFirst();
         if (activityCardNode.isPresent()) {
-            System.out.println("returns properly");
             return new FloatingTaskCardHandle(guiRobot, primaryStage, activityCardNode.get());
         } else {
-            System.out.println("returns null");
             return null;
         }
     }

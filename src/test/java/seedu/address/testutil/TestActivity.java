@@ -73,7 +73,7 @@ public class TestActivity implements ReadOnlyActivity {
      */
     public TestActivity (ReadOnlyActivity source) {
         
-        if (source.getActivityType().equals(Activity.TASK_TYPE)) {
+        if (source.getActivityType().equals(Activity.FLOATING_TASK_TYPE)) {
             activityType = source.getActivityType();
             name = source.getActivityName();
             note = source.getNote();
