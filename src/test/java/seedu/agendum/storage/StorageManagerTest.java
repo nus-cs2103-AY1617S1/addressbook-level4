@@ -7,7 +7,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.agendum.commons.events.model.SaveLocationChangedEvent;
+import seedu.agendum.commons.core.Config;
+import seedu.agendum.commons.events.model.ChangeSaveLocationRequestEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
 import seedu.agendum.commons.events.storage.DataSavingExceptionEvent;
 import seedu.agendum.model.ToDoList;
@@ -34,7 +35,7 @@ public class StorageManagerTest {
 
     @Before
     public void setup() {
-        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
+        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"), new Config());
     }
 
 
@@ -75,7 +76,7 @@ public class StorageManagerTest {
     @Test
     public void handleToDoListChangedEvent_exceptionThrown_eventRaised() throws IOException {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
-        Storage storage = new StorageManager(new XmlToDoListStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
+        Storage storage = new StorageManager(new XmlToDoListStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"), new Config());
         EventsCollector eventCollector = new EventsCollector();
         storage.handleToDoListChangedEvent(new ToDoListChangedEvent(new ToDoList()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
@@ -84,7 +85,7 @@ public class StorageManagerTest {
     @Test
     public void handleSaveLocationChangedEvent_validFilePath() {
         String validPath = "data/test.xml";
-        storageManager.handleSaveLocationChangedEvent(new SaveLocationChangedEvent(validPath));
+        storageManager.handleChangeSaveLocationRequestEvent(new ChangeSaveLocationRequestEvent(validPath));
         assertEquals(storageManager.getToDoListFilePath(), validPath);
     }
     

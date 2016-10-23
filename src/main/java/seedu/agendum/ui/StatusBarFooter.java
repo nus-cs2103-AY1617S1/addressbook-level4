@@ -21,7 +21,7 @@ import javafx.util.Duration;
 
 import org.controlsfx.control.StatusBar;
 import seedu.agendum.commons.core.LogsCenter;
-import seedu.agendum.commons.events.model.SaveLocationChangedEvent;
+import seedu.agendum.commons.events.model.ChangeSaveLocationRequestEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
 import seedu.agendum.commons.util.FxViewUtil;
 
@@ -65,7 +65,7 @@ public class StatusBarFooter extends UiPart {
         addSyncStatus();
         setSyncStatus("Not updated yet in this session");
         addSaveLocation();
-        setSaveLocation("./" + saveLocation);
+        setSaveLocation(saveLocation);
         addTimeStatus();
         registerAsAnEventHandler(this);
     }
@@ -125,8 +125,8 @@ public class StatusBarFooter extends UiPart {
     }
     
     @Subscribe
-    public void handleSaveLocationChangedEvent(SaveLocationChangedEvent event) {
-        String saveLocation = event.saveLocation;
+    public void handleChangeSaveLocationRequestEvent(ChangeSaveLocationRequestEvent event) {
+        String saveLocation = event.location;
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Setting save location to: " + saveLocation));
         setSaveLocation(saveLocation);
     }

@@ -10,7 +10,7 @@ import seedu.agendum.model.task.ReadOnlyTask;
 import seedu.agendum.model.task.Task;
 import seedu.agendum.model.task.UniqueTaskList;
 import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.agendum.commons.events.model.SaveLocationChangedEvent;
+import seedu.agendum.commons.events.model.ChangeSaveLocationRequestEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
 import seedu.agendum.commons.core.ComponentManager;
 import seedu.agendum.commons.core.Config;
@@ -88,8 +88,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     /** Raises an event to indicate that save location has changed */
-    private void indicateSaveLocationChanged(String location) {
-        raise(new SaveLocationChangedEvent(location));
+    private void indicateChangeSaveLocationRequest(String location) {
+        raise(new ChangeSaveLocationRequestEvent(location));
     }
 
     @Override
@@ -97,8 +97,8 @@ public class ModelManager extends ComponentManager implements Model {
         for (ReadOnlyTask target: targets) {
             toDoList.removeTask(target);
         }
-        logger.fine("[MODEL] --- succesfully deleted all specified targets from the to-do list");
         backupNewToDoList();
+        logger.fine("[MODEL] --- succesfully deleted all specified targets from the to-do list");
         indicateToDoListChanged();
     }
 
@@ -159,24 +159,14 @@ public class ModelManager extends ComponentManager implements Model {
         ToDoList latestList = new ToDoList(this.getToDoList());
         previousLists.push(latestList);
     }
-    
-    // Storage
+
+    // Storage method
     @Override
     public synchronized void changeSaveLocation(String location){
         assert StringUtil.isValidPathToFile(location);
-
-        config.setToDoListFilePath(location);
-        indicateSaveLocationChanged(location);
-        saveConfigFile();
+        indicateChangeSaveLocationRequest(location);
     }
 
-    private void saveConfigFile() {
-        try {
-            ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
-        } catch (IOException e) {
-            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
-        }        
-    }
 
     //=========== Filtered Task List Accessors ===============================================================
 

@@ -69,7 +69,7 @@ public class LogicManagerTest {
         model = new ModelManager();
         String tempToDoListFile = saveFolder.getRoot().getPath() + "TempToDoList.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempToDoListFile, tempPreferencesFile));
+        logic = new LogicManager(model, new StorageManager(tempToDoListFile, tempPreferencesFile, new Config()));
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedToDoList = new ToDoList(model.getToDoList()); // last saved assumed to be up to date before.
@@ -788,8 +788,7 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithName("old name");
         List<Task> listWithOneTask = helper.generateTaskList(p1);
         ToDoList expectedTDL = helper.generateToDoList(listWithOneTask);
-        ArrayList<ReadOnlyTask> arrayListWithOneTask = new ArrayList<ReadOnlyTask>();
-        arrayListWithOneTask.add(p1);
+        List<ReadOnlyTask> readOnlyTaskList = helper.generateReadOnlyTaskList(p1);
 
         //Undo add command
         model.addTask(p1);
@@ -797,7 +796,7 @@ public class LogicManagerTest {
 
         //Undo delete command
         model.addTask(p1);
-        model.deleteTasks(arrayListWithOneTask);
+        model.deleteTasks(readOnlyTaskList);
         assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
 
         //Undo clear command
@@ -811,18 +810,17 @@ public class LogicManagerTest {
         assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
 
         //Undo mark command
-        model.markTasks(arrayListWithOneTask);
+        model.markTasks(readOnlyTaskList);
         assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
 
         //Undo unmark command
-        model.markTasks(arrayListWithOneTask);
+        model.markTasks(readOnlyTaskList);
         Task p3 = new Task(p1); //p1 clone
         p3.markAsCompleted();
         listWithOneTask = helper.generateTaskList(p3);
         expectedTDL = helper.generateToDoList(listWithOneTask);
-        arrayListWithOneTask.clear();
-        arrayListWithOneTask.add(p3);
-        model.unmarkTasks(arrayListWithOneTask);
+        readOnlyTaskList = helper.generateReadOnlyTaskList(p3);
+        model.unmarkTasks(readOnlyTaskList);
         assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
 
     }
