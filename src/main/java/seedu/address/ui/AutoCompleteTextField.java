@@ -110,9 +110,10 @@ public class AutoCompleteTextField extends TextField
 		for(String s: commandWords) dictionary.add(s);
 		//date
 		String[] dateWords = {"jan","feb","mar","apr","may","jun","jul",
-							  "aug","sep","oct","nov","dec","today","tomorrow",
+							  "aug","sep","oct","nov","dec","today","tomorrow","yesterday",
 							  "monday","tuesday","wednesday","thursday","friday","saturday","sunday",
-							  "daily", "weekly", "monthly", "yearly",};
+							  "daily", "weekly", "monthly", "yearly","next",
+							  "day", "week", "year"};
 		for(String s: dateWords) dictionary.add(s);
 	}
 	
