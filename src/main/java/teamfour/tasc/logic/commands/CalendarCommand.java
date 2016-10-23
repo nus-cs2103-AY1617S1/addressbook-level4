@@ -65,10 +65,4 @@ public class CalendarCommand extends Command {
     public boolean canUndo() {
         return false;
     }
-
-    @Override
-    public CommandResult executeUndo() {
-        return null;
-    }
-
 }

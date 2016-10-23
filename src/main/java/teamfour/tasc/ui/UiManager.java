@@ -146,7 +146,8 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getCalendarPanel().changeView(event.getCalendarViewType());
         prefs.setCalendarView(event.getCalendarViewType());
-
+    }
+    
     /**
      * Handle the event when the task list view is collapsed
      * @param event
