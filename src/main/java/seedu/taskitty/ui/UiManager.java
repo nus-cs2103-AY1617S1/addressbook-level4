@@ -11,7 +11,6 @@ import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.Config;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.storage.DataSavingExceptionEvent;
-import seedu.taskitty.commons.events.ui.JumpToListRequestEvent;
 import seedu.taskitty.commons.events.ui.ShowHelpRequestEvent;
 import seedu.taskitty.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.taskitty.commons.util.StringUtil;
