@@ -150,6 +150,8 @@
 
 .result-display {
     -fx-background-color: #ffffff;
+    -fx-border-radius: 10 10 10 10;
+  	-fx-background-radius: 10 10 10 10;
 }
 
 .result-display .label {
