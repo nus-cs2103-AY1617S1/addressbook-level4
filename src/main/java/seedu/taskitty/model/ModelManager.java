@@ -106,13 +106,13 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@ author A0139052L
     public synchronized String undo() throws NoPreviousCommandException {
-        if (!hasPreviousCommand()) {            
+        if (!hasPreviousValidCommand()) {            
             throw new NoPreviousCommandException(null);
         }
         assert !historyPredicates.isEmpty() && !historyTaskManagers.isEmpty();
         resetData(getPreviousTaskManager());   
         updateFilteredTaskList(getPreviousPredicate());
-        return getPreviousCommand();
+        return getPreviousValidCommand();
     }
     
     public synchronized void saveState(String command) {
@@ -127,19 +127,32 @@ public class ModelManager extends ComponentManager implements Model {
         historyPredicates.pop();
     }
     
+    /**
+     *  returns the Task Manager from the previous state
+     */
     private ReadOnlyTaskManager getPreviousTaskManager() {
         return historyTaskManagers.pop();
     }
     
+    /**
+     * returns the Predicate from the previous state
+     */
     private Predicate getPreviousPredicate() {
         return historyPredicates.pop();
     }
     
-    private String getPreviousCommand() {
+    /**
+     * returns the previous valid command input by the user
+     */
+    private String getPreviousValidCommand() {
         return historyCommands.pop();
     }
     
-    private boolean hasPreviousCommand() {
+    /**
+     *  returns true is there is a previous valid command input by user
+     *  and false otherwise
+     */
+    private boolean hasPreviousValidCommand() {
         return !historyCommands.isEmpty();
     }
     
