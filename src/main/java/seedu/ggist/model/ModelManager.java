@@ -3,6 +3,7 @@ package seedu.ggist.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.ggist.commons.core.ComponentManager;
 import seedu.ggist.commons.core.LogsCenter;
+import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
 import seedu.ggist.commons.exceptions.IllegalValueException;
@@ -268,8 +269,8 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return taskDateKeyWords.equals(task.getStartDate().toString()) || 
-                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString()) && !task.getDone();
-            
+                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString()) && !task.getDone() ||
+                   (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED));          
         }
 
         @Override
