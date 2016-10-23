@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -46,9 +47,9 @@
 										</HBox>
 									</children>
 								</HBox>
-								<HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+								<HBox alignment="TOP_CENTER" maxWidth="75.0" prefHeight="100.0" prefWidth="75.0" GridPane.columnIndex="1">
 									<children>
-										<Label fx:id="status" styleClass="cell_small_label" text="\$status" />
+                              <ImageView fx:id="completionStatus" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
 									</children>
 								</HBox>
 							</children>
