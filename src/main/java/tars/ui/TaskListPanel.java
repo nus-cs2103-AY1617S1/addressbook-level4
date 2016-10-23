@@ -95,10 +95,10 @@ public class TaskListPanel extends UiPart {
             } else {
                 TaskCard card = TaskCard.load(task, getIndex() + 1);
                 HBox layout = card.getLayout();
-                if (this.newlyAddedTask != null) {
-                    if (this.newlyAddedTask.isSameStateAs(task)) {
-                        layout.setStyle("-fx-border-color: lightgreen");
-                    }
+                if (this.newlyAddedTask != null && this.newlyAddedTask.isSameStateAs(task)) {
+                    layout.setStyle("-fx-border-color: lightgreen");
+                } else {
+                    layout.setStyle("-fx-border-color: derive(#4C5564, 100%)");
                 }
                 setGraphic(layout);
             }
