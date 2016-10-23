@@ -102,11 +102,11 @@ public class FilteredListManager {
      * ===========================================================
      */
     
+    /** Updates all filters of all filtered lists to default specified in {@code defaultExpressions} */
     public void updateFilteredListToDefault() {
-        listMap.get(ListId.TASKS_AGENDA)
-                .setPredicate(defaultExpressions.get(ListId.TASKS_AGENDA)::satisfies);
-        listMap.get(ListId.EVENTS_AGENDA)
-                .setPredicate(defaultExpressions.get(ListId.EVENTS_AGENDA)::satisfies);
+        for (ListId id : ListId.values()) {
+            listMap.get(id).setPredicate(defaultExpressions.get(id)::satisfies);
+        }
     }
     
     /** Updates filtered list identified by {@code id} with keyword filter. */
