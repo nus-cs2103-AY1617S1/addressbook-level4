@@ -99,4 +99,11 @@ public interface Model {
 
     /** Updates the old task with new task details */
     void updateTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException;
+
+    /**
+     * Precondition: numToRedo must be > 0.
+     * Redo the past undos.
+     * @return number of history states redone
+     */
+    int redoTaskListHistory(int numToRedo);
 }

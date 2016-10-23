@@ -29,6 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private PredicateExpression taskListFilter;
     private HistoryStack<TaskList> taskListHistory;
+    private HistoryStack<TaskList> undoTaskListHistory;
 
     /**
      * Initializes a ModelManager with the given TaskList
@@ -45,6 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
         taskListHistory = new HistoryStack<TaskList>();
+        undoTaskListHistory = new HistoryStack<TaskList>();
     }
 
     public ModelManager() {
@@ -56,6 +58,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
         taskListHistory = new HistoryStack<TaskList>();
+        undoTaskListHistory = new HistoryStack<TaskList>();
     }
 
     @Override
@@ -91,6 +94,7 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             for (int i = 0; i < numToUndo; i++) {
                 historyTaskList = taskListHistory.popState();
+                undoTaskListHistory.pushState(historyTaskList);
                 numUndone++;
             }
         } catch (OutOfHistoryException e) {
@@ -103,6 +107,28 @@ public class ModelManager extends ComponentManager implements Model {
         return numUndone;
     }
 
+    @Override
+    public int redoTaskListHistory(int numToRedo) {
+        assert numToRedo > 0;
+        
+        int numRedone = 0;
+        TaskList historyTaskList = null;
+        try {
+            for (int i = 0; i < numToRedo; i++) {
+                historyTaskList = undoTaskListHistory.popState();
+                taskListHistory.pushState(historyTaskList);
+                numRedone++;
+            }
+        } catch (OutOfHistoryException e) {
+            logger.fine(e.getMessage());
+        }
+        
+        if (historyTaskList != null) {
+            resetData(historyTaskList);
+        }
+        return numRedone;
+    }
+    
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
