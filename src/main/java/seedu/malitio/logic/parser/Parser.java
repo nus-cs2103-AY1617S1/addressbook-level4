@@ -100,7 +100,7 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
-     * @author Nathan A0153006W
+     * @@author A0153006W
      */
     private Command prepareAdd(String args){
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
@@ -155,6 +155,11 @@ public class Parser {
         }
     }
     
+    /**
+     * 
+     * @param arguments
+     * @return the prepared command
+     */
     private Command prepareEdit(String args) {
         final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -239,6 +244,7 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
+     * @@author
      */
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
@@ -263,7 +269,7 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
-     * @author Nathan A0153006W
+     * @@author A0153006W
      */
     private Command prepareList(String args) {
         if (args.isEmpty()) {
@@ -291,7 +297,6 @@ public class Parser {
     
     /**
      * Extracts the task's deadline from the command's arguments string.
-     * @author Nathan A0153006W
      */
     private static String getDeadlineFromArgs(String args) throws IllegalValueException {
         int byIndex = args.lastIndexOf("by");
@@ -357,6 +362,7 @@ public class Parser {
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
+     * @@author
      */
     private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
         // no tags
