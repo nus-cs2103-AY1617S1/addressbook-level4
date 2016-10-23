@@ -1,8 +1,11 @@
 {
   "appTitle" : "Typical App Title",
   "logLevel" : "INFO",
-  "userPrefsFilePath" : "C:\\preferences.json",
-  "addressBookFilePath" : "addressbook.xml",
-  "addressBookName" : "TypicalAddressBookName",
+  "userPrefsFilePath" : "task-userpreferences.json",
+  "tasksFileName" : "tasks.xml",
+  "tasksFilePath" : "data/tasks.xml",
+  "aliasFileName" : "alias.xml",
+  "aliasFilePath" : "data/alias.xml",
+  "taskManagerName" : "TypicalTaskManager",
   "extra" : "extra value"
 }
