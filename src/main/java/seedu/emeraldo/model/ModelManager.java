@@ -73,19 +73,27 @@ public class ModelManager extends ComponentManager implements Model {
         saveState();
     }
     
-    public void undoChanges() throws EmptyStackException{
-    	savedStates.pop();
-    	if(!savedStates.empty()){
-    		emeraldo.resetData(savedStates.peek());
-	    	indicateEmeraldoChanged();
+    public void undoChanges() throws EmptyStackException, UndoException{
+    	
+    	
+    	if(savedStates.size() > 1){
+    	    System.out.println("GREATER THAN ONE");
+    	    savedStates.pop();    	    
+	        emeraldo.resetData(savedStates.peek());
+    	    indicateEmeraldoChanged();
+    	}
+    	else if(savedStates.size() == 1){
+    	    System.out.println("SIZE == 1");
+    	    throw new UndoException();
     	}
     	else{
-    		throw new EmptyStackException();
+    	    System.out.println("savedState.size = " + savedStates.size());
     	}
     }
     
     public void clearEmeraldo(){
     	emeraldo.resetData(Emeraldo.getEmptyEmeraldo());
+    	saveState();
     	indicateEmeraldoChanged();
     }
     

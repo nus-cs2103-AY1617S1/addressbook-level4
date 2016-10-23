@@ -16,8 +16,9 @@ import java.util.Set;
  */
 public interface Model {
 	
-	/** Undo the previous changes made to the model */
-	void undoChanges() throws EmptyStackException;
+	/** Undo the previous changes made to the model 
+	 * @throws UndoException */
+	void undoChanges() throws EmptyStackException, UndoException;
 	
 	/** Clears existing backing model and replaces with empty data */
 	void clearEmeraldo();
