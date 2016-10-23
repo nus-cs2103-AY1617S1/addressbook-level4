@@ -41,6 +41,9 @@ public class ToolTip {
         commands = commandList.filtered(null);
     }
     
+    /**
+     * Gets the instance of tooltip to be used
+     */
     public static ToolTip getInstance() {
         if (tooltip == null) {
             tooltip = new ToolTip();
@@ -48,14 +51,21 @@ public class ToolTip {
         return tooltip;
     }
     
+    /**
+     * Get the tooltip based on input
+     * 
+     * @param input to determine the tooltip to be shown
+     */
     public String getToolTip(String input) {
         String[] splitInput = input.split(COMMAND_WORD_DELIMITER);
         
         //only interested in the first word
         String command = splitInput[COMMAND_WORD_POSITION];
         
-        String tooltip;
+        //filter the commands list to show only commands that match
         commands.setPredicate(p -> p.startsWith(command));
+        
+        String tooltip;
         if (!isCommandWordMatch()) {
             tooltip = MESSAGE_UNKNOWN_COMMAND;
         } else if (isSingleMatchFound()) {
@@ -67,6 +77,9 @@ public class ToolTip {
         return tooltip;
     }
     
+    /**
+     * Returns true if there is at least 1 command word that matches
+     */
     private boolean isCommandWordMatch() {
         if (commands.size() != COMMAND_WORD_COUNT_NO_MATCH) {
             return true;
@@ -74,6 +87,9 @@ public class ToolTip {
         return false;
     }
     
+    /**
+     * Returns true if there is exactly 1 command word that matches
+     */
     private boolean isSingleMatchFound() {
         if (commands.size() == COMMAND_WORD_COUNT_SINGLE_MATCH) {
             return true;
@@ -81,6 +97,11 @@ public class ToolTip {
         return false;
     }
     
+    /**
+     * Finds the closest matching command and returns the appropriate tooltip
+     *  
+     * @param command to determine which command tooltip to show
+     */
     private String getMatchCommandToolTipSingle(String command) {
         String tooltip;
         
@@ -110,6 +131,9 @@ public class ToolTip {
         return tooltip;
     }
     
+    /**
+     * Returns a string representing the matched input, delimitered by TOOLTIP_DELIMITER
+     */
     private String getMatchCommandToolTipAll() {
         assert commands.size() != COMMAND_WORD_COUNT_NO_MATCH
                 && commands.size() != COMMAND_WORD_COUNT_SINGLE_MATCH;
