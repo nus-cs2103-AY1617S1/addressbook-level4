@@ -38,12 +38,18 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        if(deadline!=""&&freq!=""){
         this.toAdd = new Task(
                 new Name(name),
                 new Deadline(deadline),
                 new UniqueTagList(tagSet),
                 new Recurring(freq)
         );
+        }else if(deadline!=""){
+            this.toAdd=new Task(new Name(name),new Deadline(deadline),new UniqueTagList(tagSet));
+        }else{
+            this.toAdd=new Task(new Name(name),new UniqueTagList(tagSet));
+        }
     }
 
     /**
@@ -57,12 +63,18 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        if(freq!=""&&startDate!=""){
         this.toAdd = new Task(
                 new Name(name),
                 new EventDate(startDate, endDate),
                 new UniqueTagList(tagSet),
                 new Recurring(freq)
         );
+        }else if(startDate!=""){
+            this.toAdd=new Task(new Name(name),new EventDate(startDate,endDate),new UniqueTagList(tagSet));
+        }else{
+            this.toAdd=new Task(new Name(name),new UniqueTagList(tagSet));
+        }
     }
 
     @Override

@@ -1,5 +1,6 @@
 package seedu.address.model.task;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -30,16 +31,16 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public Task(Name name, Date date, UniqueTagList tags) {
-        this(name, date, tags, false,false);
-    }
-    
-    public Task(Name name,Date date,UniqueTagList tags, Recurring recurring){
-        this(name,date,tags,false,true);
-        this.recurring=recurring;
+        this(name, date, tags, false, false);
     }
 
-    public Task(Name name, Date date, UniqueTagList tags, boolean isDone,boolean isRecurring) {
-        assert !CollectionUtil.isAnyNull(name, date, tags);
+    public Task(Name name, Date date, UniqueTagList tags, Recurring recurring) {
+        this(name, date, tags, false, true);
+        this.recurring = recurring;
+    }
+
+    public Task(Name name, Date date, UniqueTagList tags, boolean isDone, boolean isRecurring) {
+        // assert !CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
         this.date = date;
         if (date instanceof EventDate) {
@@ -51,30 +52,30 @@ public class Task implements ReadOnlyTask {
                                              // changes in the arg list
         this.isDone = isDone;
         this.done = new SimpleBooleanProperty(isDone);
-        this.isRecurring=isRecurring;
-        
+        this.isRecurring = isRecurring;
+
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDate(), source.getTags(), source.isDone(),source.isRecurring());
-        if(source.isRecurring())
-            this.recurring=source.getRecurring();
+        this(source.getName(), source.getDate(), source.getTags(), source.isDone(), source.isRecurring());
+        if (source.isRecurring())
+            this.recurring = source.getRecurring();
     }
 
-    public Task(Name name) {
-        this.name = name;
+    public Task(Name name, UniqueTagList tags) throws IllegalValueException {
+        this(name, new Deadline(""), tags, false, false);
     }
 
     @Override
     public Name getName() {
         return name;
     }
-    
+
     @Override
-    public Recurring getRecurring(){
+    public Recurring getRecurring() {
         return recurring;
     }
 
@@ -104,9 +105,9 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-    
+
     @Override
-    public boolean isRecurring(){
+    public boolean isRecurring() {
         return isRecurring;
     }
 

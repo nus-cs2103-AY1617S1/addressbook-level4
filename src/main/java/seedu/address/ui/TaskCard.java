@@ -22,6 +22,8 @@ public class TaskCard extends UiPart{
     private Label done;
     @FXML
     private Label recurring;
+    @FXML
+    private Label frequency;
 //    @FXML
 //    private Label tags;
 //    @FXML
@@ -54,6 +56,8 @@ public class TaskCard extends UiPart{
         done.setText(task.isDone() ? "done" : "");
 //        tags.setText(task.tagsString());
         recurring.setText(task.isRecurring()? "recurring":"");
+        frequency.setText("not reflected yet");
+        
     }
 
     public HBox getLayout() {
