@@ -365,7 +365,7 @@ public class CommandParser {
         
         if (categoryAndIndex == null) {
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         
         return new DeleteCommand(categoryAndIndex[INDEX_OF_NUMBER_INDEX], categoryAndIndex[INDEX_OF_CATEGORY_INDEX]);
@@ -385,7 +385,7 @@ public class CommandParser {
         
         if (categoryAndIndex == null) {
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
         }
         
         return new DoneCommand(categoryAndIndex[INDEX_OF_NUMBER_INDEX], categoryAndIndex[INDEX_OF_CATEGORY_INDEX]);
@@ -437,6 +437,10 @@ public class CommandParser {
      * @return an int array with categoryIndex and index in 0 and 1 index respectively
      */
     private int[] getCategoryAndIndex(String args) {
+        
+        if (args.trim().equals(EMPTY_STRING)) {
+            return null;
+        }
         
         // category index should be the first char in the string
         Optional<Integer> checkForCategory = parseIndex(args.substring(0, 1));
