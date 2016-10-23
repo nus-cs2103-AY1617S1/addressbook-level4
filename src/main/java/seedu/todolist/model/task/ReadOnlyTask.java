@@ -48,7 +48,7 @@ public interface ReadOnlyTask {
         if (!interval.isFloat()) {
             return "Time: " + getInterval().toString();
         }
-        return " ";
+        return "";
     }
     
     /**
@@ -59,7 +59,7 @@ public interface ReadOnlyTask {
         if (location.location != null) {
             return "Location: " + getLocation().toString();
         }
-        return " ";
+        return "";
     }
     
     /**
@@ -70,6 +70,6 @@ public interface ReadOnlyTask {
         if (remarks.remarks != null) {
             return "Remarks: " + getRemarks().toString();
         }
-        return " ";
+        return "";
     } 
 }

@@ -29,7 +29,7 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>(.)+)"
+            Pattern.compile("(?<name>(.)+?)"
                     + "((\\bfrom\\b|\\bby\\b)(?<interval>(.)+?))?"
                     + "((\\bat\\b)(?<location>(.)+?))?" 
                     + "((\\bremarks\\b)(?<remarks>(.)+?))?");

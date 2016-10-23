@@ -25,12 +25,12 @@ public class TypicalTestTasks {
                     .withLocation("Office")
                     .withRemarks(null)
                     .withStatus(false).build();
-            eventWithRemarks = new TaskBuilder().withName("Event with remarks")
+            eventWithRemarks = new TaskBuilder().withName("Event withRemarks")
                     .withInterval("24/12/2016", "7:30pm", "24/12/2016", "9:00pm")
                     .withLocation(null)
                     .withRemarks("buy present")
                     .withStatus(false).build();
-            eventWithLocationAndRemarks = new TaskBuilder().withName("Event with location and remarks")
+            eventWithLocationAndRemarks = new TaskBuilder().withName("Event with locationAndRemarks")
                     .withInterval("18 nov 2016", "7pm", "18 nov 2016", "8pm")
                     .withLocation("East Coast")
                     .withRemarks("buy present")
