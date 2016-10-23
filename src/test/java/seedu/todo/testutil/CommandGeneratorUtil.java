@@ -44,4 +44,14 @@ public class CommandGeneratorUtil {
         return commandJoiner.toString();
     }
 
+    /**
+     * Generates a delete command at the given displayed index.
+     */
+    public static String generateDeleteCommand(int deleteDisplayIndex) {
+        StringJoiner commandJoiner = new StringJoiner(" ");
+        commandJoiner.add("delete")
+                .add(String.valueOf(deleteDisplayIndex));
+        return commandJoiner.toString();
+    }
+
 }

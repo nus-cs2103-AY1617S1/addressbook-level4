@@ -89,7 +89,6 @@ public abstract class TodoListGuiTest {
      */
     protected TodoList getInitialData() {
         TodoList todoList = TestUtil.generateEmptyTodoList(getDataFileLocation());
-        //TODO: You might need a default set of tasks (instead of randomly generated ones)
         initialTaskData = TaskFactory.list();
         TestUtil.loadTodoListWithData(todoList, initialTaskData);
         return todoList;
@@ -107,22 +106,13 @@ public abstract class TodoListGuiTest {
         FxToolkit.cleanupStages();
     }
 
-    //TODO: All these below needs to be removed.
-//    /**
-//     * Asserts the person shown in the card is same as the given person
-//     */
-//    public void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
-//        assertTrue(TestUtil.compareCardAndPerson(card, person));
-//    }
-//
-//    /**
-//     * Asserts the size of the person list is equal to the given number.
-//     */
-//    protected void assertListSize(int size) {
-//        int numberOfPeople = personListPanel.getNumberOfPeople();
-//        assertEquals(size, numberOfPeople);
-//    }
-//
+    /**
+     * Executes the command via the {@link seedu.todo.ui.view.CommandInputView}
+     */
+    protected void runCommand(String commandText) {
+        commandInputView.runCommand(commandText);
+    }
+
     /**
      * Asserts the message shown in the {@link seedu.todo.ui.view.CommandFeedbackView}
      * is same as the given {@code expected} string.

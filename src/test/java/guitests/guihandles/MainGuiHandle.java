@@ -32,11 +32,6 @@ public class MainGuiHandle extends GuiHandle {
     }
 
     @Deprecated
-    public ResultDisplayHandle getResultDisplay() {
-        return new ResultDisplayHandle(guiRobot, primaryStage);
-    }
-
-    @Deprecated
     public MainMenuHandle getMainMenu() {
         return new MainMenuHandle(guiRobot, primaryStage);
     }

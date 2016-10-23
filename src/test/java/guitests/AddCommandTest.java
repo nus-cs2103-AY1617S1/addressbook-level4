@@ -87,7 +87,7 @@ public class AddCommandTest extends TodoListGuiTest {
      */
     private void executeAddCommand(ImmutableTask task) {
         String commandText = CommandGeneratorUtil.generateAddCommand(task);
-        commandInputView.runCommand(commandText);
+        runCommand(commandText);
     }
 
     /**
