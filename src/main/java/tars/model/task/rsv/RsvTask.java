@@ -15,8 +15,12 @@ import tars.model.task.ReadOnlyTask;
 
 public class RsvTask{
     
-    private Name name;
-    private ArrayList<DateTime> dateTimeList;
+    protected Name name;
+    protected ArrayList<DateTime> dateTimeList = new ArrayList<DateTime>();
+    
+    public RsvTask() {
+        
+    }
     
     public RsvTask(Name name, ArrayList<DateTime> dateTimeList) {
         assert !CollectionUtil.isAnyNull(name, dateTimeList);
@@ -58,6 +62,19 @@ public class RsvTask{
         this.dateTimeList = dateTimeList;
     }
     
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RsvTask // instanceof handles nulls
+                        && this.isSameStateAs((RsvTask) other));
+    }
+    
+    boolean isSameStateAs(RsvTask other) {
+        return other == this // short circuit if same object
+                || (other != null // this is first to avoid NPE below
+                && other.getName().equals(this.getName()) // state checks here onwards
+                && other.getDateTimeList().equals(this.getDateTimeList()));
+    }
     
     @Override
     public int hashCode() {
