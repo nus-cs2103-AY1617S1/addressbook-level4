@@ -49,11 +49,16 @@ public class ModelManager extends ComponentManager implements Model {
         
         savedStates = new Stack<Emeraldo>();
         
-        Emeraldo temp = new Emeraldo(emeraldo);
-        savedStates.push(temp);
+        saveState();
         
         System.out.println("After initialisation: " + savedStates);
     }
+    
+    //Saves the new state of emeraldo into the stack, after changes has been made
+	private void saveState() {
+		Emeraldo temp = new Emeraldo(emeraldo);
+        savedStates.push(temp);
+	}
 
     public ModelManager() {
         this(new Emeraldo(), new UserPrefs());
@@ -66,8 +71,7 @@ public class ModelManager extends ComponentManager implements Model {
         
         savedStates = new Stack<Emeraldo>();
         
-        Emeraldo temp = new Emeraldo(emeraldo);
-        savedStates.push(temp);
+        saveState();
         
         System.out.println("After initialisation: " + savedStates);
     }
@@ -105,14 +109,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         emeraldo.removeTask(target);
+        saveState();
         indicateEmeraldoChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
     	emeraldo.addTask(task);
-    	Emeraldo nextState = new Emeraldo(emeraldo);
-        savedStates.push(nextState);
+    	saveState();
         
         updateFilteredListToShowAll();
         indicateEmeraldoChanged();
