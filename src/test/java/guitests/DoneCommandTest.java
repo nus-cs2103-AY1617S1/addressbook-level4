@@ -62,7 +62,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         TestTask taskToMark = currentList.getTaskFromList(targetIndexOneIndexed - 1, category); //-1 because array uses zero indexing
         
         currentList.markTaskAsDoneInList(targetIndexOneIndexed - 1, category, taskToMark);
-        commandBox.runCommand("done " + category + " " + targetIndexOneIndexed);
+        commandBox.runCommand("done " + category + targetIndexOneIndexed);
         
         int categoryIndex = TaskUtil.getCategoryIndex(category);
         //confirm the list now contains the original list + the task marked as done

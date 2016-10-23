@@ -62,7 +62,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         TestTask taskToDelete = currentList.getTaskFromList(targetIndexOneIndexed - 1, category); //-1 because array uses zero indexing
         
         currentList.removeTaskFromList(targetIndexOneIndexed - 1, category);
-        commandBox.runCommand("delete " + category + " " + targetIndexOneIndexed);
+        commandBox.runCommand("delete " + category + targetIndexOneIndexed);
         
         int categoryIndex = TaskUtil.getCategoryIndex(category);
         //confirm the list now contains all previous persons except the deleted person
