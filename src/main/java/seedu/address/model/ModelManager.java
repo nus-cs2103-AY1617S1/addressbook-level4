@@ -81,14 +81,14 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
-    
+
     @Override
     public void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         taskBook.completeTask(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
-    
+
 
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -96,7 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDatedTaskList() {
         return new UnmodifiableObservableList<>(filteredDatedTasks);
     }
-    
+
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredUndatedTaskList() {
         return new UnmodifiableObservableList<>(filteredUndatedTasks);
@@ -122,15 +122,15 @@ public class ModelManager extends ComponentManager implements Model {
         }
         updateFilteredTaskList(new PredicateExpression(new StatusQualifier(listOfKeywords)));
     }
-    
-	@Override
-	public void overdueTask(ReadOnlyTask target) throws TaskNotFoundException {
-		taskBook.overdueTask(target);
+
+    @Override
+    public void overdueTask(ReadOnlyTask target) throws TaskNotFoundException {
+        taskBook.overdueTask(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
-		
-	}
-    
+
+    }
+
     private void updateFilteredTaskList(Expression expression) {
         filteredDatedTasks.setPredicate(expression::satisfies);
         filteredUndatedTasks.setPredicate(expression::satisfies);
@@ -199,7 +199,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "task=" + String.join(", ", taskKeyWords);
         }
     }
-    
+
     private class StatusQualifier implements Qualifier {
         private ArrayList<Status> statusList;
 
