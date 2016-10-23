@@ -14,6 +14,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 public class Datetime {
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date can be DD-MMM-YYYY and Time can be 24h format";
+    public static final String MESSAGE_DATETIME_CONTAINS_DOTS = "Date cannot contain '.' character";
 
     //public static final String MESSAGE_DATE_CONSTRAINTS = "Date should be in MM-DD-YYYY format";
     //    public static final String DATE_VALIDATION_REGEX = "(0?[1-9]|[12][0-9]|3[01])" + "-" + "(0?[1-9]|1[012])" + "-"
@@ -34,6 +35,10 @@ public class Datetime {
         if (input == null) {
             listOfDate = null;
         }
+        // check input for '.' characters in date
+        else if (input.contains(".")){
+    		throw new IllegalValueException(MESSAGE_DATETIME_CONTAINS_DOTS);
+    	}
         // empty string preceding "date/" -> convert deadline or event to floating task
         else if (input.equals("")) {
             listOfDate = null;
