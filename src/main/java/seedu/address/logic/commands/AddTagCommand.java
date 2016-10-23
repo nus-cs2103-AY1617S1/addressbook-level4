@@ -8,6 +8,7 @@ import seedu.address.model.task.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.address.model.tag.UniqueTagList.NotExistTagException;
 
 /**
  * Adds a person to the address book.
@@ -61,14 +62,17 @@ public class AddTagCommand extends Command{
 		delete.execute();
 		AddCommand add;
 		try {
-			add = new AddCommand(description.toString(), priority.toString(), timeStart, timeEnd, tags, completeStatus, targetIndex-1);
+			add = new AddCommand(new Task(description, priority, timeStart, timeEnd, tags, completeStatus), targetIndex-1);
 			add.model = model;
 			add.insert();
-
 			undo = true;
-			tags.remove(tag);
-		    LogicManager.tasks.push(new Task(description, priority, timeStart, timeEnd, tags, completeStatus));
-            LogicManager.indexes.push(targetIndex);
+			LogicManager.tasks.pop();
+			try {
+				tags.remove(tag);
+			} catch (NotExistTagException e1) {
+				return new CommandResult("Tag Does Not Exist");
+			}
+			LogicManager.tasks.push(new Task(description, priority, timeStart, timeEnd, tags, completeStatus));
 		} catch (IllegalValueException e){
 			 LogicManager.tasks.pop();
 			return new CommandResult("re-adding failed");
