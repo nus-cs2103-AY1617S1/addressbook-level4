@@ -13,6 +13,7 @@ public interface ReadOnlyTask {
     DateTime getCloseTime();
     boolean getImportance();
     boolean getComplete();
+    int getRecurrenceWeek();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

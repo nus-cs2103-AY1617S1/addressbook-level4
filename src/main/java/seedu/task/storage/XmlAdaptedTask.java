@@ -31,6 +31,9 @@ public class XmlAdaptedTask {
     @XmlElement(required = false)
     private boolean isImportant;
 
+    @XmlElement(required = false)
+    private int recurrenceWeek;
+    
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -74,6 +77,7 @@ public class XmlAdaptedTask {
         final UniqueTagList tags = new UniqueTagList(taskTags);
         final boolean isImportant = this.isImportant;
         final boolean isComplete = this.isComplete;
-        return new Task(name, openTime, closeTime, isImportant, isComplete, tags); 
+        final int recurrenceWeek= this.recurrenceWeek;
+        return new Task(name, openTime, closeTime, isImportant, isComplete, tags, recurrenceWeek); 
     }
 }
