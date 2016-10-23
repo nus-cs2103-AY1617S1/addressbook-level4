@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -30,18 +30,16 @@ public class AddCommand extends UndoableCommand {
             + "Parameters: [add] NAME [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
             + "Example: " + COMMAND_WORD
             + " feed cat by today 11:30am repeat every day -high";
-        
+
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
     
     public static final String TOOL_TIP = "[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]";
 
     public static final String MESSAGE_UNDO_SUCCESS = "Undid add item: %1$s";
 
-
     public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
             + "at least one DATE_TIME must be provided";
     
-
     private Task toAdd;
 
     /**
@@ -54,31 +52,39 @@ public class AddCommand extends UndoableCommand {
         this.toAdd = new Task(new Name(taskName));
     }
 
-    public AddCommand(String taskNameString, String startDateString, String endDateString, String rateString,
-            String timePeriodString, String priorityString) throws IllegalValueException {
+    public AddCommand(Optional<String> taskNameString, Optional<String> startDateString, Optional<String> endDateString, 
+            Optional<String> rateString, Optional<String> timePeriodString, Optional<String> priorityString) 
+                    throws IllegalValueException {
         assert taskNameString != null;
         
-    	Name taskName = new Name(taskNameString);
+    	Name taskName = new Name(taskNameString.get());
         Date startDate = null;
         Date endDate = null;
         RecurrenceRate recurrenceRate = null;
         Priority priority;
 
-        if (startDateString != null) {
-            assert DateTime.isValidDate(startDateString);
-            startDate = DateTime.convertStringToStartDate(startDateString);
+        if (startDateString.isPresent()) {
+            startDate = DateTime.convertStringToDate(startDateString.get());
+            if (!DateTime.hasTimeValue(startDateString.get())) {
+                startDate = DateTime.setTimeToStartOfDay(startDate);
+            }
         }
 
-        if (endDateString != null) {
-            assert DateTime.isValidDate(endDateString);
-            endDate = DateTime.convertStringToEndDate(endDateString, startDate);
+        if (endDateString.isPresent()) {
+            endDate = DateTime.convertStringToDate(endDateString.get());
+            if (startDate != null && !DateTime.hasDateValue(endDateString.get())) {
+                endDate = DateTime.setEndDateToStartDate(startDate, endDate);
+            }
+            if (!DateTime.hasTimeValue(endDateString.get())) {
+                endDate = DateTime.setTimeToEndOfDay(endDate);
+            }
         }
 
-        if (rateString != null && timePeriodString != null) {
-            recurrenceRate = new RecurrenceRate(rateString, timePeriodString);
-        } else if (rateString == null && timePeriodString != null) {
-            recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString);
-        } else if (rateString != null && timePeriodString == null) {
+        if (rateString.isPresent() && timePeriodString.isPresent()) {
+            recurrenceRate = new RecurrenceRate(rateString.get(), timePeriodString.get());
+        } else if (!rateString.isPresent() && timePeriodString.isPresent()) {
+            recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString.get());
+        } else if (rateString.isPresent() && !timePeriodString.isPresent()) {
             throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
         } 
         
@@ -92,33 +98,9 @@ public class AddCommand extends UndoableCommand {
             throw new IllegalValueException(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
         }
 
-        priority = stringToPriority(priorityString);
+        priority = Priority.stringToPriority(priorityString.get());
             
         this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);
-    }
-
-    //TODO: Comments suck
-    /**
-     * Converts given String into Priority
-     */
-    private Priority stringToPriority(String priorityString) {
-        Priority priority;
-        switch (priorityString) {
-        case ("low"):
-        case ("l"):
-            priority = Priority.LOW;
-            break;
-        case ("high"):
-        case ("h"):
-            priority = Priority.HIGH;
-            break;
-        case ("medium"):
-        case ("med"):
-        case ("m"):
-        default:
-            priority = Priority.MEDIUM;
-        }
-        return priority;
     }
 
     @Override

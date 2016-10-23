@@ -7,16 +7,19 @@ import java.util.List;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+
 public abstract class DateTime {
-    
-    private static final String DATE_FORMAT_TWO = "RELATIVE_DATE";
+
+    public static final String TIME = "EXPLICIT_TIME";
     private static final String DATE_FORMAT_ONE = "EXPLICIT_DATE";
+    private static final String DATE_FORMAT_TWO = "RELATIVE_DATE";
+
     private static final int BASE_INDEX = 0;
     private static final int INTEGER_CONSTANT_ONE = 1;
 
     private static final int NUMBER_OF_DAYS_IN_A_WEEK = 7;
     
-    public static final String TIME = "EXPLICIT_TIME";
     public static final String MESSAGE_VALUE_CONSTRAINTS = "DATE_TIME format: "
             + "DATE must be in one of the formats: "
             + "\"13th Sep 2015\", \"02-08-2015\" (mm/dd/yyyy) \n"
@@ -28,58 +31,55 @@ public abstract class DateTime {
      * 
      * @return Date object converted from given String
      */
-    public static Date convertStringToStartDate(String dateString) {
-        Date date;
+    public static Date convertStringToDate(String dateString) {
         List<DateGroup> dates = new Parser().parse(dateString);
-        
-        assert dates.get(BASE_INDEX) != null && dates.get(BASE_INDEX).getDates().get(BASE_INDEX) != null;
-        
-        date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
-        String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
-            
-        if (!syntaxTree.contains(TIME)) {
-            date = setTimeToStartOfDay(date);
-        }
+        Date date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
         return date;
     }
-    
-    /**
-     * Converts given String into a valid Date object
-     * 
-     * @return Date object converted from given String
-     */
-    public static Date convertStringToEndDate(String endDateString, Date startDate) {
-        Date endDate;
-        List<DateGroup> dates = new Parser().parse(endDateString);
+
+    public static boolean hasDateValue(String dateString) {
+        List<DateGroup> dates = new Parser().parse(dateString);
         
-        assert dates.get(BASE_INDEX) != null && dates.get(BASE_INDEX).getDates().get(BASE_INDEX) != null;
+        assert dates.get(BASE_INDEX) != null;
         
-        endDate = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
         String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
 
-        if (!syntaxTree.contains(TIME)) {
-            endDate = setTimeToEndOfDay(endDate);
+        if (syntaxTree.contains(DATE_FORMAT_ONE) || syntaxTree.contains(DATE_FORMAT_TWO)) {
+            return true;
+        } else {
+            return false;
         }
-        
-        if (startDate != null && !syntaxTree.contains(DATE_FORMAT_ONE) && !syntaxTree.contains(DATE_FORMAT_TWO)) {
-            endDate = setDateToStartDate(endDate, startDate);
-        }
-        
-        return endDate;
     }
     
-    private static Date setDateToStartDate(Date endDate, Date startDate) {
+    public static boolean hasTimeValue(String dateString) {
+        List<DateGroup> dates = new Parser().parse(dateString);
+        
+        assert dates.get(BASE_INDEX) != null;
+        
+        String syntaxTree = dates.get(BASE_INDEX).getSyntaxTree().toStringTree();
+
+        if (syntaxTree.contains(TIME)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static Date setEndDateToStartDate(Date startDate, Date endDate) {
         Calendar calendarStartDate = Calendar.getInstance();
         calendarStartDate.setTime(startDate);
         int date = calendarStartDate.get(Calendar.DATE);
         int month = calendarStartDate.get(Calendar.MONTH);
         int year = calendarStartDate.get(Calendar.YEAR);
-        
+
         Calendar calendarEndDate = Calendar.getInstance();
         calendarEndDate.setTime(endDate);
         calendarEndDate.set(Calendar.DATE, date);
         calendarEndDate.set(Calendar.MONTH, month);
         calendarEndDate.set(Calendar.YEAR, year);
+        if (calendarEndDate.getTimeInMillis() <= calendarStartDate.getTimeInMillis()) {
+            calendarEndDate.set(Calendar.DATE, date+1);
+        } 
         
         Date updatedDate = calendarEndDate.getTime();
         return updatedDate;
@@ -91,13 +91,14 @@ public abstract class DateTime {
      * "5pm tomorrow", "02/10/2016", "13 Sep"
      */
     public static boolean isValidDate(String dateString) {
+        assert dateString != null;
         List<DateGroup> dates = new Parser().parse(dateString.trim());
         try {
             dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
-            int parsePosition = dates.get(BASE_INDEX).getPosition();
+            int positionOfMatchingValue = dates.get(BASE_INDEX).getPosition();
             String matchingValue = dates.get(BASE_INDEX).getText();
             
-            if (parsePosition > INTEGER_CONSTANT_ONE || !matchingValue.equals(dateString)) {
+            if (positionOfMatchingValue > INTEGER_CONSTANT_ONE || !matchingValue.equals(dateString)) {
                 return false;
             }
         } catch (IndexOutOfBoundsException ioobe) {
@@ -110,10 +111,10 @@ public abstract class DateTime {
      * Assigns start date to a specified weekday
      */
     public static Date assignStartDateToSpecifiedWeekday(String dateString) {
-        assert dateString.toLowerCase().equals("monday") || dateString.toLowerCase().equals("tuesday") ||
+        assert dateString != null && (dateString.toLowerCase().equals("monday") || dateString.toLowerCase().equals("tuesday") ||
         dateString.toLowerCase().equals("wednesday") || dateString.toLowerCase().equals("thursday") || 
         dateString.toLowerCase().equals("friday") || dateString.toLowerCase().equals("saturday") || 
-        dateString.toLowerCase().equals("sunday");
+        dateString.toLowerCase().equals("sunday"));
         
         Date date;
         List<DateGroup> dates = new Parser().parse(dateString);
@@ -124,12 +125,11 @@ public abstract class DateTime {
         return date;
     }
     
-
-
     /**
      * Sets time of Date object to start of the day i.e "00:00:00"
      */
-    private static Date setTimeToStartOfDay(Date date) {
+    public static Date setTimeToStartOfDay(Date date) {
+        assert date != null;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -139,11 +139,12 @@ public abstract class DateTime {
         Date updatedDate = calendar.getTime();
         return updatedDate;
     }
-    
+
     /**
      * Sets time of Date object to end of the day i.e "23:59:59"
      */
-    private static Date setTimeToEndOfDay(Date date) {
+    public static Date setTimeToEndOfDay(Date date) {
+        assert date != null;
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         calendar.set(Calendar.HOUR_OF_DAY, 23);
