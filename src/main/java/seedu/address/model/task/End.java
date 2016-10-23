@@ -1,6 +1,8 @@
 package seedu.address.model.task;
 
 
+import java.time.LocalTime;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -19,6 +21,7 @@ public class End {
     												  "(no end)";
     public static final String DEFAULT_END_TIME = "2359";
     public final String value;
+    private int pastEndTime =0;
 
     /**
      * Validates given end time.
@@ -36,11 +39,32 @@ public class End {
         	this.value = DEFAULT_END_TIME;
         else if (end.equals("no end"))
         	this.value = "no end";
-        else
+        else {
         	this.value = changeTo24HourFormat(end);
+        	if (isPastEndTime(value)) {
+             	pastEndTime =1;
+             }
+        }
     }
     
-    private String changeTo24HourFormat(String end) {
+    private boolean isPastEndTime(String end) {
+    	String localTime = new String("");
+    	String new_min = new String(LocalTime.now().getMinute() + "");
+		String new_hr = new String(LocalTime.now().getHour() + "");
+		if (new_hr.length() ==1)
+			new_hr = "0" + new_hr;
+		if (new_min.length() ==1 )
+			new_min = "0" + new_min;
+		localTime = new_hr +""+ new_min;
+		if (Integer.parseInt(end) - Integer.parseInt(localTime) < 0){
+			System.out.println("end:" + Integer.parseInt(end) + " local:" + Integer.parseInt(localTime));
+			return true;
+		}
+		else
+			return false;
+	}
+
+	private String changeTo24HourFormat(String end) {
 		if (Character.isDigit(end.charAt(end.length()-1)))
 			return end;
 		else if (end.length() == 3) {
@@ -66,6 +90,9 @@ public class End {
 			
 	}
 
+	public int getPastEndTime() {
+		return pastEndTime;
+	}
 
     /**
      * Returns true if a given string is a valid task end time.
