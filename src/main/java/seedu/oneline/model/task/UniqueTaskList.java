@@ -104,7 +104,7 @@ public class UniqueTaskList implements Iterable<Task> {
         assert toDone != null;
         toDone.setCompleted(true);
 //        internalList.set(index - 1, toDone);
-        internalList.remove(toDone);
+//        internalList.remove(toDone);
         return toDone;
     }
 

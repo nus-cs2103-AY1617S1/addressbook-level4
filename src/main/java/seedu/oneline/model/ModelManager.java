@@ -40,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskBook = new TaskBook(src);
         filteredTasks = new FilteredList<>(taskBook.getTasks());
+        filteredTasks.setPredicate(getNotDonePredicate());
     }
 
     public ModelManager() {
@@ -49,6 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         taskBook = new TaskBook(initialData);
         filteredTasks = new FilteredList<>(taskBook.getTasks());
+        filteredTasks.setPredicate(getNotDonePredicate());
     }
 
     @Override
@@ -111,11 +113,18 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredListToShowAllNotDone() {
-        filteredTasks.setPredicate(getNotDonePredicate());
+        Predicate<? super Task> currentPredicate = filteredTasks.getPredicate();
+        filteredTasks.setPredicate(null);
+        filteredTasks.setPredicate(currentPredicate);
+//        filteredTasks.setPredicate(getNotDonePredicate());
     }
     
     private Predicate<Task> getNotDonePredicate() {
         return task -> !task.isCompleted();
+    }
+    
+    private Predicate<Task> getDonePredicate() {
+        return task -> task.isCompleted();
     }
 
     @Override
@@ -127,23 +136,23 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
-    private void addTaskToFilter(ReadOnlyTask task) {
-        final Predicate<? super Task> oldPredicate = filteredTasks.getPredicate();
-        Qualifier newQualifier = new Qualifier() {
-
-            @Override
-            public boolean run(ReadOnlyTask person) {
-                return oldPredicate.test(new Task(person)) && !person.equals(task);
-            }
-            
-            @Override
-            public String toString() {
-                return oldPredicate.toString() + "&task!=" + task.toString();
-            }
-        };
-        PredicateExpression newPredicate = new PredicateExpression(newQualifier);
-        updateFilteredTaskList(newPredicate);
-    }
+//    private void addTaskToFilter(ReadOnlyTask task) {
+//        final Predicate<? super Task> oldPredicate = filteredTasks.getPredicate();
+//        Qualifier newQualifier = new Qualifier() {
+//
+//            @Override
+//            public boolean run(ReadOnlyTask person) {
+//                return oldPredicate.test(new Task(person)) && !person.equals(task);
+//            }
+//            
+//            @Override
+//            public String toString() {
+//                return oldPredicate.toString() + "&task!=" + task.toString();
+//            }
+//        };
+//        PredicateExpression newPredicate = new PredicateExpression(newQualifier);
+//        updateFilteredTaskList(newPredicate);
+//    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
