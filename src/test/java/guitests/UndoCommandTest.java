@@ -91,6 +91,6 @@ public class UndoCommandTest extends TaskManagerGuiTest {
     
     private void assertNoMoreUndos() {
         commandBox.runCommand("undo");        
-        assertResultMessage(UndoCommand.MESSAGE_NO_PREVIOUS_COMMANDS);
+        assertResultMessage(UndoCommand.MESSAGE_NO_PREVIOUS_VALID_COMMANDS);
     }
 }

@@ -15,7 +15,7 @@ public class UndoCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String MESSAGE_UNDO_SUCCESS = "Previous action undone: ";
-    public static final String MESSAGE_NO_PREVIOUS_COMMANDS = "There is no more previous command in this session.";
+    public static final String MESSAGE_NO_PREVIOUS_VALID_COMMANDS = "There is no more previous command in this session.";
     
     public UndoCommand() {}
     
@@ -25,7 +25,7 @@ public class UndoCommand extends Command {
             String commandUndone = model.undo();
             return new CommandResult(MESSAGE_UNDO_SUCCESS + commandUndone);
         } catch (NoPreviousCommandException e) {
-            return new CommandResult(MESSAGE_NO_PREVIOUS_COMMANDS);
+            return new CommandResult(MESSAGE_NO_PREVIOUS_VALID_COMMANDS);
         }       
     }
 

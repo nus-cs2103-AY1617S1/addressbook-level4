@@ -156,6 +156,7 @@ public class ModelManager extends ComponentManager implements Model {
         return !historyCommands.isEmpty();
     }
     
+    //@@author
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
     	taskManager.doneTask(target);
