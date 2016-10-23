@@ -1,7 +1,7 @@
 /**
  * 
  */
-package seedu.jimi.logic;
+package seedu.jimi.model;
 
 import java.util.Stack;
 
