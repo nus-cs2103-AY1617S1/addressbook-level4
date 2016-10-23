@@ -24,9 +24,9 @@ import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 public class ToolTip {
     private final Logger logger = LogsCenter.getLogger(ToolTip.class);
     
+    public static final String TOOLTIP_DELIMITER = " | ";
     private static final int COMMAND_WORD_POSITION = 0;
     private static final String COMMAND_WORD_DELIMITER = " ";
-    private static final String TOOLTIP_DELIMITER = " | ";
     
     private static final int COMMAND_WORD_COUNT_NO_MATCH = 0;
     private static final int COMMAND_WORD_COUNT_SINGLE_MATCH = 1;
