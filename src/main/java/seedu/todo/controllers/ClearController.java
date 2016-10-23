@@ -31,21 +31,16 @@ public class ClearController implements Controller {
     private static final String COMMAND_SYNTAX = "clear [task/event] [on date]";
     private static final String COMMAND_WORD = "clear";
     private static final String MESSAGE_CLEAR_NO_ITEM_FOUND = "No item found!";
-    private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s deleted!\n" + "To undo, type \"undo\".";;
-    private static final String INVALID_DATE = null;
-    private static final String NOT_FOUND = null;
-    private static final String[] PARSED_RESULT_NOT_FOUND = null;
-    private static final LocalDateTime DATE_NOT_FOUND = null;
+    private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s deleted!\n" + "To undo, type \"undo\".";
+    private static final Object NOT_FOUND = null;
     //Use by array access
     private static final int KEYWORD = 0;
     private static final int RESULT = 1;
     private static final int MAXIMUM_SIZE = 2;
     //Use by accessing date value
-    private static final int DATE_ON = 0;
-    private static final int DATE_FROM = 1;
-    private static final int DATE_TO = 2;
-    //Use by checking size
-    private static final int EMPTY = 0;    
+    private static final int INDEX_DATE_ON = 0;
+    private static final int INDEX_DATE_FROM = 1;
+    private static final int INDEX_DATE_TO = 2;
 
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -119,18 +114,18 @@ public class ClearController implements Controller {
         
         //parsing of dates with keywords with natty
         LocalDateTime dateOn = parseDateWithNoKeyword(parsedResult);
-        LocalDateTime dateFrom = DATE_NOT_FOUND;
-        LocalDateTime dateTo = DATE_NOT_FOUND;
-        if (parsedDates != PARSED_RESULT_NOT_FOUND) {
-            String naturalOn = parsedDates[DATE_ON];
-            String naturalFrom = parsedDates[DATE_FROM];
-            String naturalTo = parsedDates[DATE_TO];
+        LocalDateTime dateFrom = (LocalDateTime) NOT_FOUND;
+        LocalDateTime dateTo = (LocalDateTime) NOT_FOUND;
+        if (parsedDates != NOT_FOUND) {
+            String naturalOn = parsedDates[INDEX_DATE_ON];
+            String naturalFrom = parsedDates[INDEX_DATE_FROM];
+            String naturalTo = parsedDates[INDEX_DATE_TO];
             // if all are null = no date provided
             
             // Parse natural date using Natty.
-            dateOn = naturalOn == INVALID_DATE ? DATE_NOT_FOUND : parseNatural(naturalOn);
-            dateFrom = naturalFrom == INVALID_DATE ? DATE_NOT_FOUND : parseNatural(naturalFrom); 
-            dateTo = naturalTo == INVALID_DATE ? DATE_NOT_FOUND : parseNatural(naturalTo);
+            dateOn = naturalOn == NOT_FOUND ? (LocalDateTime) NOT_FOUND : parseNatural(naturalOn);
+            dateFrom = naturalFrom == NOT_FOUND ? (LocalDateTime) NOT_FOUND : parseNatural(naturalFrom); 
+            dateTo = naturalTo == NOT_FOUND ? (LocalDateTime) NOT_FOUND : parseNatural(naturalTo);
         }
         
         //invokey destroy command
@@ -160,21 +155,21 @@ public class ClearController implements Controller {
     private void destroyByDate(TodoListDB db, String[] parsedDate, LocalDateTime dateOn, 
             LocalDateTime dateFrom, LocalDateTime dateTo, boolean deleteAll,
             boolean isTask, String input) {
-        if (dateOn == DATE_NOT_FOUND && dateFrom == DATE_NOT_FOUND && dateTo == DATE_NOT_FOUND && deleteAll) {
+        if (dateOn == NOT_FOUND && dateFrom == NOT_FOUND && dateTo == NOT_FOUND && deleteAll) {
             displayErrorMessage(input, parsedDate, deleteAll, isTask);
         }
         else if (dateOn != null) {
             destroyBySelectedDate(db, dateOn, deleteAll, isTask);
             return;
         } else {
-            if (!deleteAll && parsedDate != PARSED_RESULT_NOT_FOUND && dateFrom == DATE_NOT_FOUND
-                    && dateTo == DATE_NOT_FOUND && dateOn == DATE_NOT_FOUND) { //date provided is invalid
+            if (!deleteAll && parsedDate != NOT_FOUND && dateFrom == NOT_FOUND
+                    && dateTo == NOT_FOUND && dateOn == NOT_FOUND) { //date provided is invalid
                 displayErrorMessage(input, parsedDate, deleteAll, isTask);
                 return;
             } else {
                 if (parsedDate != null) {
-                    if (parsedDate[DATE_FROM] != null && parsedDate[DATE_TO] != null 
-                            && (dateFrom == DATE_NOT_FOUND || dateTo == DATE_NOT_FOUND)) {
+                    if (parsedDate[INDEX_DATE_FROM] != null && parsedDate[INDEX_DATE_TO] != null 
+                            && (dateFrom == NOT_FOUND || dateTo == NOT_FOUND)) {
                         displayErrorMessage(input, parsedDate, deleteAll, isTask);
                         return;
                     }
@@ -200,11 +195,11 @@ public class ClearController implements Controller {
      */
     private void destroyByRange(TodoListDB db, LocalDateTime dateFrom, LocalDateTime dateTo, 
             boolean deleteAll, boolean isTask) {
-        if (dateFrom == DATE_NOT_FOUND) {
+        if (dateFrom == NOT_FOUND) {
             dateFrom = LocalDateTime.MIN;
         } 
         
-        if (dateTo == DATE_NOT_FOUND) {
+        if (dateTo == NOT_FOUND) {
             dateTo = LocalDateTime.MAX;
         }
         
@@ -212,7 +207,7 @@ public class ClearController implements Controller {
         int numEvents = db.getEventByRange(dateFrom, dateTo).size();
         
         //if no tasks or events are been found
-        if (numTasks == EMPTY && numEvents == EMPTY) {
+        if (numTasks == 0 && numEvents == 0) {
             Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
             return;
         }
@@ -223,20 +218,20 @@ public class ClearController implements Controller {
             db.destroyAllTaskByRange(dateFrom, dateTo);
         } else if (isTask) {
             // no task is been found
-            if (numTasks == EMPTY) {
+            if (numTasks == 0) {
                 Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
                 return;
             }
             db.destroyAllTaskByRange(dateFrom, dateTo);
-            numEvents = EMPTY;
+            numEvents = 0;
         } else {
             // no event is been found
-            if (numEvents == EMPTY) {
+            if (numEvents == 0) {
                 Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
                 return;
             }
             db.destroyAllEventByRange(dateFrom, dateTo);
-            numTasks = EMPTY;
+            numTasks = 0;
         }
         
         //save and render
@@ -261,7 +256,7 @@ public class ClearController implements Controller {
         int numEvents = db.getEventByDate(givenDate).size();
         
         // no tasks or events are been found
-        if (numTasks == EMPTY && numEvents == EMPTY) {
+        if (numTasks == 0 && numEvents == 0) {
             Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
             return;
         }
@@ -271,19 +266,19 @@ public class ClearController implements Controller {
             db.destroyAllEventByDate(givenDate);
             db.destroyAllTaskByDate(givenDate);
         } else if (isTask) { //deleting task
-            if (numTasks == EMPTY) { //if no task is found
+            if (numTasks == 0) { //if no task is found
                 Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
                 return;
             }
             db.destroyAllTaskByDate(givenDate);
-            numEvents = EMPTY;
+            numEvents = 0;
         } else { //deleting events
-            if (numEvents == EMPTY) { //if no event is found
+            if (numEvents == 0) { //if no event is found
                 Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
                 return;
             }
             db.destroyAllEventByDate(givenDate);
-            numTasks = EMPTY;
+            numTasks = 0;
         }
         
         //save and render
@@ -361,15 +356,15 @@ public class ClearController implements Controller {
      * @return { naturalOn, naturalFrom, naturalTo } or null if no date provided
      */
     private String[] parseDates(Map<String, String[]> parsedResult) {
-        String naturalFrom = NOT_FOUND;
-        String naturalTo = NOT_FOUND;
-        String naturalOn = NOT_FOUND;
+        String naturalFrom = (String) NOT_FOUND;
+        String naturalTo = (String) NOT_FOUND;
+        String naturalOn = (String) NOT_FOUND;
         
-        if (parsedResult.get("time") == PARSED_RESULT_NOT_FOUND) {
-            if (parsedResult.get("timeFrom") != PARSED_RESULT_NOT_FOUND) {
+        if (parsedResult.get("time") == NOT_FOUND) {
+            if (parsedResult.get("timeFrom") != NOT_FOUND) {
                 naturalFrom = parsedResult.get("timeFrom")[RESULT];
             }
-            if (parsedResult.get("timeTo") != PARSED_RESULT_NOT_FOUND) {
+            if (parsedResult.get("timeTo") != NOT_FOUND) {
                 naturalTo = parsedResult.get("timeTo")[RESULT];
             }
         } else {
@@ -390,7 +385,7 @@ public class ClearController implements Controller {
      * @return true if Task or event is not specify, false if either Task or Event specify
      */
     private boolean parseDeleteAllType (Map<String, String[]> parsedResult) {
-        return !(parsedResult.get("eventType") != PARSED_RESULT_NOT_FOUND);
+        return !(parsedResult.get("eventType") != NOT_FOUND);
     }
     
     /**
@@ -436,9 +431,9 @@ public class ClearController implements Controller {
      * @return the display message for console message output           
      */    
     private String formatSuccessMessage (int numTasks, int numEvents) {
-        if (numTasks != EMPTY && numEvents != EMPTY) {
+        if (numTasks != 0 && numEvents != 0) {
             return String.format("%s and %s", formatTaskMessage(numTasks), formatEventMessage(numEvents));
-        } else if (numTasks != EMPTY) {
+        } else if (numTasks != 0) {
             return formatTaskMessage(numTasks);
         } else {
             return formatEventMessage(numEvents);
