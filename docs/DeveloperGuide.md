@@ -384,7 +384,7 @@ Priority | As a ... | I want to ... | So that I can...
 | [UC7](#uc7-undo-action) | Undo Action  | Undo last action performed. |
 | [UC8](#uc8-redo-action) | Redo Action  | Redo an action performed in UC7. |
 | [UC9](#uc9-mark-task-as-done) | Mark Task as done  | Mark a task as done by index. A marked task should be automatically archived and exclude from display and search. |
-| [UC10](#uc10-exit-application) | Repeat command  | Load the previous command as input  |
+| [UC10](#uc10-repeat-command) | Repeat command  | Load the previous command as input  |
 | [UC11](#uc11-clear-everything) | Clears everything | System performs bulk delete on the data (Deadlines, events, tasks). |
 | [UC12](#uc12-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
 | [UC13](#uc13-exit-application) | Exit application  | Quit the application |
