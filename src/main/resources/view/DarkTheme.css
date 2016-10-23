@@ -297,7 +297,13 @@
 
 .cell_small_label {
 	-fx-font-family: Times new roman;
-    -fx-font-size: 13.0px;
+    -fx-font-size: 14.0px;
+    -fx-text-fill: #010504;
+}
+
+.cell_note_label {
+	-fx-font-family: Times new roman;
+    -fx-font-size: 12.0px;
     -fx-text-fill: #010504;
 }
 
