@@ -14,7 +14,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 
 /**
- * Adds a task to the address book.
+ * Adds a task to the task manager.
  */
 public class AddCommand extends Command {
 

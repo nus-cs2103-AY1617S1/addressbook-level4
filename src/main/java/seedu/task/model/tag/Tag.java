@@ -4,7 +4,7 @@ package seedu.task.model.tag;
 import seedu.task.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a Tag in the task manager.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {

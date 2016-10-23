@@ -3,7 +3,7 @@ package seedu.task.logic.commands;
 import seedu.task.model.TaskManager;
 
 /**
- * Clears the address book.
+ * Clears the task manager.
  */
 public class ClearCommand extends Command {
 

@@ -12,7 +12,7 @@ import seedu.task.model.task.Task;
 import seedu.task.model.task.Time;
 
 /**
- * Deletes a task identified using it's last displayed index from the address book.
+ * Deletes a task identified using it's last displayed index from the task manager.
  */
 public class CompleteCommand extends Command {
 

@@ -10,7 +10,7 @@ import seedu.task.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.task.model.task.*;
 
 /**
- * Adds a task to the address book.
+ * Adds a task to the task manager.
  */
 public class AddTagCommand extends Command{
 

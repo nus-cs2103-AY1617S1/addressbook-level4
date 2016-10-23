@@ -92,7 +92,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * Both the 'task manager' and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, ReadOnlyTaskManager, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -102,7 +102,7 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedTaskManager} <br>
+     *      - the internal task manager data are same as those in the {@code expectedTaskManager} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedTaskManager} was saved to the storage file. <br>
      */
@@ -207,7 +207,7 @@ public class LogicManagerTest {
             expectedAB.addTask(task);
 
         // setup starting state
-        model.addTask(task); // task already in internal address book
+        model.addTask(task); // task already in internal task manager
 
         // execute command and verify result
         assertCommandBehavior(
@@ -226,7 +226,7 @@ public class LogicManagerTest {
         TaskManager expectedAB = helper.generateTaskManager(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getPersonList();
 
-        // prepare address book state
+        // prepare task manager state
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
