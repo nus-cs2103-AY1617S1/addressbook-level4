@@ -20,7 +20,8 @@ public class EndTime {
 
     public static final String MESSAGE_END_TIME_CONSTRAINTS =
             "End time should only be entered in 24 hrs format or 12 hrs format.";
-    public static final String END_TIME_VALIDATION_REGEX = ".*";
+    public static final int DEFAULT_HOUR_VAL = 23;
+    public static final int DEFAULT_MINUTE_VAL = 59;
 
     public final Calendar endTime;
 
@@ -45,17 +46,26 @@ public class EndTime {
     		}
     		else{
     			endTime.setTime(dates.get(0).getDates().get(0));
+    			setDefaultTime(dates.get(0));
     		}
     	}
-    	endTime.clear(Calendar.SECOND);
     	endTime.clear(Calendar.MILLISECOND);
+    	endTime.clear(Calendar.SECOND);
     }
     
     public EndTime(Long unixTime) {
     	endTime = Calendar.getInstance();
     	endTime.setTimeInMillis(unixTime);
     }
-
+    
+    private void setDefaultTime(DateGroup dategroup){
+    	if (dategroup.isTimeInferred()) {
+			endTime.set(Calendar.HOUR_OF_DAY, DEFAULT_HOUR_VAL);
+			endTime.set(Calendar.MINUTE, DEFAULT_MINUTE_VAL);
+		}
+    }
+    
+    
     @Override
     public String toString() {
     	if(endTime.getTime().equals(new Date(0))){
