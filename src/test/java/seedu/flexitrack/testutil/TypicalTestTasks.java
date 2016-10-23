@@ -99,10 +99,10 @@ public class TypicalTestTasks {
 
     public TestTask[] getExpectedTypicalMarkTasks() {
         try {
-            homework1.setName(new Name ("(Done)" + homework1.getName().fullName));
-            soccer.setName(new Name ("(Done)" + soccer.getName().fullName));
-            exam.setName(new Name ("(Done)" + exam.getName().fullName));
-            event.setName(new Name ("(Done)" + event.getName().fullName));
+            homework1.setName(new Name ("(Done) " + homework1.getName().fullName));
+            soccer.setName(new Name ("(Done) " + soccer.getName().fullName));
+            exam.setName(new Name ("(Done) " + exam.getName().fullName));
+            event.setName(new Name ("(Done) " + event.getName().fullName));
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
@@ -115,10 +115,10 @@ public class TypicalTestTasks {
 
     public TestTask[] getExpectedTypicalFutureMarkTasks() {
         try {
-            homework1.setName(new Name ("(Done)" + homework1.getName().fullName));
-            soccer.setName(new Name ("(Done)" + soccer.getName().fullName));
-            exam.setName(new Name ("(Done)" + exam.getName().fullName));
-            event.setName(new Name ("(Done)" + event.getName().fullName));
+            homework1.setName(new Name ("(Done) " + homework1.getName().fullName));
+            soccer.setName(new Name ("(Done) " + soccer.getName().fullName));
+            exam.setName(new Name ("(Done) " + exam.getName().fullName));
+            event.setName(new Name ("(Done) " + event.getName().fullName));
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }

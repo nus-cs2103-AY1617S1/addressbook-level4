@@ -68,9 +68,9 @@ public class TaskListPanelHandle extends GuiHandle {
         // Return false if the list in panel is too short to contain the given
         // list
         
- //       System.out.println("startPosition:      " + startPosition);
- //       System.out.println("tasks.length:       " + tasks.length);
- //       System.out.println("tasksInList.size(): " + tasksInList.size());
+//        System.out.println("startPosition:      " + startPosition);
+//        System.out.println("tasks.length:       " + tasks.length);
+//        System.out.println("tasksInList.size(): " + tasksInList.size());
 
         if (startPosition + tasks.length > tasksInList.size()) {
             return false;

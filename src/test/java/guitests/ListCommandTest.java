@@ -15,12 +15,12 @@ public class ListCommandTest extends FlexiTrackGuiTest {
     public void add() {
         TestTask[] currentList = td.getTypicalTasks();
 
-       // list all tasks
+       // list all future tasks
         String listCommand = "list future";
         assertFindSuccess(listCommand, currentList);
         currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
 
-        // list all tasks
+        // list all past tasks
         listCommand = "list past";
         assertFindSuccess(listCommand, currentList);
         currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
@@ -30,23 +30,22 @@ public class ListCommandTest extends FlexiTrackGuiTest {
         assertFindSuccess(listCommand, currentList);
         currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
 
- 
-        // list all tasks
         commandBox.runCommand("mark 1");
         commandBox.runCommand("mark 4");
         commandBox.runCommand("mark 6");
         commandBox.runCommand("mark 8");
 
+        // list all marked tasks
         listCommand = "list mark";
         assertFindSuccess(listCommand, currentList);
         currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
         
-        // list all tasks
+        // list all unmarked tasks
         listCommand = "list unmark";
         assertFindSuccess(listCommand, currentList);
         currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
         
-        // list all tasks
+        // list future tasks that are marked
         listCommand = "list future mark";
         assertFindSuccess(listCommand, currentList);
         currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
