@@ -23,6 +23,7 @@ public class Datetime {
 
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Date should be in DD-MM-YYYY format";
+
     public static final String DATE_INCORRECT_REGEX = ".*" + "(0?[1-9]|[12][0-9]|3[01])" + "\\." 
         		+ "(0?[1-9]|1[012])" + "\\." + "\\d{2}(\\{2}){0,1}" + ".*";
     public static final Pattern DATE_CORRECT_REGEX = Pattern.compile("(?<day>(0?[1-9]|[12][0-9]|3[01]))" + "-" 
