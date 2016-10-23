@@ -7,6 +7,8 @@ import java.util.List;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+
 public abstract class DateTime {
 
     public static final String TIME = "EXPLICIT_TIME";
@@ -30,15 +32,8 @@ public abstract class DateTime {
      * @return Date object converted from given String
      */
     public static Date convertStringToDate(String dateString) {
-        assert isValidDate(dateString);
-        
-        Date date;
         List<DateGroup> dates = new Parser().parse(dateString);
-        
-        assert dates.get(BASE_INDEX) != null && dates.get(BASE_INDEX).getDates().get(BASE_INDEX) != null;
-        
-        date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
-            
+        Date date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
         return date;
     }
 

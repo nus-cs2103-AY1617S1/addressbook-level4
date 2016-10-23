@@ -14,6 +14,10 @@ import seedu.address.model.item.DateTime;
 
 public class CommandParserHelper {
     
+    private static final String MESSAGE_REPEATED_START_TIME = "Repeated start times are not allowed.";
+
+    private static final String MESSAGE_REPEATED_END_TIME = "Repeated end times are not allowed.";
+
     private final Logger logger = LogsCenter.getLogger(CommandParserHelper.class);
     
     private static final int ZERO = 0;
@@ -62,7 +66,7 @@ public class CommandParserHelper {
             String nonName = args.substring(args.lastIndexOf("\"") + 1);
             numberOfKeywords = generateNumberOfKeywords(nonName);
             regex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME_ESCAPE;
-            generateCorrectMatcherEscape(args, task, numberOfKeywords, regex);
+            generateCorrectMatcherEscape(args, task, regex, numberOfKeywords);
         } else {
             numberOfKeywords = generateNumberOfKeywords(args);
             regex = generateStartOfRegex(numberOfKeywords);
@@ -75,7 +79,7 @@ public class CommandParserHelper {
         return putVariablesInMap(task);
     }
 
-    public void generateCorrectMatcherEscape(String args, OptionalStringTask task, int numberOfKeywords, String regex)
+    public void generateCorrectMatcherEscape(String args, OptionalStringTask task, String regex, int numberOfKeywords)
             throws IllegalValueException {
         if (numberOfKeywords == ZERO) {
             validateMatcherForNoKeywordEscape(args, regex);
@@ -127,13 +131,14 @@ public class CommandParserHelper {
     }
 
     private void validateStartAndEndDates(OptionalStringTask task) throws IllegalValueException {
-        if (!task.endDate.isPresent()) { // i.e does not allow by 1030pm by 1050pm
-            task.endDate = validateEndDateFormatsFourToSix(matcher);
+        if (task.endDate.isPresent()) { // i.e does not allow "by 1030pm by 1050pm"
+            throw new IllegalValueException(MESSAGE_REPEATED_END_TIME);
         } else {
-            throw new IllegalValueException("Repeated end times are not allowed.");
+            task.endDate = validateEndDateFormatsFourToSix(matcher);
         }
+        
         if (!task.endDate.isPresent()) {
-            throw new IllegalValueException("Repeated start times are not allowed.");
+            throw new IllegalValueException(MESSAGE_REPEATED_START_TIME);
         }
     }
 
@@ -208,16 +213,6 @@ public class CommandParserHelper {
         map.put("priority", task.priority);
         
         return map;
-    }
-    
-    private int generateNumberOfKeywordsEscape(String args) {    
-        int numberOfKeywords = ZERO;
-        pattern = Pattern.compile(REGEX_ADDITIONAL_KEYWORD);
-        matcher = pattern.matcher(args);
-        while (matcher.find()) {
-            numberOfKeywords++;
-        }
-        return numberOfKeywords;
     }
     
     private int generateNumberOfKeywords(String args) {    
