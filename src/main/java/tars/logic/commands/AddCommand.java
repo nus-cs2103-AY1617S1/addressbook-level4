@@ -121,7 +121,6 @@ public class AddCommand extends UndoableCommand {
                 model.addTask(toAdd);
             }
             model.getUndoableCmdHist().push(this);
-            EventsCenter.getInstance().post(new TaskAddedEvent(model.getFilteredTaskList().size()+1));
             return new CommandResult(messageSummary());
         } catch (DuplicateTaskException e) {
             return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
