@@ -5,11 +5,13 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.Model;
+import seedu.address.model.SaveState;
 import seedu.address.model.TaskBook;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.storage.Storage;
@@ -22,21 +24,23 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final Parser parser;
-    private final Stack<TaskBook> undoStack;
-    private final Stack<TaskBook> redoStack;
+    private final Config config;
+    private final Stack<SaveState> undoStack;
+    private final Stack<SaveState> redoStack;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model, Storage storage, Config config) {
         this.model = model;
         this.parser = new Parser();
-        this.undoStack = new Stack<TaskBook>();
-        this.redoStack = new Stack<TaskBook>();
+        this.config = config;
+        this.undoStack = new Stack<SaveState>();
+        this.redoStack = new Stack<SaveState>();
     }
 
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
-        command.setData(model, undoStack, redoStack);
+        command.setData(model, undoStack, redoStack, config);
         return command.execute();
     }
 

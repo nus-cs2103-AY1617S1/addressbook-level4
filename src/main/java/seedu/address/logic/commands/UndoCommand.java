@@ -1,5 +1,10 @@
 package seedu.address.logic.commands;
 
+import java.io.IOException;
+
+import seedu.address.commons.core.Config;
+import seedu.address.commons.util.ConfigUtil;
+import seedu.address.model.SaveState;
 import seedu.address.model.TaskBook;
 
 public class UndoCommand extends Command {
@@ -22,9 +27,23 @@ public class UndoCommand extends Command {
         assert model != null;
         for (int i = 0; i < numTimes; i++) {
             TaskBook currentTaskBook = new TaskBook(model.getAddressBook());
-            TaskBook toResetTo = undoStack.pop();
-            model.resetData(toResetTo);
-            redoStack.push(currentTaskBook);
+            
+            SaveState saveToResetTo = undoStack.pop();
+            TaskBook taskToResetTo = saveToResetTo.getSaveStateTaskBook();
+            model.resetData(taskToResetTo);
+            
+            config = saveToResetTo.getSaveStateConfig();
+            System.out.println(config.getAddressBookFilePath());
+            try {
+                ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+                System.out.println("This is supposed to print");
+            } catch (IOException e) {
+                System.out.println("oops i did it again");
+            }
+            
+            Config currentConfig = new Config(config);
+            SaveState saveToBeAdded = new SaveState(currentTaskBook, currentConfig);
+            redoStack.push(saveToBeAdded);
         }
         return new CommandResult(MESSAGE_UNDO_TASK_SUCCESS);
     }

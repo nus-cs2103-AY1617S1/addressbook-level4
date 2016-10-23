@@ -9,6 +9,9 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import seedu.address.commons.core.Config;
+import seedu.address.commons.util.ConfigUtil;
+
 public class SpecifyStorageCommand extends Command {
 
     public static final String COMMAND_WORD = "storage";
@@ -30,9 +33,7 @@ public class SpecifyStorageCommand extends Command {
     
     @Override
     public CommandResult execute() {
-        try {
-            
-            //addToUndoStack();
+        /*try {
             
             JsonFactory jfactory = new JsonFactory();
 
@@ -61,9 +62,16 @@ public class SpecifyStorageCommand extends Command {
             //TODO Write a logger entry here
             e.printStackTrace();
 
-        }
+        }*/
         
-        //need to have some sort of flag to notify on exit need to shift the file to the new destination in config file
+        addToUndoStack();
+        
+        try {
+            config.setAddressBookFilePath(folderPath);
+            ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+        } catch (IOException e) {
+            System.out.println("oops");
+        }
         
         return new CommandResult(String.format(SPECIFY_STORAGE_SUCCESS, this.folderPath));
 

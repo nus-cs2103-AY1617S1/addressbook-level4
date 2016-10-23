@@ -89,7 +89,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.addTask(task);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
-    }
+    } 
 
     //=========== Filtered Task List Accessors ===============================================================
 

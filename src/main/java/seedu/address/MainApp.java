@@ -32,6 +32,7 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * The main entry point to the application.
@@ -57,14 +58,16 @@ public class MainApp extends Application {
 
         config = initConfig(getApplicationParameter("config"));
         storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
-
+        
+        System.out.println(storage.getAddressBookFilePath());
+        
         userPrefs = initPrefs(config);
 
         initLogging(config);
 
         model = initModelManager(storage, userPrefs);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model, storage, config);
 
         ui = new UiManager(logic, config, userPrefs);
 
@@ -192,6 +195,7 @@ public class MainApp extends Application {
         
         String sourceFile = storage.getAddressBookFilePath();
         Path sourceFilePath = Paths.get(sourceFile);
+        
         config = initConfig(getApplicationParameter("config"));
         Path targetFilePath = Paths.get(config.getAddressBookFilePath());
         
@@ -202,7 +206,7 @@ public class MainApp extends Application {
         assert targetFilePath != null;
         
         try {
-            Files.move(sourceFilePath, targetFilePath);
+            Files.move(sourceFilePath, targetFilePath, REPLACE_EXISTING);
         } catch (IOException e) {
             System.out.println("This should never appear");
         }
