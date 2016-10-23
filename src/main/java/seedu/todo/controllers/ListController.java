@@ -345,6 +345,26 @@ public class ListController implements Controller {
     }
     
     /**
+     * Extracts the intended CalendarItem status from parsedResult.
+     * 
+     * @param parsedResult
+     * @return true if over or prior, false if not
+     */
+    private boolean parseIsPriorEvents (Map<String, String[]> parsedResult) {
+        return parsedResult.get("status")[0].contains("prior") || parsedResult.get("status")[0].contains("over");
+    }
+    
+    /**
+     * Extracts the intended CalendarItem status from parsedResult.
+     * 
+     * @param parsedResult
+     * @return true if incomplete, false if complete
+     */
+    private boolean parseIsOngoingEvents (Map<String, String[]> parsedResult) {
+        return parsedResult.get("status")[0].contains("ongoing") || parsedResult.get("status")[0].contains("schedule");
+    }
+    
+    /**
      * Extracts the intended CalendarItem type from parsedResult.
      * 
      * @param parsedResult
