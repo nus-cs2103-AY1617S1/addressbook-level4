@@ -60,30 +60,30 @@ public class FilteredListManager {
     
     private void initDefaultExpressions() {
         defaultExpressions.put(ListId.FLOATING_TASKS,
-                new PredicateExpression(new FloatingTaskQualifier(), new CompletedTaskQualifier(false)));
+                new PredicateExpression(new FloatingTaskQualifier(), new CompletedQualifier(false)));
         
-        defaultExpressions.put(ListId.COMPLETED, new PredicateExpression(new CompletedTaskQualifier(true)));
-        defaultExpressions.put(ListId.INCOMPLETE, new PredicateExpression(new CompletedTaskQualifier(false)));
+        defaultExpressions.put(ListId.COMPLETED, new PredicateExpression(new CompletedQualifier(true)));
+        defaultExpressions.put(ListId.INCOMPLETE, new PredicateExpression(new CompletedQualifier(false)));
         
         defaultExpressions.put(ListId.DAY_AHEAD_0,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_0), new CompletedTaskQualifier(false)));
+                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_0), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_1,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_1), new CompletedTaskQualifier(false)));
+                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_1), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_2,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_2), new CompletedTaskQualifier(false)));
+                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_2), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_3,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_3), new CompletedTaskQualifier(false)));
+                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_3), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_4,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_4), new CompletedTaskQualifier(false)));
+                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_4), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_5,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_5), new CompletedTaskQualifier(false)));
+                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_5), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.DAY_AHEAD_6,
-                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_6), new CompletedTaskQualifier(false)));
+                new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_6), new CompletedQualifier(false)));
         
         defaultExpressions.put(ListId.TASKS_AGENDA,
-                new PredicateExpression(new TaskQualifier(), new CompletedTaskQualifier(false)));
+                new PredicateExpression(new TaskQualifier(), new CompletedQualifier(false)));
         defaultExpressions.put(ListId.EVENTS_AGENDA,
-                new PredicateExpression(new EventQualifier(), new CompletedTaskQualifier(false)));
+                new PredicateExpression(new EventQualifier(), new CompletedQualifier(false)));
     }
     
     /*
@@ -114,7 +114,8 @@ public class FilteredListManager {
         updateFilteredList(id, new PredicateExpression(new NameQualifier(keywords)));
     }
     
-    /** Updates filtered list identified by {@code id} with the filter in {@code other}. */
+    /** Updates filtered list identified by {@code id} with the filter in {@code other}.  
+     *  @author Clarence  */
     public void updateFilteredList(ListId id, ListId other) {
         updateFilteredList(id, defaultExpressions.get(other));
     }
@@ -143,6 +144,13 @@ public class FilteredListManager {
         String toString();
     }
     
+    /**
+     * Represents a predicate expression that allows for multiple {@code Qualifier} instances.
+     * 
+     * For this PredicateExpression to satisfy, all qualifiers must pass.
+     * 
+     * @author Clarence
+     */
     private class PredicateExpression implements Expression {
         
         private final List<Qualifier> qualifiers;
@@ -282,11 +290,11 @@ public class FilteredListManager {
         }
     }
     
-    private class CompletedTaskQualifier implements Qualifier {
+    private class CompletedQualifier implements Qualifier {
         
         boolean isCheckCompleted;
         
-        public CompletedTaskQualifier(boolean isCheckCompleted) {
+        public CompletedQualifier(boolean isCheckCompleted) {
             this.isCheckCompleted = isCheckCompleted;
         }
         
