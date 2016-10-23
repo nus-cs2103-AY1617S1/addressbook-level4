@@ -92,7 +92,7 @@ Examples:<br>
   Selects the 1st task in the results of the `find` command.
   
 #### Select a task : `setpath`
-Set user specified file directory and/or filename.<br>
+Set user specified filename and/or file directory.<br>
 
 Format: **`setpath`**`FILENAME`
 
