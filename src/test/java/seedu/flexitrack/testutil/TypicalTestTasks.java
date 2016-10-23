@@ -17,7 +17,7 @@ public class TypicalTestTasks {
     // homework3, lecture, basketball, midterm
     public TypicalTestTasks() {
         try {
-            homework1 = new TaskBuilder().withName("Homework cs 2103").withDueDate("Jan 11 2016 17:00")
+            homework1 = new TaskBuilder().withName("Homework cs 2103").withDueDate("Jan 11 2017 17:00")
                     .withEndTime("Feb 29 2000 00:00").withStartTime("Feb 29 2000 00:00").build();
             homework2 = new TaskBuilder().withName("Homework cs 2101").withDueDate("Sep 01 2016 13:00")
                     .withEndTime("Feb 29 2000 00:00").withStartTime("Feb 29 2000 00:00").build();
@@ -25,8 +25,8 @@ public class TypicalTestTasks {
                     .withEndTime("Feb 29 2000 00:00").withDueDate("Feb 29 2000 00:00").build();
             soccer = new TaskBuilder().withName("Soccer training").withStartTime("Jun 30 2016 21:00")
                     .withEndTime("Jun 30 2016 23:00").withDueDate("Feb 29 2000 00:00").build();
-            dinner = new TaskBuilder().withName("Dinner with parents").withStartTime("Nov 16 2016 19:00")
-                    .withEndTime("Nov 16 2016 20:15").withDueDate("Feb 29 2000 00:00").build();
+            dinner = new TaskBuilder().withName("Dinner with parents").withStartTime("Nov 16 2017 19:00")
+                    .withEndTime("Nov 16 2017 20:15").withDueDate("Feb 29 2000 00:00").build();
             exam = new TaskBuilder().withName("MA 1505 Exams").withStartTime("May 12 2016 10:00")
                     .withEndTime("May 12 2016 11:30").withDueDate("Feb 29 2000 00:00").build();
             midterm = new TaskBuilder().withName("Midter cs 2101").withStartTime("Feb 29 2000 00:00")
@@ -88,7 +88,43 @@ public class TypicalTestTasks {
     public TestTask[] getTypicalTasks() {
         return new TestTask[] { homework1, homework2, homework3, soccer, dinner, exam, midterm, event };
     }
+    
+    public TestTask[] getExpectedTypicalFutureTasks() {
+        return new TestTask[] { homework1, homework3, dinner, midterm, event };
+    }
+    
+    public TestTask[] getExpectedTypicalPastTasks() {
+        return new TestTask[] { homework2, homework3, soccer, exam, event };
+    }
 
+    public TestTask[] getExpectedTypicalMarkTasks() {
+        try {
+            homework1.setName(new Name ("(Done)" + homework1.getName().fullName));
+            soccer.setName(new Name ("(Done)" + soccer.getName().fullName));
+            exam.setName(new Name ("(Done)" + exam.getName().fullName));
+            event.setName(new Name ("(Done)" + event.getName().fullName));
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+        return new TestTask[] { homework1, soccer, exam, event };
+    }
+
+    public TestTask[] getExpectedTypicalUnMarkTasks() {
+        return new TestTask[] { homework2, homework3, dinner, midterm };
+    }
+
+    public TestTask[] getExpectedTypicalFutureMarkTasks() {
+        try {
+            homework1.setName(new Name ("(Done)" + homework1.getName().fullName));
+            soccer.setName(new Name ("(Done)" + soccer.getName().fullName));
+            exam.setName(new Name ("(Done)" + exam.getName().fullName));
+            event.setName(new Name ("(Done)" + event.getName().fullName));
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+        return new TestTask[] { homework1 };
+    }
+    
     public FlexiTrack getTypicalFlexiTrack() {
         FlexiTrack ab = new FlexiTrack();
         loadFlexiTrackWithSampleData(ab);

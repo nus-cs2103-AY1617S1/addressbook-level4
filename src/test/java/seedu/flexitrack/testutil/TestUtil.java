@@ -21,6 +21,7 @@ import seedu.flexitrack.model.tag.Tag;
 import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.*;
 import seedu.flexitrack.storage.XmlSerializableFlexiTrack;
+import seedu.flexitrack.testutil.TestTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -431,6 +432,26 @@ public class TestUtil {
             }
         }
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    }
+
+    public static TestTask[] listTasksAccordingToCommand(TestTask[] currentList, String listCommand) {
+        TypicalTestTasks tt = new TypicalTestTasks();
+        switch (listCommand) { 
+        case "list":
+            return tt.getTypicalTasks(); 
+        case "list future":
+            return tt.getExpectedTypicalFutureTasks(); 
+        case "list past": 
+            return tt.getExpectedTypicalPastTasks();
+        case "list mark": 
+            return tt.getExpectedTypicalMarkTasks();
+        case "list unmark": 
+            return tt.getExpectedTypicalUnMarkTasks();
+        case "list future mark":
+            return tt.getExpectedTypicalFutureMarkTasks();
+        default: 
+            return null;
+        }
     }
 
 }
