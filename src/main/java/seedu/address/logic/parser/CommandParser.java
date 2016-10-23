@@ -697,7 +697,8 @@ public class CommandParser {
     
     /**
      * Parses an incomplete user input to determine the most appropriate tooltip for the user to see.
-     * The tooltip depends on the command that the user is trying to execute (which this parser tries to determine).
+     * The tooltip depends on the command that the user is trying to execute (which this parser tries to 
+     * determine).
      * 
      * @param userInput user input string
      * @return a list of Strings for tooltips
@@ -730,7 +731,8 @@ public class CommandParser {
     }
 
     /**
-     * Updates the list of toolTips by checking if the user's input command word is a substring of the actual command word.
+     * Updates the list of toolTips by checking if the user's input command word is a substring of the 
+     * actual command word.
      * @param toolTips list of tooltips
      * @param commandWord the user input command word
      */
