@@ -48,17 +48,17 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             model.pushToUndoHistory(this);
             model.clearRedoHistory();
 
-            return new CommandResult(String.format(MESSAGE_SUCCESS, taskToMark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_SUCCESS, taskToMark));
         } catch (TaskAlreadyMarkedException ex) {
-            return new CommandResult(String.format(MESSAGE_MARKED_TASK, taskToMark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_MARKED_TASK, taskToMark));
         } catch (IndexOutOfBoundsException ex) {
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(COMMAND_WORD, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (TaskNotFoundException pnfe) {
-            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
+            return new CommandResult(COMMAND_WORD,Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_MARK_RECURRING_FAILURE);
+            return new CommandResult(COMMAND_WORD,MESSAGE_MARK_RECURRING_FAILURE);
         } catch (NotRecurringTaskException e) {
-            return new CommandResult(MESSAGE_MARK_RECURRING_FAILURE);
+            return new CommandResult(COMMAND_WORD,MESSAGE_MARK_RECURRING_FAILURE);
         }
 
     }
@@ -72,11 +72,11 @@ public class MarkCommand extends Command implements Undoable, Redoable {
 
             model.pushToRedoHistory(this);
 
-            return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, taskToMark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNDO_SUCCESS, taskToMark));
         } catch (DuplicateTaskException e) {
-            return new CommandResult(String.format(UnmarkCommand.MESSAGE_DUPLICATE_UNMARK_TASK, taskToMark));
+            return new CommandResult(COMMAND_WORD, String.format(UnmarkCommand.MESSAGE_DUPLICATE_UNMARK_TASK, taskToMark));
         } catch (ArchiveTaskList.TaskNotFoundException e) {
-            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
+            return new CommandResult(COMMAND_WORD, Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         }
     }
 
@@ -88,17 +88,18 @@ public class MarkCommand extends Command implements Undoable, Redoable {
 
             model.pushToUndoHistory(this);
 
-            return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, taskToMark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_REDO_SUCCESS, taskToMark));
         } catch (TaskAlreadyMarkedException ex) {
-            return new CommandResult(String.format(MESSAGE_MARKED_TASK, taskToMark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_MARKED_TASK, taskToMark));
         } catch (IndexOutOfBoundsException ex) {
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(COMMAND_WORD, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (TaskNotFoundException pnfe) {
-            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
+            return new CommandResult(COMMAND_WORD,Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_MARK_RECURRING_FAILURE);
+            return new CommandResult(COMMAND_WORD,MESSAGE_MARK_RECURRING_FAILURE);
         } catch (NotRecurringTaskException e) {
-            return new CommandResult(MESSAGE_MARK_RECURRING_FAILURE);
+            return new CommandResult(COMMAND_WORD,MESSAGE_MARK_RECURRING_FAILURE);
+
         }
     }
 

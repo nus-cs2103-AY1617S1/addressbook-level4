@@ -49,12 +49,14 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
             model.pushToUndoHistory(this);
 
             model.clearRedoHistory();
+            
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_DELETE_TASK_SUCCESS, toDelete));
 
         } catch (TaskNotFoundException | IndexOutOfBoundsException | ArchiveTaskList.TaskNotFoundException tnfe) {
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
+            
+            return new CommandResult(COMMAND_WORD, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, toDelete));
+        }
     }
 
     @Override
@@ -67,9 +69,9 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
 
             model.pushToRedoHistory(this);
 
-            return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toDelete));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNDO_SUCCESS, toDelete));
         } catch (DuplicateTaskException e) {
-            return new CommandResult(AddCommand.MESSAGE_DUPLICATE_TASK);
+            return new CommandResult(COMMAND_WORD, AddCommand.MESSAGE_DUPLICATE_TASK);
         }
     }
 
@@ -82,10 +84,10 @@ public class DeleteCommand extends Command implements Undoable, Redoable {
             model.pushToUndoHistory(this);
 
         } catch (TaskNotFoundException | IndexOutOfBoundsException | ArchiveTaskList.TaskNotFoundException tnfe) {
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(COMMAND_WORD, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        return new CommandResult(String.format(MESSAGE_REDO_SUCCESS, toDelete));
+        return new CommandResult(COMMAND_WORD, String.format(MESSAGE_REDO_SUCCESS, toDelete));
     }
 
     private void executeDelete() throws TaskNotFoundException, IndexOutOfBoundsException, ArchiveTaskList.TaskNotFoundException {

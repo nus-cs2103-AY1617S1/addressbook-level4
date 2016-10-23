@@ -127,7 +127,7 @@ public class LogicManagerTest {
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND+": uicfhmowqewca");
     }
 
     @Test
@@ -273,7 +273,7 @@ public class LogicManagerTest {
         assertCommandBehavior("redo",
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
-                + "[Redo Delete Command] Task deleted: task "
+                + "[Redo Delete Command] Deleted Task: task "
                 + "start:" + timeCheck + " "
                 + "end:" + timeCheck + " "
                 + "Tags: [tag1],[tag2]\n"

@@ -23,7 +23,8 @@ public class ClearCommand extends Command implements Confirmable {
         //confirmWithUser();
         
         model.resetData(TaskManager.getEmptyTaskManager());
-        return new CommandResult(MESSAGE_SUCCESS);
+        
+        return new CommandResult(COMMAND_WORD,MESSAGE_SUCCESS);
     }
 
     @Override

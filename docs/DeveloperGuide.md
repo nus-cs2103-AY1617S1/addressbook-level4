@@ -385,9 +385,10 @@ Priority | As a ... | I want to ... | So that I can...
 | [UC7](#uc7-undo-action) | Undo Action  | Undo last action performed. |
 | [UC8](#uc8-redo-action) | Redo Action  | Redo an action performed in UC7. |
 | [UC9](#uc9-mark-task-as-done) | Mark Task as done  | Mark a task as done by index. A marked task should be automatically archived and exclude from display and search. |
-| [UC10](#uc10-clear-everything) | Clears everything | System performs bulk delete on the data (Deadlines, events, tasks). |
-| [UC11](#uc12-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
-| [UC12](#uc13-exit-application) | Exit application  | Quit the application |
+| [UC10](#uc10-exit-application) | Repeat command  | Load the previous command as input	 |
+| [UC11](#uc11-clear-everything) | Clears everything | System performs bulk delete on the data (Deadlines, events, tasks). |
+| [UC12](#uc12-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
+| [UC13](#uc13-exit-application) | Exit application  | Quit the application |
 
 ---
 
@@ -415,7 +416,7 @@ Display help when requested, or when user enter an invalid command.
 
 ### UC2: Add/Do a Task
 
-Adding a task. A task can be concrete (have defined date/time) or floating (without date/time).
+Adding a task. A task can be concrete (have defined date/time), recurring(repeats with defined date/time) or floating (without date/time).
 
 ##### Main Success Scenario:
 
@@ -444,6 +445,25 @@ Adding a task. A task can be concrete (have defined date/time) or floating (with
 * 1c1. System accepts the command as floating task.
 
 * 1c2. Use case resume at 2.
+
+1d. User enters task with start date after end date.
+
+* 1d1. System display error message.
+
+* 1d2. Use case ends.
+
+1e. User enters recurring task without date/time.
+
+* 1e1. System display error message.
+
+* 1e2. Use case ends.
+
+1f. User enters recurring task with date/time.
+
+* 1c1. System accepts the command as recurring task.
+
+* 1c2. Use case resume at 2.
+
 
 ---
 
@@ -635,17 +655,17 @@ Redo an action performed in UC7.
 
 ---
 
-### UC9: Mark Task as done
+### UC10: Repeat command
 
-Mark a task as done by index. A marked task should be automatically archived and exclude from display and search.
+Loads the previous input command into the text field.
 
 ##### Main Success Scenario
 
-1. User requests to mark a task as done by index.
+1. User requests to load previous command.
 
-2. System finds and mark the task as done.
+2. System finds and load previous command.
 
-3. System archives the task.
+3. System display successful message.
 
 4. Use case ends.
 
@@ -657,17 +677,9 @@ Mark a task as done by index. A marked task should be automatically archived and
 
 * 1a2. Use case ends.
 
-2a. Invalid Index.
-
-* 2a1. System cannot find the task associated with the index.
-
-* 2a2. System display unsuccessful message.
-
-* 2a3. Use case ends.
-
 ---
 
-### UC10: Clear everything
+### UC11: Clear everything
 
 System performs bulk delete on the data (Deadlines, events, tasks).
 ##### Main Success Scenario
@@ -688,7 +700,7 @@ System performs bulk delete on the data (Deadlines, events, tasks).
 
 ---
 
-### UC11: Relocate storage location
+### UC12: Relocate storage location
 
 Change the current storage to other directory specified by the user.
 
@@ -728,7 +740,7 @@ Change the current storage to other directory specified by the user.
 
 ---
 
-### UC12: Exit application
+### UC13: Exit application
 
 Quit the application.
 

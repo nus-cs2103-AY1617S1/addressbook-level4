@@ -7,6 +7,7 @@ import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.events.storage.DataSavingExceptionEvent;
+import harmony.mastermind.commons.events.ui.ExecuteCommandEvent;
 import harmony.mastermind.commons.events.ui.JumpToListRequestEvent;
 import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
 import harmony.mastermind.commons.util.StringUtil;
@@ -18,6 +19,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -59,6 +61,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Override
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
+        mainWindow.disposeAutoCompleteBinding();
         mainWindow.hide();
     }
 
@@ -83,4 +86,9 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 
+    @Subscribe
+    private void handleExecuteCommandEvent(ExecuteCommandEvent event){
+        Date now = new Date();
+        mainWindow.pushToActionHistory(now, event.title, event.description);
+    }
 }
