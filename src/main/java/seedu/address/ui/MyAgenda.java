@@ -38,6 +38,8 @@ public class MyAgenda extends Agenda{
 		/** Sets preferred size */
 		setPrefSize(550, 700);	
 		
+		this.getStyleClass().add(MyAgenda.class.getSimpleName());
+		
 		/** Disables dragging and resizing appointments. The agenda is only used as a visualization. */
 		allowDraggingProperty().set(false);
 		allowResizeProperty().set(false);

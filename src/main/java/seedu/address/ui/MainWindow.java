@@ -29,6 +29,7 @@ public class MainWindow extends UiPart {
     
     private final String BLUE_THEME = getClass().getResource("/view/BlueTheme.css").toExternalForm();
     private final String DARK_THEME = getClass().getResource("/view/DarkTheme.css").toExternalForm();
+    private final String AGENDA = getClass().getResource("/view/MyAgenda.css").toExternalForm();
 
     private Logic logic;
 
@@ -107,6 +108,7 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         scene.getStylesheets().add(DARK_THEME);
+        scene.getStylesheets().add(AGENDA);
         primaryStage.setScene(scene);
 
         setAccelerators();
