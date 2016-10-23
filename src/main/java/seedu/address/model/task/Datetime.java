@@ -25,8 +25,8 @@ public class Datetime {
     public static final String MESSAGE_DATE_CONSTRAINTS = "Date should be in DD-MM-YYYY format";
     public static final String DATE_INCORRECT_REGEX = ".*" + "(0?[1-9]|[12][0-9]|3[01])" + "\\." 
         		+ "(0?[1-9]|1[012])" + "\\." + "\\d{2}(\\{2}){0,1}" + ".*";
-    public static final Pattern DATE_CORRECT_REGEX = Pattern.compile(".*" + "(?<day>(0?[1-9]|[12][0-9]|3[01]))" + "-" 
-    		+ "(?<month>(0?[1-9]|1[012]))" + "-" + "(?<year>\\d{2}(\\{2}){0,1})" + ".*");
+    public static final Pattern DATE_CORRECT_REGEX = Pattern.compile("(?<day>(0?[1-9]|[12][0-9]|3[01]))" + "-" 
+    		+ "(?<month>(0?[1-9]|1[012]))" + "-" + "(?<year>\\d{2}(\\{2}){0,1})" + "(?<time>.*)");
 
     //public static final String MESSAGE_TIME_CONSTRAINTS = "Time should be in 24hr format. Eg. 2359";
     //    public static final String TIME_VALIDATION_REGEX = "([01]?[0-9]|2[0-3])[0-5][0-9]";
@@ -56,7 +56,7 @@ public class Datetime {
         	// rearrange DD-MM-YY to parse-able MM-DD-YY 
         	final Matcher matcher = DATE_CORRECT_REGEX.matcher(input.trim());
             if (matcher.matches()){
-        		input = matcher.group("month") + "-" + matcher.group("day") + "-" + matcher.group("year");
+        		input = matcher.group("month") + "-" + matcher.group("day") + "-" + matcher.group("year") + matcher.group("time");
         	}
             listOfDate = natty.parse(input).get(0).getDates();
         }
@@ -101,6 +101,8 @@ public class Datetime {
         else {
             throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
         }
+        
+        System.out.println(toString());
     }
 
     /**

@@ -174,7 +174,7 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add Valid Task Name 12345 d/Valid description date/11.11.11", expectedMessage);
+                "add Valid Task Name 12345 d/Valid description date/11.11.11", Datetime.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Task Name e/Wrong parameter for description date/tmr", expectedMessage);
         assertCommandBehavior(
