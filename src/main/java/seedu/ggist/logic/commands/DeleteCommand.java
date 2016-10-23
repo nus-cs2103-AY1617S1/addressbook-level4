@@ -38,7 +38,7 @@ public class DeleteCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-       // int taskIndex = i>0 ? targetIndexes.get(i) -2: targetIndexes.get(i) -1;
+       
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndexes.get(i) - 1 - i);
         try {
             model.deleteTask(taskToDelete);
@@ -59,7 +59,6 @@ public class DeleteCommand extends Command {
                 sb.append(targetIndexes.get(i));
             }
         }
-        System.out.print(sb.toString());
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS,sb.toString()));
     }
 

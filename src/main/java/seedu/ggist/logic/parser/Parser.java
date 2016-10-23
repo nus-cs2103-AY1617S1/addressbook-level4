@@ -194,7 +194,6 @@ public class Parser {
                 }
             }                         
         } catch (IllegalValueException ive) {
-            ive.printStackTrace();
             return new IncorrectCommand(ive.getMessage());
         }
         return null;   
@@ -259,13 +258,20 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDone(String args) {
-
-        Optional<Integer> index = parseIndex(args);
+        String[] parts = args.split(",");
+        ArrayList<Integer> indexes = new ArrayList<Integer>();
+        for (int i = 0; i < parts.length; i++){
+            indexes.add(Integer.parseInt(parts[i].trim()));
+        }
+       
+        for (int i =0; i < parts.length;i++){
+        Optional<Integer> index = parseIndex(parts[i]);
         if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+            }
         }
-        return new DoneCommand(index.get());
+        return new DoneCommand(indexes);
     }
     
     private Command prepareEdit(String args) {
@@ -278,17 +284,17 @@ public class Parser {
         String field  = matcher.group("field");
         String value = matcher.group("value");
 
-    	try {
-    	    if (field.equals("start date") || field.equals("end date")) {
-    	        value = new DateTimeParser(value).getDate();
-    	    }
-    	
-    	    if (field.equals("start time") || field.equals("end time")) {
-    	        value = new DateTimeParser(value).getTime();
-    	    }
-    	} catch (IllegalValueException e) {
-    	    return new IncorrectCommand(e.getMessage());
-    	}
+        try {
+            if (field.equals("start date") || field.equals("end date")) {
+                value = new DateTimeParser(value).getDate();
+            }
+        
+            if (field.equals("start time") || field.equals("end time")) {
+                value = new DateTimeParser(value).getTime();
+            }
+        } catch (IllegalValueException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
          return new EditCommand(index, field.trim(), value.trim());
     }
 
