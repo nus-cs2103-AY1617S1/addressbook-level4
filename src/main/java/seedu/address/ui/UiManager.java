@@ -24,6 +24,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.task.TaskComponent;
 
+import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
@@ -118,7 +119,7 @@ public class UiManager extends ComponentManager implements Ui {
     
 
     @Subscribe
-    private void handleShowHelpEvent(ShowHelpRequestEvent event) {
+    private void handleShowHelpEvent(ShowHelpRequestEvent event) throws IOException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.handleHelp();
     }
