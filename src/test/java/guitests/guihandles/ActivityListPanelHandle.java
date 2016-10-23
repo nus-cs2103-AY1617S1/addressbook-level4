@@ -24,20 +24,37 @@ public class ActivityListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#taskCardPane";
-    private static final String PERSON_LIST_VIEW_ID = "#taskListView";
+    private static final String TASK_LIST_VIEW_ID = "#taskListView";
+    private static final String FLOATING_LIST_VIEW_ID = "#floatingTaskListView";
+    private static final String EVENT_LIST_VIEW_ID = "#eventListView";
 
     public ActivityListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
     public List<ReadOnlyActivity> getSelectedPersons() {
-        ListView<ReadOnlyActivity> personList = getListView();
+        ListView<ReadOnlyActivity> personList = getTaskListView();
         return personList.getSelectionModel().getSelectedItems();
     }
 
-    public ListView<ReadOnlyActivity> getListView() {
-        return (ListView<ReadOnlyActivity>) getNode(PERSON_LIST_VIEW_ID);
+    public ListView<ReadOnlyActivity> getTaskListView() {
+        return (ListView<ReadOnlyActivity>) getNode(TASK_LIST_VIEW_ID);
     }
+    
+    /**
+     * @author BrehmerChan (A046752B)
+     */
+    public ListView<ReadOnlyActivity> getFloatingTaskListView() {
+        return (ListView<ReadOnlyActivity>) getNode(FLOATING_LIST_VIEW_ID);
+    }
+
+    /**
+     * @author BrehmerChan (A046752B)
+     */
+    public ListView<ReadOnlyActivity> getEventListView() {
+        return (ListView<ReadOnlyActivity>) getNode(EVENT_LIST_VIEW_ID);
+    }
+
 
     /**
      * Returns true if the list is showing the person details correctly and in correct order.
@@ -51,7 +68,7 @@ public class ActivityListPanelHandle extends GuiHandle {
      * Clicks on the ListView.
      */
     public void clickOnListView() {
-        Point2D point= TestUtil.getScreenMidPoint(getListView());
+        Point2D point= TestUtil.getScreenMidPoint(getTaskListView());
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
@@ -59,7 +76,7 @@ public class ActivityListPanelHandle extends GuiHandle {
      * Returns true if the {@code activities} appear as the sub list (in that order) at position {@code startPosition}.
      */
     public boolean containsInOrder(int startPosition, ReadOnlyActivity... activities) {
-        List<ReadOnlyActivity> activitiesInList = getListView().getItems();
+        List<ReadOnlyActivity> activitiesInList = getTaskListView().getItems();
 
         // Return false if the list in panel is too short to contain the given list
         if (startPosition + activities.length > activitiesInList.size()){
@@ -82,15 +99,15 @@ public class ActivityListPanelHandle extends GuiHandle {
      * @param activities A list of person in the correct order.
      */
     public boolean isListMatching(int startPosition, ReadOnlyActivity... activities) throws IllegalArgumentException {
-        if (activities.length + startPosition != getListView().getItems().size()) {
+        if (activities.length + startPosition != getTaskListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
-                    "Expected " + (getListView().getItems().size() - 1) + " activities");
+                    "Expected " + (getTaskListView().getItems().size() - 1) + " activities");
         }
         assertTrue(this.containsInOrder(startPosition, activities));
 
         for (int i = 0; i < activities.length; i++) {
             final int scrollTo = i + startPosition;
-            guiRobot.interact(() -> getListView().scrollTo(scrollTo));
+            guiRobot.interact(() -> getTaskListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
             if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), activities[i])) {
                 return false;
@@ -102,22 +119,52 @@ public class ActivityListPanelHandle extends GuiHandle {
 
     public ActivityCardHandle navigateToActivity(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyActivity> activity = getListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyActivity> activity = getTaskListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
         if (!activity.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
-        return navigateToPerson(activity.get());
+        return navigateToTask(activity.get());
     }
 
     /**
-     * Navigates the listview to display and select the person.
+     * Navigates the listview to display and select the task.
      */
-    public ActivityCardHandle navigateToPerson(ReadOnlyActivity activity) {
-        int index = getPersonIndex(activity);
+    public ActivityCardHandle navigateToTask(ReadOnlyActivity activity) {
+        int index = getTaskIndex(activity);
         guiRobot.interact(() -> {
-            getListView().scrollTo(index);
+            getTaskListView().scrollTo(index);
             guiRobot.sleep(150);
-            getListView().getSelectionModel().select(index);
+            getTaskListView().getSelectionModel().select(index);
+        });
+        guiRobot.sleep(100);
+        return getPersonCardHandle(activity);
+    }
+    
+    /**
+     * @author BrehmerChan (A0146752B)
+     * Navigates the listview to display and select the floating task.
+     */
+    public ActivityCardHandle navigateToFloatingTask(ReadOnlyActivity activity) {
+        int index = getFloatingTaskIndex(activity);
+        guiRobot.interact(() -> {
+            getFloatingTaskListView().scrollTo(index);
+            guiRobot.sleep(150);
+            getFloatingTaskListView().getSelectionModel().select(index);
+        });
+        guiRobot.sleep(100);
+        return getPersonCardHandle(activity);
+    }
+    
+    /**
+     * @author BrehmerChan (A0146752B)
+     * Navigates the listview to display and select the event.
+     */
+    public ActivityCardHandle navigateToEvent(ReadOnlyActivity activity) {
+        int index = getEventIndex(activity);
+        guiRobot.interact(() -> {
+            getEventListView().scrollTo(index);
+            guiRobot.sleep(150);
+            getEventListView().getSelectionModel().select(index);
         });
         guiRobot.sleep(100);
         return getPersonCardHandle(activity);
@@ -125,27 +172,54 @@ public class ActivityListPanelHandle extends GuiHandle {
 
 
     /**
-     * Returns the position of the person given, {@code NOT_FOUND} if not found in the list.
+     * Returns the position of the task given, {@code NOT_FOUND} if not found in the list.
      */
-    public int getPersonIndex(ReadOnlyActivity targetPerson) {
-        List<ReadOnlyActivity> activitiesInList = getListView().getItems();
+    public int getTaskIndex(ReadOnlyActivity targetTask) {
+        List<ReadOnlyActivity> activitiesInList = getTaskListView().getItems();
         for (int i = 0; i < activitiesInList.size(); i++) {
-            if(activitiesInList.get(i).getActivityName().equals(targetPerson.getActivityName())){
+            if(activitiesInList.get(i).getActivityName().equals(targetTask.getActivityName())){
+                return i;
+            }
+        }
+        return NOT_FOUND;
+    }
+    
+    /**
+     * Returns the position of the floating task given, {@code NOT_FOUND} if not found in the list.
+     */
+    public int getFloatingTaskIndex(ReadOnlyActivity targetFloatingTask) {
+        List<ReadOnlyActivity> activitiesInList = getFloatingTaskListView().getItems();
+        for (int i = 0; i < activitiesInList.size(); i++) {
+            if(activitiesInList.get(i).getActivityName().equals(targetFloatingTask.getActivityName())){
+                return i;
+            }
+        }
+        return NOT_FOUND;
+    }
+    
+    /**
+     * Returns the position of the event given, {@code NOT_FOUND} if not found in the list.
+     */
+    public int getEventIndex(ReadOnlyActivity targetEvent) {
+        List<ReadOnlyActivity> activitiesInList = getEventListView().getItems();
+        System.out.println("activities in list: " + activitiesInList.get(0).toString());
+        for (int i = 0; i < activitiesInList.size(); i++) {
+            if(activitiesInList.get(i).getActivityName().equals(targetEvent.getActivityName())){
                 return i;
             }
         }
         return NOT_FOUND;
     }
 
-    /**
+    /**s
      * Gets a person from the list by index
      */
     public ReadOnlyActivity getPerson(int index) {
-        return getListView().getItems().get(index);
+        return getTaskListView().getItems().get(index);
     }
 
     public ActivityCardHandle getPersonCardHandle(int index) {
-        return getPersonCardHandle(new Activity(getListView().getItems().get(index)));
+        return getPersonCardHandle(new Activity(getTaskListView().getItems().get(index)));
     }
 
     public ActivityCardHandle getPersonCardHandle(ReadOnlyActivity person) {
@@ -165,6 +239,6 @@ public class ActivityListPanelHandle extends GuiHandle {
     }
 
     public int getNumberOfPeople() {
-        return getListView().getItems().size();
+        return getTaskListView().getItems().size();
     }
 }

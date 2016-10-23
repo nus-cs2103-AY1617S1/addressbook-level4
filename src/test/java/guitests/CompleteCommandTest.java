@@ -53,8 +53,21 @@ public class CompleteCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(activityToComplete.getCompleteCommand(index));
         
         //Confirms new Activity card has correct Completed status.
-        ActivityCardHandle completedCard = activityListPanel.navigateToPerson(activityToComplete);
-        assertMatching(activityToComplete, completedCard);
+        if (activityToComplete.getActivityType().equals("task")) {
+            ActivityCardHandle completedCard = activityListPanel.navigateToTask(activityToComplete);
+            System.out.println("task is: " + completedCard.toString());
+            assertMatching(activityToComplete, completedCard);
+        }
+        else if (activityToComplete.getActivityType().equals("floatingTask")) {
+            ActivityCardHandle completedCard = activityListPanel.navigateToFloatingTask(activityToComplete);
+            System.out.println("floating task is: " + completedCard.toString());
+            assertMatching(activityToComplete, completedCard);
+        }
+        else if (activityToComplete.getActivityType().equals("event")) {
+            ActivityCardHandle completedCard = activityListPanel.navigateToEvent(activityToComplete);
+            System.out.println("event is: " + completedCard.toString());
+            assertMatching(activityToComplete, completedCard);
+        }
         
         // Confirms the result message is correct
         // Debug System.out.println(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
