@@ -328,7 +328,7 @@ public class TestUtil {
     }
 
     /**
-     * Removes a subset from the list of tasks.
+     * Removes a subset from the list of tasks. Overloading functions for different task types
      * @param tasks The list of tasks
      * @param tasksToRemove The subset of tasks.
      * @return The modified tasks after removal of the subset from tasks.
@@ -338,14 +338,30 @@ public class TestUtil {
         listOfTasks.removeAll(asList(tasksToRemove));
         return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
     }
+    public static TestDeadline[] removeTasksFromList(final TestDeadline[] tasks, TestDeadline... tasksToRemove) {
+        List<TestDeadline> listOfTasks = asList(tasks);
+        listOfTasks.removeAll(asList(tasksToRemove));
+        return listOfTasks.toArray(new TestDeadline[listOfTasks.size()]);
+    }
+    public static TestEvent[] removeTasksFromList(final TestEvent[] tasks, TestEvent... tasksToRemove) {
+        List<TestEvent> listOfTasks = asList(tasks);
+        listOfTasks.removeAll(asList(tasksToRemove));
+        return listOfTasks.toArray(new TestEvent[listOfTasks.size()]);
+    }
 
 
     /**
-     * Returns a copy of the list with the task at specified index removed.
+     * Returns a copy of the list with the task at specified index removed. Overloading functions for different task types
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
     public static TestFloatingTask[] removeTaskFromList(final TestFloatingTask[] list, int targetIndexInOneIndexedFormat) {
+        return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    }
+    public static TestDeadline[] removeTaskFromList(final TestDeadline[] list, int targetIndexInOneIndexedFormat) {
+        return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    }
+    public static TestEvent[] removeTaskFromList(final TestEvent[] list, int targetIndexInOneIndexedFormat) {
         return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 

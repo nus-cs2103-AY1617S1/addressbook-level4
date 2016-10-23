@@ -58,6 +58,7 @@ public class TypicalTestTasks {
             ab.addEvent(new Event(event1));
             ab.addEvent(new Event(event2));
             ab.addEvent(new Event(event3));
+            ab.addEvent(new Event(event4));
         } catch (DuplicateDataException e) {
             assert false : "not possible";
         } catch (IllegalValueException e) {
@@ -74,7 +75,7 @@ public class TypicalTestTasks {
     }
     
     public TestEvent[] getTypicalEvents() {
-        return new TestEvent[]{event1, event2, event3};
+        return new TestEvent[]{event1, event2, event3, event4};
     }
         
 

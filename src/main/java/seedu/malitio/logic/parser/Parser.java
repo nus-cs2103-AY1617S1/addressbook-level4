@@ -1,16 +1,12 @@
 package seedu.malitio.logic.parser;
 
 import seedu.malitio.commons.exceptions.IllegalValueException;
-import seedu.malitio.commons.util.StringUtil;
 import seedu.malitio.logic.commands.*;
 import seedu.malitio.model.task.Name;
 
 import static seedu.malitio.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.malitio.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -328,8 +324,15 @@ public class Parser {
         // keywords delimited by whitespace
         String[] keywords = matcher.group("keywords").split("\\s+");
         String typeOfTask = "";
+        
         if(Arrays.asList(TYPES_OF_TASKS).contains(keywords[TASK_TYPE_INDEX])) {
             typeOfTask = keywords[TASK_TYPE_INDEX];
+            keywords = Arrays.copyOfRange(keywords, 1, keywords.length);
+        }
+        
+        if(keywords == null || keywords.length == 0) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FindCommand.MESSAGE_USAGE));
         }
                 
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));

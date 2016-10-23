@@ -14,6 +14,8 @@ public class MalitioChangedEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return "number of tasks " + data.getFloatingTaskList().size() + ", number of tags " + data.getTagList().size();
+        return "number of tasks "
+                + data.getFloatingTaskList().size() + data.getDeadlineList().size() + data.getEventList().size() 
+                + ", number of tags " + data.getTagList().size();
     }
 }

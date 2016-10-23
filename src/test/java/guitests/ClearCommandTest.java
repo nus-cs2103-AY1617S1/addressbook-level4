@@ -17,7 +17,7 @@ public class ClearCommandTest extends MalitioGuiTest {
         commandBox.runCommand(td.manualFloatingTask1.getAddCommand());
         assertTrue(floatingTaskListPanel.isListMatching(td.manualFloatingTask1));
         commandBox.runCommand("delete f1");
-        assertListSize(0);
+        assertTotalListSize(0);
 
         //verify clear command works when the list is empty
         assertClearCommandSuccess();
@@ -25,7 +25,7 @@ public class ClearCommandTest extends MalitioGuiTest {
 
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
-        assertListSize(0);
+        assertTotalListSize(0);
         assertResultMessage("Malitio has been cleared!");
     }
 }

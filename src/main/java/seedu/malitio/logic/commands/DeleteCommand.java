@@ -13,10 +13,9 @@ import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundExcep
 /**
  * Deletes a task identified using it's last displayed index from Malitio.
  * 
- * @@author a0126633j
  */
 public class DeleteCommand extends Command {
-
+  //@@author a0126633j
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
