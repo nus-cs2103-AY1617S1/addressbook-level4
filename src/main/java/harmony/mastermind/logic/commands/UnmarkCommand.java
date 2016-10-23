@@ -49,13 +49,13 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
             
             model.clearRedoHistory();
 
-            return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
         } catch (TaskAlreadyUnmarkedException tau) {
-            return new CommandResult(String.format(MESSAGE_UNMARK_TASK_FAILURE, taskToUnmark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_FAILURE, taskToUnmark));
         } catch (DuplicateTaskException dte) {
-            return new CommandResult(String.format(MESSAGE_DUPLICATE_UNMARK_TASK, taskToUnmark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_DUPLICATE_UNMARK_TASK, taskToUnmark));
         } catch (TaskNotFoundException tnfe) {
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(COMMAND_WORD, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
     }
 
@@ -68,9 +68,9 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
             
             model.pushToRedoHistory(this);
 
-            return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, taskToUnmark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNDO_SUCCESS, taskToUnmark));
         } catch (UniqueTaskList.TaskNotFoundException e) {
-            return new CommandResult(Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
+            return new CommandResult(COMMAND_WORD, Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         }
     }
 
@@ -82,13 +82,13 @@ public class UnmarkCommand extends Command implements Undoable, Redoable{
             
             model.pushToUndoHistory(this);
 
-            return new CommandResult(String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_SUCCESS, taskToUnmark));
         } catch (TaskAlreadyUnmarkedException tau) {
-            return new CommandResult(String.format(MESSAGE_UNMARK_TASK_FAILURE, taskToUnmark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNMARK_TASK_FAILURE, taskToUnmark));
         } catch (DuplicateTaskException dte) {
-            return new CommandResult(String.format(MESSAGE_DUPLICATE_UNMARK_TASK, taskToUnmark));
+            return new CommandResult(COMMAND_WORD, String.format(MESSAGE_DUPLICATE_UNMARK_TASK, taskToUnmark));
         } catch (TaskNotFoundException tnfe) {
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(COMMAND_WORD, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
     }
 

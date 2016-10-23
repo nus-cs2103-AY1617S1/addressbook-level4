@@ -1,5 +1,6 @@
 package harmony.mastermind;
 
+import javafx.application.Platform;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 

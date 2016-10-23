@@ -36,7 +36,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
 
         //invalid command
         commandBox.runCommand("adds Laundry");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND+": adds Laundry");
     }
 
     //@@author A0124797R

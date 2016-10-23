@@ -50,15 +50,15 @@ public class ListCommand extends Command {
         model.updateFilteredListToShowAll();
         
         if (tab.equals(ModelManager.TAB_TASKS.toLowerCase())) {
-            return new CommandResult(MESSAGE_SUCCESS_TASKS);
+            return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_TASKS);
         } else if (tab.equals(ModelManager.TAB_EVENTS.toLowerCase())) {
-            return new CommandResult(MESSAGE_SUCCESS_EVENTS);
+            return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_EVENTS);
         } else if (tab.equals(ModelManager.TAB_DEADLINES.toLowerCase())) {
-            return new CommandResult(MESSAGE_SUCCESS_DEADLINES);
+            return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_DEADLINES);
         } else if (tab.equals(ModelManager.TAB_ARCHIVES.toLowerCase())) {
-            return new CommandResult(MESSAGE_SUCCESS_ARCHIVES);
+            return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS_ARCHIVES);
         } else {
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(COMMAND_WORD, MESSAGE_SUCCESS);
         }
     }
 
