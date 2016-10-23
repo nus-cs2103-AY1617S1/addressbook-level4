@@ -31,15 +31,15 @@ public class EditCommandTest extends CommandTest {
     public void execute_editFloatTask_duplicate() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.computingFloatTask();
+        Task toBeAdded = helper.computingDescTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
         Task toBeAdded2 = helper.computingEditedNameFloatTask();
         expectedAB.addTask(toBeAdded2);
-        Task toBeEdited = helper.computingFloatTask();
+        Task toBeEdited = helper.computingDescTask();
 
         // execute command and verify result
-        assertEditDuplicateCommandBehavior(helper.generateAddFloatTaskCommand(toBeAdded), helper.generateAddFloatTaskCommand(toBeAdded2),helper.generateListTaskCommand(),
+        assertEditDuplicateCommandBehavior(helper.generateAddDescTaskCommand(toBeAdded), helper.generateAddDescTaskCommand(toBeAdded2),helper.generateListTaskCommand(),
                 helper.generateEditFloatTaskCommand(toBeEdited,2),
                 String.format(EditTaskCommand.MESSAGE_DUPLICATE_TASK, toBeEdited),
                 expectedAB);
@@ -136,14 +136,14 @@ public class EditCommandTest extends CommandTest {
     public void execute_editFloatTask_name_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.computingFloatTask();
+        Task toBeAdded = helper.computingDescTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
         Task toBeEdited = helper.computingEditedNameFloatTask();
         expectedAB.editTask(toBeEdited, toBeAdded);
 
         // execute command and verify result
-        assertEditTaskCommandBehavior(helper.generateAddFloatTaskCommand(toBeAdded),helper.generateListTaskCommand(),
+        assertEditTaskCommandBehavior(helper.generateAddDescTaskCommand(toBeAdded),helper.generateListTaskCommand(),
                 helper.generateEditFloatTaskCommand(toBeEdited,1),
                 String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, toBeEdited),
                 expectedAB,
@@ -156,7 +156,7 @@ public class EditCommandTest extends CommandTest {
     public void execute_editFloatTask_desc_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.computingFloatTask();
+        Task toBeAdded = helper.computingDescTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
         Task toBeEdited = helper.computingEditedDescFloatTask();
@@ -164,7 +164,7 @@ public class EditCommandTest extends CommandTest {
         
 
         // execute command and verify result
-        assertEditTaskCommandBehavior(helper.generateAddFloatTaskCommand(toBeAdded),helper.generateListTaskCommand(),
+        assertEditTaskCommandBehavior(helper.generateAddDescTaskCommand(toBeAdded),helper.generateListTaskCommand(),
                 helper.generateEditFloatTaskCommand(toBeEdited,1),
                 String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, toBeEdited),
                 expectedAB,
@@ -177,14 +177,14 @@ public class EditCommandTest extends CommandTest {
     public void execute_editFloatTask_name_desc_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.computingFloatTask();
+        Task toBeAdded = helper.computingDescTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
         Task toBeEdited = helper.computingEditedFloatTask();
         expectedAB.editTask(toBeEdited, toBeAdded);
 
         // execute command and verify result
-        assertEditTaskCommandBehavior(helper.generateAddFloatTaskCommand(toBeAdded),helper.generateListTaskCommand(),
+        assertEditTaskCommandBehavior(helper.generateAddDescTaskCommand(toBeAdded),helper.generateListTaskCommand(),
                 helper.generateEditFloatTaskCommand(toBeEdited,1),
                 String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, toBeEdited),
                 expectedAB,
@@ -197,14 +197,14 @@ public class EditCommandTest extends CommandTest {
     public void execute_editFloatTaskToDeadlineTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.computingFloatTask();
+        Task toBeAdded = helper.computingDescTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
         Task toBeEdited = helper.computingTask();
         expectedAB.editTask(toBeEdited, toBeAdded);
 
         // execute command and verify result
-        assertEditTaskCommandBehavior(helper.generateAddFloatTaskCommand(toBeAdded),helper.generateListTaskCommand(),
+        assertEditTaskCommandBehavior(helper.generateAddDescTaskCommand(toBeAdded),helper.generateListTaskCommand(),
                 helper.generateEditTaskCommand(toBeEdited,1),
                 String.format(EditTaskCommand.MESSAGE_EDIT_TASK_SUCCESS, toBeEdited),
                 expectedAB,
@@ -313,7 +313,7 @@ public class EditCommandTest extends CommandTest {
         Task toBeAdded = helper.computingTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
-        Task toBeEdited = helper.computingFloatTask();
+        Task toBeEdited = helper.computingDescTask();
         expectedAB.editTask(toBeEdited, toBeAdded);
 
         // execute command and verify result

@@ -9,7 +9,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
 public class Name implements Comparable<Name> {
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task/Event names should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String NAME_VALIDATION_REGEX = "[a-zA-Z0-9#\\$\\.\\(\\)%&\\s\\,\\@\\:\\_]+";
 
     public final String fullName;
 

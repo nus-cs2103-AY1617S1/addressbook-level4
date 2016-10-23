@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("CS1010 CodeCrunch Practices"), new Description("20 Practices up to Lecture 7 syllabus"), false),
-                    new Task(new Name("CS1020 CodeCrunch Practices"), new Description("20 Practices up to Lecture 7 syllabus"), false),
-                    new Task(new Name("Computing Project 1"), new Description("Complete my part before meeting"), false),
-                    new Task(new Name("Science Project 1"), new Description("Complete my part before meeting"), false),
-                    new Task(new Name("Biz Project 1"), new Description("Complete my part before meeting"),false),
-                    new Task(new Name("Engineering Project 1"), new Description("Complete my part before meeting"), false),
-                    new Task(new Name("Music Project 1"), new Description("Complete my part before meeting"),false),
-                    new Task(new Name("Arts Project 1"), new Description("Complete my part before meeting"),false),
-                    new Task(new Name("Social Science Project 1"), new Description("Complete my part before meeting"),false),
+                    new Task(new Name("CS1010 CodeCrunch Practices"), new Description("20 Practices up to Lecture 7 syllabus"), null,false),
+                    new Task(new Name("CS1020 CodeCrunch Practices"), new Description("20 Practices up to Lecture 7 syllabus"), null,false),
+                    new Task(new Name("Computing Project 1"), new Description("Complete my part before meeting"),null, false),
+                    new Task(new Name("Science Project 1"), new Description("Complete my part before meeting"), null,false),
+                    new Task(new Name("Biz Project 1"), new Description("Complete my part before meeting"),null,false),
+                    new Task(new Name("Engineering Project 1"), new Description("Complete my part before meeting"),null, false),
+                    new Task(new Name("Music Project 1"), new Description("Complete my part before meeting"),null,false),
+                    new Task(new Name("Arts Project 1"), new Description("Complete my part before meeting"),null,false),
+                    new Task(new Name("Social Science Project 1"), new Description("Complete my part before meeting"),null,false),
             };
         } catch (IllegalValueException e) {
             assert false;

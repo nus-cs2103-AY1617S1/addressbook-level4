@@ -40,7 +40,7 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getTask().fullName);
         index.setText(displayedIndex + ". ");
-        description.setText(task.getDescription().value);
+        description.setText(task.getDescriptionToString().trim());
         deadline.setText(task.getDeadlineToString().trim());
     }
 

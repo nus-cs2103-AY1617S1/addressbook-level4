@@ -66,7 +66,6 @@ public class XmlTaskBookStorageTest {
         String filePath = testFolder.getRoot().getPath() + "TempTaskBook.xml";
         TypicalTestTasks td = new TypicalTestTasks();
         TaskBook original = td.getTypicalTaskBook();
-        System.out.println("Clear");
         XmlTaskBookStorage xmlTaskBookStorage = new XmlTaskBookStorage(filePath);
 
         //Save in new file and read back

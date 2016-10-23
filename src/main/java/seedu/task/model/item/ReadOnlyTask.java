@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ReadOnlyTask {
 
     Name getTask();
-    Description getDescription();
+    Optional<Description> getDescription();
     Optional<Deadline> getDeadline();
     Boolean getTaskStatus();
 
@@ -34,12 +34,19 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTask())
-                .append(" Desc: ")
-                .append(getDescription())
+                .append(getDescriptionToString())
                 .append(getDeadlineToString())
                 .append(getTaskStatusToString());
         
         return builder.toString();
+    }
+    
+    /**
+     * Formats the description as text.
+     * If null, empty string is returned
+     */
+    default String getDescriptionToString() {
+        return getDescription().isPresent()? " Desc: " + getDescription().get().toString() : "";
     }
     
     /**
@@ -58,6 +65,13 @@ public interface ReadOnlyTask {
         return getDeadline().isPresent()? getDeadline().get().toString() : "";
     }
     
+    /**
+     * Formats the description as string.
+     * If null, empty string is returned
+     */
+    default String getDescriptionValue() {
+        return getDescription().isPresent()? getDescription().get().toString() : "";
+    }
     
     /**
      * Formats the task status as text

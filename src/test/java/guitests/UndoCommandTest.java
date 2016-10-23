@@ -1,14 +1,13 @@
 package guitests;
 
-import seedu.task.commons.exceptions.UndoableException;
-import seedu.task.logic.commands.AddTaskCommand;
+
 import seedu.task.logic.commands.UndoCommand;
 import seedu.task.testutil.TestEvent;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
 import seedu.task.testutil.TypicalTestEvents;
 import seedu.task.testutil.TypicalTestTasks;
-import seedu.taskcommons.core.Messages;
+
 
 import static org.junit.Assert.assertTrue;
 
@@ -78,7 +77,7 @@ public class UndoCommandTest extends TaskBookGuiTest {
 
 		// add one task
 		TestTask taskToAdd = TypicalTestTasks.arts;
-		commandBox.runCommand(taskToAdd.getAddCommand());
+		commandBox.runCommand(taskToAdd.getFullAddCommand());
 		currentList = TestUtil.addTasksToListAtIndex(currentList,0, TypicalTestTasks.arts);
 		assertTaskListSize(currentList.length);
 		assertTrue(taskListPanel.isListMatching(currentList));

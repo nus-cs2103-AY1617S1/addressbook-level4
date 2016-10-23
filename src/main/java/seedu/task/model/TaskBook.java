@@ -1,6 +1,7 @@
 package seedu.task.model;
 
 import javafx.collections.ObservableList;
+import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.item.Event;
 import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;

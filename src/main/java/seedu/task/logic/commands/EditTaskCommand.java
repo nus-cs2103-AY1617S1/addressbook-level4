@@ -102,19 +102,28 @@ public class EditTaskCommand extends EditCommand  {
         if (!isNameToBeEdit) {
             newName = targetTask.getTask();
         }
-        if (!isDescriptionToBeEdit) {
-            newDescription = targetTask.getDescription();
+        if (!isDescriptionToBeEdit && targetTask.getDescription().isPresent()) {
+                newDescription = targetTask.getDescription().get();
         }
-        if (!isDeadlineToBeEdit) {
-            if (targetTask.getDeadline().isPresent()) {
+        if (!isDeadlineToBeEdit && targetTask.getDeadline().isPresent()) {
                 newDeadline = targetTask.getDeadline().get();
-                return new Task (this.newName, this.newDescription, this.newDeadline, TASK_DEFAULT_STATUS);
-            } else {
-                return new Task (this.newName, this.newDescription, TASK_DEFAULT_STATUS);
-            }
-        } 
-        return new Task (this.newName, this.newDescription, this.newDeadline, TASK_DEFAULT_STATUS);
+        }
         
+        return new Task (this.newName, this.newDescription, this.newDeadline, TASK_DEFAULT_STATUS);
+//        if (isNull(this.newDescription) && isNull(this.newDeadline)) {
+//            return new Task (this.newName,null,null, TASK_DEFAULT_STATUS);
+//        } else if (isNull (this.newDescription)) {
+//            return new Task (this.newName, null,this.newDeadline, TASK_DEFAULT_STATUS);
+//        } else if (isNull (this.newDeadline)) {
+//            return new Task (this.newName, this.newDescription, null,TASK_DEFAULT_STATUS);
+//        } else {
+//            return new Task (this.newName, this.newDescription, this.newDeadline, TASK_DEFAULT_STATUS);
+//        }
+        
+    }
+    
+    private boolean isNull(Object obj) {
+        return obj == null;
     }
 
 	@Override
