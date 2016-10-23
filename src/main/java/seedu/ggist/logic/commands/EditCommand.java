@@ -44,7 +44,7 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        boolean correctField = field.equals("task") || field.equals("start date") || field.equals("end date") || field.equals("start time") || field.equals("end time");
+        boolean correctField = field.equals("task") || field.equals("start date") || field.equals("end date") || field.equals("start time") || field.equals("end time") || field.equals("priority");
         if (!correctField) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_FIELD);
@@ -52,29 +52,28 @@ public class EditCommand extends Command {
         
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         try {
-            if (field.equals("task")){
-               editTaskValue.push(taskToEdit.getTaskName().toString()); 
-            }
-            else if (field.equals("start date")){
-                editTaskValue.push(taskToEdit.getStartDate().toString()); 
-             }
-            else if (field.equals("end date")){
-                editTaskValue.push(taskToEdit.getEndDate().toString()); 
-             }
-            else if (field.equals("start time")){
-                editTaskValue.push(taskToEdit.getStartTime().toString()); 
-             }
-            else if (field.equals("end time")){
-                editTaskValue.push(taskToEdit.getEndTime().toString()); 
-             }
-            
             editTaskField.push(field);
             
+            if (field.equals("task")) {
+                editTaskValue.push(taskToEdit.getTaskName().toString()); 
+            } else if (field.equals("start date")) {
+                editTaskValue.push(taskToEdit.getStartDate().toString());
+            } else if (field.equals("end date")) {
+                editTaskValue.push(taskToEdit.getEndDate().toString()); 
+            } else if (field.equals("start time")) {
+                editTaskValue.push(taskToEdit.getStartTime().toString()); 
+            } else if (field.equals("end time")) {
+                editTaskValue.push(taskToEdit.getEndTime().toString());
+            } else if (field.equals("priority")) {
+                editTaskValue.push(taskToEdit.getPriority().toString());
+            }
             model.editTask(taskToEdit, field, value);
             listOfCommands.push(COMMAND_WORD);
             listOfTasks.push(taskToEdit);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
+        } catch (IllegalValueException ive) {
+            return new CommandResult(ive.getMessage());
         }
 
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));

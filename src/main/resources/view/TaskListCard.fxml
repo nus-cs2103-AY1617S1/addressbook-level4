@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -19,26 +19,29 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
             </columnConstraints>
             <children>
-                <VBox id="Task" alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" prefWidth="248.0" GridPane.columnIndex="0">
+                <VBox id="Task" alignment="CENTER_LEFT" minWidth="-Infinity" prefWidth="200.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                     </stylesheets>
-                    <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
-                    </padding>
 
                     <children>
                         <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label" text="ID" />
-                                    <Label fx:id="taskName" styleClass="cell_big_label" text="Name" wrapText="true" />
+                                    <Label fx:id="id" styleClass="cell_big_label" text="index">
+                              <HBox.margin>
+                                 <Insets top="2.0" />
+                              </HBox.margin></Label>
+                                    <Label fx:id="taskName" styleClass="cell_name_label" text="task name" wrapText="true" />
                                 </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" />
+                                <Label fx:id="priority" styleClass="cell_small_label" />
                             </children>
                         </HBox>
                     </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
                 </VBox>
             <VBox alignment="CENTER_RIGHT" prefHeight="115.0" prefWidth="100.0" GridPane.columnIndex="1">
                <children>
@@ -51,7 +54,7 @@
                         <URL value="@Extensions.css" />
                      </stylesheets>
                   </Label>
-                        <Label fx:id="startTime" styleClass="cell_big_label" text="start time" textFill="#0316ee" wrapText="true">
+                        <Label fx:id="startTime" styleClass="cell_small_label" text="start time" textFill="#0316ee" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -72,8 +75,11 @@
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                      </stylesheets>
+                     <VBox.margin>
+                        <Insets right="7.0" />
+                     </VBox.margin>
                   </Label>
-                        <Label fx:id="endTime" styleClass="cell_big_label" text="end time" textFill="#da2b2b" wrapText="true">
+                        <Label fx:id="endTime" styleClass="cell_small_label" text="end time" textFill="#da2b2b" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -81,12 +87,18 @@
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                      </stylesheets>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets right="7.0" />
+                     </VBox.margin>
                   </Label>
                </children>
             </VBox>
             </children>
          <rowConstraints>
-            <RowConstraints />
+            <RowConstraints minHeight="-Infinity" prefHeight="60.0" />
          </rowConstraints>
         </GridPane>
     </children>

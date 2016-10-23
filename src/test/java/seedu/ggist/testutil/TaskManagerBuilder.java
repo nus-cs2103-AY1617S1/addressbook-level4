@@ -23,12 +23,6 @@ public class TaskManagerBuilder {
         taskManager.addTask(task);
         return this;
     }
-
-    public TaskManagerBuilder withTag(String tagName) throws IllegalValueException {
-        taskManager.addTag(new Tag(tagName));
-        return this;
-    }
-
     public TaskManager build(){
         return taskManager;
     }

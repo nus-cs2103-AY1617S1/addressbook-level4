@@ -14,13 +14,9 @@ public class TestTask implements ReadOnlyTask {
     private TaskTime startTime;
     private TaskDate endDate;    
     private TaskTime endTime;
-    private UniqueTagList tags;
+    private Priority priority;
     private boolean done;
     private boolean undo;
-
-    public TestTask() {
-        tags = new UniqueTagList();
-    }
 
     public void setTaskName(TaskName taskName) {
         this.taskName = taskName;
@@ -41,7 +37,12 @@ public class TestTask implements ReadOnlyTask {
     public void setEndTime(TaskTime endTime) {
         this.endTime = endTime;
     }
-
+    
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+    
+   
     @Override
     public TaskName getTaskName() {
         return taskName;
@@ -68,8 +69,8 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return tags;
+    public Priority getPriority() {
+        return priority;
     }
 
     @Override
@@ -93,7 +94,7 @@ public class TestTask implements ReadOnlyTask {
         	sb.append(this.getEndDate().getTestValue() + " ");
         	sb.append(this.getEndTime().value);
         }
-        //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("-" + this.getPriority().value);
         return sb.toString();
     }
 

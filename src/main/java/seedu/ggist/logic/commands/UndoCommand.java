@@ -1,6 +1,7 @@
 package seedu.ggist.logic.commands;
 
 import seedu.ggist.commons.core.Messages;
+import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.Task;
 import seedu.ggist.model.task.UniqueTaskList.DuplicateTaskException;
@@ -18,7 +19,7 @@ public class UndoCommand extends Command {
             + ": Undo the previous command.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_UNDO_COMMAND_SUCCESS = "Undo previous command: %1$s";
+    public static final String MESSAGE_UNDO_COMMAND_SUCCESS = "Undo previous command: %1$s %2$s";
 
     @Override
     public CommandResult execute() {
@@ -57,12 +58,31 @@ public class UndoCommand extends Command {
         }
         
         else if (previousCommand.equals("edit")){
+            redoListOfTasks.push(listOfTasks.peek());
             ReadOnlyTask undoEdit = listOfTasks.pop();
+         
             try {
+                
+                redoEditTaskField.push(editTaskField.peek());
+                
+                if (redoEditTaskField.peek().equals("task")){
+                    redoEditTaskValue.push(undoEdit.getTaskName().toString()); 
+                } else if (redoEditTaskField.peek().equals("start date")){
+                    redoEditTaskValue.push(undoEdit.getStartDate().toString());
+                } else if (redoEditTaskField.peek().equals("end date")){
+                    redoEditTaskValue.push(undoEdit.getEndDate().toString()); 
+                } else if (redoEditTaskField.peek().equals("start time")){
+                    redoEditTaskValue.push(undoEdit.getStartTime().toString()); 
+                } else if (redoEditTaskField.peek().equals("end time")){
+                    redoEditTaskValue.push(undoEdit.getEndTime().toString());
+                } else if (redoEditTaskField.peek().equals("priority")){
+                    redoEditTaskValue.push(undoEdit.getPriority().toString());
+                }
                 model.editTask(undoEdit, editTaskField.pop(), editTaskValue.pop());
             } catch (TaskNotFoundException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
+            } catch (IllegalValueException ive) {
+                new CommandResult(ive.getMessage());
             }
         }
         

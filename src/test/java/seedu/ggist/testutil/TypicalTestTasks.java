@@ -19,14 +19,16 @@ public class TypicalTestTasks {
             		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
             		.withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED)
             		.withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
-            		.build();
+            		.withPriority("low").build();
             deadline = new TaskBuilder().withName("complete assignment")
             		.withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
             		.withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
-            		.withEndDate("Thu, 21 Oct 16").withEndTime("23:59").build();
+            		.withEndDate("Thu, 21 Oct 16").withEndTime("23:59")
+            		.withPriority("high").build();
             event = new TaskBuilder().withName("watch movie")
             		.withStartDate("Fri, 22 Oct 16").withStartTime("21:00")
-            		.withEndDate("Fri, 22 Oct 16").withEndTime("23:00").build();
+            		.withEndDate("Fri, 22 Oct 16").withEndTime("23:00")
+            		.withPriority("med").build();
             
             //Manually added
             dance = new TaskBuilder()

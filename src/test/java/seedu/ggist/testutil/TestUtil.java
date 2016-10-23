@@ -69,11 +69,11 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new TaskName("watch movie"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new UniqueTagList()),
-                    new Task(new TaskName("play soccer"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new UniqueTagList()),
-                    new Task(new TaskName("finish assignment"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new UniqueTagList()),
-                    new Task(new TaskName("road trip"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new UniqueTagList()),
-                    new Task(new TaskName("sky dive"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new UniqueTagList())
+                    new Task(new TaskName("watch movie"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new Priority("low")),
+                    new Task(new TaskName("play soccer"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new Priority("med")),
+                    new Task(new TaskName("finish assignment"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new Priority("high")),
+                    new Task(new TaskName("road trip"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new Priority("med")),
+                    new Task(new TaskName("sky dive"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("8:00 PM"), new TaskDate("Wed, 22 Nov 16"), new TaskTime("10:00 PM"), new Priority("low"))
 
             };
         } catch (IllegalValueException e) {
@@ -136,7 +136,7 @@ public class TestUtil {
     }
 
     public static TaskManager generateEmptyTaskManager() {
-        return new TaskManager(new UniqueTaskList(), new UniqueTagList());
+        return new TaskManager(new UniqueTaskList());
     }
 
     public static XmlSerializableTaskManager generateSampleStorageTaskManager() {

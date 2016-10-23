@@ -40,24 +40,29 @@ public class AddCommand extends Command {
     
     private final Task toAdd;
     private TaskType taskType;
-    final Set<Tag> tagSet = new HashSet<>();
 
     /**
      * Constructor for task with start and end times using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String taskName, String startDate, String startTime, String endDate, String endTime, Set<String> tags) throws IllegalValueException {      
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
+    public AddCommand(String taskName, String startDate, String startTime, String endDate, String endTime, String priority) throws IllegalValueException {      
+
+        if (startTime.equals("")) {
+            startTime = Messages.MESSAGE_NO_START_TIME_SET;
         }
+        
+        if (endTime.equals("")) {
+            endTime = Messages.MESSAGE_NO_END_TIME_SET;
+        }
+        
         this.toAdd = new EventTask(
                 new TaskName(taskName),
                 new TaskDate(startDate),
                 new TaskTime(startTime),
                 new TaskDate(endDate),
                 new TaskTime(endTime),
-                new UniqueTagList(tagSet)
+                new Priority(priority)
         );
         taskType = TaskType.EVENT;
     }
@@ -67,17 +72,19 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String taskName, String date, String endTime, Set<String> tags) throws IllegalValueException {      
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
+    public AddCommand(String taskName, String date, String endTime, String priority) throws IllegalValueException {      
+
+        if (endTime.equals("")) {
+            endTime = Messages.MESSAGE_NO_END_TIME_SET;
         }
+        
         this.toAdd = new DeadlineTask(
                 new TaskName(taskName),
                 new TaskDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED),
                 new TaskTime(Messages.MESSAGE_NO_START_TIME_SET),
                 new TaskDate(date),
                 new TaskTime(endTime),
-                new UniqueTagList(tagSet)
+                new Priority(priority)
         );
         taskType = TaskType.DEADLINE;
     }
@@ -87,17 +94,15 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String taskName, Set<String> tags) throws IllegalValueException {      
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
+    public AddCommand(String taskName, String priority) throws IllegalValueException {      
+
         this.toAdd = new FloatingTask(
                 new TaskName(taskName),
                 new TaskDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED),
                 new TaskTime(Messages.MESSAGE_NO_START_TIME_SET),
                 new TaskDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED),
                 new TaskTime(Messages.MESSAGE_NO_END_TIME_SET),
-                new UniqueTagList(tagSet)
+                new Priority(priority)
         );
         taskType = TaskType.FLOATING;
     }

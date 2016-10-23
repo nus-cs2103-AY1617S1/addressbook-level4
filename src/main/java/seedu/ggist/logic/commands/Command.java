@@ -19,6 +19,9 @@ public abstract class Command {
     public static Stack<ReadOnlyTask> redoListOfTasks = new Stack<ReadOnlyTask>();
     public static Stack<String> editTaskField = new Stack<String>();
     public static Stack<String> editTaskValue = new Stack<String>();
+    public static Stack<String> redoEditTaskField = new Stack<String>();
+    public static Stack<String> redoEditTaskValue = new Stack<String>();
+    
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of task.

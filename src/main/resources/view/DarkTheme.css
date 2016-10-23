@@ -3,29 +3,29 @@
 }
 
 .label {
-    -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 8pt;
+    -fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .label-header {
-    -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-font-size: 12pt;
+    -fx-font-family: "Lucida Console", Monaco, monospace;
+    -fx-text-fill: pink;
     -fx-opacity: 1;
 }
 
 .text-field {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 14pt;
+    -fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 
 .tab-pane {
@@ -65,7 +65,7 @@
 
 .table-view .column-header .label {
     -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
@@ -96,13 +96,20 @@
     -fx-text-fill: #010504;
 }
 
+.cell_name_label {
+	-fx-font-size: 16px;
+	-fx-text-fill: #010504;
+}
+
 .cell_big_label {
-    -fx-font-size: 16px;
+	-fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    -fx-font-size: 13px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-    -fx-font-size: 11px;
+	-fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    -fx-font-size: 12px;
     -fx-text-fill: #010504;
 }
 
@@ -122,6 +129,7 @@
 }
 
 .result-display {
+	-fx-font-family: "Courier New", Courier, monospace;
     -fx-background-color: #ffffff;
 }
 
@@ -130,7 +138,7 @@
 }
 
 .status-bar .label {
-    -fx-text-fill: white;
+    -fx-text-fill: pink;
 }
 
 .status-bar-with-border {
@@ -166,9 +174,9 @@
 }
 
 .menu-bar .label {
-    -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-font-size: 9pt;
+    -fx-font-family: "Lucida Console", Monaco, monospace;
+    -fx-text-fill: pink;
     -fx-opacity: 0.9;
 }
 

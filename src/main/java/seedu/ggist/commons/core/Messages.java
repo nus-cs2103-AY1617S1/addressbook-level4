@@ -20,4 +20,6 @@ public class Messages {
     public static final String MESSAGE_INVALID_TASK_VALUE = "The value for task name provided is invalid";
     public static final String MESSAGE_INVALID_DATE_VALUE = "The value for date provided is invalid";
     public static final String MESSAGE_INVALID_TIME_VALUE = "The value for time provided is invalid";
+    public static final String MESSAGE_INVALID_PRIORITY_VALUE = "The priority value is invalid";
+    public static final String MESSAGE_NO_PRIORITY_VALUE = "No priority level set";
 }

@@ -3,6 +3,7 @@ package seedu.ggist.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.ggist.commons.core.ComponentManager;
 import seedu.ggist.commons.core.LogsCenter;
+import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
 import seedu.ggist.commons.exceptions.IllegalValueException;
@@ -17,6 +18,8 @@ import seedu.ggist.model.task.UniqueTaskList;
 import seedu.ggist.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -29,8 +32,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
+    private String today;
 
-    private String lastListing;
+    public String lastListing;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -54,7 +58,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        updateFilteredListToShowAllUndone();
+        today = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM YY"));
+        updateFilteredListToShowDate(today);
     }
     
     public void setLastListing(String listing) {
@@ -88,9 +93,29 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
-    public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException {
-    	taskManager.editTask(target, field, value);
-    	if (lastListing == null || lastListing.equals("")) {
+    public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException, IllegalValueException {
+ 
+        taskManager.editTask(target, field, value);
+        updateListing();
+    	indicateTaskManagerChanged();
+    }
+
+    @Override
+    public synchronized void addTask(Task task) throws DuplicateTaskException {
+        taskManager.addTask(task);
+        updateListing();
+        indicateTaskManagerChanged();
+    }
+
+    //=========== Filtered Task List Accessors ===============================================================
+
+    /**
+     * Updates filtered list to show based on last shown listing choice
+     */
+    private void updateListing() {
+        if (lastListing == null) {
+            updateFilteredListToShowDate(today);
+        } else if (lastListing.equals("")) {
             updateFilteredListToShowAllUndone();
         } else if (lastListing.equals("done")) {
             updateFilteredListToShowAllDone();
@@ -98,35 +123,21 @@ public class ModelManager extends ComponentManager implements Model {
             updateFilteredListToShowDate(lastListing);
         } else if (lastListing.equals("all")){
             updateFilteredListToShowAll();
-        }
-    	indicateTaskManagerChanged();
+        } 
     }
-
-    @Override
-    public synchronized void addTask(Task task) throws DuplicateTaskException {
-        taskManager.addTask(task);
-        updateFilteredListToShowAllUndone();
-        indicateTaskManagerChanged();
-    }
-
-    //=========== Filtered Task List Accessors ===============================================================
-
+     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-    
-    public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
-    }
 
-    /*@Override
+    @Override
     public void updateFilteredListToShowAll() {
         updateFilteredListToShowAll(new PredicateExpression(new AllQualifier()));
     }
     public void updateFilteredListToShowAll(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
-    }*/
+    }
     
     @Override
     public void updateFilteredListToShowAllDone() {
@@ -200,13 +211,13 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
     
-    /*private class AllQualifier implements Qualifier {
+    private class AllQualifier implements Qualifier {
         AllQualifier() {}
         
         public boolean run(ReadOnlyTask task) {
             return (task != null);
         }
-    }*/
+    }
     
     private class NotDoneQualifier implements Qualifier {
         
@@ -258,8 +269,8 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return taskDateKeyWords.equals(task.getStartDate().toString()) || 
-                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString()) && !task.getDone();
-            
+                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString()) && !task.getDone() ||
+                   (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED));          
         }
 
         @Override

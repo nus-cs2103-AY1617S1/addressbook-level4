@@ -386,10 +386,8 @@ public class LogicManagerTest {
             TaskTime startTime = new TaskTime("18:00");
             TaskDate endDate = new TaskDate("Tue, 18 Oct 16");
             TaskTime endTime = new TaskTime("20:00");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(taskName, startDate, startTime, endDate, endTime, tags);
+            Priority priority = new Priority("high");
+            return new Task(taskName, startDate, startTime, endDate, endTime, priority);
         }
 
         /**
@@ -406,7 +404,7 @@ public class LogicManagerTest {
                     new TaskTime("12:3"+seed),
                     new TaskDate("Thu, 20 Oct 2" + Math.abs(seed)),
                     new TaskTime("21:3" + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new Priority("high")
             );
         }
 
@@ -421,12 +419,7 @@ public class LogicManagerTest {
             cmd.append(" ").append(p.getStartTime());
             cmd.append(",").append(p.getEndDate());
             cmd.append(" ").append(p.getEndTime());
-
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" t/").append(t.tagName);
-            }
-
+            cmd.append(",").append(p.getPriority().toString());
             return cmd.toString();
         }
 
@@ -507,7 +500,7 @@ public class LogicManagerTest {
                     new TaskTime("18:00"),
                     new TaskDate("Thu, 13 Oct 16"),
                     new TaskTime("20:00"),
-                    new UniqueTagList(new Tag("tag"))
+                    new Priority ("high")
             );
         }
     }

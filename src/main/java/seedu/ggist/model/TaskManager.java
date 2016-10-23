@@ -23,11 +23,9 @@ import java.util.stream.Collectors;
 public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
-    private final UniqueTagList tags;
 
     {
         tasks = new UniqueTaskList();
-        tags = new UniqueTagList();
     }
 
     public TaskManager() {
@@ -37,14 +35,14 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Tasks and Tags are copied into this task manager
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList());
     }
 
     /**
      * Tasks and Tags are copied into this task manager
      */
-    public TaskManager(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
+    public TaskManager(UniqueTaskList tasks) {
+        resetData(tasks.getInternalList());
     }
 
     public static ReadOnlyTaskManager getEmptyTaskManager() {
@@ -61,17 +59,13 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tasks.getInternalList().setAll(tasks);
     }
 
-    public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
-    }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks) {
         setTasks(newTasks.stream().map(EventTask::new).collect(Collectors.toList()));
-        setTags(newTags);
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        resetData(newData.getTaskList());
     }
 
     //// task-level operations
@@ -85,30 +79,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      *             if an equivalent task already exists.
      */
     public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(t);
         tasks.add(t);
-    }
-
-    /**
-     * Ensures that every tag in this person: - exists in the master list
-     * {@link #tags} - points to a Tag object in the master list
-     */
-    private void syncTagsWithMasterList(Task task) {
-        final UniqueTagList taskTags = task.getTags();
-        tags.mergeFrom(taskTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
-
-        // Rebuild the list of task tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : taskTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        task.setTags(new UniqueTagList(commonTagReferences));
     }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
@@ -127,7 +98,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
 
-    public void editTask(ReadOnlyTask key, String field, String value) throws UniqueTaskList.TaskNotFoundException {
+    public void editTask(ReadOnlyTask key, String field, String value) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         if (tasks.contains(key)) {
             tasks.edit(key, field, value);
         } else {
@@ -135,17 +106,12 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
 
-    //// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
 
     //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() + " tags";
+        return tasks.getInternalList().size() + " tasks";
         // TODO: refine later
     }
 
@@ -154,10 +120,6 @@ public class TaskManager implements ReadOnlyTaskManager {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
 
     @Override
     public UniqueTaskList getUniqueTaskList() {
@@ -165,22 +127,16 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
-                        && this.tasks.equals(((TaskManager) other).tasks)
-                        && this.tags.equals(((TaskManager) other).tags));
+                        && this.tasks.equals(((TaskManager) other).tasks));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing
         // your own
-        return Objects.hash(tasks, tags);
+        return Objects.hash(tasks);
     }
 }

@@ -4,6 +4,7 @@ import java.util.Set;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
+import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.task.Task;
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.model.task.UniqueTaskList;
@@ -27,8 +28,9 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
-    /** Edits the given task*/
-    void editTask(ReadOnlyTask target, String field, String value) throws UniqueTaskList.TaskNotFoundException;
+    /** Edits the given task
+     * @throws IllegalValueException */
+    void editTask(ReadOnlyTask target, String field, String value) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

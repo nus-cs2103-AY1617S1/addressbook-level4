@@ -80,43 +80,26 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
-    public void edit(ReadOnlyTask toEdit, String field, String value) throws TaskNotFoundException {
+    public void edit(ReadOnlyTask toEdit, String field, String value) throws IllegalValueException {
         assert toEdit != null;
         switch (field) {
         case "task":
-            try {
                 toEdit.getTaskName().editTaskName(value);
-            } catch (IllegalValueException ive) {
-                System.out.printf(Messages.MESSAGE_INVALID_TASK_VALUE);
-            }
             break;
         case "start date":
-            try {
                 toEdit.getStartDate().editDate(value);
-            } catch (IllegalValueException ive) {
-                System.out.printf(Messages.MESSAGE_INVALID_DATE_VALUE);
-            }
             break;
         case "start time":
-            try {
                 toEdit.getStartTime().editTime(value);
-            } catch (IllegalValueException ive) {
-                System.out.printf(Messages.MESSAGE_INVALID_TIME_VALUE);
-            }
             break;
         case "end date":
-            try {
                 toEdit.getEndDate().editDate(value);
-            } catch (IllegalValueException ive) {
-                System.out.printf(Messages.MESSAGE_INVALID_DATE_VALUE);
-            }
             break;
         case "end time":
-            try {
                 toEdit.getEndTime().editTime(value);
-            } catch (IllegalValueException ive) {
-                System.out.printf(Messages.MESSAGE_INVALID_TIME_VALUE, value);
-            }
+            break;
+        case "priority":
+                toEdit.getPriority().editPriority(value);
             break;
         }    
     }

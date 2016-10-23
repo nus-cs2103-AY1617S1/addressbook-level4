@@ -27,8 +27,8 @@ public class XmlAdaptedTask {
     private String endTime;
     @XmlElement(required = true)
     private boolean done;
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    @XmlElement(required = true)
+    private String priority;
 
     /**
      * No-arg constructor for JAXB use.
@@ -48,10 +48,7 @@ public class XmlAdaptedTask {
         endDate = source.getEndDate().value;
         endTime = source.getEndTime().value;
         done = source.getDone();
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
+        priority = source.getPriority().value;
     }
 
     /**
@@ -60,18 +57,14 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> taskTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            taskTags.add(tag.toModelType());
-        }
         final TaskName taskName = new TaskName(this.taskName);
         final TaskDate startDate = new TaskDate(this.startDate);
         final TaskTime startTime = new TaskTime(this.startTime);
         final TaskDate endDate = new TaskDate(this.endDate);
         final TaskTime endTime = new TaskTime(this.endTime);
         final boolean done = this.done;
-        final UniqueTagList tags = new UniqueTagList(taskTags);
-        Task newTask = new EventTask(taskName, startDate, startTime, endDate, endTime, tags);
+        final Priority priority = new Priority(this.priority);
+        Task newTask = new Task(taskName, startDate, startTime, endDate, endTime, priority);
         if (done) {
             newTask.setDone(); 
         }

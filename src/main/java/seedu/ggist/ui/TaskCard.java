@@ -26,7 +26,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label endTime;
     @FXML
-    private Label tags;
+    private Label priority;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -66,7 +66,12 @@ public class TaskCard extends UiPart{
         } else {
             endTime.setText(task.getEndTime().value);
         }
-        tags.setText(task.tagsString());
+        if (task.getPriority().value.equals(Messages.MESSAGE_NO_PRIORITY_VALUE)) {
+            priority.setText("");
+        } else {
+            priority.setText(task.getPriority().value);
+        }
+        
     }
 
     public HBox getLayout() {

@@ -17,7 +17,7 @@ public class Task implements ReadOnlyTask{
     protected TaskTime startTime;
     protected TaskDate endDate;
     protected TaskTime endTime;
-    protected UniqueTagList tags;
+    protected Priority priority;
     protected boolean done;
 
     /**
@@ -25,13 +25,13 @@ public class Task implements ReadOnlyTask{
      * 
     */     
     
-    public Task(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, UniqueTagList tags) {
+    public Task(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority) {
         this.taskName = taskName;
         this.startDate = startDate;
         this.startTime = startTime;
         this.endDate = endDate;
         this.endTime = endTime;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.priority = priority;
         this.done = false;
     }
     
@@ -40,21 +40,8 @@ public class Task implements ReadOnlyTask{
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getTags());
+        this(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getPriority());
     }
-
-    @Override
-    public UniqueTagList getTags() {
-        return tags;
-    }
-
-    /**
-     * Replaces this task's tags with the tags in the argument tag list.
-     */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
-    }
-    
     public void setDone() {
         done = true;
     }
@@ -102,6 +89,11 @@ public class Task implements ReadOnlyTask{
     }
     
     @Override
+    public Priority getPriority() {
+        return priority;
+    }
+    
+    @Override
     public String toString() {
         return getAsText();
     }
@@ -110,7 +102,8 @@ public class Task implements ReadOnlyTask{
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(taskName,startDate, startTime, endDate, endTime, tags);
+        return Objects.hash(taskName,startDate, startTime, endDate, endTime, priority);
     }
+
 
 }

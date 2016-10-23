@@ -23,12 +23,9 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
-    @XmlElement
-    private List<Tag> tags;
 
     {
         tasks = new ArrayList<>();
-        tags = new ArrayList<>();
     }
 
     /**
@@ -41,18 +38,6 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
      */
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        tags = src.getTagList();
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override
@@ -62,7 +47,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
             try {
                 lists.add(t.toModelType());
             } catch (IllegalValueException e) {
-                //TODO: better error handling
+                System.out.println(e.getMessage());
             }
         }
         return lists;
@@ -81,9 +66,5 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
-    }
 
 }

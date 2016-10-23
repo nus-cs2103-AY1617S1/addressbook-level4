@@ -52,22 +52,20 @@ Format: `help`
  
 #### Adding a task: `add`
 Adds a task to GGist<br>
-General format: `add TASK,[DATE] [TIME], [PRIORITY], [FREQUENCY]`
+General format: `add TASK,[DATE] [TIME], [PRIORITY]`
 
 > * `[DATE]` and `[TIME]` has to separated by a space.
 
 >**`Date` Format**
-> * `10 Oct` , `tuesday`, `tomorrow` , `next fri` works!
+> * `10 Oct` , `tuesday`, `tomorrow` , `next fri` works.
 
 >**`PRIORITY` Format**
-> * `low` , `med` , `high`
-
->**`FREQUENCY` Format**
-> * `daily` , `weekly` , `fortnightly` , `monthly` , `yearly`
+> * Prefix with a dash `-`
+> * `-low` , `-med` , `-high`
 
 
 ##### Without any deadline
-Format: `add TASK, [DATE] [TIME], [PRIORITY], [FREQUENCY]`
+Format: `add TASK, [DATE] [TIME] [PRIORITY]`
 
 Examples: 
 * `add buy milk, low`
@@ -75,44 +73,39 @@ Examples:
 
 
 ##### With deadline
-Format: `add TASK, DATE TIME, [PRIORITY], [FREQUENCY]`
+Format: `add TASK, DATE TIME [PRIORITY]`
 
 Examples: 
 * `add write diary, tomorrow 1300`
-* `add prepare presentation slides by monday 2pm, high`
+* `add prepare presentation slides by monday 2pm -high`
 
+> * The comma after `[TASK]` can be replaced with `by` or `on`.<br>
 > * `[DATE]` and `[TIME]` has to separated by a space or an 'at'.<br>
 
 
 ##### With start and end time within the same day
-Format: `add TASK, DATE, START TIME, END TIME, [PRIORITY], [FREQUENCY]`
+Format: `add TASK, DATE, START TIME, END TIME [PRIORITY]`
 
 Examples: 
-* `add tennis, 21 nov, 1pm, 3pm, high`
-* `add lunch with parents on friday from 12pm-1pm`
+* `add tennis, 21 nov, 1pm-3pm -high`
+* `add lunch with parents on friday from 12pm to 1pm`
 
+> * The comma after `[TASK]` can be replaced with `on`.<br>
 > * The comma after `[DATE]` can be replaced with a space. <br>
-> * The comma after `[START TIME]` can be replaced with a `-`. <br>
+> * The comma after `[START TIME]` can be replaced with `to`.<br>
 
 
 ##### With start and end time on different days
-Format: `add TASK, START DATE TIME, END DATE TIME, [PRIORITY], [FREQUENCY]`
+Format: `add TASK, START DATE TIME, END DATE TIME [PRIORITY]`
 
 Examples: 
-* `add dad's birthday celebration, next thurs 1900, next thurs 2100, high`
-* `add going overseas from fri at 1pm-next fri at 10pm`
+* `add dad's birthday celebration, next thurs 1900, next thurs 2100 -high`
+* `add going overseas from fri at 1pm to next fri at 10pm`
 
+> * The comma after `[TASK]` can be replaced with `from`.<br>
 > * `[DATE]` and `[TIME]` has to separated by a space. <br>
-> * The comma after `[START DATE TIME]` can be replaced with a `-`.
+> * The comma after `[START DATE TIME]` can be replaced with a `to`.
 
-##### Recurring
-To make tasks repeating, simply  add the FREQUENCY parameter at the back.
-
-Format: `add TASK, [DATE] [TIME], [PRIORITY], [FREQUENCY]`
-
-Examples: 
-* `add water the plants, 0800, high, daily`
-* `add facial appointment, jul 10, med, monthly`
 
 #### Listing all tasks : `list`
 Shows a list of all tasks in a particular day.<br>

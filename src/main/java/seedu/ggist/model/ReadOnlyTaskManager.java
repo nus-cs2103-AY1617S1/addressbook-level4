@@ -13,18 +13,11 @@ import seedu.ggist.model.task.UniqueTaskList;
  */
 public interface ReadOnlyTaskManager {
 
-    UniqueTagList getUniqueTagList();
-
     UniqueTaskList getUniqueTaskList();
 
     /**
      * Returns an unmodifiable view of tasks list
      */
     List<ReadOnlyTask> getTaskList();
-
-    /**
-     * Returns an unmodifiable view of tags list
-     */
-    List<Tag> getTagList();
 
 }
