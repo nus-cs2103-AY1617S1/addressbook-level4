@@ -334,7 +334,6 @@ public class JimiParser {
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
-        // actual integer index is everything after the first character prefix.
         Optional<Integer> index = parseIndex(args); 
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
