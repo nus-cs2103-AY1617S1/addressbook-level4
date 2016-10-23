@@ -409,12 +409,17 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-Product Name | Strength | Weakness  
+Product Name    | Strengths | Weaknesses | Conclusion
 
-Google Calendar | Understands NLP | Very slow to use, requires a lot of steps to add a simple event
+Google Calendar | Used worldwide, easy to use, understands NLP  | Slow, requires internet access, has crashed in recent history | Our application works offline and is both faster and has NLP as well
 
-Todo.txt | Simplistic, works across devices | Quite complicated for new users to pick up as it has a whole range of shortcut-commands
+Todo.txt        | Works across devices and operating systems    | Quite complicated for new users to pick up as it has a whole range of shortcut-commands | Our application accepts both short cut commands and normal commands, and syncs with Google Calendar to work across devices and platforms
 
-Swipes | Simple, cross-platform | Unable to specify data storage location |
+Swipes          | Simple, cross-platform                        | Unable to specify data storage location  | Our application allows users to specify a location to save data
 
-Fantastical| Uses NLP, quick access in mini window | Works only on Mac/iOS platform
+Fantastical     | Uses NLP, quick access in mini window         | Works only on Mac/iOS platform | Our application works on major computer operating systems, and since it allows syncing onto Google Calendar, one can even use mobile devices to view and update their task manager
+
+Apple Reminders | Easy-to-use, fast, backed up on the cloud     | Only works in Apple's ecosystem  | Our application allows users to back up to Google Calendar, which works on most devices and thus most people can use it, along with backing up their data to the cloud through Google Calendar
+
+
+
