@@ -235,9 +235,9 @@ public class Parser {
      */
     private Command prepareDelete(String args) {
         String[] parts = args.split(",");
-        int[] integers = new int[parts.length];
-        for (int i = 0; i < integers.length; i++){
-            integers[i] = Integer.parseInt(parts[0]);
+        ArrayList<Integer> indexes = new ArrayList<Integer>();
+        for (int i = 0; i < parts.length; i++){
+            indexes.add(Integer.parseInt(parts[i].trim()));
         }
         
         for(int i = 0; i < parts.length; i++){
@@ -248,7 +248,7 @@ public class Parser {
             }
         }
         
-        return new DeleteCommand(integers);
+        return new DeleteCommand(indexes);
     }
     
     /**

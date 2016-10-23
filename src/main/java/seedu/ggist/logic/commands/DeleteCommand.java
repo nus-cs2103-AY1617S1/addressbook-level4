@@ -1,5 +1,8 @@
 package seedu.ggist.logic.commands;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.model.task.ReadOnlyTask;
@@ -19,22 +22,24 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
-    public final int[] targetIndexes;
+    public final ArrayList<Integer> targetIndexes;
 
-    public DeleteCommand(int[] integers) {
-        this.targetIndexes = integers;
+    public DeleteCommand(ArrayList<Integer> indexes) {
+        this.targetIndexes = indexes;
     }
 
 
     @Override
     public CommandResult execute() {
-        for(int i = 0; i < targetIndexes.length; i++){
+        Collections.sort(targetIndexes);
+        for(int i = 0; i < targetIndexes.size(); i++){
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        if (lastShownList.size() < targetIndexes[0]) {
+        if (lastShownList.size() + i < targetIndexes.get(i)) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndexes[0] - 1);
+       // int taskIndex = i>0 ? targetIndexes.get(i) -2: targetIndexes.get(i) -1;
+        ReadOnlyTask taskToDelete = lastShownList.get(targetIndexes.get(i) - 1 - i);
         try {
             model.deleteTask(taskToDelete);
             listOfCommands.push(COMMAND_WORD);
@@ -43,8 +48,19 @@ public class DeleteCommand extends Command {
             assert false : "The target task cannot be missing";
         }
         }
-       
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, targetIndexes.toString()));
+        
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < targetIndexes.size(); i++){
+            if (i != targetIndexes.size()-1){
+                sb.append(targetIndexes.get(i));
+                sb.append(", ");            
+            }
+            else {
+                sb.append(targetIndexes.get(i));
+            }
+        }
+        System.out.print(sb.toString());
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS,sb.toString()));
     }
 
 
