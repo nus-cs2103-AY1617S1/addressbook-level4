@@ -12,7 +12,7 @@ import seedu.task.commons.core.Config;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
 import seedu.task.commons.events.ui.JumpToListRequestEvent;
-import seedu.task.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.task.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.task.commons.events.ui.ShowHelpRequestEvent;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.Logic;
@@ -119,7 +119,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+    private void handlePersonPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadPersonPage(event.getNewSelection());
     }

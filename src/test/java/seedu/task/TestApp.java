@@ -5,9 +5,9 @@ import javafx.stage.Stage;
 import seedu.task.MainApp;
 import seedu.task.commons.core.Config;
 import seedu.task.commons.core.GuiSettings;
-import seedu.task.model.ReadOnlyAddressBook;
+import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.UserPrefs;
-import seedu.task.storage.XmlSerializableAddressBook;
+import seedu.task.storage.XmlSerializableTaskManager;
 import seedu.task.testutil.TestUtil;
 
 import java.util.function.Supplier;
@@ -23,13 +23,13 @@ public class TestApp extends MainApp {
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
     protected static final String ADDRESS_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyTaskManager> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyTaskManager> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
@@ -37,7 +37,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             TestUtil.createDataFileWithData(
-                    new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+                    new XmlSerializableTaskManager(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }

@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.task.commons.core.LogsCenter;
-import seedu.task.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.task.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.task.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
@@ -19,8 +19,8 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+public class TaskListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
     private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
@@ -28,7 +28,7 @@ public class PersonListPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyTask> personListView;
 
-    public PersonListPanel() {
+    public TaskListPanel() {
         super();
     }
 
@@ -47,12 +47,12 @@ public class PersonListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+    public static TaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
                                        ObservableList<ReadOnlyTask> personList) {
-        PersonListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(personList);
-        return personListPanel;
+        TaskListPanel taskListPanel =
+                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new TaskListPanel());
+        taskListPanel.configure(personList);
+        return taskListPanel;
     }
 
     private void configure(ObservableList<ReadOnlyTask> personList) {
@@ -76,7 +76,7 @@ public class PersonListPanel extends UiPart {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                        raise(new PersonPanelSelectionChangedEvent(newValue));
+                        raise(new TaskPanelSelectionChangedEvent(newValue));
                     }
                 });
     }
@@ -101,7 +101,7 @@ public class PersonListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(person, getIndex() + 1).getLayout());
             }
         }
     }

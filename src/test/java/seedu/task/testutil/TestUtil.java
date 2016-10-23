@@ -17,11 +17,11 @@ import seedu.task.TestApp;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.FileUtil;
 import seedu.task.commons.util.XmlUtil;
-import seedu.task.model.AddressBook;
+import seedu.task.model.TaskManager;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.*;
-import seedu.task.storage.XmlSerializableAddressBook;
+import seedu.task.storage.XmlSerializableTaskManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -136,12 +136,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniqueTaskList(), new UniqueTagList());
+    public static TaskManager generateEmptyAddressBook() {
+        return new TaskManager(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableTaskManager generateSampleStorageAddressBook() {
+        return new XmlSerializableTaskManager(generateEmptyAddressBook());
     }
 
     /**

@@ -4,7 +4,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.ReadOnlyAddressBook;
+import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.ReadOnlyTask;
@@ -19,10 +19,10 @@ import java.util.stream.Collectors;
  * An Immutable AddressBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
+public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @XmlElement
-    private List<XmlAdaptedPerson> persons;
+    private List<XmlAdaptedTask> persons;
     @XmlElement
     private List<Tag> tags;
 
@@ -34,13 +34,13 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     /**
      * Empty constructor required for marshalling
      */
-    public XmlSerializableAddressBook() {}
+    public XmlSerializableTaskManager() {}
 
     /**
      * Conversion
      */
-    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
-        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
+    public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
+        persons.addAll(src.getPersonList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -58,7 +58,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     @Override
     public UniqueTaskList getUniquePersonList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedPerson p : persons) {
+        for (XmlAdaptedTask p : persons) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
