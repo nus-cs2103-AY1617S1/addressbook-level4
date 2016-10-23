@@ -24,7 +24,8 @@ public class CommandParser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
+    
+  //@@author A0147944U
     private static final Pattern NATURAL_ARGS_FORMAT = 
     		Pattern.compile("(?<name>[^#/:.]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
@@ -42,13 +43,15 @@ public class CommandParser {
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME_AND_DEADLINE = 
             Pattern.compile("(?<name>[^:.]+)" + "(at |from )(?<startTime>[^/]+)" + "to (?<endTime>[^/]+)" + "by (?<deadline>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+  //@@author
     
     public static final Pattern EDIT_TASK_DATA_ARGS_FORMAT_NATURAL = 
     					Pattern.compile("(?<targetIndex>.)"
     							+ " (?<content>.*)");
-    
+  //@@author A0147944U
     public static final Pattern DIRECTORY_ARGS_FORMAT = 
             Pattern.compile("(?<directory>[^<>|]+)");
+  //@@author
     
     public CommandParser() {}
 
@@ -97,11 +100,13 @@ public class CommandParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
             
+          //@@author A0147944U            
         case DirectoryCommand.COMMAND_WORD:
             return prepareDirectory(arguments);
             
         case BackupCommand.COMMAND_WORD:
             return prepareBackup(arguments);
+          //@@author
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -466,6 +471,7 @@ public class CommandParser {
         return new FindCommand(keywordSet);
     }
     
+  //@@author A0147944U
     /**
      * Parses arguments in the context of the directory command.
      *
@@ -499,4 +505,5 @@ public class CommandParser {
                 matcher.group("directory")
                 );
     }
+  //@@author
 }
