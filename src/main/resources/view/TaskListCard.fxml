@@ -42,7 +42,7 @@
                   <Insets left="10.0" />
                </padding>
                 </VBox>
-            <VBox alignment="CENTER_RIGHT" prefHeight="115.0" prefWidth="100.0" GridPane.columnIndex="1">
+            <VBox alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="100.0" GridPane.columnIndex="1">
                <children>
                         <Label fx:id="startDate" styleClass="cell_big_label" text="start day" textFill="#0316ee" wrapText="true">
                      <font>
@@ -64,7 +64,7 @@
                   </Label>
                </children>
             </VBox>
-            <VBox alignment="CENTER_RIGHT" prefHeight="115.0" prefWidth="100.0" GridPane.columnIndex="2">
+            <VBox alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="100.0" GridPane.columnIndex="2">
                <children>
                         <Label fx:id="endDate" styleClass="cell_big_label" text="end day" textFill="#da2b2b" wrapText="true">
                      <font>
