@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.control.ColorPicker;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.model.task.ReadOnlyTask;
 
@@ -25,11 +27,17 @@ public class TaskCard extends UiPart{
     private Label endDate;
     @FXML
     private Label endTime;
-    @FXML
-    private Label priority;
+    //@FXML
+    //private Label priority;
 
     private ReadOnlyTask task;
     private int displayedIndex;
+    
+    private ColorPicker low = new ColorPicker(Color.web("#ffa900"));
+    private ColorPicker med = new ColorPicker(Color.web("#ff5c00"));
+    private ColorPicker high = new ColorPicker(Color.web("#ff0000"));
+    private ColorPicker none = new ColorPicker(Color.BLACK);
+    private ColorPicker done = new ColorPicker(Color.web("#2eb211"));
 
     public TaskCard(){
 
@@ -67,11 +75,22 @@ public class TaskCard extends UiPart{
             endTime.setText(task.getEndTime().value);
         }
         if (task.getPriority().value.equals(Messages.MESSAGE_NO_PRIORITY_VALUE)) {
-            priority.setText("");
+            id.textFillProperty().bind(none.valueProperty());
+            //priority.setText("");
         } else {
-            priority.setText(task.getPriority().value);
+            String level = task.getPriority().value;
+            if (level.equals("low")) {
+                id.textFillProperty().bind(low.valueProperty());
+            } else if (level.equals("med")) {
+                id.textFillProperty().bind(med.valueProperty());
+            } else if (level.equals("high")) {
+                id.textFillProperty().bind(high.valueProperty());
+            }
+            //priority.setText(level);
         }
-        
+        if (task.getDone()) {
+            taskName.textFillProperty().bind(done.valueProperty());
+        }     
     }
 
     public HBox getLayout() {
