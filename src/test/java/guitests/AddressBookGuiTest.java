@@ -105,11 +105,19 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
-     * Asserts the size of the task list is equal to the given number.
+     * Asserts the size of the incomplete task list is equal to the given number.
      */
-    protected void assertListSize(int size) {
-        int numberOfPeople = taskListPanel.getNumberOfPeople();
-        assertEquals(size, numberOfPeople);
+    protected void assertIncompleteListSize(int size) {
+        int numberOfTask = taskListPanel.getNumberOfTask();
+        assertEquals(size, numberOfTask);
+    }
+    
+    /**
+     * Asserts the size of the complete task list is equal to the given number.
+     */
+    protected void assertCompleteListSize(int size) {
+        int numberOfTask = completeTaskListPanel.getNumberOfTask();
+        assertEquals(size, numberOfTask);
     }
 
     /**

@@ -14,10 +14,10 @@ public class ClearCommandTest extends AddressBookGuiTest {
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.meeting.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.meeting));
+        commandBox.runCommand(td.event.getAddCommand());
+        assertTrue(taskListPanel.isListMatching(td.event));
         commandBox.runCommand("delete 1");
-        assertListSize(0);
+        assertIncompleteListSize(0);
 
         //verify clear command works when the list is empty
         assertClearCommandSuccess();
@@ -25,7 +25,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
 
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
-        assertListSize(0);
-        assertResultMessage("Address book has been cleared!");
+        assertIncompleteListSize(0);
+        assertResultMessage("Incomplete task has been cleared!");
     }
 }

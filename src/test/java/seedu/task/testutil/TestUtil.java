@@ -336,10 +336,11 @@ public class TestUtil {
      * @param tasksToAdd The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
-    public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
-        List<TestTask> listOfTasks = asList(tasks);
-        listOfTasks.addAll(asList(tasksToAdd));
-        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    public static TestTaskList addTasksToList(final TestTaskList list, TestTask... tasksToAdd) {
+        List<TestTask> incompleteTaskList = asList(list.getIncompleteList());
+        List<TestTask> completeTaskList = asList(list.getCompleteList());
+        incompleteTaskList.addAll(asList(tasksToAdd));
+        return new TestTaskList(incompleteTaskList, completeTaskList);
     }
 
     private static <T> List<T> asList(T[] objs) {

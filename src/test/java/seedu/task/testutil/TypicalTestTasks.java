@@ -9,48 +9,55 @@ import seedu.todolist.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask  campaign, dinnerMum, dinnerFriend, dinnerChristmas, proposal, buyMilk, meeting, goGym;
+    public static TestTask  eventWithoutParameters, 
+                            eventWithLocation, 
+                            eventWithRemarks,
+                            eventWithLocationAndRemarks, 
+                            deadlineWithoutParameter, 
+                            deadlineWithLocation, 
+                            event, 
+                            deadline;
 
     public TypicalTestTasks() {
         try {
-            campaign = new TaskBuilder().withName("Student Campaign")
-                    .withInterval("13/10/2016", "9:30am", "18/10/2016", "6:00pm")
-                    .withLocation("NUS")
-                    .withRemarks("print flyers")
-                    .withStatus(false).build();
-            dinnerMum = new TaskBuilder().withName("Dinner with mum")
-                    .withInterval("14 oct 2016", "7pm", "14 oct 2016", "8pm")
-                    .withLocation("Star Vista")
-                    .withRemarks("make reservation")
-                    .withStatus(false).build();
-            dinnerFriend = new TaskBuilder().withName("Dinner with a friend")
-                    .withInterval("18 nov 2016", "7pm", "18 nov 2016", "8pm")
-                    .withLocation("East Coast")
+            eventWithoutParameters = new TaskBuilder().withName("Event without parameters")
+                    .withInterval("13/12/2016", "9:30am", "18/12/2016", "6:00pm")
+                    .withLocation(null)
                     .withRemarks(null)
                     .withStatus(false).build();
-            dinnerChristmas = new TaskBuilder().withName("Dinner for christmas")
+            eventWithLocation = new TaskBuilder().withName("Event with location")
+                    .withInterval("20 nov 2016", "11:00", "23 nov 2016", "23:59")
+                    .withLocation("Office")
+                    .withRemarks(null)
+                    .withStatus(false).build();
+            eventWithRemarks = new TaskBuilder().withName("Event with remarks")
                     .withInterval("24/12/2016", "7:30pm", "24/12/2016", "9:00pm")
-                    .withLocation("RWS")
+                    .withLocation(null)
                     .withRemarks("buy present")
                     .withStatus(false).build();
-            proposal = new TaskBuilder().withName("Submit proposal")
+            eventWithLocationAndRemarks = new TaskBuilder().withName("Event with location and remarks")
+                    .withInterval("18 nov 2016", "7pm", "18 nov 2016", "8pm")
+                    .withLocation("East Coast")
+                    .withRemarks("buy present")
+                    .withStatus(false).build();
+            deadlineWithoutParameter = new TaskBuilder().withName("Deadline without parameter")
                     .withInterval(null, null, "24 nov 2016", "23:59")
                     .withLocation(null)
                     .withRemarks(null)
                     .withStatus(false).build();
-            buyMilk = new TaskBuilder().withName("Buy milk")
+            deadlineWithLocation = new TaskBuilder().withName("Deadline with location")
                     .withInterval(null, null, "28 nov 2016", null)
                     .withLocation("Fairprice")
                     .withRemarks(null)
                     .withStatus(false).build();
           
             //Manually added
-            meeting = new TaskBuilder().withName("ABC project meeting")
+            event = new TaskBuilder().withName("ABC project meeting")
                     .withInterval("12/10/2016", "10am", "12 oct 2016", "11:30am")
                     .withLocation("Orchard")
                     .withRemarks("prepare agenda")
                     .withStatus(false).build();
-            goGym = new TaskBuilder().withName("Go gym")
+            deadline = new TaskBuilder().withName("Go gym")
                     .withInterval(null, null, "13 nov 2016", null)
                     .withLocation(null)
                     .withRemarks("bring towel")
@@ -65,19 +72,20 @@ public class TypicalTestTasks {
     public static void loadAddressBookWithSampleData(AddressBook ab) {
 
         try {
-            ab.addTask(new Task(campaign));
-            ab.addTask(new Task(dinnerMum));
-            ab.addTask(new Task(dinnerFriend));
-            ab.addTask(new Task(dinnerChristmas));
-            ab.addTask(new Task(proposal));
-            ab.addTask(new Task(buyMilk));
+            ab.addTask(new Task(eventWithoutParameters));
+            ab.addTask(new Task(eventWithLocation));
+            ab.addTask(new Task(eventWithRemarks));
+            ab.addTask(new Task(eventWithLocationAndRemarks));
+            ab.addTask(new Task(deadlineWithoutParameter));
+            ab.addTask(new Task(deadlineWithLocation));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{campaign, dinnerMum, dinnerFriend, dinnerChristmas, proposal, buyMilk};
+        return new TestTask[]{eventWithoutParameters, eventWithLocation, eventWithRemarks, 
+                eventWithLocationAndRemarks, deadlineWithoutParameter, deadlineWithLocation};
     }
 
     public AddressBook getTypicalAddressBook(){

@@ -8,8 +8,7 @@ public class TestTaskList {
     private ArrayList<TestTask> testIncompleteTasks;
     
     public TestTaskList() {
-        testCompleteTasks = new ArrayList<TestTask>();
-        testIncompleteTasks = new ArrayList<TestTask>();
+        clear();
     }
     
     public TestTaskList(List<TestTask> incompleteList, List<TestTask> completeList) {
@@ -29,15 +28,6 @@ public class TestTaskList {
         }
     }
     
-    public TestTask[] getList(boolean isCompleteList) {
-        if (isCompleteList) {
-            return getCompleteList();
-        }
-        else {
-            return getIncompleteList();
-        }
-    }
-    
     public TestTask[] getCompleteList() {
         TestTask[] completeTasks = new TestTask[testCompleteTasks.size()];
         return testCompleteTasks.toArray(completeTasks);
@@ -46,6 +36,11 @@ public class TestTaskList {
     public TestTask[] getIncompleteList() {
         TestTask[] incompleteTasks = new TestTask[testIncompleteTasks.size()];
         return testIncompleteTasks.toArray(incompleteTasks);
+    }
+    
+    public void clear() {
+        testCompleteTasks = new ArrayList<TestTask>();
+        testIncompleteTasks = new ArrayList<TestTask>();
     }
     
 }

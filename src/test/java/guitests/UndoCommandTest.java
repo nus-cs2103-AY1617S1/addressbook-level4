@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.task.testutil.TestTask;
+import seedu.task.testutil.TestTaskList;
 import seedu.task.testutil.TestUtil;
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.logic.commands.UndoCommand;
@@ -21,11 +22,11 @@ public class UndoCommandTest extends AddressBookGuiTest {
         assertResultMessage(UndoCommand.MESSAGE_WITHOUT_PREVIOUS_OPERATION);
     	
         //undo one operation
-        TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.goGym;
+        TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
+        TestTask taskToAdd = td.event;
         commandBox.runCommand(taskToAdd.getAddCommand());
-        commandBox.runCommand("delete " + currentList.length);
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        commandBox.runCommand("delete " + currentList.getIncompleteList().length);
+        TestTaskList expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertUndoCommandSuccess(expectedList);
               
         //undo another operation again after undoing one operation
@@ -36,9 +37,9 @@ public class UndoCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
     
-    private void assertUndoCommandSuccess(TestTask[] expectedList) {
+    private void assertUndoCommandSuccess(TestTaskList expectedList) {
         commandBox.runCommand("undo");
-        assertTrue(taskListPanel.isListMatching(expectedList));
+        assertTrue(taskListPanel.isListMatching(expectedList.getIncompleteList()));
         assertResultMessage(UndoCommand.MESSAGE_SUCCESS);
     }
 }
