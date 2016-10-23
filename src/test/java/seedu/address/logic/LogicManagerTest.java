@@ -346,6 +346,149 @@ public class LogicManagerTest {
         
         TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
         expectedAB.removeTask(threePersons.get(1));
+        
+        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
+
+        assertCommandBehavior("delete E2",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, /*threePersons.get(1)*/ new String("[E2]")),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }
+    
+    @Test
+    public void execute_delete_removesCorrectPersonsEventMultiple() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+        
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        expectedAB.removeTask(threePersons.get(0));
+        expectedAB.removeTask(threePersons.get(1));
+        expectedAB.removeTask(threePersons.get(2));
+        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
+
+        assertCommandBehavior("delete E1, E2, E3",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, /*threePersons.get(1)*/ new String("[E1, E2, E3]")),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }
+    
+    @Test
+    public void execute_delete_removesCorrectPersonsEventRange() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+        
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        expectedAB.removeTask(threePersons.get(0));
+        expectedAB.removeTask(threePersons.get(1));
+        expectedAB.removeTask(threePersons.get(2));
+        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
+
+        assertCommandBehavior("delete E1-E3",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, /*threePersons.get(1)*/ new String("[E1, E2, E3]")),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }
+    
+    @Test
+    public void execute_delete_removesCorrectPersonsDeadlineRange() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+        
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        expectedAB.removeTask(threeDeadlines.get(0));
+        expectedAB.removeTask(threeDeadlines.get(1));
+        expectedAB.removeTask(threeDeadlines.get(2));
+        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
+
+        assertCommandBehavior("delete D1-D3",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, /*threePersons.get(1)*/ new String("[D1, D2, D3]")),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }
+    @Test
+    public void execute_delete_removesCorrectPersonsDeadlineMultiple() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+        
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        expectedAB.removeTask(threeDeadlines.get(0));
+        expectedAB.removeTask(threeDeadlines.get(1));
+        expectedAB.removeTask(threeDeadlines.get(2));
+        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
+
+        assertCommandBehavior("delete D1, D2, D3",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, /*threePersons.get(1)*/ new String("[D1, D2, D3]")),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }
+    @Test
+    public void execute_delete_removesCorrectPersonsTodoRange() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+        
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        expectedAB.removeTask(threeTodos.get(0));
+        expectedAB.removeTask(threeTodos.get(1));
+        expectedAB.removeTask(threeTodos.get(2));
+        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
+
+        assertCommandBehavior("delete T1-T3",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, /*threePersons.get(1)*/ new String("[T1, T2, T3]")),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }
+    @Test
+    public void execute_delete_removesCorrectPersonsTodoMultiple() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+        
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        expectedAB.removeTask(threeTodos.get(0));
+        expectedAB.removeTask(threeTodos.get(1));
+        expectedAB.removeTask(threeTodos.get(2));
+        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
+
+        assertCommandBehavior("delete T1, T2, T3",
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, /*threePersons.get(1)*/ new String("[T1, T2, T3]")),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }
+    
+    @Test
+    public void execute_edit_editCorrectPerson() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+        
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        expectedAB.removeTask(threePersons.get(1));
         helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
 
         assertCommandBehavior("delete E2",
@@ -700,6 +843,58 @@ public class LogicManagerTest {
                     new UniqueTagList(new Tag("tag"))
             );
         }
+        /**
+         * Generates a Task event object with given date. Other fields will have some dummy values.
+         */
+        Task generatePersonWithDate(String date) throws Exception {
+            return new Task(
+                    new Name("Event"),
+                    new Date(date),
+                    new Start("12.21am"),
+                    new End("1300"),
+                    1,
+                    new UniqueTagList(new Tag("tag"))
+            );
+        }
+        /**
+         * Generates a Task event object with given date. Other fields will have some dummy values.
+         */
+        Task generatePersonWithStart(String start) throws Exception {
+            return new Task(
+                    new Name("Event"),
+                    new Date("31/12/16"),
+                    new Start(start),
+                    new End("1300"),
+                    1,
+                    new UniqueTagList(new Tag("tag"))
+            );
+        }
+        /**
+         * Generates a Task event object with given date. Other fields will have some dummy values.
+         */
+        Task generatePersonWithEnd(String end) throws Exception {
+            return new Task(
+                    new Name("Event"),
+                    new Date("31/12/16"),
+                    new Start("12.21am"),
+                    new End("end"),
+                    1,
+                    new UniqueTagList(new Tag("tag"))
+            );
+        }
+        /**
+         * Generates a Task event object with given date. Other fields will have some dummy values.
+         */
+        Task generatePersonWithTag(String tag) throws Exception {
+            return new Task(
+                    new Name("Event"),
+                    new Date("31/12/16"),
+                    new Start("12.21am"),
+                    new End("1300"),
+                    1,
+                    new UniqueTagList(new Tag(tag))
+            );
+        }
         
         /**
          * Generates a Task deadline object with given name. Other fields will have some dummy values.
@@ -728,5 +923,7 @@ public class LogicManagerTest {
                     new UniqueTagList(new Tag("tag"))
             );
         }
+        
+        
     }
 }
