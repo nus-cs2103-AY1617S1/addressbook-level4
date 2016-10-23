@@ -127,21 +127,19 @@ public class TaskBook implements ReadOnlyTaskBook {
      *  - points to a Tag object in the master list
      */
     private void syncTagsWithMasterList(Task task) {
+        
         final UniqueTagList taskTags = task.getTags();
         tags.mergeFrom(taskTags);
 
         // Create map with values = tag object references in the master list
+        // used for checking person tag references
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
+        tags.forEach(tag -> masterTagObjects.put(tag, tag));
 
-        // Rebuild the list of person tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : taskTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        task.setTags(new UniqueTagList(commonTagReferences));
+        // Rebuild the list of person tags to point to the relevant tags in the master tag list.
+        final Set<Tag> correctTagReferences = new HashSet<>();
+        taskTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
+        task.setTags(new UniqueTagList(correctTagReferences));
     }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {       
@@ -194,7 +192,9 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     @Override
     public String toString() {
-        return datedTasks.getInternalList().size() + " datedTasks, " + tags.getInternalList().size() +  " tags";
+        return datedTasks.getInternalList().size() + " datedTasks, " +
+               undatedTasks.getInternalList().size() + " undatedTasks, "+
+               tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 

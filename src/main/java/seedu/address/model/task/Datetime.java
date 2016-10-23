@@ -8,8 +8,8 @@ import com.joestelmach.natty.Parser;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's Date and Time in the to-do-list. Guarantees: immutable; is valid
- * as declared in {@link #isValidDate(String)}
+ * Represents a Task's Date and Time in the to-do-list. Guarantees: immutable;
+ * 
  */
 public class Datetime {
 
