@@ -650,6 +650,27 @@ public class LogicManagerTest {
                 expectedAB.getTodoList());
     }
     @Test
+    public void execute_edit_addTag() throws Exception {      
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+        
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        helper.addToModel(model, threePersons, threeDeadlines, threeTodos);
+        
+        UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
+        ReadOnlyTask eventToEdit = lastShownEventList.get(1-1);
+        expectedAB.changeTask(eventToEdit, "add anything" , 'E');
+
+        assertCommandBehavior("add E1 #anything",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, "E", "1"),
+                expectedAB,
+                expectedAB.getEventList(),
+                expectedAB.getDeadlineList(),
+                expectedAB.getTodoList());
+    }
+    @Test
     public void execute_edit_editCorrectDeadlineName() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generatePersonList(3);
