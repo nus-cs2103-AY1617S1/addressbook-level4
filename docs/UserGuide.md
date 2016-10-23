@@ -53,11 +53,9 @@
 
 ### When you need help (To see a list of all commands)
 
-1. Type ‘h[elp]’.
+1. Type ‘h[elp]’ and press `Enter`.
 
-2. Press `Enter`.
-
-3. The list of commands, their format and their function will be shown.
+2. The list of commands, their format and their function will be shown.
 
 ### When you have a new deadline, task or event
 
@@ -67,21 +65,17 @@
 
 2. `add` can be replaced by `a`. `deadline` can be replaced by `d`.
 
-3. If et is not specified, et is assumed to be 23:59.
+3. If et is not specified, et is assumed to be 23:59 and press `Enter`.
 
-4. Press `Enter`.
-
-5. The deadline will be added to your to do list and message "Added deadline" is displayed on console.
+4. The deadline will be added to your to do list and message "Added deadline" is displayed on console.
 
 #### Add a task
 
 1. Type `a[dd] t[ask] [n/]NAME`.
 
-2. `add` can be replaced by `a`. `task` can be replaced by `t`.
+2. `add` can be replaced by `a`. `task` can be replaced by `t` and press `Enter`.
 
-3. Press `Enter`.
-
-4. The task will be added to your to do list and message "Added task" is displayed on console..
+3. The task will be added to your to do list and message "Added task" is displayed on console..
 
 #### Add an event
 
@@ -91,20 +85,17 @@
 
 3. If st is empty, st is assumed to be 00:00.
 
-4. If et is empty, et is assumed to be 23:59.
+4. If et is empty, et is assumed to be 23:59 and press `Enter`.
 
-5. Press `Enter`.
-
-6. The event will be added to your to do list and message "Added event" is displayed on console..
+5. The event will be added to your to do list and message "Added event" is displayed on console.
 
 [comment]: # (@@author A0140060A)
 
 ### When you need to find a deadline, task or event
-1. Type `f[ind] KEYWORD` where `KEYWORD` is part of the item's name.
 
-2. Press `Enter`.
+1. Type `f[ind] KEYWORD` where `KEYWORD` is part of the item's name and press `Enter`.
 
-3. App will display a list of items with names containing the keyword in the bottom left pane.
+2. App will display a list of items with names containing the keyword in the bottom left pane Console displays the number of items that are listed.
 
 	>  Example Command: `find CS2105` <br>
 
@@ -124,11 +115,9 @@ For tasks, you can only edit the name and its tags.
 
 1. Type `f[ind] KEYWORD`. Press `Enter`.
 
-2. Type `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]`.
+2. Type `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
-3. Press `Enter`.
-
-4. App will display edited item's details in the results panel (below the command box)
+3. App will display edited item's details in the results panel (below the command box)
 
 	> Example Command:
 	> 1. `find random module`
@@ -138,9 +127,9 @@ For tasks, you can only edit the name and its tags.
 
 ##### If you know the index of the task in the displayed list
 
-1. Type `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]`.
+1. Type `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
-2. Press `Enter`.
+2. Changes are reflected in the console immediately
 
 > Example Command: `edit 1 n/CS2103 #work #-play`
 
@@ -149,13 +138,11 @@ For deadlines, you can only edit the name, end date and time.
 
 ##### If you know the keyword of the deadline
 
-1. Type `f[ind] KEYWORD`.
+1. Type `f[ind] KEYWORD`. Press `Enter`.
 
-2. Press `Enter`.
+2. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
-3. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`.
-
-4. Press `Enter`.
+3. Changes are reflected in the console immediately.
 
 > Example Command:
 > 1. `find random module`
@@ -163,9 +150,9 @@ For deadlines, you can only edit the name, end date and time.
 
 ##### If you know the index of the deadline in the displayed list
 
-1. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`.
+1. Type `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
-2. Press `Enter`.
+2. Changes are reflected in the console immediately
 
 > Example Command: `edit 1 n/CS2103 edt/next thursday 2 pm #work #-play`
 
@@ -176,13 +163,11 @@ For events, you can edit the name and both start and end dates and times.
 
 ##### If you know the keyword of the event
 
-1. Type `f[ind] KEYWORD`.
+1. Type `f[ind] KEYWORD`. Press `Enter`.
 
-2. Press `Enter`.
+2. Type `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME]  [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
-3. Type `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME]  [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`.
-
-4. Press `Enter`.
+3. Changes are reflected in the console immediately.
 
 > Example Command:
 > 1. `find random module`
@@ -192,6 +177,8 @@ For events, you can edit the name and both start and end dates and times.
 
 1. Type `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`. Press `Enter`.
 
+2. Changes are reflected in the console immediately.
+
 > Example Command: `edit 1 n/CS2103 sdt/next friday 2 pm edt/next friday 4 pm #work #-play`
 
 [comment]: # (@@author )
@@ -200,59 +187,61 @@ For events, you can edit the name and both start and end dates and times.
 
 #### View all deadlines, tasks and events
 
-1. Type `l[ist]`.
+1. Type `l[ist]`. Press `Enter`.
 
-2. Press `Enter`.
+2. Console refreshes with all deadlines, tasks, and events displayed.
 
 #### View all tasks
 
-1. Type `l[ist]t[ask]`.
+1. Type `l[ist]t[ask]`. Press `Enter`.
 
-2. Press `Enter`.
+2. Console refreshes with all tasks displayed.
 
 #### View all deadlines
 
-1. Type `l[ist]d[eadline]`.
+1. Type `l[ist]d[eadline]`. Press `Enter`.
 
-2. Press `Enter`.
+2. Console refreshes with all deadlines displayed.
 
 #### View all events
 
-1. Type `l[ist]e[vent]`.
+1. Type `l[ist]e[vent]`. Press `Enter`.
 
-2. Press `Enter`.
+2. Console refreshes with all events displayed.
 
 ### When you want to delete a deadline, task or event
 
 #### Delete one deadline, task or event
 
-1. Type `del[ete] INDEX`.
+1. Type `del[ete] INDEX`. Press `Enter`.
 
-2. Press `Enter`.
+2. Console displays deleted item in second box and refershes list of items.
 
 #### Delete 2 deadlines, tasks or events
 
-1. Type `del[ete] INDEX1 INDEX2`.
+1. Type `del[ete] INDEX1 INDEX2`. Press `Enter`.
 
-2. Press `Enter`.
+2. Console displays deleted item in second box and refreshes list of items.
 
 ### When you are done with a deadline, task or event
 
-1. Type `d[one] INDEX`.
+1. Type `d[one] INDEX`. Press `Enter`.
 
-2. Press `Enter`.
+2. Console refreshes list of items, with updated status for the updated item.
 
 ### When you are not done with a deadline, task or event
 
-1. Type `n[ot]d[one] INDEX`.
+1. Type `n[ot]d[one] INDEX`. Press `Enter`.
 
-2. Press `Enter`.
+2. Console refreshes list of items, with updated status for the updated item.
 
 ### When you want to undo your last action that caused a changed in your todo list
 
 1. Type `u[ndo]`.
 
 2. Press `Enter`.
+
+3. Console refreshes to display items as per previous state.
 
 ### When you want to specify a custom save location for your data
 
