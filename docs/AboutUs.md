@@ -1,52 +1,34 @@
 # About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+Our project is a Task Manager for Jim.
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Ong Li-Jen]() <br>
+<img src="images/" width="150"><br>
+Role: Project Lead <br>  
+Responsibilities: Code Quality
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
+#### [Anniya Baskaran]()
+<img src="images/" width="150"><br>
 Role: Developer <br>  
-Responsibilities: UI
+Responsibilities: Integration 
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
+#### [Muhammad Arif Bin Syed Nasser]() 
+<img src="images/" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Data
+Responsibilities: Documentation
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
+#### [Zhang Hao]()
 <img src="images/MartinChoo.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Dev Ops
 
 -----
-
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
-
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)

@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="0.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>addressbook-level4</name>
-	<comment>Project addressbook-level4 created by Buildship.</comment>
+	<name>The Practical Task Manager</name>
+	<comment>Task Manager Project by Team Practical People</comment>
 	<projects>
 	</projects>
 	<buildSpec>
