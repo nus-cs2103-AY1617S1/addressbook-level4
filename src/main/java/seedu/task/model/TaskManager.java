@@ -27,14 +27,14 @@ public class TaskManager implements ReadOnlyTaskManager {
     public TaskManager() {}
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Persons and Tags are copied into this taskmanager
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
         this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Persons and Tags are copied into this taskmanager
      */
     public TaskManager(UniqueTaskList persons, UniqueTagList tags) {
         resetData(persons.getInternalList(), tags.getInternalList());
