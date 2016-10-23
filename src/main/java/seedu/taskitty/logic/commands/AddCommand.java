@@ -18,10 +18,9 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     //@@author A0139930B
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task to the task manager. "
-            + "Parameters: NAME [START_DATE_TIME] to [END_DATE_TIME] [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " meeting 1 jan 4pm to 6pm t/work t/salesReview";
+    public static final String MESSAGE_PARAMETER = COMMAND_WORD
+            + " [name] [start] to [end] [t/tag]...";
+    public static final String MESSAGE_USAGE = "This command adds a task to TasKitty, Meow!";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";

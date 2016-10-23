@@ -9,6 +9,9 @@ import seedu.taskitty.commons.events.ui.ExitAppRequestEvent;
 public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
+    
+    public static final String MESSAGE_PARAMETER = COMMAND_WORD;
+    public static final String MESSAGE_USAGE = "Are you leaving TasKitty? Meow..";
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Task Manager as requested ...";
 

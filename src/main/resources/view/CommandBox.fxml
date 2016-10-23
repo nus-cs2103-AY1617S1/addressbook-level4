@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TextField?>
-<AnchorPane styleClass="anchor-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="seedu.taskitty.ui.CommandBox" stylesheets="@DarkTheme.css">
-   <TextField fx:id="commandTextField" onAction="#handleCommandInputChanged" promptText="Enter command here..."/>
-</AnchorPane>
+<?import javafx.scene.layout.AnchorPane?>
 
+<AnchorPane styleClass="anchor-pane" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskitty.ui.CommandBox">
+   <TextField fx:id="commandTextField" onAction="#handleCommandInputChanged" promptText="Enter command here..." />
+</AnchorPane>

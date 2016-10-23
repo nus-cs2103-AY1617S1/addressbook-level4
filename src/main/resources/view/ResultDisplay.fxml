@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import java.lang.Double?>
 <?import java.net.URL?>
-<AnchorPane styleClass="anchor-pane-with-border" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="seedu.taskitty.ui.ResultDisplay">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Polygon?>
+
+<!-- @@author A0139930B -->
+
+<AnchorPane fx:id="resultDisplayArea" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskitty.ui.ResultDisplay">
     <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
     </stylesheets>
+   <children>
+      <Polygon fill="WHITE" layoutX="47.0" layoutY="34.0" rotate="-30.0" scaleX="0.5" scaleY="0.5" stroke="WHITE" strokeType="INSIDE" styleClass="anchor-pane">
+        <points>
+          <Double fx:value="-50.0" />
+          <Double fx:value="40.0" />
+          <Double fx:value="50.0" />
+          <Double fx:value="40.0" />
+          <Double fx:value="0.0" />
+          <Double fx:value="-60.0" />
+        </points>
+      </Polygon>
+      <Pane minHeight="50.0" minWidth="200.0" styleClass="result-display" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0">
+         <children>
+            <VBox>
+               <children>
+                  <Label fx:id="toolTipLabel" styleClass="label-tooltip" text="\$tooltip" />
+                  <Label fx:id="descriptionLabel" styleClass="label-description" text="\$description" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>

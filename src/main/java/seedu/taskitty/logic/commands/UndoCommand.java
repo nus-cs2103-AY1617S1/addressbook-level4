@@ -10,9 +10,8 @@ public class UndoCommand extends Command {
     
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Undos the previous action\n"
-            + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_PARAMETER = COMMAND_WORD;
+    public static final String MESSAGE_USAGE = "This command undos your previous action, Meow!";
 
     public static final String MESSAGE_UNDO_SUCCESS = "Previous action undone: ";
     public static final String MESSAGE_NO_PREVIOUS_VALID_COMMANDS = "There is no more previous command in this session.";

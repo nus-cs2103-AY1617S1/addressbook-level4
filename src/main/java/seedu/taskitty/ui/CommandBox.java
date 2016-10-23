@@ -1,6 +1,7 @@
 package seedu.taskitty.ui;
 
 import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
@@ -11,6 +12,7 @@ import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.taskitty.commons.util.FxViewUtil;
 import seedu.taskitty.logic.Logic;
+import seedu.taskitty.logic.ToolTip;
 import seedu.taskitty.logic.commands.*;
 
 import java.util.logging.Logger;
@@ -35,22 +37,35 @@ public class CommandBox extends UiPart {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
         commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
+        commandBox.setTooltipListener();
         return commandBox;
     }
 
     public void configure(ResultDisplay resultDisplay, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
+        
         registerAsAnEventHandler(this);
     }
 
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
-        FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(commandPane, 50, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 50, 0.0, 10, 10);
     }
-
+    
+    //@@author A0139930B
+    private void setTooltipListener() {
+        ToolTip tooltip = ToolTip.getInstance();
+        commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            logger.info("Text changed: " + newValue);
+            tooltip.createToolTip(newValue);
+            resultDisplay.postMessage(tooltip.getMessage(), tooltip.getDecription());
+        });
+    }
+    
+    //@@author
     @Override
     public void setNode(Node node) {
         commandPane = (AnchorPane) node;
