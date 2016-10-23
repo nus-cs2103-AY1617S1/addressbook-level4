@@ -8,8 +8,8 @@ import seedu.emeraldo.commons.exceptions.IllegalValueException;
  */
 public class Description {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task description should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS = "Task description can contain anything except for \"";
+    public static final String DESCRIPTION_VALIDATION_REGEX = "[^\"]+";
 
     public final String fullDescription;
 
@@ -25,7 +25,7 @@ public class Description {
             this.fullDescription = "";
         }
         else if (!isValidDescription(description)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_DESCRIPTION_CONSTRAINTS);
         }
         else{
             this.fullDescription = description;
@@ -36,7 +36,7 @@ public class Description {
      * Returns true if a given string is a valid task description.
      */
     public static boolean isValidDescription(String test) {
-        return test.matches(NAME_VALIDATION_REGEX);
+        return test.matches(DESCRIPTION_VALIDATION_REGEX);
     }
 
 
