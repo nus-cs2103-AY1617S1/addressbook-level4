@@ -30,8 +30,6 @@ public abstract class TodoListGuiTest {
 
     TestApp testApp;
 
-    protected TaskFactory taskFactory = new TaskFactory();
-
     /*
      * Handles to GUI elements present at the start up are created in advance
      * for easy access from child classes.
