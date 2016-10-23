@@ -262,15 +262,16 @@ public class Parser {
     /**
      * Parses arguments in the context of the delete task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
         args = args.trim();
+        
         if (EMPTY_STRING.equals(args)) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
+        
         try {
             String rangeIndex = StringUtil.indexString(args);
             args = rangeIndex;
@@ -279,6 +280,7 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
+        
         return new DeleteCommand(args);
     }
 
@@ -475,29 +477,29 @@ public class Parser {
      * Parses arguments in the context of the tag command.
      * 
      * @@author A0139924W
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareTag(String args) {
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(listPrefix, editPrefix);
+        ArgumentTokenizer argsTokenizer =
+                new ArgumentTokenizer(listPrefix, editPrefix, deletePrefix);
         argsTokenizer.tokenize(args);
-        
-        if(argsTokenizer.numPrefixFound() == 0) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
-        }
-        
-        if(argsTokenizer.getValue(listPrefix).isPresent()) {
+
+        if (argsTokenizer.getValue(listPrefix).isPresent()) {
             return new TagCommand(listPrefix);
         }
-        
+
         if (argsTokenizer.getValue(editPrefix).isPresent()) {
             String editArgs = argsTokenizer.getValue(editPrefix).get();
             final Matcher matcher = TAG_EDIT_COMMAND_FORMAT.matcher(editArgs);
             if (matcher.matches()) {
                 return new TagCommand(editPrefix, editArgs.split(EMPTY_SPACE_ONE));
             }
+        }
+
+        if (argsTokenizer.getValue(deletePrefix).isPresent()) {
+            String index = argsTokenizer.getValue(deletePrefix).get();
+            return new TagCommand(deletePrefix, index);
         }
 
         return new IncorrectCommand(

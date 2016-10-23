@@ -126,8 +126,18 @@ public class ModelManager extends ComponentManager implements Model {
             throws IllegalValueException, TagNotFoundException, DuplicateTagException {
         Tag newTag = new Tag(newTagName);
 
-        tars.getUniqueTaskList().renameTag(oldTag, newTag);
+        tars.renameTag(oldTag, newTag);
         tars.getUniqueTagList().update(oldTag, newTag);
+
+        indicateTarsChanged();
+    }
+    
+    @Override
+    /** @@author A0139924W */
+    public synchronized void deleteTag(ReadOnlyTag toBeDeleted)
+            throws DuplicateTagException, IllegalValueException, TagNotFoundException {
+        tars.deleteTag(toBeDeleted);
+        tars.getUniqueTagList().remove(new Tag(toBeDeleted));
 
         indicateTarsChanged();
     }

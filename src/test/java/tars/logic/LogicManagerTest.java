@@ -544,7 +544,7 @@ public class LogicManagerTest {
         Tag newTag = new Tag("tag3");
 
         expectedAB.getUniqueTagList().update(tagToBeRenamed, newTag);
-        expectedAB.getUniqueTaskList().renameTag(tagToBeRenamed, newTag);
+        expectedAB.renameTag(tagToBeRenamed, newTag);
 
         // execute command and verify result
         assertCommandBehavior("tag /e 1 tag3",
