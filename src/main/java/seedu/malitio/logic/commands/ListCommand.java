@@ -5,8 +5,8 @@ import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.task.*;
 
 /**
- * Lists all tasks in Malitio to the user.
- * @author Nathan A0153006W
+ * Lists all or specified tasks in Malitio to the user.
+ * @@author A0153006W
  */
 public class ListCommand extends Command {
 
