@@ -127,6 +127,7 @@ public class CommandBox extends UiPart {
             }
         	if(hasTempEnd){
         		upStack.pop();
+        		hasTempEnd = false;
         	}
         }
         
