@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Provides a handle for the panel containing the person list.
  */
+@Deprecated
 public class PersonListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;

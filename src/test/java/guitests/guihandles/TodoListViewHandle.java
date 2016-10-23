@@ -139,11 +139,7 @@ public class TodoListViewHandle extends GuiHandle {
     public boolean doesTodoListMatch() {
         boolean outcome = true;
         List<ImmutableTask> tasks = getImmutableTaskList();
-        System.out.println("Task size: " + tasks.size() + " Nodes size" + getAllTaskCardNodes().size());
         for (int listIndex = 0; listIndex < tasks.size(); listIndex++) {
-            System.out.println(listIndex);
-
-
             ImmutableTask task = tasks.get(listIndex);
             TaskCardViewHandle handle = getTaskCardViewHandle(listIndex);
             int displayedIndex = UiTestUtil.convertToUiIndex(listIndex);
