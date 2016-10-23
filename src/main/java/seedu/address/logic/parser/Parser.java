@@ -89,6 +89,12 @@ public class Parser {
             
         case SpecifyStorageCommand.COMMAND_WORD:
             return prepareSpecifyStorage(arguments);
+            
+        case UndoCommand.COMMAND_WORD:
+            return prepareUndo(arguments);
+            
+        case RedoCommand.COMMAND_WORD:
+            return prepareRedo(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -111,8 +117,28 @@ public class Parser {
     }
     
     /**
+     * @author Ronald
+     * @param number of times to undo, args
+     * @return the prepared command
+     */
+    private Command prepareUndo(String args) {
+        int numTimes = Integer.parseInt(args.trim());
+        return new UndoCommand(numTimes);
+    }
+    
+    /**
+     * @author Ronald
+     * @param number of times to redo, args
+     * @return the prepared command
+     */
+    private Command prepareRedo(String args) {
+        int numTimes = Integer.parseInt(args.trim());
+        return new RedoCommand(numTimes);
+    }
+    
+    /**
      * @Ronald
-     * @param arguments
+     * @param String data storage file path args
      * @return the prepared SpecifyStorageCommand
      */
     private Command prepareSpecifyStorage(String args) {

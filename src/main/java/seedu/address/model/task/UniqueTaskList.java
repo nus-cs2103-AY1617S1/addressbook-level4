@@ -100,7 +100,15 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
-
+    
+    
+    /**
+     * @author Ronald
+     * @param key
+     * @param args
+     * @return
+     * @throws IllegalValueException
+     */
     public boolean edit(ReadOnlyTask key, String args) throws IllegalValueException {
         // TODO Auto-generated method stub
         String keyword = args.substring(0, args.indexOf(' '));
@@ -108,37 +116,23 @@ public class UniqueTaskList implements Iterable<Task> {
         
         int editIndex = internalList.indexOf(key);
         Task toEdit = new Task(internalList.get(editIndex));
-        //System.out.println(keyword);
-        //System.out.println(args);
-        //System.out.println(keyword.equals(EditCommand.DESCRIPTION_WORD));
         if (keyword.equals(EditCommand.DESCRIPTION_WORD)) {
-            //internalList.get(editIndex).setName(new Name(args));
-            //Task toEdit = new Task(internalList.get(editIndex));
             toEdit.setName(new Name(args));
             internalList.set(editIndex, toEdit);
-            //System.out.println("dummy2");
             return true;
         } else if (keyword.equals(EditCommand.DATE_WORD)) {
-            //internalList.get(editIndex).setDate(new Date(args));
-            //Task toEdit = new Task(internalList.get(editIndex));
             toEdit.setDate(new Date(args));
             internalList.set(editIndex, toEdit);
             return true;
         } else if (keyword.equals(EditCommand.START_WORD)) {
-            //internalList.get(editIndex).setStart(new Start(args));
-            //Task toEdit = new Task(internalList.get(editIndex));
             toEdit.setStart(new Start(args));
             internalList.set(editIndex, toEdit);
             return true;
         } else if (keyword.equals(EditCommand.END_WORD)) {
-            //internalList.get(editIndex).setEnd(new End(args));
-            //Task toEdit = new Task(internalList.get(editIndex));
             toEdit.setEnd(new End(args));
             internalList.set(editIndex, toEdit);
             return true;
         } else if (keyword.equals(EditCommand.TAG_WORD)) {
-            //internalList.get(editIndex).setTags(new UniqueTagList(new Tag(args)));
-            //Task toEdit = new Task(internalList.get(editIndex));
             toEdit.setTags(new UniqueTagList(new Tag(args)));;
             internalList.set(editIndex, toEdit);
         	return true;

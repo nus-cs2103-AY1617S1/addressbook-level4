@@ -1,16 +1,21 @@
 package seedu.address.logic.commands;
 
+import java.util.Stack;
+
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.model.Model;
+import seedu.address.model.TaskBook;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
     protected Model model;
-
+    protected Stack<TaskBook> undoStack;
+    protected Stack<TaskBook> redoStack;
+    
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
      *
@@ -35,8 +40,10 @@ public abstract class Command {
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
      */
-    public void setData(Model model) {
+    public void setData(Model model, Stack<TaskBook> undoStack, Stack<TaskBook> redoStack) {
         this.model = model;
+        this.undoStack = undoStack;
+        this.redoStack = redoStack;
     }
 
     /**
@@ -44,5 +51,10 @@ public abstract class Command {
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+    }
+    
+    protected void addToUndoStack() {
+        TaskBook toBeAdded = new TaskBook(model.getAddressBook());
+        undoStack.push(toBeAdded);
     }
 }

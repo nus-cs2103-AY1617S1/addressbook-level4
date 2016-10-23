@@ -5,6 +5,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,7 +34,8 @@ public class AddCommand extends Command {
     public static final String DEADLINE_SUCCESS = "New deadline added: %1$s";
     public static final String TODO_SUCCESS = "New todo added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Simply";
-
+    public static final String END_TIME_BEFORE_START_TIME_MESSAGE = "The end time cannot be earlier or equal to the start time!";
+    
     private final Task toAdd;
 
     /**
@@ -55,6 +57,9 @@ public class AddCommand extends Command {
                 1,
                 new UniqueTagList(tagSet)
         );
+        if (!startBeforeEnd(toAdd.getStart().toString(), toAdd.getEnd().toString())){
+        	throw new IllegalValueException(END_TIME_BEFORE_START_TIME_MESSAGE);
+        }
     }   
 
     public AddCommand(String name, String date, String end, Set<String> tags) //deadline
@@ -88,10 +93,20 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
+    
+    private boolean startBeforeEnd(String start, String end) {
+		LocalTime start_time = LocalTime.of(Integer.parseInt(start.substring(0,2)), Integer.parseInt(start.substring(2, 4)));
+		LocalTime end_time = LocalTime.of(Integer.parseInt(end.substring(0,2)), Integer.parseInt(end.substring(2, 4)));
+		if (start_time.isBefore(end_time))
+			return true;
+		else
+			return false;
+	}
 
     @Override
     public CommandResult execute() {
         assert model != null;
+        addToUndoStack();
         try {
             model.addTask(toAdd);
             if (toAdd.getTaskCategory() == 1) 

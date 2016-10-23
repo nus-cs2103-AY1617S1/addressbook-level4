@@ -32,6 +32,8 @@ public class SpecifyStorageCommand extends Command {
     public CommandResult execute() {
         try {
             
+            //addToUndoStack();
+            
             JsonFactory jfactory = new JsonFactory();
 
             JsonGenerator jGenerator = jfactory.createGenerator(new File("config.json"), JsonEncoding.UTF8);
