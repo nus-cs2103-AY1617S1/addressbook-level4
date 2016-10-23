@@ -21,12 +21,13 @@ public class EditCommandTest extends AddressBookGuiTest {
     @Test
     public void edit() {
 
-       TestTask[] currentList = td.getTypicalTasks();
-       assertClearCommandSuccess();
+        TestTask[] currentList = td.getTypicalTasks();
+        assertClearCommandSuccess();
        
         TestTask aliceTask = new TestTask(td.alice);
         assertAddSuccess(aliceTask);
-
+        
+        //test to check each parameter
         commandBox.runCommand("edit 1 Call Alice from 2pm to 3pm repeat every day -high");
         aliceTask.setName(new Name("Call Alice"));
         aliceTask.setStartDate(DateTime.convertStringToDate("2pm"));
@@ -38,30 +39,48 @@ public class EditCommandTest extends AddressBookGuiTest {
         }
         aliceTask.setPriority(Priority.HIGH);        
         assertTrue(personListPanel.isListMatching(aliceTask));
-
         
+        //test to check that edit allows edit of combinations of parameters
         commandBox.runCommand("edit 1 Do stuff by 10pm -m");
         aliceTask.setName(new Name("Do stuff"));
         aliceTask.setEndDate(DateTime.convertStringToDate("10pm"));      
         aliceTask.setPriority(Priority.MEDIUM);       
         assertTrue(personListPanel.isListMatching(aliceTask));
         
-        
+        //test to check reset function
         commandBox.runCommand("edit 1 -reset start end repeat");
         aliceTask.setStartDate(null);
         aliceTask.setEndDate(null);       
         aliceTask.setRecurrence(null);        
         assertTrue(personListPanel.isListMatching(aliceTask));
 
+        //edit of priority parameter only
         commandBox.runCommand("edit 1 -low");
         aliceTask.setPriority(Priority.LOW);             
         assertTrue(personListPanel.isListMatching(aliceTask));
-
+        
+        //ensure that reset command will overwrite any previous edit
         commandBox.runCommand("edit 1 from 10am -reset start");
         aliceTask.setStartDate(DateTime.convertStringToDate("10am"));
         aliceTask.setStartDate(null);
         assertTrue(personListPanel.isListMatching(aliceTask));
 
+        //test to edit only the name
+        commandBox.runCommand("edit 1 Trying out new things from the list");
+        aliceTask.setName(new Name("Trying out new things from the list"));
+        assertTrue(personListPanel.isListMatching(aliceTask));
+        
+        
+        commandBox.runCommand("edit 1 Visit distant relative at 1pm repeat every 3 years -h");
+        aliceTask.setName(new Name("Visit distant relative"));
+        aliceTask.setStartDate(DateTime.convertStringToDate("1pm"));
+        try {
+            aliceTask.setRecurrence(new RecurrenceRate("3", "years"));
+        } catch (IllegalValueException e) {
+            assert false : "The test data provided cannot be invalid";
+        }
+        aliceTask.setPriority(Priority.HIGH);        
+        assertTrue(personListPanel.isListMatching(aliceTask));
         
         //invalid command format
         commandBox.runCommand("edit " + 10 + " " + "testing");
