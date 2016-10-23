@@ -48,6 +48,7 @@ public class TestApp extends MainApp {
         }
     }
 
+    /* Override Methods */
     @Override
     protected Config initConfig(String configFilePath) {
         Config config = super.initConfig(configFilePath);
@@ -72,6 +73,7 @@ public class TestApp extends MainApp {
         ui.start(primaryStage);
     }
 
+    /* Main Methods */
     public static void main(String[] args) {
         launch(args);
     }
