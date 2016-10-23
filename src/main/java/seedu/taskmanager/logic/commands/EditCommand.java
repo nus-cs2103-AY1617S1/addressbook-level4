@@ -228,23 +228,22 @@ public class EditCommand extends Command {
      * @return -1 if endItemDate comes before startItemDate, 0 if endItemDate equals startItemDate, 1 otherwise
      */
     private int compareStartDateToEndDate(ItemDate startItemDate, ItemDate endItemDate) {
+        int result = 1;
+        
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(ItemDate.DATE_FORMAT);
             Date startDate = sdf.parse(startItemDate.toString());
             Date endDate = sdf.parse(endItemDate.toString());
             if (endDate.before(startDate)) {
-                return -1;
+                result = -1;
             } else if (endDate.equals(startDate)) {
-                return 0;
-            } else {
-                return 1;
+                result = 0;
             }
         } catch (ParseException pe) {
-            assert false : "DATE_FORMAT is not parsable by SimpleDateFormat";
+            assert false : "Given date(s) is/are not parsable by SimpleDateFormat";
         }
         
-        assert false : "Method should not have reached this point";
-        return -2;
+        return result;
     }
     
     
@@ -254,17 +253,18 @@ public class EditCommand extends Command {
      * @return true if endItemTime comes before startItemTime, false otherwise
      */
     private boolean isEndTimeBeforeStartTime(ItemTime startItemTime, ItemTime endItemTime) {
+        boolean result = true;
+        
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(ItemTime.TIME_FORMAT);
             Date startTime= sdf.parse(startItemTime.toString());
             Date endTime = sdf.parse(endItemTime.toString());
-            return endTime.before(startTime);
+            result = endTime.before(startTime);
         } catch (ParseException pe) {
             assert false : "TIME_FORMAT is not parsable by SimpleDateFormat";
         }
         
-        assert false : "Method should not have reached this point";
-        return true;
+        return result;
     }
 
     /**
@@ -277,17 +277,19 @@ public class EditCommand extends Command {
                || itemType.equals(ItemType.DEADLINE_WORD) 
                || itemType.equals(ItemType.EVENT_WORD);
         
+        boolean result = true;
+        
         if (itemType.equals(ItemType.TASK_WORD)) {
-            return startDate != null || startTime != null || endDate != null || endTime != null;
+            result = startDate != null || startTime != null || endDate != null || endTime != null;
         }
         if (itemType.equals(ItemType.DEADLINE_WORD)) {
-            return startDate != null || startTime != null;
+            result = startDate != null || startTime != null;
         }
         if (itemType.equals(ItemType.EVENT_WORD)) {
-            return false;
+            result = false;
         }
         
-        return true;
+        return result;
     }
 
 }
