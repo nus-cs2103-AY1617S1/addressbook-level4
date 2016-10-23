@@ -103,6 +103,9 @@ public class Parser {
         case DoneCommand.COMMAND_WORD:
             return prepareDone(arguments);
 
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+            
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -117,6 +120,7 @@ public class Parser {
      */
 
     private Command prepareAdd(String args) throws ParseException{
+    	dueDatePrefix.SetIsOptional(true);
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix, startDatePrefix, dueDatePrefix,
 				intervalPrefix, timeIntervalPrefix, tagArgumentsPrefix);
 		argsTokenizer.tokenize(args);

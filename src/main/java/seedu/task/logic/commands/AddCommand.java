@@ -4,6 +4,8 @@ import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.task.*;
+import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 
@@ -29,6 +31,9 @@ public class AddCommand extends Command {
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_SUCCESS_MANY_TASKS = "%1$s tasks added: %2$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";
+	public static final String MESSAGE_SUCCESS_UNDO = "Undo of add command";	
+	
+	public final String MESSAGE_NOT_FOUND = "The task was not found.";
 
 	private List<Task> tasksToAdd;
 
@@ -46,8 +51,8 @@ public class AddCommand extends Command {
 			tagSet.add(new Tag(tagName));
 		}
 		Task mainTask = new Task(new Title(title), new Description(description), new StartDate(startDate),
-				new DueDate(dueDate), new Interval(interval), new TimeInterval(timeInterval), new Status("Ongoing"),
-				new UniqueTagList(tagSet));
+				new DueDate(dueDate), new Interval(interval), new TimeInterval(timeInterval),
+				new Status("ONGOING"), new UniqueTagList(tagSet));
 		addTasksToList(mainTask);
 	}
 
@@ -56,9 +61,10 @@ public class AddCommand extends Command {
 		tasksToAdd = new ArrayList<Task>();
 		tasksToAdd.add(mainTask);
 		for (int i = 1; i < mainTask.getInterval().value; i++) {
-			tasksToAdd.add( new Task(mainTask.getTitle(), mainTask.getDescription(), mainTask.getStartDateWithInterval(timeInterval*i),
-					mainTask.getDueDateWithInterval(timeInterval*i), mainTask.getInterval(), mainTask.getTimeInterval(), new Status("Ongoing"),
-					mainTask.getTags()));
+			tasksToAdd.add(new Task(mainTask.getTitle(), mainTask.getDescription(),
+					mainTask.getStartDateWithInterval(timeInterval * i),
+					mainTask.getDueDateWithInterval(timeInterval * i), mainTask.getInterval(),
+					mainTask.getTimeInterval(), new Status("ONGOING"), mainTask.getTags()));
 		}
 	}
 
@@ -69,19 +75,35 @@ public class AddCommand extends Command {
 			for (Task task : tasksToAdd) {
 				model.addTask(task);
 			}
-			EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredTaskList().size()-1));
-			if(tasksToAdd.size()==1)
-				return new CommandResult(String.format(MESSAGE_SUCCESS,tasksToAdd.get(0).getTitle()
-				        + " Description: " + tasksToAdd.get(0).getDescription()
-				        + " Start Date: " + tasksToAdd.get(0).getStartDate()
-				        + " Due Date: " + tasksToAdd.get(0).getDueDate()
-				        + " Status: " + tasksToAdd.get(0).getStatus()));
+			EventsCenter.getInstance().post(new JumpToListRequestEvent(model.getFilteredTaskList().size() - 1));
+			if (tasksToAdd.size() == 1)
+				return new CommandResult(String.format(MESSAGE_SUCCESS,
+						tasksToAdd.get(0).getTitle() + " Description: " + tasksToAdd.get(0).getDescription()
+								+ " Start Date: " + tasksToAdd.get(0).getStartDate() + " Due Date: "
+								+ tasksToAdd.get(0).getDueDate() + " Status: " + tasksToAdd.get(0).getStatus()));
 			else
-				return new CommandResult(String.format(MESSAGE_SUCCESS_MANY_TASKS,tasksToAdd.get(0).getInterval(),tasksToAdd.get(0).getTitle()));
+				return new CommandResult(String.format(MESSAGE_SUCCESS_MANY_TASKS, tasksToAdd.get(0).getInterval(),
+						tasksToAdd.get(0).getTitle()));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
 
 	}
 
+	@Override
+	public CommandResult executeUndo() {
+		try {
+			for (Task task : tasksToAdd) {
+				model.deleteTask(task);
+			}
+		} catch (TaskNotFoundException e) {
+			return new CommandResult(MESSAGE_NOT_FOUND);
+		}
+		return new CommandResult(MESSAGE_SUCCESS_UNDO);
+	}
+
+	@Override
+	public boolean isReversible() {
+		return true;
+	}
 }

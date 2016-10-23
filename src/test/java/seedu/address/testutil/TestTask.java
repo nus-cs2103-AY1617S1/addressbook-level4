@@ -103,7 +103,6 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
     public Status getStatus() {
-        // TODO Auto-generated method stub
         return this.status;
     }
 }

@@ -110,8 +110,7 @@ public class LogicManagerTest {
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskManager expectedTaskManager,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
-
-        //Execute the command
+     //Execute the command
         CommandResult result = logic.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
@@ -396,7 +395,7 @@ public class LogicManagerTest {
                 + "Description: Description 1 "
                 + "Start Date: 01-01-2016 "
                 + "Due Date: 01-01-2016 "
-                + "Status: Completed "
+                + "Status: COMPLETED "
                 + "Tags: [tag1][tag2]";
         String expectedMessage = String.format(DoneCommand.MESSAGE_COMPLETED_TASK_SUCCESS, expectedTask);
         //assertCommandBehavior("done 1", expectedMessage);
@@ -417,7 +416,7 @@ public class LogicManagerTest {
         	DueDate dueDate= new DueDate("11-01-2012");
         	Interval interval= new Interval("7");
         	TimeInterval timeInterval = new TimeInterval("4");
-        	Status status = new Status("Ongoing");
+        	Status status = new Status("ONGOING");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -439,7 +438,7 @@ public class LogicManagerTest {
                     new DueDate("01-01-2016"),
                     new Interval(""+seed),
                     new TimeInterval(""+seed),
-                    new Status("Status"+seed),
+                    new Status("ONGOING"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -542,7 +541,7 @@ public class LogicManagerTest {
                     new DueDate("11-01-2012"),
                     new Interval("7"),
                     new TimeInterval("1"),
-                    new Status("Ongoing"),
+                    new Status("ONGOING"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

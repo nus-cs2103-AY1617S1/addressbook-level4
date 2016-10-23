@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.UniqueTaskList;
+import seedu.task.logic.commands.Command;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 
@@ -17,8 +18,8 @@ import java.util.stream.Collectors;
  */
 public class TaskManager implements ReadOnlyTaskManager {
 
-    private final UniqueTaskList tasks;
-    private final UniqueTagList tags;
+    private UniqueTaskList tasks;
+    private UniqueTagList tags;
 
     {
         tasks = new UniqueTaskList();
@@ -68,6 +69,11 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void resetData(ReadOnlyTaskManager newData) {
         resetData(newData.getTaskList(), newData.getTagList());
     }
+    
+    public void clearTaskManager(){
+        tasks = new UniqueTaskList();
+        tags = new UniqueTagList();
+    }
 
 //// task-level operations
 
@@ -82,6 +88,19 @@ public class TaskManager implements ReadOnlyTaskManager {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
+    
+    /**
+     * Adds a task to the address book.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     *
+     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     */
+    public void addAtSpecificPlace(Task p, int index) throws UniqueTaskList.DuplicateTaskException {
+        syncTagsWithMasterList(p);
+        tasks.addAtSpecificPlace(p, index);
+    }
+    
 
     /**
      * Ensures that every tag in this task:
@@ -170,4 +189,5 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+
 }

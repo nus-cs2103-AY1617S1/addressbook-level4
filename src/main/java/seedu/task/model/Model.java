@@ -1,6 +1,7 @@
 package seedu.task.model;
 
 import seedu.task.commons.core.UnmodifiableObservableList;
+import seedu.task.logic.commands.Command;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.UniqueTaskList;
@@ -11,6 +12,7 @@ import java.util.Set;
  * The API of the Model component.
  */
 public interface Model {
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyTaskManager newData);
 
@@ -25,7 +27,10 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
-
+    
+    /** Adds the given task at specified place*/
+    void addTaskWithSpecifiedIndex(Task task, int index) throws UniqueTaskList.DuplicateTaskException;
+   
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
@@ -34,5 +39,10 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
-
+    
+    /** Updates Commands For Undo Stack with new executed command*/
+    void updateCommandsForUndo(Command commandForUndo);
+    
+    /** Get Command for undo*/
+    Command getCommandForUndo(); 
 }
