@@ -69,6 +69,11 @@ public class ResultDisplay extends UiPart {
         descriptionLabel.setText("");
     }
     
+    public void postMessage(String message, String description) {
+        toolTipLabel.setText(message);
+        descriptionLabel.setText(description);
+    }
+    
     public void displayOverdueWelcomeMessage() {
     	postMessage(WELCOME_MESSAGE_WITH_OVERDUE_DEADLINES);
     }
