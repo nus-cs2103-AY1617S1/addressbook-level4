@@ -31,28 +31,30 @@ public class ToolTip {
     private static final int COMMAND_WORD_COUNT_NO_MATCH = 0;
     private static final int COMMAND_WORD_COUNT_SINGLE_MATCH = 1;
     
-    private static ToolTip instance;
+    private static final String TOOLTIP_POSSIBLE_COMMANDS = "These are the possible commands, Meow!";
+    
+    private static ToolTip tooltip;
     
     private FilteredList<String> commands;
     
-    private String tooltip;
+    private String message;
     private String description;
     
     private ToolTip() {
         ObservableList<String> commandList = FXCollections.observableArrayList();
         commandList.addAll(Command.ALL_COMMAND_WORDS);
         commands = commandList.filtered(null);
-        clearToolTips();
+        clearToolTip();
     }
     
     /**
-     * Gets the instance of tooltip to be used
+     * Gets the instance of ToolTip to be used
      */
     public static ToolTip getInstance() {
-        if (instance == null) {
-            instance = new ToolTip();
+        if (tooltip == null) {
+            tooltip = new ToolTip();
         }
-        return instance;
+        return tooltip;
     }
     
     /**
@@ -61,7 +63,7 @@ public class ToolTip {
      * @param input to determine the tooltip to be shown
      */
     public void createToolTip(String input) {
-        clearToolTips();
+        clearToolTip();
         String[] splitedInput = input.split(COMMAND_WORD_DELIMITER);
         
         //only interested in the first word, which is the command word
@@ -71,11 +73,11 @@ public class ToolTip {
         commands.setPredicate(p -> p.startsWith(command));
         
         if (!isCommandWordMatch()) {
-            tooltip = MESSAGE_UNKNOWN_COMMAND;
+            setToolTip(MESSAGE_UNKNOWN_COMMAND);
         } else if (isSingleMatchFound()) {
-            tooltip = getMatchCommandToolTipSingle(command);
+            getMatchCommandToolTipSingle(command);
         } else {
-            tooltip = getMatchCommandToolTipAll();
+            getMatchCommandToolTipAll();
         }
     }
     
@@ -104,65 +106,97 @@ public class ToolTip {
      *  
      * @param command to determine which command tooltip to show
      */
-    private String getMatchCommandToolTipSingle(String command) {
-        String tooltip;
-        
+    private void getMatchCommandToolTipSingle(String command) {
         if (AddCommand.COMMAND_WORD.startsWith(command)) {
-            tooltip = AddCommand.MESSAGE_USAGE;
+            
+            setToolTip(AddCommand.MESSAGE_PARAMETER, AddCommand.MESSAGE_USAGE);
+            
         } else if (ViewCommand.COMMAND_WORD.startsWith(command)) {
-            tooltip = ViewCommand.MESSAGE_USAGE;
+            
+            setToolTip(ViewCommand.MESSAGE_PARAMETER, ViewCommand.MESSAGE_USAGE);
+            
         } else if (FindCommand.COMMAND_WORD.startsWith(command)) {
-            tooltip = FindCommand.MESSAGE_USAGE;
+            
+            setToolTip(FindCommand.MESSAGE_PARAMETER, FindCommand.MESSAGE_USAGE);
+            
         } else if (EditCommand.COMMAND_WORD.startsWith(command)) {
-            tooltip = EditCommand.MESSAGE_USAGE;
+            
+            setToolTip(EditCommand.MESSAGE_PARAMETER, EditCommand.MESSAGE_USAGE);
+            
         } else if (DeleteCommand.COMMAND_WORD.startsWith(command)) {
-            tooltip = DeleteCommand.MESSAGE_USAGE;
+            
+            setToolTip(DeleteCommand.MESSAGE_PARAMETER, DeleteCommand.MESSAGE_USAGE);
+            
         } else if (DoneCommand.COMMAND_WORD.startsWith(command)) {
-            tooltip = DoneCommand.MESSAGE_USAGE;
+            
+            setToolTip(DoneCommand.MESSAGE_PARAMETER, DoneCommand.MESSAGE_USAGE);
+            
         } else if (UndoCommand.COMMAND_WORD.startsWith(command)) {
-            tooltip = UndoCommand.MESSAGE_USAGE;
+            
+            setToolTip(UndoCommand.MESSAGE_PARAMETER, UndoCommand.MESSAGE_USAGE);
+            
         } else if (ClearCommand.COMMAND_WORD.startsWith(command)) {
-            tooltip = ClearCommand.MESSAGE_USAGE;
+            
+            setToolTip(ClearCommand.MESSAGE_PARAMETER, ClearCommand.MESSAGE_USAGE);
+            
         } else if (HelpCommand.COMMAND_WORD.startsWith(command)) {
-            tooltip = HelpCommand.MESSAGE_USAGE;
+            
+            setToolTip(HelpCommand.MESSAGE_PARAMETER, HelpCommand.MESSAGE_USAGE);
+            
         } else if (ExitCommand.COMMAND_WORD.startsWith(command)) {
-            tooltip = ExitCommand.MESSAGE_USAGE;
+            
+            setToolTip(ExitCommand.MESSAGE_PARAMETER, ExitCommand.MESSAGE_USAGE);
+            
         } else {
-            tooltip = MESSAGE_UNKNOWN_COMMAND;
+            setToolTip(MESSAGE_UNKNOWN_COMMAND);
         }
-        return tooltip;
     }
     
     /**
      * Returns a string representing the matched input, delimitered by TOOLTIP_DELIMITER
      */
-    private String getMatchCommandToolTipAll() {
+    private void getMatchCommandToolTipAll() {
         assert commands.size() != COMMAND_WORD_COUNT_NO_MATCH
                 && commands.size() != COMMAND_WORD_COUNT_SINGLE_MATCH;
         
-        StringBuilder builder = new StringBuilder();
+        StringBuilder commandBuilder = new StringBuilder();
         
-        builder.append(commands.get(0));
+        commandBuilder.append(commands.get(0));
         for (int i = 1; i < commands.size(); i++) {
-            builder.append(TOOLTIP_DELIMITER + commands.get(i));
+            commandBuilder.append(TOOLTIP_DELIMITER + commands.get(i));
         }
         
-        return builder.toString();
+        setToolTip(commandBuilder.toString(), TOOLTIP_POSSIBLE_COMMANDS);
     }
     
     /**
      * Set the tooltip and description back to empty string
      */
-    private void clearToolTips() {
-        tooltip = "";
+    private void clearToolTip() {
+        message = "";
         description = "";
     }
     
-    public String getToolTip() {
-        return tooltip;
+    public String getMessage() {
+        return message;
     }
     
     public String getDecription() {
         return description;
+    }
+    
+    /**
+     * Sets the tooltip to the given parameter and description to blank
+     */
+    private void setToolTip(String tooltip) {
+        setToolTip(tooltip, "");
+    }
+    
+    /**
+     * Sets the tooltip and description to the given parameters
+     */
+    private void setToolTip(String tooltip, String description) {
+        this.message = tooltip;
+        this.description = description;
     }
 }
