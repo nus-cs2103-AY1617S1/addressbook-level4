@@ -195,7 +195,7 @@ public class LogicManagerTest {
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // task already in internal address book
+        model.addTask(toBeAdded); // task already in internal task manager
 
         // execute command and verify result
         assertCommandBehavior(
@@ -382,10 +382,10 @@ public class LogicManagerTest {
 
         Task bungee() throws Exception {
             TaskName taskName = new TaskName("go bungee jumping");
-            TaskDate startDate = new TaskDate("16 Oct");
-            TaskTime startTime = new TaskTime("1800");
-            TaskDate endDate = new TaskDate("18 Oct");
-            TaskTime endTime = new TaskTime("2000");
+            TaskDate startDate = new TaskDate("Sun, 16 Oct 16");
+            TaskTime startTime = new TaskTime("18:00");
+            TaskDate endDate = new TaskDate("Tue, 18 Oct 16");
+            TaskTime endTime = new TaskTime("20:00");
             Priority priority = new Priority("high");
             return new Task(taskName, startDate, startTime, endDate, endTime, priority);
         }
@@ -400,10 +400,10 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new TaskName("Task " + seed),
-                    new TaskDate("Oct 1" + Math.abs(seed)),
-                    new TaskTime("123"+seed),
-                    new TaskDate("Oct 2" + Math.abs(seed)),
-                    new TaskTime("213" + seed),
+                    new TaskDate("Wed, 16 Oct 1" + Math.abs(seed)),
+                    new TaskTime("12:3"+seed),
+                    new TaskDate("Thu, 20 Oct 2" + Math.abs(seed)),
+                    new TaskTime("21:3" + seed),
                     new Priority("high")
             );
         }
@@ -415,12 +415,11 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getTaskName().toString());
-            cmd.append(",").append(p.getStartDate().toString());
-            cmd.append(",").append(p.getStartTime().toString());
-            cmd.append(",").append(p.getEndDate().toString());
-            cmd.append("-").append(p.getEndTime().toString());
+            cmd.append(",").append(p.getStartDate());
+            cmd.append(" ").append(p.getStartTime());
+            cmd.append(",").append(p.getEndDate());
+            cmd.append(" ").append(p.getEndTime());
             cmd.append(",").append(p.getPriority().toString());
-            
             return cmd.toString();
         }
 
@@ -497,11 +496,11 @@ public class LogicManagerTest {
         Task generateTaskWithTaskName(String taskName) throws Exception {
             return new Task(
                     new TaskName(taskName),
-                    new TaskDate("12 Oct"),
-                    new TaskTime("1800"),
-                    new TaskDate("13 Oct"),
-                    new TaskTime("2000"),
-                    new Priority("high")
+                    new TaskDate("Wed, 12 Oct 16"),
+                    new TaskTime("18:00"),
+                    new TaskDate("Thu, 13 Oct 16"),
+                    new TaskTime("20:00"),
+                    new Priority ("high")
             );
         }
     }

@@ -1,67 +1,39 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <tasks>
-        <taskName>test1</taskName>
-        <startDate>Mon, 24 Oct 16</startDate>
-        <startTime>5:00 PM</startTime>
-        <endDate>Mon, 24 Oct 16</endDate>
-        <endTime>6:00 PM</endTime>
+        <taskName>go buy milk</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>No end date specified</endDate>
+        <endTime>No end time set</endTime>
         <done>false</done>
+        <priority>low</priority>
     </tasks>
     <tasks>
-        <taskName>hello</taskName>
+        <taskName>complete assignment</taskName>
+        <startDate>No start date specified</startDate>
+        <startTime>No start time set</startTime>
+        <endDate>Fri, 21 Oct 16</endDate>
+        <endTime>11:59 PM</endTime>
+        <done>false</done>
+        <priority>high</priority>
+    </tasks>
+    <tasks>
+        <taskName>watch movie</taskName>
         <startDate>Sat, 22 Oct 16</startDate>
-        <startTime>6:00 PM</startTime>
-        <endDate>Sun, 23 Oct 16</endDate>
-        <endTime>7:00 PM</endTime>
+        <startTime>9:00 PM</startTime>
+        <endDate>Sat, 22 Oct 16</endDate>
+        <endTime>11:00 PM</endTime>
         <done>false</done>
+        <priority>med</priority>
     </tasks>
     <tasks>
-        <taskName>test2</taskName>
-        <startDate>No start date specified</startDate>
-        <startTime>No start time set</startTime>
-        <endDate>Thu, 20 Oct 16</endDate>
-        <endTime>9:00 PM</endTime>
+        <taskName>dance practice</taskName>
+        <startDate>Wed, 12 Oct 16</startDate>
+        <startTime>12:00 PM</startTime>
+        <endDate>Wed, 12 Oct 16</endDate>
+        <endTime>1:00 PM</endTime>
         <done>false</done>
-    </tasks>
-    <tasks>
-        <taskName>test3</taskName>
-        <startDate>No start date specified</startDate>
-        <startTime>No start time set</startTime>
-        <endDate>Tue, 25 Oct 16</endDate>
-        <endTime>7:00 PM</endTime>
-        <done>false</done>
-    </tasks>
-    <tasks>
-        <taskName>test3</taskName>
-        <startDate>Mon, 24 Oct 16</startDate>
-        <startTime>5:00 PM</startTime>
-        <endDate>Tue, 25 Oct 16</endDate>
-        <endTime>8:00 PM</endTime>
-        <done>false</done>
-    </tasks>
-    <tasks>
-        <taskName>test4</taskName>
-        <startDate>Mon, 24 Oct 16</startDate>
-        <startTime>1:00 PM</startTime>
-        <endDate>Mon, 24 Oct 16</endDate>
-        <endTime>2:00 PM</endTime>
-        <done>false</done>
-    </tasks>
-    <tasks>
-        <taskName>hello</taskName>
-        <startDate>No start date specified</startDate>
-        <startTime>No start time set</startTime>
-        <endDate>No end date specified</endDate>
-        <endTime>No end time set</endTime>
-        <done>false</done>
-    </tasks>
-    <tasks>
-        <taskName>test 100000</taskName>
-        <startDate>No start date specified</startDate>
-        <startTime>No start time set</startTime>
-        <endDate>No end date specified</endDate>
-        <endTime>No end time set</endTime>
-        <done>false</done>
+        <priority>high</priority>
     </tasks>
 </taskmanager>

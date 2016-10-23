@@ -26,7 +26,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
 
         //delete from the middle of the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
-        targetIndex = currentList.length/2;
+        targetIndex = currentList.length/2 == 0? 1 : currentList.length/2;
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index

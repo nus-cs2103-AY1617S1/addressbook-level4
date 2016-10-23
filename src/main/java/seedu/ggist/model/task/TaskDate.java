@@ -18,6 +18,7 @@ public class TaskDate {
     public static final String DATE_VALIDATION_REGEX = "\\w{3}, \\d{2} \\w{3} \\d{2}";
 
     public String value;
+    public String testValue;
 
     /**
      * Validates given taskDate.
@@ -29,10 +30,14 @@ public class TaskDate {
         date = date.trim();
         if(date.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || date.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED)) {
             this.value = date;
+            this.testValue = date;
         } else if (!isValidDateFormat(date)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
+        } else {
+        	this.value = date;
+        	String[] tempList = date.split("\\s+");
+        	this.testValue = tempList[1] + " " + tempList[2];
         }
-        this.value = date;
     }
     
     public void editDate(String newDate) throws IllegalValueException {
@@ -42,6 +47,8 @@ public class TaskDate {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         this.value = newDate;
+        String[] tempList = newDate.split("\\s+");
+        this.testValue = tempList[1] + " " + tempList[2];
     }
     /**
      * Returns if a given string is a valid taskDate.
@@ -54,7 +61,9 @@ public class TaskDate {
     public String toString() {
         return value;
     }
-
+    public String getTestValue() {
+    	return testValue;
+    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
