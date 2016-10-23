@@ -25,25 +25,29 @@ public class SaveCommand extends Command{
         public static final String COMMAND_WORD = "save";
         
         public static final String MESSAGE_USAGE = COMMAND_WORD + ": Saves data to a specified valid location.\n"
-                + "Parameters: filepath"
+                + "Parameters: filepath\n"
                 + "Example: " + COMMAND_WORD
-                + " /OneDrive/data";
+                + " C:/Users/Documents/OneDrive/data or ggist2.xml";
      
     public static final String MESSAGE_SUCCESS = "File location successfully changed to %1$s.";
-    private static final String MESSAGE_FAIL = "Specified location does not exists";
+    private static final String MESSAGE_FAIL = "Specified directory does not exists";
     private static final String DEFAULT_FILENAME = "/ggist.xml";
+    private static final String DEFAULT_FILE_FOLDER = "data/";
+    private static final String DEFAULT_FILE_EXTENSION = "xml";
     
     private String filePath;
 
     public SaveCommand(String filePath) throws IllegalValueException {
         assert filePath != null;
-        if (!Files.exists(Paths.get(filePath+"/"))) {
-           throw new IllegalValueException(MESSAGE_FAIL);
-        } else if (new File(filePath).isFile()) {
-            this.filePath = filePath;
-        } else {
+        String extension = filePath.substring(filePath.lastIndexOf(".") + 1, filePath.length());
+        if (new File(filePath).isDirectory()) {
             this.filePath = filePath + DEFAULT_FILENAME;
+        } else if (!Files.exists(Paths.get(filePath)) && DEFAULT_FILE_EXTENSION.equals(extension)) {
+            this.filePath = DEFAULT_FILE_FOLDER + filePath;
+        } else {
+            throw new IllegalValueException(MESSAGE_FAIL);
         }
+   
     }
 
     

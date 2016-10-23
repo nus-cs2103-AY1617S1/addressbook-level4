@@ -87,12 +87,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
+        updateListing();
         indicateTaskManagerChanged();
     }
     
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.doneTask(target);
+        updateListing();
         indicateTaskManagerChanged();
     }
 
@@ -292,9 +294,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return taskDateKeyWords.equals(task.getStartDate().toString()) || 
-                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString()) && !task.getDone() ||
-                   (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) && !task.getDone());          
+            return (taskDateKeyWords.equalsIgnoreCase(task.getStartDate().toString()) || 
+                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString())) && 
+                   !task.getDone() ||
+                   (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && 
+                   task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) && 
+                   !task.getDone());          
+                   
         }
 
         @Override

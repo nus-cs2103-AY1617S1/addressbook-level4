@@ -97,13 +97,13 @@
 }
 
 .cell_name_label {
-	-fx-font-size: 16px;
+	-fx-font-size: 30px;
 	-fx-text-fill: #010504;
 }
 
 .cell_big_label {
 	-fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-    -fx-font-size: 13px;
+    -fx-font-size: 25px;
     -fx-text-fill: #010504;
 }
 
@@ -115,7 +115,7 @@
 
 .cell_small_label {
 	-fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-    -fx-font-size: 12px;
+    -fx-font-size: 20px;
     -fx-text-fill: #010504;
 }
 
