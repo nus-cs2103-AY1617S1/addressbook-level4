@@ -7,7 +7,7 @@ import tars.model.tag.ReadOnlyTag;
 
 public class Formatter {
     /** Format of indexed list item */
-    private static final String MESSAGE_INDEXED_LIST_ITEM = "\t%1$d. %2$s";
+    private static final String MESSAGE_INDEXED_LIST_ITEM = "%1$d. %2$s";
 
     /** A decorative prefix added to the beginning of lines printed by TARS */
     private static final String LINE_PREFIX = " ";

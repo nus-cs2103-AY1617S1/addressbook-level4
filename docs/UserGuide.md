@@ -71,7 +71,7 @@ Format: `rsv /del <INDEX>`
 > The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
-* `rsv -del 5`
+* `rsv /del 5`
 
 #### Confirming a reserved timeslot : `confirm`  
 Confirms a reserved timeslot for a particular tasks and removed all the other reserved time slots.  
@@ -111,7 +111,6 @@ Examples:
 * `tag /e 5 Assignment`
 
 #### Deleting a tag : `tag /del`
-*[Under Development]*  
 Deletes a particular tag  
 Format: `tag /del <INDEX>`
 
@@ -120,7 +119,7 @@ Format: `tag /del <INDEX>`
 > The index **must be a positive integer** 1, 2, 3, ...
 
 Examples:
-* `tag /d 4` deletes the tag at Index 4
+* `tag /del 4` deletes the tag at Index 4
 
 #### Listing all tags : `tag /ls`
 Lists all tags in TARS  
@@ -236,7 +235,7 @@ There is no need to save manually.
 
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?<br>
+**Q**: How do I transfer my data to another Computer?  
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous TARS app.
        

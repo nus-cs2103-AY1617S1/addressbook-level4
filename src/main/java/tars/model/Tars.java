@@ -17,6 +17,7 @@ import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.DateTimeUtil;
 import tars.logic.parser.ArgumentTokenizer;
 import tars.logic.parser.Prefix;
+import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.Tag;
 import tars.model.tag.UniqueTagList;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
@@ -31,7 +32,6 @@ import java.util.stream.Collectors;
  * comparison)
  */
 public class Tars implements ReadOnlyTars {
-
 
 	private final UniqueTaskList tasks;
 	private final UniqueTagList tags;
@@ -222,8 +222,6 @@ public class Tars implements ReadOnlyTars {
 		replaceTask(toEdit, taskToEdit);
 		syncTagsWithMasterList(taskToEdit);
 		
-		System.out.println("edut: " + taskToEdit.getName());
-		
 		return taskToEdit;
 	}
 
@@ -360,6 +358,50 @@ public class Tars implements ReadOnlyTars {
 	public void removeTag(Tag t) throws UniqueTagList.TagNotFoundException {
 		tags.remove(t);
 	}
+	
+	/**
+     * Rename all task which has the old tag with the new tag
+     * 
+     * @param oldTag tag to be replaced with new tag name
+     * @param tagToUpdate new tag name
+     * @throws IllegalValueException if the given tag name string is invalid.
+     * @throws TagNotFoundException if there is no matching tags.
+     */
+    public void renameTag(ReadOnlyTag oldTag, Tag newTag)
+            throws IllegalValueException, TagNotFoundException, DuplicateTagException {
+
+        for (int i = 0; i < tasks.getInternalList().size(); i++) {
+            Task toEdit = new Task(tasks.getInternalList().get(i));
+            UniqueTagList tags = toEdit.getTags();
+            if (tags.contains(new Tag(oldTag))) {
+                tags.remove(new Tag(oldTag));
+                tags.add(newTag);
+                toEdit.setTags(tags);
+                tasks.getInternalList().set(i, toEdit);
+            }
+        }
+    }
+    
+    /**
+     * Delete tag from all tasks
+     * 
+     * @param toBeDeleted
+     * @throws IllegalValueException if the given tag name string is invalid.
+     * @throws TagNotFoundException if there is no matching tags.
+     */
+    public void deleteTag(ReadOnlyTag toBeDeleted)
+            throws IllegalValueException, TagNotFoundException, DuplicateTagException {
+
+        for (int i = 0; i < tasks.getInternalList().size(); i++) {
+            Task toEdit = new Task(tasks.getInternalList().get(i));
+            UniqueTagList tags = toEdit.getTags();
+            if (tags.contains(new Tag(toBeDeleted))) {
+                tags.remove(new Tag(toBeDeleted));
+                toEdit.setTags(tags);
+                tasks.getInternalList().set(i, toEdit);
+            }
+        }
+    }
 
 	//// util methods
 
