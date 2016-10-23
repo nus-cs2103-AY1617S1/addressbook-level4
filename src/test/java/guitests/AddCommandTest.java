@@ -23,6 +23,7 @@ public class AddCommandTest extends ActivityManagerGuiTest {
         assertAddSuccess(taskToAdd, taskList);
         taskList = TestUtil.addTasksToList(taskList, taskToAdd);
         
+        //@@author A0139515A
         //add floating task
         TestActivity[] floatingTaskList = td.getTypicalFloatingTask();
         TestActivity floatingTaskToAdd = td.floatingTask;
