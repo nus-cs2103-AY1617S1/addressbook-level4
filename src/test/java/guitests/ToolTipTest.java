@@ -23,22 +23,22 @@ public class ToolTipTest extends TaskManagerGuiTest {
 
     @Test
     public void validInput_commandBeginning() {
-        assertToolTip("a", AddCommand.MESSAGE_USAGE);
-        assertToolTip("v", ViewCommand.MESSAGE_USAGE);
-        assertToolTip("f", FindCommand.MESSAGE_USAGE);
-        assertToolTip("ed", EditCommand.MESSAGE_USAGE);
-        assertToolTip("de", DeleteCommand.MESSAGE_USAGE);
-        assertToolTip("do", DoneCommand.MESSAGE_USAGE);
-        assertToolTip("u", UndoCommand.MESSAGE_USAGE);
-        assertToolTip("c", ClearCommand.MESSAGE_USAGE);
-        assertToolTip("h", HelpCommand.MESSAGE_USAGE);
-        assertToolTip("ex", ExitCommand.MESSAGE_USAGE);
+        assertToolTip("a", AddCommand.MESSAGE_PARAMETER);
+        assertToolTip("v", ViewCommand.MESSAGE_PARAMETER);
+        assertToolTip("f", FindCommand.MESSAGE_PARAMETER);
+        assertToolTip("ed", EditCommand.MESSAGE_PARAMETER);
+        assertToolTip("de", DeleteCommand.MESSAGE_PARAMETER);
+        assertToolTip("do", DoneCommand.MESSAGE_PARAMETER);
+        assertToolTip("u", UndoCommand.MESSAGE_PARAMETER);
+        assertToolTip("c", ClearCommand.MESSAGE_PARAMETER);
+        assertToolTip("h", HelpCommand.MESSAGE_PARAMETER);
+        assertToolTip("ex", ExitCommand.MESSAGE_PARAMETER);
     }
     
     @Test
     public void validInput_commandFull() {
-        assertToolTip("add test 12 oct 3pm", AddCommand.MESSAGE_USAGE);
-        assertToolTip("edit e 1 hello", EditCommand.MESSAGE_USAGE);
+        assertToolTip("add test 12 oct 3pm", AddCommand.MESSAGE_PARAMETER);
+        assertToolTip("edit e 1 hello", EditCommand.MESSAGE_PARAMETER);
     }
     
     @Test
