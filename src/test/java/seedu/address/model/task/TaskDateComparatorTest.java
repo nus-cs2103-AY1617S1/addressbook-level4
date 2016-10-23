@@ -2,12 +2,12 @@ package seedu.address.model.task;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
-import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.testutil.TypicalTestTasks;
 
