@@ -9,7 +9,6 @@ import guitests.guihandles.TaskCardHandle;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddFloatingCommand;
 import seedu.address.logic.commands.AddNonFloatingCommand;
-import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.TaskComponent;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;

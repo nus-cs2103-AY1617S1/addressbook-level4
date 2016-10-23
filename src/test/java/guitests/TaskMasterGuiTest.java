@@ -2,6 +2,7 @@ package guitests;
 
 import guitests.guihandles.*;
 import javafx.stage.Stage;
+import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.Agenda.AppointmentImplLocal;
 
 import org.junit.After;
@@ -12,14 +13,20 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.logic.commands.BlockCommand;
 import seedu.address.model.TaskMaster;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
 import seedu.address.ui.MyAgenda;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertEquals;
@@ -48,6 +55,7 @@ public abstract class TaskMasterGuiTest {
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     protected NavbarPanelHandle navbar;
+    protected BrowserPanelHandle browser;
     private Stage stage;
 
     @BeforeClass
@@ -69,6 +77,7 @@ public abstract class TaskMasterGuiTest {
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             navbar = mainGui.getNavbar();
+            browser = mainGui.getBrowser();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
@@ -133,4 +142,20 @@ public abstract class TaskMasterGuiTest {
         assertEquals(expected, resultDisplay.getText());
     }
     
+    //@@author A0147967J
+    /**
+     * Asserts the expected task components are reflected in the agenda.
+     * @param expected
+     */
+    protected void assertIsAgendaMatching(ArrayList<TaskComponent> expectedShown){
+		//Get the updated agenda
+		MyAgenda toBeChecked = browser.getMyAgenda();
+		//Checks the number of items in the agenda
+		assertEquals(expectedShown.size(), toBeChecked.appointments().size());
+		//Checks one-to-one match
+		for(TaskComponent t: expectedShown){
+			assertTrue(browser.isContained(TestUtil.getAppointment(t)));
+		}
+	}
+
 }

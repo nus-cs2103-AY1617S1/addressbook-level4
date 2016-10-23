@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
+import javafx.collections.ObservableList;
 import javafx.util.Callback;
 import jfxtras.scene.control.agenda.Agenda;
 import seedu.address.logic.commands.BlockCommand;
@@ -57,6 +58,7 @@ public class MyAgenda extends Agenda{
 		agendaEndTime = getAgendaEndDateTime();
 		
 	}
+	
 	//=================For change agenda range================================================
 	
 	/** Sets the displayed date time of the agenda to specified one. */
@@ -187,8 +189,7 @@ public class MyAgenda extends Agenda{
 	
 	/** Returns a LocalDateTime object converted from TaskDate. */
 	private LocalDateTime getConvertedTime(TaskDate t){
-		return LocalDateTime.ofInstant(new Date(t.getDateInLong()).toInstant(), ZoneId.systemDefault());
-    	
+		return LocalDateTime.ofInstant(new Date(t.getDateInLong()).toInstant(), ZoneId.systemDefault());    	
     }
 	
 	/** Returns the startTime of the agenda. */

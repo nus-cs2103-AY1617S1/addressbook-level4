@@ -9,6 +9,9 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import jfxtras.scene.control.agenda.Agenda;
+import jfxtras.scene.control.agenda.Agenda.Appointment;
+import jfxtras.scene.control.agenda.Agenda.AppointmentImplLocal;
 import junit.framework.AssertionFailedError;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
@@ -16,6 +19,7 @@ import seedu.address.TestApp;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
+import seedu.address.logic.commands.BlockCommand;
 import seedu.address.model.TaskMaster;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -27,8 +31,11 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
@@ -359,5 +366,38 @@ public class TestUtil {
 
         return collect.toArray(new Tag[split.length]);
     }
+    
+    //@@author A0147967J
+    /** Returns a LocalDateTime object converted from TaskDate. */
+	public static LocalDateTime getConvertedTime(TaskDate t){
+		return LocalDateTime.ofInstant(new Date(t.getDateInLong()).toInstant(), ZoneId.systemDefault());    	
+    }
+	
+	/** Returns an AppointmentImplLocal object from a task component */
+	public static AppointmentImplLocal getAppointment(TaskComponent taskComponent){
+		
+		AppointmentImplLocal appointment = new AppointmentImplLocal();
+		appointment.setSummary(taskComponent.getTaskReference().getName().fullName);
+		appointment.setDescription(taskComponent.getTaskReference().tagsString());
+		appointment.setStartLocalDateTime(getConvertedTime(taskComponent.getStartDate()));			
+		appointment.setEndLocalDateTime(getConvertedTime(taskComponent.getEndDate()));
+		if(taskComponent.isArchived()){
+			appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1"));			
+		}else if(taskComponent.getTaskReference().getName().fullName.equals(BlockCommand.DUMMY_NAME)){
+			appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group6"));
+		}else{
+			appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group9"));
+		}	
+		return appointment;
+			
+	}
+	
+	public static boolean isSameAppointment(Appointment a, AppointmentImplLocal a2){
+		return a.getAppointmentGroup().getStyleClass().equals(a2.getAppointmentGroup().getStyleClass()) 
+				&& a.getStartLocalDateTime().equals(a2.getStartLocalDateTime())
+				&& a.getEndLocalDateTime().equals(a2.getEndLocalDateTime())
+				&& a.getDescription().equals(a2.getDescription())
+				&& a.getSummary().equals(a2.getSummary());
+	}
 
 }

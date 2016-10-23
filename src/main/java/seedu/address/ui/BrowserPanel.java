@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.model.task.ReadOnlyTask;
@@ -21,6 +22,9 @@ import java.util.logging.Logger;
 public class BrowserPanel extends UiPart{
 
     private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
+    private static final String FXML = "BrowserPanel.fxml";
+    private VBox panel;
+    private AnchorPane placeHolderPane;
     
     @FXML
     private MyAgenda agenda;
@@ -28,24 +32,20 @@ public class BrowserPanel extends UiPart{
     /**
      * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a BrowserPanel.
      */
-    private BrowserPanel() {
-    	super();
-    }
-
     @Override
     public void setNode(Node node) {
-    	
+    	panel = (VBox) node;
     }
 
     @Override
     public String getFxmlPath() {
-		return null;
+		return FXML;
        //not applicable
     }
     
     @Override
     public void setPlaceholder(AnchorPane pane) {
-    	
+    	this.placeHolderPane = pane;
     }
 
     /**
@@ -53,13 +53,14 @@ public class BrowserPanel extends UiPart{
      * This method should be called after the FX runtime is initialized and in FX application thread.
      * @param placeholder The AnchorPane where the BrowserPanel must be inserted
      */
-    public static BrowserPanel load(AnchorPane placeholder, ObservableList<TaskComponent> taskList){
-        logger.info("Initializing Calendar");
-        BrowserPanel browserPanel = new BrowserPanel();
-        browserPanel.agenda = new MyAgenda();
+    public static BrowserPanel load(Stage primaryStage, AnchorPane browserPanelPlaceholder,
+            ObservableList<TaskComponent> taskList){
+        logger.info("Initializing Agenda");       
+        BrowserPanel browserPanel =
+                UiPartLoader.loadUiPart(primaryStage, browserPanelPlaceholder, new BrowserPanel());
         browserPanel.initialize(taskList);
         FxViewUtil.applyAnchorBoundaryParameters(browserPanel.agenda, 0.0, 0.0, 0.0, 0.0);
-        placeholder.getChildren().add(browserPanel.agenda);
+        browserPanel.placeHolderPane.getChildren().add(browserPanel.panel);
         return browserPanel;
     }
     

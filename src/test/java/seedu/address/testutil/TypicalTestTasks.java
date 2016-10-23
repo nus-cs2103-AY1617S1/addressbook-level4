@@ -23,7 +23,7 @@ public class TypicalTestTasks {
     public static TestTask block1, block2, block3;
 
     /** Recurring Task. */
-    public static TestTask daily, weekly, monthly, yearly;
+    public static TestTask daily, weekly, monthly, yearly, none;
     
     public TypicalTestTasks() {
         try {
@@ -52,14 +52,16 @@ public class TypicalTestTasks {
             //Block overlapped timeslot
             block2 = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("17 oct 8pm").withEndDate("17 oct 11pm").build(); 
             //Recurring Type
-            daily = new TaskBuilder().withName("Daily Task").withStartDate("7pm").withEndDate("8pm")
+            daily = new TaskBuilder().withName("Daily Task").withStartDate("7am").withEndDate("8am")
             		.withRecurringType(RecurringType.DAILY).build();
-            weekly = new TaskBuilder().withName("Weekly Task").withStartDate("6pm").withEndDate("7pm")
+            weekly = new TaskBuilder().withName("Weekly Task").withStartDate("6am").withEndDate("7am")
             		.withRecurringType(RecurringType.WEEKLY).build();
-            monthly = new TaskBuilder().withName("Monthly Task").withStartDate("5pm").withEndDate("6pm")
+            monthly = new TaskBuilder().withName("Monthly Task").withStartDate("5am").withEndDate("6am")
             		.withRecurringType(RecurringType.MONTHLY).build();
-            yearly = new TaskBuilder().withName("Yearly Task").withStartDate("3pm").withEndDate("5pm")
+            yearly = new TaskBuilder().withName("Yearly Task").withStartDate("3am").withEndDate("5am")
             		.withRecurringType(RecurringType.YEARLY).build();
+            none = new TaskBuilder().withName("Normal Task").withStartDate("1am").withEndDate("3am")
+            		.withRecurringType(RecurringType.NONE).build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -86,6 +88,10 @@ public class TypicalTestTasks {
 
     public TestTask[] getTypicalTasks() {
         return new TestTask[]{trash, book, homework, lecture, meeting, george, labDeadline, tutorialSlot, essayDeadline,concert};
+    }
+    
+    public TestTask[] getTypicalTasksWithRecurringOnes(){
+    	return new TestTask[]{trash, tutorialSlot, essayDeadline,concert, yearly, monthly, weekly, daily, none};
     }
     
     public TaskComponent[] getTypicalTaskComponents() {
