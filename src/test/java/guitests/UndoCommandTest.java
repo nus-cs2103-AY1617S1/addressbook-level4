@@ -9,7 +9,6 @@ import org.junit.Test;
 import seedu.taskitty.logic.commands.UndoCommand;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
-import seedu.taskitty.testutil.TestUtil;
 
 public class UndoCommandTest extends TaskManagerGuiTest {
     

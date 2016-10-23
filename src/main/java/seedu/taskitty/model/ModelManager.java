@@ -5,6 +5,7 @@ import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
+import seedu.taskitty.commons.exceptions.NoPreviousCommandException;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
@@ -103,10 +104,15 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    public synchronized String undo() {
-        resetData(historyTaskManagers.pop());   
-        updateFilteredTaskList(historyPredicates.pop());
-        return historyCommands.pop();
+    //@@ author A0139052L
+    public synchronized String undo() throws NoPreviousCommandException {
+        if (!hasPreviousCommand()) {            
+            throw new NoPreviousCommandException(null);
+        }
+        assert !historyPredicates.isEmpty() && !historyTaskManagers.isEmpty();
+        resetData(getPreviousTaskManager());   
+        updateFilteredTaskList(getPreviousPredicate());
+        return getPreviousCommand();
     }
     
     public synchronized void saveState(String command) {
@@ -121,6 +127,22 @@ public class ModelManager extends ComponentManager implements Model {
         historyPredicates.pop();
     }
     
+    private ReadOnlyTaskManager getPreviousTaskManager() {
+        return historyTaskManagers.pop();
+    }
+    
+    private Predicate getPreviousPredicate() {
+        return historyPredicates.pop();
+    }
+    
+    private String getPreviousCommand() {
+        return historyCommands.pop();
+    }
+    
+    private boolean hasPreviousCommand() {
+        return !historyCommands.isEmpty();
+    }
+    
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
     	taskManager.doneTask(target);
@@ -131,9 +153,9 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0135793W
    	@Override
     public synchronized void editTask(ReadOnlyTask target, Task task) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
-        taskManager.removeTask(target);
+   	    taskManager.addTask(task);
         indicateTaskManagerChanged();
-        taskManager.addTask(task);
+        taskManager.removeTask(target);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
