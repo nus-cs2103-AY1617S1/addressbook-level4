@@ -23,6 +23,8 @@ import seedu.taskmanager.model.tag.Tag;
 import seedu.taskmanager.model.tag.UniqueTagList;
 import seedu.taskmanager.model.tag.UniqueTagList.DuplicateTagException;
 
+//@@author A0140060A
+
 /**
  * Edits an item identified using it's last displayed index from the task manager.
  */
