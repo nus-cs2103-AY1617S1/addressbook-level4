@@ -17,11 +17,14 @@ public class TypicalTestTasks {
     public static TestTask trash, book, homework, lecture, meeting, george, hoon, ida;
     
     /** Non-floating test tasks. */
-    public static TestTask labDeadline, tutorialSlot, essayDeadline, concert, movie, project, paper;
+    public static TestTask labDeadline, tutorialSlot, essayDeadline, concert, movie, project, paper, incoming;
     
     /** Blocked slots. */
     public static TestTask block1, block2, block3;
 
+    /** Recurring Task. */
+    public static TestTask recurrence;
+    
     public TypicalTestTasks() {
         try {
         	//Floating tasks
@@ -42,12 +45,15 @@ public class TypicalTestTasks {
             project = new TaskBuilder().withName("project discussion").withStartDate("19 oct 4pm").withEndDate("19 oct 5pm").build();
             paper = new TaskBuilder().withName("cs paper").withEndDate("18 oct 5pm").build();
             block1 = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("20 oct 2pm").withEndDate("20 oct 3pm").build();
-            
+            incoming = new TaskBuilder().withName("incoming").withEndDate("tomorrow 5pm").build();
             //Exceptions
             //Add non-floating overlapped timeslot
             movie = new TaskBuilder().withName("movie").withStartDate("17 oct 8pm").withEndDate("17 oct 11pm").build();
             //Block overlapped timeslot
-            block2 = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("17 oct 8pm").withEndDate("17 oct 11pm").build();
+            block2 = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("17 oct 8pm").withEndDate("17 oct 11pm").build(); 
+            //Recurring Type
+            recurrence = new TaskBuilder().withName("Recurring Task").withStartDate("today 8pm").withEndDate("today 11pm")
+            		.withRecurringType(RecurringType.DAILY).build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

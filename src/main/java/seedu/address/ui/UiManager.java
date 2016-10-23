@@ -13,6 +13,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.AgendaTimeRangeChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.NavigationSelectionChangedEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
@@ -134,6 +135,7 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.loadTaskPage(event.getNewSelection());
     }
     
+    //@@author A0147967J
     @Subscribe
     private void handleNavigationSelectionChangedEvent(NavigationSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -141,8 +143,15 @@ public class UiManager extends ComponentManager implements Ui {
     }
     
     @Subscribe
-    private void handleTaskListChangedEvent(TaskListChangedEvent tlce){
-    	mainWindow.getBrowserPanel().loadTaskList((ObservableList<TaskComponent>) tlce.data.getTaskComponentList());
+    private void handleTaskListChangedEvent(TaskListChangedEvent event){
+    	logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    	mainWindow.getBrowserPanel().reloadAgenda(event.data.getTaskComponentList());
+    }
+    
+    @Subscribe
+    private void handleAgendaTimeRangeChangedEvent(AgendaTimeRangeChangedEvent event){
+    	logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    	mainWindow.getBrowserPanel().updateAgenda(event.getInputDate(), event.getData());
     }
 
 }

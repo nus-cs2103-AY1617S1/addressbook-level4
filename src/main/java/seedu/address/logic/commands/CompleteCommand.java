@@ -8,8 +8,9 @@ import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0147967J
 /**
- * Deletes a task identified using it's last displayed index from the task list.
+ * Marks a task as done identified using it's last displayed index from the task list.
  */
 public class CompleteCommand extends Command {
 

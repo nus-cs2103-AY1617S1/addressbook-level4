@@ -1,6 +1,5 @@
 package seedu.address.logic.parser;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.commons.core.Messages.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,6 +36,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.ViewCommand;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.TaskDate;
 
@@ -50,7 +50,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern FIND_ARGS_WITHOUT_DATE_FORMAT = 
     		Pattern.compile("(?<keywords>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
@@ -180,16 +180,16 @@ public class Parser {
             return new UndoCommand();
             
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();          
+            return new RedoCommand();  
+            
+        case ViewCommand.COMMAND_WORD:
+        	return prepareView(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
-    
-
-	
 
 	/**
      * Parses arguments in the context of the add task command.
@@ -304,8 +304,8 @@ public class Parser {
                 );
     }
     
+    //@@author A0147967J
     private Command prepareBlock(String args) {
-		// TODO Auto-generated method stub
     	Matcher matcher = BLOCK_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BlockCommand.MESSAGE_USAGE));
@@ -324,7 +324,8 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
 	}
-
+    //@@author
+    
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
@@ -356,6 +357,13 @@ public class Parser {
         return new DeleteCommand(index.get());
     }
     
+    //@@author A0147967J
+    /**
+     * Parses arguments in the context of the complete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareComplete(String args) {
 
         Optional<Integer> index = parseIndex(args);
@@ -366,7 +374,7 @@ public class Parser {
 
         return new CompleteCommand(index.get());
     }
-    
+    //@@author
     
 
     /**
@@ -390,7 +398,7 @@ public class Parser {
      *   Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
+        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
@@ -422,7 +430,6 @@ public class Parser {
         Date startTime = null;
         Date endTime = null;
         Date deadline = null;
-        Date today = null;
         Set<String> tagSet = new HashSet<String>();
         
         boolean dateMatcherMatches = dateMatcher.matches();
@@ -578,6 +585,24 @@ public class Parser {
         }   
     }
     
+    //@@author A0147967J
+    /**
+     * Returns the view command with input date parsed 
+     * @param arguments passed by user
+     * @return prepared view command
+     */
+    private Command prepareView(String arguments) {
+		// TODO Auto-generated method stub
+    	Date date;
+    	try{
+    		date = getDateFromString(arguments);
+    	}catch(IllegalArgumentException e){
+    		return new IncorrectCommand(e.getMessage());
+    	}
+		return new ViewCommand(new TaskDate(date));
+	}
+    //@@author
+    
     /**
      * Reformats any date into the format that we are storing and using in this software 
      * @param oldDate
@@ -598,7 +623,7 @@ public class Parser {
 				resultSet.add(getDateFromString(time[START_TIME_INDEX]));
 	    		resultSet.add(getDateFromString(time[END_TIME_INDEX]));
 			} catch(Exception cnp) {
-				throw new IllegalArgumentException("Illegal date input");
+				throw new IllegalArgumentException(MESSAGE_ILLEGAL_DATE_INPUT);
 			}
 			
 		} catch(Exception ise) {
@@ -606,7 +631,7 @@ public class Parser {
 			try {
 				resultSet.add(getDateFromString(m.group("deadline").replace(" by ", "")));
 			} catch(Exception cnp) {
-				throw new IllegalArgumentException("Illegal date input");
+				throw new IllegalArgumentException(MESSAGE_ILLEGAL_DATE_INPUT);
 			}
     	} 	
     	return resultSet;
@@ -619,8 +644,11 @@ public class Parser {
      */
     public static Date getDateFromString(String dateInput) {
         List<DateGroup> dateGroups = nattyParser.parse(dateInput);
-        
-        return dateGroups.get(0).getDates().get(0);
+        try{
+        	return dateGroups.get(0).getDates().get(0);
+        }catch (Exception e){
+        	throw new IllegalArgumentException(MESSAGE_ILLEGAL_DATE_INPUT);
+        }
     }
     
     private static RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {

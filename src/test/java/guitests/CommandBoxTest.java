@@ -25,7 +25,7 @@ public class CommandBoxTest extends TaskMasterGuiTest {
     public void commandBox_commandExecutionFails_textStays(){
     	commandBox.runCommand(td.book.getAddFloatingCommand());
         assertEquals(commandBox.getCommandInput(), td.book.getAddFloatingCommand());
-        //TODO: confirm the text box color turns to yellow
+        //TODO: confirm the text box color turns to orange
         assertTrue(commandBox.getStyleClass().contains("fail"));
     }
 

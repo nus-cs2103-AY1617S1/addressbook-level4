@@ -1,32 +1,28 @@
 package seedu.address.ui;
 
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
-import jfxtras.scene.control.agenda.Agenda;
-import jfxtras.scene.control.agenda.Agenda.AppointmentImplLocal;
+import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
-import seedu.address.logic.commands.BlockCommand;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskType;
 import seedu.address.commons.core.LogsCenter;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
+//@@author A0147967J-reused
 /**
- * The Browser Panel of the App.
+ * The Browser Panel of the App modified to display the agenda.
  */
 public class BrowserPanel extends UiPart{
 
     private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
     private static final String FXML = "BrowserPanel.fxml";
+
     
     @FXML
     private MyAgenda agenda;
@@ -40,6 +36,7 @@ public class BrowserPanel extends UiPart{
 
     @Override
     public void setNode(Node node) {
+    	
     }
 
     @Override
@@ -49,6 +46,7 @@ public class BrowserPanel extends UiPart{
     
     @Override
     public void setPlaceholder(AnchorPane pane) {
+    	
     }
 
     /**
@@ -59,22 +57,34 @@ public class BrowserPanel extends UiPart{
     public static BrowserPanel load(AnchorPane placeholder, ObservableList<TaskComponent> taskList){
         logger.info("Initializing Calendar");
         BrowserPanel browserPanel = new BrowserPanel();
-        //browserPanel.browser = new WebView();
         browserPanel.agenda = new MyAgenda();
         browserPanel.initialize(taskList);
-        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
         FxViewUtil.applyAnchorBoundaryParameters(browserPanel.agenda, 0.0, 0.0, 0.0, 0.0);
         placeholder.getChildren().add(browserPanel.agenda);
         return browserPanel;
     }
     
+    public void configure(ObservableList<TaskComponent> taskList){
+    	initialize(taskList);
+    }
     
+  //@@author A0147967J
     private void initialize(ObservableList<TaskComponent> taskList){
+    	agenda.setDisplayedDateTime(new TaskDate(new Date(System.currentTimeMillis())));
     	loadTaskList(taskList);
     }
 
     public void loadTaskPage(ReadOnlyTask task) {
-        //loadPage("https://www.google.com.sg/#safe=off&q=" + task.getName().fullName.replaceAll(" ", "+"));
+        //Deprecated method
+    }
+    
+    public void updateAgenda(TaskDate inputDate, List<TaskComponent> taskList){
+    	agenda.setDisplayedDateTime(inputDate);
+    	loadTaskList(taskList);
+    }
+    
+    public void reloadAgenda(List<TaskComponent> taskList){
+    	loadTaskList(taskList);
     }
 
     /**
@@ -84,8 +94,12 @@ public class BrowserPanel extends UiPart{
         agenda = null;
     }
     
-    public void loadTaskList(ObservableList<TaskComponent> taskList){
+    public void loadTaskList(List<TaskComponent> taskList){   	
     	agenda.addAllToAgenda(taskList);    		
+    }
+    
+    public MyAgenda getAgenda(){
+    	return agenda;
     }
     
 }

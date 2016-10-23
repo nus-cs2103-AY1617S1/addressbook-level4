@@ -14,6 +14,10 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
+//@@author A0147967J
+/**
+ * Blocks a certain time slot in the task list. 
+ */
 public class BlockCommand extends Command {
 	
 	public static final String COMMAND_WORD = "block";
@@ -63,12 +67,10 @@ public class BlockCommand extends Command {
             model.addTask(toBlock);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toBlock));
         } catch (TimeslotOverlapException e) {
-			// TODO Auto-generated catch block
         	indicateAttemptToExecuteFailedCommand();
         	urManager.popFromUndoQueue();
         	return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		} catch (DuplicateTaskException e) {
-			// TODO Auto-generated catch block
 			assert false: "not applicable for block command";
 			return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		}
