@@ -1,5 +1,6 @@
 package teamfour.tasc.model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import teamfour.tasc.model.history.HistoryItem;
 import teamfour.tasc.model.tag.Tag;
@@ -127,6 +128,18 @@ public class TaskList implements ReadOnlyTaskList, HistoryItem<TaskList> {
      */
     public void updateTask(ReadOnlyTask oldTask, Task newTask) throws UniqueTaskList.TaskNotFoundException {
         tasks.updateTask(oldTask, newTask);
+    }
+    
+    /**
+     * Precondition: Argument is not null.
+     * Sort this task list by comparator.
+     * Does affect the positions of tasks in the list internally.
+     * 
+     * @param comparator Comparator used to compare ReadOnlyTask
+     */
+    public void sortUsingComparator(Comparator<ReadOnlyTask> comparator) {
+        assert comparator != null;
+        FXCollections.sort(tasks.getInternalList(), comparator);
     }
 
 //// tag-level operations
