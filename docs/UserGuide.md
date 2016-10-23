@@ -37,20 +37,21 @@ Format: `help`
 #### Adding a task: `add`
 Adds a floating task, task or an event to the MustDoList.<br>
 
-Format 1: **`add`**`FLOATING_TASK_NAME`<br>
-Format 2: **`add`**`TASK_NAME by END_DATE END_TIME`<br>
-Format 3: **`add`**`EVENT_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`<br>
+Format 1: **`add`**`FLOATING TASK_NAME`<br>
+Format 2: **`add`**`TASK NAME by END_TIME END_DATE`<br>
+Format 3: **`add`**`EVENT NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`<br>
+
+> Date Format: DD-MMM-YYYY<br>
+> Time Format: HH:MM am/pm<br> 
 
 Examples:<br> 
 * **`add`**`Do CS2103 Pretut`<br>
 	Adding a floating task.<br>
-* **`add`**`Do CS2103 Pretut by 01-Oct-16 8am`<br>
+* **`add`**`Do CS2103 Pretut by 8am 01-Oct-16 `<br>
 	Adding a task.<br>
-* **`add`**`CS2103 Tutorial s/today 8am e/tomorrow 9am at NUS COM1-B103`<br>
-	Adding an event.<br>
-	
-> Date Format: DD-MMM-YYYY<br>
-Time Format: HH:MM am/pm<br> 	
+* **`add`**`CS2103 Tutorial s/today 8am e/tomorrow 9pm at NUS COM1-B103`<br>
+* **`add`**`CS2103 Tutorial s/today 0800 e/tomorrow 2100 at NUS COM1-B103`<br>
+	Adding an event.<br>	
 
 #### Listing all tasks: `list`
 Shows a list of all tasks in the MustDoList.<br>
@@ -62,7 +63,9 @@ Finds a task by keywords.<br>
 
 Format: **`find`**`KEYWORD`
 
-> KEYWORD refers to: task_name, location, date, time, mark<br> 
+> KEYWORD refers to: task name, location, date, time, mark<br> 
+> Date Format: DD-MMM-YYYY<br>
+> Time Format: HH:MM am/pm<br>
 
 Examples:<br> 
 * **`find`**`CS2103`<br>
@@ -70,10 +73,7 @@ Examples:<br>
 * **`find`**`09-Oct-2016`<br>
   Returns Any task(s) with date 09-Oct-2016
 * **`find`**`completed`<br>
-  Returns Any task(s) are mark completed<br>
-  
-> Date Format: DD-MMM-YYYY<br>
-Time Format: HH:MM am/pm<br>
+  Returns Any task(s) are marked as completed<br>
 
 #### Select a task : `select`
 Selects a task from MustDoList by index.<br>
@@ -92,7 +92,7 @@ Examples:<br>
   Selects the 1st task in the results of the `find` command.
   
 #### Select a task : `setpath`
-Set path for saved data path.<br>
+Set user specified filename and/or file directory.<br>
 
 Format: **`setpath`**`FILENAME`
 
@@ -104,7 +104,7 @@ Examples:<br>
 * **`setpath`**`backup/taskData`<br>
   Filename taskData will be created at location data/backup/taskData .
 * **`setpath`**`c:/user/<name>/desktop/taskData`<br>
-  Filename taskData will be created at user desktop .
+  Filename "taskData" will be created at user desktop.
 
 #### Deleting a task: `delete`
 Deletes a task from the MustDoList by index. <br>
@@ -117,9 +117,6 @@ Examples:<br>
 * `list`<br>
   **`delete`**`2`<br>
   Deletes the 2nd task in the MustDoList.
-* **`find`**`CS2103`<br> 
-  **`delete`**`1`<br>
-  Deletes the 1st task in the results of the `find` command.
 
 #### Clearing all entries : `clear`
 Clears all entries from the TaskListPanel.<br>
@@ -224,18 +221,22 @@ There is no need to save manually.
 Command | Format  
 -------- | :-------- 
 Help | `help`
-Add | **`add`**`EVENT_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`
-List | `list`
+Add | **`add`**`FLOATING TASK NAME`
+| 	| **`add`**`TASK NAME by END_DATE END_TIME`
+|	| **`add`**`EVENT NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`
+List | **`list`**
 Find | **`find`**`KEYWORD`
 Select | **`select`**`INDEX`
 Delete | **`delete`**`INDEX`
-Clear | `clear`
+Clear | **`clear`**
 Edit | **`edit`**`INDEX EVENT_NAME s/START_DATE_TIME e/END_DATE_TIME at LOCATION`
-Undo | `undo`
+Undo | **`undo`**
+|	 | `undo modification commands to task such as `
+|	 | `add, clear, delete, edit, mark, recur.`
 Mark | **`mark`**`INDEX` 
 SetPath | **`setpath`**`FILENAME`
-Exit | `exit`
-UpDownArrow | system display and select previously keyed commands
-ColorCode | system indicate overdue(red) and completed(green) task by color code
+Exit | **`exit`**
+UpDownArrow | `system display and select previously keyed commands`
+ColorCode | `system indicate overdue(red) and completed(green) task by color code`
 Recur | **`recur`**`INDEX every INTERVAL until END_DATE`
 Save | system save automatically
