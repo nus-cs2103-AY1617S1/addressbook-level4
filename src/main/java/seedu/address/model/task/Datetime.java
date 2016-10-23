@@ -18,7 +18,7 @@ public class Datetime {
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date can be DD-MM-YYYY and Time can be 24h format";
     public static final String MESSAGE_DATETIME_CONTAINS_DOTS = "Date should be in MM-DD-YYYY format and cannot contain '.' character";
 
-        public static final String DATE_INCORRECT_REGEX = ".*" + "(0?[1-9]|[12][0-9]|3[01])" + "\\." 
+     public static final String DATE_INCORRECT_REGEX = ".*" + "(0?[1-9]|[12][0-9]|3[01])" + "\\." 
         		+ "(0?[1-9]|1[012])" + "\\." + "\\d{2}(\\{2}){0,1}" + ".*";
 
     //public static final String MESSAGE_TIME_CONSTRAINTS = "Time should be in 24hr format. Eg. 2359";
@@ -39,7 +39,7 @@ public class Datetime {
         // check input for '.' characters in date
         else if (input.matches(DATE_INCORRECT_REGEX)){
     		throw new IllegalValueException(MESSAGE_DATETIME_CONTAINS_DOTS);
-    	}
+        }
         // empty string preceding "date/" -> convert deadline or event to floating task
         else if (input.equals("")) {
             listOfDate = null;
