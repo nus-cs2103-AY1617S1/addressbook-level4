@@ -1,3 +1,5 @@
+GRADLE_BUILD_COMMANDS=org.eclipse.jdt.core.javabuilder
+GRADLE_NATURES=org.eclipse.jdt.core.javanature
 build.commands=org.eclipse.jdt.core.javabuilder
 connection.arguments=
 connection.gradle.distribution=GRADLE_DISTRIBUTION(WRAPPER)

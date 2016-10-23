@@ -29,6 +29,8 @@ public class CommandParser {
     public static final String EMPTY_STRING = "";
     public static final int NOT_FOUND = -1;
     public static final int STRING_START = 0;
+    public static final int INDEX_OF_NUMBER_INDEX = 0;
+    public static final int INDEX_OF_CATEGORY_INDEX = 1;
     
     /**
      * Used for initial separation of command word and args.
@@ -366,7 +368,7 @@ public class CommandParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
-        return new DeleteCommand(categoryAndIndex[0], categoryAndIndex[1]);
+        return new DeleteCommand(categoryAndIndex[INDEX_OF_NUMBER_INDEX], categoryAndIndex[INDEX_OF_CATEGORY_INDEX]);
     }
     
     //@@author A0135793W
@@ -386,7 +388,7 @@ public class CommandParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
-        return new DoneCommand(categoryAndIndex[0], categoryAndIndex[1]);
+        return new DoneCommand(categoryAndIndex[INDEX_OF_NUMBER_INDEX], categoryAndIndex[INDEX_OF_CATEGORY_INDEX]);
     }
     
     /**
@@ -421,25 +423,32 @@ public class CommandParser {
             return new EditCommand(
                     extractTaskDetailsNatty(taskDetailArguments),
                     getTagsFromArgs(tagArguments),
-                    categoryAndIndex[0],
-                    categoryAndIndex[1]);            
+                    categoryAndIndex[INDEX_OF_NUMBER_INDEX],
+                    categoryAndIndex[INDEX_OF_CATEGORY_INDEX]);            
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    //@@author
     
-    
+    //@@author A0139052L
+    /**
+     * Parses the string and returns the categoryIndex and the index if a valid one was given
+     * @param args 
+     * @return an int array with categoryIndex and index in 0 and 1 index respectively
+     */
     private int[] getCategoryAndIndex(String args) {
         
+        // category index should be the first char in the string
         Optional<Integer> checkForCategory = parseIndex(args.substring(0, 1));
         Optional<Integer> index;
         int categoryIndex;
         
         if (checkForCategory.isPresent()){
             index = parseIndex(args);
+            // give the default category index if none was provided
             categoryIndex = TaskUtil.getDefaultCategoryIndex();
-        } else {            
+        } else {
+            // index should be the rest of the string if category char is present
             index = parseIndex(args.substring(1));
             categoryIndex = TaskUtil.getCategoryIndex(args.substring(0,1));
         }
@@ -447,6 +456,7 @@ public class CommandParser {
         if (!index.isPresent()){
             return null;
         }
+        
         return new int[] {index.get(), categoryIndex};
     }
     
