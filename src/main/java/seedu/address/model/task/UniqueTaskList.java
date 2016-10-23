@@ -113,6 +113,7 @@ public class UniqueTaskList implements Iterable<Task> {
         args = args.substring(args.indexOf(' ') + 1);
         
         int editIndex = internalList.indexOf(key);
+        //System.out.println(key + " " + args);
         Task toEdit = new Task(internalList.get(editIndex));
         //System.out.println(keyword);
         //System.out.println(args);
