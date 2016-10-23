@@ -36,7 +36,6 @@ public class DoneCommand extends Command {
         this.categoryIndex = categoryIndex;
     }
 
-
     @Override
     public CommandResult execute() {
         assert categoryIndex >= 0 && categoryIndex < 3;

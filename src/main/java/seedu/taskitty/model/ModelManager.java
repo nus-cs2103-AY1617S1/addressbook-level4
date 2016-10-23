@@ -111,12 +111,13 @@ public class ModelManager extends ComponentManager implements Model {
         return historyCommands.pop();
     }
     
+    //@@author A0135793W
     private void updateFilters() {
         filteredTodos = new FilteredList<>(taskManager.getFilteredTodos());
         filteredDeadlines = new FilteredList<>(taskManager.getFilteredDeadlines());
-        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());
-        
+        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());     
     }
+    //@@author
     
     public synchronized void saveState(String command) {
         historyTaskManagers.push(new TaskManager(taskManager));
@@ -137,6 +138,8 @@ public class ModelManager extends ComponentManager implements Model {
     	updateFilteredListToShowAll();
     	indicateTaskManagerChanged();
     }
+    
+    //@@author A0135793W
    	@Override
     public synchronized void editTask(ReadOnlyTask target, Task task) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         taskManager.removeTask(target);
@@ -146,6 +149,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+   	//@@author
 
     //=========== Filtered Person List Accessors ===============================================================
 
