@@ -8,14 +8,16 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Polygon?>
+
 <!-- @@author A0139930B -->
-<AnchorPane fx:id="resultDisplayArea" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskitty.ui.ResultDisplay">
+
+<AnchorPane fx:id="resultDisplayArea" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskitty.ui.ResultDisplay">
     <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
     </stylesheets>
    <children>
-      <Polygon fill="WHITE" layoutX="19.0" layoutY="34.0" rotate="-30.0" scaleX="0.5" scaleY="0.5" stroke="WHITE" strokeType="INSIDE" styleClass="anchor-pane">
+      <Polygon fill="WHITE" layoutX="47.0" layoutY="34.0" rotate="-30.0" scaleX="0.5" scaleY="0.5" stroke="WHITE" strokeType="INSIDE" styleClass="anchor-pane">
         <points>
           <Double fx:value="-50.0" />
           <Double fx:value="40.0" />
