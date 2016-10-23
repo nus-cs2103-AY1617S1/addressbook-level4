@@ -1,12 +1,9 @@
 package guitests;
 
-import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import seedu.jimi.commons.core.Messages;
 import seedu.jimi.logic.commands.ShowCommand;
-import seedu.jimi.testutil.TestFloatingTask;
 
 public class ShowCommandTest extends AddressBookGuiTest {
 

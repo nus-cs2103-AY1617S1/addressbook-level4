@@ -1,43 +1,25 @@
 package seedu.jimi.ui;
 
-import java.util.List;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.fxml.FXML;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.beans.value.ObservableValueBase;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableColumn.CellDataFeatures;
-import javafx.scene.control.TreeTableView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import seedu.jimi.commons.core.LogsCenter;
-import seedu.jimi.commons.events.model.TaskBookChangedEvent;
-import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.jimi.commons.util.FxViewUtil;
-import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.event.Event;
-import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
-import seedu.jimi.ui.TaskListPanel.TaskListViewCell;
 
 /**
  * Agenda window of Jimi, displays most relevant tasks and events to the user when first starting up app.
@@ -114,7 +96,8 @@ public class AgendaPanel extends UiPart{
         registerAsAnEventHandler(this); //to update labels
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+    @SuppressWarnings("unchecked")
+    private final void setConnections(ObservableList<ReadOnlyTask> taskList) {
         tasksTableView.setItems(this.tasksList);
         eventsTableView.setItems(this.eventsList);
         

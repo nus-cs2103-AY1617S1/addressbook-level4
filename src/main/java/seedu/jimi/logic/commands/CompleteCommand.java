@@ -3,7 +3,6 @@ package seedu.jimi.logic.commands;
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.model.task.ReadOnlyTask;
-import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Marks an existing task as complete.

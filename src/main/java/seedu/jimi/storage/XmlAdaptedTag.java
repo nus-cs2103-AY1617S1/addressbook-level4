@@ -3,7 +3,6 @@ package seedu.jimi.storage;
 import javax.xml.bind.annotation.XmlValue;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
-import seedu.jimi.commons.util.CollectionUtil;
 import seedu.jimi.model.tag.Tag;
 
 /**
