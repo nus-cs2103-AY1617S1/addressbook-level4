@@ -18,8 +18,11 @@ import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.TaskFactory;
 import seedu.todo.testutil.TestUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * A GUI Test class for Uncle Jim's Discount To-do List.
@@ -28,7 +31,13 @@ public abstract class TodoListGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule public TestName name = new TestName();
+
+    //Stores the list of immutable task first started with the application.
     protected List<ImmutableTask> initialTaskData;
+
+    //Stores a copy of immutable task lists that are currently on display.
+    protected List<ImmutableTask> previousTasksFromView;
+
     private TestApp testApp;
 
     /*
@@ -114,10 +123,19 @@ public abstract class TodoListGuiTest {
 //        assertEquals(size, numberOfPeople);
 //    }
 //
-//    /**
-//     * Asserts the message shown in the Result Display area is same as the given string.
-//     */
-//    protected void assertResultMessage(String expected) {
-//        assertEquals(expected, resultDisplay.getText());
-//    }
+    /**
+     * Asserts the message shown in the {@link seedu.todo.ui.view.CommandFeedbackView}
+     * is same as the given {@code expected} string.
+     */
+    protected void assertFeedbackMessage(String expected) {
+        assertEquals(expected, commandFeedbackView.getText());
+    }
+
+    /**
+     * Copies the list of ImmutableTask stored inside the {@link seedu.todo.ui.view.TodoListView}
+     * into {@link #previousTasksFromView}, for history taking.
+     */
+    protected void updatePreviousTaskListFromView() {
+        previousTasksFromView = new ArrayList<>(todoListView.getImmutableTaskList());
+    }
 }

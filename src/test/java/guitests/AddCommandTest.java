@@ -8,9 +8,6 @@ import seedu.todo.testutil.TaskFactory;
 import seedu.todo.testutil.TestUtil;
 import seedu.todo.testutil.UiTestUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.assertTrue;
 
 //@@author A0135805H
@@ -21,12 +18,6 @@ import static org.junit.Assert.assertTrue;
  *      Invalid command input is not tested.
  */
 public class AddCommandTest extends TodoListGuiTest {
-
-    //TODO: Orderness is not tested.
-    //TODO: Invalid command is not tested
-
-    //Stores a copy of immutable task lists that are currently on display.
-    List<ImmutableTask> previousTasksFromView;
 
     @Test
     public void add_initialData() {
@@ -74,25 +65,35 @@ public class AddCommandTest extends TodoListGuiTest {
     }
 
     /* Helper Methods */
-    private void updatePreviousTaskListFromView() {
-        previousTasksFromView = new ArrayList<>(todoListView.getImmutableTaskList());
-    }
-
+    /**
+     * Gets the index of the newly added task.
+     */
     private int getNewlyAddedTaskIndex() {
         return TestUtil.compareAndGetIndex(previousTasksFromView, todoListView.getImmutableTaskList());
     }
 
+    /**
+     * A helper method to run the entire add command process and testing.
+     */
     private void executeAddTestHelper(ImmutableTask task) {
         updatePreviousTaskListFromView();
         executeAddCommand(task);
         assertAddSuccess(task);
+        assertCorrectFeedbackDisplayed(task);
     }
 
+    /**
+     * Executes an add command given a {@code task}
+     */
     private void executeAddCommand(ImmutableTask task) {
         String commandText = CommandGeneratorUtil.generateAddCommand(task);
         commandInputView.runCommand(commandText);
     }
 
+    /**
+     * Check if the {@code task} added to the view is reflected correctly,
+     * and the remaining tasks remains in the list, and is displayed correctly.
+     */
     private void assertAddSuccess(ImmutableTask task) {
         //Test if this single add is correct.
         int addedIndex = getNewlyAddedTaskIndex();
@@ -102,5 +103,12 @@ public class AddCommandTest extends TodoListGuiTest {
 
         //Test if the remaining list is correct.
         assertTrue(todoListView.isDisplayedCorrectly());
+    }
+
+    /**
+     * Check if the correct feedback message for adding has been displayed to the user.
+     */
+    private void assertCorrectFeedbackDisplayed(ImmutableTask task) {
+        assertFeedbackMessage("\'" + task.getTitle() + "\' successfully added!");
     }
 }
