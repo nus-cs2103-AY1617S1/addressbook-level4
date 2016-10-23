@@ -67,10 +67,7 @@ public class CommandParser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
-
+            
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
         
@@ -82,9 +79,6 @@ public class CommandParser {
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
-
-        case ListCommand.COMMAND_WORD:
-            return new ListCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -443,22 +437,6 @@ public class CommandParser {
         }
     }
     //@@author
-    
-    /**
-     * Parses arguments in the context of the select person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
-    }
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
