@@ -1,6 +1,7 @@
 package seedu.taskitty.ui;
 
 import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
@@ -11,6 +12,7 @@ import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.taskitty.commons.util.FxViewUtil;
 import seedu.taskitty.logic.Logic;
+import seedu.taskitty.logic.ToolTip;
 import seedu.taskitty.logic.commands.*;
 
 import java.util.logging.Logger;
@@ -35,12 +37,14 @@ public class CommandBox extends UiPart {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
         commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
+        commandBox.setTooltipListener();
         return commandBox;
     }
 
     public void configure(ResultDisplay resultDisplay, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
+        
         registerAsAnEventHandler(this);
     }
 
@@ -49,6 +53,14 @@ public class CommandBox extends UiPart {
         placeHolderPane.getChildren().add(commandTextField);
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
+    }
+    
+    private void setTooltipListener() {
+        ToolTip tooltip = ToolTip.getInstance();
+        commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            logger.info("Text changed: " + newValue);
+            tooltip.getToolTip(commandTextField.getText());
+        });
     }
 
     @Override
@@ -77,11 +89,13 @@ public class CommandBox extends UiPart {
          */
         handleCommands(previousCommandText);
     }
-    
+    /*
     @FXML
     private void handleCommandTextChanged() {
         logger.info("Text changed.." + commandTextField.getText());
-    }
+        Tooltip tooltip = Tooltip.getInstance();
+        tooltip.getToolTip(commandTextField.getText());
+    }*/
 
     public void handleCommands(String command) {
         setStyleToIndicateCorrectCommand();
