@@ -88,10 +88,9 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         if (!contains(beforeEdit)) {
             throw new DeadlineNotFoundException();
         }
-        
-        int indexToReplace = internalList.indexOf(beforeEdit);
-        internalList.add(indexToReplace, edited);
+ 
         internalList.remove(beforeEdit);
+        internalList.add(edited);
     }
 
     /**

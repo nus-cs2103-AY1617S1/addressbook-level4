@@ -91,9 +91,8 @@ public class UniqueEventList implements Iterable<Event> {
             throw new EventNotFoundException();
         }
         
-        int indexToReplace = internalList.indexOf(beforeEdit);
         internalList.remove(beforeEdit);
-        internalList.add(indexToReplace, edited);
+        internalList.add(edited);
     }
 
     /**
