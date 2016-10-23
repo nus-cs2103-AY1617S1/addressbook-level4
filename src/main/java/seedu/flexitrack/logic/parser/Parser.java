@@ -1,6 +1,8 @@
 package seedu.flexitrack.logic.parser;
 
 import seedu.flexitrack.logic.commands.*;
+import seedu.flexitrack.model.task.DateTimeInfo;
+import seedu.flexitrack.model.task.DateTimeInfoParser;
 import seedu.flexitrack.commons.util.StringUtil;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 
@@ -134,7 +136,7 @@ public class Parser {
             return prepareUnmark(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ListCommand();
+            return prepareList(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -147,8 +149,36 @@ public class Parser {
         }
     }
 
-    private String parseCommandWord(String commandWord) {       
-        return SHORTCUT_MAP.getOrDefault(commandWord, commandWord);
+        private String parseCommandWord(String commandWord) {       
+            return SHORTCUT_MAP.getOrDefault(commandWord, commandWord);
+        }
+
+        private Command prepareList(String arguments) {
+        arguments=arguments.trim();
+        try {
+            if (isValideListFormat(arguments)) {
+                return new ListCommand(arguments);
+            }
+        } catch (IllegalValueException e) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+        }
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
+    }
+
+    /**
+     * @param arguments
+     * @return
+     * @throws IllegalValueException 
+     */
+    private boolean isValideListFormat(String arguments) throws IllegalValueException {
+        String dateInfo = (arguments.replace(ListCommand.LIST_FUTURE_COMMAND, "").replace(ListCommand.LIST_PAST_COMMAND, "").
+        replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "").trim());
+        if ( !dateInfo.equals("") ){
+            DateTimeInfoParser timeArgs = new DateTimeInfoParser(dateInfo);
+        }
+        return (arguments.contains(ListCommand.LIST_FUTURE_COMMAND) || arguments.contains(ListCommand.LIST_UNMARK_COMMAND)
+                || arguments.contains(ListCommand.LIST_PAST_COMMAND) || arguments.contains(ListCommand.LIST_MARK_COMMAND)
+                || arguments.contains(ListCommand.LIST_UNSPECIFIED_COMMAND));
     }
 
     private Command prepareEdit(String arguments) {

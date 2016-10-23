@@ -4,6 +4,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.flexitrack.commons.core.LogsCenter;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.util.StringUtil;
+import seedu.flexitrack.logic.commands.ListCommand;
+import seedu.flexitrack.model.task.DateTimeInfo;
 import seedu.flexitrack.model.task.ReadOnlyTask;
 import seedu.flexitrack.model.task.Task;
 import seedu.flexitrack.model.task.UniqueTaskList;
@@ -114,6 +116,26 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void updateFilteredListToFitUserInput(String args){
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(args)));
+    }
+    
+//    @Override
+//    public void updateFilteredListToShowPastTasks(){
+//        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_PAST_COMMAND)));
+//    }
+//    
+//    @Override
+//    public void updateFilteredListToShowMarkTasks(){
+//        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_MARK_COMMAND)));
+//    }
+//    
+//    @Override
+//    public void updateFilteredListToShowUnmarkTasks(){
+//        updateFilteredTaskList(new PredicateExpression(new DateQualifier(ListCommand.LIST_UNMARK_COMMAND)));
+//    }
+    
+    @Override
     public void updateFilteredTaskList(Set<String> keywords) {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
@@ -181,5 +203,59 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    
+    //TODO: 
+    private class DateQualifier implements Qualifier {
+        private String keyWords;
+        private String dateInfo; 
+
+        DateQualifier(String keyWord) {
+            this.keyWords = keyWord;
+            this.dateInfo = keyWord.replace(ListCommand.LIST_FUTURE_COMMAND, "").replace(ListCommand.LIST_PAST_COMMAND, "").
+                    replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "").trim();
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            boolean willBeShown=true; 
+
+            if (keyWords.contains(ListCommand.LIST_FUTURE_COMMAND)) {
+                if (task.getIsTask()){ 
+                    willBeShown = DateTimeInfo.isInTheFuture(task.getDueDate());
+                } else if (task.getIsEvent()){
+                    willBeShown = DateTimeInfo.isInTheFuture(task.getEndTime());
+                }else { 
+                    willBeShown = !task.getIsDone();
+                }
+            } else if (keyWords.contains(ListCommand.LIST_PAST_COMMAND)){
+                if (task.getIsTask()){ 
+                  willBeShown = DateTimeInfo.isInThePast(task.getDueDate());
+              } else {
+                  willBeShown = DateTimeInfo.isInThePast(task.getEndTime());
+              } 
+            } else if (!dateInfo.equals("")){
+                willBeShown = DateTimeInfo.isOnTheDate(keyWords, task);
+            }
+            
+            if (willBeShown==false){ 
+                return false; 
+            }
+            if (keyWords.contains(ListCommand.LIST_UNMARK_COMMAND)){
+                return !task.getIsDone();
+            } else if (keyWords.contains(ListCommand.LIST_MARK_COMMAND)){
+                return task.getIsDone();
+            }
+            
+            return willBeShown;
+            
+        }
+        
+//        @Override
+//        public String toString() {
+//            return "name=" + String.join(", ", dateKeyWords);
+//        }
+    }
+    
+    
 
 }

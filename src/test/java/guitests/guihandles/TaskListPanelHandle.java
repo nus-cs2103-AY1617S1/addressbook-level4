@@ -67,12 +67,19 @@ public class TaskListPanelHandle extends GuiHandle {
 
         // Return false if the list in panel is too short to contain the given
         // list
+        
+ //       System.out.println("startPosition:      " + startPosition);
+ //       System.out.println("tasks.length:       " + tasks.length);
+ //       System.out.println("tasksInList.size(): " + tasksInList.size());
+
         if (startPosition + tasks.length > tasksInList.size()) {
             return false;
         }
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
+//            System.out.println("1: " + tasksInList.get(startPosition + i).getName().fullName);
+//            System.out.println("2: " + tasks[i].getName().fullName);
             if (!tasksInList.get(startPosition + i).getName().fullName.equals(tasks[i].getName().fullName)) {
                 return false;
             }
@@ -91,6 +98,7 @@ public class TaskListPanelHandle extends GuiHandle {
      *            A list of task in the correct order.
      */
     public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
+//        System.out.println("MATCH SIZE          " + tasks.length + "  " + startPosition +  "  " + getListView().getItems().size());
         if (tasks.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException(
                     "List size mismatched\n" + "Expected " + (getListView().getItems().size() - 1) + " tasks");
@@ -100,6 +108,8 @@ public class TaskListPanelHandle extends GuiHandle {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
+//            System.out.println("card handle:    " + getTaskCardHandle(startPosition + i).getName().toString());
+//            System.out.println("TASK:           " + tasks[i].getName().toString());
             if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks[i])) {
                 return false;
             }
