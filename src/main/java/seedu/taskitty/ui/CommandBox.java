@@ -77,6 +77,11 @@ public class CommandBox extends UiPart {
          */
         handleCommands(previousCommandText);
     }
+    
+    @FXML
+    private void handleCommandTextChanged() {
+        logger.info("Text changed.." + commandTextField.getText());
+    }
 
     public void handleCommands(String command) {
         setStyleToIndicateCorrectCommand();
