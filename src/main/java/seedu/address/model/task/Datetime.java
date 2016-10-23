@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Datetime {
 
-    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date can be DD-MMM-YYYY and Time can be 24h format";
+    public static final String MESSAGE_DATETIME_CONSTRAINTS = "Date can be DD-MM-YYYY and Time can be 24h format";
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Date should be in MM-DD-YYYY format";
         public static final String DATE_INCORRECT_REGEX = ".*" + "(0?[1-9]|[12][0-9]|3[01])" + "\\." 
