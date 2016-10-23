@@ -51,6 +51,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskMaster = new TaskMaster(src);
         tasks = taskMaster.getTasks();
         filteredTaskComponents = new FilteredList<>(taskMaster.getTaskComponentList());
+        //@@A0135782Y
         RecurringTaskManager.getInstance().setTaskList(taskMaster.getUniqueTaskList());
         RecurringTaskManager.getInstance().setInitialisedTime();
     }
