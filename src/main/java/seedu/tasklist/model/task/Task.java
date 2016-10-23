@@ -151,8 +151,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	public void setRecurringTime() {
 	    if (isRecurring && !this.recurringFrequency.equals("")) {
 	    	if (isComplete) {
-	    		RecurringUtil.updateRecurringDate(startTime.startTime, recurringFrequency, 1);
-	    		RecurringUtil.updateRecurringDate(endTime.endTime, recurringFrequency, 1);
+	    		RecurringUtil.updateRecurringDate(startTime.time, recurringFrequency, 1);
+	    		RecurringUtil.updateRecurringDate(endTime.time, recurringFrequency, 1);
 	    	}
 
 	        if (!startTime.isMissing() || !endTime.isMissing()) {
@@ -177,7 +177,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 			return false;
 		}
 		else{
-			return endTime.endTime.before(Calendar.getInstance());
+			return endTime.time.before(Calendar.getInstance());
 		}
 	}
 
@@ -193,11 +193,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	}
 
     public boolean hasStartTime() {
-        return startTime.startTime.getTimeInMillis()!=0;
+        return startTime.time.getTimeInMillis()!=0;
     }
     
     public boolean hasEndTime() {
-        return endTime.endTime.getTimeInMillis()!=0;
+        return endTime.time.getTimeInMillis()!=0;
     }
     
 	@Override
@@ -208,10 +208,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	@Override
     public boolean isToday() {
     	if(hasStartTime()){
-    		return startTime.startTime.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+    		return startTime.time.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
         }
     	else if(hasEndTime()){
-    		return endTime.endTime.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
+    		return endTime.time.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR);
     	}
     	else {
     		return false;
@@ -222,10 +222,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	@Override
     public boolean isTomorrow() {
     	if(hasStartTime()){
-    		return startTime.startTime.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + 1;
+    		return startTime.time.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + 1;
         }
     	else if(hasEndTime()){
-    		return endTime.endTime.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + 1;
+    		return endTime.time.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) + 1;
     	}
     	else {
     		return false;

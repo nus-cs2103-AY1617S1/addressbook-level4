@@ -395,9 +395,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask person) {
-            return DateUtils.isSameDay(person.getStartTime().startTime, requestedTime)
+            return DateUtils.isSameDay(person.getStartTime().time, requestedTime)
                     || (person.getStartTime().toCardString().equals("-")
-                            && DateUtils.isSameDay(person.getEndTime().endTime, requestedTime));
+                            && DateUtils.isSameDay(person.getEndTime().time, requestedTime));
         }
     }
 
