@@ -71,9 +71,9 @@
 						</GridPane>
 						<HBox alignment="BASELINE_LEFT">
 							<children>
-								<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_small_label"
+								<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_note_label"
 									text="Note: " />
-								<Label fx:id="note" contentDisplay="CENTER" styleClass="cell_small_label"
+								<Label fx:id="note" contentDisplay="CENTER" styleClass="cell_note_label"
 									text="\$note" />
 							</children>
 						</HBox>
