@@ -12,20 +12,18 @@ import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
-
 import seedu.todo.TestApp;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.commons.util.XmlUtil;
 import seedu.todo.model.AddressBook;
-import seedu.todo.model.ImmutableTodoList;
+import seedu.todo.model.TodoList;
 import seedu.todo.model.person.*;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.storage.TodoListStorage;
 import seedu.todo.storage.XmlSerializableAddressBook;
-
-import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,11 +32,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * A utility class for test cases.
@@ -153,10 +151,33 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
+    /**
+     * Creates a new {@link TodoList} given the path of the file, {@code filePath}.
+     *
+     * @param filePath Location where the file should be saved.
+     * @return Returns a new instance of {@link TodoList}.
+     */
+    public static TodoList generateEmptyTodoList(String filePath) {
+        TodoListStorage storage = new TodoListStorage(filePath);
+        return new TodoList(storage);
+    }
+
+    /**
+     * Loads the {@link TodoList} with sample data stored in {@code tasks}.
+     *
+     * @param todoList The to-do list to inject the data from.
+     * @param tasks The list of {@link ImmutableTask} that should be stored inside the {@code todoList}.
+     */
+    public static void loadTodoListWithData(TodoList todoList, List<ImmutableTask> tasks) {
+        todoList.setTasks(tasks);
+    }
+
+    @Deprecated
     public static AddressBook generateEmptyAddressBook() {
         return new AddressBook(new UniquePersonList(), new UniqueTagList());
     }
-
+    
+    @Deprecated
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
         return new XmlSerializableAddressBook(generateEmptyAddressBook());
     }
