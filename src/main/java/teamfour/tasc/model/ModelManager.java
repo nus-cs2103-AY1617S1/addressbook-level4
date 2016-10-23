@@ -29,7 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private PredicateExpression taskListFilter;
     private HistoryStack<TaskList> taskListHistory;
-    private HistoryStack<TaskList> undoTaskListHistory;
+    private HistoryStack<TaskList> redoTaskListHistory;
 
     /**
      * Initializes a ModelManager with the given TaskList
@@ -46,7 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
         taskListHistory = new HistoryStack<TaskList>();
-        undoTaskListHistory = new HistoryStack<TaskList>();
+        redoTaskListHistory = new HistoryStack<TaskList>();
     }
 
     public ModelManager() {
@@ -58,7 +58,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
         taskListHistory = new HistoryStack<TaskList>();
-        undoTaskListHistory = new HistoryStack<TaskList>();
+        redoTaskListHistory = new HistoryStack<TaskList>();
     }
 
     @Override
@@ -94,7 +94,7 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             for (int i = 0; i < numToUndo; i++) {
                 historyTaskList = taskListHistory.popState();
-                undoTaskListHistory.pushState(historyTaskList);
+                redoTaskListHistory.pushState(taskList);
                 numUndone++;
             }
         } catch (OutOfHistoryException e) {
@@ -115,8 +115,8 @@ public class ModelManager extends ComponentManager implements Model {
         TaskList historyTaskList = null;
         try {
             for (int i = 0; i < numToRedo; i++) {
-                historyTaskList = undoTaskListHistory.popState();
-                taskListHistory.pushState(historyTaskList);
+                historyTaskList = redoTaskListHistory.popState();
+                taskListHistory.pushState(taskList);
                 numRedone++;
             }
         } catch (OutOfHistoryException e) {
@@ -127,6 +127,11 @@ public class ModelManager extends ComponentManager implements Model {
             resetData(historyTaskList);
         }
         return numRedone;
+    }
+    
+    @Override
+    public void clearRedoTaskListHistory() {
+        redoTaskListHistory = new HistoryStack<TaskList>();
     }
     
     @Override

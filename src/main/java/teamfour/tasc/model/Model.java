@@ -106,4 +106,11 @@ public interface Model {
      * @return number of history states redone
      */
     int redoTaskListHistory(int numToRedo);
+
+    /**
+     * Clears the redo task list history.
+     * Whenever commands excluding undo and redo are executed,
+     * this will be run.
+     * */
+    void clearRedoTaskListHistory();
 }
