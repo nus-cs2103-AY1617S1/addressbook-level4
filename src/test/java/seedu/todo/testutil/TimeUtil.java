@@ -3,9 +3,11 @@ package seedu.todo.testutil;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class TimeUtil {
     public static final LocalDateTime now = LocalDateTime.now();
+    private static final String FORMAT_FULL_DATE = "d MMMM yyyy, h:mm a";
     
     public static LocalDateTime today() {
         return LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0));
@@ -24,5 +26,13 @@ public class TimeUtil {
      */
     public static boolean isOverdue(LocalDateTime dueTime) {
         return dueTime.isBefore(LocalDateTime.now());
+    }
+
+    /**
+     * Gets the complete date time text in the following format:
+     *      12 August 2015, 12:34 PM
+     */
+    public static String getDateTimeText(LocalDateTime dateTime) {
+        return dateTime.format(DateTimeFormatter.ofPattern(FORMAT_FULL_DATE));
     }
 }
