@@ -7,6 +7,7 @@ import seedu.emeraldo.commons.core.UnmodifiableObservableList;
 import seedu.emeraldo.commons.events.model.EmeraldoChangedEvent;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.util.StringUtil;
+import seedu.emeraldo.model.tag.Tag;
 import seedu.emeraldo.model.task.DateTime;
 import seedu.emeraldo.model.task.Description;
 import seedu.emeraldo.model.task.ReadOnlyTask;
@@ -14,6 +15,7 @@ import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList;
 import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -110,6 +112,10 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new DescriptionQualifier(keywords)));
     }
+    
+    public void updateFilteredTaskList(String keyword){
+        updateFilteredTaskList(new PredicateExpression(new TagQualifier(keyword)));
+    }
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
@@ -146,6 +152,9 @@ public class ModelManager extends ComponentManager implements Model {
         String toString();
     }
 
+    /*
+     * Compare tasks description with keywords
+     */
     private class DescriptionQualifier implements Qualifier {
         private Set<String> descriptionKeyWords;
 
@@ -166,5 +175,36 @@ public class ModelManager extends ComponentManager implements Model {
             return "description=" + String.join(", ", descriptionKeyWords);
         }
     }
+    
+    /*
+     *  Compare tasks tags with keywords
+     */
+    private class TagQualifier implements Qualifier {
+        private String tagKeyWord;
 
+        TagQualifier(String keyWords) {
+            this.tagKeyWord = keyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            boolean tagMatcher = false;
+            Tag tag;
+            Iterator<Tag> tagIterator = task.getTags().iterator();
+            while(tagIterator.hasNext()){
+                tag = tagIterator.next();
+                tagMatcher = tagMatcher || run(tag);
+            }
+            return tagMatcher;
+        }
+        
+        private boolean run(Tag tag){
+            return tag.tagName.equalsIgnoreCase(tagKeyWord);
+        }
+
+        @Override
+        public String toString() {
+            return "tag=" + String.join(", ", tagKeyWord);
+        }
+    }
 }
