@@ -10,8 +10,11 @@ import harmony.mastermind.commons.events.storage.DataSavingExceptionEvent;
 import harmony.mastermind.commons.exceptions.DataConversionException;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.UnwrittableFolderException;
+import harmony.mastermind.commons.util.ConfigUtil;
+import harmony.mastermind.commons.util.StringUtil;
 import harmony.mastermind.model.ReadOnlyTaskManager;
 import harmony.mastermind.model.UserPrefs;
+import harmony.mastermind.commons.core.Config;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -122,6 +125,7 @@ public class StorageManager extends ComponentManager implements Storage {
             e.printStackTrace();
         }
         updateUserPrefs(newPath);
+        updateConfig(newPath);
     }
    
     //@@author A0139194X
@@ -135,7 +139,34 @@ public class StorageManager extends ComponentManager implements Storage {
         return newPath;
     }
     
+    //@@author A0139194X
     public void updateUserPrefs(String newPath) {
+        assert newPath != null;
         userPrefStorage.setFilePath(newPath);
+    }
+    
+    //@@author A0139194X
+    public void updateConfig(String newPath) {
+        assert newPath != null;
+        Config config;
+        String defaultConfigLocation = Config.DEFAULT_CONFIG_FILE;
+        
+        try {
+            Optional<Config> configOptional = ConfigUtil.readConfig(defaultConfigLocation);
+            config = configOptional.orElse(new Config());
+        } catch (DataConversionException e) {
+            logger.warning("Config file at " + defaultConfigLocation + " is not in the correct format. " +
+                    "Using default config properties");
+            config = new Config();
+        }
+
+        config.setTaskManagerFilePath(newPath);
+        
+        //Update config file in case it was missing to begin with or there are new/unused fields
+        try {
+            ConfigUtil.saveConfig(config, defaultConfigLocation);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
     }
 }

@@ -20,7 +20,7 @@ public class Config {
 
     public Config() {
     }
-
+    
     public String getAppTitle() {
         return appTitle;
     }
