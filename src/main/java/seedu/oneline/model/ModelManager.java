@@ -94,9 +94,9 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void doneTask(int index) throws TaskNotFoundException {
         Task done = taskBook.doneTask(index);
+        indicateAddressBookChanged();
         updateFilteredListToShowAllNotDone();
 //        addTaskToFilter(done);
-        indicateAddressBookChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================
