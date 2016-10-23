@@ -34,7 +34,7 @@ public class TaskBuilder {
         return this;
     }
     
-    public TaskBuilder withStatus(String status) throws IllegalValueException {
+    public TaskBuilder withStatus(boolean status) throws IllegalValueException {
         this.task.setStatus(new Status(status));
         return this;
     }

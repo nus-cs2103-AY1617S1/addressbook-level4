@@ -66,15 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("home"), new Remarks("buy flowers"), new Status(null)),
-                    new Task(new Name("Boris Mueller"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("Trinity Church"), new Remarks("bring umbrella"), new Status(null)),
-                    new Task(new Name("Carl Kurz"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("school"), new Remarks("ask Toms opinion"), new Status(null)),
-                    new Task(new Name("Daniel Meier"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("NUS"), new Remarks("buy drinks"), new Status(null)),
-                    new Task(new Name("Elle Meyer"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("Kent Ridge MRT Station"), new Remarks("prepare presents"), new Status(null)),
-                    new Task(new Name("Fiona Kunz"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("96 Bus Stop"), new Remarks("do rehearsal"), new Status(null)),
-                    new Task(new Name("George Best"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("canteen"), new Remarks("check with mum"), new Status(null)),
-                    new Task(new Name("Hoon Meier"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("Utown"), new Remarks("compare the price"), new Status(null)),
-                    new Task(new Name("Ida Mueller"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("university"), new Remarks("bring jacket"), new Status(null))
+                    new Task(new Name("Ali Muster"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("home"), new Remarks("buy flowers"), new Status(false)),
+                    new Task(new Name("Boris Mueller"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("Trinity Church"), new Remarks("bring umbrella"), new Status(false)),
+                    new Task(new Name("Carl Kurz"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("school"), new Remarks("ask Toms opinion"), new Status(false)),
+                    new Task(new Name("Daniel Meier"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("NUS"), new Remarks("buy drinks"), new Status(false)),
+                    new Task(new Name("Elle Meyer"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("Kent Ridge MRT Station"), new Remarks("prepare presents"), new Status(false)),
+                    new Task(new Name("Fiona Kunz"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("96 Bus Stop"), new Remarks("do rehearsal"), new Status(false)),
+                    new Task(new Name("George Best"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("canteen"), new Remarks("check with mum"), new Status(false)),
+                    new Task(new Name("Hoon Meier"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("Utown"), new Remarks("compare the price"), new Status(false)),
+                    new Task(new Name("Ida Mueller"), new Interval("12 oct 2016", "7pm", "12 oct 2016", "8pm"), new Location("university"), new Remarks("bring jacket"), new Status(false))
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -293,6 +293,29 @@ public class TestUtil {
      */
     public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    }
+    
+    /**
+     * Marks a subset from the list of tasks.
+     * @param tasks The list of tasks
+     * @param tasksToMark The subset of tasks.
+     * @return The modified tasks after removal of the subset from tasks.
+     */
+    public static TestTaskList markTasksFromList(final TestTaskList tasks, TestTask... tasksToRemove) {
+        List<TestTask> completeTaskList = asList(tasks.getCompleteList());
+        List<TestTask> incompleteTaskList = asList(tasks.getIncompleteList());
+        incompleteTaskList.removeAll(asList(tasksToRemove));
+        completeTaskList.addAll(asList(tasksToRemove));
+        return new TestTaskList(incompleteTaskList, completeTaskList);
+    }
+    
+    /**
+     * Returns a copy of the list with the task at specified index removed.
+     * @param list original list to copy from
+     * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
+     */
+    public static TestTaskList markTaskFromList(final TestTaskList list, int targetIndexInOneIndexedFormat) {
+        return markTasksFromList(list, list.getIncompleteList()[targetIndexInOneIndexedFormat - 1]);
     }
 
     /**
