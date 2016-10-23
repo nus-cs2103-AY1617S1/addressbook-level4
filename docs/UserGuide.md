@@ -1,4 +1,4 @@
-# User Guide
+﻿# User Guide
 
 * [Quick Start](#quick-start)
 * [Features](#features)
@@ -56,16 +56,18 @@ Examples:
 * `time format is from 0000 to 2359`
 
 #### Listing tasks: `list`
-Shows a list of all events/deadlines in the to-do list.<br>
-Format: `list`
+Shows a list of everything in the to-do list.<br>
+Format: `list [tasks|events|deadlines]`
 
-#### Listing tasks: `list deadlines`
-Shows a list of all deadlines in the to-do list.<br>
-Format: `list deadlines`
+Shows a list of all events and/or deadlines in the to-do list on and after that date.<br>
+Format: `list [deadlines|events] DDMMYYYY TTTT`
 
-#### Listing tasks: `list DATE`
-Shows a list of all events/deadlines in the to-do list on that date.<br>
-Format: `list 07102016`
+Examples:
+* `list`
+* `list deadlines`
+* `list deadlines 05102016 1400`
+* `list 05102016 1400`
+* `time format is from 0000 to 2359`
 
 #### Finding all deadlines/floating tasks/events containing any keyword in their names and tags: `find`
 Finds all input entries specified by the type (deadlines/ floating tasks/ events) whose names contain any of the given keywords.<br>

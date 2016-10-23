@@ -6,6 +6,7 @@ import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.commons.events.model.MalitioChangedEvent;
 import seedu.malitio.commons.util.StringUtil;
+import seedu.malitio.model.task.DateTime;
 import seedu.malitio.model.task.Deadline;
 import seedu.malitio.model.task.Event;
 import seedu.malitio.model.task.FloatingTask;
@@ -173,6 +174,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredDeadlineList(Set<String> keywords){
     	updateFilteredDeadlines(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
+    @Override
+    public void updateFilteredDeadlineList(DateTime keyword) {
+        updateFilteredDeadlines(new PredicateExpression(new TimeQualifier(keyword)));
+    }
 
     private void updateFilteredDeadlines(Expression expression) {
         filteredDeadlines.setPredicate(expression::satisfies);
@@ -181,6 +187,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredEventList(Set<String> keywords){
         updateFilteredEvents(new PredicateExpression(new NameQualifier(keywords)));
+    }
+    
+    @Override
+    public void updateFilteredEventList(DateTime keyword) {
+        updateFilteredEvents(new PredicateExpression(new TimeQualifier(keyword)));
     }
 
     private void updateFilteredEvents(Expression expression) {
@@ -272,6 +283,42 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+    
+    private class TimeQualifier implements Qualifier {
+        private DateTime timeKeyWord;
+
+        TimeQualifier(DateTime timeKeyWord) {
+            this.timeKeyWord = timeKeyWord;
+        }
+
+        @Override
+        public boolean run(ReadOnlyFloatingTask task) {
+            return false;
+        }
+        
+        @Override
+        public boolean run(ReadOnlyDeadline deadline) {
+            if (timeKeyWord.compareTo(deadline.getDue()) <= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        @Override
+        public boolean run(ReadOnlyEvent event) {
+            if (timeKeyWord.compareTo(event.getStart()) <= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        @Override
+        public String toString() {
+            return timeKeyWord.toString();
         }
     }
 
