@@ -144,9 +144,9 @@ For deadlines, you can only edit the name, end date and time.
 
 3. Changes are reflected in the console immediately.
 
-> Example Command:
-> 1. `find random module`
-> 2. `edit 1 n/CS2103 edt/next thursday 2 pm #work #-play`
+	> Example Command:
+	> 1. `find random module`
+	> 2. `edit 1 n/CS2103 edt/next thursday 2 pm #work #-play`
 
 ##### If you know the index of the deadline in the displayed list
 
