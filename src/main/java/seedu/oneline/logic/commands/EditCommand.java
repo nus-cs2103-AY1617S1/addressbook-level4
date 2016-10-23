@@ -56,7 +56,7 @@ public class EditCommand extends Command {
         TaskTime newEndTime = oldTask.getEndTime();
         TaskTime newDeadline = oldTask.getDeadline();
         TaskRecurrence newRecurrence = oldTask.getRecurrence();
-        UniqueTagList newTags = oldTask.getTags();
+        Tag newTag = oldTask.getTag();
 
         try {
             for (Entry<TaskField, String> entry : fields.entrySet()) {

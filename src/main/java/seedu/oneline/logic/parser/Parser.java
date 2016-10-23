@@ -185,20 +185,6 @@ public class Parser {
     }
 
     /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    public static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.trim().replaceFirst(CommandConstants.TAG_PREFIX, "").split(" " + CommandConstants.TAG_PREFIX));
-        return new HashSet<>(tagStrings);
-    }
-
-    /**
      * Parses arguments to get an integer index
      *
      * @param args full command args string
