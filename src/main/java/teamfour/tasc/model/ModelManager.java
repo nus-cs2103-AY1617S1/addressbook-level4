@@ -1,7 +1,6 @@
 package teamfour.tasc.model;
 
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import teamfour.tasc.commons.core.ComponentManager;
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.core.UnmodifiableObservableList;
@@ -29,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskList taskList;
     private final FilteredList<Task> filteredTasks;
     private PredicateExpression taskListFilter;
+    private HistoryStack<TaskList> taskListHistory;
 
     /**
      * Initializes a ModelManager with the given TaskList
@@ -44,6 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskList = new TaskList(src);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
+        taskListHistory = new HistoryStack<TaskList>();
     }
 
     public ModelManager() {
@@ -54,6 +55,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskList = new TaskList(initialData);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
+        taskListHistory = new HistoryStack<TaskList>();
     }
 
     @Override
