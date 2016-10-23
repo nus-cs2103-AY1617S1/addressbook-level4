@@ -1,0 +1,7 @@
+{
+  "appTitle" : "Test App",
+  "logLevel" : "INFO",
+  "userPrefsFilePath" : ".\\src\\test\\data\\sandbox\\pref_testing.json",
+  "taskSchedulerFilePath" : "testtaskscheduler.xml",
+  "taskSchedulerName" : "Test"
+}

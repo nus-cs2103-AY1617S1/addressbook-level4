@@ -6,7 +6,7 @@
         <Bug pattern="DM_EXIT" />
     </Match>
     <Match>
-        <Class name="address.events.EventManager"/>
+        <Class name="taskscheduler.events.EventManager"/>
         <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD" />
     </Match>
 </FindBugsFilter>

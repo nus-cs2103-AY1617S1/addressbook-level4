@@ -4,8 +4,8 @@ import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import seedu.address.commons.util.DateFormatter;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.taskscheduler.commons.util.DateFormatter;
+import seedu.taskscheduler.model.task.ReadOnlyTask;
 
 /**
  * Provides a handle to a task card in the person list panel.

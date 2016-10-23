@@ -9,8 +9,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import seedu.address.TestApp;
-import seedu.address.commons.core.LogsCenter;
+import seedu.taskscheduler.TestApp;
+import seedu.taskscheduler.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
