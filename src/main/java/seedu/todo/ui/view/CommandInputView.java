@@ -1,5 +1,6 @@
 package seedu.todo.ui.view;
 
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
@@ -16,6 +17,7 @@ import seedu.todo.ui.UiPart;
 import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
+import javax.swing.*;
 import java.util.logging.Logger;
 
 //@@author A0315805H
@@ -59,7 +61,6 @@ public class CommandInputView extends UiPart {
     private void configureProperties() {
         setCommandInputHeightAutoResizeable();
         unflagErrorWhileTyping();
-        listenAndRaiseEnterEvent();
     }
 
     /**
@@ -67,23 +68,20 @@ public class CommandInputView extends UiPart {
      * Once a keystroke is received, calls {@link KeyStrokeCallback} interface to process this command.
      */
     public void listenToInput(KeyStrokeCallback listener) {
-        this.commandTextField.addEventHandler(KeyEvent.KEY_TYPED, event -> {
+        this.commandTextField.addEventHandler(KeyEvent.ANY, event -> {
             String textInput = commandTextField.getText();
-            listener.onKeyStroke(event.getCode(), textInput);
-            if (event.getCode() == KeyCode.ENTER) {
-                event.consume(); //To prevent commandTextField from printing a new line.
-            }
-        });
-    }
+            EventType<KeyEvent> eventType = event.getEventType();
+            KeyCode keyCode = event.getCode();
 
-    /**
-     * Listens for Enter keystrokes, and raises an event when it happens.
-     */
-    private void listenAndRaiseEnterEvent() {
-        this.commandTextField.addEventHandler(KeyEvent.KEY_TYPED, event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                EventsCenter.getInstance().post(new CommandInputEnterEvent());
+            // If enter key was pressed
+            if (eventType == KeyEvent.KEY_PRESSED && keyCode == KeyCode.ENTER) {
                 event.consume(); //To prevent commandTextField from printing a new line.
+                listener.onKeyStroke(keyCode, textInput);
+            }
+
+            // Keys that print (a, 1, =,  etc) was pressed
+            if (eventType == KeyEvent.KEY_TYPED) {
+                listener.onKeyStroke(keyCode, textInput);
             }
         });
     }
@@ -93,7 +91,7 @@ public class CommandInputView extends UiPart {
      * Resets the text box by {@link #unflagError()} after a key is pressed
      */
     private void unflagErrorWhileTyping() {
-        this.commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> unflagError());
+        this.commandTextField.addEventFilter(KeyEvent.KEY_TYPED, event -> unflagError());
     }
 
     /**
@@ -153,6 +151,6 @@ public class CommandInputView extends UiPart {
      * Defines an interface for controller class to receive a command from this view class, and process it.
      */
     public interface KeyStrokeCallback {
-        void onKeyStroke(KeyCode key, String command);
+        void onKeyStroke(KeyCode keyCode, String text);
     }
 }

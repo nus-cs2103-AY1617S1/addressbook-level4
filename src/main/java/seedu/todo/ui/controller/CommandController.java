@@ -1,6 +1,8 @@
 package seedu.todo.ui.controller;
 
 import javafx.scene.input.KeyCode;
+import seedu.todo.commons.core.EventsCenter;
+import seedu.todo.commons.events.ui.CommandInputEnterEvent;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.Logic;
 import seedu.todo.logic.commands.CommandResult;
@@ -64,14 +66,19 @@ public class CommandController {
         switch (keyCode) {
         case ENTER :    // Submitting command
             //Note: Do not execute an empty command. TODO: This check should be done in the parser class.
+            System.out.println("EXECUTED ENTER");
             if (!StringUtil.isEmpty(userInput)) {
                 CommandResult result = logic.execute(userInput);
+                EventsCenter.getInstance().post(new CommandInputEnterEvent());
                 handleCommandResult(result);
             }
             break;
         default :   // Typing command, show preview
-            CommandResult result = logic.execute("help");
-            handlePreviewResult(result);
+            System.out.println("SHOW PREVIEW");
+            if (!StringUtil.isEmpty(userInput)) {
+                CommandResult result = logic.execute("help");
+                handlePreviewResult(result);
+            }
             break;
         }
     }
