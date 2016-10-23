@@ -17,9 +17,10 @@ import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.tag.UniqueTagList;
 import harmony.mastermind.model.task.*;
 import harmony.mastermind.storage.StorageManager;
+import harmony.mastermind.storage.*;
 
 /**
- * @author A0139194X
+ * @@author A0139194X
  * Relocates save location
  */
 public class RelocateCommand extends Command{
@@ -35,24 +36,25 @@ public class RelocateCommand extends Command{
     public static final String MESSAGE_INVALID_INPUT = "%1$s is not valid.";
     public static final String MESSAGE_UNWRITTABLE_FOLDER = "%1$s is not writtable.";
 
-
     private final String newFilePath;
 
-    /**
+    /** 
+     * @@author A0139194X
      * Convenience constructor using raw values.
      */
     public RelocateCommand(String newFilePath) {
         this.newFilePath = newFilePath.trim();
-        
     }
 
     //@@author A0139194X
     @Override
     public CommandResult execute() {
         assert model != null;
+        assert storage != null;
+        assert newFilePath != null;
         try {
-            checkSaveLocation(newFilePath);
-            checkWrittableDirectory(newFilePath);
+            storage.checkSaveLocation(newFilePath);
+            storage.checkWrittableDirectory(newFilePath);
             model.relocateSaveLocation(newFilePath);
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_SUCCESS, newFilePath));
         } catch (FolderDoesNotExistException fdnee) {
@@ -61,21 +63,4 @@ public class RelocateCommand extends Command{
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_UNWRITTABLE_FOLDER, newFilePath));
         }
     }
-    
-    //@@author A0139194X
-    public void checkSaveLocation(String newFilePath) throws FolderDoesNotExistException {
-        Path filePath = Paths.get(newFilePath);
-        if (!Files.exists(filePath)) {
-            throw new FolderDoesNotExistException(newFilePath + " does not exist");
-        }
-    }
-    
-    //@@author A0139194X
-    public void checkWrittableDirectory(String newFilePath) throws UnwrittableFolderException {
-        File newFile = new File(newFilePath);
-        if (!(newFile.isDirectory() && newFile.canWrite())) {
-            throw new UnwrittableFolderException(newFilePath + " is not writtable.");
-        }
-    }
-    
 }
