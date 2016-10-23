@@ -94,7 +94,7 @@ public class EditCommand extends Command{
             ReadOnlyTask todoToEdit = lastShownTodoList.get(targetIndex - 1);
 
             try {
-                addToUndoStack();
+                model.addToUndoStack();
                 model.editTask(todoToEdit, editArgs, category);
                 assert false: "The target Todo cannot be missing";
             } catch (TaskNotFoundException | IllegalValueException pnfe) {

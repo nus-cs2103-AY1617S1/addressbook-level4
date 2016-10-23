@@ -15,9 +15,9 @@ import seedu.address.model.TaskBook;
  */
 public abstract class Command {
     protected Model model;
-    protected Stack<SaveState> undoStack;
-    protected Stack<SaveState> redoStack;
-    protected Config config;
+    //protected Stack<SaveState> undoStack;
+    //protected Stack<SaveState> redoStack;
+    //protected Config config;
     
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
@@ -43,11 +43,11 @@ public abstract class Command {
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
      */
-    public void setData(Model model, Stack<SaveState> undoStack, Stack<SaveState> redoStack, Config config) {
+    public void setData(Model model) /*, Stack<SaveState> undoStack, Stack<SaveState> redoStack, Config config)*/ {
         this.model = model;
-        this.undoStack = undoStack;
-        this.redoStack = redoStack;
-        this.config = config;
+        //this.undoStack = undoStack;
+        //this.redoStack = redoStack;
+        //this.config = config;
     }
 
     /**
@@ -57,11 +57,4 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
-    protected void addToUndoStack() {
-        TaskBook taskBookToBeAdded = new TaskBook(model.getAddressBook());
-        Config configToBeAdded = new Config(config);
-        SaveState saveToBeAdded = new SaveState(taskBookToBeAdded, configToBeAdded);
-        
-        undoStack.push(saveToBeAdded);
-    }
 }

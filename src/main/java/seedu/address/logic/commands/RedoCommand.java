@@ -27,11 +27,15 @@ public class RedoCommand extends Command {
         for (int i = 0; i < numTimes; i++) {
             TaskBook currentTaskBook = new TaskBook(model.getAddressBook());
             
-            SaveState saveToResetTo = redoStack.pop();
+            
+            SaveState saveToResetTo = model.getRedoStack().pop();
             TaskBook taskToResetTo = saveToResetTo.getSaveStateTaskBook();
             model.resetData(taskToResetTo);
             
-            config = saveToResetTo.getSaveStateConfig();
+            Config currentConfig = new Config(model.getConfig());
+            Config config = saveToResetTo.getSaveStateConfig();
+            model.setConfig(config);
+            
             System.out.println(config.getAddressBookFilePath());
             try {
                 ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
@@ -39,10 +43,9 @@ public class RedoCommand extends Command {
             } catch (IOException e) {
                 System.out.println("omg wtf am i doing");
             }
-            
-            Config currentConfig = new Config(config);
+           
             SaveState saveToBeAdded = new SaveState(currentTaskBook, currentConfig);
-            undoStack.push(saveToBeAdded);
+            model.getUndoStack().push(saveToBeAdded);
         }
         return new CommandResult(MESSAGE_REDO_TASK_SUCCESS);
     }

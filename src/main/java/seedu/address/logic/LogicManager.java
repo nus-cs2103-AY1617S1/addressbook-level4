@@ -24,23 +24,23 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final Parser parser;
-    private final Config config;
-    private final Stack<SaveState> undoStack;
-    private final Stack<SaveState> redoStack;
+    //private final Config config;
+    //private final Stack<SaveState> undoStack;
+    //private final Stack<SaveState> redoStack;
 
-    public LogicManager(Model model, Storage storage, Config config) {
+    public LogicManager(Model model) /*, Storage storage, Config config)*/ {
         this.model = model;
         this.parser = new Parser();
-        this.config = config;
-        this.undoStack = new Stack<SaveState>();
-        this.redoStack = new Stack<SaveState>();
+        //this.config = config;
+        //this.undoStack = new Stack<SaveState>();
+        //this.redoStack = new Stack<SaveState>();
     }
 
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
-        command.setData(model, undoStack, redoStack, config);
+        command.setData(model); //, undoStack, redoStack, config);
         return command.execute();
     }
 

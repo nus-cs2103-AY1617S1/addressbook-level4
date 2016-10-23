@@ -28,11 +28,14 @@ public class UndoCommand extends Command {
         for (int i = 0; i < numTimes; i++) {
             TaskBook currentTaskBook = new TaskBook(model.getAddressBook());
             
-            SaveState saveToResetTo = undoStack.pop();
+            SaveState saveToResetTo = model.getUndoStack().pop();
             TaskBook taskToResetTo = saveToResetTo.getSaveStateTaskBook();
             model.resetData(taskToResetTo);
             
-            config = saveToResetTo.getSaveStateConfig();
+            Config currentConfig = new Config(model.getConfig());
+            Config config = saveToResetTo.getSaveStateConfig();
+            model.setConfig(config);
+            
             System.out.println(config.getAddressBookFilePath());
             try {
                 ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
@@ -40,10 +43,9 @@ public class UndoCommand extends Command {
             } catch (IOException e) {
                 System.out.println("oops i did it again");
             }
-            
-            Config currentConfig = new Config(config);
+            System.out.println(config.getAddressBookFilePath());
             SaveState saveToBeAdded = new SaveState(currentTaskBook, currentConfig);
-            redoStack.push(saveToBeAdded);
+            model.getRedoStack().push(saveToBeAdded);
         }
         return new CommandResult(MESSAGE_UNDO_TASK_SUCCESS);
     }

@@ -106,7 +106,7 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        addToUndoStack();
+        model.addToUndoStack();
         try {
             model.addTask(toAdd);
             if (toAdd.getTaskCategory() == 1) 

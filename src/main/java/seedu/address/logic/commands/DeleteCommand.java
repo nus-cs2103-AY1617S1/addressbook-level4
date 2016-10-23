@@ -85,7 +85,7 @@ public class DeleteCommand extends Command {
                ReadOnlyTask taskToDelete = lastShownTodoList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
 
                try {
-                   addToUndoStack();
+                   model.addToUndoStack();
                    model.deleteTask(taskToDelete);
                } catch (TaskNotFoundException pnfe) {
                    assert false : "The target Deadline cannot be missing";
