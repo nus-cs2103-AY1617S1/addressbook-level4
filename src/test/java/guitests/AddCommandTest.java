@@ -50,7 +50,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName, type);
         assertMatching(taskToAdd, addedCard);
 
-        //confirm the list now contains all previous persons plus the new person
+        //confirm the list now contains all previous tasks plus the new task
         currentList.addTaskToList(taskToAdd);
         assertTrue(currentList.isListMatching(taskListPanel));
     }
