@@ -79,7 +79,7 @@ public class CommandInputView extends UiPart {
     /**
      * Listens for Enter keystrokes, and raises an event when it happens.
      */
-    public void listenAndRaiseEnterEvent() {
+    private void listenAndRaiseEnterEvent() {
         this.commandTextField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 EventsCenter.getInstance().post(new CommandInputEnterEvent());
