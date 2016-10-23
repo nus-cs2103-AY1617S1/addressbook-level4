@@ -19,6 +19,8 @@ public class TaskTime {
 	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT = "h.mma";	//E.g. 1.45 pm
 	public static final String TWELVE_HOUR_WITHOUT_MINUTES_REGEX = "\\d(am|pm)";
 	public static final String TWELVE_HOUR_WITHOUT_MINUTES_FORMAT = "ha";	//E.g. 2pm
+	public static final String TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_REGEX = "\\d\\d(am|pm)";
+	public static final String TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_FORMAT = "hha";
 
 	public static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
 	public static final String DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX = "([0-9]{2}+)/([0-9]{2}+)/([0-9]{4})";
@@ -66,7 +68,6 @@ public class TaskTime {
 	private String tmrDate = null;
 	public TaskTime(String time, String startTime, String endTime, String date, String startDate, String endDate)  throws IllegalValueException{
 		
-		System.out.println("Entered TaskTime");
 		ListOfDateRegex = new ArrayList<String>();
 		ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX);	ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_VALIDATION_REGEX);	
 		ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_VALIDATION_REGEX);	ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_VALIDATION_REGEX);
@@ -81,11 +82,11 @@ public class TaskTime {
 
 		ListOfTimeRegex = new ArrayList<String>();
 		ListOfTimeRegex.add(TWELVE_HOUR_WITH_MINUTES_COLON_REGEX); ListOfTimeRegex.add(TWELVE_HOUR_WITH_MINUTES_DOT_REGEX);
-		ListOfTimeRegex.add(TWELVE_HOUR_WITHOUT_MINUTES_REGEX);
+		ListOfTimeRegex.add(TWELVE_HOUR_WITHOUT_MINUTES_REGEX);	ListOfTimeRegex.add(TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_REGEX);
 
 		ListOfTimeFormat = new ArrayList<String>();
 		ListOfTimeFormat.add(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT); ListOfTimeFormat.add(TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT);
-		ListOfTimeFormat.add(TWELVE_HOUR_WITHOUT_MINUTES_FORMAT);
+		ListOfTimeFormat.add(TWELVE_HOUR_WITHOUT_MINUTES_FORMAT);	ListOfTimeFormat.add(TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_FORMAT);
 
 		if(!isValidDate(date)) {
 			throw new IllegalValueException(INVALID_DATE_MESSAGE);
@@ -155,8 +156,6 @@ public class TaskTime {
 		boolean currEarlierThanInput = false;
 		Date inputTime = null;
 		Date todayTime = null;
-		System.out.println("format is : " + format);
-		System.out.println("reqTime is :" + reqTime);
 		try {
 			String currentTime = new SimpleDateFormat(format).format(new Date());
 			DateFormat tf = new SimpleDateFormat(format);
@@ -171,43 +170,33 @@ public class TaskTime {
 			ex.printStackTrace();
 			return false;
 		}
-		System.out.println("Enter time 2");
-		System.out.println("currEarlierThanInput is : " + currEarlierThanInput);
 		//Second check on whether this time is before the current Time
 
 		//This check if for e.g. input add "Sth" at 5 pm
 		//Attempts to put today's date, if current time is >  5pm, put it as tomorrow instead
 		if(startDate == null && endDate == null && date == null) {
 			//If currentTime is earlier than input time, puts today's date
-			System.out.println("Enter time 3");
 			if(!currEarlierThanInput) {
-				System.out.println("Entered this first if condition");
 				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
 				Calendar cal = Calendar.getInstance();
 				String taskDate = dateFormat.format(cal.getTime()); //Gets today's date
-				System.out.println("this taskDate is : " + taskDate);
 				date = taskDate;
 				time = reqTime;
 				return true;
 			}
 			//CurrentTime is later than inputTime, puts tmr date instead
 			else {
-				System.out.println("Entered this else condition");
 				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.DATE, 1);
 				date = dateFormat.format(cal.getTime());
 				time = reqTime;
-				System.out.println("this date is : " + date);
-				System.out.println("this time is : " + time);
 				return true;
 			}
 		}
 		//checks for todayDate gets current time and compare with input time, returns false if invalid
 		else if(date.toLowerCase().equals("today")) {
-			System.out.println("Entered today else if condition");
 			if(currEarlierThanInput){
-				System.out.println("currEarlierThanInput is true");
 				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
 				Calendar cal = Calendar.getInstance();
 				String taskDate = dateFormat.format(cal.getTime()); //Gets today's date
@@ -274,9 +263,12 @@ public class TaskTime {
 			inputBeforeTime = tf.parse(beforeTime);
 			inputAfterTime = tf.parse(afterTime);
 			todayTime = tf.parse(currentTime);
+			//The following checks if the user 2 inputTime is before the currentTime
 			if(inputBeforeTime.before(todayTime) && inputAfterTime.before(todayTime)) {
+				System.out.println("time range is before the currentTime");
 				currEarlierThanInput = true;
 			}
+			//The following checks if the startTime is before endTime
 			if(inputBeforeTime.before(inputAfterTime)) {
 				beforeEarlierThanAfter = true;
 			}
