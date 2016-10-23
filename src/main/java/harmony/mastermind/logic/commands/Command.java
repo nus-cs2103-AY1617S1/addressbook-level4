@@ -9,6 +9,7 @@ import harmony.mastermind.commons.core.Messages;
 import harmony.mastermind.commons.events.ui.ExecuteCommandEvent;
 import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.model.Model;
+import harmony.mastermind.storage.StorageManager;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -20,6 +21,7 @@ public abstract class Command {
     protected static final PrettyTimeParser prettyTimeParser = new PrettyTimeParser();
     
     protected Model model;
+    protected StorageManager storageManager;
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
