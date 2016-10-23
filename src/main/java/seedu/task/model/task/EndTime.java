@@ -8,10 +8,11 @@ import seedu.task.commons.exceptions.IllegalValueException;
  * Guarantees: immutable; is valid as declared in {@link #isValidEndTime(String)}
  */
 public class EndTime {
-
+  //@@author A0147944U-reused
     public static final String MESSAGE_ENDTIME_CONSTRAINTS =
             "Task end times should be in hh.mmam or hh.mmpm format";
-    public static final String ENDTIME_VALIDATION_REGEX = "((1[012]|[1-9]).[0-5][0-9](\\s)?(?i)(am|pm)|(1[012]|[1-9])(\\s)?(?i)(am|pm))|(^.+)";
+    public static final String ENDTIME_VALIDATION_REGEX = "((1[012])|((0)?[0-9]))[.][0-5][0-9](?i)(am|pm)?";
+    //@@author
     public static final String NO_ENDTIME = "no end time";
 
     public final String value;

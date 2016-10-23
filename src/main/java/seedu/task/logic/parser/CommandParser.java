@@ -24,31 +24,34 @@ public class CommandParser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
+    
+  //@@author A0147944U
     private static final Pattern NATURAL_ARGS_FORMAT = 
-    		Pattern.compile("(?<name>[^#/0-9]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+    		Pattern.compile("(?<name>[^#/:.]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_TIME = 
-    		Pattern.compile("(?<name>[^/0-9]+)" + "at (?<startTime>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+    		Pattern.compile("(?<name>[^:.]+)" + "(at |from )(?<startTime>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_DEADLINE = 
-            Pattern.compile("(?<name>[^/0-9]+)" + "by (?<deadline>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^:.]+)" + "by (?<deadline>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME = 
-    		Pattern.compile("(?<name>[^/0-9]+)" + "from (?<startTime>[^/]+)" + "to (?<endTime>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+    		Pattern.compile("(?<name>[^:.]+)" + "(at |from )(?<startTime>[^/t]+)" + "to (?<endTime>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
 
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_DEADLINE = 
-            Pattern.compile("(?<name>[^/0-9]+)" + "at (?<startTime>[^/]+)" + "by (?<deadline>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^:.]+)" + "(at |from )(?<startTime>[^/b]+)" + "by (?<deadline>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME_AND_DEADLINE = 
-            Pattern.compile("(?<name>[^/0-9]+)" + "from (?<startTime>[^/]+)" + "to (?<endTime>[^/]+)" + "by (?<deadline>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^:.]+)" + "(at |from )(?<startTime>[^/t]+)" + "to (?<endTime>[^/b]+)" + "by (?<deadline>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+  //@@author
     
     public static final Pattern EDIT_TASK_DATA_ARGS_FORMAT_NATURAL = 
     					Pattern.compile("(?<targetIndex>.)"
     							+ " (?<content>.*)");
-    
+  //@@author A0147944U
     public static final Pattern DIRECTORY_ARGS_FORMAT = 
             Pattern.compile("(?<directory>[^<>|]+)");
+  //@@author
     
     public CommandParser() {}
 
@@ -97,11 +100,13 @@ public class CommandParser {
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
             
+          //@@author A0147944U            
         case DirectoryCommand.COMMAND_WORD:
             return prepareDirectory(arguments);
             
         case BackupCommand.COMMAND_WORD:
             return prepareBackup(arguments);
+          //@@author
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -130,8 +135,8 @@ public class CommandParser {
         else if(matcherNatural.matches()){
         	try{
         		return createCommandNatural(matcherNatural.group("name"),
-            			"now",
-            			"no endtime",
+            			"no start time",
+            			"no end time",
             			"no deadline",
             			getTagsFromArgs(matcherNatural.group("tagArguments"))
             	);
@@ -140,26 +145,26 @@ public class CommandParser {
         	}
         	
         }
-        else if(matcherStart.matches() && !(Pattern.compile("at.*by").matcher(args).find())){
-        	try{
-        		return createCommandStart(
-        				matcherStart.group("name"),
-        				matcherStart.group("startTime"),
-        				"no endtime",
-        				"no deadline",
-        				getTagsFromArgs(matcherStart.group("tagArguments"))
-        				);
-        				
-        	}catch(IllegalValueException i){
-        		return new IncorrectCommand(i.getMessage());
-        	}
+        else if(matcherStartEndDeadline.matches()){
+            try{
+                return createCommandStartEndDeadline(
+                        matcherStartEndDeadline.group("name"),
+                        matcherStartEndDeadline.group("startTime"),
+                        matcherStartEndDeadline.group("endTime"),
+                        matcherStartEndDeadline.group("deadline"),
+                        getTagsFromArgs(matcherStartEndDeadline.group("tagArguments"))
+                        );
+                        
+            }catch(IllegalValueException i){
+                return new IncorrectCommand(i.getMessage());
+            }
         }
         else if(matcherDeadline.matches()){
             try{
                 return createCommandDeadline(
                         matcherDeadline.group("name"),
                         "no start time",
-                        "no endtime",
+                        "no end time",
                         matcherDeadline.group("deadline"),
                         getTagsFromArgs(matcherDeadline.group("tagArguments"))
                         );
@@ -169,7 +174,7 @@ public class CommandParser {
             }
         }
         //add do hw from 3:00pm to 4:00pm by 5:00pm
-        else if(matcherStartEnd.matches() && !(Pattern.compile("from.*to.*by").matcher(args).find())){
+        else if(matcherStartEnd.matches()){
         	try{
         		return createCommandStartEnd(
         				matcherStartEnd.group("name"),
@@ -183,12 +188,12 @@ public class CommandParser {
         		return new IncorrectCommand(i.getMessage());
         	}
         }
-        else if(matcherStartDeadline.matches() && (Pattern.compile("at.*by").matcher(args).find())){
+        else if(matcherStartDeadline.matches()){
             try{
                 return createCommandStartDeadline(
                         matcherStartDeadline.group("name"),
                         matcherStartDeadline.group("startTime"),
-                        "no endtime",
+                        "no end time",
                         matcherStartDeadline.group("deadline"),
                         getTagsFromArgs(matcherStartDeadline.group("tagArguments"))
                         );
@@ -197,14 +202,14 @@ public class CommandParser {
                 return new IncorrectCommand(i.getMessage());
             }
         }
-        else if(matcherStartEndDeadline.matches() && (Pattern.compile("from.*to.*by").matcher(args).find())){
+        else if(matcherStart.matches()){
             try{
-                return createCommandStartEndDeadline(
-                        matcherStartEndDeadline.group("name"),
-                        matcherStartEndDeadline.group("startTime"),
-                        matcherStartEndDeadline.group("endTime"),
-                        matcherStartEndDeadline.group("deadline"),
-                        getTagsFromArgs(matcherStartEndDeadline.group("tagArguments"))
+                return createCommandStart(
+                        matcherStart.group("name"),
+                        matcherStart.group("startTime"),
+                        "no end time",
+                        "no deadline",
+                        getTagsFromArgs(matcherStart.group("tagArguments"))
                         );
                         
             }catch(IllegalValueException i){
@@ -466,6 +471,7 @@ public class CommandParser {
         return new FindCommand(keywordSet);
     }
     
+  //@@author A0147944U
     /**
      * Parses arguments in the context of the directory command.
      *
@@ -499,4 +505,5 @@ public class CommandParser {
                 matcher.group("directory")
                 );
     }
+  //@@author
 }

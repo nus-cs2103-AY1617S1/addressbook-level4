@@ -7,9 +7,10 @@ import seedu.task.commons.exceptions.IllegalValueException;
  * Guarantees: immutable; is valid as declared in {@link #isValidStartTime(String)}
  */
 public class StartTime {
-
+    //@@author A0147944U
     public static final String MESSAGE_STARTTIME_CONSTRAINTS = "Task start times should be in hh.mmam or hh.mmpm format";
-    public static final String STARTTIME_VALIDATION_REGEX = "((1[012]|[1-9]).[0-5][0-9](\\s)?(?i)(am|pm)|(1[012]|[1-9])(\\s)?(?i)(am|pm))|(^.+)";
+    public static final String STARTTIME_VALIDATION_REGEX = "((1[012])|((0)?[0-9]))[.][0-5][0-9](?i)(am|pm)?";
+    //@@author
     public static final String NO_STARTTIME = "no start time";
 
     public final String value;
