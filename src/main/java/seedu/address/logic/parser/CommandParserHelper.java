@@ -79,6 +79,28 @@ public class CommandParserHelper {
         return putVariablesInMap(task);
     }
 
+    public HashMap<String, Optional<String>> prepareEdit(String args) throws IllegalValueException {
+        assert args != null;
+        OptionalStringTask task = new OptionalStringTask();
+        int numberOfKeywords;
+        String regex;
+        if (args.contains("\"")) {
+            String nonName = args.substring(args.lastIndexOf("\"") + 1);
+            numberOfKeywords = generateNumberOfKeywords(nonName);
+            regex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME_ESCAPE;
+            generateCorrectMatcherEscape(args, task, regex, numberOfKeywords);
+        } else {
+            numberOfKeywords = generateNumberOfKeywords(args);
+            regex = generateStartOfRegex(numberOfKeywords);
+            generateCorrectMatcher(args, task, regex, numberOfKeywords);
+        }
+        
+        logger.log(Level.FINEST, "Number of keywords in \"" + args + "\" = " + numberOfKeywords);
+        
+        assignTaskParametersEdit(task);
+        return putVariablesInMap(task);
+    }
+
     public void generateCorrectMatcherEscape(String args, OptionalStringTask task, String regex, int numberOfKeywords)
             throws IllegalValueException {
         if (numberOfKeywords == ZERO) {
@@ -99,6 +121,14 @@ public class CommandParserHelper {
         task.priority = Optional.of(assignPriority(matcher));
     }
 
+    private void assignTaskParametersEdit(OptionalStringTask task) throws IllegalValueException {
+        task.taskName = Optional.of(matcher.group("taskName").trim());
+        HashMap<String, Optional<String>> recurrenceRateMap = generateRateAndTimePeriod(matcher);
+        task.rate = recurrenceRateMap.get("rate");
+        task.timePeriod = recurrenceRateMap.get("timePeriod");
+        task.priority = Optional.of(assignPriorityEdit(matcher));
+    }
+
     private void generateCorrectMatcher(String args, OptionalStringTask task, String regex, int numberOfKeywords)
             throws IllegalValueException {
         if (numberOfKeywords == ZERO) {
@@ -110,6 +140,7 @@ public class CommandParserHelper {
         }
     }
     
+ 
     private void validateMatcherForTwoKeywordsEscape(String args, OptionalStringTask task, String regex)
             throws IllegalValueException {
         generateMatcherForTwoKeywordsEscape(args, regex);
@@ -355,6 +386,16 @@ public class CommandParserHelper {
         return priority;
     }
 
+    private String assignPriorityEdit(Matcher matcher) {
+        String priority;
+        if (matcher.group("priority") != null) {
+            priority = matcher.group("priority").trim();
+        } else {
+            priority = "null";
+        }
+        return priority;
+    }
+    
     // TODO: To update this
     private Matcher validateRecurrenceMatcher(Matcher matcher) throws IllegalValueException {
         String recurrenceString = matcher.group("recurrenceRate");

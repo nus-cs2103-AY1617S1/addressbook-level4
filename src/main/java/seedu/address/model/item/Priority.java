@@ -21,8 +21,9 @@ public enum Priority {
         case ("medium"):
         case ("med"):
         case ("m"):
-        default:
             return Priority.MEDIUM;
+        default:
+    		return null;
         }
     }
 }
