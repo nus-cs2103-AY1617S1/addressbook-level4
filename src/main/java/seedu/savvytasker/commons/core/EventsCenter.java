@@ -1,10 +1,10 @@
 package seedu.savvytasker.commons.core;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.EventBus;
 
 import seedu.savvytasker.commons.events.BaseEvent;
-
-import java.util.logging.Logger;
 
 /**
  * Manages the event dispatching of the app.

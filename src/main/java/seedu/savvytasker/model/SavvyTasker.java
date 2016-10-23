@@ -1,5 +1,11 @@
 package seedu.savvytasker.model;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
 import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.alias.AliasSymbolList;
@@ -10,9 +16,6 @@ import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList;
 import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Wraps all data at the savvy-tasker level

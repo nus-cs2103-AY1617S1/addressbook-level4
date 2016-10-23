@@ -1,10 +1,11 @@
 package seedu.savvytasker.model.task;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.savvytasker.commons.exceptions.DuplicateDataException;
-
-import java.util.*;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.

@@ -1,5 +1,7 @@
 package seedu.savvytasker.ui;
 
+import java.util.logging.Logger;
+
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -7,8 +9,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.util.FxViewUtil;
-
-import java.util.logging.Logger;
 
 /**
  * Controller for a help page

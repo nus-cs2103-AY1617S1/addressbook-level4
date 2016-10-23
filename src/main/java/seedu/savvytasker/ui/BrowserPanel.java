@@ -1,5 +1,7 @@
 package seedu.savvytasker.ui;
 
+import java.util.logging.Logger;
+
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
@@ -7,8 +9,6 @@ import javafx.scene.web.WebView;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.util.FxViewUtil;
 import seedu.savvytasker.model.task.ReadOnlyTask;
-
-import java.util.logging.Logger;
 
 /**
  * The Browser Panel of the App.

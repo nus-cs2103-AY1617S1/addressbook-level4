@@ -1,5 +1,13 @@
 package seedu.savvytasker.model;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.savvytasker.commons.core.ComponentManager;
@@ -16,14 +24,6 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
-
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * Represents the in-memory model of the savvy tasker data.

@@ -1,5 +1,10 @@
 package seedu.savvytasker.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -10,11 +15,6 @@ import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.alias.AliasSymbolList;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.TaskList;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 /**
  * An Immutable SavvyTasker that is serializable to XML format

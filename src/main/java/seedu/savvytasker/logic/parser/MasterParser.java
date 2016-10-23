@@ -9,7 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.savvytasker.logic.commands.Command;
-import seedu.savvytasker.logic.commands.HelpCommand;
 import seedu.savvytasker.logic.commands.IncorrectCommand;
 import seedu.savvytasker.model.alias.AliasSymbol;
 
@@ -119,20 +118,29 @@ public class MasterParser {
     }
     
     /**
-     * Registers a command parser that will be used by the master parser.
-     * The header of this command parser must not be used by any other command parsers
-     * that are currently registered into the master parser. Use {@link #isCommandParserRegistered(String)
-     * isCommandParserRegistered } method to check if such a command parser is already registered.
+     * Registers a command parser that will be used by the master parser, and return true if it
+     * is successfully registered. The header of this command parser should not be used by any 
+     * other registered command parsers or used by any AliasSymbol whose keyword is the registered
+     * with the same name, or false will be return and the parser will not be added. Use 
+     * {@link #isCommandParserRegistered(String) isCommandParserRegistered } method to check if 
+     * a command parser is already registered, and {@link #doesAliasSymbolExist(String) doesAliasSymbolExist}
      * 
      * Parameter commandParser should not be null.
      * 
      * @param commandParser the command parser
+     * @return true if successfully registered, false if there is an parser with the same header 
+     * already registered or if an alias with the same keyword is previously added.
      */
-    public void registerCommandParser(CommandParser<? extends Command> commandParser) {
+    public boolean registerCommandParser(CommandParser<? extends Command> commandParser) {
         assert commandParser != null;
-        assert commandParsers.get(commandParser.getHeader()) == null;
         
-        commandParsers.put(commandParser.getHeader(), commandParser);        
+        if (commandParsers.containsKey(commandParser.getHeader()))
+            return false;
+        if (aliasingSymbols.containsKey(commandParser.getHeader()))
+            return false;
+        
+        commandParsers.put(commandParser.getHeader(), commandParser);   
+        return true;
     }
     
     /**

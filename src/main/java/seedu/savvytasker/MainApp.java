@@ -1,6 +1,12 @@
 package seedu.savvytasker;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -14,16 +20,15 @@ import seedu.savvytasker.commons.util.ConfigUtil;
 import seedu.savvytasker.commons.util.StringUtil;
 import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.logic.LogicManager;
-import seedu.savvytasker.model.*;
+import seedu.savvytasker.model.Model;
+import seedu.savvytasker.model.ModelManager;
+import seedu.savvytasker.model.ReadOnlySavvyTasker;
+import seedu.savvytasker.model.SavvyTasker;
+import seedu.savvytasker.model.UserPrefs;
 import seedu.savvytasker.storage.Storage;
 import seedu.savvytasker.storage.StorageManager;
 import seedu.savvytasker.ui.Ui;
 import seedu.savvytasker.ui.UiManager;
-
-import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * The main entry point to the application.

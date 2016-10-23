@@ -2,8 +2,6 @@ package seedu.savvytasker.logic;
 
 import javafx.collections.ObservableList;
 import seedu.savvytasker.logic.commands.CommandResult;
-import seedu.savvytasker.logic.parser.MasterParser;
-import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 
 /**

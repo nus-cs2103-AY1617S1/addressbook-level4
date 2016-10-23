@@ -1,22 +1,36 @@
 package seedu.savvytasker.logic;
 
+import java.util.List;
+import java.util.Stack;
+import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ObservableList;
 import seedu.savvytasker.commons.core.ComponentManager;
 import seedu.savvytasker.commons.core.LogsCenter;
 import seedu.savvytasker.commons.events.model.AliasSymbolChangedEvent;
 import seedu.savvytasker.logic.commands.Command;
 import seedu.savvytasker.logic.commands.CommandResult;
-import seedu.savvytasker.logic.parser.*;
+import seedu.savvytasker.logic.parser.AddCommandParser;
+import seedu.savvytasker.logic.parser.AliasCommandParser;
+import seedu.savvytasker.logic.parser.ClearCommandParser;
+import seedu.savvytasker.logic.parser.DeleteCommandParser;
+import seedu.savvytasker.logic.parser.ExitCommandParser;
+import seedu.savvytasker.logic.parser.FindCommandParser;
+import seedu.savvytasker.logic.parser.HelpCommandParser;
+import seedu.savvytasker.logic.parser.ListCommandParser;
+import seedu.savvytasker.logic.parser.MarkCommandParser;
+import seedu.savvytasker.logic.parser.MasterParser;
+import seedu.savvytasker.logic.parser.ModifyCommandParser;
+import seedu.savvytasker.logic.parser.RedoCommandParser;
+import seedu.savvytasker.logic.parser.UnaliasCommandParser;
+import seedu.savvytasker.logic.parser.UndoCommandParser;
+import seedu.savvytasker.logic.parser.UnmarkCommandParser;
 import seedu.savvytasker.model.Model;
 import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.storage.Storage;
-
-import java.util.List;
-import java.util.Stack;
-import java.util.logging.Logger;
-
-import com.google.common.eventbus.Subscribe;
 
 /**
  * The main LogicManager of the app.
