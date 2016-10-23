@@ -274,7 +274,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         dub = events.getInternalList().get(index);
         String currentTime = dub.getActivityStartTime().toString();
         String currentDate = dub.getActivityStartDate().toString();
-        
+
         if (newDate.equals(EditCommand.NOT_TO_EDIT)) {
             newDate = currentDate;
         }

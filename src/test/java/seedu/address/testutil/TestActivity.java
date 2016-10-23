@@ -220,7 +220,36 @@ public class TestActivity implements ReadOnlyActivity {
         
         return build.toString();
     }
-
+    
+    /**
+     * @author Marx Low (A0139164A)
+     * @param index of the Activity to complete
+     * @returna complete command for the given Activity.
+     */
+    public String getCompleteCommand(int index) {
+        
+        StringBuilder build = new StringBuilder();
+        
+        if (activityType.equals(Activity.FLOATING_TASK_TYPE)) {
+            build.append("complete ");
+            build.append(Activity.FLOATING_TASK_TYPE);
+            build.append(" ");
+            build.append(String.valueOf(index));
+        } else if (activityType.equals(Activity.TASK_TYPE)) {
+            build.append("complete ");
+            build.append(Activity.TASK_TYPE);
+            build.append(" ");
+            build.append(String.valueOf(index));
+        } else if (activityType.equals(Activity.EVENT_TYPE)) {
+            build.append("complete ");
+            build.append(Activity.EVENT_TYPE);
+            build.append(" ");
+            build.append(String.valueOf(index));
+        }
+        
+        return build.toString();
+    }
+    
     @Override
     public Activity get() {
         return null;
@@ -266,8 +295,20 @@ public class TestActivity implements ReadOnlyActivity {
 
     @Override
     public void setActivityEndDateTime(String newDate, String newTime) throws IllegalValueException {
-        // TODO Auto-generated method stub
-        
+   
+    }
+  
+    @Override
+    public String toString() {
+        switch(this.activityType){
+        case Activity.FLOATING_TASK_TYPE:
+            return getFloatingTaskAsText();
+        case Activity.TASK_TYPE:
+            return getTaskAsText();
+        case Activity.EVENT_TYPE:
+            return getEventAsText();
+        }
+        return null;
     }
 
 }
