@@ -75,7 +75,7 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("edit 1 Call Alice from 2pm repeat every day -high");
         //commandBox.runCommand("edit 1 Call Alice from 2pm to 3pm repeat every day -high");
         aliceTask.setName(new Name("Call Alice"));
-        aliceTask.setStartDate(DateTime.convertStringToStartDate("2pm"));
+        aliceTask.setStartDate(DateTime.convertStringToDate("2pm"));
         //aliceTask.setEndDate(DateTime.convertStringToEndDate("3pm", aliceTask.getStartDate().get()));
         try {
             aliceTask.setRecurrence(new RecurrenceRate("1", "day"));
@@ -89,7 +89,7 @@ public class UndoAndRedoCommandTest extends AddressBookGuiTest {
         assertRedoSuccess(aliceTask);        
 
         TestTask recurredAliceTask = new TestTask(aliceTask);
-        recurredAliceTask.setStartDate(DateTime.convertStringToStartDate("tomorrow 2pm"));
+        recurredAliceTask.setStartDate(DateTime.convertStringToDate("tomorrow 2pm"));
 
         // primitive done undo and redo testing until the assertDoneSuccess is complete
         commandBox.runCommand("done 1");
