@@ -19,8 +19,8 @@ public class UndoCommand extends Command {
     @Override
     public boolean isValidCommandWord(String commandWord) {
         String lowerStr = commandWord.toLowerCase();
-        if(lowerStr == COMMAND_WORD.toLowerCase() 
-                || lowerStr == SHORT_COMMAND_WORD.toLowerCase()) {
+        if(lowerStr.equals(COMMAND_WORD.toLowerCase()) 
+                || lowerStr.equals(SHORT_COMMAND_WORD.toLowerCase())) {
             return true;
         }
         
