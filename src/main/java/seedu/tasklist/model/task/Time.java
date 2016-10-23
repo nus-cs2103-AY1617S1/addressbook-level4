@@ -52,6 +52,30 @@ public class Time {
     	time.setTimeInMillis(unixTime);
     }
     
+    public void updateTime(String input) throws IllegalValueException {
+		String preparsedTime = TimePreparser.preparse(input);
+		List<DateGroup> dates = new Parser().parse(preparsedTime);
+		if(dates.isEmpty()){
+			throw new IllegalValueException(getIVEMessage());
+		}
+		else if(dates.get(0).getDates().isEmpty()){
+			throw new IllegalValueException(getIVEMessage());
+		}
+		else{
+			Calendar newDate = Calendar.getInstance();
+			newDate.setTime(dates.get(0).getDates().get(0));
+			if(dates.get(0).isDateInferred()){
+				time.set(Calendar.HOUR_OF_DAY, newDate.get(Calendar.HOUR_OF_DAY));
+				time.set(Calendar.MINUTE, newDate.get(Calendar.MINUTE));
+			}
+			else if(dates.get(0).isTimeInferred()){
+				time.set(Calendar.DAY_OF_MONTH, newDate.get(Calendar.DAY_OF_MONTH));
+				time.set(Calendar.MONTH, newDate.get(Calendar.MONTH));
+				time.set(Calendar.YEAR, newDate.get(Calendar.YEAR));
+			}
+		}
+    }
+    
     private void setDefaultTime(DateGroup dategroup){
     	if (dategroup.isTimeInferred()) {
 			time.set(Calendar.HOUR_OF_DAY, getDefaultHourVal());
@@ -87,10 +111,9 @@ public class Time {
     	}
     	else{
     		DateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
-    		Date startTimeString = time.getTime();
-    		String finalStartString = df.format(startTimeString );
+    		String finalString = df.format(time.getTime());
     		
-    		return finalStartString;
+    		return finalString;
     	}
     }
 
@@ -117,11 +140,7 @@ public class Time {
     }
 
     public int compareTo(Time startTime) {
-        if ((this.getAsCalendar().getTimeInMillis()) > (startTime.getAsCalendar().getTimeInMillis()))
-            return 1;
-        else if ((this.getAsCalendar().getTimeInMillis()) < (startTime.getAsCalendar().getTimeInMillis()))
-            return -1;
-        else return 0;
+    	return Long.valueOf(this.getAsCalendar().getTimeInMillis()).compareTo(startTime.getAsCalendar().getTimeInMillis());
     }
 
 }
