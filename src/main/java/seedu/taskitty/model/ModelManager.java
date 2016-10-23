@@ -108,7 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@ author A0139052L
     public synchronized String undo() throws NoPreviousCommandException {
-        if (noMorePreviousCommand()) {            
+        if (!hasPreviousCommand()) {            
             throw new NoPreviousCommandException(null);
         }
         assert !historyPredicates.isEmpty() && !historyTaskManagers.isEmpty();
@@ -141,8 +141,8 @@ public class ModelManager extends ComponentManager implements Model {
         return historyCommands.pop();
     }
     
-    private boolean noMorePreviousCommand () {
-        return historyCommands.isEmpty();
+    private boolean hasPreviousCommand() {
+        return !historyCommands.isEmpty();
     }
     
     //@@author A0135793W
@@ -167,7 +167,6 @@ public class ModelManager extends ComponentManager implements Model {
    	    taskManager.addTask(task);
         indicateTaskManagerChanged();
         taskManager.removeTask(target);
-        updateFilters();
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
