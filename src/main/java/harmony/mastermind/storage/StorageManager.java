@@ -125,7 +125,6 @@ public class StorageManager extends ComponentManager implements Storage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        updateUserPrefs(newPath);
         updateConfig(newPath);
     }
    
@@ -138,12 +137,6 @@ public class StorageManager extends ComponentManager implements Storage {
             newPath = newPath + "/mastermind.xml";
         }
         return newPath;
-    }
-    
-    //@@author A0139194X
-    public void updateUserPrefs(String newPath) {
-        assert newPath != null;
-        userPrefStorage.setFilePath(newPath);
     }
     
     //@@author A0139194X
