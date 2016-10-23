@@ -19,10 +19,9 @@ public class DeleteCommand extends Command {
             + "You can specify the task/event by entering its index number given in the last listing. \n"
             + "If you need to recover your deleted task, you can use the undo command. \n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Example: " + COMMAND_WORD + " t1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Jimi has deleted this task: %1$s";
-    public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Jimi has deleted this event: %1$s";
 
     public final String targetIndex;
 
@@ -41,7 +40,7 @@ public class DeleteCommand extends Command {
         Optional<UnmodifiableObservableList<ReadOnlyTask>> optionalList = 
                 determineListFromIndexPrefix(targetIndex);
         
-        // actual integer index is everything after the 1 character prefix.
+        // actual integer index is everything after the first character prefix.
         int actualIdx = Integer.parseInt(targetIndex.substring(1).trim());
         if (!optionalList.isPresent() || optionalList.get().size() < actualIdx) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -54,7 +53,7 @@ public class DeleteCommand extends Command {
 
         try {
             model.deleteTask(taskToDelete);
-        } catch (TaskNotFoundException pnfe) {
+        } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
 
