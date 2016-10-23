@@ -1,5 +1,8 @@
 package seedu.ggist.logic.commands;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.model.task.ReadOnlyTask;
@@ -19,20 +22,22 @@ public class DoneCommand extends Command {
 
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Task Done: %1$s";
 
-    public final int targetIndex;
+    public final ArrayList<Integer> targetIndexes;
 
-    public DoneCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
+    public DoneCommand(ArrayList<Integer> indexes) {
+        this.targetIndexes = indexes;
     }
 
     @Override
     public CommandResult execute() {
+        Collections.sort(targetIndexes);
+        for(int i = 0; i < targetIndexes.size(); i++){
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        if (lastShownList.size() < targetIndex) {
+        if (lastShownList.size() + i < targetIndexes.get(i)) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        ReadOnlyTask taskToMarkDone = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToMarkDone = lastShownList.get(targetIndexes.get(i) - 1 - i);
         try {
             model.doneTask(taskToMarkDone);
             model.updateFilteredListToShowAllUndone();
@@ -41,8 +46,20 @@ public class DoneCommand extends Command {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < targetIndexes.size(); i++){
+            if (i != targetIndexes.size()-1){
+                sb.append(targetIndexes.get(i));
+                sb.append(", ");            
+            }
+            else {
+                sb.append(targetIndexes.get(i));
+            }
+        }
 
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMarkDone));
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, sb.toString()));
     }
 
 }
