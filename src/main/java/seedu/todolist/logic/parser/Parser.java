@@ -139,34 +139,40 @@ public class Parser {
                 remarks);
     }
     
+    //@@author A0138601M
     /**
      * Extracts the new task's start date and time, and end date and time from the add command's interval arguments string.
      * Returns String[startDate, startTime, endDate, endTime].
      */
     private String[] parseInterval(String interval) {
-        String[] intervalComponents = interval.split("to");
-        String startDate;
-        String startTime;
-        String endDate;
-        String endTime;
-        if (intervalComponents.length < INTERVAL_COMPONENT_TOTAL) {
-            startDate = null;
-            startTime = null;
-            endDate = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_DATE];
-            endTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_TIME];
-        } 
-        else {
-            startDate = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_DATE];
-            startTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM])[DATETIME_COMPONENT_TIME];
-            endDate = parseDatetime(intervalComponents[INTERVAL_COMPONENT_TO])[DATETIME_COMPONENT_DATE];
-            endTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_TO])[DATETIME_COMPONENT_TIME];
+        String startDate = null, startTime = null , endDate = null , endTime = null;
+        
+        if (interval != null) {
+            String[] intervalComponents = interval.split("to");
             
-            //if only one date is provided, both startDate and endDate will be the same
-            if (startDate == null) {
-                startDate = endDate;
-            }
-            if (endDate == null) {
-                endDate = startDate;
+            //time component is a [by] type
+            if (intervalComponents.length < INTERVAL_COMPONENT_TOTAL) {
+                String[] endDateTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM]);
+                endDate = endDateTime[DATETIME_COMPONENT_DATE];
+                endTime = endDateTime[DATETIME_COMPONENT_TIME];
+            } 
+            //time component is a [from.. to..] type
+            else {
+                String[] startDateTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_FROM]);
+                startDate = startDateTime[DATETIME_COMPONENT_DATE];
+                startTime = startDateTime[DATETIME_COMPONENT_TIME];
+                
+                String[] endDateTime = parseDatetime(intervalComponents[INTERVAL_COMPONENT_TO]);
+                endDate = endDateTime[DATETIME_COMPONENT_DATE];
+                endTime = endDateTime[DATETIME_COMPONENT_TIME];
+                
+                //if only one date is provided, both startDate and endDate will be the same
+                if (startDate == null) {
+                    startDate = endDate;
+                }
+                if (endDate == null) {
+                    endDate = startDate;
+                }
             }
         }
             
@@ -209,7 +215,6 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDone(String args) {
-
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(
@@ -218,6 +223,7 @@ public class Parser {
 
         return new DoneCommand(index.get());
     }
+    //@@author
 
     /**
      * Parses arguments in the context of the edit task command.

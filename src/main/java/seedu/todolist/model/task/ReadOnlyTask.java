@@ -44,7 +44,11 @@ public interface ReadOnlyTask {
      * Formats the interval as text.
      */
     default String getIntervalAsText() {
+        Interval interval = getInterval();
+        if (!interval.isFloat()) {
             return "Time: " + getInterval().toString();
+        }
+        return " ";
     }
     
     /**
