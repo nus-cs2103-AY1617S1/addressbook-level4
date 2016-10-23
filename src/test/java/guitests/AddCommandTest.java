@@ -1,15 +1,16 @@
 package guitests;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.commons.core.Messages;
-import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
+
+import seedu.task.commons.core.Messages;
+import seedu.task.logic.commands.AddCommand;
+import seedu.task.testutil.TestTask;
+import seedu.task.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-public class AddCommandTest extends AddressBookGuiTest {
+public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void add() {
@@ -42,7 +43,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(personToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        PersonCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getDescription().fullDescription);
+        TaskCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getDescription().fullDescription);
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person

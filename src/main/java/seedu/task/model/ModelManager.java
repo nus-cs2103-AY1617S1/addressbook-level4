@@ -1,0 +1,271 @@
+package seedu.task.model;
+
+import javafx.collections.transformation.FilteredList;
+import seedu.task.commons.core.ComponentManager;
+import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.core.UnmodifiableObservableList;
+import seedu.task.commons.events.model.AddressBookChangedEvent;
+import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.commons.util.StringUtil;
+import seedu.task.model.tag.Tag;
+import seedu.task.model.task.Priority;
+import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.Task;
+import seedu.task.model.task.Time;
+import seedu.task.model.task.UniqueTaskList;
+import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Logger;
+
+/**
+ * Represents the in-memory model of the address book data.
+ * All changes to any model should be synchronized.
+ */
+public class ModelManager extends ComponentManager implements Model {
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+
+    private final AddressBook addressBook;
+    private final FilteredList<Task> filteredPersons;
+
+    /**
+     * Initializes a ModelManager with the given AddressBook
+     * AddressBook and its variables should not be null
+     */
+    public ModelManager(AddressBook src, UserPrefs userPrefs) {
+        super();
+        assert src != null;
+        assert userPrefs != null;
+
+        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
+
+        addressBook = new AddressBook(src);
+        filteredPersons = new FilteredList<>(addressBook.getPersons());
+    }
+
+    public ModelManager() {
+        this(new AddressBook(), new UserPrefs());
+    }
+
+    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
+        addressBook = new AddressBook(initialData);
+        filteredPersons = new FilteredList<>(addressBook.getPersons());
+    }
+
+    @Override
+    public void resetData(ReadOnlyAddressBook newData) {
+        addressBook.resetData(newData);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public ReadOnlyAddressBook getAddressBook() {
+        return addressBook;
+    }
+
+    /** Raises an event to indicate the model has changed */
+    private void indicateAddressBookChanged() {
+        raise(new AddressBookChangedEvent(addressBook));
+    }
+
+    @Override
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        addressBook.removePerson(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void addTask(Task person) throws UniqueTaskList.DuplicateTaskException {
+        addressBook.addTask(person);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+
+	@Override
+	public void insertTask(int index, Task toAdd) throws UniqueTaskList.DuplicateTaskException {
+		addressBook.insertTask(index, toAdd);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+	}
+
+    //=========== Filtered Person List Accessors ===============================================================
+
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+        return new UnmodifiableObservableList<>(filteredPersons);
+    }
+
+    @Override
+    public void updateFilteredListToShowAll() {
+        filteredPersons.setPredicate(null);
+    }
+
+    @Override
+    public void updateFilteredTaskList(String operand, Set<String> keywords) throws IllegalValueException{
+        switch (operand) {
+        case "pr/":
+            updateFilteredPersonList(new PredicateExpression(new PriorityQualifier(keywords)));    
+            break;
+        case "t/":
+            updateFilteredPersonList(new PredicateExpression(new TagQualifier(keywords)));    
+            break;
+        case "start/":
+            updateFilteredPersonList(new PredicateExpression(new TimeQualifier("start", keywords)));    
+            break;
+        case "end/":
+            updateFilteredPersonList(new PredicateExpression(new TimeQualifier("end", keywords)));    
+            break;
+        default:
+            updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+        }
+    }
+
+    private void updateFilteredPersonList(Expression expression) {
+        filteredPersons.setPredicate(expression::satisfies);
+    }
+
+    //========== Inner classes/interfaces used for filtering =================================================
+
+    interface Expression {
+        boolean satisfies(ReadOnlyTask person);
+        String toString();
+    }
+
+    private class PredicateExpression implements Expression {
+
+        private final Qualifier qualifier;
+
+        PredicateExpression(Qualifier qualifier) {
+            this.qualifier = qualifier;
+        }
+
+        @Override
+        public boolean satisfies(ReadOnlyTask person) {
+            return qualifier.run(person);
+        }
+
+        @Override
+        public String toString() {
+            return qualifier.toString();
+        }
+    }
+
+    interface Qualifier {
+        boolean run(ReadOnlyTask person);
+        String toString();
+    }
+
+    private class NameQualifier implements Qualifier {
+        private Set<String> nameKeyWords;
+
+        NameQualifier(Set<String> nameKeyWords) {
+            this.nameKeyWords = nameKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return nameKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsWordIgnoreCase(task.getDescription().fullDescription, keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+    
+    private class TagQualifier implements Qualifier {
+        private final Set<Tag> tags = new HashSet<>();
+
+        TagQualifier(Set<String> tags) throws IllegalValueException {
+            for(String tag : tags) {
+                this.tags.add(new Tag(tag));
+            };
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            final Set<Tag> taskTags = new HashSet<>();
+            for(Tag tag : task.getTags()) {
+                taskTags.add(tag);
+            }
+            return !Collections.disjoint(taskTags, tags);
+        }
+
+        @Override
+        public String toString() {
+            final StringBuffer buffer = new StringBuffer("tag=");
+            final String separator = ", ";
+            tags.forEach(tag -> buffer.append(tag).append(separator));
+            if (buffer.length() == 0) {
+                return "";
+            } else {
+                return buffer.substring(0, buffer.length() - separator.length());
+            }
+        }
+    }
+
+    private class PriorityQualifier implements Qualifier {
+        private Set<Priority> priorities = new HashSet<Priority>();
+
+        PriorityQualifier(Set<String> priorities) throws IllegalValueException {
+            for (String priority: priorities) {
+                this.priorities.add(new Priority(priority));
+            }
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return priorities.contains(task.getPriority());
+        }
+
+        @Override
+        public String toString() {
+            final StringBuffer buffer = new StringBuffer("priority=");
+            final String separator = ", ";
+            priorities.forEach(tag -> buffer.append(tag).append(separator));
+            if (buffer.length() == 0) {
+                return "";
+            } else {
+                return buffer.substring(0, buffer.length() - separator.length());
+            }
+        }
+    }
+    
+    private class TimeQualifier implements Qualifier {
+        private Time time;
+        private String arg;
+
+        TimeQualifier(String arg, Set<String> time) throws IllegalValueException {
+            StringBuilder input = new StringBuilder();
+            for (String argIn: time) {
+                input.append(argIn);
+            }
+            this.time = new Time(input.toString());
+            this.arg = arg;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            // TODO: Implement floating task search
+            switch (arg) {
+            case "start":
+                return time.isEndBeforeStart(task.getTimeStart());
+            case "end":
+                return task.getTimeEnd().isEndBeforeStart(time);
+            default:
+                return false;
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "time=" + time.toString();
+        }
+    }
+
+}
