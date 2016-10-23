@@ -11,6 +11,7 @@ import org.testfx.api.FxToolkit;
 
 import seedu.ggist.TestApp;
 import seedu.ggist.commons.core.EventsCenter;
+import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.TaskManager;
 import seedu.ggist.model.task.ReadOnlyTask;
 import seedu.ggist.testutil.TestUtil;
@@ -66,7 +67,15 @@ public abstract class TaskManagerGuiTest {
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
-        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
+        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(() -> {
+            try {
+                return getInitialData();
+            } catch (IllegalValueException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return null;
+        }, getDataFileLocation()));
         FxToolkit.showStage();
         while (!stage.isShowing());
         mainGui.focusOnMainApp();
@@ -75,8 +84,9 @@ public abstract class TaskManagerGuiTest {
     /**
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
+     * @throws IllegalValueException 
      */
-    protected TaskManager getInitialData() {
+    protected TaskManager getInitialData() throws IllegalValueException {
         TaskManager ab = TestUtil.generateEmptyTaskManager();
         TypicalTestTasks.loadTaskManagerWithSampleData(ab);
         return ab;

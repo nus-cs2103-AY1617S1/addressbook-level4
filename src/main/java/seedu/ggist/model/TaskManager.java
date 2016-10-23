@@ -61,7 +61,14 @@ public class TaskManager implements ReadOnlyTaskManager {
 
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks) {
-        setTasks(newTasks.stream().map(EventTask::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(t -> {
+            try {
+                return new EventTask(t);
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }).collect(Collectors.toList()));
     }
 
     public void resetData(ReadOnlyTaskManager newData) {

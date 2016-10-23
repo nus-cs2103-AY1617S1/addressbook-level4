@@ -2,6 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.testutil.TestTask;
 import seedu.ggist.testutil.TestUtil;
 
@@ -11,7 +12,7 @@ import static seedu.ggist.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCE
 public class DeleteCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void delete() {
+    public void delete() throws IllegalArgumentException, IllegalValueException {
 
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();
@@ -38,8 +39,10 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
      * Runs the delete command to delete the task at specified index and confirms the result is correct.
      * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of tasks (before deletion).
+     * @throws IllegalValueException 
+     * @throws IllegalArgumentException 
      */
-    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
+    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) throws IllegalArgumentException, IllegalValueException {
         TestTask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 
