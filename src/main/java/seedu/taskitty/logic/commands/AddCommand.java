@@ -17,6 +17,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
+    //@@author A0139930B
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a floating task to the task manager. "
             + "Parameters: NAME [START_DATE_TIME] to [END_DATE_TIME] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
@@ -27,7 +28,6 @@ public class AddCommand extends Command {
 
     private final Task toAdd;
 
-    //@@author A0139930B
     /**
      * Convenience constructor using values parsed from Natty
      *

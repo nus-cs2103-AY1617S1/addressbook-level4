@@ -15,6 +15,7 @@ public class TaskBuilder {
         this.task = new TestTask();
     }
 
+    //@@author A0139930B
     public TaskBuilder withName(String name) throws IllegalValueException {
         this.task.setName(new Name(name));
         this.task.setPeriod(new TaskPeriod());
@@ -32,6 +33,7 @@ public class TaskBuilder {
         return this;
     }
 
+    //@@author
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
             task.getTags().add(new Tag(tag));

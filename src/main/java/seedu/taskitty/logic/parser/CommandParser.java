@@ -12,9 +12,6 @@ import seedu.taskitty.model.task.TaskTime;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-
-import java.text.ParseException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -22,7 +19,6 @@ import java.util.regex.Pattern;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
-import com.sun.media.jfxmedia.logging.Logger;
 
 /**
  * Parses user input.
@@ -50,11 +46,6 @@ public class CommandParser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = //Tags must be at the end
             Pattern.compile("(?<arguments>[\\p{Graph} ]+)"); // \p{Graph} is \p{Alnum} or \p{Punct}
-    
-    private static final Pattern EDIT_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<targetIndex>.)"
-                    + "(?<name>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public CommandParser() {}
 

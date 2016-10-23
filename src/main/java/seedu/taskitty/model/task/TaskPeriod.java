@@ -1,9 +1,9 @@
-//@@author A0139930B
 package seedu.taskitty.model.task;
 
 import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.CollectionUtil;
 
+//@@author A0139930B
 /**
  * Represents a Task's startDate, startTime, endDate and endTime in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidDateFormat(String)}
@@ -57,9 +57,11 @@ public class TaskPeriod implements Comparable<TaskPeriod>{
         this.endDate = endDate;
         this.endTime = endTime;
         
-        if (this.startDate != null && this.startTime != null) {
+        if (this.startDate != null) {
+            assert this.startTime != null;
             numArgs = Task.EVENT_COMPONENT_COUNT;
-        } else if (this.endDate != null && this.endTime != null) {
+        } else if (this.endDate != null) {
+            assert this.endTime != null;
             numArgs = Task.DEADLINE_COMPONENT_COUNT;
         } else {
             numArgs = Task.TASK_COMPONENT_COUNT;

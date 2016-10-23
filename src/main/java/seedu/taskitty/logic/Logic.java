@@ -15,13 +15,14 @@ public interface Logic {
      */
     CommandResult execute(String commandText);
 
-    /** Returns the filtered list of tasks */
+    //@@author A0139930B
+    /** Returns the filtered list of todo tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
     
-    /** Returns the filtered list of tasks */
+    /** Returns the filtered list of deadline tasks */
     ObservableList<ReadOnlyTask> getFilteredDeadlineList();
     
-    /** Returns the filtered list of tasks */
+    /** Returns the filtered list of event tasks */
     ObservableList<ReadOnlyTask> getFilteredEventList();
 
 }

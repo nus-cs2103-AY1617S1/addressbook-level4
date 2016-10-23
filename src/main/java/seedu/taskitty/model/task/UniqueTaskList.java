@@ -5,15 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.taskitty.commons.exceptions.DuplicateDataException;
 import seedu.taskitty.commons.util.CollectionUtil;
-import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.commons.util.TimeUtil;
 import seedu.taskitty.ui.ResultDisplay;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 
 /**
@@ -126,6 +121,11 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList;
     }
     
+    /**
+     * Returns the internal list, filtered to view only the specified type of Task
+     * 
+     * @param filter according to Task.
+     */
     private void checkAndSetOverdue() {
     	boolean hasOverdue = false;
     	LocalDateTime currentTime = TimeUtil.createCurrentTime();
@@ -150,10 +150,12 @@ public class UniqueTaskList implements Iterable<Task> {
     	return false;
     }
     
+    //@@author A0139930B
     public FilteredList<Task> getFilteredTaskList(int filter) {
         return internalList.filtered(p -> p.getPeriod().getNumArgs() == filter);
     }
 
+    //@@author
     @Override
     public Iterator<Task> iterator() {
         return internalList.iterator();
