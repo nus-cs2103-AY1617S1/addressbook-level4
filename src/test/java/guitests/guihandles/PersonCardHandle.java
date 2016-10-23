@@ -8,6 +8,7 @@ import seedu.todo.model.person.ReadOnlyPerson;
 /**
  * Provides a handle to a person card in the person list panel.
  */
+@Deprecated
 public class PersonCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
@@ -21,8 +22,9 @@ public class PersonCardHandle extends GuiHandle {
         this.node = node;
     }
 
+    @Deprecated
     protected String getTextFromLabel(String fieldId) {
-        return getTextFromLabel(fieldId, node);
+        return null;
     }
 
     public String getFullName() {
@@ -46,18 +48,4 @@ public class PersonCardHandle extends GuiHandle {
                 && getEmail().equals(person.getEmail().value) && getAddress().equals(person.getAddress().value);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if(obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
-        }
-        return super.equals(obj);
-    }
-
-    @Override
-    public String toString() {
-        return getFullName() + " " + getAddress();
-    }
 }

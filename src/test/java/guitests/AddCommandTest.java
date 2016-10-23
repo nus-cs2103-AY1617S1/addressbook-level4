@@ -1,56 +1,114 @@
 package guitests;
 
-import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.TaskCardViewHandle;
 import org.junit.Test;
-
-import seedu.todo.commons.core.Messages;
-import seedu.todo.logic.commands.AddCommand;
-import seedu.todo.testutil.TestPerson;
+import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.testutil.CommandGeneratorUtil;
+import seedu.todo.testutil.TaskFactory;
 import seedu.todo.testutil.TestUtil;
+import seedu.todo.testutil.UiTestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
-
-public class AddCommandTest extends AddressBookGuiTest {
+//@@author A0135805H
+/**
+ * Test the add command via GUI.
+ * Note:
+ *      Order-ness of the tasks is not tested.
+ *      Invalid command input is not tested.
+ */
+public class AddCommandTest extends TodoListGuiTest {
 
     @Test
-    @Ignore
-    public void add() {
-        //add one person
-        TestPerson[] currentList = td.getTypicalPersons();
-        TestPerson personToAdd = td.hoon;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
-
-        //add another person
-        personToAdd = td.ida;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
-
-        //add duplicate person
-        commandBox.runCommand(td.hoon.getAddCommand());
-        assertTrue(personListPanel.isListMatching(currentList));
-
-        //add to empty list
-        commandBox.runCommand("clear");
-        assertAddSuccess(td.alice);
-
-        //invalid command
-        commandBox.runCommand("adds Johnny");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+    public void add_initialData() {
+        //Test if the data has correctly loaded the data into view.
+        assertTrue(todoListView.isDisplayedCorrectly());
     }
 
-    private void assertAddSuccess(TestPerson personToAdd, TestPerson... currentList) {
-        commandBox.runCommand(personToAdd.getAddCommand());
+    @Test
+    public void add_addTasks() {
+        //Add a task
+        ImmutableTask task1 = TaskFactory.task();
+        executeAddTestHelper(task1);
 
-        //confirm the new card contains the right data
-        PersonCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName().fullName);
-        assertMatching(personToAdd, addedCard);
+        //Add another task
+        ImmutableTask task2 = TaskFactory.task();
+        executeAddTestHelper(task2);
 
-        //confirm the list now contains all previous persons plus the new person
-        TestPerson[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
-        assertTrue(personListPanel.isListMatching(expectedList));
+        //Add duplicated task
+        executeAddTestHelper(task2);
     }
 
+    @Test
+    public void add_addEvents() {
+        //Add an event
+        ImmutableTask event1 = TaskFactory.event();
+        executeAddTestHelper(event1);
+
+        //Add another event
+        ImmutableTask event2 = TaskFactory.event();
+        executeAddTestHelper(event2);
+
+        //Add duplicated task
+        executeAddTestHelper(event1);
+    }
+
+    @Test
+    public void add_addRandom() {
+        //Add a random task
+        ImmutableTask random1 = TaskFactory.random();
+        executeAddTestHelper(random1);
+
+        //Add another random task
+        ImmutableTask random2 = TaskFactory.random();
+        executeAddTestHelper(random2);
+    }
+
+    /* Helper Methods */
+    /**
+     * Gets the index of the newly added task.
+     */
+    private int getNewlyAddedTaskIndex() {
+        return TestUtil.compareAndGetIndex(previousTasksFromView, todoListView.getImmutableTaskList());
+    }
+
+    /**
+     * A helper method to run the entire add command process and testing.
+     */
+    private void executeAddTestHelper(ImmutableTask task) {
+        updatePreviousTaskListFromView();
+        executeAddCommand(task);
+        assertAddSuccess(task);
+        assertCorrectFeedbackDisplayed(task);
+    }
+
+    /**
+     * Executes an add command given a {@code task}
+     */
+    private void executeAddCommand(ImmutableTask task) {
+        String commandText = CommandGeneratorUtil.generateAddCommand(task);
+        runCommand(commandText);
+    }
+
+    /**
+     * Check if the {@code task} added to the view is reflected correctly,
+     * and the remaining tasks remains in the list, and is displayed correctly.
+     */
+    private void assertAddSuccess(ImmutableTask task) {
+        //Test if this single add is correct.
+        int addedIndex = getNewlyAddedTaskIndex();
+        int expectedDisplayedIndex = UiTestUtil.convertToUiIndex(addedIndex);
+        TaskCardViewHandle taskCard = todoListView.getTaskCardViewHandle(addedIndex);
+        assertTrue(taskCard.isDisplayedCorrectly(expectedDisplayedIndex, task));
+
+        //Test if the remaining list is correct.
+        assertTrue(todoListView.isDisplayedCorrectly());
+    }
+
+    /**
+     * Check if the correct feedback message for adding has been displayed to the user.
+     */
+    private void assertCorrectFeedbackDisplayed(ImmutableTask task) {
+        assertFeedbackMessage("\'" + task.getTitle() + "\' successfully added!");
+    }
 }

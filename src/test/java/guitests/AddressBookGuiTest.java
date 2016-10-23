@@ -1,6 +1,8 @@
 package guitests;
 
-import guitests.guihandles.*;
+import guitests.guihandles.MainGuiHandle;
+import guitests.guihandles.MainMenuHandle;
+import guitests.guihandles.PersonCardHandle;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
@@ -8,7 +10,6 @@ import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
-
 import seedu.todo.TestApp;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.model.AddressBook;
@@ -18,12 +19,12 @@ import seedu.todo.testutil.TypicalTestPersons;
 
 import java.util.concurrent.TimeoutException;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
  * A GUI Test class for AddressBook.
  */
+@Deprecated
 public abstract class AddressBookGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
@@ -40,9 +41,6 @@ public abstract class AddressBookGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected PersonListPanelHandle personListPanel;
-    protected ResultDisplayHandle resultDisplay;
-    protected CommandBoxHandle commandBox;
     private Stage stage;
 
     @BeforeClass
@@ -60,13 +58,10 @@ public abstract class AddressBookGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            personListPanel = mainGui.getPersonListPanel();
-            resultDisplay = mainGui.getResultDisplay();
-            commandBox = mainGui.getCommandBox();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
-        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
+//        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
         while (!stage.isShowing());
         mainGui.focusOnMainApp();
@@ -104,15 +99,17 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the size of the person list is equal to the given number.
      */
+    @Deprecated
     protected void assertListSize(int size) {
-        int numberOfPeople = personListPanel.getNumberOfPeople();
-        assertEquals(size, numberOfPeople);
+//        int numberOfPeople = personListPanel.getNumberOfPeople();
+//        assertEquals(size, numberOfPeople);
     }
 
     /**
      * Asserts the message shown in the Result Display area is same as the given string.
      */
+    @Deprecated
     protected void assertResultMessage(String expected) {
-        assertEquals(expected, resultDisplay.getText());
+//        assertEquals(expected, resultDisplay.getText());
     }
 }
