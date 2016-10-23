@@ -8,6 +8,7 @@ import seedu.todolist.model.task.TaskTime;
 
 import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.todolist.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.todolist.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -71,9 +72,6 @@ public class Parser {
             
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
-
-        case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
 
         case DoneCommand.COMMAND_WORD:
             return prepareDone(arguments);
@@ -215,13 +213,15 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDone(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        int[] indexes;
+        try {
+             indexes = parseIndex(args);
         }
-
-        return new DoneCommand(index.get());
+        catch (IllegalValueException ive) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_TASK_DISPLAYED_INDEX, DoneCommand.MESSAGE_USAGE));
+        }
+        return new DoneCommand(indexes);
     }
     //@@author
 
@@ -265,47 +265,50 @@ public class Parser {
      */
     private Command prepareDelete(String args) {
 
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
+        int[] indexes;
+        try {
+             indexes = parseIndex(args);
+        }
+        catch (IllegalValueException ive) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-
-        return new DeleteCommand(index.get());
+        return new DeleteCommand(indexes);
     }
 
     /**
-     * Parses arguments in the context of the select task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
+     * Returns an int[] if valid indexes are provided.
+     * throws IllegalValueException indexes are invalid
      */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+    private int[] parseIndex(String command) throws IllegalValueException {
+        int[] indexes;
+        if (command.trim().contains(",")) {
+            indexes =  parseIndexSeparatedByComma(command);
         }
-
-        return new SelectCommand(index.get());
+        else {
+            indexes = new int[1];
+            if(!StringUtil.isUnsignedInteger(command.trim())) {
+                throw new IllegalValueException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            indexes[0] = Integer.parseInt(command.trim());
+        }
+        Arrays.sort(indexes);
+        return indexes;
     }
-
-    /**
-     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
-     *   Returns an {@code Optional.empty()} otherwise.
-     */
-    private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
-        if (!matcher.matches()) {
-            return Optional.empty();
+    
+    private int[] parseIndexSeparatedByComma(String command) throws IllegalValueException {
+        assert command != null;
+        command = command.trim();
+        
+        String[] indexesString = command.split(",");
+        int[] indexes = new int[indexesString.length];
+        for (int i = 0; i < indexesString.length; i++) {
+            if (!StringUtil.isUnsignedInteger(indexesString[i].trim())) {
+                throw new IllegalValueException(MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            indexes[i] = Integer.parseInt(indexesString[i].trim());
         }
-
-        String index = matcher.group("targetIndex");
-        if(!StringUtil.isUnsignedInteger(index)){
-            return Optional.empty();
-        }
-        return Optional.of(Integer.parseInt(index));
-
+        return indexes;
     }
 
     /**

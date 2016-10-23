@@ -279,43 +279,51 @@ public class TestUtil {
      * @param tasksToRemove The subset of tasks.
      * @return The modified tasks after removal of the subset from tasks.
      */
-    public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
-        List<TestTask> listOfTasks = asList(tasks);
-        listOfTasks.removeAll(asList(tasksToRemove));
-        return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
+    public static TestTaskList removeTasksFromList(final TestTaskList tasks, TestTask[] tasksToRemove) {
+        List<TestTask> completeTaskList = asList(tasks.getCompleteList());
+        List<TestTask> incompleteTaskList = asList(tasks.getIncompleteList());
+        incompleteTaskList.removeAll(asList(tasksToRemove));
+        return new TestTaskList(incompleteTaskList, completeTaskList);
     }
 
-
     /**
-     * Returns a copy of the list with the task at specified index removed.
+     * Returns a copy of the list with the task at specified indexes removed.
      * @param list original list to copy from
-     * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
+     * @param targetIndexes is an array of indexes to be removed
      */
-    public static TestTask[] removeTaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
-        return removeTasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
+    public static TestTaskList removeTaskFromList(final TestTaskList list, int[] targetIndexes) {
+        TestTask[] taskToDelete = new TestTask[targetIndexes.length];
+        for (int i = 0; i < taskToDelete.length; i++) {
+            taskToDelete[i] = list.getIncompleteList()[targetIndexes[i] - 1]; //-1 because array uses zero indexing
+        }
+        return removeTasksFromList(list, taskToDelete);
     }
     
     /**
      * Marks a subset from the list of tasks.
      * @param tasks The list of tasks
      * @param tasksToMark The subset of tasks.
-     * @return The modified tasks after removal of the subset from tasks.
+     * @return The modified tasks after marking of the subset from tasks.
      */
-    public static TestTaskList markTasksFromList(final TestTaskList tasks, TestTask... tasksToRemove) {
+    public static TestTaskList markTasksFromList(final TestTaskList tasks, TestTask[] tasksToMark) {
         List<TestTask> completeTaskList = asList(tasks.getCompleteList());
         List<TestTask> incompleteTaskList = asList(tasks.getIncompleteList());
-        incompleteTaskList.removeAll(asList(tasksToRemove));
-        completeTaskList.addAll(asList(tasksToRemove));
+        incompleteTaskList.removeAll(asList(tasksToMark));
+        completeTaskList.addAll(asList(tasksToMark));
         return new TestTaskList(incompleteTaskList, completeTaskList);
     }
     
     /**
      * Returns a copy of the list with the task at specified index removed.
      * @param list original list to copy from
-     * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
+     * @param targetIndexes is an array of indexes to be marked
      */
-    public static TestTaskList markTaskFromList(final TestTaskList list, int targetIndexInOneIndexedFormat) {
-        return markTasksFromList(list, list.getIncompleteList()[targetIndexInOneIndexedFormat - 1]);
+    public static TestTaskList markTaskFromList(final TestTaskList list, int[] targetIndexes) {
+        TestTask[] taskToMark = new TestTask[targetIndexes.length];
+        for (int i = 0; i < taskToMark.length; i++) {
+            taskToMark[i] = list.getIncompleteList()[targetIndexes[i] - 1]; //-1 because array uses zero indexing
+        }
+        return markTasksFromList(list, taskToMark);
     }
 
     /**
