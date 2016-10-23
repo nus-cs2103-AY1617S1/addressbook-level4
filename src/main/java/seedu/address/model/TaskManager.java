@@ -118,6 +118,16 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void doneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
     	tasks.done(task);
     }
+	
+    public void clearDone() throws UniqueTaskList.TaskNotFoundException{
+		while (true) {
+	    	for (Task t : tasks) {
+				if (t.getDone().getDone() == true) {
+					tasks.remove(t);
+				}
+			}
+		}
+	}
     
     public void undoneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
     	tasks.undone(task);
