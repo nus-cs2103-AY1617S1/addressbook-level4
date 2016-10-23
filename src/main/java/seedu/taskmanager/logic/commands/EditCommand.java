@@ -2,6 +2,9 @@ package seedu.taskmanager.logic.commands;
 
 import static seedu.taskmanager.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.*;
 import seedu.taskmanager.commons.core.LogsCenter;
@@ -122,6 +125,7 @@ public class EditCommand extends Command {
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
         
+        
         if (this.name != null) {
             itemToReplace.setName(this.name);
         }
@@ -171,6 +175,14 @@ public class EditCommand extends Command {
             }
             itemToReplace.setTags(updatedTagList);
         }
+
+        if (itemToReplace.getItemType().isAnEvent() && isEndDateTimeBeforeStartDateTime(itemToReplace.getStartDate(), itemToReplace.getStartTime(), 
+                                                                                        itemToReplace.getEndDate(), itemToReplace.getEndTime())) {
+            logger.fine("detected event end datetime before start datetime");
+            
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME));
+        }
         
         try {
             model.replaceItem(itemToEdit, itemToReplace, String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToReplace));
@@ -180,6 +192,79 @@ public class EditCommand extends Command {
             return new CommandResult(MESSAGE_DUPLICATE_ITEM);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_ITEM_SUCCESS, itemToReplace));
+    }
+
+    /**
+     * @param startItemDate
+     * @param endItemDate
+     * @param startItemTime
+     * @param endItemTime
+     * @return true if end datetime comes before start datetime
+     */
+    private boolean isEndDateTimeBeforeStartDateTime(ItemDate startItemDate, ItemTime startItemTime, ItemDate endItemDate, ItemTime endItemTime) {
+        if (isEndDateEqualsStartDate(startItemDate, endItemDate)) {
+            return isEndTimeBeforeStartTime(startItemTime, endItemTime);
+        } else {
+            return isEndDateBeforeStartDate(startItemDate, endItemDate);
+        }
+    }
+    
+    /**
+     * @param startItemDate
+     * @param endItemDate
+     * @return true if endItemDate comes before startItemDate, false otherwise
+     */
+    private boolean isEndDateBeforeStartDate(ItemDate startItemDate, ItemDate endItemDate) {
+        return compareStartDateToEndDate(startItemDate, endItemDate) < 0;
+    }
+    
+    private boolean isEndDateEqualsStartDate(ItemDate startItemDate, ItemDate endItemDate) {
+        return compareStartDateToEndDate(startItemDate, endItemDate) == 0;
+    }
+    
+    /**
+     * @param startItemDate
+     * @param endItemDate
+     * @return -1 if endItemDate comes before startItemDate, 0 if endItemDate equals startItemDate, 1 otherwise
+     */
+    private int compareStartDateToEndDate(ItemDate startItemDate, ItemDate endItemDate) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(ItemDate.DATE_FORMAT);
+            Date startDate = sdf.parse(startItemDate.toString());
+            Date endDate = sdf.parse(endItemDate.toString());
+            if (endDate.before(startDate)) {
+                return -1;
+            } else if (endDate.equals(startDate)) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } catch (ParseException pe) {
+            assert false : "DATE_FORMAT is not parsable by SimpleDateFormat";
+        }
+        
+        assert false : "Method should not have reached this point";
+        return -2;
+    }
+    
+    
+    /**
+     * @param startItemTime
+     * @param endItemTime
+     * @return true if endItemTime comes before startItemTime, false otherwise
+     */
+    private boolean isEndTimeBeforeStartTime(ItemTime startItemTime, ItemTime endItemTime) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat(ItemTime.TIME_FORMAT);
+            Date startTime= sdf.parse(startItemTime.toString());
+            Date endTime = sdf.parse(endItemTime.toString());
+            return endTime.before(startTime);
+        } catch (ParseException pe) {
+            assert false : "TIME_FORMAT is not parsable by SimpleDateFormat";
+        }
+        
+        assert false : "Method should not have reached this point";
+        return true;
     }
 
     /**

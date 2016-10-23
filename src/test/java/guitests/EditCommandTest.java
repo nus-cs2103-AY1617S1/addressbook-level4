@@ -39,7 +39,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
     private String firstTestName = "Survive 2103";
     private String secondTestName = "Survive the semester";
     private String thirdTestName = "Survive university";
-    private String validStartDate = "2020-05-05";
+    private String validStartDate = "1900-05-05";
     private String validStartTime = "22:06";
     private String validEndDate = "2320-12-05";
     private String validEndTime = "23:06";
