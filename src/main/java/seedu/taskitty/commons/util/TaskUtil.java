@@ -14,6 +14,8 @@ public class TaskUtil {
      *   else return the default index
      */
     public static int getCategoryIndex(String category) {
+        
+        assert category.length() == 1;
         switch(category) {
         
             case(Task.TODO_CATEGORY_CHAR) :
