@@ -23,7 +23,8 @@ public class SaveCommand extends Command {
             + "/Users/jim/GitHub/main/data";
 
     public static final String MESSAGE_SUCCESS = "New file location saved.";
-    public static final String MESSAGE_FOLDER_DOES_NOT_EXIST = "This folder currently does not exist, new folder created.";
+    public static final String MESSAGE_PATH_IS_NOT_A_DIRECTORY = "The path given does not refer to a folder.";
+    public static final String MESSAGE_FOLDER_CANNOT_BE_CREATED = "A new folder cannot be created with the given path.";
     
     private final String dirPath;
 
@@ -39,20 +40,35 @@ public class SaveCommand extends Command {
 	
 	@Override
 	public CommandResult execute() {
+		File f = new File(dirPath);
+		if (!f.exists()) {
+			try {
+				f.mkdirs();
+			} catch (SecurityException e) {
+				return new CommandResult(MESSAGE_FOLDER_CANNOT_BE_CREATED);
+			}
+		}
+		if (!f.isDirectory())
+			return new CommandResult(MESSAGE_PATH_IS_NOT_A_DIRECTORY);
 		
-		
+		copyDataFilesToNewPath(dirPath);
 		changeConfigPaths(dirPath);
-		
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
 
 	
 	
 	private void copyDataFilesToNewPath(String arguments) {
+		Config config = new Config();
 
-		File dataPath = new File(arguments+"task.xml");
-		File userPrefPath = new File(arguments+"preferences.json");
+		File oldDataPath = new File(config.getAddressBookFilePath());
+		File oldUserPrefPath = new File(config.getUserPrefsFilePath());
+		File newDataPath = new File(arguments+"task.xml");
+		File newUserPrefPath = new File(arguments+"preferences.json");
+		oldDataPath.renameTo(newDataPath);
+		oldUserPrefPath.renameTo(newUserPrefPath);
 	}
+	
 	/**
      * change the path fields in the config.json file
      * @param arguments
