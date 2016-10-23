@@ -19,15 +19,15 @@ public class HelpCommandParserTest {
 	 */
 	@Test
 	public void prepareCommand_invalidFormat() {
-		String expectedTask = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpTaskCommand.MESSAGE_USAGE);
+		String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpTaskCommand.MESSAGE_USAGE);
 		
 		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("listing");
-		String actualTask = command.feedbackToUser;
-		assertEquals(actualTask, expectedTask);
+		String feedback = command.feedbackToUser;
+		assertEquals(feedback, expected);
 		
 		command = (IncorrectTaskCommand) parser.prepareCommand("all");
-		actualTask = command.feedbackToUser;
-		assertEquals(actualTask, expectedTask);
+		feedback = command.feedbackToUser;
+		assertEquals(feedback, expected);
 	}
 	
 	/**
@@ -35,11 +35,11 @@ public class HelpCommandParserTest {
 	 */
 	@Test
 	public void prepareCommand_validHelpFormat() {
-		String expectedTask = HelpTaskCommand.SHOWING_HELP_MESSAGE;
+		String expected = HelpTaskCommand.SHOWING_HELP_MESSAGE;
 		
 		HelpTaskCommand command = (HelpTaskCommand) parser.prepareCommand("");
-		String actualTask = command.toString();
-		assertEquals(actualTask, expectedTask);
+		String feedback = command.toString();
+		assertEquals(feedback, expected);
 		
 	}
 }

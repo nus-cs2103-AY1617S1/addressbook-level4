@@ -19,26 +19,26 @@ public class ListCommandParserTest {
 		 */
 		@Test
 		public void prepareCommand_invalidFormat() {
-			String expectedTask = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListTaskCommand.MESSAGE_USAGE);
+			String expected = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListTaskCommand.MESSAGE_USAGE);
 			
 			IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("meeting");
-			String actualTask = command.feedbackToUser;
-			assertEquals(actualTask, expectedTask);
+			String feedback = command.feedbackToUser;
+			assertEquals(feedback, expected);
 			
 			command = (IncorrectTaskCommand) parser.prepareCommand("all");
-			actualTask = command.feedbackToUser;
-			assertEquals(actualTask, expectedTask);
+			feedback = command.feedbackToUser;
+			assertEquals(feedback, expected);
 		}
 		/**
 		 * Testing correct list alias type
 		 */
 		@Test
 		public void prepareCommand_listAlias() {
-			String expectedTask = "alias";
+			String expected = "alias";
 			
 			ListTaskCommand command = (ListTaskCommand) parser.prepareCommand("alias");
-			String actualTask = command.getType();
-			assertEquals(actualTask, expectedTask);
+			String feedback = command.getType();
+			assertEquals(feedback, expected);
 			
 		}
 		
@@ -47,17 +47,17 @@ public class ListCommandParserTest {
 		 */
 		@Test
 		public void prepareCommand_listCompleted() {
-			String expectedTask = "completed";
+			String expected = "completed";
 			
 			ListTaskCommand command = (ListTaskCommand) parser.prepareCommand("completed");
-			String actualTask = command.getType();
-			assertEquals(actualTask, expectedTask);
+			String feedback = command.getType();
+			assertEquals(feedback, expected);
 			
-			expectedTask = "complete";
+			expected = "complete";
 			
 			command = (ListTaskCommand) parser.prepareCommand("complete");
-			actualTask = command.getType();
-			assertEquals(actualTask, expectedTask);
+			feedback = command.getType();
+			assertEquals(feedback, expected);
 			
 		}
 		
@@ -66,11 +66,11 @@ public class ListCommandParserTest {
 		 */
 		@Test
 		public void prepareCommand_listAll() {
-			String expectedTask = "";
+			String expected = "";
 			
 			ListTaskCommand command = (ListTaskCommand) parser.prepareCommand("");
-			String actualTask = command.getType();
-			assertEquals(actualTask, expectedTask);
+			String feedback = command.getType();
+			assertEquals(feedback, expected);
 			
 		}
 }
