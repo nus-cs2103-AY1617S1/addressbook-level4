@@ -9,7 +9,8 @@ public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD;
+    public static final String MESSAGE_PARAMETER = COMMAND_WORD;
+    public static final String MESSAGE_USAGE = "This command clears all tasks from TasKitty, Meow!";
     public static final String MESSAGE_SUCCESS = "Task manager has been cleared!";
 
     public ClearCommand() {}

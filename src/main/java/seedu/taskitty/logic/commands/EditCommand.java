@@ -28,11 +28,9 @@ public class EditCommand extends Command{
     
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD 
-            + ": Edits the floating task identified by the index number used in the last task listing.\n "
-            + "Parameters: NAME [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " 1 finish CS2103T";
+    public static final String MESSAGE_PARAMETER = COMMAND_WORD
+            + " [category] [index] [name] [t/tag]...";
+    public static final String MESSAGE_USAGE = "This command edits a task in TasKitty, Meow!";
 
     public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";

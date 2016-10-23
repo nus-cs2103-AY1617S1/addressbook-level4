@@ -14,10 +14,8 @@ public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the category character and index number used in the last task listing.\n"
-            + "Parameters: CATEGORY(default to 't' if not given or incorrect) INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " " + Task.CATEGORY_CHARS + " 1";
+    public static final String MESSAGE_PARAMETER = COMMAND_WORD + " [category] [index]";
+    public static final String MESSAGE_USAGE = "This command deletes a task from TasKitty, Meow!";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted" + " %1$s: %2$s";
     
