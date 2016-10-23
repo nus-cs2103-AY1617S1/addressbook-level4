@@ -1,5 +1,7 @@
 package tars.ui;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,8 +10,10 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import tars.commons.events.ui.TaskAddedEvent;
 import tars.model.task.ReadOnlyTask;
 
 
@@ -73,9 +77,12 @@ public class TaskListPanel extends UiPart {
         });
     }
 
+
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
+        private ReadOnlyTask newlyAddedTask;
 
         public TaskListViewCell() {
+            registerAsAnEventHandler(this);
         }
 
         @Override
@@ -86,8 +93,20 @@ public class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                TaskCard card = TaskCard.load(task, getIndex() + 1);
+                HBox layout = card.getLayout();
+                if (this.newlyAddedTask != null) {
+                    if (this.newlyAddedTask.isSameStateAs(task)) {
+                        layout.setStyle("-fx-border-color: lightgreen");
+                    }
+                }
+                setGraphic(layout);
             }
+        }
+
+        @Subscribe
+        private void handleTaskAddedEvent(TaskAddedEvent event) {
+            this.newlyAddedTask = event.task;
         }
     }
 

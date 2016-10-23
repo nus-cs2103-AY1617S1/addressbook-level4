@@ -18,7 +18,7 @@ public class TaskCard extends UiPart{
     private static final String PRIORITY_MEDIUM = "medium";
     private static final String PRIORITY_LOW = "low";
     private static final String STATUS_UNDONE = "Undone";
-    
+
     @FXML
     private HBox cardPane;
     @FXML
@@ -43,6 +43,7 @@ public class TaskCard extends UiPart{
     private ReadOnlyTask task;
     private int displayedIndex;
 
+
     public TaskCard(){
 
     }
@@ -65,15 +66,15 @@ public class TaskCard extends UiPart{
         setTags();
         setTextFill();
     }
-    
+
     private void setName() {
         name.setText(task.getName().taskName);
     }   
-    
+
     private void setIndex() {
         id.setText(displayedIndex + ". ");
     }
-    
+
     private void setDate() {
         String startDateString = task.getDateTime().startDateString;
         String endDateString = task.getDateTime().endDateString;
@@ -90,7 +91,7 @@ public class TaskCard extends UiPart{
             endDate.setText(endDateString);
         }      
     }
-    
+
     /**
      * Sets tick color based on task's status
      */
@@ -118,7 +119,7 @@ public class TaskCard extends UiPart{
         status.setVisible(false);
         status.setManaged(false);
     }
-    
+
     /**
      * Set text to different color based on status of task
      */
@@ -135,13 +136,13 @@ public class TaskCard extends UiPart{
             endDate.setStyle("-fx-text-fill: lightgrey");
         }
     }
-    
+
     @Subscribe
     private void handleTarsChangeEvent(TarsChangedEvent event) {
         setTextFill();
         setStatus();
     }
-    
+
     /**
      * Sets colors to priority label based on task's priority
      * 
@@ -165,7 +166,7 @@ public class TaskCard extends UiPart{
         priority.setVisible(false);
         priority.setManaged(false);
     }
-    
+
     private void setTags() {
         tags.setText(task.tagsString());        
     }
@@ -183,4 +184,5 @@ public class TaskCard extends UiPart{
     public String getFxmlPath() {
         return FXML;
     }
+
 }
