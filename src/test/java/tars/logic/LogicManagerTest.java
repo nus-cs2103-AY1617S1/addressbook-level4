@@ -672,7 +672,7 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(task1, task2, task3);
         helper.addToModel(model, listToSort);
 
-        assertCommandBehaviorForList("ls -p", ListCommand.MESSAGE_SUCCESS_PRIORITY, expectedTars, expectedList);
+        assertCommandBehaviorForList("ls /p", ListCommand.MESSAGE_SUCCESS_PRIORITY, expectedTars, expectedList);
     }
 
     /**
@@ -698,7 +698,7 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(task3, task2, task1);
         helper.addToModel(model, listToSort);
 
-        assertCommandBehaviorForList("ls -p dsc", ListCommand.MESSAGE_SUCCESS_PRIORITY_DESCENDING, expectedTars,
+        assertCommandBehaviorForList("ls /p dsc", ListCommand.MESSAGE_SUCCESS_PRIORITY_DESCENDING, expectedTars,
                 expectedList);
     }
 
@@ -725,7 +725,7 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(task1, task2, task3);
         helper.addToModel(model, listToSort);
 
-        assertCommandBehaviorForList("ls -dt", ListCommand.MESSAGE_SUCCESS_DATETIME, expectedTars, expectedList);
+        assertCommandBehaviorForList("ls /dt", ListCommand.MESSAGE_SUCCESS_DATETIME, expectedTars, expectedList);
     }
 
     /**
@@ -751,7 +751,7 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(task3, task2, task1);
         helper.addToModel(model, listToSort);
 
-        assertCommandBehaviorForList("ls -dt dsc", ListCommand.MESSAGE_SUCCESS_DATETIME_DESCENDING, expectedTars,
+        assertCommandBehaviorForList("ls /dt dsc", ListCommand.MESSAGE_SUCCESS_DATETIME_DESCENDING, expectedTars,
                 expectedList);
     }
 
