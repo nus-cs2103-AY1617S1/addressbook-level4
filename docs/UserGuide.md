@@ -315,8 +315,7 @@ Lazy to retype a similar command? Want to paste the previous command back to the
 _Mastermind_ can do just that!
 
 _Format:_
-``` <kbd>↑</kdb>
-```
+<kbd>↑</kdb>
 
 _Example:_
 ```java
@@ -396,7 +395,7 @@ Delete | `delete <index>`
 Undo | `undo`
 Redo | `redo`
 Mark | `mark <index>`
-Previous | <kdb>↑</kdb>
+Previous | <kbd>↑</kdb>
 Clear | `clear`
 Relocate | `relocate <new_destination_folder>`
 Exit | `exit`
