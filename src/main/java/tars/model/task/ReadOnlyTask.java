@@ -7,7 +7,7 @@ import tars.model.tag.UniqueTagList;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
-    
+
     public static final String PRIORITY_HIGH = "high";
     public static final String PRIORITY_MEDIUM = "medium";
     public static final String PRIORITY_LOW = "low";
@@ -20,7 +20,7 @@ public interface ReadOnlyTask {
     DateTime getDateTime();
     Priority getPriority();
     Status getStatus();
-    
+
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -47,17 +47,17 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" DateTime: ")
-                .append(getDateTime())
-                .append(" Priority: ")
-                .append(priorityString())
-                .append(" Status: ")
-                .append(getStatus().toString())
-                .append(" Tags: ");
+        .append(" DateTime: ")
+        .append(getDateTime())
+        .append(" Priority: ")
+        .append(priorityString())
+        .append(" Status: ")
+        .append(getStatus().toString())
+        .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
-    
+
     /**
      * Returns a string representation of this Task's priority
      */
