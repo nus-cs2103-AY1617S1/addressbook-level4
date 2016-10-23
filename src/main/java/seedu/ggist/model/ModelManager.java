@@ -1,6 +1,7 @@
 package seedu.ggist.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.ggist.commons.core.ComponentManager;
 import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.core.Messages;
@@ -20,6 +21,7 @@ import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -32,6 +34,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
+    private SortedList<Task> sortedTasks;
     private String today;
 
     public String lastListing;
@@ -129,6 +132,24 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getSortedTaskList() {
+        sortedTasks = sortFilteredList();
+        return new UnmodifiableObservableList<>(sortedTasks);
+    }
+    
+    private SortedList<Task> sortFilteredList() {
+        Comparator<? super Task> compareDateTime = new Comparator<Task>(){
+            public int compare (Task t1, Task t2){
+                return t1.getStartDateTime().equals(t2.getStartDateTime()) ?
+                (t1.getEndDateTime().before(t2.getEndDateTime()) ? 
+                -1 : 1) : (t1.getStartDateTime().before(t2.getStartDateTime()) ?
+                -1 : 1);
+            }
+        };
+        return new SortedList<Task>(filteredTasks, compareDateTime);
     }
 
     @Override
