@@ -106,18 +106,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     public synchronized String undo() {
-        resetData(historyTaskManagers.pop());   
-        updateFilteredTaskList(historyPredicates.pop());
-        return historyCommands.pop();
+        resetData(getPreviousTaskManager());   
+        updateFilteredTaskList(getPreviousPredicate());
+        return getPreviousCommand();
     }
-    
-    //@@author A0135793W
-    private void updateFilters() {
-        filteredTodos = new FilteredList<>(taskManager.getFilteredTodos());
-        filteredDeadlines = new FilteredList<>(taskManager.getFilteredDeadlines());
-        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());     
-    }
-    //@@author
     
     public synchronized void saveState(String command) {
         historyTaskManagers.push(new TaskManager(taskManager));
@@ -131,6 +123,26 @@ public class ModelManager extends ComponentManager implements Model {
         historyPredicates.pop();
     }
     
+    private ReadOnlyTaskManager getPreviousTaskManager() {
+        return historyTaskManagers.pop();
+    }
+    
+    private Predicate getPreviousPredicate() {
+        return historyPredicates.pop();
+    }
+    
+    private String getPreviousCommand() {
+        return historyCommands.pop();
+    }
+    
+    //@@author A0135793W
+    private void updateFilters() {
+        filteredTodos = new FilteredList<>(taskManager.getFilteredTodos());
+        filteredDeadlines = new FilteredList<>(taskManager.getFilteredDeadlines());
+        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());     
+    }
+    //@@author
+        
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
     	taskManager.doneTask(target);
