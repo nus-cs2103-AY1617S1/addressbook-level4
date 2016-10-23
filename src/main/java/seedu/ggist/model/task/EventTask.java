@@ -2,6 +2,7 @@ package seedu.ggist.model.task;
 
 import java.util.Objects;
 
+import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.CollectionUtil;
 import seedu.ggist.model.tag.UniqueTagList;
 
@@ -13,20 +14,22 @@ public class EventTask extends Task implements ReadOnlyTask {
     
     /**
      * Every field must be present and not null.
+     * @throws IllegalValueException 
      */
-    public EventTask(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority) {
+    public EventTask(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority) throws IllegalValueException {
         super(taskName, startDate, startTime, endDate, endTime, priority);
     }
     
-    public EventTask(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority, boolean done) {
+    public EventTask(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority, boolean done) throws IllegalValueException {
         super(taskName, startDate, startTime, endDate, endTime, priority);
         this.done = done;
     }
    
     /**
      * Copy constructor.
+     * @throws IllegalValueException 
      */
-    public EventTask(ReadOnlyTask source) {
+    public EventTask(ReadOnlyTask source) throws IllegalValueException {
         this(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getPriority(), source.getDone());
     }
 

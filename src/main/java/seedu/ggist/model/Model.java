@@ -34,6 +34,9 @@ public interface Model {
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the sorted task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getSortedTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
@@ -55,5 +58,8 @@ public interface Model {
 
     /**Updates the attribute in ModelManager to reflect last shown listing */
     void setLastListing(String listing);
+
+    void sortFilteredList();
+    
 
 }

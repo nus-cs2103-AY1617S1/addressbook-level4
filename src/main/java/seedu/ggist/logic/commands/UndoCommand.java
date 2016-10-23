@@ -19,7 +19,7 @@ public class UndoCommand extends Command {
             + ": Undo the previous command.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_UNDO_COMMAND_SUCCESS = "Undo previous command: %1$s %2$s";
+    public static final String MESSAGE_UNDO_COMMAND_SUCCESS = "Undo previous command: %1$s";
 
     @Override
     public CommandResult execute() {
@@ -85,14 +85,9 @@ public class UndoCommand extends Command {
                 new CommandResult(ive.getMessage());
             }
         }
-        
-        
-
         return new CommandResult(String.format(MESSAGE_UNDO_COMMAND_SUCCESS, previousCommand));
     }
     
-
-
     @Override
     public String toString() {
         // TODO Auto-generated method stub

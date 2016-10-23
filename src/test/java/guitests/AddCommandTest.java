@@ -4,6 +4,7 @@ import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import seedu.ggist.commons.core.Messages;
+import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.logic.commands.AddCommand;
 import seedu.ggist.testutil.TestTask;
 import seedu.ggist.testutil.TestUtil;
@@ -13,7 +14,7 @@ import static org.junit.Assert.assertTrue;
 public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void add() {
+    public void add() throws IllegalArgumentException, IllegalValueException {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
         TestTask TaskToAdd = td.dance;
@@ -39,7 +40,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
+    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) throws IllegalArgumentException, IllegalValueException {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
