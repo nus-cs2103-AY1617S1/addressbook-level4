@@ -116,7 +116,7 @@ public class FilteredListManager {
      */
     
     /** Updates filters of all filtered lists to default specified in {@code defaultExpressions} */
-    public void updateFilteredListToDefault() {
+    public void updateFilteredListsToDefault() {
         for (ListId id : ListId.values()) {
             listMap.get(id).setPredicate(defaultExpressions.get(id)::satisfies);
         }
