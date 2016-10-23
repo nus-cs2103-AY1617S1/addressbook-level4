@@ -1,6 +1,6 @@
 package seedu.agendum.logic.commands;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import seedu.agendum.model.task.ReadOnlyTask;
 
@@ -17,7 +17,12 @@ public class CommandResult {
         this.feedbackToUser = feedbackToUser;
     }
 
-    public static String tasksToString(ArrayList<ReadOnlyTask> tasks, ArrayList<Integer> originalIndices) {
+    /**
+     * Pre-condition: tasks and originalIndices must be of the same size.
+     * Returns a string containing each task in tasks
+     * with the corresponding number in originalIndices prepended
+     */
+    public static String tasksToString(List<ReadOnlyTask> tasks, List<Integer> originalIndices) {
         final StringBuilder builder = new StringBuilder();
         builder.append("\n");
         for (int i=0; i < tasks.size(); i++) {

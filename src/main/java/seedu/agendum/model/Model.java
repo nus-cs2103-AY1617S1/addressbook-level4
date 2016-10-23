@@ -6,6 +6,7 @@ import seedu.agendum.model.task.Task;
 import seedu.agendum.model.task.UniqueTaskList;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,7 +20,7 @@ public interface Model {
     ReadOnlyToDoList getToDoList();
 
     /** Deletes the given task(s) */
-    void deleteTasks(ArrayList<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTasks(List<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
@@ -29,10 +30,10 @@ public interface Model {
             throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
        
     /** Marks the given task(s) as completed */
-    void markTasks(ArrayList<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;
+    void markTasks(List<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;
     
     /** Unmarks the given task(s) */
-    void unmarkTasks(ArrayList<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;
+    void unmarkTasks(List<ReadOnlyTask> targets) throws UniqueTaskList.TaskNotFoundException;
 
     /** Restores the previous to do list saved. Returns true if successful; false if no previous saved list*/
     boolean restorePreviousToDoList();

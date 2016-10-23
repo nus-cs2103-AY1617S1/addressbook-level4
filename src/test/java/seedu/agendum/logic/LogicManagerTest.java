@@ -348,18 +348,21 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
+        // prepare expected TDL
         ToDoList expectedTDL = helper.generateToDoList(threeTasks);
         expectedTDL.removeTask(threeTasks.get(2));
+        
+        // prepare model
         helper.addToModel(model, threeTasks);
-        ArrayList<Integer> deletedTaskVisibleIndices = new ArrayList<Integer>();
-        deletedTaskVisibleIndices.add(3);
-        ArrayList<ReadOnlyTask> deletedTasks = new ArrayList<ReadOnlyTask>();
-        deletedTasks.add(threeTasks.get(2));
 
+        // prepare for message
+        List<Integer> deletedTaskVisibleIndices = helper.generateNumberList(3);
+        List<ReadOnlyTask> deletedTasks = helper.generateReadOnlyTaskList(threeTasks.get(2));
+        String tasksAsString = CommandResult.tasksToString(deletedTasks, deletedTaskVisibleIndices);
+        
         // test boundary value (last task in the list)
         assertCommandBehavior("delete 3",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS,
-                        CommandResult.tasksToString(deletedTasks, deletedTaskVisibleIndices)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, tasksAsString),
                 expectedTDL,
                 expectedTDL.getTaskList());
     }    
@@ -368,21 +371,24 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> fourTasks = helper.generateTaskList(4);
 
+        // prepare expected TDL
         ToDoList expectedTDL = helper.generateToDoList(fourTasks);
         expectedTDL.removeTask(fourTasks.get(2));
         expectedTDL.removeTask(fourTasks.get(1));
+
+        // prepare model
         helper.addToModel(model, fourTasks);
-        ArrayList<Integer> deletedTaskVisibleIndices = new ArrayList<Integer>();
-        deletedTaskVisibleIndices.add(2);
-        deletedTaskVisibleIndices.add(3);
-        ArrayList<ReadOnlyTask> deletedTasks = new ArrayList<ReadOnlyTask>();
-        deletedTasks.addAll(Arrays.asList(fourTasks.get(1), fourTasks.get(2)));
+
+        //prepare for message
+        List<Integer> deletedTaskVisibleIndices = helper.generateNumberList(2, 3);
+        List<ReadOnlyTask> deletedTasks = helper.generateReadOnlyTaskList(
+                fourTasks.get(1), fourTasks.get(2));
+        String tasksAsString = CommandResult.tasksToString(deletedTasks, deletedTaskVisibleIndices);
 
         // Delete tasks with visible index in range [startIndex, endIndex] = [2, 3]
         // Checks if the new to do list contains Task 1 and Task 4 from the last visible list
         assertCommandBehavior("delete 2-3",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS,
-                        CommandResult.tasksToString(deletedTasks, deletedTaskVisibleIndices)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, tasksAsString),
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -392,22 +398,23 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> fourTasks = helper.generateTaskList(4);
 
+        // prepare expected TDL
         ToDoList expectedTDL = helper.generateToDoList(fourTasks);
         expectedTDL.removeTask(fourTasks.get(3));
         expectedTDL.removeTask(fourTasks.get(2));
         expectedTDL.removeTask(fourTasks.get(1));
+
+        // prepare model
         helper.addToModel(model, fourTasks);
-        
-        ArrayList<Integer> deletedTaskVisibleIndices = new ArrayList<Integer>();
-        deletedTaskVisibleIndices.add(2);
-        deletedTaskVisibleIndices.add(3);
-        deletedTaskVisibleIndices.add(4);
-        ArrayList<ReadOnlyTask> deletedTasks = new ArrayList<ReadOnlyTask>();
-        deletedTasks.addAll(Arrays.asList(fourTasks.get(1), fourTasks.get(2), fourTasks.get(3)));
+
+        // prepare for message
+        List<Integer> deletedTaskVisibleIndices = helper.generateNumberList(2, 3, 4);
+        List<ReadOnlyTask> deletedTasks = helper.generateReadOnlyTaskList(
+                fourTasks.get(1), fourTasks.get(2), fourTasks.get(3));
+        String tasksAsString = CommandResult.tasksToString(deletedTasks, deletedTaskVisibleIndices);
 
         assertCommandBehavior("delete 2,3 4",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS,
-                        CommandResult.tasksToString(deletedTasks, deletedTaskVisibleIndices)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, tasksAsString),
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -467,18 +474,21 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
+        // prepared expected TDL
         ToDoList expectedTDL = helper.generateToDoList(threeTasks);
         expectedTDL.markTask(threeTasks.get(0));
+
+        // prepare model
         helper.addToModel(model, threeTasks);
-        ArrayList<Integer> markedTaskVisibleIndices = new ArrayList<Integer>();
-        markedTaskVisibleIndices.add(1);
-        ArrayList<ReadOnlyTask> markedTasks = new ArrayList<ReadOnlyTask>();
-        markedTasks.add(threeTasks.get(0));
+
+        // prepare for message
+        List<Integer> markedTaskVisibleIndices = helper.generateNumberList(1);
+        List<ReadOnlyTask> markedTasks = helper.generateReadOnlyTaskList(threeTasks.get(0));
+        String tasksAsString = CommandResult.tasksToString(markedTasks, markedTaskVisibleIndices);
 
         // test boundary value (first task in the list)
         assertCommandBehavior("mark 1",
-                String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, 
-                        CommandResult.tasksToString(markedTasks, markedTaskVisibleIndices)),
+                String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, tasksAsString),
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -488,21 +498,23 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> fourTasks = helper.generateTaskList(4);
 
+        // prepare expected TDL
         ToDoList expectedTDL = helper.generateToDoList(fourTasks);
         expectedTDL.markTask(fourTasks.get(3));
         expectedTDL.markTask(fourTasks.get(2));
-        helper.addToModel(model, fourTasks);
-        ArrayList<Integer> markedTaskVisibleIndices = new ArrayList<Integer>();
-        markedTaskVisibleIndices.add(3);
-        markedTaskVisibleIndices.add(4);
-        ArrayList<ReadOnlyTask> markedTasks = new ArrayList<ReadOnlyTask>();
-        markedTasks.add(fourTasks.get(2));
-        markedTasks.add(fourTasks.get(3));
 
+        // prepare model
+        helper.addToModel(model, fourTasks);
+
+        // prepare for message
+        List<Integer> markedTaskVisibleIndices = helper.generateNumberList(3, 4);
+        List<ReadOnlyTask> markedTasks = helper.generateReadOnlyTaskList(
+                fourTasks.get(2), fourTasks.get(3));
+        String tasksAsString = CommandResult.tasksToString(markedTasks, markedTaskVisibleIndices);
+ 
         // test boundary value (up to last task in the list)
         assertCommandBehavior("mark 3-4",
-                String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, 
-                        CommandResult.tasksToString(markedTasks, markedTaskVisibleIndices)),
+                String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, tasksAsString),
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -512,19 +524,23 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> fourTasks = helper.generateTaskList(4);
 
+        // prepare expected TDL
         ToDoList expectedTDL = helper.generateToDoList(fourTasks);
         expectedTDL.markTask(fourTasks.get(3));
         expectedTDL.markTask(fourTasks.get(2));
         expectedTDL.markTask(fourTasks.get(1));
+
+        // prepare model
         helper.addToModel(model, fourTasks);
-        ArrayList<Integer> markedTaskVisibleIndices = new ArrayList<Integer>();
-        markedTaskVisibleIndices.addAll(Arrays.asList(2,3,4));
-        ArrayList<ReadOnlyTask> markedTasks = new ArrayList<ReadOnlyTask>();
-        markedTasks.addAll(Arrays.asList(fourTasks.get(1), fourTasks.get(2), fourTasks.get(3)));
+
+        // prepare for message
+        List<Integer> markedTaskVisibleIndices = helper.generateNumberList(2, 3, 4);
+        List<ReadOnlyTask> markedTasks = helper.generateReadOnlyTaskList(
+                fourTasks.get(1), fourTasks.get(2), fourTasks.get(3));
+        String tasksAsString = CommandResult.tasksToString(markedTasks, markedTaskVisibleIndices);
 
         assertCommandBehavior("mark 2,3 4",
-                String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, 
-                        CommandResult.tasksToString(markedTasks, markedTaskVisibleIndices)),
+                String.format(MarkCommand.MESSAGE_MARK_TASK_SUCCESS, tasksAsString),
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -545,22 +561,23 @@ public class LogicManagerTest {
     public void execute_unmark_UnmarksCorrectSingleTaskFromCompleted() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(2);
-        //completed task is usually at the end of the list
         threeTasks.add(helper.generateCompletedTask(3));
 
-        // expectedTDL does not have any tasks marked as completed
+        // prepare expectedTDL - does not have any tasks marked as completed
         ToDoList expectedTDL = helper.generateToDoList(threeTasks);
         expectedTDL.unmarkTask(threeTasks.get(2));
+
+        // prepare model
         helper.addToModel(model, threeTasks);
-        ArrayList<Integer> unmarkedTaskVisibleIndices = new ArrayList<Integer>();
-        unmarkedTaskVisibleIndices.add(3);
-        ArrayList<ReadOnlyTask> unmarkedTasks = new ArrayList<ReadOnlyTask>();
-        unmarkedTasks.add(threeTasks.get(2));
+
+        // prepare for message
+        List<Integer> unmarkedTaskVisibleIndices = helper.generateNumberList(3);
+        List<ReadOnlyTask> unmarkedTasks = helper.generateReadOnlyTaskList(threeTasks.get(2));
+        String tasksAsString = CommandResult.tasksToString(unmarkedTasks, unmarkedTaskVisibleIndices);
 
         // test boundary value - last task in the list
         assertCommandBehavior("unmark 3",
-                String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, 
-                        CommandResult.tasksToString(unmarkedTasks, unmarkedTaskVisibleIndices)),
+                String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, tasksAsString),
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -573,22 +590,23 @@ public class LogicManagerTest {
         List<Task> fourTasks = helper.generateTaskList(helper.generateTask(1), helper.generateTask(2),
                 helper.generateCompletedTask(3), helper.generateCompletedTask(4));
 
-        // expectedTDL does not have any tasks marked as completed
+        // prepare expectedTDL - does not have any tasks marked as completed
         ToDoList expectedTDL = helper.generateToDoList(fourTasks);
         // Completed tasks will be at the bottom of the list
         expectedTDL.unmarkTask(fourTasks.get(2));
         expectedTDL.unmarkTask(fourTasks.get(3));
+
+        // prepare model
         helper.addToModel(model, fourTasks);
-        ArrayList<Integer> unmarkedTaskVisibleIndices = new ArrayList<Integer>();
-        unmarkedTaskVisibleIndices.add(3);
-        unmarkedTaskVisibleIndices.add(4);
-        ArrayList<ReadOnlyTask> unmarkedTasks = new ArrayList<ReadOnlyTask>();
-        unmarkedTasks.add(fourTasks.get(2));
-        unmarkedTasks.add(fourTasks.get(3));
+
+        // prepare for message
+        List<Integer> unmarkedTaskVisibleIndices = helper.generateNumberList(3, 4);
+        List<ReadOnlyTask> unmarkedTasks = helper.generateReadOnlyTaskList(
+                fourTasks.get(2), fourTasks.get(3));
+        String tasksAsString = CommandResult.tasksToString(unmarkedTasks, unmarkedTaskVisibleIndices);
 
         assertCommandBehavior("unmark 3-4",
-                String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, 
-                        CommandResult.tasksToString(unmarkedTasks, unmarkedTaskVisibleIndices)),
+                String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, tasksAsString),
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -600,20 +618,23 @@ public class LogicManagerTest {
         List<Task> fourTasks = helper.generateTaskList(helper.generateTask(1), helper.generateCompletedTask(2),
                 helper.generateCompletedTask(3), helper.generateCompletedTask(4));
 
-        // expectedTDL does not have any tasks marked as completed
+        // prepare expectedTDL - does not have any tasks marked as completed
         ToDoList expectedTDL = helper.generateToDoList(fourTasks);
         expectedTDL.unmarkTask(fourTasks.get(3));
         expectedTDL.unmarkTask(fourTasks.get(2));
         expectedTDL.unmarkTask(fourTasks.get(1));
+
+        // prepare model
         helper.addToModel(model, fourTasks);
-        ArrayList<Integer> unmarkedTaskVisibleIndices = new ArrayList<Integer>();
-        unmarkedTaskVisibleIndices.addAll(Arrays.asList(2,3,4));
-        ArrayList<ReadOnlyTask> unmarkedTasks = new ArrayList<ReadOnlyTask>();
-        unmarkedTasks.addAll(Arrays.asList(fourTasks.get(1), fourTasks.get(2), fourTasks.get(3)));
+
+        // prepare for message
+        List<Integer> unmarkedTaskVisibleIndices = helper.generateNumberList(2, 3, 4);
+        List<ReadOnlyTask> unmarkedTasks = helper.generateReadOnlyTaskList(
+                fourTasks.get(1), fourTasks.get(2), fourTasks.get(3));
+        String tasksAsString = CommandResult.tasksToString(unmarkedTasks, unmarkedTaskVisibleIndices);
 
         assertCommandBehavior("unmark 2,3 4",
-                String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS,
-                        CommandResult.tasksToString(unmarkedTasks, unmarkedTaskVisibleIndices)),
+                String.format(UnmarkCommand.MESSAGE_UNMARK_TASK_SUCCESS, tasksAsString),
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
@@ -635,6 +656,7 @@ public class LogicManagerTest {
         for (Task p : taskList) {
             model.addTask(p);
         }
+
         // a valid index is provided since we are testing for invalid name (empty string) here
         assertCommandBehavior("rename 1 ", expectedMessage, model.getToDoList(), taskList);
         
@@ -654,7 +676,7 @@ public class LogicManagerTest {
         List<Task> twoTasks = helper.generateTaskList(toBeDuplicated, toBeRenamed);
         ToDoList expectedTDL = helper.generateToDoList(twoTasks);
 
-        model.resetData(expectedTDL);
+        helper.addToModel(model, twoTasks);
 
         // execute command and verify result
         // a valid index must be provided to check if the name is invalid (due to a duplicate)
@@ -673,12 +695,14 @@ public class LogicManagerTest {
         //TODO: replace taskToRename with a task with deadlines etc. Check if other attributes are preserved
         threeTasks.add(taskToRename);
 
+        // prepare expected TDL
         ToDoList expectedTDL = helper.generateToDoList(threeTasks);
         Task renamedTask = new Task(taskToRename);
         String newTaskName = "a brand new task name";
         renamedTask.setName(new Name(newTaskName));
         expectedTDL.updateTask(taskToRename, renamedTask);
-        model.resetData(new ToDoList());
+
+        // prepare model
         helper.addToModel(model, threeTasks);
 
         //boundary value: use the last task
@@ -921,6 +945,14 @@ public class LogicManagerTest {
 
         List<Task> generateTaskList(Task... tasks) {
             return Arrays.asList(tasks);
+        }
+  
+        List<ReadOnlyTask> generateReadOnlyTaskList(ReadOnlyTask... tasks) {
+            return Arrays.asList(tasks);
+        }
+
+        List<Integer> generateNumberList(Integer... numbers){
+            return Arrays.asList(numbers);
         }
 
         /**
