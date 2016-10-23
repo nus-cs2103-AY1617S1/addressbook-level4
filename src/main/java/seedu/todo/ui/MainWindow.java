@@ -172,4 +172,8 @@ public class MainWindow extends UiPart {
     public CommandFeedbackView getCommandFeedbackView() {
         return commandFeedbackView;
     }
+
+    public CommandPreviewView getCommandPreviewView() {
+        return commandPreviewView;
+    }
 }
