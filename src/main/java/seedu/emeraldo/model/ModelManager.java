@@ -76,12 +76,17 @@ public class ModelManager extends ComponentManager implements Model {
     public void undoChanges() throws EmptyStackException{
     	savedStates.pop();
     	if(!savedStates.empty()){
-    		resetData(savedStates.peek());
+    		emeraldo.resetData(savedStates.peek());
 	    	indicateEmeraldoChanged();
     	}
     	else{
     		throw new EmptyStackException();
     	}
+    }
+    
+    public void clearEmeraldo(){
+    	emeraldo.resetData(Emeraldo.getEmptyEmeraldo());
+    	indicateEmeraldoChanged();
     }
     
     @Override

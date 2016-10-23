@@ -19,6 +19,9 @@ public interface Model {
 	/** Undo the previous changes made to the model */
 	void undoChanges() throws EmptyStackException;
 	
+	/** Clears existing backing model and replaces with empty data */
+	void clearEmeraldo();
+	
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyEmeraldo newData);
 
