@@ -55,7 +55,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         assertTrue(activityListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        // assertResultMessage(String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, personToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, personToDelete));
     }
 
 }
