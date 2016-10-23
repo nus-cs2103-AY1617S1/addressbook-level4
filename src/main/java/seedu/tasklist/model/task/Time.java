@@ -64,11 +64,11 @@ public class Time {
 		else{
 			Calendar newDate = Calendar.getInstance();
 			newDate.setTime(dates.get(0).getDates().get(0));
-			if(dates.get(0).isDateInferred()){
+			if(!dates.get(0).isTimeInferred()){
 				time.set(Calendar.HOUR_OF_DAY, newDate.get(Calendar.HOUR_OF_DAY));
 				time.set(Calendar.MINUTE, newDate.get(Calendar.MINUTE));
 			}
-			else if(dates.get(0).isTimeInferred()){
+			if(!dates.get(0).isDateInferred()){
 				time.set(Calendar.DAY_OF_MONTH, newDate.get(Calendar.DAY_OF_MONTH));
 				time.set(Calendar.MONTH, newDate.get(Calendar.MONTH));
 				time.set(Calendar.YEAR, newDate.get(Calendar.YEAR));
