@@ -38,19 +38,19 @@ public class Recurrence {
     public String toString() {
         switch(this.freq) {
             case YEAR :
-                return "Year";
+                return "YEAR";
             case MONTH :
-                return "Month";
+                return "MONTH";
             case WEEK:
-                return "Week";
+                return "WEEK";
             case DAY :
-                return "Day";
+                return "DAY";
             default :
                 return "NONE";
         }
     }
     
-    public void UpdateTaskDate(Task task){
+    public void updateTaskDate(Task task){
         switch(this.freq) {
         case YEAR :
             if (task.getOnDate().getDate() != null) {

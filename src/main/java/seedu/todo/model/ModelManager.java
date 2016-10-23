@@ -113,6 +113,7 @@ public class ModelManager extends ComponentManager implements Model {
             toDoList.getTasks().get(index).setDetail(newTask.getDetail());
             toDoList.getTasks().get(index).setOnDate(newTask.getOnDate());
             toDoList.getTasks().get(index).setByDate(newTask.getByDate());
+            toDoList.getTasks().get(index).setRecurrence(newTask.getRecurrence());
             toDoList.syncTagsWithMasterList(toDoList.getTasks().get(index));
             indicateToDoListChanged();
         }

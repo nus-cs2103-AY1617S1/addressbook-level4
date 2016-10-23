@@ -7,6 +7,7 @@ import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -53,6 +54,25 @@ public class ToDoList implements ReadOnlyToDoList {
         return tasksHistory.peek().getInternalList();
     }
 
+    
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setTags(newTags);
+        
+        for (Task t : this.getTasks()) {
+            if (t.isRecurring() 
+                    && (t.getOnDate().getDate().isBefore(LocalDate.now()) 
+                    || t.getByDate().getDate().isBefore(LocalDate.now()))) {
+                t.getRecurrence().updateTaskDate(t);
+            }
+        }
+    }
+
+    public void resetData(ReadOnlyToDoList newData) {
+        resetData(newData.getTaskList(), newData.getTagList());
+    }
+    
+
     public void setTasks(List<Task> tasks) {
         if (this.tasksHistory.isEmpty()) {
             UniqueTaskList topList = this.createNewTaskList(tasks);
@@ -73,14 +93,6 @@ public class ToDoList implements ReadOnlyToDoList {
         this.tagsHistory.push(newList);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
-        setTags(newTags);
-    }
-
-    public void resetData(ReadOnlyToDoList newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
-    }
 
 //// task-level operations
 

@@ -9,6 +9,8 @@ import seedu.todo.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.todo.model.task.Detail;
 import seedu.todo.model.task.Name;
 import seedu.todo.model.task.ReadOnlyTask;
+import seedu.todo.model.task.Recurrence;
+import seedu.todo.model.task.Recurrence.Frequency;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.TaskDate;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
@@ -34,14 +36,16 @@ public class UpdateCommand extends Command{
     private final String detail;
     private final String onDateTime;
     private final String byDateTime;
+    private final String recurrence;
     
-    public UpdateCommand(int targetIndex, String name, String onDateTime, String byDateTime, String detail) {
-        System.out.println("HELLO" + onDateTime);
+    public UpdateCommand(int targetIndex, String name, String onDateTime, 
+            String byDateTime, String detail, String recurrence) {
         this.targetIndex = targetIndex;
         this.name = name;
         this.detail = detail;
         this.onDateTime = onDateTime;
         this.byDateTime = byDateTime;
+        this.recurrence = recurrence;
     }
     
     
@@ -63,6 +67,7 @@ public class UpdateCommand extends Command{
             Detail newDetail;
             TaskDate newByDate;
             TaskDate newOnDate;
+            Recurrence newRecurrence;
             
             if (this.detail == null) {
                 newDetail = taskToUpdate.getDetail();
@@ -82,8 +87,14 @@ public class UpdateCommand extends Command{
                 newOnDate = this.onDateTime.trim().equals("-") ?  new TaskDate("", TaskDate.TASK_DATE_ON) : new TaskDate(this.onDateTime, TaskDate.TASK_DATE_ON);
             }
             
+            if (this.recurrence == null) {
+                newRecurrence = taskToUpdate.getRecurrence();
+            } else {
+                newRecurrence = this.recurrence.trim().equals("-") ?  new Recurrence(Frequency.NONE) : new Recurrence(Frequency.valueOf(this.recurrence.toUpperCase().trim()));
+            }
+            
             Task newTask = new Task(newName, newDetail, taskToUpdate.getCompletion(), 
-                    newOnDate, newByDate, taskToUpdate.getRecurrence(), taskToUpdate.getTags());
+                    newOnDate, newByDate, newRecurrence, taskToUpdate.getTags());
             model.updateTask(taskToUpdate, newTask);
             model.updateFilteredListToShowAll();
             

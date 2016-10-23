@@ -35,10 +35,10 @@ public class AddCommand extends Command {
         TaskDate onDate = new TaskDate(onDateString, TaskDate.TASK_DATE_ON);
         TaskDate byDate = new TaskDate(byDateString, TaskDate.TASK_DATE_BY);
         if (byDate.getDate() != null && !DateTimeUtil.containsDateField(byDateString)) {
+            
             byDate.setDate(LocalDate.of(onDate.getDate().getYear(), 
                     onDate.getDate().getMonth(), onDate.getDate().getDayOfMonth()));
         }
-        System.out.println(freq.toString());
         this.toAdd = new Task(
                 new Name(name),
                 new Detail(detail),

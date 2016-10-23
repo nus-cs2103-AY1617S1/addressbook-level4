@@ -53,10 +53,16 @@ public class ParserFormats {
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_FT = Pattern
             .compile("from (?<fromDateTime>.+) to (?<tillDateTime>.+)", Pattern.CASE_INSENSITIVE);
     
+
+
     public static final Pattern UPDATE_TASK_ARGS_FORMAT = Pattern
-            .compile("(?<name>[^/]*?)? ?((^| )((on|from) "
-                    + "(?<onDateTime>[^(by|;)]+)?|by (?<byDateTime>[^;]+)))*?"
-                    + "(?: ?;(?<detail>.+))?$", Pattern.CASE_INSENSITIVE);
+            .compile("(?<name>[^/]*?)? "
+                      + "?((^| )((on|from) (?<onDateTime>[^;]+?)?"
+                      +"|by (?<byDateTime>[^;]+?)|"
+                      +"every (?<rec>.+?)))*?"
+                      +"(?: ?;(?<detail>.+))?$", Pattern.CASE_INSENSITIVE);
+
+    
     
     public static final Pattern RECURRENCE_WEEK_DAY = Pattern
             .compile("every (monday|tuesday|wednesday|thursday|friday|saturday|sunday|mon|tue|wed|thurs|fri|sat|sun)");
