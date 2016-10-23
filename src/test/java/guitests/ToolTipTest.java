@@ -19,6 +19,7 @@ import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0139930B
 public class ToolTipTest extends TaskManagerGuiTest {
 
     @Test
