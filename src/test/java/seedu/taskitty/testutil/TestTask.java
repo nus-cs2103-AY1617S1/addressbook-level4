@@ -68,7 +68,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     //@@author
     public String getEditCommand(int index, String category) {
         StringBuilder sb = new StringBuilder();
-        sb.append("edit " + category + " " + index + " " + this.getName().fullName + " ");
+        sb.append("edit " + category + index + " " + this.getName().fullName + " ");
         if (period.getStartDate() != null && period.getStartTime() != null) {
             sb.append(period.getStartDate().toString() + " " + period.getStartTime().toString() + " to ");
         }
