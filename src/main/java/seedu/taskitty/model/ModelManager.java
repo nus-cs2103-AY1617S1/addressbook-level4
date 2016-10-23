@@ -49,9 +49,9 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with task manager: " + src + " and user prefs " + userPrefs);
 
         taskManager = new TaskManager(src);
-        allTasks = new FilteredList<>(taskManager.getAllTasks());
-        filteredTodos = new FilteredList<>(taskManager.getFilteredTodos());
-        filteredDeadlines = new FilteredList<>(taskManager.getFilteredDeadlines());
+        allTasks = new FilteredList<Task>(taskManager.getAllTasks());
+        filteredTodos = new FilteredList<Task>(taskManager.getFilteredTodos());
+        filteredDeadlines = new FilteredList<Task>(taskManager.getFilteredDeadlines());
         filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());
         historyTaskManagers = new Stack<ReadOnlyTaskManager>();
         historyCommands = new Stack<String>();
@@ -93,14 +93,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
-        updateFilters();
         indicateTaskManagerChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
-        updateFilters();
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
@@ -110,14 +108,6 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(historyPredicates.pop());
         return historyCommands.pop();
     }
-    
-    //@@author A0135793W
-    private void updateFilters() {
-        filteredTodos = new FilteredList<>(taskManager.getFilteredTodos());
-        filteredDeadlines = new FilteredList<>(taskManager.getFilteredDeadlines());
-        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());     
-    }
-    //@@author
     
     public synchronized void saveState(String command) {
         historyTaskManagers.push(new TaskManager(taskManager));
@@ -134,7 +124,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
     	taskManager.doneTask(target);
-    	updateFilters();
     	updateFilteredListToShowAll();
     	indicateTaskManagerChanged();
     }
@@ -145,7 +134,6 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
         taskManager.addTask(task);
-        updateFilters();
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
@@ -200,6 +188,9 @@ public class ModelManager extends ComponentManager implements Model {
 		filteredTodos.setPredicate(null);
 		if (hasDate) {
 			filteredDeadlines.setPredicate(p -> isDeadlineAndIsNotAfterDate(p, date));
+		}
+		else {
+		    filteredDeadlines.setPredicate(null);
 		}
 		filteredEvents.setPredicate(p -> isEventAndDateIsWithinEventPeriod(p, date));
 	}
