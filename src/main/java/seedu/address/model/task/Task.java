@@ -20,7 +20,8 @@ public class Task implements ReadOnlyTask {
     private Name name;
     private Date date;
     private boolean isDone;
-    private BooleanProperty done; // Use Observable so that listeners can know when the task's done status is updated
+    private BooleanProperty done; // Use Observable so that listeners can know
+                                  // when the task's done status is updated
 
     private UniqueTagList tags;
 
@@ -30,7 +31,7 @@ public class Task implements ReadOnlyTask {
     public Task(Name name, Date date, UniqueTagList tags) {
         this(name, date, tags, false);
     }
-    
+
     public Task(Name name, Date date, UniqueTagList tags, boolean isDone) {
         assert !CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
@@ -40,7 +41,8 @@ public class Task implements ReadOnlyTask {
         } else {
             isEvent = false;
         }
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.tags = new UniqueTagList(tags); // protect internal tags from
+                                             // changes in the arg list
         this.isDone = isDone;
         this.done = new SimpleBooleanProperty(isDone);
     }
@@ -51,12 +53,12 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getDate(), source.getTags(), source.isDone());
     }
-    
-    public Task(Name name) {
-    	this.name=name;
-	}
 
-	@Override
+    public Task(Name name) {
+        this.name = name;
+    }
+
+    @Override
     public Name getName() {
         return name;
     }
@@ -65,24 +67,24 @@ public class Task implements ReadOnlyTask {
     public Date getDate() {
         return date;
     }
-    
+
     @Override
     public boolean isEvent() {
         return isEvent;
     }
-    
+
     @Override
-    public boolean isDone(){
-    	return isDone;
+    public boolean isDone() {
+        return isDone;
     }
-    
+
     /**
      * Returns the Observable wrapper of the done status
      */
     public BooleanProperty getDone() {
         return done;
     }
-    
+
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
@@ -99,12 +101,13 @@ public class Task implements ReadOnlyTask {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
+                        && this.isSameStateAs((ReadOnlyTask) other));
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use this method for custom fields hashing instead of implementing
+        // your own
         return Objects.hash(name, date, tags, isDone);
     }
 
@@ -113,17 +116,17 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
 
-	@Override
-	public void markAsDone() {
-		isDone=true;
-		done.set(true);
-	}
-	
-	/*
-	 * Makes Task observable by its done status
-	 */
-	public static Callback<Task, Observable[]> extractor() {
-	    return (Task task) -> new Observable[]{task.getDone()};
-	}
+    @Override
+    public void markAsDone() {
+        isDone = true;
+        done.set(true);
+    }
+
+    /*
+     * Makes Task observable by its done status
+     */
+    public static Callback<Task, Observable[]> extractor() {
+        return (Task task) -> new Observable[] { task.getDone() };
+    }
 
 }
