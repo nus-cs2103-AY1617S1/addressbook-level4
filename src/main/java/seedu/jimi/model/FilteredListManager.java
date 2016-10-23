@@ -68,10 +68,12 @@ public class FilteredListManager {
         defaultExpressions.put(ListId.FLOATING_TASKS,
                 new PredicateExpression(new FloatingTaskQualifier(true), new CompletedQualifier(false)));
         
-        // Expression matches if it's a completed item.
-        defaultExpressions.put(ListId.COMPLETED, new PredicateExpression(new CompletedQualifier(true)));
-        // Expression matches if it's an incomplete item.
-        defaultExpressions.put(ListId.INCOMPLETE, new PredicateExpression(new CompletedQualifier(false)));
+        // Expression matches if it's a completed non-event.
+        defaultExpressions.put(ListId.COMPLETED,
+                new PredicateExpression(new EventQualifier(false), new CompletedQualifier(true)));
+        // Expression matches if it's an incomplete non-event.
+        defaultExpressions.put(ListId.INCOMPLETE,
+                new PredicateExpression(new EventQualifier(false), new CompletedQualifier(false)));
         
         // Expressions match if they match the current relative day and are incomplete.
         defaultExpressions.put(ListId.DAY_AHEAD_0,
