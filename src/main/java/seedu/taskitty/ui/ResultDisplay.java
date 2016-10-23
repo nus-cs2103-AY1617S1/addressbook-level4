@@ -41,7 +41,6 @@ public class ResultDisplay extends UiPart {
         resultDisplayArea.setText("");
         resultDisplayArea.textProperty().bind(displayed);
         if (!hasOverdue) {
-        	System.out.println("isnt overdue");
         	postMessage(WELCOME_MESSAGE);
         } else {
         	displayOverdueWelcomeMessage();
