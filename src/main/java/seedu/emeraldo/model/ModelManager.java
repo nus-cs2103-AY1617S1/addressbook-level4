@@ -116,7 +116,6 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
     	emeraldo.addTask(task);
     	saveState();
-        
         updateFilteredListToShowAll();
         indicateEmeraldoChanged();
     }
