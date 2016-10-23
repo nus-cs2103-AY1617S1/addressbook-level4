@@ -118,7 +118,7 @@ public class ToolTip {
         
         builder.append(commands.get(0));
         for (int i = 1; i < commands.size(); i++) {
-            builder.append(commands.get(i) + TOOLTIP_DELIMITER);
+            builder.append(TOOLTIP_DELIMITER + commands.get(i));
         }
         
         return builder.toString();
