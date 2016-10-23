@@ -15,10 +15,10 @@ public class XmlFileStorage {
     /**
      * Saves the given taskmanager data to the specified file.
      */
-    public static void saveDataToFile(File file, XmlSerializableTaskManager addressBook)
+    public static void saveDataToFile(File file, XmlSerializableTaskManager taskManager)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, addressBook);
+            XmlUtil.saveDataToFile(file, taskManager);
         } catch (JAXBException e) {
             assert false : "Unexpected exception " + e.getMessage();
         }
