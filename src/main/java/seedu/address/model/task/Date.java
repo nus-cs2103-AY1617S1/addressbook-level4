@@ -23,6 +23,7 @@ public class Date {
     public static final String MESSAGE_PAST_DATE = "Cannot enter a date that have already past!";
     
     public final String value;
+    private int beforeCurrentDate;
 
     /**
      * Validates given date.
@@ -38,27 +39,32 @@ public class Date {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         date = standardFormatDate(date);
-        if (!isAfterCurrentDate(date)) {
-        	throw new IllegalValueException(MESSAGE_PAST_DATE);
+        if (isAfterCurrentDate(date) ==1) {
+        	beforeCurrentDate =1; //correct
         }
-        	
+        else if (isAfterCurrentDate(date) ==2) {
+        	beforeCurrentDate =2; //on the day itself
+        }
         else
-        	this.value = date;
+        	beforeCurrentDate =0; //past date
+      	this.value = date;
     }
 
-    private boolean isAfterCurrentDate(String date) {
+	private int isAfterCurrentDate(String date) {
     	if (date.contains("-")) {
 			String[] date_cat = date.split("-");
 			String date_year = "20" + date_cat[2];
 			LocalDate now = LocalDate.now();
 			LocalDate test = LocalDate.of(Integer.parseInt(date_year), Integer.parseInt(date_cat[1]), Integer.parseInt(date_cat[0]));
-			if (test.isAfter(now) || test.isEqual(now))
-				return true;
+			if (test.isAfter(now))
+				return 1;
+			else if (test.isEqual(now))
+				return 2;
 			else	
-				return false;
+				return 0;
     	}
     	else//accounting for no date
-    		return true;
+    		return 1;
 	}
 
 	private String standardFormatDate(String date) {
@@ -96,6 +102,10 @@ public class Date {
     		return true;
     	else
     		return false;
+    }
+    
+    public int getBeforeCurrentDate() {
+    	return beforeCurrentDate;
     }
 
     @Override
