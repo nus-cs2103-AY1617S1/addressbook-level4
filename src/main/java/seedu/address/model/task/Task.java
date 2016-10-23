@@ -4,12 +4,23 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Objects;
 
 import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.util.Callback;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
+import java.time.temporal.ChronoUnit;
+
+
 
 /**
  * Represents an event or a task (with or without deadline) in the task manager.
@@ -26,6 +37,14 @@ public class Task implements ReadOnlyTask {
     private boolean isRecurring;
     private Recurring recurring;
     private UniqueTagList tags;
+    
+    public static void main(String[] args) throws IllegalValueException{
+        Task t=new Task(new Name("xiaowei"),new Deadline("22.09.2016-14"),new UniqueTagList(),new Recurring("weekly"));
+        t.updateRecurringTask();
+        Task k=new Task(new Name("Donghae"),new EventDate("22.09.2016-14","25.10.2016-15"),new UniqueTagList(),new Recurring("daily"));
+        k.updateRecurringTask();
+        System.out.println(k.getAsText());
+    }
 
     /**
      * Every field must be present and not null.
@@ -70,6 +89,72 @@ public class Task implements ReadOnlyTask {
     public Task(Name name, UniqueTagList tags) throws IllegalValueException {
         this(name, new Deadline(""), tags, false, false);
         this.recurring=null;
+    }
+    private boolean toUpdate(String currentDate){
+        int startDay=Integer.parseInt(date.getValue().substring(0, 2));
+        int startMonth=Integer.parseInt(date.getValue().substring(3, 5));
+        int startYear=Integer.parseInt(date.getValue().substring(6, 10));
+        int currentDay=Integer.parseInt(currentDate.substring(0, 2));
+        int currentMonth=Integer.parseInt(date.getValue().substring(3, 5));
+        int currentYear=Integer.parseInt(date.getValue().substring(6,10));
+        return (startYear<currentYear)||(startMonth<currentMonth)||(startDay<currentDay);
+    }
+    
+    public boolean updateRecurringTask(){
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        Calendar currentDateTime = Calendar.getInstance();   
+        DateTimeFormatter germanFormatter = DateTimeFormatter.ofLocalizedDate(
+                FormatStyle.MEDIUM).withLocale(Locale.GERMAN);     
+        LocalDate currentDate=LocalDate.parse(dateFormat.format(currentDateTime.getTime()).toString(),germanFormatter);
+        LocalDate startDate=LocalDate.parse(date.getValue().substring(0, 10),germanFormatter);
+        long elapsedDays=ChronoUnit.DAYS.between(startDate,currentDate);
+        switch(recurring.recurringFrequency){
+        case "daily":
+            updateRecurringTask(elapsedDays);
+            break;
+        case "weekly":
+            long numWeek=elapsedDays/7+1;
+            updateRecurringTask(numWeek*7);
+            break;
+        case "monthly":
+            long numMonth=elapsedDays/28+1;
+            updateRecurringTask(numMonth*28);
+        case "yearly":
+            break;
+        }
+        return true;
+        
+    }
+    
+    private void updateRecurringTask(long daysToUpdate){ 
+        DateTimeFormatter germanFormatter = DateTimeFormatter.ofLocalizedDate(
+                FormatStyle.MEDIUM).withLocale(Locale.GERMAN);     
+        if(date instanceof EventDate){
+            String startDate=((EventDate) date).getStartDate().substring(0, 10);
+            LocalDate startLocalDate=LocalDate.parse(startDate,germanFormatter);
+            startDate=germanFormatter.format(startLocalDate.plusDays(daysToUpdate)).toString();
+            String endDate=((EventDate) date).getEndDate().substring(0,10);
+            LocalDate endLocalDate=LocalDate.parse(endDate,germanFormatter);
+            endDate=germanFormatter.format(endLocalDate.plusDays(daysToUpdate)).toString();
+            String startTime="",endTime="";
+            if(((EventDate) date).getStartDate().length()>9){
+            startTime=((EventDate) date).getStartDate().substring(11);
+            endTime=((EventDate) date).getEndDate().substring(11);
+            }
+            ((EventDate) date).updateDate(startDate+"-"+startTime, endDate+"-"+endTime);
+        }else{
+            if(date instanceof Deadline){
+                String deadlineDate=date.getValue().substring(0,10);
+                LocalDate deadlineLocalDate=LocalDate.parse(deadlineDate,germanFormatter);
+                deadlineDate=germanFormatter.format(deadlineLocalDate.plusDays(daysToUpdate)).toString();
+                String deadlineTime="";
+                if(date.toString().length()>9){
+                   deadlineTime=date.toString().substring(11);
+                }
+                ((Deadline) date).updateDate(deadlineDate+"-"+deadlineTime);
+            }
+            
+        }
     }
 
     @Override

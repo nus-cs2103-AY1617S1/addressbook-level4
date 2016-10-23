@@ -49,6 +49,7 @@ public class Recurring {
     public String getFrequency(){
         return recurringFrequency;
     }
+    
 
     @Override
     public boolean equals(Object other) {
