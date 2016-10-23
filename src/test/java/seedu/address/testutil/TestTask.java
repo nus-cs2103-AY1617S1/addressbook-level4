@@ -148,6 +148,18 @@ public class TestTask extends Task implements ReadOnlyTask {
         return sb.toString();
     }
     
+    public String getAddRecurringCommand(){
+    	this.type = TaskType.NON_FLOATING;
+        StringBuilder sb = new StringBuilder();
+        sb.append("add " + this.getName().fullName + " ");
+        sb.append("from "+ this.getLastAppendedComponent().getStartDate().getInputDate() + " ");
+        sb.append("to "+ this.getLastAppendedComponent().getEndDate().getInputDate() + " ");
+        sb.append(this.getRecurringType().toString() + " ");
+        
+        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        return sb.toString();
+    }
+    
     public boolean equals(TestTask toCompare) {
         return this.isSameStateAs(toCompare);
     }

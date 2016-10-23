@@ -23,7 +23,7 @@ public class TypicalTestTasks {
     public static TestTask block1, block2, block3;
 
     /** Recurring Task. */
-    public static TestTask recurrence;
+    public static TestTask daily, weekly, monthly, yearly;
     
     public TypicalTestTasks() {
         try {
@@ -52,8 +52,14 @@ public class TypicalTestTasks {
             //Block overlapped timeslot
             block2 = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("17 oct 8pm").withEndDate("17 oct 11pm").build(); 
             //Recurring Type
-            recurrence = new TaskBuilder().withName("Recurring Task").withStartDate("today 8pm").withEndDate("today 11pm")
+            daily = new TaskBuilder().withName("Daily Task").withStartDate("7pm").withEndDate("8pm")
             		.withRecurringType(RecurringType.DAILY).build();
+            weekly = new TaskBuilder().withName("Weekly Task").withStartDate("6pm").withEndDate("7pm")
+            		.withRecurringType(RecurringType.WEEKLY).build();
+            monthly = new TaskBuilder().withName("Monthly Task").withStartDate("5pm").withEndDate("6pm")
+            		.withRecurringType(RecurringType.MONTHLY).build();
+            yearly = new TaskBuilder().withName("Yearly Task").withStartDate("3pm").withEndDate("5pm")
+            		.withRecurringType(RecurringType.YEARLY).build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

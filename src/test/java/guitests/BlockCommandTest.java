@@ -22,7 +22,7 @@ public class BlockCommandTest extends TaskMasterGuiTest {
         currentList = TestUtil.addTasksToList(currentList, slotToBlock);
         TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(currentList);
         
-        //block slot is overlapped with tasks
+        //block slot is overlapped with tasks in the list
         commandBox.runCommand(td.block2.getBlockCommand());
         assertResultMessage(BlockCommand.MESSAGE_TIMESLOT_OCCUPIED);
         assertTrue(taskListPanel.isListMatching(taskComponents));

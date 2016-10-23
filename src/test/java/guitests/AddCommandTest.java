@@ -1,4 +1,5 @@
 package guitests;
+
 //@@author A0147967J-reused
 import static org.junit.Assert.assertTrue;
 
@@ -8,6 +9,7 @@ import guitests.guihandles.TaskCardHandle;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddFloatingCommand;
 import seedu.address.logic.commands.AddNonFloatingCommand;
+import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.TaskComponent;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
@@ -26,10 +28,13 @@ public class AddCommandTest extends TaskMasterGuiTest {
         taskToAdd = td.ida;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        
         //add duplicate floatingTask
         commandBox.runCommand(td.hoon.getAddFloatingCommand());
         assertResultMessage(AddFloatingCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(TestUtil.convertTasksToDateComponents(currentList)));
+        
+        //@@author A0147967J
         //add one non-floating task
         taskToAdd = td.project;
         assertAddNonFloatingSuccess(taskToAdd, currentList);
@@ -62,35 +67,28 @@ public class AddCommandTest extends TaskMasterGuiTest {
         //======Cases for handling recurring tasks==================================================
         
         //Out dated Recurring task got updated
-        taskToAdd = td.recurrence;
-        commandBox.runCommand("add Recurring Task from yesterday 8pm to yesterday 11pm daily");
-        //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
-        assertMatching(taskToAdd.getTaskDateComponent().get(0), addedCard);
-        //confirm the list now contains all previous floatingTasks plus the new floatingTask
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);       
-        assertTrue(taskListPanel.isListMatching(taskComponents));
+        taskToAdd = td.daily;
+        assertAddCommandSuccess("add Daily Task from yesterday 8pm to yesterday 11pm daily", 
+        		taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
+        //Up to date remain stayed
+        taskToAdd = td.weekly;
+        assertAddCommandSuccess(taskToAdd.getAddRecurringCommand(), 
+        		taskToAdd, currentList);
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
-        commandBox.runCommand(taskToAdd.getAddFloatingCommand());
-
-        //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
-        assertMatching(taskToAdd.getTaskDateComponent().get(0), addedCard);
-
-        //confirm the list now contains all previous floatingTasks plus the new floatingTask
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
-        
-        assertTrue(taskListPanel.isListMatching(taskComponents));
+    	assertAddCommandSuccess(taskToAdd.getAddFloatingCommand(), taskToAdd, currentList);
     }
     
     private void assertAddNonFloatingSuccess(TestTask taskToAdd, TestTask... currentList) {
-        commandBox.runCommand(taskToAdd.getAddNonFloatingCommand());
-
+        assertAddCommandSuccess(taskToAdd.getAddNonFloatingCommand(), taskToAdd, currentList);
+    }
+    
+    private void assertAddCommandSuccess(String command, TestTask taskToAdd, TestTask... currentList){
+    	
+    	commandBox.runCommand(command);
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
         assertMatching(taskToAdd.getTaskDateComponent().get(0), addedCard);
@@ -101,5 +99,4 @@ public class AddCommandTest extends TaskMasterGuiTest {
         TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
         assertTrue(taskListPanel.isListMatching(taskComponents));
     }
-
 }

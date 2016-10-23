@@ -21,8 +21,6 @@ import java.util.logging.Logger;
 public class BrowserPanel extends UiPart{
 
     private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
-    private static final String FXML = "BrowserPanel.fxml";
-
     
     @FXML
     private MyAgenda agenda;
@@ -41,7 +39,8 @@ public class BrowserPanel extends UiPart{
 
     @Override
     public String getFxmlPath() {
-        return FXML;//not applicable
+		return null;
+       //not applicable
     }
     
     @Override
