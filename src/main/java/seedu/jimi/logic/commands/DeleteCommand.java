@@ -1,5 +1,7 @@
 package seedu.jimi.logic.commands;
 
+import java.util.Optional;
+
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.model.task.ReadOnlyTask;
@@ -22,28 +24,33 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Jimi has deleted this task: %1$s";
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Jimi has deleted this event: %1$s";
 
-    public final int targetIndex;
+    public final String targetIndex;
 
     public DeleteCommand() {
-        targetIndex = 0;
+        this(null);
     }
     
-    public DeleteCommand(int targetIndex) {
+    public DeleteCommand(String targetIndex) {
         this.targetIndex = targetIndex;
     }
 
 
     @Override
     public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredAgendaTaskList();
-
-        if (lastShownList.size() < targetIndex) {
+        
+        Optional<UnmodifiableObservableList<ReadOnlyTask>> optionalList = 
+                determineListFromIndexPrefix(targetIndex);
+        
+        // actual integer index is everything after the 1 character prefix.
+        int actualIdx = Integer.parseInt(targetIndex.substring(1).trim());
+        if (!optionalList.isPresent() || optionalList.get().size() < actualIdx) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = optionalList.get();
+        
+        ReadOnlyTask taskToDelete = lastShownList.get(actualIdx - 1);        
 
         try {
             model.deleteTask(taskToDelete);
