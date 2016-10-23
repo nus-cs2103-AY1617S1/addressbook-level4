@@ -8,7 +8,7 @@ import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Deletes a task identified using it's last displayed index from Jimi.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends Command implements TaskBookEditor {
 
     public static final String COMMAND_WORD = "delete";
 

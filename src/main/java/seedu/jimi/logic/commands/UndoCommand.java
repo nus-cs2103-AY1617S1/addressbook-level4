@@ -1,6 +1,6 @@
 package seedu.jimi.logic.commands;
 
-import seedu.jimi.model.History;
+import seedu.jimi.logic.History;
 
 public class UndoCommand extends Command {
 

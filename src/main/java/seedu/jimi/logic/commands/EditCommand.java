@@ -24,7 +24,7 @@ import seedu.jimi.model.task.ReadOnlyTask;
  *
  * Edits an existing task/event in Jimi.
  */
-public class EditCommand extends Command {
+public class EditCommand extends Command implements TaskBookEditor {
     
     public static final String COMMAND_WORD = "edit";
     public static final String COMMAND_REMOVE_DATES = "float";

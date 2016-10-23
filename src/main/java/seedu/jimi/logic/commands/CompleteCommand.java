@@ -9,7 +9,7 @@ import seedu.jimi.model.task.ReadOnlyTask;
  * @author zexuan
  *
  */
-public class CompleteCommand extends Command {
+public class CompleteCommand extends Command implements TaskBookEditor{
     
     public static final String COMMAND_WORD = "complete";
 

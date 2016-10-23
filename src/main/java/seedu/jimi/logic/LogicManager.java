@@ -6,7 +6,6 @@ import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.logic.commands.Command;
 import seedu.jimi.logic.commands.CommandResult;
 import seedu.jimi.logic.parser.JimiParser;
-import seedu.jimi.model.History;
 import seedu.jimi.model.Model;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.storage.Storage;

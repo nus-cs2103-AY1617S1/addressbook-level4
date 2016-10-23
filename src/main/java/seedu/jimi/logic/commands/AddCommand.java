@@ -19,7 +19,7 @@ import seedu.jimi.model.task.UniqueTaskList;
 /**
  * Adds a task to the Jimi.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command implements TaskBookEditor {
 
     public static final String COMMAND_WORD = "add";
 
