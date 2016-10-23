@@ -19,6 +19,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskDate;
@@ -91,8 +92,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void editTask(Task target, Name name, UniqueTagList tags,
-    		TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException {
-    	taskMaster.updateTask(target, name, tags, startDate, endDate);
+    		TaskDate startDate, TaskDate endDate, RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException {
+    	taskMaster.updateTask(target, name, tags, startDate, endDate, recurringType);
     	indicateTaskListChanged();
     	updateFilteredListToShowAll();
     }

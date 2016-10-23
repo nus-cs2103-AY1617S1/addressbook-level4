@@ -140,13 +140,12 @@ public class Task implements ReadOnlyTask {
     }
 
 	@Override
-	public void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) {
+	public void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType) {
 		if(name != null)
 			this.name = name;
 		
 		if(tags != null)		
 			this.tags = tags;
-
 		
 		if(this.getComponentForNonRecurringType().getStartDate().equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
 				&& this.getComponentForNonRecurringType().getStartDate().equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
@@ -154,26 +153,18 @@ public class Task implements ReadOnlyTask {
 			this.taskType = TaskType.NON_FLOATING;
 		}
 		
-		assert this.recurringType == RecurringType.NONE : "Update does not support recurring task";
-		if(startDate != null) {
-			//this.startDate = startDate;
-		    getComponentForNonRecurringType().setStartDate(startDate);
-		} else if(endDate != null) {
-			//this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
-	        getComponentForNonRecurringType().setStartDate(new TaskDate(TaskDate.DATE_NOT_PRESENT));
-		}
-		
 		if(endDate != null) {
-			//this.endDate = endDate;
-		    getComponentForNonRecurringType().setEndDate(new TaskDate(TaskDate.DATE_NOT_PRESENT));
+//			System.out.println(startDate.toString());
+			TaskComponent needModification;
+			if(recurringType != RecurringType.NONE) {
+				// assume that if the recurring type is not none, they at least have endDate
+				this.recurringType = recurringType;
+				needModification = this.getLastAppendedComponent();
+			} else {
+				needModification = this.getComponentForNonRecurringType();
+			}
+			needModification.update(startDate, endDate);
 		}
-		
-		// needs to be changed just a stop gap measure
-		if (recurringType.equals(RecurringType.NONE)) {
-		    recurringDates.get(0).setStartDate(startDate);
-            recurringDates.get(0).setEndDate(endDate);
-		}
-		
 	}
 	
 	@Override

@@ -490,7 +490,6 @@ public class Parser {
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-        System.out.println(tagSet.toString());
         return new FindCommand(keywordSet, startTime, endTime, deadline, tagSet);
     }
     
@@ -509,6 +508,7 @@ public class Parser {
         Date startTime = null;
         Date endTime = null;
         Set<String> tagSet = new HashSet<String>();
+        RecurringType recurringType = RecurringType.NONE;
         
         boolean dateMatcherMatches = dateMatcher.matches();
         boolean noDateMatcherMatches = noDateMatcher.matches();
@@ -523,9 +523,11 @@ public class Parser {
     			ArrayList<Date> dateSet = extractDateInfo(dateMatcher);
     			if(dateSet.size() == ONLY_DEADLINE) {
     				endTime = dateSet.get(DEADLINE_INDEX);
+    				recurringType = checkForRecurringTask(dateMatcher.group("deadline"));
         		} else if(dateSet.size() == TIME_PERIOD) {
         			startTime = dateSet.get(START_TIME_INDEX);
         			endTime = dateSet.get(END_TIME_INDEX);
+        			recurringType = checkForRecurringTask(dateMatcher.group("startTime"));
         		}
     		} catch(IllegalArgumentException iae) {
     			return new IncorrectCommand(iae.getMessage());
@@ -543,9 +545,11 @@ public class Parser {
     			ArrayList<Date> dateSet = extractDateInfo(noNameMatcher);
     			if(dateSet.size() == ONLY_DEADLINE) {
         			endTime = dateSet.get(DEADLINE_INDEX);
+        			recurringType = checkForRecurringTask(noNameMatcher.group("deadline"));
         		} else if(dateSet.size() == TIME_PERIOD) {
         			startTime = dateSet.get(START_TIME_INDEX);
         			endTime = dateSet.get(END_TIME_INDEX);
+        			recurringType = checkForRecurringTask(noNameMatcher.group("startTime"));
         		}
     		} catch(IllegalArgumentException iae) {
     			return new IncorrectCommand(iae.getMessage());
@@ -579,7 +583,7 @@ public class Parser {
         }
         
         try {
-        	return new EditCommand(targetIndex, taskName, tagSet, startTime, endTime);
+        	return new EditCommand(targetIndex, taskName, tagSet, startTime, endTime, recurringType);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }   
