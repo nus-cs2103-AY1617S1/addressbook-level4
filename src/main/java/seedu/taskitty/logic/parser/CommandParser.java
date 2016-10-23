@@ -29,6 +29,8 @@ public class CommandParser {
     public static final String EMPTY_STRING = "";
     public static final int NOT_FOUND = -1;
     public static final int STRING_START = 0;
+    public static final int INDEX_OF_NUMBER_INDEX = 0;
+    public static final int INDEX_OF_CATEGORY_INDEX = 1;
     
     /**
      * Used for initial separation of command word and args.
@@ -358,24 +360,15 @@ public class CommandParser {
      */
     private Command prepareDelete(String args) {
         
-        args = args.trim();
-        if (args.length() != 1 && args.length() != 2) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-        //takes the last argument given for parsing index
-        Optional<Integer> index = parseIndex(args.substring(args.length() - 1));
+        args = args.trim();                
+        int[] categoryAndIndex = getCategoryAndIndex(args);
         
-        if(!index.isPresent()){
+        if (categoryAndIndex == null) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         
-        if (args.length() == 1) {
-            return new DeleteCommand(index.get());
-        } else {
-            return new DeleteCommand(index.get(), TaskUtil.getCategoryIndex(args.substring(0, 1)));
-        }
+        return new DeleteCommand(categoryAndIndex[INDEX_OF_NUMBER_INDEX], categoryAndIndex[INDEX_OF_CATEGORY_INDEX]);
     }
     
     //@@author A0135793W
@@ -387,24 +380,15 @@ public class CommandParser {
      */
     private Command prepareDone(String args) {
         
-        args = args.trim();
-        if (args.length() != 1 && args.length() != 2) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
-        }
-        //takes the last argument given for parsing index
-        Optional<Integer> index = parseIndex(args.substring(args.length() - 1));
+        args = args.trim();                
+        int[] categoryAndIndex = getCategoryAndIndex(args);
         
-        if (!index.isPresent()){
+        if (categoryAndIndex == null) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
         }
         
-        if (args.length() == 1) {
-            return new DoneCommand(index.get());
-        } else {
-            return new DoneCommand(index.get(), TaskUtil.getCategoryIndex(args.substring(0, 1)));
-        }
+        return new DoneCommand(categoryAndIndex[INDEX_OF_NUMBER_INDEX], categoryAndIndex[INDEX_OF_CATEGORY_INDEX]);
     }
     
     /**
@@ -420,10 +404,9 @@ public class CommandParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
-        String indexWithCategory = splitArgs[0];
-        Optional<Integer> index = parseIndex(indexWithCategory.substring(indexWithCategory.length() - 1));
-
-        if(!index.isPresent() || (indexWithCategory.length() != 1 && indexWithCategory.length() != 2)){
+        int[] categoryAndIndex = getCategoryAndIndex(splitArgs[0]);
+        
+        if (categoryAndIndex == null) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
@@ -437,24 +420,50 @@ public class CommandParser {
             String taskDetailArguments = getTaskDetailArguments(arguments);
             String tagArguments = getTagArguments(arguments);
 
-            if (indexWithCategory.length() == 1) {
-                return new EditCommand(
-                        extractTaskDetailsNatty(taskDetailArguments),
-                        getTagsFromArgs(tagArguments),
-                        index.get());  
-            } else {
-                return new EditCommand(
-                        extractTaskDetailsNatty(taskDetailArguments),
-                        getTagsFromArgs(tagArguments),
-                        index.get(),
-                        TaskUtil.getCategoryIndex(indexWithCategory.substring(0, 1)));            
-            }
+            return new EditCommand(
+                    extractTaskDetailsNatty(taskDetailArguments),
+                    getTagsFromArgs(tagArguments),
+                    categoryAndIndex[INDEX_OF_NUMBER_INDEX],
+                    categoryAndIndex[INDEX_OF_CATEGORY_INDEX]);            
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    //@@author
-
+    
+    //@@author A0139052L
+    /**
+     * Parses the string and returns the categoryIndex and the index if a valid one was given
+     * @param args 
+     * @return an int array with categoryIndex and index in 0 and 1 index respectively
+     */
+    private int[] getCategoryAndIndex(String args) {
+        
+        if (args.trim().equals(EMPTY_STRING)) {
+            return null;
+        }
+        
+        // category index should be the first char in the string
+        Optional<Integer> checkForCategory = parseIndex(args.substring(0, 1));
+        Optional<Integer> index;
+        int categoryIndex;
+        
+        if (checkForCategory.isPresent()){
+            index = parseIndex(args);
+            // give the default category index if none was provided
+            categoryIndex = TaskUtil.getDefaultCategoryIndex();
+        } else {
+            // index should be the rest of the string if category char is present
+            index = parseIndex(args.substring(1));
+            categoryIndex = TaskUtil.getCategoryIndex(args.substring(0,1));
+        }
+        
+        if (!index.isPresent()){
+            return null;
+        }
+        
+        return new int[] {index.get(), categoryIndex};
+    }
+    
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
