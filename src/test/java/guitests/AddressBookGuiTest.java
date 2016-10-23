@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * A GUI Test class for AddressBook.
  */
+@Deprecated
 public abstract class AddressBookGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
@@ -42,7 +43,6 @@ public abstract class AddressBookGuiTest {
     protected MainMenuHandle mainMenu;
     protected PersonListPanelHandle personListPanel;
     protected ResultDisplayHandle resultDisplay;
-    protected CommandBoxHandle commandBox;
     private Stage stage;
 
     @BeforeClass
@@ -62,11 +62,10 @@ public abstract class AddressBookGuiTest {
             mainMenu = mainGui.getMainMenu();
             personListPanel = mainGui.getPersonListPanel();
             resultDisplay = mainGui.getResultDisplay();
-            commandBox = mainGui.getCommandBox();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
-        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
+//        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
         while (!stage.isShowing());
         mainGui.focusOnMainApp();

@@ -1,5 +1,6 @@
 package guitests;
 
+import guitests.guihandles.CommandInputViewHandle;
 import guitests.guihandles.MainGuiHandle;
 import guitests.guihandles.TodoListViewHandle;
 import javafx.stage.Stage;
@@ -38,6 +39,7 @@ public abstract class TodoListGuiTest {
     //TODO: Attach new Handles here!
     protected MainGuiHandle mainGui;
     protected TodoListViewHandle todoListView;
+    protected CommandInputViewHandle commandInputView;
 
     private Stage stage;
 
@@ -58,6 +60,7 @@ public abstract class TodoListGuiTest {
             this.stage = stage;
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             todoListView = mainGui.getTodoListView();
+            commandInputView = mainGui.getCommandInputView();
         });
         EventsCenter.clearSubscribers();
         /*
@@ -76,6 +79,7 @@ public abstract class TodoListGuiTest {
      */
     protected TodoList getInitialData() {
         TodoList todoList = TestUtil.generateEmptyTodoList(getDataFileLocation());
+        //TODO: You might need a default set of tasks (instead of randomly generated ones)
         List<ImmutableTask> randomTasks = TaskFactory.list();
         TestUtil.loadTodoListWithData(todoList, randomTasks);
         return todoList;

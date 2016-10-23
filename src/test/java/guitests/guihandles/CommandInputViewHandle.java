@@ -3,6 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+import seedu.todo.TestApp;
 
 /**
  * A handle to the {@link seedu.todo.ui.view.CommandInputView}'s
@@ -17,10 +18,9 @@ public class CommandInputViewHandle extends GuiHandle {
      *
      * @param guiRobot {@link GuiRobot} for the current GUI test.
      * @param primaryStage The stage where the views for this handle is located.
-     * @param stageTitle The title of this stage.
      */
-    public CommandInputViewHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
-        super(guiRobot, primaryStage, stageTitle);
+    public CommandInputViewHandle(GuiRobot guiRobot, Stage primaryStage) {
+        super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
     /* Interfacing Methods */
