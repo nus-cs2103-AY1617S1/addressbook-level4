@@ -34,7 +34,7 @@ public class EditCommand extends Command {
     
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Edits an existing task/event in Jimi. \n"
-            + "Parameters: INDEX(must be a positive integer) EDITS_TO_MAKE\n" 
+            + "Parameters: INDEX(must be t<positive integer> or e<positive integer>) EDITS_TO_MAKE\n" 
             + "You can edit everything from the task name to its tags. \n"
             + "You can leave out fields that you do not wish to edit too. \n"
             + "\n"

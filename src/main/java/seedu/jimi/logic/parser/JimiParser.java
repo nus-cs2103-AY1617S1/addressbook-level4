@@ -48,7 +48,7 @@ public class JimiParser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("[te](?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -57,7 +57,7 @@ public class JimiParser {
             Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)"); // zero or one tag only
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
-            Pattern.compile("(?<targetIndex>[te]\\d+\\s)(?<editDetails>.+)");
+            Pattern.compile("(?<targetIndex>[^\\s]+) (?<editDetails>.+)");
     
     // acccepts in the format of a deadline task or event
     private static final Pattern EDIT_DETAILS_FORMAT = Pattern.compile(
@@ -283,7 +283,7 @@ public class JimiParser {
         List<Date> eventEnd = parseStringToDate(editDetailsMatcher.group("endDateTime"));
         
         /* validating integer index */
-        Optional<Integer> index = parseIndex(editArgsMatcher.group("targetIndex").substring(1));
+        Optional<Integer> index = parseIndex(editArgsMatcher.group("targetIndex"));
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
@@ -335,7 +335,7 @@ public class JimiParser {
      */
     private Command prepareDelete(String args) {
         // actual integer index is everything after the first character prefix.
-        Optional<Integer> index = parseIndex(args.trim().substring(1)); 
+        Optional<Integer> index = parseIndex(args); 
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
