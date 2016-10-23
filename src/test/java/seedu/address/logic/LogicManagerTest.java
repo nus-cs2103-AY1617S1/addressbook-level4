@@ -60,6 +60,8 @@ import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.TaskBuilder;
+import seedu.address.testutil.TestTask;
 
 public class LogicManagerTest {
 
@@ -984,7 +986,7 @@ public class LogicManagerTest {
     
     //@@author A0135782Y
     @Test
-    public void execute_add_recurringTask_byDate_unsuccessful_addAsNonFloatingTask() throws Exception {
+    public void execute_add_recurringTask_byDate_unsuccessful_add_as_nonfloating_instead() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingByDate();
@@ -1025,7 +1027,7 @@ public class LogicManagerTest {
     }    
     
     @Test
-    public void execute_add_recurringTask_FromDateToDate_unsuccessful_addAsNonFloatingTask() throws Exception {
+    public void execute_add_recurringTask_FromDateToDate_unsuccessful_add_as_nonfloating_instead() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingFromDateToDate();
