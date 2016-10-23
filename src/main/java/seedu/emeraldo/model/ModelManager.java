@@ -51,8 +51,6 @@ public class ModelManager extends ComponentManager implements Model {
         savedStates = new Stack<Emeraldo>();
         
         saveState();
-        
-        System.out.println("After initialisation: " + savedStates);
     }
     
     //Saves the new state of emeraldo into the stack, after changes has been made
@@ -73,24 +71,12 @@ public class ModelManager extends ComponentManager implements Model {
         savedStates = new Stack<Emeraldo>();
         
         saveState();
-        
-        System.out.println("After initialisation: " + savedStates);
     }
     
     public void undoChanges() throws EmptyStackException{
-    	//TODO: handle cases where undo cannot be done anymore
     	savedStates.pop();
-    	System.out.println("After pop: " + savedStates.toString());
-    	//if(!savedStates.empty()){
-    		resetData(savedStates.peek());
-	    	indicateEmeraldoChanged();
-	    	System.out.println("YAY!");
-    	//}
-    	/*
-    	else{
-    		System.out.println("oops");
-    	}
-    	*/
+    	resetData(savedStates.peek());
+	    indicateEmeraldoChanged();
     }
     
     @Override
@@ -123,7 +109,6 @@ public class ModelManager extends ComponentManager implements Model {
         
         updateFilteredListToShowAll();
         indicateEmeraldoChanged();
-        System.out.println("After adding: " + savedStates);
     }
 
     @Override
