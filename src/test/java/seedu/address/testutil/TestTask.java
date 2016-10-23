@@ -110,5 +110,17 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+    @Override
+    public Recurring getRecurring() {
+        // TODO Auto-generated method stub
+        return recurring;
+    }
+
+    @Override
+    public boolean isRecurring() {
+        // TODO Auto-generated method stub
+        return isRecurring;
+    }
     
 }

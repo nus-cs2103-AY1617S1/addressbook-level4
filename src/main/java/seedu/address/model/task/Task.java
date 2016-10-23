@@ -32,15 +32,17 @@ public class Task implements ReadOnlyTask {
      */
     public Task(Name name, Date date, UniqueTagList tags) {
         this(name, date, tags, false, false);
+        recurring=null;
     }
 
     public Task(Name name, Date date, UniqueTagList tags, Recurring recurring) {
         this(name, date, tags, false, true);
         this.recurring = recurring;
+        //System.out.println(recurring.recurringFrequency);
     }
 
     public Task(Name name, Date date, UniqueTagList tags, boolean isDone, boolean isRecurring) {
-        // assert !CollectionUtil.isAnyNull(name, date, tags);
+        assert !CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
         this.date = date;
         if (date instanceof EventDate) {
@@ -67,6 +69,7 @@ public class Task implements ReadOnlyTask {
 
     public Task(Name name, UniqueTagList tags) throws IllegalValueException {
         this(name, new Deadline(""), tags, false, false);
+        this.recurring=null;
     }
 
     @Override
@@ -76,7 +79,8 @@ public class Task implements ReadOnlyTask {
 
     @Override
     public Recurring getRecurring() {
-        return recurring;
+      //  assert recurring!=null;
+        return this.recurring;
     }
 
     @Override

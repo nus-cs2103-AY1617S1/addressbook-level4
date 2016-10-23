@@ -56,7 +56,7 @@ public interface ReadOnlyTask {
         	builder.append(" done ");
         }
         if(isRecurring()){
-            builder.append(" recurring ");
+            builder.append(" recurring "+getRecurring().recurringFrequency);
         }
         return builder.toString();
     }

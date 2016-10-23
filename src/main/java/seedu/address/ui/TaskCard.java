@@ -56,7 +56,8 @@ public class TaskCard extends UiPart{
         done.setText(task.isDone() ? "done" : "");
 //        tags.setText(task.tagsString());
         recurring.setText(task.isRecurring()? "recurring":"");
-        frequency.setText("not reflected yet");
+       frequency.setText(task.isRecurring()?task.getRecurring().recurringFrequency:"");
+       // frequency.setText("not yet");
         
     }
 
