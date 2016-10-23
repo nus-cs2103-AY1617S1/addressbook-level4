@@ -1,47 +1,88 @@
 package seedu.todo.model.task;
 
-import java.util.regex.Pattern;
-import java.time.LocalDateTime;
-import java.util.regex.Matcher;
 
-import seedu.todo.MainApp;
-import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.commons.util.DateTimeUtil;
+
 
 
 public class Recurrence {
-
-    private String desc;
     
-    public Recurrence(String desc) throws IllegalValueException {
-        if (!isValidRecurrenceDesc(desc)) {
-            throw new IllegalValueException("Invalid Recurrence description");
-        }
-        this.desc = desc;
+    public enum Frequency {
+        NONE,
+        YEAR,
+        MONTH,
+        WEEK,
+        DAY
     }
     
-    public String getDesc() {
-        return this.desc;
+    private Frequency freq;
+    
+    public Recurrence(Frequency freq) throws IllegalValueException {
+        assert freq != null;
+        this.freq = freq;
     }
     
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public Frequency getFreq() {
+        return this.freq;
     }
     
-    public boolean isNull() {
-        return this.desc == null;
+    public void setFreq(Frequency freq) {
+        this.freq = freq;
     }
-    
-    public boolean isValidRecurrenceDesc(String desc) {
-       return true;
+        
+    public boolean isRecurring() {
+       return this.freq != Frequency.NONE;
     }
-    
-    
     
     @Override
     public String toString() {
-        return this.desc;
+        switch(this.freq) {
+            case YEAR :
+                return "Year";
+            case MONTH :
+                return "Month";
+            case WEEK:
+                return "Week";
+            case DAY :
+                return "Day";
+            default :
+                return "NONE";
+        }
+    }
+    
+    public void UpdateTaskDate(Task task){
+        switch(this.freq) {
+        case YEAR :
+            if (task.getOnDate().getDate() != null) {
+                task.getOnDate().setDate(task.getOnDate().getDate().plusYears(1));
+            }
+            if (task.getByDate().getDate() != null) {
+                task.getByDate().setDate(task.getByDate().getDate().plusYears(1));
+            }
+        case MONTH :
+            if (task.getOnDate().getDate() != null) {
+                task.getOnDate().setDate(task.getOnDate().getDate().plusMonths(1));
+            }
+            if (task.getByDate().getDate() != null) {
+                task.getByDate().setDate(task.getByDate().getDate().plusMonths(1));
+            }
+        case WEEK:
+            if (task.getOnDate().getDate() != null) {
+                task.getOnDate().setDate(task.getOnDate().getDate().plusWeeks(1));
+            }
+            if (task.getByDate().getDate() != null) {
+                task.getByDate().setDate(task.getByDate().getDate().plusWeeks(1));
+            }
+        case DAY :
+            if (task.getOnDate().getDate() != null) {
+                task.getOnDate().setDate(task.getOnDate().getDate().plusDays(1));
+            }
+            if (task.getByDate().getDate() != null) {
+                task.getByDate().setDate(task.getByDate().getDate().plusDays(1));
+            }
+        default :
+            //NONE - do nothing
+        }
     }
     
 }

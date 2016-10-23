@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.model.task.*;
+import seedu.todo.model.task.Recurrence.Frequency;
 
 /**
  * Adds a person to the address book.
@@ -28,7 +29,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String detail, String onDateString, String byDateString)
+    public AddCommand(String name, String detail, String onDateString, String byDateString, Frequency freq)
             throws IllegalValueException {
         
         TaskDate onDate = new TaskDate(onDateString, TaskDate.TASK_DATE_ON);
@@ -37,13 +38,13 @@ public class AddCommand extends Command {
             byDate.setDate(LocalDate.of(onDate.getDate().getYear(), 
                     onDate.getDate().getMonth(), onDate.getDate().getDayOfMonth()));
         }
-        
+        System.out.println(freq.toString());
         this.toAdd = new Task(
                 new Name(name),
                 new Detail(detail),
                 onDate,
                 byDate,
-                new Recurrence(null)
+                new Recurrence(freq)
         );
     }
 

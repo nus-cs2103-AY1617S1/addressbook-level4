@@ -20,23 +20,4 @@ public class RecurrenceTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
     
-    @Test
-    public void test_isValidRecurrenceDesc() throws IllegalValueException {
-        Recurrence recurrence = new Recurrence(null);
-        
-        String[] validInputs = {"every monday", "every week", "every year", "everyday", null};
-        String[] invalidInputs = {"tomorrow", "randome", "every happy hour"};
-        
-        
-        for (String input : validInputs) {
-            assertTrue(recurrence.isValidRecurrenceDesc(input));
-        }
-        
-        for (String input : invalidInputs) {
-            assertFalse(recurrence.isValidRecurrenceDesc(input));
-        }
-    }
-        
-   
-    
 }

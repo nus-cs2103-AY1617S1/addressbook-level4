@@ -31,21 +31,19 @@ public class TaskDate {
      */
     public TaskDate(String dateTimeString, String onOrBy) throws IllegalValueException {
         
+        assert onOrBy != null;
+        
         if (DateTimeUtil.isEmptyDateTimeString(dateTimeString)) {
             this.date = null;
             this.time = null;
-        
         } else {
-            
             LocalDateTime ldt = DateTimeUtil.parseDateTimeString(dateTimeString, onOrBy);
-            
             if (ldt == null) {
                 throw new IllegalValueException(MESSAGE_DATETIME_CONSTRAINTS);
             } else {
                 this.date = ldt.toLocalDate();
                 this.time = ldt.toLocalTime();
-            }
-          
+            }  
         }
     }
 

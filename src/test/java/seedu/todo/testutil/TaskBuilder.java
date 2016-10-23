@@ -3,6 +3,7 @@ package seedu.todo.testutil;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.*;
+import seedu.todo.model.task.Recurrence.Frequency;
 
 /**
  *
@@ -25,8 +26,8 @@ public class TaskBuilder {
         return this;
     }
     
-    public TaskBuilder withRecurrence(String desc) throws IllegalValueException{
-        this.task.setRecurrence(new Recurrence(desc));
+    public TaskBuilder withRecurrence(Frequency freq) throws IllegalValueException{
+        this.task.setRecurrence(new Recurrence(freq));
         return this;
     }
 

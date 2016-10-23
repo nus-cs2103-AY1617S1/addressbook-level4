@@ -6,6 +6,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.*;
+import seedu.todo.model.task.Recurrence.Frequency;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +74,7 @@ public class XmlAdaptedTask {
         final Completion completion = new Completion(Boolean.parseBoolean(this.completion));
         final TaskDate onDate = new TaskDate(this.onDate, TaskDate.TASK_DATE_ON);
         final TaskDate byDate = new TaskDate(this.byDate, TaskDate.TASK_DATE_BY);
-        final Recurrence recurrence = new Recurrence(this.recurrence);
+        final Recurrence recurrence = new Recurrence(Frequency.valueOf(this.recurrence));
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(name, detail, completion, onDate, byDate, recurrence, tags);
     }

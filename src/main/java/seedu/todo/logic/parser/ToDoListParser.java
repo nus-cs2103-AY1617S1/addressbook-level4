@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.commands.*;
+import seedu.todo.model.task.Recurrence.Frequency;
 
 import com.joestelmach.natty.*;
 
@@ -98,8 +99,10 @@ public class ToDoListParser {
      */
     private Command prepareAdd(String args) {
         
-        Pattern[] dataPatterns = { ParserFormats.ADD_TASK_ARGS_FORMAT_FT, ParserFormats.ADD_TASK_ARGS_FORMAT_BY,
-            ParserFormats.ADD_TASK_ARGS_FORMAT_ON, ParserFormats.ADD_TASK_ARGS_FORMAT_FLOAT };
+        Pattern[] dataPatterns = { ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_FT, 
+                ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_BY, ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_ON,
+                ParserFormats.ADD_TASK_ARGS_FORMAT_FT, ParserFormats.ADD_TASK_ARGS_FORMAT_BY,
+                ParserFormats.ADD_TASK_ARGS_FORMAT_ON, ParserFormats.ADD_TASK_ARGS_FORMAT_FLOAT};
 
         Matcher matcher;
         try {
@@ -108,19 +111,36 @@ public class ToDoListParser {
                 if (matcher.matches()) {
                     if (p.equals(ParserFormats.ADD_TASK_ARGS_FORMAT_FT)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"),
-                                matcher.group("onDateTime"), matcher.group("byDateTime"));
+                                matcher.group("onDateTime"), matcher.group("byDateTime"), Frequency.NONE);
+                        
                     } else if (p.equals(ParserFormats.ADD_TASK_ARGS_FORMAT_ON)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"),
-                                matcher.group("onDateTime"), null);
+                                matcher.group("onDateTime"), null, Frequency.NONE);
+                        
                     } else if (p.equals(ParserFormats.ADD_TASK_ARGS_FORMAT_BY)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"), null,
-                                matcher.group("byDateTime"));
+                                matcher.group("byDateTime"), Frequency.NONE);
+                        
+                    } else if (p.equals(ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_FT)) {
+                        return new AddCommand(matcher.group("name"), matcher.group("detail"),
+                                matcher.group("onDateTime"), null, Frequency.valueOf(matcher.group("rec").toUpperCase()));
+                        
+                    } else if (p.equals(ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_BY)) {
+                        return new AddCommand(matcher.group("name"), matcher.group("detail"), null,
+                                matcher.group("byDateTime"), Frequency.valueOf(matcher.group("rec").toUpperCase()));
+                        
+                    } else if (p.equals(ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_ON)) {
+                        return new AddCommand(matcher.group("name"), matcher.group("detail"),
+                                matcher.group("onDateTime"), null, Frequency.valueOf(matcher.group("rec").toUpperCase()));
+                        
                     } else {
-                        return new AddCommand(matcher.group("name"), matcher.group("detail"), null, null);
+                        return new AddCommand(matcher.group("name"), matcher.group("detail"), null, null, Frequency.NONE);
                     }
                 }
             }
         } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        } catch (IllegalArgumentException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
 
