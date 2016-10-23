@@ -16,7 +16,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of TaskManager data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
@@ -48,42 +48,42 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ AddressBook methods ==============================
+    // ================ TaskManager methods ==============================
 
     @Override
-    public String getAddressBookFilePath() {
-        return taskManagerStorage.getAddressBookFilePath();
+    public String getTaskManagerFilePath() {
+        return taskManagerStorage.getTaskManagerFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyTaskManager> readAddressBook() throws DataConversionException, IOException, FileNotFoundException {
-        return readAddressBook(taskManagerStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyTaskManager> readTaskManager() throws DataConversionException, IOException, FileNotFoundException {
+        return readTaskManager(taskManagerStorage.getTaskManagerFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyTaskManager> readAddressBook(String filePath) throws DataConversionException, IOException, FileNotFoundException {
+    public Optional<ReadOnlyTaskManager> readTaskManager(String filePath) throws DataConversionException, IOException, FileNotFoundException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return taskManagerStorage.readAddressBook(filePath);
+        return taskManagerStorage.readTaskManager(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaskManager addressBook) throws IOException, FileNotFoundException {
-        saveAddressBook(addressBook, taskManagerStorage.getAddressBookFilePath());
+    public void saveTaskManager(ReadOnlyTaskManager addressBook) throws IOException, FileNotFoundException {
+        saveTaskManager(addressBook, taskManagerStorage.getTaskManagerFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyTaskManager addressBook, String filePath) throws IOException, FileNotFoundException {
+    public void saveTaskManager(ReadOnlyTaskManager addressBook, String filePath) throws IOException, FileNotFoundException {
         logger.fine("Attempting to write to data file: " + filePath);
-        taskManagerStorage.saveAddressBook(addressBook, filePath);
+        taskManagerStorage.saveTaskManager(addressBook, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(TaskManagerChangedEvent event) {
+    public void handleTaskManagerChangedEvent(TaskManagerChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveTaskManager(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

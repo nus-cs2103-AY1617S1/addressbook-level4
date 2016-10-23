@@ -15,7 +15,7 @@ public class Config {
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
     private String addressBookFilePath = "data/taskmanager.xml";
-    private String addressBookName = "MyAddressBook";
+    private String addressBookName = "MyTaskManager";
 
 
     public Config() {
@@ -45,19 +45,19 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
-    public String getAddressBookFilePath() {
+    public String getTaskManagerFilePath() {
         return addressBookFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
+    public void setTaskManagerFilePath(String addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
     }
 
-    public String getAddressBookName() {
+    public String getTaskManagerName() {
         return addressBookName;
     }
 
-    public void setAddressBookName(String addressBookName) {
+    public void setTaskManagerName(String addressBookName) {
         this.addressBookName = addressBookName;
     }
 
@@ -92,7 +92,7 @@ public class Config {
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nAddressBook name : " + addressBookName);
+        sb.append("\nTaskManager name : " + addressBookName);
         return sb.toString();
     }
 

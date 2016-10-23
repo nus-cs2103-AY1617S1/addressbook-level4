@@ -3,6 +3,6 @@
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
   "addressBookFilePath" : "taskmanager.xml",
-  "addressBookName" : "TypicalAddressBookName",
+  "addressBookName" : "TypicalTaskManagerName",
   "extra" : "extra value"
 }
