@@ -1,12 +1,9 @@
 package seedu.taskitty.logic.commands;
 
 import java.io.IOException;
-import java.util.Set;
 
-import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.ConfigUtil;
 import seedu.taskitty.commons.util.StringUtil;
-import seedu.taskitty.model.task.Task;
 import seedu.taskitty.storage.StorageManager;
 import seedu.taskitty.commons.core.Config;
 
@@ -24,6 +21,7 @@ public class SaveCommand extends Command{
     public final String filepath;
     
     public SaveCommand(String filepath) {
+        assert filepath != null;
         this.filepath = filepath;
     }
 
@@ -33,12 +31,12 @@ public class SaveCommand extends Command{
         String configFile = Config.DEFAULT_CONFIG_FILE;
         
         try {
-            config.setTaskManagerFilePath(filepath + config.getTaskManagerFilePath());
+            config.setTaskManagerFilePath(filepath + "/" + config.getTaskManagerFilePath());
             ConfigUtil.saveConfig(config, configFile);
             
             new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
             
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, filepath));
         } catch (IOException io) {
             return new CommandResult(MESSAGE_FAILED + StringUtil.getDetails(io));
         }

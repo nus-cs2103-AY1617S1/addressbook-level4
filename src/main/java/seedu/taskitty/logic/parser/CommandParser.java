@@ -36,8 +36,7 @@ public class CommandParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-    
-      
+         
     //Used for checking for number date formats in arguments
     private static final Pattern LOCAL_DATE_FORMAT =  Pattern.compile(".* (?<arguments>\\d(\\d)?[/-]\\d(\\d)?).*");
     
@@ -46,7 +45,10 @@ public class CommandParser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = //Tags must be at the end
             Pattern.compile("(?<arguments>[\\p{Graph} ]+)"); // \p{Graph} is \p{Alnum} or \p{Punct}
-
+    
+    private static final Pattern SAVE_ARGS_FORMAT =
+            Pattern.compile("<filepath>."); // one or more keywords separated by whitespace
+    
     public CommandParser() {}
 
     /**
@@ -98,11 +100,26 @@ public class CommandParser {
         	}
         	return prepareView(arguments);
         
+        case SaveCommand.COMMAND_WORD:
+            return prepareSave(arguments);
+            
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
     
+    private Command prepareSave(String argument) {
+//        final Matcher matcher = SAVE_ARGS_FORMAT.matcher(argument.trim());
+//        System.out.println(matcher.toString());
+//        // Validate arguments string format
+//        if (!matcher.matches()) {
+//            System.out.println("HERE!!!");
+//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
+//        }
+        
+        return new SaveCommand(argument.trim());
+    }
+
     /**
      * Parses arguments in the context of the view command.
      *
