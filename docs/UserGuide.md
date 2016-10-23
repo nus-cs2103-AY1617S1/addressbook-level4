@@ -85,7 +85,7 @@
 
 3. If st is empty, st is assumed to be 00:00.
 
-4. If et is empty, et is assumed to be 23:59 and press `Enter`.
+4. If et is empty, et is assumed to be 23:59. Press `Enter`.
 
 5. The event will be added to your to do list and message "Added event" is displayed on console.
 
