@@ -504,8 +504,10 @@ public class LogicManagerTest {
         assertCommandBehavior("tag /del -1", MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
         
         // EP: invalid number
-        assertCommandBehavior("tag /del aaa", MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
-        assertCommandBehavior("tag /del bbb", MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
+        assertCommandBehavior("tag /del aaa",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        assertCommandBehavior("tag /del bbb",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
     
     @Test
