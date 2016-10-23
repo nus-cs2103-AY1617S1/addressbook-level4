@@ -3,6 +3,7 @@ package seedu.oneline.model.task;
 import java.util.Objects;
 
 import seedu.oneline.commons.util.CollectionUtil;
+import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 
 /**
@@ -17,8 +18,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private TaskTime deadline;
     private TaskRecurrence recurrence;
     
-    private UniqueTagList tags;
     private boolean isCompleted;
+    private Tag tag;
 
     /**
      * Every field must be present and not null.
@@ -34,22 +35,23 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      *  A task without a deadline
      * 
      */    
-    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, UniqueTagList tags, boolean isCompleted) {
-        assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, recurrence, tags);
+
+    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, Tag tag, boolean isCompleted) {
+        assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, recurrence, tag);
         this.setCompleted(isCompleted);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.deadline = deadline;
         this.recurrence = recurrence;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.tag = tag;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getDeadline(), source.getRecurrence(), source.getTags(), source.isCompleted());
+        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getDeadline(), source.getRecurrence(), source.getTag(), source.isCompleted());
     }
 
     @Override
@@ -78,8 +80,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
     
     @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
+    public Tag getTag() {
+        return tag;
     }
 
     public boolean isCompleted() {
@@ -89,8 +91,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
+    public void setTag(Tag replacement) {
+        this.tag = replacement;
     }
 
     @Override
@@ -103,7 +105,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, startTime, endTime, deadline, recurrence, tags);
+        return Objects.hash(name, startTime, endTime, deadline, recurrence, tag);
     }
 
     @Override
