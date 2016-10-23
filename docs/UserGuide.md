@@ -133,11 +133,11 @@ Edits a todo, deadline or event already inside the task manager using the index 
 Examples:
 
 * `view`<br>
-  `edit d 1 assignment 2 15 Oct 2016`<br>
+  `edit d1 assignment 2 15 Oct 2016`<br>
   Edits the 1st task under the todo tasks section. Change the NAME to `assignment 2` and DATE to `15 Oct 2016`.<br>
   <img src="images/UIedit.png" width="600">
 
-* `edit e 2 22:00 00:00`<br>
+* `edit e2 22:00 00:00`<br>
   Edits the 2nd task under the events section. Change the START_TIME to `22:00` and END_TIME to `00:00`.<br>
 
 <br>
@@ -150,7 +150,7 @@ Deletes a todo, deadline or event already inside the task manager using the inde
 Examples:
 
 * `view`<br>
-  `delete d 1`<br>
+  `delete d1`<br>
   Deletes the 1st task under the deadlines section as shown by the `view` command.<br>
   
   Before:<br>
@@ -160,7 +160,7 @@ Examples:
   <img src="images/UIdeleteAfter.png" width="600"><br>
   
 * `view 5 Oct 2016`<br>
-  `delete e 3`<br>
+  `delete e3`<br>
   Deletes the 3rd task under the events section for 5 Oct 2016 as shown by the `view` command.<br>
   
   Before:<br>
@@ -181,7 +181,7 @@ Tasks that are marked as done are moved to the bottom of the list in their respe
 Example:
 
 * `view`<br>
-  `done t 1`<br>
+  `done t1`<br>
   Marks the 1st task today under the todo section shown by the `view` command as completed.<br>
   
   Before:<br>
