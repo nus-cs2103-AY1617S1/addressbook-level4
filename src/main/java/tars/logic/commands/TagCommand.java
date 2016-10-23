@@ -48,9 +48,6 @@ public class TagCommand extends Command {
                 return executeEditTag();
             } else if (deletePrefix.equals(prefix)) {
                 return executeDeleteTag();
-            } else {
-                return new CommandResult(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
-                        TagCommand.MESSAGE_USAGE));
             }
         } catch (DuplicateTagException e) {
             return new CommandResult(e.getMessage());
@@ -62,6 +59,9 @@ public class TagCommand extends Command {
             return new CommandResult(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
                     TagCommand.MESSAGE_USAGE));
         }
+
+        return new CommandResult(
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
 
     private CommandResult executeListTag() {
@@ -107,7 +107,7 @@ public class TagCommand extends Command {
      * @return true if targetedIndex is an invalid index
      */
     private boolean isInValidIndex(int targetedIndex) {
-        return model.getUniqueTagList().size() < targetedIndex || targetedIndex == 0;
+        return targetedIndex < 1 || model.getUniqueTagList().size() < targetedIndex;
     }
 
 }
