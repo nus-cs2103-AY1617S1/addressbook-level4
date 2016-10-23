@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
+import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.model.task.TaskDate;
 
 /**
@@ -21,33 +22,38 @@ public class ViewCommand extends Command {
     		+ "if no date is entered, events for today, all deadline tasks and all todo tasks will be displayed."
             + "Parameters: [DATE] \n"
             + "Example: " + COMMAND_WORD + " 16 Oct 2016 \n"
-            + "Note: if \"view done\" or \"viewdone\" is entered instead, the list of done tasks will be shown.";
+            + "Note: if \"view done\" is entered instead, the list of done tasks will be shown.";
 
     private LocalDate date;
     private boolean hasDate;
+    private boolean isViewDoneCommand;
 
-    public ViewCommand(String date) {
-    	assert date !=null;
-        this.date = LocalDate.parse(date, TaskDate.DATE_FORMATTER);
-        this.hasDate = true;
+    public ViewCommand(String parameter) {
+    	assert parameter !=null;
+    	if (parameter.equals("done")) {
+    		isViewDoneCommand = true;
+    	} else { // parameter is a date
+    		this.date = LocalDate.parse(parameter, TaskDate.DATE_FORMATTER);
+    		this.hasDate = true;
+    		isViewDoneCommand = false;
+    	}
     }
     
     public ViewCommand() {
-    	this.date = createTaskDate();
+    	this.date = DateUtil.createCurrentDate();
     	this.hasDate = false;
     }
 
-    private LocalDate createTaskDate() {
-		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-    	Date dateobj = new Date();
-    	String date = df.format(dateobj);
-    	return LocalDate.parse(date, TaskDate.DATE_FORMATTER);
-	}
     
     @Override
     public CommandResult execute() {
-        model.updateFilteredDateTaskList(date, hasDate);
-        return new CommandResult(getMessageForTaskListShownSummary(model.getTaskList().size()));
+    	if (isViewDoneCommand) {
+    		model.updateFilteredDoneList();
+            return new CommandResult(getMessageForTaskListShownSummary(model.getTaskList().size()));
+    	} else {
+    		model.updateFilteredDateTaskList(date, hasDate);
+    		return new CommandResult(getMessageForTaskListShownSummary(model.getTaskList().size()));
+    	}
     }
 
     @Override

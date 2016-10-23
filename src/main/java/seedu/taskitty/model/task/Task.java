@@ -26,10 +26,23 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public static final int EVENT_COMPONENT_INDEX_END_DATE = 3;
     public static final int EVENT_COMPONENT_INDEX_END_TIME = 4;
     public static final int EVENT_COMPONENT_COUNT = 5;
+    
+    
+    public static final String CATEGORY_CHARS = "t|d|e";
+    public static final String TODO_CATEGORY_CHAR = "t";
+    public static final String DEADLINE_CATEGORY_CHAR = "d";
+    public static final String EVENT_CATEGORY_CHAR = "e";
+    public static final String[] CATEGORIES = {"Todo", "Deadline", "Event"};
 
+    public static final int DEFAULT_CATEGORY_INDEX = 0;
+    public static final int TODO_CATEGORY_INDEX = 0;
+    public static final int DEADLINE_CATEGORY_INDEX = 1;
+    public static final int EVENT_CATEGORY_INDEX = 2;
+    
     private Name name;
     private TaskPeriod period;
     private boolean isDone;
+    private boolean isOverdue;
 
     private UniqueTagList tags;
 
@@ -53,6 +66,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getPeriod(), source.getTags());
         this.isDone = source.getIsDone();
+        this.isOverdue = source.isOverdue();
     }
 
     @Override
@@ -79,9 +93,18 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public void markAsDone() {
     	if (!isDone) {
     		this.isDone = true;
+    		this.isOverdue = false;
     	}
     }
-
+    
+    /**
+     * Marks a task as overdue() 
+     */
+    public void markAsOverdue() {
+    	if (!isDone && !isOverdue) {
+    		this.isOverdue = true;
+    	}
+    }
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -125,6 +148,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return period.isEvent();
 	}
 	
+	@Override
+	public boolean isOverdue() {
+		return isOverdue;
+	}
+	
 	//@@author
 	@Override
     public int compareTo(Task taskToCompare) {
@@ -136,7 +164,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	    } else {        
 	        int periodCompare = this.period.compareTo(taskToCompare.getPeriod());
 	        //If no difference is found in period, compare using name
-	        if (periodCompare != 0) {
+	        if (periodCompare == 0) {
 	            return this.getName().fullName.compareTo(taskToCompare.getName().fullName);
 	        } else {
 	            return periodCompare;
@@ -144,5 +172,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	    }
         
     }
+
+	public static void setNumOverdues(int numOverdue) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

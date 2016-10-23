@@ -12,6 +12,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     private Name name;
     private TaskPeriod period;
     private boolean isDone;
+    private boolean isOverdue;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -93,6 +94,11 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 		return period.isEvent();
 	}
 	
+	@Override
+	public boolean isOverdue() {
+		return isOverdue;
+	}
+	
 	//@@author
 	@Override
     public int compareTo(TestTask taskToCompare) {
@@ -104,7 +110,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         } else {        
             int periodCompare = this.period.compareTo(taskToCompare.getPeriod());
             //If no difference is found in period, compare using name
-            if (periodCompare != 0) {
+            if (periodCompare == 0) {
                 return this.getName().fullName.compareTo(taskToCompare.getName().fullName);
             } else {
                 return periodCompare;
@@ -112,4 +118,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         }
         
     }
+	public void markAsDone() {
+		isDone = true;
+	}
 }

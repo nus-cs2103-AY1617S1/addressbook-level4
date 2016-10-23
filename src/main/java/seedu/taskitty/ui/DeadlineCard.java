@@ -8,8 +8,9 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskTime;
 
-public class DeadlineCard extends UiPart{
-
+public class DeadlineCard //extends UiPart
+{
+    /*
     private static final String FXML = "DeadlineListCard.fxml";
 
     @FXML
@@ -81,6 +82,12 @@ public class DeadlineCard extends UiPart{
         	startTime.setStyle("-fx-text-fill: white");
         	endTime.setStyle("-fx-text-fill: white");
         	
+        } else {
+        	boolean isOverdue = task.isOverdue();
+        	if (isOverdue) {
+        		cardPane.setStyle("-fx-background-color: red");
+        	}
+        	
         }
         
         id.setText(displayedIndex + ". ");
@@ -100,4 +107,5 @@ public class DeadlineCard extends UiPart{
     public String getFxmlPath() {
         return FXML;
     }
+    */
 }

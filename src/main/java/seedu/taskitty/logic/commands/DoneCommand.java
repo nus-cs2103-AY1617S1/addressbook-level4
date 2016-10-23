@@ -4,6 +4,7 @@ import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.util.AppUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
+import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -13,17 +14,11 @@ import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
-    
-    public static final String CATEGORY_CHARS = "t|d|e";
-    
-    public static final int DEFAULT_INDEX = 0;
-    
-    public static final String[] CATEGORIES = {"Todo", "Deadline", "Event"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the task identified by the index number used in the last task listing as done.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " " + CATEGORY_CHARS + " 1";
+            + "Example: " + COMMAND_WORD + " " + Task.CATEGORY_CHARS + " 1";
 
     public static final String MESSAGE_MARK_TASK_AS_DONE_SUCCESS = "Task done: %1$s";
     public static final String MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR = "The task \"%1$s\" has already been marked as done.";
@@ -33,7 +28,7 @@ public class DoneCommand extends Command {
     public final int targetIndex;
 
     public DoneCommand(int targetIndex) {
-        this(targetIndex, DEFAULT_INDEX);
+        this(targetIndex, Task.DEFAULT_CATEGORY_INDEX);
     }
     
     public DoneCommand(int targetIndex, int categoryIndex) {
@@ -65,7 +60,7 @@ public class DoneCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS, CATEGORIES[categoryIndex], taskToBeMarkedDone));
+        return new CommandResult(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS, Task.CATEGORIES[categoryIndex], taskToBeMarkedDone));
     }
     
     @Override

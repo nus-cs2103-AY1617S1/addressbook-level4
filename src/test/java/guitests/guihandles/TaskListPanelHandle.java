@@ -25,7 +25,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
-    private static final String TODO_LIST_VIEW_ID = "#taskListView";
+    private static final String TODO_LIST_VIEW_ID = "#todoListView";
     private static final String DEADLINE_LIST_VIEW_ID = "#deadlineListView";
     private static final String EVENT_LIST_VIEW_ID = "#eventListView";
 

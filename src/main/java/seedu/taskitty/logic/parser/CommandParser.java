@@ -2,6 +2,7 @@ package seedu.taskitty.logic.parser;
 
 import seedu.taskitty.commons.exceptions.IllegalValueException;
 import seedu.taskitty.commons.util.StringUtil;
+import seedu.taskitty.commons.util.TaskUtil;
 import seedu.taskitty.logic.commands.*;
 import seedu.taskitty.model.tag.Tag;
 import seedu.taskitty.model.task.Task;
@@ -97,9 +98,6 @@ public class CommandParser {
         case DoneCommand.COMMAND_WORD:
         	return prepareDone(arguments);
         	
-        case ViewDoneCommand.COMMAND_WORD:
-        	return new ViewDoneCommand();
-        
         case ViewCommand.COMMAND_WORD:
         	if (userInput.equals("view")) {
         		return prepareView(null);
@@ -122,7 +120,7 @@ public class CommandParser {
 			return new ViewCommand(); // view events today, and all deadlines and todos
 		}
     	if (arguments.trim().equals("done")) {
-    		return new ViewDoneCommand(); // defaults to viewDone command
+    		return new ViewCommand("done"); // view done command
     	}
 		String[] details = extractTaskDetailsNatty(arguments);
 		if (details.length!= 3) { // no date was successfully extracted
@@ -370,7 +368,7 @@ public class CommandParser {
         if (splitArgs.length == 1) {
             return new DeleteCommand(index.get());
         } else {
-            return new DeleteCommand(index.get(), StringUtil.getCategoryIndex(splitArgs[0]));
+            return new DeleteCommand(index.get(), TaskUtil.getCategoryIndex(splitArgs[0]));
         }
     }
     
@@ -398,7 +396,7 @@ public class CommandParser {
         if (splitArgs.length == 1) {
             return new DoneCommand(index.get());
         } else {
-            return new DoneCommand(index.get(), StringUtil.getCategoryIndex(splitArgs[0]));
+            return new DoneCommand(index.get(), TaskUtil.getCategoryIndex(splitArgs[0]));
         }
     }
     
@@ -417,7 +415,7 @@ public class CommandParser {
         
         
         Optional<Integer> index = parseIndex(splitArgs[1]);
-        int categoryIndex = StringUtil.getCategoryIndex(splitArgs[0]);
+        int categoryIndex = TaskUtil.getCategoryIndex(splitArgs[0]);
 
         if(!index.isPresent()){
             return new IncorrectCommand(

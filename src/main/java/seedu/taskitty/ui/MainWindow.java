@@ -31,7 +31,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
 
-    private TaskListPanel taskListPanel;
+    private TodoListPanel taskListPanel;
     private DeadlineListPanel deadlineListPanel;
     private EventListPanel eventListPanel;
     private ResultDisplay resultDisplay;
@@ -51,6 +51,21 @@ public class MainWindow extends UiPart {
 
     @FXML
     private MenuItem helpMenuItem;
+    
+    @FXML
+    private MenuItem undoMenuItem;
+    
+    @FXML
+    private MenuItem listMenuItem;
+    
+    @FXML
+    private MenuItem exitMenuItem;
+    
+    @FXML
+    private MenuItem clearMenuItem;
+    
+    @FXML
+    private MenuItem viewDoneMenuItem;
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
@@ -113,13 +128,18 @@ public class MainWindow extends UiPart {
 
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        exitMenuItem.setAccelerator(KeyCombination.valueOf("Esc"));
+        undoMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + U"));
+        listMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + L"));
+        clearMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + C"));
+        viewDoneMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + D"));
     }
 
     void fillInnerParts() {
 
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
-        deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredDeadlineList());
-        eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(), new TodoListPanel());
+        deadlineListPanel = TaskListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredDeadlineList(), new DeadlineListPanel());
+        eventListPanel = TaskListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList(), new EventListPanel());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -191,7 +211,27 @@ public class MainWindow extends UiPart {
     public void show() {
         primaryStage.show();
     }
-
+    
+    @FXML
+    public void handleUndo() {
+        commandBox.handleCommands("undo");
+    }
+    
+    @FXML
+    public void handleList() {
+        commandBox.handleCommands("list");
+    }
+    
+    @FXML
+    public void handleClear() {
+        commandBox.handleCommands("clear");
+    }
+    
+    @FXML
+    public void handleViewDone() {
+        commandBox.handleCommands("view done");
+    }
+    
     /**
      * Closes the application.
      */
@@ -200,7 +240,7 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public TaskListPanel getPersonListPanel() {
+    public TodoListPanel getPersonListPanel() {
         return this.taskListPanel;
     }
     

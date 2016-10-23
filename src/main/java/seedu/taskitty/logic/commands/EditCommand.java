@@ -27,12 +27,6 @@ import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 public class EditCommand extends Command{
     
     public static final String COMMAND_WORD = "edit";
-    
-    public static final String CATEGORY_CHARS = "t|d|e";
-    
-    public static final int DEFAULT_INDEX = 0;
-    
-    public static final String[] CATEGORIES = {"Todo", "Deadline", "Event"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD 
             + ": Edits the floating task identified by the index number used in the last task listing.\n "
@@ -51,7 +45,7 @@ public class EditCommand extends Command{
     
     public EditCommand(String[] data, Set<String> tags, int targetIndex) 
             throws IllegalValueException {
-        this(data, tags, targetIndex, DEFAULT_INDEX);
+        this(data, tags, targetIndex, Task.DEFAULT_CATEGORY_INDEX);
     }
     /**
      * Convenience constructor using raw values.
@@ -115,7 +109,7 @@ public class EditCommand extends Command{
             assert false : "The target task cannot be missing";
         }
         
-        return new CommandResult(String.format(MESSAGE_SUCCESS, CATEGORIES[categoryIndex], toEdit));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Task.CATEGORIES[categoryIndex], toEdit));
     }
 
     @Override

@@ -4,6 +4,7 @@ import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.util.AppUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
+import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -12,17 +13,11 @@ import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
-    
-    public static final String CATEGORY_CHARS = "t|d|e";
-    
-    public static final int DEFAULT_INDEX = 0;
-    
-    public static final String[] CATEGORIES = {"Todo", "Deadline", "Event"};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the category character and index number used in the last task listing.\n"
             + "Parameters: CATEGORY(default to 't' if not given or incorrect) INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " " + CATEGORY_CHARS + " 1";
+            + "Example: " + COMMAND_WORD + " " + Task.CATEGORY_CHARS + " 1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted" + " %1$s: %2$s";
     
@@ -32,7 +27,7 @@ public class DeleteCommand extends Command {
     
     public DeleteCommand(int targetIndex) {
         // default to Todo category if no given category
-        this(targetIndex, DEFAULT_INDEX);
+        this(targetIndex, Task.DEFAULT_CATEGORY_INDEX);
     }
     
     public DeleteCommand(int targetIndex, int categoryIndex) {
@@ -59,7 +54,7 @@ public class DeleteCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, CATEGORIES[categoryIndex], taskToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, Task.CATEGORIES[categoryIndex], taskToDelete));
     }
 
     @Override

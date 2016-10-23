@@ -18,9 +18,11 @@ public class UndoCommandTest extends TaskManagerGuiTest {
     @Test
     public void undo() {
         
+        // use a stack to hold all previous TestTaskList
         testTaskListStack = new Stack<TestTaskList>();
         testTaskListStack.push(new TestTaskList(td.getTypicalTasks()));
         
+        // test undoing for all commands that mutates the list and saves its state
         TestTask taskToAdd = td.todo;
         testTaskListStack.push(addTask(taskToAdd, testTaskListStack.peek()));
         
@@ -30,16 +32,17 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("clear");
         assertUndoSuccess(testTaskListStack.pop(), "clear");
         
+        // test if using accelerator for undo works
         TestTaskList previous = testTaskListStack.pop();
-        assertUndoSuccess(previous, "delete " + targetIndex);
+        assertUndoUsingAcceleratorSuccess(previous, "delete " + targetIndex);
         testTaskListStack.push(previous);
         
         TestTask taskToEdit = td.event;
         testTaskListStack.push(editTask(1, taskToEdit, "t", testTaskListStack.peek()));
-        commandBox.runCommand("find xmass");        
+        commandBox.runCommand("find xmas");        
                            
-        assertUndoSuccess(testTaskListStack.pop(), "find xmass");
-        assertUndoSuccess(testTaskListStack.pop(), taskToEdit.getEditCommand(1, "t"));
+        assertUndoSuccess(testTaskListStack.pop(), "find xmas");
+        assertUndoUsingAcceleratorSuccess(testTaskListStack.pop(), taskToEdit.getEditCommand(1, "t"));
         assertUndoSuccess(testTaskListStack.pop(), taskToAdd.getAddCommand());
         assertNoMoreUndos();        
     }
@@ -73,6 +76,14 @@ public class UndoCommandTest extends TaskManagerGuiTest {
     
     private void assertUndoSuccess(TestTaskList expectedList, String commandText) {
         commandBox.runCommand("undo");
+
+        assertTrue(expectedList.isListMatching(taskListPanel));
+        
+        assertResultMessage(UndoCommand.MESSAGE_UNDO_SUCCESS + commandText);
+    }
+    
+    private void assertUndoUsingAcceleratorSuccess(TestTaskList expectedList, String commandText) {
+        mainMenu.useUndoCommandUsingAccelerator();
 
         assertTrue(expectedList.isListMatching(taskListPanel));
         

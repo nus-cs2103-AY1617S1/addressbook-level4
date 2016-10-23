@@ -1,7 +1,15 @@
 package seedu.taskitty.commons.util;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
+
+import seedu.taskitty.model.task.TaskDate;
+import seedu.taskitty.model.task.TaskTime;
 
 /**
  * Converts a String to Date and vice versa.
@@ -48,4 +56,12 @@ public class TimeUtil {
         
         return LocalTime.of(hour, minute);
     }
+    
+    /**
+     * creates a current Time object for comparison with current time.
+     * @return
+     */
+    public static LocalDateTime createCurrentTime() {
+		return LocalDateTime.now();
+	}
 }
