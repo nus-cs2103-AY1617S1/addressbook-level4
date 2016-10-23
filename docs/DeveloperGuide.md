@@ -224,6 +224,14 @@ The `Storage` component has the following functions:
 * can save `UserPref` objects in json format and read it back.
 * can save the Agendum data in xml format and read it back.
 
+The Object Diagram below shows what it looks like during runtime.
+
+<img src="images/StorageManagerObjectDiagram.png" width="400"><br>
+
+The Sequence Diagram below shows how the storage class will interact with model when `Load` command is executed.
+
+<img src="images/SDforLoad.png" width="700"><br>
+
 
 ### 6. Common classes
 
@@ -231,53 +239,11 @@ Classes used by multiple components are in the `seedu.agendum.commons` package.
 
 They are further separated into sub-packages - namely `core`, `events`, `exceptions` and `util`.
 
-#### Core
-This package consists of the essential classes that are required by multiple components.
+* Core - This package consists of the essential classes that are required by multiple components.
+* Events -This package consists of the different type of events that can occur; these are used mainly by EventManager and EventBus.
+* Exceptions - This package consists of exceptions that may occur with the use of Agendum.
+* Util - This package consists of additional utilities for the different components.
 
-* `ComponentManager` - Registers its event handlers in the EventsCenter. It is the base class of Agendum's manager classes, namely `LogicManager`, `ModelManager`, `StorageManager` and `UiManager`
-* `Config` - Stores the configuration values of Agendum; these include:
-   * Application title
-   * Logging level
-   * User preferences file path
-   * ToDoList data path
-* `EventsCenter` - Manages all events in the Agendum. Uses _Event Driven_ design to help other components communicate. Whenever a apecific event is raised, this class will be dispatch it to all the classes that have subscribed to this event. It is written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained)
-* `GuiSettings` - Saves the setting of the GUI, such as the width, height and coordinates on the screen.
-* `LogsCenter` -  Uses java.logging to write log messages to Agendum's log file.
-* `Messages` - Stores generalised messages that will be visible to the user.
-* `UnmodifiableObservableList` - Wraps an observable list, making it into an unmodifiable observable list
-* `Version` - Stores information about the version of Agendum
-
-#### Events
-This package consists of the different type of events that can occur; these are used mainly by EventManager and EventBus.
-
-* `SaveLocationChangedEvent` - Indicate the user uses the `store` command to request a change of data save location; will be dispatched to the UI and Storage classes.
-* `ToDoListChangedEvent` - Indicates the user has mutated the todo list; will be dispatch to UI and Storage.
-* `DataSavingExceptionEvent` - Indicates an exception during a file saving.
-* `ExitAppRequestEvent` - Indicates the user has requested to exit the app.
-* `IncorrectCommandAttemptedEvent` - TRepresents an incorrect input by the user
-* `JumpToListRequestEvent` - Indicates a request to jump to the list of tasks
-* `ShowHelpRequestEvent` - Indicates user has used the help `command`
-* `TaskPanelSelectionChangedEvent` - Indicates the user has selected a different panel
-
-#### Exceptions
-This package consists of exceptions that may occur with the use of Agendum.
-
-* `DataConversionException` - Conversion from one data format to another has failed.
-* `DuplicateDataException` - There are multiple occurrences of the same data, when it is not allowed.
-* `FileDeletionException` - A valid file cannot be deleted, e.g. the file is being used
-* `IllegalValueException` - The given data does not fulfil requirements, e.g. Only positive numbers allowed, but -1 is given
-
-#### Util
-This package consists of additional utilities for the different components.
-* `AppUtil` - Used for app specific functions, e.g. loading an image
-* `CollectionUtil` - Used for checking or validating collections, e.g. ensure no null objects in a list
-* `ConfigUtil` - Used for accessing the Config file, such as loading and saving
-* `FileUtil` - Used for writing, reading and deleting files, as well as checking existence and validation
-* `FxViewUtil` - Used for JavaFX views
-* `JsonUtil` - Used for conversion between Java Objects and json files
-* `StringUtil` - Used for additional functions in handling strings, such as checking if the string has only unsigned integers
-* `UrlUtil` - Used for handling URLs to websites
-* `XmlUtil` - Used for reading and writing XML files.
 
 
 &nbsp;
