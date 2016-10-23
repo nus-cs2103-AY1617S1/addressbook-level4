@@ -21,7 +21,9 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String start;
     @XmlElement(required = true)
-    private String address;
+    private String end;
+    @XmlElement(required = true)
+    private String recurrence;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -41,7 +43,8 @@ public class XmlAdaptedTask {
         name = source.getName().fullName;
         done = source.getDone().value;
         start = source.getStartTime().toString();
-        address = source.getEndTime().toString();
+        end = source.getEndTime().toString();
+        recurrence = source.getRecurrence().recurFreq;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -61,8 +64,9 @@ public class XmlAdaptedTask {
         final Name name = new Name(this.name);
         final Done done = new Done(this.done);
         final Time start = new Time(this.start);
-        final Time address = new Time(this.address);
+        final Time end = new Time(this.end);
+        final Recurrence recurrence = new Recurrence(this.recurrence);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, done, start, address, tags);
+        return new Task(name, done, start, end, recurrence, tags);
     }
 }

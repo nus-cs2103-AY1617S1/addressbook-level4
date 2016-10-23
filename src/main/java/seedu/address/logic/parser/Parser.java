@@ -27,13 +27,15 @@ public class Parser {
     
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile(
             "(?<name>([^/](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
-                    + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?"
+                    + "((?: (to|by) )(?<end>(([^;](?<! (every) ))|(\\[^/]))+))?"
+            		+ "((?: (every) )(?<recurring>(([^;](?<! p/))|(\\[^/]))+))?"
                     + "(?<tagArguments>(?: t/[^;]+)*)"
                     );
     
     private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
     		+ "((?: )(?<name>([^/](?<! (at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
-            + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?"
+            + "((?: (to|by) )(?<end>(([^;](?<! (every) ))|(\\[^/]))+))?"
+    		+ "((?: (every) )(?<recurring>(([^;](?<! p/))|(\\[^/]))+))?"
             + "(?<tagArguments>(?: t/[^;]+)*)"
             );
 
@@ -159,6 +161,7 @@ public class Parser {
         
     	String startTime = (matcher.group("start") == null) ? "" : matcher.group("start");
         String endTime = (matcher.group("end") == null) ? "" : matcher.group("end");
+        String recurFreq = (matcher.group("recurring") == null)? "": matcher.group("recurring");
         
         try {
 	            return new AddCommand(
@@ -166,6 +169,7 @@ public class Parser {
 	                    "false",
 	                    startTime,
 	                    endTime,
+	                    recurFreq,
 	                    getTagsFromArgs(matcher.group("tagArguments"))
 	            );       
         } catch (IllegalValueException ive) {

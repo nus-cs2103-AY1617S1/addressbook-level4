@@ -432,11 +432,12 @@ public class LogicManagerTest {
             Done privateDate = new Done(false);
             Time start = new Time("1/1/17 5pm");
             Time privateEndTime = new Time("2/1/17 5:00am");
+            Recurrence recurrence = new Recurrence("");
 //            Tag tag1 = new Tag("tag1");
 //            Tag tag2 = new Tag("tag2");
 //            UniqueTagList tags = new UniqueTagList(tag1, tag2);
             UniqueTagList tags = new UniqueTagList();
-            return new Task(name, privateDate, start, privateEndTime, tags);
+            return new Task(name, privateDate, start, privateEndTime, recurrence, tags);
         }
 
         /**
@@ -452,6 +453,7 @@ public class LogicManagerTest {
                     new Done(false),
                     new Time("1/1/17 5:00pm"),
                     new Time("2/1/17 5:00am"),
+                    new Recurrence(""),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -553,6 +555,7 @@ public class LogicManagerTest {
                     new Done(false),
                     new Time("1/1/17 5:00pm"),
                     new Time("2/1/17 5:00am"),
+                    new Recurrence(""),
                     new UniqueTagList(new Tag("tag"))
             );
         }

@@ -14,20 +14,20 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             alice =  new TaskBuilder().withName("Alice Pauline").withEndTime("11:59pm")
-                    .withStartTime("11:59pm").withDone(false)
+                    .withStartTime("11:59pm").withDone(false).withRecurrence("")
                     .build();
             benson = new TaskBuilder().withName("Benson Meier").withEndTime("11:59pm")
-                    .withStartTime("11:59pm").withDone(false)
+                    .withStartTime("11:59pm").withDone(false).withRecurrence("")
                     .build();
-            carl = new TaskBuilder().withName("Carl Kurz").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").build();
-            elle = new TaskBuilder().withName("Elle Meyer").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").build();
-            george = new TaskBuilder().withName("George Best").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").build();
+            carl = new TaskBuilder().withName("Carl Kurz").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
+            daniel = new TaskBuilder().withName("Daniel Meier").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
+            elle = new TaskBuilder().withName("Elle Meyer").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
+            fiona = new TaskBuilder().withName("Fiona Kunz").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
+            george = new TaskBuilder().withName("George Best").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
 
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").build();
-            ida = new TaskBuilder().withName("Ida Mueller").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").build();
+            hoon = new TaskBuilder().withName("Hoon Meier").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
+            ida = new TaskBuilder().withName("Ida Mueller").withDone(false).withStartTime("11:59pm").withEndTime("11:59pm").withRecurrence("").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
