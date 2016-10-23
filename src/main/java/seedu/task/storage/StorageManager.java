@@ -3,14 +3,16 @@ package seedu.task.storage;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.task.commons.core.ComponentManager;
+import seedu.task.commons.core.Config;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
+import seedu.task.commons.events.storage.FilePathChangedEvent;
 import seedu.task.commons.exceptions.DataConversionException;
+import seedu.task.commons.util.ConfigUtil;
 import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.UserPrefs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -54,6 +56,12 @@ public class StorageManager extends ComponentManager implements Storage {
     public String getTaskManagerFilePath() {
         return taskManagerStorage.getTaskManagerFilePath();
     }
+    //@@author A0144939R
+    @Override
+    public void setTaskManagerFilePath(String filePath) {
+        taskManagerStorage.setTaskManagerFilePath(filePath); 
+    }
+    //@@author
 
     @Override
     public Optional<ReadOnlyTaskManager> readTaskManager() throws DataConversionException, IOException {
@@ -86,6 +94,19 @@ public class StorageManager extends ComponentManager implements Storage {
             saveTaskManager(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
+        }
+    }
+    //@@author A0144939R
+    public void handleFilePathChangedEvent(FilePathChangedEvent event) throws DataConversionException {
+        String currentFilePath = getTaskManagerFilePath();
+        try {
+            //use logger
+            setTaskManagerFilePath(event.newFilePath);
+            Config currentConfig = ConfigUtil.readConfig(currentFilePath).orElse(new Config());
+            ConfigUtil.saveConfig(currentConfig, event.newFilePath);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
