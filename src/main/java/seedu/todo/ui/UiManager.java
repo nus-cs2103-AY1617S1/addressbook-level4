@@ -111,6 +111,12 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
+    private void handleShowPreviewEvent(ShowPreviewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        // mainWindow.getHelpView().displayCommandSummaries(event.getCommandSummaries());
+    }
+
+    @Subscribe
     private void handleCommandInputEnterEvent(CommandInputEnterEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getHelpView().hideHelpPanel();

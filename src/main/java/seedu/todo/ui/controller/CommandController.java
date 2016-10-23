@@ -67,18 +67,18 @@ public class CommandController {
         case ENTER :    // Submitting command
             //Note: Do not execute an empty command. TODO: This check should be done in the parser class.
             System.out.println("EXECUTED ENTER");
+            EventsCenter.getInstance().post(new CommandInputEnterEvent());
             if (!StringUtil.isEmpty(userInput)) {
                 CommandResult result = logic.execute(userInput);
-                EventsCenter.getInstance().post(new CommandInputEnterEvent());
                 handleCommandResult(result);
             }
             break;
         default :   // Typing command, show preview
             System.out.println("SHOW PREVIEW");
+            /*
             if (!StringUtil.isEmpty(userInput)) {
-                CommandResult result = logic.execute("help");
-                handlePreviewResult(result);
             }
+            */
             break;
         }
     }
