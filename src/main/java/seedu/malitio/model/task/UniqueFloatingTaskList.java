@@ -48,6 +48,20 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
+    
+    /**
+     * Returns true if the list contains an equivalent task as the given argument as well as identical tag(s).
+     */
+    public boolean containsWithTags(ReadOnlyFloatingTask toCheck) {
+        assert toCheck!=null;
+        if (!internalList.contains(toCheck)) {
+            return false;
+        }
+        else {
+            int index = internalList.indexOf(toCheck);
+            return internalList.get(index).getTags().getInternalList().containsAll(toCheck.getTags().getInternalList());
+        }
+    }
 
     /**
      * Adds a task to the list.
@@ -62,10 +76,20 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         internalList.add(toAdd);
     }
     
+    
+    public void add(FloatingTask toAdd, int index) throws DuplicateFloatingTaskException{
+        assert toAdd != null;
+        assert index>=0;
+        if (contains(toAdd)) {
+            throw new DuplicateFloatingTaskException();
+        }
+        internalList.add(index, toAdd);        
+    }
+    
     public void edit(FloatingTask edited, ReadOnlyFloatingTask beforeEdit) throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
         assert edited!=null;
         assert beforeEdit!=null;
-        if (contains(edited)) {
+        if (containsWithTags(edited)) {
             throw new DuplicateFloatingTaskException();
         }
         
@@ -74,8 +98,8 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         }
         
         int indexToReplace = internalList.indexOf(beforeEdit);
-        internalList.add(indexToReplace, edited);
         internalList.remove(beforeEdit);
+        internalList.add(indexToReplace, edited);
     }
 
     /**
@@ -113,4 +137,5 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
 }

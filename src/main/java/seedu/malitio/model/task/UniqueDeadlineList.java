@@ -50,6 +50,20 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
+    
+    /**
+     * Returns true if the list contains an equivalent deadline as the given argument as well as identical tag(s).
+     */
+    public boolean containsWithTags(ReadOnlyDeadline toCheck) {
+        assert toCheck!=null;
+        if (!internalList.contains(toCheck)) {
+            return false;
+        }
+        else {
+            int index = internalList.indexOf(toCheck);
+            return internalList.get(index).getTags().getInternalList().containsAll(toCheck.getTags().getInternalList());
+        }
+    }
 
     /**
      * Adds a task to the list.
@@ -67,17 +81,16 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     public void edit(Deadline edited, ReadOnlyDeadline beforeEdit) throws DuplicateDeadlineException, DeadlineNotFoundException {
         assert edited!=null;
         assert beforeEdit!=null;
-        if (contains(edited)) {
+        if (containsWithTags(edited)) {
             throw new DuplicateDeadlineException();
         }
         
         if (!contains(beforeEdit)) {
             throw new DeadlineNotFoundException();
         }
-        
-        int indexToReplace = internalList.indexOf(beforeEdit);
-        internalList.add(indexToReplace, edited);
+ 
         internalList.remove(beforeEdit);
+        internalList.add(edited);
     }
 
     /**

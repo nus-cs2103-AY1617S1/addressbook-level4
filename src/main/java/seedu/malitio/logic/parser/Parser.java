@@ -35,8 +35,9 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT =
+
             Pattern.compile("(?<targetIndex>[e|d|f|E|D|F]\\d+)"
-                    + "(?<name>[^/]+)"
+                    + "(?<name>(?:[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
     
     private static final Set<String> TYPES_OF_TASKS = new HashSet<String>(Arrays.asList("f", "d", "e" ));
@@ -82,6 +83,12 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+            
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+            
+        case RedoCommand.COMMAND_WORD:
+            return new RedoCommand();
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -168,7 +175,9 @@ public class Parser {
             int taskNum = Integer.parseInt(index.substring(1));
             
             String name = matcher.group("name");
-            
+            if (name.equals("") && getTagsFromArgs(matcher.group("tagArguments")).isEmpty()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            }
             String deadline = getDeadlineFromArgs(name);
             if (!deadline.isEmpty()) {
                 name = name.replaceAll(" by " + deadline, "");

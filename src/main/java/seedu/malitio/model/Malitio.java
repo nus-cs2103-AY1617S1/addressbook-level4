@@ -112,6 +112,7 @@ public class Malitio implements ReadOnlyMalitio {
         resetData(newData.getFloatingTaskList(), newData.getDeadlineList(), newData.getEventList(), newData.getTagList());
     }
 
+
 //// task-level operations
 
     /**
@@ -124,6 +125,12 @@ public class Malitio implements ReadOnlyMalitio {
     public void addFloatingTask(FloatingTask p) throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
+    }
+    
+    public void addFloatingTask(FloatingTask p, int index) throws UniqueFloatingTaskList.DuplicateFloatingTaskException {
+        syncTagsWithMasterList(p);
+        tasks.add(p, index);
+        
     }
     
     /**
@@ -333,5 +340,6 @@ public class Malitio implements ReadOnlyMalitio {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, deadlines, events, tags);
     }
+
 
 }

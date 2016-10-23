@@ -1,6 +1,7 @@
 package seedu.malitio.model;
 
 import seedu.malitio.commons.core.UnmodifiableObservableList;
+import seedu.malitio.model.history.InputHistory;
 import seedu.malitio.model.task.DateTime;
 import seedu.malitio.model.task.Deadline;
 import seedu.malitio.model.task.Event;
@@ -19,6 +20,7 @@ import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * The API of the Model component.
@@ -42,6 +44,9 @@ public interface Model {
     /** Adds the given floating task */
     void addFloatingTask(FloatingTask task) throws UniqueFloatingTaskList.DuplicateFloatingTaskException;
     
+    /** Adds the given floating task at a specific index */
+    void addFloatingTaskAtSpecificPlace(FloatingTask task, int index) throws DuplicateFloatingTaskException;
+    
     /** Adds the given deadline*/
     void addDeadline(Deadline deadline) throws UniqueDeadlineList.DuplicateDeadlineException;
     
@@ -56,6 +61,12 @@ public interface Model {
     
     /** Returns the filtered deadline list as an {@code UnmodifiableObservableList<ReadOnlyEvent>} */
     UnmodifiableObservableList<ReadOnlyEvent> getFilteredEventList();
+    
+    /** Returns the History of the Model so far */
+    Stack<InputHistory> getHistory();
+    
+    /** Returns the Future of the Model so far which are commands that are undo-ed */
+    Stack<InputHistory> getFuture();
 
     /** Updates the filter of the filtered floating task list to show all tasks */
     void updateFilteredTaskListToShowAll();
@@ -89,5 +100,6 @@ public interface Model {
 
     /** Replaces the event with the intended edit.*/
     void editEvent(Event editedTask, ReadOnlyEvent eventToEdit) throws DuplicateEventException, EventNotFoundException;
+
     
 }

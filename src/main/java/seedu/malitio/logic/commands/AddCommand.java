@@ -90,6 +90,7 @@ public class AddCommand extends Command {
         if (toAddFloatingTask!=null){
             try {
                 model.addFloatingTask(toAddFloatingTask);
+                model.getFuture().clear();
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAddFloatingTask));
             } catch (UniqueFloatingTaskList.DuplicateFloatingTaskException e) {
                 return new CommandResult(MESSAGE_DUPLICATE_TASK);
@@ -98,6 +99,7 @@ public class AddCommand extends Command {
         else if (toAddDeadline != null){
             try {
                 model.addDeadline(toAddDeadline);
+                model.getFuture().clear();
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAddDeadline));
             } catch (UniqueDeadlineList.DuplicateDeadlineException e) {
                 return new CommandResult(MESSAGE_DUPLICATE_DEADLINE);
@@ -106,6 +108,7 @@ public class AddCommand extends Command {
         else {
             try {
                 model.addEvent(toAddEvent);
+                model.getFuture().clear();
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAddEvent));
             } catch (UniqueEventList.DuplicateEventException e) {
                 return new CommandResult(MESSAGE_DUPLICATE_EVENT);

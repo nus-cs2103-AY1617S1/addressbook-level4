@@ -54,6 +54,20 @@ public class UniqueEventList implements Iterable<Event> {
     }
 
     /**
+     * Returns true if the list contains an equivalent event as the given argument as well as identical tag(s).
+     */
+    public boolean containsWithTags(ReadOnlyEvent toCheck) {
+        assert toCheck!=null;
+        if (!internalList.contains(toCheck)) {
+            return false;
+        }
+        else {
+            int index = internalList.indexOf(toCheck);
+            return internalList.get(index).getTags().getInternalList().containsAll(toCheck.getTags().getInternalList());
+        }
+    }
+    
+    /**
      * Adds a task to the list.
      *
      * @throws DuplicateEventException if the event to add is a duplicate of an existing event in the list.
@@ -69,7 +83,7 @@ public class UniqueEventList implements Iterable<Event> {
     public void edit(Event edited, ReadOnlyEvent beforeEdit) throws DuplicateEventException, EventNotFoundException {
         assert edited!=null;
         assert beforeEdit!=null;
-        if (contains(edited)) {
+        if (containsWithTags(edited)) {
             throw new DuplicateEventException();
         }
         
@@ -77,9 +91,8 @@ public class UniqueEventList implements Iterable<Event> {
             throw new EventNotFoundException();
         }
         
-        int indexToReplace = internalList.indexOf(beforeEdit);
-        internalList.add(indexToReplace, edited);
         internalList.remove(beforeEdit);
+        internalList.add(edited);
     }
 
     /**
