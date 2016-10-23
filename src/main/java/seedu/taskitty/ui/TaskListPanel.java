@@ -17,24 +17,14 @@ import java.util.logging.Logger;
 /**
  * Base class for the 3 panels containing the list of tasks.
  */
-public class TaskListPanel extends UiPart {
+public abstract class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = null;
     protected VBox panel;
     protected AnchorPane placeHolderPane;
-
-    public TaskListPanel() {
-        super();
-    }
 
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
     }
 
     @Override
@@ -49,7 +39,7 @@ public class TaskListPanel extends UiPart {
         return taskListPanel;
     }
     
-    protected void configure(ObservableList<ReadOnlyTask> taskList) {};
+    public abstract void configure(ObservableList<ReadOnlyTask> taskList);
     
     protected void setConnections(ListView<ReadOnlyTask> taskListView, ObservableList<ReadOnlyTask> taskList) {
         taskListView.setItems(taskList);

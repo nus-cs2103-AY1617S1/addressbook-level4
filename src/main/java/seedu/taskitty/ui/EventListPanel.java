@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -35,7 +34,7 @@ public class EventListPanel extends TaskListPanel {
         return FXML;
     }
 
-    protected void configure(ObservableList<ReadOnlyTask> eventList) {
+    public void configure(ObservableList<ReadOnlyTask> eventList) {
     	header.setText("EVENTS [e]");
     	header.setStyle("-fx-text-fill: white");
     	setDate();
@@ -51,11 +50,12 @@ public class EventListPanel extends TaskListPanel {
     	date.setStyle("-fx-background-color: white");
     }
 
-    public void scrollTo(int index) {
-        Platform.runLater(() -> {
-            eventListView.scrollTo(index);
-            eventListView.getSelectionModel().clearAndSelect(index);
-        });
-    }
+    // since we have no more select command this becomes useless... right?
+//    public void scrollTo(int index) {
+//        Platform.runLater(() -> {
+//            eventListView.scrollTo(index);
+//            eventListView.getSelectionModel().clearAndSelect(index);
+//        });
+//    }
     
 }
