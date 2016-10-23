@@ -272,12 +272,12 @@ public class LogicManagerTest {
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = Messages.getInvalidCommandFormatMessage(DeleteCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("del", expectedMessage);
     }
 
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("delete");
+        assertIndexNotFoundBehaviorForCommand("del");
     }
 
     @Test
@@ -288,7 +288,7 @@ public class LogicManagerTest {
         expectedAB.removeTask(threeTasks.get(1));
         TestDataHelper.addToModel(model, threeTasks);
 
-        assertCommandBehavior("delete 2",
+        assertCommandBehavior("del 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
