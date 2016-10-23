@@ -7,6 +7,8 @@ import java.util.Stack;
 
 import seedu.jimi.logic.commands.Command;
 import seedu.jimi.logic.commands.CommandResult;
+import seedu.jimi.logic.commands.RedoCommand;
+import seedu.jimi.logic.commands.UndoCommand;
 
 /**
  * History of the operations
@@ -23,7 +25,9 @@ public final class History {
         if(!undoStack.isEmpty()) {
             Context previous = undoStack.pop();
             previous.cmd.undo();
-            redoStack.push(previous.cmd);
+            if (!(previous.cmd instanceof RedoCommand)) {
+                redoStack.push(previous.cmd);
+            }
             return previous.result;
         } 
         return new CommandResult("Already earlist operation!");
@@ -33,15 +37,20 @@ public final class History {
         if(!redoStack.isEmpty()) {
             Command cmd = redoStack.pop();
             CommandResult result = cmd.execute();
-            undoStack.push(new Context(cmd, result));
+            if (!(cmd instanceof UndoCommand)) {
+                undoStack.push(new Context(cmd, result));
+            }
             return result;
         }
         return new CommandResult("Already most recent operation!");
     }
     
     public void execute(final Command cmd, final CommandResult result) {
-        undoStack.push(new Context(cmd, result));
-        redoStack.clear();
+        if (!(cmd instanceof UndoCommand) 
+                && !(cmd instanceof RedoCommand)) {
+            undoStack.push(new Context(cmd, result));
+            redoStack.clear();
+        }
     }
     
     public static History getInstance() {
