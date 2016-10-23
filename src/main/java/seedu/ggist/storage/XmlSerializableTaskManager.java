@@ -47,7 +47,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
             try {
                 lists.add(t.toModelType());
             } catch (IllegalValueException e) {
-                //TODO: better error handling
+                System.out.println(e.getMessage());
             }
         }
         return lists;

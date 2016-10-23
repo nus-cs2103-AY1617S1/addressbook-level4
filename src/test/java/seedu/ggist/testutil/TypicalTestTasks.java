@@ -60,7 +60,7 @@ public class TypicalTestTasks {
         }
     }
 
-    public static void loadTaskManagerWithSampleData(TaskManager ab) {
+    public static void loadTaskManagerWithSampleData(TaskManager ab) throws IllegalValueException {
 
         try {
             ab.addTask(new Task(milk));
@@ -79,7 +79,7 @@ public class TypicalTestTasks {
         return new TestTask[]{milk, assignment, movie, jog, holiday, dinner};
     }
 
-    public TaskManager getTypicalTaskManager(){
+    public TaskManager getTypicalTaskManager() throws IllegalValueException{
         TaskManager ab = new TaskManager();
         loadTaskManagerWithSampleData(ab);
         return ab;

@@ -102,13 +102,13 @@
 }
 
 .cell_big_label {
-	-fx-font-family: "Courier New", Courier, monospace;
+	-fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     -fx-font-size: 13px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-	-fx-font-family: "Courier New", Courier, monospace;
+	-fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
     -fx-font-size: 12px;
     -fx-text-fill: #010504;
 }

@@ -1,8 +1,10 @@
 package seedu.ggist.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.ggist.commons.core.ComponentManager;
 import seedu.ggist.commons.core.LogsCenter;
+import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
 import seedu.ggist.commons.exceptions.IllegalValueException;
@@ -19,6 +21,7 @@ import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -31,6 +34,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
+    private SortedList<Task> sortedTasks;
     private String today;
 
     public String lastListing;
@@ -96,6 +100,7 @@ public class ModelManager extends ComponentManager implements Model {
  
         taskManager.editTask(target, field, value);
         updateListing();
+        sortFilteredList();
     	indicateTaskManagerChanged();
     }
 
@@ -103,6 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskManager.addTask(task);
         updateListing();
+        sortFilteredList();
         indicateTaskManagerChanged();
     }
 
@@ -128,6 +134,22 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getSortedTaskList() {
+        sortedTasks = sortFilteredList();
+        return new UnmodifiableObservableList<>(sortedTasks);
+    }
+    
+    private SortedList<Task> sortFilteredList() {
+        Comparator<ReadOnlyTask> compareDateTime = new Comparator<ReadOnlyTask>(){
+            public int compare (ReadOnlyTask t1, ReadOnlyTask t2){
+                return t1.getStartDateTime().before(t2.getStartDateTime()) ? -1 : 
+                       (t1.getEndDateTime().before(t2.getEndDateTime()) ? -1 : 1);
+            }
+        };
+        return new SortedList<Task>(filteredTasks, compareDateTime);
     }
 
     @Override
@@ -268,8 +290,8 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return taskDateKeyWords.equals(task.getStartDate().toString()) || 
-                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString()) && !task.getDone();
-            
+                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString()) && !task.getDone() ||
+                   (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED));          
         }
 
         @Override
