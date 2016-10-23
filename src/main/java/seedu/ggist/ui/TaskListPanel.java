@@ -109,6 +109,7 @@ public class TaskListPanel extends UiPart {
             } else {
                 setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
             }
+            
         }
     }
 
