@@ -21,6 +21,7 @@ public class DoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Completed Task: %1$s";
+    public static final String MESSAGE_TASK_ALREADY_DONE = "Task is already completed.";
 
     public DoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -54,11 +55,14 @@ public class DoneCommand extends Command {
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be found";
             }
+            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, readTaskToComplete));
         }
-        
+        else {
+            return new CommandResult(String.format(MESSAGE_TASK_ALREADY_DONE));
+        }
         //TODO look at posting a set as completed event.
         //EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, readTaskToComplete));
+        
 
     }
 
