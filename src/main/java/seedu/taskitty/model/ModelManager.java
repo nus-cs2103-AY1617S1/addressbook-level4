@@ -107,6 +107,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@ author A0139052L
     public synchronized String undo() throws NoPreviousCommandException {
         if (noMorePreviousCommand()) {            
             throw new NoPreviousCommandException(Messages.MESSAGE_NO_PREVIOUS_COMMANDS);

@@ -2,10 +2,9 @@ package seedu.taskitty.logic.commands;
 
 import seedu.taskitty.commons.exceptions.NoPreviousCommandException;
 
+//@@author A0139052L
 /**
  * Undoes previous command given
- * @author tan
- *
  */
 public class UndoCommand extends Command {
     
