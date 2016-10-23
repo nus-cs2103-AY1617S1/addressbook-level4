@@ -35,7 +35,7 @@ public class EventListPanel extends TaskListPanel {
         return FXML;
     }
 
-    protected void configure(ObservableList<ReadOnlyTask> eventList) {
+    public void configure(ObservableList<ReadOnlyTask> eventList) {
     	header.setText("EVENTS [e]");
     	header.setStyle("-fx-text-fill: white");
     	setDate();

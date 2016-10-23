@@ -28,7 +28,7 @@ public class TodoListPanel extends TaskListPanel {
         return FXML;
     }
 
-    protected void configure(ObservableList<ReadOnlyTask> taskList) {
+    public void configure(ObservableList<ReadOnlyTask> taskList) {
     	header.setText("TODOS [t]");
     	header.setStyle("-fx-text-fill: white");
         setConnections(todoListView, taskList);

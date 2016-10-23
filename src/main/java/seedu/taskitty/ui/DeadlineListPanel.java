@@ -29,7 +29,7 @@ public class DeadlineListPanel extends TaskListPanel {
         return FXML;
     }
 
-    protected void configure(ObservableList<ReadOnlyTask> deadlineList) {
+    public void configure(ObservableList<ReadOnlyTask> deadlineList) {
     	header.setText("DEADLINES [d]");
     	header.setStyle("-fx-text-fill: white");
         setConnections(deadlineListView, deadlineList);
