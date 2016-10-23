@@ -7,11 +7,11 @@
 
 ## Quick Start
 
-1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+1. Ensure you have Java version `1.8.0_60` or later installed in your Computer.  
 
 2. Download the latest `mastermind.jar` from our repository's [releases](https://github.com/CS2103AUG2016-W11-C3/main/releases) tab.
 3. Copy the file to the folder you want to use as the home folder for your Mastermind.
-4. Double-click the file to start the app. The GUI should appear in a few seconds.
+4. Double-click the file to start the app. The app should appear in a few seconds.
    > <img src="https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/images/Ui.png" width="600">
 
 5. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
@@ -19,17 +19,14 @@
 
 6. Some example commands you can try:
 
-   - `list`
-       - lists all floating tasks, events and tasks due today
-
-   - `add` `'CS2103T tutorial work' ed/'tomorrow 11am'`
-       - adds a task named `CS2103T tutorial work` with deadline due tomorrow at 11am
-   - `delete 3`
-       - deletes the 3rd task shown in the current list
+   - `add 'CS2103T tutorial' ed/'tomorrow 11am'`
+       - adds a task named `CS2103T tutorial` with deadline due tomorrow at 11am
+   - `delete 1`
+       - deletes the 1st task shown in the current list
    - `exit`
        - exits the app
 
-7. Refer to the [Features](#features) section below for details of each command.<br>
+7. Refer to the [Features](#features) section below for details of each command.  
 
 
 ## Features
@@ -41,7 +38,7 @@
 >* Tasks will be added to the categories (event, deadlines, floating task) according to the keywords (`add`, `do`)
 >* Parameters can be in any order
 >* Separate different tags with `comma ,`
->* There are no limit to the number of tags a task can have (including 0 tag)
+>* There are no limit to the number of tags a task can have
 
 ### Viewing help : `help`
 
@@ -68,7 +65,7 @@ _Mastermind_ helps you to organize your task into three main categories:
 #### Adds an event  
 _Format:_
 ```java
-(add|do) '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_seperated_tags>...']
+(add|do) '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_separated_tags>...']
 ```
 
 _Example:_
@@ -79,7 +76,7 @@ _Example:_
 _Format:_
 
 ```java
-(add|do) '<name>' [ed/'<end_date>'] [t/'<comma_seperated_tags>...']
+(add|do) '<name>' [ed/'<end_date>'] [t/'<comma_separated_tags>...']
 ```  
 
 _Example:_
@@ -90,7 +87,7 @@ _Example:_
 #### Adds a floating task
 _Format:_
 ```java
-(add|do) '<name>' [t/'<comma_seperated_tags>...']
+(add|do) '<name>' [t/'<comma_separated_tags>...']
 ```  
 
 _Example:_
@@ -101,7 +98,7 @@ _Example:_
 #### Adds a recurring Deadline
 _Format:_
 ```java
-(add|do) [r/'recurrence'] <name>' [ed/'<end_date>'] [t/'<comma_seperated_tags>...']
+(add|do) [r/'recurrence'] <name>' [ed/'<end_date>'] [t/'<comma_separated_tags>...']
 ```  
 
 _Example:_
@@ -140,7 +137,7 @@ list <category_name>
 > `Tasks`
 > `Events`
 > `Deadlines`
-> `Archive`
+> `Archives`
 
 ### Finding all tasks containing any keyword in their description: `find`
 
@@ -169,39 +166,16 @@ _Examples:_
 > find "cs2010 ps10"
 ```  
 
-### Finding all tasks containing any tag: `findtag`
-Remember you can [tag a task](#adding-a-task-add-do) when you are adding a task?
-
-If you have tag a task before, now you can make use of `findtag` command to quickly display all tasks that contain the tags you spcified.
-
-_Format:_
-
-`findtag <tag_name>...`
-
->* The search is case-insensitive.
->* The order of the tag keywords does not matter.
->* Tasks matching at least one tag keyword will be returned.
-
-_Examples:_
-```java
-// returns Dinner on 10 Oct at 1900hrs (Date,meals)
-> find date
-```
-```java
-// returns CS2010 PS10 on 11 Oct by 1000hrs (Assignment)
-> find "exam,assignment"
-```
-
 ### Editing a task : `edit`
 Perhaps now you have a change of schedule, or you are unsatisfied with the task name you just created. _Mastermind_ allows you to quickly modify the task you created before using `edit` command.
 
 _Format:_
 ```java
-edit <index> '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_seperated_tags>...']
+edit <index> '<name>' [sd/'<start_date>'] [ed/'<end_date>'] [t/'<comma_separated_tags>...']
 ```
 
->* At least one optional argument is required.
->* Can edit only one of the field for the task.
+>* At least one optional parameter is required.
+>* can edit as many parameters as required
 
 _Examples:_
 
@@ -228,7 +202,6 @@ delete <index>
 
 >* Deletes the task at the specified `index`.
 >* The index refers to the index number shown in the most recent listing.
->* The index **must be a positive integer** 1, 2, 3, ...
 
 _Examples:_
 ```java
@@ -258,7 +231,7 @@ _Format:_
 undo
 ```
 
-> `undo` only affect mutable command such as `add`, `edit`, `delete`, etc, that make changes to the _Mastermind_ storage. It has no effect on command such as `list`, `find`.
+> `undo` only affect commands such as `add`, `edit`, `delete`, etc, that make changes to the _Mastermind_ storage. It has no effect on command such as `list`, `find`, `relocate` and `clear`.
 
 Example:
 ```java
@@ -287,11 +260,11 @@ _Format:_
 ```java
 redo
 ```
-> `redo` only affect mutable command such as `add`, `edit`, `delete`, etc, that make changes to the _Mastermind_ storage. It has no effect on command such as `list`, `find`.
+> `redo` only available immediately after an `undo` command is used.
 
 _Example:_
 ```java
-// Redo the last command being undone. See `undo` command.
+// Redo the last command being undone. See `undo`[#undo-a-command] command.
 > redo
 
 // returns
@@ -336,20 +309,18 @@ _Examples:_
 // select the "find" result and mark the task at index 1 as completed
 > mark 1
 ```
-### Repeating a previous command: `p`
+### Repeating a previous command: <kbd>Up arrow</kdb>
 
 Lazy to retype a similar command? Want to paste the previous command back to the field?  
 _Mastermind_ can do just that!
 
 _Format:_
-```java
-p
+``` <kbd>Up arrow</kdb>
 ```
 
 _Example:_
 ```java
 // Successfully loaded previous input
-> p
 ```
 
 ### Clearing all entries: `clear`
@@ -401,14 +372,14 @@ _Example:_
 
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?<br>
+**Q**: How do I transfer my data to another Computer?  
 **A**: Install the application in the other computer and overwrite the empty data file it creates with
        the file that contains the data of your previous Mastermind.
 
 **Q**: Is my data secure?  
 **A**: Your data is stored locally on your hard drive as a .xml file. Your data is as secure as your computer
 
-**Q**: Where is the <kbd>save</kbd> button or command? <br>
+**Q**: Where is the <kbd>save</kbd> button or command?  
 **A**: Mastermind's data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 
