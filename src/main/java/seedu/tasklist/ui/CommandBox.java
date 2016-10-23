@@ -1,10 +1,14 @@
 package seedu.tasklist.ui;
 
 import com.google.common.eventbus.Subscribe;
+
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.tasklist.commons.core.LogsCenter;
@@ -14,6 +18,7 @@ import seedu.tasklist.logic.Logic;
 import seedu.tasklist.logic.commands.*;
 
 import java.io.IOException;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 import org.json.JSONException;
@@ -27,6 +32,11 @@ public class CommandBox extends UiPart {
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
     String previousCommandTest;
+    
+    private Stack<String> upStack;
+    private Stack<String> downStack;
+    private String currHistLine;
+    private boolean hasTempEnd;
 
     private Logic logic;
 
@@ -45,7 +55,44 @@ public class CommandBox extends UiPart {
     public void configure(ResultDisplay resultDisplay, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
+        configureKeyEvents();
+        upStack = new Stack<String>();
+        downStack = new Stack<String>();
         registerAsAnEventHandler(this);
+    }
+    
+    private void configureKeyEvents(){
+    	commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        	public void handle(final KeyEvent keyEvent) {
+        		if (keyEvent.getCode() == KeyCode.UP) {
+        			getUpLine();
+        			keyEvent.consume();
+        		}
+        		if (keyEvent.getCode() == KeyCode.DOWN) {
+        			getDownLine();
+        			keyEvent.consume();
+        		}
+        	}
+        });
+    }
+    
+    private void getUpLine(){
+    	if(!upStack.isEmpty()){
+    		if(downStack.isEmpty()){
+    			hasTempEnd = true;
+    		}
+    		downStack.push(commandTextField.getText());
+    		currHistLine = upStack.pop();
+    		commandTextField.setText(currHistLine);
+    	}
+    }
+    
+    private void getDownLine(){
+    	if(!downStack.isEmpty()){
+    		upStack.push(commandTextField.getText());
+    		currHistLine = downStack.pop();
+    		commandTextField.setText(currHistLine);
+    	}
     }
 
     private void addToPlaceholder() {
@@ -73,13 +120,26 @@ public class CommandBox extends UiPart {
 
     @FXML
     private void handleCommandInputChanged() throws IOException, JSONException, ParseException {
-        //Take a copy of the command text
+        if(!downStack.isEmpty()){
+        	upStack.push(currHistLine);
+        	while(!downStack.isEmpty()){
+            	upStack.push(downStack.pop());
+            }
+        	if(hasTempEnd){
+        		upStack.pop();
+        		hasTempEnd = false;
+        	}
+        }
+        
+    	//Take a copy of the command text
         previousCommandTest = commandTextField.getText();
 
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
+        upStack.push(previousCommandTest);
+        
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
