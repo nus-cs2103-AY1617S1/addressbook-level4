@@ -25,9 +25,11 @@ import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -57,11 +59,12 @@ public class MainWindow extends UiPart {
     
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
-    private static final double WIDTH_MULTIPLIER_INDEX = 0.045;
-    private static final double WIDTH_MULTIPLIER_NAME = 0.315;
-    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.22;
-    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.22;
-    private static final double WIDTH_MULTIPLIER_TAGS = 0.2;
+    private static final double WIDTH_MULTIPLIER_INDEX = 0.07;
+    private static final double WIDTH_MULTIPLIER_NAME = 0.285;
+    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.18;
+    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.18;
+    private static final double WIDTH_MULTIPLIER_TAGS = 0.15;
+    private static final double WIDTH_MULTIPLIER_RECUR = 0.12;
     
     private static final short INDEX_HOME = 0;
     private static final short INDEX_TASKS = 1;
@@ -115,94 +118,79 @@ public class MainWindow extends UiPart {
 
     @FXML
     private TableView<ReadOnlyTask> taskTableHome;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> indexHome;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameHome;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> startDateHome;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> endDateHome;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> tagsHome;
+    @FXML
+    private TableColumn<ReadOnlyTask, Boolean> recurHome;
 
     @FXML
     private TableView<ReadOnlyTask> taskTableTask;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> indexTask;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameTask;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> startDateTask;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> endDateTask;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> tagsTask;
-    
+    @FXML
+    private TableColumn<ReadOnlyTask, Boolean> recurTask;
+
     @FXML
     private TableView<ReadOnlyTask> taskTableEvent;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> indexEvent;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameEvent;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> startDateEvent;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> endDateEvent;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> tagsEvent;
-    
+    @FXML
+    private TableColumn<ReadOnlyTask, Boolean> recurEvent;
+
     @FXML
     private TableView<ReadOnlyTask> taskTableDeadline;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> indexDeadline;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameDeadline;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> startDateDeadline;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> endDateDeadline;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> tagsDeadline;
-    
+    @FXML
+    private TableColumn<ReadOnlyTask, Boolean> recurDeadline;
+
     @FXML
     private TableView<ReadOnlyTask> taskTableArchive;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> indexArchive;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameArchive;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> startDateArchive;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> endDateArchive;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> tagsArchive;
-    
+    @FXML
+    private TableColumn<ReadOnlyTask, Boolean> recurArchive;
+
     @FXML
     private ListView<String> actionHistory;
 
@@ -332,6 +320,7 @@ public class MainWindow extends UiPart {
         initStartDate(startDateHome);
         initEndDate(endDateHome);
         initTags(tagsHome);
+        initRecur(recurHome);
     }
 
     /**
@@ -344,7 +333,8 @@ public class MainWindow extends UiPart {
         initName(taskNameTask);
         initStartDate(startDateTask);
         initEndDate(endDateTask);
-        initTags(tagsTask);        
+        initTags(tagsTask);
+        initRecur(recurTask);       
     }
     /**
      * Initialise the task in the Event tab 
@@ -357,6 +347,7 @@ public class MainWindow extends UiPart {
         initStartDate(startDateEvent);
         initEndDate(endDateEvent);
         initTags(tagsEvent);
+        initRecur(recurEvent);
     }
     /**
      * Initialise the task in the Deadline tab 
@@ -368,7 +359,8 @@ public class MainWindow extends UiPart {
         initName(taskNameDeadline);
         initStartDate(startDateDeadline);
         initEndDate(endDateDeadline);
-        initTags(tagsDeadline);        
+        initTags(tagsDeadline);
+        initRecur(recurDeadline);    
     }
     /**
      * Initialise the task in the archive tab 
@@ -380,7 +372,8 @@ public class MainWindow extends UiPart {
         initName(taskNameArchive);
         initStartDate(startDateArchive);
         initEndDate(endDateArchive);
-        initTags(tagsArchive);      
+        initTags(tagsArchive);  
+        initRecur(recurArchive);    
     }
     
 
@@ -392,8 +385,6 @@ public class MainWindow extends UiPart {
                 @Override
                 protected void updateItem(String item, boolean isEmpty){
                     super.updateItem(item, isEmpty);
-                    
-                    
                     
                     if(!isEmpty){
                         
@@ -619,6 +610,32 @@ public class MainWindow extends UiPart {
             }
         });
         
+    }
+    
+    
+    /**
+     * Initialize a checkbox to determine whether task is recurring
+     */
+    //@@author A0124797R
+    private void initRecur(TableColumn<ReadOnlyTask, Boolean> recurColumn) {
+        recurColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_RECUR));
+        recurColumn.setCellValueFactory(task -> new SimpleBooleanProperty(task.getValue().isRecur()));
+        
+        recurColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, Boolean>(){
+            
+            @Override
+            public void updateItem(Boolean isRecur , boolean isEmpty){
+                super.updateItem(isRecur, isEmpty);
+                if(!isEmpty()){
+                    CheckBox box = new CheckBox();
+                    box.setSelected(isRecur);
+                    
+                    this.setGraphic(box);
+                }else{
+                    this.setGraphic(null);;
+                }
+            }
+        });
     }
 
 

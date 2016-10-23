@@ -34,6 +34,7 @@
                                                                 <TableColumn fx:id="startDateHome" text="Start Date" />
                                                                 <TableColumn fx:id="endDateHome" text="End Date" />
                                                                 <TableColumn fx:id="tagsHome" text="Tags" />
+                                                                <TableColumn fx:id="recurHome" text="Recur" />
                                                             </columns>
                                                         </TableView>
                                                     </children>
@@ -51,6 +52,7 @@
                                                                 <TableColumn fx:id="startDateTask" text="Start Date" />
                                                                 <TableColumn fx:id="endDateTask" text="End Date" />
                                                                 <TableColumn fx:id="tagsTask" text="Tags" />
+                                                                <TableColumn fx:id="recurTask" text="Recur" />
                                                             </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -71,6 +73,7 @@
                                                                 <TableColumn fx:id="startDateEvent" text="Start Date" />
                                                                 <TableColumn fx:id="endDateEvent" text="End Date" />
                                                                 <TableColumn fx:id="tagsEvent" text="Tags" />
+                                                                <TableColumn fx:id="recurEvent" text="Recur" />
                                                             </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -91,6 +94,7 @@
                                                                 <TableColumn fx:id="startDateDeadline" text="Start Date" />
                                                                 <TableColumn fx:id="endDateDeadline" text="End Date" />
                                                                 <TableColumn fx:id="tagsDeadline" text="Tags" />
+                                                                <TableColumn fx:id="recurDeadline" text="Recur" />
                                                             </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -111,6 +115,7 @@
                                                                 <TableColumn fx:id="startDateArchive" text="Start Date" />
                                                                 <TableColumn fx:id="endDateArchive" text="End Date" />
                                                                 <TableColumn fx:id="tagsArchive" text="Tags" />
+                                                                <TableColumn fx:id="recurArchive" text="Recur" />
                                                             </columns>
                                              <columnResizePolicy>
                                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
