@@ -13,15 +13,22 @@ import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
+import seedu.todo.model.task.ValidationTask;
 import seedu.todo.storage.MovableStorage;
 import seedu.todo.storage.TodoListStorage;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import com.mifmif.common.regex.util.Iterator;
 
 //@@author A0135817B
 /**
@@ -141,6 +148,20 @@ public class TodoModel implements Model {
         saveUndoState();
         return todolist.update(getTaskIndex(index), update);
     }
+    
+    @Override
+    public void updateAll(Consumer<MutableTask> update) throws ValidationException {
+        saveUndoState();
+        Map<UUID, Integer> uuidMap = new HashMap<>();
+        for (int i = 0; i < tasks.size(); i++){
+            uuidMap.put(tasks.get(i).getUUID(), i);
+        }
+        List<Integer> indexes = new ArrayList<>();
+        for (ImmutableTask task : getObservableList()){
+            indexes.add(uuidMap.get(task.getUUID()));
+        }
+        todolist.updateAll(indexes, update);
+    }
 
     @Override
     public void view(TaskViewFilter view) {
@@ -207,4 +228,5 @@ public class TodoModel implements Model {
     public ObjectProperty<TaskViewFilter> getViewFilter() {
         return view;
     }
+
 }

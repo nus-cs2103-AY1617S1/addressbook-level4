@@ -57,11 +57,23 @@ public interface TodoListModel extends ImmutableTodoList {
      *                                task to be updated are not valid
      */
     ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException;
+    
+    /**
+     * Carries out the specified update in the fields of all visible tasks. Mutation of all {@link Task}
+     * objects should only be done in the <code>update</code> lambda. The lambda takes in a single parameter,
+     * a {@link MutableTask}, and does not expect any return value, as per the {@link update} command. 
+     * 
+     * @throws ValidationException if any updates on any of the task objects are considered invalid
+     */
+    void updateAll(List<Integer> indexes, Consumer <MutableTask> update) throws ValidationException;
 
     /**
      * Changes the save path of the TodoList storage 
      * @throws ValidationException if the path is not valid
      */
+    
+    
+    
     void save(String location) throws ValidationException;
 
     /**
@@ -79,5 +91,6 @@ public interface TodoListModel extends ImmutableTodoList {
      * Get an observable list of tasks. Used mainly by the JavaFX UI. 
      */
     ObservableList<ImmutableTask> getObservableList();
+
 }
 
