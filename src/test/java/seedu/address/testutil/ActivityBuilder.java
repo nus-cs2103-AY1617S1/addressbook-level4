@@ -14,7 +14,7 @@ public class ActivityBuilder {
 
     private TestActivity activity;
 
-    public ActivityBuilder() {
+    public ActivityBuilder() throws IllegalValueException {
         this.activity = new TestActivity();
     }
 

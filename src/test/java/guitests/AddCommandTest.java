@@ -65,12 +65,13 @@ public class AddCommandTest extends AddressBookGuiTest {
     }
 
     private void assertAddSuccess(TestActivity activityToAdd, TestActivity... currentList) {
-        System.out.println(activityToAdd.getAddCommand());
+
     	commandBox.runCommand(activityToAdd.getAddCommand());
 
         //confirm the new card contains the right data
         ActivityCardHandle addedCard = personListPanel.navigateToActivity(activityToAdd.getName().fullName);
         assertMatching(activityToAdd, addedCard);
+        System.out.println("hello!");
 
         //confirm the list now contains all previous persons plus the new person
         TestActivity[] expectedList = TestUtil.addPersonsToList(currentList, activityToAdd);

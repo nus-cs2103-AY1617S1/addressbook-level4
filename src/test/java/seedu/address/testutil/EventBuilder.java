@@ -15,7 +15,7 @@ public class EventBuilder extends ActivityBuilder {
 	
 	private TestEvent event;
 	
-	public EventBuilder() {
+	public EventBuilder() throws IllegalValueException {
 		this.event = new TestEvent();
 	}
 

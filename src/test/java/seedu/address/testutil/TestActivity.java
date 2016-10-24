@@ -2,7 +2,9 @@ package seedu.address.testutil;
 
 import java.util.Objects;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.DateUtil;
 import seedu.address.model.activity.event.Event;
 import seedu.address.model.activity.event.ReadOnlyEvent;
 import seedu.address.model.activity.task.ReadOnlyTask;
@@ -27,6 +29,7 @@ public class TestActivity implements ReadOnlyActivity {
     
     /**
      * Every field must be present and not null.
+     * @throws IllegalValueException 
      */
 /*    public TestActivity(Name name, Reminder reminder, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, reminder, tags);
@@ -35,7 +38,10 @@ public class TestActivity implements ReadOnlyActivity {
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 */
-    public TestActivity() {
+    public TestActivity() throws IllegalValueException {
+    	this.name = new Name("");
+    	this.reminder = new Reminder("");
+    	this.tags = new UniqueTagList();
     }
     
     @Override
@@ -94,11 +100,13 @@ public class TestActivity implements ReadOnlyActivity {
     //TestActivity specific commands
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
+        DateUtil dUtil = new DateUtil();
+        String dateFormat = "d-MM-yyyy h.mm a";
         
         sb.append("add " + this.getName().fullName + " ");
         
-        if (getReminder().value != null && !getReminder().value.equals("")) {
-        sb.append("r/" + this.getReminder().value + " ");
+        if (getReminder().value != null) {
+        sb.append("r/" + dUtil.outputDateTimeAsString(this.getReminder().getCalendarValue(), dateFormat) + " ");
         }
         
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));

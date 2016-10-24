@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import java.util.Calendar;
 import java.util.Objects;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Name;
@@ -20,7 +21,8 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
     private DueDate duedate;
     private Priority priority;
 	
-    public TestTask() {
+    public TestTask() throws IllegalValueException {
+    	super();
     }
     
 	@Override

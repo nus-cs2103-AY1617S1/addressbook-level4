@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import java.util.Objects;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.DateUtil;
 import seedu.address.model.activity.Name;
@@ -21,7 +22,8 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
     private StartTime startTime;
     private EndTime endTime;
     
-	public TestEvent() {
+	public TestEvent() throws IllegalValueException {
+		super();
 	}
 
 

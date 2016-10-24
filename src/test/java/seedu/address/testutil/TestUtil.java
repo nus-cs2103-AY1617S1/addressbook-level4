@@ -334,7 +334,7 @@ public class TestUtil {
 
     public static boolean compareCardAndPerson(ActivityCardHandle card, ReadOnlyActivity activity) {
     	String classOfActivity = activity.getClass().getSimpleName();
-    	
+
     	switch (classOfActivity) {
 	    	case "TestActivity":
 	    	    return card.isSameActivity(activity);
