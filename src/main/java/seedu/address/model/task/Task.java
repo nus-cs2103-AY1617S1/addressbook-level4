@@ -16,19 +16,20 @@ public class Task implements ReadOnlyTask {
     private Done done;
     private Time start;
     private Time end;
+    private Recurrence recurrence;
     
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Done done, Time start, Time end, UniqueTagList tags) {
+    public Task(Name name, Done done, Time start, Time end, Recurrence recurrence, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, done, start, end, tags);
         this.name = name;
         this.done = done;
         this.start = start;
         this.end = end;
-        this.rec = new Recurrence(true, "7");
+        this.recurrence = recurrence;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -36,7 +37,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDone(), source.getStartTime(), source.getEndTime(), source.getTags());
+        this(source.getName(), source.getDone(), source.getStartTime(), source.getEndTime(), source.getRecurrence(), source.getTags());
     }
 
     @Override
@@ -61,7 +62,7 @@ public class Task implements ReadOnlyTask {
     
     @Override
     public Recurrence getRecurrence() {
-        return rec;
+    	return recurrence;
     }
 
     @Override
@@ -83,6 +84,10 @@ public class Task implements ReadOnlyTask {
     
     public void setDone(Done done) {
     	this.done = done;
+    }
+    
+    public void setRecurrence(Recurrence recurrence) {
+    	this.recurrence = recurrence;
     }
     
     /**

@@ -556,18 +556,32 @@ Day:
 3i. It can be used online or offline.<br>
 3j. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
 
-3. **Any.do**
+### Any.do
+##### Strengths
 
-3a. It has support for events, deadlines(Today category/Notification reminder), floating task(Someday category).<br>
-3b. It has CRUD<br>
-3c. It has a search function.<br>
-3d. It has a way to keep track of which items are done and yet to be done reminders.<br>
-3e. It has CRUD features.<br>
-3f. It has a search function.<br>
-3g. It has different tabs for today, tomorrow and date-wise events.<br>
-3h. It allows to set priorities for different tasks.<br>
-3i. It allows to repeat reminders on a periodic basis.<br>
-3j. It can show all previous events which are marked done.<br>
+1. It has support for events, deadlines, floating tasks.<br>
+2. It has CRUD.<br>
+3. It has a power search function for all tasks.<br>
+4. It has a way to keep track of which items are done and yet to be done in reminders.<br>
+5. It has categories, predefined ones and customizable ones.<br>
+6. It allows priority settings for each tasks.<br>
+7. It has an alarm feature for tasks.<br>
+8. It has a very useful tasks descriptive features such as subtask, note, images, audio attachments, video attachments
+9. It has the option to make tasks recurring.<br>
+10. It has location reminder.<br>
+11. It has the option for Any.do to walk the user through his/her tasks to make tasks organization better<br>
+12. It can be synced across all devices such as computers, phones, tablets.<br>
+13. Easy to shift tasks between categories.<br>
+
+##### Weaknesses
+
+1. It has premium features that require payment.<br>
+2. No auto clear of done tasks or the option to auto clear done tasks after a certain period.<br>
+3. No levels of priority. Only priority or no priorty.<br>
+4. Floating tasks are not always displayed.<br>
+5. Only one color scheme in the basic version. <br>
+6. Requires an account to start using.<br>
+7. Not keyboard friendly. Requires substantial mouse usage.<br>
 
 4. **Reminders**
 

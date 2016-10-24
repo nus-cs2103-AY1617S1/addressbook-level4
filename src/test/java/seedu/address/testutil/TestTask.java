@@ -12,6 +12,7 @@ public class TestTask implements ReadOnlyTask {
     private Time end;
     private Time start;
     private Done done;
+    private Recurrence recurrence;
     private UniqueTagList tags;
     private Recurrence rec;
 
@@ -34,6 +35,10 @@ public class TestTask implements ReadOnlyTask {
     public void setDone(Done done) {
         this.done = done;
     }
+    
+    public void setRecurrence(Recurrence recurrence) {
+		this.recurrence = recurrence;
+	}
 
     @Override
     public Name getName() {
@@ -53,6 +58,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Time getEndTime() {
         return end;
+    }
+    
+    @Override
+    public Recurrence getRecurrence() {
+    	return recurrence;
     }
 
     @Override
@@ -75,8 +85,4 @@ public class TestTask implements ReadOnlyTask {
         return sb.toString();
     }
 
-    @Override
-    public Recurrence getRecurrence() {
-        return null;
-    }
 }

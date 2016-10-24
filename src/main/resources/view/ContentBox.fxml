@@ -10,18 +10,18 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.ContentBox">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.ContentBox">
    <children>
       <AnchorPane fx:id="summarypane" prefHeight="50.0">
          <children>
             <Label fx:id="summary" alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="15.0" prefHeight="62.0" prefWidth="167.0" styleClass="label-header" text=" Summary" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
          </children>
       </AnchorPane>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="600.0" style="-fx-background-color: white;" styleClass="contentbox">
+      <GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="378.0" style="-fx-background-color: white;" styleClass="contentbox">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="0.0" prefWidth="0.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="240.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="315.0" minWidth="10.0" prefWidth="310.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="282.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="315.0" minWidth="10.0" prefWidth="106.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -31,7 +31,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="alltask" text="All tasks" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Label fx:id="alltask" prefHeight="26.0" prefWidth="106.0" text="All tasks" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
             <Label fx:id="today" text="Today" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label fx:id="tomorrow" text="Tomorrow" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label fx:id="someday" text="Upcoming" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
@@ -41,27 +41,27 @@
             <Label fx:id="dummy3" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label fx:id="dummy4" text="4" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <Label fx:id="dummy5" text="5" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <ImageView fx:id="todayicon" fitHeight="51.0" fitWidth="51.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+            <ImageView fx:id="todayicon" fitHeight="51.0" fitWidth="51.0" translateX="18.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <image>
                   <Image url="@../images/today.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="51.0" fitWidth="51.0" GridPane.columnIndex="1">
+            <ImageView fitHeight="51.0" fitWidth="51.0" translateX="18.0" GridPane.columnIndex="1">
                <image>
                   <Image url="@../images/alltask.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="51.0" fitWidth="51.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <ImageView fitHeight="51.0" fitWidth="51.0" translateX="18.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <image>
                   <Image url="@../images/tomorrow.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="51.0" fitWidth="51.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ImageView fitHeight="51.0" fitWidth="51.0" translateX="18.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <image>
                   <Image url="@../images/upcoming.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="51.0" fitWidth="51.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <ImageView fitHeight="51.0" fitWidth="51.0" translateX="18.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <image>
                   <Image url="@../images/floating.png" />
                </image>

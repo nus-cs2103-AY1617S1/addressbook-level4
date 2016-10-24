@@ -146,6 +146,7 @@ public class ModelManager extends ComponentManager implements Model {
                     new Done(false),
                     new Time(""),
                     new Time(days + " days after " + task.getEndTime().appearOnUIFormat()),
+                    task.getRecurrence(),
                     task.getTags() 
                     ));
        
@@ -156,6 +157,7 @@ public class ModelManager extends ComponentManager implements Model {
                     new Done(false),
                     new Time(days + " days after " + task.getStartTime().appearOnUIFormat()),
                     new Time(""),
+                    task.getRecurrence(),
                     task.getTags() 
                     ));
         //Recurring task wth both start and end times  
@@ -165,6 +167,7 @@ public class ModelManager extends ComponentManager implements Model {
                     new Done(false),
                     new Time(days + " days after " + task.getStartTime().appearOnUIFormat()),
                     new Time(days + " days after " + task.getEndTime().appearOnUIFormat()),
+                    task.getRecurrence(),
                     task.getTags() 
                     ));
 
@@ -185,6 +188,8 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    
+
 
 
     //=========== Filtered Task List Accessors ===============================================================

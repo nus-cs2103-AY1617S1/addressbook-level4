@@ -29,7 +29,8 @@ public interface ReadOnlyTask {
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getDone().equals(this.getDone())
                 && other.getStartTime().equals(this.getStartTime())
-                && other.getEndTime().equals(this.getEndTime()));
+                && other.getEndTime().equals(this.getEndTime()))
+        		&& other.getRecurrence().equals(this.getRecurrence());
     }
 
     /**
@@ -44,6 +45,8 @@ public interface ReadOnlyTask {
                 .append(getStartTime())
                 .append(" EndTime: ")
                 .append(getEndTime())
+                .append("Recurrence: ")
+                .append(getRecurrence())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
