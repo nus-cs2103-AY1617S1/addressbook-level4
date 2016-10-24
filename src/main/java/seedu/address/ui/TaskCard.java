@@ -18,6 +18,8 @@ public class TaskCard extends UiPart{
     ImageView tickmark = new ImageView("file:///C:/Users/hastyrush/Documents/main/src/main/resources/images/tick.png");
     
     @FXML
+    private ImageView tickicon;
+    @FXML
     private GridPane gridpane;
     @FXML
     private HBox cardPane;
@@ -51,10 +53,9 @@ public class TaskCard extends UiPart{
     
     @Subscribe
     private void modelChangedEvent(TaskManagerChangedEvent change) {
-    	  cardPane.getChildren().add(tickmark);
-    	  gridpane.add(tickmark, 1, 0);
-    	
-    	
+        if (task.getDone().value == true) {
+    	  tickicon.setImage(tickmark.getImage());
+        }    	
     }
 
     @FXML
