@@ -60,30 +60,38 @@ public class TestTaskList {
         }
     }
     
-    public TestTask getTaskFromList(int index, String category) {
+    public TestTask getTaskFromList(int index, char category) {
         return getCategoryList(category).get(index);  
     }
     
-    public void editTaskFromList(int index, String category, TestTask task) {
+    public void editTaskFromList(int index, char category, TestTask task) {
         removeTaskFromList(index, category);
         addTaskToList(task);
     }
     
-    public void removeTaskFromList(int index, String category) {
+    public void removeTaskFromList(int index, char category) {
         getCategoryList(category).remove(index);
     }
     
-    public void markTaskAsDoneInList(int index, String category, TestTask task) {
+    public void removeTaskFromList(int index) {
+        removeTaskFromList(index, ' ');;
+    }
+    
+    public void markTaskAsDoneInList(int index, char category, TestTask task) {
     	removeTaskFromList(index, category);
     	task.markAsDone();
     	addTaskToList(task);
     }
     
-    public int size(String category) {
+    public int size(char category) {
         return getCategoryList(category).size();
     }
     
-    public List<TestTask> getCategoryList(String category) {
+    public int size() {
+        return size(' ');
+    }
+    
+    public List<TestTask> getCategoryList(char category) {
         switch (category) {
         
         case(Task.TODO_CATEGORY_CHAR) :

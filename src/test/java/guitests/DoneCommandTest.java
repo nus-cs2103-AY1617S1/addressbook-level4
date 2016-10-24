@@ -21,23 +21,23 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         //mark as done using todo/default
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         
-        int targetIndex = currentList.size("");
+        int targetIndex = currentList.size();
         assertMarkAsDoneSuccess(targetIndex, currentList);
 
         //mark as done in deadline
-        targetIndex = currentList.size("d");
-        assertMarkAsDoneSuccess(targetIndex, "d", currentList);
+        targetIndex = currentList.size('d');
+        assertMarkAsDoneSuccess(targetIndex, 'd', currentList);
 
         //mark as done in event
-        targetIndex = currentList.size("e");
-        assertMarkAsDoneSuccess(targetIndex, "e", currentList);
+        targetIndex = currentList.size('e');
+        assertMarkAsDoneSuccess(targetIndex, 'e', currentList);
         
         //invalid index
-        commandBox.runCommand("done t" + (currentList.size("t") + 1));
+        commandBox.runCommand("done t" + (currentList.size('t') + 1));
         assertResultMessage("The task index provided is invalid");
         
         //invalid command
-        commandBox.runCommand("donee e" + (currentList.size("e")));
+        commandBox.runCommand("donee e" + (currentList.size('e')));
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
     }
@@ -50,7 +50,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
      * @param currentList A copy of the current list of tasks (before being marked as done).     
      */
     private void assertMarkAsDoneSuccess(int targetIndexOneIndexed, final TestTaskList currentList) {
-        assertMarkAsDoneSuccess(targetIndexOneIndexed, "t", currentList);
+        assertMarkAsDoneSuccess(targetIndexOneIndexed, 't', currentList);
     }
     
     /**
@@ -60,7 +60,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
      * @param category the category in which to mark as done from.
      * @param currentList A copy of the current list of tasks (before being marked as done).     
      */
-    private void assertMarkAsDoneSuccess(int targetIndexOneIndexed, String category, final TestTaskList currentList) {
+    private void assertMarkAsDoneSuccess(int targetIndexOneIndexed, char category, final TestTaskList currentList) {
         TestTask taskToMark = currentList.getTaskFromList(targetIndexOneIndexed - 1, category); //-1 because array uses zero indexing
         
         currentList.markTaskAsDoneInList(targetIndexOneIndexed - 1, category, taskToMark);

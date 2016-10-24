@@ -19,21 +19,21 @@ public class EditCommandTest extends TaskManagerGuiTest {
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         
         TestTask taskToEdit = td.todo;
-        int targetIndex = currentList.size("d");
-        assertEditSuccess(taskToEdit, targetIndex, "d", currentList);
+        int targetIndex = currentList.size('d');
+        assertEditSuccess(taskToEdit, targetIndex, 'd', currentList);
 
         //edit another task
         taskToEdit = td.deadline;
-        targetIndex = currentList.size("e");
-        assertEditSuccess(taskToEdit, targetIndex, "e", currentList);
+        targetIndex = currentList.size('e');
+        assertEditSuccess(taskToEdit, targetIndex, 'e', currentList);
         
         //edit another task
         taskToEdit = td.event;
-        targetIndex = currentList.size("t");
-        assertEditSuccess(taskToEdit, targetIndex, "t", currentList);
+        targetIndex = currentList.size('t');
+        assertEditSuccess(taskToEdit, targetIndex, 't', currentList);
         
         //edit into duplicate task
-        commandBox.runCommand(td.deadline.getEditCommand(targetIndex - 1, "e"));
+        commandBox.runCommand(td.deadline.getEditCommand(targetIndex - 1, 'e'));
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(currentList.isListMatching(taskListPanel));
 
@@ -42,7 +42,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertEditSuccess(TestTask taskToEdit, int index, String category, TestTaskList currentList) {
+    private void assertEditSuccess(TestTask taskToEdit, int index, char category, TestTaskList currentList) {
         commandBox.runCommand(taskToEdit.getEditCommand(index, category));
 
         //confirm the new card contains the right data
