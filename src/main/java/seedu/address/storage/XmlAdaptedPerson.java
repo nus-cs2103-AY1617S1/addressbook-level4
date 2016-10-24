@@ -74,7 +74,7 @@ public class XmlAdaptedPerson {
         	deadlineSet.add(new Deadline(deadlineDate));
         }
         final UniqueDeadlineList deadlines = new UniqueDeadlineList(deadlineSet);
-        final Startline startline = new Startline(this.startline);
+        final Startline startline = new Startline(getStartlineFromArgs(this.startline));
         final Priority priority = new Priority(this.priority);
         final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(name, startline, deadlines, priority, tags);
@@ -88,6 +88,18 @@ public class XmlAdaptedPerson {
     	// replace first delimiter prefix, then split
     	final Collection<String> deadlineStrings = Arrays.asList(deadlineArguments.replaceFirst(" d/",  "").split("t/"));
     	return new HashSet<>(deadlineStrings);
+    }
+    
+    private String getStartlineFromArgs(String args){
+    	if(args.isEmpty()){
+    		return null;
+    	}
+    	args = args.replaceFirst(" s/", "");
+    	String[] strArr = args.split("\\s+");
+    	if(strArr.length == 1){
+    		return args + " " + "00:00";
+    	}
+    	return args;    	
     }
 }
     

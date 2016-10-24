@@ -65,9 +65,11 @@ Format: `help`
 
 #### Adding a task: `add`
 Description: Adds a task to the task manager<br>
-Format: `add TASKNAME d/<DEADLINE> p/<PRIORITY> t/<TAG>...`
+Format: `add TASKNAME [s/<START DATE>] [d/<DEADLINE>] p/<PRIORITY> t/<TAG>...`
 
-> Tasks can have no deadline. If so, leave the DEADLINE field blank.<br>
+> START DATE AND DEADLINE parameters have to be in ddMMyy [HH:MM] or dd-MM-yy [HH:MM].
+> Time must be in 24-hour format.
+> If no time is specified, the Task Manager will set it to a default value of 00:00.
 > Tasks can have different priority levels or none at all (from 1 to 5, where 1 is the lowest priority and 5 is the highest priority).<br>
 > Tasks can have any amount of tags (even 0).
 

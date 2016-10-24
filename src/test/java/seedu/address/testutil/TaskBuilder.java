@@ -28,6 +28,11 @@ public class TaskBuilder {
         }
         return this;
     }
+    
+    public TaskBuilder withStartline(String startline) throws IllegalValueException{
+    	this.task.setStartline(new Startline(startline));
+    	return this;
+    }
 
     public TaskBuilder withDeadline(String... deadlines) throws IllegalValueException {
     	for (String deadline: deadlines) {

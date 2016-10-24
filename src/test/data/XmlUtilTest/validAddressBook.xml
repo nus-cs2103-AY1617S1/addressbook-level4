@@ -2,47 +2,56 @@
 <addressbook>
     <persons>
         <name>Hans Muster</name>
-        <deadline>948242</deadline>
+		<startline>10-10-10 10:10</startline>
+        <deadlined>948242</deadlined>
         <priority>1</priority>
     </persons>
     <persons>
         <name>Ruth Mueller</name>
-        <deadline>872492</deadline>
+		<startline>10-10-10 23:59</startline>
+        <deadlined>872492</deadlined>
         <priority>2</priority>
     </persons>
     <persons>
         <name>Heinz Kurz</name>
-        <deadline>953525</deadline>
+		<startline></startline>
+        <deadlined>953525</deadlined>
         <priority>3</priority>
     </persons>
     <persons>
         <name>Cornelia Meier</name>
-        <deadline>876525</deadline>
+		<startline></startline>
+        <deadlined>876525</deadlined>
         <priority>4</priority>
     </persons>
     <persons>
         <name>Werner Meyer</name>
-        <deadline>948225</deadline>
+		<startline></startline>
+        <deadlined>948225</deadlined>
         <priority>5</priority>
     </persons>
     <persons>
         <name>Lydia Kunz</name>
-        <deadline>948242</deadline>
+		<startline></startline>
+        <deadlined>948242</deadlined>
         <priority>5</priority>
     </persons>
     <persons>
         <name>Anna Best</name>
-        <deadline>948244</deadline>
+		<startline></startline>
+        <deadlined>948244</deadlined>
         <priority>4</priority>
     </persons>
     <persons>
         <name>Stefan Meier</name>
-        <deadline>848242</deadline>
+		<startline></startline>
+        <deadlined>848242</deadlined>
         <priority>3</priority>
     </persons>
     <persons>
         <name>Martin Mueller</name>
-        <deadline>848213</deadline>
+		<startline></startline>
+        <deadlined>848213</deadlined>
         <priority>4</priority>
     </persons>
 </addressbook>

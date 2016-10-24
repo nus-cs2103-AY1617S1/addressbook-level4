@@ -159,7 +159,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name 12345 101010 1", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name p/1 101010", expectedMessage);
+                "add Valid Name l/ p/1", expectedMessage);
         assertCommandBehavior(
                 "add Valid Name p/ d/101010", expectedMessage);
     }
@@ -409,8 +409,8 @@ public class LogicManagerTest {
         Task generatePerson(int seed) throws Exception {
             return new Task(
                     new Name("Person " + seed),
-                    new Startline("" + seed),
-                    new UniqueDeadlineList(new Deadline("deadline" + Math.abs(seed)), new Deadline("deadline" + Math.abs(seed + 1))),
+                    new Startline("101010 00:00"),
+                    new UniqueDeadlineList(new Deadline("121212")),
                     new Priority("" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -423,6 +423,8 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
+            
+            cmd.append(" s/").append(p.getStartline().value);
            
             UniqueDeadlineList deadlines = p.getDeadlines();
             for(Deadline d: deadlines){
