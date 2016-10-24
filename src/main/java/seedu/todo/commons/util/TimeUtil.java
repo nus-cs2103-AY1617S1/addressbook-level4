@@ -240,7 +240,7 @@ public class TimeUtil {
             return false;
         }
         else if(startTime == null){
-            logger.log(Level.WARNING, "startTime in isOngoing(..., ...) is null");
+            logger.log(Level.WARNING, "startTime in isOngoing(...) is null");
             return false;
         }
         return (LocalDateTime.now(clock).isAfter(startTime) && LocalDateTime.now(clock).isBefore(endTime));
