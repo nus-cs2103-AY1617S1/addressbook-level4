@@ -1,9 +1,12 @@
 package harmony.mastermind.ui;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
+import java.util.Collections;
 
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
@@ -104,7 +107,8 @@ public class MainWindow extends UiPart {
     private AutoCompletionBinding<String> autoCompletionBinding;
     
     //List of words for autocomplete 
-    String[] listOfWords = {"add", "delete", "edit", "clear", "help", "undo", "mark", "find", "exit"
+    Set listOfWords = new HashSet<>();
+    String[] words = {"add", "delete", "edit", "clear", "help", "undo", "mark", "find", "exit"
             ,"do", "delete"};
 
     // UI elements
@@ -684,6 +688,8 @@ public class MainWindow extends UiPart {
                         return;
             case DOWN:  restoreNextCommandText();
                         return;
+            case ENTER: learnWord(commandField.getText());
+                        return;
         }
         
         if (CTRL_ONE.match(event)) {
@@ -703,11 +709,25 @@ public class MainWindow extends UiPart {
     //@@author A0143378Y
     private void initAutoComplete(){
         //Autocomplete function
+        Collections.addAll(listOfWords, words);
         autoCompletionBinding = TextFields.bindAutoCompletion(commandField, listOfWords);
         autoCompletionBinding.setPrefWidth(500);
         autoCompletionBinding.setVisibleRowCount(5);
         autoCompletionBinding.setHideOnEscape(true);
 
+    }
+    
+    //@@author A0143378Y
+    //This function takes in whatever the user has "ENTER"-ed, and save in a dictionary of words
+    //These words will be in the autocomplete list of words 
+    private void learnWord(String text) { 
+        listOfWords.add(text);
+        
+        if(autoCompletionBinding != null) { 
+            autoCompletionBinding.dispose();
+        }
+        
+        autoCompletionBinding = TextFields.bindAutoCompletion(commandField, listOfWords);
     }
 
     @Subscribe
