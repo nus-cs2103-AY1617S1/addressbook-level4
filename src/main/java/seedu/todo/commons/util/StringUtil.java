@@ -66,4 +66,16 @@ public class StringUtil {
         }
         return stringArray;
     }
+
+    /**
+     * Splits string at all possible characters except a-z, A-Z, 0-9, dash and underscore.
+     * @return Returns a String array with all the split components of the string.
+     */
+    public static String[] splitString(String string) {
+        if (string == null || string.isEmpty()) {
+            return new String[0];
+        } else {
+            return string.trim().split("([^a-zA-Z0-9_-])+");
+        }
+    }
 }

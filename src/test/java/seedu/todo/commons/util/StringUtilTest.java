@@ -8,9 +8,7 @@ import java.io.FileNotFoundException;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class StringUtilTest {
 
@@ -113,10 +111,43 @@ public class StringUtilTest {
      * Helper method to test partitionStringAtPosition(...).
      * @param input String to be partitioned.
      * @param position Position where partition should take place.
-     * @param expected Expected output.
+     * @param expected Expected output as String array.
      */
     private void testPartitionStringAtPositionHelper(String input, int position, String[] expected) {
         String[] outcome = StringUtil.partitionStringAtPosition(input, position);
+        assertArrayEquals(expected, outcome);
+    }
+
+    @Test
+    public void splitString_emptyInput() {
+        String[] expected = new String[0];
+
+        //Test null input.
+        testSplitStringHelper(null, expected);
+
+        //Test empty input.
+        testSplitStringHelper("", expected);
+    }
+
+    @Test
+    public void splitString_validInput() {
+        //Input does not include any character A-Z, a-z, 0-9, dash, or underscore
+        testSplitStringHelper("!@(*&$! ,", new String[0]);
+
+        //Test one element
+        testSplitStringHelper("Pichu-Pikachu_RAICHU", new String[] {"Pichu-Pikachu_RAICHU"});
+
+        //Test multiple element split by space, semicolon, comma, full stops and slash (common partitions)
+        testSplitStringHelper("an apple; a, day,, keeps / doctor. . , away", new String[] {"an", "apple", "a", "day", "keeps", "doctor", "away"});
+    }
+
+    /**
+     * Helper method to test splitString(...).
+     * @param input String to be split.
+     * @param expected Expected output as String array.
+     */
+    private void testSplitStringHelper(String input, String[] expected) {
+        String[] outcome = StringUtil.splitString(input);
         assertArrayEquals(expected, outcome);
     }
 }
