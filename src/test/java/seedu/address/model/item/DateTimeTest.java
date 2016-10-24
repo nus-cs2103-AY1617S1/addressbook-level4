@@ -49,8 +49,35 @@ public class DateTimeTest {
     }
 
     @Test
-    public void setEndDateToStartDate_() {
+    public void setEndDateToStartDateOne() {
+        Calendar calendarStartDate = Calendar.getInstance();
+        calendarStartDate.set(Calendar.HOUR_OF_DAY, 23);
+        calendarStartDate.set(Calendar.MINUTE, 30);
+
+        Calendar calendarEndDate = Calendar.getInstance();
+        calendarEndDate.set(Calendar.HOUR_OF_DAY, 23);
+        calendarEndDate.set(Calendar.MINUTE, 00);
+        Date endDate = DateTime.setEndDateToStartDate(calendarStartDate.getTime(), calendarEndDate.getTime());
         
+        Calendar expectedCalendarEndDate = Calendar.getInstance();
+        expectedCalendarEndDate.setTime(endDate);
+        assertEquals(expectedCalendarEndDate.get(Calendar.DATE), calendarStartDate.get(Calendar.DATE) + 1);
+    }
+    
+    @Test
+    public void setEndDateToStartDateTwo() {
+        Calendar calendarStartDate = Calendar.getInstance();
+        calendarStartDate.set(Calendar.HOUR_OF_DAY, 23);
+        calendarStartDate.set(Calendar.MINUTE, 30);
+
+        Calendar calendarEndDate = Calendar.getInstance();
+        calendarEndDate.set(Calendar.HOUR_OF_DAY, 23);
+        calendarEndDate.set(Calendar.MINUTE, 31);
+        Date endDate = DateTime.setEndDateToStartDate(calendarStartDate.getTime(), calendarEndDate.getTime());
+        
+        Calendar expectedCalendarEndDate = Calendar.getInstance();
+        expectedCalendarEndDate.setTime(endDate);
+        assertEquals(expectedCalendarEndDate.get(Calendar.DATE), calendarStartDate.get(Calendar.DATE));
     }
     
     @Test
@@ -75,6 +102,8 @@ public class DateTimeTest {
     
     @Test
     public void assignStartDateToSpecifiedWeekday() {
+        Date date = DateTime.assignStartDateToSpecifiedWeekday("monday");
+        assertTrue(date.toString().contains("Mon"));
     }
     
     @Test
@@ -100,6 +129,46 @@ public class DateTimeTest {
     }
     
     @Test
-    public void updateDateByRecurrenceRate() {
+    public void updateDateByRecurrenceRateOne() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2016);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 24);
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 00);
+        
+        try {
+            RecurrenceRate recurrenceRate = new RecurrenceRate("1", "month");
+            DateTime.updateDateByRecurrenceRate(calendar, recurrenceRate);
+            assertEquals(calendar.get(Calendar.YEAR), 2016);
+            assertEquals(calendar.get(Calendar.MONTH), Calendar.NOVEMBER);
+            assertEquals(calendar.get(Calendar.DAY_OF_MONTH), 24);
+            assertEquals(calendar.get(Calendar.HOUR_OF_DAY), 10);
+            assertEquals(calendar.get(Calendar.MINUTE), 0);
+        } catch (IllegalValueException e) {
+            assert false;
+        }
+    }
+    
+    @Test
+    public void updateDateByRecurrenceRateTwo() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2016);
+        calendar.set(Calendar.MONTH, Calendar.OCTOBER);
+        calendar.set(Calendar.DAY_OF_MONTH, 24);
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 00);
+        
+        try {
+            RecurrenceRate recurrenceRate = new RecurrenceRate("2", "wednesday");
+            DateTime.updateDateByRecurrenceRate(calendar, recurrenceRate);
+            assertEquals(calendar.get(Calendar.YEAR), 2016);
+            assertEquals(calendar.get(Calendar.MONTH), Calendar.NOVEMBER);
+            assertEquals(calendar.get(Calendar.DAY_OF_MONTH), 2);
+            assertEquals(calendar.get(Calendar.HOUR_OF_DAY), 10);
+            assertEquals(calendar.get(Calendar.MINUTE), 0);
+        } catch (IllegalValueException e) {
+            assert false;
+        }
     }
 }
