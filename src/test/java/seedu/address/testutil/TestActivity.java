@@ -384,7 +384,22 @@ public class TestActivity implements ReadOnlyActivity {
         build.append(newDateTime);
         return build.toString();
     }
-   
+    
+    public String getEditEventDateTimeCommand(int index, String newDateTime) {
+        StringBuilder build = new StringBuilder();
+        
+        build.append(EditCommand.COMMAND_WORD);
+        build.append(" ");
+        build.append(Activity.EVENT_TYPE);
+        build.append(" ");
+        build.append(String.valueOf(index));
+        build.append(" ");
+        build.append(EditCommand.EVENT_FROM_PARAM);
+        build.append(" ");
+        build.append(newDateTime);
+        System.out.println(build.toString());
+        return build.toString();
+    }
     
     @Override
     public Activity get() {

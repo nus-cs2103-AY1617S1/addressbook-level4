@@ -26,7 +26,7 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         commandBox.runCommand(floating.getAddCommand());
         commandBox.runCommand(task.getAddCommand());
         commandBox.runCommand(event.getAddCommand());
-        
+
         assertFloatingEditNameSuccess(floating, 1, "Floating Hello World");
         assertTaskEditNameSuccess(task, 1, "Task Hello World");
         assertEventEditNameSuccess(event, 1, "Event Hello World");
@@ -46,14 +46,21 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         
         // Edit Both, Date/Time - For Task
         assertTaskEditBothDateTimeSuccess(task, 1, "10-10-2016 1000");
-        
+
         // Edit From Date - For Event
-        
+        assertEventEditDateTimeSuccess(event, 1, "30-11-1994");
+       
         // Edit From Time - For Event
+        assertEventEditDateTimeSuccess(event, 1, "2359");
         
+        // Edit Both, From Date/Time - For Event
+        assertEventEditDateTimeSuccess(event, 1, "01-01-2016 1000");
         // Edit To Date - For Event
         
         // Edit to Time - For Event. 
+        
+        // Edit Both, To Date/Time - For Event
+        
         
         // Edit invalid to/From date& Time. 
         // From date/time cannot be after than to date/time. - For Event
@@ -148,5 +155,15 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         
         // Confirms the result message is correct
         assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, task));
+    }
+    
+    private void assertEventEditDateTimeSuccess(TestActivity event, int index, String changes) {
+        commandBox.runCommand(event.getEditEventDateTimeCommand(index, changes));
+        event = activityListPanel.returnsUpdatedEvent(event.getActivityName().fullName);
+        EventCardHandle editedCard = activityListPanel.navigateToEvent(event);
+        assertEventMatching(event, editedCard);
+        
+        // Confirms the result message is correct
+        assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, event));
     }
 }
