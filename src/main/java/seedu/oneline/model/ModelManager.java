@@ -93,7 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskBook.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAllNotDone();
         indicateTaskBookChanged();
     }
 
@@ -102,7 +102,14 @@ public class ModelManager extends ComponentManager implements Model {
 //        assert taskBook.getUniqueTaskList().contains(newTask);
 //        assert !taskBook.getUniqueTaskList().contains(newTask);
         taskBook.getUniqueTaskList().replaceTask(oldTask, newTask);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAllNotDone();
+        indicateTaskBookChanged();
+    }
+    
+    @Override
+    public synchronized void doneTask(int index) throws TaskNotFoundException {
+        taskBook.doneTask(index);
+        updateFilteredListToShowAllNotDone();
         indicateTaskBookChanged();
     }
 
@@ -116,6 +123,15 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+    }
+    
+    @Override
+    public void updateFilteredListToShowAllNotDone() {
+        filteredTasks.setPredicate(getNotDonePredicate());
+    }
+    
+    private Predicate<Task> getNotDonePredicate() {
+        return task -> !task.isCompleted();
     }
 
     @Override

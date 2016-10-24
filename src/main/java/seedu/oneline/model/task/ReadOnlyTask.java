@@ -14,7 +14,7 @@ public interface ReadOnlyTask {
     public TaskTime getEndTime();
     public TaskTime getDeadline();
     public TaskRecurrence getRecurrence();
-
+    public boolean isCompleted();
 
     /**
      * Returns the tag of the current task
@@ -31,7 +31,8 @@ public interface ReadOnlyTask {
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
                 && other.getDeadline().equals(this.getDeadline())
-                && other.getRecurrence().equals(this.getRecurrence()));
+                && other.getRecurrence().equals(this.getRecurrence())
+                && other.isCompleted() == this.isCompleted());
     }
 
     /**
