@@ -19,8 +19,8 @@
 <ul>
 <li><a href="#introduction">Introduction</a></li>
 <li><a href="#quick-start">Quick Start</a></li>
-<li><a href="#commands-reference">Commands Reference</a><ul>
-<li><a href="#notes-regarding-command-format">Notes regarding Command Format</a></li>
+<li><a href="#command-reference">Command Reference</a><ul>
+<li><a href="#notes-regarding-command-format">Notes regarding command format</a></li>
 <li><a href="#entering-in-dates">Entering in dates</a></li>
 <li><a href="#viewing-help-help">Viewing help : help</a></li>
 <li><a href="#adding-a-task-or-event-add">Adding a task or event: add</a><ul>
@@ -35,23 +35,23 @@
 </li>
 <li><a href="#deleting-a-task-delete">Deleting a task: delete</a></li>
 <li><a href="#marking-a-task-complete-complete">Marking a task complete: complete</a></li>
-<li><a href="#pinning-a-task-pin">Pinning a task : pin</a></li>
+<li><a href="#pinning-a-task-pin">Pinning a task: pin</a></li>
 <li><a href="#editing-a-task-edit">Editing a task: edit</a></li>
-<li><a href="#manage-tags-tag">Manage tags : tag</a><ul>
+<li><a href="#manage-tags-tag">Manage tags: tag</a><ul>
 <li><a href="#retagging-a-task">Retagging a task</a></li>
 <li><a href="#adding-tags-to-a-task">Adding tags to a task</a></li>
 <li><a href="#editing-tags">Editing tags</a></li>
 <li><a href="#deleting-tags">Deleting tags</a></li>
 </ul>
 </li>
-<li><a href="#showing-details-of-a-task-show">Showing details of a task : show</a></li>
-<li><a href="#switching-views-view">Switching views : view</a></li>
+<li><a href="#showing-details-of-a-task-show">Showing details of a task: show</a></li>
+<li><a href="#switching-views-view">Switching views: view</a></li>
 <li><a href="#finding-tasks-find">Finding tasks: find</a></li>
-<li><a href="#exiting-the-app-exit">Exiting the app : exit</a></li>
-<li><a href="#undoing-an-action-undo">Undoing an action : undo</a></li>
-<li><a href="#redoing-an-action-redo">Redoing an action : redo</a></li>
-<li><a href="#loading-an-existing-data-file-load">Loading an existing data file : load</a></li>
-<li><a href="#changing-the-save-location-save">Changing the save location : save</a></li>
+<li><a href="#exiting-the-app-exit">Exiting the app: exit</a></li>
+<li><a href="#undoing-an-action-undo">Undoing an action: undo</a></li>
+<li><a href="#redoing-an-action-redo">Redoing an action: redo</a></li>
+<li><a href="#loading-an-existing-data-file-load">Loading an existing data file: load</a></li>
+<li><a href="#changing-the-save-location-save">Changing the save location: save</a></li>
 </ul>
 </li>
 <li><a href="#faq">FAQ</a></li>
@@ -72,7 +72,7 @@
 </div>
 </li>
 <li>
-<p>Download the latest copy of <code>UJDTDL.jar</code> from our [releases][releases]{: .print-url } page.</p>
+<p>Download the latest copy of <code>UJDTDL.jar</code> from our <a class="print-url" href="https://github.com/CS2103AUG2016-W10-C4/main/releases">releases</a> page.</p>
 </li>
 <li>Save the file to the folder you want to use for this application.</li>
 <li>
@@ -80,10 +80,10 @@
 <p><figure><img alt="Example of UI once launched" src="images/app_screenshot.png" width="700"/><figcaption><strong>Figure 1. </strong>Initial launch screen of Uncle Jim</figcaption></figure> </p>
 </li>
 <li>
-<p>You can type in the command box and press <kbd>Enter</kbd> to execute it. </p>
+<p>Type in the command box and press <kbd>Enter</kbd> to execute it. </p>
 </li>
 <li>
-<p>Some example commands you can try:</p>
+<p>Here are some example commands you can try:</p>
 <ul>
 <li><strong><code>add</code></strong><code>Finish CS2103T homework /d next Friday</code> - 
    adds a new task with the deadline set at next Friday</li>
@@ -96,9 +96,9 @@
 </li>
 </ol></div>
 
-<div class="no-page-break"><h2 id="commands-reference"><span>3 </span>Commands Reference<a class="headerlink" href="#commands-reference" title="Permanent link">#</a></h2><p>The following sections encompass the various commands which are executable on Uncle Jim, their format (which is flexible), as well as various scenarios where you would use them. </p></div>
+<div class="no-page-break"><h2 id="command-reference"><span>3 </span>Command Reference<a class="headerlink" href="#command-reference" title="Permanent link">#</a></h2><p>You can refer to the section below for the full list of commands that are available in Uncle Jim. For quick reference you can also refer to the <a href="#command-summary">command summary</a> at the end of this guide or use the <code>help</code> command when using the app.   </p></div>
 
-<div class="no-page-break"><h3 id="notes-regarding-command-format"><span>3.1 </span>Notes regarding Command Format<a class="headerlink" href="#notes-regarding-command-format" title="Permanent link">#</a></h3><ul>
+<div class="no-page-break"><h3 id="notes-regarding-command-format"><span>3.1 </span>Notes regarding command format<a class="headerlink" href="#notes-regarding-command-format" title="Permanent link">#</a></h3><ul>
 <li>Words in <code>UPPERCASE</code> are the parameters.</li>
 <li>Items in <code>[SQUARE BRACKETS]</code> are optional.</li>
 <li>To specify parameters, such as the deadline for a task, use flags. Flags follow the Unix command format - single dash (eg. <code>/f</code>) for short flags and double dash for long flags (eg. <code>--all</code>)</li>
@@ -108,7 +108,7 @@
 
 <figure><img alt="Index Number Location" src="images/app_screenshot_index.png" width="700"/><figcaption><strong>Figure 2. </strong>Use the number on the side to choose the task for your command</figcaption></figure>
 
-<div class="no-page-break"><h3 id="entering-in-dates"><span>3.2 </span>Entering in dates<a class="headerlink" href="#entering-in-dates" title="Permanent link">#</a></h3><p>Uncle Jim supports flexible date formats as much as possible so you can enter dates in the formats specified below:</p></div>
+<div class="no-page-break"><h3 id="entering-in-dates"><span>3.2 </span>Entering in dates<a class="headerlink" href="#entering-in-dates" title="Permanent link">#</a></h3><p>Uncle Jim supports flexible date formats so you can enter dates in the formats specified below:</p></div>
 
 <ul>
 <li>
@@ -152,8 +152,8 @@ in two days</p>
 <strong><code>add</code></strong><code>TASK NAME [/d DEADLINE] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]</code><br/>
 <strong><code>add</code></strong><code>EVENT NAME /d START END [/m DESCRIPTION] [/l LOCATION] [/p] [/t TAG 1, TAG 2...]</code></p></div>
 
-<p>This allows you to add a new task or event to the To-do List.  </p>
-<p>Although there are many parameters, all of them except the name of the task/event  are optional. Tasks will be turned into events automatically if there are two dates specified under the <code>/d</code> flag. </p>
+<p>You can add new tasks or events to the To-do List using the <code>add</code> command.  </p>
+<p>Although the list of parameters above looks intimidating, all of them except the name of the task are optional. Tasks will be turned into events automatically if there are two dates specified under the <code>/d</code> flag. </p>
 <p>Here are some common scenarios where you would use the various parameters:</p>
 <div class="no-page-break"><h4 id="adding-a-task"><span>3.4.1 </span>Adding a task<a class="headerlink" href="#adding-a-task" title="Permanent link">#</a></h4><p>You can add a task by simply giving a name.</p></div>
 
@@ -161,7 +161,7 @@ in two days</p>
 <p class="admonition-title">Example</p>
 <p><strong><code>add</code></strong><code>Finish up developer guide for CS2101</code> </p>
 </div>
-<div class="no-page-break"><h4 id="adding-an-event"><span>3.4.2 </span>Adding an event<a class="headerlink" href="#adding-an-event" title="Permanent link">#</a></h4><p>You can add events by specifying a start time and end time with the <code>/d</code> flag. Event locations can be specifed by adding them with the <code>/l</code> flag.  </p></div>
+<div class="no-page-break"><h4 id="adding-an-event"><span>3.4.2 </span>Adding an event<a class="headerlink" href="#adding-an-event" title="Permanent link">#</a></h4><p>You can add events by specifying a start time and end time with the <code>/d</code> flag. Event locations can be specified by adding them with the <code>/l</code> flag.  </p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -173,13 +173,13 @@ in two days</p>
 <p class="admonition-title">Example</p>
 <p><strong><code>add</code></strong><code>Submit V.0.0 /d 5 Oct 2359</code></p>
 </div>
-<div class="no-page-break"><h4 id="adding-descriptions-to-a-task"><span>3.4.4 </span>Adding descriptions to a task<a class="headerlink" href="#adding-descriptions-to-a-task" title="Permanent link">#</a></h4><p>If you wish to add more details to a task, you can add them under the <code>/m</code> flag. Note that these descriptions will be hidden from default view, once the task is added. To learn how to see these details again refer to <a href="#showing-details-of-a-task-show">the <code>show</code> command</a>.</p></div>
+<div class="no-page-break"><h4 id="adding-descriptions-to-a-task"><span>3.4.4 </span>Adding descriptions to a task<a class="headerlink" href="#adding-descriptions-to-a-task" title="Permanent link">#</a></h4><p>If you need to add more details to a task, you can add them under the <code>/m</code> flag. Note that these descriptions will be hidden from default view, once the task is added. To learn how to see these details again refer to <a href="#showing-details-of-a-task-show">the <code>show</code> command</a>.</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p><strong><code>add</code></strong><code>Destroy the Earth /m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!</code></p>
 </div>
-<div class="no-page-break"><h4 id="pinning-a-task"><span>3.4.5 </span>Pinning a task<a class="headerlink" href="#pinning-a-task" title="Permanent link">#</a></h4><p>Have task you don't want to forget? These types of tasks or events  can be pinned to the top of the list using the <code>/p</code> flag. See <a href="#pinning-a-task-pin">the <code>pin</code> command</a> for more details.</p></div>
+<div class="no-page-break"><h4 id="pinning-a-task"><span>3.4.5 </span>Pinning a task<a class="headerlink" href="#pinning-a-task" title="Permanent link">#</a></h4><p>Have task you don't want to forget? These types of tasks or events can be pinned to the top of the list using the <code>/p</code> flag. See <a href="#pinning-a-task-pin">the <code>pin</code> command</a> for more details.</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -238,8 +238,8 @@ in two days</p>
 <p>This allows you to delete the task specified by the <code>INDEX</code> parameter. The index refers to the index number shown in the current view.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-</div>
 <p>If you accidentally deleted the wrong task, not to worry! You can undo the action later on. See the <a href="#undoing-an-action-undo">undo</a></p>
+</div>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <dl>
@@ -259,17 +259,18 @@ in two days</p>
 <p>Note that this is a toggle command, so if <code>INDEX</code> specified is an </p>
 <figure><img alt="Example of a Completed Task" src="images/app_screenshot_completed.png" width="700"/><figcaption><strong>Figure 3. </strong>Enjoy the satisfaction of marking completed tasks</figcaption></figure>
 
-<div class="no-page-break"><h3 id="pinning-a-task-pin"><span>3.7 </span>Pinning a task : <strong><code>pin</code></strong><a class="headerlink" href="#pinning-a-task-pin" title="Permanent link">#</a></h3><p>Format: <strong><code>pin</code></strong><code>INDEX</code></p></div>
+<div class="no-page-break"><h3 id="pinning-a-task-pin"><span>3.7 </span>Pinning a task: <strong><code>pin</code></strong><a class="headerlink" href="#pinning-a-task-pin" title="Permanent link">#</a></h3><p>Format: <strong><code>pin</code></strong><code>INDEX</code></p></div>
 
 <p>If a particular task or event is important, you can pin it to the top of every list the item appears in using this command. You can also use this command to unpin any pinned task. </p>
 <figure><img alt="Pinned Task" src="images/app_screenshot_pinning.png" width="700"/><figcaption><strong>Figure 4. </strong>Prioritize important tasks with pinned tasks.</figcaption></figure>
 
 <div class="no-page-break"><h3 id="editing-a-task-edit"><span>3.8 </span>Editing a task: <strong><code>edit</code></strong><a class="headerlink" href="#editing-a-task-edit" title="Permanent link">#</a></h3><p>Format:<br/>
-<strong><code>edit</code></strong><code>INDEX [/t NAME] [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p]</code><br/>
-<strong><code>edit</code></strong><code>INDEX [/t NAME] [/d START END] [/m DESCRIPTION] [/l LOCATION] [/p]</code></p></div>
+<strong><code>edit</code></strong><code>INDEX [NAME] [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p]</code><br/>
+<strong><code>edit</code></strong><code>INDEX [NAME] [/d START END] [/m DESCRIPTION] [/l LOCATION] [/p]</code></p></div>
 
-<p>If you wish to change various details of your tasks and deadlines, you can do so by using the <code>edit</code> command to make changes to the task specified by <code>INDEX</code>. The command accepts the same parameters as the <code>add</code> command, with the exception that the <code>/t</code> is used to edit the title instead of the tags. To edit tags, use the <code>tag</code> command shown below. Note that edits are automatically saved to your hard disk, and any errors can be undone using <code>undo</code>. </p>
-<div class="no-page-break"><h3 id="manage-tags-tag"><span>3.9 </span>Manage tags : <strong><code>tag</code></strong><a class="headerlink" href="#manage-tags-tag" title="Permanent link">#</a></h3><p>Add, edit and delete tags.<br/>
+<p>You can edit tasks or events using the <code>edit</code> command. This command accepts the same parameters as the <code>add</code> command with the addition of <code>INDEX</code>, which specifies which task or event you want to edit. </p>
+<p>Note that edits are automatically saved, and any errors can be undone using <code>undo</code>. </p>
+<div class="no-page-break"><h3 id="manage-tags-tag"><span>3.9 </span>Manage tags: <strong><code>tag</code></strong><a class="headerlink" href="#manage-tags-tag" title="Permanent link">#</a></h3><p>Add, edit and delete tags.<br/>
 Format: <br/>
 <strong><code>tag</code></strong><code>INDEX TAG 1, TAG 2, ...</code><br/>
 <strong><code>tag</code></strong><code>INDEX /a NEW TAG, ...</code><br/>
@@ -277,7 +278,7 @@ Format: <br/>
 <strong><code>tag</code></strong><code>[INDEX] /d TAG</code> </p></div>
 
 <p>You can use tags to organize your tasks easily. Tags are case insensitive, and each task can have up to five of them. Use the <code>tag</code> command to add, edit or delete tags from one or all of the tasks. Here are the scenarios you would use each format of the <code>tag</code> command: </p>
-<div class="no-page-break"><h4 id="retagging-a-task"><span>3.9.1 </span>Retagging a task<a class="headerlink" href="#retagging-a-task" title="Permanent link">#</a></h4><p>To replace the tags on a task with new ones, specify an <code>INDEX</code> with the list of tags you want to replace them with. </p></div>
+<div class="no-page-break"><h4 id="retagging-a-task"><span>3.9.1 </span>Retagging a task<a class="headerlink" href="#retagging-a-task" title="Permanent link">#</a></h4><p>You can replace the tags on a task with new ones using the <code>INDEX</code> with the list of new tags:</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -286,7 +287,7 @@ Format: <br/>
 <dd>Replace the tags on the first task with <code>nus</code>, <code>cs2101</code> and <code>cs2103t</code></dd>
 </dl>
 </div>
-<div class="no-page-break"><h4 id="adding-tags-to-a-task"><span>3.9.2 </span>Adding tags to a task<a class="headerlink" href="#adding-tags-to-a-task" title="Permanent link">#</a></h4><p>If you instead wish to add more tags to a task, without overwriting any other tag, use the <code>/a</code> as shown below</p></div>
+<div class="no-page-break"><h4 id="adding-tags-to-a-task"><span>3.9.2 </span>Adding tags to a task<a class="headerlink" href="#adding-tags-to-a-task" title="Permanent link">#</a></h4><p>If you wish to add more tags to a task, use <code>/a</code>:</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -295,7 +296,7 @@ Format: <br/>
 <dd>Adds the <code>cs2103T</code> tag to the first task on the list</dd>
 </dl>
 </div>
-<div class="no-page-break"><h4 id="editing-tags"><span>3.9.3 </span>Editing tags<a class="headerlink" href="#editing-tags" title="Permanent link">#</a></h4><p>To rename a tag, use the <code>/e</code> flag and specify the new name for the tag. </p></div>
+<div class="no-page-break"><h4 id="editing-tags"><span>3.9.3 </span>Editing tags<a class="headerlink" href="#editing-tags" title="Permanent link">#</a></h4><p>You can also rename tags using <code>/e</code>:</p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -304,7 +305,7 @@ Format: <br/>
 <dd>Renames the <code>Business</code> tag to <code>Pleasure</code> </dd>
 </dl>
 </div>
-<div class="no-page-break"><h4 id="deleting-tags"><span>3.9.4 </span>Deleting tags<a class="headerlink" href="#deleting-tags" title="Permanent link">#</a></h4><p>You can also remove a tag from a single task, or all tasks at once with the <code>/d</code> flag. </p></div>
+<div class="no-page-break"><h4 id="deleting-tags"><span>3.9.4 </span>Deleting tags<a class="headerlink" href="#deleting-tags" title="Permanent link">#</a></h4><p>You can also remove a tag from either a single task, or all tasks at once with <code>/d</code>: </p></div>
 
 <div class="admonition example">
 <p class="admonition-title">Example</p>
@@ -319,12 +320,12 @@ Format: <br/>
 <p class="admonition-title">Keep it simple!</p>
 <p>Tags are only really necessary if you have a <em>lot</em> of tasks. Uncle Jim works just as well even if you don't use tags. For maximum productivity, keep your tags short and simple, and keep them broad so that you can apply them to many tasks.</p>
 </div>
-<div class="no-page-break"><h3 id="showing-details-of-a-task-show"><span>3.10 </span>Showing details of a task : <strong><code>show</code></strong><a class="headerlink" href="#showing-details-of-a-task-show" title="Permanent link">#</a></h3><p>Format: <strong><code>show</code></strong><code>INDEX</code></p></div>
+<div class="no-page-break"><h3 id="showing-details-of-a-task-show"><span>3.10 </span>Showing details of a task: <strong><code>show</code></strong><a class="headerlink" href="#showing-details-of-a-task-show" title="Permanent link">#</a></h3><p>Format: <strong><code>show</code></strong><code>INDEX</code></p></div>
 
-<p>Descriptions of tasks and events are hidden by default. In order to display them, use this command to toggle between the expanded version of a task and its compact form.</p>
-<div class="no-page-break"><h3 id="switching-views-view"><span>3.11 </span>Switching views : <strong><code>view</code></strong><a class="headerlink" href="#switching-views-view" title="Permanent link">#</a></h3><p>Format: <strong><code>view</code></strong><code>VIEW</code></p></div>
+<p>Descriptions of tasks and events are hidden by default. In order to display them, you can use this command to toggle between the expanded version of a task and its compact form.</p>
+<div class="no-page-break"><h3 id="switching-views-view"><span>3.11 </span>Switching views: <strong><code>view</code></strong><a class="headerlink" href="#switching-views-view" title="Permanent link">#</a></h3><p>Format: <strong><code>view</code></strong><code>VIEW</code></p></div>
 
-<p>If you wish to drill down into your To-do List and see specific tasks, such as your incomplete tasks or today's schedule, you can use the <code>view</code> command as shown below:</p>
+<p>You can drill down into your To-do List and see specific tasks, such as your incomplete tasks or today's schedule, using the <code>view</code> command:</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <dl>
@@ -344,11 +345,11 @@ Format: <br/>
 </div>
 <div class="no-page-break"><h3 id="finding-tasks-find"><span>3.12 </span>Finding tasks: <strong><code>find</code></strong><a class="headerlink" href="#finding-tasks-find" title="Permanent link">#</a></h3><p>Format: <strong><code>find</code></strong><code>KEYWORD [MORE KEYWORDS]</code></p></div>
 
-<p>If you wish to search for a specific task, <code>find</code> allows you to do so by specifying whatever keywords you provide.The search is case insensitive and the order of the keywords does not matter. Only the title and tags are searched, and tasks matching at least one keyword will be returned.</p>
+<p>You can search for tasks using the <code>find</code> command. The search is case insensitive and the order of the keywords does not matter. Only the title and tags are searched, and any tasks matching at least one keyword will be returned.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>Keywords are separated by spaces, not comma</p>
 </div>
-<p>Only spaces are required between keywords, there is no need for commas</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <dl>
@@ -362,27 +363,27 @@ Format: <br/>
  <strong>Meet John for lunch</strong>, <strong>Meet Jane for lunch</strong>, or <strong>Jack and Jane's wedding</strong></dd>
 </dl>
 </div>
-<div class="no-page-break"><h3 id="exiting-the-app-exit"><span>3.13 </span>Exiting the app : <strong><code>exit</code></strong><a class="headerlink" href="#exiting-the-app-exit" title="Permanent link">#</a></h3><p>Format: <strong><code>exit</code></strong> </p></div>
+<div class="no-page-break"><h3 id="exiting-the-app-exit"><span>3.13 </span>Exiting the app: <strong><code>exit</code></strong><a class="headerlink" href="#exiting-the-app-exit" title="Permanent link">#</a></h3><p>Format: <strong><code>exit</code></strong> </p></div>
 
-<p>If you wish to exit the program simply type <code>exit</code>.</p>
-<div class="no-page-break"><h3 id="undoing-an-action-undo"><span>3.14 </span>Undoing an action : <strong><code>undo</code></strong><a class="headerlink" href="#undoing-an-action-undo" title="Permanent link">#</a></h3><p>Format: <strong><code>undo</code></strong></p></div>
+<p>If you wish to exit the program, simply type <code>exit</code>.</p>
+<div class="no-page-break"><h3 id="undoing-an-action-undo"><span>3.14 </span>Undoing an action: <strong><code>undo</code></strong><a class="headerlink" href="#undoing-an-action-undo" title="Permanent link">#</a></h3><p>Format: <strong><code>undo</code></strong></p></div>
 
-<p>In case of any mistakes made while managing your To-do List, you can undo your most recent update to the list by simply typing <code>undo</code>.  </p>
+<p>If you make any mistake, simply typing <code>undo</code> to undo your last action. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Only applies to commands which have made changes to the to-do list like <code>add</code>, <code>edit</code> and <code>delete</code> </p>
+<p>Only applies to commands which have made changes to the To-do list like <code>add</code>, <code>edit</code> and <code>delete</code></p>
 </div>
-<div class="no-page-break"><h3 id="redoing-an-action-redo"><span>3.15 </span>Redoing an action : <strong><code>redo</code></strong><a class="headerlink" href="#redoing-an-action-redo" title="Permanent link">#</a></h3><p>Format: <strong><code>redo</code></strong></p></div>
+<div class="no-page-break"><h3 id="redoing-an-action-redo"><span>3.15 </span>Redoing an action: <strong><code>redo</code></strong><a class="headerlink" href="#redoing-an-action-redo" title="Permanent link">#</a></h3><p>Format: <strong><code>redo</code></strong></p></div>
 
 <p>Similar to the <code>undo</code> command, you can redo your most recent action that you revoked as well. </p>
-<div class="no-page-break"><h3 id="loading-an-existing-data-file-load"><span>3.16 </span>Loading an existing data file : <strong><code>load</code></strong><a class="headerlink" href="#loading-an-existing-data-file-load" title="Permanent link">#</a></h3><p>Format: <strong><code>load</code></strong><code>FILENAME</code></p></div>
+<div class="no-page-break"><h3 id="loading-an-existing-data-file-load"><span>3.16 </span>Loading an existing data file: <strong><code>load</code></strong><a class="headerlink" href="#loading-an-existing-data-file-load" title="Permanent link">#</a></h3><p>Format: <strong><code>load</code></strong><code>FILENAME</code></p></div>
 
-<p><code>load</code> allows you to load another <code>.xml</code> file into the application. You can use this to restore a backup or switch to different lists. This allows you to manage different lists such as one for home or another for work.</p>
+<p>You can use <code>load</code> to load another <code>.xml</code> file into the application. This can be used to restore a backup or switch to different lists. You can also use this to manage different To-do lists, such as having one for home and another for work.</p>
 <div class="admonition example">
 <p class="admonition-title">Example</p>
 <p><strong><code>load</code></strong><code>myDiscountTodo.xml</code></p>
 </div>
-<div class="no-page-break"><h3 id="changing-the-save-location-save"><span>3.17 </span>Changing the save location : <strong><code>save</code></strong><a class="headerlink" href="#changing-the-save-location-save" title="Permanent link">#</a></h3><p>Format: <strong><code>save</code></strong><code>[FILENAME]</code></p></div>
+<div class="no-page-break"><h3 id="changing-the-save-location-save"><span>3.17 </span>Changing the save location: <strong><code>save</code></strong><a class="headerlink" href="#changing-the-save-location-save" title="Permanent link">#</a></h3><p>Format: <strong><code>save</code></strong><code>[FILENAME]</code></p></div>
 
 <p>By default, to-do list data are saved in a file called <code>discountTodo.xml</code> in the <code>data</code> folder. You can change the save file by specifying the file path as the first argument when running the program, or by using the <code>save</code> command.</p>
 <p>The <code>save</code> command will show you the location of the current save file if you use it without specifying a <code>FILENAME</code>. </p>
@@ -466,7 +467,6 @@ Format: <br/>
 </tbody>
 </table></div>
 
-<p>[releases]: https://github.com/CS2103AUG2016-W10-C4/main/releases the task </p>
 </div>
 </body>
 </html>

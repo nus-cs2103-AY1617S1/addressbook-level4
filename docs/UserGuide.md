@@ -25,8 +25,8 @@ Sounds exciting? Then let's get started!
 
     <img src="images/app_screenshot.png" width="700" alt="Example of UI once launched" /> <figcaption>Initial launch screen of Uncle Jim</figcaption>
 
-5. You can type in the command box and press <kbd>Enter</kbd> to execute it. 
-6. Some example commands you can try:
+5. Type in the command box and press <kbd>Enter</kbd> to execute it. 
+6. Here are some example commands you can try:
 
      * **`add`**` Finish CS2103T homework /d next Friday` - 
        adds a new task with the deadline set at next Friday
@@ -36,11 +36,11 @@ Sounds exciting? Then let's get started!
 7. Refer to the [commands reference](#commands-reference) section below for details of each command.
 
 
-## Commands Reference
+## Command Reference
 
-The following sections encompass the various commands which are executable on Uncle Jim, their format (which is flexible), as well as various scenarios where you would use them. 
+You can refer to the section below for the full list of commands that are available in Uncle Jim. For quick reference you can also refer to the [command summary](#command-summary) at the end of this guide or use the `help` command when using the app.   
 
-### Notes regarding Command Format
+### Notes regarding command format
 
 * Words in `UPPERCASE` are the parameters.
 * Items in `[SQUARE BRACKETS]` are optional.
@@ -54,7 +54,7 @@ The following sections encompass the various commands which are executable on Un
 
 ### Entering in dates 
 
-Uncle Jim supports flexible date formats as much as possible so you can enter dates in the formats specified below:
+Uncle Jim supports flexible date formats so you can enter dates in the formats specified below:
 
 * **Formal dates**
 
@@ -97,9 +97,9 @@ Format:
 **`add`**` TASK NAME [/d DEADLINE] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]`  
 **`add`**` EVENT NAME /d START END [/m DESCRIPTION] [/l LOCATION] [/p] [/t TAG 1, TAG 2...]`
 
-This allows you to add a new task or event to the To-do List.  
+You can add new tasks or events to the To-do List using the `add` command.  
 
-Although there are many parameters, all of them except the name of the task/event  are optional. Tasks will be turned into events automatically if there are two dates specified under the `/d` flag. 
+Although the list of parameters above looks intimidating, all of them except the name of the task are optional. Tasks will be turned into events automatically if there are two dates specified under the `/d` flag. 
 
 Here are some common scenarios where you would use the various parameters:
 
@@ -112,7 +112,7 @@ You can add a task by simply giving a name.
 
 #### Adding an event
 
-You can add events by specifying a start time and end time with the `/d` flag. Event locations can be specifed by adding them with the `/l` flag.  
+You can add events by specifying a start time and end time with the `/d` flag. Event locations can be specified by adding them with the `/l` flag.  
 
 !!! example
     **`add`**` Music at the park /d 11 Dec 6pm to 8pm /l Botanic Gardens /p`
@@ -126,14 +126,14 @@ If you need something done by a specific time, add a deadline to your task by sp
 
 #### Adding descriptions to a task
 
-If you wish to add more details to a task, you can add them under the `/m` flag. Note that these descriptions will be hidden from default view, once the task is added. To learn how to see these details again refer to [the `show` command](#showing-details-of-a-task-show).
+If you need to add more details to a task, you can add them under the `/m` flag. Note that these descriptions will be hidden from default view, once the task is added. To learn how to see these details again refer to [the `show` command](#showing-details-of-a-task-show).
 
 !!! example
     **`add`**` Destroy the Earth /m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!`
 
 #### Pinning a task
 
-Have task you don't want to forget? These types of tasks or events  can be pinned to the top of the list using the `/p` flag. See [the `pin` command](#pinning-a-task-pin) for more details.
+Have task you don't want to forget? These types of tasks or events can be pinned to the top of the list using the `/p` flag. See [the `pin` command](#pinning-a-task-pin) for more details.
 
 !!! example
     **`add`**` Meet Li Kai at Friday Hacks! /d 21 Oct 6pm to 8pm /p`
@@ -164,7 +164,7 @@ Format: **`delete`**` INDEX`
 This allows you to delete the task specified by the `INDEX` parameter. The index refers to the index number shown in the current view.
 
 !!! note
-If you accidentally deleted the wrong task, not to worry! You can undo the action later on. See the [undo](#undoing-an-action-undo)
+    If you accidentally deleted the wrong task, not to worry! You can undo the action later on. See the [undo](#undoing-an-action-undo)
 
 !!! example
     
@@ -187,11 +187,11 @@ If you wish to mark a batch of task in the current view as complete, you can use
 
 Note that this is a toggle command, so if `INDEX` specified is an 
 
-<img src="images/app_screenshot_completed.png" width="700" alt="Example of a Completed Task">
+<img src="images/app_screenshot_completed.png" width="700" alt="Example of a Completed Task" />
 
 <figcaption>Enjoy the satisfaction of marking completed tasks</figcaption>
 
-### Pinning a task : **`pin`**
+### Pinning a task: **`pin`**
 
 Format: **`pin`**` INDEX`
 
@@ -204,12 +204,14 @@ If a particular task or event is important, you can pin it to the top of every l
 ### Editing a task: **`edit`**
 
 Format:  
-**`edit`**` INDEX [/t NAME] [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p]`  
-**`edit`**` INDEX [/t NAME] [/d START END] [/m DESCRIPTION] [/l LOCATION] [/p]`
+**`edit`**` INDEX [NAME] [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p]`  
+**`edit`**` INDEX [NAME] [/d START END] [/m DESCRIPTION] [/l LOCATION] [/p]`
 
-If you wish to change various details of your tasks and deadlines, you can do so by using the `edit` command to make changes to the task specified by `INDEX`. The command accepts the same parameters as the `add` command, with the exception that the `/t` is used to edit the title instead of the tags. To edit tags, use the `tag` command shown below. Note that edits are automatically saved to your hard disk, and any errors can be undone using `undo`. 
+You can edit tasks or events using the `edit` command. This command accepts the same parameters as the `add` command with the addition of `INDEX`, which specifies which task or event you want to edit. 
 
-### Manage tags : **`tag`** 
+Note that edits are automatically saved, and any errors can be undone using `undo`. 
+
+### Manage tags: **`tag`** 
 
 Add, edit and delete tags.  
 Format:   
@@ -222,7 +224,7 @@ You can use tags to organize your tasks easily. Tags are case insensitive, and e
 
 #### Retagging a task 
 
-To replace the tags on a task with new ones, specify an `INDEX` with the list of tags you want to replace them with. 
+You can replace the tags on a task with new ones using the `INDEX` with the list of new tags:
 
 !!! example
     **`tag`**`` 1 nus, cs2101, cs2103t` 
@@ -230,7 +232,7 @@ To replace the tags on a task with new ones, specify an `INDEX` with the list of
 
 #### Adding tags to a task 
 
-If you instead wish to add more tags to a task, without overwriting any other tag, use the `/a` as shown below
+If you wish to add more tags to a task, use `/a`:
 
 !!! example
     **`tag`**` 1 /a cs2103T`
@@ -239,7 +241,7 @@ If you instead wish to add more tags to a task, without overwriting any other ta
 
 #### Editing tags 
 
-To rename a tag, use the `/e` flag and specify the new name for the tag. 
+You can also rename tags using `/e`:
 
 !!! example
     **`tag`**` /e Business Pleasure` 
@@ -248,7 +250,7 @@ To rename a tag, use the `/e` flag and specify the new name for the tag.
 
 #### Deleting tags 
 
-You can also remove a tag from a single task, or all tasks at once with the `/d` flag. 
+You can also remove a tag from either a single task, or all tasks at once with `/d`: 
 
 !!! example
     **`tag`**` 1 /d important` 
@@ -260,26 +262,26 @@ You can also remove a tag from a single task, or all tasks at once with the `/d`
 !!! note "Keep it simple!"
     Tags are only really necessary if you have a *lot* of tasks. Uncle Jim works just as well even if you don't use tags. For maximum productivity, keep your tags short and simple, and keep them broad so that you can apply them to many tasks.
     
-### Showing details of a task : **`show`**
+### Showing details of a task: **`show`**
 
   
 Format: **`show`**` INDEX`
 
-Descriptions of tasks and events are hidden by default. In order to display them, use this command to toggle between the expanded version of a task and its compact form.
+Descriptions of tasks and events are hidden by default. In order to display them, you can use this command to toggle between the expanded version of a task and its compact form.
 
 
-### Switching views : **`view`**
+### Switching views: **`view`**
   
 Format: **`view`**` VIEW`
 
-If you wish to drill down into your To-do List and see specific tasks, such as your incomplete tasks or today's schedule, you can use the `view` command as shown below:
+You can drill down into your To-do List and see specific tasks, such as your incomplete tasks or today's schedule, using the `view` command:
 
 !!! example
     **`view`**` completed`
     :    Show completed tasks only 
 
 
-<img src="images/app_screenshot_completed.png" width="700" alt="View of completed tasks">
+<img src="images/app_screenshot_completed.png" width="700" alt="View of completed tasks" />
 
 <figcaption>Find important and soon overdue tasks</figcaption>
 
@@ -294,11 +296,10 @@ You can also use the underlined character in the view's name as the shortcut whe
 
 Format: **`find`**` KEYWORD [MORE KEYWORDS]`
 
-If you wish to search for a specific task, `find` allows you to do so by specifying whatever keywords you provide.The search is case insensitive and the order of the keywords does not matter. Only the title and tags are searched, and tasks matching at least one keyword will be returned.
+You can search for tasks using the `find` command. The search is case insensitive and the order of the keywords does not matter. Only the title and tags are searched, and any tasks matching at least one keyword will be returned.
 
-!!!note 
-
-Only spaces are required between keywords, there is no need for commas
+!!! note 
+    Keywords are separated by spaces, not comma
 
 !!! example  
     **`find`**` John`  
@@ -312,38 +313,38 @@ Only spaces are required between keywords, there is no need for commas
     :    Returns any task with either **Jo** or **Ja** in the title, such as 
          **Meet John for lunch**, **Meet Jane for lunch**, or **Jack and Jane's wedding**
 
-### Exiting the app : **`exit`**
+### Exiting the app: **`exit`**
   
 Format: **`exit`**  
 
-If you wish to exit the program simply type `exit`.
+If you wish to exit the program, simply type `exit`.
 
-### Undoing an action : **`undo`**
+### Undoing an action: **`undo`**
 
 Format: **`undo`**
 
-In case of any mistakes made while managing your To-do List, you can undo your most recent update to the list by simply typing `undo`.  
+If you make any mistake, simply typing `undo` to undo your last action. 
 
 !!! note
-    Only applies to commands which have made changes to the to-do list like `add`, `edit` and `delete` 
+    Only applies to commands which have made changes to the To-do list like `add`, `edit` and `delete`
 
-### Redoing an action : **`redo`**
+### Redoing an action: **`redo`**
   
 Format: **`redo`**
 
 Similar to the `undo` command, you can redo your most recent action that you revoked as well. 
 
-### Loading an existing data file : **`load`**
+### Loading an existing data file: **`load`**
 
 Format: **`load`**` FILENAME`
 
-`load` allows you to load another `.xml` file into the application. You can use this to restore a backup or switch to different lists. This allows you to manage different lists such as one for home or another for work.
+You can use `load` to load another `.xml` file into the application. This can be used to restore a backup or switch to different lists. You can also use this to manage different To-do lists, such as having one for home and another for work.
 
 !!! example
 
     **`load`**` myDiscountTodo.xml`
 
-### Changing the save location : **`save`**
+### Changing the save location: **`save`**
 
 Format: **`save`**` [FILENAME]`
 
@@ -389,4 +390,4 @@ Save     | **`save`**` [FILENAME]`
 View     | **`view`**` VIEW`
 
 [java]: https://www.java.com/en/download/
-[releases]: https://github.com/CS2103AUG2016-W10-C4/main/releases the task 
+[releases]: https://github.com/CS2103AUG2016-W10-C4/main/releases
