@@ -1,10 +1,9 @@
 package guitests;
 
-import static org.junit.Assert.*;
+import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
-import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.logic.commands.SaveCommand;
 
 public class SaveCommandTest extends TaskManagerGuiTest {
@@ -13,6 +12,13 @@ public class SaveCommandTest extends TaskManagerGuiTest {
     public void save() {
         commandBox.runCommand("save temp");
         assertResultMessage(String.format(SaveCommand.MESSAGE_SUCCESS, "temp"));
+        
+        //no filepath
+        commandBox.runCommand("save");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
+        
+        commandBox.runCommand("save ");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
     }
 
 }

@@ -109,15 +109,11 @@ public class CommandParser {
     }
     
     private Command prepareSave(String argument) {
-//        final Matcher matcher = SAVE_ARGS_FORMAT.matcher(argument.trim());
-//        System.out.println(matcher.toString());
-//        // Validate arguments string format
-//        if (!matcher.matches()) {
-//            System.out.println("HERE!!!");
-//            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
-//        }
-        
-        return new SaveCommand(argument.trim());
+        try {
+            return new SaveCommand(argument.trim());
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
 
     /**
