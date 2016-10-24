@@ -20,6 +20,8 @@ import java.util.regex.Pattern;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
+import javafx.util.Pair;
+
 /**
  * Parses user input.
  */
@@ -29,8 +31,6 @@ public class CommandParser {
     public static final String EMPTY_STRING = "";
     public static final int NOT_FOUND = -1;
     public static final int STRING_START = 0;
-    public static final int INDEX_OF_NUMBER_INDEX = 0;
-    public static final int INDEX_OF_CATEGORY_INDEX = 1;
     
     /**
      * Used for initial separation of command word and args.
@@ -364,14 +364,14 @@ public class CommandParser {
     private Command prepareDelete(String args) {
         
         args = args.trim();                
-        int[] categoryAndIndex = getCategoryAndIndex(args);
+        Pair<Integer, Integer> categoryAndIndex = getCategoryAndIndex(args);
         
         if (categoryAndIndex == null) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
         
-        return new DeleteCommand(categoryAndIndex[INDEX_OF_NUMBER_INDEX], categoryAndIndex[INDEX_OF_CATEGORY_INDEX]);
+        return new DeleteCommand(categoryAndIndex.getValue(), categoryAndIndex.getKey());
     }
     
     //@@author A0135793W
@@ -384,14 +384,14 @@ public class CommandParser {
     private Command prepareDone(String args) {
         
         args = args.trim();                
-        int[] categoryAndIndex = getCategoryAndIndex(args);
+        Pair<Integer, Integer> categoryAndIndex = getCategoryAndIndex(args);
         
         if (categoryAndIndex == null) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
         }
         
-        return new DoneCommand(categoryAndIndex[INDEX_OF_NUMBER_INDEX], categoryAndIndex[INDEX_OF_CATEGORY_INDEX]);
+        return new DoneCommand(categoryAndIndex.getValue(), categoryAndIndex.getKey());
     }
     
     /**
@@ -407,9 +407,9 @@ public class CommandParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
-        int[] categoryAndIndex = getCategoryAndIndex(splitArgs[0]);
+        Pair<Integer, Integer> categoryAndIndexPair = getCategoryAndIndex(splitArgs[0]);
         
-        if (categoryAndIndex == null) {
+        if (categoryAndIndexPair == null) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
@@ -426,8 +426,8 @@ public class CommandParser {
             return new EditCommand(
                     extractTaskDetailsNatty(taskDetailArguments),
                     getTagsFromArgs(tagArguments),
-                    categoryAndIndex[INDEX_OF_NUMBER_INDEX],
-                    categoryAndIndex[INDEX_OF_CATEGORY_INDEX]);            
+                    categoryAndIndexPair.getValue(),
+                    categoryAndIndexPair.getKey());            
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -439,7 +439,7 @@ public class CommandParser {
      * @param args 
      * @return an int array with categoryIndex and index in 0 and 1 index respectively
      */
-    private int[] getCategoryAndIndex(String args) {
+    private Pair<Integer, Integer> getCategoryAndIndex(String args) {
         
         if (args.trim().equals(EMPTY_STRING)) {
             return null;
@@ -464,7 +464,7 @@ public class CommandParser {
             return null;
         }
         
-        return new int[] {index.get(), categoryIndex};
+        return new Pair<Integer, Integer>(categoryIndex, index.get());
     }
     
     /**
