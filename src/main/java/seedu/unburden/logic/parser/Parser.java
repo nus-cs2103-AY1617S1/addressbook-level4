@@ -45,33 +45,60 @@ public class Parser {
 
 	private static final Pattern KEYWORDS_DATE_FORMAT = Pattern.compile("(?<dates>[0-9]{2}[-][0-9]{2}[-][0-9]{4}$)");
 
-	private static final Pattern ADD_FORMAT_0 = // '/' forward slashes are
-												// reserved for delimiter
-												// prefixes
-			Pattern.compile("(?<name>[^/]+)" + "(?<isTaskDescriptionPrivate>p?)i/(?<taskDescriptions>[^/]+)"
-					+ "(?<isDatePrivate>p?)d/(?<date>[^/]+)"
-					+ "(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"
-					+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"
-					+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of
-															// tags
+	// Event
+	private static final Pattern ADD_FORMAT_0 = Pattern.compile("(?<name>[^/]+)"
+			+ "(?<isTaskDescriptionPrivate>p?)i/(?<taskDescriptions>[^/]+)" + "(?<isDatePrivate>p?)d/(?<date>[^/]+)"
+			+ "(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"
+			+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
-	private static final Pattern ADD_FORMAT_1 = // '/' forward slashes are
-												// reserved for delimiter
-												// prefixes
-			Pattern.compile("(?<name>[^/]+)" + "(?<isDatePrivate>p?)d/(?<date>[^/]+)"
-					+ "(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"
-					+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"
-					+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of
-															// tags
+	// Event without task description
+	private static final Pattern ADD_FORMAT_1 = Pattern.compile("(?<name>[^/]+)"
+			+ "(?<isDatePrivate>p?)d/(?<date>[^/]+)"
+			+ "(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"
+			+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
-	private static final Pattern ADD_FORMAT_2 = Pattern
+	// Deadline
+	private static final Pattern ADD_FORMAT_2 = Pattern.compile("(?<name>[^/]+)"
+			+ "(?<isTaskDescriptionPrivate>p?)i/(?<taskDescriptions>[^/]+)" + "(?<isDatePrivate>p?)d/(?<date>[^/]+)"
+			+ "(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"
+			+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+
+	// Deadline without task description
+	private static final Pattern ADD_FORMAT_3 = Pattern.compile("(?<name>[^/]+)"
+			+ "(?<isDatePrivate>p?)d/(?<date>[^/]+)"
+			+ "(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"
+			+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+
+	// Deadline without task description and time
+	private static final Pattern ADD_FORMAT_4 = Pattern
 			.compile("(?<name>[^/]+)" + "(?<isDatePrivate>p?)d/(?<date>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
-	private static final Pattern ADD_FORMAT_3 = Pattern.compile("(?<name>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+	// Deadline without task description and date
+	private static final Pattern ADD_FORMAT_5 = Pattern.compile("(?<name>[^/]+)"
+			+ "(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"
+			+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
-	private static final Pattern ADD_FORMAT_4 = Pattern.compile("(?<name>[^/]+)"
-			+ "(?<isDatePrivate>p?)d/(?<date>[^/]+)" + "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)"
-			+ "(?<tagArguments>(?: t/[^/]+)*)");
+	// Deadline without date
+	private static final Pattern ADD_FORMAT_6 = Pattern.compile("(?<name>[^/]+)"
+			+ "(?<isTaskDescriptionPrivate>p?)i/(?<taskDescriptions>[^/]+)"
+			+ "(?<isStartTimeArgumentsPrivate>p?)s/(?<startTimeArguments>[^/]+)"
+			+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+
+	// Deadline without date and start time
+	private static final Pattern ADD_FORMAT_7 = Pattern.compile("(?<name>[^/]+)"
+			+ "(?<isTaskDescriptionPrivate>p?)i/(?<taskDescriptions>[^/]+)"
+			+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+
+	// Deadline without date and start time and task description
+	private static final Pattern ADD_FORMAT_8 = Pattern.compile("(?<name>[^/]+)"
+			+ "(?<isEndTimeArgumentsPrivate>p?)e/(?<endTimeArguments>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+
+	// Floating task
+	private static final Pattern ADD_FORMAT_9 = Pattern.compile("(?<name>[^/]+)"
+			+ "(?<isTaskDescriptionPrivate>p?)i/(?<taskDescriptions>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
+
+	// Floating task without task description
+	private static final Pattern ADD_FORMAT_10 = Pattern.compile("(?<name>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
 	private static final Pattern EDIT_FORMAT = Pattern.compile("(?<index>[^/]+)(?!$)" + "(d/(?<date>[^/]+))?"
 			+ "(s/(?<startTimeArguments>[^/]+))?" + "(e/(?<endTimeArguments>[^/]+))?");
@@ -139,7 +166,7 @@ public class Parser {
 
 		case HelpCommand.COMMAND_WORD:
 			return prepareHelp(arguments);
-		
+
 		case DoneCommand.COMMAND_WORD:
 			return prepareDone(arguments);
 
@@ -163,10 +190,13 @@ public class Parser {
 		final Matcher matcher2 = ADD_FORMAT_2.matcher(args.trim());
 		final Matcher matcher3 = ADD_FORMAT_3.matcher(args.trim());
 		final Matcher matcher4 = ADD_FORMAT_4.matcher(args.trim());
+		final Matcher matcher5 = ADD_FORMAT_5.matcher(args.trim());
+		final Matcher matcher6 = ADD_FORMAT_6.matcher(args.trim());
+		final Matcher matcher7 = ADD_FORMAT_7.matcher(args.trim());
 
 		// Validate arg string format
-		if (!matcher0.matches() & !matcher1.matches() & !matcher2.matches() & !matcher3.matches()
-				& !matcher4.matches()) {
+		if (!matcher0.matches() & !matcher1.matches() & !matcher2.matches() & !matcher3.matches() & !matcher4.matches()
+				& !matcher5.matches() & !matcher6.matches() & !matcher7.matches()) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 
@@ -177,10 +207,15 @@ public class Parser {
 				details.add(matcher0.group("date"));
 				details.add(matcher0.group("startTimeArguments"));
 				details.add(matcher0.group("endTimeArguments"));
-				return new AddCommand("event with everything", details, getTagsFromArgs(matcher0.group("tagArguments")));
-				/*return new AddCommand(matcher0.group("name"), matcher0.group("taskDescriptions"),
-						matcher0.group("date"), matcher0.group("startTimeArguments"),
-						matcher0.group("endTimeArguments"), getTagsFromArgs(matcher0.group("tagArguments")));*/
+				return new AddCommand("event with everything", details,
+						getTagsFromArgs(matcher0.group("tagArguments")));
+				/*
+				 * return new AddCommand(matcher0.group("name"),
+				 * matcher0.group("taskDescriptions"), matcher0.group("date"),
+				 * matcher0.group("startTimeArguments"),
+				 * matcher0.group("endTimeArguments"),
+				 * getTagsFromArgs(matcher0.group("tagArguments")));
+				 */
 			}
 
 			if (matcher1.matches()) {
@@ -188,17 +223,31 @@ public class Parser {
 				details.add(matcher1.group("date"));
 				details.add(matcher1.group("startTimeArguments"));
 				details.add(matcher1.group("endTimeArguments"));
-				return new AddCommand("event without description", details, getTagsFromArgs(matcher1.group("tagArguments")));
-				/*return new AddCommand(matcher1.group("name"), matcher1.group("date"),
-						matcher1.group("startTimeArguments"), matcher1.group("endTimeArguments"),
-						getTagsFromArgs(matcher1.group("tagArguments")));*/
-			}
-			else if (matcher2.matches()) {
+				return new AddCommand("event without description", details,
+						getTagsFromArgs(matcher1.group("tagArguments")));
+				/*
+				 * return new AddCommand(matcher1.group("name"),
+				 * matcher1.group("date"), matcher1.group("startTimeArguments"),
+				 * matcher1.group("endTimeArguments"),
+				 * getTagsFromArgs(matcher1.group("tagArguments")));
+				 */
+
+			} else if (matcher2.matches()) {
+				details.add(matcher2.group("name"));
+				details.add(matcher2.group("taskDescriptions"));
+				details.add(matcher2.group("date"));
+				return new AddCommand("deadline", details, getTagsFromArgs(matcher2.group("tagArguments")));
+
+			} else if (matcher3.matches()) {
 				details.add(matcher2.group("name"));
 				details.add(matcher2.group("date"));
-				return new AddCommand("deadline without time", details, getTagsFromArgs(matcher2.group("tagArguments")));
-				/*return new AddCommand(matcher2.group("name"), matcher2.group("date"),
-						getTagsFromArgs(matcher2.group("tagArguments")));*/
+				return new AddCommand("deadline without time", details,
+						getTagsFromArgs(matcher2.group("tagArguments")));
+				/*
+				 * return new AddCommand(matcher2.group("name"),
+				 * matcher2.group("date"),
+				 * getTagsFromArgs(matcher2.group("tagArguments")));
+				 */
 			}
 
 			else if (matcher4.matches()) {
@@ -206,55 +255,82 @@ public class Parser {
 				details.add(matcher4.group("date"));
 				details.add(matcher4.group("endTimeArguments"));
 				return new AddCommand("deadline", details, getTagsFromArgs(matcher2.group("tagArguments")));
-				/*return new AddCommand(matcher4.group("name"), matcher4.group("date"),
-						matcher4.group("endTimeArguments"), getTagsFromArgs(matcher4.group("tagArguments")));*/
+				/*
+				 * return new AddCommand(matcher4.group("name"),
+				 * matcher4.group("date"), matcher4.group("endTimeArguments"),
+				 * getTagsFromArgs(matcher4.group("tagArguments")));
+				 */
 
 			}
 
 			else {
-				if (matcher3.group("name").toLowerCase().contains(byToday)) {
+				if (matcher4.group("name").toLowerCase().contains(byToday)) {
 					details.add(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byToday), ""));
 					details.add(dateFormatter.format(calendar.getTime()));
-					return new AddCommand ("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
-					
-					/*return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byToday), ""),
-							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));*/
+					return new AddCommand("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
+
+					/*
+					 * return new
+					 * AddCommand(matcher3.group("name").replaceAll("(?i)" +
+					 * Pattern.quote(byToday), ""),
+					 * dateFormatter.format(calendar.getTime()),
+					 * getTagsFromArgs(matcher3.group("tagArguments")));
+					 */
 				}
 
-				else if (matcher3.group("name").toLowerCase().contains(byTomorrow)) {
+				else if (matcher4.group("name").toLowerCase().contains(byTomorrow)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.DAY_OF_YEAR, 1);
 					details.add(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byTomorrow), ""));
 					details.add(dateFormatter.format(calendar.getTime()));
-					return new AddCommand ("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
-					/*return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byTomorrow), ""),
-							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));*/
+					return new AddCommand("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
+					/*
+					 * return new
+					 * AddCommand(matcher3.group("name").replaceAll("(?i)" +
+					 * Pattern.quote(byTomorrow), ""),
+					 * dateFormatter.format(calendar.getTime()),
+					 * getTagsFromArgs(matcher3.group("tagArguments")));
+					 */
 				}
 
-				else if (matcher3.group("name").toLowerCase().contains(byNextWeek)) {
+				else if (matcher4.group("name").toLowerCase().contains(byNextWeek)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_YEAR, 1);
 					details.add(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextWeek), ""));
 					details.add(dateFormatter.format(calendar.getTime()));
 					return new AddCommand("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
-					/*return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextWeek), ""),
-							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));*/
+					/*
+					 * return new
+					 * AddCommand(matcher3.group("name").replaceAll("(?i)" +
+					 * Pattern.quote(byNextWeek), ""),
+					 * dateFormatter.format(calendar.getTime()),
+					 * getTagsFromArgs(matcher3.group("tagArguments")));
+					 */
 				}
 
-				else if (matcher3.group("name").toLowerCase().contains(byNextMonth)) {
+				else if (matcher4.group("name").toLowerCase().contains(byNextMonth)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_MONTH, 4);
 					details.add(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextMonth), ""));
 					details.add(dateFormatter.format(calendar.getTime()));
 					return new AddCommand("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
-					/*return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextMonth), ""),
-							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));*/
+					/*
+					 * return new
+					 * AddCommand(matcher3.group("name").replaceAll("(?i)" +
+					 * Pattern.quote(byNextMonth), ""),
+					 * dateFormatter.format(calendar.getTime()),
+					 * getTagsFromArgs(matcher3.group("tagArguments")));
+					 */
 				}
 
 				else {
-					details.add(matcher3.group("name"));
-					return new AddCommand("floating task with name", details, getTagsFromArgs(matcher3.group("tagArguments")));
-					/*return new AddCommand(matcher3.group("name"), getTagsFromArgs(matcher3.group("tagArguments")));*/
+					details.add(matcher4.group("name"));
+					return new AddCommand("floating task with name", details,
+							getTagsFromArgs(matcher3.group("tagArguments")));
+					/*
+					 * return new AddCommand(matcher3.group("name"),
+					 * getTagsFromArgs(matcher3.group("tagArguments")));
+					 */
 				}
 			}
 
@@ -418,22 +494,22 @@ public class Parser {
 			return new FindCommand(nameKeyword, "name");
 		}
 	}
-	
+
 	/**
-	 * Sets up done command to be executed 
-	 * @param args full command args string
-	 * @return prepared doneCommand 
+	 * Sets up done command to be executed
+	 * 
+	 * @param args
+	 *            full command args string
+	 * @return prepared doneCommand
 	 */
-	private Command prepareDone(String args){
+	private Command prepareDone(String args) {
 		Optional<Integer> index = parseIndex(args);
-		if(!index.isPresent()){
-			return new IncorrectCommand(
-					String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+		if (!index.isPresent()) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
 		}
-		
+
 		return new DoneCommand(index.get());
 	}
-	
 
 	private Command prepareHelp(String args) {
 		args = args.trim();
