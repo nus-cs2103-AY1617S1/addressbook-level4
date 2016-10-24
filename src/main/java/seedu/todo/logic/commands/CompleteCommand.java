@@ -11,6 +11,7 @@ import seedu.todo.model.task.ImmutableTask;
 
 import java.util.List;
 
+//@@author A0092382A
 public class CompleteCommand extends BaseCommand {
     private static final String VERB_COMPLETE = "marked complete";
     private static final String VERB_INCOMPLETE = "marked incomplete";
@@ -59,7 +60,7 @@ public class CompleteCommand extends BaseCommand {
             return taskSuccessfulResult(task.getTitle(), feedback);
         }
         else {
-            this.model.updateAll(t -> t.setCompleted(!t.isCompleted()));
+            this.model.updateAll(t -> t.setCompleted(true));
             String feedback = "Complete all exceuted!";
             return new CommandResult(feedback);
         }
