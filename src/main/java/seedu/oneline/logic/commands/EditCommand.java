@@ -76,12 +76,8 @@ public class EditCommand extends Command {
                 case RECURRENCE:
                     newRecurrence = new TaskRecurrence(entry.getValue());
                     break;
-                case TAG_ARGUMENTS:
-                    Set<String> tagsToAdd = Parser.getTagsFromArgs(entry.getValue());
-                    newTags = new UniqueTagList();
-                    for (String tag : tagsToAdd) {
-                        newTags.add(new Tag(tag));
-                    }
+                case TAG:
+                    newTag = new Tag(Parser.getTagFromArgs(entry.getValue()));
                     break;
                 }
             }

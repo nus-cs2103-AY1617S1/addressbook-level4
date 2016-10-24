@@ -24,10 +24,8 @@ public class TestDataHelper{
         TaskTime endTime = new TaskTime("Mon Oct 17 21:35:45");
         TaskTime deadline = new TaskTime("Sun Oct 23 21:35:45");
         TaskRecurrence recurrence = new TaskRecurrence("X");
-        Tag tag1 = new Tag("tag1");
-        Tag tag2 = new Tag("tag2");
-        UniqueTagList tags = new UniqueTagList(tag1, tag2);
-        return new Task(name, startTime, endTime, deadline, recurrence, tags, false);
+        Tag tag = new Tag("tag1");
+        return new Task(name, startTime, endTime, deadline, recurrence, tag, false);
     }
 
     /**
@@ -44,7 +42,7 @@ public class TestDataHelper{
                 new TaskTime("" + seed),
                 new TaskTime("" + seed),
                 new TaskRecurrence("" + seed),
-                new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
+                new Tag("tag" + Math.abs(seed)),
                 false
         );
     }
@@ -60,10 +58,7 @@ public class TestDataHelper{
         cmd.append(" .to ").append(p.getEndTime());
         cmd.append(" .due ").append(p.getDeadline());
         cmd.append(" .every ").append(p.getRecurrence());
-        UniqueTagList tags = p.getTags();
-        for(Tag t: tags){
-            cmd.append(" #").append(t.tagName);
-        }
+        cmd.append(" #").append(p.getTag().tagName);
 
         return cmd.toString();
     }
@@ -145,7 +140,7 @@ public class TestDataHelper{
                 new TaskTime(""),
                 new TaskTime(""),
                 new TaskRecurrence(""),
-                new UniqueTagList(new Tag("tag")),
+                new Tag("tag"),
                 false
         );
     }

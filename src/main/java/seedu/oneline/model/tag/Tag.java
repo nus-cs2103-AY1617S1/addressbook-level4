@@ -2,6 +2,7 @@ package seedu.oneline.model.tag;
 
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
+import seedu.oneline.model.task.TaskRecurrence;
 
 /**
  * Represents a Tag in the address book.
@@ -12,8 +13,9 @@ public class Tag {
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public String tagName;
-    private String colour; 
+    public static final Tag EMPTY_TAG = new Tag();
+    
+    public String tagName = null;
 
     public Tag() {
     }
@@ -31,7 +33,6 @@ public class Tag {
             throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS + " : " + name);
         }
         this.tagName = name;
-        this.colour = "#ffffff";
     }
 
     /**
@@ -40,38 +41,12 @@ public class Tag {
     public static boolean isValidTagName(String test) {
         return test.matches(TAG_VALIDATION_REGEX);
     }
-    
-    public void setColour(String colour) {
-        switch(colour) {
-        case "white": 
-            this.colour = "#ffffff";
-            break;
-        case "red": 
-            this.colour = "#F95E59"; 
-            break;
-        case "orange": 
-            this.colour = "#ff6633"; 
-            break;
-        case "yellow": 
-            this.colour = "#FEE715"; 
-            break;
-        case "green": 
-            this.colour = "#F95E59"; 
-            break;
-        case "blue": 
-            this.colour = "#F95E59"; 
-            break;
-        case "purple": 
-            this.colour = "#F95E59"; 
-            break;
-        default: 
-            return; 
-        }
-            
-    }
-    
-    public String getColour() {
-        return colour; 
+
+    /**
+     * Returns the default tag value
+     */
+    public static Tag getDefault() {
+        return EMPTY_TAG;
     }
     
     @Override

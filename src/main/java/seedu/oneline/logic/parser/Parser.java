@@ -36,6 +36,9 @@ public class Parser {
             Pattern.compile("(?<index>-?[\\d]+)" // index
                     + " (?<args>.+)"); // the other arguments
     
+    private static final Pattern TAG_ARGS_FORMAT =
+            Pattern.compile("#(?<tag>[\\w]+)"); // #<tag>
+    
     public Parser() {}
 
     private static final Map<String, Class<? extends Command>> COMMAND_CLASSES = initCommandClasses();
@@ -131,7 +134,7 @@ public class Parser {
                         throw new IllegalCmdArgsException("Hashtags should be the last fields in command.");
                     }
                 }
-                fieldIndexes.add(new SimpleEntry<TaskField, Integer>(TaskField.TAG_ARGUMENTS, i));
+                fieldIndexes.add(new SimpleEntry<TaskField, Integer>(TaskField.TAG, i));
                 break;
             }
         }
@@ -156,11 +159,11 @@ public class Parser {
             result.put(TaskField.NAME, String.join(" ", subArr));
         }
         for (int i = 0; i < fieldIndexes.size(); i++) {
-            if (fieldIndexes.get(i).getKey() == TaskField.TAG_ARGUMENTS && i != fieldIndexes.size() - 1) {
+            if (fieldIndexes.get(i).getKey() == TaskField.TAG && i != fieldIndexes.size() - 1) {
                 throw new IllegalCmdArgsException("Hashtags should be the last fields in command.");
             }
             String[] subArr = Arrays.copyOfRange(splitted,
-                                (fieldIndexes.get(i).getKey() == TaskField.TAG_ARGUMENTS) ?
+                                (fieldIndexes.get(i).getKey() == TaskField.TAG) ?
                                     fieldIndexes.get(i).getValue() :
                                     fieldIndexes.get(i).getValue() + 1,
                                 (i == fieldIndexes.size() - 1) ?
@@ -227,6 +230,20 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return keywordSet;
+    }
+    
+    /**
+     * Parses a tag field to return the tag
+     *
+     * @param args full command args string
+     * @return the tag
+     */
+    public static String getTagFromArgs(String args) {
+        final Matcher matcher = TAG_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return null; // TODO: THROW ERROR
+        }
+        return matcher.group("tag");
     }
     
     /**

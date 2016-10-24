@@ -8,7 +8,7 @@ public enum TaskField {
     END_TIME(CommandConstants.KEYWORD_END_TIME),
     DEADLINE(CommandConstants.KEYWORD_DEADLINE),
     RECURRENCE(CommandConstants.KEYWORD_RECURRENCE),
-    TAG_ARGUMENTS(CommandConstants.KEYWORD_PREFIX);
+    TAG(CommandConstants.KEYWORD_PREFIX);
     
     String keyword;
     

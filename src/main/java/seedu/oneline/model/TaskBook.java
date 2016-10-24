@@ -3,6 +3,7 @@ package seedu.oneline.model;
 import javafx.collections.ObservableList;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
+import seedu.oneline.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.TaskName;
@@ -92,21 +93,13 @@ public class TaskBook implements ReadOnlyTaskBook {
      *  - points to a Tag object in the master list
      */
     private void syncTagsWithMasterList(Task task) {
-        final UniqueTagList taskTags = task.getTags();
-        tags.mergeFrom(taskTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
+        if (!this.getUniqueTagList().contains(task.getTag())) {
+            try {
+                this.getUniqueTagList().add(task.getTag());
+            } catch (DuplicateTagException e) {
+                assert false;
+            }
         }
-
-        // Rebuild the list of person tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : taskTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        task.setTags(new UniqueTagList(commonTagReferences));
     }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {

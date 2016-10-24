@@ -25,7 +25,6 @@ public class TagCard extends UiPart{
     public static TagCard load(Tag tag){
         TagCard card = new TagCard();
         card.tag = tag;
-        card.colour = tag.getColour(); 
         return UiPartLoader.loadUiPart(card);
     }
 

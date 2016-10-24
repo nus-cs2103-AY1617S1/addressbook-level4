@@ -27,8 +27,8 @@ public class TaskCardParser {
         return task.getRecurrence().toString();
     }
     
-    public String getTags() {
-        return task.tagsString();
+    public String getTag() {
+        return task.getTag().toString();
     }
     
 }
