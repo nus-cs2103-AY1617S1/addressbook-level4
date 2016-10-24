@@ -37,6 +37,14 @@ public class AddAliasCommand extends TaskCommand {
     	}
         this.toAdd = new Alias(shortcut, sentence);
     }
+    
+    /**
+     * Retrieve the details of the alias to add for testing purposes
+     */
+    public String getAliasDetails() {
+    	return toAdd.toString();
+    }
+    
 
     @Override
     public CommandResult execute() {
