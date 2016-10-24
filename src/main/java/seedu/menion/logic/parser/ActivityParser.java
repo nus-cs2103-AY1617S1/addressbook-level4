@@ -81,6 +81,9 @@ public class ActivityParser {
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
             
+        case ModifyStoragePathCommand.COMMAND_WORD:
+        	return new ModifyStoragePathCommand(arguments);
+            
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
