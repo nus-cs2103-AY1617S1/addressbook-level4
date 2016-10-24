@@ -18,9 +18,9 @@ public class EditCommand extends Command {
 	public static final String COMMAND_WORD = "edit";
 	
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the task manager. "
-            + "Parameters: NAME p/PRIORITY" 
+            + "Parameters: NAME" 
             + " Example: " + COMMAND_WORD
-            + " 1 Task Name to be Changed d/121016 p/3";
+            + " 1 Task Name to be Changed d/121016";
 	
 	public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task edited: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager.";
