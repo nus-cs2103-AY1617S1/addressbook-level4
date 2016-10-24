@@ -37,8 +37,7 @@ public class Parser {
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>.+)"
             		+ " (?<name>[^/]+)"
-            		//+ "(?<startline>(?: s/[^/]+)*)"
-            		+ " s/(?<startline>[^/]+)"
+            		+ "(?<startline>(?: s/[^/]+)*)"
             		+ "(?<deadlineArguments>(?: d/[^/]+)*)"
                     + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -132,15 +131,13 @@ public class Parser {
      */
     private String getStartlineFromArgs(String args){
     	if(args.isEmpty()){
-    		return "00-00-00 00:00";
+    		return null;
     	}
     	args = args.replaceFirst(" s/", "");
     	String[] strArr = args.split("\\s+");
     	if(strArr.length == 1){
-    		return args + " " + "23:59";
+    		return args + " " + "00:00";
     	}
-    	System.out.println(strArr[0]);
-    	System.out.println(args);
     	return args;    	
     }
 
