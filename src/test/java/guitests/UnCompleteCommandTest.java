@@ -10,7 +10,7 @@ import seedu.menion.commons.core.Messages;
 import seedu.menion.model.activity.Activity;
 
 //@@author A0139164A
-public class UnCompleteCommandTest extends AddressBookGuiTest {
+public class UnCompleteCommandTest extends ActivityManagerGuiTest {
     
     @Test
     public void uncomplete() {
