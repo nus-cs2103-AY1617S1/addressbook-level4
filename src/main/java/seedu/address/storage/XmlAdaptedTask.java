@@ -80,9 +80,12 @@ public class XmlAdaptedTask {
             date = new EventDate(dates[START_DATE_INDEX], dates[END_DATE_INDEX]);
         }
         final UniqueTagList tags = new UniqueTagList(personTags);
-        if (isRecurring)
+        if (isRecurring){
+           // System.out.println("isrecurring is true");
             return new Task(name, date, tags, isDone, new Recurring(frequency));
-        else
+        }
+        
             return new Task(name, date, tags, isDone, false);
+        
     }
 }

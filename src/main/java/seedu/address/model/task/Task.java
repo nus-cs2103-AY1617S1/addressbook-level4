@@ -89,6 +89,7 @@ public class Task implements ReadOnlyTask {
                                              // changes in the arg list
         this.isDone = isDone;
         this.done = new SimpleBooleanProperty(isDone);
+        this.isRecurring=true;
         this.recurring = Recurring;
 
     }
@@ -148,21 +149,32 @@ public class Task implements ReadOnlyTask {
             LocalDate endLocalDate = LocalDate.parse(endDate, germanFormatter);
             endDate = germanFormatter.format(endLocalDate.plusDays(daysToUpdate)).toString();
             String startTime = "", endTime = "";
-            if (((EventDate) date).getStartDate().length() > 9) {
+            if (((EventDate) date).getStartDate().length() > 10) {
                 startTime = ((EventDate) date).getStartDate().substring(11);
                 endTime = ((EventDate) date).getEndDate().substring(11);
             }
+            if(!startTime.equals("")&&!endTime.equals("")){
             ((EventDate) date).updateDate(startDate + "-" + startTime, endDate + "-" + endTime);
+            }else if(!startTime.equals("")){
+                ((EventDate) date).updateDate(startDate+"-"+startTime, endDate);
+            }else if(!endTime.equals("")){
+                ((EventDate) date).updateDate(startDate, endDate+"-"+endTime);
+            }else{
+                ((EventDate) date).updateDate(startDate, endDate);
+            }
         } else {
             if (date instanceof Deadline) {
                 String deadlineDate = date.getValue().substring(0, 10);
                 LocalDate deadlineLocalDate = LocalDate.parse(deadlineDate, germanFormatter);
                 deadlineDate = germanFormatter.format(deadlineLocalDate.plusDays(daysToUpdate)).toString();
                 String deadlineTime = "";
-                if (date.toString().length() > 9) {
+                if (date.toString().length() > 10) {
                     deadlineTime = date.toString().substring(11);
                 }
+                if(!deadlineTime.equals(""))
                 ((Deadline) date).updateDate(deadlineDate + "-" + deadlineTime);
+                else
+                    ((Deadline) date).updateDate(deadlineDate);
             }
 
         }
