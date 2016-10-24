@@ -3,6 +3,9 @@ package teamfour.tasc.logic.commands;
 import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.events.ui.ChangeCalendarViewRequestEvent;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
+import teamfour.tasc.model.keyword.CalendarCommandKeyword;
+import teamfour.tasc.model.keyword.DayKeyword;
+import teamfour.tasc.model.keyword.WeekKeyword;
 import teamfour.tasc.ui.CalendarPanel;
 
 /**
@@ -10,10 +13,10 @@ import teamfour.tasc.ui.CalendarPanel;
  */
 public class CalendarCommand extends Command {
 
-    public static final String COMMAND_WORD = "calendar";
+    public static final String COMMAND_WORD = CalendarCommandKeyword.keyword;
 
-    public static final String KEYWORD_CALENDAR_VIEW_DAY = "day";
-    public static final String KEYWORD_CALENDAR_VIEW_WEEK = "week";
+    public static final String KEYWORD_CALENDAR_VIEW_DAY = DayKeyword.keyword;
+    public static final String KEYWORD_CALENDAR_VIEW_WEEK = WeekKeyword.keyword;
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the calendar view. "
             + "Parameters: day (or) week\n"

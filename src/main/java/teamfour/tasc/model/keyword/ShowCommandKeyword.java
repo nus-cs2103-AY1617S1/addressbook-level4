@@ -2,6 +2,6 @@ package teamfour.tasc.model.keyword;
 
 public class ShowCommandKeyword extends Keyword {
 
-    public static String keyword = "show";
+    public static final String keyword = "show";
 
 }

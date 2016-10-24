@@ -2,6 +2,6 @@ package teamfour.tasc.model.keyword;
 
 public class WeekKeyword extends Keyword {
 
-    public static String keyword = "week";
+    public static final String keyword = "week";
 
 }
