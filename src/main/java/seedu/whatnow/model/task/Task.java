@@ -35,17 +35,17 @@ public class Task implements ReadOnlyTask {
         this.status = status;
         this.taskType = FLOATING;
              
-        if (taskDate != null) {
+        if (taskDate != null && taskDate.getDate() != null) {
             this.taskDate = taskDate;
             this.taskType = NOT_FLOATING;
         }
-            
-        if (startDate != null) {
+        
+        if (startDate != null && startDate.getDate() != null) {
             this.startDate = startDate;
             this.taskType = NOT_FLOATING;
         }
             
-        if (endDate != null) {
+        if (endDate != null && endDate.getDate() != null) {
             this.endDate = endDate;
             this.taskType = NOT_FLOATING;
         }
