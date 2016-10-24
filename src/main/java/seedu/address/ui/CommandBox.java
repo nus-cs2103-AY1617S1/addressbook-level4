@@ -127,6 +127,7 @@ public class CommandBox extends UiPart {
             	// Get a new autocompleted command and update the commandTextField
             	String autocompletedCommand = logic.getNextAutocompleteSuggestion();
             	commandTextField.setText(autocompletedCommand);
+            	setCaretPositionToEnd();
             	
             	// Add the listener back
             	setTextChangedListener();
@@ -173,6 +174,13 @@ public class CommandBox extends UiPart {
      */
     private void setStyleToIndicateIncorrectCommand() {
         commandTextField.getStyleClass().add("error");
+    }
+    
+    /**
+     * Sets the caret of the textfield to the end position
+     */
+    private void setCaretPositionToEnd() {
+    	commandTextField.positionCaret(Integer.MAX_VALUE);
     }
 
 }
