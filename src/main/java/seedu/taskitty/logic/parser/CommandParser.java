@@ -363,14 +363,20 @@ public class CommandParser {
      */
     private Command prepareDelete(String args) {
         
-        args = args.trim();                
-        Pair<Integer, Integer> categoryAndIndex = getCategoryAndIndex(args);
+        args = args.trim();
+        String[] indexes = args.split("\\s");
+        Pair<Integer, Integer> categoryAndIndex = null;
+        ArrayList<Pair<Integer, Integer>> listOfIndexes = new ArrayList<Pair<Integer, Integer>>();
         
-        if (categoryAndIndex == null) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+        for (String index: indexes) {
+            categoryAndIndex= getCategoryAndIndex(index);
+            if (categoryAndIndex == null) {
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }
+            listOfIndexes.add(categoryAndIndex);
         }
-        
+                
         return new DeleteCommand(categoryAndIndex.getValue(), categoryAndIndex.getKey());
     }
     
@@ -384,11 +390,17 @@ public class CommandParser {
     private Command prepareDone(String args) {
         
         args = args.trim();                
-        Pair<Integer, Integer> categoryAndIndex = getCategoryAndIndex(args);
+        String[] indexes = args.split("\\s");
+        Pair<Integer, Integer> categoryAndIndex = null;
+        ArrayList<Pair<Integer, Integer>> listOfIndexes = new ArrayList<Pair<Integer, Integer>>();
         
-        if (categoryAndIndex == null) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        for (String index: indexes) {
+            categoryAndIndex= getCategoryAndIndex(index);
+            if (categoryAndIndex == null) {
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+            }
+            listOfIndexes.add(categoryAndIndex);
         }
         
         return new DoneCommand(categoryAndIndex.getValue(), categoryAndIndex.getKey());
