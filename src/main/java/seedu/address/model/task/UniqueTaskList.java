@@ -106,6 +106,19 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+    
+    public boolean markOverdue(ReadOnlyTask key) {
+    	assert key != null;
+    	int overdueIndex = internalList.indexOf(key);
+    	Task overduedTask = new Task(internalList.get(overdueIndex));
+    	if (overduedTask.isOverdue(overduedTask.getDate(), overduedTask.getEnd())) {
+    		overduedTask.setOverdue(1);
+    		internalList.set(overdueIndex, overduedTask);
+    		return true;
+    	}
+    	else
+    		return false;
+    }
 
     public boolean edit(ReadOnlyTask key, String args) throws IllegalValueException {
         // TODO Auto-generated method stub
