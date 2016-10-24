@@ -2,12 +2,16 @@ package seedu.todo.logic.commands;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.Matchers.*;
 
 
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.commands.CompleteCommand;
 
 public class CompleteCommandTest extends CommandTest {
@@ -45,5 +49,43 @@ public class CompleteCommandTest extends CommandTest {
         assertThat(result.getFeedback(), containsString(VERB_INCOMPLETE));
         assertEquals(markedIncomplete, toMarkIncomplete);
         assertFalse(toMarkIncomplete.isCompleted());
+    }
+    
+    @Test
+    public void testCompleteAll_withView() throws Exception {
+        model.view(TaskViewFilter.INCOMPLETE);
+        List<ImmutableTask> tasks = model.getObservableList();
+        setParameter("all", "all");
+        execute(true);
+        int count = 0;
+        for (ImmutableTask task : tasks){
+            assertTrue(task.isCompleted());
+            if(task.isCompleted()){
+                count++;
+            }
+        }
+        assertEquals(tasks.size(), count);
+    }
+
+    @Test
+    public void testCompleteAll_withAlreadyComplete() throws Exception {
+        setParameter("all","all");
+        execute(true);
+        int count = 0;
+        for (ImmutableTask task : model.getObservableList()){
+            assertTrue(task.isCompleted());
+            if(task.isCompleted()){
+                count++;
+            }
+        }
+        assertEquals(model.getObservableList().size(), count);
+    }
+    
+    @Test(expected = ValidationException.class)
+    public void testMarkCompleteAll_invalid() throws Exception {
+        model.view(TaskViewFilter.INCOMPLETE);
+        setParameter("1");
+        setParameter("all","all");
+        execute(false);
     }
 }
