@@ -13,6 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_TOOLTIP_EMPTY_INPUT;
+
 
 /**
  * Parses user input.
@@ -344,11 +346,17 @@ public class CommandParser {
      */
     public List<String> parseForToolTip(String userInput) {
         assert userInput != null;
-
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         
-        // this method should only be called for nonempty user input and there will never be an incorrect format
-        assert userInput.length() > 0 && matcher.matches();
+        // trim the input
+        userInput = userInput.trim();
+
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput);
+        
+        if (!matcher.matches()) {
+            List<String> toolTips = new ArrayList<String>();
+            toolTips.add(String.format(MESSAGE_TOOLTIP_EMPTY_INPUT));
+            return toolTips;
+        }
         
         // extract the possible command word and command arguments from user input
         final String commandWord = matcher.group("commandWord");

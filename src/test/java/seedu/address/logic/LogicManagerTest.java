@@ -403,11 +403,13 @@ public class LogicManagerTest {
     
     //TODO: do i need to have a test case for null string
     // Are we penalised for not using test case heuristics? Else im just gonna spam this.
+    
     @Test
     public void toolTip_invalidCommandInput_incorrectCommandTooltip() {
         // no newline for this case
-        assertToolTipBehavior("", String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));    
+        assertToolTipBehavior("", MESSAGE_TOOLTIP_EMPTY_INPUT + "\n");    
     }
+    
     
     @Test
     public void toolTip_commandBeginningSubstringsOfAdd_addToolTip() {
@@ -416,8 +418,7 @@ public class LogicManagerTest {
         assertToolTipBehavior("add", AddCommand.TOOL_TIP + "\n");
         assertToolTipBehavior("add f", AddCommand.TOOL_TIP + "\n");
         assertToolTipBehavior("meet akshay at 1pm", AddCommand.TOOL_TIP + "\n");
-        // TODO: the behavior for this case..
-        //assertToolTipBehavior("do cs2103 tests", AddCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("do cs2103 tests", AddCommand.TOOL_TIP + "\n");
     }
     
     @Test

@@ -13,7 +13,6 @@ import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.FxViewUtil;
-import seedu.address.history.History;
 import seedu.address.history.InputHistory;
 import seedu.address.commons.core.LogsCenter;
 
@@ -73,29 +72,51 @@ public class CommandBox extends UiPart {
     }
     
     /**
-     * Attempt to parse a possibly incomplete command in the command box and display the command format
-     * matching that.
+     * Handles the event where user input in the command box changes.
      */
     @FXML
     private void handleCommandInputChanged(KeyEvent event){
         KeyCode keyCode = event.getCode();
         
-        // handle event for arrow keys
-        if (keyCode == KeyCode.UP || keyCode == KeyCode.DOWN){
-            handleArrowKeyEvent(keyCode);
-        }
+        boolean isKeyToHandle = checkIsKeyToHandle(keyCode);
+        boolean isNotKeyToHandle = !isKeyToHandle;
         
-        // do not update tooltip if user clears textfield
-        else if (commandTextField.getText().equals("")) {
+        boolean isNavigatingInputHistory = checkIfNavigatingInputHistory(keyCode);
+                
+        if (isNotKeyToHandle) {
             return;
         }
                
-        // only update if user uses a backspace or enters a valid character or is accessing previous/next 
-        // input (covered above)
-        else if (keyCode != KeyCode.BACK_SPACE && !keyCode.isDigitKey() && !keyCode.isLetterKey()) {
-            return;
+        if (isNavigatingInputHistory) {
+            handleArrowKeyEvent(keyCode);
         }
-        
+                       
+        updateTooltipForUser();
+    }
+
+    /**
+     * Returns if the key press corresponds to an up or down arrow key used to navigate input history.
+     * @param keyCode the key to check
+     * @return boolean representing if the key is an up or down arrow key
+     */
+    private boolean checkIfNavigatingInputHistory(KeyCode keyCode) {
+        return keyCode == KeyCode.UP || keyCode == KeyCode.DOWN;
+    }
+
+    /**
+     * Returns if the key press corresponds to a key to be handled by the commandbox controller.
+     * @param keyCode the key to check
+     * @return boolean representing if the key needs to be handled
+     */
+    private boolean checkIsKeyToHandle(KeyCode keyCode) {
+        return keyCode == KeyCode.BACK_SPACE || keyCode.isDigitKey() || keyCode.isLetterKey() || 
+                keyCode == KeyCode.UP || keyCode == KeyCode.DOWN;
+    }
+
+    /**
+     * Updates the tooltip on the GUI for the user to see.
+     */
+    private void updateTooltipForUser() {
         String toDisplay = logic.generateToolTip(commandTextField.getText());
         resultDisplay.postMessage(toDisplay);
     }
