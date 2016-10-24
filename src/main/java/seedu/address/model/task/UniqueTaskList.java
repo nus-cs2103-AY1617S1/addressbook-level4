@@ -173,4 +173,12 @@ public class UniqueTaskList implements Iterable<Task> {
             return false;
         }
     }
+    
+    public boolean completed(ReadOnlyTask target) {
+        int completeIndex = internalList.indexOf(target);
+        Task toComplete = new Task(internalList.get(completeIndex));
+        toComplete.setCompleted(true);
+        internalList.set(completeIndex, toComplete);
+        return true;
+    }
 }

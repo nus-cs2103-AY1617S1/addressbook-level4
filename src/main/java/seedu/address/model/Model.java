@@ -29,6 +29,7 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList();
     UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList();
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList();
+    //UnmodifiableObservableList<ReadOnlyTask> getFilteredCompletedList();
     
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
@@ -37,10 +38,16 @@ public interface Model {
     void updateFilteredEventList(Set<String> keywords);
     void updateFilteredDeadlineList(Set<String> keywords);
     void updateFilteredTodoList(Set<String> keywords);
+    //void updateFilteredCompletedList(Set<String> keywords);
 
     /** Edits the given task 
      * @throws IllegalValueException 
      * @throws TaskNotFoundException */
     void editTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException;
+    
+    /**
+     * Mark the given task as done
+     */
+    void markDone(ReadOnlyTask target) throws TaskNotFoundException;
 
 }

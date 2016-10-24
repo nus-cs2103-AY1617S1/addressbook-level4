@@ -21,6 +21,7 @@ public class Task implements ReadOnlyTask, ModifyTask {
     private Start start;
     private End end;
     private int taskCategory;
+    private boolean isCompleted;
 
     private UniqueTagList tags;
 
@@ -34,6 +35,7 @@ public class Task implements ReadOnlyTask, ModifyTask {
         this.start = start;
         this.end = end;
         this.taskCategory = taskCategory;
+        this.isCompleted = false;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
@@ -46,6 +48,7 @@ public class Task implements ReadOnlyTask, ModifyTask {
         this.start = null;
         this.end = null;
         this.taskCategory = taskCategory;
+        this.isCompleted = false;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
@@ -58,6 +61,7 @@ public class Task implements ReadOnlyTask, ModifyTask {
         this.start = null;
         this.end = end;
         this.taskCategory = taskCategory;
+        this.isCompleted = false;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -93,6 +97,11 @@ public class Task implements ReadOnlyTask, ModifyTask {
     public int getTaskCategory(){
     	return taskCategory;
     }
+    
+    
+    public boolean getIsCompleted() {
+        return isCompleted;
+    }
 
     @Override
     public UniqueTagList getTags() {
@@ -127,6 +136,13 @@ public class Task implements ReadOnlyTask, ModifyTask {
     public void setTaskCategory(int taskCat) {
     	this.taskCategory = taskCat;
     }
+    
+    
+    public void setCompleted(boolean completed) {
+        this.isCompleted = completed;
+    }
+    
+    
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
