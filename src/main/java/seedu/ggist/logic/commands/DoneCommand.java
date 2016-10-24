@@ -40,7 +40,6 @@ public class DoneCommand extends Command {
         ReadOnlyTask taskToMarkDone = lastShownList.get(targetIndexes.get(i) - 1 - i);
         try {
             model.doneTask(taskToMarkDone);
-            model.updateFilteredListToShowAllUndone();
             listOfCommands.push(COMMAND_WORD);
             listOfTasks.push(taskToMarkDone);
         } catch (TaskNotFoundException pnfe) {
