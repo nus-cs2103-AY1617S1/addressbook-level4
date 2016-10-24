@@ -193,6 +193,9 @@ public class Parser {
 		final Matcher matcher5 = ADD_FORMAT_5.matcher(args.trim());
 		final Matcher matcher6 = ADD_FORMAT_6.matcher(args.trim());
 		final Matcher matcher7 = ADD_FORMAT_7.matcher(args.trim());
+		final Matcher matcher8 = ADD_FORMAT_8.matcher(args.trim());
+		final Matcher matcher9 = ADD_FORMAT_9.matcher(args.trim());
+		final Matcher matcher10 = ADD_FORMAT_10.matcher(args.trim());
 
 		// Validate arg string format
 		if (!matcher0.matches() & !matcher1.matches() & !matcher2.matches() & !matcher3.matches() & !matcher4.matches()
