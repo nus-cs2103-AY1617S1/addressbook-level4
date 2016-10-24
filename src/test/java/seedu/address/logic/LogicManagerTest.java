@@ -262,7 +262,7 @@ public class LogicManagerTest {
         assertCommandBehavior("find ", expectedMessage);
     }
 
-    /*
+    
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -279,8 +279,8 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-	*/
-    /*
+	
+    
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -288,7 +288,7 @@ public class LogicManagerTest {
         Activity p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
         Activity p3 = helper.generateTaskWithName("key key");
         Activity p4 = helper.generateTaskWithName("KEy sduauo");
-        List<Activity> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
+        List<Activity> fourPersons = helper.generateTaskList(p3, p1, p4, p2);
         ActivityManager expectedAB = helper.generateTaskManager(fourPersons);
         List<Activity> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
@@ -297,8 +297,8 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    */
-/*
+    
+
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -315,7 +315,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-*/
+
 
     /**
      * A utility class to generate test data.
