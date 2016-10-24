@@ -4,6 +4,7 @@ import seedu.savvytasker.logic.Logic;
 import seedu.savvytasker.logic.commands.models.AliasCommandModel;
 import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.alias.DuplicateSymbolKeywordException;
+import seedu.savvytasker.model.alias.SymbolKeywordNotFoundException;
 
 /**
  * Command to create aliases
@@ -77,6 +78,22 @@ public class AliasCommand extends ModelRequiringCommand {
     @Override
     public boolean undo() {
         // TODO Auto-generated method stub
+        
+        assert model != null;
+        
+        AliasSymbol toRemove = null;
+        for(AliasSymbol symbol : model.getSavvyTasker().getReadOnlyListOfAliasSymbols()) {
+            if (symbol.getKeyword().equals(this.commandModel.getKeyword())) {
+                toRemove = symbol;
+                break;
+            }
+        }
+        try {
+            model.removeAliasSymbol(toRemove);
+        } catch (SymbolKeywordNotFoundException e) {
+            e.printStackTrace();
+        }
+        
         return false;
     }
 

@@ -74,6 +74,7 @@ public class AddCommand extends ModelRequiringCommand {
      */
     @Override
     public boolean undo() {
+        
         UnmodifiableObservableList<Task> lastShownList = model.getFilteredTaskListTask();
         
         for (int i = 0; i < lastShownList.size(); i++) {
@@ -85,7 +86,7 @@ public class AddCommand extends ModelRequiringCommand {
                     e.printStackTrace();
                 }
             }
-        }    
+        } 
         return false;
     }
     
