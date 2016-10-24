@@ -6,12 +6,9 @@ import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.ModifiableObservableList;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.events.model.ToDoListChangedEvent;
-import seedu.todo.commons.util.DateTimeUtil;
-import seedu.todo.commons.util.StringUtil;
 import seedu.todo.model.qualifiers.*;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
-import seedu.todo.model.task.TaskDate;
 import seedu.todo.model.task.UniqueTaskList;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -28,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final ToDoList toDoList;
     private final FilteredList<Task> filteredTasks;
+    private final FilteredList<Task> todayTasks;
 
     /**
      * Initializes a ModelManager with the given ToDoList
@@ -42,6 +40,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         toDoList = new ToDoList(src);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
+        todayTasks = new FilteredList<>(toDoList.getTasks());
+        updateTodayListToShowAll();
     }
 
     public ModelManager() {
@@ -51,6 +51,8 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyToDoList initialData, UserPrefs userPrefs) {
         toDoList = new ToDoList(initialData);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
+        todayTasks = new FilteredList<>(toDoList.getTasks());
+        updateTodayListToShowAll();
     }
 
     @Override
@@ -87,7 +89,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         toDoList.addTask(task);
-        updateFilteredListToShowAll();
         indicateToDoListChanged();
     }
     
@@ -141,10 +142,18 @@ public class ModelManager extends ComponentManager implements Model {
     public ModifiableObservableList<Task> getFilteredTaskList() {
         return new ModifiableObservableList<>(filteredTasks);
     }
+    
+    public UnmodifiableObservableList<ReadOnlyTask> getUnmodifiableTodayTaskList() {
+        return new UnmodifiableObservableList<>(todayTasks);
+    } 
+    
+    public void updateTodayListToShowAll() {
+        todayTasks.setPredicate((new PredicateExpression(new OnDateQualifier(LocalDateTime.now().withHour(0).withMinute(0))))::satisfies);
+    }
 
     @Override
     public void updateFilteredListToShowAll() {
-        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(true))); //false change
+        updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(true))); //force change
         filteredTasks.setPredicate(null);
     }
     
@@ -170,7 +179,6 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredTaskListOnDate(LocalDateTime datetime){
-        
         updateFilteredTaskList(new PredicateExpression(new OnDateQualifier(datetime)));
     }
     
