@@ -23,35 +23,53 @@ public class CommandParserHelper {
     private static final int ONE = 1;
     private static final int TWO = 2;
 
-    private static final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?<rate>\\d+)?(?<timePeriod>.*?)");
-
     private static final String REGEX_OPEN_BRACE = "(";
     private static final String REGEX_CASE_IGNORE = "?i:";
     private static final String REGEX_CLOSE_BRACE = ")";
     private static final String REGEX_GREEDY_SELECT = ".*?";
     private static final String REGEX_ESCAPE = "\"";
-
+    
+    // greedily captures the taskName until it reaches the following keyword
     private static final String REGEX_NAME = "?<taskName>.*?";
+    
+    // used for concatenating keyword to REGEX_NAME
     private static final String REGEX_ADDITIONAL_KEYWORD = "(?:" + "(?: from )" + "|(?: at )" + "|(?: start )"
             + "|(?: by )" + "|(?: to )" + "|(?: end )" + ")";
+    
+    // greedily captures everything after the first keyword, until it reaches the following keyword
     private static final String REGEX_FIRST_DATE = "(?:" + "(?: from (?<startDateFormatOne>.*?))"
             + "|(?: at (?<startDateFormatTwo>.*?))" + "|(?: start (?<startDateFormatThree>.*?))"
             + "|(?: by (?<endDateFormatOne>.*?))" + "|(?: to (?<endDateFormatTwo>.*?))"
             + "|(?: end (?<endDateFormatThree>.*?))" + ")";
+    
+    // greedily captures everything after the first keyword, until it reaches the following keyword
     private static final String REGEX_SECOND_DATE = "(?:" + "(?: from (?:.*?))"
             + "|(?: at (?:.*?))" + "|(?: start (?:.*?))"
             + "|(?: by (?<endDateFormatFour>.*?))" + "|(?: to (?<endDateFormatFive>.*?))"
             + "|(?: end (?<endDateFormatSix>.*?))" + ")";
+    
+    // greedily captures everything after the first keyword, until it reaches the following keyword
     private static final String REGEX_RECURRENCE_AND_PRIORITY = "(?: repeat every (?<recurrenceRate>.*?))?"
             + "(?: -(?<priority>.*?))?";
 
+    // beginning of regex when input is escaped
     private static final String REGEX_OPEN_BRACE_CASE_IGNORE_NAME_ESCAPE = REGEX_OPEN_BRACE + REGEX_CASE_IGNORE
             + REGEX_ESCAPE + REGEX_OPEN_BRACE + REGEX_NAME + REGEX_CLOSE_BRACE + REGEX_ESCAPE;
+    
+    // beginning of regex when input is not escaped
     private static final String REGEX_OPEN_BRACE_CASE_IGNORE_NAME = REGEX_OPEN_BRACE + REGEX_CASE_IGNORE
             + REGEX_OPEN_BRACE + REGEX_NAME;
+    
+    // used for concatenating keyword to REGEX_NAME
     private static final String REGEX_KEYWORD_GREEDY_SELECT = REGEX_ADDITIONAL_KEYWORD + REGEX_GREEDY_SELECT;
+    
+    // end of regex; only concatenated at the end of the regex
     private static final String REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE = REGEX_RECURRENCE_AND_PRIORITY
             + REGEX_CLOSE_BRACE;
+    
+    // seperates the recurrence rate captured by the previous regex into rate and timePeriod.
+    private static final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?<rate>\\d+)?(?<timePeriod>.*?)");
+
 
     private Pattern pattern;
     private Matcher matcher;
@@ -69,14 +87,7 @@ public class CommandParserHelper {
         assignTaskParameters(task);
         return putVariablesInMap(task);
     }
-
-    private void prepareAddForNonEscapeInput(String args, OptionalStringTask task) throws IllegalValueException {
-        int numberOfKeywords = generateNumberOfKeywords(args);
-        logger.log(Level.FINEST, "Number of keywords in \"" + args + "\" = " + numberOfKeywords);
-        String regex = generateStartOfRegex(numberOfKeywords);
-        generateCorrectMatcher(args, task, regex, numberOfKeywords);
-    }
-
+    
     private void prepareAddForEscapeInput(String args, OptionalStringTask task) throws IllegalValueException {
         String argsMinusTaskName = generateArgsMinusTaskName(args);
         int numberOfKeywords = generateNumberOfKeywords(argsMinusTaskName);
@@ -85,27 +96,30 @@ public class CommandParserHelper {
         generateCorrectMatcherEscape(args, task, regex, numberOfKeywords);
     }
 
-    private String generateArgsMinusTaskName(String args) {
-        int indexOfEndOfTaskName = args.lastIndexOf(REGEX_ESCAPE) + ONE;
-        return args.substring(indexOfEndOfTaskName);
+    private void prepareAddForNonEscapeInput(String args, OptionalStringTask task) throws IllegalValueException {
+        int numberOfKeywords = generateNumberOfKeywords(args);
+        logger.log(Level.FINEST, "Number of keywords in \"" + args + "\" = " + numberOfKeywords);
+        String regex = generateStartOfRegex(numberOfKeywords);
+        generateCorrectMatcher(args, task, regex, numberOfKeywords);
     }
 
     public HashMap<String, Optional<String>> prepareEdit(String args) throws IllegalValueException {
         assert args != null;
         OptionalStringTask task = new OptionalStringTask();
-        int numberOfKeywords;
-        String regex;
-        if (args.contains("\"")) {
-            String nonName = args.substring(args.lastIndexOf("\"") + 1);
-            numberOfKeywords = generateNumberOfKeywords(nonName);
-            regex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME_ESCAPE;
-            generateCorrectMatcherEscape(args, task, regex, numberOfKeywords);
+        
+        if (args.contains(REGEX_ESCAPE)) {
+            prepareAddForEscapeInput(args, task);
         } else {
             prepareAddForNonEscapeInput(args, task);
         }
         
         assignTaskParametersEdit(task);
         return putVariablesInMap(task);
+    }
+
+    private String generateArgsMinusTaskName(String args) {
+        int indexOfEndOfTaskName = args.lastIndexOf(REGEX_ESCAPE) + ONE;
+        return args.substring(indexOfEndOfTaskName);
     }
 
     public void generateCorrectMatcherEscape(String args, OptionalStringTask task, String regex, int numberOfKeywords)
@@ -133,7 +147,7 @@ public class CommandParserHelper {
         HashMap<String, Optional<String>> recurrenceRateMap = generateRateAndTimePeriod(matcher);
         task.rate = recurrenceRateMap.get("rate");
         task.timePeriod = recurrenceRateMap.get("timePeriod");
-        task.priority = Optional.of(assignPriorityEdit(matcher));
+        task.priority = Optional.of(generatePriorityEdit(matcher));
     }
 
     private void generateCorrectMatcher(String args, OptionalStringTask task, String regex, int numberOfKeywords)
@@ -393,7 +407,7 @@ public class CommandParserHelper {
         return priority;
     }
 
-    private String assignPriorityEdit(Matcher matcher) {
+    private String generatePriorityEdit(Matcher matcher) {
         String priority;
         if (matcher.group("priority") != null) {
             priority = matcher.group("priority").trim();
