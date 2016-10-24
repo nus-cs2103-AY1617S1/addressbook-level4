@@ -29,6 +29,9 @@ public interface Model {
     /** Marks the given task as completed */
     void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
+    /** Undoes the last reversible action */
+    void undoTask();
+    
     /** Returns the filtered dated task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredDatedTaskList();
     

@@ -26,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredDatedTasks;
     private final FilteredList<Task> filteredUndatedTasks;
+    private UndoList undoTasks;
 
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -41,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook = new TaskBook(src);
         filteredDatedTasks = new FilteredList<>(taskBook.getDatedTasks());
         filteredUndatedTasks = new FilteredList<>(taskBook.getUndatedTasks());
+        undoTasks = new UndoList();
     }
 
     public ModelManager() {
@@ -72,19 +74,34 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         taskBook.removeTask(target);
+        undoTasks.addToList("Delete");
         indicateTaskBookChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskBook.addTask(task);
+        undoTasks.addToList("Ådd");
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
 
     @Override
-    public void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+    public synchronized void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         taskBook.completeTask(target);
+        undoTasks.addToList("Done");
+        updateFilteredListToShowAll();
+        indicateTaskBookChanged();
+    }
+    
+    @Override
+    public synchronized void undoTask() {
+        
+    }
+
+    @Override
+    public synchronized void overdueTask(ReadOnlyTask target) throws TaskNotFoundException {
+        taskBook.overdueTask(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
@@ -126,14 +143,6 @@ public class ModelManager extends ComponentManager implements Model {
             listOfKeywords.add(word);
         }
         updateFilteredTaskList(new PredicateExpression(new StatusQualifier(listOfKeywords)));
-    }
-
-    @Override
-    public void overdueTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskBook.overdueTask(target);
-        updateFilteredListToShowAll();
-        indicateTaskBookChanged();
-
     }
 
     private void updateFilteredTaskList(Expression expression) {

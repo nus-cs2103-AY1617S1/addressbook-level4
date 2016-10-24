@@ -27,6 +27,7 @@ import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RefreshCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
 
 /**
  * Parses user input.
@@ -91,6 +92,9 @@ public class Parser {
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
+            
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
