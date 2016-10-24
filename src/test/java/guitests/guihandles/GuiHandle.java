@@ -69,7 +69,13 @@ public class GuiHandle {
     protected String getTextFromLabel(String fieldId, Node parentNode) {
         return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
     }
-
+    
+    //@@author A0130853L
+    // get the CSS style go the specified label
+    protected String getStyleFromLabel(String fieldId, Node parentNode) {
+    	return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getStyle();
+    }
+    //@@author
     public void focusOnSelf() {
         if (stageTitle != null) {
             focusOnWindow(stageTitle);

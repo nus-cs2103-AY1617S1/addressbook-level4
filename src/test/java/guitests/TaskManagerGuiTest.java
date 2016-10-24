@@ -101,6 +101,15 @@ public abstract class TaskManagerGuiTest {
     public void assertMatching(ReadOnlyTask person, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
+    
+    //@@author A0130853L
+    /**
+     * Asserts the task shown is marked as done by verifying that it has the "#done" CSS style.
+     */
+    public void assertMarkAsDone(TaskCardHandle card) {
+    	assertEquals("-fx-text-fill: white", card.getStyle());
+    }
+    //@@author
 
     /**
      * Asserts the size of the todo list is equal to the given number.

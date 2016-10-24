@@ -2,12 +2,14 @@ package guitests;
 
 import org.junit.Test;
 
+import guitests.guihandles.TaskCardHandle;
 import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.util.TaskUtil;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
 
+//@@author A0130853L
 import static org.junit.Assert.assertTrue;
 import static seedu.taskitty.logic.commands.DoneCommand.MESSAGE_MARK_TASK_AS_DONE_SUCCESS;
 
@@ -67,7 +69,14 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         int categoryIndex = TaskUtil.getCategoryIndex(category);
         //confirm the list now contains the original list + the task marked as done
         assertTrue(currentList.isListMatching(taskListPanel));
-
+        
+        // find task card of marked task
+        TaskCardHandle markedCard = taskListPanel.navigateToTask(taskToMark.getName().fullName, taskToMark.getPeriod().getNumArgs());
+        // confirm its the correct task
+        assertMatching(taskToMark, markedCard);
+        // confirm the task is marked
+        assertMarkAsDone(markedCard);
+        
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS, Task.CATEGORIES[categoryIndex], taskToMark));
     }
