@@ -20,6 +20,8 @@ public class UncompleteTaskCommand extends TaskCommand {
     public static final String MESSAGE_UNCOMPLETE_TASK_SUCCESS = "Uncompleted task: %1$s";
     public static final String MESSAGE_TASK_ALR_UNCOMPLETED = "Task is already uncompleted";
 
+    public static final String HELP_MESSAGE_USAGE = "Uncomplete a task: \t" + COMMAND_WORD +" <index>";
+
 
     public final int targetIndex;
 

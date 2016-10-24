@@ -2,7 +2,10 @@ package seedu.address.logic.commands.taskcommands;
 
 import java.util.Date;
 
+
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
@@ -18,6 +21,10 @@ public class AddTaskCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "add";
 
+    public static final String HELP_MESSAGE_USAGE = "Add a task: \t" + "add <description> \n" +
+            "Add a deadline: \t" + "add <description> by <date> \n" +
+            "Add an event: \t" + "add <description> from <startDate> to <endDate>";
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to TaskManager. \n"
             + "1) Parameters: DESCRIPTION \n"
             + "Example: " + COMMAND_WORD
@@ -97,6 +104,7 @@ public class AddTaskCommand extends TaskCommand {
         try {
             model.addTask(toAdd);
             model.clearTasksFilter();
+            EventsCenter.getInstance().post(new HideHelpRequestEvent());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

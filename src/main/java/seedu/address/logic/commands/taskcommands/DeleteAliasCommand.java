@@ -2,6 +2,8 @@ package seedu.address.logic.commands.taskcommands;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Alias;
@@ -13,6 +15,8 @@ public class DeleteAliasCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "unalias";
 
+    public static final String HELP_MESSAGE_USAGE = "Delete Alias: \t" + "unalias <alias>"; 
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the shortcut of the alias.\n"
             + "Parameters: SHORTCUT\n"
@@ -44,6 +48,7 @@ public class DeleteAliasCommand extends TaskCommand {
 	    }
 	    try {
 	        model.deleteAlias(aliasToDelete);   
+	        EventsCenter.getInstance().post(new HideHelpRequestEvent());
 	        return new CommandResult(String.format(MESSAGE_DELETE_ALIAS_SUCCESS, aliasToDelete));
 	    } catch (ItemNotFoundException tnfe) {
         	return new CommandResult(MESSAGE_ALIAS_NOT_FOUND);

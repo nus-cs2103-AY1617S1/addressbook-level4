@@ -20,6 +20,8 @@ public class CompleteTaskCommand extends TaskCommand {
     public static final String MESSAGE_COMPLETE_TASK_SUCCESS = "Completed task: %1$s";
     public static final String MESSAGE_TASK_ALR_COMPLETED = "Task has already been completed";
 
+    public static final String HELP_MESSAGE_USAGE = "Complete a task: \t" + COMMAND_WORD +" <index>";
+
 
     public final int targetIndex;
 

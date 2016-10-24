@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.taskcommands;
 
 import seedu.address.commons.collections.UniqueItemCollection;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Alias;
@@ -12,6 +14,8 @@ public class AddAliasCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "alias";
 
+    public static final String HELP_MESSAGE_USAGE = "Add an Alias: \t" + "alias <alias> <valid command sentence>"; 
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a one-word alias for any sentence to be used as a command. "
             + "Parameters: SHORTCUT SENTENCE\n"
             + "Example: " + COMMAND_WORD
@@ -43,6 +47,7 @@ public class AddAliasCommand extends TaskCommand {
         assert model != null;
         try {
             model.addAlias(toAdd);
+            EventsCenter.getInstance().post(new HideHelpRequestEvent());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueItemCollection.DuplicateItemException e) {
             return new CommandResult(MESSAGE_DUPLICATE_ALIAS);

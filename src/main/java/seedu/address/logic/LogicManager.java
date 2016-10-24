@@ -46,4 +46,9 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<Alias> getAlias() {
         return model.getAlias();
     }
+
+    @Override
+    public ObservableList<String> getHelpList() {
+        return model.getHelpList();
+    }
 }

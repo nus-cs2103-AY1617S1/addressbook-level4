@@ -14,6 +14,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.TaskConfig;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowAliasListEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
@@ -52,6 +53,7 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            mainWindow.hideHelp();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -108,7 +110,13 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.handleHelp();
+        mainWindow.showHelp();
+    }
+    
+    @Subscribe
+    private void handleHideHelpEvent(HideHelpRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.hideHelp();
     }
     
     @Subscribe

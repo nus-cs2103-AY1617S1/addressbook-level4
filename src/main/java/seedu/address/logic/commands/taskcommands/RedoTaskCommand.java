@@ -12,6 +12,8 @@ public class RedoTaskCommand extends TaskCommand {
     
     public static final String MESSAGE_REDO_TASK_SUCCESS = "Redo successful";
     public static final String MESSAGE_REDO_INVALID_STATE = "Redo is not successful because the previous successful command is not undo";
+
+    public static final String HELP_MESSAGE_USAGE = COMMAND_WORD + ": \t redoes previous command.";
     
     public RedoTaskCommand() {}
 

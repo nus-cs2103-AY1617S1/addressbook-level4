@@ -4,6 +4,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
@@ -14,6 +15,18 @@ import seedu.address.commons.events.model.AliasChangedEvent;
 import seedu.address.commons.events.model.NewTaskListEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.taskcommands.AddAliasCommand;
+import seedu.address.logic.commands.taskcommands.AddTaskCommand;
+import seedu.address.logic.commands.taskcommands.CompleteTaskCommand;
+import seedu.address.logic.commands.taskcommands.DeleteAliasCommand;
+import seedu.address.logic.commands.taskcommands.FavoriteTaskCommand;
+import seedu.address.logic.commands.taskcommands.FindTaskCommand;
+import seedu.address.logic.commands.taskcommands.ListTaskCommand;
+import seedu.address.logic.commands.taskcommands.RedoTaskCommand;
+import seedu.address.logic.commands.taskcommands.SetStorageCommand;
+import seedu.address.logic.commands.taskcommands.UncompleteTaskCommand;
+import seedu.address.logic.commands.taskcommands.UnfavoriteTaskCommand;
 import seedu.address.model.Alias;
 import seedu.address.model.ModelHistory;
 import seedu.address.model.UserPrefs;
@@ -247,6 +260,24 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		indicateAliasChanged();
 	}
 	
+    @Override
+    public ObservableList<String> getHelpList() {
+        ObservableList<String> helpItems = FXCollections.observableArrayList ();
+        helpItems.add(AddTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(AddAliasCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(DeleteAliasCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(FindTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(ListTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(CompleteTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(UncompleteTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(UndoCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(RedoTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(FavoriteTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(UnfavoriteTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(SetStorageCommand.HELP_MESSAGE_USAGE);
+        return helpItems;
+    }
+	
     /** Keeps the internal ObservableList sorted.
      * Raises an event to indicate the model has changed.
      */
@@ -355,5 +386,4 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-	
 }

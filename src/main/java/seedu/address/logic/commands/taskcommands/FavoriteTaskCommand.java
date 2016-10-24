@@ -1,7 +1,9 @@
 package seedu.address.logic.commands.taskcommands;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
 
@@ -12,6 +14,8 @@ public class FavoriteTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "favorite";
 
+    public static final String HELP_MESSAGE_USAGE = "Favorite a task: \t" + COMMAND_WORD + " <index>";
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Favorites the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -38,7 +42,9 @@ public class FavoriteTaskCommand extends TaskCommand {
         }
 
         Task taskToFavorite = lastShownList.get(targetIndex - 1);
+
         if(!taskToFavorite.isFavorite()){
+            EventsCenter.getInstance().post(new HideHelpRequestEvent());
         	model.favoriteTask(taskToFavorite);
             return new CommandResult(String.format(MESSAGE_FAVORITE_TASK_SUCCESS, taskToFavorite));
         }

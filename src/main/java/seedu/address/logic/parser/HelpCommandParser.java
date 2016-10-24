@@ -16,7 +16,6 @@ public class HelpCommandParser extends CommandParser {
 
     @Override
     public TaskCommand prepareCommand(String arguments) {
-        // TODO Auto-generated method stub
         return new HelpTaskCommand();
     }
 

@@ -22,5 +22,4 @@ public class HelpTaskCommand extends TaskCommand {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
-
 }

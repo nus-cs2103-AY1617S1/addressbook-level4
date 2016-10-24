@@ -2,7 +2,9 @@ package seedu.address.logic.commands.taskcommands;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
 
@@ -13,6 +15,8 @@ public class DeleteTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "delete";
 
+    public static final String HELP_MESSAGE_USAGE = "Delete a task: \t" + "delete <index>";
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -39,14 +43,15 @@ public class DeleteTaskCommand extends TaskCommand {
 
         Task taskToDelete = lastShownList.get(targetIndex - 1);
 
-        try {
-            model.deleteTask(taskToDelete);
-            if(lastShownList.size() == 0) {
-                model.clearTasksFilter();
-            }
-        } catch (ItemNotFoundException tnfe) {
-            assert false : "The target item cannot be missing";
-        }
+	        try {
+	            model.deleteTask(taskToDelete);
+	            EventsCenter.getInstance().post(new HideHelpRequestEvent());
+	            if(lastShownList.size() == 0) {
+	                model.clearTasksFilter();
+	            }
+	        } catch (ItemNotFoundException tnfe) {
+	            assert false : "The target item cannot be missing";
+	        }
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }

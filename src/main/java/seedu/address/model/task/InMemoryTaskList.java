@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import java.util.Set;
 
 import seedu.address.commons.collections.UniqueItemCollection.DuplicateItemException;
+import javafx.collections.ObservableList;
 import seedu.address.commons.collections.UniqueItemCollection.ItemNotFoundException;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.Alias;
@@ -94,6 +95,11 @@ public interface InMemoryTaskList {
 	 */
 	void undo() throws IllegalStateException;
 	
+	/*
+	 * Gets help list to fill up help overlay
+	 */
+	ObservableList<String> getHelpList();
+
 	/*
 	 * Redoes the command that has been undone
 	 * (Can only be called if the previous successful command was a successful undo command)
