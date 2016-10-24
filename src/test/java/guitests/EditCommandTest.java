@@ -38,6 +38,7 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         assertEventEditNoteSuccess(event, 1, "Event Hello Note");
         
         // Edit Date - For Task
+        assertTaskEditDateSuccess(task, 1, "30-11-1994");
         
         // Edit Time - For Task
         
@@ -78,8 +79,8 @@ public class EditCommandTest extends ActivityManagerGuiTest {
     
     private void assertTaskEditNameSuccess(TestActivity task, int index, String changes) {
         commandBox.runCommand(task.getEditNameCommand(index, changes));
-        task = activityListPanel.returnsUpdatedTask(changes); // Update Task with new changes
-        TaskCardHandle editedCard = activityListPanel.navigateToTask(task); // Check against card.
+        task = activityListPanel.returnsUpdatedTask(changes);
+        TaskCardHandle editedCard = activityListPanel.navigateToTask(task);
         assertTaskMatching(task, editedCard);
         
         // Confirms the result message is correct
@@ -108,8 +109,8 @@ public class EditCommandTest extends ActivityManagerGuiTest {
     
     private void assertTaskEditNoteSuccess(TestActivity task, int index, String changes) {
         commandBox.runCommand(task.getEditNoteCommand(index, changes));
-        task = activityListPanel.returnsUpdatedTask(task.getActivityName().fullName); // Update floatingTask with new changes
-        TaskCardHandle editedCard = activityListPanel.navigateToTask(task); // Check against card.
+        task = activityListPanel.returnsUpdatedTask(task.getActivityName().fullName);
+        TaskCardHandle editedCard = activityListPanel.navigateToTask(task);
         assertTaskMatching(task, editedCard);
         
         // Confirms the result message is correct
@@ -127,6 +128,12 @@ public class EditCommandTest extends ActivityManagerGuiTest {
     }
     
     private void assertTaskEditDateSuccess(TestActivity task, int index, String changes) {
+        commandBox.runCommand(task.getEditTaskDateCommand(index, changes));
+        task = activityListPanel.returnsUpdatedTask(task.getActivityName().fullName); // Update Task with new changes
+        TaskCardHandle editedCard = activityListPanel.navigateToTask(task); // Check against card.
+        assertTaskMatching(task, editedCard);
         
+        // Confirms the result message is correct
+        assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, task));
     }
 }
