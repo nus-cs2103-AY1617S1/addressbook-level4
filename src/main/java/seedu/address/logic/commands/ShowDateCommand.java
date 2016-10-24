@@ -28,7 +28,7 @@ public class ShowDateCommand extends Command {
     
     @Override
     public CommandResult execute() {
-        System.out.println(model.getFilteredTaskList().get(3).getStartTime().appearOnUIFormatForDate());
+    	model.updateFilteredListToShowAll();
         model.updateFilteredTaskListToShow(filterByDate());
         return new CommandResult(MESSAGE_SUCCESS);
     }
