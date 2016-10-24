@@ -124,7 +124,7 @@ public class ModelManager extends ComponentManager implements Model {
             updateFilteredListToShowAllUndone();
         } else if (lastListing.equals("done")) {
             updateFilteredListToShowAllDone();
-        } else if (TaskDate.isValidDateFormat(lastListing)){
+        } else if (TaskDate.isValidDateFormat(lastListing)) {
             updateFilteredListToShowDate(lastListing);
         } else if (lastListing.equals("all")){
             updateFilteredListToShowAll();
@@ -187,10 +187,10 @@ public class ModelManager extends ComponentManager implements Model {
  //       sortFilteredList();
     }
 
-  /*  private void updateFilteredListToShowDate(Expression expression) {
+    private void updateFilteredListToShowDate(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-*/
+
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
@@ -294,13 +294,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return (taskDateKeyWords.equalsIgnoreCase(task.getStartDate().toString()) || 
-                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString())) && 
-                   !task.getDone() ||
-                   (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && 
-                   task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) && 
-                   !task.getDone());          
-                   
+            return taskDateKeyWords.equals(task.getStartDate().toString()) || 
+                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString()) && !task.getDone() ||
+                   (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) && !task.getDone());
         }
 
         @Override

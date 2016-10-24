@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.ggist.ui.TaskListPanel">
+<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.ggist.ui.TaskListPanel">
     <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
@@ -52,7 +52,14 @@
                </children>
             </HBox>
          </children>
+         <padding>
+            <Insets bottom="3.0" />
+         </padding>
       </GridPane>
-        <ListView fx:id="taskListView" VBox.vgrow="ALWAYS" />
+        <ListView fx:id="taskListView" prefWidth="261.0" styleClass="background" VBox.vgrow="ALWAYS">
+         <padding>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </padding>
+      </ListView>
     </children>
 </VBox>
