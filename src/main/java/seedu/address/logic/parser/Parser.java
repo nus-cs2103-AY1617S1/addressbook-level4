@@ -29,6 +29,7 @@ public class Parser {
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
+            		+ "(?<startline>(?: s/[^/]+)*)"
                     + "(?<deadlineArguments>(?: d/[^/]+)*)"
                     + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -36,6 +37,7 @@ public class Parser {
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>.+)"
             		+ " (?<name>[^/]+)"
+            		+ "(?<startline>(?: s/[^/]+)*)"
             		+ "(?<deadlineArguments>(?: d/[^/]+)*)"
                     + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -110,6 +112,7 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("name"),
+                    getStartlineFromArgs(matcher.group("startline")),
                     getDeadlinesFromArgs(matcher.group("deadlineArguments")),
                     matcher.group("priority"),
                     getTagsFromArgs(matcher.group("tagArguments"))
@@ -117,6 +120,25 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+    
+    /**
+     * Checks if user inputs startline
+     * if not returns date from start of common era
+     * if no time, time is set to 23:59 by default
+     * @param args
+     * @return args
+     */
+    private String getStartlineFromArgs(String args){
+    	if(args.isEmpty()){
+    		return null;
+    	}
+    	args = args.replaceFirst(" s/", "");
+    	String[] strArr = args.split("\\s+");
+    	if(strArr.length == 1){
+    		return args + " " + "00:00";
+    	}
+    	return args;    	
     }
 
     private Set<String> getDeadlinesFromArgs(String deadlineArguments) {
@@ -230,6 +252,7 @@ public class Parser {
             return new EditCommand(
             		matcher.group("targetIndex"),
                     matcher.group("name"),
+                    getStartlineFromArgs(matcher.group("startline")),
                     getDeadlinesFromArgs(matcher.group("deadlineArguments")),
                     matcher.group("priority"),
                     getTagsFromArgs(matcher.group("tagArguments"))

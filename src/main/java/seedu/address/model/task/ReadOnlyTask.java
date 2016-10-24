@@ -11,6 +11,7 @@ public interface ReadOnlyTask {
 
     Name getName();
     Priority getPriority();
+    Startline getStartline();
     
     /**
      * The returned DeadlineList is a deep copy of the internal DeadlineList,
@@ -40,6 +41,8 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+        		.append(" Start: ")
+        		.append(getStartline())
                 .append(" Deadline: ");
                 getDeadlines().forEach(builder::append);               
         builder.append(" Priority: ")

@@ -10,6 +10,7 @@ import seedu.address.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
+    private Startline startline;
     private UniqueDeadlineList deadlines;
     private Priority priority;
     private UniqueTagList tags;
@@ -21,6 +22,10 @@ public class TestTask implements ReadOnlyTask {
 
     public void setName(Name name) {
         this.name = name;
+    }
+    
+    public void setStartline(Startline startline){
+    	this.startline = startline;
     }
 
 //    public void setDeadline(Deadline deadline) {
@@ -39,6 +44,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Priority getPriority() {
         return priority;
+    }
+    
+    @Override
+    public Startline getStartline(){
+    	return startline;
     }
 
     @Override
@@ -59,9 +69,11 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
-        this.getDeadlines().getInternalList().stream().forEach(s -> sb.append("d/" + s.deadlineDate + " "));
+        sb.append("s/" + this.getStartline().value + " ");
+        sb.append("d/" + this.deadlinesString() + " ");
         sb.append("p/" + this.getPriority().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 }
+ 

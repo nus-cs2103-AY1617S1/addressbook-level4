@@ -8,7 +8,7 @@ public class ClashCommandTest extends AddressBookGuiTest {
 	@Test
 	public void clash_nonEmptyList(){
 		commandBox.runCommand("clash");
-		assertTrue(personListPanel.isListMatching(td.fiona, td.hoon));
+		assertTrue(personListPanel.isListMatching(td.fiona, td.george));
 		assertListSize(2);
 	}
 	

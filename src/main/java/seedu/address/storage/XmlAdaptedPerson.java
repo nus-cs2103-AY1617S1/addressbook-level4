@@ -23,6 +23,9 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String name;
     
+    @XmlElement
+    private String startline;
+    
     @XmlElement(required = true)
     private String deadlined;
     
@@ -45,7 +48,8 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(ReadOnlyTask source) {
         name = source.getName().fullName;
-       deadlined = source.deadlinesString();
+        startline = source.getStartline().value;
+        deadlined = source.deadlinesString();
         priority = source.getPriority().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -70,9 +74,10 @@ public class XmlAdaptedPerson {
         	deadlineSet.add(new Deadline(deadlineDate));
         }
         final UniqueDeadlineList deadlines = new UniqueDeadlineList(deadlineSet);
+        final Startline startline = new Startline(getStartlineFromArgs(this.startline));
         final Priority priority = new Priority(this.priority);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, deadlines, priority, tags);
+        return new Task(name, startline, deadlines, priority, tags);
     }
     
     private Set<String> getDeadlinesFromArgs(String deadlineArguments) {
@@ -83,6 +88,18 @@ public class XmlAdaptedPerson {
     	// replace first delimiter prefix, then split
     	final Collection<String> deadlineStrings = Arrays.asList(deadlineArguments.replaceFirst(" d/",  "").split("t/"));
     	return new HashSet<>(deadlineStrings);
+    }
+    
+    private String getStartlineFromArgs(String args){
+    	if(args.isEmpty()){
+    		return null;
+    	}
+    	args = args.replaceFirst(" s/", "");
+    	String[] strArr = args.split("\\s+");
+    	if(strArr.length == 1){
+    		return args + " " + "00:00";
+    	}
+    	return args;    	
     }
 }
     
