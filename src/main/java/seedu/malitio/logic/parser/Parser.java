@@ -315,6 +315,8 @@ public class Parser {
         int endIndex = args.lastIndexOf("end");
         if (startIndex > 0 && endIndex > 0) {
             return args.substring(startIndex + 6, endIndex);
+        } else if (startIndex > 0 && endIndex < 0) {
+            return args.substring(startIndex + 6);
         } else {
             return "";
         }
