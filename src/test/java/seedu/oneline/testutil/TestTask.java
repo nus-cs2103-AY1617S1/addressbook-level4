@@ -1,5 +1,6 @@
 package seedu.oneline.testutil;
 
+import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 import seedu.oneline.model.task.*;
 
@@ -14,10 +15,9 @@ public class TestTask implements ReadOnlyTask {
     private TaskTime deadline;
     private TaskRecurrence recurrence;
     
-    private UniqueTagList tags;
+    private Tag tag;
 
     public TestTask() {
-        tags = new UniqueTagList();
     }
     
     public TestTask(ReadOnlyTask task) {
@@ -26,7 +26,7 @@ public class TestTask implements ReadOnlyTask {
         this.endTime = task.getEndTime();
         this.deadline = task.getDeadline();
         this.recurrence = task.getRecurrence();
-        this.tags = new UniqueTagList(task.getTags());
+        this.tag = task.getTag();
     }
     
     public void setName(TaskName name) {
@@ -47,6 +47,10 @@ public class TestTask implements ReadOnlyTask {
 
     public void setRecurrence(TaskRecurrence recurrence) {
         this.recurrence = recurrence;
+    }
+    
+    public void setTag(Tag tag) {
+        this.tag = tag;
     }
 
     @Override
@@ -75,8 +79,8 @@ public class TestTask implements ReadOnlyTask {
     }
     
     @Override
-    public UniqueTagList getTags() {
-        return tags;
+    public Tag getTag() {
+        return tag;
     }
 
     @Override
@@ -91,7 +95,7 @@ public class TestTask implements ReadOnlyTask {
         sb.append(".to " + this.getEndTime().toString() + " ");
         sb.append(".due " + this.getDeadline().toString() + " ");
         sb.append(".every " + this.getRecurrence().toString() + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
+        sb.append("#" + this.getTag().tagName + " ");
         return sb.toString();
     }
 }

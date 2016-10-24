@@ -27,7 +27,7 @@ public class XmlAdaptedTask {
     private String recurrence;
 
     @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
+    private String tag = null;
 
     /**
      * No-arg constructor for JAXB use.
@@ -46,10 +46,7 @@ public class XmlAdaptedTask {
         endtime = source.getEndTime().serialize();
         deadline = source.getDeadline().serialize();
         recurrence = source.getRecurrence().serialize();
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
+        tag = source.getTag().serialize();
     }
 
     /**
@@ -58,16 +55,12 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> taskTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            taskTags.add(tag.toModelType());
-        }
         final TaskName name = TaskName.deserialize(this.name);
         final TaskTime startTime = TaskTime.deserialize(this.starttime);
         final TaskTime endTime = TaskTime.deserialize(this.endtime);
         final TaskTime deadline = TaskTime.deserialize(this.deadline);
         final TaskRecurrence recurrence = TaskRecurrence.deserialize(this.recurrence);
-        final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, startTime, endTime, deadline, recurrence, tags);
+        final Tag tag = this.tag == null ? Tag.getDefault() : new Tag(this.tag);
+        return new Task(name, startTime, endTime, deadline, recurrence, tag);
     }
 }

@@ -47,7 +47,7 @@ public class TaskCard extends UiPart{
         line1.setText(parser.getLine1());
         line2.setText(parser.getLine2());
         line3.setText(parser.getLine3());
-        tags.setText(parser.getTags());
+        tags.setText(parser.getTag());
     }
 
     public HBox getLayout() {

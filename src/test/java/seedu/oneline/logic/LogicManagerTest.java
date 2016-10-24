@@ -415,9 +415,8 @@ public class LogicManagerTest {
             TaskTime endTime = new TaskTime("adam@gmail.com");
             TaskTime deadline = new TaskTime("111, alpha street");
             TaskRecurrence recurrence = new TaskRecurrence("X");
-            Tag tag1 = new Tag("tag1");
-            UniqueTagList tags = new UniqueTagList(tag1);
-            return new Task(name, startTime, endTime, deadline, recurrence, tags);
+            Tag tag = new Tag("tag1");
+            return new Task(name, startTime, endTime, deadline, recurrence, tag);
         }
 
         /**
@@ -434,7 +433,7 @@ public class LogicManagerTest {
                     new TaskTime("" + seed),
                     new TaskTime("" + seed),
                     new TaskRecurrence("" + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new Tag("tag" + Math.abs(seed))
             );
         }
 
@@ -449,10 +448,7 @@ public class LogicManagerTest {
             cmd.append(" .to ").append(p.getEndTime());
             cmd.append(" .due ").append(p.getDeadline());
             cmd.append(" .every ").append(p.getRecurrence());
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" #").append(t.tagName);
-            }
+            cmd.append(" #").append(p.getTag().tagName);
 
             return cmd.toString();
         }
@@ -534,7 +530,7 @@ public class LogicManagerTest {
                     new TaskTime(""),
                     new TaskTime(""),
                     new TaskRecurrence(""),
-                    new UniqueTagList(new Tag("tag"))
+                    new Tag("tag")
             );
         }
     }

@@ -43,7 +43,7 @@ public class ParserTest {
         assertEquals(testEndTime, fields.get(TaskField.END_TIME));
         assertEquals(testDeadline, fields.get(TaskField.DEADLINE));
         assertEquals(testRecurrence, fields.get(TaskField.RECURRENCE));
-        assertEquals(testTags, fields.get(TaskField.TAG_ARGUMENTS));
+        assertEquals(testTags, fields.get(TaskField.TAG));
         
         // Optional arguments 1
         args = testName + " " +
@@ -60,7 +60,7 @@ public class ParserTest {
         assertEquals(testName, fields.get(TaskField.NAME));
         assertEquals(testEndTime, fields.get(TaskField.END_TIME));
         assertEquals(testDeadline, fields.get(TaskField.DEADLINE));
-        assertEquals(testTags, fields.get(TaskField.TAG_ARGUMENTS));
+        assertEquals(testTags, fields.get(TaskField.TAG));
         
         // Optional arguments 2
         args = CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_START_TIME + " " + testStartTime + " " +

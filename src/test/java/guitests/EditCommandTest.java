@@ -40,7 +40,7 @@ public class EditCommandTest extends TaskBookGuiTest {
         fields.put(TaskField.END_TIME, "New End Time");
         fields.put(TaskField.DEADLINE, "New Deadline");
         fields.put(TaskField.RECURRENCE, "Monday");
-        fields.put(TaskField.TAG_ARGUMENTS, "#Tag2");
+        fields.put(TaskField.TAG, "#Tag2");
         assertEditSuccess(2, fields, currentList);
 
 //        //add another task
@@ -110,15 +110,9 @@ public class EditCommandTest extends TaskBookGuiTest {
                     .append(newRecurrence);
                 newTask.setRecurrence(new TaskRecurrence(newRecurrence));
             }
-            if (fields.containsKey(TaskField.TAG_ARGUMENTS)) {
-                String newTagsArgs = fields.get(TaskField.TAG_ARGUMENTS);
-                Set<String> tagsToAdd = Parser.getTagsFromArgs(newTagsArgs);
-                UniqueTagList newTags = new UniqueTagList();
-                for (String tag : tagsToAdd) {
-                    cmd.append(" ").append(CommandConstants.TAG_PREFIX).append(tag);
-                    newTags.add(new Tag(tag));
-                }
-                newTask.getTags().setTags(newTags);
+            if (fields.containsKey(TaskField.TAG)) {
+                String newTag = fields.get(TaskField.TAG);
+                newTask.setTag(new Tag(newTag));
             }
         } catch (IllegalValueException e) {
             assert false : "Invalid input";

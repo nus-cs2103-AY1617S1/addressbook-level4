@@ -49,13 +49,9 @@ public class AddCommand extends Command {
         TaskRecurrence newRecurrence = fields.containsKey(TaskField.RECURRENCE) ? 
                                     new TaskRecurrence(fields.get(TaskField.RECURRENCE)) :
                                         TaskRecurrence.getDefault();
-        Set<String> tags = fields.containsKey(TaskField.TAG_ARGUMENTS) ?
-                                    Parser.getTagsFromArgs(fields.get(TaskField.TAG_ARGUMENTS)) :
-                                    new HashSet<String>();
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }                 
+        Tag newTag = fields.containsKey(TaskField.TAG) ?
+                                    new Tag(fields.get(TaskField.TAG)) :
+                                    Tag.getDefault();          
         
         this.toAdd = new Task(
                 newName,
@@ -63,7 +59,7 @@ public class AddCommand extends Command {
                 newEndTime,
                 newDeadline,
                 newRecurrence,
-                new UniqueTagList(tagSet)
+                newTag
         );
     }
     
@@ -72,19 +68,16 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String startTime, String endTime, String deadline, String recurrence, Set<String> tags)
+    public AddCommand(String name, String startTime, String endTime, String deadline, String recurrence, String tag)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
         this.toAdd = new Task(
                 new TaskName(name),
                 new TaskTime(startTime),
                 new TaskTime(endTime),
                 new TaskTime(deadline),
                 new TaskRecurrence(recurrence),
-                new UniqueTagList(tagSet)
+                new Tag(tag)
         );
     }
 
