@@ -26,6 +26,7 @@ public class ListtaskCommandTest extends TaskManagerGuiTest {
 	
 	private void assertListtaskCommandSuccess() {
         commandBox.runCommand("listtask");
+        commandBox.runCommand(SHORT_COMMAND_WORD);
         assertResultMessage("Listed all tasks");
     }
 

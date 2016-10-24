@@ -28,6 +28,7 @@ public class ListeventCommandTest extends TaskManagerGuiTest {
 	
 	private void assertListdeadlineCommandSuccess() {
         commandBox.runCommand("listevent");
+        commandBox.runCommand("le");
         assertResultMessage("Listed all events");
     }
 

@@ -28,7 +28,10 @@ public class ListdeadlineCommandTest extends TaskManagerGuiTest {
 	
 	private void assertListdeadlineCommandSuccess() {
         commandBox.runCommand("listdeadline");
+        commandBox.runCommand("ld");
         assertResultMessage("Listed all deadline");
     }
 
 }
+
+
