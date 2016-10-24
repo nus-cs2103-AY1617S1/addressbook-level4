@@ -11,6 +11,7 @@ import seedu.todo.model.Model;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.storage.Storage;
 
+import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 /**
@@ -43,6 +44,11 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public ObservableList<ReadOnlyTask> getUnmodifiableFilteredTaskList() {
+        return model.getUnmodifiableFilteredTaskList();
+    }
+
+    public ObservableList<ReadOnlyTask> getFilteredTaskListToday(){
+        model.updateFilteredTaskListBeforeDate(LocalDateTime.now());
         return model.getUnmodifiableFilteredTaskList();
     }
 }

@@ -39,10 +39,10 @@ public interface Model {
     void updateTaskTags(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws UniqueTaskList.TaskNotFoundException;
     
 
-    /** Returns the filtered person list as an {@code ModifiableObservableList<Task>} */
+    /** Returns the filtered task list as an {@code ModifiableObservableList<Task>} */
     ModifiableObservableList<Task> getFilteredTaskList();
     
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getUnmodifiableFilteredTaskList();
 
 

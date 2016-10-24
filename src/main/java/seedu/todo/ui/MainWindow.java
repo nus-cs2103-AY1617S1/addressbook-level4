@@ -30,6 +30,7 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
+    private SummaryPanel summaryPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -45,6 +46,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane browserPlaceholder;
+
+    @FXML
+    private AnchorPane summaryPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -108,12 +112,17 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = taskListPanel.load(primaryStage, getTaskListPlaceholder(), 
+        //browserPanel = BrowserPanel.load(browserPlaceholder);
+        summaryPanel = SummaryPanel.load(primaryStage, getSummaryPlaceholder(), logic.getFilteredTaskListToday());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), 
                 logic.getUnmodifiableFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+    }
+    
+    private AnchorPane getSummaryPlaceholder(){
+        return summaryPlaceholder;
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -186,12 +195,17 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-
+/*
     public void loadTaskPage(ReadOnlyTask task) {
         browserPanel.loadTaskPage(task);
     }
 
     public void releaseResources() {
         browserPanel.freeResources();
+    }*/
+
+    public void releaseResources() {
+        // TODO Auto-generated method stub
+        
     }
 }
