@@ -23,7 +23,8 @@ public class ShowDateCommand extends Command {
     }
 
     public static Predicate<Task> filterByDate() {
-    	return t -> t.getStartTime().appearOnUIFormatForDate().equals(date);
+    	return t -> (t.getStartTime().appearOnUIFormatForDate().equals(date)
+    			|| t.getEndTime().appearOnUIFormatForDate().equals(date));
     }
     
     @Override
