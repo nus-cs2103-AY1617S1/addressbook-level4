@@ -140,7 +140,7 @@ Have task you don't want to forget? These types of tasks or events  can be pinne
 
 #### Organizing tasks using tags
 
-If you have a lot of tasks you can use tags to organize them. See [the `tag` command](#managing-tags-tag) for more detail.
+If you have a lot of tasks you can use tags to organize them. See [the `tag` command](#manage-tags-tag) for more detail.
 
 !!! example
     **`add`**` Finish tutorial 6 /d 10 Oct /t CS2106, School`
@@ -209,7 +209,7 @@ Format:
 
 If you wish to change various details of your tasks and deadlines, you can do so by using the `edit` command to make changes to the task specified by `INDEX`. The command accepts the same parameters as the `add` command, with the exception that the `/t` is used to edit the title instead of the tags. To edit tags, use the `tag` command shown below. Note that edits are automatically saved to your hard disk, and any errors can be undone using `undo`. 
 
-### Managing tags : **`tag`** 
+### Manage tags : **`tag`** 
 
 Add, edit and delete tags.  
 Format:   
