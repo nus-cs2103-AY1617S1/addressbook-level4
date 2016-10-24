@@ -81,10 +81,13 @@ public class TaskCard extends UiPart{
             String level = task.getPriority().value;
             if (level.equals("low")) {
                 id.textFillProperty().bind(low.valueProperty());
+                taskName.textFillProperty().bind(low.valueProperty());
             } else if (level.equals("med")) {
                 id.textFillProperty().bind(med.valueProperty());
+                taskName.textFillProperty().bind(med.valueProperty());
             } else if (level.equals("high")) {
                 id.textFillProperty().bind(high.valueProperty());
+                taskName.textFillProperty().bind(high.valueProperty());
             }
             //priority.setText(level);
         }

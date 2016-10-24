@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -44,7 +44,7 @@
                 </VBox>
             <VBox alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="100.0" GridPane.columnIndex="1">
                <children>
-                        <Label fx:id="startDate" styleClass="cell_big_label" text="start day" textFill="#0316ee" wrapText="true">
+                        <Label fx:id="startDate" styleClass="cell_big_label" text="start day" textFill="#010504" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -53,7 +53,7 @@
                         <URL value="@Extensions.css" />
                      </stylesheets>
                   </Label>
-                        <Label fx:id="startTime" styleClass="cell_small_label" text="start time" textFill="#0316ee" wrapText="true">
+                        <Label fx:id="startTime" styleClass="cell_small_label" text="start time" textFill="#383f77" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -66,7 +66,7 @@
             </VBox>
             <VBox alignment="CENTER_RIGHT" prefHeight="150.0" prefWidth="100.0" GridPane.columnIndex="2">
                <children>
-                        <Label fx:id="endDate" styleClass="cell_big_label" text="end day" textFill="#da2b2b" wrapText="true">
+                        <Label fx:id="endDate" styleClass="cell_big_label" text="end day" textFill="#010504" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -78,7 +78,7 @@
                         <Insets right="7.0" />
                      </VBox.margin>
                   </Label>
-                        <Label fx:id="endTime" styleClass="cell_small_label" text="end time" textFill="#da2b2b" wrapText="true">
+                        <Label fx:id="endTime" styleClass="cell_small_label" text="end time" textFill="#383f77" wrapText="true">
                      <font>
                         <Font size="20.0" />
                      </font>

@@ -48,7 +48,7 @@ public class Task implements ReadOnlyTask{
         end = constructDateTime(endDate, endTime);
         
         Date currentDate  = new Date();
-        if (start.before(currentDate) || end.before(currentDate)) {
+        if (end.before(currentDate)) {
             throw new IllegalValueException("You have enetered a past date or time!");
         }
         
