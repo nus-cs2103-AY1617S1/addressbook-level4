@@ -8,8 +8,9 @@ import seedu.taskmanager.model.item.ReadOnlyItem;
 import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.tag.UniqueTagList;
 
+//@@author A0140060A
 /**
- * A mutable person object. For testing only.
+ * A mutable item object. For testing only.
  */
 public class TestItem implements ReadOnlyItem {
 
@@ -94,6 +95,7 @@ public class TestItem implements ReadOnlyItem {
         return getAsText();
     }
     
+    //@@author 
     @Override
     public boolean getDone() {
         return done;

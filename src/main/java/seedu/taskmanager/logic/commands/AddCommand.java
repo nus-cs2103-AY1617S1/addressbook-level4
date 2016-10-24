@@ -22,7 +22,8 @@ public class AddCommand extends Command {
     public static final String SHORT_COMMAND_WORD = "a";
     public static final String DEFAULT_END_TIME = "23:59";
     public static final String DEFAULT_START_TIME = "00:00";
-        
+    
+    //@@author A0140060A
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task, deadline or event to the task manager. \n"
             + "Task Parameters: " + ItemType.TASK_WORD + " n/NAME \n"
             + "Deadline Parameters: " + ItemType.DEADLINE_WORD + " n/NAME ed/DATE et/TIME \n"
@@ -60,6 +61,7 @@ public class AddCommand extends Command {
     	this(itemType, name, ItemDate.EMPTY_DATE, ItemTime.EMPTY_TIME, endDate, endTime, tags);
     }
     
+  //@@author 
     /**
      * Convenience constructor using raw values.
      *

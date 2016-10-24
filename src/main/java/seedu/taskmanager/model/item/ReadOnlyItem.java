@@ -1,3 +1,4 @@
+//@@author A0140060A
 package seedu.taskmanager.model.item;
 
 import seedu.taskmanager.model.tag.UniqueTagList;
