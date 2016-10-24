@@ -8,7 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 
-public class ActionHistoryItem extends UiPart{
+//@@author A0138862W
+public class ActionHistoryEntry extends UiPart{
 
     private static final String FXML = "ActionHistoryItem.fxml";
     
@@ -62,4 +63,29 @@ public class ActionHistoryItem extends UiPart{
       
     
 
+}
+
+//@@author A0138862W
+class ActionHistory {
+    private final String title;
+    private final String description;
+    private final Date dateActioned;
+    
+    public ActionHistory(String title, String description){
+        this.title = title;
+        this.description = description;
+        this.dateActioned = new Date();
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Date getDateActioned() {
+        return dateActioned;
+    }
 }

@@ -60,6 +60,7 @@ public class MainWindow extends UiPart {
     
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
+    
     private static final double WIDTH_MULTIPLIER_INDEX = 0.07;
     private static final double WIDTH_MULTIPLIER_NAME = 0.285;
     private static final double WIDTH_MULTIPLIER_STARTDATE = 0.18;
@@ -193,7 +194,7 @@ public class MainWindow extends UiPart {
     private TableColumn<ReadOnlyTask, Boolean> recurArchive;
 
     @FXML
-    private ListView<String> actionHistory;
+    private ListView<ActionHistory> actionHistory;
 
     public MainWindow() {
         super();
@@ -251,8 +252,10 @@ public class MainWindow extends UiPart {
     }
     
     //@@A0138862W
-    public void pushToActionHistory(Date dateExecuted, String title, String description){
-        actionHistory.getItems().add(title+";"+description+";"+dateExecuted);
+    public void pushToActionHistory(String title, String description){
+        ActionHistory aHistory = new ActionHistory(title, description);
+        
+        actionHistory.getItems().add(aHistory);
         actionHistory.scrollTo(actionHistory.getItems().size()-1);
     }
 
@@ -378,34 +381,37 @@ public class MainWindow extends UiPart {
     }
     
 
-    private void initActionHistory(ListView<String> actionHistory){
+    //@@author A0138862W
+    private void initActionHistory(ListView<ActionHistory> actionHistory){
 
+        actionHistory.setOnMouseClicked(value->{
+            consoleOutput.setText(actionHistory.getSelectionModel().getSelectedItem().getDescription());
+        });
         actionHistory.setCellFactory(listView -> {
-            ListCell<String> actionCell = new ListCell<String>(){
+            ListCell<ActionHistory> actionCell = new ListCell<ActionHistory>(){
               
                 @Override
-                protected void updateItem(String item, boolean isEmpty){
+                protected void updateItem(ActionHistory item, boolean isEmpty){
                     super.updateItem(item, isEmpty);
                     
                     if(!isEmpty){
                         
-                        ActionHistoryItem actionHistoryItem = UiPartLoader.loadUiPart(new ActionHistoryItem());
+                        ActionHistoryEntry actionHistoryEntry = UiPartLoader.loadUiPart(new ActionHistoryEntry());
                         
                         
-                        String[] args = item.split(";");
-                        
-                        actionHistoryItem.setTitle(args[0].toUpperCase());
-                        actionHistoryItem.setDescription(args[1]);
-                        actionHistoryItem.setDate(args[2].toUpperCase());
+                        actionHistoryEntry.setTitle(item.getTitle().toUpperCase());
+                        actionHistoryEntry.setDescription(item.getDescription());
+                        actionHistoryEntry.setDate(item.getDateActioned().toString().toUpperCase());
                         
                         
-                        if(args[0].toUpperCase().equals("INVALID COMMAND")){
-                            actionHistoryItem.setTypeFail();
+                        if(item.getTitle().toUpperCase().equals("INVALID COMMAND")){
+                            actionHistoryEntry.setTypeFail();
                         }else{
-                            actionHistoryItem.setTypeSuccess();
+                            actionHistoryEntry.setTypeSuccess();
                         }
                         
-                        this.setGraphic(actionHistoryItem.getNode());
+                        this.setGraphic(actionHistoryEntry.getNode());
+                        
                         this.setPrefHeight(50);
                         this.setPrefWidth(250);
                         
@@ -661,7 +667,7 @@ public class MainWindow extends UiPart {
         mostRecentResult = logic.execute(currCommandText, currentTab);
         consoleOutput.setText(mostRecentResult.feedbackToUser);
         
-        this.pushToActionHistory(new Date(), mostRecentResult.title, mostRecentResult.feedbackToUser);
+        this.pushToActionHistory(mostRecentResult.title, mostRecentResult.feedbackToUser);
 
         //updates the tab when a list command is called
         updateTab(mostRecentResult);

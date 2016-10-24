@@ -89,6 +89,10 @@
     -fx-text-fill: white;
 }
 
+.list-cell:filled:selected:focused{
+    -fx-background-color: #1a1a1a;
+}
+
 .scroll-bar,
 .scroll-bar .decrement-button,
 .scroll-bar .increment-button{
@@ -108,6 +112,7 @@
     -fx-font-style: normal;
     -fx-padding: 0px;
 }
+
 .action-history-item .date{
     -fx-text-fill: deepSkyBlue; 
     -fx-font-weight: normal;
