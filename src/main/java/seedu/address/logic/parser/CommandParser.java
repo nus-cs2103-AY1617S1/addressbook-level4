@@ -30,6 +30,10 @@ public class CommandParser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+    
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
 
     public CommandParser() {}
 
@@ -148,22 +152,21 @@ public class CommandParser {
      */
     private Command prepareEdit(String args) {
 		
-    	int index = 0;
-	 
-   	 	args = args.trim();
-   	 	System.out.println(args);
-   	 
+    	int index = ZERO;	 
+   	 	
+    	args = args.trim();
+   	 	//System.out.println(args);   	 
    	 	String[] parts = args.split(" ");
-   	 	String indexNum = parts[0];
+   	 	String indexNum = parts[ZERO];
 
-   	 	if(parts.length == 1){
+   	 	if(parts.length == ONE){
    	 		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
    	 	}
    	 
    	 	index = Integer.parseInt(indexNum);
-   	 	String[] split = args.substring(2).split("-reset");
+   	 	String[] split = args.substring(TWO).split("-reset");
 
-   	 	String argsTrimmed = " " + split[0];        
+   	 	String argsTrimmed = " " + split[ZERO];        
         String resetField = null;
 
         logger.finer("Entering CommandParser, prepareEdit()");
@@ -173,11 +176,11 @@ public class CommandParser {
             
             logger.finer("Exiting CommandParser, prepareEdit()");
             
-            if(split.length == 2){
-               	resetField = split[1];
+            if(split.length == TWO){
+               	resetField = split[ONE];
             }
             
-            System.out.println(extractedValues.get("taskName"));
+            //System.out.println(extractedValues.get("taskName"));
 
             return new EditCommand(index, extractedValues.get("taskName"), extractedValues.get("startDate"), 
                     extractedValues.get("endDate"), extractedValues.get("rate"), 

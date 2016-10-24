@@ -53,13 +53,7 @@ public class EditCommand extends UndoableCommand {
 			Optional<String> priorityString, String resetFieldString)throws IllegalValueException {       
 		
 		this.targetIndex = targetIndex;
-		taskName = null;
-		startDate = null;
-        endDate = null;
-        priority = null;
-        removeReccurence = false;
-        removeStartDate = false;
-        removeEndDate = false;
+		initializeForEdit();
         
         if (taskNameString.isPresent() && !taskNameString.get().toString().trim().equals("")) {
     		taskName = new Name(taskNameString.get());
@@ -116,6 +110,16 @@ public class EditCommand extends UndoableCommand {
         	}
         } 
 	}
+
+    private void initializeForEdit() {
+        taskName = null;
+		startDate = null;
+        endDate = null;
+        priority = null;
+        removeReccurence = false;
+        removeStartDate = false;
+        removeEndDate = false;
+    }
 
 	@Override
 	public CommandResult execute() {	    
