@@ -12,7 +12,6 @@ import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.commons.events.model.TaskSchedulerChangedEvent;
 import seedu.taskscheduler.commons.events.ui.JumpToListRequestEvent;
 import seedu.taskscheduler.commons.events.ui.ShowHelpEvent;
-import seedu.taskscheduler.commons.util.DateFormatter;
 import seedu.taskscheduler.logic.Logic;
 import seedu.taskscheduler.logic.LogicManager;
 import seedu.taskscheduler.logic.commands.*;
@@ -28,7 +27,6 @@ import seedu.taskscheduler.storage.StorageManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -80,7 +78,7 @@ public class LogicManagerTest {
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
         EventsCenter.clearSubscribers();
     }
 
@@ -172,10 +170,10 @@ public class LogicManagerTest {
                 "add []\\[;] s/090909 e/090909 at valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name s/" + invalidDate + " e/010116 at valid, address", 
-                String.format(Messages.MESSAGE_INVALID_DATE_FORMAT,invalidDate));
+                String.format(MESSAGE_INVALID_DATE_FORMAT,invalidDate));
         assertCommandBehavior(
                 "add Valid Name s/010116 e/" + invalidDate + " at valid, address", 
-                String.format(Messages.MESSAGE_INVALID_DATE_FORMAT,invalidDate));
+                String.format(MESSAGE_INVALID_DATE_FORMAT,invalidDate));
 //        assertCommandBehavior(
 //                "add Valid Name s/01012016 e/01012016 a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -467,7 +465,7 @@ public class LogicManagerTest {
         /**
          * Adds the given list of Tasks to the given TaskScheduler
          */
-        void addToTaskScheduler(TaskScheduler taskScheduler, List<Task> tasksToAdd) throws Exception{
+        private void addToTaskScheduler(TaskScheduler taskScheduler, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 taskScheduler.addTask(p);
             }
