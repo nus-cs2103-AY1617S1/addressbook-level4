@@ -3,7 +3,9 @@ package seedu.address.testutil;
 import java.util.ArrayList;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.commons.util.DateChecker;
 import seedu.menion.logic.commands.CompleteCommand;
+import seedu.menion.logic.commands.EditCommand;
 import seedu.menion.logic.commands.UnCompleteCommand;
 import seedu.menion.model.activity.*;
 
@@ -286,6 +288,47 @@ public class TestActivity implements ReadOnlyActivity {
         return build.toString();
     }
     
+    /**
+     * @param index of the Activity to edit, and it's newName
+     * @return edit name command for the given Activity.
+     */
+    public String getEditNameCommand(int index, String newName) {
+        StringBuilder build = new StringBuilder();
+        
+        if (activityType.equals(Activity.FLOATING_TASK_TYPE)) {
+            build.append(EditCommand.COMMAND_WORD);
+            build.append(" ");
+            build.append(Activity.FLOATING_TASK_TYPE);
+            build.append(" ");
+            build.append(String.valueOf(index));
+            build.append(" ");
+            build.append(EditCommand.NAME_PARAM);
+            build.append(" ");
+            build.append(newName);
+        } else if (activityType.equals(Activity.TASK_TYPE)) {
+            build.append(EditCommand.COMMAND_WORD);
+            build.append(" ");
+            build.append(Activity.TASK_TYPE);
+            build.append(" ");
+            build.append(String.valueOf(index));
+            build.append(" ");
+            build.append(EditCommand.NAME_PARAM);
+            build.append(" ");
+            build.append(newName);
+        } else if (activityType.equals(Activity.EVENT_TYPE)) {
+            build.append(EditCommand.COMMAND_WORD);
+            build.append(" ");
+            build.append(Activity.EVENT_TYPE);
+            build.append(" ");
+            build.append(String.valueOf(index));
+            build.append(" ");
+            build.append(EditCommand.NAME_PARAM);
+            build.append(" ");
+            build.append(newName);
+        }
+        return build.toString();
+    }
+    
     @Override
     public Activity get() {
         return null;
@@ -317,21 +360,32 @@ public class TestActivity implements ReadOnlyActivity {
     }
 
     @Override
-    public void setActivityStartDateTime(String newDate, String newTime) {
+    public void setActivityStartDateTime(String newDate, String newTime) throws IllegalValueException {
         boolean isTask = this.activityType.equals(Activity.TASK_TYPE);
         boolean isEvent = this.activityType.equals(Activity.EVENT_TYPE);
         assert (isTask || isEvent);
-        try {
-            this.startDate = new ActivityDate(newDate);
-            this.startTime = new ActivityTime(newTime);
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-        } 
+        
+        ActivityDate newDateObject = new ActivityDate(newDate);
+        ActivityTime newTimeObject = new ActivityTime(newTime);
+        if (isEvent) {
+            DateChecker check = new DateChecker();
+            check.validEventDate(newDateObject, newTimeObject, this.endDate, this.endTime);
+        }
+        this.startDate = newDateObject;
+        this.startTime = newTimeObject;
+
     }
 
     @Override
     public void setActivityEndDateTime(String newDate, String newTime) throws IllegalValueException {
-   
+        boolean isEvent = this.activityType.equals(Activity.EVENT_TYPE);
+        DateChecker check = new DateChecker();
+        assert (isEvent);
+        ActivityDate newDateObject = new ActivityDate(newDate);
+        ActivityTime newTimeObject = new ActivityTime(newTime);
+        check.validEventDate(this.startDate, this.startTime, newDateObject, newTimeObject);
+        this.endDate = newDateObject;
+        this.endTime = newTimeObject;
     }
   
     @Override

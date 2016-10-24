@@ -55,7 +55,7 @@ public class ActivityListPanelHandle extends GuiHandle {
      * @author BrehmerChan (A046752B)
      */
     public ListView<ReadOnlyActivity> getEventListView() {
-        return (ListView<ReadOnlyActivity>) getNode(TASK_LIST_VIEW_ID);
+        return (ListView<ReadOnlyActivity>) getNode(EVENT_LIST_VIEW_ID);
     }
 
 
@@ -118,7 +118,16 @@ public class ActivityListPanelHandle extends GuiHandle {
         }
         return true;
     }
-
+    //@@author: A0139164A
+    public TestActivity returnsUpdatedEvent(String name) {
+        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
+        final Optional<ReadOnlyActivity> activity = getEventListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
+        if (!activity.isPresent()) {
+            throw new IllegalStateException("Name not found: " + name);
+        }
+        TestActivity dub = new TestActivity(activity.get());
+        return dub;
+    }
     public TestActivity returnsUpdatedTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyActivity> activity = getTaskListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
@@ -248,7 +257,7 @@ public class ActivityListPanelHandle extends GuiHandle {
     public FloatingTaskCardHandle getFloatingTaskCardHandle(int index) {
         return getFloatingTaskCardHandle(new Activity(getFloatingTaskListView().getItems().get(index)));
     }
-
+    
     public TaskCardHandle getTaskCardHandle(ReadOnlyActivity person) {
         Set<Node> nodes = getAllTaskCardNodes();
         Optional<Node> activityCardNode = nodes.stream()
