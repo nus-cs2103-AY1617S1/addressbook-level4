@@ -73,52 +73,50 @@ public class StringUtilTest {
 
     //@@author A0135805H
     @Test
-    public void partitionStringAtPosition_nullString() {
-        String[] expected = {"", "", ""};
-        String[] outcome = StringUtil.partitionStringAtPosition(null, 0);
-        assertArrayEquals(expected, outcome);
-    }
-
-    @Test
     public void partitionStringAtPosition_emptyString() {
         String[] expected = {"", "", ""};
-        String[] outcome = StringUtil.partitionStringAtPosition("", 0);
-        assertArrayEquals(expected, outcome);
+
+        //Tests null string
+        testPartitionStringAtPositionHelper(null, 0, expected);
+
+        //Test empty String
+        testPartitionStringAtPositionHelper("", 0, expected);
     }
 
     @Test
-    public void partitionStringAtPosition_positionTooLow() {
+    public void partitionStringAtPosition_positionOutOfBounds() {
+        String input = "I have a Pikachu";
         String[] expected = {"", "", ""};
-        String[] outcome = StringUtil.partitionStringAtPosition("I have a Pikachu", -1);
-        assertArrayEquals(expected, outcome);
+
+        //Tests position too low
+        testPartitionStringAtPositionHelper(input, -1, expected);
+
+        //Tests position too high
+        testPartitionStringAtPositionHelper(input, 16, expected);
     }
 
     @Test
-    public void partitionStringAtPosition_positionTooHigh() {
-        String[] expected = {"", "", ""};
-        String[] outcome = StringUtil.partitionStringAtPosition("I have a Pikachu", 16);
-        assertArrayEquals(expected, outcome);
+    public void partitionStringAtPosition_partitionCorrectly() {
+        String input = "I have a Pikachu";
+
+        //Test lower bound
+        testPartitionStringAtPositionHelper(input, 0, new String[] {"", "I", " have a Pikachu"});
+
+        //Test upper bound
+        testPartitionStringAtPositionHelper(input, 15, new String[] {"I have a Pikach", "u", ""});
+
+        //Test normal partition
+        testPartitionStringAtPositionHelper(input, 5, new String[] {"I hav", "e", " a Pikachu"});
     }
 
-    @Test
-    public void partitionStringAtPosition_partitionLower() {
-        String[] expected = {"", "I", " have a Pikachu"};
-        String[] outcome = StringUtil.partitionStringAtPosition("I have a Pikachu", 0);
+    /**
+     * Helper method to test partitionStringAtPosition(...).
+     * @param input String to be partitioned.
+     * @param position Position where partition should take place.
+     * @param expected Expected output.
+     */
+    private void testPartitionStringAtPositionHelper(String input, int position, String[] expected) {
+        String[] outcome = StringUtil.partitionStringAtPosition(input, position);
         assertArrayEquals(expected, outcome);
     }
-
-    @Test
-    public void partitionStringAtPosition_partitionUpper() {
-        String[] expected = {"I have a Pikach", "u", ""};
-        String[] outcome = StringUtil.partitionStringAtPosition("I have a Pikachu", 15);
-        assertArrayEquals(expected, outcome);
-    }
-
-    @Test
-    public void partitionStringAtPosition_partitionMiddle() {
-        String[] expected = {"I hav", "e", " a Pikachu"};
-        String[] outcome = StringUtil.partitionStringAtPosition("I have a Pikachu", 5);
-        assertArrayEquals(expected, outcome);
-    }
-
 }
