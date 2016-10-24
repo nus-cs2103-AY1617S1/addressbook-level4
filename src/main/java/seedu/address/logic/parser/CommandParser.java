@@ -7,6 +7,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,7 +20,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 public class CommandParser {
     
     private final Logger logger = LogsCenter.getLogger(CommandParser.class);
-
+    
     /**
      * Used for initial separation of command word and args.
      */
@@ -29,46 +30,6 @@ public class CommandParser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-        
-    private static final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?<rate>\\d+)?(?<timePeriod>.*?)");
-    
-    private static final String REGEX_OPEN_BRACE = "(";
-    private static final String REGEX_CASE_IGNORE = "?i:";
-    private static final String REGEX_CLOSE_BRACE = ")";
-    private static final String REGEX_GREEDY_SELECT = ".*?";
-    private static final String REGEX_NAME = "?<taskName>.*?";
-
-    private static final String REGEX_ADDITIONAL_KEYWORD = "(?:"
-            +"(?: from )"
-            +"|(?: at )"
-            +"|(?: start )"
-            +"|(?: by )"
-            +"|(?: to )"
-            +"|(?: end )"
-            +")";
-
-    private static final String REGEX_FIRST_DATE = "(?:"
-            +"(?: from (?<startDateFormatOne>.*?))"
-            +"|(?: at (?<startDateFormatTwo>.*?))"
-            +"|(?: start (?<startDateFormatThree>.*?))"
-            +"|(?: by (?<endDateFormatOne>.*?))"
-            +"|(?: to (?<endDateFormatTwo>.*?))"
-            +"|(?: end (?<endDateFormatThree>.*?))"
-            +")";
-    private static final String REGEX_SECOND_DATE = "(?:"
-            +"(?: from (?<startDateFormatFour>.*?))"
-            +"|(?: at (?<startDateFormatFive>.*?))"
-            +"|(?: start (?<startDateFormatSix>.*?))"
-            +"|(?: by (?<endDateFormatFour>.*?))"
-            +"|(?: to (?<endDateFormatFive>.*?))"
-            +"|(?: end (?<endDateFormatSix>.*?))"
-            +")";
-    private static final String REGEX_RECURRENCE_AND_PRIORITY = "(?: repeat every (?<recurrenceRate>.*?))?"
-            +"(?: -(?<priority>.*?))?";
-    
-    private static final String REGEX_OPEN_BRACE_CASE_IGNORE_NAME = REGEX_OPEN_BRACE + REGEX_CASE_IGNORE + REGEX_OPEN_BRACE + REGEX_NAME;
-    private static final String REGEX_KEYWORD_GREEDY_SELECT = REGEX_ADDITIONAL_KEYWORD + REGEX_GREEDY_SELECT;
-    private static final String REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE = REGEX_RECURRENCE_AND_PRIORITY + REGEX_CLOSE_BRACE;
 
     public CommandParser() {}
 
@@ -129,229 +90,40 @@ public class CommandParser {
         }
     }
 
+    //@@author A0139655U
 	/**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args){
+        assert args != null;
         
+        logger.finer("Entering CommandParser, prepareAdd()");
         String argsTrimmed = args.trim();
         
         if(argsTrimmed.isEmpty()) {
+            logger.finer("Trimmed argument is empty");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
-        String taskName = null;
-        String startDate = null;
-        String endDate = null;
-        String rate = null;
-        String timePeriod = null;
-        String priority = null;
-        
-        boolean isZeroKeyword = false;
-        boolean isOneKeyword = false;
-        boolean isTwoKeywordsOrMore = false;
-        String startOfRegex = null;
-        String regexCopy = null;
-        
-        Pattern pattern = Pattern.compile(REGEX_ADDITIONAL_KEYWORD);
-        Matcher matcher = pattern.matcher(argsTrimmed);
-
-        int numberOfKeywords = 0;
-        while(matcher.find()){
-            numberOfKeywords++;
-        }
-        logger.info("Number of keywords in \"" + argsTrimmed + "\" = " + numberOfKeywords);
-        
-        assert numberOfKeywords >= 0;
-        try {
-            if (numberOfKeywords == 0) {
-                isZeroKeyword = true;
-                startOfRegex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME;
-            } else if (numberOfKeywords == 1) {
-                isOneKeyword = true;
-                startOfRegex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME;
-            } else if (numberOfKeywords == 2) {
-                isTwoKeywordsOrMore = true;
-                startOfRegex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME;
-            } else if (numberOfKeywords > 2) {
-                isTwoKeywordsOrMore = true;
-                int numberOfAdditionalKeywords = numberOfKeywords - 2;
-                startOfRegex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME;
-                for (int i = 0; i < numberOfAdditionalKeywords; i++) {
-                    startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
-                }
-            } 
+        try {  
+            HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareAdd(argsTrimmed);
             
-            if (isZeroKeyword) {
-                matcher = generateMatcherForNoKeyword(startOfRegex, argsTrimmed);
-            } else if (isOneKeyword) {
-                assert startOfRegex != null;
-                
-                regexCopy = startOfRegex;
-                regexCopy += REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
-                
-                matcher = generateMatcherFromPattern(regexCopy, argsTrimmed);
-            
-                startDate = validateStartDateFormatsOneToThree(matcher); 
-                if (startDate == null) {
-                    endDate = validateEndDateFormatsOneToThree(matcher); 
-                }
-            
-                if (startDate != null && !DateTime.isValidDate(startDate) || 
-                        endDate != null && !DateTime.isValidDate(endDate)) {
-                    startDate = null;
-                    endDate = null;
-                    startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
-                    matcher = generateMatcherForNoKeyword(startOfRegex, argsTrimmed);
-                } 
-            } else if (isTwoKeywordsOrMore) {
-                assert startOfRegex != null;
-                
-                regexCopy = startOfRegex;
-                regexCopy += REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_SECOND_DATE + 
-                REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
-                
-                matcher = generateMatcherFromPattern(regexCopy, argsTrimmed);
-            
-                startDate = validateStartDateFormatsOneToThree(matcher); 
-                if (startDate == null) {
-                    endDate = validateEndDateFormatsOneToThree(matcher); 
-                }
-                
-                boolean isValidEndDate = true;
-                
-                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
-                        endDate != null && !DateTime.isValidDate(endDate)) {
-                    isValidEndDate = false;
-                    startDate = null;
-                    endDate = null;
-                    startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
-                    regexCopy = startOfRegex;
-                    regexCopy += REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
-                    matcher = generateMatcherFromPattern(regexCopy, argsTrimmed);
-
-                    startDate = validateStartDateFormatsOneToThree(matcher); 
-                    if (startDate == null) {
-                        endDate = validateEndDateFormatsOneToThree(matcher); 
-                    }
-                }
-                
-                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
-                        endDate != null && !DateTime.isValidDate(endDate)) {
-                    startDate = null;
-                    endDate = null;
-                    startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
-                    matcher = generateMatcherForNoKeyword(startOfRegex, argsTrimmed);
-                }
-                
-                if (isValidEndDate) {
-                    endDate = validateEndDateFormatsFourToSix(matcher); 
-                }
-            }
-            
-            validateMatcherMatches(matcher);
-            
-            // assign taskName, rate, timePeriod and priority.
-            assert matcher.group("taskName") != null;
-            taskName = matcher.group("taskName").trim();
-
-            if (matcher.group("recurrenceRate") != null) {
-                final Matcher recurrenceMatcher = validateRecurrenceMatcher(matcher); 
-            
-                if (recurrenceMatcher.group("rate") != null) {
-                    rate = recurrenceMatcher.group("rate").trim();
-                }
-            
-                assert recurrenceMatcher.group("timePeriod") != null;
-                timePeriod = recurrenceMatcher.group("timePeriod").trim();
-            }
-        
-            priority = assignPriority(matcher);
-            return new AddCommand(taskName, startDate, endDate, rate, timePeriod, priority);
+            logger.finer("Exiting CommandParser, prepareAdd()");
+            /*logger.log(Level.FINEST, "taskName, startDate, endDate, rate, timePeriod and "
+                    + "priority have these values respectively:", 
+                    new Object[] {taskName, startDate, endDate, rate, timePeriod, priority});*/
+            return new AddCommand(extractedValues.get("taskName"), extractedValues.get("startDate"), 
+                    extractedValues.get("endDate"), extractedValues.get("rate"), 
+                    extractedValues.get("timePeriod"), extractedValues.get("priority"));
             
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE + "\n" + ive.getMessage()));
+            logger.finer("IllegalValueException caught in CommandParser, prepareAdd()");
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    AddCommand.MESSAGE_USAGE + "\n" + ive.getMessage()));
         }
-    }
-    
-    private Matcher generateMatcherForNoKeyword(String regex, String args) throws IllegalValueException {
-        regex += REGEX_CLOSE_BRACE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
-        return generateMatcherFromPattern(regex, args);
-    }
-
-    private Matcher generateMatcherFromPattern(String regex, String args) throws IllegalValueException {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(args);
-        validateMatcherMatches(matcher);
-        return matcher;
-    }
-
-    private String validateEndDateFormatsFourToSix(Matcher matcher) {
-        if (matcher.group("endDateFormatFour") != null) {
-            return matcher.group("endDateFormatFour").trim(); 
-        } else if (matcher.group("endDateFormatFive") != null) {
-            return matcher.group("endDateFormatFive").trim();
-        } else if (matcher.group("endDateFormatSix") != null) {
-            return matcher.group("endDateFormatSix").trim();
-        } else {
-            return null;
-        }
-    }
-
-    private String validateEndDateFormatsOneToThree(Matcher matcher) {
-        if (matcher.group("endDateFormatOne") != null) {
-            return matcher.group("endDateFormatOne").trim(); 
-        } else if (matcher.group("endDateFormatTwo") != null) {
-            return matcher.group("endDateFormatTwo").trim();
-        } else if (matcher.group("endDateFormatThree") != null) {
-            return matcher.group("endDateFormatThree").trim();
-        } else {
-            return null;
-        }
-    }
-
-    private String validateStartDateFormatsOneToThree(Matcher matcher) {
-        if (matcher.group("startDateFormatOne") != null) {
-            return matcher.group("startDateFormatOne").trim();
-        } else if (matcher.group("startDateFormatTwo") != null) {
-            return matcher.group("startDateFormatTwo").trim();
-        } else if (matcher.group("startDateFormatThree") != null) {
-            return matcher.group("startDateFormatThree").trim();
-        } else {
-            return null;
-        }
-    }
-
-    // TODO: Update this
-    private void validateMatcherMatches(Matcher matcher) throws IllegalValueException {
-        if (!matcher.matches()) {
-            throw new IllegalValueException("");
-        }
-    }
-
-    private String assignPriority(Matcher matcher) {
-        String priority;
-        if (matcher.group("priority") != null) {
-            priority = matcher.group("priority").trim();
-        } else {
-            priority = "medium";
-        }
-        return priority;
-    }
-
-    //TODO: To update this
-    private Matcher validateRecurrenceMatcher(Matcher matcher) throws IllegalValueException {
-        String recurrenceString = matcher.group("recurrenceRate");
-        final Matcher recurrenceMatcher = RECURRENCE_RATE_ARGS_FORMAT.matcher(recurrenceString);
-            
-        if (!recurrenceMatcher.matches()) {
-            throw new IllegalValueException("");
-        }
-        
-        return recurrenceMatcher;
     }
 
     /**
@@ -391,180 +163,39 @@ public class CommandParser {
    	 	index = Integer.parseInt(indexNum);
    	 	String[] split = args.substring(2).split("-reset");
 
-   	 	String argsTrimmed = " " + split[0];
-
-   	 	String taskName = null;
-        String startDate = null;
-        String endDate = null;
-        String rate = null;
-        String timePeriod = null;
-        String priority = null;  
+   	 	String argsTrimmed = " " + split[0];        
         String resetField = null;
 
-        Pattern pattern = Pattern.compile(REGEX_ADDITIONAL_KEYWORD);
-        Matcher matcher = pattern.matcher(argsTrimmed);
-
-        int numberOfKeywords = 0;
-        while(matcher.find()){
-            numberOfKeywords++;
+        logger.finer("Entering CommandParser, prepareEdit()");
+                
+        if(argsTrimmed.isEmpty()) {
+            logger.finer("Trimmed argument is empty");
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-        logger.info("Number of keywords in \"" + argsTrimmed + "\" = " + numberOfKeywords);
         
-        assert numberOfKeywords >= 0;
-        try {
-            if (numberOfKeywords == 0) {
-                pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_CLOSE_BRACE 
-                        + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
-                matcher = pattern.matcher(argsTrimmed);
-            } else if (numberOfKeywords == 1) {
-                pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_CLOSE_BRACE +
-                        REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
-                matcher = pattern.matcher(argsTrimmed);
-                validateMatcherMatches(matcher);
+        try {  
+            HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareEdit(argsTrimmed);
             
-                startDate = validateStartDateFormatsOneToThree(matcher); 
-                if (startDate == null) {
-                    endDate = validateEndDateFormatsOneToThree(matcher); 
-                }
-            
-                if (startDate != null && !DateTime.isValidDate(startDate) || 
-                        endDate != null && !DateTime.isValidDate(endDate)) {
-                    startDate = null;
-                    endDate = null;
-                    pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_KEYWORD_GREEDY_SELECT + 
-                            REGEX_CLOSE_BRACE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
-                    matcher = pattern.matcher(argsTrimmed);
-                } 
-            } else if (numberOfKeywords == 2) {
-                pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_CLOSE_BRACE +
-                        REGEX_FIRST_DATE + REGEX_SECOND_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
-                matcher = pattern.matcher(argsTrimmed);
-                validateMatcherMatches(matcher);
-            
-                startDate = validateStartDateFormatsOneToThree(matcher); 
-                if (startDate == null) {
-                    endDate = validateEndDateFormatsOneToThree(matcher); 
-                }
-                
-                boolean isValidEndDate = true;
-                
-                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
-                        endDate != null && !DateTime.isValidDate(endDate)) {
-                    isValidEndDate = false;
-                    startDate = null;
-                    endDate = null;
-                    pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_KEYWORD_GREEDY_SELECT +
-                            REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
-                    matcher = pattern.matcher(argsTrimmed);
-
-                    validateMatcherMatches(matcher);
-                    
-                    startDate = validateStartDateFormatsOneToThree(matcher); 
-                    if (startDate == null) {
-                        endDate = validateEndDateFormatsOneToThree(matcher); 
-                    }
-                }
-                
-                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
-                        endDate != null && !DateTime.isValidDate(endDate)) {
-                    startDate = null;
-                    endDate = null;
-                    pattern = Pattern.compile(REGEX_OPEN_BRACE_CASE_IGNORE_NAME + REGEX_KEYWORD_GREEDY_SELECT + 
-                            REGEX_KEYWORD_GREEDY_SELECT + REGEX_CLOSE_BRACE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE);
-                    matcher = pattern.matcher(argsTrimmed);
-                }
-                
-                if (isValidEndDate) {
-                    endDate = validateEndDateFormatsFourToSix(matcher); 
-                }
-            } else if (numberOfKeywords > 2) {
-                int numberOfAdditionalKeywords = numberOfKeywords - 2;
-                String startOfRegex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME;
-                for (int i = 0; i < numberOfAdditionalKeywords; i++) {
-                    startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
-                }
-                String regexCopy = startOfRegex;
-                regexCopy += REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_SECOND_DATE + 
-                		REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
-               
-                pattern = Pattern.compile(regexCopy);
-                matcher = pattern.matcher(argsTrimmed);
-
-                validateMatcherMatches(matcher);
-            
-                startDate = validateStartDateFormatsOneToThree(matcher); 
-                if (startDate == null) {
-                    endDate = validateEndDateFormatsOneToThree(matcher); 
-                }
-                
-                boolean isValidEndDate = true;
-
-                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
-                        endDate != null && !DateTime.isValidDate(endDate)) {
-                    isValidEndDate = false;
-                    startDate = null;
-                    endDate = null;
-                    startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
-                    regexCopy = startOfRegex;
-                    regexCopy += REGEX_CLOSE_BRACE + REGEX_FIRST_DATE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
-                    pattern = Pattern.compile(regexCopy);
-                    matcher = pattern.matcher(argsTrimmed);
-
-                    validateMatcherMatches(matcher);
-                    
-                    startDate = validateStartDateFormatsOneToThree(matcher); 
-                    if (startDate == null) {
-                        endDate = validateEndDateFormatsOneToThree(matcher); 
-                    }
-                }
-                
-                // second keyword is part of the name
-                if ((startDate != null && !DateTime.isValidDate(startDate)) || 
-                        endDate != null && !DateTime.isValidDate(endDate)) {
-                    startDate = null;
-                    endDate = null;
-                    startOfRegex += REGEX_KEYWORD_GREEDY_SELECT;
-                    regexCopy = startOfRegex;
-                    regexCopy += REGEX_CLOSE_BRACE + REGEX_RECURRENCE_PRIORITY_CLOSE_BRACE;
-                    pattern = Pattern.compile(regexCopy);
-                    matcher = pattern.matcher(argsTrimmed);
-                }
-                
-                if (isValidEndDate) {
-                    endDate = validateEndDateFormatsFourToSix(matcher); 
-                }
-            } 
-            
-            validateMatcherMatches(matcher);
-            
-            if(matcher.group("taskName") != null){
-            	taskName = matcher.group("taskName").trim();
-            }
-            
-            if (matcher.group("recurrenceRate") != null) {
-                final Matcher recurrenceMatcher = validateRecurrenceMatcher(matcher); 
-            
-                if (recurrenceMatcher.group("rate") != null) {
-                    rate = recurrenceMatcher.group("rate").trim();
-                }
-            
-                assert recurrenceMatcher.group("timePeriod") != null;
-                timePeriod = recurrenceMatcher.group("timePeriod").trim();
-            }
-
-            if (matcher.group("priority") != null) {
-                priority = matcher.group("priority").trim();
-            }
+            logger.finer("Exiting CommandParser, prepareEdit()");
             
             if(split.length == 2){
-            	resetField = split[1];
+               	resetField = split[1];
             }
+            
+            System.out.println(extractedValues.get("taskName"));
 
-            return new EditCommand(index, taskName, startDate, endDate, rate, timePeriod, priority, resetField);
+            return new EditCommand(index, extractedValues.get("taskName"), extractedValues.get("startDate"), 
+                    extractedValues.get("endDate"), extractedValues.get("rate"), 
+                    extractedValues.get("timePeriod"), extractedValues.get("priority"),resetField);
             
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE + "\n" + ive.getMessage()));
+            logger.finer("IllegalValueException caught in CommandParser, prepareEdit()");
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    EditCommand.MESSAGE_USAGE + "\n" + ive.getMessage()));
         }
+            
+        //return new EditCommand(index, taskName, startDate, endDate, rate, timePeriod, priority, resetField);
+            
     }
 
     /**
