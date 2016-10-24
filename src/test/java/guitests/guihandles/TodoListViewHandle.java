@@ -7,6 +7,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import org.testfx.service.finder.NodeFinderException;
 import seedu.todo.TestApp;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.TestUtil;
@@ -94,8 +95,11 @@ public class TodoListViewHandle extends GuiHandle {
      */
     public TaskCardViewHandle getTaskCardViewHandle(int listIndex) {
         Node taskCardNode = getTaskCardViewNode(listIndex);
-        return (taskCardNode != null) ? new TaskCardViewHandle(guiRobot, primaryStage, taskCardNode)
-                                          : null;
+        if (taskCardNode != null) {
+            return new TaskCardViewHandle(guiRobot, primaryStage, taskCardNode);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -114,10 +118,9 @@ public class TodoListViewHandle extends GuiHandle {
      *                  (must be a valid value from 0 to length of task list - 1,
      *                  else {@link RuntimeException} is thrown.
      * @return An instance of the node. Guarantees non-null.
-     * @throws RuntimeException if we can't find the node after finite attempts.
+     * @throws NodeFinderException if we can't find the node after finite attempts.
      */
-    private Node getTaskCardViewNode(int listIndex) throws RuntimeException {
-
+    private Node getTaskCardViewNode(int listIndex) throws NodeFinderException {
         int displayedIndex = UiTestUtil.convertToUiIndex(listIndex);
         Optional<Node> possibleNode;
         int attemptCounter = 0;
@@ -136,9 +139,9 @@ public class TodoListViewHandle extends GuiHandle {
         if (possibleNode.isPresent()) {
             return possibleNode.get();
         } else {
-            throw new RuntimeException(
-                    "Either the node fails to draw on the screen, or you provided an invalid index "
-                    + listIndex + "where the size of nodes is " + getAllTaskCardNodes().size());
+            String errorMessage = "Either the node fails to draw on the screen, or you provided an invalid index "
+                                  + listIndex + " where the number of nodes is " + getAllTaskCardNodes().size();
+            throw new NodeFinderException(errorMessage, NodeFinderException.ErrorType.NO_NODES_FOUND);
         }
     }
 

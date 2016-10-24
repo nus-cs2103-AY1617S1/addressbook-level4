@@ -137,8 +137,7 @@ public class TaskFactory {
      * @return Returns a randomly generated list.
      */
     public static List<ImmutableTask> list(int lowerBound, int upperBound) {
-        Random random = new Random();
-        int size = lowerBound + random.nextInt(upperBound - lowerBound);
+        int size = lowerBound + random.nextInt(upperBound - lowerBound + 1);
         ArrayList<ImmutableTask> tasks = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             tasks.add(random());
