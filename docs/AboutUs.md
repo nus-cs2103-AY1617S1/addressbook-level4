@@ -37,3 +37,8 @@ We are a group of Computer Science students from the School of Computing, Nation
 * Role: Developer<br>
 * Responsibilities: Testing<br>
 * In charge of: Logic
+
+#### Michelle
+
+<img src="images/Michelle.jpg" width="150"><br>
+* Role: Tutor<br>
