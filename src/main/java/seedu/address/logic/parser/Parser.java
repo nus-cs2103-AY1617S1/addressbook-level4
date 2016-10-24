@@ -37,9 +37,9 @@ public class Parser {
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>.+)"
             		+ " (?<name>[^/]+)"
-            		+ "(?<startline>(?: s/[^/]+)*)"
+            		+ "s/(?<startline>[^/]+)"
             		+ "(?<deadlineArguments>(?: d/[^/]+)*)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
+                    + "(?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -147,7 +147,7 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> deadlineStrings = Arrays.asList(deadlineArguments.replaceFirst(" d/", "").split(" t/"));
+        final Collection<String> deadlineStrings = Arrays.asList(deadlineArguments.replaceFirst(" d/", "").trim().split(" t/"));
         return new HashSet<>(deadlineStrings);
 	}
 
