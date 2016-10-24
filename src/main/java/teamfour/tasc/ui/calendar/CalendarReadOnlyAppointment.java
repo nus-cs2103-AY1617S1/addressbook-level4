@@ -8,6 +8,7 @@ import java.util.Date;
 
 import jfxtras.scene.control.agenda.Agenda.Appointment;
 import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
+import teamfour.tasc.commons.util.DateUtil;
 import teamfour.tasc.model.task.ReadOnlyTask;
 
 /**
@@ -16,10 +17,12 @@ import teamfour.tasc.model.task.ReadOnlyTask;
  */
 public class CalendarReadOnlyAppointment implements Appointment {
 
-    private ReadOnlyTask associatedTask;
+    protected ReadOnlyTask associatedTask;
+    private int associatedIndex;
     
-    public CalendarReadOnlyAppointment(ReadOnlyTask associatedTask) {
+    public CalendarReadOnlyAppointment(ReadOnlyTask associatedTask, int associatedIndex) {
         this.associatedTask = associatedTask;
+        this.associatedIndex = associatedIndex;
     }
 
     /**
@@ -50,7 +53,7 @@ public class CalendarReadOnlyAppointment implements Appointment {
 
     @Override
     public String getSummary() {
-        return associatedTask.getName().getName();
+        return getDescription();
     }
 
     @Override
@@ -60,7 +63,7 @@ public class CalendarReadOnlyAppointment implements Appointment {
 
     @Override
     public String getDescription() {
-        return associatedTask.getName().getName();
+        return "(" + associatedIndex + "): " + associatedTask.getName().getName();
     }
 
     @Override
@@ -81,7 +84,22 @@ public class CalendarReadOnlyAppointment implements Appointment {
 
     @Override
     public AppointmentGroup getAppointmentGroup() {
-        // not supported
+        if (associatedTask.getComplete().isCompleted()) {
+            return CalendarAppointmentGroups.COMPLETED;
+        }
+        
+        if (associatedTask.getPeriod().hasPeriod()) {
+            return CalendarAppointmentGroups.PERIOD;
+        }
+        
+        if (associatedTask.getDeadline().hasDeadline()) {
+            if (associatedTask.isOverdue(DateUtil.getCurrentTime())) {
+                return CalendarAppointmentGroups.OVERDUE;
+            }
+            
+            return CalendarAppointmentGroups.DEADLINE;
+        }
+        
         return null;
     }
 
@@ -173,7 +191,7 @@ public class CalendarReadOnlyAppointment implements Appointment {
     /**
      * Convert a java.util.Date to a java.time.LocalDateTime
      */
-    private LocalDateTime convertToLocalDateTime(Date date) {
+    protected LocalDateTime convertToLocalDateTime(Date date) {
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
     }
 }

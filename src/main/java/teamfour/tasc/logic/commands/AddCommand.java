@@ -4,6 +4,7 @@ import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.core.UnmodifiableObservableList;
 import teamfour.tasc.commons.events.ui.JumpToListRequestEvent;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
+import teamfour.tasc.model.keyword.AddCommandKeyword;
 import teamfour.tasc.model.tag.Tag;
 import teamfour.tasc.model.tag.UniqueTagList;
 import teamfour.tasc.model.task.Complete;
@@ -25,7 +26,7 @@ import java.util.Set;
  */
 public class AddCommand extends Command {
 
-    public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD = AddCommandKeyword.keyword;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the task list. "
             + "Parameters: NAME [by DEADLINE] [from STARTTIME] [to ENDTIME] [repeat RECURRENCE COUNT] [tag TAG]...\n"
@@ -56,6 +57,13 @@ public class AddCommand extends Command {
         Period period = new Period();
         if((startTime != null)&&(endTime != null)){
             List<Date> dates = CommandHelper.convertStringToMultipleDates(startTime + " and " + endTime);
+            if(dates.size() < 2){
+                throw new IllegalValueException("Invalid Dates");
+            }
+            period = new Period(dates.get(0), dates.get(1));
+        }
+        else if((startTime != null) && (by != null)){
+            List<Date> dates = CommandHelper.convertStringToMultipleDates(startTime + " and " + by);
             if(dates.size() < 2){
                 throw new IllegalValueException("Invalid Dates");
             }
@@ -98,11 +106,6 @@ public class AddCommand extends Command {
     @Override
     public boolean canUndo() {
         return true;
-    }
-
-    @Override
-    public CommandResult executeUndo() {
-        return null;
     }
 
 }

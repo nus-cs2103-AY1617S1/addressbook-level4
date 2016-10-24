@@ -10,6 +10,7 @@ import teamfour.tasc.commons.core.GuiSettings;
 public class UserPrefs {
 
     public GuiSettings guiSettings;
+    private String calendarView;
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;
@@ -21,10 +22,19 @@ public class UserPrefs {
 
     public UserPrefs(){
         this.setGuiSettings(500, 500, 0, 0);
+        this.calendarView = "week";
     }
 
     public void setGuiSettings(double width, double height, int x, int y) {
         guiSettings = new GuiSettings(width, height, x, y);
+    }
+    
+    public String getCalendarView() {
+        return calendarView;
+    }
+    
+    public void setCalendarView(String calendarView) {
+        this.calendarView = calendarView;
     }
 
     @Override
@@ -38,17 +48,18 @@ public class UserPrefs {
 
         UserPrefs o = (UserPrefs)other;
 
-        return Objects.equals(guiSettings, o.guiSettings);
+        return Objects.equals(guiSettings, o.guiSettings) &&
+                calendarView.equals(o.calendarView);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings);
+        return Objects.hash(guiSettings, calendarView);
     }
 
     @Override
     public String toString(){
-        return guiSettings.toString();
+        return guiSettings.toString() + "\nCalendar View : " + calendarView;
     }
 
 }

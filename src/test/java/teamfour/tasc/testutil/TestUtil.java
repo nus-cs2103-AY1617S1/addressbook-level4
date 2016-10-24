@@ -16,6 +16,7 @@ import org.testfx.api.FxToolkit;
 import teamfour.tasc.model.task.*;
 import teamfour.tasc.TestApp;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
+import teamfour.tasc.commons.util.DateUtil;
 import teamfour.tasc.commons.util.FileUtil;
 import teamfour.tasc.commons.util.XmlUtil;
 import teamfour.tasc.model.TaskList;
@@ -29,6 +30,8 @@ import teamfour.tasc.model.task.ReadOnlyTask;
 import teamfour.tasc.model.task.Recurrence;
 import teamfour.tasc.model.task.Task;
 import teamfour.tasc.model.task.UniqueTaskList;
+import teamfour.tasc.model.task.exceptions.TaskAlreadyCompletedException;
+import teamfour.tasc.model.task.util.TaskCompleteConverter;
 import teamfour.tasc.storage.XmlSerializableTaskList;
 
 import java.io.File;
@@ -38,6 +41,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
@@ -327,13 +331,30 @@ public class TestUtil {
     
     /**
      * Marks tasks[i] as complete.
+     * 
      * @param tasks The array of tasks.
-     * @param targetIndexInOneIndexedFormat e.g. if the first element to be completed, 1 should be given as index.
+     * @param targetIndexInOneIndexedFormat e.g. if the first element to be
+     *            completed, 1 should be given as index.
      * @return the new list with updated changes
+     * @throws IllegalValueException
+     * @throws TaskAlreadyCompletedException
+     * @throws IllegalArgumentException
      */
-    public static TestTask[] markTaskInListAsComplete(TestTask[] tasks, int targetIndexInOneIndexedFormat) {
-        tasks[targetIndexInOneIndexedFormat - 1].setComplete(new Complete(true));
-        return tasks;
+    public static TestTask[] markTaskInListAsComplete(TestTask[] tasks,
+            int targetIndexInOneIndexedFormat)
+            throws IllegalArgumentException, TaskAlreadyCompletedException, IllegalValueException {
+
+        List<TestTask> taskList = Arrays.asList(tasks);
+
+        TaskCompleteConverter converter = new TaskCompleteConverter(
+                tasks[targetIndexInOneIndexedFormat - 1], new Date(0));
+        taskList.set(targetIndexInOneIndexedFormat - 1, new TestTask(converter.getCompletedTask()));
+
+        if (converter.getUncompletedRemainingRecurringTask() != null) {
+            taskList.add(new TestTask(converter.getUncompletedRemainingRecurringTask()));
+        }
+        
+        return taskList.toArray(new TestTask[0]);
     }
 
     /**

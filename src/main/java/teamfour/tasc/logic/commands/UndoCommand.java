@@ -1,22 +1,21 @@
 package teamfour.tasc.logic.commands;
 
-import teamfour.tasc.logic.LogicManager;
+import teamfour.tasc.model.keyword.UndoCommandKeyword;
 
 /**
  * Undo the last (n) commands.
  */
 public class UndoCommand extends Command {
 
-    public static final String COMMAND_WORD = "undo";
+    public static final String COMMAND_WORD = UndoCommandKeyword.keyword;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo the last command(s). "
             + "Parameters: [Number of steps]\n"
             + "Example: " + COMMAND_WORD + " 5";
 
     public static final String MESSAGE_SUCCESS = "Last %1$s undone.";
-    public static final String MESSAGE_NO_COMMAND_ENTERED = "There is no command entered.";
-    public static final String MESSAGE_NUM_COMMANDS_NOT_ENOUGH = 
-            "You can onlt undo the last %1$s.";
+    public static final String MESSAGE_NO_PAST_COMMAND_TO_UNDO = 
+            "There is no past command to undo.";
 
     private final int numCommandsToBeUndone;
 
@@ -32,29 +31,20 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        try {
-            LogicManager.executeUndo(numCommandsToBeUndone);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, numCommandsToBeUndone == 1 ? 
-                    "command" : numCommandsToBeUndone + " commands"));
-        } catch (LogicManager.UndoableTaskNotEnoughException e) {
-            indicateAttemptToExecuteIncorrectCommand();
-            int numUndoableCommands = LogicManager.numUndoableCommands();
-            if (numUndoableCommands == 0) {
-                return new CommandResult(MESSAGE_NO_COMMAND_ENTERED);
-            } else {
-                return new CommandResult(String.format(MESSAGE_NUM_COMMANDS_NOT_ENOUGH, numUndoableCommands));
-            }
+        
+        int numUndone = model.undoTaskListHistory(numCommandsToBeUndone);
+        
+        if (numUndone == 0) {
+            return new CommandResult(MESSAGE_NO_PAST_COMMAND_TO_UNDO);
         }
+        return new CommandResult(String.format(MESSAGE_SUCCESS, 
+                numUndone == 1 ? 
+                "command" : numUndone + " commands"));
     }
 
     @Override
     public boolean canUndo() {
         return false;
-    }
-
-    @Override
-    public CommandResult executeUndo() {
-        return null;
     }
 
 }

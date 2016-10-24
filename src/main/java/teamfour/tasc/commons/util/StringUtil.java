@@ -15,6 +15,11 @@ public class StringUtil {
         return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
     }
 
+    //Partial match version for find command
+    public static boolean containsIgnoreCasePartial(String source, String query) {
+        return source.toLowerCase().contains(query.toLowerCase());
+    }
+
     /**
      * Returns a detailed message of the t, including the stack trace.
      */

@@ -2,6 +2,7 @@ package teamfour.tasc.logic;
 
 import static org.junit.Assert.*;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,44 @@ import teamfour.tasc.model.task.Recurrence;
 import org.junit.Test;
 
 public class CommandHelperTest {
+    
+    /*
+     * Equivalence partitions for date strings: 
+     *  - null
+     *  - empty string
+     *  - invalid date string
+     *  - valid date string
+     */
+    
+    @Test
+    public void convertStringToDateIfPossible_stringIsNull_returnsNull() {
+        String string = null;
+        Date date = CommandHelper.convertStringToDateIfPossible(string);
+        assertTrue(date == null);
+    }
+    
+    @Test
+    public void convertStringToDateIfPossible_stringIsEmpty_returnsNull() {
+        String string = "";
+        Date date = CommandHelper.convertStringToDateIfPossible(string);
+        assertTrue(date == null);
+    }
+    
+    @Test
+    public void convertStringToDateIfPossible_stringIsInvalidDate_returnsNull() {
+        String string = "invalidstringdate";
+        Date date = CommandHelper.convertStringToDateIfPossible(string);
+        assertTrue(date == null);
+    }
+    
+    @Test
+    public void convertStringToDateIfPossible_stringIsValidDate_returnsDate() {
+        String string = "13 sep 2013";
+        Date date = CommandHelper.convertStringToDateIfPossible(string);
+        assertTrue(date.getDate() == 13);
+        assertTrue(date.getMonth() == 8);
+        assertTrue(date.getYear() == 2013 - 1900);
+    }
 
     @Test
     public void convertStringToMultipleDates_shortName_correct_date_month_year() {
@@ -149,5 +188,16 @@ public class CommandHelperTest {
             fail("Exception expected");
         } catch (IllegalValueException e) {
         }
+    }
+    
+    @Test
+    public void convertDateToPrettyTimeParserFriendlyString_validInput() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2016, 0, 1, 0, 0, 0);
+        Date input = calendar.getTime();
+        String expectedOutput = "Jan 01 2016 00:00:00";
+        
+        assertEquals(expectedOutput,
+                CommandHelper.convertDateToPrettyTimeParserFriendlyString(input));
     }
 }

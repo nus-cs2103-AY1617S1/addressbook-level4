@@ -3,19 +3,20 @@ package teamfour.tasc.logic.commands;
 import teamfour.tasc.MainApp;
 import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.events.storage.FileRelocateEvent;
+import teamfour.tasc.model.keyword.RelocateCommandKeyword;
 
 /**
  * Moves the data storage file to a new directory.
  */
 public class RelocateCommand extends Command {
 
-    public static final String COMMAND_WORD = "relocate";
+    public static final String COMMAND_WORD = RelocateCommandKeyword.keyword;
 
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Designates a new data storage location (relative to current location). \n"
             + "Parameters: [RELATIVE_PATH] (Enter no parameter for relocating to original path)\n"
             + "Example: " + COMMAND_WORD
-            + " relative/path/to/storage/location";
+            + " ../../relative/path/to/storage/location";
 
     
     public static final String MESSAGE_SUCCESS = 
@@ -56,12 +57,4 @@ public class RelocateCommand extends Command {
     public boolean canUndo() {
         return undoable;
     }
-
-    @Override
-    public CommandResult executeUndo() {
-        assert model != null;
-        EventsCenter.getInstance().post(new FileRelocateEvent(originalDestination));
-        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, originalDestination));
-    }
-
 }

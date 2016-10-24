@@ -1,5 +1,9 @@
 package teamfour.tasc.model.task;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import teamfour.tasc.commons.exceptions.IllegalValueException;
@@ -105,5 +109,65 @@ public class Recurrence {
 
     public int getFrequency() {
         return frequency;
+    }
+    
+    /**
+     * Get the next recurrence date according to the pattern that
+     * we have
+     * @param currentDate to base our next date on
+     * @return
+     */
+    public Date getNextDateAfterRecurrence(Date currentDate) {
+        if (pattern == Pattern.NONE) {
+            return null;
+        }
+        
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(currentDate.toInstant(),
+                ZoneId.systemDefault());
+        LocalDateTime finalDateTime = localDateTime;
+
+        switch (pattern) {
+        case NONE:
+            return null;
+            
+        case DAILY:
+            finalDateTime = localDateTime.plusDays(1);
+            break;
+            
+        case WEEKLY:
+            finalDateTime = localDateTime.plusWeeks(1);
+            break;
+            
+        case MONTHLY:
+            finalDateTime = localDateTime.plusMonths(1);
+            break;
+            
+        case YEARLY:
+            finalDateTime = localDateTime.plusYears(1);
+            break;
+            
+        default:
+            assert false : "Not possible";
+            break;
+        }
+        
+        return Date.from(finalDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+    
+    /**
+     * Get the same recurrence, except that we have one less frequency.
+     * @return
+     * @throws IllegalValueException 
+     */
+    public Recurrence getRecurrenceWithOneFrequencyLess() throws IllegalValueException {
+        if (pattern == Pattern.NONE) {
+            return null;
+        }
+        
+        if (frequency == 1) {
+            return new Recurrence();
+        }
+        
+        return new Recurrence(pattern, frequency - 1);
     }
 }
