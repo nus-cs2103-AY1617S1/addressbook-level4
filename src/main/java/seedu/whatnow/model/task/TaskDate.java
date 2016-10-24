@@ -128,7 +128,7 @@ public class TaskDate {
 				Calendar cal2 = Calendar.getInstance();
 				cal2.add(Calendar.DATE, 1);
 				taskDate = dateFormat2.format(cal2.getTime());
-				fullDate= taskDate;
+				fullDate = taskDate;
 			}
 		}
 	}
@@ -326,7 +326,12 @@ public class TaskDate {
 	}
 	@Override
 	public String toString() {
-		return fullDate;
+		if(fullDate != null) {
+			return startDate + " "  + endDate;
+		}
+		else {
+			return fullDate;
+		}
 	}
 	@Override
 	public boolean equals(Object other) {
@@ -334,12 +339,16 @@ public class TaskDate {
 				|| (other instanceof TaskDate // instanceof handles nulls
 						&& this.fullDate.equals(((TaskDate) other).fullDate)); // state check
 	}
-
-	@Override
-	public int hashCode() {
-		return fullDate.hashCode();
-	}
+	/** Returns the fullDate */
 	public String getDate() {
 		return fullDate;
+	}
+	/** Returns the startDate */
+	public String getStartDate() {
+		return this.startDate;
+	}
+	/** Returns the endDate */
+	public String getEndDate() {
+		return this.endDate;
 	}
 }
