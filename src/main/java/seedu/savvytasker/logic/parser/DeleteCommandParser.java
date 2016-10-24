@@ -45,7 +45,7 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         try {
             return INDEX_PARSER.parseMultiple(indicesText);
         } catch (ParseException ex) {
-            throw new ParseException(indicesText, "INDEX [MORE_INDEX]: " + ex.getFailureDetails());
+            throw new ParseException(indicesText, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, getRequiredFormat() + ": " + ex.getFailureDetails()));
         }
     }
 
