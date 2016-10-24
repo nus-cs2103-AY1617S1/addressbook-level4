@@ -120,11 +120,9 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 	
     public void clearDone() throws UniqueTaskList.TaskNotFoundException{
-		while (true) {
-	    	for (Task t : tasks) {
-				if (t.getDone().getDone() == true) {
-					tasks.remove(t);
-				}
+	   	for (Task t : tasks) {
+			if (t.getDone().getDoneValue() == true) {
+				tasks.remove(t);
 			}
 		}
 	}
