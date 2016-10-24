@@ -51,12 +51,19 @@ public class AliasCommand extends ModelRequiringCommand {
         }
     }
     
+    /**
+     * Provides logic related dependencies to the alias command.
+     */
     @Override
     public void setLogic(Logic logic) {
         assert logic != null;
         this.logic = logic;
     }
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return true;
@@ -69,7 +76,7 @@ public class AliasCommand extends ModelRequiringCommand {
     @Override
     public boolean redo() {
         execute();
-        return false;
+        return true;
     }
     /**
      * Undo the alias command
@@ -94,7 +101,7 @@ public class AliasCommand extends ModelRequiringCommand {
             e.printStackTrace();
         }
         
-        return false;
+        return true;
     }
 
     /**

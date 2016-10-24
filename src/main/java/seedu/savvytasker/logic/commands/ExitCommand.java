@@ -20,6 +20,10 @@ public class ExitCommand extends Command {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return false;
@@ -32,7 +36,7 @@ public class ExitCommand extends Command {
     @Override
     public boolean redo() {
         // nothing required to be done
-        return true;
+        return false;
     }
 
     /**
@@ -42,7 +46,7 @@ public class ExitCommand extends Command {
     @Override
     public boolean undo() {
         // nothing required to be done
-        return true;
+        return false;
     }
 
     /**

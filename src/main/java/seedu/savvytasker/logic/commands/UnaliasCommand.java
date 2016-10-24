@@ -58,6 +58,10 @@ public class UnaliasCommand extends ModelRequiringCommand {
         }
     }
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return true;
@@ -70,7 +74,7 @@ public class UnaliasCommand extends ModelRequiringCommand {
     @Override
     public boolean redo() {
         execute();
-        return false;
+        return true;
     }
     /**
      * Undo the unalias command
@@ -85,7 +89,7 @@ public class UnaliasCommand extends ModelRequiringCommand {
             e.printStackTrace();
         }
         
-        return false;
+        return true;
     }
     
     /**

@@ -53,6 +53,10 @@ public class ListCommand extends ModelRequiringCommand {
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return false;
@@ -65,7 +69,7 @@ public class ListCommand extends ModelRequiringCommand {
     @Override
     public boolean redo() {
         // nothing required to be done
-        return true;
+        return false;
     }
 
     
@@ -76,7 +80,7 @@ public class ListCommand extends ModelRequiringCommand {
     @Override
     public boolean undo() {
         // nothing required to be done
-        return true;
+        return false;
     }
     
     /**

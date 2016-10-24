@@ -59,6 +59,10 @@ public class ModifyCommand extends ModelRequiringCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, replacement));
     }
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return true;
@@ -71,7 +75,7 @@ public class ModifyCommand extends ModelRequiringCommand {
     @Override
     public boolean redo() {
         execute();
-        return false;
+        return true;
     }
     
     /**
@@ -93,7 +97,7 @@ public class ModifyCommand extends ModelRequiringCommand {
             assert false : "The target task cannot be missing";
         }
        
-        return false;
+        return true;
     }
     
     /**

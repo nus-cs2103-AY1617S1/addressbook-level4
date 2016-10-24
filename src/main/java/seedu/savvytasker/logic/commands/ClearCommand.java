@@ -24,6 +24,10 @@ public class ClearCommand extends ModelRequiringCommand {
         return new CommandResult(MESSAGE_SUCCESS);
     }
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return true;

@@ -8,7 +8,7 @@ import seedu.savvytasker.logic.commands.models.DeleteCommandModel;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
 import seedu.savvytasker.model.SavvyTasker;
 import seedu.savvytasker.model.task.ReadOnlyTask;
-import seedu.savvytasker.model.task.Task;
+//import seedu.savvytasker.model.task.Task;
 //import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
@@ -28,7 +28,7 @@ public class DeleteCommand extends ModelRequiringCommand {
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s\n";
 
     public final DeleteCommandModel commandModel;
-    private LinkedList<Task> tasksToUndo = new LinkedList<Task>();
+    //private LinkedList<Task> tasksToUndo = new LinkedList<Task>();
     private ReadOnlySavvyTasker original;
     
     public DeleteCommand(DeleteCommandModel commandModel) {
@@ -57,18 +57,20 @@ public class DeleteCommand extends ModelRequiringCommand {
         try {
             for(ReadOnlyTask taskToDelete : tasksToDelete) {
                 model.deleteTask(taskToDelete);
-                tasksToUndo.add((Task)taskToDelete);
+                //tasksToUndo.add((Task)taskToDelete);
                 resultSb.append(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
             }
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-        
-        
 
         return new CommandResult(resultSb.toString());
     }
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return true;

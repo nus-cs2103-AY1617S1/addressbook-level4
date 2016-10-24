@@ -50,6 +50,10 @@ public class AddCommand extends ModelRequiringCommand {
 
     }
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return true;

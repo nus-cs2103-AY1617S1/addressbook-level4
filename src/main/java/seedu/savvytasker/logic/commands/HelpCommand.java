@@ -24,6 +24,10 @@ public class HelpCommand extends Command {
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
     
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
         return false;
@@ -36,7 +40,7 @@ public class HelpCommand extends Command {
     @Override
     public boolean redo() {
         // nothing required to be done
-        return true;
+        return false;
     }
 
     /**
@@ -46,7 +50,7 @@ public class HelpCommand extends Command {
     @Override
     public boolean undo() {
         // nothing required to be done
-        return true;
+        return false;
     }
 
     /**
