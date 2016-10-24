@@ -16,11 +16,13 @@ import java.util.Optional;
  */
 public class XmlAdaptedTask {
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
     private String isCompleted;
+    @XmlElement(required = true)
+    private String lastUpdatedTime;
     @XmlElement(required = false)
     private String startDateTime;
     @XmlElement(required = false)
@@ -40,9 +42,12 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
         isCompleted = Boolean.toString(source.isCompleted());
+        lastUpdatedTime = source.getLastUpdatedTime().format(formatter);
+
         if (source.getStartDateTime().isPresent()) {
             startDateTime = source.getStartDateTime().get().format(formatter);
         }
+
         if (source.getEndDateTime().isPresent()) {
             endDateTime = source.getEndDateTime().get().format(formatter);
         }
@@ -56,17 +61,22 @@ public class XmlAdaptedTask {
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
         final boolean markedAsCompleted = Boolean.valueOf(isCompleted);
-        
+
         Task newTask = new Task(name);
+        newTask.setLastUpdatedTime(LocalDateTime.parse(this.lastUpdatedTime, formatter));
+
         if (markedAsCompleted) {
             newTask.markAsCompleted();
         }
+
         if (startDateTime != null) {
             newTask.setStartDateTime(Optional.ofNullable(LocalDateTime.parse(this.startDateTime, formatter)));
         }
+
         if (endDateTime != null) {
             newTask.setEndDateTime(Optional.ofNullable(LocalDateTime.parse(this.endDateTime, formatter)));
         }
+
         return newTask;
     }
 }

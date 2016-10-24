@@ -16,6 +16,7 @@ public class TestTask implements ReadOnlyTask {
     private boolean isCompleted;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
+    private LocalDateTime lastUpdatedTime = LocalDateTime.of(2016, 10, 10, 10, 10);
 
     public TestTask() {
         isCompleted = false;
@@ -31,6 +32,7 @@ public class TestTask implements ReadOnlyTask {
         this.isCompleted = other.isCompleted;
         this.startDateTime = other.startDateTime;
         this.endDateTime = other.endDateTime;
+        this.lastUpdatedTime = other.getLastUpdatedTime();
     }
 
     public void setName(Name name) {
@@ -86,6 +88,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Optional<LocalDateTime> getEndDateTime() {
         return Optional.ofNullable(endDateTime);
+    }
+    
+    @Override
+    public LocalDateTime getLastUpdatedTime() {
+        return lastUpdatedTime;
     }
 
     /**

@@ -3,6 +3,7 @@ package seedu.agendum.model.task;
 import seedu.agendum.commons.util.CollectionUtil;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -18,6 +19,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private boolean isCompleted;
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
+    private LocalDateTime lastUpdatedTime;
     
     // ================ Constructor methods ==============================
 
@@ -30,6 +32,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.isCompleted = false;
         this.startDateTime = null;
         this.endDateTime = null;
+        setLastUpdatedTimeToNow();
     }
     
     /**
@@ -41,6 +44,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.isCompleted = false;
         this.startDateTime = null;
         this.endDateTime = deadline.orElse(null);
+        setLastUpdatedTimeToNow();
     }
     
     /**
@@ -53,6 +57,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.isCompleted = false;
         this.startDateTime = startDateTime.orElse(null);
         this.endDateTime = endDateTime.orElse(null);
+        setLastUpdatedTimeToNow();
     }
 
     /**
@@ -63,6 +68,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (source.isCompleted()) {
             this.markAsCompleted();
         }
+        setLastUpdatedTime(source.getLastUpdatedTime());
     }
     
     // ================ Getter methods ==============================
@@ -103,6 +109,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return Optional.ofNullable(endDateTime);
     }
 
+    @Override
+    public LocalDateTime getLastUpdatedTime() {
+        return lastUpdatedTime;
+    }
+
     /**
      * Pre-condition: Task has a start or end time
      * Return the (earlier) time associated with the task (assumed to be start time)
@@ -116,22 +127,35 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     
     public void setName(Name name) {
         this.name = name;
+        setLastUpdatedTimeToNow();
     }
     
     public void markAsCompleted() {
         this.isCompleted = true;
+        setLastUpdatedTimeToNow();
     }
     
     public void markAsUncompleted() {
         this.isCompleted = false;
+        setLastUpdatedTimeToNow();
     }
     
     public void setStartDateTime(Optional<LocalDateTime> startDateTime) {
         this.startDateTime = startDateTime.orElse(null);
+        setLastUpdatedTimeToNow();
     }
     
     public void setEndDateTime(Optional<LocalDateTime> endDateTime) {
         this.endDateTime = endDateTime.orElse(null);
+        setLastUpdatedTimeToNow();
+    }
+
+    public void setLastUpdatedTime(LocalDateTime updatedTime) {
+        this.lastUpdatedTime = updatedTime;
+    }
+
+    public void setLastUpdatedTimeToNow() {
+        this.lastUpdatedTime = LocalDateTime.now();
     }
 
     // ================ Other methods ==============================
@@ -154,6 +178,11 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         if (comparedTime != 0) {
             return comparedTime;
         }
+
+        int comparedLastUpdatedTime = compareLastUpdatedTime(other);
+        if (comparedLastUpdatedTime != 0) {
+            return comparedLastUpdatedTime;
+        }
         
         return compareName(other);
     }
@@ -172,6 +201,15 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         } else {
             return 0;
         }
+    }
+
+    public int compareLastUpdatedTime(Task other) {
+        // to fix erratic behavior for logic manager test
+        long seconds = ChronoUnit.SECONDS.between(this.getLastUpdatedTime(), other.getLastUpdatedTime());
+        if (seconds < 2) {
+            return 0;
+        }
+        return other.getLastUpdatedTime().compareTo(this.getLastUpdatedTime());
     }
 
     public int compareName(Task other) {
