@@ -1,3 +1,4 @@
+//@@author A0140060A-reused
 package seedu.taskmanager.model.item;
 
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
@@ -9,7 +10,7 @@ import seedu.taskmanager.commons.exceptions.IllegalValueException;
 public class Name {
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Item names should only contain alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String NAME_VALIDATION_REGEX = "[^" + "#" + "]+";
 
     public final String value;
 
