@@ -31,7 +31,7 @@ public class AddCommand extends Command {
 	 * @throws IllegalValueException
 	 *             if any of the raw values are invalid
 	 */
-	
+
 	/*
 	 * // adds Task Name, Task Description, Date, start time and end time of the
 	 * task (add event) public AddCommand(String name, String taskD, String
@@ -76,10 +76,24 @@ public class AddCommand extends Command {
 		}
 
 		switch (mode) {
+		case "event without description":
+			this.toAdd = new Task(new Name(details.get(0)), new Date(details.get(1)), new Time(details.get(2)),
+					new Time(details.get(3)), new UniqueTagList(tagSet));
+			break;
+		case "deadline without time":
+			this.toAdd = new Task(new Name(details.get(0)), new Date(details.get(1)), new UniqueTagList(tagSet));
+			break;
+		case "deadline":
+			this.toAdd = new Task(new Name(details.get(0)), new Date(details.get(1)), new Time(details.get(2)),
+					new UniqueTagList(tagSet));
+			break;
+		case "floating task":
+			this.toAdd = new Task(new Name(details.get(0)), new Date(details.get(1)), new UniqueTagList(tagSet));
+			break;
 		default:
-			this.toAdd = (new Task(new Name(details.get(0)), new TaskDescription(details.get(1)),
+			this.toAdd = new Task(new Name(details.get(0)), new TaskDescription(details.get(1)),
 					new Date(details.get(2)), new Time(details.get(3)), new Time(details.get(4)),
-					new UniqueTagList(tagSet)));
+					new UniqueTagList(tagSet));
 		}
 	}
 
