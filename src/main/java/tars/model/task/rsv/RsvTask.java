@@ -14,8 +14,12 @@ import tars.model.task.Name;
 
 public class RsvTask {
 
-    private Name name;
-    private ArrayList<DateTime> dateTimeList;
+    protected Name name;
+    protected ArrayList<DateTime> dateTimeList = new ArrayList<DateTime>();
+
+    public RsvTask() {
+
+    }
 
     public RsvTask(Name name, ArrayList<DateTime> dateTimeList) {
         assert !CollectionUtil.isAnyNull(name, dateTimeList);
@@ -57,6 +61,22 @@ public class RsvTask {
     }
 
     @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof RsvTask // instanceof handles nulls
+                        && this.isSameStateAs((RsvTask) other));
+    }
+
+    boolean isSameStateAs(RsvTask other) {
+        return other == this // short circuit if same object
+                || (other != null // this is first to avoid NPE below
+                        && other.getName().equals(this.getName()) // state
+                                                                  // checks here
+                                                                  // onwards
+                        && other.getDateTimeList().equals(this.getDateTimeList()));
+    }
+
+    @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing
         // your own
@@ -69,13 +89,6 @@ public class RsvTask {
         builder.append(getName()).append(" DateTime: ").append(getDateTimeList().toString());
 
         return builder.toString();
-    }
-
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof RsvTask // instanceof handles nulls
-                        && ((RsvTask) other).getName().equals(this.getName())
-                        && ((RsvTask) other).getDateTimeList().equals(this.getDateTimeList()));
     }
 
 }
