@@ -408,7 +408,6 @@ public class Tars implements ReadOnlyTars {
 	@Override
 	public String toString() {
 		return tasks.getInternalList().size() + " tasks, " + rsvTasks.getInternalList().size() + " reserved tasks," + tags.getInternalList().size() + " tags";
-		// TODO: refine later
 	}
 
 	@Override

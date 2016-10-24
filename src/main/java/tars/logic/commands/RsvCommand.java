@@ -37,7 +37,7 @@ public class RsvCommand extends UndoableCommand {
             + COMMAND_WORD_DEL + " 1..3";
 
     public static final String MESSAGE_DATETIME_NOTFOUND = "At least one DateTime is required!\n" + MESSAGE_USAGE;
-    
+
     public static final String MESSAGE_INVALID_RSV_TASK_DISPLAYED_INDEX = "The Reserved Task Index is invalid!";
 
     public static final String MESSAGE_SUCCESS = "New task reserved: %1$s";
@@ -47,7 +47,8 @@ public class RsvCommand extends UndoableCommand {
 
     private RsvTask toReserve = null;
     private String rangeIndexString = "";
-    
+    private String conflictingTaskList = "";
+
     private ArrayList<RsvTask> deletedRsvTasks = new ArrayList<RsvTask>();
 
     /**
@@ -95,15 +96,20 @@ public class RsvCommand extends UndoableCommand {
         } else {
             return delRsvTask();
         }
-            
 
     }
 
     private CommandResult addRsvTask() {
         try {
+            for (DateTime dt : toReserve.getDateTimeList()) {
+                if (model.getTaskConflictingDateTimeWarningMessage(dt) != "") {
+                    conflictingTaskList += "\nConflicts for " + dt.toString() + ":";
+                    conflictingTaskList += model.getTaskConflictingDateTimeWarningMessage(dt);
+                }
+            }
             model.addRsvTask(toReserve);
             model.getUndoableCmdHist().push(this);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toReserve.toString()));
+            return new CommandResult(getSuccessMessageSummary());
         } catch (DuplicateTaskException e) {
             return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
         }
@@ -151,5 +157,15 @@ public class RsvCommand extends UndoableCommand {
             rsvTasksList.add(rsvTask);
         }
         return rsvTasksList;
+    }
+
+    private String getSuccessMessageSummary() {
+        String summary = String.format(MESSAGE_SUCCESS, toReserve.toString());
+
+        if (!conflictingTaskList.isEmpty()) {
+            summary += "\n" + Messages.MESSAGE_CONFLICTING_TASKS_WARNING + conflictingTaskList;
+        }
+
+        return summary;
     }
 }

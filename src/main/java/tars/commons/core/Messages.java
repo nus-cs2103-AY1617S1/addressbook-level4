@@ -19,4 +19,5 @@ public class Messages {
     public static final String MESSAGE_TAG_CANNOT_BE_FOUND = "Tag cannot be found!";    
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in tars";
     public static final String MESSAGE_DUPLICATE_TAG = "Operation would result in duplicate tags";
+    public static final String MESSAGE_CONFLICTING_TASKS_WARNING = "Warning! DateTime conflict with: ";
 }

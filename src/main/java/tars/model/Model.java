@@ -10,6 +10,7 @@ import tars.model.task.TaskQuery;
 import tars.model.tag.ReadOnlyTag;
 import tars.model.tag.UniqueTagList.DuplicateTagException;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
+import tars.model.task.DateTime;
 import tars.model.task.ReadOnlyTask;
 import tars.model.task.UniqueTaskList;
 import tars.model.task.rsv.RsvTask;
@@ -51,6 +52,9 @@ public interface Model {
     
     /** Adds the given reserved task */
     void addRsvTask(RsvTask rsvTask) throws DuplicateTaskException;
+    
+    /** Checks for tasks with conflicting datetime and returns a string of all conflicting tasks */
+    public String getTaskConflictingDateTimeWarningMessage(DateTime dateTimeToCheck);
 
     /** Rename all tag with the new tag name */
     void renameTag(ReadOnlyTag oldTag, String newTagName)
