@@ -24,6 +24,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new Parser();
+        model.overdueTask();
     }
 
     @Override
