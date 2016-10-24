@@ -15,15 +15,5 @@
 			<attribute name="FROM_GRADLE_MODEL" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.buildship.core.gradleclasspathcontainer"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/nyan/Downloads/org.apache.commons.io.jar"/>
-	<classpathentry kind="lib" path="/Users/nyan/Desktop/main2/ArchPlanner/externalJar/antlr-runtime-3.5.2.jar"/>
-	<classpathentry kind="lib" path="/Users/nyan/Desktop/main2/ArchPlanner/externalJar/gson-2.6.2.jar"/>
-	<classpathentry kind="lib" path="/Users/nyan/Desktop/main2/ArchPlanner/externalJar/ical4j-1.0.2.jar"/>
-	<classpathentry kind="lib" path="/Users/nyan/Desktop/main2/ArchPlanner/externalJar/slf4j-api-1.7.10.jar"/>
-	<classpathentry kind="lib" path="/Users/nyan/Desktop/main2/ArchPlanner/externalJar/slf4j-api-1.7.19.jar"/>
-	<classpathentry kind="lib" path="/Users/nyan/Desktop/main2/ArchPlanner/externalJar/slf4j-jdk14-1.7.19.jar"/>
-	<classpathentry kind="lib" path="/Users/nyan/Desktop/main2/ArchPlanner/externalJar/natty-0.12.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 </classpath>
