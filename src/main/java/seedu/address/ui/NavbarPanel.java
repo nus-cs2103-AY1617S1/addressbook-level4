@@ -119,7 +119,6 @@ public class NavbarPanel extends UiPart {
     		case NAVBAR_COMPLETED:
     			command = FindCommand.COMMAND_WORD +" -C";
     			return command;
-    		case NAVBAR_TASKS:
     		default:
     			return ListCommand.COMMAND_WORD;
     	}    	  

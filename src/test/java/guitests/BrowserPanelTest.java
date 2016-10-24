@@ -63,6 +63,12 @@ public class BrowserPanelTest extends TaskMasterGuiTest{
 		commandBox.runCommand("done 15");
 		assertIsAgendaMatching(expectedList);
 		
+		//With block command, style change reflected
+		toBeAdded = td.block;
+		expectedList.add(toBeAdded.getLastAppendedComponent());
+		commandBox.runCommand(toBeAdded.getBlockCommand());
+		assertIsAgendaMatching(expectedList);
+		
 	}	
 	
 	private ArrayList<TaskComponent> getCopies(TaskComponent t){

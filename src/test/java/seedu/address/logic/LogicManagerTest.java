@@ -63,6 +63,8 @@ import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.TaskBuilder;
+import seedu.address.testutil.TestTask;
 
 public class LogicManagerTest {
 
@@ -227,6 +229,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskComponentList());
     }
     
+    //@@author A0135782Y
     @Test
     public void execute_add_successful_non_floating_from_date_to_date() throws Exception {
         // setup expectations
@@ -256,7 +259,6 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskComponentList());        
     }
-    
     
     //@@author A0147967J
     @Test
@@ -985,8 +987,9 @@ public class LogicManagerTest {
     }
     //@@author
     
+    //@@author A0135782Y
     @Test
-    public void execute_add_recurringTask_byDate_unsuccessful_addAsNonFloatingTask() throws Exception {
+    public void execute_add_recurringTask_byDate_unsuccessful_add_as_nonfloating_instead() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingByDate();
@@ -1027,7 +1030,7 @@ public class LogicManagerTest {
     }    
     
     @Test
-    public void execute_add_recurringTask_FromDateToDate_unsuccessful_addAsNonFloatingTask() throws Exception {
+    public void execute_add_recurringTask_FromDateToDate_unsuccessful_add_as_nonfloating_instead() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         TaskMaster expectedTM = new TaskMaster();
         Task toAdd = helper.nonFloatingFromDateToDate();
@@ -1067,6 +1070,7 @@ public class LogicManagerTest {
                 expectedTM,
                 expectedComponentList);
     }
+    //@@author
     
     /** tests for edit command*/   
     @Test

@@ -53,6 +53,7 @@ public class UniqueTaskList implements Iterable<Task> {
     
     private final List<Task> internalList = new ArrayList<Task>();
     private final ObservableList<TaskComponent> internalComponentList = FXCollections.observableArrayList();
+    
     /**
      * Constructs empty TaskList.
      */
@@ -98,6 +99,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     //@@author
     
+    //@@author A0135782Y
     /**
      * Adds a task to the list.
      *
@@ -127,7 +129,8 @@ public class UniqueTaskList implements Iterable<Task> {
         toBeAppendedOn.appendRecurringDate(toAdd.getComponentForNonRecurringType());
         internalComponentList.add(toAdd.getComponentForNonRecurringType());
     }
-
+    //@@author
+    
     /**
      * Removes the equivalent task from the list.
      *
@@ -151,6 +154,10 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalComponentList;
     }
 
+    public void appendTaskComponent(TaskComponent component) {
+        internalComponentList.add(component);
+    }
+    
     @Override
     public Iterator<Task> iterator() {
         return internalList.iterator();

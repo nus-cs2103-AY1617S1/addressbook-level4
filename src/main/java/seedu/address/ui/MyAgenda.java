@@ -39,6 +39,7 @@ public class MyAgenda extends Agenda{
 		/** Sets preferred size */
 		setPrefSize(550, 700);	
 		
+		/** Sets css class. */
 		this.getStyleClass().add(MyAgenda.class.getSimpleName());
 		
 		/** Disables dragging and resizing appointments. The agenda is only used as a visualization. */
@@ -169,6 +170,7 @@ public class MyAgenda extends Agenda{
 	private void addMonthlyOccurrences(AppointmentImplLocal appointment) {
 		if(isOutsideAgenda(appointment)) return;
 		int dayOffset = appointment.getStartLocalDateTime().getDayOfMonth() - agendaStartTime.getDayOfMonth();
+			if(dayOffset < 0) dayOffset = 6 - (agendaEndTime.getDayOfMonth() - appointment.getStartLocalDateTime().getDayOfMonth());
 		LocalDateTime start = getAppointmentStartTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS),dayOffset,appointment);
 		LocalDateTime end = getAppointmentEndTime(agendaStartTime.truncatedTo(ChronoUnit.DAYS),dayOffset,appointment);
 		addToAgenda(appointment, start, end);

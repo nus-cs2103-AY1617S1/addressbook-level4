@@ -17,29 +17,41 @@ public class NavbarPanelTest extends TaskMasterGuiTest {
     private final String NAVBAR_COMPLETED = " Completed";
     	
 	@Test
-	public void navigation() throws Exception{
-		
-		//Navigate to completed ones
-		commandBox.runCommand("done 1");
-		assertResult(NAVBAR_COMPLETED, td.trash.getComponentForNonRecurringType());
-		
-		//Navigate to all tasks
-		TaskComponent[] expected = Arrays.copyOfRange(td.getTypicalTaskComponents(), 1, td.getTypicalTaskComponents().length);
-		assertResult(NAVBAR_TASKS, expected);
-		
+	public void navigateToFloatingTasks() {
+		TaskComponent[] expected;
+		//Navigate to all floating tasks
+		expected = Arrays.copyOfRange(td.getTypicalTaskComponents(), 0, 6);
+		assertResult(NAVBAR_FLOATING_TASKS, expected);
+	}
+	
+	@Test
+	public void navigateToDeadlines() {
+		//Navigate to deadlines
+		assertResult(NAVBAR_DEADLINES, td.labDeadline.getComponentForNonRecurringType(),
+												td.essayDeadline.getComponentForNonRecurringType());
+	}
+	
+	@Test
+	public void navigateToIncomingDeadlines() {
 		//Navigate to incoming deadlines
 		commandBox.runCommand(td.incoming.getAddNonFloatingCommand());
 		assertResult(NAVBAR_INCOMING_DEADLINES, td.labDeadline.getComponentForNonRecurringType(),
 												td.essayDeadline.getComponentForNonRecurringType(),
 												td.incoming.getComponentForNonRecurringType());
-		
-		//Navigate to deadlines
-		assertResult(NAVBAR_DEADLINES, td.labDeadline.getComponentForNonRecurringType(),
-												td.essayDeadline.getComponentForNonRecurringType());
-		//Navigate to all floating tasks
-		expected = Arrays.copyOfRange(td.getTypicalTaskComponents(), 1, 6);
-		assertResult(NAVBAR_FLOATING_TASKS, expected);
-		
+	}
+	
+	@Test
+	public void navigateToAllTasks() {
+		//Navigate to all tasks
+		TaskComponent[] expected = td.getTypicalTaskComponents();
+		assertResult(NAVBAR_TASKS, expected);
+	}
+	
+	@Test
+	public void navigateToCompletedOnes() {
+		//Navigate to completed ones
+		commandBox.runCommand("done 1");
+		assertResult(NAVBAR_COMPLETED, td.trash.getComponentForNonRecurringType());
 	}
 		
 	private void assertResult(String navigation, TaskComponent... expectedHits) {

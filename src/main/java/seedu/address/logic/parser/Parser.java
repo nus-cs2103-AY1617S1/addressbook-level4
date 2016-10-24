@@ -244,8 +244,6 @@ public class Parser {
             }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        } catch (IllegalArgumentException iae) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));
         }
     }
 
@@ -606,17 +604,6 @@ public class Parser {
 		return new ViewCommand(new TaskDate(date));
 	}
     //@@author
-    
-    /**
-     * Reformats any date into the format that we are storing and using in this software 
-     * @param oldDate
-     * @return the new formatted date
-     */
-    public static String reformatDate(String oldDate) {
-    	long newDate = getDateFromString(oldDate).getTime();
-    	SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d hh.mma");
-        return formatter.format(new Date(newDate));
-    }
     
     public static ArrayList<Date> extractDateInfo(Matcher m) throws IllegalArgumentException {
     	ArrayList<Date> resultSet = new ArrayList<Date>();
