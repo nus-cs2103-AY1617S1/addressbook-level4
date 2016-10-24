@@ -104,15 +104,21 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
     
+    /*
+     * Edit the parameters in the current task
+     * Sort the list afterwards
+     */
 	public void editFloatingTask(ReadOnlyTask floatingTask, Name name, Date startDate, Date endDate, Priority priority,
-			RecurrenceRate recurrenceRate) {
-		
+			RecurrenceRate recurrenceRate) {		
 		Task currTask = undoneTasks.getTask(floatingTask);
 		setCurrentTask(name, startDate, endDate, priority, recurrenceRate, currTask);
 		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);
 		undoneTasks.sort();
 	}
-
+	
+	/*
+	 * Assign parameters to the current task
+	 */
     private void setCurrentTask(Name name, Date startDate, Date endDate, Priority priority,
             RecurrenceRate recurrenceRate, Task currTask) {
         currTask.setName(name);
