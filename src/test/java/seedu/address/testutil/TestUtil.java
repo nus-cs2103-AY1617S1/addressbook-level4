@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import com.google.common.io.Files;
 
+import guitests.guihandles.EventCardHandle;
 import guitests.guihandles.FloatingTaskCardHandle;
 import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
@@ -294,7 +295,19 @@ public class TestUtil {
      * @param activitiesToAdd The activities that are to be appended behind the original array.
      * @return The modified array of activities.
      */
-    public static TestActivity[] addPersonsToList(final TestActivity[] activities, TestActivity... activitiesToAdd) {
+    public static TestActivity[] addTasksToList(final TestActivity[] activities, TestActivity... activitiesToAdd) {
+        List<TestActivity> listOfActivities = asList(activities);
+        listOfActivities.addAll(asList(activitiesToAdd));
+        return listOfActivities.toArray(new TestActivity[listOfActivities.size()]);
+    }
+    
+    public static TestActivity[] addFloatingTasksToList(final TestActivity[] activities, TestActivity... activitiesToAdd) {
+        List<TestActivity> listOfActivities = asList(activities);
+        listOfActivities.addAll(asList(activitiesToAdd));
+        return listOfActivities.toArray(new TestActivity[listOfActivities.size()]);
+    }
+    
+    public static TestActivity[] addEventsToList(final TestActivity[] activities, TestActivity... activitiesToAdd) {
         List<TestActivity> listOfActivities = asList(activities);
         listOfActivities.addAll(asList(activitiesToAdd));
         return listOfActivities.toArray(new TestActivity[listOfActivities.size()]);
@@ -316,5 +329,8 @@ public class TestUtil {
         return card.isSameActivity(floatingTask);
     }
 
+    public static boolean compareCardAndEvent(EventCardHandle card, ReadOnlyActivity event) {
+        return card.isSameActivity(event);
+    }
 
 }

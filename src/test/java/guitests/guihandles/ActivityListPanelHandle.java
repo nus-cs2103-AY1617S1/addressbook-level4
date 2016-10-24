@@ -60,11 +60,27 @@ public class ActivityListPanelHandle extends GuiHandle {
 
 
     /**
-     * Returns true if the list is showing the person details correctly and in correct order.
-     * @param activities A list of person in the correct order.
+     * Returns true if the list is showing the task details correctly and in correct order.
+     * @param tasks A list of tasks in the correct order.
      */
-    public boolean isListMatching(ReadOnlyActivity... activities) {
-        return this.isListMatching(0, activities);
+    public boolean isTaskListMatching(ReadOnlyActivity... tasks) {
+        return this.isTaskListMatching(0, tasks);
+    }
+    
+    /**
+     * Returns true if the list is showing the floating task details correctly and in correct order.
+     * @param floatingTask A list of tasks in the correct order.
+     */
+    public boolean isFloatingTaskListMatching(ReadOnlyActivity... floatingTask) {
+        return this.isFloatingTaskListMatching(0, floatingTask);
+    }
+    
+    /**
+     * Returns true if the list is showing the event details correctly and in correct order.
+     * @param events A list of tasks in the correct order.
+     */
+    public boolean isEventListMatching(ReadOnlyActivity... events) {
+        return this.isEventListMatching(0, events);
     }
     
     /**
@@ -78,7 +94,7 @@ public class ActivityListPanelHandle extends GuiHandle {
     /**
      * Returns true if the {@code activities} appear as the sub list (in that order) at position {@code startPosition}.
      */
-    public boolean containsInOrder(int startPosition, ReadOnlyActivity... activities) {
+    public boolean containsTasksInOrder(int startPosition, ReadOnlyActivity... activities) {
         List<ReadOnlyActivity> activitiesInList = getTaskListView().getItems();
 
         // Return false if the list in panel is too short to contain the given list
@@ -97,27 +113,69 @@ public class ActivityListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Returns true if the list is showing the person details correctly and in correct order.
-     * @param startPosition The starting position of the sub list.
-     * @param activities A list of person in the correct order.
+     * Returns true if the {@code activities} appear as the sub list (in that order) at position {@code startPosition}.
      */
-    public boolean isListMatching(int startPosition, ReadOnlyActivity... activities) throws IllegalArgumentException {
-        if (activities.length + startPosition != getTaskListView().getItems().size()) {
+    public boolean containsFloatingTasksInOrder(int startPosition, ReadOnlyActivity... activities) {
+        List<ReadOnlyActivity> activitiesInList = getFloatingTaskListView().getItems();
+
+        // Return false if the list in panel is too short to contain the given list
+        if (startPosition + activities.length > activitiesInList.size()){
+            return false;
+        }
+
+        // Return false if any of the activities doesn't match
+        for (int i = 0; i < activities.length; i++) {
+            if (!activitiesInList.get(startPosition + i).getActivityName().fullName.equals(activities[i].getActivityName().fullName)){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+    /**
+     * Returns true if the {@code activities} appear as the sub list (in that order) at position {@code startPosition}.
+     */
+    public boolean containsEventsInOrder(int startPosition, ReadOnlyActivity... activities) {
+        List<ReadOnlyActivity> activitiesInList = getEventListView().getItems();
+
+        // Return false if the list in panel is too short to contain the given list
+        if (startPosition + activities.length > activitiesInList.size()){
+            return false;
+        }
+
+        // Return false if any of the activities doesn't match
+        for (int i = 0; i < activities.length; i++) {
+            if (!activitiesInList.get(startPosition + i).getActivityName().fullName.equals(activities[i].getActivityName().fullName)){
+                return false;
+            }
+        }
+
+        return true;
+    }
+    /**
+     * Returns true if the list is showing the task details correctly and in correct order.
+     * @param startPosition The starting position of the sub list.
+     * @param tasks A list of task in the correct order.
+     */
+    public boolean isTaskListMatching(int startPosition, ReadOnlyActivity... tasks) throws IllegalArgumentException {
+        if (tasks.length + startPosition != getTaskListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getTaskListView().getItems().size() - 1) + " activities");
         }
-        assertTrue(this.containsInOrder(startPosition, activities));
+        assertTrue(this.containsTasksInOrder(startPosition, tasks));
 
-        for (int i = 0; i < activities.length; i++) {
+        for (int i = 0; i < tasks.length; i++) {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getTaskListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), activities[i])) {
+            if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks[i])) {
                 return false;
             }
         }
         return true;
     }
+    
     //@@author: A0139164A
     public TestActivity returnsUpdatedEvent(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
@@ -147,8 +205,56 @@ public class ActivityListPanelHandle extends GuiHandle {
         TestActivity dub = new TestActivity(activity.get());
         return dub;
     }
+
     
-    public TaskCardHandle navigateToActivity(String name) {
+    /**
+     * Returns true if the list is showing the floating task details correctly and in correct order.
+     * @param startPosition The starting position of the sub list.
+     * @param floating tasks A list of floating task in the correct order.
+     */
+    public boolean isFloatingTaskListMatching(int startPosition, ReadOnlyActivity... floatingTasks) throws IllegalArgumentException {
+        if (floatingTasks.length + startPosition != getFloatingTaskListView().getItems().size()) {
+            throw new IllegalArgumentException("List size mismatched\n" +
+                    "Expected " + (getFloatingTaskListView().getItems().size() - 1) + " activities");
+        }
+        assertTrue(this.containsFloatingTasksInOrder(startPosition, floatingTasks));
+
+        for (int i = 0; i < floatingTasks.length; i++) {
+            final int scrollTo = i + startPosition;
+            guiRobot.interact(() -> getFloatingTaskListView().scrollTo(scrollTo));
+            guiRobot.sleep(200);
+            if (!TestUtil.compareCardAndFloatingTask(getFloatingTaskCardHandle(startPosition + i), floatingTasks[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Returns true if the list is showing the event details correctly and in correct order.
+     * @param startPosition The starting position of the sub list.
+     * @param events A list of events in the correct order.
+     */
+    public boolean isEventListMatching(int startPosition, ReadOnlyActivity... events) throws IllegalArgumentException {
+        if (events.length + startPosition != getEventListView().getItems().size()) {
+            throw new IllegalArgumentException("List size mismatched\n" +
+                    "Expected " + (getEventListView().getItems().size() - 1) + " activities");
+        }
+        assertTrue(this.containsEventsInOrder(startPosition, events));
+
+        for (int i = 0; i < events.length; i++) {
+            final int scrollTo = i + startPosition;
+            guiRobot.interact(() -> getEventListView().scrollTo(scrollTo));
+            guiRobot.sleep(200);
+            if (!TestUtil.compareCardAndEvent(getEventCardHandle(startPosition + i), events[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyActivity> activity = getTaskListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
         if (!activity.isPresent()) {
@@ -156,49 +262,69 @@ public class ActivityListPanelHandle extends GuiHandle {
         }
         return navigateToTask(activity.get());
     }
+    
+    public FloatingTaskCardHandle navigateToFloatingTask(String name) {
+        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
+        final Optional<ReadOnlyActivity> activity = getFloatingTaskListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
+        if (!activity.isPresent()) {
+            throw new IllegalStateException("Name not found: " + name);
+        }
+        return navigateToFloatingTask(activity.get());
+    }
+    
+    public EventCardHandle navigateToEvent(String name) {
+        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
+        final Optional<ReadOnlyActivity> activity = getEventListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
+        if (!activity.isPresent()) {
+            throw new IllegalStateException("Name not found: " + name);
+        }
+        return navigateToEvent(activity.get());
+    }
 
     /**
      * Navigates the listview to display and select the task.
      */
-    public TaskCardHandle navigateToTask(ReadOnlyActivity activity) {
-        int index = getTaskIndex(activity);
+    public TaskCardHandle navigateToTask(ReadOnlyActivity task) {
+        int index = getTaskIndex(task);
+        System.out.println("index = " + index);
         guiRobot.interact(() -> {
             getTaskListView().scrollTo(index);
             guiRobot.sleep(150);
             getTaskListView().getSelectionModel().select(index);
         });
         guiRobot.sleep(100);
-        return getTaskCardHandle(activity);
+        return getTaskCardHandle(task);
     }
 
     /**
      * @author BrehmerChan (A0146752B)
      * Navigates the listview to display and select the floating task.
      */
-    public FloatingTaskCardHandle navigateToFloatingTask(ReadOnlyActivity activity) {
-        int index = getFloatingTaskIndex(activity);
+    public FloatingTaskCardHandle navigateToFloatingTask(ReadOnlyActivity floatingTask) {
+        int index = getFloatingTaskIndex(floatingTask);
+        System.out.println("index = " + index);
         guiRobot.interact(() -> {
             getFloatingTaskListView().scrollTo(index);
             guiRobot.sleep(150);
             getFloatingTaskListView().getSelectionModel().select(index);
         });
         guiRobot.sleep(100);
-        return getFloatingTaskCardHandle(activity);
+        return getFloatingTaskCardHandle(floatingTask);
     }
     
     /**
      * @author BrehmerChan (A0146752B)
      * Navigates the listview to display and select the event.
      */
-    public TaskCardHandle navigateToEvent(ReadOnlyActivity activity) {
-        int index = getEventIndex(activity);
+    public EventCardHandle navigateToEvent(ReadOnlyActivity event) {
+        int index = getEventIndex(event);
         guiRobot.interact(() -> {
             getEventListView().scrollTo(index);
             guiRobot.sleep(150);
             getEventListView().getSelectionModel().select(index);
         });
         guiRobot.sleep(100);
-        return getTaskCardHandle(activity);
+        return getEventCardHandle(event);
     }
 
 
@@ -258,6 +384,11 @@ public class ActivityListPanelHandle extends GuiHandle {
         return getFloatingTaskCardHandle(new Activity(getFloatingTaskListView().getItems().get(index)));
     }
     
+
+    public EventCardHandle getEventCardHandle(int index) {
+        return getEventCardHandle(new Activity(getEventListView().getItems().get(index)));
+    }
+
     public TaskCardHandle getTaskCardHandle(ReadOnlyActivity person) {
         Set<Node> nodes = getAllTaskCardNodes();
         Optional<Node> activityCardNode = nodes.stream()
@@ -277,6 +408,18 @@ public class ActivityListPanelHandle extends GuiHandle {
                 .findFirst();
         if (activityCardNode.isPresent()) {
             return new FloatingTaskCardHandle(guiRobot, primaryStage, activityCardNode.get());
+        } else {
+            return null;
+        }
+    }
+    
+    public EventCardHandle getEventCardHandle(ReadOnlyActivity event) {
+        Set<Node> nodes = getAllEventCardNodes();
+        Optional<Node> activityCardNode = nodes.stream()
+                .filter(n -> new EventCardHandle(guiRobot, primaryStage, n).isSameActivity(event))
+                .findFirst();
+        if (activityCardNode.isPresent()) {
+            return new EventCardHandle(guiRobot, primaryStage, activityCardNode.get());
         } else {
             return null;
         }

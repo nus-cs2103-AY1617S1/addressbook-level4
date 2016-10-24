@@ -2,13 +2,14 @@ package guitests;
 
 import org.junit.Test;
 
+import guitests.guihandles.EventCardHandle;
 import guitests.guihandles.FloatingTaskCardHandle;
 import guitests.guihandles.TaskCardHandle;
 import seedu.address.testutil.TestActivity;
 
 //@@author: A0139164A
 
-public class EditCommandTest extends AddressBookGuiTest {
+public class EditCommandTest extends ActivityManagerGuiTest {
     
     @Test
     public void Edit() {
@@ -21,11 +22,11 @@ public class EditCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("clear");
         commandBox.runCommand(floating.getAddCommand());
         commandBox.runCommand(task.getAddCommand());
-     //   commandBox.runCommand(event.getAddCommand());
+        commandBox.runCommand(event.getAddCommand());
         
         assertFloatingEditNameSuccess(floating, 1, "Floating Hello World");
         assertTaskEditNameSuccess(task, 1, "Task Hello World");
-    //    assertNameEditSuccess(event, 1, "Event Hello World");
+        assertEventEditNameSuccess(event, 1, "Event Hello World");
         
         // Edit Note - For all activity.
         
@@ -68,5 +69,8 @@ public class EditCommandTest extends AddressBookGuiTest {
     
     private void assertEventEditNameSuccess(TestActivity event, int index, String changes) {
         commandBox.runCommand(event.getEditNameCommand(index, changes));
+        event = activityListPanel.returnsUpdatedEvent(changes);
+        EventCardHandle editedCard = activityListPanel.navigateToEvent(event);
+        assertEventMatching(event, editedCard);
     }
 }

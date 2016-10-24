@@ -10,7 +10,7 @@ import seedu.menion.commons.core.Messages;
 import seedu.menion.model.activity.Activity;
 
 // @author Marx Low (A0139164A)
-public class CompleteCommandTest extends AddressBookGuiTest {
+public class CompleteCommandTest extends ActivityManagerGuiTest {
     
     @Test
     public void complete() {

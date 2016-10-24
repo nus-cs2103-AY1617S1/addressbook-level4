@@ -21,9 +21,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for Activity Manager.
  */
-public abstract class AddressBookGuiTest {
+public abstract class ActivityManagerGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -78,7 +78,7 @@ public abstract class AddressBookGuiTest {
     protected ActivityManager getInitialData() {
         ActivityManager ab = TestUtil.generateEmptyAddressBook();
 
-        TypicalTestActivities.loadAddressBookWithSampleData(ab);
+        TypicalTestActivities.loadActivityManagerWithSampleData(ab);
 
         return ab;
     }
@@ -99,15 +99,22 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the task shown in the card is same as the given task
      */
-    public void assertTaskMatching(ReadOnlyActivity person, TaskCardHandle card) {
-        assertTrue(TestUtil.compareCardAndTask(card, person));
+    public void assertTaskMatching(ReadOnlyActivity task, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, task));
     }
     
     /**
      * Asserts the floating task shown in the card is same as the given floating task
      */
-    public void assertFloatingTaskMatching(ReadOnlyActivity person, FloatingTaskCardHandle card) {
-        assertTrue(TestUtil.compareCardAndFloatingTask(card, person));
+    public void assertFloatingTaskMatching(ReadOnlyActivity floatingTask, FloatingTaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndFloatingTask(card, floatingTask));
+    }
+    
+    /**
+     * Asserts the floating task shown in the card is same as the given floating task
+     */
+    public void assertEventMatching(ReadOnlyActivity event, EventCardHandle card) {
+        assertTrue(TestUtil.compareCardAndEvent(card, event));
     }
 
     /**

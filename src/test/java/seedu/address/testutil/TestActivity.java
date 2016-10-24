@@ -210,7 +210,7 @@ public class TestActivity implements ReadOnlyActivity {
         } else if (activityType.equals(Activity.EVENT_TYPE)) {
             build.append("add ");
             build.append(this.name.toString());
-            build.append(" by: ");
+            build.append(" from: ");
             build.append(this.getActivityStartDate().value);
             build.append(" ");
             build.append(this.getActivityStartTime().value);

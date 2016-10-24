@@ -8,13 +8,13 @@ import seedu.address.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 import static seedu.menion.logic.commands.DeleteCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandTest extends ActivityManagerGuiTest {
 
     @Test
     public void delete() {
 
         //delete the first in the list
-        TestActivity[] currentList = td.getTypicalActivity();
+        TestActivity[] currentList = td.getTypicalTask();
 
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
@@ -52,7 +52,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("delete task " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous persons except the deleted activity
-        assertTrue(activityListPanel.isListMatching(expectedRemainder));
+        assertTrue(activityListPanel.isTaskListMatching(expectedRemainder));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, personToDelete));
