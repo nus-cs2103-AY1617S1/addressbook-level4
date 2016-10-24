@@ -235,7 +235,7 @@ public class Parser {
 				 * getTagsFromArgs(matcher1.group("tagArguments")));
 				 */
 
-			} else if (matcher2.matches()) {
+			}else if (matcher2.matches()) {
 				details.add(matcher2.group("name"));
 				details.add(matcher2.group("taskDescriptions"));
 				details.add(matcher2.group("date"));
@@ -243,7 +243,7 @@ public class Parser {
 				details.add(matcher2.group("endTimeArguments"));
 				return new AddCommand("deadline", details, getTagsFromArgs(matcher2.group("tagArguments")));
 
-			} else if (matcher3.matches()) {
+			}else if (matcher3.matches()) {
 				details.add(matcher3.group("name"));
 				details.add(matcher3.group("date"));
 				details.add(matcher3.group("startTimeArguments"));
@@ -255,9 +255,7 @@ public class Parser {
 				 * matcher2.group("date"),
 				 * getTagsFromArgs(matcher2.group("tagArguments")));
 				 */
-			}
-
-			else if (matcher4.matches()) {
+			}else if (matcher4.matches()) {
 				details.add(matcher4.group("name"));
 				details.add(matcher4.group("date"));
 				return new AddCommand("deadline without task description and time", details,
@@ -267,18 +265,14 @@ public class Parser {
 				 * matcher4.group("date"), matcher4.group("endTimeArguments"),
 				 * getTagsFromArgs(matcher4.group("tagArguments")));
 				 */
-
-			}
-
-			else if (matcher5.matches()) {
+			}else if (matcher5.matches()) {
 				details.add(matcher5.group("name"));
 				details.add(matcher5.group("startTimeArguments"));
 				details.add(matcher5.group("endTimeArguments"));
 				return new AddCommand("deadline without task descriptions and date", details,
 						getTagsFromArgs(matcher5.group("tagArguments")));
-			}
 
-			else if (matcher6.matches()) {
+			}else if (matcher6.matches()) {
 				details.add(matcher6.group("name"));
 				details.add(matcher6.group("taskDescriptions"));
 				details.add(matcher6.group("startTimeArguments"));
@@ -286,37 +280,31 @@ public class Parser {
 				return new AddCommand("deadline without date", details,
 						getTagsFromArgs(matcher6.group("tagArguments")));
 
-			} else if (matcher7.matches()) {
+			}else if (matcher7.matches()) {
 				details.add(matcher7.group("name"));
 				details.add(matcher7.group("taskDescriptions"));
 				details.add(matcher7.group("endTimeArguments"));
 				return new AddCommand("deadline without date and start time", details,
 						getTagsFromArgs(matcher7.group("tagArguments")));
 
-			}
-
-			else if (matcher8.matches()) {
+			}else if (matcher8.matches()) {
 				details.add(matcher8.group("name"));
 				details.add(matcher8.group("endTimeArguments"));
 				return new AddCommand("deadline without date, task description and start time", details,
 						getTagsFromArgs(matcher8.group("tagArguments")));
-			}
 
-			else if (matcher9.matches()) {
+			}else if (matcher9.matches()) {
 				details.add(matcher9.group("name"));
 				details.add(matcher9.group("taskDescriptions"));
 				return new AddCommand("floating task", details, getTagsFromArgs(matcher9.group("tagArguments")));
-			} else if (matcher10.matches()) {
-				details.add(matcher10.group("name"));
-				return new AddCommand("floating task without task description", details,
-						getTagsFromArgs(matcher10.group("tagArguments")));
+				
 			}
-
+			
 			else {
-				if (matcher4.group("name").toLowerCase().contains(byToday)) {
-					details.add(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byToday), ""));
+				if (matcher10.group("name").toLowerCase().contains(byToday)) {
+					details.add(matcher10.group("name").replaceAll("(?i)" + Pattern.quote(byToday), ""));
 					details.add(dateFormatter.format(calendar.getTime()));
-					return new AddCommand("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
+					return new AddCommand("deadline without task description and time", details, getTagsFromArgs(matcher10.group("tagArguments")));
 
 					/*
 					 * return new
@@ -327,12 +315,12 @@ public class Parser {
 					 */
 				}
 
-				else if (matcher4.group("name").toLowerCase().contains(byTomorrow)) {
+				else if (matcher10.group("name").toLowerCase().contains(byTomorrow)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.DAY_OF_YEAR, 1);
-					details.add(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byTomorrow), ""));
+					details.add(matcher10.group("name").replaceAll("(?i)" + Pattern.quote(byTomorrow), ""));
 					details.add(dateFormatter.format(calendar.getTime()));
-					return new AddCommand("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
+					return new AddCommand("deadline without task description and time", details, getTagsFromArgs(matcher10.group("tagArguments")));
 					/*
 					 * return new
 					 * AddCommand(matcher3.group("name").replaceAll("(?i)" +
@@ -342,12 +330,12 @@ public class Parser {
 					 */
 				}
 
-				else if (matcher4.group("name").toLowerCase().contains(byNextWeek)) {
+				else if (matcher10.group("name").toLowerCase().contains(byNextWeek)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_YEAR, 1);
-					details.add(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextWeek), ""));
+					details.add(matcher10.group("name").replaceAll("(?i)" + Pattern.quote(byNextWeek), ""));
 					details.add(dateFormatter.format(calendar.getTime()));
-					return new AddCommand("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
+					return new AddCommand("deadline without task description and time", details, getTagsFromArgs(matcher10.group("tagArguments")));
 					/*
 					 * return new
 					 * AddCommand(matcher3.group("name").replaceAll("(?i)" +
@@ -357,12 +345,12 @@ public class Parser {
 					 */
 				}
 
-				else if (matcher4.group("name").toLowerCase().contains(byNextMonth)) {
+				else if (matcher10.group("name").toLowerCase().contains(byNextMonth)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_MONTH, 4);
-					details.add(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextMonth), ""));
+					details.add(matcher10.group("name").replaceAll("(?i)" + Pattern.quote(byNextMonth), ""));
 					details.add(dateFormatter.format(calendar.getTime()));
-					return new AddCommand("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
+					return new AddCommand("deadline without task description and time", details, getTagsFromArgs(matcher10.group("tagArguments")));
 					/*
 					 * return new
 					 * AddCommand(matcher3.group("name").replaceAll("(?i)" +
@@ -370,16 +358,16 @@ public class Parser {
 					 * dateFormatter.format(calendar.getTime()),
 					 * getTagsFromArgs(matcher3.group("tagArguments")));
 					 */
-				}
 
-				else {
-					details.add(matcher4.group("name"));
-					return new AddCommand("floating task with name", details,
-							getTagsFromArgs(matcher3.group("tagArguments")));
 					/*
 					 * return new AddCommand(matcher3.group("name"),
 					 * getTagsFromArgs(matcher3.group("tagArguments")));
 					 */
+				
+				}else {
+				details.add(matcher10.group("name"));
+				return new AddCommand("floating task without task description", details,
+							getTagsFromArgs(matcher10.group("tagArguments")));
 				}
 			}
 
