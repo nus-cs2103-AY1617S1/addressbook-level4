@@ -19,23 +19,23 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         //delete using todo/default
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         
-        int targetIndex = currentList.size("");
+        int targetIndex = currentList.size();
         assertDeleteSuccess(targetIndex, currentList);
 
         //delete from deadline
-        targetIndex = currentList.size("d");
-        assertDeleteSuccess(targetIndex, "d", currentList);
+        targetIndex = currentList.size('d');
+        assertDeleteSuccess(targetIndex, 'd', currentList);
 
         //delete from event
-        targetIndex = currentList.size("e");
-        assertDeleteSuccess(targetIndex, "e", currentList);
+        targetIndex = currentList.size('e');
+        assertDeleteSuccess(targetIndex, 'e', currentList);
         
         //invalid index
-        commandBox.runCommand("delete t" + (currentList.size("t") + 1));
+        commandBox.runCommand("delete t" + (currentList.size('t') + 1));
         assertResultMessage("The task index provided is invalid");
         
         //invalid command
-        commandBox.runCommand("deletes e" + (currentList.size("e")));
+        commandBox.runCommand("deletes e" + (currentList.size('e')));
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
     }
@@ -48,7 +48,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
      * @param currentList A copy of the current list of persons (before deletion).     
      */
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTaskList currentList) {
-        assertDeleteSuccess(targetIndexOneIndexed, "t", currentList);
+        assertDeleteSuccess(targetIndexOneIndexed, 't', currentList);
     }
     
     /**
@@ -58,7 +58,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
      * @param category the category in which to delete from
      * @param currentList A copy of the current list of persons (before deletion).     
      */
-    private void assertDeleteSuccess(int targetIndexOneIndexed, String category, final TestTaskList currentList) {
+    private void assertDeleteSuccess(int targetIndexOneIndexed, char category, final TestTaskList currentList) {
         TestTask taskToDelete = currentList.getTaskFromList(targetIndexOneIndexed - 1, category); //-1 because array uses zero indexing
         
         currentList.removeTaskFromList(targetIndexOneIndexed - 1, category);

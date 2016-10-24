@@ -13,9 +13,8 @@ public class TaskUtil {
      * Returns the specified index in the {@code command} IF a valid category character was given.
      *   else return the default index
      */
-    public static int getCategoryIndex(String category) {
+    public static int getCategoryIndex(char category) {
         
-        assert category.length() == 1;
         switch(category) {
         
             case(Task.TODO_CATEGORY_CHAR) :

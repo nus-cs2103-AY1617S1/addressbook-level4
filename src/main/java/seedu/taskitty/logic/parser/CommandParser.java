@@ -454,7 +454,7 @@ public class CommandParser {
         } else {
             // index should be the rest of the string if category char is present
             index = parseIndex(args.substring(1));
-            categoryIndex = TaskUtil.getCategoryIndex(args.substring(0,1));
+            categoryIndex = TaskUtil.getCategoryIndex(args.charAt(0));
         }
         
         if (!index.isPresent()){
