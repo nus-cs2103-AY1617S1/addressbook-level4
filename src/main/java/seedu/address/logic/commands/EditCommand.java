@@ -159,7 +159,7 @@ public class EditCommand extends UndoableCommand {
         
         /*
          * Set recurrenceRate as the previous one if it exist should the user not key in any
-         * Ensure that start date or end date exist, otherwise set recurrence as null
+         * Ensure that start date or end date exist, otherwise set recurrence as null even if user input one
          */
         if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
         	recurrenceRate = toEdit.getRecurrenceRate().get();
@@ -169,7 +169,7 @@ public class EditCommand extends UndoableCommand {
         }
         
         //remove recurrence if start and end date are removed
-        if (removeReccurence || (removeStartDate && removeEndDate)) {
+        if (removeReccurence || (startDate == null && endDate == null)) {
             recurrenceRate = null;
         }
 
