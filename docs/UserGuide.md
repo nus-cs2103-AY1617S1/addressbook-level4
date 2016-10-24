@@ -166,8 +166,8 @@ Format:
 * `ls /p [dsc]`
 
 > default is to list all tasks  
-> use -dt to list all tasks by earliest end dateTime  
-> use -p to list all task by priority from low to high  
+> use /dt to list all tasks by earliest end dateTime  
+> use /p to list all task by priority from low to high  
 > use dsc to list task in reverse order
 
 Examples:
