@@ -11,6 +11,7 @@ import teamfour.tasc.commons.core.UnmodifiableObservableList;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
 import teamfour.tasc.commons.util.CollectionUtil;
 import teamfour.tasc.logic.LogicManager;
+import teamfour.tasc.model.keyword.UpdateCommandKeyword;
 import teamfour.tasc.model.tag.Tag;
 import teamfour.tasc.model.tag.UniqueTagList;
 import teamfour.tasc.model.tag.UniqueTagList.DuplicateTagException;
@@ -29,7 +30,7 @@ import teamfour.tasc.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class UpdateCommand extends Command {
 
-    public static final String COMMAND_WORD = "update";
+    public static final String COMMAND_WORD = UpdateCommandKeyword.keyword;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Updates the task identified by the index number used in the last task listing.\n"

@@ -8,23 +8,29 @@ import java.util.logging.Logger;
 
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
+import teamfour.tasc.model.keyword.ByKeyword;
+import teamfour.tasc.model.keyword.FromKeyword;
+import teamfour.tasc.model.keyword.OnKeyword;
+import teamfour.tasc.model.keyword.ShowCommandKeyword;
+import teamfour.tasc.model.keyword.TagKeyword;
+import teamfour.tasc.model.keyword.ToKeyword;
 
 /**
  * Shows only tasks filtered from current listing results to the user.
  */
 public class ShowCommand extends Command {
-    public static final String COMMAND_WORD = "show";
+    public static final String COMMAND_WORD = ShowCommandKeyword.keyword;
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows only listing results with specified type, date or tags. "
             + "Parameters: [TYPE...] [on DATE] [by DEADLINE] [from START_TIME] [to END_TIME] [tag \"TAG\"...]\n"
             + "Example: " + COMMAND_WORD
             + " events on 24 Sep, tag \"Important\"";
 
-    public static final String KEYWORD_DATE = "on";
-    public static final String KEYWORD_DEADLINE = "by";
-    public static final String KEYWORD_PERIOD_START_TIME = "from";
-    public static final String KEYWORD_PERIOD_END_TIME = "to";
-    public static final String KEYWORD_TAG = "tag";
+    public static final String KEYWORD_DATE = OnKeyword.keyword;
+    public static final String KEYWORD_DEADLINE = ByKeyword.keyword;
+    public static final String KEYWORD_PERIOD_START_TIME = FromKeyword.keyword;
+    public static final String KEYWORD_PERIOD_END_TIME = ToKeyword.keyword;
+    public static final String KEYWORD_TAG = TagKeyword.keyword;
     
     public static final String[] VALID_KEYWORDS = { COMMAND_WORD, KEYWORD_DATE,
             KEYWORD_DEADLINE, KEYWORD_PERIOD_START_TIME, KEYWORD_PERIOD_END_TIME, KEYWORD_TAG};

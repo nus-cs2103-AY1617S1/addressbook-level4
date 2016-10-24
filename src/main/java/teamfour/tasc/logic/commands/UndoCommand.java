@@ -1,11 +1,13 @@
 package teamfour.tasc.logic.commands;
 
+import teamfour.tasc.model.keyword.UndoCommandKeyword;
+
 /**
  * Undo the last (n) commands.
  */
 public class UndoCommand extends Command {
 
-    public static final String COMMAND_WORD = "undo";
+    public static final String COMMAND_WORD = UndoCommandKeyword.keyword;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo the last command(s). "
             + "Parameters: [Number of steps]\n"

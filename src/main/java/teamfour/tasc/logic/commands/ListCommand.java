@@ -6,23 +6,29 @@ import java.util.Set;
 
 import teamfour.tasc.commons.exceptions.IllegalValueException;
 import teamfour.tasc.model.Model;
+import teamfour.tasc.model.keyword.ByKeyword;
+import teamfour.tasc.model.keyword.FromKeyword;
+import teamfour.tasc.model.keyword.ListCommandKeyword;
+import teamfour.tasc.model.keyword.SortKeyword;
+import teamfour.tasc.model.keyword.TagKeyword;
+import teamfour.tasc.model.keyword.ToKeyword;
 
 /**
  * Lists all tasks in the task list to the user.
  */
 public class ListCommand extends Command {
-    public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD = ListCommandKeyword.keyword;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": List all tasks/events with filters. "
             + "Parameters: [TYPE...] [by DEADLINE] [from START_TIME] [to END_TIME] [tag \"TAG\"...] [sort SORTING_ORDER]\n"
             + "Example: " + COMMAND_WORD
             + " completed tasks, tag \"Important\", sort earliest first";
 
-    public static final String KEYWORD_DEADLINE = "by";
-    public static final String KEYWORD_PERIOD_START_TIME = "from";
-    public static final String KEYWORD_PERIOD_END_TIME = "to";
-    public static final String KEYWORD_TAG = "tag";
-    public static final String KEYWORD_SORT = "sort";
+    public static final String KEYWORD_DEADLINE = ByKeyword.keyword;
+    public static final String KEYWORD_PERIOD_START_TIME = FromKeyword.keyword;
+    public static final String KEYWORD_PERIOD_END_TIME = ToKeyword.keyword;
+    public static final String KEYWORD_TAG = TagKeyword.keyword;
+    public static final String KEYWORD_SORT = SortKeyword.keyword;
 
     public static final String[] VALID_KEYWORDS = { COMMAND_WORD, KEYWORD_DEADLINE,
             KEYWORD_PERIOD_START_TIME, KEYWORD_PERIOD_END_TIME, KEYWORD_TAG, KEYWORD_SORT};
