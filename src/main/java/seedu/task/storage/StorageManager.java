@@ -4,7 +4,6 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.Config;
-import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.storage.ConfigFilePathChangedEvent;
@@ -27,16 +26,19 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private TaskManagerStorage taskManagerStorage;
     private UserPrefsStorage userPrefsStorage;
+    private Config config;
 
 
     public StorageManager(TaskManagerStorage taskManagerStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.taskManagerStorage = taskManagerStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.config = new Config();
     }
 
-    public StorageManager(String TaskManagerFilePath, String userPrefsFilePath) {
-        this(new XmlTaskManagerStorage(TaskManagerFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    public StorageManager(Config config) {
+        this(new XmlTaskManagerStorage(config.getTaskManagerFilePath()), new JsonUserPrefsStorage(config.getUserPrefsFilePath()));
+        this.config = config;
     }
 
     // ================ UserPrefs methods ==============================
@@ -99,14 +101,15 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
     //@@author A0144939R
-    public void handleFilePathChangedEvent(FilePathChangedEvent event) throws DataConversionException {
-        String currentFilePath = getTaskManagerFilePath();
+    @Subscribe
+    public void handleFilePathChangedEvent(FilePathChangedEvent event, ReadOnlyTaskManager taskManager) throws DataConversionException {
         try {
-            //use logger
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, "File path change requested, updating file path"));
             setTaskManagerFilePath(event.newFilePath);
-            Config currentConfig = ConfigUtil.readConfig(currentFilePath).orElse(new Config());
-            ConfigUtil.saveConfig(currentConfig, event.newFilePath);
-            EventsCenter.getInstance().post(new ConfigFilePathChangedEvent(event.newFilePath));
+            saveTaskManager(taskManager);
+            config.setTaskManagerFilePath(event.newFilePath);
+            ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+            raise(new ConfigFilePathChangedEvent(event.newFilePath));
         } catch (IOException e) {
             e.printStackTrace();
         }

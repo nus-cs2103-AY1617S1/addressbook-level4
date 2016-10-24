@@ -1,6 +1,8 @@
 //@@author A0144939R
 package seedu.task.logic.commands;
 
+import java.io.File;
+
 import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.storage.FilePathChangedEvent;
 
@@ -18,25 +20,36 @@ public class ChangePathCommand extends UndoableCommand{
     
     public static final String MESSAGE_PATH_CHANGE_SUCCESS = "Success! New File path: %1$s";
     public static final String MESSAGE_PATH_CHANGE_ROLLBACK_SUCCESS = "Path change reverted.";
-    public static final String MESSAGE_DUPLICATE_PATH = "This is the same path as the one being used.";
+    public static final String MESSAGE_PATH_CHANGE_FAIL = "Error, cannot change path to: %1$s";
     
     private final String newFilePath;
     
     public ChangePathCommand(String newFilePath) {
-        this.newFilePath = newFilePath;
+        this.newFilePath = newFilePath.trim();
     }
     
     
 
     @Override
     public CommandResult execute() {
-        EventsCenter.getInstance().post(new FilePathChangedEvent(newFilePath));
-        return new CommandResult(true, String.format(MESSAGE_PATH_CHANGE_SUCCESS, newFilePath));
+        if(isValidFilePath(newFilePath)) {
+            EventsCenter.getInstance().post(new FilePathChangedEvent(newFilePath, model.getTaskManager()));
+            return new CommandResult(true, String.format(MESSAGE_PATH_CHANGE_SUCCESS, newFilePath));
+        } else {
+            return new CommandResult(false, String.format(MESSAGE_PATH_CHANGE_FAIL, newFilePath));
+        }
+    }
+    
+    private boolean isValidFilePath(String newFilePath) {
+        File file = new File(newFilePath);
+        return (file.getParent() != null && file.canWrite());         
     }
 
+
+
     @Override
-    public CommandResult rollback() {
-        //send event to Config
+    public CommandResult rollback() { 
+        EventsCenter.getInstance().post(new FilePathChangedEvent(newFilePath, model.getTaskManager()));
         return null;
     }
     
