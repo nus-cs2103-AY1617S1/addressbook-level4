@@ -78,7 +78,7 @@ public class Task implements ReadOnlyTask, ModifyTask {
         this(source.getName(), source.getDate(), source.getStart(), source.getEnd(), source.getTaskCategory(), source.getOverdue(), source.getTags());
     }
     
-    private boolean isOverdue(Date checkDate, End checkEnd) {
+    public boolean isOverdue(Date checkDate, End checkEnd) {
     	if (checkDate.getBeforeCurrentDate() == 0){
     		return true;
     	}
@@ -152,6 +152,11 @@ public class Task implements ReadOnlyTask, ModifyTask {
     @Override
     public void setTaskCategory(int taskCat) {
     	this.taskCategory = taskCat;
+    }
+    
+    @Override
+    public void setOverdue(int overdue) {
+    	this.overdue = overdue;
     }
     /**
      * Replaces this task's tags with the tags in the argument tag list.
