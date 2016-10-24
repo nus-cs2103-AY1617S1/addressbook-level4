@@ -235,6 +235,14 @@ See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automa
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
 See [UsingTravis.md](UsingTravis.md) for more details.
 
+[comment]: # (@@author A0140060A)
+
+### Test Coverage
+
+We use [Coveralls](https://coveralls.io/) to track test coverage of our code built using Travis CI
+
+[comment]: # (@@author )
+
 ### Making a Release
 
 Here are the steps to create a new release.
@@ -389,7 +397,7 @@ Use case ends.
 8. Should load app within 1 second of opening.
 9. Should not require an installer to run the app.
 
-More non functional requirements and project constraints can be found [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints). 
+More non functional requirements and project constraints can be found [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints).
 
 
 
@@ -434,4 +442,15 @@ Fantastical     | Uses NLP, quick access in mini window         | Works only on 
 Apple Reminders | Easy-to-use, fast, backed up on the cloud     | Only works in Apple's ecosystem  | Our application allows users to back up to Google Calendar, which works on most devices and thus most people can use it, along with backing up their data to the cloud through Google Calendar
 Sunrise  | Works across platforms and devices     | Requires internet access to work | Our application works both online and offline
 
+[comment]: # (@@author A0140060A)
+### Acknowledgements & Dependencies
+This product is morphed from [addressbook-level4](https://github.com/se-edu/addressbook-level4)
 
+##### Libraries used:
+* [ControlsFX](https://bitbucket.org/controlsfx/controlsfx/)
+* [Google Guava](https://github.com/google/guava)
+* [Jackson library](https://github.com/FasterXML/jackson)
+* [JUnit](http://junit.sourceforge.net/javadoc/)
+* [prettytime](https://github.com/ocpsoft/prettytime)
+* [prettytime-nlp](https://github.com/ocpsoft/prettytime)
+* [TestFX](https://github.com/TestFX/TestFX)

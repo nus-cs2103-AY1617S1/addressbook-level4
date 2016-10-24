@@ -21,7 +21,10 @@ Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree 
 	* Initial and follow up refactoring of AddressBook to TaskManager/IvoryTasks (including test data)
 	* Set up Travis and Coveralls
 	* Maintain Issue Tracker and work distribution
-	* Documentation of Logic Component
+	* Documentation of
+		* Logic Component
+		* Use cases for find/edit commands
+		* Initial morphing of documentation
 
 -----
 
@@ -46,7 +49,5 @@ Responsibilities: Storage
 
 -----
 
-###Acknowledgements
-This product is morphed from [addressbook-level4](https://github.com/se-edu/addressbook-level4) <br>
-Libraries used: <br>
-[prettytime](https://github.com/ocpsoft/prettytime)
+### Acknowledgements
+This product is morphed from [addressbook-level4](https://github.com/se-edu/addressbook-level4)
