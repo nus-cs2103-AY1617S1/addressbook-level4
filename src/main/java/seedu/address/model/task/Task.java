@@ -75,6 +75,23 @@ public class Task implements ReadOnlyTask {
         this.isRecurring = isRecurring;
 
     }
+    
+    public Task(Name name, Date date, UniqueTagList tags, boolean isDone, Recurring Recurring) {
+        assert !CollectionUtil.isAnyNull(name, date, tags);
+        this.name = name;
+        this.date = date;
+        if (date instanceof EventDate) {
+            isEvent = true;
+        } else {
+            isEvent = false;
+        }
+        this.tags = new UniqueTagList(tags); // protect internal tags from
+                                             // changes in the arg list
+        this.isDone = isDone;
+        this.done = new SimpleBooleanProperty(isDone);
+        this.recurring = Recurring;
+
+    }
 
     /**
      * Copy constructor.
@@ -113,6 +130,9 @@ public class Task implements ReadOnlyTask {
             long numMonth = elapsedDays / 28 + 1;
             updateRecurringTask(numMonth * 28);
         case "yearly":
+            break;
+        default:
+           // System.out.println("default");
             break;
         }
     }

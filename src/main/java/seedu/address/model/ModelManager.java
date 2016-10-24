@@ -44,6 +44,14 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+      for(Task e:filteredTasks){
+            System.out.println("inside filteredTasks");
+            if(e.isRecurring()){
+               System.out.println("inside recurring");
+                e.updateRecurringTask();
+                System.out.println("finish updating");
+            }
+        }
         stateManager = new StateManager(new TaskManagerState(taskManager, ""));
     }
 
@@ -54,6 +62,14 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+      for(Task e:filteredTasks){
+           System.out.println("inside filteredTasks");
+          if(e.isRecurring()){
+              System.out.println("isrecuring");
+                 e.updateRecurringTask();
+                 System.out.println("updated alr");
+          }
+        }
         stateManager = new StateManager(new TaskManagerState(taskManager, ""));
     }
 
