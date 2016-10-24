@@ -47,21 +47,37 @@ public class TestUtil {
 		return newTaskList;
 	}
 	
-	// Setting up tasks in the TaskList in order to find them in the tests
+	// Setting up completed tasks in the TaskList in order to find them in the tests
 		public static InMemoryTaskList setupSomeCompletedTasksInTaskList(int n) throws IllegalValueException {
-			InMemoryTaskList newTaskList = new TaskManager();
-			// Add 3 tasks into the task manager
-			for (int i = 0; i < n; i++) {
-				AddTaskCommand command = new AddTaskCommand(String.format("Task %d", i));
-				command.setData(newTaskList);
-				command.execute();
-			}
-			UnmodifiableObservableList<Task> list= newTaskList.getCurrentFilteredTasks();
-			for (int i = 0; i < n; i++) {
-				list.get(i).setAsComplete();
-			}
-			return newTaskList;
+		InMemoryTaskList newTaskList = new TaskManager();
+		// Add 3 tasks into the task manager
+		for (int i = 0; i < n; i++) {
+			AddTaskCommand command = new AddTaskCommand(String.format("Task %d", i));
+			command.setData(newTaskList);
+			command.execute();
 		}
+		UnmodifiableObservableList<Task> list= newTaskList.getCurrentFilteredTasks();
+		for (int i = 0; i < n; i++) {
+			list.get(i).setAsComplete();
+		}
+		return newTaskList;
+	}
+		
+	// Setting up favorited tasks in the TaskList in order to find them in the tests
+	public static InMemoryTaskList setupSomeFavoritedTasksInTaskList(int n) throws IllegalValueException {
+		InMemoryTaskList newTaskList = new TaskManager();
+		// Add 3 tasks into the task manager
+		for (int i = 0; i < n; i++) {
+			AddTaskCommand command = new AddTaskCommand(String.format("Task %d", i));
+			command.setData(newTaskList);
+			command.execute();
+		}
+		UnmodifiableObservableList<Task> list= newTaskList.getCurrentFilteredTasks();
+		for (int i = 0; i < n; i++) {
+			list.get(i).setAsFavorite();
+		}
+		return newTaskList;
+	}
 	/**
 	 * Setting up interleaved Floating, Deadline and Event tasks.
 	 * Dates for Deadline tasks are set to 1 January 2016.

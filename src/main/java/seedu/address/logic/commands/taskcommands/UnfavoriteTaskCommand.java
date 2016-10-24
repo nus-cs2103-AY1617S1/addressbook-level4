@@ -47,5 +47,12 @@ public class UnfavoriteTaskCommand extends TaskCommand {
         	return new CommandResult(MESSAGE_TASK_ALR_UNFAVORITED);
         }
     }
+    
+    /*
+     * Retrieves index for testing purposes
+     */
+    public String getIndex(){
+    	return Integer.toString(targetIndex);
+    }
 
 }

@@ -69,14 +69,14 @@ public class FindTaskCommandTest {
 	@Test
 	public void findTask_substringMatch() {
 		/*
-		 * CommandResult should return a string that indicates 0 tasks found
-		 * (since substring match does not mean there is a whole word match)
+		 * CommandResult should return a string that indicates 3 tasks found
+		 * (since substring match matches all words containing the substring)
 		 */
 		Set<String> stringsToFind = createSetOfStrings("Ta", "as", "sk", "Tas", "ask");
 		FindTaskCommand command = new FindTaskCommand(stringsToFind);
 		command.setData(taskList);
 		
-		assertTasksFound(command, 0);
+		assertTasksFound(command, 3);
 	}
 	
 	@Test
