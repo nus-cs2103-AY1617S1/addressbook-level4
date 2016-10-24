@@ -7,5 +7,6 @@ public interface ModifyTask {
     void setStart(Start start);
     void setEnd(End end);
     void setTaskCategory(int taskCat);
+    void setCompleted(boolean completed);
 
 }

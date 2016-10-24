@@ -26,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredEvents;
     private FilteredList<Task> filteredDeadlines;
     private FilteredList<Task> filteredTodos;
+    //private FilteredList<Task> filteredCompleted;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -42,6 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents = new FilteredList<>(addressBook.getEvents());
         filteredDeadlines = new FilteredList<>(addressBook.getDeadlines());
         filteredTodos = new FilteredList<>(addressBook.getTodo());
+        //filteredCompleted = new FilteredList<>(addressBook.getCompleted());
     }
 
     public ModelManager() {
@@ -53,6 +55,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredEvents = new FilteredList<>(addressBook.getEvents());
         filteredDeadlines = new FilteredList<>(addressBook.getDeadlines());
         filteredTodos = new FilteredList<>(addressBook.getTodo());
+        //filteredCompleted = new FilteredList<>(addressBook.getCompleted());
     }
 
     @Override
@@ -90,6 +93,13 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
+    
+    
+    public synchronized void markDone(ReadOnlyTask target) throws TaskNotFoundException {
+        addressBook.completeTask(target);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -105,12 +115,17 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList() {
         return new UnmodifiableObservableList<>(filteredTodos);
     }
+    
+    //public UnmodifiableObservableList<ReadOnlyTask> getFilteredCompleted() {
+    //    return new UnmodifiableObservableList<>(filteredCompleted);
+    //}
 
     @Override
     public void updateFilteredListToShowAll() {
         filteredEvents.setPredicate(null);
         filteredDeadlines.setPredicate(null);
-        filteredTodos.setPredicate(null);;
+        filteredTodos.setPredicate(null);
+        //filteredCompleted.setPredicate(null);
     }
 
     @Override
@@ -127,6 +142,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTodoList(Set<String> keywords){
         updateFilteredTodoList(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
+    //@Override
+    //public void updateFilteredCompletedList(Set<String> keywords) {
+    //    updateFilteredCompletedList(new PredicateExpression(new NameQualifier(keywords)));
+    //}
+    
     private void updateFilteredEventList(Expression expression) {
         filteredEvents.setPredicate(expression::satisfies);
     }
@@ -134,9 +155,15 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredDeadlineList(Expression expression) {
         filteredDeadlines.setPredicate(expression::satisfies);
     }
+    
     private void updateFilteredTodoList(Expression expression) {
         filteredTodos.setPredicate(expression::satisfies);
     }
+    
+    //private void updateFilteredCompletedList(Expression expression) {
+    //    filteredCompleted.setPredicate(expression::satisfies);
+    //}
+    
 
     //========== Inner classes/interfaces used for filtering ==================================================
 

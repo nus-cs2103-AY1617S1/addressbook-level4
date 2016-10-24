@@ -29,6 +29,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     private final UniqueTaskList events;
     private UniqueTaskList deadlines;
     private UniqueTaskList todo;
+    //private UniqueTaskList completed;
     private final UniqueTagList tags;
 
     {
@@ -72,6 +73,10 @@ public class TaskBook implements ReadOnlyTaskBook {
         return todo.getInternalList();
     }
     
+    //public ObservableList<Task> getCompleted() {
+    //    return completed.getInternalList();
+    //}
+    
     public void setEvents(List<Task> events) {
         this.events.getInternalList().setAll(events);
     }
@@ -83,6 +88,10 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void setTodo(List<Task> todo) {
         this.todo.getInternalList().setAll(todo);
     }
+    
+    //public void setCompleted(List<Task> completed) {
+    //    this.completed.getInternalList().setAll(completed);
+    //}
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
@@ -164,6 +173,31 @@ public class TaskBook implements ReadOnlyTaskBook {
             } else {
                 throw new UniqueTaskList.TaskNotFoundException();
             }
+        }
+    }
+    
+    public boolean completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+        int category = target.getTaskCategory();
+        if(category == 1){
+            if (events.completed(target)) {
+                return true;
+            } else {
+                throw new UniqueTaskList.TaskNotFoundException();
+            }        
+        }
+        else if(category == 2){
+            if (deadlines.completed(target)) {
+                return true;
+            } else {
+                throw new UniqueTaskList.TaskNotFoundException();
+            }        
+        }
+        else{
+            if (todo.completed(target)) {
+                return true;
+            } else {
+                throw new UniqueTaskList.TaskNotFoundException();
+            }        
         }
     }
 
