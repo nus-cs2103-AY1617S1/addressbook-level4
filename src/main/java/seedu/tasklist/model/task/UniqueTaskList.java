@@ -61,6 +61,22 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
     
+    public boolean isOverlapping(Task toAdd) {
+    	assert toAdd != null;
+    	for (Task i: internalList) {
+    		if (!toAdd.equals(i)
+    				&& !toAdd.getStartTime().toCardString().equals("-")
+    				&& !toAdd.getEndTime().toCardString().equals("-")
+    				&& !i.getStartTime().toCardString().equals("-")
+    				&& !toAdd.getStartTime().getAsCalendar().after(i.getEndTime().getAsCalendar())
+    				&& !i.getStartTime().getAsCalendar().after(toAdd.getEndTime().getAsCalendar())) {
+    			System.out.println(i.getAsText());
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
     /**
      * Adds a person to the list.
      *
