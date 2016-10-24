@@ -5,7 +5,10 @@ import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.task.Task;
 
-/** Indicates the Task List have been replaced (due to undo/redo commands) */
+/** 
+ * Indicates the Task List have been replaced (due to undo/redo commands) 
+ */
+//@@author A0139817U
 public class NewTaskListEvent extends BaseEvent {
 
 	public final UniqueItemCollection<Task> newTasks;

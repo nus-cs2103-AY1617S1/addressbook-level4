@@ -161,6 +161,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	 * Undoes the previous command that has to do with tasks or aliases
 	 * (Can only be called if the previous successful command was a successful task/alias command)
 	 */
+	//@@author A0139817U
 	@Override
 	public void undo() throws IllegalStateException {
 		// Undoing task type command
@@ -199,6 +200,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	 * Redoes the command that has been undone
 	 * (Can only be called if the previous successful command was a successful undo command)
 	 */
+	//@@author A0139817U
 	@Override
 	public void redo() throws IllegalStateException {
 		// Redoing task type command

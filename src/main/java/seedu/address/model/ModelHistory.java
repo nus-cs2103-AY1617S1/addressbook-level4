@@ -4,17 +4,18 @@ import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.model.task.Task;
 
 /**
- * Manages the tasks and aliases stored in order to support the undo & redo command
+ * Manages the tasks and aliases stored in order to support the undo & redo command.
  * 
  * Note:
  * 1) Undo & Redo commands cannot be stacked consecutively. 
- * Eg. calling 'undo' repeatedly is equivalent to calling 'undo' once
+ * Eg. calling 'undo' repeatedly is equivalent to calling 'undo' once.
  * 
  * 2) However, undo & redo commands can be interleaved. 
- * Eg. calling 'undo' then 'redo' does not change anything
+ * Eg. calling 'undo' then 'redo' does not change anything.
  */
+//@@author A0139817U
 public class ModelHistory {
-	// Collection to store the tasks / aliases after each command that changes tasks or aliases. ALlows user to undo.
+	// Collection to store the tasks / aliases after each command that changes tasks or aliases. Allows user to undo.
 	private UniqueItemCollection<Task> oldTasks;
 	private UniqueItemCollection<Alias> oldAliases;
 	 
@@ -143,7 +144,7 @@ public class ModelHistory {
 	}
 	
 	/**
-	 * Clear old copies of aliases and tasks after undo
+	 * Clear copies of undone aliases and tasks after redo
 	 */
 	public void clearUndoneCopies() {
 		// Can only redo once. Hence, undoneTasks & undoneAliases are set to null after one redo

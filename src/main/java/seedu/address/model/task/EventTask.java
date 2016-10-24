@@ -2,9 +2,10 @@ package seedu.address.model.task;
 
 import java.util.Date;
 
-/*
+/**
  * An EventTask is a task that holds a start date and an end date
  */
+//@@author A0139817U
 public class EventTask extends Task implements FavoritableTask, CompletableTask, DatedTask {
 
 	private Date startDate;

@@ -4,9 +4,10 @@ import java.util.Date;
 
 import seedu.address.model.Copiable;
 
-/*
+/**
  * A DeadlineTask is a task that holds a date as the deadline
  */
+//@@author A0139817U
 public class DeadlineTask extends Task implements FavoritableTask, CompletableTask, DatedTask {
 
 	private Date deadline;

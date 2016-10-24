@@ -8,9 +8,10 @@ import seedu.address.logic.commands.taskcommands.AddTaskCommand;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
-/*
+/**
  * Parses Add commands
  */
+//@@author A0139817U
 public class AddCommandParser extends CommandParser{
     public static final String COMMAND_WORD = AddTaskCommand.COMMAND_WORD;
 	/**

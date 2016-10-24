@@ -13,6 +13,7 @@ import seedu.address.model.task.EventTask;
 /**
  * Adds a task to TaskManager.
  */
+//@@author A0139817U
 public class AddTaskCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "add";
