@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/CS2103AUG2016-W14-C4/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W14-C4)
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W14-C4/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W14-C4/main?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/dba6c8bd09af495e95d173fa175a4cf1)](https://www.codacy.com/app/ian_teo/main?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CS2103AUG2016-W14-C4/main&amp;utm_campaign=Badge_Grade)
 
 # TasKitty
 
