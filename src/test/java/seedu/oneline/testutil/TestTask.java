@@ -15,7 +15,6 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     private TaskTime deadline;
     private TaskRecurrence recurrence;
     private Tag tag;
-    private boolean isCompleted;
 
     public TestTask() {
     }
@@ -53,10 +52,6 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         this.tag = tag;
     }
 
-    public void setCompleted(boolean isCompleted) {
-        this.isCompleted = isCompleted;
-    }
-    
     @Override
     public TaskName getName() {
         return name;
@@ -85,11 +80,6 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     @Override
     public Tag getTag() {
         return tag;
-    }
-    
-    @Override
-    public boolean isCompleted() {
-        return isCompleted;
     }
 
     @Override

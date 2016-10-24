@@ -1,10 +1,12 @@
 package guitests;
 
+import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.exceptions.IllegalValueException;
+import seedu.oneline.logic.commands.AddCommand;
 import seedu.oneline.logic.commands.CommandConstants;
 import seedu.oneline.logic.commands.EditCommand;
 import seedu.oneline.logic.parser.Parser;
@@ -15,12 +17,17 @@ import seedu.oneline.model.task.TaskName;
 import seedu.oneline.model.task.TaskRecurrence;
 import seedu.oneline.model.task.TaskTime;
 import seedu.oneline.testutil.TestTask;
+import seedu.oneline.testutil.TestUtil;
+import seedu.oneline.testutil.TypicalTestTasks;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.oneline.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map.Entry;
 
 public class EditCommandTest extends TaskBookGuiTest {
 
@@ -30,12 +37,26 @@ public class EditCommandTest extends TaskBookGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         Map<TaskField, String> fields = new HashMap<TaskField, String>();
         fields.put(TaskField.NAME, "New Task");
-        fields.put(TaskField.START_TIME, "Mon Oct 17 21:35:45");
-        fields.put(TaskField.END_TIME, "Tue Oct 18 21:35:45");
-        fields.put(TaskField.DEADLINE, "Mon Oct 24 21:35:45");
+        fields.put(TaskField.START_TIME, "New Start Time");
+        fields.put(TaskField.END_TIME, "New End Time");
+        fields.put(TaskField.DEADLINE, "New Deadline");
         fields.put(TaskField.RECURRENCE, "Monday");
         fields.put(TaskField.TAG, "#Tag2");
         assertEditSuccess(2, fields, currentList);
+
+//        //add another task
+//        taskToAdd = TypicalTestTasks.todoExtra;
+//        assertEditSuccess(taskToAdd, currentList);
+//        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+
+//        //add duplicate task
+//        commandBox.runCommand(TypicalTestTasks.eventExtra.getAddCommand());
+//        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+//        assertTrue(taskListPanel.isListMatching(currentList));
+
+//        //add to empty list
+//        commandBox.runCommand("clear");
+//        assertEditSuccess(TypicalTestTasks.event1);
 
         //invalid command
         commandBox.runCommand("edits Task");

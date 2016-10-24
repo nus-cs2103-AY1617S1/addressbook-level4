@@ -409,4 +409,135 @@ public class LogicManagerTest {
         
         
     }
+
+    /**
+     * A utility class to generate test data.
+     */
+    class TestDataHelper{
+
+        Task myTask() throws Exception {
+            TaskName name = new TaskName("Adam Brown");
+            TaskTime startTime = new TaskTime("111111");
+            TaskTime endTime = new TaskTime("adam@gmail.com");
+            TaskTime deadline = new TaskTime("111, alpha street");
+            TaskRecurrence recurrence = new TaskRecurrence("X");
+            Tag tag = new Tag("tag1");
+            return new Task(name, startTime, endTime, deadline, recurrence, tag);
+        }
+
+        /**
+         * Generates a valid task using the given seed.
+         * Running this function with the same parameter values guarantees the returned task will have the same state.
+         * Each unique seed will generate a unique Task object.
+         *
+         * @param seed used to generate the task data field values
+         */
+        Task generateTask(int seed) throws Exception {
+            return new Task(
+                    new TaskName("Task " + seed),
+                    new TaskTime("" + Math.abs(seed)),
+                    new TaskTime("" + seed),
+                    new TaskTime("" + seed),
+                    new TaskRecurrence("" + seed),
+                    new Tag("tag" + Math.abs(seed))
+            );
+        }
+
+        /** Generates the correct add command based on the task given */
+        String generateAddCommand(Task p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("add ");
+
+            cmd.append(p.getName().toString());
+            cmd.append(" .from ").append(p.getStartTime());
+            cmd.append(" .to ").append(p.getEndTime());
+            cmd.append(" .due ").append(p.getDeadline());
+            cmd.append(" .every ").append(p.getRecurrence());
+            cmd.append(" #").append(p.getTag().tagName);
+
+            return cmd.toString();
+        }
+
+        /**
+         * Generates an TaskBook with auto-generated tasks.
+         */
+        TaskBook generateTaskBook(int numGenerated) throws Exception{
+            TaskBook taskBook = new TaskBook();
+            addToTaskBook(taskBook, numGenerated);
+            return taskBook;
+        }
+
+        /**
+         * Generates an AddressBook based on the list of Tasks given.
+         */
+        TaskBook generateTaskBook(List<Task> tasks) throws Exception{
+            TaskBook taskBook = new TaskBook();
+            addToTaskBook(taskBook, tasks);
+            return taskBook;
+        }
+
+        /**
+         * Adds auto-generated Task objects to the given Task Book
+         * @param taskBook The Task Book to which the Tasks will be added
+         */
+        void addToTaskBook(TaskBook taskBook, int numGenerated) throws Exception{
+            addToTaskBook(taskBook, generateTaskList(numGenerated));
+        }
+
+        /**
+         * Adds the given list of Tasks to the given Task Book
+         */
+        void addToTaskBook(TaskBook taskBook, List<Task> tasksToAdd) throws Exception{
+            for(Task p: tasksToAdd){
+                taskBook.addTask(p);
+            }
+        }
+
+        /**
+         * Adds auto-generated Task objects to the given model
+         * @param model The model to which the Tasks will be added
+         */
+        void addToModel(Model model, int numGenerated) throws Exception{
+            addToModel(model, generateTaskList(numGenerated));
+        }
+
+        /**
+         * Adds the given list of Tasks to the given model
+         */
+        void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
+            for(Task p: tasksToAdd){
+                model.addTask(p);
+            }
+        }
+
+        /**
+         * Generates a list of Tasks based on the flags.
+         */
+        List<Task> generateTaskList(int numGenerated) throws Exception{
+            List<Task> tasks = new ArrayList<>();
+            for(int i = 1; i <= numGenerated; i++){
+                tasks.add(generateTask(i));
+            }
+            return tasks;
+        }
+
+        List<Task> generateTaskList(Task... tasks) {
+            return Arrays.asList(tasks);
+        }
+
+        /**
+         * Generates a Task object with given name. Other fields will have some dummy values.
+         */
+        Task generateTaskWithName(String name) throws Exception {
+            return new Task(
+                    new TaskName(name),
+                    new TaskTime(""),
+                    new TaskTime(""),
+                    new TaskTime(""),
+                    new TaskRecurrence(""),
+                    new Tag("tag")
+            );
+        }
+    }
 }

@@ -72,12 +72,4 @@ public interface Model {
     
     /** Reverts to the state before the last undone*/
     void redo() throws StateNonExistentException;
-
-
-
-
-
-
-
-
 }

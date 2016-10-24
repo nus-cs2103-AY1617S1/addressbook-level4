@@ -7,8 +7,6 @@ import seedu.oneline.commons.util.CollectionUtil;
 
 import java.util.*;
 
-import com.sun.javafx.logging.Logger;
-
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
  *
@@ -94,19 +92,6 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return personFoundAndDeleted;
     }
-    
-    /**
-     * Marks a task as done
-     * @return
-     */
-//    public Task done(int index) throws TaskNotFoundException {
-//        Task toDone = internalList.get(index);
-//        assert toDone != null;
-//        toDone.setCompleted(true);
-////        internalList.set(index - 1, toDone);
-////        internalList.remove(toDone);
-//        return toDone;
-//    }
 
     public ObservableList<Task> getInternalList() {
         return internalList;

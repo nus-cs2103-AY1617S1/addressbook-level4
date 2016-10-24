@@ -25,8 +25,6 @@ public class XmlAdaptedTask {
     private String deadline;
     @XmlElement(required = true)
     private String recurrence;
-    @XmlElement(required = true)
-    private boolean isCompleted;
 
     @XmlElement
     private String tag = null;

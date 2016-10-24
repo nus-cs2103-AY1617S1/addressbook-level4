@@ -17,7 +17,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private TaskTime endTime;
     private TaskTime deadline;
     private TaskRecurrence recurrence;
-    
     private boolean isCompleted;
     private Tag tag;
 
@@ -84,10 +83,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return tag;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-    
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */
