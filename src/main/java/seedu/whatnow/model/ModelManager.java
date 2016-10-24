@@ -148,6 +148,7 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
 		stackOfDeletedTasks.push(target);
+		System.out.println("I have pushed this into stackOfDeletedTask: " + target);
 		whatNow.removeTask(target);
 		indicateWhatNowChanged();
 	}

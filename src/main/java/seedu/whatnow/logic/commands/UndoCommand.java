@@ -1,8 +1,5 @@
 package seedu.whatnow.logic.commands;
 
-import seedu.whatnow.model.task.UniqueTaskList;
-import seedu.whatnow.model.task.UniqueTaskList.NoPrevCommandException;
-
 public class UndoCommand extends Command{
 
 	public static final String COMMAND_WORD = "undo";
@@ -27,7 +24,6 @@ public class UndoCommand extends Command{
 			UndoAndRedo reqCommand = (UndoAndRedo) model.getUndoStack().pop();
 			model.getRedoStack().push(reqCommand);
 			return reqCommand.undo();
-			//return new CommandResult(String.format(MESSAGE_SUCCESS));
 		}
 	}
 }
