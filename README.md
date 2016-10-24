@@ -3,7 +3,7 @@
 
 # Mastermind
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/Mastermind.PNG" width="600"><br>
 
 * This is a desktop task manager application called Mastermind. It has a GUI but most of the user interactions is through
   a CLI (Command Line Interface).

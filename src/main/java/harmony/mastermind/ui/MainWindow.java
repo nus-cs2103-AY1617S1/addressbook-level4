@@ -1,5 +1,7 @@
 package harmony.mastermind.ui;
 
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import java.util.Stack;
@@ -60,12 +62,13 @@ public class MainWindow extends UiPart {
     
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
-    private static final double WIDTH_MULTIPLIER_INDEX = 0.07;
+    
+    private static final double WIDTH_MULTIPLIER_INDEX = 0.03;
     private static final double WIDTH_MULTIPLIER_NAME = 0.285;
     private static final double WIDTH_MULTIPLIER_STARTDATE = 0.18;
     private static final double WIDTH_MULTIPLIER_ENDDATE = 0.18;
-    private static final double WIDTH_MULTIPLIER_TAGS = 0.15;
-    private static final double WIDTH_MULTIPLIER_RECUR = 0.12;
+    private static final double WIDTH_MULTIPLIER_TAGS = 0.2;
+    private static final double WIDTH_MULTIPLIER_RECUR = 0.1;
     
     private static final short INDEX_HOME = 0;
     private static final short INDEX_TASKS = 1;
@@ -123,6 +126,7 @@ public class MainWindow extends UiPart {
     private TableColumn<ReadOnlyTask, String> indexHome;
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameHome;
+
     @FXML
     private TableColumn<ReadOnlyTask, String> startDateHome;
     @FXML
@@ -193,7 +197,7 @@ public class MainWindow extends UiPart {
     private TableColumn<ReadOnlyTask, Boolean> recurArchive;
 
     @FXML
-    private ListView<String> actionHistory;
+    private ListView<ActionHistory> actionHistory;
 
     public MainWindow() {
         super();
@@ -251,8 +255,10 @@ public class MainWindow extends UiPart {
     }
     
     //@@A0138862W
-    public void pushToActionHistory(Date dateExecuted, String title, String description){
-        actionHistory.getItems().add(title+";"+description+";"+dateExecuted);
+    public void pushToActionHistory(String title, String description){
+        ActionHistory aHistory = new ActionHistory(title, description);
+        
+        actionHistory.getItems().add(aHistory);
         actionHistory.scrollTo(actionHistory.getItems().size()-1);
     }
 
@@ -377,35 +383,37 @@ public class MainWindow extends UiPart {
         initRecur(recurArchive);    
     }
     
+    //@@author A0138862W
+    private void initActionHistory(ListView<ActionHistory> actionHistory){
 
-    private void initActionHistory(ListView<String> actionHistory){
-
+        actionHistory.setOnMouseClicked(value->{
+            consoleOutput.setText(actionHistory.getSelectionModel().getSelectedItem().getDescription());
+        });
         actionHistory.setCellFactory(listView -> {
-            ListCell<String> actionCell = new ListCell<String>(){
+            ListCell<ActionHistory> actionCell = new ListCell<ActionHistory>(){
               
                 @Override
-                protected void updateItem(String item, boolean isEmpty){
+                protected void updateItem(ActionHistory item, boolean isEmpty){
                     super.updateItem(item, isEmpty);
                     
                     if(!isEmpty){
                         
-                        ActionHistoryItem actionHistoryItem = UiPartLoader.loadUiPart(new ActionHistoryItem());
+                        ActionHistoryEntry actionHistoryEntry = UiPartLoader.loadUiPart(new ActionHistoryEntry());
                         
                         
-                        String[] args = item.split(";");
-                        
-                        actionHistoryItem.setTitle(args[0].toUpperCase());
-                        actionHistoryItem.setDescription(args[1]);
-                        actionHistoryItem.setDate(args[2].toUpperCase());
+                        actionHistoryEntry.setTitle(item.getTitle().toUpperCase());
+                        actionHistoryEntry.setDescription(item.getDescription());
+                        actionHistoryEntry.setDate(item.getDateActioned().toString().toUpperCase());
                         
                         
-                        if(args[0].toUpperCase().equals("INVALID COMMAND")){
-                            actionHistoryItem.setTypeFail();
+                        if(item.getTitle().toUpperCase().equals("INVALID COMMAND")){
+                            actionHistoryEntry.setTypeFail();
                         }else{
-                            actionHistoryItem.setTypeSuccess();
+                            actionHistoryEntry.setTypeSuccess();
                         }
                         
-                        this.setGraphic(actionHistoryItem.getNode());
+                        this.setGraphic(actionHistoryEntry.getNode());
+                        
                         this.setPrefHeight(50);
                         this.setPrefWidth(250);
                         
@@ -456,17 +464,14 @@ public class MainWindow extends UiPart {
             @Override
             public void updateItem(String item , boolean isEmpty){
                 super.updateItem(item, isEmpty);
+                
                 if(!isEmpty()){
+                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
                     
-                    TextFlow textFlow = new TextFlow();
+                    Text taskName = generateStyledText(readOnlyTask, item);
+                    taskName.getStyleClass().add("task-name-column");
                     
-                    Text taskName = new Text(item);
-                    taskName.setStyle("-fx-font-weight: bold; -fx-font-size: 18px; -fx-fill: deepSkyBlue;");
-                    
-                    textFlow.getChildren().add(taskName);
-                    
-                    
-                    this.setGraphic(textFlow);
+                    this.setGraphic(taskName);
                     this.setPrefHeight(50);
                     
                 }else{
@@ -477,6 +482,25 @@ public class MainWindow extends UiPart {
         });
         
     }
+    
+    /*
+     * Generate styled row base on the task status: due(red), happening(orange), normal(blue)
+     * 
+     */
+    //@@author A0138862W
+    private Text generateStyledText(ReadOnlyTask readOnlyTask, String text){
+        Text taskName = new Text(text);
+        
+        if(readOnlyTask.isHappening()){
+            taskName.getStyleClass().add("happening");
+        }else if(readOnlyTask.isDue()){
+            taskName.getStyleClass().add("overdue");
+        }else{
+            taskName.getStyleClass().add("normal");
+        }
+        return taskName;
+    }
+    
     
     /**
      * Initialize the start dates of the tasks
@@ -500,6 +524,7 @@ public class MainWindow extends UiPart {
             public void updateItem(String item , boolean isEmpty){
                 super.updateItem(item, isEmpty);
                 if(!isEmpty()){
+                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
                     
                     TextFlow textFlow = new TextFlow();
                     
@@ -507,14 +532,14 @@ public class MainWindow extends UiPart {
                     
                     if(dates.length>1){
                     
-                        Text prettyDate = new Text(dates[0]);
-                        prettyDate.setStyle("-fx-font-weight:bold; -fx-fill: white;");
+                        Text prettyDate = generateStyledText(readOnlyTask, dates[0]);
+                        prettyDate.getStyleClass().add("pretty-date");
                         
                         Text lineBreak = new Text("\n\n");
                         lineBreak.setStyle("-fx-font-size:2px;");
                         
-                        Text uglyDate = new Text(dates[1]);
-                        uglyDate.setStyle("fx-font-style: oblique; -fx-fill: deepSkyBlue; -fx-font-size: 10px;");
+                        Text uglyDate = generateStyledText(readOnlyTask, dates[1]);
+                        uglyDate.getStyleClass().add("ugly-date");
                         
                         textFlow.getChildren().add(prettyDate);
                         textFlow.getChildren().add(lineBreak);
@@ -555,6 +580,7 @@ public class MainWindow extends UiPart {
             public void updateItem(String item , boolean isEmpty){
                 super.updateItem(item, isEmpty);
                 if(!isEmpty()){
+                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
                     
                     TextFlow textFlow = new TextFlow();
                     
@@ -562,14 +588,14 @@ public class MainWindow extends UiPart {
                     
                     if(dates.length>1){
                     
-                        Text prettyDate = new Text(dates[0]);
-                        prettyDate.setStyle("-fx-font-weight:bold; -fx-fill: white;");
+                        Text prettyDate = generateStyledText(readOnlyTask, dates[0]);
+                        prettyDate.getStyleClass().add("pretty-date");
                         
                         Text lineBreak = new Text("\n\n");
                         lineBreak.setStyle("-fx-font-size:2px;");
                         
-                        Text uglyDate = new Text(dates[1]);
-                        uglyDate.setStyle("fx-font-style: oblique; -fx-fill: deepSkyBlue; -fx-font-size: 10px;");
+                        Text uglyDate = generateStyledText(readOnlyTask,dates[1]);
+                        uglyDate.getStyleClass().add("ugly-date");
                         
                         textFlow.getChildren().add(prettyDate);
                         textFlow.getChildren().add(lineBreak);
@@ -602,11 +628,14 @@ public class MainWindow extends UiPart {
             public void updateItem(String item , boolean isEmpty){
                 super.updateItem(item, isEmpty);
                 if(!isEmpty()){
-                    this.setText(item.replace(',', ' '));
-                    this.setStyle("-fx-font-weight:bold;");
-                    this.setWrapText(true);
+                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
+                    
+                    Text tags = generateStyledText(readOnlyTask, item.replace(',', ' '));
+                    tags.getStyleClass().add("tags");
+                    
+                    this.setGraphic(tags);
                 }else{
-                    this.setText("");
+                    this.setGraphic(null);
                 }
             }
         });
@@ -661,7 +690,7 @@ public class MainWindow extends UiPart {
         mostRecentResult = logic.execute(currCommandText, currentTab);
         consoleOutput.setText(mostRecentResult.feedbackToUser);
         
-        this.pushToActionHistory(new Date(), mostRecentResult.title, mostRecentResult.feedbackToUser);
+        this.pushToActionHistory(mostRecentResult.title, mostRecentResult.feedbackToUser);
 
         //updates the tab when a list command is called
         updateTab(mostRecentResult);
