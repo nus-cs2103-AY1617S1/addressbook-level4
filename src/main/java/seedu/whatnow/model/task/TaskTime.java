@@ -12,15 +12,12 @@ import seedu.whatnow.commons.exceptions.IllegalValueException;
 
 //@@author A0139128A
 public class TaskTime {
-	//	public static final String TWENTY_FOUR_HOUR_FORMAT = "HHmm"; //E.g. 2359
 
 	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_REGEX = "((\\d:\\d\\d)(am|pm))";
 	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT = "h:mma"; //E.g. 1:50 pm
 	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_REGEX = "(\\d.\\d\\d)(am|pm)";
 	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT = "h.mma";	//E.g. 1.45 pm
 	public static final String TWELVE_HOUR_WITHOUT_MINUTES_REGEX = "([1]*[0-9]{1}+)(am|pm)";
-	//	public static final String TWELVE_HOUR_WITHOUT_MINUTES_FORMAT = "ha";	//E.g. 2pm
-	//	public static final String TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_REGEX = "([1]{1}[0-2]{1})(am|pm)";
 	public static final String TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_FORMAT = "hha";
 
 	public static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
@@ -468,7 +465,6 @@ public class TaskTime {
 	 * Checks if a particular Date range is valid i.e. startDate is before endDate
 	 * @return true if range is valid, false if range is invalid
 	 */
-	//Assume both beforeDate and afterDate is dd/mm/yyyy
 	public boolean isValidDateRange(String beforeDate, String afterDate) {
 		//Checks if the 2 dates are valid
 		//Checks if beforeDate is earlier than afterDate
