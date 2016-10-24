@@ -38,8 +38,8 @@ public class AddCommand extends UndoAndRedo {
 	    TaskTime validateTime = null;
 
 	    if (time != null || startTime != null || endTime != null) {
-	//        System.out.println("Before parsing to taskTime");
-	  //      System.out.println("date is : " + date + " startDate :" + startDate + " endDate : " + endDate + " time is : " + time + " startTime : " + " endTime: " + endTime);
+	        System.out.println("Before parsing to taskTime");
+	        System.out.println("date is : " + date + " startDate :" + startDate + " endDate : " + endDate + " time is : " + time + " startTime : " + startTime +" endTime: " + endTime);
 	    	validateTime = new TaskTime(time, startTime, endTime, date, startDate, endDate);
 	    }
 	    System.out.println("I am at addCommand and validateTime is : " + validateTime);
