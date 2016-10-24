@@ -17,9 +17,9 @@ public class TaskTime {
 	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT = "h:mma"; //E.g. 1:50 pm
 	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_REGEX = "(\\d.\\d\\d)(am|pm)";
 	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT = "h.mma";	//E.g. 1.45 pm
-	public static final String TWELVE_HOUR_WITHOUT_MINUTES_REGEX = "\\d(am|pm)";
-	public static final String TWELVE_HOUR_WITHOUT_MINUTES_FORMAT = "ha";	//E.g. 2pm
-	public static final String TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_REGEX = "\\d\\d(am|pm)";
+	public static final String TWELVE_HOUR_WITHOUT_MINUTES_REGEX = "([1]*[0-9]{1}+)(am|pm)";
+	//	public static final String TWELVE_HOUR_WITHOUT_MINUTES_FORMAT = "ha";	//E.g. 2pm
+	//	public static final String TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_REGEX = "([1]{1}[0-2]{1})(am|pm)";
 	public static final String TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_FORMAT = "hha";
 
 	public static final String DATE_NUM_SLASH_WITH_YEAR_FORMAT = "dd/MM/yyyy";
@@ -55,7 +55,7 @@ public class TaskTime {
 	public final String INVALID_TIME_MESSAGE = "Entered an invalid time format";
 	public final String INVALID_TIME_RANGE_MESSAGE = "Entered an invalid time range format";
 	public final String INVALID_DATE_MESSAGE = "Entered an invalid date format";
-	public final String INVALID_DATE_RANGE_MESSAGE = "Entered and invalid date range format";
+	public final String INVALID_DATE_RANGE_MESSAGE = "Entered an invalid date range format";
 
 	private static String time = null;
 	private static String startTime = null;
@@ -63,11 +63,11 @@ public class TaskTime {
 	private static String date = null;
 	private static String startDate = null;
 	private static String endDate = null;
-	
+
 	private String todayDate = null;
 	private String tmrDate = null;
 	public TaskTime(String time, String startTime, String endTime, String date, String startDate, String endDate)  throws IllegalValueException{
-		
+
 		ListOfDateRegex = new ArrayList<String>();
 		ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_VALIDATION_REGEX);	ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_VALIDATION_REGEX);	
 		ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_MONTH_VALIDATION_REGEX);	ListOfDateRegex.add(DATE_NUM_SLASH_WITH_YEAR_SHORTENED_DAY_AND_MONTH_VALIDATION_REGEX);
@@ -82,11 +82,12 @@ public class TaskTime {
 
 		ListOfTimeRegex = new ArrayList<String>();
 		ListOfTimeRegex.add(TWELVE_HOUR_WITH_MINUTES_COLON_REGEX); ListOfTimeRegex.add(TWELVE_HOUR_WITH_MINUTES_DOT_REGEX);
-		ListOfTimeRegex.add(TWELVE_HOUR_WITHOUT_MINUTES_REGEX);	ListOfTimeRegex.add(TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_REGEX);
+		ListOfTimeRegex.add(TWELVE_HOUR_WITHOUT_MINUTES_REGEX);	//ListOfTimeRegex.add(TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_REGEX);
 
 		ListOfTimeFormat = new ArrayList<String>();
 		ListOfTimeFormat.add(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT); ListOfTimeFormat.add(TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT);
-		ListOfTimeFormat.add(TWELVE_HOUR_WITHOUT_MINUTES_FORMAT);	ListOfTimeFormat.add(TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_FORMAT);
+		//ListOfTimeFormat.add(TWELVE_HOUR_WITHOUT_MINUTES_FORMAT);
+		ListOfTimeFormat.add(TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_FORMAT);
 
 		if(!isValidDate(date)) {
 			throw new IllegalValueException(INVALID_DATE_MESSAGE);
@@ -141,6 +142,8 @@ public class TaskTime {
 		}else {
 			for(int j=0 ; j < ListOfTimeRegex.size() ; j ++) {
 				if(reqTime.matches(ListOfTimeRegex.get(j))) {
+					System.out.println("ListOfTimeRegex.get(j): " + ListOfTimeRegex.get(j));
+					System.out.println("ListOfTimeFormat.get(j): " + ListOfTimeFormat.get(j));
 					return isValidTimeSeq(reqTime, ListOfTimeFormat.get(j));
 				}
 			}
@@ -194,27 +197,29 @@ public class TaskTime {
 				return true;
 			}
 		}
-		//checks for todayDate gets current time and compare with input time, returns false if invalid
-		else if(date.toLowerCase().equals("today")) {
-			if(currEarlierThanInput){
+		else if(date != null) {
+			//checks for todayDate gets current time and compare with input time, returns false if invalid
+			if(date.toLowerCase().equals("today")) {
+				if(currEarlierThanInput){
+					DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
+					Calendar cal = Calendar.getInstance();
+					String taskDate = dateFormat.format(cal.getTime()); //Gets today's date
+					date = taskDate;
+					time = reqTime;
+					return true;
+				}
+				else
+					return false;
+			}
+			//Performs a normal check
+			else if(date.toLowerCase().equals("tomorrow")) {
 				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
 				Calendar cal = Calendar.getInstance();
-				String taskDate = dateFormat.format(cal.getTime()); //Gets today's date
-				date = taskDate;
+				cal.add(Calendar.DATE, 1);
+				date = dateFormat.format(cal.getTime());
 				time = reqTime;
 				return true;
 			}
-			else
-				return false;
-		}
-		//Performs a normal check
-		else if(date.toLowerCase().equals("tomorrow")) {
-			DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
-			Calendar cal = Calendar.getInstance();
-			cal.add(Calendar.DATE, 1);
-			date = dateFormat.format(cal.getTime());
-			time = reqTime;
-			return true;
 		}
 		//E.g. add "Sth" on 22/10/2016 to 23/10/2016 (date has been checked if its valid) at 8pm
 		//I.e. date is null, startDate is not null, endDate is not null
@@ -222,6 +227,7 @@ public class TaskTime {
 			time = reqTime;
 			return true;
 		}
+		return false;
 	}
 	/**
 	 * Checks if a particular time range is valid i.e. startTime is before endTime
@@ -236,6 +242,7 @@ public class TaskTime {
 		//Third check for whether the beforeTime is indeed before the afterTime
 
 		//Means that there is not timeRange
+
 		if(beforeTime == null && afterTime == null && time != null) {
 			return true;
 		}
@@ -340,6 +347,7 @@ public class TaskTime {
 	 * @return true if valid, else return false
 	 */
 	public boolean isValidDate(String reqDate) {
+		System.out.println("Entered is ValidDate");
 		if(reqDate == null) {
 			return true;
 		}
@@ -378,11 +386,18 @@ public class TaskTime {
 		}
 
 		//Second check : whether if this date is of the past
+		Calendar d = new GregorianCalendar();
+		d.set(Calendar.HOUR_OF_DAY, 23);
+		d.set(Calendar.MINUTE, 59);
+		d.set(Calendar.SECOND, 59);
+		tempDate = d.getTime();
 		Calendar c = new GregorianCalendar();
-		c.set(Calendar.HOUR_OF_DAY, 23);
-		c.set(Calendar.MINUTE, 59);
-		c.set(Calendar.SECOND, 59);
+		c.set(Calendar.HOUR_OF_DAY, 00);
+		c.set(Calendar.MINUTE, 00);
+		c.set(Calendar.SECOND, 00);
 		Date currDate = c.getTime();
+		System.out.println("curr date is " + currDate);
+		System.out.println("tempDate is : " + tempDate);
 		if(currDate.compareTo(tempDate) > 0) {
 			return false;
 		}
@@ -427,6 +442,7 @@ public class TaskTime {
 	public boolean isValidDateRange(String beforeDate, String afterDate) {
 		//Checks if the 2 dates are valid
 		//Checks if beforeDate is earlier than afterDate
+		System.out.println("Entered Valid date range");
 		if(beforeDate == null && afterDate == null) {
 			return true;
 		}
@@ -439,6 +455,7 @@ public class TaskTime {
 			finishDate = sdf.parse(afterDate);
 			if(beginDate.before(finishDate)) {
 				validDateRange = true;
+				System.out.println(validDateRange);
 			}
 		} catch (ParseException e) {
 			return false;
