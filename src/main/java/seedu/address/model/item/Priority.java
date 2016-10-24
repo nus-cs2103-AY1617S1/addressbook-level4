@@ -8,7 +8,7 @@ public enum Priority {
     /**
      * Converts given String into Priority
      */
-    public static Priority stringToPriority(String priorityString) {
+    public static Priority convertStringToPriority(String priorityString) {
         assert priorityString != null;
         
         switch (priorityString) {
