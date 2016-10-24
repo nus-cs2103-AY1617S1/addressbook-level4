@@ -91,20 +91,55 @@ public class Time {
     }
     
     public boolean isToday(String date) {
+    	Calendar cal = Calendar.getInstance();
     	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-    	if (date.equals(dateFormat.format(time.getTime()))){
+    	if (date.equals(dateFormat.format(cal.getTime()))){
     		return true;
     	}
     	return false;
     }
     
     public boolean isTomorrow(String date) {
-    	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-    	time.add(Calendar.DATE, 1);
-    	if(date.equals(dateFormat.format(time.getTime()))) {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, 1);
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    	
+    	if(date.equals(dateFormat.format(cal.getTime()))) {
     		return true;
     	}
     	return false;
+    }
+    
+    public boolean isUpcoming(String date) {
+    	Calendar cal = Calendar.getInstance();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+		
+		String d0 = dateFormat.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1);
+		String d1 = dateFormat.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1);
+		String d2 = dateFormat.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1);
+		String d3 = dateFormat.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1);
+		String d4 = dateFormat.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1);
+		String d5 = dateFormat.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1);
+		String d6 = dateFormat.format(cal.getTime());
+		
+		if (date.equals(d0) || date.equals(d1) || date.equals(d2) || date.equals(d3) || date.equals(d4) ||
+				date.equals(d5) || date.equals(d6)) {
+			return true;
+		}
+		
+		return false;
     }
 
     
