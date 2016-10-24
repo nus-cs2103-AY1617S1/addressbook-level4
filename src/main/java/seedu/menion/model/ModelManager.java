@@ -11,10 +11,13 @@ import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
 import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.menion.model.TaskComparator;
 
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * Represents the in-memory model of the activity manager data. All changes to

@@ -70,7 +70,8 @@ public class AddCommand extends Command {
             this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime, status);
         }
     }
-
+    
+    //@@author A0146752B
     @Override
     public CommandResult execute() {
     	assert model != null;
