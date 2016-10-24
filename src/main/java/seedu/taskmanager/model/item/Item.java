@@ -1,3 +1,4 @@
+//@@author A0140060A-reused
 package seedu.taskmanager.model.item;
 
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
@@ -87,35 +88,19 @@ public class Item implements ReadOnlyItem {
         return name;
     }
 
-    public void setName(Name name) {
-        this.name = name;
-    }
-    
     @Override
     public ItemDate getStartDate() {
         return startDate;
     }
     
-    public void setStartDate(ItemDate startDate) {
-        this.startDate = startDate;
-    }
-
     @Override
     public ItemTime getStartTime() {
         return startTime;
-    }    
-    
-    public void setStartTime(ItemTime startTime) {
-        this.startTime = startTime;
-    }
+    }   
     
     @Override
     public ItemDate getEndDate() {
         return endDate;
-    }
-
-    public void setEndDate(ItemDate endDate) {
-        this.endDate = endDate;
     }
     
     @Override
@@ -123,10 +108,28 @@ public class Item implements ReadOnlyItem {
         return endTime;
     }
     
+    //@@author A0140060A
+    public void setName(Name name) {
+        this.name = name;
+    }
+    
+    public void setStartDate(ItemDate startDate) {
+        this.startDate = startDate;
+    } 
+    
+    public void setStartTime(ItemTime startTime) {
+        this.startTime = startTime;
+    }
+    
+    public void setEndDate(ItemDate endDate) {
+        this.endDate = endDate;
+    }
+    
     public void setEndTime(ItemTime endTime) {
         this.endTime = endTime;
     }
     
+    //@@author
     @Override
     public boolean getDone() {
         return done;
@@ -141,7 +144,8 @@ public class Item implements ReadOnlyItem {
     public void setUndone() {
         done = false;
     }
-    
+
+    //@@author A0140060A-reused    
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);

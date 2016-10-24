@@ -11,17 +11,19 @@ public class ItemTime {
     public static final String TIME_FORMAT = "HH:mm";
     public static final String MESSAGE_TIME_CONSTRAINTS = "Time input must be in HH:MM";
     public static final String TIME_VALIDATION_REGEX = "(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])";
+
+    //@@author A0140060A
     public static final String EMPTY_TIME = "";
 
     public final String value;
 
     /**
-     * Validates given time.
-     *
+     * Convenience constructor for empty ItemTime
      */
     public ItemTime() {
         value = EMPTY_TIME;
     }
+    //@@author A0140060A
     
     /**
      * Validates given time.
