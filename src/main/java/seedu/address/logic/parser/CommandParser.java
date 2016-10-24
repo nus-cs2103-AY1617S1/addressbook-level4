@@ -160,15 +160,7 @@ public class CommandParser {
    	 	index = Integer.parseInt(indexNum);
    	 	String[] split = args.substring(2).split("-reset");
 
-   	 	String argsTrimmed = " " + split[0];
-/*
-   	 	String taskName = null;
-        String startDate = null;
-        String endDate = null;
-        String rate = null;
-        String timePeriod = null;
-        String priority = null;  
-*/        
+   	 	String argsTrimmed = " " + split[0];        
         String resetField = null;
 
         logger.finer("Entering CommandParser, prepareEdit()");
@@ -182,9 +174,6 @@ public class CommandParser {
             HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareEdit(argsTrimmed);
             
             logger.finer("Exiting CommandParser, prepareEdit()");
-            /*logger.log(Level.FINEST, "taskName, startDate, endDate, rate, timePeriod and "
-                    + "priority have these values respectively:", 
-                    new Object[] {taskName, startDate, endDate, rate, timePeriod, priority});*/
             
             if(split.length == 2){
                	resetField = split[1];

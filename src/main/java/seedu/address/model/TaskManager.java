@@ -108,14 +108,19 @@ public class TaskManager implements ReadOnlyTaskManager {
 			RecurrenceRate recurrenceRate) {
 		
 		Task currTask = undoneTasks.getTask(floatingTask);
-		currTask.setName(name);
+		setCurrentTask(name, startDate, endDate, priority, recurrenceRate, currTask);
+		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);
+		undoneTasks.sort();
+	}
+
+    private void setCurrentTask(Name name, Date startDate, Date endDate, Priority priority,
+            RecurrenceRate recurrenceRate, Task currTask) {
+        currTask.setName(name);
 		currTask.setStartDate(startDate);
 		currTask.setEndDate(endDate);
 		currTask.setPriority(priority);
 		currTask.setRecurrence(recurrenceRate);
-		undoneTasks.set(undoneTasks.getIndex(currTask), currTask);
-		undoneTasks.sort();
-	}
+    }
 	
 //// util methods
 

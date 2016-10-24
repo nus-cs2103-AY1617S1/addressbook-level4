@@ -19,11 +19,11 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUC
 public class EditCommandTest extends AddressBookGuiTest {
     
     @Test
-    public void edit() {
-
+    public void edit() {    	
+    	
         TestTask[] currentList = td.getTypicalTasks();
         assertClearCommandSuccess();
-       
+
         TestTask aliceTask = new TestTask(td.alice);
         assertAddSuccess(aliceTask);
         
@@ -86,9 +86,31 @@ public class EditCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("edit " + 10 + " " + "testing");
         assertResultMessage("The item index provided is invalid");
 
+        
     }
-
-    
+/*
+    @Test
+    public void editCheckSort() {
+        TestTask[] currentList = td.getTypicalTasks();
+        TestTask personToAdd = td.hoon;
+ //       assertAddSuccess(personToAdd, currentList);
+ //       currentList = TestUtil.addFloatingTasksToList(currentList, personToAdd);
+        
+        commandBox.runCommand("edit 2 Call Alice from 2pm to 3pm repeat every day -high");
+        personToAdd.setName(new Name("Call Alice"));
+        personToAdd.setStartDate(DateTime.convertStringToDate("2pm"));
+        personToAdd.setEndDate(DateTime.convertStringToDate("3pm"));
+        try {
+        	personToAdd.setRecurrence(new RecurrenceRate("1", "day"));
+        } catch (IllegalValueException e) {
+            assert false : "The test data provided cannot be invalid";
+        }
+        personToAdd.setPriority(Priority.HIGH);        
+        
+        assertTrue(personListPanel.isListMatching(currentList));
+        
+    }
+    */
     private void assertAddSuccess(TestTask personToAdd, TestTask... currentList) {
         commandBox.runCommand(personToAdd.getAddCommand());
 
