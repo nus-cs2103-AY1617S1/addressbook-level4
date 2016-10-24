@@ -122,7 +122,7 @@ public class MainWindow extends UiPart {
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, history);
-        commandBox2 = CommandBox2.load(primaryStage, getCommandBox2Placeholder(), logic, history);
+        commandBox2 = CommandBox2.load(primaryStage, getCommandBox2Placeholder(), resultDisplay, logic, history);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
