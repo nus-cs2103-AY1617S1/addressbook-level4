@@ -48,22 +48,31 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         assertTaskEditBothDateTimeSuccess(task, 1, "10-10-2016 1000");
 
         // Edit From Date - For Event
-        assertEventEditDateTimeSuccess(event, 1, "30-11-1994");
+        assertEventEditFromDateTimeSuccess(event, 1, "30-11-1994");
        
         // Edit From Time - For Event
-        assertEventEditDateTimeSuccess(event, 1, "2359");
-        
+        assertEventEditFromDateTimeSuccess(event, 1, "2359");
+
         // Edit Both, From Date/Time - For Event
-        assertEventEditDateTimeSuccess(event, 1, "01-01-2016 1000");
+        assertEventEditFromDateTimeSuccess(event, 1, "01-01-2016 1000");
+        
         // Edit To Date - For Event
+        assertEventEditToDateTimeSuccess(event, 1, "20-02-2016");
         
         // Edit to Time - For Event. 
-        
+        assertEventEditToDateTimeSuccess(event, 1, "1200");
+
         // Edit Both, To Date/Time - For Event
+        assertEventEditToDateTimeSuccess(event, 1, "02-02-2016 1100");
+       
         
-        
-        // Edit invalid to/From date& Time. 
+        // Current from: 01-01-2016 1000. Current to: 02-02-2016 1100.
+        // Edit invalid to/From date& Time.
         // From date/time cannot be after than to date/time. - For Event
+        assertinvalidEventFromDateTime(event, 1, "02-02-2016, 1101");
+        assertinvalidEventFromDateTime(event, 1, "03-02-2016, 1100");
+        assertinvalidEventToDateTime(event, 1, "01-01-2016 0959");
+        assertinvalidEventtoDateTime(event, 1, "02-01-2016 100");
         
         // Edit with invalid params for date/time
         // Edit with invalid params for note 
@@ -157,13 +166,24 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, task));
     }
     
-    private void assertEventEditDateTimeSuccess(TestActivity event, int index, String changes) {
-        commandBox.runCommand(event.getEditEventDateTimeCommand(index, changes));
+    private void assertEventEditFromDateTimeSuccess(TestActivity event, int index, String changes) {
+        commandBox.runCommand(event.getEditEventFromDateTimeCommand(index, changes));
         event = activityListPanel.returnsUpdatedEvent(event.getActivityName().fullName);
         EventCardHandle editedCard = activityListPanel.navigateToEvent(event);
         assertEventMatching(event, editedCard);
         
         // Confirms the result message is correct
         assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, event));
+    }
+    
+    private void assertEventEditToDateTimeSuccess(TestActivity event, int index, String changes) {
+        commandBox.runCommand(event.getEditEventToDateTimeCommand(index, changes));
+        event = activityListPanel.returnsUpdatedEvent(event.getActivityName().fullName);
+        EventCardHandle editedCard = activityListPanel.navigateToEvent(event);
+        assertEventMatching(event, editedCard);
+        
+        // Confirms the result message is correct
+        assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, event));
+        
     }
 }
