@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.savvytasker.logic.commands.Command;
+import seedu.savvytasker.logic.commands.HelpCommand;
 import seedu.savvytasker.logic.commands.IncorrectCommand;
 import seedu.savvytasker.model.alias.AliasSymbol;
 
@@ -27,7 +28,7 @@ public class MasterParser {
     public Command parse(String userInput) {
         String[] pieces = preprocessInitial(userInput.trim());
         if (pieces == null) 
-            return new IncorrectCommand(userInput, MESSAGE_UNKNOWN_COMMAND);
+            return new IncorrectCommand(userInput, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         
         String header = pieces[0];
         String body = pieces[1];
@@ -42,8 +43,7 @@ public class MasterParser {
         try {
             return parser.parse(combined);
         } catch (ParseException pe) {
-            return new IncorrectCommand(combined, String.format(
-                    MESSAGE_INVALID_COMMAND_FORMAT, pe.getFailureDetails()));
+            return new IncorrectCommand(combined, String.format(pe.getFailureDetails()));
         }
     }
     

@@ -8,6 +8,7 @@ import java.util.Arrays;
  * they act on.
  */
 public class IndexParser {    
+    public static String INDEX_MUST_BE_POSITIVE = "Must be positive whole numbers.";
     /**
      * Parses a single index.
      * 
@@ -65,7 +66,7 @@ public class IndexParser {
         }
         
         if (parseError)
-            throw new ParseException(trimmedIndicesText, "Must be positive whole numbers.");
+            throw new ParseException(trimmedIndicesText, INDEX_MUST_BE_POSITIVE);
             
         return indices;
     }
