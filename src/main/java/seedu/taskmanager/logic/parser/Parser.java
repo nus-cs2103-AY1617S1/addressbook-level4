@@ -439,24 +439,25 @@ public class Parser {
                 try {
                     List<String> tags = argsTokenizer.getAllValues(tagsPrefix).orElse(null);
                     
-                    logger.fine("Before remove tags check");
+                    logger.info("Before remove tags check");
                     if (tags != null) {
                         for (String tag : tags) {
-                            assert tag.length() > 0;
-                            if (isATagToBeRemoved(tag)) {
-                                if (tagsToRemove == null) {
-                                    tagsToRemove = new ArrayList<String>();
+                            if (tag.length() > 0) {
+                                if (isATagToBeRemoved(tag)) {
+                                    if (tagsToRemove == null) {
+                                        tagsToRemove = new ArrayList<String>();
+                                    }
+                                    
+                                    assert tagsToRemove instanceof ArrayList<?>;
+                                    tagsToRemove.add(processTagToBeRemoved(tag));
+                                } else {
+                                    if (tagsToAdd == null) {
+                                        tagsToAdd = new ArrayList<String>();
+                                    }
+                                    
+                                    assert tagsToAdd instanceof ArrayList<?>;
+                                    tagsToAdd.add(tag);
                                 }
-                                
-                                assert tagsToRemove instanceof ArrayList<?>;
-                                tagsToRemove.add(processTagToBeRemoved(tag));
-                            } else {
-                                if (tagsToAdd == null) {
-                                    tagsToAdd = new ArrayList<String>();
-                                }
-                                
-                                assert tagsToAdd instanceof ArrayList<?>;
-                                tagsToAdd.add(tag);
                             }
                         }
                     }
