@@ -1,5 +1,9 @@
 package seedu.todoList.model.task.attributes;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
 /**
@@ -57,10 +61,14 @@ public class StartTime {
     /**
      * Returns if a given string is a valid event start time.
      */
-    public static boolean isValidStartTime(String starttime) {   
+    public static boolean isValidStartTime(String starttime) { 
+        //Time object
+        DateFormat df = new SimpleDateFormat("HH:mm");
+        Date timeobj = new Date();
         String[] stimeArr = starttime.split(":");
+        String[] curTime = df.format(timeobj).split(":");
         boolean checkTime = true;
-        if(Integer.parseInt(stimeArr[0]) > 23 || Integer.parseInt(stimeArr[1]) > 59){
+        if(Integer.parseInt(stimeArr[0]) > 23 || Integer.parseInt(stimeArr[1]) > 59 || Integer.parseInt(stimeArr[0]) < Integer.parseInt(curTime[0]) || Integer.parseInt(stimeArr[1]) < Integer.parseInt(curTime[1])){
             checkTime = false;
         }
         
