@@ -3,12 +3,14 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane styleClass="anchor-pane-with-border" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tars.ui.InformationHeader">
     <stylesheets>
@@ -40,7 +42,14 @@
                                     <Insets left="20.0" right="5.0" />
                                  </padding>
                               </Label>
-                              <Label contentDisplay="CENTER" text="Upcoming" styleClass="info-header.labeL"/>
+                              <Label contentDisplay="CENTER" styleClass="info-header.labeL" text="Upcoming">
+                                 <tooltip>
+                                    <Tooltip fx:id="upcomingTip" text="For the coming week">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Tooltip>
+                                 </tooltip></Label>
                            </children>
                         </HBox>
                      </children>
@@ -53,14 +62,21 @@
                                  <padding>
                                     <Insets right="5.0" />
                                  </padding></Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Overdue" styleClass="info-header.labeL" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" styleClass="info-header.labeL" text="Overdue">
+                                 <tooltip>
+                                    <Tooltip fx:id="overdueTip" text="Undone tasks with end date before today">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Tooltip>
+                                 </tooltip></Label>
                            </children>
                         </HBox>
                      </children>
                   </VBox>
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <children>
-                        <Label fx:id="date" alignment="CENTER" contentDisplay="CENTER" text="\$date" textAlignment="RIGHT" styleClass="info-header.labeL">
+                        <Label fx:id="date" alignment="CENTER" contentDisplay="CENTER" styleClass="info-header.labeL" text="\$date" textAlignment="RIGHT">
                           <padding>
                             <Insets right="15.0" />
                          </padding>

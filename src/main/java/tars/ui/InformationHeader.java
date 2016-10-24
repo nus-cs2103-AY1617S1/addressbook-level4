@@ -11,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -44,6 +45,10 @@ public class InformationHeader extends UiPart {
     private Label numUpcoming;
     @FXML
     private Label numOverdue;
+    @FXML
+    private Tooltip upcomingTip;
+    @FXML
+    private Tooltip overdueTip;
 
 
     public static InformationHeader load(Stage primaryStage, AnchorPane placeHolder
