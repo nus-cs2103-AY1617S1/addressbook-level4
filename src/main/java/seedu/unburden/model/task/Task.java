@@ -33,8 +33,10 @@ public class Task implements ReadOnlyTask {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+        System.out.println("errorfirst");
         //this.getDoneString = getDoneString;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.tags = tags; // protect internal tags from changes in the arg list
+    	System.out.println("errorlast");
     }
     
     // adds event without description 
@@ -45,7 +47,7 @@ public class Task implements ReadOnlyTask {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.tags = tags; // protect internal tags from changes in the arg list
     }
     
     // adds deadline
@@ -56,7 +58,7 @@ public class Task implements ReadOnlyTask {
 		this.date = date;
 		this.startTime = new Time("NIL");
 		this.endTime = endTime;
-		this.tags = new UniqueTagList(tags);
+		this.tags = tags;
 	}
     
     // adds deadline without task description
@@ -67,7 +69,7 @@ public class Task implements ReadOnlyTask {
 		this.date = date;
 		this.startTime = new Time("NIL");
 		this.endTime = endTime;
-		this.tags = new UniqueTagList(tags);
+		this.tags = tags;
 	}
     
     // adds deadline without task description and time
@@ -78,7 +80,7 @@ public class Task implements ReadOnlyTask {
 		this.date = date;
 		this.startTime = new Time("NIL");
 		this.endTime = new Time("NIL");
-		this.tags = new UniqueTagList(tags);
+		this.tags = tags;
 	}
     
     // adds deadline without task description and date
@@ -89,7 +91,7 @@ public class Task implements ReadOnlyTask {
 		this.date = new Date("NIL");
 		this.startTime = new Time("NIL");
 		this.endTime = endTime;
-		this.tags = new UniqueTagList(tags);
+		this.tags = tags;
 	}
     
     // adds deadline without date
@@ -100,7 +102,7 @@ public class Task implements ReadOnlyTask {
 		this.date = new Date("NIL");
 		this.startTime = new Time("NIL");
 		this.endTime = endTime;
-		this.tags = new UniqueTagList(tags);
+		this.tags = tags;
 	}
     // adds deadline without time
     public Task(Name name, TaskDescription taskD, Date date, UniqueTagList tags) throws IllegalValueException {
@@ -110,7 +112,7 @@ public class Task implements ReadOnlyTask {
 		this.date = date;
 		this.startTime = new Time("NIL");
 		this.endTime = new Time ("NIL");
-		this.tags = new UniqueTagList(tags);
+		this.tags = tags;
 	}
     
     // adds floating Task 
@@ -121,7 +123,7 @@ public class Task implements ReadOnlyTask {
 		this.date = new Date("NIL");
 		this.startTime = new Time("NIL");
 		this.endTime = new Time("NIL");
-		this.tags = new UniqueTagList(tags);
+		this.tags = tags;
 	}
 
     // adds floating task without task description
@@ -132,7 +134,7 @@ public class Task implements ReadOnlyTask {
 		this.date = new Date("NIL");
 		this.startTime = new Time("NIL");
 		this.endTime = new Time("NIL");
-		this.tags = new UniqueTagList(tags);
+		this.tags = tags;
 	}
 	
 	

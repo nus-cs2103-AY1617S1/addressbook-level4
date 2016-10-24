@@ -77,7 +77,13 @@ public class AddCommand extends Command {
 
 		switch (mode) {
 		case "event with everything":
-			new Task(new Name(details.get(0)), new TaskDescription(details.get(1)), new Date(details.get(2)),
+			System.out.println("addcommand");
+			System.out.println("name" + details.get(0));
+			System.out.println("taskD" + details.get(1));
+			System.out.println("date" + details.get(2));
+			System.out.println("startTime" + details.get(3));
+			System.out.println("endTime" + details.get(4));
+			this.toAdd = new Task(new Name(details.get(0)), new TaskDescription(details.get(1)), new Date(details.get(2)),
 					new Time(details.get(3)), new Time(details.get(4)), new UniqueTagList(tagSet));
 			break;
 
@@ -87,7 +93,7 @@ public class AddCommand extends Command {
 			break;
 
 		case "deadline":
-			new Task(new Name(details.get(0)), new TaskDescription(details.get(1)), new Date(details.get(2)),
+			this.toAdd = new Task(new Name(details.get(0)), new TaskDescription(details.get(1)), new Date(details.get(2)),
 					new Time(details.get(3)), new UniqueTagList(tagSet));
 			break;
 
@@ -122,7 +128,6 @@ public class AddCommand extends Command {
 		default:
 			this.toAdd = new Task(new Name(details.get(0)), new UniqueTagList(tagSet));
 		}
-
 	}
 
 	@Override

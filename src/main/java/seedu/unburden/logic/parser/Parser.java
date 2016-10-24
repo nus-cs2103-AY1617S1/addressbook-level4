@@ -197,6 +197,7 @@ public class Parser {
 
 		try {
 			if (matcher0.matches()) {
+				System.out.println("parser");
 				details.add(matcher0.group("name"));
 				details.add(matcher0.group("taskDescriptions"));
 				details.add(matcher0.group("date"));
@@ -269,11 +270,11 @@ public class Parser {
 						getTagsFromArgs(matcher6.group("tagArguments")));
 
 			} else if (matcher7.matches()) {
-				details.add(matcher6.group("name"));
+				details.add(matcher7.group("name"));
+				details.add(matcher7.group("taskDescriptions"));
 				details.add(matcher7.group("date"));
-				details.add(matcher6.group("taskDescriptions"));
 				return new AddCommand("deadline without time", details,
-						getTagsFromArgs(matcher6.group("tagArguments")));
+						getTagsFromArgs(matcher7.group("tagArguments")));
 
 			} else if (matcher8.matches()) {
 				details.add(matcher8.group("name"));
@@ -285,7 +286,7 @@ public class Parser {
 					details.add(matcher9.group("name").replaceAll("(?i)" + Pattern.quote(byToday), ""));
 					details.add(dateFormatter.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
-							getTagsFromArgs(matcher8.group("tagArguments")));
+							getTagsFromArgs(matcher9.group("tagArguments")));
 
 					/*
 					 * return new
