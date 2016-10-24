@@ -36,4 +36,6 @@ public interface Model {
     /** Updates the filter of the filtered task list to show tasks with clashing deadlines
      * @throws DuplicateTaskException */
     void updateFilteredListToShowClashing() throws DuplicateTaskException;
+
+	void updateFilteredListToShowIncompleteTask() throws DuplicateTaskException;
 }
