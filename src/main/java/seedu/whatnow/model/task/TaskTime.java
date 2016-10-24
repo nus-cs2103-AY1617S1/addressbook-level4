@@ -88,20 +88,26 @@ public class TaskTime {
 		ListOfTimeFormat.add(TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT); ListOfTimeFormat.add(TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT);
 		//ListOfTimeFormat.add(TWELVE_HOUR_WITHOUT_MINUTES_FORMAT);
 		ListOfTimeFormat.add(TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_FORMAT);
-
+		System.out.println("At start of taskTime : " + "date is :" + date + "startDate is : " + startDate + " endDate is : " + endDate +
+				" and time is :" + time + " startTime is: " + startTime + "endTime is : " + endTime);
 		if(!isValidDate(date)) {
 			throw new IllegalValueException(INVALID_DATE_MESSAGE);
 		}
+		System.out.println("At start of taskTime 2 : " + "date is :" + date + "startDate is : " + startDate + " endDate is : " + endDate +
+				" and time is :" + time + " startTime is: " + startTime + "endTime is : " + endTime);
 		if(!isValidDateRange(startDate, endDate)) {
 			throw new IllegalValueException(INVALID_DATE_RANGE_MESSAGE);
 		}
+		System.out.println("At start of taskTime 3 : " + "date is :" + date + "startDate is : " + startDate + " endDate is : " + endDate +
+				" and time is :" + time + " startTime is: " + startTime + "endTime is : " + endTime);
 		if(!isValidTime(time)) {
 			throw new IllegalValueException(INVALID_TIME_MESSAGE);
 		}
+		System.out.println("At start of taskTime 4	 : " + "date is :" + date + "startDate is : " + startDate + " endDate is : " + endDate +
+				" and time is :" + time + " startTime is: " + startTime + "endTime is : " + endTime);
 		if(!isValidTimeRange(startTime, endTime)) {
 			throw new IllegalValueException(INVALID_TIME_RANGE_MESSAGE);
 		}
-		System.out.println(getFullString());
 	}
 	public String getFullString() {
 		return (date + " " + startDate  + " " + endDate + " " + time + " " +  startTime + " " + endTime);
@@ -137,6 +143,9 @@ public class TaskTime {
 	 */
 	public boolean isValidTime(String reqTime) {
 		//i.e. not a deadline but a schedule
+
+		System.out.println("Is at validTime, startDate: " + startDate + " and endDate is : " + endDate + " date is: " + date);
+		
 		if(reqTime == null) {
 			return true;
 		}else {
@@ -174,11 +183,12 @@ public class TaskTime {
 			return false;
 		}
 		//Second check on whether this time is before the current Time
-
+		System.out.println("At is validTimeSeq, startDate: " + startDate + " and endDate is : " + endDate + " date is: " + date);
 		//This check if for e.g. input add "Sth" at 5 pm
 		//Attempts to put today's date, if current time is >  5pm, put it as tomorrow instead
 		if(startDate == null && endDate == null && date == null) {
 			//If currentTime is earlier than input time, puts today's date
+			System.out.println("Entered all is null");
 			if(!currEarlierThanInput) {
 				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
 				Calendar cal = Calendar.getInstance();
@@ -347,8 +357,9 @@ public class TaskTime {
 	 * @return true if valid, else return false
 	 */
 	public boolean isValidDate(String reqDate) {
-		System.out.println("Entered is ValidDate");
 		if(reqDate == null) {
+			System.out.println("isValidDate reqDate == null");
+			date = null;
 			return true;
 		}
 		else if(reqDate.toLowerCase().equals("today")) {
@@ -360,6 +371,7 @@ public class TaskTime {
 			return true;
 		}
 		else {
+			System.out.println("enter for loop");
 			for(int i = 0 ; i < ListOfDateFormat.size() && i < ListOfDateRegex.size(); i ++) {
 				if(reqDate.matches(ListOfDateRegex.get(i))) {
 					return isValidNumDate(reqDate, ListOfDateFormat.get(i));
@@ -396,8 +408,6 @@ public class TaskTime {
 		c.set(Calendar.MINUTE, 00);
 		c.set(Calendar.SECOND, 00);
 		Date currDate = c.getTime();
-		System.out.println("curr date is " + currDate);
-		System.out.println("tempDate is : " + tempDate);
 		if(currDate.compareTo(tempDate) > 0) {
 			return false;
 		}
@@ -442,7 +452,6 @@ public class TaskTime {
 	public boolean isValidDateRange(String beforeDate, String afterDate) {
 		//Checks if the 2 dates are valid
 		//Checks if beforeDate is earlier than afterDate
-		System.out.println("Entered Valid date range");
 		if(beforeDate == null && afterDate == null) {
 			return true;
 		}
@@ -455,7 +464,6 @@ public class TaskTime {
 			finishDate = sdf.parse(afterDate);
 			if(beginDate.before(finishDate)) {
 				validDateRange = true;
-				System.out.println(validDateRange);
 			}
 		} catch (ParseException e) {
 			return false;
