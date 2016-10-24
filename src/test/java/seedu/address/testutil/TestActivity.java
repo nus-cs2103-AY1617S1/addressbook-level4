@@ -98,7 +98,7 @@ public class TestActivity implements ReadOnlyActivity {
         sb.append("add " + this.getName().fullName + " ");
         
         if (getReminder().value != null && !getReminder().value.equals("")) {
-        sb.append("a/" + this.getReminder().value + " ");
+        sb.append("r/" + this.getReminder().value + " ");
         }
         
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
