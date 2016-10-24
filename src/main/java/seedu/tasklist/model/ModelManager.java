@@ -6,6 +6,7 @@ import seedu.tasklist.commons.core.ComponentManager;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
+import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.logic.commands.UndoCommand;
 import seedu.tasklist.model.tag.UniqueTagList;
 import seedu.tasklist.model.task.EndTime;
@@ -157,9 +158,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime,
-            EndTime endTime, Priority priority, UniqueTagList tags, String frequency)
-            throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void updateTask(Task taskToUpdate, TaskDetails taskDetails, String startTime,
+            String endTime, Priority priority, UniqueTagList tags, String frequency)
+            throws IllegalValueException {
         Task originalTask = new Task(taskToUpdate);
         taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);
         updateFilteredListToShowIncomplete();
@@ -170,7 +171,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateTaskUndo(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
-            Priority priority, UniqueTagList tags, String frequency) throws UniqueTaskList.DuplicateTaskException {
+            Priority priority, UniqueTagList tags, String frequency) throws IllegalValueException {
         taskList.updateTask(taskToUpdate, taskDetails, startTime, endTime, priority, frequency);
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
@@ -395,9 +396,9 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask person) {
-            return DateUtils.isSameDay(person.getStartTime().startTime, requestedTime)
+            return DateUtils.isSameDay(person.getStartTime().time, requestedTime)
                     || (person.getStartTime().toCardString().equals("-")
-                            && DateUtils.isSameDay(person.getEndTime().endTime, requestedTime));
+                            && DateUtils.isSameDay(person.getEndTime().time, requestedTime));
         }
     }
 

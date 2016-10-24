@@ -83,8 +83,8 @@ public class UniqueTaskList implements Iterable<Task> {
         for (Task i: internalList){
             if(i.getUniqueID()==task.getUniqueID()){
                 i.markAsIncomplete();
-                RecurringUtil.updateRecurringDate(i.getStartTime().startTime, i.getRecurringFrequency(), -1);
-                RecurringUtil.updateRecurringDate(i.getEndTime().endTime, i.getRecurringFrequency(), -1);
+                RecurringUtil.updateRecurringDate(i.getStartTime().time, i.getRecurringFrequency(), -1);
+                RecurringUtil.updateRecurringDate(i.getEndTime().time, i.getRecurringFrequency(), -1);
                 return true;
             }
         }

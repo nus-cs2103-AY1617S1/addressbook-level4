@@ -1,5 +1,8 @@
 package seedu.tasklist.testutil;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.model.TaskList;
 import seedu.tasklist.model.task.*;
@@ -52,10 +55,13 @@ public class TypicalTestTasks {
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "Some of the tasks could not be added!";
         }
+        Collections.sort(ab.getTasks());
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{task1, task2, task3, task4, task5, task6, task7, task10, task11};
+    	TestTask[] result = new TestTask[]{task1, task2, task3, task4, task5, task6, task7, task10, task11};
+    	Arrays.sort(result, (a,b)->{return a.compareTo(b);});
+        return result;
     }
 
     public TaskList getTypicalTaskList(){

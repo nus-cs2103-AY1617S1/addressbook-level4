@@ -64,13 +64,11 @@ public class PersonListPanelHandle extends GuiHandle {
 
         // Return false if the list in panel is too short to contain the given list
         if (startPosition + persons.length > personsInList.size()){
-            return false;
+        	return false;
         }
         
         // Return false if any of the persons doesn't match
         for (int i = 0; i < persons.length; i++) {
-        	System.out.println(personsInList.get(startPosition + i).getTaskDetails().taskDetails);
-        	System.out.println(persons[i].getTaskDetails().taskDetails);
             if (!personsInList.get(startPosition + i).getTaskDetails().taskDetails.equals(persons[i].getTaskDetails().taskDetails)){
                 return false;
             }
