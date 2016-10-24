@@ -36,6 +36,10 @@ public class TaskComponent {
         this.endDate = endDate;
     }
     
+    public void setTaskReferrence(Task task) {
+    	this.taskReference = task;
+    }
+    
     public TaskDate getStartDate() {
         return startDate;
     }

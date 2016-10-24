@@ -165,6 +165,8 @@ public class Task implements ReadOnlyTask {
 			}
 			needModification.update(startDate, endDate);
 		}
+		
+		getLastAppendedComponent().setTaskReferrence(this);
 	}
 	
 	@Override

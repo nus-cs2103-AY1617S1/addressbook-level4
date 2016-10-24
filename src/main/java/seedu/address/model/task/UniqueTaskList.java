@@ -219,8 +219,13 @@ public class UniqueTaskList implements Iterable<Task> {
         		
         		int componentToChange = internalComponentList.indexOf(t.getLastAppendedComponent());
         		t.updateTask(name, tags, startDate, endDate, recurringType);
-        		internalComponentList.set(componentToChange, t.getLastAppendedComponent()); // added as a stop gap measure
-        		System.out.println(internalComponentList.get(componentToChange).getStartDate().getInputDate());
+        		internalComponentList.clear();
+        		for(Task h: internalList) {
+        			System.out.println(h.getName().fullName);
+        			System.out.println(h.getTaskDateComponent().get(0).getTaskReference().getName().fullName);
+        			internalComponentList.addAll(h.getTaskDateComponent());
+        		}
+
         		taskFoundAndUpdated = true;
         	}
         }

@@ -1103,7 +1103,7 @@ public class LogicManagerTest {
     @Test
     public void execute_edit_timeSlotOccupied_notAllowed() throws Exception {
         // setup expectations
-    	Task dummyTask = new Task(new Name("dummy"), new UniqueTagList(),
+    	Task dummyTask = new Task(new Name("BLOCKED SLOT"), new UniqueTagList(),
 									new TaskDate("10 oct 2pm"), new TaskDate("10 oct 5pm"), RecurringType.NONE);
     	Task beforeModification = new Task(new Name("anything"), new UniqueTagList(),
     										new TaskDate("10 oct 10am"), new TaskDate("10 oct 12am"), RecurringType.NONE);
