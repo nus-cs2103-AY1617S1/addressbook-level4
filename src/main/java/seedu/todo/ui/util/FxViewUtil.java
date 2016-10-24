@@ -39,6 +39,7 @@ public class FxViewUtil {
         if (optionalString.isPresent()) {
             labelToDisplay.setText(optionalString.get());
         } else {
+            labelToDisplay.setText("");
             setCollapsed(nodeToHide, true);
         }
     }
