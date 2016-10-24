@@ -120,63 +120,6 @@ public class LogicManager extends ComponentManager implements Logic {
         }
         
         return undone;
-  
-        /*
-        undone = false;
-        
-        if (!undoStack.isEmpty()) {
-            String commandText = undoStack.pop();
-            String commandType[] = commandText.split(" ");
-  
-            if (commandType[0].equals("add")) {          
-                String commandTextInverse = new String("delete " + model.getFilteredTaskList().size()); //TODO: can only undo after add at end of list                              
-                Command commandInverse = parser.parse(commandTextInverse);
-                commandInverse.setData(model);
-                CommandResult tempResult = commandInverse.execute();
-            }
-            else if (commandType[0].equals("delete")){
-                String commandTextInverse = new String("add" + " " + "temporary task"); //TODO: need to find details
-                Command commandInverse = parser.parse(commandTextInverse);
-                commandInverse.setData(model);
-                CommandResult tempResult = commandInverse.execute();
-            }
-            else if (commandType[0].equals("modify")){
-                String commandTextInverse = new String("modify" + " " + commandType[0]); //TODO: need to find original
-                Command commandInverse = parser.parse(commandTextInverse);
-                commandInverse.setData(model);
-                CommandResult tempResult = commandInverse.execute();
-            }
-            else if (commandType[0].equals("alias")){
-                String commandTextInverse = new String("unalias" + " " + commandType[2]); 
-                Command commandInverse = parser.parse(commandTextInverse);
-                commandInverse.setData(model);
-                CommandResult tempResult = commandInverse.execute();
-            }
-            else if (commandType[0].equals("unalias")){
-                String commandTextInverse = new String("alias" + " " + commandType[0] + " " + commandType[1]); //TODO: need to find keyword
-                Command commandInverse = parser.parse(commandTextInverse);
-                commandInverse.setData(model);
-                CommandResult tempResult = commandInverse.execute();
-            }
-            else if (commandType[0].equals("mark")){
-                String commandTextInverse = new String("unmark" + " " + commandType[1]);             
-                Command commandInverse = parser.parse(commandTextInverse);
-                commandInverse.setData(model);
-                CommandResult tempResult = commandInverse.execute();
-            }
-            else if (commandType[0].equals("unmark")){
-                String commandTextInverse = new String("mark" + " " + commandType[1]);                
-                Command commandInverse = parser.parse(commandTextInverse);
-                commandInverse.setData(model);
-                CommandResult tempResult = commandInverse.execute();
-            }    
-            //command.undo();
-            redoStack.push(commandText);
-            undone = true;
-        }        
-        return undone;
-        
-     */   
     }
 
     private boolean redo() {

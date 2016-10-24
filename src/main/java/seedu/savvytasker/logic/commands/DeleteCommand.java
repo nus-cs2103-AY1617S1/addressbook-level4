@@ -5,9 +5,11 @@ import java.util.LinkedList;
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.logic.commands.models.DeleteCommandModel;
+import seedu.savvytasker.model.ReadOnlySavvyTasker;
+import seedu.savvytasker.model.SavvyTasker;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
-import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+//import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 /**
@@ -27,7 +29,8 @@ public class DeleteCommand extends ModelRequiringCommand {
 
     public final DeleteCommandModel commandModel;
     private LinkedList<Task> tasksToUndo = new LinkedList<Task>();
-
+    private ReadOnlySavvyTasker original;
+    
     public DeleteCommand(DeleteCommandModel commandModel) {
         assert (commandModel != null);
         this.commandModel = commandModel;
@@ -47,6 +50,8 @@ public class DeleteCommand extends ModelRequiringCommand {
             }
             tasksToDelete.add(lastShownList.get(targetIndex - 1));
         }
+        
+        original = new SavvyTasker(model.getSavvyTasker());
 
         StringBuilder resultSb = new StringBuilder();
         try {
@@ -58,6 +63,8 @@ public class DeleteCommand extends ModelRequiringCommand {
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
+        
+        
 
         return new CommandResult(resultSb.toString());
     }
@@ -73,6 +80,10 @@ public class DeleteCommand extends ModelRequiringCommand {
      */
     @Override
     public boolean redo() {
+        execute();
+        
+        /*
+         * METHOD 2
         UnmodifiableObservableList<Task> lastShownList = model.getFilteredTaskListTask();
         
         for(Task toUndo : tasksToUndo){
@@ -87,6 +98,7 @@ public class DeleteCommand extends ModelRequiringCommand {
                 }
             }
         } 
+        */
         return true;
     }
 
@@ -96,6 +108,12 @@ public class DeleteCommand extends ModelRequiringCommand {
      */
     @Override
     public boolean undo() {      
+
+        assert model != null;
+        model.resetData(original);
+        
+        /*
+         * METHOD 2
         assert model != null;
   
         for(Task deleted : tasksToUndo)
@@ -104,7 +122,7 @@ public class DeleteCommand extends ModelRequiringCommand {
         } catch (DuplicateTaskException e) {
             e.printStackTrace();
         }
-
+        */
         return true;
     }
     
