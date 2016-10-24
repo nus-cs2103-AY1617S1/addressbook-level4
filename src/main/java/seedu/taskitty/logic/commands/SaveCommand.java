@@ -11,6 +11,11 @@ import seedu.taskitty.commons.core.Config;
 import seedu.taskitty.commons.exceptions.IllegalValueException;
 
 //@@author A0135793W
+/**
+ * Saves TasKitty data to a folder specified by the user
+ * @author JiaWern
+ *
+ */
 public class SaveCommand extends Command{
     
     public static final String COMMAND_WORD = "save";
