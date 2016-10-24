@@ -33,10 +33,8 @@ public class Task implements ReadOnlyTask {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
-        System.out.println("errorfirst");
         //this.getDoneString = getDoneString;
         this.tags = tags; // protect internal tags from changes in the arg list
-    	System.out.println("errorlast");
     }
     
     // adds event without description 

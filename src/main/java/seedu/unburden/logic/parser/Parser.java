@@ -205,13 +205,7 @@ public class Parser {
 				details.add(matcher0.group("endTimeArguments"));
 				return new AddCommand("event with everything", details,
 						getTagsFromArgs(matcher0.group("tagArguments")));
-				/*
-				 * return new AddCommand(matcher0.group("name"),
-				 * matcher0.group("taskDescriptions"), matcher0.group("date"),
-				 * matcher0.group("startTimeArguments"),
-				 * matcher0.group("endTimeArguments"),
-				 * getTagsFromArgs(matcher0.group("tagArguments")));
-				 */
+				
 			}
 
 			if (matcher1.matches()) {
@@ -221,12 +215,7 @@ public class Parser {
 				details.add(matcher1.group("endTimeArguments"));
 				return new AddCommand("event without description", details,
 						getTagsFromArgs(matcher1.group("tagArguments")));
-				/*
-				 * return new AddCommand(matcher1.group("name"),
-				 * matcher1.group("date"), matcher1.group("startTimeArguments"),
-				 * matcher1.group("endTimeArguments"),
-				 * getTagsFromArgs(matcher1.group("tagArguments")));
-				 */
+				
 
 			} else if (matcher2.matches()) {
 				details.add(matcher2.group("name"));
@@ -241,21 +230,13 @@ public class Parser {
 				details.add(matcher3.group("endTimeArguments"));
 				return new AddCommand("deadline without task description", details,
 						getTagsFromArgs(matcher3.group("tagArguments")));
-				/*
-				 * return new AddCommand(matcher2.group("name"),
-				 * matcher2.group("date"),
-				 * getTagsFromArgs(matcher2.group("tagArguments")));
-				 */
+				
 			} else if (matcher4.matches()) {
 				details.add(matcher4.group("name"));
 				details.add(matcher4.group("date"));
 				return new AddCommand("deadline without task description and time", details,
 						getTagsFromArgs(matcher4.group("tagArguments")));
-				/*
-				 * return new AddCommand(matcher4.group("name"),
-				 * matcher4.group("date"), matcher4.group("endTimeArguments"),
-				 * getTagsFromArgs(matcher4.group("tagArguments")));
-				 */
+				
 			} else if (matcher5.matches()) {
 				details.add(matcher5.group("name"));
 				details.add(matcher5.group("endTimeArguments"));
@@ -288,13 +269,6 @@ public class Parser {
 					return new AddCommand("deadline without task description and time", details,
 							getTagsFromArgs(matcher9.group("tagArguments")));
 
-					/*
-					 * return new
-					 * AddCommand(matcher3.group("name").replaceAll("(?i)" +
-					 * Pattern.quote(byToday), ""),
-					 * dateFormatter.format(calendar.getTime()),
-					 * getTagsFromArgs(matcher3.group("tagArguments")));
-					 */
 				}
 
 				else if (matcher9.group("name").toLowerCase().contains(byTomorrow)) {
@@ -304,13 +278,7 @@ public class Parser {
 					details.add(dateFormatter.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
 							getTagsFromArgs(matcher9.group("tagArguments")));
-					/*
-					 * return new
-					 * AddCommand(matcher3.group("name").replaceAll("(?i)" +
-					 * Pattern.quote(byTomorrow), ""),
-					 * dateFormatter.format(calendar.getTime()),
-					 * getTagsFromArgs(matcher3.group("tagArguments")));
-					 */
+					
 				}
 
 				else if (matcher9.group("name").toLowerCase().contains(byNextWeek)) {
@@ -320,13 +288,7 @@ public class Parser {
 					details.add(dateFormatter.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
 							getTagsFromArgs(matcher9.group("tagArguments")));
-					/*
-					 * return new
-					 * AddCommand(matcher3.group("name").replaceAll("(?i)" +
-					 * Pattern.quote(byNextWeek), ""),
-					 * dateFormatter.format(calendar.getTime()),
-					 * getTagsFromArgs(matcher3.group("tagArguments")));
-					 */
+					
 				}
 
 				else if (matcher9.group("name").toLowerCase().contains(byNextMonth)) {
@@ -336,18 +298,7 @@ public class Parser {
 					details.add(dateFormatter.format(calendar.getTime()));
 					return new AddCommand("deadline without task description and time", details,
 							getTagsFromArgs(matcher9.group("tagArguments")));
-					/*
-					 * return new
-					 * AddCommand(matcher3.group("name").replaceAll("(?i)" +
-					 * Pattern.quote(byNextMonth), ""),
-					 * dateFormatter.format(calendar.getTime()),
-					 * getTagsFromArgs(matcher3.group("tagArguments")));
-					 */
-
-					/*
-					 * return new AddCommand(matcher3.group("name"),
-					 * getTagsFromArgs(matcher3.group("tagArguments")));
-					 */
+				
 
 				} else {
 					details.add(matcher9.group("name"));

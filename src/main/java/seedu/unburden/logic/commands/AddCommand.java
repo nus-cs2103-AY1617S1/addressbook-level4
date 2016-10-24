@@ -32,42 +32,6 @@ public class AddCommand extends Command {
 	 *             if any of the raw values are invalid
 	 */
 
-	/*
-	 * // adds Task Name, Task Description, Date, start time and end time of the
-	 * task (add event) public AddCommand(String name, String taskD, String
-	 * date, String startTime, String endTime, Set<String> tags) throws
-	 * IllegalValueException { final Set<Tag> tagSet = new HashSet<>(); for
-	 * (String tagName : tags) { tagSet.add(new Tag(tagName)); } this.toAdd =
-	 * new Task(new Name(name), new TaskDescription(taskD), new Date(date), new
-	 * Time(startTime), new Time(endTime), new UniqueTagList(tagSet)); }
-	 * 
-	 * // adds Task name, date, start time and end time of the task (add event
-	 * without description) public AddCommand(String name, String date, String
-	 * startTime, String endTime, Set<String> tags) throws IllegalValueException
-	 * { final Set<Tag> tagSet = new HashSet<>(); for (String tagName : tags) {
-	 * tagSet.add(new Tag(tagName)); } this.toAdd = new Task(new Name(name), new
-	 * Date(date), new Time(startTime), new Time(endTime), new
-	 * UniqueTagList(tagSet)); }
-	 * 
-	 * // adds Task name and the date (add deadline) public AddCommand(String
-	 * name, String date, Set<String> tags) throws IllegalValueException { final
-	 * Set<Tag> tagSet = new HashSet<>(); for (String tagName : tags) {
-	 * tagSet.add(new Tag(tagName)); } this.toAdd = new Task(new Name(name), new
-	 * Date(date), new UniqueTagList(tagSet)); }
-	 * 
-	 * // adds Floating task (add floating task) public AddCommand(String name,
-	 * Set<String> tags) throws IllegalValueException { final Set<Tag> tagSet =
-	 * new HashSet<>(); for (String tagName : tags) { tagSet.add(new
-	 * Tag(tagName)); } this.toAdd = new Task(new Name(name), new
-	 * UniqueTagList(tagSet)); }
-	 * 
-	 * // adds Task name with date and a specific end time (add deadline with
-	 * time) public AddCommand(String name, String date, String endTime,
-	 * Set<String> tags) throws IllegalValueException { final Set<Tag> tagSet =
-	 * new HashSet<>(); for (String tagName : tags) { tagSet.add(new
-	 * Tag(tagName)); } this.toAdd = new Task(new Name(name), new Date(date),
-	 * new Time(endTime), new UniqueTagList(tagSet)); }
-	 */
 
 	public AddCommand(String mode, ArrayList<String> details, Set<String> tags) throws IllegalValueException {
 		final Set<Tag> tagSet = new HashSet<>();
