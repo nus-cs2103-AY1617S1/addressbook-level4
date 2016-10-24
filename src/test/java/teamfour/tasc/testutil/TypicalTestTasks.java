@@ -23,12 +23,12 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            date1 = sdf.parse("23/10/2016 23:00:05");
-            date2 = sdf.parse("25/11/2016 17:32:05");
-            date3 = sdf.parse("01/12/2016 08:56:05");
-            date4 = sdf.parse("14/01/2018 20:50:05");
-            date5 = sdf.parse("02/03/2017 14:20:05");
-            date6 = sdf.parse("03/11/2016 12:04:05");
+            date1 = sdf.parse("23/10/2015 23:00:05");
+            date2 = sdf.parse("25/11/2020 17:32:05");
+            date3 = sdf.parse("01/12/2020 08:56:05");
+            date4 = sdf.parse("14/01/2022 20:50:05");
+            date5 = sdf.parse("02/03/2021 14:20:05");
+            date6 = sdf.parse("03/11/2020 12:04:05");
         
             submitPrototype =  new TaskBuilder().withName("Submit prototype")
                         .withTags("urgent").withCompleteStatus(false).build();
