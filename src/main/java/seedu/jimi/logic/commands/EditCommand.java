@@ -120,7 +120,12 @@ public class EditCommand extends Command implements TaskBookEditor {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = optionalList.get();
         
         ReadOnlyTask oldTask = lastShownList.get(actualIdx - 1);        
-        Optional<ReadOnlyTask> newTask = determineNewTask(oldTask);
+        Optional<ReadOnlyTask> newTask;
+        try {
+            newTask = determineNewTask(oldTask);
+        } catch (IllegalValueException e) {
+            return new CommandResult(e.getMessage());
+        }
         if (!newTask.isPresent()) {
             new CommandResult(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
@@ -159,8 +164,9 @@ public class EditCommand extends Command implements TaskBookEditor {
         }
     }
     
-    /** Generates the new task to replace the current task */
-    private Optional<ReadOnlyTask> determineNewTask(ReadOnlyTask oldTask) {
+    /** Generates the new task to replace the current task 
+     * @throws IllegalValueException */
+    private Optional<ReadOnlyTask> determineNewTask(ReadOnlyTask oldTask) throws IllegalValueException {
         switch (editType) {
         case REMOVE_DATES :
             return Optional.of(toFloatingTypeWithChanges(oldTask));
@@ -192,25 +198,33 @@ public class EditCommand extends Command implements TaskBookEditor {
                 t.isCompleted());
     }
 
-    /** Generates an Event with changes. */
-    private ReadOnlyTask toEventTypeWithChanges(ReadOnlyTask t) {
-        return new Event(
-                newName == null ? t.getName() : newName, 
-                t instanceof Event && eventStart == null ? ((Event) t).getStart() : eventStart, 
-                t instanceof Event && eventEnd == null ? ((Event) t).getEnd() : eventEnd,
-                newTagList == null ? t.getTags() : newTagList, 
-                t.isCompleted());
+    /** Generates an Event with changes. 
+     * @throws IllegalValueException */
+    private ReadOnlyTask toEventTypeWithChanges(ReadOnlyTask t) throws IllegalValueException {
+        DateTime newStart = t instanceof Event && eventStart == null ? 
+                ((Event) t).getStart() : eventStart;
+        DateTime newEnd =  t instanceof Event && eventEnd == null ? 
+                ((Event) t).getEnd() : eventEnd;
+        if (newStart.compareTo(newEnd) <= 0) {
+            return new Event(newName == null ? t.getName() : newName, newStart, newEnd,
+                    newTagList == null ? t.getTags() : newTagList, t.isCompleted());
+        } else {
+            throw new IllegalValueException(Messages.MESSAGE_START_END_CONSTRAINT);
+        }
     }
 
-    /** Generates a task with changes while maintaining it's task type. */
-    private ReadOnlyTask toSameTaskTypeWithChanges(ReadOnlyTask t) {
+    /** Generates a task with changes while maintaining it's task type. 
+     * @throws IllegalValueException */
+    private ReadOnlyTask toSameTaskTypeWithChanges(ReadOnlyTask t) throws IllegalValueException {
         if (t instanceof Event) {
-            return new Event(
-                    newName == null ? t.getName() : newName, 
-                    eventStart == null ? ((Event) t).getStart() : eventStart, 
-                    eventEnd == null ? ((Event) t).getEnd() : eventEnd,
-                    newTagList == null ? t.getTags() : newTagList, 
-                    t.isCompleted());
+            DateTime newStart = eventStart == null ? ((Event) t).getStart() : eventStart;
+            DateTime newEnd = eventEnd == null ? ((Event) t).getEnd() : eventEnd;
+            if (newStart.compareTo(newEnd) <= 0) {
+                return new Event(newName == null ? t.getName() : newName, newStart, newEnd,
+                        newTagList == null ? t.getTags() : newTagList, t.isCompleted());
+            } else {
+                throw new IllegalValueException(Messages.MESSAGE_START_END_CONSTRAINT);
+            }
         } else if (t instanceof DeadlineTask) {
             return new DeadlineTask(
                     newName == null ? t.getName() : newName, 
