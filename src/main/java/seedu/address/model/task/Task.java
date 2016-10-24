@@ -79,10 +79,10 @@ public class Task implements ReadOnlyTask, ModifyTask {
     }
     
     public boolean isOverdue(Date checkDate, End checkEnd) {
-    	if (checkDate.getBeforeCurrentDate() == 0){
+    	if (checkDate.isAfterCurrentDate(checkDate.toString()) == 0){
     		return true;
     	}
-    	else if ((checkDate.getBeforeCurrentDate() ==2) &&  (checkEnd.getPastEndTime()==1)){
+    	else if ((checkDate.isAfterCurrentDate(checkDate.toString()) ==2) &&  (checkEnd.isPastEndTime(checkEnd.toString()))){
     		return true;
     	}
     	else {
