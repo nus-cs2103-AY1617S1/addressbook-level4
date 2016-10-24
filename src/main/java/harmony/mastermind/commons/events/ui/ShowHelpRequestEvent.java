@@ -7,6 +7,12 @@ import harmony.mastermind.commons.events.BaseEvent;
  */
 public class ShowHelpRequestEvent extends BaseEvent {
 
+    public final String message;
+    
+    public ShowHelpRequestEvent(String msg) {
+        this.message = msg;
+    }
+    
     @Override
     public String toString() {
         return this.getClass().getSimpleName();
