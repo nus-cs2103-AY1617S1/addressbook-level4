@@ -13,6 +13,7 @@ public class TestPerson implements ReadOnlyTask {
     private Start start;
     private Date date;
     private int task_cat;
+    private int overdue;
     private UniqueTagList tags;
 
     public TestPerson() {
@@ -58,6 +59,11 @@ public class TestPerson implements ReadOnlyTask {
     @Override
     public int getTaskCategory() {
     	return task_cat;
+    }
+    
+    @Override
+    public int getOverdue(){
+    	return overdue;
     }
 
     @Override
