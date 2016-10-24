@@ -186,7 +186,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_add_invalidPersonData() throws Exception {
+    public void execute_add_invalidItemData() throws Exception {
         // Invalid ItemType
         assertCommandBehavior(
                 "add []\\[;] n/12345 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -239,7 +239,7 @@ public class LogicManagerTest {
         expectedAB.addItem(toBeAdded);
 
         // setup starting state
-        model.addItem(toBeAdded, String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded)); // person already in internal address book
+        model.addItem(toBeAdded, String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded)); // item already in internal task manager
 
         // execute command and verify result
         assertCommandBehavior(
@@ -252,10 +252,10 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_list_showsAllPersons() throws Exception {
+    public void execute_list_showsAllItems() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        TaskManager expectedAB = helper.generateAddressBook(2);
+        TaskManager expectedAB = helper.generateTaskManager(2);
         List<? extends ReadOnlyItem> expectedList = expectedAB.getItemList();
 
         // prepare address book state
@@ -270,8 +270,8 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * targeting a single item in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single item in the last shown list based on visible index.
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
@@ -283,15 +283,15 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * targeting a single item in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single item in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_ITEM_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Item> itemList = helper.generateItemList(2);
 
-        // set AB state to 2 persons
+        // set AB state to 2 items
         model.resetData(new TaskManager(), ClearCommand.MESSAGE_SUCCESS);
         for (Item p : itemList) {
             model.addItem(p, String.format(AddCommand.MESSAGE_SUCCESS, p));
@@ -312,11 +312,11 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_select_jumpsToCorrectPerson() throws Exception {
+    public void execute_select_jumpsToCorrectItem() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Item> threeItems = helper.generateItemList(3);
 
-        TaskManager expectedAB = helper.generateAddressBook(threeItems);
+        TaskManager expectedAB = helper.generateTaskManager(threeItems);
         helper.addToModel(model, threeItems);
 
         assertCommandBehavior("select 2",
@@ -340,11 +340,11 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
+    public void execute_delete_removesCorrectItem() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Item> threeItems = helper.generateItemList(3);
 
-        TaskManager expectedAB = helper.generateAddressBook(threeItems);
+        TaskManager expectedAB = helper.generateTaskManager(threeItems);
         expectedAB.removeItem(threeItems.get(1));
         helper.addToModel(model, threeItems);
 
@@ -370,7 +370,7 @@ public class LogicManagerTest {
         Item p2 = helper.generateItemWithName("KEYKEYKEY sduauo");
 
         List<Item> fourItems = helper.generateItemList(p1, pTarget1, p2, pTarget2);
-        TaskManager expectedAB = helper.generateAddressBook(fourItems);
+        TaskManager expectedAB = helper.generateTaskManager(fourItems);
         List<Item> expectedList = helper.generateItemList(pTarget1, pTarget2);
         helper.addToModel(model, fourItems);
 
@@ -389,7 +389,7 @@ public class LogicManagerTest {
         Item p4 = helper.generateItemWithName("KEy sduauo");
 
         List<Item> fourItems = helper.generateItemList(p3, p1, p4, p2);
-        TaskManager expectedAB = helper.generateAddressBook(fourItems);
+        TaskManager expectedAB = helper.generateTaskManager(fourItems);
         List<Item> expectedList = fourItems;
         helper.addToModel(model, fourItems);
 
@@ -408,7 +408,7 @@ public class LogicManagerTest {
         Item p1 = helper.generateItemWithName("sduauo");
 
         List<Item> fourItems = helper.generateItemList(pTarget1, p1, pTarget2, pTarget3);
-        TaskManager expectedAB = helper.generateAddressBook(fourItems);
+        TaskManager expectedAB = helper.generateTaskManager(fourItems);
         List<Item> expectedList = helper.generateItemList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourItems);
 
@@ -417,7 +417,6 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-
 
     /**
      * A utility class to generate test data.
@@ -438,11 +437,11 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates a valid person using the given seed.
-         * Running this function with the same parameter values guarantees the returned person will have the same state.
+         * Generates a valid item using the given seed.
+         * Running this function with the same parameter values guarantees the returned item will have the same state.
          * Each unique seed will generate a unique Item object.
          *
-         * @param seed used to generate the person data field values
+         * @param seed used to generate the item data field values
          */
         Item generateItem(int seed) throws Exception {
             String dateFormat = "MM-dd";
@@ -488,7 +487,7 @@ public class LogicManagerTest {
             }
         }
 
-        /** Generates the correct add command based on the person given */
+        /** Generates the correct add command based on the item given */
         String generateAddCommand(Item p) {
             StringBuffer cmd = new StringBuffer();
 
@@ -519,51 +518,52 @@ public class LogicManagerTest {
             return cmd.toString();
         }
 
+        //@@author A0140060A-reused
         /**
-         * Generates an AddressBook with auto-generated persons.
+         * Generates a TaskManager with auto-generated items.
          */
-        TaskManager generateAddressBook(int numGenerated) throws Exception{
-            TaskManager addressBook = new TaskManager();
-            addToAddressBook(addressBook, numGenerated);
-            return addressBook;
+        TaskManager generateTaskManager(int numGenerated) throws Exception{
+            TaskManager taskManager = new TaskManager();
+            addToTaskManager(taskManager, numGenerated);
+            return taskManager;
         }
 
         /**
-         * Generates an AddressBook based on the list of Persons given.
+         * Generates a TaskManager based on the list of Items given.
          */
-        TaskManager generateAddressBook(List<Item> items) throws Exception{
-            TaskManager addressBook = new TaskManager();
-            addToAddressBook(addressBook, items);
-            return addressBook;
+        TaskManager generateTaskManager(List<Item> items) throws Exception{
+            TaskManager taskManager = new TaskManager();
+            addToTaskManager(taskManager, items);
+            return taskManager;
         }
 
         /**
-         * Adds auto-generated Item objects to the given AddressBook
-         * @param addressBook The AddressBook to which the Persons will be added
+         * Adds auto-generated Item objects to the given TaskManager
+         * @param taskManager The TaskManager to which the Items will be added
          */
-        void addToAddressBook(TaskManager addressBook, int numGenerated) throws Exception{
-            addToAddressBook(addressBook, generateItemList(numGenerated));
+        void addToTaskManager(TaskManager taskManager, int numGenerated) throws Exception{
+            addToTaskManager(taskManager, generateItemList(numGenerated));
         }
 
         /**
-         * Adds the given list of Persons to the given AddressBook
+         * Adds the given list of Items to the given TaskManager
          */
-        void addToAddressBook(TaskManager addressBook, List<Item> itemsToAdd) throws Exception{
+        void addToTaskManager(TaskManager taskManager, List<Item> itemsToAdd) throws Exception{
             for(Item p: itemsToAdd){
-                addressBook.addItem(p);
+                taskManager.addItem(p);
             }
         }
 
         /**
          * Adds auto-generated Item objects to the given model
-         * @param model The model to which the Persons will be added
+         * @param model The model to which the Items will be added
          */
         void addToModel(Model model, int numGenerated) throws Exception{
             addToModel(model, generateItemList(numGenerated));
         }
 
         /**
-         * Adds the given list of Persons to the given model
+         * Adds the given list of Items to the given model
          */
         void addToModel(Model model, List<Item> itemsToAdd) throws Exception{
             for(Item p: itemsToAdd){
@@ -572,7 +572,7 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates a list of Persons based on the flags.
+         * Generates a list of Items based on the flags.
          */
         List<Item> generateItemList(int numGenerated) throws Exception{
             List<Item> items = new ArrayList<>();
@@ -582,8 +582,8 @@ public class LogicManagerTest {
             return items;
         }
 
-        List<Item> generateItemList(Item... persons) {
-            return Arrays.asList(persons);
+        List<Item> generateItemList(Item... items) {
+            return Arrays.asList(items);
         }
 
         /**
