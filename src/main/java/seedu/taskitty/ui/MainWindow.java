@@ -218,8 +218,8 @@ public class MainWindow extends UiPart {
     }
     
     @FXML
-    public void handleList() {
-        commandBox.handleCommands("list");
+    public void handleViewAll() {
+        commandBox.handleCommands("view all");
     }
     
     @FXML
@@ -231,6 +231,7 @@ public class MainWindow extends UiPart {
     public void handleViewDone() {
         commandBox.handleCommands("view done");
     }
+    
     
     /**
      * Closes the application.
