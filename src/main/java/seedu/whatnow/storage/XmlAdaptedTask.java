@@ -88,12 +88,6 @@ public class XmlAdaptedTask {
         }
         final Name name = new Name(this.name);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        if (this.taskDate != null)
-            return new Task(name, new TaskDate(this.taskDate), null, null, taskTime, startTime, endTime, tags, this.status, null);
-        else if (this.startDate != null)
-            return new Task(name, null, new TaskDate(this.startDate), new TaskDate(this.endDate), null, null, null, tags, this.status, null);
-        else
-            return new Task(name, null, null, null, null, null, null, tags, this.status, null);
-        //return (this.taskDate == null) ? new Task(name, tags, this.status) : new Task(name, new TaskDate(this.taskDate), tags, this.status);
+        return new Task(name, new TaskDate(taskDate), new TaskDate(startDate), new TaskDate(endDate), taskTime, startTime, endTime, tags, status, null);
     }
 }

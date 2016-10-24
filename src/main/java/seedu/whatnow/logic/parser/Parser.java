@@ -232,6 +232,7 @@ public class Parser {
 		
 		name = arguments[DESCRIPTION].trim();
 		String[] additionalArgs = null;
+		boolean validArgument = true;
 		
 		if (arguments.length > MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS) {
 			additionalArgs = arguments[arguments.length - 1].trim().split(" ");
@@ -270,6 +271,8 @@ public class Parser {
                     endTime = additionalArgs[i];
                 }
                 continue;
+            } else if (!hasDate && !hasTime) {
+                validArgument = false;
             }
 		    
 		    if (hasDate) {
@@ -317,10 +320,15 @@ public class Parser {
                         time = null;
                         endTime = additionalArgs[i];
                     }
+                } else {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 }
+                
+                hasTime = false;
             }
             
-            hasTime = false;
+            if (!validArgument)
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		
 		try {

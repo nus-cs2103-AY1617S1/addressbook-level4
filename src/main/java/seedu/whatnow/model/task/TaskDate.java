@@ -66,7 +66,7 @@ public class TaskDate {
 	            Calendar cal2 = Calendar.getInstance();
 	            cal2.add(Calendar.DATE, 1);
 	            taskDate = dateFormat2.format(cal2.getTime());
-	            fullDate= taskDate;
+	            fullDate = taskDate;
 	        }
 	    }
 	}
