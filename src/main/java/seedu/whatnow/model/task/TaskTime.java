@@ -274,7 +274,7 @@ public class TaskTime {
 			inputAfterTime = tf.parse(afterTime);
 			todayTime = tf.parse(currentTime);
 			//The following checks if the user 2 inputTime is before the currentTime
-			if(inputBeforeTime.before(todayTime) && inputAfterTime.before(todayTime)) {
+			if(inputBeforeTime.before(todayTime) || inputAfterTime.before(todayTime)) {
 				currEarlierThanInput = true;
 			}
 			//The following checks if the startTime is before endTime
