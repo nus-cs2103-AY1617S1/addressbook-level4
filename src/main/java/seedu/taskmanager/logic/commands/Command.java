@@ -15,12 +15,12 @@ public abstract class Command {
     public static final String MESSAGE_DUPLICATE_ITEM = "This item already exists in the task manager";
     
     /**
-     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
+     * Constructs a feedback message to summarise an operation that displayed a listing of items.
      *
      * @param displaySize used to generate summary
-     * @return summary message for persons displayed
+     * @return summary message for items displayed
      */
-    public static String getMessageForPersonListShownSummary(int displaySize) {
+    public static String getMessageForItemListShownSummary(int displaySize) {
         return String.format(Messages.MESSAGE_ITEMS_LISTED_OVERVIEW, displaySize);
     }
 

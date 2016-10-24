@@ -375,7 +375,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourItems);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                Command.getMessageForItemListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -394,7 +394,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourItems);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                Command.getMessageForItemListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -413,7 +413,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourItems);
 
         assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                Command.getMessageForItemListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
