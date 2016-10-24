@@ -1,11 +1,11 @@
 package guitests;
 
 import org.junit.Test;
+import seedu.todo.model.TodoList;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.CommandGeneratorUtil;
 import seedu.todo.testutil.UiTestUtil;
 
-import java.util.List;
 import java.util.Random;
 
 import static junit.framework.TestCase.assertFalse;
@@ -19,22 +19,29 @@ import static org.junit.Assert.assertTrue;
  */
 public class DeleteCommandTest extends TodoListGuiTest {
 
+    @Override
+    protected TodoList getInitialData() {
+        return getInitialDataHelper(10, 20);
+    }
+
     @Test
-    public void delete() {
-        List<ImmutableTask> initialData = initialTaskData;
-
+    public void delete_correctBoundary() {
         //delete the last item in the list
-        executeDeleteHelper(initialData.size());
+        executeDeleteHelper(initialTaskData.size());
 
-        //delete the first in the list
-        if (initialTaskData.size() > 1) {
-            executeDeleteHelper(1);
-        }
+        //delete the first in the list (note that we initialised the size to be > 2.
+        executeDeleteHelper(1);
 
-        //delete a random item in the list (if we have enough size.
-        if (initialTaskData.size() > 2) {
-            Random random = new Random();
-            executeDeleteHelper(1 + random.nextInt(initialTaskData.size() - 3));
+    }
+
+    @Test
+    public void delete_allTasks() {
+        //delete all the elements, until you have none left.
+        Random random = new Random();
+        int remainingTasks = initialTaskData.size();
+        while (remainingTasks > 0) {
+            int randomChoice = random.nextInt(remainingTasks--) + 1;
+            executeDeleteHelper(randomChoice);
         }
     }
 
@@ -51,8 +58,10 @@ public class DeleteCommandTest extends TodoListGuiTest {
      * Deletes a task from the to-do list view, and returns the deleted task for verification.
      */
     private ImmutableTask executeDeleteCommand(int displayedIndex) {
+        int listIndex = UiTestUtil.convertToListIndex(displayedIndex);
         String commandText = CommandGeneratorUtil.generateDeleteCommand(displayedIndex);
-        ImmutableTask deletedTask = todoListView.getTask(UiTestUtil.convertToListIndex(displayedIndex));
+        ImmutableTask deletedTask = todoListView.getTask(listIndex);
+
         runCommand(commandText);
         return deletedTask;
     }
