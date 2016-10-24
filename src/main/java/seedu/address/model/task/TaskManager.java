@@ -188,8 +188,14 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		// Clear old values of tasks & aliases
 		modelHistory.clearOldCopies();
 		
+		// Save the old predicate before we reassign filteredTasks
+		Predicate<? super Task> currentPredicate = filteredTasks.getPredicate();
+		
 		// Refresh the filtered tasks
 		filteredTasks = new FilteredList<>(tasks.getInternalList());
+		
+		// Reapply the predicate
+		filteredTasks.setPredicate(currentPredicate);
 		
 		// Raise the changes
 		indicateNewTaskListEvent();
@@ -227,8 +233,14 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		// Clear values of tasks & aliases that have been stored due to 'undo'
 		modelHistory.clearUndoneCopies();
 		
+		// Save the old predicate before we reassign filteredTasks
+		Predicate<? super Task> currentPredicate = filteredTasks.getPredicate();
+		
 		// Refresh the filtered tasks
 		filteredTasks = new FilteredList<>(tasks.getInternalList());
+		
+		// Reapply the predicate
+		filteredTasks.setPredicate(currentPredicate);
 		
 		// Raise the changes
 		indicateNewTaskListEvent();

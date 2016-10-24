@@ -87,7 +87,6 @@ public class TaskListPanel extends UiPart {
     @Subscribe
     public void handleNewTaskListEvent(NewTaskListEvent abce) {
     	FilteredList<Task> newTasks = abce.filteredTasks;
-		newTasks.setPredicate(p -> !p.isComplete());
 		setConnections(newTasks);
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Refreshed task list"));
     }
