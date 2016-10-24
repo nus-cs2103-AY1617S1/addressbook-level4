@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskitty.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.taskitty.ui.MainWindow">
    <stylesheets>
       <URL value="@DarkTheme.css" />
       <URL value="@Extensions.css" />
@@ -32,7 +32,7 @@
             </Menu>
             <Menu mnemonicParsing="false" text="View">
               <items>
-                <MenuItem fx:id="listMenuItem" mnemonicParsing="false" onAction="#handleViewAll" text="View All" />
+                <MenuItem fx:id="viewAllMenuItem" mnemonicParsing="false" onAction="#handleViewAll" text="View All" />
                   <MenuItem fx:id="viewDoneMenuItem" mnemonicParsing="false" onAction="#handleViewDone" text="View Done" />
               </items>
             </Menu>

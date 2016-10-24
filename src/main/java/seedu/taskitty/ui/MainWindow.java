@@ -56,7 +56,7 @@ public class MainWindow extends UiPart {
     private MenuItem undoMenuItem;
     
     @FXML
-    private MenuItem listMenuItem;
+    private MenuItem viewAllMenuItem;
     
     @FXML
     private MenuItem exitMenuItem;
@@ -125,16 +125,18 @@ public class MainWindow extends UiPart {
 
         setAccelerators();
     }
-
+    
+    //@@author A0139052L
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
         exitMenuItem.setAccelerator(KeyCombination.valueOf("Esc"));
         undoMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + U"));
-        listMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + L"));
+        viewAllMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + L"));
         clearMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + C"));
         viewDoneMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + D"));
     }
-
+    
+    //@@author
     void fillInnerParts() {
 
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(), new TodoListPanel());
@@ -212,6 +214,7 @@ public class MainWindow extends UiPart {
         primaryStage.show();
     }
     
+    //@@author A0139052L
     @FXML
     public void handleUndo() {
         commandBox.handleCommands("undo");
@@ -231,7 +234,7 @@ public class MainWindow extends UiPart {
     public void handleViewDone() {
         commandBox.handleCommands("view done");
     }
-    
+    //@@author A0139052L
     
     /**
      * Closes the application.
