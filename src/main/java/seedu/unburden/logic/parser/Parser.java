@@ -157,6 +157,7 @@ public class Parser {
 	 */
 	private Command prepareAdd(String args) {
 		Calendar calendar = Calendar.getInstance();
+		ArrayList<String> details = new ArrayList<String>();
 		final Matcher matcher0 = ADD_FORMAT_0.matcher(args.trim());
 		final Matcher matcher1 = ADD_FORMAT_1.matcher(args.trim());
 		final Matcher matcher2 = ADD_FORMAT_2.matcher(args.trim());
@@ -171,20 +172,33 @@ public class Parser {
 
 		try {
 			if (matcher0.matches()) {
-				return new AddCommand(matcher0.group("name"), matcher0.group("taskDescriptions"),
+				details.add(matcher0.group("name"));
+				details.add(matcher0.group("taskDescriptions"));
+				details.add(matcher0.group("date"));
+				details.add(matcher0.group("startTimeArguments"));
+				details.add(matcher0.group("endTimeArguments"));
+				return new AddCommand("event with everything", details, getTagsFromArgs(matcher0.group("tagArguments")));
+				/*return new AddCommand(matcher0.group("name"), matcher0.group("taskDescriptions"),
 						matcher0.group("date"), matcher0.group("startTimeArguments"),
-						matcher0.group("endTimeArguments"), getTagsFromArgs(matcher0.group("tagArguments")));
+						matcher0.group("endTimeArguments"), getTagsFromArgs(matcher0.group("tagArguments")));*/
 			}
 
 			if (matcher1.matches()) {
-				return new AddCommand(matcher1.group("name"), matcher1.group("date"),
+				details.add(matcher1.group("name"));
+				details.add(matcher1.group("date"));
+				details.add(matcher1.group("startTimeArguments"));
+				details.add(matcher1.group("endTimeArguments"));
+				return new AddCommand("event without description", details, getTagsFromArgs(matcher1.group("tagArguments")));
+				/*return new AddCommand(matcher1.group("name"), matcher1.group("date"),
 						matcher1.group("startTimeArguments"), matcher1.group("endTimeArguments"),
-						getTagsFromArgs(matcher1.group("tagArguments")));
+						getTagsFromArgs(matcher1.group("tagArguments")));*/
 			}
-
 			else if (matcher2.matches()) {
-				return new AddCommand(matcher2.group("name"), matcher2.group("date"),
-						getTagsFromArgs(matcher2.group("tagArguments")));
+				details.add(matcher2.group("name"));
+				details.add(matcher2.group("date"));
+				return new AddCommand("deadline", details, getTagsFromArgs(matcher2.group("tagArguments")));
+				/*return new AddCommand(matcher2.group("name"), matcher2.group("date"),
+						getTagsFromArgs(matcher2.group("tagArguments")));*/
 			}
 
 			else if (matcher4.matches()) {
