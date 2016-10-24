@@ -156,12 +156,15 @@ public class EditCommand extends UndoableCommand {
         if (priority == null) {
         	priority = toEdit.getPriorityValue();
         }
-                
+        
+        /*
+         * Set recurrenceRate as the previous one if it exist should the user not key in any
+         * Ensure that start date or end date exist, otherwise set recurrence as null
+         */
         if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
         	recurrenceRate = toEdit.getRecurrenceRate().get();
-        } 
-                
-        if (removeReccurence) {
+        } else if (recurrenceRate != null && !beforeEdit.getStartDate().isPresent() && !beforeEdit.getEndDate().isPresent()
+                && startDate == null && endDate == null){
             recurrenceRate = null;
         }
         

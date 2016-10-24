@@ -167,12 +167,7 @@ public class CommandParser {
         String resetField = null;
 
         logger.finer("Entering CommandParser, prepareEdit()");
-                
-        if(argsTrimmed.isEmpty()) {
-            logger.finer("Trimmed argument is empty");
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-        
+                       
         try {  
             HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareEdit(argsTrimmed);
             
@@ -192,10 +187,7 @@ public class CommandParser {
             logger.finer("IllegalValueException caught in CommandParser, prepareEdit()");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                     EditCommand.MESSAGE_USAGE + "\n" + ive.getMessage()));
-        }
-            
-        //return new EditCommand(index, taskName, startDate, endDate, rate, timePeriod, priority, resetField);
-            
+        }            
     }
 
     /**
