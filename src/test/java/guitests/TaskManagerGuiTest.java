@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for TaskManager.
  */
 public abstract class TaskManagerGuiTest {
 
