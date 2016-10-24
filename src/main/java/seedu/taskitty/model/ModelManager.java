@@ -53,7 +53,7 @@ public class ModelManager extends ComponentManager implements Model {
         allTasks = new FilteredList<Task>(taskManager.getAllTasks());
         filteredTodos = new FilteredList<Task>(taskManager.getFilteredTodos());
         filteredDeadlines = new FilteredList<Task>(taskManager.getFilteredDeadlines());
-        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());
+        filteredEvents = new FilteredList<Task>(taskManager.getFilteredEvents());
         historyTaskManagers = new Stack<ReadOnlyTaskManager>();
         historyCommands = new Stack<String>();
         historyPredicates = new Stack<Predicate>();
@@ -66,10 +66,10 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
-        allTasks = new FilteredList<>(taskManager.getAllTasks());
-        filteredTodos = new FilteredList<>(taskManager.getFilteredTodos());
-        filteredDeadlines = new FilteredList<>(taskManager.getFilteredDeadlines());
-        filteredEvents = new FilteredList<>(taskManager.getFilteredEvents());
+        allTasks = new FilteredList<Task>(taskManager.getAllTasks());
+        filteredTodos = new FilteredList<Task>(taskManager.getFilteredTodos());
+        filteredDeadlines = new FilteredList<Task>(taskManager.getFilteredDeadlines());
+        filteredEvents = new FilteredList<Task>(taskManager.getFilteredEvents());
         historyTaskManagers = new Stack<ReadOnlyTaskManager>();
         historyCommands = new Stack<String>();
         historyPredicates = new Stack<Predicate>();
@@ -211,7 +211,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
-    
+    //@@author A0130853L
     @Override
     public void updateFilteredDoneList() {
     	updateFilteredTaskList(new PredicateExpression(p -> p.getIsDone() == true));
@@ -220,10 +220,10 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void updateFilteredDateTaskList(LocalDate date, boolean hasDate) {
-		allTasks.setPredicate(p -> p.isTodo() || isDeadlineAndIsNotAfterDate(p, date) || isEventAndDateIsWithinEventPeriod(p, date));
+		allTasks.setPredicate(p -> p.isTodo() || isDeadlineAndIsNotAfterDate(p, date, hasDate) || isEventAndDateIsWithinEventPeriod(p, date));
 		filteredTodos.setPredicate(null);
 		if (hasDate) {
-			filteredDeadlines.setPredicate(p -> isDeadlineAndIsNotAfterDate(p, date));
+			filteredDeadlines.setPredicate(p -> isDeadlineAndIsNotAfterDate(p, date, hasDate));
 		}
 		else {
 		    filteredDeadlines.setPredicate(null);
@@ -231,7 +231,7 @@ public class ModelManager extends ComponentManager implements Model {
 		filteredEvents.setPredicate(p -> isEventAndDateIsWithinEventPeriod(p, date));
 	}
 	
-	
+	//@@author
     private void updateFilteredTaskList(Expression expression) {
         allTasks.setPredicate(expression::satisfies);
         filteredTodos.setPredicate(expression::satisfies);
@@ -297,14 +297,20 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    
+    //@@author A0130853L
     /**
      * Evaluates if the task is a deadline and is not after the specified date.
      * @param task
      * @param date
      * @return the evaluated boolean expression
      */
-    private boolean isDeadlineAndIsNotAfterDate(Task task, LocalDate date) {
-		return task.isDeadline() && !task.getPeriod().getEndDate().getDate().isAfter(date);
+    private boolean isDeadlineAndIsNotAfterDate(Task task, LocalDate date, boolean hasDate) {
+		if (hasDate) {
+			return task.isDeadline() && !task.getPeriod().getEndDate().getDate().isAfter(date);
+		} else {
+			return task.isDeadline();
+		}
 	}
 	/**
 	 * Evaluates if the task is an event and the specified date is within the event period.

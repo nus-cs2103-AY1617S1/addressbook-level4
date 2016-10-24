@@ -8,8 +8,9 @@ import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0130853L
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Marks a task as done identified using it's last displayed index from the task manager.
  */
 public class DoneCommand extends Command {
 
