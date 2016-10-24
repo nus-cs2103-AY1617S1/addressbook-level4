@@ -64,11 +64,17 @@ public class EditCommandTest extends TaskMasterGuiTest {
         commandBox.runCommand("edits read weblecture");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
-        //Edit a normal task to a recurring task, note the need to include a time point
+        //Edit a normal task to a recurring task
         toBeEdited = currentList[index - 1];
         toBeEdited.setRecurringType(RecurringType.MONTHLY);
         currentList[index - 1] = toBeEdited;
-        assertEditSuccess(toBeEdited, "edit 4 from 2 oct 9am to 2 oct 11am monthly", currentList);
+        assertEditSuccess(toBeEdited, "edit 4 monthly", currentList);
+        
+        //Edit it back also enabled
+        toBeEdited = currentList[index - 1];
+        toBeEdited.setRecurringType(RecurringType.NONE);;
+        currentList[index - 1] = toBeEdited;
+        assertEditSuccess(toBeEdited, "edit 4 none", currentList);
 
     }
     

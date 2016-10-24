@@ -102,7 +102,7 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^ ]+)*)"); // variable number of tags
     
     private static final Pattern RECURRING_TASK_DATA_ARGS_FORMAT = 
-            Pattern.compile("(?<recurring>\\b(?i)daily|weekly|monthly|yearly(?i)\\b)");
+            Pattern.compile("(?<recurring>\\b(?i)daily|weekly|monthly|yearly|none(?i)\\b)");
         
     private static final Pattern BLOCK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<startTime>(?:from [^/]+)(?<endTime>(?: to [^/]+)))"
@@ -249,7 +249,7 @@ public class Parser {
 
     private RecurringType checkForRecurringTask(String args) throws IllegalArgumentException {
         final Matcher matcher = RECURRING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        RecurringType recurringType = RecurringType.NONE;
+        RecurringType recurringType = RecurringType.IGNORED;
         if (!matcher.find()) {
             return recurringType;
         }
@@ -273,6 +273,7 @@ public class Parser {
     private Command prepareAddNonFloatingByDate(Matcher matcher) throws IllegalValueException {
         String endInput = matcher.group("deadline");
         RecurringType recurringType = checkForRecurringTask(endInput);
+        if(recurringType == RecurringType.IGNORED) recurringType = RecurringType.NONE;
         return new AddNonFloatingCommand(
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
@@ -293,6 +294,7 @@ public class Parser {
         String startInput = matcher.group("startTime");
         String endInput = matcher.group("endTime");
         RecurringType recurringType = checkForRecurringTask(endInput);
+        if(recurringType == RecurringType.IGNORED) recurringType = RecurringType.NONE;
         return new AddNonFloatingCommand(
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
@@ -569,7 +571,14 @@ public class Parser {
         } else if(noDateMatcherMatches) {
         	targetIndex = Integer.parseInt(noDateMatcher.group("targetIndex"));
         	taskName = noDateMatcher.group("name").replaceFirst("\\s", "");
-        	
+        	//-------Parts for detecting recurring information-----------------
+        	String[] words = taskName.split(" ");
+        	String lastWord = words[words.length - 1];
+        	recurringType = checkForRecurringTask(lastWord);
+        	if(recurringType != RecurringType.IGNORED)
+        		taskName = (words.length == 1) ? "" :
+        			taskName.substring(0, taskName.length() - lastWord.length());
+        	//-----------------------------------------------------------------
         	try {
         		tagSet = getTagsFromArgs(noDateMatcher.group("tagArguments"));
         	} catch(IllegalValueException ive) {

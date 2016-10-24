@@ -26,7 +26,7 @@ public class Task implements ReadOnlyTask {
     private TaskType taskType;
     private RecurringType recurringType;
     
-    private List<TaskComponent> recurringDates;
+    public List<TaskComponent> recurringDates;
     /**
      * Every field must be present and not null.
      */
@@ -157,18 +157,11 @@ public class Task implements ReadOnlyTask {
 			this.taskType = TaskType.NON_FLOATING;
 		}
 		
-		if(endDate != null) {
-//			System.out.println(startDate.toString());
-			TaskComponent needModification;
-			if(recurringType != RecurringType.NONE) {
-				// assume that if the recurring type is not none, they at least have endDate
-				this.recurringType = recurringType;
-				needModification = this.getLastAppendedComponent();
-			} else {
-				needModification = this.getComponentForNonRecurringType();
-			}
-			needModification.update(startDate, endDate);
-		}
+		if(endDate != null) 
+			this.getLastAppendedComponent().update(startDate, endDate);
+		
+		if(recurringType != RecurringType.IGNORED)
+			this.recurringType = recurringType; 
 		
 		getLastAppendedComponent().setTaskReferrence(this);
 	}

@@ -169,8 +169,7 @@ public class LogicManagerTest {
         assertEquals(expectedTaskList, model.getTaskMaster());
         assertEquals(expectedTaskList, latestSavedTaskList);
     }
-
-
+    
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";

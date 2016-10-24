@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -72,11 +73,6 @@ public class TaskMaster implements ReadOnlyTaskMaster {
         this.tasks.getInternalTaskList().clear();
         this.tasks.getInternalTaskList().addAll(tasks);
     }
-    
-    public void setComponents(List<TaskComponent> components) {
-    	this.tasks.getInternalComponentList().clear();
-    	this.tasks.getInternalComponentList().addAll(components);
-    }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
@@ -84,9 +80,31 @@ public class TaskMaster implements ReadOnlyTaskMaster {
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends TaskComponent> newComponents, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
-        setComponents(newComponents.stream().map(TaskComponent::new).collect(Collectors.toList()));
+        rebuildComponentList();
         setTags(newTags);
     }
+    
+    /** Rebuilds the component list based on restored tasks, 
+     * as copy constructor of task component does not work.
+     */
+	public void rebuildComponentList() {
+		this.tasks.getInternalComponentList().clear();
+        ArrayList<TaskComponent> fullList = new ArrayList<TaskComponent>();
+        for (Task task : tasks.getInternalTaskList()) {
+        	ArrayList<TaskComponent> newList = new ArrayList<TaskComponent>();
+        	for (TaskComponent c : task.getTaskDateComponent()) {
+        		TaskDate startDate = c.getStartDate();
+        		TaskDate endDate = c.getEndDate();
+	        	boolean isArchived = c.isArchived();
+	        	TaskComponent newTaskComponent = new TaskComponent(task, startDate, endDate);
+	        	if (isArchived)  newTaskComponent.archive();	        	
+	        	newList.add(newTaskComponent);
+	        	fullList.add(newTaskComponent);
+	        }
+        	task.recurringDates = newList;
+        }
+        this.tasks.getInternalComponentList().setAll(fullList);
+	}
 
     public void resetData(ReadOnlyTaskMaster newData) {
         resetData(newData.getTaskList(), newData.getTaskComponentList(), newData.getTagList());
