@@ -39,11 +39,13 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         
         // Edit Date - For Task
         assertTaskEditDateTimeSuccess(task, 1, "30-11-1994");
-        assertTaskEditDateTimeSuccess(task, 1, "2359");
         
         // Edit Time - For Task
+        assertTaskEditDateTimeSuccess(task, 1, "2359");
+
         
         // Edit Both, Date/Time - For Task
+        assertTaskEditBothDateTimeSuccess(task, 1, "10-10-2016 1000");
         
         // Edit From Date - For Event
         
@@ -129,6 +131,16 @@ public class EditCommandTest extends ActivityManagerGuiTest {
     }
     
     private void assertTaskEditDateTimeSuccess(TestActivity task, int index, String changes) {
+        commandBox.runCommand(task.getEditTaskDateTimeCommand(index, changes));
+        task = activityListPanel.returnsUpdatedTask(task.getActivityName().fullName); // Update Task with new changes
+        TaskCardHandle editedCard = activityListPanel.navigateToTask(task); // Check against card.
+        assertTaskMatching(task, editedCard);
+        
+        // Confirms the result message is correct
+        assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, task));
+    }
+    
+    private void assertTaskEditBothDateTimeSuccess(TestActivity task, int index, String changes) {
         commandBox.runCommand(task.getEditTaskDateTimeCommand(index, changes));
         task = activityListPanel.returnsUpdatedTask(task.getActivityName().fullName); // Update Task with new changes
         TaskCardHandle editedCard = activityListPanel.navigateToTask(task); // Check against card.
