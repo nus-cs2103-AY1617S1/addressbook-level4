@@ -14,10 +14,17 @@ public class TestTask implements ReadOnlyTask {
     private UniqueTagList tags;
     private String status;
     private String taskType;//todo or schedule
-    private String date;
+    private String startDate;
+    private String endDate;
+    private String startTime;
+    private String endTime;
+    
 
     public TestTask() {
-        setDate("");
+        setStartDate("");
+        setEndDate("");
+        setStartTime("");
+        setEndTime("");
         setTaskType("");
         tags = new UniqueTagList();
     }
@@ -61,12 +68,28 @@ public class TestTask implements ReadOnlyTask {
         this.taskType = taskType;
     }
 
-    public String getDate() {
-        return date;
+    public String getStartDate() {
+        return startDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public String getEndDate() {
+        return endDate;
+    }
+    
+    public void setStartDate(String date) {
+        this.startDate = date;
+    }
+    
+    public void setEndDate(String date) {
+        this.endDate = date;
+    }
+    
+    public void setStartTime(String time) {
+        this.startTime = time;
+    }
+    
+    public void setEndTime(String time) {
+        this.endTime = time;
     }
     
     @Override
@@ -77,21 +100,15 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, status, tags, taskType, date);
+        return Objects.hash(name, status, tags, taskType, startDate, endDate, startTime, endTime);
     }
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add \"" + this.getName().fullName + "\" ");
-        if (!this.getDate().equals(null) && !this.getDate().equals(""))
-            sb.append("on" + " " + this.getDate());
+        if (!this.getStartDate().equals(null) && !this.getStartDate().equals(""))
+            sb.append("on" + " " + this.getStartDate());
         this.getTags().getInternalList().stream().forEach(s -> sb.append(" t/" + s.tagName + " "));
         return sb.toString();
     }
-
-	@Override
-	public TaskDate getTaskDate() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

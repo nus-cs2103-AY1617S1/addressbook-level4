@@ -37,10 +37,16 @@ public class TaskBuilder {
         return this;
     }
     
-    public TaskBuilder withDate(String date) throws IllegalValueException {
+    public TaskBuilder withStartDate(String date) throws IllegalValueException {
         this.task.setDate(date);
         return this;
     }
+    
+    public TaskBuilder withEndDate(String date) throws IllegalValueException {
+        this.task.setDate(date);
+        return this;
+    }
+    
     
     public TestTask build() {
         return this.task;
