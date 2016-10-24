@@ -60,6 +60,9 @@ public class Parser {
 	/**
 	 * Integer Constants
 	 */
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    
 	private static final int TASK_TYPE = 0;
 	private static final int INDEX = 1;
 	private static final int ARG_TYPE = 2;
@@ -69,6 +72,10 @@ public class Parser {
 	private static final int TAG = 1;
     private static final int MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS = 2;
     private static final int NUM_OF_QUOTATION_MARKS = 2;
+    
+    private static final int TIME_WITHOUT_PERIOD = 0;
+    private static final int TIME_HOUR = 0;
+    private static final int TIME_MINUTES = 1;
     
 	private static final int LIST_ARG = 0;
     
@@ -81,6 +88,13 @@ public class Parser {
      */
 	private static final String DELIMITER_BLANK_SPACE = " ";
 	private static final String DELIMITER_DOUBLE_QUOTATION_MARK = "\"";
+	private static final String DELIMITER_BACK_SLASH = "\\";
+
+	private static final String TIME_COLON = ":";
+	private static final String TIME_DOT = ".";
+	private static final String TIME_AM = "am";
+    private static final String TIME_PM = "pm";
+    private static final String TIME_DEFAULT_MINUTES = "00";
 	
 	private static final String TASK_TYPE_FLOATING = "todo";
 	private static final String TASK_TYPE_NON_FLOATING = "schedule";
@@ -179,6 +193,32 @@ public class Parser {
 	    return count;
 	}
 
+	public static String formatTime(String time, String period, String[] splitTimePeriod, String[] splitTime) {
+	    splitTimePeriod = time.toLowerCase().split(period);
+        if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_COLON))
+            splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(TIME_COLON);
+        if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_DOT))
+            splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(DELIMITER_BACK_SLASH + TIME_DOT);
+        
+        time = (splitTime != null) ? splitTime[TIME_HOUR] : splitTimePeriod[TIME_WITHOUT_PERIOD];
+        time += TIME_COLON;
+        time += (splitTime != null) ? splitTime[TIME_MINUTES] : TIME_DEFAULT_MINUTES;
+        time += period;
+        
+        return time;
+	}
+	
+	public static String formatTime(String time) {
+	    String[] splitTimePeriod = null;
+	    String[] splitTime = null;
+	    if (time.contains(TIME_AM))
+	        time = formatTime(time, TIME_AM, splitTimePeriod, splitTime);
+        else
+            time = formatTime(time, TIME_PM, splitTimePeriod, splitTime);
+	    
+	    return time;
+	}
+	
 	/**
 	 * Parses arguments in the context of the add task command.
 	 *
@@ -186,7 +226,7 @@ public class Parser {
 	 * @return the prepared command
 	 */
 	private Command prepareAdd(String args){
-		//final Matcher matcher = TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args.trim());
+	    boolean validArgument = true;
 	    boolean hasDate = false;
         boolean hasTime = false;
         int numOfDate = 0;
@@ -199,13 +239,15 @@ public class Parser {
         String startTime = null;
         String endTime = null;
         Set<String> tags = new HashSet<String>();
+        String[] additionalArgs = null;
 		
 	    args = args.trim();
 	    
+	    //final Matcher matcher = TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args.trim());
 		// Validate the format of the arguments
-//		if (!TASK_DATA_ARGS_FORMAT.matcher(args).find() && !TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args).find()){
-//			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-//		}
+		/*if (!TASK_DATA_ARGS_FORMAT.matcher(args).find() && !TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args).find()){
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+		}*/
 	    
 	    // Check whether there are two quotation marks ""
 	    if (countOccurence(args, DELIMITER_DOUBLE_QUOTATION_MARK) != NUM_OF_QUOTATION_MARKS)
@@ -217,7 +259,7 @@ public class Parser {
 		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		
-		// E.g. add "Buy Milk"
+		// E.g. add "Without date and time"
 		if (arguments.length == MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS) {
 		    name = arguments[DESCRIPTION].trim();
 		    
@@ -231,11 +273,9 @@ public class Parser {
 		}
 		
 		name = arguments[DESCRIPTION].trim();
-		String[] additionalArgs = null;
-		boolean validArgument = true;
 		
 		if (arguments.length > MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS) {
-			additionalArgs = arguments[arguments.length - 1].trim().split(" ");
+			additionalArgs = arguments[arguments.length - 1].trim().split(DELIMITER_BLANK_SPACE);
 		}
 		
 		for (int i = 0; i < additionalArgs.length; i++) {
@@ -248,14 +288,14 @@ public class Parser {
 		        continue;
 		    }
 		    else if (TAG_FORMAT.matcher(additionalArgs[i]).find()) {
-		        String[] splitTag = additionalArgs[i].trim().split("/");
+		        String[] splitTag = additionalArgs[i].trim().split(DELIMITER_BACK_SLASH);
 		        tags.add(splitTag[TAG]);
 		        continue;
 		    } else if (!hasDate && TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
 		        numOfDate++;
-                if (numOfDate == 1) {
+                if (numOfDate == ONE) {
                     date = additionalArgs[i].toLowerCase();
-                } else if (numOfDate == 2) {
+                } else if (numOfDate == TWO) {
                     startDate = date;
                     date = null;
                     endDate = additionalArgs[i].toLowerCase();
@@ -263,10 +303,10 @@ public class Parser {
                 continue;
 		    } else if (!hasTime && TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
                 numOfTime++;
-                if (numOfTime == 1) {
+                if (numOfTime == ONE) {
                     time = additionalArgs[i].toLowerCase();
-                } else if (numOfTime == 2) {
-                    startTime = time;
+                } else if (numOfTime == TWO) {       
+                    startTime = time;      
                     time = null;
                     endTime = additionalArgs[i].toLowerCase();
                 }
@@ -278,30 +318,32 @@ public class Parser {
 		    if (hasDate) {
                 if (DATE_WITH_SLASH_FORMAT.matcher(additionalArgs[i]).find()) {
                     numOfDate++;
-                    if (numOfDate == 1) {
+                    if (numOfDate == ONE) {
                         date = additionalArgs[i];
-                    } else if (numOfDate == 2) {
+                    } else if (numOfDate == TWO) {
                         startDate = date;
                         date = null;
                         endDate = additionalArgs[i];
                     }
                 } else if (TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
                     numOfDate++;
-                    if (numOfDate == 1) {
+                    if (numOfDate == ONE) {
                         date = additionalArgs[i].toLowerCase();
-                    } else if (numOfDate == 2) {
+                    } else if (numOfDate == TWO) {
                         startDate = date;
                         date = null;
                         endDate = additionalArgs[i].toLowerCase();
                     }
                 } else if (TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
                     numOfTime++;
-                    if (numOfTime == 1) {
+                    if (numOfTime == ONE) {
                         time = additionalArgs[i].toLowerCase();
-                    } else if (numOfTime == 2) {
-                        startTime = time;
+                    } else if (numOfTime == TWO) {
+                        startTime = time;                    
                         time = null;
                         endTime = additionalArgs[i].toLowerCase();
+                        
+                        
                     }
                 } else {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -313,10 +355,10 @@ public class Parser {
             if (hasTime) {
                 if (TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
                     numOfTime++;
-                    if (numOfTime == 1) {
+                    if (numOfTime == ONE) {
                         time = additionalArgs[i].toLowerCase();
-                    } else if (numOfTime == 2) {
-                        startTime = time;
+                    } else if (numOfTime == TWO) {
+                        startTime = time;             
                         time = null;
                         endTime = additionalArgs[i].toLowerCase();
                     }
@@ -329,6 +371,11 @@ public class Parser {
             
             if (!validArgument)
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+		}
+		
+		if (startTime != null) {
+		    startTime = formatTime(startTime);
+		    endTime = formatTime(endTime);
 		}
 		
 		try {
