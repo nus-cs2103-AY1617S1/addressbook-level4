@@ -72,7 +72,7 @@ public class Parser {
             return prepareDelete(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            return new ClearCommand();
+            return prepareClear(arguments);
 
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
@@ -107,6 +107,21 @@ public class Parser {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
+    }
+    
+    private Command prepareClear(String args) {
+    	args = args.trim();
+    	
+    	if (args.equals("")) {
+    		return new ClearCommand();
+    	}
+    	
+    	else if (args.equals("done")) {
+    		return new ClearDoneCommand();
+    	}
+    	
+    	else
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ClearCommand.MESSAGE_USAGE));
     }
     
     private Command prepareShow(String args){
