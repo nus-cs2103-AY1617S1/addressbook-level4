@@ -12,7 +12,7 @@ public class ExitCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD +"\n" 
     		+ "Exit the program.\n "
-			+ "Parameters:  help [KEY_WORD]\n" + "Example: " + COMMAND_WORD + " exit";
+			+ "Example: " + COMMAND_WORD;
     
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Task Book as requested ...";
