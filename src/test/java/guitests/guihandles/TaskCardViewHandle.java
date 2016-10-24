@@ -264,7 +264,6 @@ public class TaskCardViewHandle extends GuiHandle {
         if (isTaskCollapsible()) {
             return collapsedStyleApplied == moreInfoLabelDisplayed;
         } else {
-            System.out.println("task not collp, Is more info hidden?" + !moreInfoLabelDisplayed);
             return !moreInfoLabelDisplayed;
         }
     }
