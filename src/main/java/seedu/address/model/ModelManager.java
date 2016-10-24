@@ -182,7 +182,8 @@ public class ModelManager extends ComponentManager implements Model {
                     .filter(keyword -> StringUtil.containsIgnoreCase(Task.getName().taskDetails.toLowerCase(), keyword)
                     || StringUtil.containsIgnoreCase(Task.getDate().value, keyword)
                     || StringUtil.containsIgnoreCase(Task.getStart().value, keyword)
-                    || StringUtil.containsIgnoreCase(Task.getEnd().value, keyword))
+                    || StringUtil.containsIgnoreCase(Task.getEnd().value, keyword)
+                    || StringUtil.containsIgnoreCase(Task.getTags().toString(), keyword))
                     .findAny()
                     .isPresent();
         }
