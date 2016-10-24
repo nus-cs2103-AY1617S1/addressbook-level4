@@ -155,4 +155,12 @@ public class TaskTime implements Comparable<TaskTime> {
         }
     }
     
+    /**
+     * Returns true if task time is valid
+     * 
+     * @return true if value is null, false otherwise
+     */
+    public boolean isValid(){
+        return value != null;
+    }
 }
