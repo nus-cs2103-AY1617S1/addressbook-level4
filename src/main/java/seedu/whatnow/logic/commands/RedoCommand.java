@@ -17,14 +17,7 @@ public class RedoCommand extends Command{
 			return new CommandResult(MESSAGE_FAIL);
 		}
 		else {
-			if(model.getRedoStack().isEmpty()) {
-				System.out.println("Entered first if condition");
-				return new CommandResult(MESSAGE_FAIL);
-			}
 			UndoAndRedo reqCommand = (UndoAndRedo) model.getRedoStack().pop();
-			if(model.getUndoStack().isEmpty()) {
-				return new CommandResult(MESSAGE_FAIL);	
-			}
 			model.getUndoStack().push(reqCommand);
 			return reqCommand.redo();
 		}

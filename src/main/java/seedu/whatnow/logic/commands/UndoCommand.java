@@ -18,9 +18,6 @@ public class UndoCommand extends Command{
 			return new CommandResult(MESSAGE_FAIL);
 		}
 		else {
-			if(model.getUndoStack().isEmpty()) {
-				return new CommandResult(MESSAGE_FAIL);
-			}
 			UndoAndRedo reqCommand = (UndoAndRedo) model.getUndoStack().pop();
 			model.getRedoStack().push(reqCommand);
 			return reqCommand.undo();

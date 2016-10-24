@@ -64,10 +64,10 @@ public class AddCommand extends UndoAndRedo {
 		assert model != null;
 		try {
 			model.deleteTask(toAdd);
-			return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
 		} catch (TaskNotFoundException pnfe) {
 			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
 		} 
+		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
 	}
 
 	@Override
@@ -75,9 +75,9 @@ public class AddCommand extends UndoAndRedo {
 		assert model != null;
 		try {
 			model.addTask(toAdd);
-			return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
 		} catch (DuplicateTaskException e) {
 			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
 		}
+		return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
 	}
 }
