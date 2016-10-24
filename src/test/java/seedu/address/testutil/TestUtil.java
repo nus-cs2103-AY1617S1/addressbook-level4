@@ -1,11 +1,17 @@
 package seedu.address.testutil;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javafx.scene.layout.AnchorPane;
+import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.XmlUtil;
 import seedu.address.logic.commands.taskcommands.AddTaskCommand;
 import seedu.address.model.task.DeadlineTask;
 import seedu.address.model.task.EventTask;
@@ -13,11 +19,17 @@ import seedu.address.model.task.FloatingTask;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskManager;
+import seedu.address.storage.task.XmlSerializableTaskManager;
 
 /**
  * A utility class for test cases.
  */
 public class TestUtil {
+    
+    /**
+    * Folder used for temp files created during testing. Ignored by Git.
+    */
+    public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
     public static InMemoryTaskList setupEmptyTaskList() {
         return new TaskManager();
@@ -96,6 +108,45 @@ public class TestUtil {
 		}
 		return newTaskList;
 	}
+  /**
+  * Appends the file name to the sandbox folder path.
+  * Creates the sandbox folder if it doesn't exist.
+  * @param fileName
+  * @return
+  */
+ public static String getFilePathInSandboxFolder(String fileName) {
+     try {
+         FileUtil.createDirs(new File(SANDBOX_FOLDER));
+     } catch (IOException e) {
+         throw new RuntimeException(e);
+     }
+     return SANDBOX_FOLDER + fileName;
+ }
+
+ public static void createDataFileWithSampleData(String filePath) {
+     createDataFileWithData(generateSampleStorageTaskManager(), filePath);
+ }
+
+ public static <T> void createDataFileWithData(T data, String filePath) {
+     try {
+         File saveFileForTesting = new File(filePath);
+         FileUtil.createIfMissing(saveFileForTesting);
+         XmlUtil.saveDataToFile(saveFileForTesting, data);
+     } catch (Exception e) {
+         throw new RuntimeException(e);
+     }
+ }
+ public static XmlSerializableTaskManager generateSampleStorageTaskManager() {
+     return new XmlSerializableTaskManager(generateEmptyTaskManager());
+ }
+ public static UniqueItemCollection<Task> generateEmptyTaskManager() {
+     return new UniqueItemCollection<Task>();
+ }
+ 
+ public static AnchorPane generateAnchorPane() {
+     return new AnchorPane();
+ }
+
 }
 // TODO: DISABLED TESTUTIL
 //    public static String LS = System.lineSeparator();
