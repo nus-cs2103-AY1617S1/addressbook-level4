@@ -14,11 +14,10 @@ import seedu.address.model.item.DateTime;
 
 public class CommandParserHelper {
     
-    private static final String MESSAGE_REPEATED_START_TIME = "Repeated start times are not allowed.";
-
-    private static final String MESSAGE_REPEATED_END_TIME = "Repeated end times are not allowed.";
-
     private final Logger logger = LogsCenter.getLogger(CommandParserHelper.class);
+    
+    private static final String MESSAGE_REPEATED_START_TIME = "Repeated start times are not allowed.";
+    private static final String MESSAGE_REPEATED_END_TIME = "Repeated end times are not allowed.";
     
     private static final int ZERO = 0;
     private static final int ONE = 1;
@@ -39,8 +38,8 @@ public class CommandParserHelper {
             + "|(?: at (?<startDateFormatTwo>.*?))" + "|(?: start (?<startDateFormatThree>.*?))"
             + "|(?: by (?<endDateFormatOne>.*?))" + "|(?: to (?<endDateFormatTwo>.*?))"
             + "|(?: end (?<endDateFormatThree>.*?))" + ")";
-    private static final String REGEX_SECOND_DATE = "(?:" + "(?: from (?<startDateFormatFour>.*?))"
-            + "|(?: at (?<startDateFormatFive>.*?))" + "|(?: start (?<startDateFormatSix>.*?))"
+    private static final String REGEX_SECOND_DATE = "(?:" + "(?: from (?:.*?))"
+            + "|(?: at (?:.*?))" + "|(?: start (?:.*?))"
             + "|(?: by (?<endDateFormatFour>.*?))" + "|(?: to (?<endDateFormatFive>.*?))"
             + "|(?: end (?<endDateFormatSix>.*?))" + ")";
     private static final String REGEX_RECURRENCE_AND_PRIORITY = "(?: repeat every (?<recurrenceRate>.*?))?"
@@ -60,23 +59,35 @@ public class CommandParserHelper {
     public HashMap<String, Optional<String>> prepareAdd(String args) throws IllegalValueException {
         assert args != null;
         OptionalStringTask task = new OptionalStringTask();
-        int numberOfKeywords;
-        String regex;
-        if (args.contains("\"")) {
-            String nonName = args.substring(args.lastIndexOf("\"") + 1);
-            numberOfKeywords = generateNumberOfKeywords(nonName);
-            regex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME_ESCAPE;
-            generateCorrectMatcherEscape(args, task, regex, numberOfKeywords);
-        } else {
-            numberOfKeywords = generateNumberOfKeywords(args);
-            regex = generateStartOfRegex(numberOfKeywords);
-            generateCorrectMatcher(args, task, regex, numberOfKeywords);
-        }
         
-        logger.log(Level.FINEST, "Number of keywords in \"" + args + "\" = " + numberOfKeywords);
+        if (args.contains(REGEX_ESCAPE)) {
+            prepareAddForEscapeInput(args, task);
+        } else {
+            prepareAddForNonEscapeInput(args, task);
+        }
         
         assignTaskParameters(task);
         return putVariablesInMap(task);
+    }
+
+    private void prepareAddForNonEscapeInput(String args, OptionalStringTask task) throws IllegalValueException {
+        int numberOfKeywords = generateNumberOfKeywords(args);
+        logger.log(Level.FINEST, "Number of keywords in \"" + args + "\" = " + numberOfKeywords);
+        String regex = generateStartOfRegex(numberOfKeywords);
+        generateCorrectMatcher(args, task, regex, numberOfKeywords);
+    }
+
+    private void prepareAddForEscapeInput(String args, OptionalStringTask task) throws IllegalValueException {
+        String argsMinusTaskName = generateArgsMinusTaskName(args);
+        int numberOfKeywords = generateNumberOfKeywords(argsMinusTaskName);
+        logger.log(Level.FINEST, "Number of keywords in \"" + args + "\" = " + numberOfKeywords);
+        String regex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME_ESCAPE;
+        generateCorrectMatcherEscape(args, task, regex, numberOfKeywords);
+    }
+
+    private String generateArgsMinusTaskName(String args) {
+        int indexOfEndOfTaskName = args.lastIndexOf(REGEX_ESCAPE) + ONE;
+        return args.substring(indexOfEndOfTaskName);
     }
 
     public HashMap<String, Optional<String>> prepareEdit(String args) throws IllegalValueException {
@@ -90,12 +101,8 @@ public class CommandParserHelper {
             regex = REGEX_OPEN_BRACE_CASE_IGNORE_NAME_ESCAPE;
             generateCorrectMatcherEscape(args, task, regex, numberOfKeywords);
         } else {
-            numberOfKeywords = generateNumberOfKeywords(args);
-            regex = generateStartOfRegex(numberOfKeywords);
-            generateCorrectMatcher(args, task, regex, numberOfKeywords);
+            prepareAddForNonEscapeInput(args, task);
         }
-        
-        logger.log(Level.FINEST, "Number of keywords in \"" + args + "\" = " + numberOfKeywords);
         
         assignTaskParametersEdit(task);
         return putVariablesInMap(task);
