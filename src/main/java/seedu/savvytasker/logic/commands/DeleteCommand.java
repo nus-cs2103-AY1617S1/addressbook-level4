@@ -23,15 +23,14 @@ public class DeleteCommand extends ModelRequiringCommand {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s\n";
 
     public final DeleteCommandModel commandModel;
-    private Task deleted;
+    private LinkedList<Task> tasksToUndo = new LinkedList<Task>();
 
     public DeleteCommand(DeleteCommandModel commandModel) {
         assert (commandModel != null);
         this.commandModel = commandModel;
-        this.deleted = null;
     }
 
 
@@ -52,8 +51,8 @@ public class DeleteCommand extends ModelRequiringCommand {
         StringBuilder resultSb = new StringBuilder();
         try {
             for(ReadOnlyTask taskToDelete : tasksToDelete) {
-                deleted = (Task)taskToDelete;
                 model.deleteTask(taskToDelete);
+                tasksToUndo.add((Task)taskToDelete);
                 resultSb.append(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
             }
         } catch (TaskNotFoundException pnfe) {
@@ -76,13 +75,15 @@ public class DeleteCommand extends ModelRequiringCommand {
     public boolean redo() {
         UnmodifiableObservableList<Task> lastShownList = model.getFilteredTaskListTask();
         
-        for (int i = 0; i < lastShownList.size(); i++) {
-            if (lastShownList.get(i) == deleted){
-                ReadOnlyTask taskToDelete = lastShownList.get(i);
-                try {
-                    model.deleteTask(taskToDelete);
-                } catch (TaskNotFoundException e) {
-                    e.printStackTrace();
+        for(Task toUndo : tasksToUndo){
+            for (int i = 0; i < lastShownList.size(); i++) {
+                if (lastShownList.get(i) == toUndo){
+                    ReadOnlyTask taskToDelete = lastShownList.get(i);
+                    try {
+                        model.deleteTask(taskToDelete);
+                    } catch (TaskNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         } 
@@ -96,12 +97,14 @@ public class DeleteCommand extends ModelRequiringCommand {
     @Override
     public boolean undo() {      
         assert model != null;
+  
+        for(Task deleted : tasksToUndo)
         try {
             model.addTask(deleted);
         } catch (DuplicateTaskException e) {
             e.printStackTrace();
         }
-        
+
         return true;
     }
     
