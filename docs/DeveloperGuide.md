@@ -258,6 +258,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add floating tasks without date or time | I can keep track of tasks which need to be done whenever I have time.
 `* * *` | user | add deadline tasks with a date and end time | I can keep track of deadlines.
 `* * *` | user | add event tasks with a date, start time and end time| I can keep track of events.
+`* * *` | user | add event tasks with a date and start time only | I can keep track of events.
 `* * *` | user | search for tasks | review the details of the task. 
 `* * *` | user | delete a task | can get rid of tasks that I no longer care to track. 
 `* * *` | user | view more information about various command | learn how to use those commands. 
@@ -273,6 +274,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | clear my done tasks | delete all my tasks that are done from the done list.
 `* *` | user | add a recurring tasks | add the task once and not every time it occurs.
 `* *` | user | undo a command | go back to the previous command if I have made a mistake.
+`* *` | user | redo an undo | go back to the previous state if I have made an accidental undo.
 `* *` | user | rearrange my task based on certain commands | make my schedule more flexible.
 `* *` | user | set the priority of the task when I'm adding a new task | know the urgency of the task.
 `*` | user | sort my task according to the priority | can work on the important task first.
