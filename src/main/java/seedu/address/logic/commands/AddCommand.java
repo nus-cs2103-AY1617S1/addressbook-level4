@@ -53,7 +53,7 @@ public class AddCommand extends UndoableCommand {
                     throws IllegalValueException {
         assert taskNameString != null;
         
-    	Name taskName = new Name(taskNameString.get());
+        Name taskName = new Name(taskNameString.get());
         Date startDate = generateStartDateIfPresent(startDateString);
         Date endDate = generateEndDateIfPresent(endDateString, startDate);
         RecurrenceRate recurrenceRate = generateRecurrenceRateIfPresent(rateString, timePeriodString); 
@@ -68,30 +68,18 @@ public class AddCommand extends UndoableCommand {
         this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);
     }
 
-    private boolean otherRecurrenceButDateNotGiven(Date startDate, Date endDate, RecurrenceRate recurrenceRate) {
-        return recurrenceRate != null && startDate == null && endDate == null;
-    }
-
-    private boolean recurWeekdaysButDateNotGiven(Date startDate, Date endDate, RecurrenceRate recurrenceRate) {
-        return recurrenceRate != null && recurrenceRate.timePeriod != TimePeriod.DAY && 
-                recurrenceRate.timePeriod.toString().toLowerCase().contains("day") &&
-                startDate == null && endDate == null;
-    }
-
-    private RecurrenceRate generateRecurrenceRateIfPresent(Optional<String> rateString,
-            Optional<String> timePeriodString) throws IllegalValueException {
-        RecurrenceRate recurrenceRate = null;
+    private Date generateStartDateIfPresent(Optional<String> startDateString) {
+        Date startDate = null;
         
-        if (rateString.isPresent() && timePeriodString.isPresent()) {
-            recurrenceRate = new RecurrenceRate(rateString.get(), timePeriodString.get());
-        } else if (!rateString.isPresent() && timePeriodString.isPresent()) {
-            recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString.get());
-        } else if (rateString.isPresent() && !timePeriodString.isPresent()) {
-            throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
+        if (startDateString.isPresent()) {
+            startDate = DateTime.convertStringToDate(startDateString.get());
+            if (!DateTime.hasTimeValue(startDateString.get())) {
+                startDate = DateTime.setTimeToStartOfDay(startDate);
+            }
         }
-        return recurrenceRate;
+        return startDate;
     }
-
+    
     private Date generateEndDateIfPresent(Optional<String> endDateString, Date startDate) {
         Date endDate = null;
         
@@ -106,17 +94,29 @@ public class AddCommand extends UndoableCommand {
         }
         return endDate;
     }
-
-    private Date generateStartDateIfPresent(Optional<String> startDateString) {
-        Date startDate = null;
+    
+    private RecurrenceRate generateRecurrenceRateIfPresent(Optional<String> rateString,
+            Optional<String> timePeriodString) throws IllegalValueException {
+        RecurrenceRate recurrenceRate = null;
         
-        if (startDateString.isPresent()) {
-            startDate = DateTime.convertStringToDate(startDateString.get());
-            if (!DateTime.hasTimeValue(startDateString.get())) {
-                startDate = DateTime.setTimeToStartOfDay(startDate);
-            }
+        if (rateString.isPresent() && timePeriodString.isPresent()) {
+            recurrenceRate = new RecurrenceRate(rateString.get(), timePeriodString.get());
+        } else if (!rateString.isPresent() && timePeriodString.isPresent()) {
+            recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString.get());
+        } else if (rateString.isPresent() && !timePeriodString.isPresent()) {
+            throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
         }
-        return startDate;
+        return recurrenceRate;
+    }
+    
+    private boolean recurWeekdaysButDateNotGiven(Date startDate, Date endDate, RecurrenceRate recurrenceRate) {
+        return recurrenceRate != null && recurrenceRate.timePeriod != TimePeriod.DAY && 
+                recurrenceRate.timePeriod.toString().toLowerCase().contains("day") &&
+                startDate == null && endDate == null;
+    }
+
+    private boolean otherRecurrenceButDateNotGiven(Date startDate, Date endDate, RecurrenceRate recurrenceRate) {
+        return recurrenceRate != null && startDate == null && endDate == null;
     }
 
     @Override
@@ -142,4 +142,7 @@ public class AddCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
     }
 
+    public Task getToAdd() {
+        return toAdd;
+    }
 }
