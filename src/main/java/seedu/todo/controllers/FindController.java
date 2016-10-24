@@ -71,8 +71,6 @@ public class FindController implements Controller {
         parseExactFindCommand(parsedResult, itemNameList);
         
         parseName(parsedResult, itemNameList); //parse addtional name enter by user
-        System.out.println(Arrays.toString(parsedResult.get("name")));
-        System.out.println(itemNameList);
         // Task or event?
         boolean listAll = parseListAllType(parsedResult);
         
