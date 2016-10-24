@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
+import seedu.address.testutil.TestActivity;
 import seedu.address.testutil.TestUtil;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
@@ -175,6 +176,37 @@ public class ActivityListPanelHandle extends GuiHandle {
         return true;
     }
     
+    //@@author: A0139164A
+    public TestActivity returnsUpdatedEvent(String name) {
+        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
+        final Optional<ReadOnlyActivity> activity = getEventListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
+        if (!activity.isPresent()) {
+            throw new IllegalStateException("Name not found: " + name);
+        }
+        TestActivity dub = new TestActivity(activity.get());
+        return dub;
+    }
+    public TestActivity returnsUpdatedTask(String name) {
+        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
+        final Optional<ReadOnlyActivity> activity = getTaskListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
+        if (!activity.isPresent()) {
+            throw new IllegalStateException("Name not found: " + name);
+        }
+        TestActivity dub = new TestActivity(activity.get());
+        return dub;
+    }
+    
+    public TestActivity returnsUpdatedFloatingTask(String name) {
+        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
+        final Optional<ReadOnlyActivity> activity = getFloatingTaskListView().getItems().stream().filter(p -> p.getActivityName().fullName.equals(name)).findAny();
+        if (!activity.isPresent()) {
+            throw new IllegalStateException("Name not found: " + name);
+        }
+        TestActivity dub = new TestActivity(activity.get());
+        return dub;
+    }
+
+    
     /**
      * Returns true if the list is showing the floating task details correctly and in correct order.
      * @param startPosition The starting position of the sub list.
@@ -263,7 +295,7 @@ public class ActivityListPanelHandle extends GuiHandle {
         guiRobot.sleep(100);
         return getTaskCardHandle(task);
     }
-    
+
     /**
      * @author BrehmerChan (A0146752B)
      * Navigates the listview to display and select the floating task.
@@ -337,7 +369,7 @@ public class ActivityListPanelHandle extends GuiHandle {
         return NOT_FOUND;
     }
 
-    /**s
+    /**
      * Gets a person from the list by index
      */
     public ReadOnlyActivity getPerson(int index) {
@@ -352,6 +384,7 @@ public class ActivityListPanelHandle extends GuiHandle {
         return getFloatingTaskCardHandle(new Activity(getFloatingTaskListView().getItems().get(index)));
     }
     
+
     public EventCardHandle getEventCardHandle(int index) {
         return getEventCardHandle(new Activity(getEventListView().getItems().get(index)));
     }
@@ -374,10 +407,8 @@ public class ActivityListPanelHandle extends GuiHandle {
                 .filter(n -> new FloatingTaskCardHandle(guiRobot, primaryStage, n).isSameActivity(person))
                 .findFirst();
         if (activityCardNode.isPresent()) {
-            System.out.println("returns properly");
             return new FloatingTaskCardHandle(guiRobot, primaryStage, activityCardNode.get());
         } else {
-            System.out.println("returns null");
             return null;
         }
     }
