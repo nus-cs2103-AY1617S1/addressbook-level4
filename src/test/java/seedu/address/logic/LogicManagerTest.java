@@ -401,128 +401,128 @@ public class LogicManagerTest {
     }
     
     
-    //TODO: do i need to have a test case for null string
-    // Are we penalised for not using test case heuristics? Else im just gonna spam this.
-    
+    //TODO: do i need to have a test case for null string 
     @Test
     public void toolTip_invalidCommandInput_incorrectCommandTooltip() {
-        // no newline for this case
-        assertToolTipBehavior("", MESSAGE_TOOLTIP_EMPTY_INPUT + "\n");    
+        assertToolTipBehavior("", MESSAGE_TOOLTIP_INVALID_COMMAND_FORMAT);
+        assertToolTipBehavior("   ", MESSAGE_TOOLTIP_INVALID_COMMAND_FORMAT);    
     }
     
     
     @Test
     public void toolTip_commandBeginningSubstringsOfAdd_addToolTip() {
-        assertToolTipBehavior("a", AddCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("ad", AddCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("add", AddCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("add f", AddCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("meet akshay at 1pm", AddCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("do cs2103 tests", AddCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("a", AddCommand.TOOL_TIP);
+        assertToolTipBehavior("ad", AddCommand.TOOL_TIP);
+        assertToolTipBehavior("add", AddCommand.TOOL_TIP);
+        assertToolTipBehavior("add f", AddCommand.TOOL_TIP);
+        assertToolTipBehavior("meet akshay at 1pm", AddCommand.TOOL_TIP);
+        assertToolTipBehavior("do cs2103 tests", AddCommand.TOOL_TIP);
+        assertToolTipBehavior("    add", AddCommand.TOOL_TIP);    
+        assertToolTipBehavior("   lolo l ", AddCommand.TOOL_TIP);    
     }
     
     @Test
     public void toolTip_commandBeginningSubstringsOfClear_clearToolTip() {
-        assertToolTipBehavior("c", ClearCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("cl", ClearCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("cle", ClearCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("clea", ClearCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("clear", ClearCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("clear a", ClearCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("c", ClearCommand.TOOL_TIP);
+        assertToolTipBehavior("cl", ClearCommand.TOOL_TIP);
+        assertToolTipBehavior("cle", ClearCommand.TOOL_TIP);
+        assertToolTipBehavior("clea", ClearCommand.TOOL_TIP);
+        assertToolTipBehavior("clear", ClearCommand.TOOL_TIP);
+        assertToolTipBehavior("clear a", ClearCommand.TOOL_TIP);
     }
     
     @Test
     public void toolTip_commandBeginningSubstringsOfDelete_deleteToolTip() {
-        assertToolTipBehavior("d", DeleteCommand.TOOL_TIP + "\n" + DoneCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("de", DeleteCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("del", DeleteCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("dele", DeleteCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("delet", DeleteCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("delete", DeleteCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("delete 0", DeleteCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("d", DeleteCommand.TOOL_TIP + "\n" + DoneCommand.TOOL_TIP);
+        assertToolTipBehavior("de", DeleteCommand.TOOL_TIP);
+        assertToolTipBehavior("del", DeleteCommand.TOOL_TIP);
+        assertToolTipBehavior("dele", DeleteCommand.TOOL_TIP);
+        assertToolTipBehavior("delet", DeleteCommand.TOOL_TIP);
+        assertToolTipBehavior("delete", DeleteCommand.TOOL_TIP);
+        assertToolTipBehavior("delete 0", DeleteCommand.TOOL_TIP);
     }
     
     @Test
     public void toolTip_commandBeginningSubstringsOfDone_doneToolTip() {
-        assertToolTipBehavior("d", DeleteCommand.TOOL_TIP + "\n" + DoneCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("do", DoneCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("don", DoneCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("done", DoneCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("done 0", DoneCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("d", DeleteCommand.TOOL_TIP + "\n" + DoneCommand.TOOL_TIP);
+        assertToolTipBehavior("do", DoneCommand.TOOL_TIP);
+        assertToolTipBehavior("don", DoneCommand.TOOL_TIP);
+        assertToolTipBehavior("done", DoneCommand.TOOL_TIP);
+        assertToolTipBehavior("done 0", DoneCommand.TOOL_TIP);
     }
     
     @Test
     public void toolTip_commandBeginningSubstringsOfEdit_editToolTip() {
-        assertToolTipBehavior("e", EditCommand.TOOL_TIP + "\n" + ExitCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("ed", EditCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("edi", EditCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("edit", EditCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("edit 0", EditCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("e", EditCommand.TOOL_TIP + "\n" + ExitCommand.TOOL_TIP);
+        assertToolTipBehavior("ed", EditCommand.TOOL_TIP);
+        assertToolTipBehavior("edi", EditCommand.TOOL_TIP);
+        assertToolTipBehavior("edit", EditCommand.TOOL_TIP);
+        assertToolTipBehavior("edit 0", EditCommand.TOOL_TIP);
     }
     
     @Test
     public void toolTip_commandBeginningSubstringsOfExit_exitToolTip() {
-        assertToolTipBehavior("e", EditCommand.TOOL_TIP + "\n" + ExitCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("ex", ExitCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("exi", ExitCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("exit", ExitCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("exit 0", ExitCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("e", EditCommand.TOOL_TIP + "\n" + ExitCommand.TOOL_TIP);
+        assertToolTipBehavior("ex", ExitCommand.TOOL_TIP);
+        assertToolTipBehavior("exi", ExitCommand.TOOL_TIP);
+        assertToolTipBehavior("exit", ExitCommand.TOOL_TIP);
+        assertToolTipBehavior("exit 0", ExitCommand.TOOL_TIP);
     }
     
     @Test
     public void toolTip_commandBeginningSubstringsOfFind_findToolTip() {
-        assertToolTipBehavior("f", FindCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("fi", FindCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("fin", FindCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("find", FindCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("find 0", FindCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("f", FindCommand.TOOL_TIP);
+        assertToolTipBehavior("fi", FindCommand.TOOL_TIP);
+        assertToolTipBehavior("fin", FindCommand.TOOL_TIP);
+        assertToolTipBehavior("find", FindCommand.TOOL_TIP);
+        assertToolTipBehavior("find 0", FindCommand.TOOL_TIP);
     }
     
     @Test
     public void toolTip_commandBeginningSubstringsOfHelp_helpToolTip() {
-        assertToolTipBehavior("h", HelpCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("he", HelpCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("hel", HelpCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("help", HelpCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("help r", HelpCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("h", HelpCommand.TOOL_TIP);
+        assertToolTipBehavior("he", HelpCommand.TOOL_TIP);
+        assertToolTipBehavior("hel", HelpCommand.TOOL_TIP);
+        assertToolTipBehavior("help", HelpCommand.TOOL_TIP);
+        assertToolTipBehavior("help r", HelpCommand.TOOL_TIP);
     }
     
     @Test
     public void toolTip_commandBeginningSubstringsOfList_listToolTip() {
-        assertToolTipBehavior("l", ListCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("li", ListCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("lis", ListCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("list", ListCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("list done", ListCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("l", ListCommand.TOOL_TIP);
+        assertToolTipBehavior("li", ListCommand.TOOL_TIP);
+        assertToolTipBehavior("lis", ListCommand.TOOL_TIP);
+        assertToolTipBehavior("list", ListCommand.TOOL_TIP);
+        assertToolTipBehavior("list done", ListCommand.TOOL_TIP);
     }
     
     @Test
     public void toolTip_commandBeginningSubstringsOfRedo_redoToolTip() {
-        assertToolTipBehavior("r", RedoCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("re", RedoCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("red", RedoCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("redo", RedoCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("redo done", RedoCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("r", RedoCommand.TOOL_TIP);
+        assertToolTipBehavior("re", RedoCommand.TOOL_TIP);
+        assertToolTipBehavior("red", RedoCommand.TOOL_TIP);
+        assertToolTipBehavior("redo", RedoCommand.TOOL_TIP);
+        assertToolTipBehavior("redo done", RedoCommand.TOOL_TIP);
     }
     
     @Test
     public void toolTip_commandBeginningSubstringsOfSelect_selectToolTip() {
-        assertToolTipBehavior("s", SelectCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("se", SelectCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("sel", SelectCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("sele", SelectCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("selec", SelectCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("select", SelectCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("select 1", SelectCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("s", SelectCommand.TOOL_TIP);
+        assertToolTipBehavior("se", SelectCommand.TOOL_TIP);
+        assertToolTipBehavior("sel", SelectCommand.TOOL_TIP);
+        assertToolTipBehavior("sele", SelectCommand.TOOL_TIP);
+        assertToolTipBehavior("selec", SelectCommand.TOOL_TIP);
+        assertToolTipBehavior("select", SelectCommand.TOOL_TIP);
+        assertToolTipBehavior("select 1", SelectCommand.TOOL_TIP);
     }
     
     @Test
     public void toolTip_commandBeginningSubstringsOfUndo_undoToolTip() {
-        assertToolTipBehavior("u", UndoCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("un", UndoCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("und", UndoCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("undo", UndoCommand.TOOL_TIP + "\n");
-        assertToolTipBehavior("undo done", UndoCommand.TOOL_TIP + "\n");
+        assertToolTipBehavior("u", UndoCommand.TOOL_TIP);
+        assertToolTipBehavior("un", UndoCommand.TOOL_TIP);
+        assertToolTipBehavior("und", UndoCommand.TOOL_TIP);
+        assertToolTipBehavior("undo", UndoCommand.TOOL_TIP);
+        assertToolTipBehavior("undo done", UndoCommand.TOOL_TIP);
     }
 
 
