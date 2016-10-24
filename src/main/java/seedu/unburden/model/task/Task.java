@@ -18,6 +18,8 @@ public class Task implements ReadOnlyTask {
     private Time startTime;
     private Time endTime;
     private UniqueTagList tags;
+    private boolean done;
+    private String getDoneString;
 
     /**
      * Every field must be present and not null.
@@ -31,6 +33,7 @@ public class Task implements ReadOnlyTask {
         this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
+        //this.getDoneString = getDoneString;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -115,6 +118,21 @@ public class Task implements ReadOnlyTask {
         return new UniqueTagList(tags);
     }
 
+	@Override
+	public boolean getDone() {
+		return done;
+	}
+	
+	public String getDoneString(){
+		if(done == true){
+			getDoneString = "Done!";
+		}
+		else {
+			getDoneString = "Undone!";
+		}
+		return getDoneString;
+	}
+    
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */
@@ -141,7 +159,15 @@ public class Task implements ReadOnlyTask {
     public void setEndTime(Time endTime) {
         this.endTime = endTime;
     }
-
+    
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+    
+    public boolean done(){
+    	return false;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

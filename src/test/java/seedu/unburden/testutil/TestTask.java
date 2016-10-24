@@ -14,6 +14,7 @@ public class TestTask implements ReadOnlyTask {
     private Time startTime;
     private Time endTime;
     private UniqueTagList tags;
+    private boolean done;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -64,4 +65,19 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+	@Override
+	public boolean getDone() {
+		return done;
+	}
+
+	@Override
+	public String getDoneString() {
+		if(done == true){
+			return "Task Done!";
+		}
+		else{
+			return "Task unDone!";
+		}
+	}
 }

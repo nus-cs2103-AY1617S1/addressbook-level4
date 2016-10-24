@@ -119,4 +119,10 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+	public void done(ReadOnlyTask key, boolean isDone) {
+		assert key != null;
+		int targetIndex = internalList.indexOf(key);
+		internalList.get(targetIndex).setDone(isDone);
+	}
 }

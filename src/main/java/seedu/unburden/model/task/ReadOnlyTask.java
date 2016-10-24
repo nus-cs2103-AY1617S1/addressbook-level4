@@ -13,6 +13,8 @@ public interface ReadOnlyTask {
     Date getDate();
     Time getStartTime();
     Time getEndTime();
+    boolean getDone();
+    String getDoneString();
     
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -34,6 +36,7 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
+        
         if(getDate().fullDate == "NIL" && getStartTime().fullTime == "NIL" && getEndTime().fullTime == "NIL"){
         	builder.append(getName());
         	getTags().forEach(builder::append);
@@ -85,5 +88,6 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+	
 
 }
