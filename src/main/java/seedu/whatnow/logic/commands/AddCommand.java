@@ -35,22 +35,20 @@ public class AddCommand extends UndoAndRedo {
 	private final Task toAdd;
 	
 	public AddCommand(String name, String date, String startDate, String endDate, String time, String startTime, String endTime, Set<String> tags) throws IllegalValueException, ParseException {
-	    TaskTime validateTime;
+	    TaskTime validateTime = null;
 	    
-	    if (time != null || startTime != null || endTime != null)
+	    if (time != null || startTime != null || endTime != null) {
 	        validateTime = new TaskTime(time, startTime, endTime, date, startDate, endDate);
+	        if (date == null && startDate == null && endDate == null)
+	            date = validateTime.getDate();
+	    }
 	    
 	    final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
-        }     
+        }    
         
-        if (date != null)
-            this.toAdd = new Task(new Name(name), new TaskDate(date), null, null, time, startTime, endTime, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
-        else if (startDate != null)
-            this.toAdd = new Task(new Name(name), null, new TaskDate(startDate), new TaskDate(endDate), time, startTime, endTime, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
-        else
-            this.toAdd = new Task(new Name(name), null, null, null, time, startTime, endTime, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
+        this.toAdd = new Task(new Name(name), new TaskDate(date), new TaskDate(startDate), new TaskDate(endDate), time, startTime, endTime, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
 	}
 
 	@Override
