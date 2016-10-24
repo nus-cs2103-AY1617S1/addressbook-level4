@@ -76,6 +76,7 @@ public class AddCommand extends Command {
         try {
             model.saveToHistory();
             model.addTask(toAdd);
+            model.sortTasks();
             model.updateFilteredTaskListToShow(isNotDone());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {

@@ -53,7 +53,49 @@ public class UniqueTaskList implements Iterable<Task> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
-
+    
+    /**
+     * Sorts a list according to timing
+     */
+    public void sortList() {
+        if (internalList.size() <= 1)
+            return;
+        
+        for(int i = 0; i < internalList.size() - 1; i++) {
+            for(int j = 1; j < internalList.size() - i; j++) {
+            Task task1 = internalList.get(i);
+            Task task2 = internalList.get(j);
+            
+            if (task1.getStartTime().isMissing() && task1.getEndTime().isMissing())   
+                continue;
+            Time time1, time2;
+            if (task1.getStartTime().isMissing())
+                time1 = task1.getEndTime();
+            else
+                time1 = task1.getStartTime();
+            
+            if(task2.getStartTime().isMissing() && task2.getEndTime().isMissing())
+                swapTasks(task1, task2);
+               
+            if(task2.getStartTime().isMissing())
+                time2 = task2.getEndTime();
+            else
+                time2 = task2.getStartTime();
+            
+            if (!Time.checkOrderOfTime(time1, time2))
+                swapTasks(task1, task2);
+            }
+        }
+    }
+    
+    
+    public void swapTasks(Task task1, Task task2) {
+        int index1 = internalList.indexOf(task1);
+        int index2 = internalList.indexOf(task2);
+        internalList.set(index1, task2);
+        internalList.set(index2, task1);
+    }
+    
     /**
      * Adds a task to the list.
      *

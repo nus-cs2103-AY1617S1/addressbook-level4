@@ -109,6 +109,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public synchronized void sortTasks() {
+        taskManager.sortTasksList();
+    }
+    
+    @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	taskManager.doneTask(target);
     	updateFilteredTaskListToShow(ShowCommand.isNotDone());

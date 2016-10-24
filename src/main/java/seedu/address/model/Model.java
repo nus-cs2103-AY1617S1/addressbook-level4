@@ -58,4 +58,6 @@ public interface Model {
     
     void updateFilteredTaskListToShow(Predicate<Task> predicate);
 
+    void sortTasks();
+
 }

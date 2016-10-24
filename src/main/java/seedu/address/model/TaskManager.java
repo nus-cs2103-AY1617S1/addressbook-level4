@@ -115,6 +115,10 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
     
+    public void sortTasksList() {
+        tasks.sortList();
+    }
+    
     public void doneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
     	tasks.done(task);
     }
