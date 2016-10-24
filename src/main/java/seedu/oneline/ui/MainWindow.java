@@ -163,6 +163,10 @@ public class MainWindow extends UiPart {
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
+    
+    public TaskPane getTaskPane() {
+        return this.taskPane; 
+    }
 
     public TagListPanel getTagListPanel() {
         return this.tagListPanel;

@@ -18,12 +18,12 @@ public class ClearCommandTest extends TaskBookGuiTest {
         //verify a non-empty list can be cleared
         TestTask[] ts = td.getTypicalTasks();
         Arrays.sort(ts);
-        assertTrue(taskListPanel.isListMatching(ts));
+        assertTrue(taskPane.isListMatching(ts));
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
         commandBox.runCommand(td.todo1.getAddCommand());
-        assertTrue(taskListPanel.isListMatching(td.todo1));
+        assertTrue(taskPane.isListMatching(td.todo1));
         commandBox.runCommand("del 1");
         assertListSize(0);
 

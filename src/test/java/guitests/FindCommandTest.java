@@ -37,6 +37,6 @@ public class FindCommandTest extends TaskBookGuiTest {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(Command.getMessageForTaskListShownSummary(expectedHits.length));
-        assertTrue(taskListPanel.isListMatching(expectedHits));
+        assertTrue(taskPane.isListMatching(expectedHits));
     }
 }

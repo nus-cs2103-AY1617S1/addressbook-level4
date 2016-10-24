@@ -32,7 +32,7 @@ public class AddCommandTest extends TaskBookGuiTest {
         //add duplicate task
         commandBox.runCommand(TypicalTestTasks.eventExtra.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        assertTrue(taskPane.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -47,12 +47,12 @@ public class AddCommandTest extends TaskBookGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().toString());
+        TaskCardHandle addedCard = taskPane.navigateToTask(taskToAdd.getName().toString());
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(taskListPanel.isListMatching(expectedList));
+        assertTrue(taskPane.isListMatching(expectedList));
     }
 
 }

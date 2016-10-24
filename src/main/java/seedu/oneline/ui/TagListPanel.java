@@ -55,13 +55,13 @@ public class TagListPanel extends UiPart {
         return tagListPanel;
     }
 
-    private void configure(ObservableList<Tag> taskList) {
-        setConnections(taskList);
+    private void configure(ObservableList<Tag> tagList) {
+        setConnections(tagList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<Tag> taskList) {
-        tagListView.setItems(taskList);
+    private void setConnections(ObservableList<Tag> tagList) {
+        tagListView.setItems(tagList);
         tagListView.setCellFactory(listView -> new TagListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }

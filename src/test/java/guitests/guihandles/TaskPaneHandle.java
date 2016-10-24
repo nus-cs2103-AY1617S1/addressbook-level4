@@ -20,14 +20,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * Provides a handle for the panel containing the task list.
  */
-public class TaskListPanelHandle extends GuiHandle {
+public class TaskPaneHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String TASK_LIST_VIEW_ID = "#taskListView";
 
-    public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
+    public TaskPaneHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 

@@ -123,7 +123,7 @@ public class EditCommandTest extends TaskBookGuiTest {
         commandBox.runCommand(cmd.toString());
         Arrays.sort(expectedRemainder);
 
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        assertTrue(taskPane.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
         assertResultMessage(String.format(EditCommand.MESSAGE_SUCCESS, newTask.toString()));
