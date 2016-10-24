@@ -56,7 +56,7 @@ public class ListController implements Controller {
         tokenDefinitions.put("eventStatus", new String[] { "over" , "ongoing", "prior", "schedule" , "scheduled"});
         tokenDefinitions.put("time", new String[] { "at", "by", "on", "time" });
         tokenDefinitions.put("timeFrom", new String[] { "from" });
-        tokenDefinitions.put("timeTo", new String[] { "to", "before" });
+        tokenDefinitions.put("timeTo", new String[] { "to", "before", "until" });
         return tokenDefinitions;
     }
 
