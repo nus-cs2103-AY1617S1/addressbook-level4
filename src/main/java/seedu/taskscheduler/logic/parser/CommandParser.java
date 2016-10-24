@@ -7,6 +7,11 @@ import java.util.regex.Pattern;
 import seedu.taskscheduler.commons.util.StringUtil;
 import seedu.taskscheduler.logic.commands.Command;
 
+//@@author A0148145E
+
+/**
+ * Represents a command parser with hidden internal logic and the ability to be executed.
+ */
 public abstract class CommandParser {
 
     protected static final String START_DATE_DELIMITER = "s/";

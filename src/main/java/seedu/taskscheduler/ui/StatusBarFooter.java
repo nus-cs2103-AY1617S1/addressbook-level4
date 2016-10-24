@@ -8,15 +8,11 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
 
-import seedu.taskscheduler.commons.core.Config;
 import seedu.taskscheduler.commons.core.LogsCenter;
 import seedu.taskscheduler.commons.events.model.TaskSchedulerChangedEvent;
 import seedu.taskscheduler.commons.events.storage.FilePathChangedEvent;
-import seedu.taskscheduler.commons.util.ConfigUtil;
 import seedu.taskscheduler.commons.util.FxViewUtil;
-import seedu.taskscheduler.commons.util.StringUtil;
 
-import java.io.IOException;
 import java.util.Date;
 import java.util.logging.Logger;
 

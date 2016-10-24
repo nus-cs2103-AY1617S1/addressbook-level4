@@ -12,6 +12,11 @@ import seedu.taskscheduler.logic.commands.AddFloatingCommand;
 import seedu.taskscheduler.logic.commands.Command;
 import seedu.taskscheduler.logic.commands.IncorrectCommand;
 
+//@@author A0148145E
+
+/**
+ * Parses add command user input.
+ */
 public class AddCommandParser extends CommandParser {
 
     /**

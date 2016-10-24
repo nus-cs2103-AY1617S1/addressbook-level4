@@ -10,6 +10,12 @@ import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 
+//@@author A0148145E
+
+/**
+ * Utility methods for Date and time formating.
+ */
+
 public class DateFormatter {
 
     private static DateFormat dateFormatter = new SimpleDateFormat("ddMMyy");

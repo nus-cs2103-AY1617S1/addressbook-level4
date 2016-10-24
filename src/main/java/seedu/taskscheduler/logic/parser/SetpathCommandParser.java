@@ -8,6 +8,11 @@ import seedu.taskscheduler.logic.commands.Command;
 import seedu.taskscheduler.logic.commands.IncorrectCommand;
 import seedu.taskscheduler.logic.commands.SetpathCommand;
 
+//@@author A0138696L
+
+/**
+* Parses setpath command user input.
+*/
 public class SetpathCommandParser extends CommandParser {
 
     /**

@@ -1,20 +1,17 @@
 package seedu.taskscheduler.ui;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
-import seedu.taskscheduler.commons.util.DateFormatter;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 
+
+/**
+ * Represents task card in Ui
+ */
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
@@ -76,7 +73,8 @@ public class TaskCard extends UiPart{
     public String getFxmlPath() {
         return FXML;
     }
-    
+
+    //@@author A0148145E
     public void hideFieldsAccordingToType(ReadOnlyTask task) {
         
         if (task.tagsString().contains("Event")) {
@@ -89,7 +87,8 @@ public class TaskCard extends UiPart{
             email.setVisible(false);
         }
     }
-    
+
+    //@@author A0148145E
     public void indicatingColourByCondition(ReadOnlyTask task) {
         
         if (task.tagsString().contains("Completed")) {

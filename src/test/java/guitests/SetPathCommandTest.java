@@ -13,10 +13,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 
+//@@author A0138696L
+
 public class SetPathCommandTest extends TaskSchedulerGuiTest {
 
     @Test
-    public void SetPathCommandTest() {
+    public void setPath() {
        
         // Checking for the existence of User specified filename or path.
         String newPath = "testtaskscheduler";

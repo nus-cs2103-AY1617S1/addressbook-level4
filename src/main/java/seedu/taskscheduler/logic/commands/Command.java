@@ -11,7 +11,9 @@ import seedu.taskscheduler.model.Model;
 public abstract class Command {
     protected Model model;
 
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task scheduler";
+
+    public static final String MESSAGE_REVERT_COMMAND = "Revert %s command: %s";
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
      *
@@ -28,7 +30,17 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      */
     public abstract CommandResult execute();
+    
 
+    //@@author A0148145E
+    /**
+     * Revert the previous executed command and returns the result message.
+     *
+     * @return feedback message of the operation result for display
+     */
+    public abstract CommandResult revert();
+    //@@author
+    
     /**
      * Provides any needed dependencies to the command.
      * Commands making use of any of these should override this method to gain

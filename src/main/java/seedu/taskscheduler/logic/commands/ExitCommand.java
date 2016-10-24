@@ -1,6 +1,7 @@
 package seedu.taskscheduler.logic.commands;
 
 import seedu.taskscheduler.commons.core.EventsCenter;
+import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.commons.events.ui.ExitAppRequestEvent;
 
 /**
@@ -18,6 +19,14 @@ public class ExitCommand extends Command {
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
+    }
+    
+    //@@author A0148145E
+    @Override
+    public CommandResult revert() {
+        // This command not available for revert
+        assert false : Messages.MESSAGE_PROGRAM_ERROR;
+        return null;
     }
 
 }

@@ -11,6 +11,11 @@ import seedu.taskscheduler.logic.commands.Command;
 import seedu.taskscheduler.logic.commands.FindCommand;
 import seedu.taskscheduler.logic.commands.IncorrectCommand;
 
+//@@author A0148145E
+
+/**
+* Parses find command user input.
+*/
 public class FindCommandParser extends CommandParser {
 
     /**

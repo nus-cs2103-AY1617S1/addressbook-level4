@@ -5,11 +5,17 @@ import org.ocpsoft.prettytime.nlp.parse.DateGroup;
 
 import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
-import seedu.taskscheduler.model.Undo;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
+import seedu.taskscheduler.model.task.TaskArray;
 import seedu.taskscheduler.model.task.UniqueTaskList;
+import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0148145E
+
+/**
+* Recurs a task in task scheduler.
+*/
 public class RecurCommand extends Command {
 
     public static final String COMMAND_WORD = "recur";
@@ -29,6 +35,7 @@ public class RecurCommand extends Command {
     
     private final int targetIndex;
     private final String args;
+    private final TaskArray taskList;
 
     /**
      * Convenience constructor using raw values.
@@ -38,6 +45,7 @@ public class RecurCommand extends Command {
     public RecurCommand(int targetIndex, String args) {
         this.targetIndex = targetIndex;
         this.args = args;
+        this.taskList = new TaskArray();
     }
     
     public RecurCommand(String args) {
@@ -55,15 +63,10 @@ public class RecurCommand extends Command {
         
         try {
             DateGroup dg = new PrettyTimeParser().parseSyntax(args).get(0);
-//            System.out.println(dg.getRecursUntil());   
-//            System.out.println(new Date(dg.getRecurInterval()));  
-
-            Undo undo = new Undo(COMMAND_WORD);
-            undo = addRecurTasks(task, dg, undo);
-            model.addTask(undo.getTaskArray());
-            
-            CommandHistory.addMutateCmd(undo);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, undo.getArrayString()));
+            addRecurTasks(task, dg, taskList);
+            model.addTask(taskList.getArray());
+            CommandHistory.addExecutedCommand(this);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, taskList.toString()));
             
         } catch (UniqueTaskList.DuplicateTaskException dte) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
@@ -74,16 +77,28 @@ public class RecurCommand extends Command {
         }
     }
 
-    private Undo addRecurTasks(ReadOnlyTask task, DateGroup dg, Undo undo) {
+
+    @Override
+    public CommandResult revert() {
+        assert model != null;
+        try {
+            model.deleteTask(taskList.getArray());
+            CommandHistory.addRevertedCommand(this);
+        } catch (TaskNotFoundException e) {
+            assert false : "The target task cannot be missing";
+        }
+        return new CommandResult(String.format(MESSAGE_REVERT_COMMAND, COMMAND_WORD, taskList.toString()));
+    }
+    
+    private void addRecurTasks(ReadOnlyTask task, DateGroup dg, TaskArray taskList) {
         Task toAdd;
         do {
             toAdd = new Task(task);
             toAdd.addDuration(dg.getRecurInterval());
-            undo.addTask(toAdd);
+            taskList.add(toAdd);
             task = toAdd;
         } while ((toAdd.getEndDate().getDate().getTime() + dg.getRecurInterval()) 
                 < dg.getRecursUntil().getTime());
-        return undo;
     }
 
     private ReadOnlyTask getTaskFromIndexOrLastModified() {

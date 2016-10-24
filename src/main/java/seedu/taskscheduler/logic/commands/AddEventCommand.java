@@ -6,6 +6,12 @@ import seedu.taskscheduler.model.task.Location;
 import seedu.taskscheduler.model.task.Name;
 import seedu.taskscheduler.model.task.TaskDateTime;
 
+//@@author A0148145E
+
+/**
+* Adds an event task to the Task Scheduler.
+*/
+
 public class AddEventCommand extends AddCommand {
 
     /**

@@ -13,6 +13,11 @@ import seedu.taskscheduler.logic.commands.EditEventCommand;
 import seedu.taskscheduler.logic.commands.EditFloatingCommand;
 import seedu.taskscheduler.logic.commands.IncorrectCommand;
 
+//@@author A0148145E
+
+/**
+* Parses edit command user input.
+*/
 public class EditCommandParser extends CommandParser{
     
     /**

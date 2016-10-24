@@ -60,7 +60,8 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(toAdd);
     }
-    
+
+    //@@author A0148145E
     /**
      * Edits a task to the list.
      *
@@ -77,7 +78,8 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.set(index, toCopy);
     }
-    
+
+    //@@author A0148145E
     /**
      * Marks a task to the list as completed.
      *
@@ -95,20 +97,26 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(index, newTask);
     }
     
+
+    //@@author A0148145E
     /**
-     * Replace a task in the list with another task.
+     * Unmarks a task to the list as completed.
      *
      * @throws TaskNotFoundException
+     * @throws DuplicateTagException if the task is already complete.
      */
-    public void replace(Task oldTask, Task newTask) throws TaskNotFoundException {
-        assert oldTask != null;
-        int index = internalList.indexOf(oldTask);
+    public void unMark(ReadOnlyTask toMark) throws TaskNotFoundException, NullPointerException {
+        assert toMark != null;
+        int index = internalList.indexOf(toMark);
         if (index < 0) {
             throw new TaskNotFoundException();
         }
+        Task newTask = new Task(toMark);
+        newTask.unMarkComplete();
         internalList.set(index, newTask);
     }
     
+    //@@author A0140007B
     /**
      * Insert a task into another task's position in the list.
      *
@@ -119,7 +127,8 @@ public class UniqueTaskList implements Iterable<Task> {
         assert index > 0;
         internalList.add(index-1, newTask);
     }
-
+    //@@author
+    
     /**
      * Removes the equivalent task from the list.
      *

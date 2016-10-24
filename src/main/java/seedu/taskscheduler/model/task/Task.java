@@ -8,6 +8,7 @@ import seedu.taskscheduler.model.tag.UniqueTagList.DuplicateTagException;
 
 import java.util.Objects;
 
+//@@author A0148145E
 /**
  * Represents a Task in the task scheduler.
  * Guarantees: details are present and not null, field values are validated.
@@ -91,6 +92,20 @@ public class Task implements ReadOnlyTask {
             this.tags.add(new Tag("Completed"));
         } catch (DuplicateTagException dte) { 
             throw dte;
+        } catch (IllegalValueException ive) {
+            assert false : "The tag cannot be illegal value";
+        } 
+    }
+
+    /**
+     * Add completed tag to indicate task done.
+     */
+    public void unMarkComplete() throws NullPointerException {
+        try {
+            this.tags.remove(new Tag("Completed"));
+        }
+        catch (NullPointerException npe) { 
+            throw npe;
         } catch (IllegalValueException ive) {
             assert false : "The tag cannot be illegal value";
         }

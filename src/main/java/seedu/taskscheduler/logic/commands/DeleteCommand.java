@@ -2,10 +2,11 @@ package seedu.taskscheduler.logic.commands;
 
 import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
-import seedu.taskscheduler.model.Undo;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
+
+//@@author A0148145E
 
 /**
  * Deletes a task identified using it's last displayed index from the Task Scheduler.
@@ -20,8 +21,8 @@ public class DeleteCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
-
-    public final int targetIndex;
+    private final int targetIndex;
+    private Task taskToDelete;
 
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -38,17 +39,27 @@ public class DeleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        taskToDelete = new Task(lastShownList.get(targetIndex - 1));
 
         try {
-            Task taskToSave = new Task(taskToDelete);
         	model.deleteTask(taskToDelete);
-        	CommandHistory.addMutateCmd(new Undo(COMMAND_WORD, targetIndex, taskToSave));
+        	CommandHistory.addExecutedCommand(this);
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+            assert false : Messages.MESSAGE_TASK_CANNOT_BE_MISSING;
         }
-
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+    }
+
+
+    @Override
+    public CommandResult revert() {
+        try {
+            model.insertTask(targetIndex, taskToDelete);
+            CommandHistory.addRevertedCommand(this);
+        } catch (TaskNotFoundException e) {
+            assert false : Messages.MESSAGE_TASK_CANNOT_BE_MISSING;
+        }
+        return new CommandResult(String.format(MESSAGE_REVERT_COMMAND, COMMAND_WORD, "\n" + taskToDelete));
     }
 
 }

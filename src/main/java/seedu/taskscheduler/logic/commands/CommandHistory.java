@@ -1,17 +1,24 @@
 package seedu.taskscheduler.logic.commands;
 
 import java.util.EmptyStackException;
+import java.util.Set;
 import java.util.Stack;
 
-import seedu.taskscheduler.model.Undo;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 
+//@@author A0140007B
+/**
+ * Keep track of commands and modifications to task scheduler.
+ */
 public class CommandHistory {
 	
 	private static Stack<String> prevCmd = new Stack<String>();
 	private static Stack<String> nextCmd = new Stack<String>();
-	private static Stack<Undo> mutateCmd = new Stack<Undo>();
+	private static Stack<Command> executedCommands = new Stack<Command>();
+    private static Stack<Command> revertedCommands = new Stack<Command>();
 	private static ReadOnlyTask lastModTask;
+    private static Set<String> filteredKeywords = null;
+    private static String storageFilePath;
 	
 	public static void addPrevCmd(String commandText) {
 		while (!nextCmd.isEmpty()) {
@@ -47,19 +54,30 @@ public class CommandHistory {
 		return result;
 	}
 
-	public static void addMutateCmd(Undo undo) {
-		mutateCmd.push(undo);
+	public static void addExecutedCommand(Command command) {
+		executedCommands.push(command);
 	}
 	
-	public static Undo getMutateCmd() throws EmptyStackException{
-		if (mutateCmd.size() > 0)
-			return mutateCmd.pop();
+    public static void addRevertedCommand(Command command) {
+        revertedCommands.push(command);
+    }
+	
+	public static Command getExecutedCommand() throws EmptyStackException{
+		if (executedCommands.size() > 0)
+			return executedCommands.pop();
 		else
 			throw new EmptyStackException();
 	}
+
+    public static Command getRevertedCommand() throws EmptyStackException{
+        if (revertedCommands.size() > 0)
+            return revertedCommands.pop();
+        else
+            throw new EmptyStackException();
+    }
 	
-	public static void flushMutateCmd() {
-		mutateCmd.clear();
+	public static void flushExecutedCommands() {
+		executedCommands.clear();
 	}
 	
 	public static void setModTask(ReadOnlyTask task) {
@@ -68,5 +86,13 @@ public class CommandHistory {
 	
     public static ReadOnlyTask getModTask() {
         return lastModTask;
+    }
+    
+    public static Set<String> getFilteredKeyWords() {
+        return filteredKeywords;
+    }
+    
+    public static void setFilteredKeyWords(Set<String> keywords) {
+        filteredKeywords = keywords;
     }
 }

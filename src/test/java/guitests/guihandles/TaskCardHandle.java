@@ -2,9 +2,7 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.scene.Node;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import seedu.taskscheduler.commons.util.DateFormatter;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 
 /**
@@ -25,18 +23,22 @@ public class TaskCardHandle extends GuiHandle {
         this.node = node;
     }
 
+    //@@author A0148145E
     protected String getStyleFromHBox(String fieldId) {
         return getStyleFromHBox(fieldId, node);
     }
+    //@@author
     
     protected String getTextFromLabel(String fieldId) {
         return getTextFromLabel(fieldId, node);
     }
 
 
+    //@@author A0148145E
     public String getHBoxStyle() {
         return getStyleFromHBox(CARDPANE_FIELD_ID);
     }
+    //@@author
     
     public String getFullName() {
         return getTextFromLabel(NAME_FIELD_ID);
@@ -46,6 +48,7 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(ADDRESS_FIELD_ID);
     }
 
+    //@@author A0148145E
     public String getStartDate() {
         return getTextFromLabel(START_DATE_FIELD_ID).replace("Start Date: ", "");
     }
@@ -53,7 +56,8 @@ public class TaskCardHandle extends GuiHandle {
     public String getEndDate() {
         return getTextFromLabel(END_DATE_FIELD_ID).replace("Due Date: ", "");
     }
-    
+    //@@author
+
     public String getTags() {
         return getTextFromLabel(TAGS_FIELD_ID);
     }

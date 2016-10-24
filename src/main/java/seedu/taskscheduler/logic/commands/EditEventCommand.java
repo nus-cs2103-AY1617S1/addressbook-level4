@@ -6,6 +6,11 @@ import seedu.taskscheduler.model.task.Location;
 import seedu.taskscheduler.model.task.Name;
 import seedu.taskscheduler.model.task.TaskDateTime;
 
+//@@author A0148145E
+
+/**
+ * Edits an event task in the task scheduler.
+ */
 public class EditEventCommand extends EditCommand {
     
     /**

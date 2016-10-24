@@ -4,6 +4,11 @@ import seedu.taskscheduler.commons.exceptions.IllegalValueException;
 import seedu.taskscheduler.model.task.FloatingTask;
 import seedu.taskscheduler.model.task.Name;
 
+//@@author A0148145E
+
+/**
+ * Edits a floating task in the task scheduler.
+ */
 public class EditFloatingCommand extends EditCommand {
     
     /**

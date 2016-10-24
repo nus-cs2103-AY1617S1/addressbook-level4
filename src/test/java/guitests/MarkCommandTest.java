@@ -10,8 +10,10 @@ import seedu.taskscheduler.ui.TaskCard;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class MarkCommandTest extends TaskSchedulerGuiTest {
 
+public class MarkCommandTest extends TaskSchedulerGuiTest {
+    
+    //@@author A0138696L
     @Test
     public void mark() {
 
@@ -44,6 +46,7 @@ public class MarkCommandTest extends TaskSchedulerGuiTest {
 
     }
 
+    //@@author A0148145E
     /**
      * Runs the mark command to mark the task at specified index as completed and confirms the result is correct.
      * @param targetIndexOneIndexed e.g. to mark the first task in the list, 1 should be given as the target index.
