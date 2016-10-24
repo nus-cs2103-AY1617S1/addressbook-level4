@@ -72,7 +72,6 @@ public class SummaryPanel extends UiPart {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
     }
-
     private void setEventHandlerForSelectionChangeEvent() {
         summaryListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
@@ -97,11 +96,20 @@ public class SummaryPanel extends UiPart {
         @Override
         protected void updateItem(ReadOnlyTask task, boolean empty) {
             super.updateItem(task, empty);
-            if (empty || task == null || LocalDate.now().isAfter(task.getByDate().getDate())) {
+            boolean dateCheck = false;
+            try{
+                dateCheck = LocalDate.now().isAfter(task.getByDate().getDate()) || LocalDate.now().isBefore(task.getOnDate().getDate());
+                }
+            catch(Exception e){
+                dateCheck = false;
+            }
+            if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
+            } else if(!dateCheck){
+                setGraphic(SummaryCard.load(task).getLayout());
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(null);
             }
         }
     }
