@@ -6,7 +6,7 @@ import org.junit.Test;
 import seedu.task.commons.core.Messages;
 import seedu.task.logic.commands.AddCommand;
 import seedu.task.testutil.TestTask;
-import seedu.task.testutil.TestUtil;
+import seedu.task.testutil.*;
 
 import static org.junit.Assert.assertTrue;
 
