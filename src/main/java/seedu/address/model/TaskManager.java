@@ -21,7 +21,13 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
-
+    
+    private static int floatingCounter;
+    private static int todayCounter;
+    private static int tomorrowCounter;
+    private static int upcomingCounter;
+    private static int overdueCounter;
+    
     {
         tasks = new UniqueTaskList();
         tags = new UniqueTagList();
@@ -81,6 +87,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
+        counter(p);
         tasks.add(p);
     }
 
@@ -192,4 +199,26 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+
+
+	private void counter(Task p) {
+		 for (int i = 0; i < tasks.getInternalList().size(); i++) {
+			 if (p.getStartTime().isMissing() && p.getEndTime().isMissing()) {
+				 floatingCounter++;
+				 System.out.println(floatingCounter);
+			 }
+			 if (p.getStartTime().isToday(p.getStartTime().appearOnUIFormatForDate())
+					 || p.getEndTime().isToday(p.getEndTime().appearOnUIFormatForDate())) {
+				 todayCounter++;
+				 System.out.println(todayCounter);
+			 }
+			 if (p.getStartTime().isTomorrow(p.getStartTime().appearOnUIFormatForDate())
+					 || p.getEndTime().isTomorrow(p.getEndTime().appearOnUIFormatForDate())) {
+				 tomorrowCounter++;
+				 System.out.println(tomorrowCounter);
+			 }
+		 }
+		
+	}
+	
 }

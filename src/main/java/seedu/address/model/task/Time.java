@@ -66,7 +66,7 @@ public class Time {
      * 
      * @return true if the time parameter is missing
      */
-    private boolean isMissing() {
+    public boolean isMissing() {
 		return time.getTime().toString().equalsIgnoreCase(DEFAULT_DATE);
 	}
     
@@ -88,6 +88,23 @@ public class Time {
     		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
     		return dateFormat.format(time.getTime());
     	}
+    }
+    
+    public boolean isToday(String date) {
+    	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    	if (date.equals(dateFormat.format(time.getTime()))){
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public boolean isTomorrow(String date) {
+    	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    	time.add(Calendar.DATE, 1);
+    	if(date.equals(dateFormat.format(time.getTime()))) {
+    		return true;
+    	}
+    	return false;
     }
 
     
