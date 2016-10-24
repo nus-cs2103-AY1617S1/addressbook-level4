@@ -14,9 +14,9 @@ import seedu.whatnow.commons.exceptions.IllegalValueException;
 public class TaskTime {
 
 	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_REGEX = "((\\d:\\d\\d)(am|pm))";
-	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT = "h:mma"; //E.g. 1:50 pm
+	public static final String TWELVE_HOUR_WITH_MINUTES_COLON_FORMAT = "h:mma"; //E.g. 1:50pm
 	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_REGEX = "(\\d.\\d\\d)(am|pm)";
-	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT = "h.mma";	//E.g. 1.45 pm
+	public static final String TWELVE_HOUR_WITH_MINUTES_DOT_FORMAT = "h.mma";	//E.g. 1.45pm
 	public static final String TWELVE_HOUR_WITHOUT_MINUTES_REGEX = "([1]*[0-9]{1}+)(am|pm)";
 	public static final String TWELVE_HOUR_WITHOUT_MINUTES_EXTEND_FORMAT = "hha";
 
@@ -176,7 +176,7 @@ public class TaskTime {
 		//Attempts to put today's date, if current time is >  5pm, put it as tomorrow instead
 		if(startDate == null && endDate == null && date == null) {
 			//If currentTime is earlier than input time, puts today's date
-			if(!currEarlierThanInput) {
+			if(currEarlierThanInput) {
 				DateFormat dateFormat = new SimpleDateFormat(DATE_NUM_SLASH_WITH_YEAR_FORMAT);
 				Calendar cal = Calendar.getInstance();
 				String taskDate = dateFormat.format(cal.getTime()); //Gets today's date
