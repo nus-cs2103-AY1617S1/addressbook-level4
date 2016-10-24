@@ -2,11 +2,13 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -30,7 +32,24 @@
             </Menu>
          </menus>
       </MenuBar>
-      <DatePicker />
+      <SplitPane dividerPositions="0.5" prefHeight="31.0" prefWidth="518.0">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <items>
+            <ImageView fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/calendar-icon.png" />
+               </image>
+            </ImageView>
+            <Label prefHeight="21.0" prefWidth="216.0" style="-fx-background-color: white;" text="24th October, 2016 | 01:48 PM">
+               <padding>
+                  <Insets left="8.0" />
+               </padding>
+            </Label>
+         </items>
+      </SplitPane>
+      
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.520891364902507" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
          <items>
             <AnchorPane fx:id="categoryPanelPlaceholder" maxWidth="370.0" minWidth="370.0" prefWidth="370.0" style="-fx-background-color: white;">
