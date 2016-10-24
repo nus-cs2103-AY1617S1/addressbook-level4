@@ -9,10 +9,10 @@ import java.util.List;
 public class CommandHistory {
 
 	// Stores all the previous commands
-	List<String> commandHistoryList = new ArrayList<String>();
+	private List<String> commandHistoryList = new ArrayList<String>();
 	
 	// Index into the list to return previous/next commands
-	int listPointer = -1;
+	private int listPointer = -1;
 	
 	public void addCommandTextToHistory(String commandText) {
 		assert commandHistoryList != null;

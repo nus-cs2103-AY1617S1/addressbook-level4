@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.Test;
 
 public class AutocompleteEngineTest {
-	AutocompleteEngine autocompleteEngine;
+	private AutocompleteEngine autocompleteEngine;
 	
 	@Test
 	public void autocompleteEngine_noWordsToMatch() {

@@ -8,7 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 public class AutocompleteResultTest {
-	AutocompleteResult autocompleteResult;
+	private AutocompleteResult autocompleteResult;
 
 	@Test(expected = AssertionError.class)
 	public void getNextMatch_nullWords() {

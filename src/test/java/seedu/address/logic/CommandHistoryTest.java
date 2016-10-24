@@ -7,9 +7,9 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.CommandHistory;
 
-public class CommandHistoryText {
+public class CommandHistoryTest {
 	
-	CommandHistory commandHistory;
+	private CommandHistory commandHistory;
 	
 	@Before
 	public void setup() {
