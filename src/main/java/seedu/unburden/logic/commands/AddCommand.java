@@ -90,6 +90,9 @@ public class AddCommand extends Command {
 		case "floating task":
 			this.toAdd = new Task(new Name(details.get(0)), new Date(details.get(1)), new UniqueTagList(tagSet));
 			break;
+		case "floating task with name":
+			this.toAdd = new Task (new Name(details.get(0)), new UniqueTagList(tagSet));
+			break;
 		default:
 			this.toAdd = new Task(new Name(details.get(0)), new TaskDescription(details.get(1)),
 					new Date(details.get(2)), new Time(details.get(3)), new Time(details.get(4)),
