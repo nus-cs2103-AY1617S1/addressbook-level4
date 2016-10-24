@@ -82,6 +82,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         items.add(p);
     }
     
+    //@@author A0140060A
     /**
      * Edits an item in the task manager.
      * Also checks the new item's tags and updates {@link #tags} with any new tags found,
@@ -95,6 +96,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         syncTagsWithMasterList(toReplace);
         items.replace(target, toReplace);
     }
+    //@@author 
 
     /**
      * Ensures that every tag in this item:

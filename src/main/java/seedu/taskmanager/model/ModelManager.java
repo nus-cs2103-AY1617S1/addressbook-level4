@@ -152,7 +152,8 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged(actionTaken);
     }
-    
+
+    //@@author A0140060A
     @Override
     public synchronized void replaceItem(ReadOnlyItem target, Item toReplace, String actionTaken) 
             throws ItemNotFoundException, UniqueItemList.DuplicateItemException {
@@ -160,6 +161,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged(actionTaken);
     }
+    //@@author 
 
     //=========== Filtered Item List Accessors ===============================================================
 

@@ -60,6 +60,7 @@ public class UniqueItemList implements Iterable<Item> {
         internalList.add(toAdd);
     }
 
+    //@@author A0140060A
     /**
      * Replaces an item in the list.
      *     
@@ -78,6 +79,7 @@ public class UniqueItemList implements Iterable<Item> {
         }
         internalList.set(itemIndex, toReplace);
     }
+    //@@author 
     
     /**
      * Removes the equivalent item from the list.

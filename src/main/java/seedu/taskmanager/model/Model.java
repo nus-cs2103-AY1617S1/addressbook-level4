@@ -23,18 +23,22 @@ public interface Model {
     /** Adds the given item */
     void addItem(Item item, String actionTaken) throws UniqueItemList.DuplicateItemException;
 
+    //@@author A0140060A
     /** Replaces the given item */
     void replaceItem(ReadOnlyItem target, Item toReplace, String actionTaken) throws UniqueItemList.ItemNotFoundException, UniqueItemList.DuplicateItemException;
+    //@@author 
     
     /** Returns the filtered item list as an {@code UnmodifiableObservableList<ReadOnlyItem>} */
     UnmodifiableObservableList<ReadOnlyItem> getFilteredItemList();
 
     /** Updates the filter of the filtered person list to show all items */
     void updateFilteredListToShowAll();
-
+    
+    //@@author A0140060A-reused
     /** Updates the filter of the filtered item list to filter by the given keywords*/
     void updateFilteredItemList(Set<String> keywords);
     
+    //@@author 
     /**Updates the filter of the filtered item list to filter by task */
 	void updateFilteredListToShowTask();
 	
