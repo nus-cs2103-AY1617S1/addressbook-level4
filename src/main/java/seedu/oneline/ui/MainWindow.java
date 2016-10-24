@@ -32,7 +32,6 @@ public class MainWindow extends UiPart {
     private TaskPane taskPane;
     private TagListPanel tagListPanel;
     private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
@@ -57,9 +56,6 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
-
-    @FXML
-    private AnchorPane statusbarPlaceholder;
 
 
     public MainWindow() {
@@ -111,16 +107,11 @@ public class MainWindow extends UiPart {
         taskPane = TaskPane.load(primaryStage, taskPanePlaceholder, logic.getFilteredTaskList());
         tagListPanel = TagListPanel.load(primaryStage, getTagListPlaceholder(), logic.getTagList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
-    }
-
-    private AnchorPane getStatusbarPlaceholder() {
-        return statusbarPlaceholder;
     }
 
     private AnchorPane getResultDisplayPlaceholder() {
