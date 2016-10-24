@@ -81,6 +81,12 @@ public class TaskCard extends UiPart{
         	startTime.setStyle("-fx-text-fill: white");
         	endTime.setStyle("-fx-text-fill: white");
         	
+        } else {
+        	
+        	boolean isOverdue = task.isOverdue();
+        	if (isOverdue) {
+        		cardPane.setStyle("-fx-background-color: red");
+        	}
         }
         
         id.setText(displayedIndex + ". ");
