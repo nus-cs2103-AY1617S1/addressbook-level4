@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import seedu.taskitty.commons.core.Messages;
-import seedu.taskitty.logic.commands.AddCommand;
 import seedu.taskitty.logic.commands.EditCommand;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
@@ -16,22 +15,24 @@ public class EditCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void edit() {
-        //edit one task
+        
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         
+        //Tests for edits that remove or add parameters - change between categories
+        //edit from deadline to todo
         TestTask taskToEdit = td.todo;
-        int targetIndex = currentList.size("t");
-        assertEditSuccess(taskToEdit, targetIndex, "t", currentList);
-
-        //edit another task
-        taskToEdit = td.deadline;
-        targetIndex = currentList.size("d");
+        int targetIndex = currentList.size("d");
         assertEditSuccess(taskToEdit, targetIndex, "d", currentList);
-        
-        //edit another task
-        taskToEdit = td.event;
+
+        //edit from event to deadline
+        taskToEdit = td.deadline;
         targetIndex = currentList.size("e");
         assertEditSuccess(taskToEdit, targetIndex, "e", currentList);
+        
+        //edit from todo to event
+        taskToEdit = td.event;
+        targetIndex = currentList.size("t");
+        assertEditSuccess(taskToEdit, targetIndex, "t", currentList);
         
         //edit into duplicate task
         commandBox.runCommand(td.deadline.getEditCommand(targetIndex - 1, "e"));
@@ -69,5 +70,4 @@ public class EditCommandTest extends TaskManagerGuiTest {
         currentList.editTaskFromList(index - 1, category, taskToEdit);
         assertTrue(currentList.isListMatching(taskListPanel));
     }
-
 }
