@@ -8,7 +8,11 @@ import seedu.taskmanager.model.TaskManager;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
+    
+    //@@author A0140060A
     public static final String SHORT_COMMAND_WORD = "cl";
+    //@@author 
+    
     public static final String MESSAGE_SUCCESS = "Task manager has been cleared!";
 
     public ClearCommand() {}

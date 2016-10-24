@@ -1,3 +1,4 @@
+[comment]: # (@@author A0140060A)
 # About Us
 
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
@@ -27,7 +28,7 @@ Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree 
 		* Initial morphing of documentation
 
 -----
-
+[comment]: # (@@author )
 #### [Harsh Gadodia](http://github.com/harshgadodia)
 <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/13494763_10154200932218467_8223215693952856578_n.jpg?oh=19d8a20f1163b35c2b8f59908dc96588&oe=58AD397A" width="150"><br>
 Role: Testing / Documentation <br>
@@ -48,6 +49,3 @@ Role: Code Quality / Eclipse Expert <br>
 Responsibilities: Storage
 
 -----
-
-### Acknowledgements
-This product is morphed from [addressbook-level4](https://github.com/se-edu/addressbook-level4)

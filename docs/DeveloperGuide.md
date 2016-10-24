@@ -265,25 +265,30 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-
+[comment]: # (@@author A0140060A)
 Priority | As a ... | I want to ...           | So that I can...
 -------- | :------- | :---------------------- | :---------------
-`* * *`  | new user | see usage instructions  | use the app as intended
+`* * *`  | new user | see usage instructions  | learn how to use the app
 `* * *`  | user     | add a new task | add something to my todo list without a time restrictions
 `* * *`  | user     | add a new deadline      | add something to my todo list with a deadline
-`* * *`  | user     | add a new event         | add something to my todo list with a start and end time
+`* * *`  | user     | add a new event         | add something to my todo list with a start and end datetime
 `* * *`  | user     | view all tasks/deadlines/events   | view my entire todo list
-`* * *`  | user     | view all undone tasks/deadlines/events | view items I need to work on
+`* *`  | user     | view all tasks   | view only my tasks
+`* *`  | user     | view all deadlines   | view only my deadlines
+`* *`  | user     | view all events   | view only my events
 `* * *`  | user     | edit a task/deadline/event       | change the details of a task/deadline/event
-`* * *`  | user     | mark a task/deadline as done| know that a task/deadline is completed
+`* *`  | user     | to enter a command in natural language as much as possible | be flexible about how I enter a command
+`* *`  | user     | have multiple keywords/shortcuts for a command | be flexible about how I enter a command
+`* * *`  | user     | mark a task/deadline/event as done| know that a task/deadline/event is completed
+`* *`  | user     | mark a done task/deadline/event as not done| know that a task/deadline/event is not completed yet
 `* * *`  | user     | delete a task/deadline/event     | remove an item that is no longer necessary
-`* * *`  | user     | set a deadline for task | know when to finish the task by
 `* * *`  | user     | search tasks by name    | find the task that I need to do
 `* * *`  | user     | undo the last command   | undo an unintentional operation
-`* * *`  | user     | have multiple keywords/shortcuts for a command | be flexible about how I enter a command
 `* * *`  | user     | specify the data storage location | use cloud syncing services and access my todo list on different devices
-`* *`    | user     | sort uncompleted deadlines by deadline | know which deadline I should finish first
-
+`* *`  | user     | view all undone tasks/deadlines/events | view items I need to work on
+`*`  | user     | set a deadline for task | know when to finish the task by
+`*`    | user     | sort uncompleted deadlines by deadline | know which deadline I should finish first
+[comment]: # (@@author )
 
 ## Appendix B : Use Cases
 
@@ -450,7 +455,7 @@ This product is morphed from [addressbook-level4](https://github.com/se-edu/addr
 * [ControlsFX](https://bitbucket.org/controlsfx/controlsfx/)
 * [Google Guava](https://github.com/google/guava)
 * [Jackson library](https://github.com/FasterXML/jackson)
-* [JUnit](http://junit.sourceforge.net/javadoc/)
+* [JUnit](http://junit.sourceforge.net/javadoc/cl)
 * [prettytime](https://github.com/ocpsoft/prettytime)
 * [prettytime-nlp](https://github.com/ocpsoft/prettytime)
 * [TestFX](https://github.com/TestFX/TestFX)

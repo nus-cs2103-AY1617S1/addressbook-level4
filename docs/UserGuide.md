@@ -237,11 +237,19 @@ For events, you can edit the name and both start and end dates and times.
 
 ### When you want to undo your last action that caused a changed in your todo list
 
-1. Type `u[ndo]`.
-
-2. Press `Enter`.
+1. Type `u[ndo]`. Press `Enter`.
 
 3. Console refreshes to display items as per previous state.
+
+[comment]: # (@@author A0140060A)
+
+### When you want to redo your last undone action
+
+1. Type `r[edo]`. Press `Enter`.
+
+3. Console refreshes to display items as per previous state.
+
+[comment]: # (@@author )
 
 ### When you want to specify a custom save location for your data
 
@@ -254,26 +262,27 @@ For events, you can edit the name and both start and end dates and times.
 
 # Command Summary
 
-Command | Format  
--------- | :--------
-Add Task | `a[dd] t[ask] [n/]NAME [#TAG_TO_ADD]`
-Add Deadline | `a[dd] d[eadline] [n/]NAME ed/DATE et/TIME` or `a[dd] d[eadline] [n/]NAME edt/DATE_TIME_TEXT [#TAG_TO_ADD]`
-Add Event | `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME ed/END_DATE et/END_TIME [#TAG_TO_ADD]` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT edt/END_DATE_TIME_TEXT [#TAG_TO_ADD]`
-Clear | `cl[ear]`
-Delete | `del[ete] INDEX [SECOND_INDEX]`
-Done | `d[one] INDEX`
-Edit Task | `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]`
-Edit Deadline | `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`
-Edit Event | `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]`
-Find | `f[ind] KEYWORD [MORE_KEYWORDS]`
-Help | `h[elp]`
-List all items | `l[ist]`
-List Tasks | `l[ist]t[ask]`
-List Deadlines | `l[ist]d[eadline]`
-List Events | `l[ist]e[vent]`
-Notdone | `n[ot]d[one] INDEX`
-Select | `s[elect] INDEX`
-Undo | `u[ndo]`
+Command | Format  | Example
+-----: | ----- | :------------------
+Add Task | `a[dd] t[ask] [n/]NAME [#TAG_TO_ADD]` | `add task tutorial`
+Add Deadline | `a[dd] d[eadline] [n/]NAME ed/DATE et/TIME` or `a[dd] d[eadline] [n/]NAME edt/DATE_TIME_TEXT [#TAG_TO_ADD]` | `add deadline reach v0.4 edt/thursday 2pm`
+Add Event | `a[dd] e[vent] [n/]NAME sd/START_DATE st/START_TIME  ed/END_DATE et/END_TIME [#TAG_TO_ADD]` or `a[dd] e[vent] [n/]NAME sdt/START_DATE_TIME_TEXT edt/END_DATE_TIME_TEXT [#TAG_TO_ADD]` | `add event 2103 lecture sdt/friday 2pm edt/friday 4pm`
+Clear | `cl[ear]` | `clear`
+Delete | `del[ete] INDEX [SECOND_INDEX]` | `delete 1`
+Done | `d[one] INDEX` | `done 1`
+Edit Task | `e[dit] INDEX n/NEW_NAME [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 6 n/CS2103`
+Edit Deadline | `e[dit] INDEX [n/NEW_NAME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 6 edt/tomorrow 6pm`
+Edit Event | `e[dit] INDEX [n/NEW_NAME] [sdt/NEW_START_DATE_TIME] [sd/NEW_START_DATE] [st/NEW_START_TIME] [edt/NEW_END_DATE_TIME] [ed/NEW_END_DATE] [et/NEW_END_TIME] [#TAG_TO_ADD] [#-TAG_TO_DELETE]` | `edit 6 sdt/yesterday`
+Find | `f[ind] KEYWORD [MORE_KEYWORDS]` | `find random module`
+Help | `h[elp]` | `help`
+List all items | `l[ist]` | `list`
+List Tasks | `l[ist]t[ask]` |`lt`
+List Deadlines | `l[ist]d[eadline]` | `ld`
+List Events | `l[ist]e[vent]` | `le`
+Notdone | `n[ot]d[one] INDEX` | `nd 1`
+Redo | `r[edo]` | `redo`
+Select | `s[elect] INDEX` | `select 1`
+Undo | `u[ndo]` | `undo`
 
 # Credits
 

@@ -7,9 +7,7 @@ import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.item.ItemTime;
 import seedu.taskmanager.model.tag.Tag;
 
-/**
- *
- */
+//@@author A0140060A-reused
 public class ItemBuilder {
 
     private TestItem item;

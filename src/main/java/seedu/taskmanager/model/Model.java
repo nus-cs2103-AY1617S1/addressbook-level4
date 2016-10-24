@@ -16,7 +16,8 @@ public interface Model {
 
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
-
+  
+    //@@author A0140060A-reused
     /** Deletes the given item. */
     void deleteItem(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;
 
