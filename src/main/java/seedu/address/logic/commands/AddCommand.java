@@ -48,6 +48,7 @@ public class AddCommand extends UndoableCommand {
         this.toAdd = new Task(new Name(taskName));
     }
 
+    //@@author A0139655U
     public AddCommand(Optional<String> taskNameString, Optional<String> startDateString, Optional<String> endDateString, 
             Optional<String> rateString, Optional<String> timePeriodString, Optional<String> priorityString) 
                     throws IllegalValueException {

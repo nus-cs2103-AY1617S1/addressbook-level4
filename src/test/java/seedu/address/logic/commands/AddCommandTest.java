@@ -9,6 +9,7 @@ import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.Task;
 import seedu.address.testutil.TestOptionalStringTask;
 
+//@@author A0139655U
 public class AddCommandTest {
 
     TestOptionalStringTask optionalStringTask;

@@ -14,6 +14,7 @@ import seedu.address.model.item.DateTime;
 
 
 //TODO: Implement interface to access DateTime.isValidDate?
+//@@author A0139655U
 public class CommandParserHelper {
     
     private final Logger logger = LogsCenter.getLogger(CommandParserHelper.class);
@@ -99,6 +100,7 @@ public class CommandParserHelper {
         return putVariablesInMap(task);
     }
     
+    //@@author 
     public HashMap<String, Optional<String>> prepareEdit(String args) throws IllegalValueException {
         assert args != null;
         OptionalStringTask task = new OptionalStringTask();
@@ -113,6 +115,7 @@ public class CommandParserHelper {
         return putVariablesInMap(task);
     }
     
+    //@@author A0139655U
     /**
      * Generates the right matcher for the escaped input args.
      *
@@ -636,6 +639,7 @@ public class CommandParserHelper {
         return priority;
     }
 
+    //@@author
     private String generatePriorityEdit(Matcher matcher) {
         String priority;
         if (matcher.group("priority") != null) {
@@ -646,6 +650,7 @@ public class CommandParserHelper {
         return priority;
     }
     
+    //@@author A0139655U
     // TODO: To update this
     private Matcher validateRecurrenceMatcher(Matcher matcher) throws IllegalValueException {
         String recurrenceString = matcher.group("recurrenceRate");
@@ -667,6 +672,7 @@ public class CommandParserHelper {
         task.priority = Optional.of(generatePriority(matcher));
     }
 
+    //@@author
     private void assignTaskParametersEdit(OptionalStringTask task) throws IllegalValueException {
         task.taskName = Optional.of(matcher.group("taskName").trim());
         HashMap<String, Optional<String>> recurrenceRateMap = generateRateAndTimePeriod(matcher);
@@ -675,6 +681,7 @@ public class CommandParserHelper {
         task.priority = Optional.of(generatePriorityEdit(matcher));
     }
     
+    //@@author A0139655U
     private class OptionalStringTask {
         public Optional<String> taskName;
         public Optional<String> startDate;
