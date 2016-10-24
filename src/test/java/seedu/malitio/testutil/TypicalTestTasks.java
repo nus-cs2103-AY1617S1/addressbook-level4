@@ -25,20 +25,20 @@ public class TypicalTestTasks {
             floatingTask3 = new FloatingTaskBuilder().withName("Tell your world").build();
             floatingTask4 = new FloatingTaskBuilder().withName("Download Promise Song").build();
             floatingTask5 = new FloatingTaskBuilder().withName("Cendrillion").withTags("vocaloid").build();
-            deadline1 = new DeadlineBuilder().withName("Cut hair").dueOn("11122016 2000").build();
-            deadline2 = new DeadlineBuilder().withName("Do some sit-up").dueOn("21112016 2359").build();
-            event1 = new EventBuilder().withName("Eat with mom").start("21102016 1800").end("21102016 1855").build();
-            event2 = new EventBuilder().withName("Forgive with forget").start("22012017 1000").end("23022017 1000").build();
-            event3 = new EventBuilder().withName("Go shopping").start("30032017 0900").end("30032017 2000").build();
-            event4 = new EventBuilder().withName("Hopping").start("01112016 0400").end("01112016 0600").build();
+            deadline1 = new DeadlineBuilder().withName("Cut hair").dueOn("11-12 2000").build();
+            deadline2 = new DeadlineBuilder().withName("Do some sit-up").dueOn("11-21 2359").build();
+            event1 = new EventBuilder().withName("Eat with mom").start("10-21 1800").end("10-21 1855").build();
+            event2 = new EventBuilder().withName("Forgive with forget").start("02-22 1000").end("02-23 1000").build();
+            event3 = new EventBuilder().withName("Go shopping").start("03-30 0900").end("03-30 2000").build();
+            event4 = new EventBuilder().withName("Hopping").start("11-01 0400").end("11-01 0600").build();
 
             //Manually added
             manualFloatingTask1 = new FloatingTaskBuilder().withName("Spa relaxation").build();
             manualFloatingTask2 = new FloatingTaskBuilder().withName("Play cards").build();
-            manualDeadline1 = new DeadlineBuilder().withName("Prepare for interview").dueOn("20102016 0000").build();
-            manualDeadline2 = new DeadlineBuilder().withName("Get watch fixed").dueOn("21102016 2359").build();
-            manualEvent1 = new EventBuilder().withName("Boring Lecture").start("17112016 1100").end("17112016 1200").build();
-            manualEvent2 = new EventBuilder().withName("Scary Interview").start("18122016 1300").end("18122016 1400").build();
+            manualDeadline1 = new DeadlineBuilder().withName("Prepare for interview").dueOn("01-20 0000").build();
+            manualDeadline2 = new DeadlineBuilder().withName("Get watch fixed").dueOn("10-21 2359").build();
+            manualEvent1 = new EventBuilder().withName("Boring Lecture").start("11-17 1100").end("11-17 1200").build();
+            manualEvent2 = new EventBuilder().withName("Scary Interview").start("12-18 1300").end("12-18 1400").build();
             
         } catch (IllegalValueException e) {
             e.printStackTrace();

@@ -15,7 +15,7 @@ public class DateTime {
     
     private Date date;
     
-    private static DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    private static DateFormat outputFormatter = new SimpleDateFormat("MM-dd-yyyy HH:mm");
   
     /**
      * Converts the string that contains date information into Date
@@ -31,7 +31,7 @@ public class DateTime {
     }
     
     public String toString() {
-        String newDateString = df.format(date);
+        String newDateString = outputFormatter.format(date);
         return newDateString;
     }
 

@@ -92,14 +92,14 @@ public class TestUtil {
     private static Event[] getSampleEventData() {
         try {
             return new Event[]{
-                    new Event(new Name("Zen Birthday Celebration"), new DateTime("20102016 1100"), new DateTime("20102016 1200"), new UniqueTagList()),
-                    new Event(new Name("JuMin Speech"), new DateTime("20112016 1100"), new DateTime("20112016 1200"), new UniqueTagList()),
-                    new Event(new Name("STxxxx Lecture"), new DateTime("02102016 0000"), new DateTime("03102016 1000"), new UniqueTagList()),
-                    new Event(new Name("My Birthday"), new DateTime("20032016 0000"), new DateTime("20032016 2359"), new UniqueTagList()),
-                    new Event(new Name("Dinner Date with YooSung"), new DateTime("18022017 1100"), new DateTime("19022017 1200"), new UniqueTagList()),
-                    new Event(new Name("Play Dota with Friends"), new DateTime("02122016 0000"), new DateTime("02122016 2359"), new UniqueTagList()),
-                    new Event(new Name("Get Rich Seminar"), new DateTime("17112016 0000"), new DateTime("17112016 0210"), new UniqueTagList()),
-                    new Event(new Name("Badminton"), new DateTime("03012016 1400"), new DateTime("02122016 1700"), new UniqueTagList()),
+                    new Event(new Name("Zen Birthday Celebration"), new DateTime("10-20 1100"), new DateTime("10-20 1200"), new UniqueTagList()),
+                    new Event(new Name("JuMin Speech"), new DateTime("11-20 1100"), new DateTime("11-20 1200"), new UniqueTagList()),
+                    new Event(new Name("STxxxx Lecture"), new DateTime("10-03 0000"), new DateTime("10-03 1000"), new UniqueTagList()),
+                    new Event(new Name("My Birthday"), new DateTime("03-20 0000"), new DateTime("03-20 2359"), new UniqueTagList()),
+                    new Event(new Name("Dinner Date with YooSung"), new DateTime("02-18-2017 1100"), new DateTime("02-19-2017 1200"), new UniqueTagList()),
+                    new Event(new Name("Play Dota with Friends"), new DateTime("12-02-2016 0000"), new DateTime("12-02-2016 2359"), new UniqueTagList()),
+                    new Event(new Name("Get Rich Seminar"), new DateTime("11-17 0000"), new DateTime("11-17 0210"), new UniqueTagList()),
+                    new Event(new Name("Badminton"), new DateTime("01-03 1400"), new DateTime("12-02 1700"), new UniqueTagList()),
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -111,15 +111,15 @@ public class TestUtil {
     private static Deadline[] getSampleDeadlineData() {
         try {
             return new Deadline[]{
-                    new Deadline(new Name("Complete ST4231 Homework"), new DateTime ("20102016 2300"), new UniqueTagList()),
-                    new Deadline(new Name("Feed Elizabeth the 3rd"), new DateTime ("08082016 0808"), new UniqueTagList()),
-                    new Deadline(new Name("Buy materials for christmas party!"), new DateTime ("24122016 1200"), new UniqueTagList()),
-                    new Deadline(new Name("Make new year resolutions"), new DateTime ("31122016 2359"), new UniqueTagList()),
-                    new Deadline(new Name("Study for Test"), new DateTime ("18112016 1300"), new UniqueTagList()),
-                    new Deadline(new Name("Buy food for Zen"), new DateTime ("01012017 0000"), new UniqueTagList()),
-                    new Deadline(new Name("Buy present for girlfriend"), new DateTime ("05032017 0500"), new UniqueTagList()),
-                    new Deadline(new Name("Complete Hearthstone missions"), new DateTime ("10062016 1940"), new UniqueTagList()),
-                    new Deadline(new Name("Reply lecturer emails"), new DateTime ("30102016 2359"), new UniqueTagList())
+                    new Deadline(new Name("Complete ST4231 Homework"), new DateTime ("10-20 2300"), new UniqueTagList()),
+                    new Deadline(new Name("Feed Elizabeth the 3rd"), new DateTime ("08-08 0808"), new UniqueTagList()),
+                    new Deadline(new Name("Buy materials for christmas party!"), new DateTime ("12-24 1200"), new UniqueTagList()),
+                    new Deadline(new Name("Make new year resolutions"), new DateTime ("12-31 2359"), new UniqueTagList()),
+                    new Deadline(new Name("Study for Test"), new DateTime ("11-18 1300"), new UniqueTagList()),
+                    new Deadline(new Name("Buy food for Zen"), new DateTime ("01-01-2017 0000"), new UniqueTagList()),
+                    new Deadline(new Name("Buy present for girlfriend"), new DateTime ("03-05-2017 0500"), new UniqueTagList()),
+                    new Deadline(new Name("Complete Hearthstone missions"), new DateTime ("06-10 1940"), new UniqueTagList()),
+                    new Deadline(new Name("Reply lecturer emails"), new DateTime ("10-30-2016 2359"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
