@@ -271,6 +271,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | have a done list | see what has been done for the day to know how productive I've been.
 `* * *` | user | clear my tasks | delete all the tasks in my task manager at once.
 `* * *` | user | clear my done tasks | delete all my tasks that are done from the done list.
+`* *` | user | add a recurring tasks | add the task once and not every time it occurs.
 `* *` | user | undo a command | go back to the previous command if I have made a mistake.
 `* *` | user | rearrange my task based on certain commands | make my schedule more flexible.
 `* *` | user | set the priority of the task when I'm adding a new task | know the urgency of the task.
