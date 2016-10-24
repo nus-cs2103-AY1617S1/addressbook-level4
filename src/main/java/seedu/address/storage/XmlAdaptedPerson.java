@@ -29,7 +29,7 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String deadlined;
     
-    @XmlElement(required = true)
+    @XmlElement
     private String priority;
 
     @XmlElement

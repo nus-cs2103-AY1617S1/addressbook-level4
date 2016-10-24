@@ -31,7 +31,7 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
             		+ "(?<startline>(?: s/[^/]+)*)"
                     + "(?<deadlineArguments>(?: d/[^/]+)*)"
-                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
+                    + "(?<priority>(?: p/[^/]+)*)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
@@ -39,7 +39,7 @@ public class Parser {
             		+ " (?<name>[^/]+)"
             		+ "s/(?<startline>[^/]+)"
             		+ "(?<deadlineArguments>(?: d/[^/]+)*)"
-                    + "(?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
+                    + " p/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
@@ -114,13 +114,22 @@ public class Parser {
                     matcher.group("name"),
                     getStartlineFromArgs(matcher.group("startline")),
                     getDeadlinesFromArgs(matcher.group("deadlineArguments")),
-                    matcher.group("priority"),
+                    getPriorityFromArgs(matcher.group("priority")),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    
+    private String getPriorityFromArgs(String args) {
+		if (args.isEmpty()) {
+			return "0";
+		}
+		args = args.replaceFirst(" p/", "");
+
+		return args;
+	}
     
     /**
      * Checks if user inputs startline
@@ -254,7 +263,7 @@ public class Parser {
                     matcher.group("name"),
                     getStartlineFromArgs(matcher.group("startline")),
                     getDeadlinesFromArgs(matcher.group("deadlineArguments")),
-                    matcher.group("priority"),
+                    getPriorityFromArgs(matcher.group("priority")),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {
