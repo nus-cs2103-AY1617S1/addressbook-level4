@@ -11,7 +11,7 @@ public class ShowDateCommand extends Command {
 
     public static final String COMMAND_WORD = "showdate";
 
-    public static final String MESSAGE_SUCCESS = "Shown all tasks date";
+    public static final String MESSAGE_SUCCESS = "Shown all tasks by date";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
     		+ ": Shows the list identified by date";

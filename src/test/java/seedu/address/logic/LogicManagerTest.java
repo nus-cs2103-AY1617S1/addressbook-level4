@@ -239,21 +239,21 @@ public class LogicManagerTest {
                 expectedList);
     }
     
-//    @Test
-//    public void execute_list_showsDateTasks() throws Exception {
-//        // prepare expectations
-//        TestDataHelper helper = new TestDataHelper();
-//        TaskManager expectedAB = helper.generateTaskManager(3);
-//        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
-//
-//        // prepare address book state
-//        helper.addToModel(model, 3);
-//
-//        assertCommandBehavior("show 01/01/17",
-//                ShowCommand.MESSAGE_SUCCESS,
-//                expectedAB,
-//                expectedList);
-//    }
+    @Test
+    public void execute_list_showsDateTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        TaskManager expectedAB = helper.generateTaskManager(3);
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+
+        // prepare address book state
+        helper.addToModel(model, 3);
+
+        assertCommandBehavior("show 01/01/17",
+                ShowDateCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
