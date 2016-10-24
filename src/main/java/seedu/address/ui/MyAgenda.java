@@ -134,11 +134,11 @@ public class MyAgenda extends Agenda{
 		appointment.setStartLocalDateTime(getConvertedTime(taskComponent.getStartDate()));			
 		appointment.setEndLocalDateTime(getConvertedTime(taskComponent.getEndDate()));
 		if(taskComponent.isArchived()){
-			appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group1"));			
+			appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("archive"));			
 		}else if(taskComponent.getTaskReference().getName().fullName.equals(BlockCommand.DUMMY_NAME)){
-			appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group6"));
+			appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("block"));
 		}else{
-			appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group9"));
+			appointment.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("normal"));
 		}	
 		return appointment;
 			
@@ -230,7 +230,7 @@ public class MyAgenda extends Agenda{
 		newOne.setStartLocalDateTime(start);
 		newOne.setEndLocalDateTime(end);
 		if(start.isAfter(src.getStartLocalDateTime()))
-			newOne.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("group9"));
+			newOne.setAppointmentGroup(new Agenda.AppointmentGroupImpl().withStyleClass("normal"));
 		return newOne;
 	}
 	
