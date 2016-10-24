@@ -119,6 +119,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredPersons.setPredicate(null);
     }
+    
+    @Override
+    public void updateFilteredTagListToShowAll(String tag) {
+        filteredPersons.setPredicate(p->
+        p.getTags().contains1(tag));
+    }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){

@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.DuplicateDataException;
+import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
 
@@ -106,6 +107,18 @@ public class UniqueTagList implements Iterable<Tag> {
         return internalList.contains(toCheck);
     }
 
+    public boolean contains1(String toCheck){
+        Tag tag;
+        try {
+            tag = new Tag(toCheck);
+            return internalList.contains(tag);  
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+        }
+        return false;
+ 
+    }
+    
     /**
      * Adds a Tag to the list.
      *
