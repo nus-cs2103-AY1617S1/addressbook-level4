@@ -28,7 +28,7 @@ public class TypicalTestActivities {
 
             //To test adding of activity, task and event.
             findHoon = new ActivityBuilder().withName("find Hoon").withReminder("30-12-2017 1200").withTags("bringgift").build();
-            findIda = new TaskBuilder().withName("find Ida").withDueDate("8482131").withReminder("chicago ave").withTags("bringgifts").build();
+            findIda = new TaskBuilder().withName("find Ida").withDueDate("31-12-2017 1200").withReminder("30-12-2017 1200").withTags("bringgifts").build();
             findJodie = new EventBuilder().withName("find Jodie").withStartTime("31-12-2017 1200").withEndTime("31-12-2017 1800").withReminder("30-12-2017 1200").withTags("bringgifts").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
