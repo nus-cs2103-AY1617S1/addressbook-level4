@@ -329,6 +329,47 @@ public class TestActivity implements ReadOnlyActivity {
         return build.toString();
     }
     
+    /**
+     * @param index of the Activity to edit, and it's newNote
+     * @return edit note command for the given Activity.
+     */
+    public String getEditNoteCommand(int index, String newNote) {
+        StringBuilder build = new StringBuilder();
+        
+        if (activityType.equals(Activity.FLOATING_TASK_TYPE)) {
+            build.append(EditCommand.COMMAND_WORD);
+            build.append(" ");
+            build.append(Activity.FLOATING_TASK_TYPE);
+            build.append(" ");
+            build.append(String.valueOf(index));
+            build.append(" ");
+            build.append(EditCommand.NOTE_PARAM);
+            build.append(" ");
+            build.append(newNote);
+        } else if (activityType.equals(Activity.TASK_TYPE)) {
+            build.append(EditCommand.COMMAND_WORD);
+            build.append(" ");
+            build.append(Activity.TASK_TYPE);
+            build.append(" ");
+            build.append(String.valueOf(index));
+            build.append(" ");
+            build.append(EditCommand.NOTE_PARAM);
+            build.append(" ");
+            build.append(newNote);
+        } else if (activityType.equals(Activity.EVENT_TYPE)) {
+            build.append(EditCommand.COMMAND_WORD);
+            build.append(" ");
+            build.append(Activity.EVENT_TYPE);
+            build.append(" ");
+            build.append(String.valueOf(index));
+            build.append(" ");
+            build.append(EditCommand.NOTE_PARAM);
+            build.append(" ");
+            build.append(newNote);
+        }
+        return build.toString();
+    }
+    
     @Override
     public Activity get() {
         return null;

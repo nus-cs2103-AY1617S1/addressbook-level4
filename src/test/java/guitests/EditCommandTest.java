@@ -30,8 +30,12 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         assertFloatingEditNameSuccess(floating, 1, "Floating Hello World");
         assertTaskEditNameSuccess(task, 1, "Task Hello World");
         assertEventEditNameSuccess(event, 1, "Event Hello World");
+        refresh(3); // Undo the changes made.
         
         // Edit Note - For all activity.
+        assertFloatingEditNoteSuccess(floating, 1, "Floating Hello Note");
+        assertTaskEditNoteSuccess(task, 1, "Task Hello Note");
+        assertEventEditNoteSuccess(event, 1, "Event Hello Note");
         
         // Edit Date - For Task
         
@@ -56,11 +60,18 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         
     }
     
+    private void refresh(int numTimes) {
+        for (int i = 0; i < numTimes; i++) {
+            commandBox.runCommand("undo");
+        }
+    }
+    
     private void assertFloatingEditNameSuccess(TestActivity floating, int index, String changes) {
         commandBox.runCommand(floating.getEditNameCommand(index, changes));
         floating = activityListPanel.returnsUpdatedFloatingTask(changes); // Update floatingTask with new changes
         FloatingTaskCardHandle editedCard = activityListPanel.navigateToFloatingTask(floating); // Check against card.
         assertFloatingTaskMatching(floating, editedCard);
+        
         // Confirms the result message is correct
         assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, floating));
     }
@@ -70,6 +81,7 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         task = activityListPanel.returnsUpdatedTask(changes); // Update Task with new changes
         TaskCardHandle editedCard = activityListPanel.navigateToTask(task); // Check against card.
         assertTaskMatching(task, editedCard);
+        
         // Confirms the result message is correct
         assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, task));
     }
@@ -79,14 +91,38 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         event = activityListPanel.returnsUpdatedEvent(changes);
         EventCardHandle editedCard = activityListPanel.navigateToEvent(event);
         assertEventMatching(event, editedCard);
+        
         // Confirms the result message is correct
         assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, event));
     }
     
     private void assertFloatingEditNoteSuccess(TestActivity floating, int index, String changes) {
+        commandBox.runCommand(floating.getEditNoteCommand(index, changes));
+        floating = activityListPanel.returnsUpdatedFloatingTask(floating.getActivityName().fullName); // Update floatingTask with new changes
+        FloatingTaskCardHandle editedCard = activityListPanel.navigateToFloatingTask(floating); // Check against card.
+        assertFloatingTaskMatching(floating, editedCard);
+        
+        // Confirms the result message is correct
+        assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, floating));
     }
-    private void assertTaskEditNoteSuccess(TestActivity floating, int index, String changes) {
+    
+    private void assertTaskEditNoteSuccess(TestActivity task, int index, String changes) {
+        commandBox.runCommand(task.getEditNoteCommand(index, changes));
+        task = activityListPanel.returnsUpdatedTask(task.getActivityName().fullName); // Update floatingTask with new changes
+        TaskCardHandle editedCard = activityListPanel.navigateToTask(task); // Check against card.
+        assertTaskMatching(task, editedCard);
+        
+        // Confirms the result message is correct
+        assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, task));
     }
-    private void assertEventEditNoteSuccess(TestActivity floating, int index, String changes) {
+    
+    private void assertEventEditNoteSuccess(TestActivity event, int index, String changes) {
+        commandBox.runCommand(event.getEditNoteCommand(index, changes));
+        event = activityListPanel.returnsUpdatedEvent(event.getActivityName().fullName);
+        EventCardHandle editedCard = activityListPanel.navigateToEvent(event);
+        assertEventMatching(event, editedCard);
+        
+        // Confirms the result message is correct
+        assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, event));
     }
 }
