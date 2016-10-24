@@ -3,6 +3,7 @@ package seedu.todo.ui.controller;
 import javafx.scene.input.KeyCode;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.ui.CommandInputEnterEvent;
+import seedu.todo.commons.events.ui.ShowPreviewEvent;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.Logic;
 import seedu.todo.logic.commands.CommandResult;
@@ -75,20 +76,11 @@ public class CommandController {
             break;
         default :   // Typing command, show preview
             System.out.println("SHOW PREVIEW");
-            /*
             if (!StringUtil.isEmpty(userInput)) {
+
             }
-            */
             break;
         }
-    }
-
-    /**
-     * Handles a CommandPreview object, and updates the user interface to reflect the result.
-     * @param preview produced by {@link Logic}
-     */
-    private void handlePreviewResult(CommandResult preview) {
-        previewView.displayMessage(preview.getFeedback());
     }
 
     /**
