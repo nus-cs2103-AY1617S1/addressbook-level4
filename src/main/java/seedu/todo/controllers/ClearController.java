@@ -32,7 +32,7 @@ public class ClearController implements Controller {
     private static final String COMMAND_WORD = "clear";
     private static final String MESSAGE_CLEAR_NO_ITEM_FOUND = "No item found!";
     private static final String MESSAGE_CLEAR_SUCCESS = "A total of %s deleted!\n" + "To undo, type \"undo\".";
-    private static final Object NOT_FOUND = null;
+
     //Use by array access
     private static final int KEYWORD = 0;
     private static final int RESULT = 1;
@@ -114,18 +114,18 @@ public class ClearController implements Controller {
         
         //parsing of dates with keywords with natty
         LocalDateTime dateOn = parseDateWithNoKeyword(parsedResult);
-        LocalDateTime dateFrom = (LocalDateTime) NOT_FOUND;
-        LocalDateTime dateTo = (LocalDateTime) NOT_FOUND;
-        if (parsedDates != NOT_FOUND) {
+        LocalDateTime dateFrom = (LocalDateTime) null;
+        LocalDateTime dateTo = (LocalDateTime) null;
+        if (parsedDates != null) {
             String naturalOn = parsedDates[INDEX_DATE_ON];
             String naturalFrom = parsedDates[INDEX_DATE_FROM];
             String naturalTo = parsedDates[INDEX_DATE_TO];
             // if all are null = no date provided
             
             // Parse natural date using Natty.
-            dateOn = naturalOn == NOT_FOUND ? (LocalDateTime) NOT_FOUND : parseNatural(naturalOn);
-            dateFrom = naturalFrom == NOT_FOUND ? (LocalDateTime) NOT_FOUND : parseNatural(naturalFrom); 
-            dateTo = naturalTo == NOT_FOUND ? (LocalDateTime) NOT_FOUND : parseNatural(naturalTo);
+            dateOn = naturalOn == null ? (LocalDateTime) null : parseNatural(naturalOn);
+            dateFrom = naturalFrom == null ? (LocalDateTime) null : parseNatural(naturalFrom); 
+            dateTo = naturalTo == null ? (LocalDateTime) null : parseNatural(naturalTo);
         }
         
         //invokey destroy command
@@ -155,21 +155,21 @@ public class ClearController implements Controller {
     private void destroyByDate(TodoListDB db, String[] parsedDate, LocalDateTime dateOn, 
             LocalDateTime dateFrom, LocalDateTime dateTo, boolean deleteAll,
             boolean isTask, String input) {
-        if (dateOn == NOT_FOUND && dateFrom == NOT_FOUND && dateTo == NOT_FOUND && deleteAll) {
+        if (dateOn == null && dateFrom == null && dateTo == null && deleteAll) {
             displayErrorMessage(input, parsedDate, deleteAll, isTask);
         }
         else if (dateOn != null) {
             destroyBySelectedDate(db, dateOn, deleteAll, isTask);
             return;
         } else {
-            if (!deleteAll && parsedDate != NOT_FOUND && dateFrom == NOT_FOUND
-                    && dateTo == NOT_FOUND && dateOn == NOT_FOUND) { //date provided is invalid
+            if (!deleteAll && parsedDate != null && dateFrom == null
+                    && dateTo == null && dateOn == null) { //date provided is invalid
                 displayErrorMessage(input, parsedDate, deleteAll, isTask);
                 return;
             } else {
                 if (parsedDate != null) {
                     if (parsedDate[INDEX_DATE_FROM] != null && parsedDate[INDEX_DATE_TO] != null 
-                            && (dateFrom == NOT_FOUND || dateTo == NOT_FOUND)) {
+                            && (dateFrom == null || dateTo == null)) {
                         displayErrorMessage(input, parsedDate, deleteAll, isTask);
                         return;
                     }
@@ -195,11 +195,11 @@ public class ClearController implements Controller {
      */
     private void destroyByRange(TodoListDB db, LocalDateTime dateFrom, LocalDateTime dateTo, 
             boolean deleteAll, boolean isTask) {
-        if (dateFrom == NOT_FOUND) {
+        if (dateFrom == null) {
             dateFrom = LocalDateTime.MIN;
         } 
         
-        if (dateTo == NOT_FOUND) {
+        if (dateTo == null) {
             dateTo = LocalDateTime.MAX;
         }
         
@@ -236,7 +236,7 @@ public class ClearController implements Controller {
         
         //save and render
         db.save();
-        Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, formatSuccessMessage(numTasks, numEvents)));
+        Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, StringUtil.formatNumberOfTaskAndEventWithPuralizer(numTasks, numEvents)));
     }
     
 
@@ -283,7 +283,7 @@ public class ClearController implements Controller {
         
         //save and render
         db.save();
-        Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, formatSuccessMessage(numTasks, numEvents)));
+        Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, StringUtil.formatNumberOfTaskAndEventWithPuralizer(numTasks, numEvents)));
     }
 
     /**
@@ -308,7 +308,7 @@ public class ClearController implements Controller {
      * @return true if no String provided after command word, false if some String provided after command word 
      */ 
     private boolean parseExactClearCommand(Map<String, String[]> parsedResult) {
-        return parsedResult.get("default")[RESULT] == NOT_FOUND;
+        return parsedResult.get("default")[RESULT] == null;
     }
 
      /**
@@ -319,7 +319,7 @@ public class ClearController implements Controller {
      */    
     private LocalDateTime parseDateWithNoKeyword(Map<String, String[]> parsedResult) {
         if (parsedResult.get("default").length == MAXIMUM_SIZE) { // user enter more than 1 date with no keyword
-            if (parsedResult.get("default")[RESULT] != NOT_FOUND) {
+            if (parsedResult.get("default")[RESULT] != null) {
                 return parseNatural(parsedResult.get("default")[RESULT]);
             } else {
                 return null;
@@ -356,22 +356,22 @@ public class ClearController implements Controller {
      * @return { naturalOn, naturalFrom, naturalTo } or null if no date provided
      */
     private String[] parseDates(Map<String, String[]> parsedResult) {
-        String naturalFrom = (String) NOT_FOUND;
-        String naturalTo = (String) NOT_FOUND;
-        String naturalOn = (String) NOT_FOUND;
+        String naturalFrom = (String) null;
+        String naturalTo = (String) null;
+        String naturalOn = (String) null;
         
-        if (parsedResult.get("time") == NOT_FOUND) {
-            if (parsedResult.get("timeFrom") != NOT_FOUND) {
+        if (parsedResult.get("time") == null) {
+            if (parsedResult.get("timeFrom") != null) {
                 naturalFrom = parsedResult.get("timeFrom")[RESULT];
             }
-            if (parsedResult.get("timeTo") != NOT_FOUND) {
+            if (parsedResult.get("timeTo") != null) {
                 naturalTo = parsedResult.get("timeTo")[RESULT];
             }
         } else {
             naturalOn = parsedResult.get("time")[RESULT];
         }
         
-        if (naturalFrom != NOT_FOUND || naturalTo != NOT_FOUND || naturalOn != NOT_FOUND) {
+        if (naturalFrom != null || naturalTo != null || naturalOn != null) {
             return new String[] { naturalOn, naturalFrom, naturalTo };
         } else {
             return null;
@@ -385,7 +385,7 @@ public class ClearController implements Controller {
      * @return true if Task or event is not specify, false if either Task or Event specify
      */
     private boolean parseDeleteAllType (Map<String, String[]> parsedResult) {
-        return !(parsedResult.get("eventType") != NOT_FOUND);
+        return !(parsedResult.get("eventType") != null);
     }
     
     /**
@@ -399,46 +399,6 @@ public class ClearController implements Controller {
     }
 
     /** ================ FORMATTING OF SUCCESS/ERROR MESSAGE ================== **/
-
-    /*
-     * Format the number of events found based on the events found
-     * 
-     *  @param numEvents 
-     *          the number of events based on the filtered result
-     */
-    private String formatEventMessage (int numEvents) {
-        return String.format("%d %s", numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
-    }
-    
-    /*
-     * Format the number of tasks found based on the tasks found
-     * 
-     *  @param numTasks 
-     *          the number of tasks based on the filtered result
-     */
-    private String formatTaskMessage (int numTasks) {
-        return String.format("%d %s", numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"));
-    }
-
-    /*
-     * Format the display message depending on the number of tasks and events 
-     * 
-     * @param numTasks
-     *          the number of tasks based on the filtered result
-     * @param numEvents
-     *          the number of events based on the filtered result   
-     *        
-     * @return the display message for console message output           
-     */    
-    private String formatSuccessMessage (int numTasks, int numEvents) {
-        if (numTasks != 0 && numEvents != 0) {
-            return String.format("%s and %s", formatTaskMessage(numTasks), formatEventMessage(numEvents));
-        } else if (numTasks != 0) {
-            return formatTaskMessage(numTasks);
-        } else {
-            return formatEventMessage(numEvents);
-        }
-    }
 
     /**
      * display error message due to invalid clear command

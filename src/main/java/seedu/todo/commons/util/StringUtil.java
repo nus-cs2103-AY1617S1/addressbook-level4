@@ -46,4 +46,45 @@ public class StringUtil {
     public static String replaceNull(String string, String replaceString) {
         return (string == null) ? replaceString : string;
     }
+    
+    /*
+     * Format the display message depending on the number of tasks and events 
+     * 
+     * @param numTasks
+     *          the number of tasks found 
+     * @param numEvents
+     *          the number of events found    
+     *        
+     * @return the display message for console message output           
+     */
+    public static String formatNumberOfTaskAndEventWithPuralizer (int numTasks, int numEvents) {
+        if (numTasks != 0 && numEvents != 0) {
+            return String.format("%s and %s.", formatNumberOfTaskWithPuralizer(numTasks), formatNumberOfEventWithPuralizer(numEvents));
+        } else if (numTasks != 0) {
+            return formatNumberOfTaskWithPuralizer(numTasks);
+        } else {
+            return formatNumberOfEventWithPuralizer(numEvents);
+        }
+    }
+    
+    /*
+     * Format the number of events found based on the events found
+     * 
+     *  @param numEvents 
+     *          the number of events found
+     */
+    public static String formatNumberOfEventWithPuralizer (int numEvents) {
+        return String.format("%d %s", numEvents, pluralizer(numEvents, "event", "events"));
+    }
+    
+    /*
+     * Format the number of tasks found based on the tasks found
+     * 
+     *  @param numTasks 
+     *          the number of tasks found
+     */
+    public static String formatNumberOfTaskWithPuralizer (int numTasks) {
+        return String.format("%d %s", numTasks, pluralizer(numTasks, "task", "tasks"));
+    }
+    
 }

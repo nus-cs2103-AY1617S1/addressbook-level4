@@ -38,7 +38,7 @@ public class ListController implements Controller {
     private static final String COMMANDLINE_INCOMPLETE_SUGGEST_MESSAGE = "incomplete";
     private static final String COMMANDLINE_TASK_SUGGEST_MESSAGE = "task";
     private static final String COMMANDLINE_EVENT_SUGGEST_MESSAGE = "event";
-    private static final Object NOT_FOUND = null;
+    
     //Use by array access
     private static final int KEYWORD = 0;
     private static final int RESULT = 1;
@@ -47,8 +47,6 @@ public class ListController implements Controller {
     private static final int INDEX_DATE_ON = 0;
     private static final int INDEX_DATE_FROM = 1;
     private static final int INDEX_DATE_TO = 2;
-    //Use by checking size
-    //private static final int EMPTY = 0;
     
     private static CommandDefinition commandDefinition =
             new CommandDefinition(NAME, DESCRIPTION, COMMAND_SYNTAX); 
@@ -112,7 +110,7 @@ public class ListController implements Controller {
         LocalDateTime dateTo = null; //default
         
         //check if any date is provided by the user
-        if (parsedDates == NOT_FOUND) {
+        if (parsedDates == null) {
             isDateProvided = false;
         } else {
             String naturalOn = parsedDates[INDEX_DATE_ON];
@@ -120,9 +118,9 @@ public class ListController implements Controller {
             String naturalTo = parsedDates[INDEX_DATE_TO];
     
             // Parse natural date using Natty.
-            dateOn = naturalOn == NOT_FOUND ? (LocalDateTime) NOT_FOUND : parseNatural(naturalOn); 
-            dateFrom = naturalFrom == NOT_FOUND ? (LocalDateTime) NOT_FOUND : parseNatural(naturalFrom); 
-            dateTo = naturalTo == NOT_FOUND ? (LocalDateTime) NOT_FOUND : parseNatural(naturalTo);
+            dateOn = naturalOn == null ? (LocalDateTime) null : parseNatural(naturalOn); 
+            dateFrom = naturalFrom == null ? (LocalDateTime) null : parseNatural(naturalFrom); 
+            dateTo = naturalTo == null ? (LocalDateTime) null : parseNatural(naturalTo);
         }
         
         //setting up view
@@ -170,8 +168,8 @@ public class ListController implements Controller {
             }
         }
         
-        if (parsedDates != NOT_FOUND) {
-            if (parsedDates[INDEX_DATE_ON] != NOT_FOUND) {
+        if (parsedDates != null) {
+            if (parsedDates[INDEX_DATE_ON] != null) {
                 commandLineMessage = String.format("%s by <date>", commandLineMessage);
             } else {
                 commandLineMessage = String.format("%s from <date> to <date>", commandLineMessage);
@@ -180,46 +178,6 @@ public class ListController implements Controller {
         
         //render the view
         Renderer.renderDisambiguation(commandLineMessage, consoleDisplayMessage);
-    }
-    
-    /*
-     * Format the display message depending on the number of tasks and events 
-     * 
-     * @param numTasks
-     *          the number of tasks based on the filtered result
-     * @param numEvents
-     *          the number of events based on the filtered result   
-     *        
-     * @return the display message for console message output           
-     */
-    private String formatSuccessMessage (int numTasks, int numEvents) {
-        if (numTasks != 0 && numEvents != 0) {
-            return String.format("%s and %s.", formatTaskMessage(numTasks), formatEventMessage(numEvents));
-        } else if (numTasks != 0) {
-            return formatTaskMessage(numTasks);
-        } else {
-            return formatEventMessage(numEvents);
-        }
-    }
-    
-    /*
-     * Format the number of events found based on the events found
-     * 
-     *  @param numEvents 
-     *          the number of events based on the filtered result
-     */
-    private String formatEventMessage (int numEvents) {
-        return String.format("%d %s", numEvents, StringUtil.pluralizer(numEvents, "event", "events"));
-    }
-    
-    /*
-     * Format the number of tasks found based on the tasks found
-     * 
-     *  @param numTasks 
-     *          the number of tasks based on the filtered result
-     */
-    private String formatTaskMessage (int numTasks) {
-        return String.format("%d %s", numTasks, StringUtil.pluralizer(numTasks, "task", "tasks"));
     }
     
     /** ================ SETTING UP VIEWS ================== **/
@@ -276,7 +234,7 @@ public class ListController implements Controller {
                     isExactCommand, listAll, db);
         }
         
-        if (tasks == NOT_FOUND && events == NOT_FOUND) {
+        if (tasks == null && events == null) {
             displayErrorMessage(input, listAll, listAllStatus, isCompleted, isTask, parsedDates);
             return ; //display error message
         }
@@ -286,12 +244,12 @@ public class ListController implements Controller {
         int numEvents = 0;
         
         //if any tasks are been found, set the total count for task
-        if (tasks != NOT_FOUND) {
+        if (tasks != null) {
             numTasks = tasks.size();
         }
         
         //if any events are been found, set the total count for event
-        if(events != NOT_FOUND) {
+        if(events != null) {
             numEvents = events.size();
         }
         
@@ -301,7 +259,7 @@ public class ListController implements Controller {
         //if any tasks or events found, update console message to display found successfully
         //      else display failure message
         if (numTasks != 0 || numEvents != 0) {
-            consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, formatSuccessMessage(numTasks, numEvents));
+            consoleMessage = String.format(MESSAGE_LISTING_SUCCESS, StringUtil.formatNumberOfTaskAndEventWithPuralizer(numTasks, numEvents));
         } else {
             consoleMessage = MESSAGE_LISTING_FAILURE;
         }
@@ -336,7 +294,7 @@ public class ListController implements Controller {
     private List<Event> setupEventView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn,
             LocalDateTime dateFrom, LocalDateTime dateTo, boolean isDateProvided, 
             boolean isExactCommand, boolean listAll, TodoListDB db) {
-        if (dateFrom == NOT_FOUND && dateTo == NOT_FOUND && dateOn == NOT_FOUND) {
+        if (dateFrom == null && dateTo == null && dateOn == null) {
             if (listAllStatus) { // not specify
                 if (isExactCommand && isDateProvided == false) {
                     if (listAll) {
@@ -345,14 +303,14 @@ public class ListController implements Controller {
                         return db.getAllEvents();
                     }
                 } else {
-                    return (List<Event>) NOT_FOUND;
+                    return (List<Event>) null;
                 }
             } else if (isCompleted) {
-                return db.getEventByRange((LocalDateTime) NOT_FOUND, LocalDateTime.now());
+                return db.getEventByRange((LocalDateTime) null, LocalDateTime.now());
             } else {
-                return db.getEventByRange(LocalDateTime.now(), (LocalDateTime) NOT_FOUND);
+                return db.getEventByRange(LocalDateTime.now(), (LocalDateTime) null);
             }
-        } else if (dateOn != NOT_FOUND) { //by keyword found
+        } else if (dateOn != null) { //by keyword found
             return db.getEventByDate(dateOn);
         } else {
             return db.getEventByRange(dateFrom, dateTo);
@@ -383,7 +341,7 @@ public class ListController implements Controller {
      */
     private List<Task> setupTaskView(boolean isCompleted, boolean listAllStatus, LocalDateTime dateOn, LocalDateTime dateFrom,
             LocalDateTime dateTo, boolean isDateProvided, boolean isExactCommand, boolean listAll, TodoListDB db) {
-        if (dateFrom == NOT_FOUND && dateTo == NOT_FOUND && dateOn == NOT_FOUND) {
+        if (dateFrom == null && dateTo == null && dateOn == null) {
             if (listAllStatus) { // not specify
                 if (isExactCommand && isDateProvided == false) {
                     if (listAll) {
@@ -392,12 +350,12 @@ public class ListController implements Controller {
                         return db.getAllTasks();
                     }
                 } else {
-                    return (List<Task>) NOT_FOUND;
+                    return (List<Task>) null;
                 }
             } else {
                 return db.getTaskByRangeWithStatus(dateFrom, dateTo, isCompleted, listAllStatus);
             }
-        } else if (dateOn != NOT_FOUND) { //by keyword found
+        } else if (dateOn != null) { //by keyword found
             return db.getTaskByDateWithStatus(dateOn, isCompleted, listAllStatus);
         } else {
             return db.getTaskByRangeWithStatus(dateFrom, dateTo, isCompleted, listAllStatus);
@@ -433,7 +391,7 @@ public class ListController implements Controller {
      * @return true if no String provided after command word, false if some String provided after command word 
      */    
     private boolean parseExactListCommand(Map<String, String[]> parsedResult) {
-        return parsedResult.get("default")[RESULT] == NOT_FOUND;
+        return parsedResult.get("default")[RESULT] == null;
     }
     
     /**
@@ -443,7 +401,7 @@ public class ListController implements Controller {
      * @return true if Task or event is not specify, false if either Task or Event specify
      */
     private boolean parseListAllType (Map<String, String[]> parsedResult) {
-        return !(parsedResult.get("eventType") != NOT_FOUND);
+        return !(parsedResult.get("eventType") != null);
     }
     
     /**
@@ -453,7 +411,7 @@ public class ListController implements Controller {
      * @return true if Task or event is not specify, false if either Task or Event specify
      */
     private boolean parseListAllStatus (Map<String, String[]> parsedResult) {
-        return !(parsedResult.get("status") != NOT_FOUND);
+        return !(parsedResult.get("status") != null);
     }
     
     /**
@@ -487,21 +445,21 @@ public class ListController implements Controller {
         String naturalTo = null;
         String naturalOn = null;
         
-        if (parsedResult.get("time") == NOT_FOUND) {
-            if (parsedResult.get("timeFrom") != NOT_FOUND) {
+        if (parsedResult.get("time") == null) {
+            if (parsedResult.get("timeFrom") != null) {
                 naturalFrom = parsedResult.get("timeFrom")[RESULT];
             }
-            if (parsedResult.get("timeTo") != NOT_FOUND) {
+            if (parsedResult.get("timeTo") != null) {
                 naturalTo = parsedResult.get("timeTo")[RESULT];
             }
         } else {
             naturalOn = parsedResult.get("time")[RESULT];
         }
         
-        if (naturalFrom != NOT_FOUND || naturalTo != NOT_FOUND || naturalOn != NOT_FOUND) {
+        if (naturalFrom != null || naturalTo != null || naturalOn != null) {
             return new String[] { naturalOn, naturalFrom, naturalTo };
         } else {
-            return (String[]) NOT_FOUND;
+            return (String[]) null;
         }
     }
     
@@ -513,13 +471,13 @@ public class ListController implements Controller {
      */
     private LocalDateTime parseDateWithNoKeyword(Map<String, String[]> parsedResult) {
         if (parsedResult.get("default").length == MAXIMUM_SIZE) { // user enter more than 1 date with no keyword
-            if (parsedResult.get("default")[RESULT] != NOT_FOUND) {
+            if (parsedResult.get("default")[RESULT] != null) {
                 return parseNatural(parsedResult.get("default")[RESULT]);
             } else {
-                return (LocalDateTime) NOT_FOUND;
+                return (LocalDateTime) null;
             }
         } else {
-            return (LocalDateTime) NOT_FOUND;
+            return (LocalDateTime) null;
         }
     }
     
