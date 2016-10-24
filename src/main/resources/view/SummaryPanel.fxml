@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.SummaryPanel">
+<VBox maxWidth="100.0" style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.SummaryPanel">
     <children>
-        <ListView fx:id="summaryListView" style="-fx-background-color: #FFFFFF;" VBox.vgrow="ALWAYS" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Today" wrappingWidth="82.13671875">
+         <font>
+            <Font name="Arial Bold" size="19.0" />
+         </font></Text>
+        <ListView fx:id="summaryListView" prefHeight="139.0" prefWidth="100.0" style="-fx-background-color: #FFFFFF;" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>
