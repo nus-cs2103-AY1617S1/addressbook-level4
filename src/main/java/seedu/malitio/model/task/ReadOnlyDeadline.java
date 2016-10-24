@@ -35,7 +35,9 @@ public interface ReadOnlyDeadline {
          */
         default String getAsText() {
             final StringBuilder builder = new StringBuilder();
-            builder.append(getName())
+            builder.append("Task: ")
+                    .append(getName())
+                    .append(" Due: ")
                     .append(getDue())
                     .append(" Tags: ");
             getTags().forEach(builder::append);
