@@ -47,7 +47,7 @@ public class End {
         }
     }
     
-    private boolean isPastEndTime(String end) {
+    public boolean isPastEndTime(String end) {
     	String localTime = new String("");
     	String new_min = new String(LocalTime.now().getMinute() + "");
 		String new_hr = new String(LocalTime.now().getHour() + "");

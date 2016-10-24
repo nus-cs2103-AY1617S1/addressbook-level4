@@ -50,7 +50,7 @@ public class Date {
       	this.value = date;
     }
 
-	private int isAfterCurrentDate(String date) {
+	public int isAfterCurrentDate(String date) {
     	if (date.contains("-")) {
 			String[] date_cat = date.split("-");
 			String date_year = "20" + date_cat[2];
