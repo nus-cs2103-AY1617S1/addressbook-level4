@@ -50,7 +50,7 @@ public class TaskCardHandle extends GuiHandle {
     public boolean isSameTask(ReadOnlyTask task){
         return getName().equals(task.getName().taskName) && getDate().equals(task.getDate().getValue())
                 && isDone() == task.isDone()&&isRecurring()==task.isRecurring()
-                &&getFrequency().equals(task.getRecurring().recurringFrequency);
+               &&(isRecurring()?getFrequency().equals(task.getRecurring().recurringFrequency):true);
     }
 
     @Override

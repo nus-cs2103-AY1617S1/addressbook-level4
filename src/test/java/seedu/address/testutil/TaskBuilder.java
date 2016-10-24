@@ -36,6 +36,11 @@ public class TaskBuilder {
         this.task.setDate(new EventDate(startDate, endDate));
         return this;
     }
+    
+    public TaskBuilder withRecurringFrequency(String freq) throws IllegalValueException{
+        this.task.setRecurringFrequency(freq);
+        return this;
+    }
 
 
     public TestTask build() {

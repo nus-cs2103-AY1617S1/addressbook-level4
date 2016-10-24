@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
@@ -36,6 +37,11 @@ public class TestTask implements ReadOnlyTask {
         }
     }
     
+    public void setRecurringFrequency(String freq) throws IllegalValueException{
+        this.isRecurring=true;
+        this.recurring=new Recurring(freq);
+    }
+    
     @Override
     public Name getName() {
         return name;
@@ -45,6 +51,7 @@ public class TestTask implements ReadOnlyTask {
     public Date getDate() {
         return date;
     }
+    
     
     @Override 
     public boolean isEvent() {
@@ -82,6 +89,8 @@ public class TestTask implements ReadOnlyTask {
             }
         }
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        if(isRecurring)
+            sb.append("r/"+recurring.recurringFrequency);
         return sb.toString();
     }
 
@@ -113,13 +122,13 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
     public Recurring getRecurring() {
-        // TODO Auto-generated method stub
+      
         return recurring;
     }
 
     @Override
     public boolean isRecurring() {
-        // TODO Auto-generated method stub
+
         return isRecurring;
     }
     
