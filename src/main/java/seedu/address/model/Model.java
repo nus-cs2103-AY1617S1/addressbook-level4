@@ -7,6 +7,7 @@ import seedu.address.model.task.TaskDate;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
@@ -50,6 +51,6 @@ public interface Model {
 	/** Archives the given task component. */
 	void archiveTask(TaskComponent target) throws TaskNotFoundException;
 
-	void editTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException;
+	void editTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException;
 
 }

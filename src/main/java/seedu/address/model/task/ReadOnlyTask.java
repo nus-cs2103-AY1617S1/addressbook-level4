@@ -30,7 +30,7 @@ public interface ReadOnlyTask {
     /**
      * Updates the task's params, used for edit.
      */
-    void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate);
+    void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType);
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

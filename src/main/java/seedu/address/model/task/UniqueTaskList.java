@@ -195,10 +195,8 @@ public class UniqueTaskList implements Iterable<Task> {
 	
 	private boolean checkUpdateOverlapping(ReadOnlyTask target, TaskDate startDate,
 			TaskDate endDate) {
-	    assert target.getRecurringType() == RecurringType.NONE : "checkUpdateOverlapping does not support recurring dates";
 		if(startDate != null && endDate != null) {
 			for(Task t: internalList){
-			    assert t.getRecurringType() == RecurringType.NONE : "checkUpdateOverlapping does not support recurring dates";
 				if(!t.equals(target)) {
 					if(t.getTaskType().equals(TaskType.NON_FLOATING)){
 		        		if(t.getComponentForNonRecurringType().getStartDate().getDateInLong()!=TaskDate.DATE_NOT_PRESENT){
@@ -214,20 +212,27 @@ public class UniqueTaskList implements Iterable<Task> {
 	}
 
 	public boolean updateTask(Task target, Name name, UniqueTagList tags, TaskDate startDate,
-			TaskDate endDate) throws TimeslotOverlapException {
+			TaskDate endDate, RecurringType recurringType) throws TimeslotOverlapException {
 		assert target != null;
 
-		boolean taskFoundAndUpdated = false;
-        assert target.getRecurringType() == RecurringType.NONE : "updateTask does not support recurring dates";		
+		boolean taskFoundAndUpdated = false;	
 		for(Task t : internalList) {
-            assert t.getRecurringType() == RecurringType.NONE : "updateTask does not support recurring dates";
 		    if(t.equals(target)) {
-        		if(checkUpdateOverlapping(target, startDate, endDate))
+		    	TaskDate realStartDate = startDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : startDate;
+		    	TaskDate realEndDate = endDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : endDate;
+		    	Task checkTask = new Task(target.getName(), target.getTags(), realStartDate, realEndDate, recurringType);
+        		if(overlaps(checkTask))
         			throw new TimeslotOverlapException();
         		
-        		int componentToChange = internalComponentList.indexOf(t.getTaskDateComponent().get(0));// added as a stop gap measure
-        		t.updateTask(name, tags, startDate, endDate);
-        		internalComponentList.set(componentToChange, t.getTaskDateComponent().get(0)); // added as a stop gap measure
+        		int componentToChange = internalComponentList.indexOf(t.getLastAppendedComponent());
+        		t.updateTask(name, tags, startDate, endDate, recurringType);
+        		internalComponentList.clear();
+        		for(Task h: internalList) {
+        			System.out.println(h.getName().fullName);
+        			System.out.println(h.getTaskDateComponent().get(0).getTaskReference().getName().fullName);
+        			internalComponentList.addAll(h.getTaskDateComponent());
+        		}
+
         		taskFoundAndUpdated = true;
         	}
         }
