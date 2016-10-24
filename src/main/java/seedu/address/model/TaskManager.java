@@ -115,6 +115,13 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void markTask(ReadOnlyTask p)  {
         p.markAsDone();
     }
+    
+    public void refreshTask(){
+        for(Task e:tasks){
+            if(e.isRecurring())
+            e.updateRecurringTask();
+        }
+    }
 
 //// tag-level operations
 

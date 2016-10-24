@@ -12,6 +12,7 @@ import java.util.Objects;
 import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.util.Callback;
 
 import java.time.LocalDate;
@@ -29,6 +30,7 @@ public class Task implements ReadOnlyTask {
     private boolean isEvent;
     private Name name;
     private Date date;
+    private SimpleStringProperty dateString;
     private boolean isDone;
     private BooleanProperty done; // Use Observable so that listeners can know
                                   // when the task's done status is updated
@@ -56,13 +58,13 @@ public class Task implements ReadOnlyTask {
     public Task(Name name, Date date, UniqueTagList tags, Recurring recurring) {
         this(name, date, tags, false, true);
         this.recurring = recurring;
-        // System.out.println(recurring.recurringFrequency);
     }
 
     public Task(Name name, Date date, UniqueTagList tags, boolean isDone, boolean isRecurring) {
         assert !CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
         this.date = date;
+        this.dateString=new SimpleStringProperty(date.getValue());
         if (date instanceof EventDate) {
             isEvent = true;
         } else {
@@ -80,6 +82,7 @@ public class Task implements ReadOnlyTask {
         assert !CollectionUtil.isAnyNull(name, date, tags);
         this.name = name;
         this.date = date;
+        this.dateString=new SimpleStringProperty(date.getValue());
         if (date instanceof EventDate) {
             isEvent = true;
         } else {
@@ -108,6 +111,7 @@ public class Task implements ReadOnlyTask {
         this.recurring = null;
     }
 
+    
     public void updateRecurringTask() {
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         Calendar currentDateTime = Calendar.getInstance();
@@ -178,6 +182,7 @@ public class Task implements ReadOnlyTask {
             }
 
         }
+        dateString.set(date.getValue());
     }
 
     @Override
@@ -205,6 +210,11 @@ public class Task implements ReadOnlyTask {
     public boolean isDone() {
         return isDone;
     }
+    
+    
+    public SimpleStringProperty getDateString(){
+        return dateString;
+    }
 
     /**
      * Returns the Observable wrapper of the done status
@@ -212,6 +222,7 @@ public class Task implements ReadOnlyTask {
     public BooleanProperty getDone() {
         return done;
     }
+    
 
     @Override
     public UniqueTagList getTags() {
@@ -259,7 +270,7 @@ public class Task implements ReadOnlyTask {
      * Makes Task observable by its done status
      */
     public static Callback<Task, Observable[]> extractor() {
-        return (Task task) -> new Observable[] { task.getDone() };
+        return (Task task) -> new Observable[] { task.getDone(),task.getDateString()};
     }
 
 }

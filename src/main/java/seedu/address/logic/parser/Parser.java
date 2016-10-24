@@ -107,6 +107,9 @@ public class Parser {
 
         case DoneCommand.COMMAND_WORD:
             return prepareMarkAsDone(arguments);
+            
+        case RefreshCommand.COMMAND_WORD:
+            return new RefreshCommand();
 
         case ChangeCommand.COMMAND_WORD:
             return prepareChange(arguments);

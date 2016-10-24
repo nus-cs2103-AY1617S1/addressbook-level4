@@ -53,5 +53,8 @@ public interface Model {
     
     /** Update the task manager to the next state. */
     String getNextState() throws StateLimitException;
+    
+    /**Update the task manager to show all up-to-date tasks. */
+    void refreshTask();
 	
 }

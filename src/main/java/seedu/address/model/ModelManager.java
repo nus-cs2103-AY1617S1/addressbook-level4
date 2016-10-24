@@ -28,7 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
-    private final FilteredList<Task> filteredTasks;
+    private FilteredList<Task> filteredTasks;
     private final StateManager stateManager;
 
     /**
@@ -44,11 +44,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-      for(Task e:filteredTasks){
-            if(e.isRecurring()){
-                e.updateRecurringTask();
-            }
-        }
         stateManager = new StateManager(new TaskManagerState(taskManager, ""));
     }
 
@@ -59,11 +54,6 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-      for(Task e:filteredTasks){
-          if(e.isRecurring()){
-                 e.updateRecurringTask();
-          }
-        }
         stateManager = new StateManager(new TaskManagerState(taskManager, ""));
     }
 
@@ -92,6 +82,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    @Override
+    public synchronized void refreshTask(){
+        taskManager.refreshTask();
+        //System.out.println("inside refreshTask");
+        //filteredTasks = new FilteredList<>(taskManager.getTasks());
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
@@ -141,6 +139,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+      /*   for(Task e:filteredTasks){
+           if(e.isRecurring())
+             System.out.println(e.getDate().toString());
+        }*/
+        
     }
 
     @Override
