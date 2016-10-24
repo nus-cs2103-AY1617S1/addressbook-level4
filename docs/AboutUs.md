@@ -6,12 +6,12 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Yong Zhi Yuan](https://github.com/Zhiyuan-Amos) <br>
 <img src="images/YZY.png" width="150"><br>
-Responsibilities: Team Leader <br>
-Components in charge of: Logic <br>
-Features implemented: <br>
-Parser <br>
-Add task <br>
-Code written: [functional code][test code][docs] (pending) <br>
+* Responsibilities: Team Leader <br>
+* Components in charge of: [Logic](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/DeveloperGuide.md#logic-component) <br>
+* Features implemented: <br>
+   * [Parser](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/DeveloperGuide.md#logic-component) <br>
+   * [Add task](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#adding-a-task-add) <br>
+* Code written: [functional code][test code][docs] <br>
 
 -----
 
