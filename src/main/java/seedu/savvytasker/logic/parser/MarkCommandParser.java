@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.MarkCommand;
+import seedu.savvytasker.logic.commands.models.MarkCommandModel;
 
 public class MarkCommandParser implements CommandParser<MarkCommand> {
     private static final String HEADER = "mark";
@@ -31,10 +32,10 @@ public class MarkCommandParser implements CommandParser<MarkCommand> {
     public MarkCommand parse(String commandText) throws ParseException {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
-            parseIndices(matcher.group(REGEX_REF_INDICES));
+            int[] indices = parseIndices(matcher.group(REGEX_REF_INDICES));
             
             // TODO: Integrate with MarkCommand properly
-            return new MarkCommand();
+            return new MarkCommand(new MarkCommandModel(indices));
         }
 
         throw new ParseException(commandText, String.format(

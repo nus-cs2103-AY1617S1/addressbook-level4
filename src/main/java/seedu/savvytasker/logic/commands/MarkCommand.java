@@ -1,29 +1,97 @@
 package seedu.savvytasker.logic.commands;
 
-public class MarkCommand extends Command {
+import java.util.LinkedList;
+
+import seedu.savvytasker.commons.core.Messages;
+import seedu.savvytasker.commons.core.UnmodifiableObservableList;
+import seedu.savvytasker.logic.commands.models.MarkCommandModel;
+import seedu.savvytasker.model.ReadOnlySavvyTasker;
+import seedu.savvytasker.model.SavvyTasker;
+import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
+
+public class MarkCommand extends ModelRequiringCommand {
+
+    public static final String COMMAND_WORD = "mark";
+    public static final String COMMAND_FORMAT = "mark INDEX [MORE_INDEX]";
+    
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Marks the tasks identified by the index number used in the last task listing as done.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
+    
+    public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task: %1$s\n";
+    
+    public final MarkCommandModel commandModel;
+    private ReadOnlySavvyTasker original;
+    
+    public MarkCommand(MarkCommandModel commandModel) {
+        assert (commandModel != null);
+        this.commandModel = commandModel;
+    }
 
     @Override
     public CommandResult execute() {
-        // TODO Auto-generated method stub
-        return null;
+
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+
+        LinkedList<Task> tasksToMark = new LinkedList<Task>();
+        for(int targetIndex : commandModel.getTargetIndex()) {
+            if (lastShownList.size() < targetIndex || targetIndex <= 0) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            tasksToMark.add((Task) lastShownList.get(targetIndex - 1));
+        }
+        
+        original = new SavvyTasker(model.getSavvyTasker());
+
+        StringBuilder resultSb = new StringBuilder();
+        try {
+            for(Task taskToMark : tasksToMark) {
+                taskToMark.setArchived(true);
+                model.deleteTask(taskToMark);
+                model.addTask(taskToMark);
+                resultSb.append(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
+            }
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        } catch (DuplicateTaskException e) {
+            e.printStackTrace();
+        }
+        return new CommandResult(resultSb.toString());
     }
 
+    /**
+     * Checks if a command can perform undo operations
+     * @return true if the command supports undo, false otherwise
+     */
     @Override
     public boolean canUndo() {
-        // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
+    /**
+     * Redo the mark command
+     * @return true if the operation completed successfully, false otherwise
+     */
     @Override
     public boolean redo() {
-        // TODO Auto-generated method stub
-        return false;
+        execute();
+        return true;
     }
 
+    /**
+     * Undo the mark command
+     * @return true if the operation completed successfully, false otherwise
+     */
     @Override
     public boolean undo() {
-        // TODO Auto-generated method stub
-        return false;
+        assert model != null;
+        model.resetData(original);
+        return true;
     }
     
     /**
