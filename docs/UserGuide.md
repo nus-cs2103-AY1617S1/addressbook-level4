@@ -100,33 +100,49 @@ Format: `list [TYPE]`
 Examples:
 
 * `list`  
- > Lists all tasks and events.
+ Lists all tasks and events.
   
 * `list events`  
- > Lists all events.
+ Lists all events.
 
 * `list completed tasks`
- > Lists all completed tasks
+ Lists all completed tasks
 
 * `list by today`  
- > Lists all tasks due by today + events today
+ Lists all tasks due by today + events today
 
 * `list from monday to friday`  
- > Lists all tasks due within Monday-Friday + events occuring within the time period
+ Lists all tasks due within Monday-Friday + events occuring within the time period
 
 #### Finding all tasks containing any keyword in their name & tag: `find`
 
 Finds tasks whose name and tags contain any of the given keywords.  
 
-Format: `find KEYWORD [MORE_KEYWORDS]...`
+Format: `find [type] KEYWORD [MORE_KEYWORDS]...`
+
+> Valid parameters: 
+> * `name`
+> * `tag`
+> * `events` / `event`
+> * `tasks` / `task`
+> * `complete` / `completed`
+> * `incomplete` / `incompleted` / `uncomplete`
+> * `by DATE`
+> * `from STARTDATE to ENDDATE`
 
 > The search is not case sensitive, the order of the keywords does not matter, only the item name is searched, and tasks/events matching at least one keyword will be returned (i.e. `OR` search).
 > Searching follows wildcard search, i.e. a search term of `pr` will return both `Print notes` and `Make PR to GitHub`.
 
 Examples: 
 
-* `find assignment2`  
-Returns `Assignment2` & `assignment2`
+* `find assignment2 task` 
+Returns all task having the name or tag containing `Assignment2` & `assignment2`
+
+* `find task name assignment2`
+Returns all task with the name containing `Assignment2` & `assignment2`
+
+* `find task tag assignment2`
+Returns all task with the tag containing `Assignment2` & `assignment2`
   
 * `find assginment2 project`  
 Returns any tasks having names or tag containing `assignment2`, `Assignment2`,  `project`, `Project`
@@ -198,13 +214,11 @@ Format: `untag INDEX TAG_NAME`
 
 Examples: 
 
-* `list`  
-  `untag 2 CS2103`  
+* `untag 2 CS2103`  
   Untag the tag of `CS2103` of the 2nd task in GetShitDone.
 
-* `find assignment2`  
-  `untag 1 CS2103`  
-  Untag the tag of `CS2103` of the 1st task in the results of the `find` command.
+* `untag 1 CS2103`  
+  Untag the tag of `CS2103` of the 1st task in GetShitDone.
 
 #### Completing a task : `complete`
 
@@ -217,13 +231,11 @@ Format: `complete INDEX`
 
 Examples: 
 
-* `list`  
-  `complete 2`  
+* `complete 2`  
   Completes the 2nd task in GetShitDone.
 
-* `find assignment2`  
-  `complete 1`  
-  Completes the 1st task in the results of the `find` command.
+* `complete 1`  
+  Completes the 1st task in GetShitDone.
 
 #### Uncompleting a task : `uncomplete`
 
@@ -236,13 +248,11 @@ Format: `uncomplete INDEX`
 
 Examples: 
 
-* `list`  
-  `uncomplete 2`  
-  Uncompletes the 2nd task in GetShitDone.
+* `uncomplete 2`  
+  Uncomplete the 2nd task in GetShitDone.
 
-* `find assignment2`  
-  `uncomplete 1`  
-  Uncompletes the 1st task in the results of the `find` command.
+* `uncomplete 1`  
+  Uncomplete the 1st task in GetShitDone.
 
 #### Aliasing: `alias`
 
