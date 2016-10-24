@@ -26,6 +26,7 @@ import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.ListCommand;
+import harmony.mastermind.logic.commands.UpcomingCommand;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import javafx.application.Platform;
@@ -800,16 +801,18 @@ public class MainWindow extends UiPart {
     //@@author A0124797R
     private void updateTab(String result) {
         switch (result) {
-            case ListCommand.MESSAGE_SUCCESS:           tabPane.getSelectionModel().select(INDEX_HOME);
-                                                        break;
-            case ListCommand.MESSAGE_SUCCESS_TASKS:     tabPane.getSelectionModel().select(INDEX_TASKS);
-                                                        break;
-            case ListCommand.MESSAGE_SUCCESS_EVENTS:    tabPane.getSelectionModel().select(INDEX_EVENTS);
-                                                        break;
-            case ListCommand.MESSAGE_SUCCESS_DEADLINES: tabPane.getSelectionModel().select(INDEX_DEADLINES);
-                                                        break;
-            case ListCommand.MESSAGE_SUCCESS_ARCHIVES:  tabPane.getSelectionModel().select(INDEX_ARCHIVES);
-                                                        break;
+            case ListCommand.MESSAGE_SUCCESS:               tabPane.getSelectionModel().select(INDEX_HOME);
+                                                            break;
+            case UpcomingCommand.MESSAGE_SUCCESS_UPCOMING:  tabPane.getSelectionModel().select(INDEX_HOME);
+                                                            break;
+            case ListCommand.MESSAGE_SUCCESS_TASKS:         tabPane.getSelectionModel().select(INDEX_TASKS);
+                                                            break;
+            case ListCommand.MESSAGE_SUCCESS_EVENTS:        tabPane.getSelectionModel().select(INDEX_EVENTS);
+                                                            break;
+            case ListCommand.MESSAGE_SUCCESS_DEADLINES:     tabPane.getSelectionModel().select(INDEX_DEADLINES);
+                                                            break;
+            case ListCommand.MESSAGE_SUCCESS_ARCHIVES:      tabPane.getSelectionModel().select(INDEX_ARCHIVES);
+                                                            break;
         }
     }
     

@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
@@ -276,6 +277,12 @@ public class ModelManager extends ComponentManager implements Model {
                                 break;
         }
     }
+    
+    @Override
+    //@@author A0124797R
+    public void updateFilteredListToShowUpcoming(long time) {
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(time)));
+    }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
@@ -374,7 +381,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    //@author A0124797R
+    //@@author A0124797R
     private class TagQualifier implements Qualifier {
         private Set<Tag> tagKeyWords;
 
@@ -394,10 +401,35 @@ public class ModelManager extends ComponentManager implements Model {
             return "tags=" + String.join(", ", tagKeyWords.toString());
         }
     }
+    
+    private class DateQualifier implements Qualifier {
+        private long oneWeekFromNow;
+        private final long oneWeek = 604800000;
+
+        DateQualifier(long time) {
+            this.oneWeekFromNow = time + oneWeek ;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            if (task.isFloating()) {
+                return true;
+            }else{
+                return task.getEndDate().getTime() < oneWeekFromNow;
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "Date before:" + oneWeekFromNow;
+        }
+    }
 
     @Override
     public void searchTask(String input) {
-        // implementing next milestone        
+        // implementing next milestone
     }
+    
+
 
 }
