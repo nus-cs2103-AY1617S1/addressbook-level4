@@ -6,7 +6,8 @@ import seedu.address.commons.events.ui.ChangeToListDoneViewEvent;
 import seedu.address.commons.events.ui.ChangeToListUndoneViewEvent;
 
 /**
- * Lists all persons in the address book to the user.
+ * Lists all tasks in the task manager to the user.
+ * Supports the listing of all undone, or all done tasks.
  */
 public class ListCommand extends Command {
 
@@ -25,15 +26,12 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        model.updateFilteredListsToShowAll();
         if (isListDoneCommand) {
-            EventsCenter.getInstance().post(new ChangeToListDoneViewEvent());
             model.setCurrentListToBeDoneList();
-            model.updateFilteredListToShowAll();
             return new CommandResult(DONE_MESSAGE_SUCCESS);
         } else {
-            EventsCenter.getInstance().post(new ChangeToListUndoneViewEvent());
             model.setCurrentListToBeUndoneList();
-            model.updateFilteredListToShowAll();
             return new CommandResult(MESSAGE_SUCCESS);
         }
     }

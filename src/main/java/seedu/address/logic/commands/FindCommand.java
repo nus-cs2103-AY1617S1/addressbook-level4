@@ -34,7 +34,7 @@ public class FindCommand extends Command {
             model.updateFilteredDoneTaskList(keywords);
             return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredDoneTaskList().size()));
         } else {
-            model.updateFilteredFloatingTaskList(keywords);
+            model.updateFilteredUndoneTaskList(keywords);
             return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredUndoneTaskList().size()));
         }
     }

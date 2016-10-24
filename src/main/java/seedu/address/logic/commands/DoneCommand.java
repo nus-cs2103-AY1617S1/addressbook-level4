@@ -26,28 +26,20 @@ public class DoneCommand extends UndoableCommand {
 
     public static final String MESSAGE_DONE_ITEM_SUCCESS = "Archived Task: %1$s";
     public static final String MESSAGE_DONE_ITEMS_SUCCESS = "Archived Tasks: %1$s";
-    
     public static final String MESSAGE_DONE_UNDO_SUCCESS = "Undid archive tasks! Tasks restored to undone list!";
     
     
-
-    
     private List<Task> doneTasks;
-    
     private List<Task> readdedRecurringTasks;
-    
     private List<Task> doneTasksUndoFail;
-
     public final List<Integer> targetIndexes;
-    
     private boolean viewingDoneList;
 
-
+    
     public DoneCommand(List<Integer> targetIndexes) {
         assert targetIndexes != null;
         this.targetIndexes = targetIndexes;
     }
-
 
     @Override
     public CommandResult execute() {
@@ -107,7 +99,6 @@ public class DoneCommand extends UndoableCommand {
                 new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, toDisplay)):
                 new CommandResult(String.format(MESSAGE_DONE_ITEMS_SUCCESS, toDisplay));
     }
-
 
     @Override
     public CommandResult undo() {
