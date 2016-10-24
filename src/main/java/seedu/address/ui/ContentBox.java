@@ -138,8 +138,7 @@ public class ContentBox extends UiPart {
     
     @FXML
     public void initialize() {
-    	
-    	dummy1.setText(Integer.toString(list.size()));
+       	dummy1.setText(Integer.toString(list.size()));
     	dummy2.setText("X");
     	dummy3.setText("X");
     	dummy4.setText("X");

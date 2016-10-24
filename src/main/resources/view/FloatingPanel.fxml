@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.FloatingPanel">
-   <stylesheets>
-      <URL value="@DarkTheme.css" />
-      <URL value="@Extensions.css" />
-   </stylesheets>
+<VBox prefHeight="711.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.FloatingPanel">
    <children>
-      <ListView fx:id="floatingListView" VBox.vgrow="ALWAYS" />
+      <ListView fx:id="floatingListView" prefHeight="711.0" prefWidth="378.0" />
    </children>
 </VBox>

@@ -34,7 +34,7 @@ public class FloatingPanel extends UiPart {
 
     @Override
     public void setNode(Node node) {
-        panel = (VBox) node;
+        panel = (VBox	) node;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class FloatingPanel extends UiPart {
     }
 
     private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
+        SplitPane.setResizableWithParent(placeHolderPane, true);
         placeHolderPane.getChildren().add(panel);
     }
 

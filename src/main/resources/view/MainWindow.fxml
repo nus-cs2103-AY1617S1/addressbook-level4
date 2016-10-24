@@ -5,8 +5,8 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="686.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
@@ -39,9 +39,19 @@
                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
            </padding>
        </AnchorPane>
-      <SplitPane id="splitPane2" dividerPositions="0.5" VBox.vgrow="ALWAYS">
-         <items>
+      <BorderPane VBox.vgrow="ALWAYS">
+         <center>
             <VBox prefHeight="20.0">
+               <children>
+                  <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </center>
+         <left>
+            <VBox prefHeight="20.0" BorderPane.alignment="CENTER">
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                 </padding>
@@ -49,28 +59,26 @@
                   <AnchorPane fx:id="contentBoxPlaceholder" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
-            <SplitPane dividerPositions="0.5">
-               <items>
-                  <VBox prefHeight="20.0">
-                     <children>
-                        <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
-                  <VBox prefHeight="20.0">
-                     <children>
-                        <AnchorPane fx:id="floatingPanelPlaceholder" VBox.vgrow="ALWAYS" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
-               </items>
-            </SplitPane>
-         </items>
-      </SplitPane>
+         </left>
+         <right>
+            <VBox prefHeight="20.0" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <AnchorPane fx:id="floatingPanelPlaceholder" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </right>
+         <stylesheets>
+            <URL value="@DarkTheme.css" />
+            <URL value="@Extensions.css" />
+         </stylesheets>
+      </BorderPane>
       <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
    </children>
 </VBox>
