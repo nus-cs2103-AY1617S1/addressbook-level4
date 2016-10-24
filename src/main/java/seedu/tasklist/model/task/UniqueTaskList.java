@@ -64,13 +64,25 @@ public class UniqueTaskList implements Iterable<Task> {
     public boolean isOverlapping(Task toAdd) {
     	assert toAdd != null;
     	for (Task i: internalList) {
-    		if (!toAdd.equals(i)
-    				&& !toAdd.getStartTime().toCardString().equals("-")
-    				&& !toAdd.getEndTime().toCardString().equals("-")
+    		if (toAdd.getEndTime().toCardString().equals("-")) {
+    			if (!toAdd.equals(i)
+            		&& !toAdd.getStartTime().toCardString().equals("-")
+            		//&& !task.getEndTime().toCardString().equals("-")
     				&& !i.getStartTime().toCardString().equals("-")
+    				&& !i.getEndTime().toCardString().equals("-")
+    				&& !toAdd.getStartTime().getAsCalendar().after(i.getEndTime().getAsCalendar())
+    				&& !toAdd.getStartTime().getAsCalendar().before(i.getStartTime().getAsCalendar())) {
+    				return true;
+    			}
+    		}
+    		
+    		else if (!toAdd.equals(i)
+    				&& !toAdd.getStartTime().toCardString().equals("-")
+    				//&& !toAdd.getEndTime().toCardString().equals("-")
+    				&& !i.getStartTime().toCardString().equals("-")
+    				&& !i.getEndTime().toCardString().equals("-")
     				&& !toAdd.getStartTime().getAsCalendar().after(i.getEndTime().getAsCalendar())
     				&& !i.getStartTime().getAsCalendar().after(toAdd.getEndTime().getAsCalendar())) {
-    			System.out.println(i.getAsText());
     			return true;
     		}
     	}

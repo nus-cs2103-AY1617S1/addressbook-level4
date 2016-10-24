@@ -436,10 +436,21 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	@Override
         public boolean run(ReadOnlyTask person) {
-            return !task.equals(person)
+    		if (task.getEndTime().toCardString().equals("-")) {
+    			return !task.equals(person)
             		&& !task.getStartTime().toCardString().equals("-")
-            		&& !task.getEndTime().toCardString().equals("-")
+            		//&& !task.getEndTime().toCardString().equals("-")
     				&& !person.getStartTime().toCardString().equals("-")
+    				&& !person.getEndTime().toCardString().equals("-")
+    				&& !task.getStartTime().getAsCalendar().after(person.getEndTime().getAsCalendar())
+    				&& !task.getStartTime().getAsCalendar().before(person.getStartTime().getAsCalendar());
+    		}
+    		
+    		return !task.equals(person)
+            		&& !task.getStartTime().toCardString().equals("-")
+            		//&& !task.getEndTime().toCardString().equals("-")
+    				&& !person.getStartTime().toCardString().equals("-")
+    				&& !person.getEndTime().toCardString().equals("-")
     				&& !task.getStartTime().getAsCalendar().after(person.getEndTime().getAsCalendar())
     				&& !person.getStartTime().getAsCalendar().after(task.getEndTime().getAsCalendar());
         }
