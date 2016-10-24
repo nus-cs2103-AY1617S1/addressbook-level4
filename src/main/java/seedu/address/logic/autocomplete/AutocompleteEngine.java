@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 public class AutocompleteEngine {
 
-	private Set<String> wordsToMatch;
+	private final Set<String> wordsToMatch;
 	
 	public AutocompleteEngine() {
 		this(new HashSet<String>());

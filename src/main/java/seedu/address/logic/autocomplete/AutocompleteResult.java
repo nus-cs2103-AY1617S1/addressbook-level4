@@ -10,7 +10,7 @@ import com.google.common.collect.Iterables;
  */
 public class AutocompleteResult {
 	
-	Iterator<String> matchIterator;
+	private Iterator<String> matchIterator;
 	
 	public AutocompleteResult(List<String> matchedWords) {
 		assert matchedWords != null;
