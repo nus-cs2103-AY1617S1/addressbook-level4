@@ -126,8 +126,8 @@ public class UniqueTaskList implements Iterable<Task> {
     private void appendDuplicateRecurringDatesToTask(Task toAdd) {
         int idx = internalList.indexOf(toAdd);
         Task toBeAppendedOn = internalList.get(idx);
-        toBeAppendedOn.appendRecurringDate(toAdd.getComponentForNonRecurringType());
         internalComponentList.add(toAdd.getComponentForNonRecurringType());
+        toBeAppendedOn.appendRecurringDate(toAdd.getComponentForNonRecurringType());
     }
     //@@author
     
@@ -193,24 +193,6 @@ public class UniqueTaskList implements Iterable<Task> {
 	}
 	//@@author
 	
-	private boolean checkUpdateOverlapping(ReadOnlyTask target, TaskDate startDate,
-			TaskDate endDate) {
-		if(startDate != null && endDate != null) {
-			for(Task t: internalList){
-				if(!t.equals(target)) {
-					if(t.getTaskType().equals(TaskType.NON_FLOATING)){
-		        		if(t.getComponentForNonRecurringType().getStartDate().getDateInLong()!=TaskDate.DATE_NOT_PRESENT){
-		        			if(!(t.getComponentForNonRecurringType().getEndDate().getDate().before(startDate.getDate())||
-		        	        	t.getComponentForNonRecurringType().getStartDate().getDate().after(endDate.getDate())))
-		        	        		return true;
-		        		}
-		        	}
-				}
-	        }
-		}
-		return false;
-	}
-
 	public boolean updateTask(Task target, Name name, UniqueTagList tags, TaskDate startDate,
 			TaskDate endDate, RecurringType recurringType) throws TimeslotOverlapException {
 		assert target != null;

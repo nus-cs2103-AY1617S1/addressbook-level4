@@ -189,6 +189,7 @@ public class Task implements ReadOnlyTask {
 	public void appendRecurringDate(TaskComponent componentToBeAdded) {
 	    assert !recurringType.equals(RecurringType.NONE) : "You cannot append new dates to non recurring tasks";
 	    recurringDates.add(componentToBeAdded);
+	    recurringDates.get(recurringDates.size()-1).setTaskReferrence(this);
 	}
 	//@@author
 }
