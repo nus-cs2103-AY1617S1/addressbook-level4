@@ -1,23 +1,16 @@
 package seedu.whatnow.logic.commands;
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
-import com.sun.glass.ui.Application;
-
-import seedu.whatnow.MainApp;
 import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.LogsCenter;
+import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.util.ConfigUtil;
 import seedu.whatnow.commons.util.StringUtil;
-import seedu.whatnow.storage.Storage;
-import seedu.whatnow.storage.StorageManager;
-
+import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import static java.nio.file.StandardCopyOption.*;
-
 import static seedu.whatnow.commons.core.Messages.*;
 
 public class ChangeCommand extends Command {
@@ -33,14 +26,12 @@ public class ChangeCommand extends Command {
 
     public String newPath;
 
-   // public Application app = Application.GetApplication();
-
     public Path source; 
 
     public Path destination; 
-
+    
     public Config config = new Config();
-
+    
     private static final Logger logger = LogsCenter.getLogger(ChangeCommand.class);
 
     public ChangeCommand(String newPath) {
@@ -58,14 +49,22 @@ public class ChangeCommand extends Command {
                 newPath = newPath + "/whatnow.xml";
             else
                 newPath = newPath + "/whatnow.xml";
+            
+            path = FileSystems.getDefault().getPath(newPath);
 
-            Path source =  FileSystems.getDefault().getPath(config.getWhatNowFilePath());
-            
-            System.out.println("source: " + config.getWhatNowFilePath());
-            
             config.setWhatNowFilePath(newPath);
             
             String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+            
+            try {
+                model.changeLocation(path, config);
+            } catch (DataConversionException e1) {
+                e1.printStackTrace();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            } catch (TaskNotFoundException e1) {
+                e1.printStackTrace();
+            }
             
             try {
                 ConfigUtil.saveConfig(config, configFilePathUsed);
@@ -73,32 +72,9 @@ public class ChangeCommand extends Command {
                 logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
             } 
             
-            MainApp app = new MainApp();
-            app.setConfig(config);
-          
-            Storage storage = new StorageManager(config.getWhatNowFilePath(), config.getUserPrefsFilePath());
-            //try to immediately change file into new location
-        
-            Path destination = FileSystems.getDefault().getPath(config.getWhatNowFilePath());
-            System.out.println("Destination: " + config.getWhatNowFilePath());
-
-            try {
-                Files.move(source, destination, REPLACE_EXISTING);
-            } catch (IOException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-            }
-            //ends
-            app.setStorage(storage);
-          
-            
             return new CommandResult(String.format(MESSAGE_SUCCESS, newPath));
         } else { 
             return new CommandResult(String.format(MESSAGE_INVALID_PATH, newPath));
         }
     }
-
-//    private void copyFile(File from, File to) throws IOException {
-//        Files.copy( from.toPath(), to.toPath() ); 
-//    }
 }

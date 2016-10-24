@@ -121,7 +121,6 @@ public class MainWindow extends UiPart {
         scheduleListPanel = ScheduleListPanel.load(primaryStage, getScheduleListPlaceholder(), logic.getFilteredScheduleList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        System.out.println("main window calls it");
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getWhatNowFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
