@@ -63,7 +63,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public String generateToolTip(String commandText){
         assert commandText != null;
         
-        List<String> toolTips = parser.parseForToolTip(commandText);
+        List<String> toolTips = parser.parseForTooltip(commandText);
         
         // toolTips should have at least one string in it
         // as there is a default case (add command)

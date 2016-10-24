@@ -76,22 +76,26 @@ public class CommandBox extends UiPart {
      */
     @FXML
     private void handleCommandInputChanged(KeyEvent event){
-        KeyCode keyCode = event.getCode();
+        KeyCode key = getKeyCodeFromEvent(event);
         
-        boolean isKeyToHandle = checkIsKeyToHandle(keyCode);
+        boolean isKeyToHandle = checkIfKeyToHandle(key);
         boolean isNotKeyToHandle = !isKeyToHandle;
         
-        boolean isNavigatingInputHistory = checkIfNavigatingInputHistory(keyCode);
+        boolean isNavigatingInputHistory = checkIfNavigatingInputHistory(key);
                 
         if (isNotKeyToHandle) {
             return;
         }
                
         if (isNavigatingInputHistory) {
-            handleArrowKeyEvent(keyCode);
+            handleArrowKeyEvent(key);
         }
                        
         updateTooltipForUser();
+    }
+
+    private KeyCode getKeyCodeFromEvent(KeyEvent event) {
+        return event.getCode();
     }
 
     /**
@@ -99,18 +103,18 @@ public class CommandBox extends UiPart {
      * @param keyCode the key to check
      * @return boolean representing if the key is an up or down arrow key
      */
-    private boolean checkIfNavigatingInputHistory(KeyCode keyCode) {
-        return keyCode == KeyCode.UP || keyCode == KeyCode.DOWN;
+    private boolean checkIfNavigatingInputHistory(KeyCode key) {
+        return checkIfWantPrevInput(key) || key == KeyCode.DOWN;
     }
 
     /**
      * Returns if the key press corresponds to a key to be handled by the commandbox controller.
-     * @param keyCode the key to check
+     * @param key the key to check
      * @return boolean representing if the key needs to be handled
      */
-    private boolean checkIsKeyToHandle(KeyCode keyCode) {
-        return keyCode == KeyCode.BACK_SPACE || keyCode.isDigitKey() || keyCode.isLetterKey() || 
-                keyCode == KeyCode.UP || keyCode == KeyCode.DOWN;
+    private boolean checkIfKeyToHandle(KeyCode key) {
+        return key == KeyCode.BACK_SPACE || key == KeyCode.SPACE || key.isDigitKey() || 
+                key.isLetterKey() || checkIfWantPrevInput(key) || key == KeyCode.DOWN;
     }
 
     /**
@@ -123,16 +127,16 @@ public class CommandBox extends UiPart {
 
     
     private void handleArrowKeyEvent(KeyCode keyCode) {
-        boolean wantPrevious = keyCode == KeyCode.UP;
-        boolean wantNext = !wantPrevious;
+        boolean wantPrev = checkIfWantPrevInput(keyCode);
+        boolean wantNext = !wantPrev;
         
         // if attempt to get next command while at latest command input or prev while at earliest, return
-        if ((history.isLatestInput() && wantNext) || (history.isEarliestInput() && wantPrevious)) {
+        if ((history.isLatestInput() && wantNext) || (history.isEarliestInput() && wantPrev)) {
             return;
         }
                 
         // handle differently depending on up arrow
-        if (wantPrevious){
+        if (wantPrev){
             // store the current input into the next first
             if (history.isLatestInput()) {
                 history.pushNextInput(commandTextField.getText());
@@ -158,6 +162,10 @@ public class CommandBox extends UiPart {
         String currentInputShown = commandTextField.getText();
         // positions the caret at the end of the string for easy edit
         commandTextField.positionCaret(currentInputShown.length());
+    }
+
+    private boolean checkIfWantPrevInput(KeyCode keyCode) {
+        return keyCode == KeyCode.UP;
     }
 
     @FXML
