@@ -21,6 +21,7 @@ public final class History {
     
     
     public CommandResult undo() {
+        assert undoStack.peek().cmd instanceof TaskBookEditor;
         if(!undoStack.isEmpty()) {
             Context previous = undoStack.pop();
             previous.cmd.undo();
@@ -31,6 +32,7 @@ public final class History {
     }
     
     public CommandResult redo() {
+        assert redoStack.peek() instanceof TaskBookEditor;
         if(!redoStack.isEmpty()) {
             Command cmd = redoStack.pop();
             CommandResult result = cmd.execute();
