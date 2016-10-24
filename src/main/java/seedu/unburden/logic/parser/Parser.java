@@ -239,6 +239,8 @@ public class Parser {
 				details.add(matcher2.group("name"));
 				details.add(matcher2.group("taskDescriptions"));
 				details.add(matcher2.group("date"));
+				details.add(matcher2.group("startTimeArguments"));
+				details.add(matcher2.group("endTimeArguments"));
 				return new AddCommand("deadline", details, getTagsFromArgs(matcher2.group("tagArguments")));
 
 			} else if (matcher3.matches()) {
