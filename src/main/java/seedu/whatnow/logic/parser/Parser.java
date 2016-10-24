@@ -239,11 +239,11 @@ public class Parser {
 		}
 		
 		for (int i = 0; i < additionalArgs.length; i++) {
-		    if (KEYWORD_FOR_DATE.matcher(additionalArgs[i]).find()) {
+		    if (KEYWORD_FOR_DATE.matcher(additionalArgs[i].toLowerCase()).find()) {
 		        hasDate = true;
 		        continue;
 		    }	        
-		    else if (KEYWORD_FOR_TIME.matcher(additionalArgs[i]).find()) {
+		    else if (KEYWORD_FOR_TIME.matcher(additionalArgs[i].toLowerCase()).find()) {
 		        hasTime = true;
 		        continue;
 		    }
@@ -254,21 +254,21 @@ public class Parser {
 		    } else if (!hasDate && TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
 		        numOfDate++;
                 if (numOfDate == 1) {
-                    date = additionalArgs[i];
+                    date = additionalArgs[i].toLowerCase();
                 } else if (numOfDate == 2) {
                     startDate = date;
                     date = null;
-                    endDate = additionalArgs[i];
+                    endDate = additionalArgs[i].toLowerCase();
                 }
                 continue;
-		    } else if (!hasTime && TIME_FORMAT.matcher(additionalArgs[i]).find()) {
+		    } else if (!hasTime && TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
                 numOfTime++;
                 if (numOfTime == 1) {
-                    time = additionalArgs[i];
+                    time = additionalArgs[i].toLowerCase();
                 } else if (numOfTime == 2) {
                     startTime = time;
                     time = null;
-                    endTime = additionalArgs[i];
+                    endTime = additionalArgs[i].toLowerCase();
                 }
                 continue;
             } else if (!hasDate && !hasTime) {
@@ -288,20 +288,20 @@ public class Parser {
                 } else if (TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
                     numOfDate++;
                     if (numOfDate == 1) {
-                        date = additionalArgs[i];
+                        date = additionalArgs[i].toLowerCase();
                     } else if (numOfDate == 2) {
                         startDate = date;
                         date = null;
-                        endDate = additionalArgs[i];
+                        endDate = additionalArgs[i].toLowerCase();
                     }
-                } else if (TIME_FORMAT.matcher(additionalArgs[i]).find()) {
+                } else if (TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
                     numOfTime++;
                     if (numOfTime == 1) {
-                        time = additionalArgs[i];
+                        time = additionalArgs[i].toLowerCase();
                     } else if (numOfTime == 2) {
                         startTime = time;
                         time = null;
-                        endTime = additionalArgs[i];
+                        endTime = additionalArgs[i].toLowerCase();
                     }
                 } else {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -311,14 +311,14 @@ public class Parser {
             }
             
             if (hasTime) {
-                if (TIME_FORMAT.matcher(additionalArgs[i]).find()) {
+                if (TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
                     numOfTime++;
                     if (numOfTime == 1) {
-                        time = additionalArgs[i];
+                        time = additionalArgs[i].toLowerCase();
                     } else if (numOfTime == 2) {
                         startTime = time;
                         time = null;
-                        endTime = additionalArgs[i];
+                        endTime = additionalArgs[i].toLowerCase();
                     }
                 } else {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
