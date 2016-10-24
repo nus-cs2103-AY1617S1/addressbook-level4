@@ -118,6 +118,17 @@ public class EditCommand extends Command {
         }
         
         toAdd.setTags(tags);
-    }    
+    }
+
+	@Override
+	public boolean isMutating() {
+		return true;
+	}
+
+	@Override
+	public void executeIfIsMutating() {
+		// TODO Auto-generated method stub
+		
+	}    
 
 }

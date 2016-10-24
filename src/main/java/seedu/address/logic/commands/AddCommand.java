@@ -10,9 +10,9 @@ import seedu.address.model.task.Datetime;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Status;
+import seedu.address.model.task.Status.State;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.Status.State;
 
 /**
  * Adds a person to the address book.
@@ -59,6 +59,17 @@ public class AddCommand extends Command {
 			return new CommandResult(MESSAGE_DUPLICATE_PERSON);
 		}
 
+	}
+	
+	@Override
+	public boolean isMutating() {
+		return true;
+	}
+
+	@Override
+	public void executeIfIsMutating() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

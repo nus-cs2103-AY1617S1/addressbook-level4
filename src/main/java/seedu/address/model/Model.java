@@ -22,6 +22,9 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task toAdd) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Adds the given undo */
+    void addUndo(String command, Task toUndo);
 
     /** Marks the given task as completed */
     void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;

@@ -2,7 +2,8 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.task.*;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Status;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.ui.PersonListPanel;
 
@@ -63,7 +64,19 @@ public class DoneCommand extends Command {
         //TODO look at posting a set as completed event.
         //EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
         
-
     }
+
+	@Override
+	public boolean isMutating() {
+		return true;
+	}
+
+	@Override
+	public void executeIfIsMutating() {
+		// TODO Auto-generated method stub
+		
+	}
+    
+    
 
 }

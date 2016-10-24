@@ -1,20 +1,20 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.address.commons.events.model.TaskBookChangedEvent;
-import seedu.address.commons.core.ComponentManager;
-
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * Represents the in-memory model of the task book data.
@@ -89,10 +89,15 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
-
-    //=========== Filtered Task List Accessors ===============================================================
-
     @Override
+  	public void addUndo(String command, Task toUndo) {
+  		// TODO Auto-generated method stub
+  		
+  	}
+    
+    //=========== Filtered Task List Accessors =============================================================== 
+
+	@Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDatedTaskList() {
         return new UnmodifiableObservableList<>(filteredDatedTasks);
     }

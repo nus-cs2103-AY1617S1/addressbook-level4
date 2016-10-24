@@ -38,6 +38,16 @@ public abstract class Command {
     }
 
     /**
+     * @return true if the Command makes changes to the data
+     */
+    public abstract boolean isMutating();
+    
+    /**
+     * Executes the relevant methods if the Command makes any changes to the data.
+     */
+    public abstract void executeIfIsMutating();
+    
+    /**
      * Raises an event to indicate an attempt to execute an incorrect command
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {

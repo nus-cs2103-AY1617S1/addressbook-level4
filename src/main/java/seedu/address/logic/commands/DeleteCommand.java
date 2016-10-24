@@ -58,4 +58,19 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
+
+	@Override
+	public boolean isMutating() {
+		return true;
+	}
+
+
+	@Override
+	public void executeIfIsMutating() {
+		// TODO Auto-generated method stub
+		
+	}
+    
+    
+
 }
