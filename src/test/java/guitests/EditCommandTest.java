@@ -19,21 +19,21 @@ public class EditCommandTest extends TaskManagerGuiTest {
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         
         TestTask taskToEdit = td.todo;
-        int targetIndex = currentList.size("d");
-        assertEditSuccess(taskToEdit, targetIndex, "d", currentList);
+        int targetIndex = currentList.size("t");
+        assertEditSuccess(taskToEdit, targetIndex, "t", currentList);
 
         //edit another task
         taskToEdit = td.deadline;
-        targetIndex = currentList.size("e");
-        assertEditSuccess(taskToEdit, targetIndex, "e", currentList);
+        targetIndex = currentList.size("d");
+        assertEditSuccess(taskToEdit, targetIndex, "d", currentList);
         
         //edit another task
         taskToEdit = td.event;
-        targetIndex = currentList.size("t");
-        assertEditSuccess(taskToEdit, targetIndex, "t", currentList);
+        targetIndex = currentList.size("e");
+        assertEditSuccess(taskToEdit, targetIndex, "e", currentList);
         
         //edit into duplicate task
-        commandBox.runCommand(td.deadline.getEditCommand(targetIndex - 1, "e"));
+        commandBox.runCommand(td.deadline.getEditCommand(targetIndex - 1, "d"));
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(currentList.isListMatching(taskListPanel));
 
