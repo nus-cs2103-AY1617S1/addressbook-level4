@@ -14,21 +14,19 @@ public class TypicalTestTasks {
     public TypicalTestTasks() {
       //@@author A0147944U-reused
         try {
-            taskA =  new TaskBuilder().withName("Accompany mom to the doctor").withDeadline("02.30pm")
-                    .withEndTime("12.00am").withStartTime("10.00pm")
+            taskA =  new TaskBuilder().withName("Accompany mom to the doctor").withDeadline("2016-10-27 15:00")
+                    .withEndTime("2016-10-26 17:00").withStartTime("2016-10-25 02:00")
                     .withTags("gwsMum").build();
-            taskB = new TaskBuilder().withName("Borrow software engineering book").withDeadline("02.30pm")
-                    .withEndTime("02.00pm").withStartTime("01.00am")
+            taskB = new TaskBuilder().withName("Borrow software engineering book").withDeadline("2016-10-27 16:00")
+                    .withEndTime("2016-10-26 16:00").withStartTime("2016-10-25 03:00")
                     .withTags("study", "seRocks").build();
-            taskC = new TaskBuilder().withName("Call Jim").withStartTime("11.00am").withEndTime("01.00pm").withDeadline("02.30pm").build();
-            taskD = new TaskBuilder().withName("Do homework").withStartTime("02.00am").withEndTime("03.00pm").withDeadline("02.30pm").build();
-            taskE = new TaskBuilder().withName("Edit AddressBook file").withStartTime("03.00am").withEndTime("06.00pm").withDeadline("02.30pm").build();
-            taskF = new TaskBuilder().withName("Finish up the project").withStartTime("04.00am").withEndTime("07.00pm").withDeadline("02.30pm").build();
-            taskG = new TaskBuilder().withName("Go for a jog").withStartTime("07.00am").withEndTime("08.00pm").withDeadline("02.30pm").build();
-
-            //Manually added
-            taskH = new TaskBuilder().withName("Help Jim with his task").withStartTime("08.00am").withEndTime("09.00pm").withDeadline("02.30pm").build();
-            taskI = new TaskBuilder().withName("Iron new clothes").withStartTime("09.00am").withEndTime("08.00pm").withDeadline("02.30pm").build();
+            taskC = new TaskBuilder().withName("Call Jim").withStartTime("2016-10-25 04:00").withEndTime("2016-10-26 15:00").withDeadline("2016-10-27 17:00").build();
+            taskD = new TaskBuilder().withName("Do homework").withStartTime("2016-10-25 05:00").withEndTime("2016-10-26 14:00").withDeadline("2016-10-27 18:00").build();
+            taskE = new TaskBuilder().withName("Edit AddressBook file").withStartTime("2016-10-25 06:00").withEndTime("2016-10-26 13:49").withDeadline("2016-10-27 19:00").build();
+            taskF = new TaskBuilder().withName("Finish up the project").withStartTime("2016-10-25 07:00").withEndTime("2016-10-26 13:23").withDeadline("2016-10-27 20:00").build();
+            taskG = new TaskBuilder().withName("Go for a jog").withStartTime("2016-10-25 08:00").withEndTime("2016-10-26 12:00").withDeadline("2016-10-27 20:59").build();
+            taskH = new TaskBuilder().withName("Help Jim with his task").withStartTime("2016-10-25 09:00").withEndTime("2016-10-26 11:00").withDeadline("2016-10-27 21:00").build();
+            taskI = new TaskBuilder().withName("Iron new clothes").withStartTime("2016-10-25 02:59").withEndTime("2016-10-26 10:00").withDeadline("2016-10-27 22:00").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

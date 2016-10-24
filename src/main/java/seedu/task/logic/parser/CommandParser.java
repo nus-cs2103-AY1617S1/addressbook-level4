@@ -28,19 +28,19 @@ public class CommandParser {
     		Pattern.compile("(?<name>[^,#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_TIME = 
-    		Pattern.compile("(?<name>[^,]+)" + ", (at|on) (?<startTime>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+    		Pattern.compile("(?<name>[^,#]+)" + ", (at|on) (?<startTime>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_DEADLINE = 
-            Pattern.compile("(?<name>[^,]+)" + ", by (?<deadline>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^,#]+)" + ", by (?<deadline>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME = 
-    		Pattern.compile("(?<name>[^,]+)" + ", from (?<startTime>[^/]+)" + " to (?<endTime>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+    		Pattern.compile("(?<name>[^,#]+)" + ", from (?<startTime>[^/]+)" + " to (?<endTime>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
 
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_DEADLINE = 
-            Pattern.compile("(?<name>[^,]+)" + ", (at|on) (?<startTime>[^/]+)" + " by (?<deadline>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^,#]+)" + ", (at|on) (?<startTime>[^/]+)" + " by (?<deadline>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME_AND_DEADLINE = 
-            Pattern.compile("(?<name>[^,]+)" + ", from (?<startTime>[^/]+)" + "to (?<endTime>[^/]+)" + "by (?<deadline>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^,#]+)" + ", from (?<startTime>[^/]+)" + "to (?<endTime>[^/]+)" + "by (?<deadline>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     public static final Pattern EDIT_TASK_DATA_ARGS_FORMAT_NATURAL = 
     					Pattern.compile("(?<targetIndex>.)"
