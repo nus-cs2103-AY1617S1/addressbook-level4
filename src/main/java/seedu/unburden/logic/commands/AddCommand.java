@@ -23,7 +23,7 @@ public class AddCommand extends Command {
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the list of tasks";
 
-	private final Task toAdd;
+	private Task toAdd;
 
 	/**
 	 * Convenience constructor using raw values.
@@ -76,28 +76,53 @@ public class AddCommand extends Command {
 		}
 
 		switch (mode) {
+		case "event with everything":
+			new Task(new Name(details.get(0)), new TaskDescription(details.get(1)), new Date(details.get(2)),
+					new Time(details.get(3)), new Time(details.get(4)), new UniqueTagList(tagSet));
+			break;
+
 		case "event without description":
 			this.toAdd = new Task(new Name(details.get(0)), new Date(details.get(1)), new Time(details.get(2)),
 					new Time(details.get(3)), new UniqueTagList(tagSet));
 			break;
-		case "deadline without time":
-			this.toAdd = new Task(new Name(details.get(0)), new Date(details.get(1)), new UniqueTagList(tagSet));
-			break;
+
 		case "deadline":
+			new Task(new Name(details.get(0)), new TaskDescription(details.get(1)), new Date(details.get(2)),
+					new Time(details.get(3)), new UniqueTagList(tagSet));
+			break;
+
+		case "deadline without task description":
 			this.toAdd = new Task(new Name(details.get(0)), new Date(details.get(1)), new Time(details.get(2)),
 					new UniqueTagList(tagSet));
 			break;
-		case "floating task":
+
+		case "deadline without task description and time":
 			this.toAdd = new Task(new Name(details.get(0)), new Date(details.get(1)), new UniqueTagList(tagSet));
 			break;
-		case "floating task with name":
-			this.toAdd = new Task (new Name(details.get(0)), new UniqueTagList(tagSet));
+
+		case "deadline without task description and date":
+			this.toAdd = new Task(new Name(details.get(0)), new Time(details.get(1)), new UniqueTagList(tagSet));
 			break;
-		default:
+
+		case "deadline without date":
 			this.toAdd = new Task(new Name(details.get(0)), new TaskDescription(details.get(1)),
-					new Date(details.get(2)), new Time(details.get(3)), new Time(details.get(4)),
+					new Time(details.get(2)), new UniqueTagList(tagSet));
+			break;
+
+		case "deadline without time":
+			this.toAdd = new Task(new Name(details.get(0)), new TaskDescription(details.get(1)),
+					new Date(details.get(2)), new UniqueTagList(tagSet));
+			break;
+
+		case "floating task":
+			this.toAdd = new Task(new Name(details.get(0)), new TaskDescription(details.get(1)),
 					new UniqueTagList(tagSet));
+			break;
+
+		default:
+			this.toAdd = new Task(new Name(details.get(0)), new UniqueTagList(tagSet));
 		}
+
 	}
 
 	@Override

@@ -25,9 +25,9 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     
-    // adds Task Name, Task Description, Date, start time and end time of the task
+    // adds event
     public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, tags);
+        assert !CollectionUtil.isAnyNull(name, taskD, date, startTime, endTime, tags);
         this.name = name;
         this.taskD = taskD;
         this.date = date;
@@ -36,17 +36,10 @@ public class Task implements ReadOnlyTask {
         //this.getDoneString = getDoneString;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
-
-    /**
-     * Copy constructor.
-     */
-    public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
-    }
     
-    // adds Task name, date, start time and end time of the task 
+    // adds event without description 
     public Task(Name name,Date date, Time startTime, Time endTime, UniqueTagList tags) throws IllegalValueException {
-        assert !CollectionUtil.isAnyNull(name, tags);
+        assert !CollectionUtil.isAnyNull(name, date, startTime, endTime, tags);
         this.name = name;
         this.taskD = new TaskDescription("NIL");
         this.date = date;
@@ -55,30 +48,19 @@ public class Task implements ReadOnlyTask {
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
-    // adds a floating Task 
-    public Task(Name name, UniqueTagList tags) throws IllegalValueException {
-		assert !CollectionUtil.isAnyNull(name, tags);
+    // adds deadline
+    public Task(Name name, TaskDescription taskD, Date date, Time endTime, UniqueTagList tags) throws IllegalValueException {
+		assert!CollectionUtil.isAnyNull(name, taskD, date, endTime, tags);
 		this.name = name;
-		this.taskD = new TaskDescription("NIL");
-		this.date = new Date("NIL");
-		this.startTime = new Time("NIL");
-		this.endTime = new Time("NIL");
-		this.tags = new UniqueTagList(tags);
-	}
-
-    // adds Task name and the date 
-	public Task(Name name, Date date, UniqueTagList tags) throws IllegalValueException {
-		assert!CollectionUtil.isAnyNull(name, date, tags);
-		this.name = name;
-		this.taskD = new TaskDescription("NIL");
+		this.taskD = taskD;
 		this.date = date;
 		this.startTime = new Time("NIL");
-		this.endTime = new Time("NIL");
+		this.endTime = endTime;
 		this.tags = new UniqueTagList(tags);
 	}
-
-	// adds Task name with date and a specific end time 
-	public Task(Name name, Date date, Time endTime, UniqueTagList tags) throws IllegalValueException {
+    
+    // adds deadline without task description
+    public Task(Name name, Date date, Time endTime, UniqueTagList tags) throws IllegalValueException {
 		assert!CollectionUtil.isAnyNull(name, date, endTime, tags);
 		this.name = name;
 		this.taskD = new TaskDescription("NIL");
@@ -87,6 +69,79 @@ public class Task implements ReadOnlyTask {
 		this.endTime = endTime;
 		this.tags = new UniqueTagList(tags);
 	}
+    
+    // adds deadline without task description and time
+    public Task(Name name, Date date, UniqueTagList tags) throws IllegalValueException {
+		assert!CollectionUtil.isAnyNull(name, date, tags);
+		this.name = name;
+		this.taskD = new TaskDescription("NIL");
+		this.date = date;
+		this.startTime = new Time("NIL");
+		this.endTime = new Time("NIL");
+		this.tags = new UniqueTagList(tags);
+	}
+    
+    // adds deadline without task description and date
+    public Task(Name name, Time endTime, UniqueTagList tags) throws IllegalValueException {
+		assert!CollectionUtil.isAnyNull(name, endTime, tags);
+		this.name = name;
+		this.taskD = new TaskDescription("NIL");
+		this.date = new Date("NIL");
+		this.startTime = new Time("NIL");
+		this.endTime = endTime;
+		this.tags = new UniqueTagList(tags);
+	}
+    
+    // adds deadline without date
+    public Task(Name name, TaskDescription taskD, Time endTime, UniqueTagList tags) throws IllegalValueException {
+		assert!CollectionUtil.isAnyNull(name, taskD, endTime, tags);
+		this.name = name;
+		this.taskD = taskD;
+		this.date = new Date("NIL");
+		this.startTime = new Time("NIL");
+		this.endTime = endTime;
+		this.tags = new UniqueTagList(tags);
+	}
+    // adds deadline without time
+    public Task(Name name, TaskDescription taskD, Date date, UniqueTagList tags) throws IllegalValueException {
+		assert!CollectionUtil.isAnyNull(name, taskD, date, tags);
+		this.name = name;
+		this.taskD = taskD;
+		this.date = date;
+		this.startTime = new Time("NIL");
+		this.endTime = new Time ("NIL");
+		this.tags = new UniqueTagList(tags);
+	}
+    
+    // adds floating Task 
+    public Task(Name name, TaskDescription taskD, UniqueTagList tags) throws IllegalValueException {
+		assert !CollectionUtil.isAnyNull(name, taskD, tags);
+		this.name = name;
+		this.taskD = taskD;
+		this.date = new Date("NIL");
+		this.startTime = new Time("NIL");
+		this.endTime = new Time("NIL");
+		this.tags = new UniqueTagList(tags);
+	}
+
+    // adds floating task without task description
+	public Task(Name name, UniqueTagList tags) throws IllegalValueException {
+		assert!CollectionUtil.isAnyNull(name, tags);
+		this.name = name;
+		this.taskD = new TaskDescription("NIL");
+		this.date = new Date("NIL");
+		this.startTime = new Time("NIL");
+		this.endTime = new Time("NIL");
+		this.tags = new UniqueTagList(tags);
+	}
+	
+	
+	/**
+     * Copy constructor.
+     */
+    public Task(ReadOnlyTask source) {
+        this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
+    }
 
 	@Override
     public Name getName() {
