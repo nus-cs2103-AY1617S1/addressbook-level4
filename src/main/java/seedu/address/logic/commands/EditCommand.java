@@ -92,7 +92,7 @@ public class EditCommand extends UndoableCommand {
             startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
         }
 
-        priority = Priority.stringToPriority(priorityString.get());
+        priority = Priority.convertStringToPriority(priorityString.get());
                 
         /*
          * Check which field is to be reset

@@ -8,7 +8,7 @@ public enum Priority {
     /**
      * Converts given String into Priority
      */
-    public static Priority stringToPriority(String priorityString) {
+    public static Priority convertStringToPriority(String priorityString) {
         assert priorityString != null;
         
         switch (priorityString) {
@@ -21,9 +21,8 @@ public enum Priority {
         case ("medium"):
         case ("med"):
         case ("m"):
-            return Priority.MEDIUM;
         default:
-    		return null;
+            return Priority.MEDIUM;
         }
     }
 }

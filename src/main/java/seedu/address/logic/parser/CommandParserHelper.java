@@ -125,7 +125,7 @@ public class CommandParserHelper {
         HashMap<String, Optional<String>> recurrenceRateMap = generateRateAndTimePeriod(matcher);
         task.rate = recurrenceRateMap.get("rate");
         task.timePeriod = recurrenceRateMap.get("timePeriod");
-        task.priority = Optional.of(assignPriority(matcher));
+        task.priority = Optional.of(generatePriority(matcher));
     }
 
     private void assignTaskParametersEdit(OptionalStringTask task) throws IllegalValueException {
@@ -383,7 +383,7 @@ public class CommandParserHelper {
         }
     }
 
-    private String assignPriority(Matcher matcher) {
+    private String generatePriority(Matcher matcher) {
         String priority;
         if (matcher.group("priority") != null) {
             priority = matcher.group("priority").trim();
