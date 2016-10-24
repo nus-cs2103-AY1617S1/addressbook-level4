@@ -49,8 +49,7 @@ public class HelpPopup extends UiPart {
     private void initPopup() {
         popup = new Popup();
         content = new TextArea();
-        content.setPrefHeight(575);
-        content.setPrefWidth(700);
+        properties();
 
         popup.getContent().add(content);
         popup.addEventHandler(KeyEvent.KEY_RELEASED, keyEventHandler);
@@ -72,5 +71,18 @@ public class HelpPopup extends UiPart {
     //@@author A0139149X
     public void setContent(String text) {
         content.setText(text);
+    }
+    
+    //@@author A0143378Y
+    public void properties() { 
+        content.setPrefHeight(700);
+        content.setPrefWidth(700);
+        content.setWrapText(true);
+        content.setStyle("-fx-background-color: #00BFFF;-fx-padding:10px;"
+                + "-fx-text-fill: #000080;"+ "-fx-font-family: Consolas;"
+                + "-fx-alignment: center"
+                );
+
+//        content.setStyle("-fx-font-family: sample; -fx-font-size: 20;");
     }
 }
