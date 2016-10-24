@@ -243,7 +243,7 @@ public class TimeUtil {
             logger.log(Level.WARNING, "startTime in isOngoing(..., ...) is null");
             return false;
         }
-        return (LocalDateTime.now(clock).isAfter(startTime) && LocalDateTime.now(clock).isAfter(endTime));
+        return (LocalDateTime.now(clock).isAfter(startTime) && LocalDateTime.now(clock).isBefore(endTime));
     }
 
     //@@author A0135817B
