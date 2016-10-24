@@ -370,6 +370,21 @@ public class TestActivity implements ReadOnlyActivity {
         return build.toString();
     }
     
+    public String getEditTaskDateCommand(int index, String newDate) {
+        StringBuilder build = new StringBuilder();
+        
+        build.append(EditCommand.COMMAND_WORD);
+        build.append(" ");
+        build.append(Activity.TASK_TYPE);
+        build.append(" ");
+        build.append(String.valueOf(index));
+        build.append(" ");
+        build.append(EditCommand.TASK_DEADLINE_PARAM);
+        build.append(" ");
+        build.append(newDate);
+        return build.toString();
+    }
+    
     @Override
     public Activity get() {
         return null;

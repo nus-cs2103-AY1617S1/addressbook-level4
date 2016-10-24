@@ -125,4 +125,8 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         // Confirms the result message is correct
         assertResultMessage(String.format(EditCommand.MESSAGE_EDITTED_ACTIVITY_SUCCESS, event));
     }
+    
+    private void assertTaskEditDateSuccess(TestActivity task, int index, String changes) {
+        
+    }
 }
