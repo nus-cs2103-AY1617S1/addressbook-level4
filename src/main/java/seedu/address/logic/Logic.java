@@ -20,5 +20,17 @@ public interface Logic {
     ObservableList<Task> getFilteredTaskList();
     
     ObservableList<Alias> getAlias();
+    
+    /** Returns the previous command in the command history */
+    String getPreviousCommand();
+    
+    /** Returns the next command in the command history */
+    String getNextCommand();
+    
+    /** Sets the text that should be used as the source for autocomplete suggestions */
+    void setTextToAutocomplete(String text);
+    
+    /** Uses the text set as the autcomplete source to return another autocomplete suggestion  */
+    String getNextAutocompleteSuggestion();
 
 }
