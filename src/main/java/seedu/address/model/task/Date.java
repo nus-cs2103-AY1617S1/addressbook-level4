@@ -38,11 +38,11 @@ public class Date {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }
         date = standardFormatDate(date);
-        if (!isAfterCurrentDate(date)) {
+       /* if (!isAfterCurrentDate(date)) {
         	throw new IllegalValueException(MESSAGE_PAST_DATE);
         }
         	
-        else
+        else*/
         	this.value = date;
     }
 
