@@ -7,6 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -76,6 +77,7 @@ public class LogicManagerTest {
 
     private Model model;
     private Logic logic;
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd, EEE");
 
     //These are for checking the correctness of the events raised
     private ReadOnlyTaskMaster latestSavedTaskList;
@@ -980,7 +982,7 @@ public class LogicManagerTest {
     	String test = "23 oct 12am";
     	TaskDate testDate = new TaskDate(test);
     	assertCommandBehavior("view 23 oct 12am",
-    			String.format(ViewCommand.MESSAGE_UPDATE_AGENDA_SUCCESS, testDate.getFormattedDate()));
+    			String.format(ViewCommand.MESSAGE_UPDATE_AGENDA_SUCCESS, formatter.format(testDate.getDate())));
     	assertEquals(testDate, checkDate);
     	assertEquals(latestSavedTaskList.getTaskComponentList(), checkList);
     	assertEquals(model.getTaskMaster().getTaskComponentList(), checkList);

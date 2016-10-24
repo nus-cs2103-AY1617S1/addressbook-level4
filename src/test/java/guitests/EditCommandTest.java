@@ -6,6 +6,7 @@ import org.junit.Test;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
+import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskComponent;
 import seedu.address.commons.core.Messages;
@@ -62,6 +63,12 @@ public class EditCommandTest extends TaskMasterGuiTest {
         //invalid command
         commandBox.runCommand("edits read weblecture");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+        //Edit a normal task to a recurring task, note the need to include a time point
+        toBeEdited = currentList[index - 1];
+        toBeEdited.setRecurringType(RecurringType.MONTHLY);
+        currentList[index - 1] = toBeEdited;
+        assertEditSuccess(toBeEdited, "edit 4 from 2 oct 9am to 2 oct 11am monthly", currentList);
 
     }
     

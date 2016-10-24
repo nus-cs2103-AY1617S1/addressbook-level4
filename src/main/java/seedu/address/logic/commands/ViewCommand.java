@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import java.text.SimpleDateFormat;
+
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.AgendaTimeRangeChangedEvent;
 import seedu.address.model.task.TaskDate;
@@ -11,6 +13,8 @@ import seedu.address.model.task.TaskDate;
 public class ViewCommand extends Command {
 
     public final TaskDate inputDate;
+    
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd, EEE");
 
     public static final String COMMAND_WORD = "view";
 
@@ -29,7 +33,7 @@ public class ViewCommand extends Command {
     public CommandResult execute() {
 
         EventsCenter.getInstance().post(new AgendaTimeRangeChangedEvent(inputDate, model.getTaskMaster().getTaskComponentList()));
-        return new CommandResult(String.format(MESSAGE_UPDATE_AGENDA_SUCCESS, inputDate.getFormattedDate()));
+        return new CommandResult(String.format(MESSAGE_UPDATE_AGENDA_SUCCESS, formatter.format(inputDate.getDate())));
 
     }
 
