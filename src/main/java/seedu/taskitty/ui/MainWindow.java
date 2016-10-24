@@ -234,8 +234,8 @@ public class MainWindow extends UiPart {
     public void handleViewDone() {
         commandBox.handleCommands("view done");
     }
-    //@@author A0139052L
     
+    //@@author    
     /**
      * Closes the application.
      */

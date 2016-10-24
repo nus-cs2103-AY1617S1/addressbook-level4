@@ -1,6 +1,6 @@
 package seedu.taskitty.logic.commands;
 
-import seedu.taskitty.commons.exceptions.NoPreviousCommandException;
+import seedu.taskitty.commons.exceptions.NoPreviousValidCommandException;
 
 //@@author A0139052L
 /**
@@ -23,7 +23,7 @@ public class UndoCommand extends Command {
         try {
             String commandUndone = model.undo();
             return new CommandResult(MESSAGE_UNDO_SUCCESS + commandUndone);
-        } catch (NoPreviousCommandException e) {
+        } catch (NoPreviousValidCommandException e) {
             return new CommandResult(MESSAGE_NO_PREVIOUS_VALID_COMMANDS);
         }       
     }

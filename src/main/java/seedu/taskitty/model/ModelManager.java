@@ -5,7 +5,7 @@ import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
-import seedu.taskitty.commons.exceptions.NoPreviousCommandException;
+import seedu.taskitty.commons.exceptions.NoPreviousValidCommandException;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
@@ -104,10 +104,10 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-    //@@ author A0139052L
-    public synchronized String undo() throws NoPreviousCommandException {
+    //@@author A0139052L
+    public synchronized String undo() throws NoPreviousValidCommandException {
         if (!hasPreviousValidCommand()) {            
-            throw new NoPreviousCommandException(null);
+            throw new NoPreviousValidCommandException(null);
         }
         assert !historyPredicates.isEmpty() && !historyTaskManagers.isEmpty();
         resetData(getPreviousTaskManager());   
@@ -125,36 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
         historyTaskManagers.pop();
         historyCommands.pop();
         historyPredicates.pop();
-    }
-    
-    /**
-     *  returns the Task Manager from the previous state
-     */
-    private ReadOnlyTaskManager getPreviousTaskManager() {
-        return historyTaskManagers.pop();
-    }
-    
-    /**
-     * returns the Predicate from the previous state
-     */
-    private Predicate getPreviousPredicate() {
-        return historyPredicates.pop();
-    }
-    
-    /**
-     * returns the previous valid command input by the user
-     */
-    private String getPreviousValidCommand() {
-        return historyCommands.pop();
-    }
-    
-    /**
-     *  returns true is there is a previous valid command input by user
-     *  and false otherwise
-     */
-    private boolean hasPreviousValidCommand() {
-        return !historyCommands.isEmpty();
-    }
+    }    
     
     //@@author
     @Override
@@ -298,6 +269,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    //========== Private methods used within ModelManager ==================================================
+    
+    
     //@@author A0130853L
     /**
      * Evaluates if the task is a deadline and is not after the specified date.
@@ -322,5 +296,33 @@ public class ModelManager extends ComponentManager implements Model {
 		return task.isEvent() && !(task.getPeriod().getEndDate().getDate().isBefore(date) || task.getPeriod().getStartDate().getDate().isAfter(date));
 	}
 
-
+	//@@author A0139052L
+    /**
+     *  returns the Task Manager from the previous state
+     */
+    private ReadOnlyTaskManager getPreviousTaskManager() {
+        return historyTaskManagers.pop();
+    }
+    
+    /**
+     * returns the Predicate from the previous state
+     */
+    private Predicate getPreviousPredicate() {
+        return historyPredicates.pop();
+    }
+    
+    /**
+     * returns the previous valid command input by the user
+     */
+    private String getPreviousValidCommand() {
+        return historyCommands.pop();
+    }
+    
+    /**
+     *  returns true is there is a previous valid command input by user
+     *  and false otherwise
+     */
+    private boolean hasPreviousValidCommand() {
+        return !historyCommands.isEmpty();
+    }
 }
