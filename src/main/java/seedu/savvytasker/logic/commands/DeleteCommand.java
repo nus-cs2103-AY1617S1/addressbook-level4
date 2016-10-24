@@ -6,6 +6,8 @@ import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.logic.commands.models.DeleteCommandModel;
 import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.Task;
+import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 /**
@@ -24,10 +26,12 @@ public class DeleteCommand extends ModelRequiringCommand {
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
     public final DeleteCommandModel commandModel;
+    private Task deleted;
 
     public DeleteCommand(DeleteCommandModel commandModel) {
         assert (commandModel != null);
         this.commandModel = commandModel;
+        this.deleted = null;
     }
 
 
@@ -48,6 +52,7 @@ public class DeleteCommand extends ModelRequiringCommand {
         StringBuilder resultSb = new StringBuilder();
         try {
             for(ReadOnlyTask taskToDelete : tasksToDelete) {
+                deleted = (Task)taskToDelete;
                 model.deleteTask(taskToDelete);
                 resultSb.append(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
             }
@@ -60,7 +65,7 @@ public class DeleteCommand extends ModelRequiringCommand {
     
     @Override
     public boolean canUndo() {
-        return false;
+        return true;
     }
 
     /**
@@ -69,7 +74,18 @@ public class DeleteCommand extends ModelRequiringCommand {
      */
     @Override
     public boolean redo() {
-        // nothing required to be done
+        UnmodifiableObservableList<Task> lastShownList = model.getFilteredTaskListTask();
+        
+        for (int i = 0; i < lastShownList.size(); i++) {
+            if (lastShownList.get(i) == deleted){
+                ReadOnlyTask taskToDelete = lastShownList.get(i);
+                try {
+                    model.deleteTask(taskToDelete);
+                } catch (TaskNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        } 
         return true;
     }
 
@@ -78,8 +94,14 @@ public class DeleteCommand extends ModelRequiringCommand {
      * @return true if the operation completed successfully, false otherwise
      */
     @Override
-    public boolean undo() {
-        // nothing required to be done
+    public boolean undo() {      
+        assert model != null;
+        try {
+            model.addTask(deleted);
+        } catch (DuplicateTaskException e) {
+            e.printStackTrace();
+        }
+        
         return true;
     }
     

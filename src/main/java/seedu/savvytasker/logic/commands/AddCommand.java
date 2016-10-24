@@ -1,8 +1,5 @@
 package seedu.savvytasker.logic.commands;
 
-import java.util.LinkedList;
-
-import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.logic.commands.models.AddCommandModel;
 import seedu.savvytasker.model.task.ReadOnlyTask;
@@ -64,7 +61,7 @@ public class AddCommand extends ModelRequiringCommand {
      */
     @Override
     public boolean redo() {
-        // TODO Auto-generated method stub
+        execute();
         return false;
     }
     

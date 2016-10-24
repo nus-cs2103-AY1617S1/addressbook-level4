@@ -3,6 +3,7 @@ package seedu.savvytasker.logic.commands;
 import seedu.savvytasker.commons.exceptions.IllegalValueException;
 import seedu.savvytasker.logic.commands.models.UnaliasCommandModel;
 import seedu.savvytasker.model.alias.AliasSymbol;
+import seedu.savvytasker.model.alias.DuplicateSymbolKeywordException;
 import seedu.savvytasker.model.alias.SymbolKeywordNotFoundException;
 
 /**
@@ -21,6 +22,8 @@ public class UnaliasCommand extends ModelRequiringCommand {
     public static final String MESSAGE_UNREGOGNIZED_ALIAS = "This alias is not in use";
 
     private UnaliasCommandModel commandModel;
+    private AliasSymbol toUndo;
+    
     /**
      * Convenience constructor using raw values.
      *
@@ -29,6 +32,7 @@ public class UnaliasCommand extends ModelRequiringCommand {
     public UnaliasCommand(UnaliasCommandModel commandModel) {
         assert commandModel != null;
         this.commandModel = commandModel;
+        this.toUndo = null;
     }
 
     @Override
@@ -46,7 +50,7 @@ public class UnaliasCommand extends ModelRequiringCommand {
         try {
             if (toRemove == null)
                 return new CommandResult(MESSAGE_UNREGOGNIZED_ALIAS);
-            
+            toUndo = toRemove;
             model.removeAliasSymbol(toRemove);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toRemove));
         } catch (SymbolKeywordNotFoundException e) {
@@ -65,7 +69,7 @@ public class UnaliasCommand extends ModelRequiringCommand {
      */
     @Override
     public boolean redo() {
-        // TODO Auto-generated method stub
+        execute();
         return false;
     }
     /**
@@ -74,7 +78,13 @@ public class UnaliasCommand extends ModelRequiringCommand {
      */
     @Override
     public boolean undo() {
-        // TODO Auto-generated method stub
+
+        try {
+            model.addAliasSymbol(toUndo);
+        } catch (DuplicateSymbolKeywordException e) {
+            e.printStackTrace();
+        }
+        
         return false;
     }
     

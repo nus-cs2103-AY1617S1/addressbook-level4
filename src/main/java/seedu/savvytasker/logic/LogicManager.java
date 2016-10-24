@@ -184,7 +184,7 @@ public class LogicManager extends ComponentManager implements Logic {
         
         if (!redoStack.isEmpty()) {
             Command command = redoStack.pop();
-            command.execute();
+            command.redo();
             undoStack.push(command);
             redone = true;
         }
