@@ -1,5 +1,4 @@
 build/
-!build/jar/TaskManager.jar
 .gradle/
 .idea/
 lib/*
