@@ -78,7 +78,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             calendar.setTime(startDate);
             DateTime.updateDateByRecurrenceRate(calendar, recurrenceRate);
             startDate = calendar.getTime();
-        } else if (endDate != null) {
+        }
+        if (endDate != null) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(endDate);
             DateTime.updateDateByRecurrenceRate(calendar, recurrenceRate);
