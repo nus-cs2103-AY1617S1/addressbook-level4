@@ -16,12 +16,12 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits information of the task in the task-list.\n"
-            + "Parameters: TASK_TYPE INDEX_NUMBER n/TASK_NAME p/PRIORITY\n"
-            + "Example: " + COMMAND_WORD + " todo 1 n/Assignment 1 d/25-12-2016 p/2\n"
-            + "Parameters: TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME\n"
-            + "Example: " + COMMAND_WORD + " event 1 n/Time's birthday party d/25-12-2016 s/1200 e/1600\n"
-            + "Parameters: TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME\n"
-            + "Example: " + COMMAND_WORD + " deadline 1 n/CS2103 v0.2 d/25-12-2016 e/1400";
+            + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE(Optional) p/PRIORITY\n"
+            + "Example: " + COMMAND_WORD + " todo 1 name/Assignment 1 from/25-12-2016 p/2\n"
+            + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME from/DATE to/ENDDATE at/START_TIME to/END_TIME\n"
+            + "Example: " + COMMAND_WORD + " event 1 name/Time's birthday party from/25-12-2016 to/26-12-2016 at/1200 to/1600\n"
+            + "Parameters: TASK_TYPE INDEX_NUMBER name/TASK_NAME on/DATE at/END_TIME\n"
+            + "Example: " + COMMAND_WORD + " deadline 1 name/CS2103 v0.2 on/25-12-2016 at/1400";
 
     public static final String MESSAGE_EDIT_task_SUCCESS = "Edited task: %1$s";
     public static final String INVALID_VALUE = "Invalid value";
@@ -37,14 +37,16 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, int priority, int targetIndex, String dataType)
+    public EditCommand(String name, String date, String endDate, String priority, int targetIndex, String dataType, String done)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.dataType = dataType;
         this.toEdit = new Todo(
                 new Name(name),
-                new Date(date),
-                new Priority(Integer.toString(priority))
+                new StartDate(date),
+                new EndDate(endDate),
+                new Priority(priority),
+                new Done(done)
         );
     }
     
@@ -53,15 +55,17 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, String startTime, String endTime, int targetIndex, String dataType)
+    public EditCommand(String name, String date, String endDate, String startTime, String endTime, int targetIndex, String dataType, String done)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.dataType = dataType;
         this.toEdit = new Event(
                 new Name(name),
-                new Date(date),
+                new StartDate(date),
+                new EndDate(endDate),
                 new StartTime(startTime),
-                new EndTime(endTime)
+                new EndTime(endTime),
+                new Done(done)
         );
     }
     
@@ -70,14 +74,15 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, String endTime, int targetIndex, String dataType)
+    public EditCommand(String name, String date, String endTime, int targetIndex, String dataType, String done)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.dataType = dataType;
         this.toEdit = new Deadline(
                 new Name(name),
-                new Date(date),
-                new EndTime(endTime)
+                new StartDate(date),
+                new EndTime(endTime),
+                new Done(done)
         );
     }
 

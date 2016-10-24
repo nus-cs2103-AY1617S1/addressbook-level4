@@ -159,6 +159,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public synchronized void doneTask(ReadOnlyTask target, String dataType) throws TaskNotFoundException {
+    	switch(dataType) {
+    		case "todo":
+    			todoList.doneTask(target);
+    			indicateTodoListChanged();
+    		case "event":
+    			eventList.doneTask(target);
+    			indicateEventListChanged();
+    		case "deadline":
+    			deadlineList.doneTask(target);
+    			indicateDeadlineListChanged();
+    	}
+    }
+    
+    @Override
     public synchronized void deleteTask(ReadOnlyTask target, String dataType) throws TaskNotFoundException {
     	switch(dataType) {
     		case "todo":
@@ -194,6 +209,7 @@ public class ModelManager extends ComponentManager implements Model {
     		throw new IllegalValueException("Invalid data type for add");
     	}
     }
+
 
     //=========== Filtered TodoList Accessors ===============================================================
 

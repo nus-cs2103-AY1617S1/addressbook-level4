@@ -1,9 +1,10 @@
 package seedu.todoList.model.task;
 
 import seedu.todoList.commons.util.CollectionUtil;
-import seedu.todoList.model.task.attributes.Date;
+import seedu.todoList.model.task.attributes.StartDate;
 import seedu.todoList.model.task.attributes.EndTime;
 import seedu.todoList.model.task.attributes.Name;
+import seedu.todoList.model.task.attributes.Done;
 
 /**
  * Represents a task in the TodoList.
@@ -11,31 +12,38 @@ import seedu.todoList.model.task.attributes.Name;
  */
 public class Deadline extends Task implements ReadOnlyTask {
 
-	private Date date;
+	private StartDate date;
     private EndTime endTime;
+    private Done isDone;
 
     /**
      * Every field must be present and not null.
      */
-    public Deadline(Name name, Date date, EndTime endTime) {
+    public Deadline(Name name, StartDate date, EndTime endTime, Done isDone) {
         assert !CollectionUtil.isAnyNull(name, date, endTime);
         super.name = name;
         this.date = date;
         this.endTime = endTime;
+        this.isDone = isDone;
     }
 
     /**
      * Copy constructor.
      */
     public Deadline(Deadline source) {
-        this(source.getName(), source.getDate(), source.getEndTime());
+        this(source.getName(), source.getDate(), source.getEndTime(),
+        		source.getDone());
     }
     
     public Deadline(ReadOnlyTask source) {
     	this((Deadline) source);
     };
+    
+    public Done getDone(){
+    	return isDone;
+    }
 
-    public Date getDate() {
+    public StartDate getDate() {
         return date;
     }
 
@@ -45,10 +53,10 @@ public class Deadline extends Task implements ReadOnlyTask {
 
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Event // instanceof handles nulls
-                && super.name.equals(((Event) other).getName())
-                && this.date.equals(((Event) other).getDate())
-				&& this.endTime.equals(((Event) other).getEndTime()));
+                || (other instanceof Deadline // instanceof handles nulls
+                && super.name.equals(((Deadline) other).getName())
+                && this.date.equals(((Deadline) other).getDate())
+				&& this.endTime.equals(((Deadline) other).getEndTime()));
 
     }
 
@@ -56,9 +64,9 @@ public class Deadline extends Task implements ReadOnlyTask {
     public String toString() {
     	final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Date: ")
+                .append("\nDate: ")
                 .append(getDate())
-                .append(" EndTime: ")
+                .append("\nEndTime: ")
                 .append(getEndTime());
         return builder.toString();
     }

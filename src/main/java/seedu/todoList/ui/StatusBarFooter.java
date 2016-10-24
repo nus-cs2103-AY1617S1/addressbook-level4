@@ -7,6 +7,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.todoList.commons.core.LogsCenter;
+import seedu.todoList.commons.events.model.DeadlineListChangedEvent;
+import seedu.todoList.commons.events.model.EventListChangedEvent;
 import seedu.todoList.commons.events.model.TodoListChangedEvent;
 import seedu.todoList.commons.util.FxViewUtil;
 
@@ -92,6 +94,20 @@ public class StatusBarFooter extends UiPart {
 
     @Subscribe
     public void handleTodoListChangedEvent(TodoListChangedEvent abce) {
+        String lastUpdated = (new Date()).toString();
+        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
+        setSyncStatus("Last Updated: " + lastUpdated);
+    }
+    
+    @Subscribe
+    public void handleEventListChangedEvent(EventListChangedEvent abce) {
+        String lastUpdated = (new Date()).toString();
+        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
+        setSyncStatus("Last Updated: " + lastUpdated);
+    }
+    
+    @Subscribe
+    public void handleDeadlineListChangedEvent(DeadlineListChangedEvent abce) {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);

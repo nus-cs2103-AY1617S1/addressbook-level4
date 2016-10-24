@@ -26,7 +26,7 @@ public class DeadlineBuilder {
     }
     
     public DeadlineBuilder withDate(String date) throws IllegalValueException {
-        this.task.setDate(new Date(date));
+        this.task.setDate(new StartDate(date));
         return this;
     }
 

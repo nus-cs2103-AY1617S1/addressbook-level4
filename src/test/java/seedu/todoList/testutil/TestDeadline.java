@@ -12,7 +12,7 @@ public class TestDeadline extends Deadline implements ReadOnlyTask {
     //private Name name;
     private Deadline deadline;
     private static Name name;
-    private static Date date;
+    private static StartDate date;
     private static EndTime endTime;
 
 
@@ -33,7 +33,7 @@ public class TestDeadline extends Deadline implements ReadOnlyTask {
         this.endTime = et;
     }
     
-    public void setDate(Date date) {
+    public void setDate(StartDate date) {
         this.date = date;
     }
 
@@ -52,7 +52,7 @@ public class TestDeadline extends Deadline implements ReadOnlyTask {
         return name;
     }
 
-    public Date getDate() {
+    public StartDate getDate() {
         return date;
     }
 

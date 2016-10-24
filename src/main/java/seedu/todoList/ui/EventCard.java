@@ -19,9 +19,13 @@ public class EventCard extends UiPart{
     @FXML
     private Label date;
     @FXML
+    private Label endDate;
+    @FXML
     private Label startTime;
     @FXML
     private Label endTime;
+    @FXML
+    private Label done;
 
     private Event task;
     private int displayedIndex;
@@ -41,9 +45,11 @@ public class EventCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
-        date.setText(task.getDate().date);
+        date.setText("Start Date: "+ task.getStartDate().date);
+        endDate.setText("End Date: " + task.getEndDate().endDate);
         startTime.setText("Start Time: " + task.getStartTime().startTime);
         endTime.setText("End Time: " + task.getEndTime().endTime);
+        done.setText("Completed: " + task.getDone().isDone);
     }
 
     public HBox getLayout() {

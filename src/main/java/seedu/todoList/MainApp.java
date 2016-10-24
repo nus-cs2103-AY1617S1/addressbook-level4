@@ -13,7 +13,7 @@ import seedu.todoList.commons.core.Version;
 import seedu.todoList.commons.exceptions.DataConversionException;
 import seedu.todoList.commons.util.ConfigUtil;
 import seedu.todoList.commons.util.StringUtil;
-
+import seedu.todoList.commons.events.storage.StorageLocationChangedEvent;
 import seedu.todoList.commons.events.ui.ExitAppRequestEvent;
 import seedu.todoList.logic.Logic;
 import seedu.todoList.logic.LogicManager;
@@ -52,8 +52,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getTodoListFilePath(), config.getEventListFilePath(),
-        								config.getDeadlineListFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config);
 
         userPrefs = initPrefs(config);
 
@@ -205,6 +204,36 @@ public class MainApp extends Application {
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        this.stop();
+    }
+    
+    /*
+     * Stop and restart the app with new storage file
+     */
+    @Subscribe
+    private void handleStorageLocationChangedEvent (StorageLocationChangedEvent event) throws Exception {
+    	logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    	
+    	// ui.stop();
+    	
+    	logger.info("=============================[ Reinitializing TodoList ]===========================");
+        super.init();
+        
+        String newDirectory = event.getNewDirectory();
+        Config changedConfig = new Config(newDirectory);
+        ConfigUtil.saveConfig(changedConfig, Config.DEFAULT_CONFIG_FILE);
+        
+        config = initConfig(Config.DEFAULT_CONFIG_FILE);
+        storage = new StorageManager(config);
+
+        userPrefs = initPrefs(config);
+
+        initLogging(config);
+
+        model = initModelManager(storage, userPrefs);
+
+        logic = new LogicManager(model, storage);
+
         this.stop();
     }
 

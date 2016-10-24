@@ -171,7 +171,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] p/12345 e/valid@e.mail a/valid, Todo", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, Todo", Date.MESSAGE_DATE_CONSTRAINTS);
+                "add Valid Name p/not_numbers e/valid@e.mail a/valid, Todo", StartDate.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name p/12345 e/notAnEmail a/valid, Todo", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
 
@@ -393,7 +393,7 @@ public class LogicManagerTest {
 
         Todo a111() throws Exception {
             Name name = new Name("Assignment 111");
-            Date date = new Date("01-11-2016");
+            StartDate date = new StartDate("01-11-2016");
             Priority priority = new Priority("111");
             
             //EndTime endTime = new EndTime("1111");
@@ -413,7 +413,7 @@ public class LogicManagerTest {
         Task generatetask(int seed) throws Exception {
             return new Todo(
                     new Name("task " + seed),
-                    new Date("11-12-2016"),
+                    new StartDate("11-12-2016"),
                     new Priority(seed + "10")
                     //new EndTime("EndTime " + seed)
                     //new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
@@ -512,7 +512,7 @@ public class LogicManagerTest {
         Task generatetaskWithToDo(String name) throws Exception {
             return new Todo(
                     new Name(name),
-                    new Date("01-11-2016"),
+                    new StartDate("01-11-2016"),
                     new Priority("1")
                     
                     

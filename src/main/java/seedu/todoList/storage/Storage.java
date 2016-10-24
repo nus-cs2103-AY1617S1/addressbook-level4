@@ -9,6 +9,7 @@ import seedu.todoList.commons.events.model.EventListChangedEvent;
 import seedu.todoList.commons.events.model.DeadlineListChangedEvent;
 import seedu.todoList.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todoList.commons.exceptions.DataConversionException;
+import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.ReadOnlyTaskList;
 import seedu.todoList.model.UserPrefs;
 import seedu.todoList.storage.TaskListStorage;
@@ -22,11 +23,15 @@ public interface Storage {
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
+    
+    void changeStorage(String path) throws IllegalValueException;
 
     
     // ================ TodoList methods ==============================
     String getTodoListFilePath();
-
+    
+    public void setTodoListFilePath(String todoListFilePath) throws IllegalValueException;
+    
     Optional<ReadOnlyTaskList> readTodoList() throws DataConversionException, IOException;
     
     public Optional<ReadOnlyTaskList> readTodoList(String filePath) throws DataConversionException, IOException;
@@ -45,6 +50,8 @@ public interface Storage {
     
     // ================ EventList methods ==============================
     String getEventListFilePath();
+    
+    public void setEventListFilePath(String eventListFilePath) throws IllegalValueException;
 
     Optional<ReadOnlyTaskList> readEventList() throws DataConversionException, IOException;
     
@@ -64,6 +71,8 @@ public interface Storage {
     
     // ================ DeadlineList methods ==============================
     String getDeadlineListFilePath();
+    
+    public void setDeadlineListFilePath(String deadlineListFilePath) throws IllegalValueException;
 
     Optional<ReadOnlyTaskList> readDeadlineList() throws DataConversionException, IOException;
     

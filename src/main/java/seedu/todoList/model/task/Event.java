@@ -2,9 +2,11 @@ package seedu.todoList.model.task;
 
 import seedu.todoList.commons.util.CollectionUtil;
 import seedu.todoList.model.task.attributes.Name;
-import seedu.todoList.model.task.attributes.Date;
+import seedu.todoList.model.task.attributes.StartDate;
+import seedu.todoList.model.task.attributes.EndDate;
 import seedu.todoList.model.task.attributes.EndTime;
 import seedu.todoList.model.task.attributes.StartTime;
+import seedu.todoList.model.task.attributes.Done;
 
 /**
  * Represents a task in the TodoList.
@@ -12,34 +14,46 @@ import seedu.todoList.model.task.attributes.StartTime;
  */
 public class Event extends Task implements ReadOnlyTask {
 
-	private Date date;
+	private StartDate startDate;
+	private EndDate endDate;
     private StartTime startTime;
     private EndTime endTime;
+    private Done isDone;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, Date date, StartTime startTime, EndTime endTime) {
-        assert !CollectionUtil.isAnyNull(name, date, startTime, endTime);
+    public Event(Name name, StartDate startDate, EndDate endDate, StartTime startTime, EndTime endTime, Done isDone) {
+        assert !CollectionUtil.isAnyNull(name, startDate, endDate, startTime, endTime);
         super.name = name;
-        this.date = date;
+        this.startDate = startDate;
+        this.endDate = endDate;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.isDone = isDone;
     }
 
     /**
      * Copy constructor.
      */
     public Event(Event source) {
-        this(source.getName(), source.getDate(), source.getStartTime(), source.getEndTime());
+        this(source.getName(), source.getStartDate(), source.getEndDate(), source.getStartTime(), source.getEndTime(), source.getDone());
     }
     
     public Event(ReadOnlyTask source) {
     	this((Event) source);
     };
 
-    public Date getDate() {
-        return date;
+    public Done getDone(){
+    	return isDone;
+    }
+    
+    public StartDate getStartDate() {
+        return startDate;
+    }
+    
+    public EndDate getEndDate() {
+        return endDate;
     }
 
     public StartTime getStartTime() {
@@ -54,7 +68,8 @@ public class Event extends Task implements ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other instanceof Event // instanceof handles nulls
                 && super.name.equals(((Event) other).getName())
-                && this.date.equals(((Event) other).getDate())
+                && this.startDate.equals(((Event) other).getStartDate())
+                && this.endDate.equals(((Event) other).getEndDate())
 				&& this.startTime.equals(((Event) other).getStartTime())
 				&& this.endTime.equals(((Event) other).getEndTime()));
 
@@ -64,11 +79,13 @@ public class Event extends Task implements ReadOnlyTask {
     public String toString() {
     	final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Date: ")
-                .append(getDate())
-                .append(" StartTime: ")
+                .append("\nStart Date: ")
+                .append(getStartDate())
+                .append("\nEnd Date: ")
+                .append(getEndDate())
+                .append("\nStartTime: ")
                 .append(getStartTime())
-                .append(" EndTime: ")
+                .append("\nEndTime: ")
                 .append(getEndTime());
         return builder.toString();
     }

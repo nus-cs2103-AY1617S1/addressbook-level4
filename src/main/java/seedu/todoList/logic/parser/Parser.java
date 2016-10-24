@@ -29,13 +29,22 @@ public class Parser {
      * Add Command, task,event,deadline pattern
      */
     private static final Pattern task_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)" + " d/(?<date>[^/]+)" + " p/(?<priority>[^/]+)");
+            Pattern.compile("(?<name>.+)" 
+                    + " from/(?<date>[^/]+)" 
+                    + "( to/(?<endDate>[^/]+))?"
+                    + " p/(?<priority>[^/]+)");
 
     private static final Pattern event_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)" + " d/(?<date>[^/]+)" + " s/(?<startTime>[^/]+)" + " e/(?<endTime>[^/]+)");
+            Pattern.compile("(?<name>.+)" 
+                    + " from/(?<date>[^/]+)" 
+                    + "( to/(?<endDate>[^/]+))?"
+                    + " at/(?<startTime>[^/]+)"
+                    + " to/(?<endTime>[^/]+)");
 
     private static final Pattern deadline_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>.+)" + " d/(?<date>[^/]+)" + " e/(?<endTime>[^/]+)");
+            Pattern.compile("(?<name>.+)" 
+                    + " on/(?<date>[^/]+)" 
+                    + " at/(?<endTime>[^/]+)");
 
     /*
      * Edit Command, task,event,deadline pattern
@@ -43,24 +52,33 @@ public class Parser {
     private static final Pattern task_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<dataType>.+)" 
                     + " (?<targetIndex>.+)" 
-                    + " n/(?<name>.+)" 
-                    + " d/(?<date>[^/]+)"
+                    + " name/(?<name>.+)" 
+                    + " from/(?<date>[^/]+)"
+                    + "( to/(?<endDate>[^/]+))?"
                     + " p/(?<priority>[^/]+)");
 
     private static final Pattern event_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<dataType>.+)" 
                     + " (?<targetIndex>.+)" 
-                    + " n/(?<name>.+)" 
-                    + " d/(?<date>[^/]+)"
-                    + " s/(?<startTime>[^/]+)" 
-                    + " e/(?<endTime>[^/]+)");
+                    + " name/(?<name>.+)" 
+                    + " from/(?<date>[^/]+)"
+                    + "( to/(?<endDate>[^/]+))?"
+                    + " at/(?<startTime>[^/]+)" 
+                    + " to/(?<endTime>[^/]+)");
 
     private static final Pattern deadline_EDIT_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<dataType>.+)" 
                     + " (?<targetIndex>.+)" 
-                    + " n/(?<name>.+)" 
-                    + " d/(?<date>[^/]+)"
-                    + " e/(?<endTime>[^/]+)");
+                    + " name/(?<name>.+)" 
+                    + " on/(?<date>[^/]+)"
+                    + " at/(?<endTime>[^/]+)");
+    
+    private static final Pattern name_ARGS_FORMAT = Pattern.compile("n/(?<name>.+)");
+    private static final Pattern priority_ARGS_FORMAT = Pattern.compile("p/(?<priority>.+)");
+    private static final Pattern date_ARGS_FORMAT = Pattern.compile("d/(?<date>.+)");
+    private static final Pattern endDate_ARGS_FORMAT = Pattern.compile("nd/(?<endDate>.+)");
+    private static final Pattern startTime_ARGS_FORMAT = Pattern.compile("s/(?<startTime>.+)");
+    private static final Pattern endTime_ARGS_FORMAT = Pattern.compile("e/(?<endTime>.+)");
 
     public Parser() {
     }
@@ -72,12 +90,12 @@ public class Parser {
      *            full user input string
      * @return the command based on the user input
      */
-    public Command parseCommand(String userInput) {
+    public Command parseCommand(String userInput) {  	
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
-
+        
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
@@ -93,6 +111,9 @@ public class Parser {
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
+            
+        case DoneCommand.COMMAND_WORD:
+        	return prepareDone(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand(arguments);
@@ -109,8 +130,8 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case StorageCommand.COMMAND_WORD:
-            return new StorageCommand(arguments);
+        //case StorageCommand.COMMAND_WORD:
+         //   return new StorageCommand(arguments);
             
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -132,12 +153,15 @@ public class Parser {
         /*
          * Check if input matches task, event or deadline
          */
+        
         if (matcher_task.matches()) {
             try {
                 return new AddCommand(
                         matcher_task.group("name"), 
                         matcher_task.group("date"),
-                        Integer.parseInt(matcher_task.group("priority")));
+                        isInputPresent(matcher_task.group("endDate")),
+                        matcher_task.group("priority"),
+                        "false");
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
@@ -146,8 +170,11 @@ public class Parser {
                 return new AddCommand(
                         matcher_event.group("name"), 
                         matcher_event.group("date"),
+                        isInputPresent(matcher_event.group("endDate")),
                         matcher_event.group("startTime"), 
-                        matcher_event.group("endTime"));
+                        matcher_event.group("endTime"),
+                        "false"
+                        );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
@@ -156,7 +183,9 @@ public class Parser {
                 return new AddCommand(
                         matcher_deadline.group("name"), 
                         matcher_deadline.group("date"),
-                        matcher_deadline.group("endTime"));
+                        matcher_deadline.group("endTime"),
+                        "false"
+                        );
             } catch (IllegalValueException ive) {
                 return new IncorrectCommand(ive.getMessage());
             }
@@ -182,6 +211,24 @@ public class Parser {
         }
 
         return new DeleteCommand(dataType.get(), index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the done task command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
+    private Command prepareDone(String args) {
+        Optional<String> dataType = parseDataType(args);
+        Optional<Integer> index = parseIndex(args);
+        if (!dataType.isPresent() || !((dataType.get().equals("todo")) || (dataType.get().equals("event"))
+                || (dataType.get().equals("deadline"))) || !index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+
+        return new DoneCommand(dataType.get(), index.get());
     }
 
     /**
@@ -234,7 +281,6 @@ public class Parser {
             return Optional.empty();
         }
         return Optional.of(dataType);
-
     }
 
     /**
@@ -262,11 +308,19 @@ public class Parser {
         final Matcher matcher_task = task_EDIT_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcher_event = event_EDIT_ARGS_FORMAT.matcher(args.trim());
         final Matcher matcher_deadline = deadline_EDIT_ARGS_FORMAT.matcher(args.trim());
+
+        final Matcher matcher_name = name_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_priority = priority_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_date = date_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_st = startTime_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher_et = endTime_ARGS_FORMAT.matcher(args.trim());
+        
         Optional<String> dataType = parseDataType(args);
+        
         if (!dataType.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
-
+        
         // check user input to edit todolist
         if (dataType.get().equals("todo")) {
             if (matcher_task.matches()) {
@@ -274,9 +328,11 @@ public class Parser {
                     return new EditCommand(
                             matcher_task.group("name"), 
                             matcher_task.group("date"),
-                            Integer.parseInt(matcher_task.group("priority")),
+                            isInputPresent(matcher_task.group("endDate")),
+                            matcher_task.group("priority"),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -285,10 +341,12 @@ public class Parser {
                     return new EditCommand(
                             matcher_event.group("name"), 
                             matcher_event.group("date"),
+                            isInputPresent(matcher_event.group("endDate")),
                             matcher_event.group("startTime"), 
                             matcher_event.group("endTime"),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -299,7 +357,8 @@ public class Parser {
                             matcher_deadline.group("date"),
                             matcher_deadline.group("endTime"), 
                             Integer.parseInt(matcher_deadline.group("targetIndex")),
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -314,9 +373,11 @@ public class Parser {
                     return new EditCommand(
                             matcher_task.group("name"), 
                             matcher_task.group("date"),
-                            Integer.parseInt(matcher_task.group("priority")),
+                            isInputPresent(matcher_task.group("endDate")),
+                            matcher_task.group("priority"),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -325,10 +386,12 @@ public class Parser {
                     return new EditCommand(
                             matcher_event.group("name"), 
                             matcher_event.group("date"),
+                            isInputPresent(matcher_event.group("endDate")),
                             matcher_event.group("startTime"), 
                             matcher_event.group("endTime"),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -339,7 +402,8 @@ public class Parser {
                             matcher_deadline.group("date"),
                             matcher_deadline.group("endTime"), 
                             Integer.parseInt(matcher_deadline.group("targetIndex")),
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -354,9 +418,11 @@ public class Parser {
                     return new EditCommand(
                             matcher_task.group("name"), 
                             matcher_task.group("date"),
-                            Integer.parseInt(matcher_task.group("priority")),
+                            isInputPresent(matcher_task.group("endDate")),
+                            matcher_task.group("priority"),
                             Integer.parseInt(matcher_task.group("targetIndex")), 
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -365,10 +431,12 @@ public class Parser {
                     return new EditCommand(
                             matcher_event.group("name"), 
                             matcher_event.group("date"),
+                            isInputPresent(matcher_event.group("endDate")),
                             matcher_event.group("startTime"), 
                             matcher_event.group("endTime"),
                             Integer.parseInt(matcher_event.group("targetIndex")), 
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -379,7 +447,8 @@ public class Parser {
                             matcher_deadline.group("date"),
                             matcher_deadline.group("endTime"), 
                             Integer.parseInt(matcher_deadline.group("targetIndex")),
-                            dataType.get());
+                            dataType.get(),
+                            "false");
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
                 }
@@ -389,5 +458,12 @@ public class Parser {
         } else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+    }
+    
+    /*
+     *  Check whether the attribute is set
+     */
+    private String isInputPresent(String input){
+        return input == null ? "No End Date" : input;
     }
 }

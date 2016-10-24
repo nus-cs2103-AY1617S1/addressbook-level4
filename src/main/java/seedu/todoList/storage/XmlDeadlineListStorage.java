@@ -27,6 +27,10 @@ public class XmlDeadlineListStorage implements TaskListStorage {
     public String getTaskListFilePath(){
         return filePath;
     }
+    
+    public void setTaskListFilePath(String filePath){
+        this.filePath = filePath;
+    }
 
     /**
      * Similar to {@link #readTodoList()}

@@ -2,7 +2,6 @@ package seedu.todoList.storage;
 
 import seedu.todoList.model.task.*;
 import seedu.todoList.model.task.attributes.*;
-import seedu.todoList.model.task.attributes.StartTime;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -18,11 +17,15 @@ public class XmlAdaptedEvent implements XmlAdaptedTask {
 	@XmlElement(required = true)
 	private String name;
 	@XmlElement(required = true)
-	private String date;
+	private String startDate;
+	@XmlElement(required = true)
+	private String endDate;
 	@XmlElement(required = true)
     private String startTime;
 	@XmlElement(required = true)
     private String endTime;
+	@XmlElement(required = true)
+    private String isDone;
 
     /**
      * No-arg constructor for JAXB use.
@@ -37,9 +40,11 @@ public class XmlAdaptedEvent implements XmlAdaptedTask {
      */
     public XmlAdaptedEvent(Event source) {
     	name = source.getName().name;
-    	date = source.getDate().date;
-        startTime = source.getStartTime().startTime;
-        endTime = source.getEndTime().endTime;
+    	startDate = source.getStartDate().saveDate;
+    	endDate = source.getEndDate().saveEndDate;
+        startTime = source.getStartTime().saveStartTime;
+        endTime = source.getEndTime().saveEndTime;
+        isDone = source.getDone().isDone;
     }
     
     public XmlAdaptedEvent(ReadOnlyTask source) {
@@ -48,10 +53,12 @@ public class XmlAdaptedEvent implements XmlAdaptedTask {
     
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
-        final Date date = new Date(this.date);
+        final StartDate date = new StartDate(this.startDate);
+        final EndDate endDate = new EndDate(this.endDate);
         final StartTime startTime = new StartTime(this.startTime);
         final EndTime endTime = new EndTime(this.endTime);
-        return new Event(name, date, startTime, endTime);
+        final Done isDone = new Done(this.isDone);
+        return new Event(name, date, endDate, startTime, endTime, isDone);
     }
 }
 

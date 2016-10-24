@@ -6,9 +6,12 @@ import seedu.todoList.commons.core.ComponentManager;
 import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.commons.events.model.*;
 import seedu.todoList.commons.events.storage.DataSavingExceptionEvent;
+import seedu.todoList.commons.events.storage.StorageLocationChangedEvent;
 import seedu.todoList.commons.exceptions.DataConversionException;
+import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.ReadOnlyTaskList;
 import seedu.todoList.model.UserPrefs;
+import seedu.todoList.commons.core.Config;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,6 +24,7 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+    private Config config;
     private TaskListStorage todoListStorage;
     private TaskListStorage eventListStorage;
     private TaskListStorage deadlineListStorage;
@@ -41,6 +45,11 @@ public class StorageManager extends ComponentManager implements Storage {
         this(new XmlTodoListStorage(todoListFilePath), new XmlEventListStorage(eventListFilePath),
         		new XmlDeadlineListStorage(deadlineListFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
+    
+    public StorageManager(Config config) {
+    	this(config.getTodoListFilePath(), config.getEventListFilePath(),
+        								config.getDeadlineListFilePath(), config.getUserPrefsFilePath());
+    }
 
     // ================ UserPrefs methods ==============================
 
@@ -53,6 +62,11 @@ public class StorageManager extends ComponentManager implements Storage {
     public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
         userPrefsStorage.saveUserPrefs(userPrefs);
     }
+    
+    @Override
+    public void changeStorage(String path) throws IllegalValueException {
+    	raise(new StorageLocationChangedEvent(path));
+    }
 
 
     // ================ TodoList methods ==============================
@@ -60,6 +74,12 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public String getTodoListFilePath() {
         return todoListStorage.getTaskListFilePath();
+    }
+    
+    @Override
+    public void setTodoListFilePath(String todoListFilePath) throws IllegalValueException {
+        config.setTodoListFilePath(todoListFilePath);
+        todoListStorage.setTaskListFilePath(todoListFilePath);
     }
 
     @Override
@@ -102,6 +122,12 @@ public class StorageManager extends ComponentManager implements Storage {
     public String getEventListFilePath() {
         return eventListStorage.getTaskListFilePath();
     }
+    
+    @Override
+    public void setEventListFilePath(String eventListFilePath) throws IllegalValueException {
+        config.setEventListFilePath(eventListFilePath);
+        eventListStorage.setTaskListFilePath(eventListFilePath);
+    }
 
     @Override
     public Optional<ReadOnlyTaskList> readEventList() throws DataConversionException, IOException {
@@ -142,6 +168,12 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public String getDeadlineListFilePath() {
         return deadlineListStorage.getTaskListFilePath();
+    }
+    
+    @Override
+    public void setDeadlineListFilePath(String deadlineListFilePath) throws IllegalValueException {
+        config.setDeadlineListFilePath(deadlineListFilePath);
+        deadlineListStorage.setTaskListFilePath(deadlineListFilePath);
     }
 
     @Override

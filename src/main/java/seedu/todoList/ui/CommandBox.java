@@ -72,6 +72,12 @@ public class CommandBox extends UiPart {
     private void handleCommandInputChanged() {
         //Take a copy of the command text
         previousCommandTest = commandTextField.getText();
+        
+        commandTextField.textProperty().addListener((observable,oldValue,newValue) -> {       
+            if(newValue != null && !newValue.equals(previousCommandTest)){
+                commandTextField.getStyleClass().remove("error");  
+            }
+        });
 
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}

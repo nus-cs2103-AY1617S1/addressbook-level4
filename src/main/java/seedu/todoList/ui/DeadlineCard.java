@@ -20,6 +20,8 @@ public class DeadlineCard extends UiPart{
     private Label date;
     @FXML
     private Label endTime;
+    @FXML
+    private Label done;
 
     private Deadline task;
     private int displayedIndex;
@@ -39,8 +41,9 @@ public class DeadlineCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().name);
         id.setText(displayedIndex + ". ");
-        date.setText(task.getDate().date);
+        date.setText("Date: " + task.getDate().date);
         endTime.setText("End Time: " + task.getEndTime().endTime);
+        done.setText("Completed: " + task.getDone().isDone);
     }
 
     public HBox getLayout() {
