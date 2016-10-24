@@ -129,10 +129,6 @@ public class UpdateCommand extends UndoAndRedo {
         toUpdate.setStatus(taskToUpdate.getStatus());
     }
     
-    private void undoUpdateTheCorrectField(ReadOnlyTask tasktoUndoUpdate) {
-    	
-    }
-    
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList;
@@ -173,6 +169,6 @@ public class UpdateCommand extends UndoAndRedo {
 	public CommandResult redo() {
 		assert model != null;
 		model.revertToPrevDataUpdate();
-		return new CommandResult(RedoCommand.MESSAGE_FAIL);
+		return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
 	}
 }
