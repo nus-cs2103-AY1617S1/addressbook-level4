@@ -13,14 +13,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import tars.commons.core.LogsCenter;
 import tars.commons.events.ui.TaskAddedEvent;
 import tars.model.task.ReadOnlyTask;
 
+import java.util.logging.Logger;
 
 /**
  * Panel containing the list of tasks.
  */
 public class TaskListPanel extends UiPart {
+    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
@@ -73,7 +76,6 @@ public class TaskListPanel extends UiPart {
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -99,13 +101,15 @@ public class TaskListPanel extends UiPart {
                     layout.setStyle("-fx-border-color: lightgreen");
                 } else {
                     layout.setStyle("-fx-border-color: derive(#4C5564, 100%)");
-                }
+                } 
                 setGraphic(layout);
             }
         }
 
         @Subscribe
         private void handleTaskAddedEvent(TaskAddedEvent event) {
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, 
+                    "Updating layout for " + event.task.toString()));
             this.newlyAddedTask = event.task;
         }
     }

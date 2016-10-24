@@ -111,7 +111,7 @@ public class UiManager extends ComponentManager implements Ui {
         
     @Subscribe
     private void handleTaskAddedEvent(TaskAddedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Scrolling to newly added task"));
         mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
 
