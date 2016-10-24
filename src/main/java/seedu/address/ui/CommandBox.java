@@ -16,7 +16,6 @@ import seedu.address.commons.util.FxViewUtil;
 import seedu.address.history.InputHistory;
 import seedu.address.commons.core.LogsCenter;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
@@ -30,6 +29,10 @@ public class CommandBox extends UiPart {
 
     private Logic logic;
     private InputHistory history;
+    
+    private static final String BACKSPACE_UNICODE = "\u0008";
+    private static final String SPACE_UNICODE = "\u0020";
+    private static final String CARRIAGE_RETURN = "\r";
 
     @FXML
     private TextField commandTextField;
@@ -73,26 +76,69 @@ public class CommandBox extends UiPart {
     }
     
     /**
-     * Handles the event where user input in the command box changes.
+     * Handles the event where the user presses a key in the command box.
      */
     @FXML
-    private void handleCommandInputChanged(KeyEvent event){
-        KeyCode key = getKeyCodeFromEvent(event);
+    private void handleKeyInput(KeyEvent event) {       
+        String keyInputAsString = event.getCharacter();
         
-        boolean isKeyToHandle = checkIfKeyToHandle(key);
-        boolean isNotKeyToHandle = !isKeyToHandle;
+        boolean keyIsEnter = keyInputAsString.equals(CARRIAGE_RETURN);
         
-        boolean isNavigatingInputHistory = checkIfNavigatingInputHistory(key);
-                
-        if (isNotKeyToHandle) {
+        if (keyIsEnter) {
             return;
         }
-               
-        if (isNavigatingInputHistory) {
-            handleArrowKeyEvent(key);
+                              
+        setStyleToIndicateCorrectCommand();
+        String userInput = getUserInputAfterKeyPressed(keyInputAsString);
+        updateTooltipForUser(userInput);        
+
+    }
+    
+    @FXML
+    private void handleKeyPressed(KeyEvent event) {
+        KeyCode key = getKeyCodeFromEvent(event);
+        
+        boolean isNavigatingInputHistory = checkIfNavigatingInputHistory(key);
+        boolean notNavigatingInputHistory = !isNavigatingInputHistory;
+        
+        if (notNavigatingInputHistory) {
+            return;
         }
-                       
-        updateTooltipForUser(key);
+        
+        setStyleToIndicateCorrectCommand();
+        handleInputHistoryNavigation(key);
+        /*
+        String userInput = getUserInputAfterKeyPressed(key);
+        */
+        String userInput = commandTextField.getText();
+        updateTooltipForUser(userInput);    
+    }
+
+    /**
+     * Get the complete user input taking into account the current key pressed as key pressed
+     * event is triggered before the command box text is updated.
+     * key is either a backspace, space, letter or digit key.
+     * 
+     * @param keyAsString the key that was pressed as string
+     * @return the full user input taking into account the key pressed
+     */
+    private String getUserInputAfterKeyPressed(String keyAsString) {
+        String userInput = commandTextField.getText();
+                
+        switch (keyAsString) {
+            case BACKSPACE_UNICODE:
+                return applyBackspaceOnInputEnd(userInput);
+            case SPACE_UNICODE:
+                return applySpaceOnInputEnd(userInput);
+            default:
+                // is a normal letter/digit
+                return applyKeyOnInputEnd(userInput, keyAsString);
+        }
+        
+    }
+
+    private String applyKeyOnInputEnd(String userInput, String keyString) {
+        return userInput + keyString;
     }
 
     private KeyCode getKeyCodeFromEvent(KeyEvent event) {
@@ -101,56 +147,27 @@ public class CommandBox extends UiPart {
 
     /**
      * Returns if the key press corresponds to an up or down arrow key used to navigate input history.
-     * @param keyCode the key to check
+     * @param key the key to check
      * @return boolean representing if the key is an up or down arrow key
      */
     private boolean checkIfNavigatingInputHistory(KeyCode key) {
-        return checkIfWantPrevInput(key) || key == KeyCode.DOWN;
-    }
-
-    /**
-     * Returns if the key press corresponds to a key to be handled by the commandbox controller.
-     * @param key the key to check
-     * @return boolean representing if the key needs to be handled
-     */
-    private boolean checkIfKeyToHandle(KeyCode key) {
-        return key == KeyCode.BACK_SPACE || key == KeyCode.SPACE || key.isDigitKey() || 
-                key.isLetterKey() || checkIfWantPrevInput(key) || key == KeyCode.DOWN;
+        return key == KeyCode.UP || key == KeyCode.DOWN;
     }
 
     /**
      * Updates the tooltip on the GUI for the user to see.
      */
-    private void updateTooltipForUser(KeyCode key) {
-        String expectedUserInput = commandTextField.getText();
-        
-        String keyPressed = key.toString();
-        
-        switch (keyPressed) {
-            case "BACK_SPACE":
-                expectedUserInput = applyBackspaceOnInput(expectedUserInput);
-                break;
-            case "SPACE":
-                expectedUserInput = applySpaceOnInput(expectedUserInput);
-                break;
-            default:
-                // is a normal character/digit
-                assert key.isDigitKey() || key.isLetterKey();
-                expectedUserInput += keyPressed.toLowerCase();
-                break;             
-        }
-
-        logger.log(Level.INFO, expectedUserInput);
-        String toDisplay = logic.generateToolTip(expectedUserInput);
+    private void updateTooltipForUser(String userInput) {
+        String toDisplay = logic.generateToolTip(userInput);
         resultDisplay.postMessage(toDisplay);
     }
     
-    private String applySpaceOnInput(String expectedUserInput) {
+    private String applySpaceOnInputEnd(String expectedUserInput) {
         return expectedUserInput + " ";
     }
 
-    private String applyBackspaceOnInput(String userInput) {
-        if (userInput.length() == 0) {
+    private String applyBackspaceOnInputEnd(String userInput) {
+        if (userInput.isEmpty()) {
             return "";
         }
         else {
@@ -159,7 +176,7 @@ public class CommandBox extends UiPart {
     }
 
     
-    private void handleArrowKeyEvent(KeyCode keyCode) {
+    private void handleInputHistoryNavigation(KeyCode keyCode) {
         boolean wantPrev = checkIfWantPrevInput(keyCode);
         boolean wantNext = !wantPrev;
         
@@ -215,6 +232,7 @@ public class CommandBox extends UiPart {
          */
         setStyleToIndicateCorrectCommand();
         mostRecentResult = logic.execute(previousCommandTest);
+        commandTextField.setText("");
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
@@ -225,7 +243,6 @@ public class CommandBox extends UiPart {
      */
     private void setStyleToIndicateCorrectCommand() {
         commandTextField.getStyleClass().remove("error");
-        commandTextField.setText("");
     }
 
     @Subscribe
