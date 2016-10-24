@@ -19,6 +19,7 @@ import seedu.address.logic.Logic;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.TaskManager;
 
 import java.util.logging.Logger;
 
@@ -125,6 +126,10 @@ public class ContentBox extends UiPart {
     @Subscribe
     private void modelChangedEvent(TaskManagerChangedEvent change) {
     	dummy1.setText(Integer.toString(list.size()));
+     	dummy2.setText(Integer.toString(TaskManager.todayCounter));
+    	dummy3.setText(Integer.toString(TaskManager.tomorrowCounter));
+    	dummy4.setText(Integer.toString(TaskManager.upcomingCounter));
+    	dummy5.setText(Integer.toString(TaskManager.floatingCounter));
     }
     
  
@@ -139,10 +144,10 @@ public class ContentBox extends UiPart {
     @FXML
     public void initialize() {
        	dummy1.setText(Integer.toString(list.size()));
-    	dummy2.setText("X");
-    	dummy3.setText("X");
-    	dummy4.setText("X");
-    	dummy5.setText("X");
+    	dummy2.setText(Integer.toString(TaskManager.todayCounter));
+    	dummy3.setText(Integer.toString(TaskManager.tomorrowCounter));
+    	dummy4.setText(Integer.toString(TaskManager.upcomingCounter));
+    	dummy5.setText(Integer.toString(TaskManager.floatingCounter));
     }
 
 //    private void setConnections(ObservableList<ReadOnlyTask> taskList) {

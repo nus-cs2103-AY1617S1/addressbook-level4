@@ -1,15 +1,11 @@
 package seedu.address.ui;
 
-import com.google.common.eventbus.Subscribe;
-
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
@@ -47,16 +43,9 @@ public class TaskCard extends UiPart{
         TaskCard card = new TaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
-        EventsCenter.getInstance().registerHandler(card);
         return UiPartLoader.loadUiPart(card);
     }
     
-    @Subscribe
-    private void modelChangedEvent(TaskManagerChangedEvent change) {
-        if (task.getDone().value == true) {
-    	  tickicon.setImage(tickmark.getImage());
-        }    	
-    }
 
     @FXML
     public void initialize() {
@@ -66,6 +55,9 @@ public class TaskCard extends UiPart{
         address.setText("End Time: " + task.getEndTime().appearOnUIFormat());
         start.setText("Start Time: " + task.getStartTime().appearOnUIFormat());
         tags.setText(task.tagsString());
+        if (task.getDone().getDoneValue() == true) {
+        	tickicon.setImage(tickmark.getImage());
+        }
     }
 
     public HBox getLayout() {

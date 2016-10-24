@@ -21,7 +21,13 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
-
+    
+    public static int floatingCounter;
+    public static int todayCounter;
+    public static int tomorrowCounter;
+    public static int upcomingCounter;
+    public static int overdueCounter;
+    
     {
         tasks = new UniqueTaskList();
         tags = new UniqueTagList();
@@ -68,6 +74,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public void resetData(ReadOnlyTaskManager newData) {
         resetData(newData.getTaskList(), newData.getTagList());
+        counter();
     }
 
 //// task-level operations
@@ -82,6 +89,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
+        counter();
     }
 
     /**
@@ -109,6 +117,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
+        	counter();
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
@@ -117,22 +126,37 @@ public class TaskManager implements ReadOnlyTaskManager {
     
     public void doneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
     	tasks.done(task);
+    	counter();
     }
+	
+    public void clearDone() throws UniqueTaskList.TaskNotFoundException{
+	   	for (int i = 0; i < tasks.getInternalList().size(); i++ ) {
+			if (tasks.getInternalList().get(i).getDone().getDoneValue() == true) {
+				tasks.remove(tasks.getInternalList().get(i));
+				i--;
+			}
+		}
+	   	counter();
+	}
     
     public void undoneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
     	tasks.undone(task);
+    	counter();
     }
 
     public void editTaskName(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.setTaskName(task, new Name(newInfo));
+        counter();
     }
     
     public void editTaskStartTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         	tasks.setStartTime(task, new Time(newInfo));
+        	counter();
     }
     
     public void editTaskEndTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         	tasks.setEndTime(task, new Time(newInfo));
+        	counter();
     }
     
 //// tag-level operations
@@ -183,4 +207,50 @@ public class TaskManager implements ReadOnlyTaskManager {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, tags);
     }
+
+
+	private void counter() {
+		int floating = 0;
+		int today = 0;
+		int tomorrow = 0;
+		int upcoming = 0;
+		
+		 for (int i = 0; i < tasks.getInternalList().size(); i++) {
+			 if (tasks.getInternalList().get(i).getStartTime().isMissing() 
+					 && tasks.getInternalList().get(i).getEndTime().isMissing()
+					 	&& tasks.getInternalList().get(i).getDone().getDoneValue() == false) {
+				 floating++;
+				 
+			 }
+			 if (((tasks.getInternalList().get(i).getStartTime().isToday(tasks.getInternalList().get(i).getStartTime().appearOnUIFormatForDate()))
+					 || tasks.getInternalList().get(i).getEndTime().isToday(tasks.getInternalList().get(i).getEndTime().appearOnUIFormatForDate()))
+					 	&& tasks.getInternalList().get(i).getDone().getDoneValue() == false) {
+				 today++;
+				 
+			 }
+			 if ((tasks.getInternalList().get(i).getStartTime().isTomorrow(tasks.getInternalList().get(i).getStartTime().appearOnUIFormatForDate())
+					 || tasks.getInternalList().get(i).getEndTime().isTomorrow(tasks.getInternalList().get(i).getEndTime().appearOnUIFormatForDate()))
+					 	&& tasks.getInternalList().get(i).getDone().getDoneValue() == false) {
+				 tomorrow++;
+				
+			 }
+			 if ((tasks.getInternalList().get(i).getStartTime().isUpcoming(tasks.getInternalList().get(i).getStartTime().appearOnUIFormatForDate())
+					 || tasks.getInternalList().get(i).getEndTime().isUpcoming(tasks.getInternalList().get(i).getEndTime().appearOnUIFormatForDate()))
+					 	&& tasks.getInternalList().get(i).getDone().getDoneValue() == false) {
+				 upcoming++;
+				 
+			 }
+		 }
+		 
+		 floatingCounter = floating;
+		 todayCounter = today;
+		 tomorrowCounter = tomorrow;
+		 upcomingCounter = upcoming;
+		 System.out.println("Floating: " + floatingCounter);
+		 System.out.println("Today: " + todayCounter);
+		 System.out.println("Tomorrow: " + tomorrowCounter);
+		 System.out.println("Upcoming: " + upcomingCounter);
+		 
+	}
+	
 }

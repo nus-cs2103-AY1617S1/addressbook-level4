@@ -222,7 +222,38 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    public void execute_list_showsUndoneTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        TaskManager expectedAB = helper.generateTaskManager(3);
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
+        // prepare address book state
+        helper.addToModel(model, 3);
+
+        assertCommandBehavior("show",
+                ShowCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_list_showsDateTasks() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        TaskManager expectedAB = helper.generateTaskManager(3);
+        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+
+        // prepare address book state
+        helper.addToModel(model, 3);
+
+        assertCommandBehavior("show 01/01/17",
+                ShowDateCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -309,6 +340,33 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
     }
+    
+    @Test
+    public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
+    }
+
+    
+    @Test
+    public void execute_doneIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("done");
+    }
+    
+//    @Test
+//    public void execute_done_doneCorrectTask() throws Exception {
+//        TestDataHelper helper = new TestDataHelper();
+//        List<Task> threeTasks = helper.generateTaskList(3);
+//
+//        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
+//        expectedAB.doneTask(threeTasks.get(1));
+//        helper.addToModel(model, threeTasks);
+//
+//        assertCommandBehavior("done 2",
+//                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, threeTasks.get(1)),
+//                expectedAB,
+//                expectedAB.getTaskList());
+//    }
 
 
     @Test

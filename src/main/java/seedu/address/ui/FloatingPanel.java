@@ -24,6 +24,7 @@ public class FloatingPanel extends UiPart {
     private static final String FXML = "FloatingPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    private static ObservableList<ReadOnlyTask> filteredList;
 
     @FXML
     private ListView<ReadOnlyTask> floatingListView;
@@ -99,7 +100,9 @@ public class FloatingPanel extends UiPart {
             if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
-            } else {
+            } else if (task.getStartTime().isMissing() 
+					 && task.getEndTime().isMissing()
+					 	&& task.getDone().getDoneValue() == false) 				 {
                 setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
             }
         }

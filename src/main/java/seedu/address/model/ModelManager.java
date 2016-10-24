@@ -63,6 +63,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    @Override
+    public void clearDone() throws TaskNotFoundException {
+    	taskManager.clearDone();
+    	indicateTaskManagerChanged();
+    }
+    
     public void clearHistory() {
         taskManagerHistory.clear();
         undoHistory.clear();
