@@ -1,5 +1,7 @@
 package harmony.mastermind.ui;
 
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 import java.util.Stack;
@@ -61,12 +63,12 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     
-    private static final double WIDTH_MULTIPLIER_INDEX = 0.07;
+    private static final double WIDTH_MULTIPLIER_INDEX = 0.03;
     private static final double WIDTH_MULTIPLIER_NAME = 0.285;
     private static final double WIDTH_MULTIPLIER_STARTDATE = 0.18;
     private static final double WIDTH_MULTIPLIER_ENDDATE = 0.18;
-    private static final double WIDTH_MULTIPLIER_TAGS = 0.15;
-    private static final double WIDTH_MULTIPLIER_RECUR = 0.12;
+    private static final double WIDTH_MULTIPLIER_TAGS = 0.2;
+    private static final double WIDTH_MULTIPLIER_RECUR = 0.1;
     
     private static final short INDEX_HOME = 0;
     private static final short INDEX_TASKS = 1;
@@ -124,6 +126,7 @@ public class MainWindow extends UiPart {
     private TableColumn<ReadOnlyTask, String> indexHome;
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameHome;
+
     @FXML
     private TableColumn<ReadOnlyTask, String> startDateHome;
     @FXML
@@ -380,7 +383,6 @@ public class MainWindow extends UiPart {
         initRecur(recurArchive);    
     }
     
-
     //@@author A0138862W
     private void initActionHistory(ListView<ActionHistory> actionHistory){
 
@@ -462,17 +464,14 @@ public class MainWindow extends UiPart {
             @Override
             public void updateItem(String item , boolean isEmpty){
                 super.updateItem(item, isEmpty);
+                
                 if(!isEmpty()){
+                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
                     
-                    TextFlow textFlow = new TextFlow();
+                    Text taskName = generateStyledText(readOnlyTask, item);
+                    taskName.getStyleClass().add("task-name-column");
                     
-                    Text taskName = new Text(item);
-                    taskName.setStyle("-fx-font-weight: bold; -fx-font-size: 18px; -fx-fill: deepSkyBlue;");
-                    
-                    textFlow.getChildren().add(taskName);
-                    
-                    
-                    this.setGraphic(textFlow);
+                    this.setGraphic(taskName);
                     this.setPrefHeight(50);
                     
                 }else{
@@ -483,6 +482,25 @@ public class MainWindow extends UiPart {
         });
         
     }
+    
+    /*
+     * Generate styled row base on the task status: due(red), happening(orange), normal(blue)
+     * 
+     */
+    //@@author A0138862W
+    private Text generateStyledText(ReadOnlyTask readOnlyTask, String text){
+        Text taskName = new Text(text);
+        
+        if(readOnlyTask.isHappening()){
+            taskName.getStyleClass().add("happening");
+        }else if(readOnlyTask.isDue()){
+            taskName.getStyleClass().add("overdue");
+        }else{
+            taskName.getStyleClass().add("normal");
+        }
+        return taskName;
+    }
+    
     
     /**
      * Initialize the start dates of the tasks
@@ -506,6 +524,7 @@ public class MainWindow extends UiPart {
             public void updateItem(String item , boolean isEmpty){
                 super.updateItem(item, isEmpty);
                 if(!isEmpty()){
+                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
                     
                     TextFlow textFlow = new TextFlow();
                     
@@ -513,14 +532,14 @@ public class MainWindow extends UiPart {
                     
                     if(dates.length>1){
                     
-                        Text prettyDate = new Text(dates[0]);
-                        prettyDate.setStyle("-fx-font-weight:bold; -fx-fill: white;");
+                        Text prettyDate = generateStyledText(readOnlyTask, dates[0]);
+                        prettyDate.getStyleClass().add("pretty-date");
                         
                         Text lineBreak = new Text("\n\n");
                         lineBreak.setStyle("-fx-font-size:2px;");
                         
-                        Text uglyDate = new Text(dates[1]);
-                        uglyDate.setStyle("fx-font-style: oblique; -fx-fill: deepSkyBlue; -fx-font-size: 10px;");
+                        Text uglyDate = generateStyledText(readOnlyTask, dates[1]);
+                        uglyDate.getStyleClass().add("ugly-date");
                         
                         textFlow.getChildren().add(prettyDate);
                         textFlow.getChildren().add(lineBreak);
@@ -561,6 +580,7 @@ public class MainWindow extends UiPart {
             public void updateItem(String item , boolean isEmpty){
                 super.updateItem(item, isEmpty);
                 if(!isEmpty()){
+                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
                     
                     TextFlow textFlow = new TextFlow();
                     
@@ -568,14 +588,14 @@ public class MainWindow extends UiPart {
                     
                     if(dates.length>1){
                     
-                        Text prettyDate = new Text(dates[0]);
-                        prettyDate.setStyle("-fx-font-weight:bold; -fx-fill: white;");
+                        Text prettyDate = generateStyledText(readOnlyTask, dates[0]);
+                        prettyDate.getStyleClass().add("pretty-date");
                         
                         Text lineBreak = new Text("\n\n");
                         lineBreak.setStyle("-fx-font-size:2px;");
                         
-                        Text uglyDate = new Text(dates[1]);
-                        uglyDate.setStyle("fx-font-style: oblique; -fx-fill: deepSkyBlue; -fx-font-size: 10px;");
+                        Text uglyDate = generateStyledText(readOnlyTask,dates[1]);
+                        uglyDate.getStyleClass().add("ugly-date");
                         
                         textFlow.getChildren().add(prettyDate);
                         textFlow.getChildren().add(lineBreak);
@@ -608,11 +628,14 @@ public class MainWindow extends UiPart {
             public void updateItem(String item , boolean isEmpty){
                 super.updateItem(item, isEmpty);
                 if(!isEmpty()){
-                    this.setText(item.replace(',', ' '));
-                    this.setStyle("-fx-font-weight:bold;");
-                    this.setWrapText(true);
+                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
+                    
+                    Text tags = generateStyledText(readOnlyTask, item.replace(',', ' '));
+                    tags.getStyleClass().add("tags");
+                    
+                    this.setGraphic(tags);
                 }else{
-                    this.setText("");
+                    this.setGraphic(null);
                 }
             }
         });
