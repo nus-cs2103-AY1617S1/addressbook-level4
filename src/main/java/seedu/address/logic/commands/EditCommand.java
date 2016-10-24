@@ -168,6 +168,11 @@ public class EditCommand extends UndoableCommand {
             recurrenceRate = null;
         }
         
+        //remove recurrence if start and end date are removed
+        if (removeReccurence || (removeStartDate && removeEndDate)) {
+            recurrenceRate = null;
+        }
+
         model.editTask(taskToEdit, taskName, startDate, endDate, priority, recurrenceRate);
         updateHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
