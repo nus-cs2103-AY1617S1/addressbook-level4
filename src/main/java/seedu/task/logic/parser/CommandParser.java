@@ -277,7 +277,7 @@ public class CommandParser {
     	 System.out.println(timeString);
     	 TimeParserResult time = parserTime.parseTime(timeString);
     	 if(time == null){
-    		 return new IncorrectCommand("The start time should be early than the end time");
+    		 return new IncorrectCommand("The task can't end before it starts");
     	 }
     	 StringBuilder start = new StringBuilder();
     	 StringBuilder end = new StringBuilder();
@@ -339,7 +339,7 @@ public class CommandParser {
     	 System.out.println(timeString);
     	 TimeParserResult time = parserTime.parseTime(timeString);
     	 if(time == null){
-    		 return new IncorrectCommand("The start time should be early than the end time");
+    		 return new IncorrectCommand("The task can't end before it starts");
     	 }
     	 StringBuilder start = new StringBuilder();
     	 StringBuilder end = new StringBuilder();
@@ -401,7 +401,7 @@ public class CommandParser {
     	 TimeParserResult time = parserTime.parseTime(timeString);
     	 TimeParserResult deadlineTime = parserDeadline.parseTime(deadline);
     	 if(time == null){
-    		 return new IncorrectCommand("The start time should be early than the end time");
+    		 return new IncorrectCommand("The task can't end before it starts");
     	 }
     	 StringBuilder start = new StringBuilder();
     	 StringBuilder end = new StringBuilder();

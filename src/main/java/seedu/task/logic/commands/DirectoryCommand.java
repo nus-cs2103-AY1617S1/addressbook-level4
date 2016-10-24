@@ -2,21 +2,17 @@
 package seedu.task.logic.commands;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
-import javax.xml.bind.JAXBException;
-
-import javafx.application.Platform;
 import seedu.task.commons.core.Config;
+import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.FileUtil;
-import seedu.task.commons.util.XmlUtil;
-import seedu.task.model.ReadOnlyTaskManager;
-import seedu.task.storage.XmlSerializableTaskManager;
 import seedu.task.commons.core.LogsCenter;
+import seedu.task.commons.events.ui.ExitAppRequestEvent;
 
 //import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -86,18 +82,19 @@ public class DirectoryCommand extends Command {
         if (!check)
             return new CommandResult(String.format(MESSAGE_FILE_NOT_FOUND_ERROR, _newFilePath));
         assert model != null;
-        try {
-            File newFile = new File(_newFilePath);
-            ReadOnlyTaskManager newData;
-            newData = XmlUtil.getDataFromFile(newFile, XmlSerializableTaskManager.class);
-            model.resetData(newData);
-        } catch (FileNotFoundException | JAXBException e) {
+        logger.info("============================ [ Restarting Task Manager ] =============================");
+        String command = "";
+         try {
+            String filePath = Paths.get(".").toAbsolutePath().normalize().toString() + "\\";
+            command = "/c cd /d \"" + filePath + "\" & TaskManager.jar & exit";
+            new ProcessBuilder("cmd",command).start();
+        } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        //logger.info(String.format(MESSAGE_NEW_DIRECTORY_SUCCESS, _newFilePath));
-        logger.info("============================ [ Please restart Task Manager ] =============================");
-        Platform.exit();
+        logger.info(command);
+
+        EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(String.format(MESSAGE_NEW_DIRECTORY_SUCCESS, _newFilePath));
     }
 
