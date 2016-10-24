@@ -382,6 +382,14 @@ Use case ends.
 2. Should be able to hold up to 10000 TDE.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. Should load the command result within 1 second of entering.
+6. Should execute all commands within 1 second after entering.
+7. Should save all command results on local disk within 1 second after entering command.
+7. Should not corrupt data if restarted after an unexpected crash.
+8. Should load app within 1 second of opening.
+9. Should not require an installer to run the app.
+
+More non functional requirements and project constraints can be found [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints). 
 
 
 
