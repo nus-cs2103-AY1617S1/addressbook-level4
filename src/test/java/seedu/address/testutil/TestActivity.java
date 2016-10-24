@@ -370,7 +370,7 @@ public class TestActivity implements ReadOnlyActivity {
         return build.toString();
     }
     
-    public String getEditTaskDateCommand(int index, String newDate) {
+    public String getEditTaskDateTimeCommand(int index, String newDateTime) {
         StringBuilder build = new StringBuilder();
         
         build.append(EditCommand.COMMAND_WORD);
@@ -381,9 +381,10 @@ public class TestActivity implements ReadOnlyActivity {
         build.append(" ");
         build.append(EditCommand.TASK_DEADLINE_PARAM);
         build.append(" ");
-        build.append(newDate);
+        build.append(newDateTime);
         return build.toString();
     }
+   
     
     @Override
     public Activity get() {
