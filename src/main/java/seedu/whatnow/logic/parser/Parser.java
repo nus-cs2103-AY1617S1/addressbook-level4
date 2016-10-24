@@ -88,7 +88,9 @@ public class Parser {
      */
 	private static final String DELIMITER_BLANK_SPACE = " ";
 	private static final String DELIMITER_DOUBLE_QUOTATION_MARK = "\"";
-	private static final String DELIMITER_BACK_SLASH = "\\";
+	private static final String DELIMITER_FORWARD_SLASH = "/";
+	
+	private static final String BACK_SLASH = "\\";
 
 	private static final String TIME_COLON = ":";
 	private static final String TIME_DOT = ".";
@@ -192,13 +194,22 @@ public class Parser {
 	    
 	    return count;
 	}
-
-	public static String formatTime(String time, String period, String[] splitTimePeriod, String[] splitTime) {
+	
+	/**
+	 * Formats the time to the colon format E.g. 12:30am, 4:20pm etc
+	 * @param time The time to be formatted
+	 * @param period The time period
+	 * @return the formatted time
+	 */
+	public static String formatTime(String time, String period) {
+	    String[] splitTimePeriod = null;
+        String[] splitTime = null;
+        
 	    splitTimePeriod = time.toLowerCase().split(period);
         if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_COLON))
             splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(TIME_COLON);
         if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_DOT))
-            splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(DELIMITER_BACK_SLASH + TIME_DOT);
+            splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(BACK_SLASH + TIME_DOT);
         
         time = (splitTime != null) ? splitTime[TIME_HOUR] : splitTimePeriod[TIME_WITHOUT_PERIOD];
         time += TIME_COLON;
@@ -208,13 +219,16 @@ public class Parser {
         return time;
 	}
 	
+	/**
+	 * Calls the formatTime method to format the time
+	 * @param time The time to be formatted
+	 * @return the formatted time
+	 */
 	public static String formatTime(String time) {
-	    String[] splitTimePeriod = null;
-	    String[] splitTime = null;
 	    if (time.contains(TIME_AM))
-	        time = formatTime(time, TIME_AM, splitTimePeriod, splitTime);
+	        time = formatTime(time, TIME_AM);
         else
-            time = formatTime(time, TIME_PM, splitTimePeriod, splitTime);
+            time = formatTime(time, TIME_PM);
 	    
 	    return time;
 	}
@@ -288,7 +302,7 @@ public class Parser {
 		        continue;
 		    }
 		    else if (TAG_FORMAT.matcher(additionalArgs[i]).find()) {
-		        String[] splitTag = additionalArgs[i].trim().split(DELIMITER_BACK_SLASH);
+		        String[] splitTag = additionalArgs[i].trim().split(DELIMITER_FORWARD_SLASH);
 		        tags.add(splitTag[TAG]);
 		        continue;
 		    } else if (!hasDate && TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
@@ -372,8 +386,10 @@ public class Parser {
             if (!validArgument)
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
-		
-		if (startTime != null) {
+        
+		if (time != null) {
+		    time = formatTime(time);
+		} else if (startTime != null) {
 		    startTime = formatTime(startTime);
 		    endTime = formatTime(endTime);
 		}

@@ -326,7 +326,7 @@ public class TaskDate {
 	}
 	@Override
 	public String toString() {
-		if(fullDate != null) {
+		if(fullDate == null) {
 			return startDate + " "  + endDate;
 		}
 		else {
