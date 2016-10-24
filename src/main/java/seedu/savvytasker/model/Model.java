@@ -31,8 +31,11 @@ public interface Model {
      * */
     void addTask(Task task) throws DuplicateTaskException;
 
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
+    UnmodifiableObservableList<Task> getFilteredTaskListTask();
 
     /** Updates the filter of the filtered task list to show all active tasks sorted by due date */
     void updateFilteredListToShowActiveSortedByDueDate();

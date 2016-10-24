@@ -128,6 +128,11 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<ReadOnlyTask>(sortedAndFilteredTasks);
     }
+    
+    @Override
+    public UnmodifiableObservableList<Task> getFilteredTaskListTask() {
+        return new UnmodifiableObservableList<Task>(sortedAndFilteredTasks);
+    }
 
     @Override
     public void updateFilteredListToShowActiveSortedByDueDate() {

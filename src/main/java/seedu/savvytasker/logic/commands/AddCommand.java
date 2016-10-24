@@ -1,8 +1,14 @@
 package seedu.savvytasker.logic.commands;
 
+import java.util.LinkedList;
+
+import seedu.savvytasker.commons.core.Messages;
+import seedu.savvytasker.commons.core.UnmodifiableObservableList;
 import seedu.savvytasker.logic.commands.models.AddCommandModel;
+import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 /**
  * Adds a person to the address book.
@@ -68,9 +74,18 @@ public class AddCommand extends ModelRequiringCommand {
      */
     @Override
     public boolean undo() {
+        UnmodifiableObservableList<Task> lastShownList = model.getFilteredTaskListTask();
         
-        System.out.println("entered undo!! in add");
-        
+        for (int i = 0; i < lastShownList.size(); i++) {
+            if (lastShownList.get(i) == toAdd){
+                ReadOnlyTask taskToDelete = lastShownList.get(i);
+                try {
+                    model.deleteTask(taskToDelete);
+                } catch (TaskNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        }    
         return false;
     }
     
