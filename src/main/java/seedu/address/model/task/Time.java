@@ -79,6 +79,16 @@ public class Time {
     		return dateFormat.format(time.getTime());
     	}
     }
+    
+    public String appearOnUIFormatForDate() {
+    	if(time.getTime().equals(new Date(0))) {
+    		return "-";
+    	}
+    	else {
+    		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    		return dateFormat.format(time.getTime());
+    	}
+    }
 
     
     /**

@@ -21,6 +21,7 @@ public class ShowDoneCommand extends Command {
     
     @Override
     public CommandResult execute() {
+    	model.updateFilteredListToShowAll();
         model.updateFilteredTaskListToShow(isDone());
         return new CommandResult(MESSAGE_SUCCESS);
     }

@@ -22,7 +22,7 @@ public class Done {
         this.value = done;
     }
     
-    public Boolean getDone() {
+    public Boolean getDoneValue() {
     	return this.value;
     }
     

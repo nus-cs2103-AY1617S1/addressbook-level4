@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.task.*;
