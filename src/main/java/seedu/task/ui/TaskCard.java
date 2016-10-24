@@ -43,9 +43,21 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        startTimeLabel.setText(" from " + task.getStartTime().value);
-        endTimeLabel.setText(" to " + task.getEndTime().value);
-        deadlineLabel.setText(" by " + task.getDeadline().value);
+        if(task.getStartTime().value != "now" && task.getStartTime().value != " from now"){
+        	startTimeLabel.setText(" from " + task.getStartTime().value);
+        }else{
+        	startTimeLabel.setText("");
+        }
+        if(task.getEndTime().value != "no endtime" && task.getEndTime().value != " to no endtime"){
+        	endTimeLabel.setText(" to " + task.getEndTime().value);
+        }else{
+        	endTimeLabel.setText("");
+        }
+        if(task.getDeadline().value != "no deadline" && task.getDeadline().value != " to no deadline"){
+        	deadlineLabel.setText(" ends " + task.getDeadline().value);
+        }else{
+        	deadlineLabel.setText("");
+        }
         tags.setText(task.tagsString());
     }
 

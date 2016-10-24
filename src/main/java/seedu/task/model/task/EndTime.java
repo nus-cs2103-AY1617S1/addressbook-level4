@@ -38,7 +38,7 @@ public class EndTime {
      * Returns if a given string is a valid task end time.
      */
     public static boolean isValidEndTime(String test) {
-        return test.matches(ENDTIME_VALIDATION_REGEX);
+        return  test.matches(ENDTIME_VALIDATION_REGEX);
     }
 
     @Override

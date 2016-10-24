@@ -6,10 +6,10 @@ import seedu.task.commons.exceptions.IllegalValueException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-//import com.joestelmach.natty.*;
+import com.joestelmach.natty.*;
 import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.task.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-
+import seedu.task.logic.parser.TimeParserResult.DateTimeStatus;
 /**
  * Parses user input.
  */
@@ -26,22 +26,22 @@ public class CommandParser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern NATURAL_ARGS_FORMAT = 
-    		Pattern.compile("(?<name>[^#/0-9]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+    		Pattern.compile("(?<name>[^,#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_TIME = 
-    		Pattern.compile("(?<name>[^/0-9]+)" + "at (?<startTime>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+    		Pattern.compile("(?<name>[^,]+)" + ", (at|on) (?<startTime>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_DEADLINE = 
-            Pattern.compile("(?<name>[^/0-9]+)" + "by (?<deadline>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^,]+)" + ", by (?<deadline>[^/#]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME = 
-    		Pattern.compile("(?<name>[^/0-9]+)" + "from (?<startTime>[^/]+)" + "to (?<endTime>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+    		Pattern.compile("(?<name>[^,]+)" + ", from (?<startTime>[^/]+)" + " to (?<endTime>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
 
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_DEADLINE = 
-            Pattern.compile("(?<name>[^/0-9]+)" + "at (?<startTime>[^/]+)" + "by (?<deadline>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^,]+)" + ", (at|on) (?<startTime>[^/]+)" + " by (?<deadline>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     private static final Pattern NATURAL_ARGS_FORMAT_WITH_START_AND_END_TIME_AND_DEADLINE = 
-            Pattern.compile("(?<name>[^/0-9]+)" + "from (?<startTime>[^/]+)" + "to (?<endTime>[^/]+)" + "by (?<deadline>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
+            Pattern.compile("(?<name>[^,]+)" + ", from (?<startTime>[^/]+)" + "to (?<endTime>[^/]+)" + "by (?<deadline>[^/]+)" + "(?<tagArguments>(?: #[^/]+)*)");
     
     public static final Pattern EDIT_TASK_DATA_ARGS_FORMAT_NATURAL = 
     					Pattern.compile("(?<targetIndex>.)"
@@ -158,7 +158,7 @@ public class CommandParser {
             try{
                 return createCommandDeadline(
                         matcherDeadline.group("name"),
-                        "no start time",
+                        "now",
                         "no endtime",
                         matcherDeadline.group("deadline"),
                         getTagsFromArgs(matcherDeadline.group("tagArguments"))
@@ -225,8 +225,23 @@ public class CommandParser {
      }
      
      private Command createCommandStart(String name, String startTime, String endTime, String deadline, Set<String> tags){
+    	 TimeParser parserTime = new TimeParser();
+    	 TimeParserResult time = parserTime.parseTime(startTime);
+    	 StringBuilder start = new StringBuilder();
+    	 if(time.getRawDateTimeStatus() == DateTimeStatus.START_TIME){
+    		 start.append(time.getFirstTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE){
+    		 start.append(time.getFirstDate().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME){
+    		 start.append(time.getFirstDate().toString());
+    		 start.append(" ");
+    		 start.append(time.getFirstTime().toString());
+    	 }
+    	 if(start.length() == 0){
+    		 return new IncorrectCommand("Incorrect time format");
+    	 }
     	 try{
-    		 return new AddCommand(name, startTime, endTime, deadline, tags);
+    		 return new AddCommand(name, start.toString(), endTime, deadline, tags);
     	 }catch(IllegalValueException i){
      		return new IncorrectCommand(i.getMessage());
      	}
@@ -234,8 +249,23 @@ public class CommandParser {
      }
      
      private Command createCommandDeadline(String name, String startTime, String endTime, String deadline, Set<String> tags){
+    	 TimeParser parserTime = new TimeParser();
+    	 TimeParserResult time = parserTime.parseTime(deadline);
+    	 StringBuilder end = new StringBuilder();
+    	 if(time.getRawDateTimeStatus() == DateTimeStatus.START_TIME){
+    		 end.append(time.getFirstTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE){
+    		 end.append(time.getFirstDate().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME){
+    		 end.append(time.getFirstDate().toString());
+    		 end.append(" ");
+    		 end.append(time.getFirstTime().toString());
+    	 }
+    	 if(end.length() == 0){
+    		 return new IncorrectCommand("Incorrect time format");
+    	 }
          try{
-             return new AddCommand(name, startTime, endTime, deadline, tags);
+             return new AddCommand(name, startTime, endTime, end.toString(), tags);
          }catch(IllegalValueException i){
             return new IncorrectCommand(i.getMessage());
         }
@@ -243,8 +273,60 @@ public class CommandParser {
      }
      
      private Command createCommandStartEnd(String name, String startTime, String endTime, String deadline, Set<String> tags){
+    	 TimeParser parserTime = new TimeParser();
+    	 String timeString = "from " + startTime + " to "+ endTime;
+    	 System.out.println(timeString);
+    	 TimeParserResult time = parserTime.parseTime(timeString);
+    	 if(time == null){
+    		 return new IncorrectCommand("The start time should be early than the end time");
+    	 }
+    	 StringBuilder start = new StringBuilder();
+    	 StringBuilder end = new StringBuilder();
+    	 if(time.getRawDateTimeStatus() == DateTimeStatus.START_TIME_END_TIME){
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_END_TIME){
+    		 start.append(time.getFirstDate().toString());
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_END_DATE){
+    		 start.append(time.getFirstDate().toString());
+    		 end.append(time.getSecondDate().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_TIME_END_DATE){
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondDate().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_TIME){
+    		 start.append(time.getFirstDate().toString());
+    		 start.append(" ");
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_DATE){
+    		 start.append(time.getFirstDate().toString());
+    		 start.append(" ");
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondDate().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_DATE_END_TIME){
+    		 start.append(time.getFirstDate().toString());
+    		 start.append(" ");
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondDate().toString());
+    		 end.append(" ");
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_END_DATE_END_TIME){
+    		 start.append(time.getFirstDate().toString());
+    		 end.append(time.getSecondDate().toString());
+    		 end.append(" ");
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_TIME_END_DATE_END_TIME){
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondDate().toString());
+    		 end.append(" ");
+    		 end.append(time.getSecondTime().toString());
+    	 }
+    	 if(start.length() == 0 || end.length() == 0){
+    		 return new IncorrectCommand("Incorrect time format");
+    	 }
     	 try{
-    		 return new AddCommand(name, startTime, endTime, deadline, tags);
+    		 return new AddCommand(name, start.toString(), end.toString(), deadline, tags);
     	 }catch(IllegalValueException i){
      		return new IncorrectCommand(i.getMessage());
      	}
@@ -253,16 +335,132 @@ public class CommandParser {
     	 
      }
      private Command createCommandStartDeadline(String name, String startTime, String endTime, String deadline, Set<String> tags){
-         try{
-             return new AddCommand(name, startTime, endTime, deadline, tags);
+    	 TimeParser parserTime = new TimeParser();
+    	 String timeString = "from " + startTime + " to "+ deadline;
+    	 System.out.println(timeString);
+    	 TimeParserResult time = parserTime.parseTime(timeString);
+    	 if(time == null){
+    		 return new IncorrectCommand("The start time should be early than the end time");
+    	 }
+    	 StringBuilder start = new StringBuilder();
+    	 StringBuilder end = new StringBuilder();
+    	 if(time.getRawDateTimeStatus() == DateTimeStatus.START_TIME_END_TIME){
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_END_TIME){
+    		 start.append(time.getFirstDate().toString());
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_END_DATE){
+    		 start.append(time.getFirstDate().toString());
+    		 end.append(time.getSecondDate().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_TIME_END_DATE){
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondDate().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_TIME){
+    		 start.append(time.getFirstDate().toString());
+    		 start.append(" ");
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_DATE){
+    		 start.append(time.getFirstDate().toString());
+    		 start.append(" ");
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondDate().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_DATE_END_TIME){
+    		 start.append(time.getFirstDate().toString());
+    		 start.append(" ");
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondDate().toString());
+    		 end.append(" ");
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_END_DATE_END_TIME){
+    		 start.append(time.getFirstDate().toString());
+    		 end.append(time.getSecondDate().toString());
+    		 end.append(" ");
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_TIME_END_DATE_END_TIME){
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondDate().toString());
+    		 end.append(" ");
+    		 end.append(time.getSecondTime().toString());
+    	 }
+    	 if(start.length() == 0 || end.length() == 0){
+    		 return new IncorrectCommand("Incorrect time format");
+    	 }
+    	 try{
+             return new AddCommand(name, start.toString(), endTime, end.toString(), tags);
          }catch(IllegalValueException i){
             return new IncorrectCommand(i.getMessage());
         }
      }
      
      private Command createCommandStartEndDeadline(String name, String startTime, String endTime, String deadline, Set<String> tags){
-         try{
-             return new AddCommand(name, startTime, endTime, deadline, tags);
+    	 TimeParser parserTime = new TimeParser();
+    	 TimeParser parserDeadline = new TimeParser();
+    	 String timeString = "from " + startTime + " to "+ endTime;
+    	 System.out.println(timeString);
+    	 TimeParserResult time = parserTime.parseTime(timeString);
+    	 TimeParserResult deadlineTime = parserDeadline.parseTime(deadline);
+    	 if(time == null){
+    		 return new IncorrectCommand("The start time should be early than the end time");
+    	 }
+    	 StringBuilder start = new StringBuilder();
+    	 StringBuilder end = new StringBuilder();
+    	 StringBuilder deadString = new StringBuilder();
+    	 if(deadlineTime.getRawDateTimeStatus() == DateTimeStatus.START_TIME){
+    		 deadString.append(deadlineTime.getFirstTime().toString());
+    	 }else if(deadlineTime.getRawDateTimeStatus() == DateTimeStatus.START_DATE){
+    		 deadString.append(deadlineTime.getFirstDate().toString());
+    	 }else if(deadlineTime.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME){
+    		 deadString.append(deadlineTime.getFirstDate().toString());
+    		 deadString.append(" ");
+    		 deadString.append(deadlineTime.getFirstTime().toString());
+    	 }
+    	 if(time.getRawDateTimeStatus() == DateTimeStatus.START_TIME_END_TIME){
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_END_TIME){
+    		 start.append(time.getFirstDate().toString());
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_END_DATE){
+    		 start.append(time.getFirstDate().toString());
+    		 end.append(time.getSecondDate().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_TIME_END_DATE){
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondDate().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_TIME){
+    		 start.append(time.getFirstDate().toString());
+    		 start.append(" ");
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_DATE){
+    		 start.append(time.getFirstDate().toString());
+    		 start.append(" ");
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondDate().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_START_TIME_END_DATE_END_TIME){
+    		 start.append(time.getFirstDate().toString());
+    		 start.append(" ");
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondDate().toString());
+    		 end.append(" ");
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_DATE_END_DATE_END_TIME){
+    		 start.append(time.getFirstDate().toString());
+    		 end.append(time.getSecondDate().toString());
+    		 end.append(" ");
+    		 end.append(time.getSecondTime().toString());
+    	 }else if(time.getRawDateTimeStatus() == DateTimeStatus.START_TIME_END_DATE_END_TIME){
+    		 start.append(time.getFirstTime().toString());
+    		 end.append(time.getSecondDate().toString());
+    		 end.append(" ");
+    		 end.append(time.getSecondTime().toString());
+    	 }
+    	 if(start.length() == 0 || end.length() == 0 || deadString.length() == 0){
+    		 return new IncorrectCommand("Incorrect time format");
+    	 }
+    	 try{
+             return new AddCommand(name, start.toString(), end.toString(), deadString.toString(), tags);
          }catch(IllegalValueException i){
             return new IncorrectCommand(i.getMessage());
         }
