@@ -68,7 +68,7 @@ public class AliasCommand extends ModelRequiringCommand {
      */
     @Override
     public boolean redo() {
-        // TODO Auto-generated method stub
+        execute();
         return false;
     }
     /**

@@ -24,12 +24,14 @@ public class ModifyCommand extends ModelRequiringCommand {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
 
     private final ModifyCommandModel commandModel;
-
+    private Task originalTask;
+    
     /**
      * Creates an add command.
      */
     public ModifyCommand(ModifyCommandModel commandModel) {
         this.commandModel = commandModel;
+        this.originalTask = null;
     }
 
     @Override
@@ -48,6 +50,7 @@ public class ModifyCommand extends ModelRequiringCommand {
         Task replacement = new Task(taskToModify, commandModel);
 
         try {
+            originalTask = (Task)taskToModify;
             model.modifyTask(taskToModify, replacement);
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
@@ -67,7 +70,7 @@ public class ModifyCommand extends ModelRequiringCommand {
      */
     @Override
     public boolean redo() {
-        // TODO Auto-generated method stub
+        execute();
         return false;
     }
     
@@ -77,7 +80,19 @@ public class ModifyCommand extends ModelRequiringCommand {
      */
     @Override
     public boolean undo() {
-        // TODO Auto-generated method stub
+
+        assert model != null;
+        assert commandModel != null;
+
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        ReadOnlyTask taskToModify = lastShownList.get(commandModel.getIndex() - 1);
+
+        try {
+            model.modifyTask(taskToModify, originalTask);
+        } catch (TaskNotFoundException e) {
+            assert false : "The target task cannot be missing";
+        }
+       
         return false;
     }
     
