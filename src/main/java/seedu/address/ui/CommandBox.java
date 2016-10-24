@@ -16,6 +16,7 @@ import seedu.address.commons.util.FxViewUtil;
 import seedu.address.history.InputHistory;
 import seedu.address.commons.core.LogsCenter;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
@@ -91,7 +92,7 @@ public class CommandBox extends UiPart {
             handleArrowKeyEvent(key);
         }
                        
-        updateTooltipForUser();
+        updateTooltipForUser(key);
     }
 
     private KeyCode getKeyCodeFromEvent(KeyEvent event) {
@@ -120,9 +121,41 @@ public class CommandBox extends UiPart {
     /**
      * Updates the tooltip on the GUI for the user to see.
      */
-    private void updateTooltipForUser() {
-        String toDisplay = logic.generateToolTip(commandTextField.getText());
+    private void updateTooltipForUser(KeyCode key) {
+        String expectedUserInput = commandTextField.getText();
+        
+        String keyPressed = key.toString();
+        
+        switch (keyPressed) {
+            case "BACK_SPACE":
+                expectedUserInput = applyBackspaceOnInput(expectedUserInput);
+                break;
+            case "SPACE":
+                expectedUserInput = applySpaceOnInput(expectedUserInput);
+                break;
+            default:
+                // is a normal character/digit
+                assert key.isDigitKey() || key.isLetterKey();
+                expectedUserInput += keyPressed.toLowerCase();
+                break;             
+        }
+
+        logger.log(Level.INFO, expectedUserInput);
+        String toDisplay = logic.generateToolTip(expectedUserInput);
         resultDisplay.postMessage(toDisplay);
+    }
+    
+    private String applySpaceOnInput(String expectedUserInput) {
+        return expectedUserInput + " ";
+    }
+
+    private String applyBackspaceOnInput(String userInput) {
+        if (userInput.length() == 0) {
+            return "";
+        }
+        else {
+            return userInput.substring(0, userInput.length()-1);
+        }
     }
 
     
