@@ -4,12 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
-
-/**
- * @@author A0152958R
- * TimeParserResult hold the result after parse time with Natty.
- * TimeParserResult also check the time and update it according to the rule.
- */
+//@@author A0152958R
 public class TimeParserResult {
 
     private static final int FIRST_HOUR_OF_DAY = 0;

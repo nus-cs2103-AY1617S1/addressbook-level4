@@ -6,11 +6,8 @@ import org.antlr.runtime.tree.Tree;
 
 import java.util.Date;
 import java.util.List;
-/**
- * @@author A0152958R
- * TimeParserResult hold the result after parse time with Natty.
- * TimeParserResult also check the time and update it according to the rule.
- */
+//@@author A0152958R
+
 public class TimeParser {
 
     private static final String NATTY_DATE_TIME = "DATE_TIME";
