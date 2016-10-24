@@ -524,6 +524,36 @@ public class LogicManagerTest {
     }
     
     @Test
+    public void execute_editInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("edit", expectedMessage);
+    }
+    
+    @Test
+    public void execute_editIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("edit E5 des sadas");
+        assertIndexNotFoundBehaviorForCommand("edit E5 date 121222");
+        assertIndexNotFoundBehaviorForCommand("edit E5 start 1234");
+        assertIndexNotFoundBehaviorForCommand("edit E5 end 2359");
+        assertIndexNotFoundBehaviorForCommand("edit E5 tag love");
+        assertIndexNotFoundBehaviorForCommand("edit E5 tag love>this");
+        
+        assertIndexNotFoundBehaviorForCommand("edit D5 des sadas");
+        assertIndexNotFoundBehaviorForCommand("edit D5 date 121222");
+        assertIndexNotFoundBehaviorForCommand("edit D5 start 1234");
+        assertIndexNotFoundBehaviorForCommand("edit D5 end 2359");
+        assertIndexNotFoundBehaviorForCommand("edit D5 tag love");
+        assertIndexNotFoundBehaviorForCommand("edit D5 tag love>this");
+        
+        assertIndexNotFoundBehaviorForCommand("edit T5 des sadas");
+        assertIndexNotFoundBehaviorForCommand("edit T5 date 121222");
+        assertIndexNotFoundBehaviorForCommand("edit T5 start 1234");
+        assertIndexNotFoundBehaviorForCommand("edit T5 end 2359");
+        assertIndexNotFoundBehaviorForCommand("edit T5 tag love");
+        assertIndexNotFoundBehaviorForCommand("edit T5 tag love>this");
+    }
+    
+    @Test
     public void execute_edit_editCorrectEventName() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generatePersonList(3);
@@ -607,6 +637,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+    
     @Test
     public void execute_edit_editCorrectEventSpecificTag() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
