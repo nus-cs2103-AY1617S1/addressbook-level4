@@ -49,8 +49,8 @@
             </Label>
          </items>
       </SplitPane>
-      
-      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.520891364902507" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
+
+      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.5" style="-fx-background-color: white;" VBox.vgrow="ALWAYS">
          <items>
             <AnchorPane fx:id="categoryPanelPlaceholder" maxWidth="370.0" minWidth="370.0" prefWidth="370.0" style="-fx-background-color: white;">
                 <padding>
