@@ -309,6 +309,7 @@ public class TaskTime {
 			}
 		}
 		else if(startDate != null && endDate != null) {
+			return false;
 		}
 		else {
 			if(date.equals("today")) {
