@@ -20,32 +20,32 @@ public class TypicalTestTasks {
     
     private static void initTestTasks() {
         try {
-            event1 = new TaskBuilder().withName("Meeting with Harry").withStartTime("Sun Oct 16 21:35:45").withEndTime("Mon Oct 17 21:35:45")
-                    .withDeadline("Sun Oct 23 21:35:45").withRecurrence("Recurrence").withTag("Tag1").build();
-            event2 = new TaskBuilder().withName("Appointment with John").withStartTime("Sun Oct 16 21:35:45").withEndTime("Mon Oct 17 21:35:45")
-                    .withDeadline("Sun Oct 23 21:35:45").withRecurrence("Recurrence").withTag("Tag2").build();
-            event3 = new TaskBuilder().withName("Date with Girlfriend").withStartTime("Sun Oct 16 21:35:45").withEndTime("Mon Oct 17 21:35:45")
-                    .withDeadline("Sun Oct 23 21:35:45").withRecurrence("Recurrence").withTag("Tag3").build();
-            todo1 = new TaskBuilder().withName("Check email").withStartTime("Sun Oct 16 21:35:45").withEndTime("Mon Oct 17 21:35:45")
-                    .withDeadline("Sun Oct 23 21:35:45").withRecurrence("Recurrence").withTag("Tag1").build();
-            todo2 = new TaskBuilder().withName("Consolidate EOY reviews").withStartTime("Sun Oct 16 21:35:45").withEndTime("Mon Oct 17 21:35:45")
-                    .withDeadline("Sun Oct 23 21:35:45").withRecurrence("Recurrence").withTag("Tag4").build();
-            todo3 = new TaskBuilder().withName("Purchase new stock of cases").withStartTime("Sun Oct 16 21:35:45").withEndTime("Mon Oct 17 21:35:45")
-                    .withDeadline("Sun Oct 23 21:35:45").withRecurrence("Recurrence").withTag("Tag5").build();
-            float1 = new TaskBuilder().withName("Consolidate reports").withStartTime("Sun Oct 16 21:35:45").withEndTime("Mon Oct 17 21:35:45")
-                    .withDeadline("Sun Oct 23 21:35:45").withRecurrence("Recurrence").withTag("Tag2").build();
-            float2 = new TaskBuilder().withName("Gym").withStartTime("Sun Oct 16 21:35:45").withEndTime("Mon Oct 17 21:35:45")
-                    .withDeadline("Sun Oct 23 21:35:45").withRecurrence("Recurrence").withTag("Tag2").build();
-            float3 = new TaskBuilder().withName("Watch Fixing Good").withStartTime("Sun Oct 16 21:35:45").withEndTime("Mon Oct 17 21:35:45")
-                    .withDeadline("Sun Oct 23 21:35:45").withRecurrence("Recurrence").withTag("Tag5").build();
+            event1 = new TaskBuilder().withName("Meeting with Harry").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTag("Tag1").build();
+            event2 = new TaskBuilder().withName("Appointment with John").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTag("Tag1").build();
+            event3 = new TaskBuilder().withName("Date with Girlfriend").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTag("Tag1").build();
+            todo1 = new TaskBuilder().withName("Check email").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTag("Tag1").build();
+            todo2 = new TaskBuilder().withName("Consolidate EOY reviews").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTag("Tag1").build();
+            todo3 = new TaskBuilder().withName("Purchase new stock of cases").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTag("Tag1").build();
+            float1 = new TaskBuilder().withName("Consolidate reports").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTag("Tag1").build();
+            float2 = new TaskBuilder().withName("Gym").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTag("Tag1").build();
+            float3 = new TaskBuilder().withName("Watch Fixing Good").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTag("Tag1").build();
             
             // Extra for manual addition
-            eventExtra = new TaskBuilder().withName("Name EE").withStartTime("Sun Oct 16 21:35:45").withEndTime("Mon Oct 17 21:35:45")
-                    .withDeadline("Sun Oct 23 21:35:45").withRecurrence("Recurrence").withTag("Tag3").build();
-            todoExtra = new TaskBuilder().withName("Name TE").withStartTime("Sun Oct 16 21:35:45").withEndTime("Mon Oct 17 21:35:45")
-                    .withDeadline("Sun Oct 23 21:35:45").withRecurrence("Recurrence").withTag("Tag6").build();
-            floatExtra = new TaskBuilder().withName("Name FE").withStartTime("Sun Oct 16 21:35:45").withEndTime("Mon Oct 17 21:35:45")
-                    .withDeadline("Sun Oct 23 21:35:45").withRecurrence("Recurrence").withTag("Tag7").build();
+            eventExtra = new TaskBuilder().withName("Name EE").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTag("Tag1").build();
+            todoExtra = new TaskBuilder().withName("Name TE").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTag("Tag1").build();
+            floatExtra = new TaskBuilder().withName("Name FE").withStartTime("Start Time").withEndTime("End Time")
+                    .withDeadline("Deadline").withRecurrence("Recurrence").withTag("Tag1").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

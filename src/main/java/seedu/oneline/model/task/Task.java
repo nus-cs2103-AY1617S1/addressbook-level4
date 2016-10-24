@@ -19,14 +19,12 @@ public class Task implements ReadOnlyTask {
     private TaskRecurrence recurrence;
     
     private Tag tag;
-    private boolean isCompleted;
 
     /**
      * Every field must be present and not null.
      */    
     public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, Tag tag) {
         assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, recurrence, tag);
-        this.setCompleted(false);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -72,10 +70,6 @@ public class Task implements ReadOnlyTask {
         return tag;
     }
 
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-    
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */
@@ -99,10 +93,6 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
-    }
-
-    public void setCompleted(boolean isCompleted) {
-        this.isCompleted = isCompleted;
     }
 
 }

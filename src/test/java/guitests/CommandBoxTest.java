@@ -2,15 +2,13 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.oneline.testutil.TypicalTestTasks;
-
 import static org.junit.Assert.assertEquals;
 
 public class CommandBoxTest extends TaskBookGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(TypicalTestTasks.todo1.getAddCommand());
+        commandBox.runCommand(td.todo1.getAddCommand());
         assertEquals(commandBox.getCommandInput(), "");
     }
 

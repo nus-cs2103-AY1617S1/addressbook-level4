@@ -49,7 +49,6 @@ public class Parser {
         commands.put(SelectCommand.COMMAND_WORD.toLowerCase(), SelectCommand.class);
         commands.put(EditCommand.COMMAND_WORD.toLowerCase(), EditCommand.class);
         commands.put(DeleteCommand.COMMAND_WORD.toLowerCase(), DeleteCommand.class);
-        commands.put(DoneCommand.COMMAND_WORD.toLowerCase(), DoneCommand.class);
         commands.put(ClearCommand.COMMAND_WORD.toLowerCase(), ClearCommand.class);
         commands.put(FindCommand.COMMAND_WORD.toLowerCase(), FindCommand.class);
         commands.put(ListCommand.COMMAND_WORD.toLowerCase(), ListCommand.class);
@@ -98,15 +97,6 @@ public class Parser {
      *
      * @param args full command args string
      * @return the fields specified in the args
-     * 
-     * Example:
-     * Command entered: add name .from X which is some date .to Y which is some other date .due someday
-     * Returns the following K,V pairs:
-     *      TaskField.NAME: "name"
-     *      TaskField.START_TIME: "X which is some date"
-     *      TaskField.END_TIME: "Y which is some other date"
-     *      TaskField.DEADLINE: "someday"
-     * 
      */
     public static Map<TaskField, String> getTaskFieldsFromArgs(String args) throws IllegalCmdArgsException {
         // Clear extra whitespace characters
