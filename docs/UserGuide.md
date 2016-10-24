@@ -16,6 +16,7 @@
 	- [Changing the details of a task/event: `update`](#changing-the-details-of-a-taskevent-update)
 	- [Marking a task as complete: `complete`](#marking-a-task-as-complete-complete)
 	- [Undoing the last action: `undo`](#undoing-the-last-action-undo)
+	- [Redoing the last action: `redo`](#redoing-the-last-action-redo)
 	- [Deleting a task/event: `delete`](#deleting-a-taskevent-delete)
 	- [Clearing all data: `clear`](#clearing-all-data-clear)
 	- [Switching to a different task list: `switchlist`](#switching-to-a-different-task-list-switchlist)
@@ -331,7 +332,7 @@ modified the task list (for example, deleting a task):
 You can undo the last *X* number of actions. For example, to undo the
 last 5 actions taken:
 
-`undo last 5`
+`undo 5`
 
 > **Note:**<br>
 > Sorry! To help you save memory on your computer, 
@@ -341,6 +342,34 @@ last 5 actions taken:
 In general, you may use this format to undo various number of changes.
 `undo [LAST STEPS]`
  * LAST STEPS refer to the number of steps to undo, starting from the lastest step. 
+
+If you simply type:
+`undo`
+, the last step will be undone.
+<br>
+
+###  Redoing the last action: `redo`
+
+Whenver you want to redo the tasks you undid, you can simply reverse them by redoing.
+Only tasks that are undone right before you type redo (Without any other commands 
+entered) can be actually redone.
+
+`redo`
+
+<br>
+You can redo the last *X* number of actions. For example, to redo the
+last 4 actions taken:
+
+`redo 4`
+
+<br>
+In general, you may use this format to redo various number of changes.
+`redo [LAST STEPS]`
+ * LAST STEPS refer to the number of steps to redo, starting from the lastest step. 
+
+If you simply type:
+`redo`
+, the last step undone will be redone.
 <br>
 
 
@@ -467,6 +496,7 @@ Update | `update INDEX [name NAME] [by DEADLINE] [from START_TIME to END_TIME] [
 Complete | `complete INDEX`
 Delete | `delete INDEX`
 Undo | `undo [last STEPS]`
+Redo | `redo [last STEPS]`
 Clear | `clear`
 Switch List | `switchlist FILENAME`
 Rename List | `renamelist FILENAME`

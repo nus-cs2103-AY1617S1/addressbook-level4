@@ -18,7 +18,7 @@ public class RelocateCommand extends Command {
             COMMAND_WORD + ": Designates a new data storage location (relative to current location). \n"
             + "Parameters: [RELATIVE_PATH] (Enter no parameter for relocating to original path)\n"
             + "Example: " + COMMAND_WORD
-            + " relative/path/to/storage/location";
+            + " ../../relative/path/to/storage/location";
 
     
     public static final String MESSAGE_SUCCESS = 

@@ -29,6 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
     private PredicateExpression taskListFilter;
     private HistoryStack<TaskList> taskListHistory;
+    private HistoryStack<TaskList> redoTaskListHistory;
 
     /**
      * Initializes a ModelManager with the given TaskList
@@ -45,6 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
         taskListHistory = new HistoryStack<TaskList>();
+        redoTaskListHistory = new HistoryStack<TaskList>();
     }
 
     public ModelManager() {
@@ -56,6 +58,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskListFilter = new PredicateExpression(new AllQualifier());
         taskListHistory = new HistoryStack<TaskList>();
+        redoTaskListHistory = new HistoryStack<TaskList>();
     }
 
     @Override
@@ -90,6 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
         TaskList historyTaskList = null;
         try {
             for (int i = 0; i < numToUndo; i++) {
+                redoTaskListHistory.pushState(historyTaskList == null ? taskList : historyTaskList);
                 historyTaskList = taskListHistory.popState();
                 numUndone++;
             }
@@ -103,6 +107,33 @@ public class ModelManager extends ComponentManager implements Model {
         return numUndone;
     }
 
+    @Override
+    public int redoTaskListHistory(int numToRedo) {
+        assert numToRedo > 0;
+        
+        int numRedone = 0;
+        TaskList historyTaskList = null;
+        try {
+            for (int i = 0; i < numToRedo; i++) {
+                taskListHistory.pushState(historyTaskList == null ? taskList : historyTaskList);
+                historyTaskList = redoTaskListHistory.popState();
+                numRedone++;
+            }
+        } catch (OutOfHistoryException e) {
+            logger.fine(e.getMessage());
+        }
+        
+        if (historyTaskList != null) {
+            resetData(historyTaskList);
+        }
+        return numRedone;
+    }
+    
+    @Override
+    public void clearRedoTaskListHistory() {
+        redoTaskListHistory = new HistoryStack<TaskList>();
+    }
+    
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
