@@ -47,7 +47,7 @@ public class ListCommandTest extends AddressBookGuiTest {
     
     @Test
     public void list_type_overdue() {
-        assertListResult("list overdue");
+        assertListResult("list overdue", td.submitProgressReport);
     }
     
     @Test
@@ -93,20 +93,20 @@ public class ListCommandTest extends AddressBookGuiTest {
     }
     
     @Test
-    public void list_deadline_byYear2016() {
-        assertListResult("list by 12 dec 2016", td.submitProgressReport,
+    public void list_deadline_byYear2020() {
+        assertListResult("list by 12 dec 2020", td.submitProgressReport,
                 td.buyBirthdayGift);
     }
     
     @Test
-    public void list_startTime_fromYear2018() {
-        assertListResult("list from 1 jan 2018", td.submitPrototype, 
+    public void list_startTime_fromYear2022() {
+        assertListResult("list from 1 jan 2022", td.submitPrototype, 
                 td.researchWhales);
     }
     
     @Test
-    public void list_endTime_toYear2017() {
-        assertListResult("list to 30 dec 2017", td.submitPrototype,
+    public void list_endTime_toYear2021() {
+        assertListResult("list to 30 dec 2021", td.submitPrototype,
                 td.submitProgressReport, td.developerMeeting,
                 td.researchWhales, td.learnVim,
                 td.buyBirthdayGift, td.signUpForYoga);
@@ -177,13 +177,13 @@ public class ListCommandTest extends AddressBookGuiTest {
     
     @Test
     public void list_combinedArgs_completedEvents_withEndTime_sortEarliestFirst() {
-        assertListResult("list completed events to 18 sep 2020, sort earliest first", 
+        assertListResult("list completed events to 18 sep 2024, sort earliest first", 
                 td.researchWhales);
     }
     
     @Test
     public void list_combinedArgs_recurringTasks_withDeadline_sortLatestFirst() {
-        assertListResult("list recurring by 19 sep 2020, sort latest first", 
+        assertListResult("list recurring by 19 sep 2024, sort latest first", 
                 td.developerMeeting);
     }
 
