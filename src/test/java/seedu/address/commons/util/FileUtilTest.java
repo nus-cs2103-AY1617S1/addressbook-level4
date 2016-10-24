@@ -14,6 +14,7 @@ import seedu.address.testutil.TestUtil;
 
 public class FileUtilTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
+    private static final File TEST_FILE = new File(TestUtil.getFilePathInSandboxFolder("test.json"));
 
 
     @Rule
@@ -55,4 +56,38 @@ public class FileUtilTest {
         assertEquals(serializableTestClass.getListOfLocalDateTimes(), SerializableTestClass.getListTestValues());
         assertEquals(serializableTestClass.getMapOfIntegerToString(), SerializableTestClass.getHashMapTestValues());
     }
+    
+    @Test
+    public void createIfMissing_missingFile() throws IOException {
+        TEST_FILE.delete();
+        FileUtil.createIfMissing(TEST_FILE);
+        assertTrue(TEST_FILE.exists());
+    }
+      
+    @Test
+    public void createIfMissing_exisitingFile() throws IOException {
+        FileUtil.createIfMissing(TEST_FILE);
+        assertTrue(TEST_FILE.exists());
+    }
+    
+    @Test
+    public void createFile_existingFile() throws IOException {
+        FileUtil.createFile(TEST_FILE);
+        assertFalse(FileUtil.createFile(TEST_FILE));
+    }
+    
+    @Test
+    public void createFile_missingFile() throws IOException {
+        TEST_FILE.delete();
+        FileUtil.createFile(TEST_FILE);
+        assertTrue(TEST_FILE.exists());
+    }
+    
+    @Test
+    public void createDirs_emptyFile() throws IOException {
+        thrown.expect(IOException.class);
+        FileUtil.createDirs(new File(""));
+    }
+    
+    
 }
