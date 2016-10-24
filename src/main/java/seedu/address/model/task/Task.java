@@ -20,6 +20,7 @@ public class Task implements ReadOnlyTask, ModifyTask {
     private Date date;
     private Start start;
     private End end;
+    private int overdue;
     private int taskCategory;
     private boolean isCompleted;
 
@@ -28,7 +29,7 @@ public class Task implements ReadOnlyTask, ModifyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Date date, Start start, End end, int taskCategory, UniqueTagList tags) {
+    public Task(Name name, Date date, Start start, End end, int taskCategory, int overdue, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, date, start, end, tags);
         this.name = name;
         this.date = date;
@@ -37,8 +38,29 @@ public class Task implements ReadOnlyTask, ModifyTask {
         this.taskCategory = taskCategory;
         this.isCompleted = false;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        if (isOverdue(this.getDate(), this.getEnd()))
+        	this.overdue =1;
+        else
+        	this.overdue =0;
     }
-    
+
+  	/**
+     * Copy constructor for deadline.
+     */    
+    public Task(Name name, Date date, End end, int taskCategory, int overdue, UniqueTagList tags) {
+        this.name = name;
+        this.date = date;
+        this.start = null;
+        this.end = end;
+        this.taskCategory = taskCategory;
+        this.isCompleted = false;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        if (isOverdue(this.getDate(), this.getEnd()))
+        	this.overdue =1;
+        else 
+        	this.overdue =0;
+    }
+
     /**
      * Copy constructor for todo.
      */    
@@ -49,30 +71,34 @@ public class Task implements ReadOnlyTask, ModifyTask {
         this.end = null;
         this.taskCategory = taskCategory;
         this.isCompleted = false;
+        this.overdue =0;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
     
     /**
-     * Copy constructor for deadline.
-     */    
-    public Task(Name name, Date date, End end, int taskCategory, UniqueTagList tags) {
-        this.name = name;
-        this.date = date;
-        this.start = null;
-        this.end = end;
-        this.taskCategory = taskCategory;
-        this.isCompleted = false;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
-    }
-
-
-    /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDate(), source.getStart(), source.getEnd(), source.getTaskCategory(), source.getTags());
+        this(source.getName(), source.getDate(), source.getStart(), source.getEnd(), source.getTaskCategory(), source.getOverdue(), source.getTags());
     }
+    
+    public boolean isOverdue(Date checkDate, End checkEnd) {
+    	if (checkDate.isAfterCurrentDate(checkDate.toString()) == 0){
+    		return true;
+    	}
+    	else if ((checkDate.isAfterCurrentDate(checkDate.toString()) ==2) &&  (checkEnd.isPastEndTime(checkEnd.toString()))){
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+  	}
 
+
+    @Override
+    public int getOverdue() {
+    	return overdue;
+    }
     @Override
     public Name getName() {
         return name;
@@ -137,12 +163,14 @@ public class Task implements ReadOnlyTask, ModifyTask {
     	this.taskCategory = taskCat;
     }
     
-    
     public void setCompleted(boolean completed) {
         this.isCompleted = completed;
     }
     
-    
+    @Override
+    public void setOverdue(int overdue) {
+    	this.overdue = overdue;
+    }
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */

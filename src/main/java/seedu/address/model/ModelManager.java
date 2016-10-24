@@ -16,6 +16,16 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.core.ComponentManager;
+
+import java.util.Set;
+import java.util.logging.Logger;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -23,6 +33,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+    final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     private final TaskBook addressBook;
     private final FilteredList<Task> filteredEvents;
@@ -139,6 +150,17 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public synchronized void overdueTask() {
+    	final Runnable overdue = new Runnable() {
+    		public void run() {
+    			addressBook.overdueTask();
+    			//updateFilteredListToShowAll();
+    	        indicateAddressBookChanged();
+    		};
+    	};
+    	scheduler.scheduleAtFixedRate(overdue, 0, 5, TimeUnit.SECONDS); 
+    }
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override

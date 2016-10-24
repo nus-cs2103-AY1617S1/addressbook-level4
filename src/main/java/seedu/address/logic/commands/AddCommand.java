@@ -37,6 +37,7 @@ public class AddCommand extends Command {
     public static final String END_TIME_BEFORE_START_TIME_MESSAGE = "The end time cannot be earlier or equal to the start time!";
     
     private final Task toAdd;
+    private static int overdue=0;
 
     /**
      * Convenience constructor using raw values.
@@ -55,11 +56,14 @@ public class AddCommand extends Command {
                 new Start(start),
                 new End(end),
                 1,
+                0,
                 new UniqueTagList(tagSet)
         );
         if (!startBeforeEnd(toAdd.getStart().toString(), toAdd.getEnd().toString())){
         	throw new IllegalValueException(END_TIME_BEFORE_START_TIME_MESSAGE);
         }
+        if (this.toAdd.getOverdue()==1)
+        	overdue =1;
     }   
 
     public AddCommand(String name, String date, String end, Set<String> tags) //deadline
@@ -74,8 +78,11 @@ public class AddCommand extends Command {
                 new Start("no start"),
                 new End(end),
                 2,
+                0,
                 new UniqueTagList(tagSet)
         );
+        if (this.toAdd.getOverdue()==1)
+        	overdue =1;
     }
     
     public AddCommand(String name, Set<String> tags) //todos
@@ -90,8 +97,13 @@ public class AddCommand extends Command {
                 new Start("no start"),
                 new End("no end"),
                 3,
+                0,
                 new UniqueTagList(tagSet)
         );
+    }
+    
+    public static int getOverdue() {
+    	return overdue;
     }
     
     private boolean startBeforeEnd(String start, String end) {

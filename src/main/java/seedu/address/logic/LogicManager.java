@@ -34,6 +34,7 @@ public class LogicManager extends ComponentManager implements Logic {
         //this.config = config;
         //this.undoStack = new Stack<SaveState>();
         //this.redoStack = new Stack<SaveState>();
+        model.overdueTask();
     }
 
     @Override

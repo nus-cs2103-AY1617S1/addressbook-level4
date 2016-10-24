@@ -8,5 +8,6 @@ public interface ModifyTask {
     void setEnd(End end);
     void setTaskCategory(int taskCat);
     void setCompleted(boolean completed);
+    void setOverdue(int overdue);
 
 }

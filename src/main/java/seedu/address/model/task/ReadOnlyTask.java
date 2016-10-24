@@ -12,6 +12,7 @@ public interface ReadOnlyTask {
     Date getDate();
     Start getStart();
     End getEnd();
+    int getOverdue();
     int getTaskCategory();
     boolean getIsCompleted();
     /**
@@ -30,6 +31,7 @@ public interface ReadOnlyTask {
                 && other.getDate().equals(this.getDate())
                 && other.getStart().equals(this.getStart())
                 && other.getEnd().equals(this.getEnd())
+                && other.getOverdue() == this.getOverdue()
                 && (other.getTaskCategory() == this.getTaskCategory()));
     }
 

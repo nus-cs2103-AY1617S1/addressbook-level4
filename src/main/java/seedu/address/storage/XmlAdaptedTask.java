@@ -24,6 +24,8 @@ public class XmlAdaptedTask {
     private String end;
     @XmlElement(required = true)
     private int taskCat;
+    @XmlElement(required = true)
+    private int overdue;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -44,6 +46,7 @@ public class XmlAdaptedTask {
         start = source.getStart().value;
         end = source.getEnd().value;
         taskCat = source.getTaskCategory();
+        overdue = source.getOverdue();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
            tagged.add(new XmlAdaptedTag(tag));
@@ -65,7 +68,8 @@ public class XmlAdaptedTask {
         final Start start = new Start(this.start);
         final End end = new End(this.end);
         final int taskCat = this.taskCat;
+        final int overdue = this.overdue;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, date, start, end, taskCat, tags);
+        return new Task(name, date, start, end, taskCat, overdue, tags);
     }
 }
