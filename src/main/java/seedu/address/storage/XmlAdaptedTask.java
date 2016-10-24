@@ -13,7 +13,7 @@ import java.util.List;
  * JAXB-friendly version of the Task.
  */
 public class XmlAdaptedTask {
-    
+
     private static int START_DATE_INDEX = 0;
     private static int END_DATE_INDEX = 2;
 
@@ -23,6 +23,10 @@ public class XmlAdaptedTask {
     private String date;
     @XmlElement
     private boolean isDone;
+    @XmlElement
+    private boolean isRecurring;
+    @XmlElement
+    private String frequency = "";
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -30,18 +34,23 @@ public class XmlAdaptedTask {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTask() {}
-
+    public XmlAdaptedTask() {
+    }
 
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedTask
+     * @param source
+     *            future changes to this will not affect the created
+     *            XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().taskName;
         date = source.getDate().getValue();
         isDone = source.isDone();
+        isRecurring = source.isRecurring();
+        if (isRecurring)
+            frequency = source.getRecurring().recurringFrequency;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -49,9 +58,12 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's Task object.
+     * Converts this jaxb-friendly adapted task object into the model's Task
+     * object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted task
+     * @throws IllegalValueException
+     *             if there were any data constraints violated in the adapted
+     *             task
      */
     public Task toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
@@ -68,6 +80,12 @@ public class XmlAdaptedTask {
             date = new EventDate(dates[START_DATE_INDEX], dates[END_DATE_INDEX]);
         }
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, date, tags, isDone);
+        if (isRecurring){
+           // System.out.println("isrecurring is true");
+            return new Task(name, date, tags, isDone, new Recurring(frequency));
+        }
+        
+            return new Task(name, date, tags, isDone, false);
+        
     }
 }

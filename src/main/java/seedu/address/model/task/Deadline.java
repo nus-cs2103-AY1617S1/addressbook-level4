@@ -42,6 +42,10 @@ public class Deadline implements Date{
     public String toString() {
         return date;
     }
+    
+    public void updateDate(String deadline){
+        this.date=deadline;
+    }
 
     @Override
     public boolean equals(Object other) {

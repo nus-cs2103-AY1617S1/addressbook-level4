@@ -28,7 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskManager taskManager;
-    private final FilteredList<Task> filteredTasks;
+    private FilteredList<Task> filteredTasks;
     private final StateManager stateManager;
 
     /**
@@ -85,6 +85,14 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
+    @Override
+    public synchronized void refreshTask(){
+        taskManager.refreshTask();
+        //System.out.println("inside refreshTask");
+        //filteredTasks = new FilteredList<>(taskManager.getTasks());
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
     
     @Override
     public synchronized void markTask(ReadOnlyTask task) {
@@ -131,6 +139,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
+      /*   for(Task e:filteredTasks){
+           if(e.isRecurring())
+             System.out.println(e.getDate().toString());
+        }*/
+        
     }
 
     @Override

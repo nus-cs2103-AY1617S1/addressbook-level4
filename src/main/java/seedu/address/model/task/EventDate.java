@@ -72,4 +72,10 @@ public class EventDate implements Date{
         return endDate;
     }
     
+    public void updateDate(String start,String end){
+        this.startDate=start;
+        this.endDate=end;
+        this.date=start+" to "+end;
+    }
+    
 }

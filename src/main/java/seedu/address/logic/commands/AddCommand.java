@@ -32,17 +32,24 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String deadline, Set<String> tags)
+    public AddCommand(String name, String deadline, Set<String> tags,String freq)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        if(deadline!=""&&freq!=""){
         this.toAdd = new Task(
                 new Name(name),
                 new Deadline(deadline),
-                new UniqueTagList(tagSet)
+                new UniqueTagList(tagSet),
+                new Recurring(freq)
         );
+        }else if(deadline!=""){
+            this.toAdd=new Task(new Name(name),new Deadline(deadline),new UniqueTagList(tagSet));
+        }else{
+            this.toAdd=new Task(new Name(name),new UniqueTagList(tagSet));
+        }
     }
 
     /**
@@ -50,17 +57,24 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String startDate, String endDate, Set<String> tags)
+    public AddCommand(String name, String startDate, String endDate, Set<String> tags,String freq)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        if(freq!=""&&startDate!=""){
         this.toAdd = new Task(
                 new Name(name),
                 new EventDate(startDate, endDate),
-                new UniqueTagList(tagSet)
+                new UniqueTagList(tagSet),
+                new Recurring(freq)
         );
+        }else if(startDate!=""){
+            this.toAdd=new Task(new Name(name),new EventDate(startDate,endDate),new UniqueTagList(tagSet));
+        }else{
+            this.toAdd=new Task(new Name(name),new UniqueTagList(tagSet));
+        }
     }
 
     @Override

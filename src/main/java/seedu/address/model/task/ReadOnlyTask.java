@@ -10,8 +10,10 @@ public interface ReadOnlyTask {
 
     Name getName();
     Date getDate();
+    Recurring getRecurring();
     boolean isEvent();
     boolean isDone();
+    boolean isRecurring();
     void markAsDone();
     
     /**
@@ -28,7 +30,7 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getDate().equals(this.getDate())
-                && other.isDone() == this.isDone());
+                && other.isDone() == this.isDone()&&other.isRecurring()==this.isRecurring());
     }
 
     /**
@@ -53,6 +55,9 @@ public interface ReadOnlyTask {
         if(isDone()){
         	builder.append(" done ");
         }
+        if(isRecurring()){
+            builder.append(" recurring "+getRecurring().recurringFrequency);
+        }
         return builder.toString();
     }
 
@@ -69,5 +74,6 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+
 
 }
