@@ -23,6 +23,7 @@ public class MarkCommand extends ModelRequiringCommand {
             + "Example: " + COMMAND_WORD + " 1";
     
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task: %1$s\n";
+    public static final String MESSAGE_MARK_TASK_FAIL = "Task is already marked!\n";
     
     public final MarkCommandModel commandModel;
     private ReadOnlySavvyTasker original;
@@ -51,10 +52,14 @@ public class MarkCommand extends ModelRequiringCommand {
         StringBuilder resultSb = new StringBuilder();
         try {
             for(Task taskToMark : tasksToMark) {
-                taskToMark.setArchived(true);
-                model.deleteTask(taskToMark);
-                model.addTask(taskToMark);
-                resultSb.append(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
+                if (!taskToMark.isArchived()){
+                    taskToMark.setArchived(true);
+                    model.deleteTask(taskToMark);
+                    model.addTask(taskToMark);
+                    resultSb.append(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
+                } else {
+                    resultSb.append(String.format(MESSAGE_MARK_TASK_FAIL, taskToMark));
+                }
             }
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
