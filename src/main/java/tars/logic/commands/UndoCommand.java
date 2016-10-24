@@ -22,7 +22,7 @@ public class UndoCommand extends Command {
 
         UndoableCommand command = (UndoableCommand) model.getUndoableCmdHist().pop();
         model.getRedoableCmdHist().push(command);
-        //return new CommandResult(MESSAGE_SUCCESS + "\nAction: " + command.undo().feedbackToUser);
+        
         return command.undo();
     }
 

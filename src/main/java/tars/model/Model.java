@@ -59,6 +59,10 @@ public interface Model {
     /** Rename all tag with the new tag name */
     void renameTag(ReadOnlyTag oldTag, String newTagName)
             throws IllegalValueException, TagNotFoundException, DuplicateTagException;
+    
+    /** Delete the tag from all task */
+    void deleteTag(ReadOnlyTag toBeDeleted)
+            throws DuplicateTagException, IllegalValueException, TagNotFoundException;
 
     /** Marks tasks as done or undone. */
     void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException;

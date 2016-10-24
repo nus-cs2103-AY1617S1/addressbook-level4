@@ -1,17 +1,12 @@
 package tars.model.task;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
-import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.CollectionUtil;
-import tars.model.tag.ReadOnlyTag;
-import tars.model.tag.Tag;
-import tars.model.tag.UniqueTagList;
-import tars.model.tag.UniqueTagList.DuplicateTagException;
-import tars.model.tag.UniqueTagList.TagNotFoundException;
-
-import java.util.*;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -69,29 +64,6 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new TaskNotFoundException();
         }
         return taskFoundAndDeleted;
-    }
-    
-    /**
-     * Rename all Task who had the old tag with the new tag
-     * 
-     * @param oldTag tag to be replaced with new tag name
-     * @param tagToUpdate new tag name
-     * @throws IllegalValueException if the given tag name string is invalid.
-     * @throws TagNotFoundException if there is no matching tags.
-     */
-    public void renameTag(ReadOnlyTag oldTag, Tag newTag)
-            throws IllegalValueException, TagNotFoundException, DuplicateTagException {
-
-        for (int i = 0; i < internalList.size(); i++) {
-            Task toEdit = new Task(internalList.get(i));
-            UniqueTagList tags = toEdit.getTags();
-            if (tags.contains(new Tag(oldTag))) {
-                tags.remove(new Tag(oldTag));
-                tags.add(newTag);
-                toEdit.setTags(tags);
-                internalList.set(i, toEdit);
-            }
-        }
     }
 
     public ObservableList<Task> getInternalList() {

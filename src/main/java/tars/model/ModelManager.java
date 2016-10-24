@@ -44,9 +44,10 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<Command> undoableCmdHistStack;
     private final Stack<Command> redoableCmdHistStack;
 
-    private static final String LIST_ARG_DATETIME = "-dt";
-    private static final String LIST_ARG_PRIORITY = "-p";
-    private static final String LIST_KEYWORD_DESCENDING = "dsc";
+	private static final String LIST_ARG_DATETIME = "/dt";
+	private static final String LIST_ARG_PRIORITY = "/p";
+	private static final String LIST_KEYWORD_DESCENDING = "dsc";
+
 
     /**
      * Initializes a ModelManager with the given Tars Tars and its variables
@@ -127,14 +128,25 @@ public class ModelManager extends ComponentManager implements Model {
             throws IllegalValueException, TagNotFoundException, DuplicateTagException {
         Tag newTag = new Tag(newTagName);
 
-        tars.getUniqueTaskList().renameTag(oldTag, newTag);
+        tars.renameTag(oldTag, newTag);
         tars.getUniqueTagList().update(oldTag, newTag);
 
         indicateTarsChanged();
     }
 
     @Override
-    public synchronized void unEditTask(Task toUndo, Task replacement) throws DuplicateTaskException {
+    /** @@author A0139924W */
+    public synchronized void deleteTag(ReadOnlyTag toBeDeleted)
+            throws DuplicateTagException, IllegalValueException, TagNotFoundException {
+        tars.deleteTag(toBeDeleted);
+        tars.getUniqueTagList().remove(new Tag(toBeDeleted));
+
+        indicateTarsChanged();
+    }
+    
+    @Override
+    public synchronized void unEditTask(Task toUndo, Task replacement)
+            throws DuplicateTaskException {
         tars.replaceTask(toUndo, replacement);
         indicateTarsChanged();
     }

@@ -5,7 +5,6 @@ import java.util.Objects;
 import tars.commons.util.CollectionUtil;
 import tars.model.task.DateTime;
 import tars.model.task.Name;
-import tars.model.task.ReadOnlyTask;
 
 /**
  * A task that has unconfirmed, reserved dates.
