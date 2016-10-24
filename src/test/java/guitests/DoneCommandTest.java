@@ -41,7 +41,7 @@ public class DoneCommandTest extends AddressBookGuiTest {
      * @param currentList A copy of the current list of tasks (before deletion).
      */
     private void assertDoneSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
-        TestTask personToDone = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestTask taskToDone = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("done " + targetIndexOneIndexed);
@@ -53,7 +53,7 @@ public class DoneCommandTest extends AddressBookGuiTest {
         
         
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DONE_ITEM_SUCCESS, personToDone));
+        assertResultMessage(String.format(MESSAGE_DONE_ITEM_SUCCESS, taskToDone));
     }
 
 }
