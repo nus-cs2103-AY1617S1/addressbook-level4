@@ -15,7 +15,7 @@ import seedu.address.logic.*;
 import java.util.logging.Logger;
 
 /**
- * Controller for a help page
+ * Controller for the alias windows
  */
 public class AliasWindow extends UiPart {
 
@@ -28,6 +28,7 @@ public class AliasWindow extends UiPart {
     private Scene scene;
     private AliasListPanel aliasPanel;
     private Stage dialogStage;
+    private Stage primaryStage;
     
     @FXML
     private AnchorPane aliasListPanelPlaceholder;
@@ -55,13 +56,12 @@ public class AliasWindow extends UiPart {
         scene = new Scene(rootLayout);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        //TODO: set a more appropriate initial size
         setIcon(dialogStage, ICON);
         aliasPanel = AliasListPanel.load(dialogStage, aliasListPanelPlaceholder,logic.getAlias() );        
         
     }
 
     public void show() {
-        dialogStage.showAndWait();
+        dialogStage.show();
     }
 }

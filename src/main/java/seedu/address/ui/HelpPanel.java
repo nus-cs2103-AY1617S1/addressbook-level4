@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -19,6 +20,9 @@ public class HelpPanel extends UiPart {
     
     @FXML
     private ListView<String> helpListView;
+
+    @FXML
+    private Label helpLabel;
 
     public HelpPanel() {
         super();
@@ -49,6 +53,7 @@ public class HelpPanel extends UiPart {
     
     private void configure(ObservableList<String> helpList) {
         setConnections(helpList);
+        helpLabel.setText("Help");
         addToPlaceholder();
     }
 

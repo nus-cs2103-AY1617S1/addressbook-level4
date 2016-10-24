@@ -18,7 +18,6 @@ public class IncorrectTaskCommand extends TaskCommand {
 	    @Override
 	    public CommandResult execute() {
 	        indicateAttemptToExecuteIncorrectCommand();
-	        EventsCenter.getInstance().post(new ShowHelpRequestEvent());
 	        return new CommandResult(feedbackToUser);
 	    }
 

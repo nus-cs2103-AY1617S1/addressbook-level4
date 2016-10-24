@@ -93,6 +93,17 @@
 	
 }
 
+.help-panel {
+	-fx-background-color: derive(#1d1d1d, 20%);
+	-fx-background-radius: 20;
+	-fx-padding: 10;
+}
+
+.help-title {
+	-fx-text-fill: #FFFFFF;
+	-fx-font-weight: bold;
+}
+
 .list-cell {
     -fx-label-padding: 0 0 0 0;
     -fx-graphic-text-gap : 0;

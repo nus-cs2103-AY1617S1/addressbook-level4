@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -11,6 +13,14 @@
         <URL value="@Extensions.css" />
     </stylesheets>
    <children>
-      <ListView fx:id="helpListView" prefHeight="325.0" prefWidth="200.0" />
+      <Label fx:id="helpLabel" alignment="CENTER" styleClass="help-title" text="HELP">
+         <VBox.margin>
+            <Insets left="185.0" />
+         </VBox.margin>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
+      </Label>
+      <ListView fx:id="helpListView" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="160.0" prefWidth="420.0" />
    </children>
 </VBox>
