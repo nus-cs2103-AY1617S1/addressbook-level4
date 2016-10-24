@@ -3,14 +3,10 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
-import seedu.ggist.logic.commands.EditCommand;
 import seedu.ggist.model.task.*;
 import seedu.ggist.testutil.TestTask;
-import seedu.ggist.testutil.TestUtil;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.ggist.logic.commands.EditCommand.MESSAGE_EDIT_TASK_SUCCESS;
 
 public class EditCommandTest extends TaskManagerGuiTest {
@@ -18,7 +14,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
 	@Test
 	public void edit() throws IllegalArgumentException, IllegalValueException {
 		//edit the first in the list, edit task name
-        TestTask[] currentList = td.getTypicalTasks();
+		TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         String newContent = "edited name";
         String type = "task";
@@ -67,7 +63,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
 	
 	private void assertEditSuccess(int targetIndexOneIndexed, String type, String content, TestTask taskToEdit) throws IllegalArgumentException, IllegalValueException {
     
-        commandBox.runCommand("edit " + targetIndexOneIndexed + type + content);
+        commandBox.runCommand("edit " + targetIndexOneIndexed + " " + type + " " + content);
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));

@@ -185,10 +185,10 @@ public class ModelManager extends ComponentManager implements Model {
  //       sortFilteredList();
     }
 
-  /*  private void updateFilteredListToShowDate(Expression expression) {
+    private void updateFilteredListToShowDate(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-*/
+
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
