@@ -20,17 +20,16 @@ public class JsonUtilTest {
     public void jsonUtil_readJsonStringToObjectInstance_correctObject() throws IOException {
         SerializableTestClass serializableTestClass = new SerializableTestClass();
         serializableTestClass.setTestValues();
-        assertEquals(JsonUtil.fromJsonString(FileUtil.readFromFile(SERIALIZATION_FILE), SerializableTestClass.class), 
-                serializableTestClass);
+        assertEquals(JsonUtil.fromJsonString(FileUtil.readFromFile(SERIALIZATION_FILE), SerializableTestClass.class)
+                .JSON_STRING_REPRESENTATION,SerializableTestClass.JSON_STRING_REPRESENTATION);
         
     }
 
-//    @Test 
-//    public void jsonUtil_writeThenReadObjectToJson_correctObject() throws IOException {
-//        SerializableTestClass serializableTestClass = new SerializableTestClass();
-//        serializableTestClass.setTestValues();
-//        assertEquals(JsonUtil.fromJsonString(FileUtil.readFromFile(SERIALIZATION_FILE), SerializableTestClass.class), 
-//                SerializableTestClass.JSON_STRING_REPRESENTATION);
-//    }
+    @Test 
+    public void jsonUtil_writeThenReadObjectToJson_correctObject() throws IOException {
+        SerializableTestClass serializableTestClass = new SerializableTestClass();
+        serializableTestClass.setTestValues();
+        assertEquals(JsonUtil.toJsonString(serializableTestClass),SerializableTestClass.JSON_STRING_REPRESENTATION);
+    }
 
 }

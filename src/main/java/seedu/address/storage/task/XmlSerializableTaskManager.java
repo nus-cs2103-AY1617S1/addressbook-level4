@@ -54,7 +54,16 @@ public class XmlSerializableTaskManager extends UniqueItemCollection<Task>{
             	logger.severe(e.getMessage());
             }
         }
-    };
+    }
+    
+    public boolean equals(XmlSerializableTaskManager o) {
+        if(this.tasks.equals(o.tasks)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
 
 

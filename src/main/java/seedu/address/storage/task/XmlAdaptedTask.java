@@ -104,4 +104,14 @@ public class XmlAdaptedTask {
     	return taskToReturn;
         
     }
+    
+    public boolean equals(XmlAdaptedTask o) {
+        if((this.complete==o.complete) && this.description.equals(o.description) &&
+                this.endDate.equals(o.endDate) && this.startDate.equals(o.endDate) &&
+                this.taskType.equals(o.taskType)) {
+            return true;
+        }
+        
+        return false;
+    }
 }

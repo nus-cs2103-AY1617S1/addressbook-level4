@@ -1,5 +1,7 @@
 package seedu.address.commons.util;
 
+import static org.junit.Assert.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -76,7 +78,7 @@ public class XmlUtilTest {
         XmlSerializableTaskManager dataToWrite = new XmlSerializableTaskManager();
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableTaskManager dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskManager.class);
-        
+        assertEquals(dataToWrite,dataFromFile);
     }
 
 }

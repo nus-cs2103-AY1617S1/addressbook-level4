@@ -70,4 +70,8 @@ public class SerializableTestClass {
     public HashMap<Integer, String> getMapOfIntegerToString() {
         return mapOfIntegerToString;
     }
+    
+    public boolean equals(SerializableTestClass o) {
+        return true;
+    }
 }
