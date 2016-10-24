@@ -196,46 +196,65 @@ public class Parser {
 			else if (matcher2.matches()) {
 				details.add(matcher2.group("name"));
 				details.add(matcher2.group("date"));
-				return new AddCommand("deadline", details, getTagsFromArgs(matcher2.group("tagArguments")));
+				return new AddCommand("deadline without time", details, getTagsFromArgs(matcher2.group("tagArguments")));
 				/*return new AddCommand(matcher2.group("name"), matcher2.group("date"),
 						getTagsFromArgs(matcher2.group("tagArguments")));*/
 			}
 
 			else if (matcher4.matches()) {
-				return new AddCommand(matcher4.group("name"), matcher4.group("date"),
-						matcher4.group("endTimeArguments"), getTagsFromArgs(matcher4.group("tagArguments")));
+				details.add(matcher4.group("name"));
+				details.add(matcher4.group("date"));
+				details.add(matcher4.group("endTimeArguments"));
+				return new AddCommand("deadline", details, getTagsFromArgs(matcher2.group("tagArguments")));
+				/*return new AddCommand(matcher4.group("name"), matcher4.group("date"),
+						matcher4.group("endTimeArguments"), getTagsFromArgs(matcher4.group("tagArguments")));*/
 
 			}
 
 			else {
 				if (matcher3.group("name").toLowerCase().contains(byToday)) {
-					return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byToday), ""),
-							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));
+					details.add(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byToday), ""));
+					details.add(dateFormatter.format(calendar.getTime()));
+					return new AddCommand ("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
+					
+					/*return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byToday), ""),
+							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));*/
 				}
 
 				else if (matcher3.group("name").toLowerCase().contains(byTomorrow)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.DAY_OF_YEAR, 1);
-					return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byTomorrow), ""),
-							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));
+					details.add(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byTomorrow), ""));
+					details.add(dateFormatter.format(calendar.getTime()));
+					return new AddCommand ("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
+					/*return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byTomorrow), ""),
+							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));*/
 				}
 
 				else if (matcher3.group("name").toLowerCase().contains(byNextWeek)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_YEAR, 1);
-					return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextWeek), ""),
-							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));
+					details.add(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextWeek), ""));
+					details.add(dateFormatter.format(calendar.getTime()));
+					return new AddCommand("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
+					/*return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextWeek), ""),
+							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));*/
 				}
 
 				else if (matcher3.group("name").toLowerCase().contains(byNextMonth)) {
 					calendar.setTime(calendar.getTime());
 					calendar.add(Calendar.WEEK_OF_MONTH, 4);
-					return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextMonth), ""),
-							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));
+					details.add(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextMonth), ""));
+					details.add(dateFormatter.format(calendar.getTime()));
+					return new AddCommand("floating task", details, getTagsFromArgs(matcher3.group("tagArguments")));
+					/*return new AddCommand(matcher3.group("name").replaceAll("(?i)" + Pattern.quote(byNextMonth), ""),
+							dateFormatter.format(calendar.getTime()), getTagsFromArgs(matcher3.group("tagArguments")));*/
 				}
 
 				else {
-					return new AddCommand(matcher3.group("name"), getTagsFromArgs(matcher3.group("tagArguments")));
+					details.add(matcher3.group("name"));
+					return new AddCommand("floating task with name", details, getTagsFromArgs(matcher3.group("tagArguments")));
+					/*return new AddCommand(matcher3.group("name"), getTagsFromArgs(matcher3.group("tagArguments")));*/
 				}
 			}
 
