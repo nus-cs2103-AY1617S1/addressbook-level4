@@ -8,12 +8,21 @@ import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.emeraldo.model.task.UniqueTaskList;
 
+import java.util.EmptyStackException;
 import java.util.Set;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
+	
+	/** Undo the previous changes made to the model 
+	 * @throws UndoException */
+	void undoChanges() throws EmptyStackException, UndoException;
+	
+	/** Clears existing backing model and replaces with empty data */
+	void clearEmeraldo();
+	
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyEmeraldo newData);
 
@@ -23,8 +32,12 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
     
+    /** Edits given task */
     void editTask(Task target, int index, Description description, DateTime dateTime) throws TaskNotFoundException;
 
+    /** Marks given task as complete */
+    void completedTask(Task target, int index) throws TaskNotFoundException;
+    
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 

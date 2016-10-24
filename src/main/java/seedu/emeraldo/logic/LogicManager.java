@@ -3,6 +3,7 @@ package seedu.emeraldo.logic;
 import javafx.collections.ObservableList;
 import seedu.emeraldo.commons.core.ComponentManager;
 import seedu.emeraldo.commons.core.LogsCenter;
+import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.logic.commands.Command;
 import seedu.emeraldo.logic.commands.CommandResult;
 import seedu.emeraldo.logic.parser.Parser;
@@ -29,7 +30,13 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        Command command = parser.parseCommand(commandText);
+        Command command = null;
+		try {
+			command = parser.parseCommand(commandText);
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         command.setData(model);
         return command.execute();
     }

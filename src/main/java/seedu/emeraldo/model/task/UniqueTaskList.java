@@ -1,10 +1,13 @@
 package seedu.emeraldo.model.task;
 
+import seedu.emeraldo.model.tag.Tag;
+import seedu.emeraldo.model.tag.UniqueTagList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.emeraldo.commons.exceptions.DuplicateDataException;
 import seedu.emeraldo.commons.exceptions.IllegalValueException;
 import seedu.emeraldo.commons.util.CollectionUtil;
+
 
 import java.util.*;
 
@@ -85,6 +88,13 @@ public class UniqueTaskList implements Iterable<Task> {
             toEditObj.setDateTime(dateTime);
         }
         internalList.set(index, toEditObj);
+    }
+    
+    public void complete(Task toCompleteObj, int index) throws IllegalValueException {
+    	Tag completedTag = new Tag("Completed");
+    	UniqueTagList completedTagList = new UniqueTagList(completedTag);
+    	toCompleteObj.setTags(completedTagList);
+    	internalList.set(index, toCompleteObj);
     }
 
     public ObservableList<Task> getInternalList() {

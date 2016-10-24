@@ -119,6 +119,10 @@ public class Emeraldo implements ReadOnlyEmeraldo {
         tasks.edit(task, index, description, dateTime);
     }
     
+    public void completedTask(Task task, int index) throws IllegalValueException {
+    	tasks.complete(task, index);
+    }
+    
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
