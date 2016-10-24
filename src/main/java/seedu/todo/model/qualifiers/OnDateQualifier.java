@@ -18,7 +18,7 @@ public class OnDateQualifier implements Qualifier{
         if (task.getOnDate().getDate() != null) {
             LocalDateTime onDateTime = DateTimeUtil.combineLocalDateAndTime(task.getOnDate().getDate(), 
                     task.getOnDate().getTime());
-            return onDateTime.equals(datetime);
+            return onDateTime.toLocalDate().equals(datetime.toLocalDate());
         } else {
             return false;
         }

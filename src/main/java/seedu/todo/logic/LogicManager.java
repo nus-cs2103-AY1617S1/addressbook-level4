@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import seedu.todo.commons.core.ComponentManager;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.logic.commands.Command;
 import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.logic.parser.ToDoListParser;
@@ -47,8 +48,8 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getUnmodifiableFilteredTaskList();
     }
 
-    public ObservableList<ReadOnlyTask> getFilteredTaskListToday(){
-        model.updateFilteredTaskListBeforeDate(LocalDateTime.now());
-        return model.getUnmodifiableFilteredTaskList();
+    
+    public ObservableList<ReadOnlyTask> getUnmodifiableTodayTaskList() {
+        return model.getUnmodifiableTodayTaskList();
     }
 }
