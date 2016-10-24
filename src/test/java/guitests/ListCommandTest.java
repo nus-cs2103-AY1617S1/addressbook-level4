@@ -19,7 +19,7 @@ import seedu.menion.model.activity.ActivityTime;
 import seedu.menion.model.activity.Note;
 import seedu.menion.model.activity.*;
 
-
+//@@author : A0139277U
 public class ListCommandTest extends ActivityManagerGuiTest {
 	
 	private TestActivity testTask1, testTask2, testEvent1, testEvent2, testFloating1, testFloating2;
