@@ -9,7 +9,7 @@ import seedu.taskmanager.commons.exceptions.IllegalValueException;
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Item names should only contain alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Item names should not contain the symbol " + "'#'";
     public static final String NAME_VALIDATION_REGEX = "[^" + "#" + "]+";
 
     public final String value;

@@ -192,7 +192,7 @@ public class LogicManagerTest {
                 "add []\\[;] n/12345 ed/2016-08-08 et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         // Invalid Name
         assertCommandBehavior(
-                "add deadline n/not_numbers ed/2016-08-08 et/18:00", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add deadline n/# ed/2016-08-08 et/18:00", Name.MESSAGE_NAME_CONSTRAINTS);
         // Invalid EndDate
         assertCommandBehavior(
                 "add deadline n/12345 ed/notADate et/18:00", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ItemDate.MESSAGE_DATE_CONSTRAINTS));
@@ -320,7 +320,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeItems);
 
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_ITEM_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getItemList());
         assertEquals(1, targetedJumpIndex);

@@ -88,19 +88,19 @@ public class Parser {
     //@@author
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(T|t)((A|a)(S|s)(K|k))?\\s*"
-                    + "(n/)?(?<name>[^/#]+)"
+                    + "(n/)?(?<name>[^/]+)"
                     + "(?<tagArguments>(?: #[^/#]+)*)"); // variable number of tags
 
     private static final Pattern DEADLINE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(D|d)((E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e))?\\s*"
-                    + "(n/)?(?<name>[^/#]+)"
+                    + "(n/)?(?<name>[^/]+)"
                     + END_DATE_ARG_FORMAT
                     + END_TIME_ARG_FORMAT + "?"
                     + "(?<tagArguments>(?: #[^/#]+)*)"); // variable number of tags
 
     private static final Pattern EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(E|e)((V|v)(E|e)(N|n)(T|t))?\\s*"
-                    + "(n/)?(?<name>[^/#]+)"
+                    + "(n/)?(?<name>[^/]+)"
             		+ START_DATE_ARG_FORMAT
                     + START_TIME_ARG_FORMAT + "?"
                     + END_DATE_ARG_FORMAT
@@ -109,13 +109,13 @@ public class Parser {
     
     private static final Pattern DEADLINE_NLP_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(D|d)((E|e)(A|a)(D|d)(L|l)(I|i)(N|n)(E|e))?\\s*"
-                    + "(n/)?(?<name>[^/#]+)"
+                    + "(n/)?(?<name>[^/]+)"
                     + END_DATETIME_ARG_FORMAT
                     + "(?<tagArguments>(?: #[^/#]+)*)"); // variable number of tags
 
     private static final Pattern EVENT_NLP_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(E|e)((V|v)(E|e)(N|n)(T|t))?\\s*"
-                    + "(n/)?(?<name>[^/#]+)"
+                    + "(n/)?(?<name>[^/]+)"
             		+ START_DATETIME_ARG_FORMAT
                     + END_DATETIME_ARG_FORMAT
                     + "(?<tagArguments>(?: #[^/#]+)*)"); // variable number of tags
