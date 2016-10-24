@@ -35,7 +35,7 @@ public class HideCommandTest extends AddressBookGuiTest {
     @Test
     public void list_type_overdue() {
         assertListResult("hide overdue", td.submitPrototype, 
-                td.submitProgressReport, td.developerMeeting,
+                td.developerMeeting,
                 td.researchWhales, td.learnVim, 
                 td.buyBirthdayGift, td.signUpForYoga);
     }
@@ -87,29 +87,29 @@ public class HideCommandTest extends AddressBookGuiTest {
     }
     
     @Test
-    public void hide_date_on1Jan2018() {
-        assertListResult("hide on 1 jan 2018", td.submitPrototype, 
+    public void hide_date_on1Jan2022() {
+        assertListResult("hide on 1 jan 2022", td.submitPrototype, 
                 td.submitProgressReport, td.developerMeeting,
                 td.learnVim, td.buyBirthdayGift, td.signUpForYoga);
     }
     
     @Test
-    public void hide_deadline_byYear2016() {
-        assertListResult("hide by 12 dec 2016", td.submitPrototype, 
+    public void hide_deadline_byYear2020() {
+        assertListResult("hide by 12 dec 2020", td.submitPrototype, 
                 td.developerMeeting, td.researchWhales, 
                 td.learnVim, td.signUpForYoga);
     }
     
     @Test
-    public void hide_startTime_fromYear2018() {
-        assertListResult("hide from 1 jan 2018", 
+    public void hide_startTime_fromYear2022() {
+        assertListResult("hide from 1 jan 2022", 
                 td.submitProgressReport, td.developerMeeting,
                 td.learnVim, td.buyBirthdayGift, td.signUpForYoga);
     }
     
     @Test
-    public void hide_endTime_toYear2017() {
-        assertListResult("hide to 30 dec 2017");
+    public void hide_endTime_toYear2021() {
+        assertListResult("hide to 30 dec 2021");
     }
     
     @Test
@@ -133,7 +133,7 @@ public class HideCommandTest extends AddressBookGuiTest {
     @Test
     public void hide_combinedArgs() {
         assertListResult("hide uncomplete tasks, from 1 jan 1998"
-                + " to 1 jan 2020, tag urgent");
+                + " to 1 jan 2024, tag urgent");
     }
     
     @Test
