@@ -18,7 +18,7 @@ public class CommandHistory {
     private static Stack<Command> revertedCommands = new Stack<Command>();
 	private static ReadOnlyTask lastModTask;
     private static Set<String> filteredKeywords = null;
-    private static String storageFilePath;
+//    private static String storageFilePath;
 	
 	public static void addPrevCmd(String commandText) {
 		while (!nextCmd.isEmpty()) {

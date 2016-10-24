@@ -36,10 +36,6 @@ public class TaskCard extends UiPart{
 
     public static final String COMPLETED_INDICATION = "-fx-background-color: #ccffcc;";
     public static final String OVERDUE_INDICATION = "-fx-background-color:  #ffcce6;";
-    
-    public TaskCard(){
-
-    }
 
     public static TaskCard load(ReadOnlyTask person, int displayedIndex){
         TaskCard card = new TaskCard();
@@ -76,12 +72,10 @@ public class TaskCard extends UiPart{
 
     //@@author A0148145E
     public void hideFieldsAccordingToType(ReadOnlyTask task) {
-        
-        if (task.tagsString().contains("Event")) {
-        } else if (task.tagsString().contains("Deadline")) {
+        if (task.tagsString().contains("Deadline")) {
             phone.setVisible(false);
             address.setVisible(false);
-        } else {
+        } else if (!task.tagsString().contains("Event")) {
             phone.setVisible(false);
             address.setVisible(false);
             email.setVisible(false);
