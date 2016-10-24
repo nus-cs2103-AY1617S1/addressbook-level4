@@ -59,7 +59,6 @@ public class DeleteCommandTest extends TodoListGuiTest {
      */
     private ImmutableTask executeDeleteCommand(int displayedIndex) {
         int listIndex = UiTestUtil.convertToListIndex(displayedIndex);
-        System.out.println("List index: " + listIndex);
         String commandText = CommandGeneratorUtil.generateDeleteCommand(displayedIndex);
         ImmutableTask deletedTask = todoListView.getTask(listIndex);
 

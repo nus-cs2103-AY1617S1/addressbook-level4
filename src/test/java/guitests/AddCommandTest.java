@@ -58,7 +58,7 @@ public class AddCommandTest extends TodoListGuiTest {
     @Test
     public void add_addManyRandom() {
         //Add a long list of random task, which in the end spans at least 2 pages.
-        List<ImmutableTask> randomTaskList = TaskFactory.list(20, 40);
+        List<ImmutableTask> randomTaskList = TaskFactory.list(15, 25);
         randomTaskList.forEach(this::executeAddTestHelper);
     }
 

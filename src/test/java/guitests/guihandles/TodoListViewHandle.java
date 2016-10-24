@@ -124,14 +124,14 @@ public class TodoListViewHandle extends GuiHandle {
 
         do {
             Platform.runLater(() -> getTodoListView().scrollTo(listIndex));
-            guiRobot.sleep(10 * attemptCounter++); //Allow the new nodes to be loaded from scrolling.
+            guiRobot.sleep(50 * attemptCounter++); //Allow the new nodes to be loaded from scrolling.
 
             Set<Node> taskCardNodes = getAllTaskCardNodes();
             possibleNode = taskCardNodes.stream().filter(node -> {
                 TaskCardViewHandle taskCardView = new TaskCardViewHandle(guiRobot, primaryStage, node);
                 return taskCardView.matchesTask(displayedIndex);
             }).findFirst();
-        } while (!possibleNode.isPresent() && attemptCounter < 100);
+        } while (!possibleNode.isPresent() && attemptCounter < 50);
 
         if (possibleNode.isPresent()) {
             return possibleNode.get();
