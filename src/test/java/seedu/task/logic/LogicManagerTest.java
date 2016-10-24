@@ -148,32 +148,37 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
 
-
+  //@@author A0147944U-reused
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
+                "add inval/id name", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 0000hrs e/1111hrs.butNoStartTimePrefix l/valid, location", expectedMessage);
+                "add Invalid start time at 3/0.00am to 11.11pm by 10.00pm #tagged", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name s/0000hrs 1111hrs.butNoPrefix l/valid, location", expectedMessage);
+                "add Invalid end time at 10.00am to 11.7/1pm by 10.00pm #tagged", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name s/0000hrs e/1111hrs.butNoLocationPrefix valid, location", expectedMessage);
+                "add Invalid deadline at 10.00am to 11.11pm by 10/00pm #tagged", expectedMessage);
+        assertCommandBehavior(
+                "add Invalid tag at 10.00am to 11.11pm by 10.00pm /#tagged#", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] s/0000hrs e/1111hrs l/valid, location", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add Inval/id name at 10.00am to 11.11pm by 10.00pm", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name s/not_startTime e/1111hrs l/valid, location", StartTime.MESSAGE_STARTTIME_CONSTRAINTS);
+                "add Invalid start time at 20.00am to 11.11pm by 10.00pm", StartTime.MESSAGE_STARTTIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name s/0000hrs e/not_endTime l/valid, location", EndTime.MESSAGE_ENDTIME_CONSTRAINTS);
+                "add Invalid end time at 10.00am to 19.11pm by 10.00pm", EndTime.MESSAGE_ENDTIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name s/0000hrs e/1111hrs l/valid, location #/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Invalid deadline at 10.00am to 11.11pm by 1000pm", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Invalid tag at 10.00am to 11.11pm by 10.00pm #invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
+    //@@author
 
     @Test
     public void execute_add_successful() throws Exception {
@@ -322,17 +327,18 @@ public class LogicManagerTest {
         assertCommandBehavior("find ", expectedMessage);
     }
 
+  //@@author A0147944U-reused
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+    public void execute_find_matchesPartialWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
+        Task pTarget3 = helper.generateTaskWithName("KEYKEYKEY sduauo");
         Task p1 = helper.generateTaskWithName("KE Y");
-        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
+        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, pTarget3, pTarget2);
         TaskManager expectedTM = helper.generateTaskManager(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
+        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget3, pTarget2);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
@@ -340,6 +346,7 @@ public class LogicManagerTest {
                 expectedTM,
                 expectedList);
     }
+  //@@author
 
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
@@ -384,12 +391,12 @@ public class LogicManagerTest {
      * A utility class to generate test data.
      */
     class TestDataHelper{
-
+      //@@author A0147944U-reused
         Task revise() throws Exception {
-            Name name = new Name("Revise CS1111");
-            StartTime startTime = new StartTime("1111hrs");
-            EndTime endTime = new EndTime("2222hrs");
-            Deadline location = new Deadline("111, NUS street");
+            Name name = new Name("Revise CS2103");
+            StartTime startTime = new StartTime("11.11pm");
+            EndTime endTime = new EndTime("12.22pm");
+            Deadline location = new Deadline("01.00pm");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -406,9 +413,9 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new StartTime(seed + "111hrs"),
-                    new EndTime(seed + "111hrs"),
-                    new Deadline("House of " + seed),
+                    new StartTime("11." + seed + "1am"),
+                    new EndTime("11." + seed + "1pm"),
+                    new Deadline("12." + seed + "2am"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -420,17 +427,18 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" s/").append(p.getStartTime());
-            cmd.append(" e/").append(p.getEndTime());
-            cmd.append(" l/").append(p.getDeadline());
+            cmd.append(" from ").append(p.getStartTime());
+            cmd.append(" to ").append(p.getEndTime());
+            cmd.append(" by ").append(p.getDeadline());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
-                cmd.append(" #/").append(t.tagName);
+                cmd.append(" #").append(t.tagName);
             }
 
             return cmd.toString();
         }
+      //@@author
 
         /**
          * Generates an TaskManager with auto-generated tasks.
@@ -502,14 +510,16 @@ public class LogicManagerTest {
         /**
          * Generates a Task object with given name. Other fields will have some dummy values.
          */
+      //@@author A0147944U-reused
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new StartTime("1111hrs"),
-                    new EndTime("1234hrs"),
-                    new Deadline("House of 1"),
+                    new StartTime("11.11am"),
+                    new EndTime("12.34pm"),
+                    new Deadline("12.40pm"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
+      //@@author
     }
 }

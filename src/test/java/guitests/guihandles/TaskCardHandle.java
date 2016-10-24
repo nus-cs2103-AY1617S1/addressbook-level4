@@ -1,3 +1,4 @@
+//@@author A0147944U-reused
 package guitests.guihandles;
 
 import guitests.GuiRobot;
@@ -10,7 +11,7 @@ import seedu.task.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String LOCATION_FIELD_ID = "#locationLabel";
+    private static final String DEADLINE_FIELD_ID = "#deadlineLabel";
     private static final String STARTTIME_FIELD_ID = "#startTimeLabel";
     private static final String ENDTIME_FIELD_ID = "#endTimeLabel";
 
@@ -25,39 +26,39 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(fieldId, node);
     }
 
-    public String getFullName() {
+    public String getTaskName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(LOCATION_FIELD_ID).replace(" at ", "");
-    }
-
-    public String getPhone() {
+    public String getStartTime() {
         return getTextFromLabel(STARTTIME_FIELD_ID).replace(" from ", "");
     }
 
-    public String getEmail() {
+    public String getEndTime() {
         return getTextFromLabel(ENDTIME_FIELD_ID).replace(" to ", "");
     }
 
+    public String getDeadline() {
+        return getTextFromLabel(DEADLINE_FIELD_ID).replace(" by ", "");
+    }
+
     public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getName().fullName) && getPhone().equals(task.getStartTime().value)
-                && getEmail().equals(task.getEndTime().value) && getAddress().equals(task.getDeadline().value);
+        return getTaskName().equals(task.getName().fullName) && getStartTime().equals(task.getStartTime().value)
+                && getEndTime().equals(task.getEndTime().value) && getDeadline().equals(task.getDeadline().value);
     }
 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+            return getTaskName().equals(handle.getTaskName())
+                    && getDeadline().equals(handle.getDeadline()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getTaskName() + " " + getDeadline();
     }
 }

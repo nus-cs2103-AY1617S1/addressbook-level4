@@ -62,20 +62,22 @@ public class TestUtil {
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
     public static final Task[] sampleTaskData = getSampleTaskData();
-
+    
+  //@@author A0147944U-reused
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Accompany mom to the doctor"), new StartTime("1000hrs"), new EndTime("1200hrs"), new Deadline("Khoo Teck Puat Hospital"), new UniqueTagList()),
-                    new Task(new Name("Borrow software engineering book"), new StartTime("1300hrs"), new EndTime("1400hrs"), new Deadline("81th street"), new UniqueTagList()),
-                    new Task(new Name("Call Jim"), new StartTime("1200hrs"), new EndTime("1300hrs"), new Deadline("wall street"), new UniqueTagList()),
-                    new Task(new Name("Do homework"), new StartTime("1400hrs"), new EndTime("1500hrs"), new Deadline("10th street"), new UniqueTagList()),
-                    new Task(new Name("Edit AddressBook file"), new StartTime("1500hrs"), new EndTime("1600hrs"), new Deadline("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Finish up the project"), new StartTime("1600hrs"), new EndTime("1700hrs"), new Deadline("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("Go for a jog"), new StartTime("1700hrs"), new EndTime("1800hrs"), new Deadline("4th street"), new UniqueTagList()),
-                    new Task(new Name("Help Jim with his task"), new StartTime("1800hrs"), new EndTime("1900hrs"), new Deadline("little india"), new UniqueTagList()),
-                    new Task(new Name("Iron new clothes"), new StartTime("1900hrs"), new EndTime("2000hrs"), new Deadline("chicago ave"), new UniqueTagList())
+                    new Task(new Name("Accompany mom to the doctor"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
+                    new Task(new Name("Borrow software engineering book"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
+                    new Task(new Name("Call Jim"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
+                    new Task(new Name("Do homework"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
+                    new Task(new Name("Edit AddressBook file"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
+                    new Task(new Name("Finish up the project"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
+                    new Task(new Name("Go for a jog"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
+                    new Task(new Name("Help Jim with his task"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList()),
+                    new Task(new Name("Iron new clothes"), new StartTime("10.00am"), new EndTime("02.59am"), new Deadline("10.00pm"), new UniqueTagList())
             };
+          //@@author
             
             
         } catch (IllegalValueException e) {
