@@ -78,7 +78,7 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
         }
         
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
-        return sb.toString();
+        return sb.toString().trim();
     }
     
 

@@ -71,15 +71,15 @@ public class TestUtil {
     private static Activity[] getSamplePersonData() {
         try {
             return new Activity[]{
-                    new Activity(new Name("Ali Muster"),  new Reminder("4th street"), new UniqueTagList()),
-                    new Activity(new Name("Boris Mueller"),  new Reminder("81th street"), new UniqueTagList()),
-                    new Activity(new Name("Carl Kurz"), new Reminder("wall street"), new UniqueTagList()),
-                    new Activity(new Name("Daniel Meier"),  new Reminder("10th street"), new UniqueTagList()),
-                    new Activity(new Name("Elle Meyer"),  new Reminder("michegan ave"), new UniqueTagList()),
-                    new Activity(new Name("Fiona Kunz"),  new Reminder("little tokyo"), new UniqueTagList()),
-                    new Activity(new Name("George Best"), new Reminder("4th street"), new UniqueTagList()),
-                    new Activity(new Name("Hoon Meier"), new Reminder("little india"), new UniqueTagList()),
-                    new Activity(new Name("Ida Mueller"), new Reminder("chicago ave"), new UniqueTagList())
+                    new Activity(new Name("Find Ali"),  new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Boris"),  new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Carl"), new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Daniel"),  new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Elle"),  new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Fiona"),  new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find George"), new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Hoon"), new Reminder("30-12-2017 1200"), new UniqueTagList()),
+                    new Activity(new Name("Find Ida"), new Reminder("30-12-2017 1200"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

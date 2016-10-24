@@ -4,6 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.UniqueTaskList;
+import seedu.address.model.activity.event.Event;
 import seedu.address.model.activity.task.*;
 
 /**
@@ -40,12 +41,12 @@ public class TypicalTestActivities {
 
         try {
             ab.addPerson(new Activity(findAlice));
-            ab.addPerson(new Activity(findBenson));
-            ab.addPerson(new Activity(findCarl));
-            ab.addPerson(new Activity(findDaniel));
-            ab.addPerson(new Activity(findElle));
-            ab.addPerson(new Activity(findFiona));
-            ab.addPerson(new Activity(findGeorge));
+            ab.addPerson(new Task(findBenson));
+            ab.addPerson(new Task(findCarl));
+            ab.addPerson(new Task(findDaniel));
+            ab.addPerson(new Event(findElle));
+            ab.addPerson(new Event(findFiona));
+            ab.addPerson(new Event(findGeorge));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }

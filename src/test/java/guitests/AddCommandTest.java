@@ -65,7 +65,8 @@ public class AddCommandTest extends AddressBookGuiTest {
     }
 
     private void assertAddSuccess(TestActivity activityToAdd, TestActivity... currentList) {
-        commandBox.runCommand(activityToAdd.getAddCommand());
+        System.out.println(activityToAdd.getAddCommand());
+    	commandBox.runCommand(activityToAdd.getAddCommand());
 
         //confirm the new card contains the right data
         ActivityCardHandle addedCard = personListPanel.navigateToActivity(activityToAdd.getName().fullName);
