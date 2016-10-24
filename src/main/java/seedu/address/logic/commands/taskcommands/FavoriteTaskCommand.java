@@ -14,7 +14,12 @@ public class FavoriteTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "favorite";
 
-    public static final String MESSAGE_USAGE = "Favorite a task: \t" + "favorite <index>";
+    public static final String HELP_MESSAGE_USAGE = "Favorite a task: \t" + "favorite <index>";
+    
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Favorites the task identified by the index number used in the last task listing.\n"
+            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_FAVORITE_TASK_SUCCESS = "Favorited task: %1$s";
 

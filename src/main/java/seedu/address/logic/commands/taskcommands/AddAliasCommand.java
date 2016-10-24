@@ -14,7 +14,12 @@ public class AddAliasCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "alias";
 
-    public static final String MESSAGE_USAGE = "Add an Alias: \t" + "alias <alias> <valid command sentence>"; 
+    public static final String HELP_MESSAGE_USAGE = "Add an Alias: \t" + "alias <alias> <valid command sentence>"; 
+    
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a one-word alias for any sentence to be used as a command. "
+            + "Parameters: SHORTCUT SENTENCE\n"
+            + "Example: " + COMMAND_WORD
+            + " am add Meeting";
 
     public static final String MESSAGE_SUCCESS = "New alias added: %1$s";
     public static final String MESSAGE_DUPLICATE_ALIAS = "This alias already exists in TaskManager";

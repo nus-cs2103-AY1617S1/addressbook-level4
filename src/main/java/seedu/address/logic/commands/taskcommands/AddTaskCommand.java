@@ -21,7 +21,18 @@ public class AddTaskCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = "Add a task/event/deadline: \t" + "add <description> <time> <date>";
+    public static final String HELP_MESSAGE_USAGE = "Add a task/event/deadline: \t" + "add <description> <time> <date>";
+    
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to TaskManager. \n"
+            + "1) Parameters: DESCRIPTION \n"
+            + "Example: " + COMMAND_WORD
+            + " Finish V0.1 \n"
+            + "2) Parameters: DESCRIPTION by DEADLINE \n"
+            + "Example: " + COMMAND_WORD
+            + " Finish V0.1 by Oct 31 \n"
+            + "3) Parameters: DESCRIPTION from START_DATE to END_DATE \n"
+            + "Example: " + COMMAND_WORD
+            + " Software Demo from Oct 31 to Nov 1";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in TaskManager";

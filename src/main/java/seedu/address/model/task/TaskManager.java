@@ -79,13 +79,13 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
     @Override
     public ObservableList<String> getHelpList() {
         ObservableList<String> helpItems = FXCollections.observableArrayList ();
-        helpItems.add(AddTaskCommand.MESSAGE_USAGE);
-        helpItems.add(AddAliasCommand.MESSAGE_USAGE);
-        helpItems.add(DeleteAliasCommand.MESSAGE_USAGE);
-        helpItems.add(FavoriteTaskCommand.MESSAGE_USAGE);
-        helpItems.add(FindTaskCommand.MESSAGE_USAGE);
-        helpItems.add(ListTaskCommand.MESSAGE_USAGE);
-        helpItems.add(UnfavoriteTaskCommand.MESSAGE_USAGE);
+        helpItems.add(AddTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(AddAliasCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(DeleteAliasCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(FavoriteTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(FindTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(ListTaskCommand.HELP_MESSAGE_USAGE);
+        helpItems.add(UnfavoriteTaskCommand.HELP_MESSAGE_USAGE);
         return helpItems;
     }
 	

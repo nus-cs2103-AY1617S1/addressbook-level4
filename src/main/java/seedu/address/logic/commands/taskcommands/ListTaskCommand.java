@@ -15,7 +15,9 @@ public class ListTaskCommand extends TaskCommand {
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
     public static final String MESSAGE_NOTASKS = "No tasks to list";
     public static final String MESSAGE_ALIAS_SUCCESS = "Listed all aliases";
-    public static final String MESSAGE_USAGE = "List Tasks: \t" + "list";
+    public static final String HELP_MESSAGE_USAGE = "list <parameter>: \t" + "List tasks based on optional parameter"; 
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "<parameter>: "  +
+            "list tasks based on optional parameters(alias, complete/completed).";
     
     public final String argument;
     

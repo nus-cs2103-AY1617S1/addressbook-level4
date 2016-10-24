@@ -14,7 +14,12 @@ public class FindTaskCommand extends TaskCommand {
 
         public static final String COMMAND_WORD = "find";
 
-        public static final String MESSAGE_USAGE = "Find Tasks: \t" + "find <keyword[s]>";
+        public static final String HELP_MESSAGE_USAGE = "Find Tasks: \t" + "find <keyword[s]>";
+        
+        public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks whose names contain any of "
+                + "the specified keywords and displays them as a list with index numbers.\n"
+                + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
+                + "Example: " + COMMAND_WORD + " dinner lunch meeting";
         private final Set<String> keywords;
 
         public FindTaskCommand(Set<String> keywords) {
