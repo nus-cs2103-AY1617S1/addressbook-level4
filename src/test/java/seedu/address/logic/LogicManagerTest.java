@@ -1279,6 +1279,25 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedComponentList);
     }
+    
+    @Test
+    public void execute_edit_set_recurringTask_Successful() throws Exception {
+        // setup expectations
+    	Task beforeModification = new Task(new Name("anything"), new UniqueTagList());
+    	Task afterModification = new Task(new Name("anything"), new UniqueTagList(), new TaskDate(TaskDate.DATE_NOT_PRESENT), new TaskDate("2 oct 1pm"), RecurringType.DAILY);
+		
+    	model.addTask(beforeModification);
+    	TaskMaster expectedAB = new TaskMaster();
+		expectedAB.addTask(afterModification);
+        TestDataHelper helper = new TestDataHelper();
+        List<TaskComponent> expectedComponentList = helper.buildReadOnlyTaskComponentsFromTaskList(expectedAB.getTaskList());
+        // execute command and verify result
+        assertCommandBehavior(
+        		"edit 1 by 2 oct 1pm daily",
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedComponentList);
+    }
 
     /**
      * A utility class to generate test data.
