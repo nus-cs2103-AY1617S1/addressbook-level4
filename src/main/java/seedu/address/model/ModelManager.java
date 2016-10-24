@@ -140,42 +140,48 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addRecurringTask(ReadOnlyTask task, String days) throws DuplicateTaskException, IllegalValueException {
         
         //Recurring task with only end time.
-        if (task.getStartTime().appearOnUIFormat().equals("-") && !task.getEndTime().appearOnUIFormat().equals(""))
+        if (task.getStartTime().appearOnUIFormat().equals("-") && !task.getEndTime().appearOnUIFormat().equals("")) {
+            System.out.println("adding a recurring tasks with only end time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),
                     new Time(""),
-                    new Time(days + " days after " + task.getEndTime().appearOnUIFormat()),
+                    new Time(days + " after " + task.getEndTime().appearOnUIFormat()),
                     task.getRecurrence(),
                     task.getTags() 
                     ));
-       
+        }
         //Recurring task with only start time.
-        else if (!task.getStartTime().appearOnUIFormat().equals("") && task.getEndTime().appearOnUIFormat().equals("-"))
+        else if (!task.getStartTime().appearOnUIFormat().equals("-") && task.getEndTime().appearOnUIFormat().equals("-")) {
+            System.out.println("adding a recurring tasks with only start time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),
-                    new Time(days + " days after " + task.getStartTime().appearOnUIFormat()),
+                    new Time(days + " after " + task.getStartTime().appearOnUIFormat()),
                     new Time(""),
                     task.getRecurrence(),
                     task.getTags() 
                     ));
+        }
         //Recurring task wth both start and end times  
-        else if (!task.getStartTime().appearOnUIFormat().equals("") && !task.getEndTime().appearOnUIFormat().equals(""))
+        else if (!task.getStartTime().appearOnUIFormat().equals("") && !task.getEndTime().appearOnUIFormat().equals("")) {
+            System.out.println("adding a recurring tasks with start and end time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),
-                    new Time(days + " days after " + task.getStartTime().appearOnUIFormat()),
-                    new Time(days + " days after " + task.getEndTime().appearOnUIFormat()),
+                    new Time(days + " after " + task.getStartTime().appearOnUIFormat()),
+                    new Time(days + " after " + task.getEndTime().appearOnUIFormat()),
                     task.getRecurrence(),
                     task.getTags() 
                     ));
-
-
+        }
+        
+        updateFilteredTaskListToShow(ShowCommand.isNotDone());
+        indicateTaskManagerChanged();
     }
     
     @Override
-    public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd) throws TaskNotFoundException, IllegalValueException {
+    public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd, String newRecur) throws TaskNotFoundException, IllegalValueException {
         if (newName != null)
             taskManager.editTaskName(task, newName);
         
@@ -184,6 +190,9 @@ public class ModelManager extends ComponentManager implements Model {
         
         if (newEnd != null)
             taskManager.editTaskEndTime(task, newEnd);
+        
+        if (newRecur != null)
+            taskManager.editTaskRecurFreq(task, newRecur);
         
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();

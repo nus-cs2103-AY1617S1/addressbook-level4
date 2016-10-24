@@ -31,7 +31,7 @@ public interface Model {
     void addRecurringTask(ReadOnlyTask taskToMark, String recurringDays) throws DuplicateTaskException, IllegalValueException;
     
     /** Edits the given task */
-    void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd) throws TaskNotFoundException, IllegalValueException;
+    void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd, String newRecur) throws TaskNotFoundException, IllegalValueException;
     
     /** Marks the given task as done */
     void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
