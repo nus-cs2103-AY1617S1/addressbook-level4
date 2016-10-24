@@ -5,13 +5,14 @@ import java.io.IOException;
 import javax.xml.bind.JAXBException;
 
 import teamfour.tasc.MainApp;
+import teamfour.tasc.model.keyword.RelocateCommandKeyword;
 
 /**
  * Moves the data storage file to a new directory.
  */
 public class RelocateCommand extends Command {
 
-    public static final String COMMAND_WORD = "relocate";
+    public static final String COMMAND_WORD = RelocateCommandKeyword.keyword;
 
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Designates a new data storage location (relative to current location). \n"
