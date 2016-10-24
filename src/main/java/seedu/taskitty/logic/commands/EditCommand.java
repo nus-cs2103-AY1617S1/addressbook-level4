@@ -3,6 +3,7 @@ package seedu.taskitty.logic.commands;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.taskitty.commons.core.Messages;
@@ -84,53 +85,10 @@ public class EditCommand extends Command{
         taskToEdit = lastShownList.get(targetIndex - 1);
         
         try {
-            if (data.length == Task.TASK_COMPONENT_COUNT) {
-                // if no name field was input
-                this.toEdit = new Task(
-                    new Name(data[Task.TASK_COMPONENT_INDEX_NAME]),
-                    new TaskPeriod(),
-                    new UniqueTagList(tagSet)
-                );
-            } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
-                if (data[0].isEmpty()) {
-                    data[0] = taskToEdit.getName().toString();   
-                }
-                if (data[2] == null) {
-                    data[2] = taskToEdit.getPeriod().getEndTime().toString();
-                }
-                for (int i=0; i<data.length; i++) {
-                    System.out.println(i);
-                    System.out.println(data[i]);
-                }
-                this.toEdit = new Task(
-                    new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
-                    new TaskPeriod(new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_END_DATE]),
-                            new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME])),
-                    new UniqueTagList(tagSet)
-                );
-            } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
-                if (data[0].isEmpty()) {
-                    data[0] = taskToEdit.getName().toString();   
-                }
-                if (data[2] == null) {
-                    data[2] = taskToEdit.getPeriod().getStartTime().toString();
-                }
-                if (data[4] == null) {
-                    data[4] = taskToEdit.getPeriod().getEndTime().toString();
-                }
-                for (int i=0; i<data.length; i++) {
-                    System.out.println(i);
-                    System.out.println(data[i]);
-                }
-                this.toEdit = new Task(
-                    new Name(data[Task.EVENT_COMPONENT_INDEX_NAME]),
-                    new TaskPeriod(new TaskDate(data[Task.EVENT_COMPONENT_INDEX_START_DATE]),
-                            new TaskTime(data[Task.EVENT_COMPONENT_INDEX_START_TIME]),
-                            new TaskDate(data[Task.EVENT_COMPONENT_INDEX_END_DATE]),
-                            new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME])),
-                    new UniqueTagList(tagSet)
-                );
-            };
+            Optional<CommandResult> result = updateToEditVariable();
+            if (result.isPresent()) {
+                return result.get();
+            }
             model.editTask(taskToEdit, toEdit);
         } catch (UniqueTaskList.DuplicateTaskException e) {
             model.undo();
@@ -143,6 +101,56 @@ public class EditCommand extends Command{
         }
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, Task.CATEGORIES[categoryIndex], toEdit));
+    }
+    
+    /**
+     * Ensure that toEdit variable has proper values before executing the command
+     * @return
+     * @throws IllegalValueException
+     */
+    private Optional<CommandResult> updateToEditVariable() throws IllegalValueException {
+        if (data.length == Task.TASK_COMPONENT_COUNT) {
+            this.toEdit = new Task(
+                new Name(data[Task.TASK_COMPONENT_INDEX_NAME]),
+                new TaskPeriod(),
+                new UniqueTagList(tagSet)
+            );
+        } else if (data.length == Task.DEADLINE_COMPONENT_COUNT) {
+            if (data[0].isEmpty()) {
+                data[0] = taskToEdit.getName().toString();   
+            }
+            if (data[2] == null) {
+                if (categoryIndex != 1) {
+                    return Optional.of(new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE)));
+                }
+                data[2] = taskToEdit.getPeriod().getEndTime().toString();
+            }
+            this.toEdit = new Task(
+                new Name(data[Task.DEADLINE_COMPONENT_INDEX_NAME]),
+                new TaskPeriod(new TaskDate(data[Task.DEADLINE_COMPONENT_INDEX_END_DATE]),
+                        new TaskTime(data[Task.DEADLINE_COMPONENT_INDEX_END_TIME])),
+                new UniqueTagList(tagSet)
+            );
+        } else if (data.length == Task.EVENT_COMPONENT_COUNT) {
+            if (data[0].isEmpty()) {
+                data[0] = taskToEdit.getName().toString();   
+            }
+            if (data[2] == null) {
+                data[2] = taskToEdit.getPeriod().getStartTime().toString();
+            }
+            if (data[4] == null) {
+                data[4] = taskToEdit.getPeriod().getEndTime().toString();
+            }
+            this.toEdit = new Task(
+                new Name(data[Task.EVENT_COMPONENT_INDEX_NAME]),
+                new TaskPeriod(new TaskDate(data[Task.EVENT_COMPONENT_INDEX_START_DATE]),
+                        new TaskTime(data[Task.EVENT_COMPONENT_INDEX_START_TIME]),
+                        new TaskDate(data[Task.EVENT_COMPONENT_INDEX_END_DATE]),
+                        new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME])),
+                new UniqueTagList(tagSet)
+            );
+        };
+        return Optional.empty();
     }
 
     @Override
