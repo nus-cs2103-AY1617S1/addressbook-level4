@@ -13,12 +13,13 @@ public class AddCommandTest extends AddressBookGuiTest {
 
     @Test
     public void add() {
-        
+
     	//section 1: test for adding basic activities, tasks and events.
     	
     	//add an activity
         TestActivity[] currentList = td.getTypicalPersons();
         TestActivity activityToAdd = td.findHoon;
+
         assertAddSuccess(activityToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
 /*
@@ -66,12 +67,12 @@ public class AddCommandTest extends AddressBookGuiTest {
 
     private void assertAddSuccess(TestActivity activityToAdd, TestActivity... currentList) {
 
-    	commandBox.runCommand(activityToAdd.getAddCommand());
 
+    	commandBox.runCommand(activityToAdd.getAddCommand());
         //confirm the new card contains the right data
         ActivityCardHandle addedCard = personListPanel.navigateToActivity(activityToAdd.getName().fullName);
+
         assertMatching(activityToAdd, addedCard);
-        System.out.println("hello!");
 
         //confirm the list now contains all previous persons plus the new person
         TestActivity[] expectedList = TestUtil.addPersonsToList(currentList, activityToAdd);

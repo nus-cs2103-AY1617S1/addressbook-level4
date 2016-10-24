@@ -61,7 +61,7 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         DateUtil dUtil = new DateUtil();
-        String dateFormat = "d-MM-yyyy h.mm a";
+        String dateFormat = "dd.MM.yyyy HHmm";
         
         sb.append("add " + this.getName().fullName + " ");
         
