@@ -152,26 +152,19 @@ public class LogicManagerTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+
     }
-/*
+
     @Test
-    public void execute_add_invalidPersonData() throws Exception {
+    public void execute_add_invalidActivityData() throws Exception {
+       
         assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", ActivityName.MESSAGE_NAME_CONSTRAINTS);
+                "add Valid Name by: 40-13-2016 1900 n: hello", ActivityDate.MESSAGE_ACTIVITYDATE_INVALID);
         assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", ActivityDate.MESSAGE_DEADLINE_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", ActivityTime.MESSAGE_REMINDER_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+        		"add Valid Name by: 12-12-2016 2600 n: hello", ActivityTime.ACTIVITY_TIME_CONSTRAINTS);
+       
     }
-*//*
+
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
@@ -184,29 +177,10 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
-    }*/
+    }
     
 
-    /*
-    @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Activity toBeAdded = helper.exampletask();
-        ActivityManager expectedAB = new ActivityManager();
-        expectedAB.addTask(toBeAdded);
-        // setup starting state
-        model.addTask(toBeAdded); // person already in internal address book
-        // execute command and verify result
-        assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_TASK,
-                expectedAB,
-                expectedAB.getTaskList());
-    }
-    */
 
-/*
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
@@ -216,11 +190,11 @@ public class LogicManagerTest {
         // prepare address book state
         helper.addToModel(model, 2);
         assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
+                ListCommand.MESSAGE_SUCCESS_ALL,
                 expectedAB,
                 expectedList);
     }
-*/
+
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -254,57 +228,34 @@ public class LogicManagerTest {
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getActivityManager(), taskList);
     }
 
-    @Test
-    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
-    }
 
-    /*
-    @Test
-    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
-    }
-    @Test
-    public void execute_select_jumpsToCorrectTask() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Activity> threePersons = helper.generateTaskList(3);
-        ActivityManager expectedAB = helper.generateTaskManager(threePersons);
-        helper.addToModel(model, threePersons);
-        assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_ACTIVITY_SUCCESS, 2),
-                expectedAB,
-                expectedAB.getTaskList());
-        assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
-    }
-*/
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
-/*
+
+    /*
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("delete");
     }
 */
-    /*
+    
     @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
+    public void execute_delete_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Activity> threeTasks = helper.generateTaskList(3);
         ActivityManager expectedAB = helper.generateTaskManager(threeTasks);
         expectedAB.removeTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
-        assertCommandBehavior("delete 2",
+        assertCommandBehavior("delete task 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
     }
-*/
+
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);

@@ -281,4 +281,12 @@ public class Activity implements ReadOnlyActivity {
         }
         return null;
     }
+    
+    @Override
+    public boolean equals(Object o){
+    	return o == this || 
+    			(o instanceof ReadOnlyActivity &&
+    					this.isTaskSameStateAs((ReadOnlyActivity) o));
+    }
+    
 }
