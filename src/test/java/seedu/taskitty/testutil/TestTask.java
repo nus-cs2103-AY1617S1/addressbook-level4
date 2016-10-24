@@ -94,6 +94,11 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 		return period.isEvent();
 	}
 	
+	//@@author A0130853L
+	public void markAsDone() {
+		isDone = true;
+	}
+	
 	@Override
 	public boolean isOverdue() {
 		return isOverdue;
@@ -117,8 +122,5 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
             }
         }
         
-    }
-	public void markAsDone() {
-		isDone = true;
 	}
 }

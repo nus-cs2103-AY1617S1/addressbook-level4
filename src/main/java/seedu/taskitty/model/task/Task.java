@@ -87,6 +87,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         tags.setTags(replacement);
     }
     
+    //@@author A0130853L
     /** 
      * Marks task as done.
      */
@@ -105,6 +106,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     		this.isOverdue = true;
     	}
     }
+    
+    //@@author A0130853L
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -124,13 +127,13 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
 	@Override
-	public boolean getIsDone() {
-		return isDone;
-	}
-	
-	@Override
 	public TaskPeriod getPeriod() {
 	    return period;
+	}
+	//@@author A0130853L
+	@Override
+	public boolean getIsDone() {
+		return isDone;
 	}
 	
 	@Override
@@ -172,10 +175,5 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	    }
         
     }
-
-	public static void setNumOverdues(int numOverdue) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

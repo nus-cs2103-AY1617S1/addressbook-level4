@@ -90,7 +90,7 @@ public class CommandParser {
         
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
-            
+//@@author A0130853L            
         case DoneCommand.COMMAND_WORD:
         	return prepareDone(arguments);
         	
@@ -117,6 +117,9 @@ public class CommandParser {
 		}
     	if (arguments.trim().equals("done")) {
     		return new ViewCommand("done"); // view done command
+    	}
+    	if (arguments.trim().equals("all")) {
+    		return new ViewCommand("all"); // view all command
     	}
 		String[] details = extractTaskDetailsNatty(arguments);
 		if (details.length!= 3) { // no date was successfully extracted
