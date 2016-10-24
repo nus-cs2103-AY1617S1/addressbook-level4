@@ -10,6 +10,7 @@ import com.joestelmach.natty.*;
 /**
  * Utility class to check if certain date formats are valid
  */
+//@@author A0139817U
 public class DateUtil {
 	// Format for displaying dates
 	public static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");

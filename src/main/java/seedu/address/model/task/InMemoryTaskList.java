@@ -89,12 +89,19 @@ public interface InMemoryTaskList {
 	void deleteAlias(Alias toRemove) throws ItemNotFoundException;
 	
 	/*
+	 * Undoes the previous command that has to do with tasks or aliases
+	 * (Can only be called if the previous successful command was a successful task/alias command)
+	 */
+	void undo() throws IllegalStateException;
+	
+	/*
+	 * Redoes the command that has been undone
+	 * (Can only be called if the previous successful command was a successful undo command)
+	 */
+	void redo() throws IllegalStateException;
+	
+	/*
 	 * Gets the list of alias
 	 */
 	UnmodifiableObservableList<Alias> getAlias();
-
-
-
-	
-	
 }

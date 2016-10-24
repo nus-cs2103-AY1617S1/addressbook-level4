@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
@@ -12,9 +13,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.model.task.Task;
+import seedu.address.commons.collections.UniqueItemCollection;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.NewTaskListEvent;
+import seedu.address.commons.events.model.TaskManagerChangedEvent;
 
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Panel containing the list of tasks.
@@ -58,6 +64,7 @@ public class TaskListPanel extends UiPart {
     private void configure(ObservableList<Task> taskList) {
         setConnections(taskList);
         addToPlaceholder();
+        registerAsAnEventHandler(this);
     }
 
     private void setConnections(ObservableList<Task> taskList) {
@@ -75,6 +82,13 @@ public class TaskListPanel extends UiPart {
             taskListView.scrollTo(index);
             taskListView.getSelectionModel().clearAndSelect(index);
         });
+    }
+    
+    @Subscribe
+    public void handleNewTaskListEvent(NewTaskListEvent abce) {
+    	FilteredList<Task> newTasks = abce.filteredTasks;
+		setConnections(newTasks);
+        logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Refreshed task list"));
     }
 
     class TaskListViewCell extends ListCell<Task> {

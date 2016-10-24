@@ -18,9 +18,10 @@ import seedu.address.logic.commands.taskcommands.UpdateTaskCommand;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Task;
 
-/*
+/**
  * Parses update commands
  */
+//@@author A0139817U
 public class UpdateCommandParser extends CommandParser {
 	public static final String COMMAND_WORD = UpdateTaskCommand.COMMAND_WORD;
     private static final Pattern UPDATE_COMMAND_FORMAT = Pattern.compile("(?<targetIndex>\\S+) (?<updateType>\\S+) (?<arguments>.+)");

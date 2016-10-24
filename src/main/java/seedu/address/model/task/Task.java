@@ -1,9 +1,11 @@
 package seedu.address.model.task;
 
+import seedu.address.model.Copiable;
+
 /*
  * Represents a highly general Task object to be subclassed
  */
-public abstract class Task implements FavoritableTask, CompletableTask, Comparable<Task> {
+public abstract class Task implements FavoritableTask, CompletableTask, Comparable<Task>, Copiable<Task> {
 	/*
 	 * All tasks are required to minimally have a description
 	 */

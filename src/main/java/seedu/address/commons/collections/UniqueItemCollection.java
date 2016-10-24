@@ -5,6 +5,7 @@ import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DuplicateDataException;
+import seedu.address.model.Copiable;
 
 
 public class UniqueItemCollection<T> implements Iterable<T>{
@@ -31,6 +32,27 @@ public class UniqueItemCollection<T> implements Iterable<T>{
      * Constructs empty ItemCollection.
      */
     public UniqueItemCollection() {}
+    
+    /**
+     * Duplicates an existing UniqueItemCollection
+     */
+    @SuppressWarnings("unchecked")
+	public UniqueItemCollection<T> copyCollection()  {
+    	UniqueItemCollection<T> copiedCollection = new UniqueItemCollection<T>();
+    	for (T item : internalList) {
+    		try {
+	    		if (item instanceof Copiable) {
+	    			Copiable<T> copiableItem = (Copiable<T>) item;
+	    			copiedCollection.add(copiableItem.copy());
+	    		} else {
+	    			assert false : "The items in the list must implement the Copiable interface";
+	    		}
+    		} catch (DuplicateItemException die) {
+    			assert false : "There should be no duplicate items in the UniqueItemCollection";
+    		}
+    	}
+    	return copiedCollection;
+    }
 
     /**
      * Returns true if the list contains an equivalent item as the given argument.
