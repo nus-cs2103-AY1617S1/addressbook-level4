@@ -7,7 +7,7 @@ public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
 
-    public static final String MESSAGE_UNDO_ACKNOWLEDGEMENT = "Undo last command as requested ...";
+    public static final String MESSAGE_UNDO_ACKNOWLEDGEMENT = "Last command undone";
 
     public UndoCommand() {}
 
@@ -40,5 +40,22 @@ public class UndoCommand extends Command {
         // nothing required to be done
         return true;
     }
-
+    
+    /**
+     * Check if command is an undo command
+     * @return true if the command is an undo operation, false otherwise
+     */
+    @Override
+    public boolean isUndo() {
+        return true;
+    }
+    
+    /**
+     * Check if command is a redo command
+     * @return true if the command is a redo operation, false otherwise
+     */
+    @Override
+    public boolean isRedo(){
+        return false;
+    }
 }

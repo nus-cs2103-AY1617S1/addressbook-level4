@@ -68,8 +68,27 @@ public class AddCommand extends ModelRequiringCommand {
      */
     @Override
     public boolean undo() {
-        // TODO Auto-generated method stub
+        
+        System.out.println("entered undo!! in add");
+        
         return false;
     }
-
+    
+    /**
+     * Check if command is an undo command
+     * @return true if the command is an undo operation, false otherwise
+     */
+    @Override
+    public boolean isUndo() {
+        return false;
+    }
+    
+    /**
+     * Check if command is a redo command
+     * @return true if the command is a redo operation, false otherwise
+     */
+    @Override
+    public boolean isRedo(){
+        return false;
+    }
 }

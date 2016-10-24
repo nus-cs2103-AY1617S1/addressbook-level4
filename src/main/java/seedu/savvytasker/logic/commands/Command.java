@@ -65,4 +65,16 @@ public abstract class Command {
      * @return true if the operation completed successfully, false otherwise
      */
     public abstract boolean undo();
+
+    /**
+     * Check if command is an undo command
+     * @return true if the command is an undo operation, false otherwise
+     */
+    public abstract boolean isUndo();
+
+    /**
+     * Check if command is a redo command
+     * @return true if the command is a redo operation, false otherwise
+     */
+    public abstract boolean isRedo();
 }
