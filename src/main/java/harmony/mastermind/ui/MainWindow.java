@@ -63,12 +63,12 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     
-    private static final double WIDTH_MULTIPLIER_INDEX = 0.07;
+    private static final double WIDTH_MULTIPLIER_INDEX = 0.03;
     private static final double WIDTH_MULTIPLIER_NAME = 0.285;
     private static final double WIDTH_MULTIPLIER_STARTDATE = 0.18;
     private static final double WIDTH_MULTIPLIER_ENDDATE = 0.18;
-    private static final double WIDTH_MULTIPLIER_TAGS = 0.15;
-    private static final double WIDTH_MULTIPLIER_RECUR = 0.12;
+    private static final double WIDTH_MULTIPLIER_TAGS = 0.2;
+    private static final double WIDTH_MULTIPLIER_RECUR = 0.1;
     
     private static final short INDEX_HOME = 0;
     private static final short INDEX_TASKS = 1;
@@ -126,9 +126,6 @@ public class MainWindow extends UiPart {
     private TableColumn<ReadOnlyTask, String> indexHome;
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameHome;
-    
-    @FXML
-    private TableColumn<ReadOnlyTask, String> dueInHome;
 
     @FXML
     private TableColumn<ReadOnlyTask, String> startDateHome;
@@ -327,7 +324,6 @@ public class MainWindow extends UiPart {
     private void initHomeTab() {
         initIndex(indexHome);
         initName(taskNameHome);
-        initDueIn(dueInHome);
         initStartDate(startDateHome);
         initEndDate(endDateHome);
         initTags(tagsHome);
@@ -385,49 +381,6 @@ public class MainWindow extends UiPart {
         initEndDate(endDateArchive);
         initTags(tagsArchive);  
         initRecur(recurArchive);    
-    }
-    
-
-    //@@author A0138862W
-    private void initDueIn(TableColumn<ReadOnlyTask, String> dueInColumn){
-        
-        dueInColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_INDEX));
-        dueInColumn.setCellValueFactory(task -> {
-            if(task.getValue().getDurationDue() !=null){                
-                long dueInl = task.getValue().getDurationDue().toDays();
-                
-                if(dueInl >=0){
-                    return new ReadOnlyStringWrapper("Due in "+Long.toString(dueInl) +" days");
-                }else{
-                    return new ReadOnlyStringWrapper("Already past due "+Long.toString(Math.abs(dueInl)) +" days ago");
-                }
-                
-                
-            }else{
-                return new ReadOnlyStringWrapper("");
-            }
-        });
-        
-        dueInColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, String>(){
-            
-            @Override
-            public void updateItem(String item , boolean isEmpty){
-                super.updateItem(item, isEmpty);
-                
-                if(!isEmpty()){
-                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
-                    
-                    Text dueIn = generateStyledText(readOnlyTask, item);
-                    
-                    this.setGraphic(dueIn);
-                    this.setPrefHeight(50);
-                    
-                }else{
-                    this.setGraphic(null);
-                }
-                
-            }
-        });
     }
     
     //@@author A0138862W

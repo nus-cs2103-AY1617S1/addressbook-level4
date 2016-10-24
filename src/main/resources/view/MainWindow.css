@@ -28,6 +28,11 @@
     -fx-cell-size: 50px;
 }
 
+.table-row-cell:selected {
+   -fx-background-color: transparent; 
+   -fx-table-cell-border-color:transparent;
+}
+
 .text-field{
     -fx-background-color: #3f3f3f;
     -fx-font-size: 12pt;

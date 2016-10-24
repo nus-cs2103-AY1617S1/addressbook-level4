@@ -31,7 +31,6 @@
                                                             <columns>
                                                                 <TableColumn fx:id="indexHome" resizable="false" text="#" />
                                                                 <TableColumn fx:id="taskNameHome" text="Task Name" />
-                                                                <TableColumn fx:id="dueInHome" prefWidth="75.0" text="Due in (Days)" />
                                                                 <TableColumn fx:id="startDateHome" text="Start Date" />
                                                                 <TableColumn fx:id="endDateHome" text="End Date" />
                                                                 <TableColumn fx:id="tagsHome" text="Tags" />
