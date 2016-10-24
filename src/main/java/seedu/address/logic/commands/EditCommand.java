@@ -44,9 +44,7 @@ public class EditCommand extends Command {
         for (String deadlineDate : deadlines) {
             deadlineSet.add(new Deadline(deadlineDate));
         }
-        System.out.println(targetIndex);
     	this.targetIndex = Integer.parseInt(targetIndex);
-    	System.out.println(name);
     	this.name = new Name(name);
     	this.startline = new Startline(startline);
     	this.deadlineSet = new UniqueDeadlineList(deadlineSet);
