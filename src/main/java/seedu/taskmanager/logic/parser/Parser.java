@@ -72,8 +72,8 @@ public class Parser {
     public static final Prefix tagsPrefix = new Prefix("#");
     public static final String removeTagPrefixString = "-";
     
-    private static final int PARSEDATETIME_ARRAY_DATE_INDEX = 0;
-    private static final int PARSEDATETIME_ARRAY_TIME_INDEX = 1;
+    public static final int PARSEDATETIME_ARRAY_DATE_INDEX = 0;
+    public static final int PARSEDATETIME_ARRAY_TIME_INDEX = 1;
     
     //@@author A0140060A-unused
     //Used in earlier version, functionality replaced by ArgumentTokenizer
@@ -541,33 +541,32 @@ public class Parser {
     /**
      * Parses date and time from argument acquired through NLP input 
      * @param argument
-     * @param dateFormat the format the argument should be returned in
+     * @param dateFormat the format the date should be returned in
+     * @param timeFormat the format the time should be returned in
      * @return parsed argument as string or null if argument not parsed 
      */
     private String[] parseDateTime(String argument, String dateFormat, String timeFormat) throws IllegalValueException {
         assert dateFormat != null && !dateFormat.isEmpty();
         assert timeFormat != null && !timeFormat.isEmpty();
-
+        assert argument != null;
+    
+        List<Date> dateTimes = new PrettyTimeParser().parse(argument);
         
-        if (argument != null) {
-            List<Date> dateTimes = new PrettyTimeParser().parse(argument);
-            if (dateTimes.isEmpty()) {
-                throw new IllegalValueException(MESSAGE_DATETIME_PARSE_FAILURE);
-            }
-            Date prettyParsedDateTime = dateTimes.get(0);
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
-            SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(timeFormat);
-            String parsedDate = simpleDateFormat.format(prettyParsedDateTime);
-            String parsedTime = simpleTimeFormat.format(prettyParsedDateTime);
-            
-            String[] parsedDateTime = new String[2];
-            parsedDateTime[PARSEDATETIME_ARRAY_DATE_INDEX] = parsedDate;
-            parsedDateTime[PARSEDATETIME_ARRAY_TIME_INDEX] = parsedTime;
-            
-            return parsedDateTime;
-        } else {
-            return null;
+        if (dateTimes.isEmpty()) {
+            throw new IllegalValueException(MESSAGE_DATETIME_PARSE_FAILURE);
         }
+        
+        Date prettyParsedDateTime = dateTimes.get(0);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+        SimpleDateFormat simpleTimeFormat = new SimpleDateFormat(timeFormat);
+        String parsedDate = simpleDateFormat.format(prettyParsedDateTime);
+        String parsedTime = simpleTimeFormat.format(prettyParsedDateTime);
+        
+        String[] parsedDateTime = new String[2];
+        parsedDateTime[PARSEDATETIME_ARRAY_DATE_INDEX] = parsedDate;
+        parsedDateTime[PARSEDATETIME_ARRAY_TIME_INDEX] = parsedTime;
+        
+        return parsedDateTime;
     }
     
     //@@author A0140060A-unused
