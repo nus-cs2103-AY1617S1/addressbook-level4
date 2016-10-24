@@ -34,7 +34,7 @@ public class ShowCommandTest extends AddressBookGuiTest {
     
     @Test
     public void list_type_overdue() {
-        assertListResult("show overdue");
+        assertListResult("show overdue", td.submitProgressReport);
     }
     
     @Test
@@ -80,25 +80,25 @@ public class ShowCommandTest extends AddressBookGuiTest {
     }
     
     @Test
-    public void show_date_on1Jan2018() {
-        assertListResult("show on 1 jan 2018", td.researchWhales);
+    public void show_date_on1Jan2022() {
+        assertListResult("show on 1 jan 2022", td.researchWhales);
     }
     
     @Test
-    public void show_deadline_byYear2016() {
-        assertListResult("show by 12 dec 2016", td.submitProgressReport,
+    public void show_deadline_byYear2020() {
+        assertListResult("show by 12 dec 2020", td.submitProgressReport,
                 td.buyBirthdayGift);
     }
     
     @Test
-    public void show_startTime_fromYear2018() {
-        assertListResult("show from 1 jan 2018", td.submitPrototype, 
+    public void show_startTime_fromYear2022() {
+        assertListResult("show from 1 jan 2022", td.submitPrototype, 
                 td.researchWhales);
     }
     
     @Test
-    public void show_endTime_toYear2017() {
-        assertListResult("show to 30 dec 2017", td.submitPrototype,
+    public void show_endTime_toYear2021() {
+        assertListResult("show to 30 dec 2021", td.submitPrototype,
                 td.submitProgressReport, td.developerMeeting,
                 td.researchWhales, td.learnVim,
                 td.buyBirthdayGift, td.signUpForYoga);
@@ -121,13 +121,13 @@ public class ShowCommandTest extends AddressBookGuiTest {
     @Test
     public void show_combinedArgs() {
         assertListResult("show uncomplete tasks from 1 jan 1998"
-                + " to 1 jan 2020, tag urgent", td.submitPrototype,
+                + " to 1 jan 2024, tag urgent", td.submitPrototype,
                 td.submitProgressReport);
     }
     
     @Test
     public void show_continuously_narrowsList() {
-        assertListResult("show to 30 dec 2017", td.submitPrototype,
+        assertListResult("show to 30 dec 2021", td.submitPrototype,
                 td.submitProgressReport, td.developerMeeting,
                 td.researchWhales, td.learnVim,
                 td.buyBirthdayGift, td.signUpForYoga);
