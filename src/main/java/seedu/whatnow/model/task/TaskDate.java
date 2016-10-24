@@ -137,6 +137,7 @@ public class TaskDate {
 		c.set(Calendar.MINUTE, 59);
 		c.set(Calendar.SECOND, 59);
 		Date currDate = c.getTime();
+		System.out.println("at taskDate" + currDate);
 		if(currDate.compareTo(tempDate) > 0) {
 			return false;
 		}
@@ -183,6 +184,7 @@ public class TaskDate {
 	 */
 	public boolean isValidNumDate(String test, String format) throws java.text.ParseException {
 		Date tempDate = null;
+		System.out.println("test is : " + test);
 		try {
 			DateFormat df = new SimpleDateFormat(format);
 			df.setLenient(false);
@@ -192,11 +194,18 @@ public class TaskDate {
 			ex.printStackTrace();
 			return false;
 		}
-
+		Calendar d = new GregorianCalendar();
+		d.set(Calendar.HOUR_OF_DAY, 23);
+		d.set(Calendar.MINUTE, 59);
+		d.set(Calendar.SECOND, 59);
+		tempDate = d.getTime();
 		//Following checks if the user input date is invalid i.e before today's date
-		Calendar todayCal = Calendar.getInstance();
-		Date todayDate = todayCal.getTime();
-		if(todayDate.compareTo(tempDate) > 0) {
+		Calendar c = new GregorianCalendar();
+		c.set(Calendar.HOUR_OF_DAY, 00);
+		c.set(Calendar.MINUTE, 00);
+		c.set(Calendar.SECOND, 00);
+		Date currDate = c.getTime();
+		if(currDate.compareTo(tempDate) > 0) {
 			return false;
 		}
 		//The following will ensure the date format to be DATE_NUM_SLASH_WITH_YEAR_FORMAT
