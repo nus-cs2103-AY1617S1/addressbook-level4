@@ -24,6 +24,9 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Checks for overdue task */
+    void overdueTask();
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList();
