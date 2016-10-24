@@ -11,9 +11,9 @@ import com.joestelmach.natty.Parser;
  * A Parser class that implements natty library to convert string objects into dates.
  * Returns a null date object if the argument is not recognised as a date.
  */
-public class DateParser {
 //@author a0126633j
-    
+public class DateParser {
+
     private static Parser dateParser = new Parser(TimeZone.getDefault());
 
     public DateParser() {}
