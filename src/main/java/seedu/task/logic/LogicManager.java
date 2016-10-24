@@ -36,9 +36,7 @@ public class LogicManager extends ComponentManager implements Logic {
         Command command = parser.parseCommand(commandText);
         
         command.setData(model);
-        if (command != null && command instanceof IncorrectCommand) {
-            return command.execute(false);
-        } else if (command == null && command instanceof IncorrectCommand) {
+        if (command instanceof IncorrectCommand) {
             return command.execute(false);
         }
         logger.info("SUCCESS");
