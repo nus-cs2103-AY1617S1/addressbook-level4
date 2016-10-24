@@ -169,16 +169,12 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     public void overdueTask() {
     	for (Task task: events) {
-    		if (task.isOverdue(task.getDate(), task.getEnd())) {
-        		task.setOverdue(1);
-        		System.out.println("events:" + task.getOverdue());
-        	}
+    		events.markOverdue(task);
+        	System.out.println("events:" + task.getOverdue());
     	}
     	for (Task task: deadlines) {
-    		if (task.isOverdue(task.getDate(), task.getEnd())) {
-        		task.setOverdue(1);
-        		System.out.println("deadlines:" + task.getOverdue());
-        	}
+        	deadlines.markOverdue(task);
+        	System.out.println("deadlines:" + task.getOverdue());	
     	}
     }
 
