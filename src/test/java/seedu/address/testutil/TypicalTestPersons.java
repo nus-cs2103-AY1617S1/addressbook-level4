@@ -13,21 +13,21 @@ public class TypicalTestPersons {
 
     public TypicalTestPersons() {
         try {
-            alice =  new TaskBuilder().withName("Alice Pauline").withDeadline("12-36-08")
+            alice =  new TaskBuilder().withName("Alice Pauline").withStartline("101213 14:15").withDeadline("12-36-08")
                     .withPriority("1")
                     .withTags("friends").build();
-            benson = new TaskBuilder().withName("Benson Meier").withDeadline("311202")
+            benson = new TaskBuilder().withName("Benson Meier").withStartline("101213 14:15").withDeadline("311202")
                     .withPriority("2")
                     .withTags("owesMoney", "friends").build();
-            carl = new TaskBuilder().withName("Carl Kurz").withPriority("3").withDeadline("121212").build();
-            daniel = new TaskBuilder().withName("Daniel Meier").withPriority("4").withDeadline("101010").build();
-            elle = new TaskBuilder().withName("Elle Meyer").withPriority("5").withDeadline("111111").build();
-            fiona = new TaskBuilder().withName("Fiona Kunz").withPriority("2").withDeadline("000000").build();
-            george = new TaskBuilder().withName("George Best").withPriority("1").withDeadline("456789").build();
+            carl = new TaskBuilder().withName("Carl Kurz").withPriority("3").withStartline("101213 14:15").withDeadline("121212").build();
+            daniel = new TaskBuilder().withName("Daniel Meier").withPriority("4").withStartline("101213 14:15").withDeadline("101010").build();
+            elle = new TaskBuilder().withName("Elle Meyer").withPriority("5").withStartline("101213 14:15").withDeadline("111111").build();
+            fiona = new TaskBuilder().withName("Fiona Kunz").withPriority("2").withStartline("101213 14:15").withDeadline("000000").build();
+            george = new TaskBuilder().withName("George Best").withPriority("1").withStartline("101213 14:15").withDeadline("000000").build();
 
             //Manually added
-            hoon = new TaskBuilder().withName("Hoon Meier").withPriority("1").withDeadline("000000").build();
-            ida = new TaskBuilder().withName("Ida Mueller").withPriority("1").withDeadline("999999").build();
+            hoon = new TaskBuilder().withName("Hoon Meier").withPriority("1").withStartline("101213 14:15").withDeadline("000000").build();
+            ida = new TaskBuilder().withName("Ida Mueller").withPriority("1").withStartline("101213 14:15").withDeadline("999999").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

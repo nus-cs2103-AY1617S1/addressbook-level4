@@ -34,19 +34,19 @@ public class EditCommand extends Command {
     private Task toAdd;
     
     
-    public EditCommand(String targetIndex, String startline, String name, Set<String> deadlines, String priority, Set<String> tags) 
+    public EditCommand(String targetIndex, String name, String startline, Set<String> deadlines, String priority, Set<String> tags) 
     		throws IllegalValueException{
     	final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        
         final Set<Deadline> deadlineSet = new HashSet<>();
         for (String deadlineDate : deadlines) {
             deadlineSet.add(new Deadline(deadlineDate));
         }
-        
+        System.out.println(targetIndex);
     	this.targetIndex = Integer.parseInt(targetIndex);
+    	System.out.println(name);
     	this.name = new Name(name);
     	this.startline = new Startline(startline);
     	this.deadlineSet = new UniqueDeadlineList(deadlineSet);
