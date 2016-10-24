@@ -13,6 +13,9 @@ public class AutocompleteResult {
 	Iterator<String> matchIterator;
 	
 	public AutocompleteResult(List<String> matchedWords) {
+		assert matchedWords != null;
+		assert matchedWords.size() > 0;
+		
 		this.matchIterator = Iterables.cycle(matchedWords).iterator();
 	}
 	
