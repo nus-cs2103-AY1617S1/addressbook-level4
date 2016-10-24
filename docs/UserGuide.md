@@ -14,7 +14,7 @@
 1. Download the latest `DearJim.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for DearJim.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
-<img src="images/dearjim_initial.png" width="550">
+<img src="images/dearjim_initial.png" width="650">
 
 <p align="center">
 Figure 1: GUI of DearJim
@@ -44,7 +44,7 @@ Opens the user guide with a new window.<br>
 Format: `help`<br>
 
 
- <img src="images/dearjim_help.png" width="550">
+ <img src="images/dearjim_help.png" width="650">
 
 <p align="center">
 Figure 2: Help Command
@@ -192,7 +192,6 @@ Examples:
 
  You can also remove any sections if they are no longer relevant! <br>
  Format: `edit INDEX [-reset parameter] [repeat] [start] [end] `
- > `INDEX` refers to the task number in the current displayed list.<br>
 > Use `[-reset repeat]` to remove the recurring time<br>
 > Use `[-reset start]` to remove the start time<br>
 > Use `[-reset end]` to remove the end time 
@@ -268,7 +267,7 @@ Format: `list done`
 Example:
 * `list done`
 
- <img src="images/dearjim_list.png" width="550">
+ <img src="images/dearjim_list.png" width="650">
 
 
 
