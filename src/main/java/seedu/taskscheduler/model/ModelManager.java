@@ -68,6 +68,7 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskSchedulerChangedEvent(taskScheduler));
     }
 
+    //@@author A0148145E
     @Override
     public synchronized void deleteTask(ReadOnlyTask... target) throws TaskNotFoundException {
         for (ReadOnlyTask task : target) {
@@ -110,23 +111,15 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskSchedulerChanged();
     }
     
-    @Override
-    public void replaceTask(Task oldTask, Task newTask) 
-            throws TaskNotFoundException {
-        taskScheduler.replaceTask(oldTask, newTask);
-        updateFilteredListToShowAll();
-        indicateTaskSchedulerChanged();
-        
-    }
-    
+    //@@author A0140007B
     @Override
     public void insertTask(int index, Task newTask) 
             throws TaskNotFoundException {
         taskScheduler.insertTask(index, newTask);
         updateFilteredListToShowAll();
         indicateTaskSchedulerChanged();
-        
     }
+    //@@author
     
     @Subscribe
     public void changeFilePathRequestEvent(FilePathChangedEvent event) {
@@ -192,6 +185,7 @@ public class ModelManager extends ComponentManager implements Model {
             this.nameKeyWords = nameKeyWords;
         }
 
+        //@@author A0138696L
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
@@ -199,7 +193,8 @@ public class ModelManager extends ComponentManager implements Model {
                     .findAny()
                     .isPresent();
         }
-
+        //@@author
+        
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);

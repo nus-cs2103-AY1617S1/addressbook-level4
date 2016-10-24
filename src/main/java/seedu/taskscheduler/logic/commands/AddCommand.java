@@ -1,11 +1,10 @@
 package seedu.taskscheduler.logic.commands;
 
-import seedu.taskscheduler.commons.core.Messages;
-import seedu.taskscheduler.commons.exceptions.IllegalValueException;
-import seedu.taskscheduler.model.Undo;
-import seedu.taskscheduler.model.task.*;
+import seedu.taskscheduler.model.task.Task;
+import seedu.taskscheduler.model.task.UniqueTaskList;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0148145E
 /**
  * Adds a task to the Task Scheduler.
  */
@@ -28,8 +27,6 @@ public class AddCommand extends Command {
 
     /**
      * Convenience constructor using raw values.
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
      */
     public AddCommand(Task toAdd) {
         this.toAdd = toAdd;

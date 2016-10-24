@@ -7,6 +7,8 @@ import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.TaskArray;
 import seedu.taskscheduler.model.task.UniqueTaskList.DuplicateTaskException;
 
+//@@author A0148145E
+
 /**
  * Clears the Task Scheduler.
  */
@@ -16,6 +18,9 @@ public class ClearCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Task scheduler has been cleared!";
     private final TaskArray taskArray;
     
+    /**
+     * Instantiate taskArray which is use to store the cleared tasks for undo
+     */
     public ClearCommand() {
         taskArray = new TaskArray();
     }

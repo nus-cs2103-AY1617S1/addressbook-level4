@@ -2,6 +2,8 @@ package seedu.taskscheduler.model.task;
 
 import java.util.ArrayList;
 
+//@@author A0148145E
+
 /**
  * Represents the Task array model.
  */

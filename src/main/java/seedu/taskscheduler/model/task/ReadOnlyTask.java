@@ -62,7 +62,8 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-
+    
+    //@@author A0138696L
     /**  
      * For FindCommand to Formats the task as text,   
      * showing all parameters details.  
@@ -80,6 +81,7 @@ public interface ReadOnlyTask {
         getTags().forEach(b -> builder.append(b.tagName + " "));  
         return builder.toString();  
     }  
+    //@@author
     
     default boolean equals(ReadOnlyTask other) {
         return isSameStateAs(other);

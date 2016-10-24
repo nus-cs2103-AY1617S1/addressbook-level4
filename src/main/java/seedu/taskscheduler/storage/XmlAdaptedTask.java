@@ -1,14 +1,16 @@
 package seedu.taskscheduler.storage;
 
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
-import seedu.taskscheduler.commons.util.DateFormatter;
 import seedu.taskscheduler.model.tag.Tag;
 import seedu.taskscheduler.model.tag.UniqueTagList;
-import seedu.taskscheduler.model.task.*;
+import seedu.taskscheduler.model.task.Location;
+import seedu.taskscheduler.model.task.Name;
+import seedu.taskscheduler.model.task.ReadOnlyTask;
+import seedu.taskscheduler.model.task.Task;
+import seedu.taskscheduler.model.task.TaskDateTime;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,15 +58,15 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>(); 
+        final List<Tag> taskTags = new ArrayList<>(); 
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final TaskDateTime phone = new TaskDateTime(this.phone);
-        final TaskDateTime email = new TaskDateTime(this.email);
+        final TaskDateTime startDateTime = new TaskDateTime(this.phone);
+        final TaskDateTime endDateTime = new TaskDateTime(this.email);
         final Location address = new Location(this.address);
-        final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, phone, email, address, tags);
+        final UniqueTagList tags = new UniqueTagList(taskTags);
+        return new Task(name, startDateTime, endDateTime, address, tags);
     }
 }

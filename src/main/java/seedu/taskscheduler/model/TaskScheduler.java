@@ -1,6 +1,7 @@
 package seedu.taskscheduler.model;
 
 import javafx.collections.ObservableList;
+
 import seedu.taskscheduler.model.tag.Tag;
 import seedu.taskscheduler.model.tag.UniqueTagList;
 import seedu.taskscheduler.model.tag.UniqueTagList.DuplicateTagException;
@@ -8,7 +9,14 @@ import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -82,6 +90,7 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
         tasks.add(p);
     }
     
+    //@@author A0148145E
     /**
      * Edits a task in the task scheduler
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
@@ -94,7 +103,8 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
         tasks.edit(oldTask, newTask);        
         syncTagsWithMasterList(newTask);
     }
-    
+
+    //@@author A0148145E
     /**
      * Marks a task in the task scheduler as completed
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
@@ -108,7 +118,8 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
         syncTagsWithMasterList((Task)task);
         tasks.mark(task);
     }
-    
+
+    //@@author A0148145E
     /**
      * Unmarks a task in the task scheduler as completed
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
@@ -123,19 +134,7 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
         tasks.unMark(task);
     }
     
-    /**
-     * Replace a task in the task scheduler with another task
-     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
-     *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
-     */
-    public void replaceTask(Task oldTask, Task newTask) 
-            throws UniqueTaskList.TaskNotFoundException {
-        syncTagsWithMasterList(newTask);
-        tasks.replace(oldTask, newTask);
-    }
-    
+    //@@author A0140007B
     /**
      * Insert a task into another task's position in the task scheduler
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
@@ -148,7 +147,8 @@ public class TaskScheduler implements ReadOnlyTaskScheduler {
         syncTagsWithMasterList(newTask);
         tasks.insert(index, newTask);
     }
-
+    //@@author
+    
     /**
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}

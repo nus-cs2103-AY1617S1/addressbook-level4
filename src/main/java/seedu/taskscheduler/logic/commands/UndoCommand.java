@@ -1,33 +1,35 @@
 package seedu.taskscheduler.logic.commands;
 
 import java.util.EmptyStackException;
+
+import seedu.taskscheduler.commons.core.Messages;
+
+//@@author A0140007B
+
 /**
- * Undo a previous task from the task scheduler.
+ * Undo a previous command in the task scheduler.
  */
 
 public class UndoCommand extends Command{
 	
 	public static final String COMMAND_WORD = "undo";
 
-	public static final String MESSAGE_SUCCESS = "Undid %s command: %s";
-
 	public static final String MESSAGE_FAILURE = "There is no previous command to undo!";
-   
+	
     @Override
 	public CommandResult execute() {
-    	
     	assert model != null;
-        
     	try {
             return CommandHistory.getExecutedCommand().revert();
-    	} catch (EmptyStackException ese) {
+    	} catch (EmptyStackException e) {
     	    return new CommandResult(MESSAGE_FAILURE);
     	}
 	}
 
     @Override
     public CommandResult revert() {
-        // TODO Auto-generated method stub
+        // This command not available for revert
+        assert false : Messages.MESSAGE_PROGRAM_ERROR;
         return null;
     }
 }

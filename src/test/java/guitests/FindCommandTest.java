@@ -7,6 +7,8 @@ import seedu.taskscheduler.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0138696L
+
 public class FindCommandTest extends TaskSchedulerGuiTest {
 
     @Test

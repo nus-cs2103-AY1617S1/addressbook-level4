@@ -4,9 +4,12 @@ import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
 
-import seedu.taskscheduler.commons.core.Config;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 
+//@@author A0140007B
+/**
+ * Keep track of commands and modifications to task scheduler.
+ */
 public class CommandHistory {
 	
 	private static Stack<String> prevCmd = new Stack<String>();
@@ -73,7 +76,7 @@ public class CommandHistory {
             throw new EmptyStackException();
     }
 	
-	public static void flushMutateCmd() {
+	public static void flushExecutedCommands() {
 		executedCommands.clear();
 	}
 	

@@ -8,6 +8,7 @@ import seedu.taskscheduler.model.tag.UniqueTagList.DuplicateTagException;
 
 import java.util.Objects;
 
+//@@author A0148145E
 /**
  * Represents a Task in the task scheduler.
  * Guarantees: details are present and not null, field values are validated.

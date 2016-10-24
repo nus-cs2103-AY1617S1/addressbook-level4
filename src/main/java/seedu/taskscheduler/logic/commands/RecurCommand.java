@@ -11,6 +11,11 @@ import seedu.taskscheduler.model.task.TaskArray;
 import seedu.taskscheduler.model.task.UniqueTaskList;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0148145E
+
+/**
+* Recurs a task in task scheduler.
+*/
 public class RecurCommand extends Command {
 
     public static final String COMMAND_WORD = "recur";
@@ -58,9 +63,6 @@ public class RecurCommand extends Command {
         
         try {
             DateGroup dg = new PrettyTimeParser().parseSyntax(args).get(0);
-//            System.out.println(dg.getRecursUntil());   
-//            System.out.println(new Date(dg.getRecurInterval()));  
-
             addRecurTasks(task, dg, taskList);
             model.addTask(taskList.getArray());
             CommandHistory.addExecutedCommand(this);

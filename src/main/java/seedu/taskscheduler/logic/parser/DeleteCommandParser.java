@@ -8,6 +8,11 @@ import seedu.taskscheduler.logic.commands.Command;
 import seedu.taskscheduler.logic.commands.DeleteCommand;
 import seedu.taskscheduler.logic.commands.IncorrectCommand;
 
+//@@author A0148145E
+
+/**
+* Parses delete command user input.
+*/
 public class DeleteCommandParser extends CommandParser {
 
 

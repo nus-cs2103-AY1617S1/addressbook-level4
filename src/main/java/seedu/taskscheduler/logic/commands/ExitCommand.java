@@ -20,7 +20,8 @@ public class ExitCommand extends Command {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
-
+    
+    //@@author A0148145E
     @Override
     public CommandResult revert() {
         // This command not available for revert

@@ -31,12 +31,15 @@ public abstract class Command {
      */
     public abstract CommandResult execute();
     
+
+    //@@author A0148145E
     /**
-     * Revert the executed command and returns the result message.
+     * Revert the previous executed command and returns the result message.
      *
      * @return feedback message of the operation result for display
      */
     public abstract CommandResult revert();
+    //@@author
     
     /**
      * Provides any needed dependencies to the command.

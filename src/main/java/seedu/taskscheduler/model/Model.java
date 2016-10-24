@@ -20,28 +20,32 @@ public interface Model {
     /** Returns the TaskScheduler */
     ReadOnlyTaskScheduler getTaskScheduler();
 
+    //@@author A0148145E
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask... targets) throws UniqueTaskList.TaskNotFoundException;
 
+    //@@author A0148145E
     /** Marks the given task. */
     void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateTagException;
-    
+
+    //@@author A0148145E
     /** Unmarks the given task. */
     void unMarkTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
-    
+
+    //@@author A0148145E
     /** Adds the given task */
     void addTask(Task... tasks) throws UniqueTaskList.DuplicateTaskException;
-
-    /** Replace the given oldTask with newTask */
-	void replaceTask(Task oldTask, Task newTask) throws TaskNotFoundException;
-	
-	/** Insert the newTask into oldTask's position */
+    
+    //@@author A0140007B
+	/** Insert the newTask into the given position */
 	void insertTask(int index, Task newTask) throws TaskNotFoundException;
 
+    //@@author A0148145E
     /** Edits the given task. 
      * @throws DuplicateTaskException */
     void editTask(ReadOnlyTask target, Task task) throws TaskNotFoundException, DuplicateTaskException;
-
+    //@@author
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 

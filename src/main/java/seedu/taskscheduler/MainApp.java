@@ -182,7 +182,8 @@ public class MainApp extends Application {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
     }
-
+    
+    //@@author A0138696L
     @Subscribe
     public void changeFilePathRequestEvent(FilePathChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -194,6 +195,7 @@ public class MainApp extends Application {
         }
         storage.setTaskSchedulerFilePath(event.toString());
     }
+    //@@author
     
     public static void main(String[] args) {
         launch(args);

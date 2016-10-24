@@ -1,12 +1,17 @@
 package seedu.taskscheduler.model.tag;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.taskscheduler.commons.exceptions.DuplicateDataException;
 import seedu.taskscheduler.commons.util.CollectionUtil;
 
-import java.rmi.NoSuchObjectException;
-import java.util.*;
 
 /**
  * A list of tags that enforces no nulls and uniqueness between its elements.

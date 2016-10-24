@@ -4,8 +4,9 @@ import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.commons.core.UnmodifiableObservableList;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
-import seedu.taskscheduler.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
+
+//@@author A0148145E
 
 /**
  * Deletes a task identified using it's last displayed index from the Task Scheduler.

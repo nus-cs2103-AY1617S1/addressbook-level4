@@ -12,13 +12,15 @@ import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.testutil.TestTask;
 import seedu.taskscheduler.testutil.TestUtil;
 
+//@@author A0140007B
+
 public class UndoCommandTest extends TaskSchedulerGuiTest {
 	
 	@Test
     public void undo() {
 
 		//clear mutate command history
-		CommandHistory.flushMutateCmd();
+		CommandHistory.flushExecutedCommands();
         TestTask[] currentList = td.getTypicalTasks();
         ReadOnlyTask task = td.hoon;
         String commandKey;

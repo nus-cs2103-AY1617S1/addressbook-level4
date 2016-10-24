@@ -5,6 +5,11 @@ import seedu.taskscheduler.model.task.DeadlineTask;
 import seedu.taskscheduler.model.task.Name;
 import seedu.taskscheduler.model.task.TaskDateTime;
 
+//@@author A0148145E
+
+/**
+ * Edits a deadline task in the task scheduler.
+ */
 public class EditDeadlineCommand extends EditCommand {
 
     /**

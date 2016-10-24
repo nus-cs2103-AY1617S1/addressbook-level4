@@ -7,6 +7,11 @@ import seedu.taskscheduler.model.task.ReadOnlyTask;
 import seedu.taskscheduler.model.task.Task;
 import seedu.taskscheduler.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0148145E
+
+/**
+ * Marks a task in task scheduler as completed.
+ */
 public class MarkCommand extends Command {
     
     public static final String COMMAND_WORD = "mark";

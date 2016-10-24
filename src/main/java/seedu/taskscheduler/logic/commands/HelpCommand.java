@@ -25,6 +25,7 @@ public class HelpCommand extends Command {
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
 
+    //@@author A0148145E
     @Override
     public CommandResult revert() {
         // This command not available for revert

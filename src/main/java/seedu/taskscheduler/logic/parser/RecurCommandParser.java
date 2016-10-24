@@ -8,6 +8,11 @@ import seedu.taskscheduler.logic.commands.Command;
 import seedu.taskscheduler.logic.commands.IncorrectCommand;
 import seedu.taskscheduler.logic.commands.RecurCommand;
 
+//@@author A0148145E
+
+/**
+* Parses recur command user input.
+*/
 public class RecurCommandParser extends CommandParser {
 
     @Override
