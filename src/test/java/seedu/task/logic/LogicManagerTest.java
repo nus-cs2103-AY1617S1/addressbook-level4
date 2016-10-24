@@ -153,29 +153,29 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandBehavior(
-                "add inval/id name", expectedMessage);
+                "add inval#id name", expectedMessage);
         assertCommandBehavior(
-                "add Invalid start time at 3/0.00am to 11.11pm by 10.00pm #tagged", expectedMessage);
+                "add Invalid start time, from 3/0.00am to 11.11pm by 10.00pm #tagged", expectedMessage);
         assertCommandBehavior(
-                "add Invalid end time at 10.00am to 11.7/1pm by 10.00pm #tagged", expectedMessage);
+                "add Invalid end time, from 10.00am to 11.7/1pm by 10.00pm #tagged", expectedMessage);
         assertCommandBehavior(
-                "add Invalid deadline at 10.00am to 11.11pm by 10/00pm #tagged", expectedMessage);
+                "add Invalid deadline, from 10.00am to 11.11pm by 10/00pm #tagged", expectedMessage);
         assertCommandBehavior(
-                "add Invalid tag at 10.00am to 11.11pm by 10.00pm /#tagged#", expectedMessage);
+                "add Invalid tag, from 10.00am to 11.11pm by 10.00pm /#tagged#", expectedMessage);
     }
 
     @Test
-    public void execute_add_invalidPersonData() throws Exception {
+    public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add Inval/id name at 10.00am to 11.11pm by 10.00pm", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add Inval/id name, from 10.00 to 11.11 by 10.00", Name.MESSAGE_NAME_CONSTRAINTS);
+        /*assertCommandBehavior(
+                "add Invalid start time, from 20.00 to 11.11 by 10.00", StartTime.MESSAGE_STARTTIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Invalid start time at 20.00am to 11.11pm by 10.00pm", StartTime.MESSAGE_STARTTIME_CONSTRAINTS);
+                "add Invalid end time, from 10.00 to 19.11 by 10.00", EndTime.MESSAGE_ENDTIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Invalid end time at 10.00am to 19.11pm by 10.00pm", EndTime.MESSAGE_ENDTIME_CONSTRAINTS);
+                "add Invalid deadline, from 10.00 to 11.11 by 1000", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);*/
         assertCommandBehavior(
-                "add Invalid deadline at 10.00am to 11.11pm by 1000pm", Deadline.MESSAGE_DEADLINE_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Invalid tag at 10.00am to 11.11pm by 10.00pm #invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Invalid tag, from 10.00am to 11.11pm by 10.00 #invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
     //@@author
@@ -394,9 +394,9 @@ public class LogicManagerTest {
       //@@author A0147944U-reused
         Task revise() throws Exception {
             Name name = new Name("Revise CS2103");
-            StartTime startTime = new StartTime("11.11pm");
-            EndTime endTime = new EndTime("12.22pm");
-            Deadline location = new Deadline("01.00pm");
+            StartTime startTime = new StartTime("2016-10-25");
+            EndTime endTime = new EndTime("2016-11-25 15:00");
+            Deadline location = new Deadline("2016-11-26 15:00");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -427,7 +427,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" from ").append(p.getStartTime());
+            cmd.append(", from ").append(p.getStartTime());
             cmd.append(" to ").append(p.getEndTime());
             cmd.append(" by ").append(p.getDeadline());
 

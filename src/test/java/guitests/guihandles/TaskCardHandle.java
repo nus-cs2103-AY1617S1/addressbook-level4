@@ -39,7 +39,7 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public String getDeadline() {
-        return getTextFromLabel(DEADLINE_FIELD_ID).replace(" by ", "");
+        return getTextFromLabel(DEADLINE_FIELD_ID).replace(" ends ", "");
     }
 
     public boolean isSameTask(ReadOnlyTask task){
