@@ -24,7 +24,6 @@ public class SetpathCommandParser extends CommandParser {
 
     @Override
     public Command prepareCommand(String args) {
-        args = args.trim();
         Matcher matcher = SETPATH_DATA_ARGS_FORMAT.matcher(args);
         // Validate arg string format
         if (matcher.matches()) {

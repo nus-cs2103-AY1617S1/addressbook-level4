@@ -27,8 +27,6 @@ public class AddCommandParser extends CommandParser {
      */
     public Command prepareCommand(String args) {
         try {
-            args = args.trim();
-            
             Matcher matcher = EVENT_DATA_ARGS_FORMAT.matcher(args);
             // Validate arg string format
             if (matcher.matches()) {

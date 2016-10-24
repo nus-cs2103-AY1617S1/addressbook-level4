@@ -29,7 +29,6 @@ public class EditCommandParser extends CommandParser{
     
     public Command prepareCommand(String args) {
         try {
-            args = args.trim();
             final Matcher matcher = INDEX_COMMAND_FORMAT.matcher(args);
     
             // Validate arg string format
