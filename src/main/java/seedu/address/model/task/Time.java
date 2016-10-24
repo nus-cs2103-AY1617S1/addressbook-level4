@@ -66,7 +66,7 @@ public class Time {
      * 
      * @return true if the time parameter is missing
      */
-    private boolean isMissing() {
+    public boolean isMissing() {
 		return time.getTime().toString().equalsIgnoreCase(DEFAULT_DATE);
 	}
     
@@ -150,6 +150,9 @@ public class Time {
 
 	}
 
+    public static boolean checkOrderOfTime(Time firstTime, Time secondTime) {
+        return firstTime.time.compareTo(secondTime.time) <= 0;
+    }
   
     
     /**

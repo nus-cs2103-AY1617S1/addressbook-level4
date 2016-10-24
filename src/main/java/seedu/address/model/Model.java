@@ -61,4 +61,7 @@ public interface Model {
     /** Clears all the done tasks in the list
      * @throws TaskNotFoundException */
     void clearDone() throws TaskNotFoundException;
+
+    void sortTasks();
+
 }
