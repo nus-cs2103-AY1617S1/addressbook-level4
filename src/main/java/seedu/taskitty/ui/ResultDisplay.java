@@ -14,10 +14,12 @@ import seedu.taskitty.commons.util.FxViewUtil;
  */
 public class ResultDisplay extends UiPart {
     public static final String RESULT_DISPLAY_ID = "resultDisplay";
+    //@@author A0130853L
     private static final String WELCOME_MESSAGE = "Welcome! Here is your agenda for today:";
     private static final String WELCOME_MESSAGE_WITH_OVERDUE_DEADLINES = "Welcome! You have overdue tasks.";
     private static boolean hasOverdue;
-
+    
+    //@@author
     private static final String FXML = "ResultDisplay.fxml";
 
     private AnchorPane placeHolder;
@@ -38,7 +40,7 @@ public class ResultDisplay extends UiPart {
         statusBar.configure();
         return statusBar;
     }
-
+    //@@author A0130853L
     public void configure() {
         if (!hasOverdue) {
         	postMessage(WELCOME_MESSAGE);
@@ -49,7 +51,8 @@ public class ResultDisplay extends UiPart {
         placeHolder.getChildren().add(mainPane);
         FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0, 0.0, 0.0);
     }
-
+    
+    //@@author
     @Override
     public void setNode(Node node) {
         mainPane = (AnchorPane) node;
@@ -76,7 +79,7 @@ public class ResultDisplay extends UiPart {
         descriptionLabel.setText(description);
     }
     
-    //@@author
+    //@@author A0130853L
     public void displayOverdueWelcomeMessage() {
     	postMessage(WELCOME_MESSAGE_WITH_OVERDUE_DEADLINES);
     }

@@ -48,9 +48,9 @@
             <Insets left="10.0" right="10.0" />
          </padding>
          <children>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" x="5.0">
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" x="5.0" AnchorPane.leftAnchor="2.0">
                <image>
-                  <Image url="@../images/meowth.png" />
+                  <Image url="@../images/specsCat.png" />
                </image>
             </ImageView>
          </children>
