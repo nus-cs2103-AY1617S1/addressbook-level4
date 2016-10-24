@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.beans.value.ChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -29,7 +30,13 @@ public class CommandBox extends UiPart {
     String previousCommandTest;
 
     private Logic logic;
-
+    
+    private boolean hasTextChangedForAutocomplete = true;
+    
+	private final ChangeListener<? super String> textChangedListener = (observable, newVal, oldVal) -> {
+		hasTextChangedForAutocomplete = true;
+	};
+	
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
@@ -40,6 +47,7 @@ public class CommandBox extends UiPart {
         commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
         commandBox.setKeyListener();
+        commandBox.setTextChangedListener();
         return commandBox;
     }
 
@@ -92,6 +100,8 @@ public class CommandBox extends UiPart {
     
     /*
      * Handles Up/Down keys to replace commandbox content with previous/next commands
+     * Handles Tab key by autocompleting command in the current box if it's a new command,
+     * or cycles through autocomplete suggestions if nothing else has changed except the TAB press
      */
     private EventHandler<KeyEvent> keyListener = new EventHandler<KeyEvent>() {
         @Override
@@ -105,17 +115,37 @@ public class CommandBox extends UiPart {
             	commandTextField.setText(nextCommand);
             	
             } else if(event.getCode() == KeyCode.TAB) {
-            	String currentCommand = commandTextField.getText();
-            	String autocompletedCommand = logic.getAutocompletedCommand(currentCommand);
+            	// If we've gotten a totally new value in the text box - set the autocomplete souce
+            	if (hasTextChangedForAutocomplete) {
+            		logic.setTextToAutocomplete(commandTextField.getText());
+            		hasTextChangedForAutocomplete = false;
+            	}
+            	
+            	// Temporarily disable the text changed listener so that we don't update hasTextChangedForAutocomplete
+            	removeTextChangedListener();
+            	
+            	// Get a new autocompleted command and update the commandTextField
+            	String autocompletedCommand = logic.getNextAutocompleteSuggestion();
             	commandTextField.setText(autocompletedCommand);
+            	
+            	// Add the listener back
+            	setTextChangedListener();
+            	
             } else {
             	return;
             }
             event.consume();
         }
     };
-
-
+    
+    private void setTextChangedListener() {
+		commandTextField.textProperty().addListener(textChangedListener);
+	}
+    
+    private void removeTextChangedListener() {
+    	commandTextField.textProperty().removeListener(textChangedListener);
+    }
+    
     /**
      * Sets the command box style to indicate a correct command.
      */

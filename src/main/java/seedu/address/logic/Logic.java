@@ -27,7 +27,10 @@ public interface Logic {
     /** Returns the next command in the command history */
     String getNextCommand();
     
-    /** Returns an autocompleted version of the current command */
-    String getAutocompletedCommand(String currentCommand);
+    /** Sets the text that should be used as the source for autocomplete suggestions */
+    void setTextToAutocomplete(String text);
+    
+    /** Uses the text set as the autcomplete source to return another autocomplete suggestion  */
+    String getNextAutocompleteSuggestion();
 
 }

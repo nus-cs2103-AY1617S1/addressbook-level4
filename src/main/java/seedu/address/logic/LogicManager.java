@@ -5,6 +5,9 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.autocomplete.AutocompleteEngine;
+import seedu.address.logic.autocomplete.AutocompleteResult;
+import seedu.address.logic.autocomplete.AutocompleteSource;
 import seedu.address.logic.commands.CommandHistory;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
@@ -24,12 +27,13 @@ public class LogicManager extends ComponentManager implements Logic {
     private final TaskCommandsParser parser;
     private final CommandHistory commandHistory;
     private final AutocompleteEngine autocompleteEngine;
+    private AutocompleteResult currentAutocompleteResult;
 
     public LogicManager(InMemoryTaskList model, TaskStorage storage) {
         this.model = model;
         this.parser = new TaskCommandsParser();
         this.commandHistory = new CommandHistory();
-        this.autocompleteEngine = new AutocompleteEngine();
+        this.autocompleteEngine = new AutocompleteEngine(AutocompleteSource.getCommands());
     }
 
     @Override
@@ -64,7 +68,17 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
 	@Override
-	public String getAutocompletedCommand(String currentCommand) {
-		return autocompleteEngine.autocomplete(currentCommand);
+	public void setTextToAutocomplete(String text) {
+		currentAutocompleteResult = autocompleteEngine.getQueryResult(text);		
 	}
+
+	@Override
+	public String getNextAutocompleteSuggestion() {
+		assert currentAutocompleteResult != null;
+		
+		return currentAutocompleteResult.getNextMatch();
+		
+	}
+
+
 }
