@@ -380,11 +380,12 @@ Priority | As a ... | I want to ... | So that I can...
 | [UC6](#uc6-delete-a-task) | Delete a task  | Remove a task entry by index. |
 | [UC7](#uc7-undo-action) | Undo Action  | Undo last action performed. |
 | [UC8](#uc8-redo-action) | Redo Action  | Redo an action performed in UC7. |
-| [UC9](#uc9-mark-task-as-done) | Mark Task as done  | Mark a task as done by index. A marked task should be automatically archived and exclude from display and search. |
-| [UC10](#uc10-repeat-command) | Repeat command  | Load the previous command as input  |
-| [UC11](#uc11-clear-everything) | Clears everything | System performs bulk delete on the data (Deadlines, events, tasks). |
-| [UC12](#uc12-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
-| [UC13](#uc13-exit-application) | Exit application  | Quit the application |
+| [UC9](#uc9-upcoming-task) | Show upcoming Tasks  | Display floating tasks and task that is due in a weeks time. |
+| [UC10](#uc10-mark-task-as-done) | Mark Task as done  | Mark a task as done by index. A marked task should be automatically archived and exclude from display and search. |
+| [UC11](#uc11-repeat-command) | Repeat command  | Load the previous command as input  |
+| [UC12](#uc12-clear-everything) | Clears everything | System performs bulk delete on the data (Deadlines, events, tasks). |
+| [UC13](#uc13-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
+| [UC14](#uc14-exit-application) | Exit application  | Quit the application |
 
 ---
 
@@ -691,7 +692,29 @@ Mark a task entry by index.
 
 ---
 
-### UC10: Repeat command
+### UC10: Upcoming Tasks
+
+Shows all floating tasks and tasks/events that are due in a weeks time.
+
+##### Main Success Scenario
+
+1. User requests to load upcoming command.
+
+2. System filter and display upcoming tasks.
+
+4. Use case ends.
+
+##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
+---
+
+### UC11: Repeat command
 
 Loads the previous input command into the text field.
 
@@ -711,7 +734,7 @@ Loads the previous input command into the text field.
 
 ---
 
-### UC11: Clear everything
+### UC12: Clear everything
 
 System performs bulk delete on the data (Deadlines, events, tasks).
 ##### Main Success Scenario
@@ -732,7 +755,7 @@ System performs bulk delete on the data (Deadlines, events, tasks).
 
 ---
 
-### UC12: Relocate storage location
+### UC13: Relocate storage location
 
 Change the current storage to other directory specified by the user.
 
@@ -772,7 +795,7 @@ Change the current storage to other directory specified by the user.
 
 ---
 
-### UC13: Exit application
+### UC14: Exit application
 
 Quit the application.
 

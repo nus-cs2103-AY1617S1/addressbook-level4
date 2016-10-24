@@ -280,6 +280,24 @@ _Example:_
 >
 > Upon executing a new command (except `undo` and `redo`), _Mastermind_ will forget any existing command remain in the `redo` history.
 
+### Show upcoming tasks : `upcoming`
+
+You have too many task to do and only want to know tasks that are going to be due. You can ask _Mastermind_ to list `upcoming` tasks!
+
+_Format:_
+```java
+upcoming
+```
+
+> It shows all floating tasks as well.
+
+_Examples:_
+```java
+// list all tasks that are due in a weeks time.
+> upcoming
+
+```
+
 ### Completing tasks : `mark`
 
 Mission accomplished! Now you can ask _Mastermind_ to `mark` a task as completed.
@@ -394,6 +412,7 @@ Edit | `edit <index>`
 Delete | `delete <index>`
 Undo | `undo`
 Redo | `redo`
+Upcoming | `upcoming`
 Mark | `mark <index>`
 Previous | <kbd>↑</kdb>
 Clear | `clear`
