@@ -6,9 +6,9 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ReadOnlyActivity;
-import seedu.address.model.activity.UniqueTaskList;
-import seedu.address.model.activity.UniqueTaskList.DuplicateTaskException;
-import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.activity.UniqueActivityList;
+import seedu.address.model.activity.UniqueActivityList.DuplicateTaskException;
+import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
 import seedu.address.model.activity.task.Task;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
@@ -73,7 +73,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Activity person) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Activity person) throws UniqueActivityList.DuplicateTaskException {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();

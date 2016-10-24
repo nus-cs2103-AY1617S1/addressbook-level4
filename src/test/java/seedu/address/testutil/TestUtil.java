@@ -21,7 +21,7 @@ import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
-import seedu.address.model.activity.UniqueTaskList;
+import seedu.address.model.activity.UniqueActivityList;
 import seedu.address.model.activity.event.ReadOnlyEvent;
 import seedu.address.model.activity.task.*;
 import seedu.address.model.tag.Tag;
@@ -141,7 +141,7 @@ public class TestUtil {
     }
 
     public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniqueTaskList(), new UniqueTagList());
+        return new AddressBook(new UniqueActivityList(), new UniqueTagList());
     }
 
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {

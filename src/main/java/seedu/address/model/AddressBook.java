@@ -5,9 +5,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.ActivityManager;
-import seedu.address.model.activity.UniqueTaskList;
-import seedu.address.model.activity.UniqueTaskList.DuplicateTaskException;
-import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.activity.UniqueActivityList;
+import seedu.address.model.activity.UniqueActivityList.DuplicateTaskException;
+import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
 import seedu.address.model.activity.task.Task;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -22,11 +22,11 @@ import java.util.stream.Collectors;
  */
 public class AddressBook implements ReadOnlyLifeKeeper {
 
-    private final UniqueTaskList tasks;
+    private final UniqueActivityList activities;
     private final UniqueTagList tags;
 
     {
-        tasks = new UniqueTaskList();
+        activities = new UniqueActivityList();
         tags = new UniqueTagList();
     }
 
@@ -42,7 +42,7 @@ public class AddressBook implements ReadOnlyLifeKeeper {
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(UniqueTaskList persons, UniqueTagList tags) {
+    public AddressBook(UniqueActivityList persons, UniqueTagList tags) {
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
@@ -53,11 +53,11 @@ public class AddressBook implements ReadOnlyLifeKeeper {
 //// list overwrite operations
 
     public ObservableList<Activity> getPersons() {
-        return tasks.getInternalList();
+        return activities.getInternalList();
     }
 
     public void setPersons(List<Activity> persons) {
-        this.tasks.getInternalList().setAll(persons);
+        this.activities.getInternalList().setAll(persons);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -80,11 +80,11 @@ public class AddressBook implements ReadOnlyLifeKeeper {
      * Also checks the new person's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the person to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent person already exists.
+     * @throws UniqueActivityList.DuplicateTaskException if an equivalent person already exists.
      */
-    public void addPerson(Activity p) throws UniqueTaskList.DuplicateTaskException {
+    public void addPerson(Activity p) throws UniqueActivityList.DuplicateTaskException {
         syncTagsWithMasterList(p);
-        tasks.add(p);
+        activities.add(p);
     }
 
     /**
@@ -110,30 +110,30 @@ public class AddressBook implements ReadOnlyLifeKeeper {
         person.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyActivity key) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.remove(key)) {
+    public boolean removePerson(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+        if (activities.remove(key)) {
             return true;
         } else {
-            throw new UniqueTaskList.TaskNotFoundException();
+            throw new UniqueActivityList.TaskNotFoundException();
         }
     }
     
     public Activity editTask(Activity task, Activity newParams, String type) throws TaskNotFoundException, DuplicateTaskException {
-            if (tasks.contains(task)) {
+            if (activities.contains(task)) {
                 Activity newTask = ActivityManager.editUnaffectedParams(task, newParams, type);
-                tasks.edit(task, newTask);
+                activities.edit(task, newTask);
                 
                 return newTask;
             } else {
-                throw new UniqueTaskList.TaskNotFoundException();
+                throw new UniqueActivityList.TaskNotFoundException();
             }
     }
 
 	public void markTask(Activity task, boolean isComplete) throws TaskNotFoundException {
-        if (tasks.contains(task)) {
-            tasks.mark(task, isComplete);
+        if (activities.contains(task)) {
+            activities.mark(task, isComplete);
         } else {
-            throw new UniqueTaskList.TaskNotFoundException();
+            throw new UniqueActivityList.TaskNotFoundException();
         }
 	}
     
@@ -147,13 +147,13 @@ public class AddressBook implements ReadOnlyLifeKeeper {
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return activities.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
     public List<ReadOnlyActivity> getPersonList() {
-        return Collections.unmodifiableList(tasks.getInternalList());
+        return Collections.unmodifiableList(activities.getInternalList());
     }
 
     @Override
@@ -162,8 +162,8 @@ public class AddressBook implements ReadOnlyLifeKeeper {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
-        return this.tasks;
+    public UniqueActivityList getUniquePersonList() {
+        return this.activities;
     }
 
     @Override
@@ -176,14 +176,14 @@ public class AddressBook implements ReadOnlyLifeKeeper {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && this.tasks.equals(((AddressBook) other).tasks)
+                && this.activities.equals(((AddressBook) other).activities)
                 && this.tags.equals(((AddressBook) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, tags);
+        return Objects.hash(activities, tags);
     }
 
 

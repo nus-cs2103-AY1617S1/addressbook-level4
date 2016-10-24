@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.activity.Activity;
-import seedu.address.model.activity.UniqueTaskList;
+import seedu.address.model.activity.UniqueActivityList;
 import seedu.address.model.activity.event.Event;
 import seedu.address.model.activity.task.*;
 
@@ -38,7 +38,9 @@ public class TypicalTestActivities {
     }
 
     public static void loadAddressBookWithSampleData(AddressBook ab) {
-
+    	
+    	//TO KEVIN:: THERE IS SOMETHING WRONG WITH THIS BLOCK OF CODE.
+    	/*
         try {
             ab.addPerson(new Activity(findAlice));
             ab.addPerson(new Task(findBenson));
@@ -46,10 +48,11 @@ public class TypicalTestActivities {
             ab.addPerson(new Task(findDaniel));
             ab.addPerson(new Event(findElle));
             ab.addPerson(new Event(findFiona));
-            ab.addPerson(new Event(findGeorge));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
+            ab.addPerson(new Event(findGeorge)); 
+        } catch (UniqueActivityList.DuplicateTaskException e) {
             assert false : "not possible";
-        }
+        }*/
+        
     }
 
     public TestActivity[] getTypicalPersons() {
