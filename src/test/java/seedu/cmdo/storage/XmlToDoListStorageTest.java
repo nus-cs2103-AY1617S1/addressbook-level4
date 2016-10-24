@@ -62,7 +62,7 @@ public class XmlToDoListStorageTest {
 
     @Test
     public void readAndSaveToDoList_allInOrder_success() throws Exception {
-        String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
+        String filePath = testFolder.getRoot().getPath() + "tempToDoList.xml";
         TypicalTestTasks td = new TypicalTestTasks();
         ToDoList original = td.getTypicalToDoList();
         XmlToDoListStorage xmlToDoListStorage = new XmlToDoListStorage(filePath);
@@ -74,7 +74,7 @@ public class XmlToDoListStorageTest {
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(TypicalTestTasks.car));
-        original.removeTask(new Task(TypicalTestTasks.dog));
+        original.removeTask(new Task(TypicalTestTasks.house));
         xmlToDoListStorage.saveToDoList(original, filePath);
         readBack = xmlToDoListStorage.readToDoList(filePath).get();
         assertEquals(original, new ToDoList(readBack));

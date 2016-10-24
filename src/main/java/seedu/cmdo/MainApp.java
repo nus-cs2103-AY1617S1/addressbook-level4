@@ -9,6 +9,7 @@ import seedu.cmdo.commons.core.EventsCenter;
 import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.core.Version;
 import seedu.cmdo.commons.events.ui.ExitAppRequestEvent;
+import seedu.cmdo.commons.events.ui.StorageFileChangedEvent;
 import seedu.cmdo.commons.exceptions.DataConversionException;
 import seedu.cmdo.commons.util.ConfigUtil;
 import seedu.cmdo.commons.util.StringUtil;
@@ -32,7 +33,7 @@ import java.util.logging.Logger;
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    public static final Version VERSION = new Version(1, 0, 0, true);
+    public static final Version VERSION = new Version(0, 0, 3, true);
 
     protected Ui ui  ;
     protected Logic logic;
@@ -50,13 +51,18 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
+                
         storage = new StorageManager(config.getToDoListFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
-
-        initLogging(config);
-
+                
         model = initModelManager(storage, userPrefs);
+        
+        logger.info("Init model success");
+        
+        syncUserPrefsToConfig();
+        
+        initLogging(config);
 
         logic = new LogicManager(model, storage);
 
@@ -64,6 +70,18 @@ public class MainApp extends Application {
         
         initEventsCenter();
     }
+	
+    /** 
+     * Read user defined settings, if any 
+     * @throws Exception
+     * 
+     * @@author A0139661Y
+     */
+	private void syncUserPrefsToConfig() throws Exception {
+        config.setToDoListFilePath(userPrefs.getStorageSettings().getFilePath());
+        storage.updateFilePathInUserPrefs(config.getToDoListFilePath());
+        storage.saveToDoList(model.getToDoList());
+	}
 
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();
@@ -85,6 +103,9 @@ public class MainApp extends Application {
         } catch (FileNotFoundException e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty ToDoList");
             initialData = new ToDoList();
+        } catch(Exception e) {
+        	logger.warning("Data file not found. Will be starting with an empty ToDoList");
+        	initialData = new ToDoList();
         }
 
         return new ModelManager(initialData, userPrefs);
@@ -144,7 +165,7 @@ public class MainApp extends Application {
             initializedPrefs = new UserPrefs();
         }
 
-        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        // Update prefs file in case it was missing to begin with or there are new/unused fields
         try {
             storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
@@ -176,11 +197,27 @@ public class MainApp extends Application {
         Platform.exit();
         System.exit(0);
     }
-
+    
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
+    }
+    
+    /**
+     * Handles an event where the storage file has been changed.
+     * @param event
+     * 
+     * @@author A0139661Y
+     */
+    @Subscribe
+    public void handleStorageFileChangedEvent(StorageFileChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        try {
+        	syncUserPrefsToConfig();
+        } catch (Exception e) {
+        	logger.severe("Failed to update config file.");
+        }
     }
 
     public static void main(String[] args) {

@@ -3,14 +3,18 @@ package seedu.cmdo.logic;
 import javafx.collections.ObservableList;
 import seedu.cmdo.commons.core.ComponentManager;
 import seedu.cmdo.commons.core.LogsCenter;
+import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.logic.commands.Command;
 import seedu.cmdo.logic.commands.CommandResult;
+import seedu.cmdo.logic.parser.Blocker;
 import seedu.cmdo.logic.parser.MainParser;
 import seedu.cmdo.model.Model;
 import seedu.cmdo.model.StatusSaver;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.storage.Storage;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -29,7 +33,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.statusSaver = new StatusSaver();
 
     }
-
+    
     @Override	
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -38,7 +42,11 @@ public class LogicManager extends ComponentManager implements Logic {
         command.setStatusSaver(statusSaver);
         return command.execute();
     }
-
+    
+    public UnmodifiableObservableList<ReadOnlyTask> getBlockedList() {
+    	return model.getBlockedList();
+    }
+    
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();

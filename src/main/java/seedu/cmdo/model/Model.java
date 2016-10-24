@@ -32,6 +32,10 @@ public interface Model {
     
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun);
     
+    UnmodifiableObservableList<ReadOnlyTask> getBlockedList();
+
+    void updateFilteredListToShowBlocked();
+    
     /** Updates the filter of the filtered task list to show all undone tasks by default **/
     void updateFilteredListToShowAll();
     
@@ -42,5 +46,7 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords, boolean taskStatus);
 
 	void editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException;
+
+	void changeStorageFilePath(String filePath);
 
 }

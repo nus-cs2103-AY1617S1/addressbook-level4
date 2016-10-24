@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+               <Label fx:id="id" alignment="BOTTOM_CENTER" styleClass="cell_big_label" text="\$index" HBox.hgrow="ALWAYS">
+         <HBox.margin>
+            <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         </HBox.margin>
+      </Label>
+               <Label fx:id="detail" styleClass="cell_big_label" text="\$task" HBox.hgrow="ALWAYS">
+         <HBox.margin>
+            <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+         </HBox.margin>
+      </Label>
+              <Label fx:id="tags" alignment="CENTER" styleClass="cell_small_label" text="\$tags" HBox.hgrow="ALWAYS">
+         <HBox.margin>
+            <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+         </HBox.margin>
+      </Label>
+      <Region HBox.hgrow="ALWAYS" />
+      <HBox>
+         <children>
+                  <Label fx:id="dbt" alignment="CENTER" styleClass="cell_small_label" text="\$duetime" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+               </HBox.margin></Label>
+                  <Label fx:id="dbd" alignment="CENTER" styleClass="cell_small_label" text="\$duedate" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+               </HBox.margin></Label>
+                  <Label fx:id="priority" alignment="CENTER" prefWidth="60.0" styleClass="cell_small_label" text="priority" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+               </HBox.margin></Label>
+         </children>
+      </HBox>
+    </children>
+</HBox>

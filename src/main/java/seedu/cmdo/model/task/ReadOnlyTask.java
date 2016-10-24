@@ -13,6 +13,8 @@ public interface ReadOnlyTask extends Cloneable {
     DueByDate getDueByDate();
     DueByTime getDueByTime();
     Priority getPriority();
+	boolean getBlock();
+	boolean isRange();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -27,11 +29,12 @@ public interface ReadOnlyTask extends Cloneable {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
            
-                && other.getDetail().equals(this.getDetail()) // state checks here onwards
-                && other.checkDone().equals(this.checkDone())
-                && other.getDueByDate().equals(this.getDueByDate())
-                && other.getDueByTime().equals(this.getDueByTime())
-                && other.getPriority().equals(this.getPriority()));
+                && other.getDetail().details.equals(this.getDetail().details) // state checks here onwards
+                && other.checkDone().value.equals(this.checkDone().value)
+                && other.getDueByDate().toString().equals(this.getDueByDate().toString())
+                && other.getDueByTime().toString().equals(this.getDueByTime().toString())
+                && other.getPriority().value.equals(this.getPriority().value)
+                && other.getBlock() == (this.getBlock()));
     }
 
 //    /**

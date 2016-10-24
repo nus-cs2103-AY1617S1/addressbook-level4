@@ -13,6 +13,6 @@ preferences.json
 ./screenshot*.png
 classes/
 /data/
-/bin/
 /target/
 target/
+/bin/data

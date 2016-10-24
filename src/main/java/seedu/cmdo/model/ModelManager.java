@@ -25,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final ToDoList toDoList;
     private final FilteredList<Task> filteredTasks;
+    private final UserPrefs userPrefs;
 
     /**
      * Initializes a ModelManager with the given ToDoList
@@ -39,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         toDoList = new ToDoList(src);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
+        this.userPrefs = userPrefs;
     }
 
     public ModelManager() {
@@ -48,6 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyToDoList initialData, UserPrefs userPrefs) {
         toDoList = new ToDoList(initialData);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
+        this.userPrefs = userPrefs;
     }
 
     @Override
@@ -100,6 +103,12 @@ public class ModelManager extends ComponentManager implements Model {
     	updateFilteredListToShowAll();
     	indicateToDoListChanged();
     }
+    
+    @Override
+    public void changeStorageFilePath(String filePath) {
+    	userPrefs.setStorageSettings(filePath);
+    	indicateToDoListChanged();
+    }
 
     //=========== Filtered Task List Accessors ===============================================================
     
@@ -114,6 +123,19 @@ public class ModelManager extends ComponentManager implements Model {
     	// This prevents even done tasks from showing up at first run.
     	updateFilteredListToShowAll(false);
     	return initList;
+    }
+    
+    @Override 
+    public UnmodifiableObservableList<ReadOnlyTask> getBlockedList() {
+    	UnmodifiableObservableList<ReadOnlyTask> initList = new UnmodifiableObservableList<>(filteredTasks);
+    	updateFilteredListToShowBlocked();
+    	return initList;
+    }
+    
+    //@@author A0139661Y
+    @Override
+    public void updateFilteredListToShowBlocked() {
+        updateFilteredListToShowAll(new PredicateExpression(new BlockQualifier()));
     }
     
     // By default a list with no done tasks where taskStatus is false
@@ -223,6 +245,16 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    
-
+    //@@author A0139661Y
+    private class BlockQualifier implements Qualifier {           
+        /*
+		 * Produces a list of blocks only.
+         * 
+         * @return boolean: true if match, false if not
+         */
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	return task.getBlock();
+        }
+    }
 }

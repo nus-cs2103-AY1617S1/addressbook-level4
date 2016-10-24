@@ -498,6 +498,21 @@ Use case ends.
 
 > Use case ends
 
+### Use case: Change storage location
+
+**MSS**
+
+1. User requests to to change file storage location
+2. CMDo requests the user to confirm the action
+3. CMDo changes the file storage location <br>
+> Use case ends.
+
+**Extensions**
+
+2a. User does not confirm the action
+
+> Use case ends
+
 ### Use case: Exit
 
 **MSS**

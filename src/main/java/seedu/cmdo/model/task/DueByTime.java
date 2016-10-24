@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 
@@ -68,19 +69,17 @@ public class DueByTime {
         	return start.toString();
     }
     
-    /*
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DueTime // instanceof handles nulls
-                && this.value.equals(((DueTime) other).value)); // state check
+                || (other instanceof DueByTime // instanceof handles nulls
+                && this.equals((DueByTime) other)); 
     }
-    */
 
-//    @Override
-//    public int hashCode() {
-//        return value.hashCode();
-//    }
+    @Override
+    public int hashCode() {
+    	return Objects.hash(start, end);
+    }
 
 	//@@author A0139661Y
     public boolean isRange() {
@@ -98,25 +97,25 @@ public class DueByTime {
 			return "";
 		}
     	if (!isRange) {
-    		return new StringBuilder(start.format(DateTimeFormatter.ofPattern("kkmm"))).toString();
+    		return new StringBuilder(start.format(DateTimeFormatter.ofPattern("HHmm"))).toString();
     	}
-		return new StringBuilder(start.format(DateTimeFormatter.ofPattern("kkmm")) 
+		return new StringBuilder(start.format(DateTimeFormatter.ofPattern("HHmm")) 
 				+ " - " 
-				+ end.format(DateTimeFormatter.ofPattern("kkmm")))
+				+ end.format(DateTimeFormatter.ofPattern("HHmm")))
 				.toString();
 	}
     
 	// @@author A0139661Y
 	public String getFriendlyStartString() {
-		if (start.equals(LocalTime.MAX)) {
+		if (!isRange)
 			return "";
-		} return start.format(DateTimeFormatter.ofPattern("kkmm")).toString(); 
+		return start.format(DateTimeFormatter.ofPattern("HHmm")).toString(); 
 	}
 	
 	// @@author A0139661Y
 	public String getFriendlyEndString() {
 		if (end.equals(LocalTime.MAX)) {
 			return "";
-		} else return end.format(DateTimeFormatter.ofPattern("kkmm")).toString();
+		} else return end.format(DateTimeFormatter.ofPattern("HHmm")).toString();
 	}
 }

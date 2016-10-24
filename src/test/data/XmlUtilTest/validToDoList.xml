@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<todolist>
+<cmdo>
     <tasks>
         <detail></detail>
         <done>false</done>
@@ -7,4 +7,4 @@
         <dueByTime>23:59:59.999999999</dueByTime>
         <priority>low</priority>
     </tasks>
-</todolist>
+</cmdo>

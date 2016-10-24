@@ -34,6 +34,8 @@ public class XmlAdaptedTask {
     private String dueByTime;
     @XmlElement(required = true)
     private String priority;
+    @XmlElement(required = true)
+    private String block;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -55,6 +57,7 @@ public class XmlAdaptedTask {
         dueByDate = source.getDueByDate().toString();
         dueByTime = source.getDueByTime().toString();
         priority = source.getPriority().value;
+        block = String.valueOf(source.getBlock());
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -92,8 +95,9 @@ public class XmlAdaptedTask {
         final Detail detail = new Detail(this.detail);
         final Done done = new Done(Boolean.parseBoolean(this.done));
         final Priority priority = new Priority(this.priority);
+        final boolean block = Boolean.parseBoolean(this.block);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(detail, done, dbd, dbt, priority, tags);
+        return new Task(detail, done, dbd, dbt, priority, block, tags);
     }
     
     private String[] tokenizeTo(String input) {

@@ -1,6 +1,7 @@
 package seedu.cmdo.logic;
 
 import javafx.collections.ObservableList;
+import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.logic.commands.CommandResult;
 import seedu.cmdo.model.task.ReadOnlyTask;
 
@@ -20,6 +21,8 @@ public interface Logic {
     
     /** Returns the first-run list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun);
+    
+    UnmodifiableObservableList<ReadOnlyTask> getBlockedList();
 
 
 }

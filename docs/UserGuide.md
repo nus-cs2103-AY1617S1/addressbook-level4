@@ -140,7 +140,14 @@ Format: `undo`
 
 #### Redo earlier action : `redo`
 Redo the earlier action.
-Format: `redo`  
+Format: `redo`
+
+#### Change the storage location : `storage`
+Change the storage location.
+Format: `storage file/path/cmdo.xml`
+
+> There is no need to explicitly write cmdo.xml
+> Filepath which does not start with '/' will imply that the user is working in the app home directory.
 
 #### Exiting the program : `exit`
 Exits the program.<br>

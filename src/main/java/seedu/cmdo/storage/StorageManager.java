@@ -42,7 +42,28 @@ public class StorageManager extends ComponentManager implements Storage {
     public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
         userPrefStorage.saveUserPrefs(userPrefs);
     }
-
+        
+    /**
+     * Updates the user prefs file with filePath change.
+     * 
+     * @param filePath
+     * @throws DataConversionException
+     * @throws IOException
+     *
+     * @@author A0139661Y
+     */
+    @Override
+    public void updateFilePathInUserPrefs(String filePath) throws DataConversionException, IOException {
+    	Optional<UserPrefs> prefsOptional = userPrefStorage.readUserPrefs();
+    	UserPrefs userPrefs = prefsOptional.orElse(new UserPrefs());
+    	userPrefs.setStorageSettings(filePath);
+    	userPrefStorage.saveUserPrefs(userPrefs);
+    	updateFilePathInXmlToDoListStorage(filePath);
+    }
+    
+    private void updateFilePathInXmlToDoListStorage(String filePath) {
+    	this.toDoListStorage.setToDoListFilePath(filePath);
+    }
 
     // ================ ToDoList methods ==============================
 
