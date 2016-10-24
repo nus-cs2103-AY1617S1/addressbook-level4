@@ -57,10 +57,11 @@ public class Parser {
     private static final Pattern ITEM_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[0-9]+)"); // single number of index delete\s+([0-9]+)
     private static final Pattern ITEM_INDEXES_ARGS_FORMAT = Pattern.compile("(?<targetIndexes>([0-9]+)\\s*([0-9]+\\s*)+)"); // variable number of indexes
 
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+    
+    //@@author A0140060A
     public static final String MESSAGE_DATETIME_PARSE_FAILURE = "Invalid datetime.";
     
-    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
     public static final Prefix namePrefix = new Prefix("n/");
     public static final Prefix startDatePrefix = new Prefix("sd/");
     public static final Prefix startTimePrefix = new Prefix("st/");
@@ -71,7 +72,11 @@ public class Parser {
     public static final Prefix tagsPrefix = new Prefix("#");
     public static final String removeTagPrefixString = "-";
     
-    //unused
+    private static final int PARSEDATETIME_ARRAY_DATE_INDEX = 0;
+    private static final int PARSEDATETIME_ARRAY_TIME_INDEX = 1;
+    
+    //@@author A0140060A-unused
+    //Used in earlier version, functionality replaced by ArgumentTokenizer
     private static final Pattern NAME_ARG_FORMAT = Pattern.compile("(n/(?<name>[^/#]+))");
     private static final Pattern START_DATE_ARG_FORMAT = Pattern.compile("(sd/(?<startDate>[^/#]+))");    
     private static final Pattern START_TIME_ARG_FORMAT = Pattern.compile("(st/(?<startTime>[^/#]+))");
@@ -80,9 +85,7 @@ public class Parser {
     private static final Pattern END_TIME_ARG_FORMAT = Pattern.compile("(et/(?<endTime>[^/#]+))");
     private static final Pattern END_DATETIME_ARG_FORMAT = Pattern.compile("edt/(?<endDateTime>[^/#]+)");
     
-    private static final int PARSEDATETIME_ARRAY_DATE_INDEX = 0;
-    private static final int PARSEDATETIME_ARRAY_TIME_INDEX = 1;
-    
+    //@@author
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(T|t)((A|a)(S|s)(K|k))?\\s*"
                     + "(n/)?(?<name>[^/#]+)"
@@ -373,11 +376,12 @@ public class Parser {
 		                      getTagsFromArgs(deadlineMatcher.group("tagArguments")));
 	}
 
+    //@@author A0140060A	
     /**
      * Parses arguments in the context of the edit item command.
      *
      * @param args full command args string
-     * @return the prepared command
+     * @return the prepared EditCommand
      */
     private Command prepareEdit(String args) {
         assert args != null;
@@ -403,6 +407,7 @@ public class Parser {
                 List<String> tagsToAdd = null;
                 List<String> tagsToRemove = null;
                 
+                //Capture argument values into their respective variables if available
                 try {
                     name = argsTokenizer.getValue(namePrefix).get();
                 } catch (NoSuchElementException nsee) {
@@ -459,18 +464,22 @@ public class Parser {
                 }
                 
                 try {
+                    
+                    //Handle case where user enters start date and time using natural language via sdt/
                     if (startDateTime != null) {
                         String[] startDateTimeArr = parseDateTime(startDateTime, ItemDate.DATE_FORMAT, ItemTime.TIME_FORMAT);
                         startDate = startDateTimeArr[PARSEDATETIME_ARRAY_DATE_INDEX];
                         startTime = startDateTimeArr[PARSEDATETIME_ARRAY_TIME_INDEX];
                     }
                     
+                    //Handle case where user enters end date and time using natural language via edt/
                     if (endDateTime != null) {
                         String[] endDateTimeArr = parseDateTime(endDateTime, ItemDate.DATE_FORMAT, ItemTime.TIME_FORMAT);
                         endDate = endDateTimeArr[PARSEDATETIME_ARRAY_DATE_INDEX];
                         endTime = endDateTimeArr[PARSEDATETIME_ARRAY_TIME_INDEX];
                     }
-
+                    
+                    //Ensure EditCommand is created with at least one non-null parameter other than targetIndex
                     if (name != null || startDate != null || startTime!= null || endDate != null 
                         || endTime != null || tagsToAdd != null || tagsToRemove != null) {
                         return new EditCommand(index.get(), name, startDate, startTime, endDate, endTime, tagsToAdd, tagsToRemove);
@@ -483,6 +492,8 @@ public class Parser {
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
+    //@@author
+    
     /**
      * Parses argument in the context of the saveAs specified file command.
      * @param arguments full argument args string
@@ -507,7 +518,7 @@ public class Parser {
     }
     
     
-    
+    //@@author A0140060A
     /**
      * @param tag
      * @return tag without tag removal prefix
@@ -558,7 +569,8 @@ public class Parser {
         }
     }
     
-    //unused
+    //@@author A0140060A-unused
+    //Used in earlier version, functionality replaced due to ArgumentTokenizer
     /**
      * Extracts argument from a string containing command arguments
      * @param argumentPattern the pattern used to extract the argument from commandArgs
@@ -595,7 +607,7 @@ public class Parser {
         }
         return argument;
     }
-    
+    //@@author
 
     /**
      * Extracts the new item's tags from the add command's tag arguments string.
