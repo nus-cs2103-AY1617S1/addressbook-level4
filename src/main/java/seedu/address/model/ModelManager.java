@@ -1,19 +1,21 @@
 package seedu.address.model;
 
+import java.util.Set;
+import java.util.Stack;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.core.ComponentManager;
-
-import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,6 +26,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskBook addressBook;
     private final FilteredList<Task> filteredEvents;
+    private final Stack<SaveState> undoStack;
+    private final Stack<SaveState> redoStack;
+    private Config config;
     private FilteredList<Task> filteredDeadlines;
     private FilteredList<Task> filteredTodos;
     //private FilteredList<Task> filteredCompleted;
@@ -32,7 +37,7 @@ public class ModelManager extends ComponentManager implements Model {
      * Initializes a ModelManager with the given AddressBook
      * AddressBook and its variables should not be null
      */
-    public ModelManager(TaskBook src, UserPrefs userPrefs) {
+    public ModelManager(TaskBook src, UserPrefs userPrefs, Config config) {
         super();
         assert src != null;
         assert userPrefs != null;
@@ -44,18 +49,52 @@ public class ModelManager extends ComponentManager implements Model {
         filteredDeadlines = new FilteredList<>(addressBook.getDeadlines());
         filteredTodos = new FilteredList<>(addressBook.getTodo());
         //filteredCompleted = new FilteredList<>(addressBook.getCompleted());
+        undoStack = new Stack<SaveState>();
+        redoStack = new Stack<SaveState>();
     }
 
     public ModelManager() {
-        this(new TaskBook(), new UserPrefs());
+        this(new TaskBook(), new UserPrefs(), new Config());
     }
 
-    public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs, Config config) {
         addressBook = new TaskBook(initialData);
         filteredEvents = new FilteredList<>(addressBook.getEvents());
         filteredDeadlines = new FilteredList<>(addressBook.getDeadlines());
         filteredTodos = new FilteredList<>(addressBook.getTodo());
         //filteredCompleted = new FilteredList<>(addressBook.getCompleted());
+        undoStack = new Stack<SaveState>();
+        redoStack = new Stack<SaveState>();
+        this.config = config;
+    }
+    
+    @Override
+    public void addToUndoStack() {
+        TaskBook taskBookToBeAdded = new TaskBook(addressBook);
+        Config configToBeAdded = new Config(config);
+        SaveState saveToBeAdded = new SaveState(taskBookToBeAdded, configToBeAdded);
+        
+        undoStack.push(saveToBeAdded);
+    }
+    
+    @Override
+    public Config getConfig() {
+        return config;
+    }
+    
+    @Override
+    public void setConfig(Config config) {
+        this.config = config;
+    }
+    
+    @Override 
+    public Stack<SaveState> getUndoStack() {
+        return this.undoStack;
+    }
+    
+    @Override
+    public Stack<SaveState> getRedoStack() {
+        return this.redoStack;
     }
 
     @Override
@@ -93,7 +132,6 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
-    
     
     public synchronized void markDone(ReadOnlyTask target) throws TaskNotFoundException {
         addressBook.completeTask(target);

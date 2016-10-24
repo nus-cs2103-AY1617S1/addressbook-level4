@@ -20,6 +20,14 @@ public class Config {
 
     public Config() {
     }
+    
+    public Config(Config config) {
+        this.appTitle = config.getAppTitle();
+        this.logLevel = config.getLogLevel();
+        this.userPrefsFilePath = config.getUserPrefsFilePath();
+        this.addressBookFilePath = config.getAddressBookFilePath();
+        this.addressBookName = config.getAddressBookName();
+    }
 
     public String getAppTitle() {
         return appTitle;

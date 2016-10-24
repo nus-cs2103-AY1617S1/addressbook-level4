@@ -109,6 +109,7 @@ public class EditCommand extends Command{
             ReadOnlyTask todoToEdit = lastShownTodoList.get(targetIndex - 1);
 
             try {
+                model.addToUndoStack();
                 model.editTask(todoToEdit, editArgs, category);
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();

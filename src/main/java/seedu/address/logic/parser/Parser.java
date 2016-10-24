@@ -101,6 +101,15 @@ public class Parser {
         case DoneCommand.COMMAND_WORD:
             return prepareComplete(arguments);
                     
+        case SpecifyStorageCommand.COMMAND_WORD:
+            return prepareSpecifyStorage(arguments);
+            
+        case UndoCommand.COMMAND_WORD:
+            return prepareUndo(arguments);
+            
+        case RedoCommand.COMMAND_WORD:
+            return prepareRedo(arguments);
+
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -115,7 +124,7 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-
+            
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -149,6 +158,35 @@ public class Parser {
         
         //uses Edit command to add tags
         return new EditCommand(pass, args, category);
+    }
+
+    /* @author Ronald
+     * @param number of times to undo, args
+     * @return the prepared command
+     */
+    private Command prepareUndo(String args) {
+        int numTimes = Integer.parseInt(args.trim());
+        return new UndoCommand(numTimes);
+    }
+    
+    /**
+     * @author Ronald
+     * @param number of times to redo, args
+     * @return the prepared command
+     */
+    private Command prepareRedo(String args) {
+        int numTimes = Integer.parseInt(args.trim());
+        return new RedoCommand(numTimes);
+    }
+    
+    /**
+     * @Ronald
+     * @param String data storage file path args
+     * @return the prepared SpecifyStorageCommand
+     */
+    private Command prepareSpecifyStorage(String args) {
+        args = args.trim().replace("\\", "/") + "/addressbook.xml";
+        return new SpecifyStorageCommand(args);
     }
 
     /**

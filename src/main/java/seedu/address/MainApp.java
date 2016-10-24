@@ -1,6 +1,15 @@
 package seedu.address;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -10,21 +19,20 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.*;
-import seedu.address.commons.util.ConfigUtil;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyTaskBook;
+import seedu.address.model.TaskBook;
+import seedu.address.model.UserPrefs;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.logging.Logger;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * The main entry point to the application.
@@ -50,14 +58,16 @@ public class MainApp extends Application {
 
         config = initConfig(getApplicationParameter("config"));
         storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
-
+        
+        System.out.println(storage.getAddressBookFilePath());
+        
         userPrefs = initPrefs(config);
 
         initLogging(config);
 
-        model = initModelManager(storage, userPrefs);
+        model = initModelManager(storage, userPrefs, config);
 
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model); //, storage, config);
 
         ui = new UiManager(logic, config, userPrefs);
 
@@ -69,7 +79,7 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, UserPrefs userPrefs, Config config) {
         Optional<ReadOnlyTaskBook> addressBookOptional;
         ReadOnlyTaskBook initialData;
         try {
@@ -86,7 +96,7 @@ public class MainApp extends Application {
             initialData = new TaskBook();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        return new ModelManager(initialData, userPrefs, config);
     }
 
     private void initLogging(Config config) {
@@ -97,6 +107,7 @@ public class MainApp extends Application {
         Config initializedConfig;
         String configFilePathUsed;
 
+        // Important line here
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
         if(configFilePath != null) {
@@ -122,6 +133,15 @@ public class MainApp extends Application {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
         return initializedConfig;
+    }
+    
+    protected String getTaskBookFilePath(String configFilePath) {
+        Config currentConfig;
+        String currentAddressBookFilePath;
+        
+        currentConfig = initConfig(configFilePath);
+        currentAddressBookFilePath = currentConfig.getAddressBookFilePath();
+        return currentAddressBookFilePath;
     }
 
     protected UserPrefs initPrefs(Config config) {
@@ -172,6 +192,25 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
+        
+        String sourceFile = storage.getAddressBookFilePath();
+        Path sourceFilePath = Paths.get(sourceFile);
+        
+        config = initConfig(getApplicationParameter("config"));
+        Path targetFilePath = Paths.get(config.getAddressBookFilePath());
+        
+        System.out.println(sourceFilePath.toString());
+        System.out.println(targetFilePath.toString());
+        
+        assert sourceFilePath != null;
+        assert targetFilePath != null;
+        
+        try {
+            Files.move(sourceFilePath, targetFilePath, REPLACE_EXISTING);
+        } catch (IOException e) {
+            System.out.println("This should never appear");
+        }
+        
         Platform.exit();
         System.exit(0);
     }

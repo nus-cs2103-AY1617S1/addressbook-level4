@@ -83,6 +83,40 @@ public class DeleteCommand extends Command {
                     return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
                 }
             }
+/*<<<<<<< HEAD
+=======
+           else if(Character.toUpperCase(targetIndexes.get(i).charAt(0))=='D'){
+               if (lastShownDeadlineList.size() < Character.getNumericValue(targetIndexes.get(i).charAt(1))) {
+                   indicateAttemptToExecuteIncorrectCommand();
+                   return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+               }
+
+               ReadOnlyTask taskToDelete = lastShownDeadlineList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
+
+               try {
+                   model.deleteTask(taskToDelete);
+               } catch (TaskNotFoundException pnfe) {
+                   assert false : "The target Deadline cannot be missing";
+               }
+           }
+            
+           else if(Character.toUpperCase(targetIndexes.get(i).charAt(0))=='T'){
+               if (lastShownTodoList.size() < Character.getNumericValue(targetIndexes.get(i).charAt(1))) {
+                   indicateAttemptToExecuteIncorrectCommand();
+                   return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+               }
+
+               ReadOnlyTask taskToDelete = lastShownTodoList.get(Character.getNumericValue(targetIndexes.get(i).charAt(1)) - 1);
+
+               try {
+                   model.addToUndoStack();
+                   model.deleteTask(taskToDelete);
+               } catch (TaskNotFoundException pnfe) {
+                   assert false : "The target Deadline cannot be missing";
+               }
+           }
+            
+>>>>>>> undo_redo */
         }
 
         if(targetIndexesD.size()>0){

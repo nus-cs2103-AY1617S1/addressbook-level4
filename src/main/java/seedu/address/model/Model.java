@@ -1,13 +1,15 @@
 package seedu.address.model;
 
+import java.util.Set;
+import java.util.Stack;
+
+import seedu.address.commons.core.Config;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-
-import java.util.Set;
 
 /**
  * The API of the Model component.
@@ -50,4 +52,25 @@ public interface Model {
      */
     void markDone(ReadOnlyTask target) throws TaskNotFoundException;
 
+     /* Returns the undo and redo stacks
+     * @return
+     */
+    Stack<SaveState> getUndoStack();
+    
+    Stack<SaveState> getRedoStack();
+    
+    /**
+     * Add to undo stack
+     */
+    void addToUndoStack();
+    
+    /**
+     * Returns the config object 
+     */
+    Config getConfig();
+    
+    /**
+     * Sets the config object
+     */
+    void setConfig(Config config);
 }
