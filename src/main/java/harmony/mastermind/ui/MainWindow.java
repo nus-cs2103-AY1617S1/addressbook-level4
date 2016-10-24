@@ -209,6 +209,11 @@ public class MainWindow extends UiPart {
         return FXML;
     }
 
+    //@@author A0139194X
+    public Node getNode() {
+        return rootLayout;
+    }
+    
     //@@author A0138862W
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
