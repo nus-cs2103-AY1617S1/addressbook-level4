@@ -25,8 +25,8 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         TestTask taskToAdd = td.todo;
         testTaskListStack.push(addTask(taskToAdd, testTaskListStack.peek()));
         
-        int targetIndex = testTaskListStack.peek().size("") / 2;
-        testTaskListStack.push(deleteTask(testTaskListStack.peek().size("") / 2, testTaskListStack.peek()));
+        int targetIndex = testTaskListStack.peek().size() / 2;
+        testTaskListStack.push(deleteTask(testTaskListStack.peek().size() / 2, testTaskListStack.peek()));
         
         commandBox.runCommand("clear");
         assertUndoSuccess(testTaskListStack.pop(), "clear");
@@ -37,11 +37,11 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         testTaskListStack.push(previous);
         
         TestTask taskToEdit = td.event;
-        testTaskListStack.push(editTask(1, taskToEdit, "t", testTaskListStack.peek()));
+        testTaskListStack.push(editTask(1, taskToEdit, 't', testTaskListStack.peek()));
         commandBox.runCommand("find xmas");        
                            
         assertUndoSuccess(testTaskListStack.pop(), "find xmas");
-        assertUndoUsingAcceleratorSuccess(testTaskListStack.pop(), taskToEdit.getEditCommand(1, "t"));
+        assertUndoUsingAcceleratorSuccess(testTaskListStack.pop(), taskToEdit.getEditCommand(1, 't'));
         assertUndoSuccess(testTaskListStack.pop(), taskToAdd.getAddCommand());
         assertNoMoreUndos();        
     }
@@ -59,7 +59,7 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         return resultList;
     }
     
-    private TestTaskList editTask(int index, TestTask taskToEdit, String category, TestTaskList list) {
+    private TestTaskList editTask(int index, TestTask taskToEdit, char category, TestTaskList list) {
         TestTaskList resultList = list.copy();        
         commandBox.runCommand(taskToEdit.getEditCommand(index, category));
         resultList.editTaskFromList(index - 1, category, taskToEdit);
@@ -69,7 +69,7 @@ public class UndoCommandTest extends TaskManagerGuiTest {
     private TestTaskList deleteTask(int targetIndex, TestTaskList list) {
         TestTaskList resultList = list.copy();
         commandBox.runCommand("delete " + targetIndex);
-        resultList.removeTaskFromList(targetIndex - 1, "");
+        resultList.removeTaskFromList(targetIndex - 1);
         return resultList;
     }
     

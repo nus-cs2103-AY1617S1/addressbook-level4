@@ -154,13 +154,18 @@ public class UniqueTaskList implements Iterable<Task> {
     public FilteredList<Task> getFilteredTaskList(int filter) {
         return internalList.filtered(p -> p.getPeriod().getNumArgs() == filter);
     }
-
+    
     //@@author
     @Override
     public Iterator<Task> iterator() {
         return internalList.iterator();
     }
-
+    
+    //@@author A0130853L
+    public FilteredList<Task> getFilteredTaskList() {
+        return internalList.filtered(null);
+    }
+    //@@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

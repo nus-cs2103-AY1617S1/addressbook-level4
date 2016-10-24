@@ -29,9 +29,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     
     
     public static final String CATEGORY_CHARS = "t|d|e";
-    public static final String TODO_CATEGORY_CHAR = "t";
-    public static final String DEADLINE_CATEGORY_CHAR = "d";
-    public static final String EVENT_CATEGORY_CHAR = "e";
+    public static final char TODO_CATEGORY_CHAR = 't';
+    public static final char DEADLINE_CATEGORY_CHAR = 'd';
+    public static final char EVENT_CATEGORY_CHAR = 'e';
     public static final String[] CATEGORIES = {"Todo", "Deadline", "Event"};
 
     public static final int DEFAULT_CATEGORY_INDEX = 0;
@@ -87,6 +87,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         tags.setTags(replacement);
     }
     
+    //@@author A0130853L
     /** 
      * Marks task as done.
      */
@@ -105,6 +106,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     		this.isOverdue = true;
     	}
     }
+    
+    //@@author A0130853L
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -124,13 +127,13 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
 
 	@Override
-	public boolean getIsDone() {
-		return isDone;
-	}
-	
-	@Override
 	public TaskPeriod getPeriod() {
 	    return period;
+	}
+	//@@author A0130853L
+	@Override
+	public boolean getIsDone() {
+		return isDone;
 	}
 	
 	@Override
@@ -172,10 +175,5 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	    }
         
     }
-
-	public static void setNumOverdues(int numOverdue) {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

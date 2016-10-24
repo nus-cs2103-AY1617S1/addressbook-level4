@@ -24,7 +24,17 @@ public class TaskCardHandle extends GuiHandle {
     protected String getTextFromLabel(String fieldId) {
         return getTextFromLabel(fieldId, node);
     }
-
+    //@@author A0130853L
+    // get the CSS in line style of the specified label, returned as a string
+    protected String getStyleFromLabel(String fieldId) {
+    	return getStyleFromLabel(fieldId, node);
+    }
+    
+    // get the CSS in line style of the name of the task card as a helper method for checking if its marked as done.
+    public String getStyle() {
+    	return getStyleFromLabel(NAME_FIELD_ID);
+    }
+    //@@author
     public String getFullName() {
         return getTextFromLabel(NAME_FIELD_ID);
     }
