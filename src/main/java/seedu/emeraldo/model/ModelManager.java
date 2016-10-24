@@ -20,7 +20,6 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
 
-import javax.swing.text.html.HTML.Tag;
 import java.util.Stack;
 
 /**
