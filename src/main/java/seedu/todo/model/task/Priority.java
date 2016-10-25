@@ -8,8 +8,8 @@ import seedu.todo.commons.exceptions.IllegalValueException;
  */
 public class Priority {
 
-    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority should be high, mid or low";
-    public static final String PRIORITY_VALIDATION_REGEX = "(high|mid|low)";
+    public static final String PRIORITY_CONSTRAINT = "Task priority should be high, mid or low";
+    public static final String PRIORITY_REGEX = "(high|mid|low)";
     public static final String DEFAULT_PRIORITY = "low";
     public static final String LOW = "low";
     public static final String MID = "mid";
@@ -26,7 +26,7 @@ public class Priority {
         assert priority != null;
         String tempPriority = priority.trim();
         if (!isValidpriority(tempPriority)) {
-            throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
+            throw new IllegalValueException(PRIORITY_CONSTRAINT);
         }
         this.priorityLevel = tempPriority;
     }
@@ -35,7 +35,7 @@ public class Priority {
      * Returns true if a given string is a valid person priority.
      */
     public static boolean isValidpriority(String test) {
-        return test.matches(PRIORITY_VALIDATION_REGEX);
+        return test.matches(PRIORITY_REGEX);
     }
 
 
