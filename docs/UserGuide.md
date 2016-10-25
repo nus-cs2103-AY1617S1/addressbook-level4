@@ -52,21 +52,59 @@ Format: `help`
 
 
 <br>
-#### View all tasks: `view`
-Lists all tasks for the specified date and deadlines up to the specified date.<br>
-Format: `view [DATE]`
+#### View upcoming tasks: `view`
+Lists all upcoming and uncompleted tasks.<br>
+Format: `view`
 
-All tasks for the specified date and deadlines up to the specified date will be displayed. If no date is specified, all tasks for today and all deadlines will be displayed.
+All uncompleted todo tasks, upcoming events and deadlines will be displayed.
+> Note that overdue tasks will be displayed in red.
 
-Examples:
+Example:
 
 * `view`
   <img src="images/UIview.png" width="600">
+  
+<br>
+#### View all tasks for a specified date: `view DATE`
+Lists all events for the specified date, deadlines up to the specified date, and all todo tasks.<br>
+Format: `view DATE`
 
-* `view 16 Oct 2016`
+All todo tasks, events for the specified date and deadlines up to the specified date will be displayed.<br>
+If `view today` is entered, today's tasks, events and deadlines up to today will be displayed.
+
+Example:
+
+* `view 17 Nov`
   <img src="images/UIviewDate.png" width="600">
+ 
+<br>
 
-<br>  
+#### View all tasks: `view all`
+Lists all todo tasks, deadlines and events ever added.
+Format: `view all`
+
+All todo tasks, deadlines and events ever added will be displayed, including events that have passed and done tasks.
+
+Example:
+
+* `view all`
+  <img src="images/UIviewAll.png" width="600">
+  
+<br>
+
+#### View all completed tasks: `view done`
+Lists all completed tasks, deadlines and events.
+Format: `view done`
+
+All completed todo tasks, deadlines and events will be shown.
+
+Example:
+
+* `view done`
+  <<img src="images/UIviewDone.png" width="600">
+  
+<br>
+
 #### Create a new task: `add`
 Adds a new task to the todo or deadlines list, or a new event to the event calendar.<br>
 * Todo format: `add NAME`<br>
@@ -94,18 +132,14 @@ Examples:
   Adds a `todo` task with NAME as `study for test`.
   <img src="images/UItodo.png" width="600">
 
-* `add assignment 4 17 Oct 2016 2pm`<br>
-  Adds a `deadline` task with NAME as `assignment 4`, DATE as `17 Oct 2016`, END_TIME as `2pm`.
+* `add assignment 4 17 Nov 2pm`<br>
+  Adds a `deadline` task with NAME as `assignment 4`, DATE as `17 Nov 2016`, END_TIME as `2pm`.
   <img src="images/UIdeadline.png" width="600">
 
-* `add walk dog 5 Oct 2016 17:00 to 18:00`<br>
+* `add walk dog 5 Nov 2016 17:00 to 18:00`<br>
   Adds an `event` task with NAME as `walk dog`, DATE as `5 Oct 2016`, START\_TIME as `17:00`, END\_TIME as `18:00`.
   <img src="images/UIevent.png" width="600">
 
-* `add bring dog to vet 8 Oct 2016 17:00 to 18:00`<br>
-  Adds an `event` task with NAME as `bring dog to vet`, DATE as `8 Oct 2016`, START\_TIME as `17:00`, END\_TIME as `18:00`.
-  > Note that this event is set in the future, so please enter `view 8 Oct 2016` to view the timetable for the added event.<br>
-  <img src="images/UIeventFuture.png" width="600">
 
 <br>
 #### Find tasks: `find`
@@ -122,30 +156,24 @@ Example:
 <br>
 #### Edit task details: `edit`
 Edits a todo, deadline or event already inside the task manager using the index of the task.<br>
-* Edit todo format: `edit t INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
-* Edit deadline format: `edit d INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
-* Edit event format: `edit e INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
+* Format: `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 
-> Edits a task at the specified `INDEX` under the todos `t`, deadlines `d` or events `e` section. The `INDEX` refers to the index number shown in the most recent listing.<br><br>
+> Edits a task at the specified `INDEX` under the todos `t`, deadlines `d` or events `e` section. The `INDEX` refers to the category and index number shown in the most recent listing. eg. `t1` `d2` `e3` <br>
+ If no or an invalid category was listed, the app will default to todo format `t`. eg. `1` and `+1` becomes `t1` <br><br>
 > Format depends on the type of task being edited. When only 1 `TIME` is provided, it is treated as `END_TIME` for both deadline and event.<br><br>
-> Note that you are required to enter the `view` command before the `edit` command, in order to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the [`find`](#find-tasks-find) command to narrow down the displayed list of tasks and events.
+> Note that you can enter the `view` command before the `edit` command, to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the [`find`](#find-tasks-find) command to narrow down the displayed list of tasks and events.
 
-Examples:
+Example:
 
 * `view`<br>
-  `edit d1 assignment 2 15 Oct 2016`<br>
-  Edits the 1st task under the todo tasks section. Change the NAME to `assignment 2` and DATE to `15 Oct 2016`.<br>
+  `edit d1 assignment 2 15 Nov 2016`<br>
+  Edits the 1st task under the deadline tasks section. Change the NAME to `assignment 2` and DATE to `15 Nov 2016`.<br>
   <img src="images/UIedit.png" width="600">
-
-* `edit e2 22:00 00:00`<br>
-  Edits the 2nd task under the events section. Change the START_TIME to `22:00` and END_TIME to `00:00`.<br>
 
 <br>
 #### Delete task: `delete`
 Deletes a todo, deadline or event already inside the task manager using the index of the task.<br>
-* Delete todo format: `delete t INDEX`
-* Delete deadline format: `delete d INDEX`
-* Delete event format: `delete e INDEX`
+* Format: `delete INDEX`
 
 Examples:
 
@@ -159,9 +187,9 @@ Examples:
   After:<br>
   <img src="images/UIdeleteAfter.png" width="600"><br>
   
-* `view 5 Oct 2016`<br>
-  `delete e3`<br>
-  Deletes the 3rd task under the events section for 5 Oct 2016 as shown by the `view` command.<br>
+* `view 5 Nov 2016`<br>
+  `delete e1`<br>
+  Deletes the 1st task under the events section for 5 Nov 2016 as shown by the `view DATE` command.<br>
   
   Before:<br>
   <img src="images/UIdeleteBeforeDate.png" width="600"><br>
@@ -172,17 +200,17 @@ Examples:
 <br>
 #### Mark task as done: `done`
 Marks a task in the task list as done.<br>
-* Todo done format: `done t INDEX`
-* Deadline done format: `done d INDEX`
-* Event done format: `done e INDEX`
+* Todo done format: `done INDEX`
+* Deadline done format: `done INDEX`
+* Event done format: `done INDEX`
 
 Tasks that are marked as done are moved to the bottom of the list in their respective sections.<br><br>
 
 Example:
 
-* `view`<br>
+* `view all`<br>
   `done t1`<br>
-  Marks the 1st task today under the todo section shown by the `view` command as completed.<br>
+  Marks the 1st task today under the todo section shown by the `view all` command as completed.<br>
   
   Before:<br>
   <img src="images/UIdoneBefore.png" width="600"><br>
@@ -255,7 +283,9 @@ Command | Format
 Add todo | `add NAME`
 Add deadline | `add NAME DATE END_TIME`
 Add event | `add NAME DATE START_TIME END_TIME`
-View | `view [DATE]`
+View upcoming | `view`
+View all | `view all`
+View date | `view DATE`
 View done | `view done`
 Find | `find KEYWORDS`
 Edit todo | `edit t INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
