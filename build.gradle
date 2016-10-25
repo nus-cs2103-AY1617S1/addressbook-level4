@@ -102,7 +102,7 @@ allprojects {
     }
     
     shadowJar {
-        archiveName = "addressbook.jar"
+        archiveName = "taskmaster.jar"
 
         manifest {
             attributes "Main-Class": "seedu.address.MainApp"

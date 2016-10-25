@@ -97,20 +97,20 @@ Format: `edit TASK_ID [NEW_TASK_NAME] [from DATE_TIME to DATE_TIME | by DATE_TIM
 > Every field in edit is optional. After you specify the task that you are going to edit,
 > you are able to change its name, date time and tag.
 > For editing date time of a task, you have the following restrictions:
-> 1. You cannot change a non-floating task to a floating task
+> 1. You cannot change a non-floating task to a floating task.
 > 2. You cannot directly change recurring type of a task (need to specify time first).
 
 Examples: 
-* `edit 1 cs2103 webcast`
+* `edit 1 cs2103 webcast`<br>
 	<img src="images/before_edit.png" width="600">
 	<img src="images/edit_command_1.png" width="600">
-* `edit 1 t/study`
+* `edit 1 t/study`<br>
 	<img src="images/edit_command_2.png" width="600">
-* `edit 1 from today 4pm to today 5pm`
+* `edit 1 from today 4pm to today 5pm`<br>
 	<img src="images/edit_command_3.png" width="600">
-* `edit 2 by today 7pm`
+* `edit 2 by today 7pm`<br>
 	<img src="images/edit_command_4.png" width="600">
-* `edit 1 from today 4pm to today 5pm daily`
+* `edit 1 from today 4pm to today 5pm daily`<br>
 	<img src="images/edit_command_5.png" width="600">
 
 #### Delete tasks : `delete`
