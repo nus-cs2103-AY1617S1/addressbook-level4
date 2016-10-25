@@ -318,6 +318,9 @@ public class MainWindow extends UiPart {
     // ==================================
 
     //@@author A0124797R
+    /**
+     * update the number of task in each tab in the tab title
+     */
     private void updateTabTitle() {
         tabLst.get(INDEX_HOME).setText(NAME_TABS[INDEX_HOME] + "(" 
                 + logic.getFilteredTaskList().size() + ")");
@@ -746,8 +749,10 @@ public class MainWindow extends UiPart {
         KeyCode key = event.getCode();
         switch (key) {
             case UP:    restorePrevCommandText();
+            System.out.println("up");
                         return;
             case DOWN:  restoreNextCommandText();
+            System.out.println("down");
                         return;
             case ENTER: learnWord(commandField.getText());
                         return;
@@ -825,6 +830,7 @@ public class MainWindow extends UiPart {
     }
     
     //@@author A0124797R
+    //updates the tab if list/upcoming command is used
     /**
      * handle the switching of tabs
      */
@@ -870,11 +876,11 @@ public class MainWindow extends UiPart {
     private String getNextCommandHistory() {
         if (commandHistory.empty()) {
             return null;
-        }else if (commandIndex >= commandHistory.size()) {
+        }else if (commandIndex >= commandHistory.size()-1) {
             return null;
         }else {
             commandIndex++;
-            return commandHistory.get(commandIndex-1);
+            return commandHistory.get(commandIndex);
         }
     }
     
@@ -906,17 +912,29 @@ public class MainWindow extends UiPart {
     private void restorePrevCommandText() {
         String prevCommand = getPrevCommandHistory();
         if (prevCommand!=null) {
-            commandField.setText(prevCommand);
+            //need to wrap in runLater due to concurrency threading in JavaFX
+            Platform.runLater(new Runnable() {
+                public void run() {
+                    commandField.setText(prevCommand);
+                    commandField.positionCaret(prevCommand.length());
+                }
+            });
         }//else ignore
     }
     
     //@@author A0124797R
     private void restoreNextCommandText() {
         String nextCommand = getNextCommandHistory();
-        if (nextCommand!=null) {
-            commandField.setText(nextCommand);
-        }else {
-            commandField.setText("");
-        }
+        //need to wrap in runLater due to concurrency threading in JavaFX
+        Platform.runLater(new Runnable() {
+            public void run() {
+                if (nextCommand!=null) {
+                    commandField.setText(nextCommand);
+                    commandField.positionCaret(nextCommand.length());
+                }else {
+                    commandField.setText("");
+                }
+            }
+        });
     }
 }
