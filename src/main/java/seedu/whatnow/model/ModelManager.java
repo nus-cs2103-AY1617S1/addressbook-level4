@@ -35,27 +35,21 @@ public class ModelManager extends ComponentManager implements Model {
 	private static final String TASK_STATUS_INCOMPLETE = "incomplete";
 
 	private final WhatNow whatNow;
-	private final FilteredList<Task> filteredTasks;
-	private final FilteredList<Task> filteredSchedules;
-	private final FilteredList<Task> backUpFilteredTasks;
-	private final FilteredList<Task> backUpFilteredSchedules;
-	private final Stack<Command> stackOfUndo;
-	private final Stack<Command> stackOfRedo;
-	private final Stack<ReadOnlyTask> stackOfOldTask;
-	private final Stack<ReadOnlyTask> stackOfNewTask;
-	private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
-	private final Stack<ReadOnlyTask> stackOfDeletedTasks;
-	private final Stack<ReadOnlyTask> stackOfDeletedTasksRedo;
-	private final Stack<ReadOnlyTask> stackOfDeletedTasksAdd;
-	private final Stack<ReadOnlyTask> stackOfDeletedTasksAddRedo;
-	private final Stack<String> stackOfDeletedTaskTypes;
-	private final Stack<ReadOnlyTask> stackOfMarkDone;
-	private final Stack<String> stackOfMarkDoneTaskTypes;
-	private final Stack<ReadOnlyWhatNow> stackOfWhatNowUndoUpdate;
-	private final Stack<ReadOnlyWhatNow> stackOfWhatNowRedoUpdate;
-	private final Stack<String> stackOfListTypes;
-	private final Stack<String> stackOfListTypesRedo;
-	// private final Stack<ReadyOnlyTask> stackOf
+	private final FilteredList<Task> filteredTasks; //
+	private final FilteredList<Task> filteredSchedules; //
+	private final Stack<Command> stackOfUndo; //
+	private final Stack<Command> stackOfRedo; //
+	private final Stack<ReadOnlyTask> stackOfOldTask; //
+	private final Stack<ReadOnlyTask> stackOfNewTask; //
+	private final Stack<ReadOnlyWhatNow> stackOfWhatNow; //
+	private final Stack<ReadOnlyTask> stackOfDeletedTasks; //
+	private final Stack<ReadOnlyTask> stackOfDeletedTasksRedo; //
+	private final Stack<ReadOnlyTask> stackOfDeletedTasksAdd; //
+	private final Stack<ReadOnlyTask> stackOfDeletedTasksAddRedo; //
+	private final Stack<ReadOnlyTask> stackOfMarkDone; //
+	private final Stack<String> stackOfMarkDoneTaskTypes; //
+	private final Stack<String> stackOfListTypes;	//
+	private final Stack<String> stackOfListTypesRedo;	//
 	/**
 	 * Initializes a ModelManager with the given WhatNow
 	 * WhatNow and its variables should not be null
@@ -72,20 +66,15 @@ public class ModelManager extends ComponentManager implements Model {
 		filteredSchedules = new FilteredList<>(whatNow.getTasks());
 		stackOfUndo = new Stack<>();
 		stackOfRedo = new Stack<>();
-		backUpFilteredTasks = new FilteredList<>(whatNow.getTasks());
-		backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
 		stackOfOldTask = new Stack<>();
 		stackOfNewTask = new Stack<>();
 		stackOfWhatNow = new Stack<>();
 		stackOfDeletedTasks = new Stack<>();
-		stackOfDeletedTaskTypes = new Stack<>();
 		stackOfDeletedTasksRedo = new Stack<>();
 		stackOfDeletedTasksAdd = new Stack<>();
 		stackOfDeletedTasksAddRedo = new Stack<>();
 		stackOfMarkDone= new Stack<>();
 		stackOfMarkDoneTaskTypes = new Stack<>();
-		stackOfWhatNowUndoUpdate = new Stack<>();
-		stackOfWhatNowRedoUpdate = new Stack<>();
 		stackOfListTypes = new Stack<>();
 		stackOfListTypesRedo = new Stack<>();
 	}
@@ -100,20 +89,15 @@ public class ModelManager extends ComponentManager implements Model {
 		filteredSchedules = new FilteredList<>(whatNow.getTasks());
 		stackOfUndo =  new Stack<>();
 		stackOfRedo = new Stack<>();
-		backUpFilteredTasks = new FilteredList<>(whatNow.getTasks());
-		backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
 		stackOfOldTask = new Stack<>();
 		stackOfNewTask = new Stack<>();
 		stackOfWhatNow = new Stack<>();
 		stackOfDeletedTasks = new Stack<>();
-		stackOfDeletedTaskTypes = new Stack<>();
 		stackOfDeletedTasksRedo = new Stack<>();
 		stackOfDeletedTasksAdd = new Stack<>();
 		stackOfDeletedTasksAddRedo = new Stack<>();
 		stackOfMarkDone = new Stack<>();
 		stackOfMarkDoneTaskTypes = new Stack<>();
-		stackOfWhatNowUndoUpdate = new Stack<>();
-		stackOfWhatNowRedoUpdate = new Stack<>();
 		stackOfListTypes = new Stack<>();
 		stackOfListTypesRedo = new Stack<>();
 	}
@@ -161,22 +145,9 @@ public class ModelManager extends ComponentManager implements Model {
 	public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
 		
 		whatNow.updateTask(old, toUpdate);
-		System.out.println("i am at updateTask and pushing in this whatNow of this tasklist: " + whatNow.getTaskList());
-		stackOfOldTask.push(old);
-		stackOfNewTask.push(toUpdate);
 		indicateWhatNowChanged();
 	}
-	@Override
-	public synchronized void undoUpdateTask() throws DuplicateTaskException, TaskNotFoundException  {
-	//	stackOfNewTask.push(old);
-	//	whatNow.updateTask(old, (Task) toUpdate);
-		//System.out.println("stackOfOldTask.peek() is : " + stackOfOldTask.peek());
-		//System.out.println("StackOfNewTask.peek() is : " + stackOfNewTask.peek());
-		ReadOnlyTask older = stackOfNewTask.pop();
-		ReadOnlyTask newer = stackOfOldTask.pop();
-		whatNow.undoUpdateTask(older, newer);
-		indicateWhatNowChanged();
-	}
+	
 	@Override
 	public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
 		whatNow.markTask(target);
@@ -218,10 +189,6 @@ public class ModelManager extends ComponentManager implements Model {
 		return stackOfDeletedTasksRedo;
 	}
 	@Override
-	public Stack<String> getDeletedStackOfTaskType() {
-		return stackOfDeletedTaskTypes;
-	}
-	@Override
 	public Stack<ReadOnlyTask> getDeletedStackOfTasksAdd() {
 		return stackOfDeletedTasksAdd;
 	}
@@ -238,14 +205,6 @@ public class ModelManager extends ComponentManager implements Model {
 		return stackOfMarkDoneTaskTypes;
 	}
 	@Override
-	public Stack<ReadOnlyWhatNow> getStackOfWhatNowUpdate() {
-		return stackOfWhatNowUndoUpdate;
-	}
-	@Override
-	public Stack<ReadOnlyWhatNow> getStackOfWhatNowRedoUpdate() {
-		return stackOfWhatNowRedoUpdate;
-	}
-	@Override
 	public Stack<String> getStackOfListTypes() {
 		return stackOfListTypes;
 	}
@@ -259,10 +218,6 @@ public class ModelManager extends ComponentManager implements Model {
 	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
 		updateFilteredListToShowAllIncomplete();
 		return new UnmodifiableObservableList<>(filteredTasks);
-	}
-	@Override
-	public UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredTaskList()  {
-		return new UnmodifiableObservableList<>(backUpFilteredTasks);
 	}
 	@Override
 	public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredTaskList() {
@@ -338,11 +293,6 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList() {
 		return new UnmodifiableObservableList<>(filteredSchedules);
-	}
-
-	@Override
-	public UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredScheduleList() {
-		return new UnmodifiableObservableList<>(backUpFilteredSchedules);
 	}
 
 	@Override

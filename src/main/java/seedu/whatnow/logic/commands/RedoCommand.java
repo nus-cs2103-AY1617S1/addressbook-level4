@@ -1,5 +1,8 @@
 package seedu.whatnow.logic.commands;
 
+import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
+
+//@author A0139128A
 public class RedoCommand extends Command{
 
 	public static final String COMMAND_WORD = "redo";
@@ -11,7 +14,7 @@ public class RedoCommand extends Command{
 	public static final String MESSAGE_SUCCESS = "Redo Successfully";
 	public static final String MESSAGE_FAIL = "Redo failure due to unexisting undo commands";
 	@Override
-	public CommandResult execute() {
+	public CommandResult execute() throws TaskNotFoundException {
 		assert model != null;
 		if(model.getRedoStack().isEmpty()) {
 			return new CommandResult(MESSAGE_FAIL);

@@ -46,7 +46,6 @@ public class DeleteCommand extends UndoAndRedo {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 		}
-
 		ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
 
 		assert model != null;	 
@@ -54,22 +53,19 @@ public class DeleteCommand extends UndoAndRedo {
 			model.deleteTask(taskToDelete);
 			model.getUndoStack().push(this);
 			model.getDeletedStackOfTasks().push(taskToDelete);
-			model.getDeletedStackOfTaskType().push(taskType);
 		} catch (TaskNotFoundException pnfe) {
 			assert false : "The target task cannot be missing";
 		}
-
 		return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
 	}
 
-
+	//@@author A0139128A
 	@Override
 	public CommandResult undo() {
 		if(model.getDeletedStackOfTasks().isEmpty()) {
 			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
 		}
 		ReadOnlyTask taskToReAdd = model.getDeletedStackOfTasks().pop();
-		String taskTypeToReAdd = model.getDeletedStackOfTaskType().pop();
 		model.getDeletedStackOfTasksRedo().push(taskToReAdd);
 		try {
 			model.addTask((Task)taskToReAdd);
@@ -78,7 +74,8 @@ public class DeleteCommand extends UndoAndRedo {
 		}
 		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
 	}
-
+	
+	//@author A0139128A
 	@Override
 	public CommandResult redo() {
 		if(model.getStackOfListTypesRedo().isEmpty()) {
@@ -93,5 +90,4 @@ public class DeleteCommand extends UndoAndRedo {
 		}
 		return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
 	}
-
 }

@@ -54,13 +54,13 @@ public class AddCommand extends UndoAndRedo {
 			model.addTask(toAdd);
 			model.getUndoStack().push(this);
 			model.getDeletedStackOfTasksAdd().push(toAdd);
-			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
+		return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 	}
 
-	
+	//@@author A0139128A
 	@Override
 	public CommandResult undo() {
 		assert model != null;
@@ -76,7 +76,8 @@ public class AddCommand extends UndoAndRedo {
 		} 
 		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
 	}
-
+	
+	//@@author A0139128A
 	@Override
 	public CommandResult redo() {
 		assert model != null;

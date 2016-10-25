@@ -24,7 +24,6 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
  * Update a task with new description/date/time/tag using it's last displayed index from WhatNow.
  */
 
-
 public class UpdateCommand extends UndoAndRedo {
 
 	public static final String COMMAND_WORD = "update";
@@ -150,7 +149,8 @@ public class UpdateCommand extends UndoAndRedo {
 
 		try {
 			model.updateTask(taskToUpdate, toUpdate);
-			model.getUndoStack().push(this);
+			model.getOldTask().push(taskToUpdate);
+			model.getNewTask().push(toUpdate);
 		} catch (TaskNotFoundException tnfe) {
 			assert false : "The target task cannot be missing";
 		} catch (UniqueTaskList.DuplicateTaskException e) {
@@ -159,38 +159,46 @@ public class UpdateCommand extends UndoAndRedo {
 		model.getUndoStack().push(this);
 		return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, "\nFrom: " + taskToUpdate + " \nTo: " + toUpdate));
 	}
-
+	
+	//@@author A0139128A
 	@Override
-	public CommandResult undo() throws DuplicateTaskException, TaskNotFoundException {
+	public CommandResult undo() throws TaskNotFoundException {
 		assert model != null;
-		model.undoUpdateTask();
-		return new CommandResult(UndoCommand.MESSAGE_SUCCESS); 
+		if(model.getOldTask().isEmpty() && model.getNewTask().isEmpty()) {
+			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
+		}
+		else {
+			ReadOnlyTask originalTask = model.getOldTask().pop();
+			ReadOnlyTask unwantedTask = model.getNewTask().pop();
+			model.getOldTask().push(unwantedTask);
+			model.getNewTask().push(originalTask);
+			try {
+				model.updateTask(unwantedTask, (Task) originalTask);
+			} catch(UniqueTaskList.DuplicateTaskException e) {
+				return new CommandResult(UndoCommand.MESSAGE_FAIL);
+			}
+			return new CommandResult(UndoCommand.MESSAGE_SUCCESS); 
+		}
 	}
+	
+	//@@author A0139128A
 	@Override
-	public CommandResult redo() {
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList;
-
-		if (taskType.equals(TASK_TYPE_TODO) || taskType.equalsIgnoreCase(TASK_TYPE_FLOATING)) {
-			lastShownList = model.getCurrentFilteredTaskList();
-		} else {
-			lastShownList = model.getCurrentFilteredScheduleList();
+	public CommandResult redo() throws TaskNotFoundException {
+		assert model != null;
+		if(model.getOldTask().isEmpty() && model.getNewTask().isEmpty()) {
+			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
 		}
-
-		if (lastShownList.size() < targetIndex) {
-			indicateAttemptToExecuteIncorrectCommand();
-			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+		else {
+			ReadOnlyTask originalTask = model.getNewTask().pop();
+			ReadOnlyTask wantedTask = model.getOldTask().pop();
+			model.getOldTask().push(originalTask);
+			model.getNewTask().push(wantedTask);
+			try {
+				model.updateTask(originalTask, (Task) wantedTask);
+			} catch (UniqueTaskList.DuplicateTaskException e) {
+				return new CommandResult(RedoCommand.MESSAGE_FAIL);
+			}
+			return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
 		}
-
-		ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
-		updateTheCorrectField(taskToUpdate);
-
-		try {
-			model.updateTask(taskToUpdate, toUpdate);
-		} catch (TaskNotFoundException tnfe) {
-			assert false : "The target task cannot be missing";
-		} catch (UniqueTaskList.DuplicateTaskException e) {
-			return new CommandResult(MESSAGE_DUPLICATE_TASK);
-		}
-		return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
 	}
 }

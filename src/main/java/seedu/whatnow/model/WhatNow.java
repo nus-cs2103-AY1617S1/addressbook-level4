@@ -144,14 +144,6 @@ public class WhatNow implements ReadOnlyWhatNow {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-    public boolean undoUpdateTask(ReadOnlyTask old, ReadOnlyTask toUpdate) throws DuplicateTaskException, TaskNotFoundException {
-    	if (tasks.update(old, (Task)toUpdate)) {
-            return true;
-        } else {
-            throw new UniqueTaskList.TaskNotFoundException();
-        }
-	}
-    
     /**
      * Marks a task on WhatNow as completed.
      * 
