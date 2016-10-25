@@ -71,7 +71,7 @@ public class SetStorageCommand extends Command {
         	
         	Path oldStorageFileFilePath = Paths.get(model.getTaskManagerStorageFilePath());  //Throws InvalidPathException
         	
-        	if(Files.isSameFile(newStorageFileFilePath, oldStorageFileFilePath)){  //Throws IOException, SecurityException
+        	if(newStorageFileFilePath.equals(oldStorageFileFilePath)){
         		return new CommandResult(String.format(MESSAGE_STORAGE_PREVIOUSLY_SET, oldStorageFileFilePath.toString())); 
         	}
         	
