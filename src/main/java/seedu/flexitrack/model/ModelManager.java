@@ -19,6 +19,8 @@ import seedu.flexitrack.commons.core.ComponentManager;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import edu.emory.mathcs.backport.java.util.Collections;
+
 /**
  * Represents the in-memory model of the tasktracker data. All changes to any
  * model should be synchronized.
@@ -51,6 +53,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyFlexiTrack initialData, UserPrefs userPrefs) {
         flexiTracker = new FlexiTrack(initialData);
         filteredTasks = new FilteredList<>(flexiTracker.getTasks());
+        indicateFlexiTrackerChanged();
     }
 
     @Override
@@ -66,6 +69,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /** Raises an event to indicate the model has changed */
     private void indicateFlexiTrackerChanged() {
+    	flexiTracker.sort();
         raise(new FlexiTrackChangedEvent(flexiTracker));
     }
 

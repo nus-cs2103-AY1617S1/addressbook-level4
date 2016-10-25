@@ -170,6 +170,10 @@ public class FlexiTrack implements ReadOnlyFlexiTrack {
                 || (other instanceof FlexiTrack // instanceof handles nulls
                         && this.task.equals(((FlexiTrack) other).task) && this.tags.equals(((FlexiTrack) other).tags));
     }
+    
+    public void sort(){
+    	task.sort();
+    }
 
     @Override
     public int hashCode() {
