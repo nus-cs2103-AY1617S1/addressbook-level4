@@ -58,7 +58,7 @@ public class TaskCard extends UiPart{
         start.setText("Start Time: " + task.getStartTime().appearOnUIFormat());
         if (task.getDone().getDoneValue() == true) {
         	tickicon.setImage(tickmark.getImage());
-            cardPane.setStyle("-fx-background-color : #adebad;");   
+            cardPane.setStyle("-fx-background-color : #c1f0c1;");   
         }
         if (task.getRecurrence().getValue() == true) {
         	recurring.setImage(recurringIcon.getImage());
