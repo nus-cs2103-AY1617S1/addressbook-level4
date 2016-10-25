@@ -92,8 +92,8 @@ public class Parser {
 	// Floating task without task description
 	private static final Pattern ADD_FORMAT_9 = Pattern.compile("(?<name>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
 
-	private static final Pattern EDIT_FORMAT = Pattern.compile("(?<index>[^/]+)(?!$)" + "(d/(?<date>[^/]+))?"
-			+ "(s/(?<startTimeArguments>[^/]+))?" + "(e/(?<endTimeArguments>[^/]+))?");
+	private static final Pattern EDIT_FORMAT = Pattern.compile("(?<index>[^/]+)(?!$)" + "((?<name>[^/]+))?" + "(i/(?<taskDescriptions>[^/]+))?"
+			+ "(d/(?<date>[^/]+))?" + "(s/(?<startTimeArguments>[^/]+))?" + "(e/(?<endTimeArguments>[^/]+))?");
 
 	private static final String byToday = "by today";
 
@@ -385,6 +385,8 @@ public class Parser {
 		String tempArgs = args.trim();
 
 		String[] newArgs = tempArgs.split(" ", 2);
+		if (newArgs.length <= 1)
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
 		Optional<Integer> index = parseIndex(newArgs[0]);
 		if (!index.isPresent()) {
