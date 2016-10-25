@@ -30,7 +30,6 @@ public class MarkUndoneCommand extends UndoAndRedo {
         this.targetIndex = targetIndex;
     }
 
-
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList;
@@ -41,7 +40,6 @@ public class MarkUndoneCommand extends UndoAndRedo {
             model.updateFilteredScheduleListToShowAllIncomplete();
             lastShownList = model.getCurrentFilteredScheduleList();
         }
-        System.out.println("lastShownList.size(): "+ lastShownList.size() +", targetIndex: " + targetIndex);
         if (lastShownList.size() < targetIndex) {
             System.out.println("INVALID INDEX");
             indicateAttemptToExecuteIncorrectCommand();
