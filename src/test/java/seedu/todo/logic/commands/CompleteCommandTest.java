@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.hamcrest.Matchers.*;
 
-
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.exceptions.ValidationException;
@@ -50,7 +49,7 @@ public class CompleteCommandTest extends CommandTest {
         assertEquals(markedIncomplete, toMarkIncomplete);
         assertFalse(toMarkIncomplete.isCompleted());
     }
-    
+
     @Test
     public void testCompleteAll_withView() throws Exception {
         model.view(TaskViewFilter.INCOMPLETE);
@@ -64,24 +63,22 @@ public class CompleteCommandTest extends CommandTest {
 
     @Test
     public void testCompleteAll_withAlreadyComplete() throws Exception {
-        setParameter("all","all");
+        setParameter("all", "all");
         execute(true);
         for (ImmutableTask task : model.getObservableList()) {
             assertTrue(task.isCompleted());
         }
     }
-    
+
     @Test(expected = ValidationException.class)
     public void testMarkCompleteAll_invalid() throws Exception {
-        model.view(TaskViewFilter.INCOMPLETE);
         setParameter("1");
-        setParameter("all","all");
+        setParameter("all", "all");
         execute(false);
     }
 
     @Test(expected = ValidationException.class)
     public void testMarkCompleteAll_empty() throws Exception {
-        model.view(TaskViewFilter.DEFAULT);
         execute(false);
     }
 }
