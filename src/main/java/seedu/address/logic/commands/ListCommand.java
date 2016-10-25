@@ -3,12 +3,9 @@ package seedu.address.logic.commands;
 
 import java.util.logging.Logger;
 
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.ChangeToListDoneViewEvent;
-import seedu.address.commons.events.ui.ChangeToListUndoneViewEvent;
-import seedu.address.storage.StorageManager;
 
+//@@author A0139498J
 /**
  * Lists all tasks in the task manager to the user.
  * Supports the listing of all undone, or all done tasks.
@@ -18,6 +15,8 @@ public class ListCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(ListCommand.class);
     
     public static final String COMMAND_WORD = "list";
+    public static final String DONE_COMMAND_WORD = "done";
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" 
             + "Displays all tasks in the task as a list with index numbers.\n\t"
             + "Example: " + COMMAND_WORD + "\n"
@@ -30,7 +29,7 @@ public class ListCommand extends Command {
     public static final String DONE_MESSAGE_SUCCESS = "Listed all done tasks";
         
     private Boolean isListDoneCommand;
-    
+
     public ListCommand(Boolean isListDoneCommand) {
         this.isListDoneCommand = isListDoneCommand;
     }

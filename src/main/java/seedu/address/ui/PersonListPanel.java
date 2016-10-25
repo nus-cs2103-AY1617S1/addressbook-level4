@@ -90,16 +90,16 @@ public class PersonListPanel extends UiPart {
         });
     }
     
-    public void handleSwitchTaskListView(Boolean isRequiredViewListDoneView) {
-        if (isRequiredViewListDoneView) {
-            taskListView.setItems(doneTaskList);
-        }
-        else {
-            taskListView.setItems(undoneTaskList);
-        }
-            
+    //@@author A0139498J
+    public void switchToDoneTaskListView() {
+        taskListView.setItems(doneTaskList);
+    }
+    
+    public void switchToUndoneTaskListView() {
+        taskListView.setItems(undoneTaskList);
     }
 
+    //@@author
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             taskListView.scrollTo(index);

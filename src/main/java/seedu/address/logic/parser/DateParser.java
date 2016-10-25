@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import java.util.Calendar;
 import java.util.Date;
 
+//@@author A0139498J-unused
+// Unused because we use natty datetime parser instead
 /**
  * Parses a string into a Date object
  * Give this a date string without name of task or recurrence interval
@@ -81,8 +83,7 @@ public class DateParser {
             int month = value;
             cal.set(Calendar.MONTH, month-1);
             cal.set(Calendar.DAY_OF_MONTH, day);
-            //TODO: handle case where user refers to month in next year
-            // Maybe even add functionality for user to specify year if wanted
+            
         } else if (type.equals("daysOfWeek")) {
             // based on how many "next" user types, go through calendar
             int desiredDayOfWeek = 0;
@@ -184,7 +185,6 @@ public class DateParser {
                             day += " " + fields[i+1];
                         } else {
                             // no day present
-                            // TODO: show some invalid input thing
                             System.out.println("ERROR!");
                         }
                     } else if (j>=DAYS_OF_WEEK_START_INDEX) {
