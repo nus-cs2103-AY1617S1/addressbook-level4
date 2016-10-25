@@ -1,8 +1,17 @@
 package seedu.tasklist.ui;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.StringPropertyBase;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
@@ -43,6 +52,9 @@ public class MainWindow extends UiPart {
     private String taskListName;
 
     @FXML
+    private Label dateTimeLabel;
+
+    @FXML
     private AnchorPane categoryPanelPlaceholder;
 
     @FXML
@@ -60,6 +72,8 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
 
+    //@FXML
+    //private SplitPane dateTimePlaceholder;
 
     public MainWindow() {
         super();
@@ -83,7 +97,7 @@ public class MainWindow extends UiPart {
     }
 
     private void configure(String appTitle, String taskListName, Config config, UserPrefs prefs,
-                           Logic logic) {
+            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
@@ -107,11 +121,13 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-    	categoryPanel = CategoryPanel.load(primaryStage, getCategoryPanelPlaceholder(), logic.getTaskCounter());
+        categoryPanel = CategoryPanel.load(primaryStage, getCategoryPanelPlaceholder(), logic.getTaskCounter());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        setLabelText();
+        System.out.println();
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -129,11 +145,11 @@ public class MainWindow extends UiPart {
     public AnchorPane getTaskListPlaceholder() {
         return personListPanelPlaceholder;
     }
-    
+
     public AnchorPane getCategoryPanelPlaceholder() {
         return categoryPanelPlaceholder;
     }
-    
+
     public void hide() {
         primaryStage.hide();
     }
@@ -189,11 +205,21 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-//    public void loadTaskPage(ReadOnlyTask task) {
-//        browserPanel.loadTaskPage(task);
-//    }
+    //    public void loadTaskPage(ReadOnlyTask task) {
+    //        browserPanel.loadTaskPage(task);
+    //    }
 
     public void releaseResources() {
-//        browserPanel.freeResources();
+        //        browserPanel.freeResources();
+    }
+
+    public void setLabelText() {
+        /*
+        assert dateTimeLabel != null;
+        StringProperty time = new SimpleStringProperty();
+        time.
+        dateTimeLabel.textProperty();
+        */
+
     }
 }

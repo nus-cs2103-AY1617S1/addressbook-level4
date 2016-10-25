@@ -42,7 +42,7 @@
                   <Image url="@../images/calendar-icon.png" />
                </image>
             </ImageView>
-            <Label prefHeight="21.0" prefWidth="216.0" style="-fx-background-color: white;" text="24th October, 2016 | 01:48 PM">
+            <Label id="dateTimeLabel" fx:id="dateTimeLabel" prefHeight="21.0" prefWidth="216.0" style="-fx-background-color: white;" text="Test">
                <padding>
                   <Insets left="8.0" />
                </padding>
