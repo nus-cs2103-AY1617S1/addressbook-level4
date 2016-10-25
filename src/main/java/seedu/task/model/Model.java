@@ -28,7 +28,7 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
-    /** Adds the given task at specified place*/
+    /** Adds the given task at specified index of the list in the data, not the index shown to the user*/
     void addTaskWithSpecifiedIndex(Task task, int index) throws UniqueTaskList.DuplicateTaskException;
    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
