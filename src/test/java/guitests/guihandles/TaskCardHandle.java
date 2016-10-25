@@ -12,8 +12,7 @@ import seedu.oneline.ui.TaskCardParser;
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String LINE_1_ID = "#line1";
-    private static final String LINE_2_ID = "#line2";
-    private static final String LINE_3_ID = "#line3";
+    private static final String RECURRENCE_ID = "#recurrence";
 
     private Node node;
 
@@ -30,24 +29,19 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getLine1() {
+    public String getTaskTime() {
         return getTextFromLabel(LINE_1_ID);
     }
 
-    public String getLine2() {
-        return getTextFromLabel(LINE_2_ID);
-    }
-
-    public String getLine3() {
-        return getTextFromLabel(LINE_3_ID);
+    public String getRecurrence() {
+        return getTextFromLabel(RECURRENCE_ID);
     }
 
     public boolean isSameTask(ReadOnlyTask task){
         TaskCardParser parser = new TaskCardParser(task);
         return getName().equals(parser.getName()) &&
-                getLine1().equals(parser.getTime()) &&
-                getLine2().equals(parser.getLine2()) &&
-                getLine3().equals(parser.getLine3());
+                getTaskTime().equals(parser.getTime()) &&
+                getRecurrence().equals(parser.getRecurrence());
     }
 
     @Override
@@ -55,15 +49,14 @@ public class TaskCardHandle extends GuiHandle {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getName().equals(handle.getName())
-                    && getLine1().equals(handle.getLine1())
-                    && getLine2().equals(handle.getLine2())
-                    && getLine3().equals(handle.getLine3());
+                    && getTaskTime().equals(handle.getTaskTime())
+                    && getRecurrence().equals(handle.getRecurrence());
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getName() + " " + getLine1() + " " + getLine2() + " " + getLine3();
+        return getName() + " " + getTaskTime() + " " + getRecurrence();
     }
 }
