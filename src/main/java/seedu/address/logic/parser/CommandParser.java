@@ -32,6 +32,10 @@ public class CommandParser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+    
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
 
     public CommandParser() {}
 
@@ -142,6 +146,7 @@ public class CommandParser {
         return new HashSet<>(tagStrings);
     }
     
+    //@@author A0139552B
     /**
      * Parses arguments in the context of the edit task command.
      *
@@ -150,42 +155,33 @@ public class CommandParser {
      */
     private Command prepareEdit(String args) {
 		
-    	int index = 0;
-	 
-   	 	args = args.trim();
-   	 	System.out.println(args);
-   	 
+    	int index = ZERO;	 
+   	 	
+    	args = args.trim();
    	 	String[] parts = args.split(" ");
-   	 	String indexNum = parts[0];
+   	 	String indexNum = parts[ZERO];
 
-   	 	if(parts.length == 1){
+   	 	if(parts.length == ONE){
    	 		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
    	 	}
    	 
    	 	index = Integer.parseInt(indexNum);
-   	 	String[] split = args.substring(2).split("-reset");
+   	 	String[] split = args.substring(TWO).split("-reset");
 
-   	 	String argsTrimmed = " " + split[0];        
+   	 	String argsTrimmed = " " + split[ZERO];        
         String resetField = null;
 
         logger.finer("Entering CommandParser, prepareEdit()");
-                
-        if(argsTrimmed.isEmpty()) {
-            logger.finer("Trimmed argument is empty");
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-        
+                       
         try {  
             HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareEdit(argsTrimmed);
             
             logger.finer("Exiting CommandParser, prepareEdit()");
             
-            if(split.length == 2){
-               	resetField = split[1];
+            if(split.length == TWO){
+               	resetField = split[ONE];
             }
             
-            System.out.println(extractedValues.get("taskName"));
-
             return new EditCommand(index, extractedValues.get("taskName"), extractedValues.get("startDate"), 
                     extractedValues.get("endDate"), extractedValues.get("rate"), 
                     extractedValues.get("timePeriod"), extractedValues.get("priority"),resetField);
@@ -194,14 +190,11 @@ public class CommandParser {
             logger.finer("IllegalValueException caught in CommandParser, prepareEdit()");
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                     EditCommand.MESSAGE_USAGE + "\n" + ive.getMessage()));
-        }
-            
-        //return new EditCommand(index, taskName, startDate, endDate, rate, timePeriod, priority, resetField);
-            
+        }            
     }
-
+    //@@author A0139498J
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -217,8 +210,9 @@ public class CommandParser {
         return new DeleteCommand(indexes.get());
     }
     
+    //@@author A0139498J
     /**
-     * Parses arguments in the context of the done person command.
+     * Parses arguments in the context of the done task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -235,7 +229,7 @@ public class CommandParser {
     }
 
     /**
-     * Parses arguments in the context of the select person command.
+     * Parses arguments in the context of the select task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -250,22 +244,23 @@ public class CommandParser {
         return new SelectCommand(index.get());
     }
     
+    //@@author A0139498J
     /**
-     * Parses arguments in the context of the select person command.
+     * Parses arguments in the context of the list tasks command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareList(String args) {
         Boolean isListDoneCommand = false;
-        
-        if (args != null && args.trim().toLowerCase().equals("done")) {
+        if (args != null && args.trim().equalsIgnoreCase(ListCommand.DONE_COMMAND_WORD)) {
             isListDoneCommand = true;
         }
 
         return new ListCommand(isListDoneCommand);
     }
     
+    //@@author A0139498J
     /**
      * Parses arguments in the context of the help command.
      *
@@ -273,6 +268,7 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareHelp(String args) {
+        
         if (args != null) {
             return new HelpCommand(args.trim());
         }
@@ -298,12 +294,15 @@ public class CommandParser {
 
     }
     
+    //@@author A0139498J
     /**
      * Returns the specified indexes in the {@code command} IF any positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<List<Integer>> parseIndexes(String command) {
-        final Matcher matcher = ITEM_INDEX_ARGS_FORMAT.matcher(command.trim());
+        
+        final Matcher matcher = ITEM_INDEX_ARGS_FORMAT.matcher(command);
+        
         if (!matcher.matches()) {
             return Optional.empty();
         }
@@ -316,10 +315,8 @@ public class CommandParser {
                 indexesToHandle.add(Integer.parseInt(index));
             }
         }
-        if (indexesToHandle.isEmpty()) {
-            return Optional.empty();
-        }
-        return Optional.of(indexesToHandle);
+        
+        return (indexesToHandle.isEmpty())? Optional.empty(): Optional.of(indexesToHandle);
 
     }
 
