@@ -20,7 +20,6 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
-    // TODO Wang Leng: Does this still make sense?
     public static class DuplicateTaskException extends DuplicateDataException {
         protected DuplicateTaskException() {
             super("Operation would result in duplicate persons");
@@ -97,7 +96,8 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
-
+    
+    //@@author A0140011L
     /**
      * Update the old task with new task details.
      * 
