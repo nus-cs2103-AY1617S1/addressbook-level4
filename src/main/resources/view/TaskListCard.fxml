@@ -31,7 +31,7 @@
 									<Image url="@../images/icon_incomplete.png" />
 								</image>
 							</ImageView>
-							<Label fx:id="id" minHeight="25.0" minWidth="25.0" styleClass="cell_big_label" HBox.hgrow="NEVER">
+							<Label fx:id="id" minHeight="25.0" minWidth="25.0" prefHeight="25.0" prefWidth="75.0" styleClass="cell_big_label" HBox.hgrow="NEVER">
 								<padding>
 									<Insets left="5.0" />
 								</padding>
