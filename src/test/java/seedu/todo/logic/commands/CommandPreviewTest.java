@@ -1,25 +1,33 @@
 package seedu.todo.logic.commands;
 
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
-import seedu.todo.commons.events.ui.ShowHelpEvent;
-import seedu.todo.testutil.EventsCollector;
+import com.google.common.collect.Sets;
 
-import static org.junit.Assert.*;
-import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
+
+import java.util.Set;
+
+import org.junit.Before;
+import org.junit.Rule;
 
 //@@author A0135817B
-public class CommandPreviewTest extends CommandTest {
-    @Override
-    protected BaseCommand commandUnderTest() {
-        return new HelpCommand();
+public class CommandPreviewTest {
+
+    @Rule
+    public MockitoRule rule = MockitoJUnit.rule();
+    
+    @Before
+    public void setUpPreview() throws Exception {
+        Set<String> mockCommands = Sets.newHashSet("add", "delete");
     }
     
     @Test
-    public void testExecute() throws Exception {
-        EventsCollector eventsCollector = new EventsCollector();
-        execute(true);
-        assertThat(eventsCollector.get(0), instanceOf(ShowHelpEvent.class));
+    public void testFilter() throws Exception {
+        // TODO: find way to mock static methods
     }
-
 }
