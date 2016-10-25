@@ -58,7 +58,8 @@ public interface Model {
 
     /**Updates the attribute in ModelManager to reflect last shown listing */
     void setLastListing(String listing);
-
     
+    /**Updates the filtered */
+    void updateListing();
 
 }

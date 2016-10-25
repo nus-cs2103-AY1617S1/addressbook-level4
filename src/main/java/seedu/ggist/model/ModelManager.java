@@ -98,7 +98,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public synchronized void editTask(ReadOnlyTask target, String field, String value) throws TaskNotFoundException, IllegalValueException {
- 
         taskManager.editTask(target, field, value);
         updateListing();
     	indicateTaskManagerChanged();
@@ -116,23 +115,23 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Updates filtered list to show based on last shown listing choice
      */
-    private void updateListing() {
+    public void updateListing() {
         if (lastListing == null) {
             updateFilteredListToShowDate(today);
         } else if (lastListing.equals("")) {
             updateFilteredListToShowAllUndone();
         } else if (lastListing.equals("done")) {
             updateFilteredListToShowAllDone();
-        } else if (TaskDate.isValidDateFormat(lastListing)) {
-            updateFilteredListToShowDate(lastListing);
         } else if (lastListing.equals("all")){
             updateFilteredListToShowAll();
+        } else if (TaskDate.isValidDateFormat(lastListing)) {
+            updateFilteredListToShowDate(lastListing);
         }
     }
      
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+        return getSortedTaskList();
     }
     
     @Override
@@ -140,21 +139,25 @@ public class ModelManager extends ComponentManager implements Model {
         Comparator<Task> compareDateTime = new Comparator<Task>(){
             public int compare (Task t1, Task t2){
                     
-                    if (t1.getStartDateTime().equals(t2.getStartDateTime())
-                            && (t1.getEndDateTime().equals(t2.getEndDateTime()))) {
-                        return t1.getTaskName().taskName.compareTo(t2.getTaskName().taskName);
-                    } else if (t1.getStartDateTime().before(t2.getStartDateTime())) {
-                        return -1;
-                    } else if (t1.getStartDateTime().equals(t2.getStartDateTime())) {
-                        return 0;
-                    } else if (t1.getEndDateTime().before(t2.getEndDateTime())) {
-                        return -1;
-                    } else if (t1.getEndDate().equals(t2.getEndDateTime())) {
-                        return 0;
-                    } else {
-                        return 1;
-                    }
+                if (t1.getStartDateTime().equals(t2.getStartDateTime())
+                    && (t1.getEndDateTime().equals(t2.getEndDateTime()))) {
+                    return t1.getTaskName().taskName.compareTo(t2.getTaskName().taskName);
+                } 
+                
+                if (t1.getStartDateTime().before(t2.getStartDateTime())) {
+                    return -1;
+                } else if (t1.getStartDateTime().after(t2.getStartDateTime())) {
+                    return 1;
+                } 
+                
+                if (t1.getEndDateTime().before(t2.getEndDateTime())) {
+                    return -1;
+                } else if (t1.getEndDateTime().after(t2.getEndDateTime())) {
+                    return 1;
                 }
+                
+                return 0;
+            }
         };
         return new UnmodifiableObservableList<>(new SortedList(filteredTasks, compareDateTime));
     }
@@ -244,7 +247,7 @@ public class ModelManager extends ComponentManager implements Model {
         AllQualifier() {}
         
         public boolean run(ReadOnlyTask task) {
-            return (task != null);
+            return true;
         }
     }
     
@@ -303,9 +306,11 @@ public class ModelManager extends ComponentManager implements Model {
             }
             return ((taskDateKeyWords.equalsIgnoreCase(task.getStartDate().toString()) || 
                    taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString())) && !task.isDone()) ||
-                   (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && 
-                    task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) && !task.isDone()) ||
-                   (task.isOverdue() && !task.isDone());
+                   ((task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && 
+                   (task.getStartTime().value.equals(Messages.MESSAGE_NO_START_TIME_SET) &&
+                   (task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) && 
+                   (task.getEndTime().value.equals(Messages.MESSAGE_NO_END_TIME_SET)) && !task.isDone())) ||
+                   (task.isOverdue() && !task.isDone())));
                    
         }
 
