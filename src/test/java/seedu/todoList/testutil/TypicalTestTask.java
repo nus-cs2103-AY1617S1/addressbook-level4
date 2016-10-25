@@ -7,6 +7,7 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
 /**
  *
  */
+//@@ Author A0132157M
 public class TypicalTestTask {
 
    
@@ -14,14 +15,14 @@ public class TypicalTestTask {
 
     public TypicalTestTask() {
         try {
-            a1 = new TaskBuilder().withName("assignment 1").withDate("30-10-2016").withPriority("1").build();
-            a2 = new TaskBuilder().withName("project 1").withDate("26-10-2016").withPriority("2").build();
-            a3 = new TaskBuilder().withName("teambuilding 3").withDate("27-10-2016").withPriority("3").build();
-            a4 = new TaskBuilder().withName("assignment 4").withDate("27-10-2016").withPriority("2").build();
-            a5 = new TaskBuilder().withName("project 5").withDate("28-10-2016").withPriority("5").build();
+            a1 = new TaskBuilder().withName("assignment 1").withStartDate("30-10-2017").withEndDate("31-10-2017").withPriority("1").withDone("done").build();
+            a2 = new TaskBuilder().withName("project 1").withStartDate("26-10-2017").withEndDate("37-10-2017").withPriority("2").withDone("done").build();
+            a3 = new TaskBuilder().withName("teambuilding 3").withStartDate("27-10-2017").withEndDate("28-10-2017").withPriority("3").withDone("done").build();
+            a4 = new TaskBuilder().withName("assignment 4").withStartDate("27-10-2017").withEndDate("28-10-2017").withPriority("2").withDone("done").build();
+            a5 = new TaskBuilder().withName("project 5").withStartDate("28-10-2017").withEndDate("29-10-2017").withPriority("5").withDone("done").build();
             //Manually added
-            a6 = new TaskBuilder().withName("assignment 6").withDate("28-10-2016").withPriority("2").build();
-            a7 = new TaskBuilder().withName("homework 7").withDate("29-10-2016").withPriority("1").build();
+            a6 = new TaskBuilder().withName("assignment 6").withStartDate("28-10-2017").withEndDate("29-10-2017").withPriority("2").withDone("done").build();
+            a7 = new TaskBuilder().withName("homework 7").withStartDate("29-10-2017").withEndDate("30-10-2017").withPriority("1").withDone("done").build();
 
         } catch (IllegalValueException e) {
             e.printStackTrace();

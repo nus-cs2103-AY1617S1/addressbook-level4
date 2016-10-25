@@ -7,17 +7,20 @@ import seedu.todoList.model.task.attributes.*;
 /**
  * A mutable task object. For testing only.
  */
+//@@ Author A0132157M
 public class TestTask extends Todo implements ReadOnlyTask {
 
     //private Name name;
     private Todo Todo;
     private static Name name;
     private static Priority priority;
-    private static StartDate date;
+    private static StartDate startDate;
+    private static EndDate endDate;
+    private static Done done;
 
 
     public TestTask() {
-        super(name, date, priority);
+        super(name, startDate, endDate, priority, done);
         //tags = new UniqueTagList();
     }
 
@@ -26,15 +29,21 @@ public class TestTask extends Todo implements ReadOnlyTask {
     }
 
     public void setName(Name name) {
-        this.name = name;
+        TestTask.name = name;
     }
 
     public void setPriority(Priority priority) {
-        this.priority = priority;
+        TestTask.priority = priority;
     }
     
-    public void setDate(StartDate date) {
-        this.date = date;
+    public void setStartDate(StartDate sdate) {
+        TestTask.startDate = sdate;
+    }
+    public void setEndDate(EndDate edate) {
+        TestTask.endDate = edate;
+    }
+    public void setDone(Done done) {
+        TestTask.done = done;
     }
 
     //@Override
@@ -52,16 +61,24 @@ public class TestTask extends Todo implements ReadOnlyTask {
         return name;
     }
 
-    public StartDate getDate() {
-        return date;
+    public StartDate getStartDate() {
+        return startDate;
+    }
+    public EndDate getEndDate() {
+        return endDate;
+    }
+    public Done getDone() {
+        return done;
     }
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().name + " ");
         //sb.append(this.getName().name + " ");
-        sb.append("d/" + this.getDate().date + " ");
+        sb.append("from" + this.getStartDate().date + " ");
+        sb.append("to" + this.getEndDate().endDate + " ");
         sb.append("p/" + this.getPriority().priority + " ");
+        //sb.append("from" + this.getDone().isDone + " ");
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }

@@ -6,6 +6,7 @@ import seedu.todoList.commons.exceptions.IllegalValueException;
 /**
  *
  */
+//@@ Author A0132157M
 public class TypicalTestEvent {
 
    
@@ -13,14 +14,14 @@ public class TypicalTestEvent {
 
     public TypicalTestEvent() {
         try {
-            e1 = new EventBuilder().withName("e 1").withDate("30-10-2016").withStartTime("0100").withEndTime("0130").build();
-            e2 = new EventBuilder().withName("e 2").withDate("26-10-2016").withStartTime("0200").withEndTime("0230").build();
-            e3 = new EventBuilder().withName("Eeambuilding 3").withDate("27-10-2016").withStartTime("0300").withEndTime("0330").build();
-            e4 = new EventBuilder().withName("Essignment 4").withDate("27-10-2016").withStartTime("0400").withEndTime("0430").build();
-            e5 = new EventBuilder().withName("Eroject 5").withDate("28-10-2016").withStartTime("0500").withEndTime("0530").build();
+            e1 = new EventBuilder().withName("e 1").withStartDate("30-10-2016").withEndDate("31-10-2016").withStartTime("0130").withEndTime("0200").withDone("done").build();
+            e2 = new EventBuilder().withName("e 2").withStartDate("30-10-2016").withEndDate("31-10-2016").withStartTime("0130").withEndTime("0200").withDone("done").build();
+            e3 = new EventBuilder().withName("Eeambuilding 3").withStartDate("30-10-2016").withEndDate("31-10-2016").withStartTime("0130").withEndTime("0200").withDone("done").build();
+            e4 = new EventBuilder().withName("Essignment 4").withStartDate("30-10-2016").withEndDate("31-10-2016").withStartTime("0130").withEndTime("0200").withDone("done").build();
+            e5 = new EventBuilder().withName("Eroject 5").withStartDate("30-10-2016").withEndDate("31-10-2016").withStartTime("0130").withEndTime("0200").withDone("done").build();
             //Manually added
-            e6 = new EventBuilder().withName("Essignment 6").withDate("28-10-2016").withStartTime("0600").withEndTime("0630").build();
-            e7 = new EventBuilder().withName("Eomework 7").withDate("29-10-2016").withStartTime("0700").withEndTime("0730").build();
+            e6 = new EventBuilder().withName("Essignment 6").withStartDate("30-10-2016").withEndDate("31-10-2016").withStartTime("0130").withEndTime("0200").withDone("done").build();
+            e7 = new EventBuilder().withName("Eomework 7").withStartDate("30-10-2016").withEndDate("31-10-2016").withStartTime("0130").withEndTime("0200").withDone("done").build();
 
         } catch (IllegalValueException e) {
             e.printStackTrace();

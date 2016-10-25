@@ -7,6 +7,7 @@ import seedu.todoList.model.task.attributes.*;
 /**
  *
  */
+//@@ Author A0132157M
 public class EventBuilder {
 
     private TestEvent event;
@@ -25,8 +26,8 @@ public class EventBuilder {
         return this;
     }
     
-    public EventBuilder withDate(String date) throws IllegalValueException {
-        this.event.setDate(new StartDate(date));
+    public EventBuilder withStartDate(String date) throws IllegalValueException {
+        this.event.setStartDate(new StartDate(date));
         return this;
     }
 
@@ -34,9 +35,17 @@ public class EventBuilder {
         this.event.setStartTime(new StartTime(e));
         return this;
     }
+    public EventBuilder withEndDate(String e) throws IllegalValueException {
+        this.event.setEndDate(new EndDate(e));
+        return this;
+    }
     
     public EventBuilder withEndTime(String e) throws IllegalValueException {
         this.event.setEndTime(new EndTime(e));
+        return this;
+    }
+    public EventBuilder withDone(String e) throws IllegalValueException {
+        this.event.setDone(new Done(e));
         return this;
     }
 

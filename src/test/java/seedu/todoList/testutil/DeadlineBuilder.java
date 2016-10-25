@@ -34,6 +34,10 @@ public class DeadlineBuilder {
         this.task.setEndTime(new EndTime(et));
         return this;
     }
+    public DeadlineBuilder withDone(String et) throws IllegalValueException {
+        this.task.setDone(new Done(et));
+        return this;
+    }
 
     public TestDeadline build() {
         return this.task;

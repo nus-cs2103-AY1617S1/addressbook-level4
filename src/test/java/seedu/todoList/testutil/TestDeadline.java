@@ -7,17 +7,19 @@ import seedu.todoList.model.task.attributes.*;
 /**
  * A mutable task object. For testing only.
  */
+//@@ Author A0132157M
 public class TestDeadline extends Deadline implements ReadOnlyTask {
 
     //private Name name;
     private Deadline deadline;
     private static Name name;
-    private static StartDate date;
+    private static StartDate startdate;
     private static EndTime endTime;
+    private static Done done;
 
 
     public TestDeadline() {
-        super(name, date, endTime);
+        super(name, startdate, endTime, done);
         //tags = new UniqueTagList();
     }
 
@@ -26,15 +28,18 @@ public class TestDeadline extends Deadline implements ReadOnlyTask {
     }
 
     public void setName(Name name) {
-        this.name = name;
+        TestDeadline.name = name;
     }
 
     public void setEndTime(EndTime et) {
-        this.endTime = et;
+        TestDeadline.endTime = et;
     }
     
     public void setDate(StartDate date) {
-        this.date = date;
+        TestDeadline.startdate = date;
+    }
+    public void setDone(Done dd) {
+        TestDeadline.done = dd;
     }
 
     //@Override
@@ -52,16 +57,20 @@ public class TestDeadline extends Deadline implements ReadOnlyTask {
         return name;
     }
 
-    public StartDate getDate() {
-        return date;
+    public StartDate getStartDate() {
+        return startdate;
     }
+    public Done getDone() {
+        return done;
+    }
+    
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().name + " ");
         //sb.append(this.getName().name + " ");
-        sb.append("d/" + this.getDate().date + " ");
-        sb.append("e/" + this.getEndTime().endTime + " ");
+        sb.append("on" + this.getDate().date + " ");
+        sb.append("at" + this.getEndTime().endTime + " ");
         //this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
