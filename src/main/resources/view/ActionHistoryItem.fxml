@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="actionHistoryItem" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" styleClass="action-history-item" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="actionHistoryItem" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" styleClass="action-history-item" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox minWidth="200.0" prefWidth="200.0">
          <children>
