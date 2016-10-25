@@ -121,7 +121,7 @@ public class CommandBox extends UiPart {
         setStyleToIndicateFailedCommand();
         restoreCommandText();
     }
-
+    //@@author 
     /**
      * Restores the command box text to the previously entered command
      */
@@ -143,7 +143,7 @@ public class CommandBox extends UiPart {
     private void setStyleToIndicateFailedCommand() {
         commandTextField.getStyleClass().add("fail");
     }
-    
+    //@@author
     /**
      * Returns the current style class the command box used for testing purpose.
      * @return 

@@ -93,7 +93,7 @@ public class NavbarPanel extends UiPart {
             }
         });
     }
-    
+    //@@author
     public void scrollTo(int index) {
         Platform.runLater(() -> {
         	navbarView.scrollTo(index);
@@ -123,7 +123,7 @@ public class NavbarPanel extends UiPart {
     			return ListCommand.COMMAND_WORD;
     	}    	  
 	}
-    
+    //@@author
     
     
     

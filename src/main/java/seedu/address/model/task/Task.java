@@ -105,10 +105,11 @@ public class Task implements ReadOnlyTask {
         this.recurringType = type;
     }
     //@@author
-    
+    //@@author A0147967J
     public void setRecurringDates(List<TaskComponent> newComponentList){
     	this.recurringDates = newComponentList;
     }
+    //@@author
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */

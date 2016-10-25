@@ -192,7 +192,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndArchived;
 	}
 	//@@author
-	
+	//@@author A0147995H
 	public boolean updateTask(Task target, Name name, UniqueTagList tags, TaskDate startDate,
 			TaskDate endDate, RecurringType recurringType) throws TimeslotOverlapException {
 		assert target != null;

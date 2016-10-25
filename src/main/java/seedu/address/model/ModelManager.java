@@ -127,7 +127,7 @@ public class ModelManager extends ComponentManager implements Model {
 	public void changeDirectory(String filePath) {
 		raise(new FilePathChangeEvent(filePath));
 	}
-    //@@author A0147967J
+    //@@author
 
     //=========== Filtered Task List Accessors ===============================================================
 
