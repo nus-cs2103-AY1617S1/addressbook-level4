@@ -47,8 +47,6 @@ public class CommandParser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = //Tags must be at the end
             Pattern.compile("(?<arguments>[\\p{Graph} ]+)"); // \p{Graph} is \p{Alnum} or \p{Punct}
-    
-    public CommandParser() {}
 
     /**
      * Parses user input into command for execution.
