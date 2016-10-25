@@ -4,13 +4,22 @@ import com.google.common.collect.ImmutableList;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.BooleanUtils;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.commons.util.CollectionUtil;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
+import seedu.todo.model.ErrorBag;
+import seedu.todo.model.tag.Tag;
+import seedu.todo.model.task.ImmutableTask;
 
+import java.util.stream.Collectors;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
+import java.util.Arrays;
 
 //@@author A0135805H
 /**
@@ -19,11 +28,15 @@ import java.util.List;
 public class TagCommand extends BaseCommand {
     /* Constants */
     private static final String VERB = "tagged";
+    private static final String TAG_VALIDATION_REGEX = "([A-Za-z0-9_-])+";
 
     private static final String ERROR_INCOMPLETE_PARAMETERS = "You have not supplied sufficient parameters to run a Tag command.";
     private static final String ERROR_INPUT_INDEX_REQUIRED = "A task index is required.";
     private static final String ERROR_INPUT_ADD_TAGS_REQUIRED = "A list of tags \"tag1, tag2, ...\" to add is required.";
     private static final String ERROR_INPUT_DELETE_TAGS_REQUIRED = "A list of tags \"tag1, tag2, ...\" to delete is required.";
+    private static final String ERROR_TAGS_DUPLICATED = "You might have keyed in duplicated tag names.";
+    private static final String ERROR_TAGS_ILLEGAL_CHAR = "Tags may only include alphanumeric characters, including dashes and underscores.";
+    private static final String ERROR_TAGS_NOT_FOUND_IN_TASK = " are not found from the task.";
 
     private static final String SUCCESS_ADD_TAGS = " tags have been added successfully.";
     private static final String SUCCESS_DELETE_TAGS = " tags have been removed successfully.";
@@ -82,9 +95,22 @@ public class TagCommand extends BaseCommand {
 
     @Override
     protected void validateArguments() {
-        //Check if required combination of inputs are available.
+        //Check if we have enough input arguments
         if (!isInputParametersAvailable()) {
             handleUnavailableInputParameters();
+        }
+
+        //Check arguments for add tags case
+        if (isAddTagsToTask()) {
+            String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
+            checkForIllegalCharInTagNames(addTags.getName(), tagsToAdd);
+            checkForDuplicatedTagNames(addTags.getName(), tagsToAdd);
+        }
+
+        //Check arguments for delete tags case
+        if (isDeleteTagsFromTask()) {
+            String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
+            checkForDuplicatedTagNames(deleteTags.getName(), tagsToDelete);
         }
         super.validateArguments();
     }
@@ -96,17 +122,19 @@ public class TagCommand extends BaseCommand {
         String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
         String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
 
+        //Performs the actual execution with the data
         if (isAddTagsToTask()) {
             model.addTagsToTask(displayedIndex, tagsToAdd);
             return new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
+
         } else if (isDeleteTagsFromTask()) {
             model.deleteTagsFromTask(displayedIndex, tagsToDelete);
             return new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
+
         } else {
             //Invalid case, should not happen, as we have checked it validateArguments.
             //However, for completeness, a command result is returned.
-            errors.put(ERROR_INCOMPLETE_PARAMETERS);
-            return new CommandResult("", errors);
+            throw new ValidationException(ERROR_INCOMPLETE_PARAMETERS);
         }
     }
 
@@ -171,4 +199,62 @@ public class TagCommand extends BaseCommand {
             errors.put(deleteTags.getName(), ERROR_INPUT_DELETE_TAGS_REQUIRED);
         }
     }
+
+    /**
+     * Checks if the given tag names have duplicated entries.
+     */
+    private void checkForDuplicatedTagNames(String argumentName, String[] tagNames) {
+        if (!CollectionUtil.elementsAreUnique(Arrays.asList(tagNames))) {
+            errors.put(argumentName, ERROR_TAGS_DUPLICATED);
+        }
+    }
+
+    /**
+     * Check if the given tag names are alphanumeric, which also can contain dashes and underscores.
+     */
+    private void checkForIllegalCharInTagNames(String argumentName, String[] tagNames) {
+        for (String tagName : tagNames) {
+            if (!isValidTagName(tagName)) {
+                errors.put(argumentName, ERROR_TAGS_ILLEGAL_CHAR);
+            }
+        }
+    }
+
+    /**
+     * Check if the given tag names are actually not found in the {@code task}.
+     * @throws ValidationException Throw an error if such a supplied tag name is not found.
+     */
+    private void checkForTagNamesNotExisted(ImmutableTask task,
+                                                  String[] tagNames) throws ValidationException {
+        List<String> tagNamesNotFound = new ArrayList<>();
+        Set<String> tagNamesFromTask = getTagNames(task.getTags());
+        for (String tagName : tagNames) {
+            if (!tagNamesFromTask.contains(tagName)) {
+                tagNamesNotFound.add(tagName);
+            }
+        }
+        if (!tagNamesNotFound.isEmpty()) {
+            String tagsNotFoundText = StringUtil.convertListToString(tagNamesNotFound.toArray(new String[0]));
+            ErrorBag bag = new ErrorBag();
+            bag.put(tagsNotFoundText + ERROR_TAGS_NOT_FOUND_IN_TASK);
+            throw new ValidationException("", bag);
+        }
+    }
+
+    /* Helper Methods */
+    /**
+     * Returns true if a given string is a valid tag name (alphanumeric, can contain dashes and underscores)
+     * Originated from {@link Tag}
+     */
+    private static boolean isValidTagName(String test) {
+        return test.matches(TAG_VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns a list of tag names fom the supplied {@code tags}
+     */
+    private static Set<String> getTagNames(Collection<Tag> tags) {
+        return tags.stream().map(Tag::getTagName).collect(Collectors.toSet());
+    }
+
 }

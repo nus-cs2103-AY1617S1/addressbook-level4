@@ -257,11 +257,6 @@ public class TodoModel implements Model {
     @Override
     public void addTagsToTask(int index, String[] tagNames) throws ValidationException {
         saveUndoState();
-        //Data validation
-        UniqueTagCollectionUtil.checkForIllegalCharInTagNames(tagNames);
-        UniqueTagCollectionUtil.checkForDuplicatedTagNames(tagNames);
-
-        //Perform adding
         Consumer<MutableTask> consumer = mutableTask -> {
             Set<Tag> tagsFromTask = new HashSet<>(mutableTask.getTags());
             for (String tagName : tagNames) {
@@ -276,13 +271,6 @@ public class TodoModel implements Model {
     @Override
     public void deleteTagsFromTask(int index, String[] tagNames) throws ValidationException {
         saveUndoState();
-
-        //Data Validation:
-        //TODO: Task may not be referenced to the correct one. So, the methods are disabled.
-        //ImmutableTask task = getObservableList().get(getTaskIndex(index));
-        //UniqueTagCollectionUtil.checkForTagNamesNotExisted(task, tagNames);
-        UniqueTagCollectionUtil.checkForDuplicatedTagNames(tagNames);
-
         Consumer<MutableTask> consumer = mutableTask -> {
             Set<Tag> tagsFromTask = new HashSet<>(mutableTask.getTags());
             for (String tagName : tagNames) {

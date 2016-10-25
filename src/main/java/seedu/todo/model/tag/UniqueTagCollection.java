@@ -22,6 +22,9 @@ import java.util.Set;
  * maintain uniqueness of the tag names.
  */
 public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionModel {
+    /* Constants */
+    public static final String ERROR_DATA_INTEGRITY = "Data Integrity Issue: A tag is missing from the collection.";
+
     /* Variables */
     /*
         Stores a list of tags with unique tag names.
@@ -29,8 +32,6 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
         TODO: So, duplicated ImmutableTask may be found in the set of each Tag.
      */
     private final Map<Tag, Set<ImmutableTask>> uniqueTagsToTasksMap = new HashMap<>();
-
-    /* Constants */
     private final Logger logger = Logger.getLogger(UniqueTagCollection.class.getName());
 
     /**
@@ -120,7 +121,7 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
                 .filter(tag -> tag.getTagName().equals(tagName)).findAny();
 
         if (!possibleTag.isPresent() && expectAvailable) {
-            logger.warning(UniqueTagCollectionUtil.ERROR_DATA_INTEGRITY);
+            logger.warning(ERROR_DATA_INTEGRITY);
         }
 
         Tag targetTag;
