@@ -10,6 +10,7 @@ import teamfour.tasc.model.task.status.EventStatus;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
+    //@@author A0148096W
     public static String MATCHSTRING_TYPE_ALL = "All Everything";
     public static String MATCHSTRING_TYPE_COMPLETED = "Completed";
     public static String MATCHSTRING_TYPE_UNCOMPLETED = "Uncompleted Incompleted";
@@ -20,6 +21,7 @@ public interface ReadOnlyTask {
     public static String MATCHSTRING_TYPE_FLOATING_TASKS = "Floating Tasks";
     public static String MATCHSTRING_TYPE_EVENTS = "Events Period";
     
+    //@@author
     Name getName();
     Complete getComplete();
     
@@ -83,6 +85,7 @@ public interface ReadOnlyTask {
         return EventStatus.IN_PROGRESS;
     }
     
+    //@@author A0148096W
     /**
      * Formats the task as keywords indicating its type from its attributes.
      */
@@ -116,6 +119,7 @@ public interface ReadOnlyTask {
         
         return builder.toString();
     }
+    //@@author
 
     /**
      * Formats the task as text, showing all task details.

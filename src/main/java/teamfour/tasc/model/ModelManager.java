@@ -80,9 +80,10 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskListChangedEvent(taskList));
     }
     
+    //@@author A0148096W
     @Override
     public void saveTaskListHistory() {
-        taskListHistory.pushState(taskList);
+        taskListHistory.push(taskList);
     }
     
     @Override
@@ -93,8 +94,8 @@ public class ModelManager extends ComponentManager implements Model {
         TaskList historyTaskList = null;
         try {
             for (int i = 0; i < numToUndo; i++) {
-                redoTaskListHistory.pushState(historyTaskList == null ? taskList : historyTaskList);
-                historyTaskList = taskListHistory.popState();
+                redoTaskListHistory.push(historyTaskList == null ? taskList : historyTaskList);
+                historyTaskList = taskListHistory.pop();
                 numUndone++;
             }
         } catch (OutOfHistoryException e) {
@@ -107,6 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
         return numUndone;
     }
 
+    //@@author
     @Override
     public int redoTaskListHistory(int numToRedo) {
         assert numToRedo > 0;
@@ -115,8 +117,8 @@ public class ModelManager extends ComponentManager implements Model {
         TaskList historyTaskList = null;
         try {
             for (int i = 0; i < numToRedo; i++) {
-                taskListHistory.pushState(historyTaskList == null ? taskList : historyTaskList);
-                historyTaskList = redoTaskListHistory.popState();
+                taskListHistory.push(historyTaskList == null ? taskList : historyTaskList);
+                historyTaskList = redoTaskListHistory.pop();
                 numRedone++;
             }
         } catch (OutOfHistoryException e) {
@@ -173,6 +175,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
+    //@@author A0148096W
     @Override
     public void resetTaskListFilter() {
         taskListFilter = new PredicateExpression(new AllQualifier());
@@ -243,10 +246,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(taskListFilter);
     }
 
+    //@@author
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
 
+    //@@author A0148096W
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
