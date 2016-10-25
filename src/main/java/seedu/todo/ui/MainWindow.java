@@ -37,6 +37,7 @@ public class MainWindow extends UiPart {
 
     /* Independent Ui parts residing in this Ui container */
     private CommandInputView commandInputView;
+    private CommandPreviewView commandPreviewView;
     private CommandFeedbackView commandFeedbackView;
     private CommandErrorView commandErrorView;
     private TodoListView todoListView;
@@ -48,6 +49,7 @@ public class MainWindow extends UiPart {
 
     @FXML private AnchorPane commandInputViewPlaceholder;
     @FXML private AnchorPane commandErrorViewPlaceholder;
+    @FXML private AnchorPane commandPreviewViewPlaceholder;
     @FXML private AnchorPane commandFeedbackViewPlaceholder;
     @FXML private AnchorPane todoListViewPlaceholder;
     @FXML private AnchorPane helpViewPlaceholder;
@@ -89,14 +91,16 @@ public class MainWindow extends UiPart {
         //Initialise the view elements to each placeholders.
         todoListView = TodoListView.load(primaryStage, todoListViewPlaceholder, model.getObservableList());
         helpView = HelpView.load(primaryStage, helpViewPlaceholder);
+        commandPreviewView = CommandPreviewView.load(primaryStage, commandPreviewViewPlaceholder);
         commandFeedbackView = CommandFeedbackView.load(primaryStage, commandFeedbackViewPlaceholder);
         commandInputView = CommandInputView.load(primaryStage, commandInputViewPlaceholder);
         commandErrorView = CommandErrorView.load(primaryStage, commandErrorViewPlaceholder);
-        
+
         FilterBarView.load(primaryStage, filterBarViewPlaceholder, model.getViewFilter());
         SearchStatusView.load(primaryStage, searchStatusViewPlaceholder, model.getSearchStatus());
         //Constructs a command communication link between the commandXViews and logic.
-        CommandController.constructLink(logic, commandInputView, commandFeedbackView, commandErrorView);
+        CommandController.constructLink(logic,
+                commandInputView, commandPreviewView, commandFeedbackView, commandErrorView);
     }
 
 
@@ -168,5 +172,9 @@ public class MainWindow extends UiPart {
 
     public CommandFeedbackView getCommandFeedbackView() {
         return commandFeedbackView;
+    }
+
+    public CommandPreviewView getCommandPreviewView() {
+        return commandPreviewView;
     }
 }

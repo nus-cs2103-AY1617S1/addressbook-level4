@@ -5,10 +5,11 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import seedu.todo.TestApp;
 import seedu.todo.testutil.UiTestUtil;
+import seedu.todo.ui.view.CommandFeedbackView;
 
 //@@author A0135805H
 /**
- * A handler for retrieving feedback to user via {@link seedu.todo.ui.view.CommandFeedbackView}
+ * A handler for retrieving feedback to user via {@link CommandFeedbackView}
  */
 public class CommandFeedbackViewHandle extends GuiHandle {
     /* Constants */

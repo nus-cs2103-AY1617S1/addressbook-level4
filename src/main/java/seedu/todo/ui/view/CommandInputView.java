@@ -62,19 +62,27 @@ public class CommandInputView extends UiPart {
         listenAndRaiseEnterEvent();
     }
 
+    //@@author A0139021U
     /**
-     * Sets {@link #commandTextField} to listen out for a command.
-     * Once a command is received, calls {@link CommandCallback} interface to process this command.
+     * Sets {@link #commandTextField} to listen out for keystrokes.
+     * Once a keystroke is received, calls {@link KeyStrokeCallback} interface to process this command.
      */
-    public void listenToCommandExecution(CommandCallback listener) {
-        this.commandTextField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-            if (event.getCode() == KeyCode.ENTER) {
-                String command = commandTextField.getText();
-                listener.onCommandReceived(command);
-                event.consume(); //To prevent commandTextField from printing a new line.
+    public void listenToInput(KeyStrokeCallback listener) {
+        this.commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
+            KeyCode keyCode = event.getCode();
+            String textInput = commandTextField.getText();
+            
+            boolean isNonEssential = keyCode.isNavigationKey() || 
+                    keyCode.isFunctionKey() || 
+                    keyCode.isMediaKey() || 
+                    keyCode.isModifierKey();
+            
+            if (!isNonEssential) {
+                listener.onKeyStroke(keyCode, textInput);
             }
         });
     }
+    //@@author
 
     /**
      * Listens for Enter keystrokes, and raises an event when it happens.
@@ -148,11 +156,12 @@ public class CommandInputView extends UiPart {
         this.placeHolder = pane;
     }
 
+    //@@author A0139021U
     /*Interface Declarations*/
     /**
-     * Defines an interface for controller class to receive a command from this view class, and process it.
+     * Defines an interface for controller class to receive a key stroke from this view class, and process it.
      */
-    public interface CommandCallback {
-        void onCommandReceived(String command);
+    public interface KeyStrokeCallback {
+        void onKeyStroke(KeyCode keyCode, String text);
     }
 }

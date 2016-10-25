@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -120,5 +121,48 @@ public class StringUtilTest {
         String[] outcome = StringUtil.partitionStringAtPosition("I have a Pikachu", 5);
         assertArrayEquals(expected, outcome);
     }
+    //@@author
 
+    //@@author A0139021U
+    @Test
+    public void calculateClosenessScoreNull() {
+        double expected = 0d;
+        double outcome = StringUtil.calculateClosenessScore(null, null);
+        assertEquals(expected, outcome, 0d);
+    }
+    
+    @Test
+    public void calculateClosenessScoreEmptyString() {
+        double expected = 0d;
+        double outcome = StringUtil.calculateClosenessScore("", "");
+        assertEquals(expected, outcome, 0d);
+    }
+    
+    @Test
+    public void calculateClosenessScoreSameString() {
+        double expected = 100d;
+        double outcome = StringUtil.calculateClosenessScore("test", "test");
+        assertEquals(expected, outcome, 0d);
+    }
+    
+    @Test
+    public void calculateClosenessScoreDifferentString() {
+        double expected = 0d;
+        double outcome = StringUtil.calculateClosenessScore("test", "ioio");
+        assertEquals(expected, outcome, 0d);
+    }
+    
+    @Test
+    public void calculateClosenessScoreSomewhatCloseAdd() {
+        double expected = 50d;
+        double outcome = StringUtil.calculateClosenessScore("add", "a");
+        assertEquals(expected, outcome, 20d);
+    }
+    
+    @Test
+    public void calculateClosenessScoreSomewhatCloseComplete() {
+        double expected = 50d;
+        double outcome = StringUtil.calculateClosenessScore("complete", "Com");
+        assertEquals(expected, outcome, 20d);
+    }
 }
