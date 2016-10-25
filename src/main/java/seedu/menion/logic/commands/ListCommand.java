@@ -19,17 +19,20 @@ public class ListCommand extends Command {
     public static final String LIST_ALL = "all";
     public static final String LIST_MONTH = "month";
     public static final String LIST_DATE = "date";
+    public static final String LIST_KEYWORDS = "keywords";
     private static final Pattern VALID_DATE = Pattern
 			.compile("(0?[0-1][0-9]-[0-3][0-9]-[0-2][0-9][0-9][0-9])");
     
     public static final String WRONG_ARGUMENT = "Wrong argument! Please input either list all, list DATE or list MONTH";
     public static final String MESSAGE_SUCCESS_ALL = "Listed all activities";
     public static final String MESSAGE_SUCCESS_DATE_MONTH = "Menion lists all activities that falls on ";
+    public static final String MESSAGE_SUCCESS_LIST_KEYWORDS = "Menion has found these activities with the keyword : ";
 
     private String listArgument;
     private String listType;
     private String monthToList;
     private String dateToList;
+    private String keywordToList;
     private Set<String> argumentsToList;
     
     private static Matcher matcher;
@@ -46,7 +49,7 @@ public class ListCommand extends Command {
      * @return
      * @throws IllegalValueException
      */
-    public String checkListType(String args) throws IllegalValueException{
+    public String checkListType(String args){
     	
     	if (args.equals("") || args.toLowerCase().equals(LIST_ALL)){
     		return LIST_ALL;
@@ -60,9 +63,11 @@ public class ListCommand extends Command {
     	else if (isDate(args)){
     		return LIST_DATE;
     	}
-    		
+    		// Find by keywords
     	else {
-    		throw new IllegalValueException(WRONG_ARGUMENT);
+    		this.argumentsToList.add(args);
+    		this.keywordToList = args;
+    		return LIST_KEYWORDS;
     	}
     			
     	
@@ -106,44 +111,43 @@ public class ListCommand extends Command {
     	return false;
     }
     
-    @Override
-    public CommandResult execute() {
-    	
-    	try{
-    		
-    		this.listType = checkListType(this.listArgument);
-    		
-    		switch (this.listType){
-        	
-        	case LIST_ALL:
+	@Override
+	public CommandResult execute() {
 
-                model.updateFilteredListToShowAll();
-                return new CommandResult(MESSAGE_SUCCESS_ALL);
-        		
-        	case LIST_DATE:
-        		
-        		model.updateFilteredTaskList(this.argumentsToList);
-        		model.updateFilteredEventList(this.argumentsToList);
-        		model.updateFilteredFloatingTaskList(this.argumentsToList);
-        		return new CommandResult(MESSAGE_SUCCESS_DATE_MONTH + this.dateToList);
-        	
-        	case LIST_MONTH:
-        		
-        		model.updateFilteredTaskList(this.argumentsToList);
-        		model.updateFilteredEventList(this.argumentsToList);
-        		model.updateFilteredFloatingTaskList(this.argumentsToList);
-        		return new CommandResult(MESSAGE_SUCCESS_DATE_MONTH + this.monthToList);
-        		
-        	default:
-        		return new CommandResult(WRONG_ARGUMENT);
-        		
-        	}
-    		
-    	} catch (IllegalValueException e){
-    		
-    		return new CommandResult(WRONG_ARGUMENT);
-    		
-    	}
-    	
-    }
+		this.listType = checkListType(this.listArgument);
+
+		switch (this.listType) {
+
+		case LIST_ALL:
+
+			model.updateFilteredListToShowAll();
+			return new CommandResult(MESSAGE_SUCCESS_ALL);
+
+		case LIST_DATE:
+
+			model.updateFilteredTaskList(this.argumentsToList);
+			model.updateFilteredEventList(this.argumentsToList);
+			model.updateFilteredFloatingTaskList(this.argumentsToList);
+			return new CommandResult(MESSAGE_SUCCESS_DATE_MONTH + this.dateToList);
+
+		case LIST_MONTH:
+
+			model.updateFilteredTaskList(this.argumentsToList);
+			model.updateFilteredEventList(this.argumentsToList);
+			model.updateFilteredFloatingTaskList(this.argumentsToList);
+			return new CommandResult(MESSAGE_SUCCESS_DATE_MONTH + this.monthToList);
+
+		case LIST_KEYWORDS:
+			
+			model.updateFilteredTaskList(this.argumentsToList);
+			model.updateFilteredFloatingTaskList(this.argumentsToList);
+			model.updateFilteredEventList(this.argumentsToList);
+			return new CommandResult(MESSAGE_SUCCESS_LIST_KEYWORDS + this.keywordToList); 
+			
+		default:
+			return new CommandResult(WRONG_ARGUMENT);
+
+		}
+
+	}
 }

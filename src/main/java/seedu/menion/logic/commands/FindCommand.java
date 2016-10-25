@@ -24,6 +24,10 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute() {
         model.updateFilteredTaskList(keywords);
-        return new CommandResult(getMessageForActivityListShownSummary(model.getFilteredTaskList().size()));
+        model.updateFilteredEventList(keywords);
+        model.updateFilteredFloatingTaskList(keywords);
+        int totalListsSize = model.getFilteredEventList().size()
+        		+ model.getFilteredFloatingTaskList().size() + model.getFilteredTaskList().size();
+        return new CommandResult(getMessageForActivityListShownSummary(totalListsSize));
     }
 }

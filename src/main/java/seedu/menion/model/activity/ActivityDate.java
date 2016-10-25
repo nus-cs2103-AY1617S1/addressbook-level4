@@ -23,6 +23,7 @@ public class ActivityDate {
     public static final String ACTIVITYDATE_VALIDATION_REGEX = "(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9])";
 
     public final String value;
+    public final String formattedValue;
     private String month;
 
     /**
@@ -37,6 +38,7 @@ public class ActivityDate {
         isValidDate(date);
          
         extractMonth(date);
+        this.formattedValue = formatNiceDate(date);
         this.value = date;
     }
 
