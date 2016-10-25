@@ -49,9 +49,17 @@ We are a group of Computer Science students from the School of Computing, Nation
 #### [Jun An](https://github.com/yamidark)<br>
 
 <img src="images/TanJunAn.png" width="150"><br>
-* Role: Developer<br>
-* Responsibilities: Testing<br>
-* In charge of: Logic
+* Components in charge of: [Logic](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/DeveloperGuide.md#logic-component)
+* Aspects/tools in charge of: Testing<br>
+* Features implemented:
+  * [Undo](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#undo-previous-action-undo)
+  * [Delete task](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#delete-task-delete)
+  * [Shortcut keys][[#137]](https://github.com/CS2103AUG2016-W14-C4/main/pull/137)
+* Code written: [[functional code](../collated/main/A0139052L.md)][[test code](../collated/test/A0139052L.md)][[docs](../collated/docs/A0139052L.md)]
+* Other major contributions:
+  * Set up Travis
+  * Set up Coveralls
+  * Set up initial sorting of task list [[#129]](https://github.com/CS2103AUG2016-W14-C4/main/pull/129)
 
 #### Michelle
 
