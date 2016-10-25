@@ -216,7 +216,7 @@ We have two types of tests:
    These are in the `guitests` package.
    
    Currently, _Systems Tests_ have covered the basic functionalities of Happy Jim Task Master v0.1. 
-   Following form shows the more essential commands and corresponding testcases.
+   Following form shows the some of the essential commands and corresponding testcases.
    
    1. _AddCommandTest_ 
    
@@ -291,6 +291,7 @@ We have two types of tests:
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
       e.g. `seedu.taskmaster.logic.LogicManagerTest`
+      
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -353,12 +354,10 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | have recurring tasks | do weekly tasks easily
 `* *` | user | save my files in another location | choose where to save my tasks 
 `* *` | user | customize/add tags
-`*` | user | be able to integrate to google calendar | sync with google calendar
 `*` | user | archive the tasks
-`*` | user | be able to postpone a tasks
-`*` | user | be prompted to reschedule if i exceeded my tasks | 
 `*` | user | have autocomplete 	| be more productive
 `*` | user | have gui | to make it easier to use
+`*` | user | have a calendar or agenda on GUI | view my schedule more clearly
 `*` | advanced user | customize the commands| to use it more easily
 
 ## Appendix B : Use Cases
@@ -501,6 +500,22 @@ Use case ends.
 
 > 3a1. Happy Jim Task Manager shows an error message <br>
   Use case resumes at step 2
+
+#### Use case: UC08 - View agenda for specific week
+
+**MSS**
+
+1. User request to view a week's agenda specified by a day.
+2. Happy Jim Task Manager updates agenda.
+3. Happy Jim Task Manager displays updayed agenda. <br>
+Use case ends.
+
+**Extensions**
+
+1a. Invalid command
+
+> 1a1. Happy Jim Task Manager shows an error message <br>
+  Use case resumes at step 1
 
 #### Use case: UC09 - Block Timeslot
 
