@@ -87,8 +87,10 @@ public class CommandBox extends UiPart {
         if (keyIsEnter) {
             return;
         }
-                              
+        
+        // reset incorrect command style on command box
         setStyleToIndicateCorrectCommand();
+        
         String userInput = getUserInputAfterKeyPressed(keyInputAsString);
         updateTooltipForUser(userInput);        
 

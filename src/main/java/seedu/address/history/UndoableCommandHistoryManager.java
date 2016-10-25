@@ -6,7 +6,6 @@ import seedu.address.logic.commands.UndoableCommand;
 
 /**
  * Stores the history of undoable and redoable commands for UndoCommand to use.
- * Also stores the history of user inputs for navigating previous and next user inputs using up and down arrow keys.
  */
 public class UndoableCommandHistoryManager implements UndoableCommandHistory{
     
@@ -31,33 +30,38 @@ public class UndoableCommandHistoryManager implements UndoableCommandHistory{
     }
     
     // Methods dealing with undo and redo
-
+    @Override
     public void updateCommandHistory(UndoableCommand undoableCommand){
         assert undoableCommands != null;
         undoableCommands.push(undoableCommand);
+        resetRedo();
     }
     
+    @Override
     public boolean isEarliestCommand(){
         assert undoableCommands != null;
         return undoableCommands.isEmpty();
     }
     
+    @Override
     public boolean isLatestCommand(){
         assert redoableCommands != null;
         return redoableCommands.isEmpty();
     }
     
+    @Override
     public UndoableCommand undoStep(){
         assert redoableCommands != null && undoableCommands != null;
         return redoableCommands.push(undoableCommands.pop());
     }
     
+    @Override
     public UndoableCommand redoStep(){
         assert redoableCommands != null && undoableCommands != null;
         return undoableCommands.push(redoableCommands.pop());
     }
     
-    public void resetRedo(){
+    private void resetRedo(){
         // not sure if using clear() gives worse performance
         redoableCommands = new Stack<UndoableCommand>();
     }

@@ -52,7 +52,7 @@ public class DoneCommand extends UndoableCommand {
     @Override
     public CommandResult execute() {
         assert model != null;
-        if (!isRedoAction()) {
+        if (!checkIfRedoAction()) {
             viewingDoneList = model.isCurrentListDoneList();
         }
         if (viewingDoneList) {

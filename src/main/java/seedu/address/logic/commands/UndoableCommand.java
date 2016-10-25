@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 public abstract class UndoableCommand extends Command {
     
-    private boolean isRedo;
+    private boolean isRedoAction;
     
     /**
      * Undoes the command and returns the result message.
@@ -18,14 +18,12 @@ public abstract class UndoableCommand extends Command {
      */
     public void updateHistory(){
         
-        if (isRedo) {
+        if (isRedoAction) {
             return;
         }
         
-        history.updateCommandHistory(this);
-        history.resetRedo();
-        
-        isRedo = true;
+        history.updateCommandHistory(this);        
+        isRedoAction = true;
     }
     
     /**
@@ -33,8 +31,8 @@ public abstract class UndoableCommand extends Command {
      * as part of a redo command.
      * @return boolean representing if the current command is executed as part of a redo command
      */
-    public boolean isRedoAction() {
-        return isRedo;
+    public boolean checkIfRedoAction() {
+        return isRedoAction;
     }
 
 }

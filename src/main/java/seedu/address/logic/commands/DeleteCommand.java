@@ -45,7 +45,7 @@ public class DeleteCommand extends UndoableCommand {
         assert model != null && targetIndexes != null;
         
         displayDeletedTasks = new ArrayList<String>();
-        if (!isRedoAction()) {
+        if (!checkIfRedoAction()) {
             viewingDoneList = model.isCurrentListDoneList();
         }
         Collections.sort(targetIndexes);
