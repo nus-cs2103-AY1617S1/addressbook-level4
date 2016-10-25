@@ -299,7 +299,7 @@ Priority | As a ... | I want to ... | So that I can...
 **MSS**
 
 1. User enters command to add task along with task details
-2. TaskManager adds task with the details provided <br>
+2. TaskManager adds task with the details provided 
 Use case ends.
 
 **Extensions**
