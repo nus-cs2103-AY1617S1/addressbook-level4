@@ -544,6 +544,7 @@ Use case ends
 > * Program returns error message, saying that index is invalid<br>
   Use case resumes at step 2
 
+<!-- @@author A0139052L -->
 * The given alphabet is invalid (not `t`, `d`, or `e`)
 
 > * Program defaults to the todo list<br>
@@ -560,6 +561,7 @@ Use case ends
   Use case resumes at step 2
 
 <br></br>
+<!-- @@author A0130853L -->
 ### Use case: Delete a task
 
 **MSS**
@@ -581,6 +583,7 @@ Use case ends
 > * Program returns error message, saying that index is invalid<br>
   Use case resumes at step 2
 
+<!-- @@author A0139052L -->
 * The given alphabet is invalid (not `t`, `d`, or `e`)
 
 > * Program defaults to the todo list<br>
@@ -592,6 +595,7 @@ Use case ends
   Use case resumes at step 3
 
 <br></br>
+<!-- @@author A0130853L -->
 ### Use case: Mark a task when done
 
 **MSS**
@@ -612,7 +616,8 @@ Use case ends
 
 > * Program returns error message, saying that index is invalid<br>
   Use case resumes at step 2
-  
+
+<!-- @@author A0139052L -->
 * The given alphabet is invalid (not `t`, `d`, or `e`)
 
 > * Program defaults to the todo list<br>
@@ -706,7 +711,7 @@ Use case ends
 * Truncates text on the calendar.
 * Can only mark reminders as done.
 
-
+<!-- @@author A0139052L -->
 #### Jun An: `Wunderlist`
 
 **Pros**
