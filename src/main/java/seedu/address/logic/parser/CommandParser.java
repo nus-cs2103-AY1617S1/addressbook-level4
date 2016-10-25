@@ -192,9 +192,9 @@ public class CommandParser {
                     EditCommand.MESSAGE_USAGE + "\n" + ive.getMessage()));
         }            
     }
-
+    //@@author A0139498J
     /**
-     * Parses arguments in the context of the delete person command.
+     * Parses arguments in the context of the delete task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -210,8 +210,9 @@ public class CommandParser {
         return new DeleteCommand(indexes.get());
     }
     
+    //@@author A0139498J
     /**
-     * Parses arguments in the context of the done person command.
+     * Parses arguments in the context of the done task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -228,7 +229,7 @@ public class CommandParser {
     }
 
     /**
-     * Parses arguments in the context of the select person command.
+     * Parses arguments in the context of the select task command.
      *
      * @param args full command args string
      * @return the prepared command
@@ -243,22 +244,23 @@ public class CommandParser {
         return new SelectCommand(index.get());
     }
     
+    //@@author A0139498J
     /**
-     * Parses arguments in the context of the select person command.
+     * Parses arguments in the context of the list tasks command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareList(String args) {
         Boolean isListDoneCommand = false;
-        
-        if (args != null && args.trim().toLowerCase().equals("done")) {
+        if (args != null && args.trim().equalsIgnoreCase(ListCommand.DONE_COMMAND_WORD)) {
             isListDoneCommand = true;
         }
 
         return new ListCommand(isListDoneCommand);
     }
     
+    //@@author A0139498J
     /**
      * Parses arguments in the context of the help command.
      *
@@ -266,6 +268,7 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareHelp(String args) {
+        
         if (args != null) {
             return new HelpCommand(args.trim());
         }
@@ -291,12 +294,15 @@ public class CommandParser {
 
     }
     
+    //@@author A0139498J
     /**
      * Returns the specified indexes in the {@code command} IF any positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<List<Integer>> parseIndexes(String command) {
-        final Matcher matcher = ITEM_INDEX_ARGS_FORMAT.matcher(command.trim());
+        
+        final Matcher matcher = ITEM_INDEX_ARGS_FORMAT.matcher(command);
+        
         if (!matcher.matches()) {
             return Optional.empty();
         }
@@ -309,10 +315,8 @@ public class CommandParser {
                 indexesToHandle.add(Integer.parseInt(index));
             }
         }
-        if (indexesToHandle.isEmpty()) {
-            return Optional.empty();
-        }
-        return Optional.of(indexesToHandle);
+        
+        return (indexesToHandle.isEmpty())? Optional.empty(): Optional.of(indexesToHandle);
 
     }
 

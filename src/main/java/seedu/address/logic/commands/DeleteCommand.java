@@ -10,6 +10,7 @@ import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0139498J
 /**
  * Deletes a task identified using its last displayed index from the task manager.
  */
@@ -89,7 +90,7 @@ public class DeleteCommand extends UndoableCommand {
         updateHistory();
         if (displayDeletedTasks.isEmpty()) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         String toDisplay = displayDeletedTasks.toString().replace("[", "").replace("]", "");
         return (displayDeletedTasks.size() == 1)? 
@@ -127,7 +128,7 @@ public class DeleteCommand extends UndoableCommand {
         updateHistory();
         if (displayDeletedTasks.isEmpty()) {
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         String toDisplay = displayDeletedTasks.toString().replace("[", "").replace("]", "");
         return (displayDeletedTasks.size() == 1)? 

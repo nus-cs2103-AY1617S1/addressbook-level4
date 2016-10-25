@@ -88,7 +88,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
-
+    //@@author A0139498J
     @Override
     public synchronized void addTask(Task task) {
         taskManager.addTask(task);
@@ -96,6 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+
     @Override
     public synchronized void addDoneTask(Task task) {
         taskManager.addDoneTask(task);
@@ -108,6 +109,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@author 
     @Override
     public void addTasks(List<Task> tasks) {
         for (Task task: tasks){
@@ -149,18 +151,18 @@ public class ModelManager extends ComponentManager implements Model {
             }
         }
     }
-    
+    //@@author A0139498J
     @Override
     public Boolean isCurrentListDoneList() {
         return isDoneList;
     }
-    
+
     @Override
     public void setCurrentListToBeDoneList() {
         EventsCenter.getInstance().post(new ChangeToListDoneViewEvent());
         isDoneList = true;
     }
-    
+  
     @Override
     public void setCurrentListToBeUndoneList() {
         EventsCenter.getInstance().post(new ChangeToListUndoneViewEvent());
@@ -168,7 +170,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //@@author A0139655U
-        public synchronized void editTask(ReadOnlyTask floatingTask, Name name, Date startDate,
+    public synchronized void editTask(ReadOnlyTask floatingTask, Name name, Date startDate,
             Date endDate, Priority priority, RecurrenceRate recurrenceRate) {
         taskManager.editFloatingTask(floatingTask, name, startDate, endDate, priority, recurrenceRate);
         updateFilteredListsToShowAll();
@@ -261,7 +263,8 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
+    
+    //@@author A0139498J
     @Override
     public void updateFilteredListsToShowAll() {
         filteredUndoneTasks.setPredicate(null);

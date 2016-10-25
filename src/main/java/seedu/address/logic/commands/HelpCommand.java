@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-
+//@@author A0139498J
 /**
  * Format help instructions for a particular command for display.
  */
@@ -45,7 +45,7 @@ public class HelpCommand extends Command {
     public HelpCommand(String commandType) {
         this.commandType = commandType;
     }
-
+    
     @Override
     public CommandResult execute() {
         switch (commandType) {
