@@ -22,6 +22,7 @@ import seedu.todo.storage.TodoListStorage;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -227,7 +228,7 @@ public class TodoModel implements Model {
         UniqueTagCollectionUtil.checkForDuplicatedTagNames(tagNames);
 
         //Perform adding
-        Set<Tag> tagsFromTask = task.getTags();
+        Set<Tag> tagsFromTask = new HashSet<>(task.getTags());
         for (String tagName : tagNames) {
             Tag newTag = uniqueTagCollection.registerTagWithTask(task, tagName);
             tagsFromTask.add(newTag);
@@ -244,7 +245,7 @@ public class TodoModel implements Model {
         UniqueTagCollectionUtil.checkForDuplicatedTagNames(tagNames);
 
         //Perform deleting
-        Set<Tag> tagsFromTask = task.getTags();
+        Set<Tag> tagsFromTask = new HashSet<>(task.getTags());
         for (String tagName : tagNames) {
             Tag deletedTag = uniqueTagCollection.unregisterTagWithTask(task, tagName);
             tagsFromTask.remove(deletedTag);
