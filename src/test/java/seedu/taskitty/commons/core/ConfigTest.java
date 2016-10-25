@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 public class ConfigTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-/*
+
     @Test
     public void toString_defaultObject_stringReturned() {
         String defaultConfigAsString = "App title : TasKitty\n" +
@@ -23,7 +23,7 @@ public class ConfigTest {
                 "TaskManager name : MyTasks";
 
         assertEquals(defaultConfigAsString, new Config().toString());
-    }*/
+    }
 
     @Test
     public void equalsMethod(){
