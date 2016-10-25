@@ -249,6 +249,28 @@ public class LogicManagerTest {
 				expectedManager.getTaskList());
 	}
 	
+	
+	@Test
+	public void execute_undo_done_successful() throws Exception {
+		// setup expectations
+		TestDataHelper helper = new TestDataHelper();
+		TaskManager expectedManager = new TaskManager();
+		
+		//Add task to manager
+		Task taskWithNotCompletedStatus = helper.homework();
+		String commadForAdd = helper.generateAddCommand(taskWithNotCompletedStatus);
+		logic.execute(commadForAdd);
+		expectedManager.addTask(taskWithNotCompletedStatus);
+		
+		//Change task
+		String commadForDone = "done 1";
+        logic.execute(commadForDone);
+        
+		// execute undo command and verify result
+		assertCommandBehavior(helper.generateUndoCommand(), DoneCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
+				expectedManager.getTaskList());
+	}
+	
 	@Test
 	public void execute_undo_clear_successful() throws Exception {
 		// setup expectations
