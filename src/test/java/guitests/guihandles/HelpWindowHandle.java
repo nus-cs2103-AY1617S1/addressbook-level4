@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 
+//@@author A0148031R
 /**
  * Provides a handle to the help window of the app.
  */

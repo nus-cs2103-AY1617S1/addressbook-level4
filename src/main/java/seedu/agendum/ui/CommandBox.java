@@ -19,6 +19,7 @@ import seedu.agendum.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
+//@@author A0148031R
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";

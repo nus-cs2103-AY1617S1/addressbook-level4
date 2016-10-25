@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import seedu.agendum.model.task.ReadOnlyTask;
 
+//@@author A0148031R
 public class TaskCard extends UiPart {
     
     private static final String FXML = "TaskCard.fxml";

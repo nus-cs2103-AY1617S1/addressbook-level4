@@ -36,10 +36,5 @@ public class MainGuiHandle extends GuiHandle {
     public boolean isWindowClose() {
         return getNode(HELP_WINDOW_ROOT_FIELD_ID) != null;
     }
-    
-    private void useAcceleratorToCloseHelpWindow() {
-        guiRobot.push(new KeyCodeCombination(KeyCode.ESCAPE));
-        guiRobot.sleep(500);
-    }
 
 }

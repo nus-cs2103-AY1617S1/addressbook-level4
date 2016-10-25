@@ -6,6 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import seedu.agendum.TestApp;
 
+//@@author A0148031R
 /**
  * A handler for the ResultDisplay of the UI
  */

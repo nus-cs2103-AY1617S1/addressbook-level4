@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 
 import com.sun.javafx.stage.StageHelper;
 
+//@@author A0148031R
 /**
  * Controller for a help page
  */
