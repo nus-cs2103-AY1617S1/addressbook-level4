@@ -54,7 +54,6 @@ public class UndoCommand extends Command {
             redoListOfTasks.push(listOfTasks.peek());
             ReadOnlyTask undoDone = listOfTasks.pop();
             undoDone.setUndone();
-            model.updateFilteredListToShowAllUndone();
         }
         
         else if (previousCommand.equals("edit")){
@@ -85,6 +84,7 @@ public class UndoCommand extends Command {
                 new CommandResult(ive.getMessage());
             }
         }
+        model.updateListing();
         return new CommandResult(String.format(MESSAGE_UNDO_COMMAND_SUCCESS, previousCommand));
     }
     

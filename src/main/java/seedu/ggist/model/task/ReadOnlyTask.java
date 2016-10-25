@@ -21,6 +21,8 @@ public interface ReadOnlyTask {
     Date getEndDateTime();
     boolean isDone();
     boolean isOverdue();
+    void constructStartDateTime(TaskDate date, TaskTime time) throws IllegalValueException;
+    void constructEndDateTime(TaskDate date, TaskTime time) throws IllegalValueException;
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -62,5 +64,6 @@ public interface ReadOnlyTask {
     void setDone();
     void setUndone();
     void setNotOverdue();
+    void checkTimeClash() throws IllegalValueException;
 
 }
