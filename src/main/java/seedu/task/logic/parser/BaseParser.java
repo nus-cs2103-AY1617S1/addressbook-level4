@@ -26,15 +26,7 @@ public abstract class BaseParser {
         
         for (String segment : segments) {
             if (segment.contains("/")) {
-                ArrayList<String> arrayItems;
-                if (argumentsTable.containsKey(currentKey)) {
-                    arrayItems = argumentsTable.get(currentKey);
-                } else {
-                    arrayItems = new ArrayList<String>();
-                }
-                
-                arrayItems.add(joiner.toString());
-                argumentsTable.put(currentKey, arrayItems);
+                addToArgumentsTable(currentKey, joiner.toString());
                 
                 String[] kwargComponent = segment.split("/", 2);
                 
@@ -51,6 +43,27 @@ public abstract class BaseParser {
                 joiner.add(segment);
             }
         }
+        
+        addToArgumentsTable(currentKey, joiner.toString());
+    }
+    
+    /**
+     * Assigns a value to a keyword argument. Does not replace any existing
+     * values associated with the keyword.
+     * @param keyword
+     * @param value
+     */
+    protected void addToArgumentsTable(String keyword, String value) {
+        ArrayList<String> arrayItems;
+        if (argumentsTable.containsKey(keyword)) {
+            arrayItems = argumentsTable.get(keyword);
+        } else {
+            arrayItems = new ArrayList<String>();
+        }
+        
+        arrayItems.add(value);
+        System.out.println(keyword + ": " + value);
+        argumentsTable.put(keyword, arrayItems);
     }
     
     protected boolean checkForRequiredArguments(String[] requiredArgs) {
@@ -61,8 +74,6 @@ public abstract class BaseParser {
         for (String arg : requiredArgs) {
             if (!argumentsTable.containsKey(arg)) {
                 return false;
-            } else {
-                ArrayList<String> values = argumentsTable.get(arg);
             }
         }
         
