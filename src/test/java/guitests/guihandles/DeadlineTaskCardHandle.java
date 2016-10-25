@@ -4,6 +4,7 @@ import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskDateTimeFormatter;
 
 /**
  * Provides a handle to a task card in the task list panel.
@@ -37,9 +38,9 @@ public class DeadlineTaskCardHandle extends GuiHandle {
     }
 
     public boolean isSameTask(ReadOnlyTask task){
-        return getTaskName().equals(task.getName().fullName)
+    	return getTaskName().equals(task.getName().fullName)
                && getTaskType().equals(task.getTaskType().toString())
-               && getDueDate().equals(task.getEndDate().get().toString());
+               && getDueDate().equals(TaskDateTimeFormatter.formatToShowDateAndTime(task.getEndDate().get()));
     }
 
     @Override
