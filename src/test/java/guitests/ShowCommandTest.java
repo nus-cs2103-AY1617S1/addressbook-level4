@@ -1,6 +1,8 @@
 package guitests;
 
 
+import static seedu.jimi.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import org.junit.Test;
 
 import seedu.jimi.logic.commands.ShowCommand;
@@ -21,7 +23,8 @@ public class ShowCommandTest extends AddressBookGuiTest {
     @Test
     public void show_invalidDay() {
         commandBox.runCommand("show floatingtasks");
-        assertResultMessage(ShowCommand.MESSAGE_USAGE);
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                ShowCommand.MESSAGE_USAGE));
     }
 
     private void assertShowResult(String command) {
