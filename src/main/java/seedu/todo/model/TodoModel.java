@@ -257,12 +257,6 @@ public class TodoModel implements Model {
     @Override
     public void addTagsToTask(int index, String[] tagNames) throws ValidationException {
         saveUndoState();
-
-        for (ImmutableTask task : getObservableList()) {
-            System.out.println("\n" + task.getTitle() + " --> ");
-            System.out.print(task.getTags());
-        }
-
         //Data validation
         UniqueTagCollectionUtil.checkForIllegalCharInTagNames(tagNames);
         UniqueTagCollectionUtil.checkForDuplicatedTagNames(tagNames);
