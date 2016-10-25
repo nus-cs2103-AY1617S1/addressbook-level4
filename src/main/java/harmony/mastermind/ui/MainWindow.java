@@ -333,7 +333,7 @@ public class MainWindow extends UiPart {
         tabLst.get(INDEX_DEADLINES).setText(NAME_TABS[INDEX_DEADLINES] + "("
                 + logic.getFilteredDeadlineList().size() + ")");
         tabLst.get(INDEX_ARCHIVES).setText(NAME_TABS[INDEX_ARCHIVES] + "("
-                + logic.getFilteredFloatingTaskList().size() + ")");
+                + logic.getFilteredArchiveList().size() + ")");
     }
     
     
