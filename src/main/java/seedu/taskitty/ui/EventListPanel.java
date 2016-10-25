@@ -40,7 +40,7 @@ public class EventListPanel extends TaskListPanel {
     public void configure(ObservableList<ReadOnlyTask> eventList) {
     	header.setText("EVENTS [e]");
     	header.setStyle("-fx-text-fill: white");
-    	setEmptyDate();
+    	setDefaultDate();
         setConnections(eventListView, eventList);
         addToPlaceholder();
     }
