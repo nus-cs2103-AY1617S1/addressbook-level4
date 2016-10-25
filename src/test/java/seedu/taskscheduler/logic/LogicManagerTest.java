@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.taskscheduler.commons.core.EventsCenter;
-import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.commons.events.model.TaskSchedulerChangedEvent;
 import seedu.taskscheduler.commons.events.ui.JumpToListRequestEvent;
 import seedu.taskscheduler.commons.events.ui.ShowHelpEvent;
@@ -389,7 +388,7 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
+        private Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             TaskDateTime startDate = new TaskDateTime("090911");
             TaskDateTime endDate = new TaskDateTime("090911");

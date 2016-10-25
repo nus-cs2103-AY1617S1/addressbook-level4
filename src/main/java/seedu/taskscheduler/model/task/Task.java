@@ -110,14 +110,6 @@ public class Task implements ReadOnlyTask {
             assert false : "The tag cannot be illegal value";
         }
     }
-    
-    public void copyField(Task task) {
-        setName(task.getName());
-        setStartDate(task.getStartDate());
-        setEndDate(task.getEndDate());
-        setLocation(task.getLocation());
-        setTags(task.getTags());
-     }
 
     @Override
     public UniqueTagList getTags() {

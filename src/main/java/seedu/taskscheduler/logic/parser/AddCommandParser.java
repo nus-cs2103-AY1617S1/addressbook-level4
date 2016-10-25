@@ -55,10 +55,7 @@ public class AddCommandParser extends CommandParser {
     }
     
     private boolean containsDelimiters(String args) {
-        if (args.contains(START_DATE_DELIMITER) || args.contains(END_DATE_DELIMITER)) {
-            return true; 
-        } else {
-            return false;
-        }
+        return (args.contains(START_DATE_DELIMITER) 
+                || args.contains(END_DATE_DELIMITER));
     }
 }

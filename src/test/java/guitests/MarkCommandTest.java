@@ -17,6 +17,10 @@ public class MarkCommandTest extends TaskSchedulerGuiTest {
     @Test
     public void mark() {
 
+        //mark without index given
+        commandBox.runCommand("mark");
+        assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        
         //mark the first in the list
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
