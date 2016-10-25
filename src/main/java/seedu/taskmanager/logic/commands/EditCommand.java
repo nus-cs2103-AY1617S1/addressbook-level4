@@ -263,7 +263,7 @@ public class EditCommand extends Command {
             Date endTime = sdf.parse(endItemTime.toString());
             result = endTime.before(startTime);
         } catch (ParseException pe) {
-            assert false : "TIME_FORMAT is not parsable by SimpleDateFormat";
+            assert false : "Given time(s) is not parsable by SimpleDateFormat";
         }
         
         return result;
