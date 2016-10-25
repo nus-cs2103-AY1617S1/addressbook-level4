@@ -36,7 +36,7 @@
 									<Insets left="5.0" />
 								</padding>
 							</Label>
-							<Label fx:id="name" maxWidth="373.0" prefHeight="25.0" prefWidth="373.0" styleClass="cell_big_label" text="\$first" />
+							<Label fx:id="name" maxWidth="623.0" prefHeight="25.0" prefWidth="603.0" styleClass="cell_big_label" text="\$first" />
 <!-- 						<Label fx:id="tags" prefHeight="16.0" prefWidth="82.0"
 								styleClass="cell_small_label" text="\$tags">
 								<HBox.margin>
@@ -46,11 +46,11 @@
 -->
 						</HBox>
 						<HBox />
-						<Label fx:id="priority" prefHeight="41.0" prefWidth="94.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$priority">
+						<Label fx:id="priority" prefHeight="30.0" prefWidth="109.0" style="-fx-alignment: CENTER-RIGHT;" styleClass="cell_small_label" text="\$priority">
 							
 						</Label>
-						<Label fx:id="startTime" prefHeight="30.0" prefWidth="101.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$startTime" />
-						<Label fx:id="endTime" prefHeight="30.0" prefWidth="105.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$endTime" />
+						<Label fx:id="startTime" prefHeight="30.0" prefWidth="108.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$startTime" />
+						<Label fx:id="endTime" prefHeight="30.0" prefWidth="84.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$endTime" />
 					</children>
 				</HBox>
 				<HBox />

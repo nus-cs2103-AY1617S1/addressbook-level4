@@ -25,9 +25,9 @@
                         <Insets left="8.0" />
                      </padding>
                   </Label>
-                  <Label layoutX="1169.0" layoutY="4.0" text="Start" />
-                  <Label layoutX="1278.0" layoutY="4.0" text="End" />
-                  <Label layoutX="1062.0" layoutY="4.0" text="Priority" />
+                  <Label layoutX="1182.0" layoutY="4.0" text="Start" />
+                  <Label layoutX="1284.0" layoutY="4.0" text="End" />
+                  <Label layoutX="1090.0" layoutY="4.0" text="Priority" />
                </children>
             </Pane>
          </items>
