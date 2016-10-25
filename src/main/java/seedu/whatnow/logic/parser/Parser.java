@@ -105,6 +105,8 @@ public class Parser {
     private static final String TIME_AM = "am";
     private static final String TIME_PM = "pm";
     private static final String TIME_DEFAULT_MINUTES = "00";
+    private static final String DEFAULT_START_TIME = "12:00am";
+    private static final String DEFAULT_END_TIME = "11:59pm";
 
     private static final String TASK_TYPE_FLOATING = "todo";
     private static final String TASK_TYPE_NON_FLOATING = "schedule";
@@ -374,7 +376,7 @@ public class Parser {
                     if (startDate != null & endDate != null) {
                         endTime = time;
                         time = null;
-                        startTime = "12:00am";
+                        startTime = DEFAULT_START_TIME;
                     }
                 } else if (numOfTime == TWO) {       
                     startTime = time;      
@@ -414,7 +416,7 @@ public class Parser {
                         if (startDate != null & endDate != null) {
                             endTime = time;
                             time = null;
-                            startTime = "12:00am";
+                            startTime = DEFAULT_START_TIME;
                         }
                     } else if (numOfTime == TWO) {
                         startTime = time;                    
@@ -479,7 +481,7 @@ public class Parser {
                         if (startDate != null & endDate != null) {
                             endTime = time;
                             time = null;
-                            startTime = "12:00am";
+                            startTime = DEFAULT_START_TIME;
                         }
                     } else if (numOfTime == TWO) {
                         startTime = time;             
@@ -509,7 +511,7 @@ public class Parser {
             if (time != null) {
                 startTime = time;
                 time = null;
-                endTime = "11:59pm";
+                endTime = DEFAULT_END_TIME;
             }
         }
 
