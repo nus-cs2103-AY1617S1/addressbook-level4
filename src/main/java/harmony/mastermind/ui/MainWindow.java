@@ -1,10 +1,6 @@
 package harmony.mastermind.ui;
 
-import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -21,28 +17,29 @@ import harmony.mastermind.commons.core.GuiSettings;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.events.model.ExpectingConfirmationEvent;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
-import harmony.mastermind.commons.events.ui.ExitAppRequestEvent;
 import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.UpcomingCommand;
 import harmony.mastermind.model.UserPrefs;
+import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import javafx.application.Platform;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ObservableList;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -53,6 +50,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -80,6 +78,9 @@ public class MainWindow extends UiPart {
     private static final short INDEX_DEADLINES = 3;
     private static final short INDEX_ARCHIVES = 4;
     
+    private static final String[] NAME_TABS = {"Home", "Tasks", "Events", "Deadlines", "Archives"};
+    
+    
     private static final KeyCombination CTRL_ONE = new KeyCodeCombination(KeyCode.DIGIT1, KeyCombination.CONTROL_DOWN);
     private static final KeyCombination CTRL_TWO = new KeyCodeCombination(KeyCode.DIGIT2, KeyCombination.CONTROL_DOWN);
     private static final KeyCombination CTRL_THREE = new KeyCodeCombination(KeyCode.DIGIT3, KeyCombination.CONTROL_DOWN);
@@ -88,6 +89,8 @@ public class MainWindow extends UiPart {
     
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 460;
+    
+    private static final PrettyTime prettyTime = new PrettyTime();
     
     private Logic logic;
 
@@ -106,6 +109,7 @@ public class MainWindow extends UiPart {
     private String currCommandText;
     private Stack<String> commandHistory = new Stack<String>();
     private int commandIndex = 0;
+    
     private boolean isExpectingConfirmation = false;
     
     private AutoCompletionBinding<String> autoCompletionBinding;
@@ -114,6 +118,9 @@ public class MainWindow extends UiPart {
     Set listOfWords = new HashSet<>();
     String[] words = {"add", "delete", "edit", "clear", "help", "undo", "mark", "find", "exit"
             ,"do", "delete"};
+    
+
+    ObservableList<Tab> tabLst;
 
     // UI elements
     @FXML
@@ -128,76 +135,76 @@ public class MainWindow extends UiPart {
     @FXML
     private TableView<ReadOnlyTask> taskTableHome;
     @FXML
-    private TableColumn<ReadOnlyTask, String> indexHome;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> indexHome;
     @FXML
-    private TableColumn<ReadOnlyTask, String> taskNameHome;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> taskNameHome;
 
     @FXML
-    private TableColumn<ReadOnlyTask, String> startDateHome;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> startDateHome;
     @FXML
-    private TableColumn<ReadOnlyTask, String> endDateHome;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> endDateHome;
     @FXML
-    private TableColumn<ReadOnlyTask, String> tagsHome;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> tagsHome;
     @FXML
     private TableColumn<ReadOnlyTask, Boolean> recurHome;
 
     @FXML
     private TableView<ReadOnlyTask> taskTableTask;
     @FXML
-    private TableColumn<ReadOnlyTask, String> indexTask;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> indexTask;
     @FXML
-    private TableColumn<ReadOnlyTask, String> taskNameTask;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> taskNameTask;
     @FXML
-    private TableColumn<ReadOnlyTask, String> startDateTask;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> startDateTask;
     @FXML
-    private TableColumn<ReadOnlyTask, String> endDateTask;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> endDateTask;
     @FXML
-    private TableColumn<ReadOnlyTask, String> tagsTask;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> tagsTask;
     @FXML
     private TableColumn<ReadOnlyTask, Boolean> recurTask;
 
     @FXML
     private TableView<ReadOnlyTask> taskTableEvent;
     @FXML
-    private TableColumn<ReadOnlyTask, String> indexEvent;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> indexEvent;
     @FXML
-    private TableColumn<ReadOnlyTask, String> taskNameEvent;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> taskNameEvent;
     @FXML
-    private TableColumn<ReadOnlyTask, String> startDateEvent;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> startDateEvent;
     @FXML
-    private TableColumn<ReadOnlyTask, String> endDateEvent;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> endDateEvent;
     @FXML
-    private TableColumn<ReadOnlyTask, String> tagsEvent;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> tagsEvent;
     @FXML
     private TableColumn<ReadOnlyTask, Boolean> recurEvent;
 
     @FXML
     private TableView<ReadOnlyTask> taskTableDeadline;
     @FXML
-    private TableColumn<ReadOnlyTask, String> indexDeadline;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> indexDeadline;
     @FXML
-    private TableColumn<ReadOnlyTask, String> taskNameDeadline;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> taskNameDeadline;
     @FXML
-    private TableColumn<ReadOnlyTask, String> startDateDeadline;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> startDateDeadline;
     @FXML
-    private TableColumn<ReadOnlyTask, String> endDateDeadline;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> endDateDeadline;
     @FXML
-    private TableColumn<ReadOnlyTask, String> tagsDeadline;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> tagsDeadline;
     @FXML
     private TableColumn<ReadOnlyTask, Boolean> recurDeadline;
 
     @FXML
     private TableView<ReadOnlyTask> taskTableArchive;
     @FXML
-    private TableColumn<ReadOnlyTask, String> indexArchive;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> indexArchive;
     @FXML
-    private TableColumn<ReadOnlyTask, String> taskNameArchive;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> taskNameArchive;
     @FXML
-    private TableColumn<ReadOnlyTask, String> startDateArchive;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> startDateArchive;
     @FXML
-    private TableColumn<ReadOnlyTask, String> endDateArchive;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> endDateArchive;
     @FXML
-    private TableColumn<ReadOnlyTask, String> tagsArchive;
+    private TableColumn<ReadOnlyTask, ReadOnlyTask> tagsArchive;
     @FXML
     private TableColumn<ReadOnlyTask, Boolean> recurArchive;
 
@@ -247,11 +254,14 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
         
+        tabLst = tabPane.getTabs();
+        updateTabTitle();
         taskTableHome.setItems(logic.getFilteredTaskList());
         taskTableTask.setItems(logic.getFilteredFloatingTaskList());
         taskTableEvent.setItems(logic.getFilteredEventList());
         taskTableDeadline.setItems(logic.getFilteredDeadlineList());
         taskTableArchive.setItems(logic.getFilteredArchiveList());
+        
 
         registerAsAnEventHandler(this);
     }
@@ -307,6 +317,24 @@ public class MainWindow extends UiPart {
 
     // ==================================
 
+    //@@author A0124797R
+    /**
+     * update the number of task in each tab in the tab title
+     */
+    private void updateTabTitle() {
+        tabLst.get(INDEX_HOME).setText(NAME_TABS[INDEX_HOME] + "(" 
+                + logic.getFilteredTaskList().size() + ")");
+        tabLst.get(INDEX_TASKS).setText(NAME_TABS[INDEX_TASKS] + "("
+                + logic.getFilteredFloatingTaskList().size() + ")");
+        tabLst.get(INDEX_EVENTS).setText(NAME_TABS[INDEX_EVENTS] + "("
+                + logic.getFilteredEventList().size() + ")");
+        tabLst.get(INDEX_DEADLINES).setText(NAME_TABS[INDEX_DEADLINES] + "("
+                + logic.getFilteredDeadlineList().size() + ")");
+        tabLst.get(INDEX_ARCHIVES).setText(NAME_TABS[INDEX_ARCHIVES] + "("
+                + logic.getFilteredFloatingTaskList().size() + ")");
+    }
+    
+    
     @FXML
     //@@author A0124797R
     private void initialize() {
@@ -315,7 +343,6 @@ public class MainWindow extends UiPart {
         initEventTab();
         initDeadlineTab();
         initArchiveTab();
-
         
         initAutoComplete();
         
@@ -329,7 +356,6 @@ public class MainWindow extends UiPart {
     /**
      * Initialise the tasks in the Home tab 
      */
-    @FXML
     //@@author A0124797R
     private void initHomeTab() {
         initIndex(indexHome);
@@ -343,7 +369,6 @@ public class MainWindow extends UiPart {
     /**
      * Initialise the tasks in the Task tab 
      */
-    @FXML
     //@@author A0124797R
     private void initTaskTab() {
         initIndex(indexTask);
@@ -351,12 +376,11 @@ public class MainWindow extends UiPart {
         initStartDate(startDateTask);
         initEndDate(endDateTask);
         initTags(tagsTask);
-        initRecur(recurTask);       
+        initRecur(recurTask);
     }
     /**
      * Initialise the task in the Event tab 
      */
-    @FXML
     //@@author A0124797R
     private void initEventTab() {
         initIndex(indexEvent);
@@ -369,7 +393,6 @@ public class MainWindow extends UiPart {
     /**
      * Initialise the task in the Deadline tab 
      */
-    @FXML
     //@@author A0124797R
     private void initDeadlineTab() {
         initIndex(indexDeadline);
@@ -377,12 +400,11 @@ public class MainWindow extends UiPart {
         initStartDate(startDateDeadline);
         initEndDate(endDateDeadline);
         initTags(tagsDeadline);
-        initRecur(recurDeadline);    
+        initRecur(recurDeadline);
     }
     /**
      * Initialise the task in the archive tab 
      */
-    @FXML
     //@@author A0124797R
     private void initArchiveTab() {
         initIndex(indexArchive);
@@ -390,7 +412,7 @@ public class MainWindow extends UiPart {
         initStartDate(startDateArchive);
         initEndDate(endDateArchive);
         initTags(tagsArchive);  
-        initRecur(recurArchive);    
+        initRecur(recurArchive);
     }
     
     //@@author A0138862W
@@ -443,10 +465,10 @@ public class MainWindow extends UiPart {
      * Initializes the indexing of tasks
      */
     //@@author A0138862W
-    private void initIndex(TableColumn<ReadOnlyTask, String> indexColumn) {
+    private void initIndex(TableColumn<ReadOnlyTask, ReadOnlyTask> indexColumn) {
         indexColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_INDEX));
         
-        indexColumn.setCellFactory(column -> new TableCell<ReadOnlyTask, String>() {
+        indexColumn.setCellFactory(column -> new TableCell<ReadOnlyTask, ReadOnlyTask>() {
             @Override
             public void updateIndex(int index) {
                 super.updateIndex(index);
@@ -465,23 +487,52 @@ public class MainWindow extends UiPart {
      * Initialize the Names of the tasks
      */
     //@@author A0138862W
-    private void initName(TableColumn<ReadOnlyTask, String> nameColumn) {
+    private void initName(TableColumn<ReadOnlyTask, ReadOnlyTask> nameColumn) {
         nameColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_NAME));
-        nameColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getName()));
+        nameColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
         
-        nameColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, String>(){
+        nameColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, ReadOnlyTask>(){
             
             @Override
-            public void updateItem(String item , boolean isEmpty){
-                super.updateItem(item, isEmpty);
+            public void updateItem(ReadOnlyTask readOnlyTask , boolean isEmpty){
+                super.updateItem(readOnlyTask, isEmpty);
                 
                 if(!isEmpty()){
-                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
                     
-                    Text taskName = generateStyledText(readOnlyTask, item);
+                    VBox vBox = new VBox(3);                   
+                    
+                    Text taskName = generateStyledText(readOnlyTask, readOnlyTask.getName());
                     taskName.getStyleClass().add("task-name-column");
+                    vBox.getChildren().add(taskName);
                     
-                    this.setGraphic(taskName);
+                    HBox hBox = new HBox(5);
+                    
+                    Button status = new Button();
+                    if(readOnlyTask.isHappening()){
+                        status.setText("HAPPENING");
+                        status.getStyleClass().add("tag-happening");
+                        hBox.getChildren().add(status);
+                    }else if(readOnlyTask.isDue()){
+                        status.setText("DUE");
+                        status.getStyleClass().add("tag-overdue");
+                        hBox.getChildren().add(status);
+                    }
+                    
+                    if(readOnlyTask.isEvent()){
+                        Button eventDuration = new Button();
+                        eventDuration.setText(readOnlyTask.getEventDuration().toDays()+" DAY(S) EVENT");
+                        eventDuration.getStyleClass().add("tag-event-duration");
+                        hBox.getChildren().add(eventDuration);
+                    }else if(readOnlyTask.isDeadline() && !readOnlyTask.isDue()){
+                        Button dueDuration = new Button();
+                        dueDuration.setText("DUE IN "+readOnlyTask.getDueDuration().toDays()+" DAY(S)");
+                        dueDuration.getStyleClass().add("tag-due-duration");
+                        hBox.getChildren().add(dueDuration);
+                    }
+                    
+                    vBox.getChildren().add(hBox);
+                    
+                    this.setGraphic(vBox);
                     this.setPrefHeight(50);
                     
                 }else{
@@ -516,49 +567,36 @@ public class MainWindow extends UiPart {
      * Initialize the start dates of the tasks
      */
     //@@author A0138862W
-    private void initStartDate(TableColumn<ReadOnlyTask, String> startDateColumn) {
+    private void initStartDate(TableColumn<ReadOnlyTask, ReadOnlyTask> startDateColumn) {
         startDateColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_STARTDATE));
-        startDateColumn.setCellValueFactory(task -> {
-            if (task.getValue().isEvent()) {
-                return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getStartDate())
-                                                 + "\n"
-                                                 + task.getValue().parse(task.getValue().getStartDate()));
-            } else {
-                return new ReadOnlyStringWrapper("");
-            }
-        });
+        startDateColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
         
-        startDateColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, String>(){
+        startDateColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, ReadOnlyTask>(){
             
             @Override
-            public void updateItem(String item , boolean isEmpty){
-                super.updateItem(item, isEmpty);
-                if(!isEmpty()){
-                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
+            public void updateItem(ReadOnlyTask readOnlyTask , boolean isEmpty){
+                super.updateItem(readOnlyTask, isEmpty);
+                if(!isEmpty() && readOnlyTask.getStartDate()!= null){
                     
                     TextFlow textFlow = new TextFlow();
                     
-                    String[] dates = item.split("\n");
+                    Text prettyDate = generateStyledText(readOnlyTask, prettyTime.format(readOnlyTask.getStartDate()));
+                    prettyDate.getStyleClass().add("pretty-date");
                     
-                    if(dates.length>1){
+                    Text lineBreak = new Text("\n\n");
+                    lineBreak.setStyle("-fx-font-size:2px;");
                     
-                        Text prettyDate = generateStyledText(readOnlyTask, dates[0]);
-                        prettyDate.getStyleClass().add("pretty-date");
-                        
-                        Text lineBreak = new Text("\n\n");
-                        lineBreak.setStyle("-fx-font-size:2px;");
-                        
-                        Text uglyDate = generateStyledText(readOnlyTask, dates[1]);
-                        uglyDate.getStyleClass().add("ugly-date");
-                        
-                        textFlow.getChildren().add(prettyDate);
-                        textFlow.getChildren().add(lineBreak);
-                        textFlow.getChildren().add(uglyDate);
-                        
-                        
-                        this.setGraphic(textFlow);
-                        this.setPrefHeight(50);
-                    }
+                    Text uglyDate = generateStyledText(readOnlyTask, readOnlyTask.parse(readOnlyTask.getStartDate()));
+                    uglyDate.getStyleClass().add("ugly-date");
+                    
+                    textFlow.getChildren().add(prettyDate);
+                    textFlow.getChildren().add(lineBreak);
+                    textFlow.getChildren().add(uglyDate);
+                    
+                    
+                    this.setGraphic(textFlow);
+                    this.setPrefHeight(50);
+                    
                 }else{
                     this.setGraphic(null);
                 }
@@ -572,49 +610,36 @@ public class MainWindow extends UiPart {
      * Initialize the end dates of the tasks
      */
     //@@author A0138862W
-    private void initEndDate(TableColumn<ReadOnlyTask, String> endDateColumn) {
+    private void initEndDate(TableColumn<ReadOnlyTask, ReadOnlyTask> endDateColumn) {
         endDateColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_ENDDATE));
-        endDateColumn.setCellValueFactory(task -> {
-            if (!task.getValue().isFloating()) {
-                return new ReadOnlyStringWrapper(new PrettyTime().format(task.getValue().getEndDate())
-                                                 + "\n"
-                                                 + task.getValue().parse(task.getValue().getEndDate()));
-            } else {
-                return new ReadOnlyStringWrapper("");
-            }
-        });
+        endDateColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
         
-        endDateColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, String>(){
+        endDateColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, ReadOnlyTask>(){
             
             @Override
-            public void updateItem(String item , boolean isEmpty){
-                super.updateItem(item, isEmpty);
-                if(!isEmpty()){
-                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
+            public void updateItem(ReadOnlyTask readOnlyTask , boolean isEmpty){
+                super.updateItem(readOnlyTask, isEmpty);
+                if(!isEmpty() && readOnlyTask.getEndDate() != null){
                     
                     TextFlow textFlow = new TextFlow();
                     
-                    String[] dates = item.split("\n");
+                    Text prettyDate = generateStyledText(readOnlyTask, prettyTime.format(readOnlyTask.getEndDate()));
+                    prettyDate.getStyleClass().add("pretty-date");
                     
-                    if(dates.length>1){
+                    Text lineBreak = new Text("\n\n");
+                    lineBreak.setStyle("-fx-font-size:2px;");
                     
-                        Text prettyDate = generateStyledText(readOnlyTask, dates[0]);
-                        prettyDate.getStyleClass().add("pretty-date");
-                        
-                        Text lineBreak = new Text("\n\n");
-                        lineBreak.setStyle("-fx-font-size:2px;");
-                        
-                        Text uglyDate = generateStyledText(readOnlyTask,dates[1]);
-                        uglyDate.getStyleClass().add("ugly-date");
-                        
-                        textFlow.getChildren().add(prettyDate);
-                        textFlow.getChildren().add(lineBreak);
-                        textFlow.getChildren().add(uglyDate);
-                        
-                        
-                        this.setGraphic(textFlow);
-                        this.setPrefHeight(50);
-                    }
+                    Text uglyDate = generateStyledText(readOnlyTask,readOnlyTask.parse(readOnlyTask.getEndDate()));
+                    uglyDate.getStyleClass().add("ugly-date");
+                    
+                    textFlow.getChildren().add(prettyDate);
+                    textFlow.getChildren().add(lineBreak);
+                    textFlow.getChildren().add(uglyDate);
+                    
+                    
+                    this.setGraphic(textFlow);
+                    this.setPrefHeight(50);
+                    
                 }else{
                     this.setGraphic(null);
                 }
@@ -628,20 +653,25 @@ public class MainWindow extends UiPart {
      * Initialize the tags of the tasks
      */
     //@@author A0138862W
-    private void initTags(TableColumn<ReadOnlyTask, String> tagsColumn) {
+    private void initTags(TableColumn<ReadOnlyTask, ReadOnlyTask> tagsColumn) {
         tagsColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_TAGS));
-        tagsColumn.setCellValueFactory(task -> new ReadOnlyStringWrapper(task.getValue().getTags().toString()));
+        tagsColumn.setCellValueFactory(cellValue -> new SimpleObjectProperty<>(cellValue.getValue()));
         
-        tagsColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, String>(){
+        tagsColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, ReadOnlyTask>(){
             
             @Override
-            public void updateItem(String item , boolean isEmpty){
-                super.updateItem(item, isEmpty);
-                if(!isEmpty()){
-                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
+            public void updateItem(ReadOnlyTask readOnlyTask , boolean isEmpty){
+                super.updateItem(readOnlyTask, isEmpty);
+                if(!isEmpty() && readOnlyTask.getTags()!=null){
                     
-                    Text tags = generateStyledText(readOnlyTask, item.replace(',', ' '));
-                    tags.getStyleClass().add("tags");
+                    HBox tags = new HBox(5);
+                    
+                    for(Tag tag : readOnlyTask.getTags()){
+                        Button tagBubble = new Button();
+                        tagBubble.setText(tag.tagName);
+                        tagBubble.getStyleClass().add("tag");
+                        tags.getChildren().add(tagBubble);
+                    }
                     
                     this.setGraphic(tags);
                 }else{
@@ -660,7 +690,6 @@ public class MainWindow extends UiPart {
     private void initRecur(TableColumn<ReadOnlyTask, Boolean> recurColumn) {
         recurColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_RECUR));
         recurColumn.setCellValueFactory(task -> new SimpleBooleanProperty(task.getValue().isRecur()));
-        
         recurColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, Boolean>(){
             
             @Override
@@ -787,12 +816,6 @@ public class MainWindow extends UiPart {
         }
     }
     
-    @Subscribe
-    //@@author A0124797R
-    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + currCommandText));
-        restoreCommandText();
-    }
 
     //@@author A0124797R
     private void updateTab(CommandResult result) {
@@ -800,8 +823,17 @@ public class MainWindow extends UiPart {
         updateTab(tab);
     }
     
+    @Subscribe
+    //@@author A0124797R
+    private void handleTaskManagerChanged(TaskManagerChangedEvent event) {
+        updateTabTitle();
+    }
+    
     //@@author A0124797R
     //updates the tab if list/upcoming command is used
+    /**
+     * handle the switching of tabs
+     */
     private void updateTab(String result) {
         switch (result) {
             case ListCommand.MESSAGE_SUCCESS:               tabPane.getSelectionModel().select(INDEX_HOME);
@@ -854,6 +886,13 @@ public class MainWindow extends UiPart {
     
     public void disposeAutoCompleteBinding(){
         this.autoCompletionBinding.dispose();
+    }
+    
+    @Subscribe
+    //@@author A0124797R
+    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + currCommandText));
+        restoreCommandText();
     }
     
     /**

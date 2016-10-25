@@ -17,6 +17,7 @@ public class ClearCommand extends Command implements Confirmable {
     public ClearCommand() {}
 
 
+    //@@author A0139194X
     @Override
     public CommandResult execute() {
         assert model != null;
@@ -27,6 +28,8 @@ public class ClearCommand extends Command implements Confirmable {
         return new CommandResult(COMMAND_WORD,MESSAGE_SUCCESS);
     }
 
+    //@@author A0139194X
+    //currently not in used yet. Will be used for enhancement to Clear command.
     @Override
     public void confirmWithUser() throws CommandCancelledException {
         model.indicateConfirmationToUser();
