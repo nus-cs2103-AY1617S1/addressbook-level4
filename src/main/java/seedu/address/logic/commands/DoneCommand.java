@@ -13,6 +13,7 @@ import seedu.address.model.item.ReadOnlyTask;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0139498J
 /**
  * Archives a task identified using its last displayed index from the task manager.
  */
@@ -105,7 +106,7 @@ public class DoneCommand extends UndoableCommand {
         if (displayArchivedTasks.isEmpty()) {
             logger.warning("No tasks archived. Non of the given task indexes are valid.");
             indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         String toDisplay = displayArchivedTasks.toString().replace("[", "").replace("]", "");
         return (displayArchivedTasks.size() == 1)? 
