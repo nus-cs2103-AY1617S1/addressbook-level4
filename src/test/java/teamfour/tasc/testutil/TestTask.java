@@ -35,31 +35,32 @@ public class TestTask implements ReadOnlyTask {
 
         tags = new UniqueTagList();
     }
-
+    
     /**
      * A copy constructor.
      * @throws IllegalValueException 
      */
-    public TestTask(TestTask taskToCopyFrom) throws IllegalValueException {
+    public TestTask(ReadOnlyTask taskToCopyFrom) throws IllegalValueException {
         name = new Name(taskToCopyFrom.getName().getName());
         complete = new Complete(taskToCopyFrom.getComplete().isCompleted());
         deadline = new Deadline();
         period = new Period();
         recurrence = new Recurrence();
-        
-        tags = new UniqueTagList(taskToCopyFrom.tags);
 
-        if (taskToCopyFrom.deadline.hasDeadline()) {
-            deadline = new Deadline(taskToCopyFrom.deadline.getDeadline());
+        tags = new UniqueTagList(taskToCopyFrom.getTags());
+
+        if (taskToCopyFrom.getDeadline().hasDeadline()) {
+            deadline = new Deadline(taskToCopyFrom.getDeadline().getDeadline());
         }
 
-        if (taskToCopyFrom.period.hasPeriod()) {
-            period = new Period(taskToCopyFrom.period.getStartTime(), taskToCopyFrom.period.getEndTime());
+        if (taskToCopyFrom.getPeriod().hasPeriod()) {
+            period = new Period(taskToCopyFrom.getPeriod().getStartTime(),
+                    taskToCopyFrom.getPeriod().getEndTime());
         }
 
-        if (taskToCopyFrom.recurrence.hasRecurrence()) {
-            recurrence = new Recurrence(taskToCopyFrom.recurrence.getPattern(),
-                    taskToCopyFrom.recurrence.getFrequency());
+        if (taskToCopyFrom.getRecurrence().hasRecurrence()) {
+            recurrence = new Recurrence(taskToCopyFrom.getRecurrence().getPattern(),
+                    taskToCopyFrom.getRecurrence().getFrequency());
         }
     }
 

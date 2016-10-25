@@ -4,6 +4,7 @@ import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.core.Messages;
 import teamfour.tasc.commons.core.UnmodifiableObservableList;
 import teamfour.tasc.commons.events.ui.JumpToListRequestEvent;
+import teamfour.tasc.model.keyword.SelectCommandKeyword;
 import teamfour.tasc.model.task.ReadOnlyTask;
 
 /**
@@ -13,7 +14,7 @@ public class SelectCommand extends Command {
 
     public final int targetIndex;
 
-    public static final String COMMAND_WORD = "select";
+    public static final String COMMAND_WORD = SelectCommandKeyword.keyword;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the task identified by the index number used in the last task listing.\n"
@@ -39,6 +40,7 @@ public class SelectCommand extends Command {
                 return new CommandResult(MESSAGE_SELECT_EMPTY_LIST);
             }
             EventsCenter.getInstance().post(new JumpToListRequestEvent(listSize - 1));
+            model.updateFilteredTaskListByFilter(); //refresh the list view
             return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, listSize));
         }
 
@@ -55,6 +57,7 @@ public class SelectCommand extends Command {
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+        model.updateFilteredTaskListByFilter(); //refresh the list view
         return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
 
     }
@@ -62,11 +65,6 @@ public class SelectCommand extends Command {
     @Override
     public boolean canUndo() {
         return false;
-    }
-
-    @Override
-    public CommandResult executeUndo() {
-        return null;
     }
 
 }

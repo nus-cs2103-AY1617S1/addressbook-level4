@@ -28,6 +28,16 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
+.word-list {
+	-fx-pref-height: 0;
+	-fx-font-size: 10pt;
+    -fx-font-family: "Segoe UI Semibold";
+}
+
+.word-selected {
+	-fx-background-color: #88ff88;
+}
+
 .tab-pane {
     -fx-padding: 0 0 0 1;
 }
@@ -290,4 +300,22 @@
 
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+.completed { -fx-background-color: #665f5e; -fx-fill: #665f5e; }
+.overdue { -fx-background-color: #ff3004; -fx-fill: #ff3004; }
+.deadline { -fx-background-color: #f7ff04; -fx-fill: #f7ff04; }
+.period { -fx-background-color: #04ecff; -fx-fill: #04ecff; }
+.recurring { -fx-background-color: #04ffd5; -fx-fill: #04ffd5; }
+
+/*
+ * Have to be copied from JFxtras Agenda's original css, otherwise the selected
+ * task would not have the correct color :/
+ */
+.Agenda .Selected { 
+	-xfx-color: -fx-focused-base;
+	-fx-background-color: -fx-focus-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+	-fx-background-insets: -1.4, 0, 1, 2;
+	-fx-background-radius: 6.4, 5, 4, 3;
+
 }

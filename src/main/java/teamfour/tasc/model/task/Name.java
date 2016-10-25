@@ -9,10 +9,6 @@ import teamfour.tasc.commons.exceptions.IllegalValueException;
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
-
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
-
     private final String name;
 
     /**
@@ -23,19 +19,8 @@ public class Name {
     public Name(String name) throws IllegalValueException {
         assert name != null;
         name = name.trim();
-        if (!isValidName(name)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
-        }
         this.name = name;
     }
-
-    /**
-     * Returns true if a given string is a valid person name.
-     */
-    public static boolean isValidName(String test) {
-        return test.matches(NAME_VALIDATION_REGEX);
-    }
-
 
     @Override
     public String toString() {

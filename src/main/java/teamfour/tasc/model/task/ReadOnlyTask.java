@@ -10,6 +10,16 @@ import teamfour.tasc.model.task.status.EventStatus;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
+    public static String MATCHSTRING_TYPE_ALL = "All Everything";
+    public static String MATCHSTRING_TYPE_COMPLETED = "Completed";
+    public static String MATCHSTRING_TYPE_UNCOMPLETED = "Uncompleted Incompleted";
+    public static String MATCHSTRING_TYPE_RECURRING = "Recurring Repeating";
+    public static String MATCHSTRING_TYPE_OVERDUE = "Overdue Past";
+    public static String MATCHSTRING_TYPE_TASKS_WITH_TIMESLOT = "Tasks Allocated Timeslot Deadline Period";
+    public static String MATCHSTRING_TYPE_NORMAL_TASKS = "Normal Tasks Deadline";
+    public static String MATCHSTRING_TYPE_FLOATING_TASKS = "Floating Tasks";
+    public static String MATCHSTRING_TYPE_EVENTS = "Events Period";
+    
     Name getName();
     Complete getComplete();
     
@@ -52,7 +62,7 @@ public interface ReadOnlyTask {
             return false;
         }
 
-        return getDeadline().getDeadline().after(currentTime);
+        return currentTime.after(getDeadline().getDeadline());
     }
     
     /**
@@ -77,39 +87,32 @@ public interface ReadOnlyTask {
      * Formats the task as keywords indicating its type from its attributes.
      */
     default String getAsTypeKeywords() {
-        Date now = new Date();
         final StringBuilder builder = new StringBuilder();
-        builder.append("All");
+        builder.append(" ").append(MATCHSTRING_TYPE_ALL);
         
         if (getComplete().isCompleted()) {
-            builder.append(" Completed");
+            builder.append(" ").append(MATCHSTRING_TYPE_COMPLETED);
         } else {
-            builder.append(" Uncompleted Incompleted");
+            builder.append(" ").append(MATCHSTRING_TYPE_UNCOMPLETED);
         }
         
         if (getRecurrence().hasRecurrence()) {
-            builder.append(" Recurring");
+            builder.append(" ").append(MATCHSTRING_TYPE_RECURRING);
+        }
+        
+        if (isOverdue(new Date())) {
+            builder.append(" ").append(MATCHSTRING_TYPE_OVERDUE);
         }
         
         if (getDeadline().hasDeadline() && getPeriod().hasPeriod()) {
-            if (getDeadline().getDeadline().before(now))
-                builder.append(" Overdue");
-            builder.append(" Tasks Allocated Timeslot");
-            
+            builder.append(" ").append(MATCHSTRING_TYPE_TASKS_WITH_TIMESLOT);
         } else if (getDeadline().hasDeadline()) {
-            if (getDeadline().getDeadline().before(now))
-                builder.append(" Overdue");
-            builder.append(" Normal Tasks");
-            
+            builder.append(" ").append(MATCHSTRING_TYPE_NORMAL_TASKS);
         } else if (getPeriod().hasPeriod()) {
-            if (getPeriod().getEndTime().before(now))
-                builder.append(" Overdue");
-            builder.append(" Events");
-            
+            builder.append(" ").append(MATCHSTRING_TYPE_EVENTS);
         } else {
-            builder.append(" Floating Tasks");
+            builder.append(" ").append(MATCHSTRING_TYPE_FLOATING_TASKS);
         }
-        System.out.println(builder.toString());
         
         return builder.toString();
     }

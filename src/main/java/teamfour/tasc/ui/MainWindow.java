@@ -13,7 +13,6 @@ import teamfour.tasc.commons.core.GuiSettings;
 import teamfour.tasc.commons.events.ui.ExitAppRequestEvent;
 import teamfour.tasc.logic.Logic;
 import teamfour.tasc.model.UserPrefs;
-import teamfour.tasc.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -64,7 +63,6 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane calendarPlaceholder;
 
-
     public MainWindow() {
         super();
     }
@@ -102,7 +100,7 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-
+        
         setAccelerators();
     }
 

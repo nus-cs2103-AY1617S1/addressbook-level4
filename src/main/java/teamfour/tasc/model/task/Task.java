@@ -2,7 +2,6 @@ package teamfour.tasc.model.task;
 
 import teamfour.tasc.commons.util.CollectionUtil;
 import teamfour.tasc.model.tag.UniqueTagList;
-import teamfour.tasc.model.task.exceptions.TaskAlreadyCompletedException;
 
 import java.util.Objects;
 
@@ -63,26 +62,6 @@ public class Task implements ReadOnlyTask {
         return true;
     }
         
-    /**
-     * Convert an uncompleted task to completed.
-     * 
-     * @param taskToConvert to completed
-     * @return the same task but with completed = true
-     * @throws TaskAlreadyCompletedException if task is already completed
-     */
-    public static Task convertToComplete(ReadOnlyTask taskToConvert) throws TaskAlreadyCompletedException {
-        if (taskToConvert.getComplete().isCompleted() == true) {
-            throw new TaskAlreadyCompletedException();
-        }
-        
-        return new Task(taskToConvert.getName(),
-                new Complete(true),
-                taskToConvert.getDeadline(),
-                taskToConvert.getPeriod(),
-                taskToConvert.getRecurrence(),
-                taskToConvert.getTags());
-    }
-
     @Override
     public Name getName() {
         return name;

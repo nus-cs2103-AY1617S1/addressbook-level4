@@ -2,6 +2,7 @@ package teamfour.tasc.logic.commands;
 
 import teamfour.tasc.commons.core.Messages;
 import teamfour.tasc.commons.core.UnmodifiableObservableList;
+import teamfour.tasc.model.keyword.DeleteCommandKeyword;
 import teamfour.tasc.model.task.ReadOnlyTask;
 import teamfour.tasc.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -10,7 +11,7 @@ import teamfour.tasc.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class DeleteCommand extends Command {
 
-    public static final String COMMAND_WORD = "delete";
+    public static final String COMMAND_WORD = DeleteCommandKeyword.keyword;
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number used in the last task listing.\n"
@@ -51,12 +52,6 @@ public class DeleteCommand extends Command {
     @Override
     public boolean canUndo() {
         return true;
-    }
-
-
-    @Override
-    public CommandResult executeUndo() {
-        return null;
     }
 
 }

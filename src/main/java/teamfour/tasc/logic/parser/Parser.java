@@ -19,6 +19,7 @@ import teamfour.tasc.logic.commands.SelectCommand;
 import teamfour.tasc.logic.commands.ShowCommand;
 import teamfour.tasc.logic.commands.UndoCommand;
 import teamfour.tasc.logic.commands.UpdateCommand;
+import teamfour.tasc.logic.commands.CollapseCommand;
 
 import static teamfour.tasc.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static teamfour.tasc.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -47,7 +48,7 @@ public class Parser {
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern RELATIVE_PATH_FORMAT =
-            Pattern.compile("^(?!-)[a-z0-9-]+(?<!-)(/(?!-)[a-z0-9-]+(?<!-))*$");
+            Pattern.compile("^((?!-)[a-zA-Z0-9-]+(?<!-)|(..))(/((?!-)[a-zA-Z0-9-]+(?<!-)|(..)))*$");
 
     private static final Pattern FILE_NAME_ONLY_FORMAT = Pattern.compile("^[\\w,\\s-]+$");
     
@@ -85,13 +86,13 @@ public class Parser {
             return prepareFind(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return prepareList(commandWord + arguments);
+            return prepareList(arguments);
 
         case ShowCommand.COMMAND_WORD:
-            return prepareShow(commandWord + arguments);
+            return prepareShow(arguments);
 
         case HideCommand.COMMAND_WORD:
-            return prepareHide(commandWord + arguments);
+            return prepareHide(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -101,6 +102,9 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
             return prepareUndo(arguments);
+            
+        case RedoCommand.COMMAND_WORD:
+            return prepareRedo(arguments);
 
         case CompleteCommand.COMMAND_WORD:
             return prepareComplete(arguments);
@@ -114,6 +118,15 @@ public class Parser {
         case SwitchlistCommand.COMMAND_WORD:
             return prepareSwitchlist(arguments);
 
+        case CalendarCommand.COMMAND_WORD:
+            return prepareCalendar(arguments);
+            
+        case CollapseCommand.COMMAND_WORD:
+            return new CollapseCommand();
+
+        case ExpandCommand.COMMAND_WORD:
+            return new ExpandCommand();
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -126,13 +139,13 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final KeywordParser parser = new KeywordParser("add", "by", "from", "to", "repeattime", "tag");
+        final KeywordParser parser = new KeywordParser("add", "by", "from", "to", "repeat", "tag");
         HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(args);
         String name = parsed.get("add");
         String by = parsed.get("by");
         String startTime = parsed.get("from");
         String endTime = parsed.get("to");
-        String recurrence = parsed.get("repeattime");
+        String recurrence = parsed.get("repeat");
         String tags = parsed.get("tag");
 
         if(name == null){
@@ -172,28 +185,37 @@ public class Parser {
 
     /**
      * Takes in a string and return null if it is empty,
-     * or returns the string itself otherwise.
-     * 
-     * @param string the string to check
-     * @return null if string is null or empty, the string itself otherwise
+     * or otherwise returns the string itself.
      */
     private String setToNullIfIsEmptyString(String string) {
         if (string == null || string.equals(""))
             return null;
         return string;
     }
-    
+
     /**
+     * Precondition: argument is not null.
+     * Takes in a string and remove all occurrences of full stops and commas.
+     */
+    private String removeFullStopsAndCommas(String string) {
+        assert string != null;
+        string = string.replace(",", "");
+        string = string.replace(".", "");
+        return string;
+    }
+
+    /**
+     * Precondition: argument string is not null.
      * Parses the command string in the context of the list task command.
      *
-     * @param command the full command string
+     * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareList(String command){
-        assert command.isEmpty() == false;
-        
+    private Command prepareList(String args){
+        assert args != null;
+
         // No arguments, use default 'list' command
-        if (command.trim().equals("list")) {
+        if (args.trim().equals("")) {
             try {
                 return new ListCommand();
             } catch (IllegalValueException ive) {
@@ -201,18 +223,25 @@ public class Parser {
             }
         }
 
-        final KeywordParser parser = new KeywordParser("list", "by", "from", "to", "tag", "sort");
-        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
-        String type = setToNullIfIsEmptyString(parsed.get("list"));
-        String deadline = setToNullIfIsEmptyString(parsed.get("by"));
-        String startTime = setToNullIfIsEmptyString(parsed.get("from"));
-        String endTime = setToNullIfIsEmptyString(parsed.get("to"));
-        String tags = setToNullIfIsEmptyString(parsed.get("tag"));
-        String sortingOrder = setToNullIfIsEmptyString(parsed.get("sort"));
+        final KeywordParser parser = new KeywordParser(ListCommand.VALID_KEYWORDS);
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(ListCommand.COMMAND_WORD + args);
+        String type = setToNullIfIsEmptyString(parsed.get(ListCommand.COMMAND_WORD));
+        String deadline = setToNullIfIsEmptyString(parsed.get(ListCommand.KEYWORD_DEADLINE));
+        String startTime = setToNullIfIsEmptyString(parsed.get(ListCommand.KEYWORD_PERIOD_START_TIME));
+        String endTime = setToNullIfIsEmptyString(parsed.get(ListCommand.KEYWORD_PERIOD_END_TIME));
+        String tags = setToNullIfIsEmptyString(parsed.get(ListCommand.KEYWORD_TAG));
+        String sortingOrder = setToNullIfIsEmptyString(parsed.get(ListCommand.KEYWORD_SORT));
 
         if(tags == null){
             tags = "";
+        } else {
+            tags = removeFullStopsAndCommas(tags);
         }
+
+        if (sortingOrder != null) {
+            sortingOrder = removeFullStopsAndCommas(sortingOrder);
+        }
+
         try {
             return new ListCommand(
                     type,
@@ -228,30 +257,34 @@ public class Parser {
     }
 
     /**
+     * Precondition: argument string is not null.
      * Parses the command string in the context of the show command.
      *
-     * @param command the full command string
+     * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareShow(String command){
-        assert command.isEmpty() == false;
-        
-        if (command.trim().equals("show")) {
+    private Command prepareShow(String args){
+        assert args != null;
+
+        if (args.trim().equals("")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
 
-        final KeywordParser parser = new KeywordParser("show", "on", "by", "from", "to", "tag");
-        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
-        String type = setToNullIfIsEmptyString(parsed.get("show"));
-        String date = setToNullIfIsEmptyString(parsed.get("on"));
-        String deadline = setToNullIfIsEmptyString(parsed.get("by"));
-        String startTime = setToNullIfIsEmptyString(parsed.get("from"));
-        String endTime = setToNullIfIsEmptyString(parsed.get("to"));
-        String tags = setToNullIfIsEmptyString(parsed.get("tag"));
+        final KeywordParser parser = new KeywordParser(ShowCommand.VALID_KEYWORDS);
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(ShowCommand.COMMAND_WORD + args);
+        String type = setToNullIfIsEmptyString(parsed.get(ShowCommand.COMMAND_WORD));
+        String date = setToNullIfIsEmptyString(parsed.get(ShowCommand.KEYWORD_DATE));
+        String deadline = setToNullIfIsEmptyString(parsed.get(ShowCommand.KEYWORD_DEADLINE));
+        String startTime = setToNullIfIsEmptyString(parsed.get(ShowCommand.KEYWORD_PERIOD_START_TIME));
+        String endTime = setToNullIfIsEmptyString(parsed.get(ShowCommand.KEYWORD_PERIOD_END_TIME));
+        String tags = setToNullIfIsEmptyString(parsed.get(ShowCommand.KEYWORD_TAG));
 
         if(tags == null){
             tags = "";
+        } else {
+            tags = removeFullStopsAndCommas(tags);
         }
+
         try {
             return new ShowCommand(
                     type,
@@ -267,30 +300,34 @@ public class Parser {
     }
 
     /**
+     * Precondition: argument string is not null.
      * Parses the command string in the context of the hide command.
      *
-     * @param command the full command string
+     * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareHide(String command){
-        assert command.isEmpty() == false;
-        
-        if (command.trim().equals("hide")) {
+    private Command prepareHide(String args){
+        assert args != null;
+
+        if (args.trim().equals("")) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HideCommand.MESSAGE_USAGE));
         }
 
-        final KeywordParser parser = new KeywordParser("hide", "on", "by", "from", "to", "tag");
-        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(command);
-        String type = setToNullIfIsEmptyString(parsed.get("hide"));
-        String date = setToNullIfIsEmptyString(parsed.get("on"));
-        String deadline = setToNullIfIsEmptyString(parsed.get("by"));
-        String startTime = setToNullIfIsEmptyString(parsed.get("from"));
-        String endTime = setToNullIfIsEmptyString(parsed.get("to"));
-        String tags = setToNullIfIsEmptyString(parsed.get("tag"));
+        final KeywordParser parser = new KeywordParser(HideCommand.VALID_KEYWORDS);
+        HashMap<String, String> parsed = parser.parseKeywordsWithoutFixedOrder(HideCommand.COMMAND_WORD + args);
+        String type = setToNullIfIsEmptyString(parsed.get(HideCommand.COMMAND_WORD));
+        String date = setToNullIfIsEmptyString(parsed.get(HideCommand.KEYWORD_DATE));
+        String deadline = setToNullIfIsEmptyString(parsed.get(HideCommand.KEYWORD_DEADLINE));
+        String startTime = setToNullIfIsEmptyString(parsed.get(HideCommand.KEYWORD_PERIOD_START_TIME));
+        String endTime = setToNullIfIsEmptyString(parsed.get(HideCommand.KEYWORD_PERIOD_END_TIME));
+        String tags = setToNullIfIsEmptyString(parsed.get(HideCommand.KEYWORD_TAG));
 
         if(tags == null){
             tags = "";
+        } else {
+            tags = removeFullStopsAndCommas(tags);
         }
+
         try {
             return new HideCommand(
                     type,
@@ -322,6 +359,23 @@ public class Parser {
         }
 
         return new RelocateCommand(args.trim());
+    }
+    
+    /**
+     * Parses arguments in the context of the change calendar view command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareCalendar(String args) {
+        if (args.equals("")) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CalendarCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new CalendarCommand(args.trim());
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CalendarCommand.MESSAGE_USAGE));
+        }
     }
 
     /**
@@ -374,6 +428,12 @@ public class Parser {
         return new SelectCommand(index.get());
     }
 
+    /**
+     * Parses arguments in the context of the undo command.
+     * Special case: if no arg is provided, undoes 1 command.
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareUndo(String args) {
         if (args.equals("")) {
             return new UndoCommand(1);
@@ -385,6 +445,25 @@ public class Parser {
         }
 
         return new UndoCommand(index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the redo command.
+     * Special case: if no arg is provided, redoes 1 command.
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareRedo(String args) {
+        if (args.equals("")) {
+            return new RedoCommand(1);
+        }
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RedoCommand.MESSAGE_USAGE));
+        }
+
+        return new RedoCommand(index.get());
     }
 
     /**

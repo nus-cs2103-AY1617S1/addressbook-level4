@@ -73,40 +73,46 @@ public class KeywordParser {
         //If no close " found, parser will return the rest of the string after the open "
         //note: should have error when open " exist, but no close " ?
         //note: refactor this
+        ArrayList<Integer> startIndices = new ArrayList<Integer>();
+        ArrayList<Integer> endIndices = new ArrayList<Integer>();
         int startIndex = -1;
         int endIndex = parts.length - 1;
         for(int i = 1; i < parts.length; i++ ){
         	if(parts[i].startsWith("\"")){
-        		startIndex = i;
-        		break;
+        		startIndices.add(i);
         	}
         }
-        if (startIndex != -1) {
+        if (!startIndices.isEmpty()) {
 			for (int i = 1; i < parts.length; i++) {
 				if (parts[i].endsWith("\"")) {
-					endIndex = i;
+					endIndices.add(i);
 				}
 			}
 
-			for (int i = startIndex + 1; i <= endIndex; i++) {
-					parts[startIndex] = parts[startIndex] + " " + parts[i];
+			while(startIndices.size() > endIndices.size()){
+			    //If more open " than close ", let the end of line serve as additional close "
+			    endIndices.add(parts.length - 1);
 			}
 
-			String[] newParts = new String[parts.length - (endIndex - startIndex)];
-	        for(int i = 0, j = 0; i < newParts.length && j < parts.length;){
-	        	if (j <= startIndex || j > endIndex) {
-					newParts[i] = parts[j];
-					i++;
-					j++;
+			for (int i = 0; i < startIndices.size(); i++) {
+			    int start = startIndices.get(i);
+			    int end = endIndices.get(i);
+                for (int j = start + 1; j <= end; j++) {
+                    parts[start] = parts[start] + " " + parts[j];
+                    parts[j] = null;
+                }
+            }
+            ArrayList<String> newParts = new ArrayList<String>();
+	        for(int i = 0; i < parts.length; i++){
+	        	if (parts[i] != null) {
+					newParts.add(parts[i]);
 				}
-	        	else{
-	        		j++;
-	        	}
 	        }
-	        parts = newParts;
+	        parts = newParts.toArray(new String[newParts.size()]);
 		}
+        //end open close "" parts
 
-		for (int i = 0; i < parts.length; i++) {
+        for (int i = 0; i < parts.length; i++) {
             if (stringIsAKeyword(keywordsInHashSet, parts[i])) {
 
                 String currentKeyword = parts[i];

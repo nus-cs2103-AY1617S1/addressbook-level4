@@ -163,5 +163,15 @@ public class CommandHelper {
         }
 
     }
-
+    
+    /**
+     * Convert the date object into a string that the pretty time parser
+     * can actually understand.
+     * 
+     * @param date to convert to
+     * @return string that can be parsed by pretty time library
+     */
+    public static String convertDateToPrettyTimeParserFriendlyString(Date date) {
+        return String.format("%tb %td %tY %tT", date, date, date, date);
+    }
 }
