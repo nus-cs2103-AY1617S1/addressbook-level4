@@ -79,10 +79,10 @@ public class AddCommand extends Command {
     	storePreviousState();
     	
         try {
-            if (toAdd.getActivityType().equals("task")){
+            if (toAdd.getActivityType().equals(Activity.TASK_TYPE)){
                 model.addTask(toAdd);
             }
-            else if (toAdd.getActivityType().equals("event")){
+            else if (toAdd.getActivityType().equals(Activity.EVENT_TYPE)){
                 model.addEvent(toAdd);
             }
             else {

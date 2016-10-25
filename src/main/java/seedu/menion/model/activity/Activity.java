@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Activity implements ReadOnlyActivity {
 
     // Types of Activity
-    public static final String FLOATING_TASK_TYPE = "floatingTask";
+    public static final String FLOATING_TASK_TYPE = "floating";
     public static final String TASK_TYPE = "task";
     public static final String EVENT_TYPE = "event";
 
