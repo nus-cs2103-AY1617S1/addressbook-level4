@@ -391,7 +391,7 @@ Use case ends.
 
 2a. There is no edit to undo.
 > 2a1. TaskManager shows an error message <br>
-Use case  ends
+Use case ends
 
 #### Use case: Complete task
 
@@ -414,7 +414,7 @@ Use case  ends
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
-5. Commands should run almost instantly
+5. Should implement commands within 0.5 seconds.
 
 
 ## Appendix D : Glossary
