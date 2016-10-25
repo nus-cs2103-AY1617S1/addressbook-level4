@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Ellipse?>
+<?import javafx.scene.text.Font?>
+<!-- @@author A0138967J -->
+<HBox fx:id="cardPane" maxHeight="50.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <GridPane maxHeight="50.0" maxWidth="250.0" minHeight="50.0" minWidth="110.0" prefHeight="50.0" prefWidth="110.0" translateY="5.0" HBox.hgrow="ALWAYS">
+            
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="203.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="47.0" />
+            </columnConstraints>
+            
+            <children>
+            <GridPane prefHeight="32.0" prefWidth="580.0" translateY="2.0" GridPane.hgrow="NEVER">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="555.0" minWidth="10.0" prefWidth="487.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="49.0" minHeight="0.0" prefHeight="19.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="86.0" minHeight="20.0" prefHeight="86.0" vgrow="NEVER" />
+              </rowConstraints>
+               <children>
+                        <Label fx:id="details" prefHeight="16.0" prefWidth="587.0" styleClass="cell_small_label" text="\$details" translateY="-35.0" GridPane.rowIndex="1" />
+                          <HBox maxHeight="20.0" maxWidth="212.0" minHeight="20.0" minWidth="110.0" prefHeight="20.0" prefWidth="212.0">
+                             <children>
+                                 <Label fx:id="name" styleClass="cell_big_label" text="\$first">
+                           <font>
+                              <Font name="Cambria" size="16.0" />
+                           </font>
+                        </Label>
+                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" translateX="10.0" translateY="4.0">
+                           <graphic>
+                              <Ellipse fill="DODGERBLUE" radiusX="5.0" radiusY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" />
+                           </graphic>
+                        </Label>
+                             </children>
+                          </HBox>
+               </children>
+            </GridPane>
+            <VBox alignment="CENTER_LEFT" maxHeight="116.0" minHeight="105.0" prefHeight="105.0" prefWidth="40.0" translateY="-5.0" GridPane.columnIndex="1">
+               <padding>
+                  <Insets bottom="2.0" left="-20.0" right="2.0" top="2.0" />
+               </padding>
+            </VBox>
+            </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
+        </GridPane>
+    </children>
+</HBox>
