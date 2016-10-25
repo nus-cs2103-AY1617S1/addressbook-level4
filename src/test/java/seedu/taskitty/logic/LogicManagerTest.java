@@ -85,7 +85,7 @@ public class LogicManagerTest {
     public void execute_invalid() throws Exception {
         String invalidCommand = "       ";
         assertCommandBehavior(invalidCommand,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_ERROR));
     }
 
     /**
@@ -228,7 +228,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 

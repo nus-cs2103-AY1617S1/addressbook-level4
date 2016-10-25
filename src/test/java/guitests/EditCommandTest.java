@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import seedu.taskitty.commons.core.Messages;
+import seedu.taskitty.logic.commands.Command;
 import seedu.taskitty.logic.commands.EditCommand;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
@@ -44,10 +45,12 @@ public class EditCommandTest extends TaskManagerGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
         commandBox.runCommand("edit 1");
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                Command.MESSAGE_FORMAT + EditCommand.MESSAGE_PARAMETER));
         
         commandBox.runCommand("edit d deadline 09/09/2016 5pm");
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                Command.MESSAGE_FORMAT + EditCommand.MESSAGE_PARAMETER));
         
         //invalid index
         targetIndex = currentList.size('t') + 1;

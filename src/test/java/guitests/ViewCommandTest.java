@@ -3,6 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import seedu.taskitty.commons.core.Messages;
+import seedu.taskitty.logic.commands.Command;
 import seedu.taskitty.logic.commands.ViewCommand;
 import seedu.taskitty.testutil.TestTask;
 
@@ -156,7 +157,8 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     @Test
     public void view_invalidSuffix_fail() {
         commandBox.runCommand("view date");
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                Command.MESSAGE_FORMAT + ViewCommand.MESSAGE_PARAMETER));
     }
     
     /**

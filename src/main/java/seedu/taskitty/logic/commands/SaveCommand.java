@@ -31,7 +31,8 @@ public class SaveCommand extends Command{
     
     public SaveCommand(String filepath) throws IllegalValueException{
         if (filepath.toCharArray().length == 0) {
-            throw new IllegalValueException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
+            throw new IllegalValueException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    Command.MESSAGE_FORMAT + MESSAGE_PARAMETER));
         }
         this.filepath = filepath;
     }
