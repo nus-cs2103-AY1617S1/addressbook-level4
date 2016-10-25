@@ -61,6 +61,7 @@ public class CommandInputView extends UiPart {
     private void configureProperties() {
         setCommandInputHeightAutoResizeable();
         unflagErrorWhileTyping();
+        listenAndRaiseEnterEvent();
     }
 
     /**
@@ -68,20 +69,29 @@ public class CommandInputView extends UiPart {
      * Once a keystroke is received, calls {@link KeyStrokeCallback} interface to process this command.
      */
     public void listenToInput(KeyStrokeCallback listener) {
-        this.commandTextField.addEventHandler(KeyEvent.ANY, event -> {
-            String textInput = commandTextField.getText();
-            EventType<KeyEvent> eventType = event.getEventType();
+        this.commandTextField.addEventHandler(KeyEvent.KEY_RELEASED, event -> {
             KeyCode keyCode = event.getCode();
-
-            // If enter key was pressed
-            if (eventType == KeyEvent.KEY_PRESSED && keyCode == KeyCode.ENTER) {
-                event.consume(); //To prevent commandTextField from printing a new line.
+            String textInput = commandTextField.getText();
+            
+            boolean isNonEssential = keyCode.isNavigationKey() || 
+                    keyCode.isFunctionKey() || 
+                    keyCode.isMediaKey() || 
+                    keyCode.isModifierKey();
+            
+            if (!isNonEssential) {
                 listener.onKeyStroke(keyCode, textInput);
             }
-
-            // Keys that print (a, 1, =,  etc) was pressed
-            if (eventType == KeyEvent.KEY_TYPED) {
-                listener.onKeyStroke(keyCode, textInput);
+        });
+    }
+    
+    /**
+     * Listens for Enter keystrokes, and raises an event when it happens.
+     */
+    public void listenAndRaiseEnterEvent() {
+        this.commandTextField.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                EventsCenter.getInstance().post(new CommandInputEnterEvent());
+                event.consume(); //To prevent commandTextField from printing a new line.
             }
         });
     }
@@ -91,7 +101,7 @@ public class CommandInputView extends UiPart {
      * Resets the text box by {@link #unflagError()} after a key is pressed
      */
     private void unflagErrorWhileTyping() {
-        this.commandTextField.addEventFilter(KeyEvent.KEY_TYPED, event -> unflagError());
+        this.commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, event -> unflagError());
     }
 
     /**

@@ -69,7 +69,6 @@ public class CommandController {
         case ENTER :    // Submitting command
             //Note: Do not execute an empty command. TODO: This check should be done in the parser class.
             System.out.println("EXECUTED ENTER");
-            EventsCenter.getInstance().post(new CommandInputEnterEvent());
             if (!StringUtil.isEmpty(userInput)) {
                 CommandResult result = logic.execute(userInput);
                 handleCommandResult(result);
@@ -97,6 +96,7 @@ public class CommandController {
      * @param result produced by {@link Logic}
      */
     private void handleCommandResult(CommandResult result) {
+        previewView.hidePreviewPanel();
         displayMessage(result.getFeedback());
         if (result.isSuccessful()) {
             viewDisplaySuccess();

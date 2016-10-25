@@ -63,10 +63,6 @@ public class TodoLogic implements Logic {
 
     @Override
     public CommandPreview preview(String input) {
-        // Don't show any thing when no input
-        if (StringUtil.isEmpty(input)) {
-            return new CommandPreview("");
-        }
         return new CommandPreview(input);
     }
 }

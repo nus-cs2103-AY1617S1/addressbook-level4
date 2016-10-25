@@ -66,11 +66,15 @@ public class CommandPreviewView extends UiPart {
      * Displays a list of commands into the previewPanelView
      */
     public void displayCommandSummaries(List<CommandSummary> commandSummaries) {
-        this.showPreviewPanel();
-        previewGrid.getChildren().clear();
-        int rowIndex = 0;
-        for (CommandSummary commandSummary : commandSummaries) {
-            appendCommandSummary(rowIndex++, commandSummary);
+        if (commandSummaries.isEmpty()) {
+            this.hidePreviewPanel();
+        } else {
+            this.showPreviewPanel();
+            previewGrid.getChildren().clear();
+            int rowIndex = 0;
+            for (CommandSummary commandSummary : commandSummaries) {
+                appendCommandSummary(rowIndex++, commandSummary);
+            }
         }
     }
 
