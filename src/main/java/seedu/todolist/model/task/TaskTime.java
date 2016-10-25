@@ -63,13 +63,6 @@ public class TaskTime {
     public boolean isBefore(TaskTime other) {
         return this.time.isBefore(other.getTime());
     }
-    
-    /**
-     * Returns true if this time is equals to the given time.
-     */
-    public boolean isEquals(TaskTime other) {
-        return this.time.equals(other.getTime());
-    }
 
     public LocalTime getTime() {
         return this.time;
@@ -86,8 +79,8 @@ public class TaskTime {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskDate // instanceof handles nulls
-                && this.time.equals(((TaskDate) other).date)); // state check
+                || (other instanceof TaskTime // instanceof handles nulls
+                && this.time.equals(((TaskTime) other).time)); // state check
     }
 
     @Override
