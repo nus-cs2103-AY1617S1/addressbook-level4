@@ -116,5 +116,15 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return !startTime.isValid() && !endTime.isValid() && !deadline.isValid();
     }
     
+    /**
+     * Returns true if task is an event
+     * 
+     * event task is defined as a task with a start time and end time
+     * 
+     * @return true if task is an event
+     */
+    public boolean isEvent() {
+        return startTime.isValid() && endTime.isValid();
+    }
 
 }
