@@ -53,7 +53,7 @@ public class StorageManagerTest {
         ActivityManager original = new TypicalTestActivities().getTypicalActivityManager();
         storageManager.saveActivityManager(original);
         ReadOnlyActivityManager retrieved = storageManager.readActivityManager().get();
-        //assertEquals(original, new ActivityManager(retrieved));
+        assertEquals(original, new ActivityManager(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
     }
 
