@@ -1,3 +1,4 @@
+//@@author A0146752B
 package seedu.menion.model;
 
 import java.util.Comparator;
@@ -6,7 +7,6 @@ import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
 
 /**
- * Author (A0146752B)
  * 
  * This class sorts a floating task list based on completion status,
  * Completed floating tasks are pushed to the bottom of the list,

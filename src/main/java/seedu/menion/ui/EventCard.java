@@ -53,7 +53,6 @@ public class EventCard extends UiPart{
         endTime.setText(event.getActivityEndTime().toString());
         id.setText(displayedIndex + ". ");    
     }
-    //@@author
     
     public HBox getLayout() {
         return eventCardPane;

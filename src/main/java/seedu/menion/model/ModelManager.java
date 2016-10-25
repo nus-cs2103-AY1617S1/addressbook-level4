@@ -119,7 +119,7 @@ public class ModelManager extends ComponentManager implements Model {
     	return this.activityManagerRedoStack.isEmpty();
     }
 
-    //@@author: A0139164A
+    //@@author A0139164A
     /**
      * Methods for Completing an activity
      */
@@ -167,7 +167,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateActivityManagerChanged();
     }
     
-    //@@author: A0139164A
+    //@@author A0139164A
     /**
      * Methods for editting Activity's name
      * @throws IllegalValueException 
@@ -376,7 +376,7 @@ public class ModelManager extends ComponentManager implements Model {
             this.nameKeyWords = nameKeyWords;
         }
 
-        //@@author: A0139277U
+        //@@author A0139277U
         @Override
         public boolean run(ReadOnlyActivity activity) {
         	String activityKeyWords;

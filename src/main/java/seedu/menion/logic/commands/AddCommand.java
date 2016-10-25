@@ -9,7 +9,7 @@ import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
 
 import java.util.ArrayList;
 
-
+//@@author A0139515A
 /**
  * Adds a task to the task manager.
  */
@@ -17,7 +17,6 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    //@@author A0139515A
     public static final String MESSAGE_USAGE = "Make sure the date is a valid date. If not the date will be set to today. \n" + 
     		"Adding a Floating Task: "+ COMMAND_WORD + " buy lunch n: hawker food\n"
             + "Adding a Task: "+ COMMAND_WORD + " complete cs2103t by: 10-08-2016 1900 n: must complete urgent\n"
@@ -27,7 +26,6 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "Oh no! This activity already exists in the Menion";
 
     private final Activity toAdd;
-    public final EventStub eventStub = null;
 
     private ActivityName name;
     private ActivityDate startDate;

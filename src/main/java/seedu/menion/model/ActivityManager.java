@@ -141,7 +141,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         Collections.sort(events.getInternalList(), new EventComparator());
     }
     
-    //@@author: A0139164A
+    //@@author A0139164A
     /**
      * Methods, Completes an activity in the activity manager.
      * Passes in the index of the list to complete

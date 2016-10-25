@@ -1,3 +1,4 @@
+//@@author A0139164A
 package seedu.menion.model.activity;
 
 import java.util.Calendar;
@@ -40,7 +41,7 @@ public class ActivityDate {
         this.value = date;
     }
 
-    //@@author: A0139277U
+    //@@author A0139277U
     private void extractMonth(String date){
     	String [] parts = date.split("-");
     	String month = parts[1];
@@ -49,7 +50,7 @@ public class ActivityDate {
     }
 
     
-    //@@author: A0139164A
+    //@@author A0139164A
     /**
      * Returns true if a given string is a valid activity date.
      * @throws IllegalValueException 
@@ -64,7 +65,7 @@ public class ActivityDate {
         return;
     }
    
-    //@@author: A0139277U
+    //@@author A0139277U
     private static String formatNiceDate(String dateToFormat){
     	String [] parts = dateToFormat.split("-");
     	String day = parts[0];

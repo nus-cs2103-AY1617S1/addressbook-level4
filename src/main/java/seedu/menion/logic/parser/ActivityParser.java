@@ -94,7 +94,7 @@ public class ActivityParser {
         }
     }
     
-   //@@author: A0139277U
+   //@@author A0139277U
     private Command prepareList(String args){
     	
     	args = args.trim();
@@ -103,7 +103,7 @@ public class ActivityParser {
     
     }
     
-    //@@author: A0139164A
+    //@@author A0139164A
     private Command prepareComplete(String args) {
 
         String[] splited = args.split("\\s+");
