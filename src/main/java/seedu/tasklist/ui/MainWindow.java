@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.StringPropertyBase;
@@ -18,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.tasklist.commons.core.Config;
+import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.GuiSettings;
 import seedu.tasklist.commons.events.ui.ExitAppRequestEvent;
 import seedu.tasklist.logic.Logic;
@@ -93,9 +96,15 @@ public class MainWindow extends UiPart {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
         mainWindow.configure(config.getAppTitle(), config.getTaskListName(), config, prefs, logic);
+        EventsCenter.getInstance().registerHandler(mainWindow);
         return mainWindow;
     }
 
+    @Subscribe
+    private void handleTickEvent(TickEvent tickEvent){
+        dateTimeLabel.setText(new Date().toString());
+    }
+    
     private void configure(String appTitle, String taskListName, Config config, UserPrefs prefs,
             Logic logic) {
 
@@ -214,12 +223,7 @@ public class MainWindow extends UiPart {
     }
 
     public void setLabelText() {
-        /*
         assert dateTimeLabel != null;
-        StringProperty time = new SimpleStringProperty();
-        time.
-        dateTimeLabel.textProperty();
-        */
-
+        dateTimeLabel.setText(new Date().toString());
     }
 }
