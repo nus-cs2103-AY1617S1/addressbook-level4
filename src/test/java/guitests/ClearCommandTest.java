@@ -11,6 +11,9 @@ public class ClearCommandTest extends TaskManagerGuiTest {
     @Test
     public void clear() {
 
+        //display all tasks
+        commandBox.runViewAllCommand();
+        
         //verify a non-empty list can be cleared
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         assertTrue(currentList.isListMatching(taskListPanel));
