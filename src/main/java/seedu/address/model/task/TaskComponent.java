@@ -87,12 +87,14 @@ public class TaskComponent {
         isArchived = true;
     }
     
+	//@@author A0147995H
     public void update(TaskDate startDate, TaskDate endDate) {
     	TaskDate realStartDate = startDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : startDate;
     	TaskDate realEndDate = endDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : endDate;
     	setStartDate(realStartDate);
     	setEndDate(realEndDate);
     }
+    //@@author
     
     public boolean isArchived() {
         return isArchived;

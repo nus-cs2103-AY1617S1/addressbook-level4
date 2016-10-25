@@ -103,16 +103,26 @@ Examples:
 * `view date/24sep`
 
 #### Edit tasks : `edit`
-Format: `edit TASK_ID [start/EDIT_START_DATE EDIT_START_TIME end/EDIT_END_DATE EDIT_END_TIME] [tag/EDIT_TAG]...`
+Format: `edit TASK_ID [NEW_TASK_NAME] [from DATE_TIME to DATE_TIME | by DATE_TIME [daily | weekly | monthly | yearly] ] [tag/EDIT_TAG]...`
 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-> items with `...` after them can have multiple instances. Order of parameters are fixed. 
->  
-> Tasks can have any number of tags (including 0)
+> Every field in edit is optional. After you specify the task that you are going to edit,
+> you are able to change its name, date time and tag.
+> For editing date time of a task, you have the following restrictions:
+> 1. You cannot change a non-floating task to a floating task
+> 2. You cannot directly change recurring type of a task (need to specify time first).
 
 Examples: 
-* `edit 213 start/2709 1800 end/3009 1800  tag/cs2101`
-* `edit 213 start/27sep 6pm end/30sep 6pm tag/cs2101`
+* `edit 1 cs2103 webcast`
+	<img src="images/before_edit.png" width="600">
+	<img src="images/edit_command_1.png" width="600">
+* `edit 1 t/study`
+	<img src="images/edit_command_2.png" width="600">
+* `edit 1 from today 4pm to today 5pm`
+	<img src="images/edit_command_3.png" width="600">
+* `edit 2 by today 7pm`
+	<img src="images/edit_command_4.png" width="600">
+* `edit 1 from today 4pm to today 5pm daily`
+	<img src="images/edit_command_5.png" width="600">
 
 #### Delete tasks : `delete`
 Format: delete TASK_ID
@@ -170,16 +180,25 @@ Examples:
    <img src="images/ugredo_2.png" width="600">
 
 #### Find tasks : `find`
-Format: find [TASK_NAME] [date/DATE [TIME]] [tag/TAG]
+Format: `find [KEY_WORD] [from DATE_TIME to DATE_TIME | by DATE_TIME] [t/TAG]...`
 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
+> For find command, all parameters optional.
+> You are able to search by key words of a particular task,
+> or search by a particular time period, search by deadline,
+> or search by particular tags.
+> (You can have more than one tags to search)
 
 Examples: <br>
-* `find cs2103 date/2109 <br>`
-* `find date/2109 1800 tag/gigi <br>`
-* `find date/21sep 6pm tag/gigi`
+* `find cs2103 <br>`
+	<img src="images/before_find.png" width="600">
+	<img src="images/find_command_1.png" width="600">
+* `find from today 5am to today 6am <br>`
+	<img src="images/find_command_2.png" width="600">
+* `find by today 10am`
+	<img src="images/find_command_3.png" width="600">
 * `find cs2103 tag/lolo`
-
+	<img src="images/find_command_4.png" width="600">
+	
 #### Undo tasks : `clear`
 Format: clear
 
@@ -225,7 +244,7 @@ Complete | `done TASK_ID`
 Block | `block TASK_NAME from [START_DATE] START_TIME to [START_DATE] START_TIME [t/TAG]...`
 Redo | `r`
 Undo | `u`
-Find | `find [TASK_NAME] [by DATE TIME] [t/TAG]...`
+Find | `find [KEY_WORD] [from DATE_TIME to DATE_TIME | by DATE_TIME] [t/TAG]...`
 Clear | `clear`
 Change directory | `cd FILE_PATH`
 Exit | `exit`

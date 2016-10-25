@@ -216,6 +216,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
 	}
 	//@@author
 	
+	//@@author A0147995H
 	public boolean updateTask(Task target, Name name, UniqueTagList tags,
     		TaskDate startDate, TaskDate endDate, RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException {
 		if (tasks.updateTask(target, name, tags, startDate, endDate, recurringType)) {
@@ -240,4 +241,5 @@ public class TaskMaster implements ReadOnlyTaskMaster {
 			throw new UniqueTaskList.TaskNotFoundException();
 		}
 	}
+	//@@author
 }
