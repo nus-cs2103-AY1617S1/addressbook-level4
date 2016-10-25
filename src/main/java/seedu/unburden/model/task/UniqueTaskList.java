@@ -76,25 +76,83 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     public boolean edit(ReadOnlyTask key, String args) throws TaskNotFoundException, IllegalValueException {
-        String[] newArgs = args.split(" ");
+        String[] tokens = args.split(" ");
         
+        String[] newArgs = getNewArgs(tokens);      
+       
         int taskIndex = internalList.indexOf(key);
         
         Task newTask = internalList.get(taskIndex);
         for (int i = 0; i < newArgs.length; i++) {
-            switch (newArgs[i].substring(0, 2)) {
-                case ("d/") : newTask.setDate(new Date(newArgs[i].substring(2, newArgs[i].length())));
-                              internalList.set(taskIndex, newTask);
-                              break;
-                case ("s/") : newTask.setStartTime(new Time(newArgs[i].substring(2, newArgs[i].length())));
-                              internalList.set(taskIndex, newTask);
-                              break;
-                case ("e/") : newTask.setEndTime(new Time(newArgs[i].substring(2, newArgs[i].length())));
-                              internalList.set(taskIndex, newTask);
-                              break;
-            }
+        	if (newArgs[i] == "")
+        		continue;
+        	else {
+	            switch (newArgs[i].substring(0, 2)) {
+	            	case ("i/") : newTask.setTaskDescription(new TaskDescription(newArgs[i].substring(2, newArgs[i].length())));
+	            				  internalList.set(taskIndex, newTask);
+	            				  break;
+	            	
+	                case ("d/") : newTask.setDate(new Date(newArgs[i].substring(2, newArgs[i].length())));
+	                              internalList.set(taskIndex, newTask);
+	                              break;
+	                              
+	                case ("s/") : newTask.setStartTime(new Time(newArgs[i].substring(2, newArgs[i].length())));
+	                              internalList.set(taskIndex, newTask);
+	                              break;
+	                              
+	                case ("e/") : newTask.setEndTime(new Time(newArgs[i].substring(2, newArgs[i].length())));
+	                              internalList.set(taskIndex, newTask);
+	                              break;
+	                              
+	                default     : newTask.setName(new Name(newArgs[i]));
+	                			  internalList.set(taskIndex, newTask);
+	                			  break;
+	            }
+        	}
         }
         return true;
+    }
+    
+    private String[] getNewArgs(String[] tokens) {
+    	 String[] newArgs = new String[5];
+         for (int i=0;i<5;i++)
+         	newArgs[i] = "";
+         
+         int loopIndex = 0;
+         int targetIndex = 0;
+         while (loopIndex < tokens.length) {
+        	 System.out.println(targetIndex);
+        	 System.out.println(loopIndex);
+        	 if (tokens[loopIndex].charAt(1) == '/') {
+        		 switch (tokens[loopIndex].charAt(0)) {
+        		 	case ('i') : targetIndex = 1;
+        		 			     break;
+        		 	case ('d') : targetIndex = 2;
+		 			   		     break;
+        		 	case ('s') : targetIndex = 3;
+			   		   			 break;
+        		 	case ('e') : targetIndex = 4;
+			   		   			 break;
+			   		default    : break; 
+        		 }
+        	 }
+        	 
+        	 if (newArgs[targetIndex] == "") {
+        		 newArgs[targetIndex] = tokens[loopIndex] + " ";
+        	 	 System.out.println(newArgs[targetIndex]);
+        	 }
+        	 else {
+        		 newArgs[targetIndex] = newArgs[targetIndex] + (tokens[loopIndex]) + " ";
+        		 System.out.println(newArgs[targetIndex]);
+        	 }
+    		 loopIndex = loopIndex + 1;
+         }
+         
+         for (int i=0;i<newArgs.length;i++) {
+        	 newArgs[i] = newArgs[i].trim();
+         }
+         
+    	return newArgs;
     }
 
     public ObservableList<Task> getInternalList() {
