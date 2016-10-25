@@ -306,19 +306,19 @@ public class DateTimeInfo {
         // TODO: amkdsa
         
         
-        String dateNow = null; 
-        boolean timeDifference = (Boolean) null; 
+        String dateNow=null; 
+        
+
         try {
             dateNow = new DateTimeInfo ("now").toString();
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
         
-        System.out.println("DateTimeInfo: after the datetimeinfo now");
+        boolean timeDifference=false; 
+        
 
         if ( keyWords.contains(ListCommand.LIST_LAST_WEEK_COMMAND) ){
-            System.out.println("DateTimeInfo: ListCommand.LIST_LAST_WEEK_COMMAND");
-
             if (task.getIsTask()){
                 timeDifference = isDurationLessThanSpecified(dateNow, task.getDueDate().toString(), DAYS_IN_A_WEEK);
             } else if (task.getIsEvent()){
@@ -351,7 +351,7 @@ public class DateTimeInfo {
                 return false; 
             }
         }
-        return false;
+        return timeDifference;
     }
 
     private static boolean isDurationLessThanSpecified(String startTime, String endTime, int maxDuration) {
@@ -367,15 +367,15 @@ public class DateTimeInfo {
         if (days < 0) {
             return false; 
         }
-        if(days>0 || days < maxDuration){
-            return true; 
-        }
         if (months < 0 || months>0) {
             return false; 
         }
         if (years < 0 || years > 0) {
             return false;
         } 
+        if(days < maxDuration || (months == 1 && days == 0)){
+            return true; 
+        }
         else {
             return false; 
         }

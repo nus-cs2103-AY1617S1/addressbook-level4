@@ -236,10 +236,6 @@ public class ModelManager extends ComponentManager implements Model {
                     willBeShown = DateTimeInfo.isInThePast(task.getEndTime());
                 } 
             } else if (keyWords.contains(ListCommand.LIST_LAST_COMMAND) || keyWords.contains(ListCommand.LIST_NEXT_COMMAND)){
-                System.out.println("MODEL MANAGER: does it come here??");
-                // TODO: amkdsa
-                
-                
                 willBeShown = DateTimeInfo.withInTheDuration(keyWords,task);
             } else if (!dateInfo.equals("")){
                 willBeShown = DateTimeInfo.isOnTheDate(keyWords, task);
