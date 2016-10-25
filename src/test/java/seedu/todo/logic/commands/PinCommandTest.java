@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import seedu.todo.model.task.ImmutableTask;
 
+//@@author A0092382A
 public class PinCommandTest extends CommandTest {
 
     @Override

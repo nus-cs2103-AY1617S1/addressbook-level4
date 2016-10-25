@@ -231,7 +231,7 @@
     -fx-image: url("../images/location_white.png");
 }
 
-
+/*@@author A0092382A */
 /*Ongoing*/
 .ongoing {
     -fx-background-color: #388E3C;
@@ -258,7 +258,7 @@
 .ongoing .locationImage {
     -fx-image: url("../images/location_white.png");
 }
-
+/*@@author A0135805H */
 
 /*Selected*/
 .selected {

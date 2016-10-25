@@ -7,7 +7,7 @@ import org.junit.Test;
 import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.exceptions.ValidationException;
 
-//@@author A00923282A
+//@@author A0092382A
 public class FindCommandTest extends CommandTest {
     
     @Override
