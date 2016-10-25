@@ -54,6 +54,6 @@ public class LogicManager extends ComponentManager implements Logic {
     //@@author A0130853L
     @Override
     public void initialiseList() {
-    	model.initialiseFilteredList();
+    	model.updateToDefaultList();
     }
 }

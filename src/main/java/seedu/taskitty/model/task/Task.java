@@ -43,6 +43,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private TaskPeriod period;
     private boolean isDone;
     private boolean isOverdue;
+    private boolean isOver;
 
     private UniqueTagList tags;
 
@@ -67,6 +68,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this(source.getName(), source.getPeriod(), source.getTags());
         this.isDone = source.getIsDone();
         this.isOverdue = source.isOverdue();
+        this.isOver = source.isOver();
     }
 
     @Override
@@ -99,7 +101,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     }
     
     /**
-     * Marks a task as overdue() 
+     * Marks a deadline as overdue.
      */
     public void markAsOverdue() {
     	if (!isDone && !isOverdue) {
@@ -107,7 +109,16 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     	}
     }
     
-    //@@author A0130853L
+    /**
+     *  Marks an event as past.
+     */
+    public void markAsIsOver() {
+    	if (!isOver) {
+    		this.isOver = true;
+    	}
+    }
+    
+    //@@author
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -151,9 +162,16 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return period.isEvent();
 	}
 	
+	// only for deadlines
 	@Override
 	public boolean isOverdue() {
 		return isOverdue;
+	}
+	
+	// only for events
+	@Override
+	public boolean isOver() {
+		return isOver;
 	}
 	
 	//@@author

@@ -132,7 +132,7 @@ public class TaskPeriod implements Comparable<TaskPeriod>{
     public TaskTime getEndTime() {
         return endTime;
     }
-    
+    //@@author A0130853L
     public boolean isTodo() {
         return numArgs == Task.TASK_COMPONENT_COUNT;
     }

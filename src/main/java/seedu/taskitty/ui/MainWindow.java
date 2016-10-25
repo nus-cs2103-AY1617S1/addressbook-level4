@@ -172,7 +172,7 @@ public class MainWindow extends UiPart {
         return eventListPanelPlaceholder;
     }
 
-    //@author A0130853L
+    //@@author
     public void hide() {
         primaryStage.hide();
     }

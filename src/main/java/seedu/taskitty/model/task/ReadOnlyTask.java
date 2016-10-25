@@ -10,13 +10,16 @@ import seedu.taskitty.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
-    boolean getIsDone();
     TaskPeriod getPeriod();
+    //@@author A0130853L
+    boolean getIsDone();
     boolean isTodo();
     boolean isDeadline();
     boolean isEvent();
     boolean isOverdue();
-
+	boolean isOver();
+	
+	//@@author A0139930B
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.

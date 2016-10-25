@@ -57,8 +57,6 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList();
 
     //@@author
-    /** Updates the filter of the filtered task list to show all tasks */
-    void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
@@ -68,9 +66,12 @@ public interface Model {
 	void updateFilteredDoneList();
 
 	/** Updates the filter of the filtered task list according to date specified*/
-	void updateFilteredDateTaskList(LocalDate date, boolean hasDate);
+	void updateFilteredDateTaskList(LocalDate date);
 	
-	/** Updates the filter for only today's events to be shown when the application is opened*/
-	void initialiseFilteredList();
+	/** Updates the filter such that events from today onwards and all deadlines and tasks are shown*/
+	void updateToDefaultList();
+	
+	/** Updates the filter of the filtered task list to show all tasks */
+    void updateFilteredListToShowAll();
 
 }

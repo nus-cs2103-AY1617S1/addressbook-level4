@@ -36,12 +36,14 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {}
     
+	//@@author A0130853L
     /**
      * Signals that the done operation targeting a specified task in the list is a duplicate operation if the task has already been previously
      * marked as done.
      */
     public static class DuplicateMarkAsDoneException extends Exception {}
 
+	//@@author
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
 
     /**
@@ -75,6 +77,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(toAdd);
     }
+    //@@author A0130853L
     
     /** Marks the given task as done from the list.
      * 
@@ -95,6 +98,7 @@ public class UniqueTaskList implements Iterable<Task> {
     	}
     }   
     
+    //@@author
     /**
      * Sorts the task list according to compareTo method in Task
      */
@@ -115,9 +119,11 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
+    //@@author A0130853L
 
     public ObservableList<Task> getInternalList() {
     	checkAndSetOverdue();
+    	checkAndSetIsOverToday();
         return internalList;
     }
     
@@ -139,6 +145,15 @@ public class UniqueTaskList implements Iterable<Task> {
     	}
     	if (hasOverdue) {
     		ResultDisplay.setOverdue();
+    	}
+    }
+    
+    private void checkAndSetIsOverToday() {
+    	LocalDateTime currentTime = TimeUtil.createCurrentTime();
+    	for (Task t: internalList) {
+    		if (t.isEvent() && isOverdue(t, currentTime)) {
+    			t.markAsIsOver();
+    		}
     	}
     }
     
