@@ -59,7 +59,7 @@ public class AddCommand extends BaseCommand {
             task.setStartTime(date.getValue().getStartTime());
             task.setEndTime(date.getValue().getEndTime());
         });
-        if(!currentView.filter.test(addedTask)){
+        if(!currentView.filter.test(addedTask)) {
             model.view(TaskViewFilter.DEFAULT);
         }
         return taskSuccessfulResult(title.getValue(), AddCommand.VERB);
