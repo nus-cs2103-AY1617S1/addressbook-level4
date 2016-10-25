@@ -82,7 +82,7 @@ public class AddCommand extends Command {
         try {
             model.saveToHistory();
             model.addTask(toAdd);
-            model.updateFilteredTaskListToShow(isNotDone());
+            model.updateFilteredTaskListToShowNotDone();
 //            System.out.println("Size: " + new LogicManager(model, storage).getFilteredTaskList().size());
 //            TaskListPanel panel = new TaskListPanel();
 //            panel.scrollTo(new LogicManager(model, storage).getFilteredTaskList().size());

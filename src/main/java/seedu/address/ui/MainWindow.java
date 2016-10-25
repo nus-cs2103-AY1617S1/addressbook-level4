@@ -122,7 +122,7 @@ public class MainWindow extends UiPart {
     	floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredTaskList().filtered(isFloating()));
     	contentBox = ContentBox.load(primaryStage, getContentBoxPlaceholder(), logic.getFilteredTaskList());
 //        browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList().filtered(isNotFloating()));
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -224,6 +224,9 @@ public class MainWindow extends UiPart {
     
     public Predicate<ReadOnlyTask> isFloating() {
     	return t -> t.getStartTime().isMissing() && t.getEndTime().isMissing() && t.getDone().getDoneValue() == false;
+    }
+    public Predicate<ReadOnlyTask> isNotFloating() {
+    	return t -> !(t.getStartTime().isMissing() && t.getEndTime().isMissing());
     }
 
 /*    public void loadTaskPage(ReadOnlyTask task) {
