@@ -21,7 +21,7 @@
 
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 
-* [Appendix D: Glossary](#appendix-d-:-glossary)
+* [Appendix D: Glossary](#appendix-d--glossary)
 
 * [Appendix E : Product Survey](#appendix-e--product-survey)
 
@@ -230,8 +230,6 @@ Figure 8: The Model component.
 
 ### Storage component
 
-
-
 <p align="center">
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -240,11 +238,7 @@ Figure 9: The `Storage` component.
 
 </p>
 
-
-
 **API** : [`Storage.java`](../src/main/java/seedu/whatnow/storage/Storage.java)
-
-
 
 The `Storage` component:
 
@@ -252,33 +246,17 @@ The `Storage` component:
 
 * can save the WhatNow data in xml format and read it back.
 
-
-
 ### Common classes
-
-
 
 Classes used by multiple components are in the `seedu.whatnow.commons` package.
 
-
-
-
-
 ## Implementation
-
-
 
 ### Logging
 
-
-
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations. The logging level can be controlled using the `logLevel` setting in the configuration file (See [Configuration](#configuration)). The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level. Currently log messages are output through `Console` and to a `.log` file.
 
-
-
 **Logging Levels**
-
-
 
 * `SEVERE` : Critical problem detected which may possibly cause the termination of the application
 
@@ -290,51 +268,29 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
   e.g. print the actual list instead of just its size
 
-
-
 ### Configuration
-
-
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
-
-
-
-
 ## Testing
 
-
-
 Tests can be found in the `./src/test/java` folder.
-
-
 
 **In Eclipse**:
 
 > If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
-
-
 * To run all tests, right-click on the `src/test/java` folder and choose `Run as` > `JUnit Test`
 
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose to run as a JUnit test.
-
-
 
 **Using Gradle**:
 
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
-
-
 We have two types of tests:
 
-
-
 1. **[GUI](#gui) Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `guitests` package.
-
-
 
 2. **Non-GUI Tests** - These are tests that do not involve the GUI. They include:
 
@@ -344,49 +300,27 @@ We have two types of tests:
 
       e.g. `seedu.whatnow.storage.StorageManagerTest`
 
-
-
    2. Hybrid of unit and integration tests. These tests check the correctness of the multiple  code units as well as how they are connected together.
 
       e.g. `seedu.whatnow.logic.LogicManagerTest`
-
-
 
 **Headless GUI Testing** :
 
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library used, our GUI tests are able to run in the headless mode. In the headless mode, GUI tests do not show up on the screen. This means the developer can do other things on the Computer while the tests are running.
 
-
-
 See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-
-
-
-
 
 ## Dev Ops
 
-
-
 ### Build Automation
-
-
 
 See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
-
-
 ### Continuous Integration
-
-
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects. See [UsingTravis.md](UsingTravis.md) for more details.
 
-
-
 ### Making a Release
-
-
 
 Here are the steps to create a new release.
 
@@ -398,11 +332,7 @@ Here are the steps to create a new release.
 
     and upload the JAR file you created.
 
-
-
 ### Managing Dependencies
-
-
 
 A project often depends on third-party libraries. For example, WhatNow depends on the
 
@@ -412,17 +342,9 @@ a. Including those libraries in the repo (this bloats the repo size)
 
 b. Requiring developers to download those libraries manually (this creates extra work for developers)
 
-
-
-
-
 ## Appendix A : User Stories
 
-
-
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*` <br>
-
-
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :----------
@@ -439,7 +361,6 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | choose the data file location | store the file on the cloud (For e.g. Dropbox) to sync the data across multiple computers or other preferable locations.
 `*` | user with many tasks in WhatNow | sort tasks by priority | locate the most important and immediate tasks easily
 
-
 ## Appendix B : Use Cases
 
 System: WhatNow
@@ -448,13 +369,9 @@ Actor: User
 
 For all cases, the System and Actor will be the same unless stated otherwise. <br>
 
-
-
 #### **Use case: Help**
 
 **MSS**<br>
-
-
 
 1. User requests to see the list of available commands.<br>
 
@@ -462,13 +379,9 @@ For all cases, the System and Actor will be the same unless stated otherwise. <b
 
 Use case ends.<br>
 
-
-
 #### **Use case: Change location**
 
 **MSS**<br>
-
-
 
 1. User requests to change the data file storage location.<br>
 
@@ -476,11 +389,7 @@ Use case ends.<br>
 
   Use case ends.<br>
 
-
-
 **Extensions**<br>
-
-
 
 1a. The path does not exists.<br>
 
@@ -488,21 +397,15 @@ Use case ends.<br>
 
   >Use case ends.<br>
 
-
-
 1b. The given syntax is invalid.<br>
 
   >1b1. System displays the correct format for the command.<br>
 
   >Use case ends.<br>
 
-
-
 #### **Use case: Add task**
 
 **MSS**<br>
-
-
 
 1. User requests to add a task into the system.<br>
 
@@ -510,11 +413,7 @@ Use case ends.<br>
 
   Use case ends.<br>
 
-
-
 **Extensions**<br>
-
-
 
 1a. The task is already existing.<br>
 
@@ -522,21 +421,15 @@ Use case ends.<br>
 
   >Use case ends.<br>
 
-
-
 1b. The given syntax is invalid.<br>
 
   >1b1. System displays the correct format for the command.<br>
 
   >Use case ends.<br>
 
-
-
 #### **Use case: List task**
 
 **MSS**<br>
-
-
 
 1. User requests to list the tasks following the specific keyword.<br>
 
@@ -544,11 +437,7 @@ Use case ends.<br>
 
   Use case ends.<br>
 
-
-
 **Extensions**<br>
-
-
 
 1a. If there are no tasks that match the keyword.<br>
 
@@ -556,21 +445,15 @@ Use case ends.<br>
 
   >Use case ends.<br>
 
-
-
 1b. The given syntax is invalid.<br>
 
   >1b1. System displays the correct format for the command.<br>
 
   >Use case ends.<br>
 
-
-
 #### **Use case: Update task**
 
 **MSS**<br>
-
-
 
 1. User requests to update a specific task in the list.<br>
 
@@ -578,11 +461,7 @@ Use case ends.<br>
 
   Use case ends.<br>
 
-
-
 **Extensions**<br>
-
-
 
 1a. The task index is invalid.<br>
 
@@ -590,15 +469,11 @@ Use case ends.<br>
 
   >Use case ends.<br>
 
-
-
 1b. The given syntax is invalid.<br>
 
   >1b1. System displays the correct format for the command.<br>
 
   >Use case ends.<br>
-
-
 
 #### **Use case: Delete task**
 
@@ -612,25 +487,17 @@ Use case ends.<br>
 
   Use case ends.<br>
 
-
-
 **Extensions**<br>
-
-
 
 1a. The list is empty.<br>
 
   >Use case ends.<br>
-
-
 
 1b. The given index is invalid.<br>
 
   >1b1. System displays the correct format for the command.<br>
 
   >Use case ends.<br>
-
-
 
 1c. The user wants to delete a completed task. <br>
 
@@ -640,23 +507,15 @@ Use case ends.<br>
 
   Use case resumes at step 1.<br>
 
-
-
 #### **Use case: Undo**
 
 **MSS**<br>
-
-
 
 1. User requests to revert back to the state before the previous action.<br>
 
 2. System reverts to the state before the user entered the previous command.<br>
 
-
-
 **Extensions**<br>
-
-
 
 1a. The user just launched the system and did not add a task previously.<br>
 
@@ -664,23 +523,15 @@ Use case ends.<br>
 
   >Use case ends.<br>
 
-
-
 #### **Use case: Redo**
 
 **MSS**<br>
-
-
 
 1. User requests to revert back to the state that the system was previously in before `undo`.<br>
 
 2. System reverts the `undo` that was done.<br>
 
-
-
 **Extensions**<br>
-
-
 
 1a. User did not type an `undo` command previously.<br>
 
@@ -688,49 +539,30 @@ Use case ends.<br>
 
   >Use case ends.<br>
 
-
-
 #### **Use case: Search for a task**
 
 **MSS**<br>
-
-
 
 1. User requests to search a particular task with one or more keywords.<br>
 
 2. System displays the search result that matches with at least one of the keywords.<br>
 
-
-
 **Extensions**<br>
-
-
 
 1a. The task does not exist.<br>
 
   >1a1.System will display `No such task.`<br>
-
-            Use case ends.<br>
-
-
+  >Use case ends.<br>
 
 #### **Use case: List all completed tasks**
 
-
-
 **MSS**<br>
-
-
 
 1. User requests to list all completed tasks.<br>
 
 2. System displays all completed tasks.<br>
 
-
-
 **Extensions**<br>
-
-
 
 1a. There are no completed tasks.<br>
 
@@ -738,13 +570,7 @@ Use case ends.<br>
 
   >Use case ends.<br>
 
-
-
-
-
 ## Appendix C : Non Functional Requirements
-
-
 
 1. Should work on any [mainstream OS](#mainstream-os) that has Java 8 or higher installed.
 
@@ -766,91 +592,45 @@ Use case ends.<br>
 
 10. Should be secured.
 
-
-
-
-
 ## Appendix D : Glossary
-
-
 
 ##### Eclipse
 
-
-
 > Integrated development environment used in computer programming.
-
-
 
 ##### Fork
 
-
-
 >A fork is a copy of a repository.
-
-
 
 ##### Github
 
-
-
 > Github is a web-based Git repository hosting service.
-
-
 
 ##### Gradle
 
-
-
 > Gradle is an open source build automation system that builds upon the concepts of Apache Ant and Apache Maven and introduces a Groovy-based domain-specific language (DSL) instead of the XML form used by Apache Maven of declaring the project configuration.
-
-
 
 ##### GUI
 
-
-
 > Graphical User Interface.
-
-
 
 ##### JDK
 
-
-
 > Java Development Kit.
-
-
 
 ##### Mainstream OS
 
-
-
 > Windows, Linux, Unix, OS-X
-
-
 
 ##### Repository
 
-
-
-> A repository contains all of the project files (including documentation), and stores each file's revision history. 
-
-
+> A repository contains all of the project files (including documentation), and stores each file's revision history.
 
 ##### UNIX Commands
 
-
-
 > Commands used in all UNIX operating systems
 
-
-
-
-
 ## Appendix E : Product Survey
-
-
 
 **Google Calendar**<br>
 
@@ -860,8 +640,6 @@ Strengths:
 
 * Users can configure reminders.
 
-
-
 Weaknesses:
 
 * An internet connection is required to use the product.
@@ -869,10 +647,6 @@ Weaknesses:
 * A google account is required to use the product.
 
 * A mouse is required to navigate the GUI.
-
-
-
-
 
 **Todoist**<br>
 
@@ -895,7 +669,6 @@ Strengths:
 * Typos are automatically rectified. E.g. "Ev Thursday" is registered as "Every Thursday".
 
 
-
 Weaknesses:
 
 * Unable to add to labels to all tasks in the free version.
@@ -903,10 +676,6 @@ Weaknesses:
 * Unable to set reminders in the free version.
 
 * Unable to add notes/details onto the specific task in free version.
-
-
-
-
 
 **Wunderlist**<br>
 
@@ -932,13 +701,9 @@ Strengths:
 
 * Completed to-do list are hidden unless selected.
 
-
-
 Weaknesses:
 
 * Slow in updating changes.
-
-
 
 **Remember The Milk**<br>
 
@@ -955,10 +720,6 @@ Strengths:
 * Upcoming tasks are organised in the Today, Tomorrow and This Week view.
 
 * Extra keyboard shortcuts for quicker experience. E.g. Shortcut menu is opened by just clicking on the key '?'.
-
-
-
-
 
 Weaknesses:
 
