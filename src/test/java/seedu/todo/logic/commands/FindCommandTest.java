@@ -1,11 +1,12 @@
 package seedu.todo.logic.commands;
 
-
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.exceptions.ValidationException;
+
+import static org.junit.Assert.*;
 
 //@@author A00923282A
 public class FindCommandTest extends CommandTest {
@@ -25,10 +26,12 @@ public class FindCommandTest extends CommandTest {
     
     @Test
     public void testFindSuccessful() throws ValidationException {
+        assertNull(model.getSearchStatus().getValue());
         assertVisibleTaskCount(4);
         setParameter("CS2101");
         execute(true);
         assertVisibleTaskCount(2);
+        assertNotNull(model.getSearchStatus().getValue());
     }
     
     @Test
@@ -68,9 +71,11 @@ public class FindCommandTest extends CommandTest {
         setParameter("project");
         execute(true);
         assertVisibleTaskCount(2);
+        assertNotNull(model.getSearchStatus().getValue());
         
         setParameter("");
         execute(true);
         assertVisibleTaskCount(4);
+        assertNull(model.getSearchStatus().getValue());
     }
 }
