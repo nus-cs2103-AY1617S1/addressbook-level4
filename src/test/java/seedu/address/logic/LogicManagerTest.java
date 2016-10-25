@@ -119,6 +119,31 @@ public class LogicManagerTest {
     }
     
     /**
+     * Executes the done command and confirms that the result message is correct and
+     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
+     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
+     *      - the backing lists shown by UI matches the {@code shownList} <br>
+     *      - {@code expectedAddressBook} was saved to the storage file. <br>
+     */
+    private void assertDoneCommandBehavior(String inputCommand, String expectedMessage,
+                                       ReadOnlyTaskManager expectedTaskManager,
+                                       List<? extends ReadOnlyTask> expectedShownUndoneList,
+                                       List<? extends ReadOnlyTask> expectedShownDoneList) throws Exception {
+
+        //Execute the command
+        CommandResult result = logic.execute(inputCommand);
+
+        //Confirm the ui display elements should contain the right data
+        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(expectedShownUndoneList, model.getFilteredUndoneTaskList());
+        assertEquals(expectedShownDoneList, model.getFilteredDoneTaskList());
+
+        //Confirm the state of data (saved and in-memory) is as expected
+        assertEquals(expectedTaskManager, model.getTaskManager());
+        assertEquals(expectedTaskManager, latestSavedTaskManager);
+    }
+    
+    /**
      * Sends the inputCommand to the Logic component to generate a tooltip that will be compared against the expectedTooltip
      * 
      * @param inputCommand the user input
@@ -333,6 +358,37 @@ public class LogicManagerTest {
                 expectedAB.getUndoneTaskList());
     }
 
+    @Test
+    public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
+    }
+    
+    @Test
+    public void execute_done_archivesCorrectPerson() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threePersons = helper.generateFloatingTaskList(3);
+        Collections.sort(threePersons);
+        
+        TaskManager expectedAB = helper.generateTaskManager(threePersons);
+        
+        expectedAB.removeFloatingTask(threePersons.get(1));
+        expectedAB.addDoneTask(threePersons.get(1));
+        helper.addToModel(model, threePersons);
+
+        assertDoneCommandBehavior("done 2",
+                String.format(DoneCommand.MESSAGE_DONE_ITEM_SUCCESS, threePersons.get(1)),
+                expectedAB,
+                expectedAB.getUndoneTaskList(),
+                expectedAB.getDoneTaskList());
+        
+    }
+    
+    @Test
+    public void execute_doneIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("done");
+    }
+    
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
