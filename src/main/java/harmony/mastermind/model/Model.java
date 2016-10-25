@@ -2,12 +2,12 @@ package harmony.mastermind.model;
 
 import java.util.EmptyStackException;
 import java.util.Set;
-import java.util.Stack;
+
+import javafx.collections.ObservableList;
 
 import harmony.mastermind.commons.core.UnmodifiableObservableList;
 import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
 import harmony.mastermind.commons.exceptions.NotRecurringTaskException;
-import harmony.mastermind.logic.commands.Command;
 import harmony.mastermind.commons.exceptions.CommandCancelledException;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.Redoable;
@@ -18,7 +18,6 @@ import harmony.mastermind.model.task.ReadOnlyTask;
 import harmony.mastermind.model.task.Task;
 import harmony.mastermind.model.task.UniqueTaskList;
 import harmony.mastermind.model.task.UniqueTaskList.TaskNotFoundException;
-import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
