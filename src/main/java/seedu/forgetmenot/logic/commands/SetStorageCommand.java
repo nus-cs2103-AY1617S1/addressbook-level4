@@ -60,7 +60,6 @@ public class SetStorageCommand extends Command {
 	
 	private boolean fileAlreadyExists(String filePath) {
 		File file = new File(filePath);
-		System.out.println(file.exists());
 		return file.exists();
 	}
 	

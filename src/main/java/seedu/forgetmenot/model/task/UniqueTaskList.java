@@ -82,56 +82,46 @@ public class UniqueTaskList implements Iterable<Task> {
     			
     			if(!start1IsMissing && !end1IsMissing) {
     				if(!start2IsMissing && !end2IsMissing) {
-    					System.out.println("2");
     					return start1.time.compareTo(start2.time) == 0?
     							end1.time.compareTo(end2.time):
     							start1.time.compareTo(start2.time);
     				}
     							
     				if(!start2IsMissing) {
-    					System.out.println("3");
     					return start1.time.compareTo(start2.time) == 0?
     							-1: start1.time.compareTo(start2.time);
     				}
     				else {
-    					System.out.println("4");
     					return start1.time.compareTo(end2.time) == 0?
     							1: start1.time.compareTo(end2.time);
     				}
     			}
     			else if(!start1IsMissing) {
     				if(!start2IsMissing && !end2IsMissing) {
-    					System.out.println("5");
     					return start1.time.compareTo(start2.time) == 0?
     							1: start1.time.compareTo(start2.time);
     				}
     				
     				if(!start2IsMissing) {
-    					System.out.println("6");
     					return start1.time.compareTo(start2.time);
     				}
     				else {
-    					System.out.println("7");
     					return start1.time.compareTo(end2.time);
     				}
     			}
     			else if(!end1IsMissing) {
     				if(!start2IsMissing && !end2IsMissing) {
-    					System.out.println("8");
     					return end1.time.compareTo(start2.time) == 0?
     							-1: end1.time.compareTo(start2.time);
     				}
     				
     				if(!end1IsMissing) {
-    					System.out.println("9");
     					return end1.time.compareTo(start2.time);
     				}
     				else {
-    					System.out.println("10");
     					return end1.time.compareTo(end2.time);
     				}
     			}	
-    			System.out.println("11");
     			return 0;
     	    }
 		});

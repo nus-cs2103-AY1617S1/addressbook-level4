@@ -146,7 +146,6 @@ public class Parser {
     	else if (args.equals("today") || args.equals("tdy") ) {
     		Calendar cal = Calendar.getInstance();
     		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-    		System.out.println(dateFormat.format(cal.getTime()).toString());
     		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
     	}
     	
@@ -154,7 +153,6 @@ public class Parser {
     		Calendar cal = Calendar.getInstance();
     		cal.add(Calendar.DATE, 1);
     		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
-    		System.out.println(dateFormat.format(cal.getTime()).toString());
     		return new ShowDateCommand(dateFormat.format(cal.getTime()).toString());
     	}
     	

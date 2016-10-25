@@ -6,7 +6,8 @@ import seedu.forgetmenot.model.task.ReadOnlyTask;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a task identified using it's last displayed index from the task manager.
+ * Deletes a task identified using it's last displayed index from the task
+ * manager.
  */
 public class DeleteCommand extends Command {
 
@@ -14,8 +15,7 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
@@ -24,7 +24,6 @@ public class DeleteCommand extends Command {
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
-
 
     @Override
     public CommandResult execute() {

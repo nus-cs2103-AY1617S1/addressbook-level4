@@ -151,7 +151,6 @@ public class ModelManager extends ComponentManager implements Model {
         
         //Recurring task with only end time.
         if (task.getStartTime().appearOnUIFormat().equals("-") && !task.getEndTime().appearOnUIFormat().equals("")) {
-            System.out.println("adding a recurring tasks with only end time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),
@@ -162,7 +161,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         //Recurring task with only start time.
         else if (!task.getStartTime().appearOnUIFormat().equals("-") && task.getEndTime().appearOnUIFormat().equals("-")) {
-            System.out.println("adding a recurring tasks with only start time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),
@@ -173,7 +171,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         //Recurring task wth both start and end times  
         else if (!task.getStartTime().appearOnUIFormat().equals("") && !task.getEndTime().appearOnUIFormat().equals("")) {
-            System.out.println("adding a recurring tasks with start and end time");
             addTask(new Task(
                     task.getName(), 
                     new Done(false),

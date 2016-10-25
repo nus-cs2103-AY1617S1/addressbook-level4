@@ -211,13 +211,6 @@ public class TaskManager implements ReadOnlyTaskManager {
 		 upcomingCounter = upcoming;
 		 overdueCounter = overdue;
 		 
-		 System.out.println("Floating: " + floatingCounter);
-		 System.out.println("Today: " + todayCounter);
-		 System.out.println("Tomorrow: " + tomorrowCounter);
-		 System.out.println("Upcoming: " + upcomingCounter);
-	      System.out.println("Overdue: " + overdueCounter);
-
-		 
 	}
 	
 }
