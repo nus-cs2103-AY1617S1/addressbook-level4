@@ -37,16 +37,12 @@ public class EditCommand extends Command {
      * For editing name of task
      * @throws IllegalValueException 
      */
-    public EditCommand(int targetIndex, String name, LocalDateTime startDateTime, LocalDateTime endDateTime)
+    public EditCommand(int targetIndex, Optional<Name> name, Optional<LocalDateTime> newStartDate, Optional<LocalDateTime> newEndDate)
     		throws IllegalValueException {
         this.targetIndex = targetIndex;
-        if(name.equals("")) {
-        	this.newName = Optional.empty();
-        } else {
-        	this.newName = Optional.ofNullable(new Name(name));
-        }
-        this.newStartDateTime = Optional.ofNullable(startDateTime);
-        this.newEndDateTime = Optional.ofNullable(endDateTime);
+        this.newName = name;
+        this.newStartDateTime = newStartDate;
+        this.newEndDateTime = newEndDate;
     }
 
 

@@ -30,6 +30,7 @@ import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.model.task.Name;
 
 
 public class Parser {
@@ -69,6 +70,12 @@ public class Parser {
 
 
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>.*\\S+.*)'");
+	
+	private static final Pattern[] EDIT_ARGS_FORMAT = new Pattern[] { 
+			Pattern.compile("(?<index>\\d*)(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime1>(from|by)\\s+[^']+?))?(\\s+(?<dateTime2>(from|by)\\s+[^']+))?"),
+			Pattern.compile("(?<index>\\d*)(\\s+(?<dateTime1>(from|by)\\s+[^']+?))?(\\s+'(?<taskName>.+)')?(\\s+(?<dateTime2>(from|by)\\s+[^']+))?"),
+			Pattern.compile("(?<index>\\d*)(\\s+(?<dateTime1>(from|by)\\s+[^']+?))?(\\s+(?<dateTime2>(from|by)\\s+[^']+))?(\\s+'(?<taskName>.+)')?")
+	};
 	
 	public Command parseCommand(String userInput) {
 		final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
@@ -458,98 +465,72 @@ public class Parser {
 	 * @return the prepared EditCommand
 	 */
 	private Command prepareEdit(String arguments) {
-		String index = "";
-		String newName = "";
-		String newStartDate = "";
-		String newEndDate = "";
-		
-		String[] args = arguments.split(" ");
-		System.out.println(arguments);
-				
-		//if the args[0] is not the index, return IncorrectCommand
-		if(!StringUtil.isUnsignedInteger(args[0])) {
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		String indexString = null;
+		Optional<String> newNameString = Optional.empty();
+		ArrayList<Optional<String>> newDateTime = new ArrayList<Optional<String>>();
+		ArrayList<Matcher> matchers = new ArrayList<Matcher>();
+		for(int i = 0; i < EDIT_ARGS_FORMAT.length; i++) {
+			matchers.add(EDIT_ARGS_FORMAT[i].matcher(arguments.trim()));
 		}
 		
-		index = args[0];
-
-		for(int i=1; i<args.length; i++) {
-			System.out.println("args[i]: " + args[i]);
-			if(args[i].startsWith("'") && newName.equals("")) {			//only takes the first pair of ' '
-				do {
-					newName += (args[i] + " ");
-				} while(i+1<args.length && !args[i++].endsWith("'"));	//continue adding until the next '
-				i--;													//to undo i++ in while loop when while condition fails
-				System.out.println("newName: " + newName);
-				
-			} else if(args[i].equals("from") && newStartDate.equals("")) {	//only takes the first from
-				while(++i<args.length &&
-						!(args[i].equals("to") ||
-						args[i].equals("by") ||
-						args[i].equals("from") ||
-						args[i].startsWith("'"))) {
-					
-					newStartDate += (args[i] + " ");
-					System.out.println("i is: " + args[i]);
-				}
-				i--;
-				System.out.println("newStartDate: " + newStartDate);
+		for(Matcher matcher : matchers) {
+			if(matcher.matches()) {
+				indexString = matcher.group("index");
+				newNameString = Optional.ofNullable(matcher.group("taskName"));
+				newDateTime.add(Optional.ofNullable(matcher.group("dateTime1")));
+				newDateTime.add(Optional.ofNullable(matcher.group("dateTime2")));
+				System.out.println("indexString: " + indexString);
+				System.out.println("newName: " + newNameString);
+				System.out.println("dateTime1: " + Optional.ofNullable(matcher.group("dateTime1")));
+				System.out.println("dateTime2: " + Optional.ofNullable(matcher.group("dateTime2")));
+				break;
+			}
 			
-			} else if((args[i].equals("to") || args[i].equals("by")) && newEndDate.equals("")) {
-				while(++i<args.length &&
-						!(args[i].equals("from") ||
-						args[i].equals("by") ||
-						args[i].equals("to") ||
-						args[i].startsWith("'"))) {
-					
-					newEndDate += (args[i] + " ");
-					System.out.println("i is: " + args[i]);
-				}
-				i--;
-				System.out.println("newEndDate: " + newEndDate);
-			}
-					
 		}
-		
-		// newName while loop might have end at end of array and not '
-		newName = newName.trim();
-		if(!newName.endsWith("'")) {
-			newName = "";
-		} else {
-			newName = newName.substring(1, newName.length()-1);		//remove the ' '
-			newName = newName.trim();
-		}
-		
-		// No values are to be edited
-		if(newName.equals("") && newStartDate.equals("") && newEndDate.equals("")) {
+		if(!StringUtil.isUnsignedInteger(indexString)) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
-		
-		
-		System.out.println("newName post trim: " + newName);
-		LocalDateTime startDateTime = null;
-		LocalDateTime endDateTime = null;
-		
-		
-		if(!newStartDate.equals("")) {
+		int index = Integer.parseInt(indexString);
+		Optional<Name> name = Optional.empty();
+		if(newNameString.isPresent()) {
 			try {
-				startDateTime = DateParser.parse(newStartDate);
-			} catch (ParseException e) {
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+				name = Optional.ofNullable(new Name(newNameString.get()));
+			} catch (IllegalValueException e1) {
+				return new IncorrectCommand(e1.getMessage());
 			}
 		}
 		
-		if(!newEndDate.equals("")) {
-			try {
-				endDateTime = DateParser.parse(newEndDate);
-			} catch (ParseException e) {
-				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		Optional<LocalDateTime> newStartDate = Optional.empty();
+		Optional<LocalDateTime> newEndDate = Optional.empty();
+		
+		for(int i = 0; i < newDateTime.size(); i++) {
+			if(newDateTime.get(i).isPresent()) {
+				try{
+					String[] newDate = newDateTime.get(i).get().split(" ", 2);
+					System.out.println("newDate[0]: " + newDate[0]);
+					assert newDate[0].equals("from") || newDate[0].equals("to") || newDate[0].equals("by");
+					switch(newDate[0]) {
+					case "from":
+						newStartDate = Optional.ofNullable(DateParser.parse(newDate[1]));
+						break;
+					case "to":
+					case "by":
+						newEndDate = Optional.ofNullable(DateParser.parse(newDate[1]));
+						break;
+					}
+				} catch(ParseException e) {
+					return new IncorrectCommand(e.getMessage());
+				}
 			}
 		}
-		
+				
+		// No values are to be edited
+		if(!name.isPresent() && !newStartDate.isPresent() && !newEndDate.isPresent()) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+		}
 
 		try {
-			return new EditCommand(Integer.parseInt(index), newName, startDateTime, endDateTime);
+			return new EditCommand(index, name, newStartDate, newEndDate);
 		} catch (NumberFormatException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		} catch (IllegalValueException e) {
