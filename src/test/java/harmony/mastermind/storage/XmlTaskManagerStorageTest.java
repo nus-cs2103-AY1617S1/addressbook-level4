@@ -119,10 +119,18 @@ public class XmlTaskManagerStorageTest {
     
     //@@author A0139194X
     @Test
-    public void migrateIntoNewFolder_nullFilePath_assertionFailure() throws IOException {
+    public void migrateIntoNewFolder_nullNewFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
         XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(TEST_DATA_FOLDER);
         xmlTaskManagerStorage.migrateIntoNewFolder(TEST_DATA_FOLDER, null);
+    }
+    
+    //@@author A0139194X
+    @Test
+    public void migrateIntoNewFolder_nullOldFilePath_assertionFailure() throws IOException {
+        thrown.expect(AssertionError.class);
+        XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(TEST_DATA_FOLDER);
+        xmlTaskManagerStorage.migrateIntoNewFolder(null, SECOND_TEST_DATA_FOLDER);
     }
     
     //@@author A0139194X
@@ -154,5 +162,12 @@ public class XmlTaskManagerStorageTest {
         */
     }
 
+    //@@author A0139194X
+    @Test
+    public void setTaskManagerFilePath_success() {
+        XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(TEST_DATA_FOLDER);
+        xmlTaskManagerStorage.setTaskManagerFilePath(SECOND_TEST_DATA_FOLDER);
+        assertEquals(SECOND_TEST_DATA_FOLDER, xmlTaskManagerStorage.getTaskManagerFilePath());
+    }
     
 }
