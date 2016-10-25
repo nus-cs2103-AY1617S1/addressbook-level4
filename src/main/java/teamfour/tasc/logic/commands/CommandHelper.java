@@ -1,6 +1,5 @@
 package teamfour.tasc.logic.commands;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -19,12 +18,13 @@ public class CommandHelper {
 
     public static String MESSAGE_REPEAT_PARAMETERS_INVALID = "Invalid repeat parameters";
     
+    //@@author A0148096W
     /**
      * Converts a String to Date if possible, otherwise returns null.
-     * @param dateString the String containing the Date
+     * @param dateString the String containing the Date which may be null
      * @return the Date from String, or null if not possible
      */
-    public static Date convertStringToDateIfPossible(String dateString) {
+    public static Date tryConvertStringToDateOrReturnNull(String dateString) {
         if (dateString != null) {
             try {
                 return CommandHelper.convertStringToDate(dateString);
@@ -39,7 +39,7 @@ public class CommandHelper {
     
     /**
      * Precondition: date argument is not null.
-     * Returns the Date set to the start of the date.
+     * Returns a Date object using date with time set to start of day.
      * @param date the Date object
      * @return a Date object set to start of the date
      */
@@ -56,7 +56,7 @@ public class CommandHelper {
     
     /**
      * Precondition: date argument is not null.
-     * Returns the Date set to the end of the date.
+     * Returns a Date object using date with time set to end of day.
      * @param date the Date object
      * @return a Date object set to end of the date
      */
@@ -70,7 +70,8 @@ public class CommandHelper {
         c.set(Calendar.MILLISECOND, 999);
         return c.getTime();
     }
-
+    
+    //@@author
     /**
      * Parses date(s) from an input String containing the dates
      * Dates parsed include time of day, day of week, day of month, month of year, and year

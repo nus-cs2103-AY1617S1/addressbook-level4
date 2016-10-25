@@ -163,13 +163,15 @@ public class Parser {
         }
     }
 
+    //@@author A0148096W
     /**
      * Takes in a string and return null if it is empty,
      * or otherwise returns the string itself.
      */
     private String setToNullIfIsEmptyString(String string) {
-        if (string == null || string.equals(""))
+        if (string == null || string.equals("")) {
             return null;
+        }
         return string;
     }
 
@@ -322,6 +324,7 @@ public class Parser {
         }
     }
 
+    //@@author
     /**
      * Parses arguments in the context of the relocate task command.
      *
@@ -341,6 +344,7 @@ public class Parser {
         return new RelocateCommand(args.trim());
     }
     
+    //@@author A0148096W
     /**
      * Parses arguments in the context of the change calendar view command.
      *
@@ -358,6 +362,7 @@ public class Parser {
         }
     }
 
+    //@@author
     /**
      * Extracts the new task's tags from the add/list command's tag arguments string.
      * Merges duplicate tag strings.
@@ -408,6 +413,7 @@ public class Parser {
         return new SelectCommand(index.get());
     }
 
+    //@@author A0148096W
     /**
      * Parses arguments in the context of the undo command.
      * Special case: if no arg is provided, undoes 1 command.
@@ -416,7 +422,11 @@ public class Parser {
      */
     private Command prepareUndo(String args) {
         if (args.equals("")) {
-            return new UndoCommand(1);
+            try {
+                return new UndoCommand();
+            } catch (IllegalValueException ive) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE));
+            }
         }
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
@@ -424,9 +434,14 @@ public class Parser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE));
         }
 
-        return new UndoCommand(index.get());
+        try {
+            return new UndoCommand(index.get());
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoCommand.MESSAGE_USAGE));
+        }
     }
     
+    //@@author
     /**
      * Parses arguments in the context of the redo command.
      * Special case: if no arg is provided, redoes 1 command.

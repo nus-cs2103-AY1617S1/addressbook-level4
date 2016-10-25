@@ -1,3 +1,5 @@
+//@@author A0148096W
+
 package teamfour.tasc.model.history;
 
 import java.util.LinkedList;
@@ -49,7 +51,7 @@ public class HistoryStack<T extends HistoryItem<T>> {
      * 
      * @param item Object to be saved
      */
-    public void pushState(T item) {
+    public void push(T item) {
         assert item != null;
         
         if (historyLL.size() >= maxNumOfStates) {
@@ -64,7 +66,7 @@ public class HistoryStack<T extends HistoryItem<T>> {
      * @return The HistoryItem object
      * @throws OutOfHistoryException if the history queue is empty
      */
-    public T popState() throws OutOfHistoryException {
+    public T pop() throws OutOfHistoryException {
         if (historyLL.size() <= 0)
             throw new OutOfHistoryException();
         

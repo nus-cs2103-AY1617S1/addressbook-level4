@@ -138,6 +138,7 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getCalendarPanel().refreshTasks(event.getNewTaskList());
     }
     
+    //@@author A0148096W
     /**
      * Handle the event when change calendar view is requested.
      */
@@ -148,6 +149,7 @@ public class UiManager extends ComponentManager implements Ui {
         prefs.setCalendarView(event.getCalendarViewType());
     }
     
+    //@@author
     /**
      * Handle the event when the task list view is collapsed
      * @param event
