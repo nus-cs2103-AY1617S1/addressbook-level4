@@ -1,41 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,500');
+
 .main {
     -fx-background-color: #2D2D2D;
     -fx-border-color: #00A4FF;
     -fx-border-width: 1px;
     -fx-padding: 12;
     -fx-spacing: 4;
+    -fx-font-family: "Roboto";
 }
 
 .text1 {
-    -fx-text-fill: #FFFFFF;
-    -fx-fill: #ffffff;
-    -fx-font-family: "Segoe UI Black";
+    -fx-text-fill: #f3f3f3;
+    -fx-fill: #f3f3f3;
+    -fx-font-family: "Roboto Bold";
     -fx-font-size: 17pt;
 }
 
 .text2 {
-    -fx-text-fill: #FFFFFF;
-    -fx-fill: #ffffff;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #f3f3f3;
+    -fx-fill: #f3f3f3;
+    -fx-font-family: "Roboto Medium";
     -fx-font-size: 15pt;
 }
 
 .text3 {
-    -fx-text-fill: #FFFFFF;
-    -fx-fill: #ffffff;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #f3f3f3;
+    -fx-fill: #f3f3f3;
+    -fx-font-family: "Roboto Medium";
     -fx-font-size: 13pt;
 }
 
 .text4 {
-    -fx-text-fill: #FFFFFF;
-    -fx-fill: #ffffff;
-    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #f3f3f3;
+    -fx-fill: #f3f3f3;
+    -fx-font-family: "Roboto";
     -fx-font-size: 12pt;
 }
 
 .code {
-    -fx-font-family: "Consolas";
+    -fx-font-family: "Roboto Mono Medium";
 }
 
 .bolder {
@@ -77,8 +81,8 @@
 
 
 .commandFeedback{
-    -fx-text-fill: #FFFFFF;
-    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #f3f3f3;
+    -fx-font-family: "Roboto";
     -fx-font-size: 12pt;
 }
 
@@ -87,7 +91,7 @@
 }
 
 .commandInput {
-    -fx-font-family: "Consolas";
+    -fx-font-family: "Roboto Mono Medium";
     -fx-font-size: 14pt;
 }
 
@@ -98,36 +102,35 @@
 }
 
 .commandError {
-    -fx-text-fill: #FFFFFF;
-    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #f3f3f3;
+    -fx-font-family: "Roboto";
     -fx-font-size: 12pt;
     -fx-wrap-text: true;
 }
 
 .roundLabel {
     -fx-background-radius: 10;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #f3f3f3;
     -fx-background-color: #2D2D2D;
     -fx-font-size: 10pt;
-    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-family: "Roboto";
 }
 
 /***View Filter Styles Start***/
-.viewFilter .label{
-    -fx-font-family: "Segoe UI";
+.viewFilter .label {
+    -fx-font-family: "Roboto";
     -fx-font-size: 14pt;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #ddd;
 }
 
 .viewFilter .selected {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #ddd;
     -fx-background-radius: 100;
-    -fx-padding: 0 8 0 8;
+    -fx-padding: 0 16 2;
 }
 
 .viewFilter .selected .label {
     -fx-text-fill: #2D2D2D;
-    -fx-font-family: "Segoe UI Semibold";
 }
 
 /*@@author A0135817B */
@@ -136,8 +139,8 @@
 }
 
 .searchStatus Text {
-    -fx-font-size: 14px;
-    -fx-fill: #fff;
+    -fx-font-size: 16px;
+    -fx-fill: #f3f3f3;
 }
 
 .searchStatus .searchLabel {
@@ -157,24 +160,25 @@
 /***TaskCardView Styles Start***/
 /*Default and Base*/
 .taskCard .label {
-    -fx-text-fill: #2D2D2D;
+    -fx-text-fill: #444;
     -fx-font-smoothing-type: lcd;
 }
 
 .taskCard .titleLabel {
     -fx-font-size: 16pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Roboto Medium";
 }
 
 .taskCard .descriptionLabel {
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Roboto";
 }
 
 .taskCard .footnoteLabel {
     -fx-font-size: 10pt;
-    -fx-font-family: "Segoe UI Semilight";
+    -fx-font-family: "Roboto";
     -fx-font-style: italic;
+    -fx-padding: 0 0 2 2;
 }
 
 .taskCard .highlightedBackground {
@@ -183,6 +187,10 @@
 
 .taskCard .lightBackground {
     -fx-background-color: #d2d2d2;
+}
+
+.taskCard .roundLabel {
+    -fx-text-fill: rgba(255, 255, 255, .9);
 }
 
 .taskCard .pinImage {
@@ -214,7 +222,7 @@
 
 .completed .roundLabel {
     -fx-background-color: #7F7F7F;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #fff;
 }
 
 .completed .pinImage {
@@ -235,11 +243,11 @@
 }
 
 .overdue .label {
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: rgba(255, 255, 255, .92);
 }
 
 .overdue .roundLabel {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: rgba(255, 255, 255, .92);
     -fx-text-fill: #FF6464;
 }
 
@@ -263,11 +271,11 @@
 }
 
 .ongoing .label {
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #fff;
 }
 
 .ongoing .roundLabel {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #fff;
     -fx-text-fill: #388E3C;
 }
 
@@ -291,11 +299,11 @@
 }
 
 .selected .label {
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: #fff;
 }
 
 .selected .roundLabel {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #fff;
     -fx-text-fill: #00A4FF;
 }
 
@@ -363,7 +371,7 @@
 
 .button:default {
     -fx-background-color: -fx-focus-color;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #fff;
 }
 
 .button:default:hover {
