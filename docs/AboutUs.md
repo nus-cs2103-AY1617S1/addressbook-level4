@@ -12,7 +12,7 @@ Role: Project Mentor
 
 #### [Tan Min Rong Samson @samsontmr](http://github.com/samsontmr)
 <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/12342568_10154947929683084_4939899865158820460_n.jpg?oh=62c43f3e557e8203ec50b7a927d35098&oe=5870CC3A" width="150"><br>
-Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree Expert <br>
+Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree Expert
 * Components in charge of: [Logic](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
 * Aspects/tools in charge of: Team Lead, Scheduling & Tracking, Deliverables & Deadlines, SourceTree
 * Features implemented:
@@ -24,6 +24,7 @@ Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree 
 	* Maintain Issue Tracker and work distribution
 	* Documentation of
 		* Logic Component
+		* User Stories
 		* Use cases for find/edit commands
 		* Initial morphing of documentation
 
