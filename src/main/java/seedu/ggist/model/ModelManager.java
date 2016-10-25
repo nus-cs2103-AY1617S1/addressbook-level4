@@ -62,7 +62,6 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
         sortedTasks = new SortedList<>(filteredTasks);
-        sortFilteredList();
         today = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM YY"));
         lastListing = today;
         updateListing();
@@ -163,28 +162,6 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(new SortedList(filteredTasks, compareDateTime));
     }
     
-    public void sortFilteredList() {
-        Comparator<Task> compareDateTime = new Comparator<Task>(){
-            public int compare (Task t1, Task t2){
-                
-                if (t1.getStartDateTime().equals(t2.getStartDateTime())
-                        && (t1.getEndDateTime().equals(t2.getEndDateTime()))) {
-                    return t1.getTaskName().taskName.compareTo(t2.getTaskName().taskName);
-                } else if (t1.getStartDateTime().before(t2.getStartDateTime())) {
-                    return -1;
-                } else if (t1.getStartDateTime().equals(t2.getStartDateTime())) {
-                    return 0;
-                } else if (t1.getEndDateTime().before(t2.getEndDateTime())) {
-                    return -1;
-                } else if (t1.getEndDate().equals(t2.getEndDateTime())) {
-                    return 0;
-                } else {
-                    return 1;
-                }
-            }
-        };
-       sortedTasks.setComparator(compareDateTime);
-    }
 
     @Override
     public void updateFilteredListToShowAll() {

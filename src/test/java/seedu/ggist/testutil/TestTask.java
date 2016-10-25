@@ -174,9 +174,4 @@ public class TestTask implements ReadOnlyTask {
         }
     }
 
-    @Override
-    public void setDeleted() {
-        deleted = true;
-    }
-
 }
