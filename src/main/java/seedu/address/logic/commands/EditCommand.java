@@ -50,55 +50,91 @@ public class EditCommand extends UndoableCommand {
 
 	public EditCommand(int targetIndex, Optional<String> taskNameString, Optional<String> startDateString,
 			Optional<String> endDateString, Optional<String> rateString, Optional<String> timePeriodString,
-			Optional<String> priorityString, String resetFieldString)throws IllegalValueException {       
+			Optional<String> priorityString, String resetFieldString) throws IllegalValueException {       
 		
 		this.targetIndex = targetIndex;
 		initializeForEdit();
         
+        assignTaskNameIfPresent(taskNameString); 
+        assignStartDateIfPresent(startDateString);
+        assignEndDateIfPresent(endDateString);
+        assignRecurrenceRateIfPresent(rateString, timePeriodString); 
+        assignPriority(priorityString);                         
+        fieldsToReset(resetFieldString); 
+
+        if (recurrenceRate != null && recurrenceRate.timePeriod != TimePeriod.DAY && 
+                recurrenceRate.timePeriod.toString().toLowerCase().contains("day") &&
+                startDate == null && endDate == null) {
+            startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
+        }
+	}
+
+    private void initializeForEdit() {
+        taskName = null;
+        startDate = null;
+        endDate = null;
+        priority = null;
+        removeReccurence = false;
+        removeStartDate = false;
+        removeEndDate = false;
+    }
+
+    private void assignTaskNameIfPresent(Optional<String> taskNameString) {
         if (taskNameString.isPresent() && !taskNameString.get().toString().trim().equals("")) {
     		taskName = new Name(taskNameString.get());
-        } 
-        
+        }
+    }
+    
+    private void assignStartDateIfPresent(Optional<String> startDateString) {
         if (startDateString.isPresent()) {
             startDate = DateTime.convertStringToDate(startDateString.get());
+            if (!DateTime.hasTimeValue(startDateString.get())) {
+                startDate = DateTime.setTimeToStartOfDay(startDate);
+            }
         }
+    }
 
+    private void assignEndDateIfPresent(Optional<String> endDateString) {
         if (endDateString.isPresent()) {
             endDate = DateTime.convertStringToDate(endDateString.get());
             if (startDate != null && !DateTime.hasDateValue(endDateString.get())) {
                 endDate = DateTime.setEndDateToStartDate(startDate, endDate);
             }
+            if (!DateTime.hasTimeValue(endDateString.get())) {
+                endDate = DateTime.setTimeToEndOfDay(endDate);
+            }
         }
+    }
 
+    private void assignRecurrenceRateIfPresent(Optional<String> rateString, Optional<String> timePeriodString)
+            throws IllegalValueException {
         if (rateString.isPresent() && timePeriodString.isPresent()) {
             recurrenceRate = new RecurrenceRate(rateString.get(), timePeriodString.get());
         } else if (!rateString.isPresent() && timePeriodString.isPresent()) {
             recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString.get());
         } else if (rateString.isPresent() && !timePeriodString.isPresent()) {
             throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
-        } 
-        
-        if (recurrenceRate != null && recurrenceRate.timePeriod != TimePeriod.DAY && 
-                recurrenceRate.timePeriod.toString().toLowerCase().contains("day") &&
-                startDate == null && endDate == null) {
-            startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
         }
-
-        /*
-         * Assign priority depending on the level stated
-         * Otherwise leave it as null
-         */
+    }
+    
+    /*
+     * Assign priority depending on the level stated
+     * Otherwise leave it as null
+     */
+    private void assignPriority(Optional<String> priorityString) {
         if (priorityString.isPresent()) {
-        	switch (priorityString.get()) {
-            	case ("low"): case ("l"): priority = Priority.LOW; break; 
-            	case ("high"): case ("h"): priority = Priority.HIGH; break;
-            	case ("medium"): case ("m"): case ("med"): priority = Priority.MEDIUM; break;
-        	}
-        } 
-                        
-        /*
-         * Check which field is to be reset
-         */
+            switch (priorityString.get()) {
+                case ("low"): case ("l"): priority = Priority.LOW; break; 
+                case ("high"): case ("h"): priority = Priority.HIGH; break;
+                case ("medium"): case ("m"): case ("med"): priority = Priority.MEDIUM; break;
+            }
+        }
+    }
+	
+    /*
+     * Check which field is to be reset
+     */
+    private void fieldsToReset(String resetFieldString) {
         if(resetFieldString != null){
         	String[] resetField = resetFieldString.trim().split(" ");
         	for(int i = 0; i < resetField.length; i++){
@@ -108,17 +144,7 @@ public class EditCommand extends UndoableCommand {
             		case ("end"): removeEndDate = true; break;
         		}
         	}
-        } 
-	}
-
-    private void initializeForEdit() {
-        taskName = null;
-		startDate = null;
-        endDate = null;
-        priority = null;
-        removeReccurence = false;
-        removeStartDate = false;
-        removeEndDate = false;
+        }
     }
 
 	@Override
@@ -169,7 +195,8 @@ public class EditCommand extends UndoableCommand {
         	recurrenceRate = toEdit.getRecurrenceRate().get();
         } else if (recurrenceRate != null && !beforeEdit.getStartDate().isPresent() && !beforeEdit.getEndDate().isPresent()
                 && startDate == null && endDate == null){
-            recurrenceRate = null;
+            return new CommandResult(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
+            //recurrenceRate = null;
         }
         
         //remove recurrence if start and end date are removed
@@ -193,41 +220,41 @@ public class EditCommand extends UndoableCommand {
         
         System.out.println(toUndo);
         
-        Name oldTaskName = beforeEdit.getName();
-        Optional<Date> oldStartDate = beforeEdit.getStartDate();
-        Optional<Date> oldEndDate = beforeEdit.getEndDate();
-        Priority oldPriority = beforeEdit.getPriorityValue();
-        Optional<RecurrenceRate> oldReccurence = beforeEdit.getRecurrenceRate();
+        Name previousTaskName = beforeEdit.getName();
+        Optional<Date> previousStartDate = beforeEdit.getStartDate();
+        Optional<Date> previousEndDate = beforeEdit.getEndDate();
+        Priority previousPriority = beforeEdit.getPriorityValue();
+        Optional<RecurrenceRate> previousReccurence = beforeEdit.getRecurrenceRate();
         
         Date undoStartDate;
         Date undoEndDate;
         RecurrenceRate undoRecurrenceRate;
        
         // edit back the start date
-        if (oldStartDate.isPresent()) {
-            undoStartDate = oldStartDate.get();
+        if (previousStartDate.isPresent()) {
+            undoStartDate = previousStartDate.get();
         }
         else {
             undoStartDate = null;
         }
         
         // edit back the end date
-        if (oldEndDate.isPresent()) {
-            undoEndDate = oldEndDate.get();
+        if (previousEndDate.isPresent()) {
+            undoEndDate = previousEndDate.get();
         }
         else {
             undoEndDate = null;
         }
         
         // edit back the recurrence rate
-        if (oldReccurence.isPresent()) {
-            undoRecurrenceRate = oldReccurence.get();
+        if (previousReccurence.isPresent()) {
+            undoRecurrenceRate = previousReccurence.get();
         }
         else {
             undoRecurrenceRate = null;      
         }
       
-        model.editTask(toUndo, oldTaskName, undoStartDate, undoEndDate, oldPriority, undoRecurrenceRate);      
+        model.editTask(toUndo, previousTaskName, undoStartDate, undoEndDate, previousPriority, undoRecurrenceRate);      
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toUndoForPrint, toUndo));
     }
 }

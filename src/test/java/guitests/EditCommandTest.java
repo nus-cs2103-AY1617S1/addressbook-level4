@@ -4,6 +4,7 @@ import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.model.item.DateTime;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
@@ -14,6 +15,7 @@ import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS;
 
 public class EditCommandTest extends AddressBookGuiTest {
@@ -82,9 +84,13 @@ public class EditCommandTest extends AddressBookGuiTest {
         aliceTask.setPriority(Priority.HIGH);        
         assertTrue(personListPanel.isListMatching(aliceTask));
         
-        //invalid command format
+        //invalid index
         commandBox.runCommand("edit " + 10 + " " + "testing");
         assertResultMessage("The item index provided is invalid");
+        
+        //invalid command format
+        commandBox.runCommand("edit " + 1);
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         
     }
