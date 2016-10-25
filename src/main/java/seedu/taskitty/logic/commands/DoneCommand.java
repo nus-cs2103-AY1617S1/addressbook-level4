@@ -68,9 +68,7 @@ public class DoneCommand extends Command {
         }
 
         try {
-            for (ReadOnlyTask taskToBeMarkedDone: listOfTaskToMarkDone) {
-                model.doneTask(taskToBeMarkedDone);
-            }
+             model.markTasksAsDone(listOfTaskToMarkDone);            
         } catch (TaskNotFoundException pnfe) {
             model.removeUnchangedState();
             assert false : "The target task cannot be missing";

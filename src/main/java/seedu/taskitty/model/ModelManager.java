@@ -14,6 +14,7 @@ import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 import java.util.Stack;
 import java.util.function.Predicate;
@@ -92,8 +93,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskManager.removeTask(target);
+    public synchronized void deleteTasks(List<ReadOnlyTask> taskList) throws TaskNotFoundException {
+        for (ReadOnlyTask targetTask: taskList) {
+            taskManager.removeTask(targetTask);
+        }
         indicateTaskManagerChanged();
     }
 
@@ -129,8 +132,10 @@ public class ModelManager extends ComponentManager implements Model {
     
     //@@author
     @Override
-    public synchronized void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
-    	taskManager.doneTask(target);
+    public synchronized void markTasksAsDone(List<ReadOnlyTask> taskList) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
+        for (ReadOnlyTask targetTask: taskList) {
+            taskManager.doneTask(targetTask);
+        }
     	updateFilteredListToShowAll();
     	indicateTaskManagerChanged();
     }
