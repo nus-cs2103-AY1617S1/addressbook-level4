@@ -33,7 +33,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertListSize(0);
         assertSelectionInvalid(1); //invalid index
     }
-
+    //@@author A0127014W
     private void assertSelectionInvalid(int index) {
         commandBox.runCommand("select " + index);
         if(taskListPanel.getNumberOfTasks() < 1){
@@ -43,7 +43,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
             assertResultMessage("The task index provided is invalid" + "\n" + "Valid index range: 1 to " + taskListPanel.getNumberOfTasks());
         }
     }
-
+    //@@author
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
         assertResultMessage("Selected Task: "+index);
