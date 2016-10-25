@@ -104,8 +104,7 @@ public class CommandParser {
             return prepareSave(arguments);
             
         default:
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                    HelpCommand.MESSAGE_ERROR));
+            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
     
