@@ -308,15 +308,15 @@ We have two types of tests:
       3. `seedu.taskmaster.storage.JsonUserPrefStorageTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.taskmaster.logic.LogicManagerTest`
-      > In the `LogicManagerTest`, Happy Jim Task Master tests the logic it uses.
-      > Typically, Happy Jim Task Master focuses on some boundary tests.
-      > e.g. To `find` a task, for instance, `Test Task 1 by 20 oct 11am `,
-      > try execute 
-      > `find by 20 oct 11am` --> exact boundary, task found;
-      > `find by 20 oct 10.59am` --> smaller boundary, lists nothing;
-      > `find by 20 oct 11.01am` --> lax boundary, task found.
-      > Note that this is a test not merely for `logic`, but also `parser` and `model`.
+      e.g. `seedu.taskmaster.logic.LogicManagerTest`<br>
+      In the `LogicManagerTest`, Happy Jim Task Master tests the logic it uses.<br>
+      Typically, Happy Jim Task Master focuses on some boundary tests.<br>
+      e.g. To `find` a task, for instance, `Test Task 1 by 20 oct 11am `,<br>
+      try execute <br>
+      *`find by 20 oct 11am` --> exact boundary, task found;<br>
+      *`find by 20 oct 10.59am` --> smaller boundary, lists nothing;<br>
+      *`find by 20 oct 11.01am` --> lax boundary, task found.<br>
+      > Note that this is a test not merely for `logic`, but also `parser` and `model`.<br>
       
   
 **Headless GUI Testing** :
