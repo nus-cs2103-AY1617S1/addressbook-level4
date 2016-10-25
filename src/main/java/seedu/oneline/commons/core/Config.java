@@ -46,6 +46,14 @@ public class Config {
     public void setUserPrefsFilePath(String userPrefsFilePath) {
         this.userPrefsFilePath = userPrefsFilePath;
     }
+    
+    public String getTaskBookFileName() {
+        return taskBookFileName;
+    }
+    
+    public void setTaskBookFileName(String taskBookFileName) {
+        this.taskBookFileName = taskBookFileName;
+    }
 
     public String getTaskBookFilePath() {
         return taskBookFilePath;
