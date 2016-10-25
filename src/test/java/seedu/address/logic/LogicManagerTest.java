@@ -146,11 +146,14 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addTask(helper.generatePerson(1));
-        model.addTask(helper.generatePerson(2));
-        model.addTask(helper.generatePerson(3));
-
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList(), Collections.emptyList(), Collections.emptyList());
+        List<Task> threePersons = helper.generatePersonList(3);
+        List<Task> threeDeadlines = helper.generateDeadlineList(3);
+        List<Task> threeTodos = helper.generateTodoList(3);
+        
+        TaskBook expectedAB = helper.generateAddressBook(threePersons, threeDeadlines, threeTodos);
+        expectedAB.resetData(TaskBook.getEmptyAddressBook());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, expectedAB, 
+        		expectedAB.getEventList(), expectedAB.getDeadlineList(), expectedAB.getTodoList());
     }
 
 
@@ -212,8 +215,8 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.charlie();
-        TaskBook expectedAB = new TaskBook();
-        expectedAB.addTask(toBeAdded);
+        TaskBook expectedAB = helper.generateAddressBook(1, 1, 1);
+        model.addTask(toBeAdded);
         
         assertCommandBehavior(helper.generateAddTodoCommand(toBeAdded),
                 String.format(AddCommand.TODO_SUCCESS, toBeAdded),
@@ -908,6 +911,7 @@ public class LogicManagerTest {
         }
 
         /**
+         * @@author A0138993L
          * Generates a valid deadline using the given seed.
          * Running this function with the same parameter values guarantees the returned deadline will have the same state.
          * Each unique seed will generate a unique Task object.
@@ -926,6 +930,7 @@ public class LogicManagerTest {
             );
         }
         /**
+         * @@author A0138993L
          * Generates a valid deadline using the given seed.
          * Running this function with the same parameter values guarantees the returned deadline will have the same state.
          * Each unique seed will generate a unique Task object.
@@ -945,6 +950,7 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct add command based on the person given */
+        //@@author A0138993L
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
@@ -963,6 +969,7 @@ public class LogicManagerTest {
         }
         
         /** Generates the correct add command based on the deadline given */
+        //@@author A0138993L
         String generateAddDeadlineCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
@@ -979,6 +986,7 @@ public class LogicManagerTest {
         }
         
         /** Generates the correct add command based on the todo given */
+        //@@author A0138993L
         String generateAddTodoCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
@@ -994,6 +1002,7 @@ public class LogicManagerTest {
         }
 
         /**
+         * @@author A0138993L
          * Generates an AddressBook with auto-generated persons.
          */
         TaskBook generateAddressBook(int numGenerated, int numGenerated2, int numGenerated3) throws Exception{
@@ -1003,6 +1012,7 @@ public class LogicManagerTest {
         }
 
         /**
+         * @@author A0138993L
          * Generates an AddressBook based on the list of Persons given.
          */
         TaskBook generateAddressBook(List<Task> persons, List<Task> deadlines, List<Task> todos) throws Exception{
