@@ -76,20 +76,14 @@ public class ToolTip {
      * Returns true if there is at least 1 command word that matches
      */
     private boolean isCommandWordMatch() {
-        if (commands.size() != COMMAND_WORD_COUNT_NO_MATCH) {
-            return true;
-        }
-        return false;
+        return commands.size() != COMMAND_WORD_COUNT_NO_MATCH;
     }
     
     /**
      * Returns true if there is exactly 1 command word that matches
      */
     private boolean isSingleMatchFound() {
-        if (commands.size() == COMMAND_WORD_COUNT_SINGLE_MATCH) {
-            return true;
-        }
-        return false;
+        return commands.size() == COMMAND_WORD_COUNT_SINGLE_MATCH;
     }
     
     /**
