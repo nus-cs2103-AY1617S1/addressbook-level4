@@ -43,7 +43,7 @@ Format: `help`
 Example:
 * `help` 
 
-<!-- @@author A0135782Y-->
+<!-- @@author A0135782Y -->
 #### Adding a floating task: `add`
 Adds a task to the todo list<br>
 Format:`add TASK_NAME [t/TAG]...` 
@@ -51,8 +51,8 @@ Format:`add TASK_NAME [t/TAG]...`
 Examples:
 * `add Homework` 
 * `add Homework t/CS1231` <br>
-	<img src="images/ug_add_floating_before.png" width="600">
-	<img src="images/ug_add_floating_after.png" width="600">
+	<img src="images/ug_add_floating_before.PNG" width="600">
+	<img src="images/ug_add_floating_after.PNG" width="600">
 
 #### Adding a task with deadline: `add`
 Format: `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
@@ -64,8 +64,8 @@ Format: `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
 Examples: <br>
 * `add Homework by 24 sep 8pm t/CS1231`
 * `add Homework by 24 sep 6pm daily t/CS1231`
-	<img src="images/ug_add_by_date_before.png" width="600">
-	<img src="images/ug_add_by_date_after.png" width="600">
+	<img src="images/ug_add_by_date_before.PNG" width="600">
+	<img src="images/ug_add_by_date_after.PNG" width="600">
 
 #### Adding a task with start time and end time: `add`
 Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
@@ -77,12 +77,12 @@ Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
 Examples:
 * `add Homework from 24 sep 8pm to 25 sep 9pm tag/CS1231`
 * `add Homework from today 8.03pm to today 8.15pm t/CS1231`
-	<img src="images/ug_add_fromto_date_before.png" width="600">
-	<img src="images/ug_add_fromto_date_after.png" width="600">
+	<img src="images/ug_add_fromto_date_before.PNG" width="600">
+	<img src="images/ug_add_fromto_date_after.PNG" width="600">
 * `add Homework from 26 oct 10am to 26 oct 11am daily`
 	<img src="images/ug_add_fromto_date_recurring_before.png" width="600">
-	<img src="images/ug_add_fromto_date_recurring_after.png" width="600">
-<!--@@author-->
+	<img src="images/ug_add_fromto_date_recurring_after.PNG" width="600">
+<!-- @@author -->
 #### Lists all active tasks : `list`
 Format: list
 
