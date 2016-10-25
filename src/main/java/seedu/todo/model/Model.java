@@ -5,6 +5,7 @@ import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
@@ -110,4 +111,37 @@ public interface Model {
      * Get the current view filter used on the model. Used mainly by the JavaFx UI. 
      */
     ObjectProperty<TaskViewFilter> getViewFilter();
+
+    //@@author A0135805H
+    /**
+     * Constructs a new tag with the given name.
+     * For more details, see
+     * {@link seedu.todo.model.tag.UniqueTagCollectionModel#registerTagWithTask(ImmutableTask, String)}
+     *
+     * @param task Task that is associated with this tag.
+     * @param tagName The name of the tag.
+     * @return A tag object.
+     */
+    Tag constructTagWithName(ImmutableTask task, String tagName) throws ValidationException;
+
+    /**
+     * Notifies the {@link seedu.todo.model.tag.UniqueTagCollectionModel} that the tag is deleted from the given task.
+     * For more details, see
+     *
+     * @param task
+     * @param tagName
+     * @return
+     * @throws ValidationException
+     */
+    Tag deleteTaskWithName(ImmutableTask task, String tagName) throws ValidationException;
+
+    /**
+     * Checks if the supplied tag name exists.
+     */
+    boolean doesTagExist(String tagName);
+
+    /**
+     * Returns an {@link ImmutableTask} with the given {@code displayedIndex}.
+     */
+    ImmutableTask getTask(int displayedIndex) throws ValidationException;
 }
