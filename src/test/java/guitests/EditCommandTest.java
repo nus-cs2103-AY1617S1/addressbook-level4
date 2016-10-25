@@ -2,6 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.commands.CommandConstants;
@@ -42,6 +43,7 @@ public class EditCommandTest extends TaskBookGuiTest {
     }
 
     private void assertEditSuccess(int index, Map<TaskField, String> fields, TestTask... currentList) {
+        Arrays.sort(currentList);
         TestTask[] expectedRemainder = currentList.clone();
         assert 0 <= index && index < expectedRemainder.length;
         StringBuilder cmd = new StringBuilder();
@@ -104,6 +106,7 @@ public class EditCommandTest extends TaskBookGuiTest {
         }
         expectedRemainder[index - 1] = newTask;
         commandBox.runCommand(cmd.toString());
+        Arrays.sort(expectedRemainder);
 
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 

@@ -311,6 +311,7 @@ public class LogicManagerTest {
         List<Task> fourTasks = TestDataHelper.generateTaskList(p1, pTarget1, p2, pTarget2);
         TaskBook expectedAB = TestDataHelper.generateTaskBook(fourTasks);
         List<Task> expectedList = TestDataHelper.generateTaskList(pTarget1, pTarget2);
+        Collections.sort(expectedList);
         TestDataHelper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
@@ -327,6 +328,7 @@ public class LogicManagerTest {
         Task p4 = TestDataHelper.generateTaskWithName("KEy sduauo");
 
         List<Task> fourTasks = TestDataHelper.generateTaskList(p3, p1, p4, p2);
+        Collections.sort(fourTasks);
         TaskBook expectedAB = TestDataHelper.generateTaskBook(fourTasks);
         List<Task> expectedList = fourTasks;
         TestDataHelper.addToModel(model, fourTasks);
