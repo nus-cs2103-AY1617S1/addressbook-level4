@@ -22,7 +22,12 @@ public class TagCommand extends BaseCommand {
     private static final String VERB = "tagged";
 
     private static final String ERROR_INCOMPLETE_PARAMETERS = "You have not supplied sufficient parameters to run a Tag command.";
+    private static final String ERROR_INPUT_INDEX_REQUIRED = "A task index is required.";
+    private static final String ERROR_INPUT_ADD_TAGS_REQUIRED = "A list of tags \"tag1, tag2, ...\" to add is required.";
+    private static final String ERROR_INPUT_DELETE_TAGS_REQUIRED = "A list of tags \"tag1, tag2, ...\" to delete is required.";
+
     private static final String SUCCESS_ADD_TAGS = " tags have been added successfully.";
+    private static final String SUCCESS_DELETE_TAGS = " tags have been removed successfully.";
 
     /* Variables */
     private Argument<Integer> index = new IntArgument("index");
@@ -91,26 +96,21 @@ public class TagCommand extends BaseCommand {
         Integer displayedIndex = index.getValue();
         String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
         String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
-        CommandResult result = null;
 
         if (isAddTagsToTask()) {
             model.addTagsToTask(displayedIndex, tagsToAdd);
-            result = new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
-
+            return new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
         } else if (isDeleteTagsFromTask()) {
             model.deleteTagsFromTask(displayedIndex, tagsToDelete);
-
+            return new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
         } else {
             //Invalid case, should not happen, as we have checked it validateArguments.
             //However, for completeness, a command result is returned.
             errors.put(ERROR_INCOMPLETE_PARAMETERS);
-            result = new CommandResult("", errors);
+            return new CommandResult("", errors);
         }
-
-        return result;
     }
 
-    
     /* Input Parameters Validation */
     /**
      * Returns true if the command matches the action of adding tag(s) to a task.
@@ -154,24 +154,22 @@ public class TagCommand extends BaseCommand {
      * Sets error messages for insufficient input parameters, dependent on input parameters supplied.
      */
     private void handleUnavailableInputParameters() {
-        boolean isIndexAvailable = index.getValue() != null;
-        boolean isTagsToAddAvailable = addTags.getValue() != null;
-        boolean isTagsToDeleteAvailable = deleteTags.getValue() != null;
-
-        String indexRequired = "A task index is required.";
-        String addTagsRequired = "A list of tags \"tag1, tag2, ...\" to add is required.";
-        String deleteTagsRequired = "A list of tags \"tag1, tag2, ...\" to delete is required.";
+        boolean hasIndex = index.getValue() != null;
+        boolean hasAddTags = addTags.getValue() != null;
+        boolean hasDeleteTags = deleteTags.getValue() != null;
 
         //Validation for all inputs.
-        if (!isIndexAvailable && !isTagsToAddAvailable && !isTagsToDeleteAvailable) {
-            errors.put(index.getName(), indexRequired);
-            errors.put(addTags.getName(), addTagsRequired);
-            errors.put(deleteTags.getName(), deleteTagsRequired);
-        } else if (!isIndexAvailable && isTagsToAddAvailable) {
-            errors.put(index.getName(), indexRequired);
-        } else if (isIndexAvailable && !isTagsToAddAvailable && !isTagsToDeleteAvailable) {
-            errors.put(addTags.getName(), addTagsRequired);
-            errors.put(deleteTags.getName(), deleteTagsRequired);
+        if (!hasIndex && !hasAddTags && !hasDeleteTags) {
+            errors.put(index.getName(), ERROR_INPUT_INDEX_REQUIRED);
+            errors.put(addTags.getName(), ERROR_INPUT_ADD_TAGS_REQUIRED);
+            errors.put(deleteTags.getName(), ERROR_INPUT_DELETE_TAGS_REQUIRED);
+
+        } else if (!hasIndex && hasAddTags) {
+            errors.put(index.getName(), ERROR_INPUT_INDEX_REQUIRED);
+
+        } else if (hasIndex && !hasAddTags && !hasDeleteTags) {
+            errors.put(addTags.getName(), ERROR_INPUT_ADD_TAGS_REQUIRED);
+            errors.put(deleteTags.getName(), ERROR_INPUT_DELETE_TAGS_REQUIRED);
         }
     }
 }
