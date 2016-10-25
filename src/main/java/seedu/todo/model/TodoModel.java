@@ -13,7 +13,6 @@ import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
-import seedu.todo.model.task.ValidationTask;
 import seedu.todo.storage.MovableStorage;
 import seedu.todo.storage.TodoListStorage;
 
@@ -27,8 +26,6 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-
-import com.mifmif.common.regex.util.Iterator;
 
 //@@author A0135817B
 /**

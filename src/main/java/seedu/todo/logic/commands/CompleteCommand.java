@@ -25,27 +25,22 @@ public class CompleteCommand extends BaseCommand {
     protected Parameter[] getArguments() {
         return new Parameter[]{ index, updateAllFlag  };
     }
+
     @Override
     public String getCommandName() {
         return "complete";
     }
-    
+
     @Override
-    protected void validateArguments(){
-        if(updateAllFlag.hasBoundValue() && index.hasBoundValue()){
+    protected void validateArguments() {
+        if(updateAllFlag.hasBoundValue() && index.hasBoundValue()) {
             errors.put("You must either specify an index or an /all flag, not both!");
         }
-        else if(!index.hasBoundValue() && !updateAllFlag.hasBoundValue()){
+        else if(!index.hasBoundValue() && !updateAllFlag.hasBoundValue()) {
             errors.put(" You must specify an index or a /all flag. You have specified none! ");
-        }
-        
-        else{
-            return;
         }
     }
 
-    
-    
     @Override
     public List<CommandSummary> getCommandSummary() {
         return ImmutableList.of(new CommandSummary("Mark task as completed", getCommandName(), 
@@ -54,7 +49,7 @@ public class CompleteCommand extends BaseCommand {
 
     @Override
     public CommandResult execute() throws ValidationException {
-        if(index.hasBoundValue()){
+        if(index.hasBoundValue()) {
             ImmutableTask task = this.model.update(index.getValue(), t -> t.setCompleted(!t.isCompleted()));
             String feedback = task.isCompleted() ? CompleteCommand.VERB_COMPLETE : CompleteCommand.VERB_INCOMPLETE;
             return taskSuccessfulResult(task.getTitle(), feedback);
@@ -64,8 +59,6 @@ public class CompleteCommand extends BaseCommand {
             String feedback = "Complete all exceuted!";
             return new CommandResult(feedback);
         }
-        
-        
     }
 
 }

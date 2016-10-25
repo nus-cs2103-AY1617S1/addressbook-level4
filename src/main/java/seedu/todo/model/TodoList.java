@@ -134,8 +134,8 @@ public class TodoList implements TodoListModel {
             validationTask.validate();
         }
         
-        for (Integer x: indexes){
-            MutableTask task = tasks.get(x);
+        for (Integer i : indexes){
+            MutableTask task = tasks.get(i);
             update.accept(task);
         }
         

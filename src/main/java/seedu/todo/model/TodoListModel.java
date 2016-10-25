@@ -71,9 +71,6 @@ public interface TodoListModel extends ImmutableTodoList {
      * Changes the save path of the TodoList storage 
      * @throws ValidationException if the path is not valid
      */
-    
-    
-    
     void save(String location) throws ValidationException;
 
     /**
