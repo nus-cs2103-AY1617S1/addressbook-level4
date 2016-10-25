@@ -14,8 +14,6 @@ import seedu.oneline.model.Model;
 import seedu.oneline.model.ModelManager;
 import seedu.oneline.model.ReadOnlyTaskBook;
 import seedu.oneline.model.TaskBook;
-import seedu.oneline.model.tag.Tag;
-import seedu.oneline.model.tag.UniqueTagList;
 import seedu.oneline.model.task.*;
 import seedu.oneline.storage.StorageManager;
 
@@ -25,7 +23,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -33,6 +30,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.oneline.commons.core.Messages.*;
+import seedu.oneline.testutil.TestDataHelper;
 
 public class LogicManagerTest {
 
@@ -142,10 +140,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_clear() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        model.addTask(helper.generateTask(1));
-        model.addTask(helper.generateTask(2));
-        model.addTask(helper.generateTask(3));
+        model.addTask(TestDataHelper.generateTask(1));
+        model.addTask(TestDataHelper.generateTask(2));
+        model.addTask(TestDataHelper.generateTask(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
     }
@@ -167,13 +164,12 @@ public class LogicManagerTest {
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.myTask();
+        Task toBeAdded = TestDataHelper.myTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+        assertCommandBehavior(TestDataHelper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -183,8 +179,7 @@ public class LogicManagerTest {
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.myTask();
+        Task toBeAdded = TestDataHelper.myTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
 
@@ -193,7 +188,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
+                TestDataHelper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
@@ -203,13 +198,11 @@ public class LogicManagerTest {
 
     @Test
     public void execute_list_showsAllTasks() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedTB = helper.generateTaskBook(2);
+        TaskBook expectedTB = TestDataHelper.generateTaskBook(2);
         List<? extends ReadOnlyTask> expectedList = expectedTB.getTaskList();
 
         // prepare task book state
-        helper.addToModel(model, 2);
+        TestDataHelper.addToModel(model, 2);
 
         assertCommandBehavior("list",
                 ListCommand.MESSAGE_SUCCESS,
@@ -238,8 +231,7 @@ public class LogicManagerTest {
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> taskList = helper.generateTaskList(2);
+        List<Task> taskList = TestDataHelper.generateTaskList(2);
 
         // set Task book state to 2 tasks
         model.resetData(new TaskBook());
@@ -263,11 +255,10 @@ public class LogicManagerTest {
 
     @Test
     public void execute_select_jumpsToCorrectTask() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> threeTasks = helper.generateTaskList(3);
+        List<Task> threeTasks = TestDataHelper.generateTaskList(3);
 
-        TaskBook expectedAB = helper.generateTaskBook(threeTasks);
-        helper.addToModel(model, threeTasks);
+        TaskBook expectedAB = TestDataHelper.generateTaskBook(threeTasks);
+        TestDataHelper.addToModel(model, threeTasks);
 
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
@@ -291,12 +282,11 @@ public class LogicManagerTest {
 
     @Test
     public void execute_delete_removesCorrectTask() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> threeTasks = helper.generateTaskList(3);
+        List<Task> threeTasks = TestDataHelper.generateTaskList(3);
 
-        TaskBook expectedAB = helper.generateTaskBook(threeTasks);
+        TaskBook expectedAB = TestDataHelper.generateTaskBook(threeTasks);
         expectedAB.removeTask(threeTasks.get(1));
-        helper.addToModel(model, threeTasks);
+        TestDataHelper.addToModel(model, threeTasks);
 
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
@@ -313,16 +303,15 @@ public class LogicManagerTest {
 
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p1 = helper.generateTaskWithName("KE Y");
-        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+        Task pTarget1 = TestDataHelper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = TestDataHelper.generateTaskWithName("bla KEY bla bceofeia");
+        Task p1 = TestDataHelper.generateTaskWithName("KE Y");
+        Task p2 = TestDataHelper.generateTaskWithName("KEYKEYKEY sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        TaskBook expectedAB = helper.generateTaskBook(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-        helper.addToModel(model, fourTasks);
+        List<Task> fourTasks = TestDataHelper.generateTaskList(p1, pTarget1, p2, pTarget2);
+        TaskBook expectedAB = TestDataHelper.generateTaskBook(fourTasks);
+        List<Task> expectedList = TestDataHelper.generateTaskList(pTarget1, pTarget2);
+        TestDataHelper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -332,16 +321,15 @@ public class LogicManagerTest {
 
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p3 = helper.generateTaskWithName("key key");
-        Task p4 = helper.generateTaskWithName("KEy sduauo");
+        Task p1 = TestDataHelper.generateTaskWithName("bla bla KEY bla");
+        Task p2 = TestDataHelper.generateTaskWithName("bla KEY bla bceofeia");
+        Task p3 = TestDataHelper.generateTaskWithName("key key");
+        Task p4 = TestDataHelper.generateTaskWithName("KEy sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
-        TaskBook expectedAB = helper.generateTaskBook(fourTasks);
+        List<Task> fourTasks = TestDataHelper.generateTaskList(p3, p1, p4, p2);
+        TaskBook expectedAB = TestDataHelper.generateTaskBook(fourTasks);
         List<Task> expectedList = fourTasks;
-        helper.addToModel(model, fourTasks);
+        TestDataHelper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -351,16 +339,15 @@ public class LogicManagerTest {
 
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generateTaskWithName("key key");
-        Task p1 = helper.generateTaskWithName("sduauo");
+        Task pTarget1 = TestDataHelper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = TestDataHelper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        Task pTarget3 = TestDataHelper.generateTaskWithName("key key");
+        Task p1 = TestDataHelper.generateTaskWithName("sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        TaskBook expectedAB = helper.generateTaskBook(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourTasks);
+        List<Task> fourTasks = TestDataHelper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
+        TaskBook expectedAB = TestDataHelper.generateTaskBook(fourTasks);
+        List<Task> expectedList = TestDataHelper.generateTaskList(pTarget1, pTarget2, pTarget3);
+        TestDataHelper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find key rAnDoM",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -386,34 +373,17 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("done");
     }
     
-//    @Test
-//    public void execute_done_removesDoneTask() throws Exception {
-//        TestDataHelper helper = new TestDataHelper();
-//        List<Task> threeTasks = helper.generateTaskList(3);
-//
-//        TaskBook expectedAB = helper.generateTaskBook(threeTasks);
-////        expectedAB.doneTask(1);
-//        expectedAB.removeTask(threeTasks.get(1));
-//        helper.addToModel(model, threeTasks);
-//
-//        assertCommandBehavior("done 2",
-//                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, threeTasks.get(1)),
-//                expectedAB,
-//                expectedAB.getTaskList());
-//    }
-
     @Test
     public void execute_undo_redo() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task task1 = helper.generateTask(1);
-        Task task2 = helper.generateTask(2);
-        Task task3 = helper.generateTask(3);
+        Task task1 = TestDataHelper.generateTask(1);
+        Task task2 = TestDataHelper.generateTask(2);
+        Task task3 = TestDataHelper.generateTask(3);
         TaskBook expectedTaskBook1 = new TaskBook(model.getTaskBook());
-        logic.execute(helper.generateAddCommand(task1));
+        logic.execute(TestDataHelper.generateAddCommand(task1));
         TaskBook expectedTaskBook2 = new TaskBook(model.getTaskBook());
-        logic.execute(helper.generateAddCommand(task2));
+        logic.execute(TestDataHelper.generateAddCommand(task2));
         TaskBook expectedTaskBook3 = new TaskBook(model.getTaskBook());
-        logic.execute(helper.generateAddCommand(task3));
+        logic.execute(TestDataHelper.generateAddCommand(task3));
         
         // Undo command
         assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_SUCCESS, expectedTaskBook3, Arrays.asList(task1, task2));
@@ -424,148 +394,10 @@ public class LogicManagerTest {
         // Redo command
         assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_SUCCESS, expectedTaskBook2, Arrays.asList(task1));
         assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_SUCCESS, expectedTaskBook3, Arrays.asList(task1, task2));
-        Task task4 = helper.generateTask(4);
-        logic.execute(helper.generateAddCommand(task4));
+        Task task4 = TestDataHelper.generateTask(4);
+        logic.execute(TestDataHelper.generateAddCommand(task4));
         TaskBook expectedTaskBook4 = new TaskBook(model.getTaskBook());
         assertCommandBehavior("redo", RedoCommand.MESSAGE_NO_NEXT_STATE, expectedTaskBook4, Arrays.asList(task1, task2, task4));
     }
 
-
-    /**
-     * A utility class to generate test data.
-     */
-    class TestDataHelper{
-
-        Task myTask() throws Exception {
-            TaskName name = new TaskName("Do seagull stuff");
-            TaskTime startTime = new TaskTime("Sun Oct 16 21:35:45");
-            TaskTime endTime = new TaskTime("Mon Oct 17 21:35:45");
-            TaskTime deadline = new TaskTime("Sun Oct 23 21:35:45");
-            TaskRecurrence recurrence = new TaskRecurrence("X");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("tag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, startTime, endTime, deadline, recurrence, tags, false);
-        }
-
-        /**
-         * Generates a valid task using the given seed.
-         * Running this function with the same parameter values guarantees the returned task will have the same state.
-         * Each unique seed will generate a unique Task object.
-         *
-         * @param seed used to generate the task data field values
-         */
-        Task generateTask(int seed) throws Exception {
-            return new Task(
-                    new TaskName("Task " + seed),
-                    new TaskTime("" + Math.abs(seed)),
-                    new TaskTime("" + seed),
-                    new TaskTime("" + seed),
-                    new TaskRecurrence("" + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
-                    false
-            );
-        }
-
-        /** Generates the correct add command based on the task given */
-        String generateAddCommand(Task p) {
-            StringBuffer cmd = new StringBuffer();
-
-            cmd.append("add ");
-
-            cmd.append(p.getName().toString());
-            cmd.append(" .from ").append(p.getStartTime());
-            cmd.append(" .to ").append(p.getEndTime());
-            cmd.append(" .due ").append(p.getDeadline());
-            cmd.append(" .every ").append(p.getRecurrence());
-            UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
-                cmd.append(" #").append(t.tagName);
-            }
-
-            return cmd.toString();
-        }
-
-        /**
-         * Generates an TaskBook with auto-generated tasks.
-         */
-        TaskBook generateTaskBook(int numGenerated) throws Exception{
-            TaskBook taskBook = new TaskBook();
-            addToTaskBook(taskBook, numGenerated);
-            return taskBook;
-        }
-
-        /**
-         * Generates an AddressBook based on the list of Tasks given.
-         */
-        TaskBook generateTaskBook(List<Task> tasks) throws Exception{
-            TaskBook taskBook = new TaskBook();
-            addToTaskBook(taskBook, tasks);
-            return taskBook;
-        }
-
-        /**
-         * Adds auto-generated Task objects to the given Task Book
-         * @param taskBook The Task Book to which the Tasks will be added
-         */
-        void addToTaskBook(TaskBook taskBook, int numGenerated) throws Exception{
-            addToTaskBook(taskBook, generateTaskList(numGenerated));
-        }
-
-        /**
-         * Adds the given list of Tasks to the given Task Book
-         */
-        void addToTaskBook(TaskBook taskBook, List<Task> tasksToAdd) throws Exception{
-            for(Task p: tasksToAdd){
-                taskBook.addTask(p);
-            }
-        }
-
-        /**
-         * Adds auto-generated Task objects to the given model
-         * @param model The model to which the Tasks will be added
-         */
-        void addToModel(Model model, int numGenerated) throws Exception{
-            addToModel(model, generateTaskList(numGenerated));
-        }
-
-        /**
-         * Adds the given list of Tasks to the given model
-         */
-        void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
-            for(Task p: tasksToAdd){
-                model.addTask(p);
-            }
-        }
-
-        /**
-         * Generates a list of Tasks based on the flags.
-         */
-        List<Task> generateTaskList(int numGenerated) throws Exception{
-            List<Task> tasks = new ArrayList<>();
-            for(int i = 1; i <= numGenerated; i++){
-                tasks.add(generateTask(i));
-            }
-            return tasks;
-        }
-
-        List<Task> generateTaskList(Task... tasks) {
-            return Arrays.asList(tasks);
-        }
-
-        /**
-         * Generates a Task object with given name. Other fields will have some dummy values.
-         */
-        Task generateTaskWithName(String name) throws Exception {
-            return new Task(
-                    new TaskName(name),
-                    new TaskTime(""),
-                    new TaskTime(""),
-                    new TaskTime(""),
-                    new TaskRecurrence(""),
-                    new UniqueTagList(new Tag("tag")),
-                    false
-            );
-        }
-    }
 }

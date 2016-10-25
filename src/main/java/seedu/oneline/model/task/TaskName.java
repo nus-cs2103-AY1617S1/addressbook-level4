@@ -1,9 +1,8 @@
 package seedu.oneline.model.task;
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
-import seedu.oneline.model.tag.Tag;
 
-public class TaskName {
+public class TaskName implements Comparable<TaskName> {
 
     public static final String MESSAGE_TASK_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
     public static final String TASK_NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
@@ -61,5 +60,12 @@ public class TaskName {
      */
     public static TaskName deserialize(String args) throws IllegalValueException {
         return new TaskName(args);
+    }
+
+    //@@author A0138848M
+    @Override
+    public int compareTo(TaskName o) {
+        assert name != null;
+        return this.name.compareTo(o.name);
     }
 }
