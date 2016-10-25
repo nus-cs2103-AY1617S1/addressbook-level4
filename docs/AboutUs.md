@@ -33,8 +33,17 @@ We are from [School of Computing, National University of Singapore](http://www.c
 #### [Wu Zefeng](https://github.com/DesperadoFlames)
 <img src="https://avatars3.githubusercontent.com/u/16379229?v=3&s=400" width="150"><br>
 **Role:** Developer<br>
-**Responsibilities:** Testing<br>
+**Responsibilities:** Testing, UI<br>
 **Component-In-Charge:** Storage
+**Features Implemented:**<br>
+ * [Redo](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#redoing-the-last-action-redo)
+ * [Relocate](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#relocating-the-data-storage-location-relocate)
+ * [Switchlist](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#switching-to-a-different-task-list-switchlist)
+ * [Renamelist](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#renaming-the-task-list-file-renamelist) 
+
+**Other major contributions:**
+ * Added commandbox auto-complete feature
+ * Implemented Keyword class
 
 #### [Ong Heng Le](https://github.com/initialshl)
 <img src="https://avatars0.githubusercontent.com/u/19281538?v=3&s=400" width="150"><br>
