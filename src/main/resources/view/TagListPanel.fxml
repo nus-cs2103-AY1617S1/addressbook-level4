@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
@@ -11,6 +13,14 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
+      <AnchorPane prefHeight="0.0" prefWidth="280.0" style="-fx-background-color: #fff; -fx-border-color: #fff;" VBox.vgrow="NEVER">
+         <children>
+            <Label style="-fx-background-color: #fff;" text="Categories" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </AnchorPane>
         <ListView fx:id="tagListView" maxWidth="280.0" minWidth="280.0" prefWidth="280.0" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>

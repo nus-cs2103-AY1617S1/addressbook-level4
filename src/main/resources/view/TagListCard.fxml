@@ -17,7 +17,7 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="120.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="95.0" minHeight="95.0" prefHeight="95.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="80.0" prefHeight="80.0" prefWidth="101.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DefaultTheme.css" />
                         <URL value="@Extensions.css" />
@@ -27,16 +27,13 @@
                     </padding>
 
                     <children>
+                           <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
                         <HBox alignment="CENTER_LEFT" spacing="5">
-                            <children>
-                                <HBox>
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-                                </HBox>
-                            </children>
+                     <children>
+                        <Label fx:id="duetoday" styleClass="cell_small_label" text="\$today" />
+                              <Label fx:id="line1" styleClass="cell_small_label" text="due today" />
+                     </children>
                         </HBox>
-                        <Label fx:id="line1" styleClass="cell_small_label" text="\$line1" />
-                        <Label fx:id="line2" styleClass="cell_small_label" text="\$line2" />
-                        <Label fx:id="line3" styleClass="cell_small_label" text="\$line3" />
                     </children>
                 </VBox>
             </children>

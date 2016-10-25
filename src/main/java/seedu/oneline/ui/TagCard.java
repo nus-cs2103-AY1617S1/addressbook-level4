@@ -14,7 +14,9 @@ public class TagCard extends UiPart{
     private HBox cardPane;
     @FXML
     private Label name;    
-
+    @FXML 
+    private Label duetoday; 
+    
     private Tag tag;
     private String colour; 
     
@@ -30,7 +32,7 @@ public class TagCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(tag.tagName);
+        name.setText("#" + tag.tagName);
         cardPane.setStyle("-fx-background-color: " + colour);
     }
 
