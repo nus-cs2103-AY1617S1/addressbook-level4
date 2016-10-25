@@ -290,27 +290,28 @@ We have two types of tests:
    
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. This includes, <br>
-      1. `seedu.taskmaster.commons.AppUtilTest`
-      2. `seedu.taskmaster.commons.ConfigUtilTest`
-      3. `seedu.taskmaster.commons.FileUtilTest`
-      4. `seedu.taskmaster.commons.JsonUtilTest`
-      5. `seedu.taskmaster.commons.StringUtilTest`
-      6. `seedu.taskmaster.commons.UrlUtilTest`
-      7. `seedu.taskmaster.commons.XmlUtilTest`
-      8. `seedu.taskmaster.model.UnmodifiableObservableListTest`
-      9. `seedu.taskmaster.commons.core.ConfigTest`
-      10. `seedu.taskmaster.commons.core.VersionTest`
+   1. _Unit tests_ targeting the lowest level methods/classes. Below are some snippets, <br>
+   
+   _Task_<br>
+   <img src="images/test_snippet_Task.png" width="800"><br>
+   
+   _RecurringTaskManager_<br>
+   <img src="images/test_snippet_RecurringManager.png" width="800"><br>
+   
    2. _Integration tests_ that are checking the integration of multiple code units 
-     (those code units are assumed to be working). This includes, <br>
-      1.  `seedu.taskmaster.storage.StorageManagerTest`
-      2. `seedu.taskmaster.storage.XmlTaskListStorageTest`
-      3. `seedu.taskmaster.storage.JsonUserPrefStorageTest`
+     (those code units are assumed to be working). Below are some snippets, <br>
+
+   _XmlTaskListStorage_<br>
+   <img src="images/test_snippet_XmlTaskListStorage.png" width="800"><br>
+   
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how the are connected together.<br>
+      how the are connected together. Below are some snippets,<br>
       e.g. `seedu.taskmaster.logic.LogicManagerTest`<br>
       In the `LogicManagerTest`, Happy Jim Task Master tests the logic it uses.<br>
       Typically, Happy Jim Task Master focuses on some boundary tests.<br>
+    
+	_LogicManagerTest_
+	<img src="images/test_snippet_LogicManagerTeest.png" width="800"><br>
       e.g. To `find` a task, for instance, `Test Task 1 by 20 oct 11am `,<br>
       try execute <br>
       *`find by 20 oct 11am` --> exact boundary, task found;<br>
