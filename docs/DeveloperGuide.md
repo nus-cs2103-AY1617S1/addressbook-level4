@@ -178,7 +178,7 @@ The `Model`,
 * stores the Task Master data.
 * exposes a `UnmodifiableObservableList<ReadOnlyTaskComponent>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* does not depend on any of the other three components.<br>
 
 ### Storage component
 
