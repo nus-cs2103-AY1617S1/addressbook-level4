@@ -108,6 +108,8 @@ public class Parser {
 	private static final String tomorrow = "tomorrow";
 
 	private static final String nextWeek = "next week";
+	
+	private static final String done = "done";
 
 	private static final DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -463,6 +465,7 @@ public class Parser {
 				final String tomorrowKeyword = dateFormatter.format(calendar.getTime());
 				final Set<String> tomorrowKeywords = new HashSet<>(Arrays.asList(tomorrowKeyword));
 				return new FindCommand(tomorrowKeywords, "date");
+			case done: 
 			}
 			final String[] nameKeywords = matcherName.group("keywords").split("\\s+");
 			final Set<String> nameKeyword = new HashSet<>(Arrays.asList(nameKeywords));
