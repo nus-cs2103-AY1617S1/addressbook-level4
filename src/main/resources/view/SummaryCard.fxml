@@ -1,4 +1,3 @@
-<!--  @@author A0138967J -->
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
@@ -16,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
-
+<!-- @@author A0138967J -->
 <HBox fx:id="cardPane" maxHeight="50.0" maxWidth="250.0" minHeight="50.0" minWidth="250.0" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane maxHeight="50.0" maxWidth="250.0" minHeight="50.0" minWidth="110.0" prefHeight="50.0" prefWidth="110.0" translateY="5.0" HBox.hgrow="ALWAYS">
