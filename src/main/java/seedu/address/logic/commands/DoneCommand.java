@@ -60,7 +60,7 @@ public class DoneCommand extends UndoableCommand {
         
         assert viewingDoneList == false;
 
-        logger.info("Preparing to archive tasks.");
+        logger.fine("Preparing to archive tasks.");
         List<String> displayArchivedTasks = new ArrayList<String>();
         Collections.sort(targetIndexes);
         int adjustmentForRemovedTask = 0;
@@ -88,7 +88,7 @@ public class DoneCommand extends UndoableCommand {
             }
             
             if (taskToArchive.getRecurrenceRate().isPresent()) {
-                logger.info("Task is recurring. Updating task details.");
+                logger.fine("Task is recurring. Updating task details.");
                 Task recurringTaskToReAdd = new Task(taskToArchive);
                 recurringTaskToReAdd.updateRecurringTask();
                 readdedRecurringTasks.add(recurringTaskToReAdd);
