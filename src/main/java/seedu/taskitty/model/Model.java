@@ -8,6 +8,7 @@ import seedu.taskitty.model.task.UniqueTaskList;
 import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,18 +22,19 @@ public interface Model {
     ReadOnlyTaskManager getTaskManager();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTasks(List<ReadOnlyTask> target) throws UniqueTaskList.TaskNotFoundException;
     
     /** Edits the given task. */
     void editTask(ReadOnlyTask target, Task task) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
 
     /** Marks the given task as done. 
      * @throws DuplicateMarkAsDoneException */
-    void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException;
+    void markTasksAsDone(List<ReadOnlyTask> target) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException;
     
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
+    //@@author A0139052L
     /** Undoes the previous command if there is any 
      * @throws NoPreviousValidCommandException */
     String undo() throws NoPreviousValidCommandException;
@@ -43,6 +45,7 @@ public interface Model {
     /** Removes the current state saved when an invalid command is given */
     void removeUnchangedState();
     
+    //@@author
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getTaskList();
     

@@ -15,6 +15,7 @@ public class TaskUtil {
      */
     public static int getCategoryIndex(char category) {
         
+        category = Character.toLowerCase(category);
         switch(category) {
         
             case(Task.TODO_CATEGORY_CHAR) :

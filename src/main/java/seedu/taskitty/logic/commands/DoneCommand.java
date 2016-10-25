@@ -1,5 +1,9 @@
 package seedu.taskitty.logic.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.util.Pair;
 import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.util.AppUtil;
@@ -16,50 +20,64 @@ public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";
 
-    public static final String MESSAGE_PARAMETER = COMMAND_WORD + " [index]";
-    public static final String MESSAGE_USAGE = "This command marks a task in TasKitty as done, Meow!"
+    public static final String MESSAGE_PARAMETER = COMMAND_WORD + " [index] [more indexes]...";
+    public static final String MESSAGE_USAGE = "This command marks tasks in TasKitty as done, Meow!"
             + "\n[index] is the index eg. t1, d1, e1.";
 
     public static final String MESSAGE_MARK_TASK_AS_DONE_SUCCESS = "Task done: %1$s";
     public static final String MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR = "The task \"%1$s\" has already been marked as done.";
 
-    public final int categoryIndex;
+    public int categoryIndex;
     
-    public final int targetIndex;
-
-    public DoneCommand(int targetIndex) {
-        this(targetIndex, Task.DEFAULT_CATEGORY_INDEX);
-    }
+    public int targetIndex;
     
-    public DoneCommand(int targetIndex, int categoryIndex) {
-        this.targetIndex = targetIndex;
-        this.categoryIndex = categoryIndex;
+    private final List<Pair<Integer, Integer>> listOfIndexes;
+    
+    public DoneCommand(List<Pair<Integer, Integer>> listOfIndexes) {
+        assert listOfIndexes != null;
+        this.listOfIndexes = listOfIndexes;
     }
 
     @Override
     public CommandResult execute() {
-        assert categoryIndex >= 0 && categoryIndex < 3;
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model, categoryIndex);
-       
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            model.removeUnchangedState();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        
+        ArrayList<ReadOnlyTask> listOfTaskToMarkDone = new ArrayList<ReadOnlyTask>();
+        StringBuilder resultMessageBuilder = new StringBuilder();
+        
+        for (Pair<Integer, Integer> indexPair: listOfIndexes) {
+            categoryIndex = indexPair.getKey();
+            targetIndex = indexPair.getValue();
+            assert categoryIndex >= 0 && categoryIndex < 3;
+            
+            UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model, categoryIndex); 
+            if (lastShownList.size() < targetIndex) {
+                indicateAttemptToExecuteIncorrectCommand();
+                model.removeUnchangedState();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            
+            ReadOnlyTask taskToBeMarkedDone = lastShownList.get(targetIndex - 1);
+            if (taskToBeMarkedDone.getIsDone()) {
+                model.removeUnchangedState();
+                return new CommandResult(String.format(MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR, taskToBeMarkedDone.getName()));
+            }
+            
+            if (!listOfTaskToMarkDone.contains(taskToBeMarkedDone)) {
+                listOfTaskToMarkDone.add(taskToBeMarkedDone);
+                resultMessageBuilder.append(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS, 
+                        Task.CATEGORIES[categoryIndex], taskToBeMarkedDone));
+            }                        
         }
-
-        ReadOnlyTask taskToBeMarkedDone = lastShownList.get(targetIndex - 1);
 
         try {
-            model.doneTask(taskToBeMarkedDone);
-        } catch (DuplicateMarkAsDoneException dmade) {
-        	model.removeUnchangedState();
-        	return new CommandResult(String.format(MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR, taskToBeMarkedDone.getName()));
+             model.markTasksAsDone(listOfTaskToMarkDone);            
         } catch (TaskNotFoundException pnfe) {
-            model.removeUnchangedState();
             assert false : "The target task cannot be missing";
+        } catch (DuplicateMarkAsDoneException e) {
+            assert false: "The target task should not be marked done";
         }
 
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS, Task.CATEGORIES[categoryIndex], taskToBeMarkedDone));
+        return new CommandResult(resultMessageBuilder.toString());
     }
     
     @Override
