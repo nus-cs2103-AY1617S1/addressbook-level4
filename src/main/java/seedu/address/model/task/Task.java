@@ -6,6 +6,7 @@ import seedu.address.model.Copiable;
  * Represents a highly general Task object to be subclassed
  */
 public abstract class Task implements FavoritableTask, CompletableTask, Comparable<Task>, Copiable<Task> {
+	//@@author A0138978E
 	/*
 	 * All tasks are required to minimally have a description
 	 */
@@ -16,12 +17,13 @@ public abstract class Task implements FavoritableTask, CompletableTask, Comparab
 	 */
 	protected boolean favorite = false;
 	
+	//@@author 
 	/*
 	 * Indicates if this task is completed
 	 */
 	protected boolean complete = false;
 	
-	
+	//@@author A0138978E
 	@Override
 	public void setAsFavorite() {
 		this.favorite = true;
@@ -37,6 +39,7 @@ public abstract class Task implements FavoritableTask, CompletableTask, Comparab
 		return this.favorite;
 	}
 	
+	//@@author 
 	@Override
 	public void setAsComplete() {
 		this.complete = true;
@@ -53,6 +56,7 @@ public abstract class Task implements FavoritableTask, CompletableTask, Comparab
 	}
 	
 	
+	//@@author A0138978E
 	public Task() {
 		this(new Description());
 	}

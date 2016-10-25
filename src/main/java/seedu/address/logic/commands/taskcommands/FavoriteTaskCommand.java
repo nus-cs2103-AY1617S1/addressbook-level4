@@ -7,6 +7,7 @@ import seedu.address.commons.events.ui.HideHelpRequestEvent;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.task.Task;
 
+//@@author A0138978E
 /**
  * Favorites a task identified using it's last displayed index from TaskManager.
  */
@@ -53,6 +54,7 @@ public class FavoriteTaskCommand extends TaskCommand {
         }
     }
     
+    //@@author
     /*
      * Retrieves index for testing purposes
      */

@@ -1,5 +1,6 @@
 package seedu.address.model.task;
 
+//@@author A0138978E
 /*
  * Represents an immutable description for a Task.
  */

@@ -96,6 +96,7 @@ public class TaskListPanel extends UiPart {
         public TaskListViewCell() {
         }
 
+        //@@author A0138978E
         @Override
         protected void updateItem(Task task, boolean empty) {
             super.updateItem(task, empty);

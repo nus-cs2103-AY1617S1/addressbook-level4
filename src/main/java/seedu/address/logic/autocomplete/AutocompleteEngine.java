@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+//@@author A0138978E
 /*
  * Contains a set of words to match autocomplete 
  * When a new query is received, returns an AutocompleteResult object that the consumer

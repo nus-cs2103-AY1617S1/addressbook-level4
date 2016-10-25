@@ -11,6 +11,7 @@ import seedu.address.logic.commands.taskcommands.FavoriteTaskCommand;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
+//@@author A0138978E
 /*
  * Parses Favorite commands
  */

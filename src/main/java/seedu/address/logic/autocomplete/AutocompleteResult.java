@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.common.collect.Iterables;
 
+//@@author A0138978E
 /*
  * Cycles through all matches infinitely
  */

@@ -10,6 +10,7 @@ import seedu.address.logic.commands.taskcommands.FavoriteTaskCommand;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.testutil.TestUtil;
 
+//@@author A0138978E
 public class FavoriteTaskCommandTest {
 
 
@@ -73,6 +74,7 @@ public class FavoriteTaskCommandTest {
 		assertCommandFeedback(command, expected);
 	}
 	
+	//@@author
 	@Test
 	public void favoriteTask_validIndex() throws IllegalValueException {
 		/* 
@@ -88,6 +90,7 @@ public class FavoriteTaskCommandTest {
 		assertCommandFeedback(command, expected);
 	}
 
+	//@@author A0138978E
 	/*
 	 * Given a command and an expected string, execute the command
 	 * and assert that the feedback corresponds to the expected string

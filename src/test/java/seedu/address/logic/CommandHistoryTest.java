@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.CommandHistory;
 
+//@@author A0138978E
 public class CommandHistoryTest {
 	
 	private CommandHistory commandHistory;

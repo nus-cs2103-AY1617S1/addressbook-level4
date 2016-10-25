@@ -10,6 +10,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.storage.StorageChangedEvent;
 import seedu.address.logic.commands.CommandResult;
 
+//@@author A0138978E
 /**
  * Sets the application storage location to another folder
  */

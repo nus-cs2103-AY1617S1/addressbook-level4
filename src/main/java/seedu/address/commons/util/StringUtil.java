@@ -37,6 +37,7 @@ public class StringUtil {
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
     
+    //@@author A0138978E
     /*
      * Returns a string where spaces are added between
      * word-character and character-word boundaries

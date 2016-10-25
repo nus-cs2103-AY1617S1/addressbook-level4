@@ -2,6 +2,7 @@ package seedu.address.commons.events.storage;
 
 import seedu.address.commons.events.BaseEvent;
 
+//@@author A0138978E
 /**
  * Indicates that the storage location has changed
  */

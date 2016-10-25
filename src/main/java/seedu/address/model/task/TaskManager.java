@@ -314,6 +314,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	    filteredTasks.setPredicate(p -> !p.isComplete());
 	}
 	
+	//@@author A0138978E
 	@Override
 	public void refreshTasksFilter() {
 		Predicate<? super Task> currentPredicate = filteredTasks.getPredicate();
@@ -326,6 +327,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		filteredTasks.setPredicate(p -> p.isComplete());
 	}
 
+	//@@author
 	@Override
 	public UnmodifiableObservableList<Task> getCurrentFilteredTasks() {
 		return new UnmodifiableObservableList<>(filteredTasks);

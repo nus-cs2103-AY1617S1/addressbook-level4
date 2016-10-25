@@ -31,12 +31,14 @@ public class CommandBox extends UiPart {
 
     private Logic logic;
     
+    //@@author A0138978E
     private boolean hasTextChangedForAutocomplete = true;
     
 	private final ChangeListener<? super String> textChangedListener = (observable, newVal, oldVal) -> {
 		hasTextChangedForAutocomplete = true;
 	};
 	
+	//@@author
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
@@ -94,6 +96,7 @@ public class CommandBox extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
     
+    //@@author A0138978E
     private void setKeyListener() {
     	commandTextField.setOnKeyPressed(keyListener);
     }
@@ -147,6 +150,7 @@ public class CommandBox extends UiPart {
     	commandTextField.textProperty().removeListener(textChangedListener);
     }
     
+    //@@author
     /**
      * Sets the command box style to indicate a correct command.
      */
@@ -176,6 +180,7 @@ public class CommandBox extends UiPart {
         commandTextField.getStyleClass().add("error");
     }
     
+    //@@author A0138978E
     /**
      * Sets the caret of the textfield to the end position
      */
