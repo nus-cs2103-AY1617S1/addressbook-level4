@@ -10,6 +10,7 @@ import seedu.menion.model.activity.UniqueActivityList;
 import seedu.menion.model.activity.UniqueActivityList.DuplicateTaskException;
 import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
 
+//@@author A0146752B
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */

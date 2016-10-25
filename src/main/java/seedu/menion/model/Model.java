@@ -87,7 +87,7 @@ public interface Model {
     /** check if there is any previous activity manager in redo stack */
     boolean checkStatesInRedoStack();
 
-
+    //@@author A0146752B
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
     
