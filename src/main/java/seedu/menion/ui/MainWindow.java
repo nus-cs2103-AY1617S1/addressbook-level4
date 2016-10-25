@@ -110,7 +110,6 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        //browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = ActivityListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredFloatingTaskList(), logic.getFilteredTaskList(), logic.getFilteredEventList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getActivityManagerFilePath());
