@@ -1,5 +1,8 @@
 package seedu.whatnow.logic.commands;
 
+import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
+
 public class UndoCommand extends Command{
 
 	public static final String COMMAND_WORD = "undo";
@@ -12,13 +15,14 @@ public class UndoCommand extends Command{
 	public static final String MESSAGE_FAIL = "Undo failure due to unexisting previous commands";
 
 	@Override
-	public CommandResult execute() {
+	public CommandResult execute() throws DuplicateTaskException, TaskNotFoundException {
 		assert model != null;
 		if(model.getUndoStack().isEmpty()) {
 			return new CommandResult(MESSAGE_FAIL);
 		}
 		else {
 			UndoAndRedo reqCommand = (UndoAndRedo) model.getUndoStack().pop();
+			System.out.println("redo stack is getting this in undoCommand: " + reqCommand);
 			model.getRedoStack().push(reqCommand);
 			return reqCommand.undo();
 		}

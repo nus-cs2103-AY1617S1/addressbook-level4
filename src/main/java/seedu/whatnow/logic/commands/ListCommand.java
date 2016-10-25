@@ -4,10 +4,13 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
+
 /**
  * Lists all tasks in WhatNow to the user.
  */
-public class ListCommand extends Command {
+public class ListCommand extends UndoAndRedo{
 
     public static final String COMMAND_WORD = "list";
 
@@ -49,4 +52,16 @@ public class ListCommand extends Command {
         }
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+	@Override
+	public CommandResult undo() throws DuplicateTaskException, TaskNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CommandResult redo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

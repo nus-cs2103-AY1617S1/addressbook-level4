@@ -43,7 +43,6 @@ public class ModelManager extends ComponentManager implements Model {
 	private final Stack<Command> stackOfRedo;
 	private final Stack<ReadOnlyTask> stackOfOldTask;
 	private final Stack<ReadOnlyTask> stackOfNewTask;
-	private final Stack<ReadOnlyTask> stackOfTempTask;
 	private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
 	private final Stack<ReadOnlyTask> stackOfDeletedTasks;
 	private final Stack<String> stackOfDeletedTaskTypes;
@@ -72,7 +71,6 @@ public class ModelManager extends ComponentManager implements Model {
 		backUpFilteredTasks = new FilteredList<>(whatNow.getTasks());
 		backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
 		stackOfOldTask = new Stack<>();
-		stackOfTempTask = new Stack<>();
 		stackOfNewTask = new Stack<>();
 		stackOfWhatNow = new Stack<>();
 		stackOfDeletedTasks = new Stack<>();
@@ -96,7 +94,6 @@ public class ModelManager extends ComponentManager implements Model {
 		backUpFilteredTasks = new FilteredList<>(whatNow.getTasks());
 		backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
 		stackOfOldTask = new Stack<>();
-		stackOfTempTask = new Stack<>();
 		stackOfNewTask = new Stack<>();
 		stackOfWhatNow = new Stack<>();
 		stackOfDeletedTasks = new Stack<>();
@@ -119,19 +116,7 @@ public class ModelManager extends ComponentManager implements Model {
 		whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());
 		indicateWhatNowChanged();
 	}
-	@Override
-	public synchronized void revertDataUpdate() {
-	//	System.out.println("stackOfWhatNowUndoUpdate.peek() is : " + stackOfWhatNowUndoUpdate.peek());
-	//	whatNow.revertEmptyWhatNow(stackOfWhatNowUndoUpdate.pop());
-		whatNow.undoUpdateTask(stackOfTempTask.pop(), stackOfOldTask.pop());
-		indicateWhatNowChanged();
-	}
-	@Override
-	public synchronized void revertToPrevDataUpdate() {
-		stackOfWhatNowUndoUpdate.push(stackOfWhatNowRedoUpdate.peek());
-		whatNow.revertEmptyWhatNow(stackOfWhatNowRedoUpdate.pop());	
-		indicateWhatNowChanged();
-	}
+	
 	@Override
 	public ReadOnlyWhatNow getWhatNow() {
 		return whatNow;
@@ -165,19 +150,22 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
-//		stackOfWhatNowUndoUpdate.push(new WhatNow(whatNow));
-//		stackOfOldTask.push(old);
+		
 		whatNow.updateTask(old, toUpdate);
-		System.out.println("i am at updateTask and pushing in this whatNow of this tasklist: " + whatNow.getTaskList() );
+		System.out.println("i am at updateTask and pushing in this whatNow of this tasklist: " + whatNow.getTaskList());
 		stackOfOldTask.push(old);
-		stackOfTempTask.push(toUpdate);
-		//		stackOfWhatNowRedoUpdate.push(new WhatNow(whatNow));
+		stackOfNewTask.push(toUpdate);
 		indicateWhatNowChanged();
 	}
 	@Override
-	public synchronized void undoUpdateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
+	public synchronized void undoUpdateTask() throws DuplicateTaskException, TaskNotFoundException  {
 	//	stackOfNewTask.push(old);
 	//	whatNow.updateTask(old, (Task) toUpdate);
+		//System.out.println("stackOfOldTask.peek() is : " + stackOfOldTask.peek());
+		//System.out.println("StackOfNewTask.peek() is : " + stackOfNewTask.peek());
+		ReadOnlyTask older = stackOfNewTask.pop();
+		ReadOnlyTask newer = stackOfOldTask.pop();
+		whatNow.undoUpdateTask(older, newer);
 		indicateWhatNowChanged();
 	}
 	@Override

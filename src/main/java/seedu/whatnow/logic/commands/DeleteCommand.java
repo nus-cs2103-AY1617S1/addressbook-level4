@@ -65,6 +65,7 @@ public class DeleteCommand extends UndoAndRedo {
 
 	@Override
 	public CommandResult undo() {
+		System.out.println("I am at undo method of delete");
 		if(model.getDeletedStackOfTask().isEmpty() || model.getDeletedStackOfTaskType().isEmpty()) {
 			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
 		}
@@ -86,10 +87,12 @@ public class DeleteCommand extends UndoAndRedo {
 			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
 		}
 		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
+	
 	}
 
 	@Override
 	public CommandResult redo() {
+		System.out.println("i am at redo method in deleteCommad");
 		// TODO Auto-generated method stub
 		UnmodifiableObservableList<ReadOnlyTask> lastShownList;
 
@@ -108,7 +111,7 @@ public class DeleteCommand extends UndoAndRedo {
 		assert model != null;
 		try {
 			model.deleteTask(taskToDelete);
-			model.getUndoStack().push(this);
+	//		model.getUndoStack().push(this);
 			model.getDeletedStackOfTask().push(taskToDelete);
 			model.getDeletedStackOfTaskType().push(taskType);
 		} catch (TaskNotFoundException pnfe) {

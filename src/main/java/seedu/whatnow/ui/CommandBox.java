@@ -12,6 +12,8 @@ import seedu.whatnow.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.whatnow.commons.util.FxViewUtil;
 import seedu.whatnow.logic.Logic;
 import seedu.whatnow.logic.commands.*;
+import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.text.ParseException;
 import java.util.logging.Logger;
@@ -69,7 +71,7 @@ public class CommandBox extends UiPart {
 
 
     @FXML
-    private void handleCommandInputChanged() throws ParseException {
+    private void handleCommandInputChanged() throws ParseException, DuplicateTaskException, TaskNotFoundException {
         //Take a copy of the command text
         previousCommandTest = commandTextField.getText();
 

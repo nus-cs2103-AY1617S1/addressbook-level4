@@ -138,7 +138,7 @@ public class WhatNow implements ReadOnlyWhatNow {
      * @throws UniqueTaskList.TaskNotFoundException
      */
     public boolean updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
-        if (tasks.update(old, toUpdate)) {
+    	if (tasks.update(old, toUpdate)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();

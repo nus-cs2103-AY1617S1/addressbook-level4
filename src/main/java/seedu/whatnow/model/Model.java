@@ -25,11 +25,7 @@ public interface Model {
     
 	/** Returns the WhatNow */
     ReadOnlyWhatNow getWhatNow();
-    
-    /** Reverts to previous data of WhatNow */
-	void revertDataUpdate();
 	
-	void revertToPrevDataUpdate();
   //=========== Methods for Task List ===============================================================
 
     /** Deletes the given task. */
@@ -71,8 +67,10 @@ public interface Model {
     /** Update the given task */
     void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException;
     
-    /** Undo the update done on given task */
-	void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException, DuplicateTaskException;
+    /** Undo the update done on given task 
+     * @throws TaskNotFoundException 
+     * @throws DuplicateTaskException */
+	void undoUpdateTask() throws DuplicateTaskException, TaskNotFoundException;
 
     /** Mark the given task as completed */
     void markTask(ReadOnlyTask target) throws TaskNotFoundException;
