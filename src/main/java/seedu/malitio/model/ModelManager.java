@@ -78,12 +78,6 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new MalitioChangedEvent(malitio));
     }
 
-    @Override
-    public synchronized void deleteTask(ReadOnlyFloatingTask target) throws FloatingTaskNotFoundException {
-        malitio.removeTask(target);
-        indicatemalitioChanged();
-    }
-
     //@@author A0129595N
     @Override
     public void addFloatingTask(FloatingTask task) throws DuplicateFloatingTaskException {
@@ -285,6 +279,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void deleteTask(ReadOnlyEvent target) throws EventNotFoundException {
         malitio.removeEvent(target);
         indicatemalitioChanged();        
+    }
+
+    @Override
+    public void deleteTask(ReadOnlyFloatingTask target) throws FloatingTaskNotFoundException {
+        malitio.removeTask(target);
+        indicatemalitioChanged(); 
     }
 
 }
