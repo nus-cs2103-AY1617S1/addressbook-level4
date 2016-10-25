@@ -62,7 +62,7 @@ public class UpdateCommand extends UndoAndRedo {
     public final String arg;
     private Task toUpdate;
     
-    public UpdateCommand(String taskType, int targetIndex, String arg_type, String arg) throws IllegalValueException {
+    public UpdateCommand(String taskType, int targetIndex, String arg_type, String arg) throws IllegalValueException, ParseException {
         this.taskType = taskType;
         this.targetIndex = targetIndex;
         this.arg_type = arg_type;
@@ -133,16 +133,22 @@ public class UpdateCommand extends UndoAndRedo {
                 }
             }   
         }
+
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DATE) == 0) {
+            date = (arg.toUpperCase().compareToIgnoreCase(NONE) == 0) ? null : arg;
+        }
         
-        try {
-            toUpdate = new Task(new Name(newName), new TaskDate(date), new TaskDate(startDate), new TaskDate(endDate), time, startTime, endTime, new UniqueTagList(tagSet), null, null);
-            //toUpdate = (date == null) ? new Task(new Name(newName), new UniqueTagList(tagSet), null) : new Task(new Name(newName), new TaskDate(date), new UniqueTagList(tagSet), null);
-            if (date == null && startDate == null && endDate == null && time == null && startTime == null && endTime == null)
-                toUpdate.setTaskType(TASK_TYPE_FLOATING);
-            else
-                toUpdate.setTaskType(TASK_TYPE_NOT_FLOATING);
-        } catch (ParseException e) {
-            System.out.println("ParseException in UpdateCommand.java line 71");
+        if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DESCRIPTION) == 0) {
+            newName = arg;
+        }
+        
+        toUpdate = new Task(new Name(newName), date, null, null, null, null, null, new UniqueTagList(tagSet), null, null);
+        
+        if (date == null) {
+            toUpdate.setTaskType(TASK_TYPE_FLOATING);
+        }
+        else {
+            toUpdate.setTaskType(TASK_TYPE_NOT_FLOATING);
         }
     }
     
@@ -200,10 +206,6 @@ public class UpdateCommand extends UndoAndRedo {
         System.out.println("TO UPDATE: " + toUpdate.toString());
     }
     
-    private void undoUpdateTheCorrectField(ReadOnlyTask tasktoUndoUpdate) {
-    	
-    }
-    
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList;
@@ -244,6 +246,6 @@ public class UpdateCommand extends UndoAndRedo {
 	public CommandResult redo() {
 		assert model != null;
 		model.revertToPrevDataUpdate();
-		return new CommandResult(RedoCommand.MESSAGE_FAIL);
+		return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
 	}
 }

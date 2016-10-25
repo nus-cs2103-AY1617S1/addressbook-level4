@@ -25,8 +25,8 @@ public class TypicalTestTasks {
             //Manually added
             h = new TaskBuilder().withName("homemade avacado toast").withDate("").withTaskType("todo").withTags("").withStatus("incomplete").build();
             i = new TaskBuilder().withName("International Finance Forum").withDate("").withTaskType("todo").withTags("high").withStatus("incomplete").build();
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
+        } catch (IllegalValueException ive) {
+            ive.printStackTrace();
             assert false : "not possible";
         }
     }
