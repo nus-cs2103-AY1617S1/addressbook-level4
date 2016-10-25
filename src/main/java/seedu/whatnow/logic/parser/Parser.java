@@ -43,7 +43,9 @@ public class Parser {
     /**
      * Regular Expressions
      */
+    private static final Pattern DATE_SUFFIX = Pattern.compile("(st|nd|rd|th)$");
     private static final Pattern DATE = Pattern.compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))$");
+    private static final Pattern DATE_WITH_SUFFIX = Pattern.compile("^((([3][0-1])|([1-2][0-9])|([0]??[1-9]))(st|nd|rd|th))$");
     private static final Pattern MONTH_IN_FULL = Pattern.compile("^(january|february|march|april|may|june|july|august|september|october|november|december)$");
     private static final Pattern MONTH_IN_SHORT = Pattern.compile("^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)$");
     private static final Pattern YEAR = Pattern.compile("^([0-9]{4})$");
@@ -94,6 +96,9 @@ public class Parser {
 
     private static final String BACK_SLASH = "\\";
     private static final String FORWARD_SLASH = "/";
+    private static final String EMPTY_STRING = "";
+    
+    private static final String DATE_SUFFIX_STRING = "(st|nd|rd|th)$";
 
     private static final String TIME_COLON = ":";
     private static final String TIME_DOT = ".";
@@ -428,7 +433,18 @@ public class Parser {
                         endDate = additionalArgs[i].toLowerCase();
                         endDate += FORWARD_SLASH;
                     } 
-                } else if (MONTH_IN_FULL.matcher(additionalArgs[i].toLowerCase()).find()) {
+                } else if (DATE_WITH_SUFFIX.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    numOfDate++;
+                    if (numOfDate == ONE) {
+                        date = additionalArgs[i].toLowerCase().replaceAll(DATE_SUFFIX_STRING, EMPTY_STRING);
+                        date += FORWARD_SLASH;
+                    } else if (numOfDate == TWO) {
+                        startDate = date;
+                        date = null;
+                        endDate = additionalArgs[i].toLowerCase();
+                        endDate += FORWARD_SLASH;
+                    } 
+                } else if (MONTH_IN_FULL.matcher(additionalArgs[i].toLowerCase()).find()) {     
                     if (numOfDate == ONE) {
                         date += fullMonths.get(additionalArgs[i].toLowerCase());
                     } else if (numOfDate == TWO) {
