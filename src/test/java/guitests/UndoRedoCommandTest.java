@@ -1,10 +1,11 @@
 package guitests;
 
 import guitests.guihandles.TaskCardHandle;
+import seedu.menion.testutil.TestActivity;
+import seedu.menion.testutil.TestUtil;
+
 import org.junit.Test;
 
-import seedu.address.testutil.TestActivity;
-import seedu.address.testutil.TestUtil;
 import static org.junit.Assert.assertTrue;
 
 //@@author A0139515A

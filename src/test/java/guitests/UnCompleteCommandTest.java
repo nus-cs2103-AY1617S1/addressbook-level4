@@ -5,9 +5,9 @@ import org.junit.Test;
 
 import guitests.guihandles.FloatingTaskCardHandle;
 import guitests.guihandles.TaskCardHandle;
-import seedu.address.testutil.TestActivity;
 import seedu.menion.commons.core.Messages;
 import seedu.menion.model.activity.Activity;
+import seedu.menion.testutil.TestActivity;
 
 //@@author A0139164A
 public class UnCompleteCommandTest extends ActivityManagerGuiTest {

@@ -7,11 +7,11 @@ import org.junit.Test;
 import guitests.guihandles.EventCardHandle;
 import guitests.guihandles.FloatingTaskCardHandle;
 import guitests.guihandles.TaskCardHandle;
-import seedu.address.testutil.TestActivity;
 import seedu.menion.commons.util.DateChecker;
 import seedu.menion.logic.commands.EditCommand;
 import seedu.menion.model.activity.ActivityDate;
 import seedu.menion.model.activity.ActivityTime;
+import seedu.menion.testutil.TestActivity;
 
 //@@author A0139164A
 

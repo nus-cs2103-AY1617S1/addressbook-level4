@@ -2,8 +2,8 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.testutil.TestActivity;
-import seedu.address.testutil.TestUtil;
+import seedu.menion.testutil.TestActivity;
+import seedu.menion.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.menion.logic.commands.DeleteCommand.MESSAGE_DELETE_ACTIVITY_SUCCESS;

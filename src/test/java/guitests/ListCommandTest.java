@@ -4,11 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import seedu.address.testutil.ActivityManagerBuilder;
-import seedu.address.testutil.Activitybuilder;
-import seedu.address.testutil.TestActivity;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestActivities;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.logic.commands.ListCommand;
 import seedu.menion.model.ActivityManager;
@@ -17,6 +12,11 @@ import seedu.menion.model.activity.ActivityDate;
 import seedu.menion.model.activity.ActivityName;
 import seedu.menion.model.activity.ActivityTime;
 import seedu.menion.model.activity.Note;
+import seedu.menion.testutil.ActivityManagerBuilder;
+import seedu.menion.testutil.Activitybuilder;
+import seedu.menion.testutil.TestActivity;
+import seedu.menion.testutil.TestUtil;
+import seedu.menion.testutil.TypicalTestActivities;
 import seedu.menion.model.activity.*;
 
 //@@author A0139277U
