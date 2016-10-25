@@ -1,5 +1,6 @@
 package guitests;
 
+import static seedu.menion.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.menion.logic.commands.CompleteCommand.MESSAGE_COMPLETED_ACTIVITY_SUCCESS;
 import org.junit.Test;
 
@@ -7,6 +8,7 @@ import guitests.guihandles.FloatingTaskCardHandle;
 import guitests.guihandles.TaskCardHandle;
 import seedu.address.testutil.TestActivity;
 import seedu.menion.commons.core.Messages;
+import seedu.menion.logic.commands.CompleteCommand;
 import seedu.menion.model.activity.Activity;
 
 // @author A0139164A
@@ -37,8 +39,11 @@ public class CompleteCommandTest extends ActivityManagerGuiTest {
         // Runs complete command on empty list
         commandBox.runCommand("clear");
         assertInvalidIndex(activityToComplete, 1);
+        
+        //Runs complete command without index
+        assertMissingIndex();
     }
-    
+
     /**
      * checks whether a complete command correctly updates the UI
      * @author Marx Low (A0139164A)
@@ -76,5 +81,10 @@ public class CompleteCommandTest extends ActivityManagerGuiTest {
     private void assertInvalidIndex(TestActivity activityToComplete, int index) {
         commandBox.runCommand(activityToComplete.getCompleteCommand(index));
         assertResultMessage(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+    }
+    
+    private void assertMissingIndex() {
+        commandBox.runCommand("complete task");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.INDEX_MISSING_MESSAGE));
     }
 }
