@@ -53,7 +53,7 @@ Keyboard Shortcut: 'F1`
 **Example:**<br>
 If you wish to get help on using SmartyDo, you may enter `help` into the Command Bar.
 
-<img src="images/help.png" width="250" align="middle"><br>Figure 2. SmartyDo's help Command<br>
+<img src="images/help.png" width="500" align="middle"><br>Figure 2. SmartyDo's help Command<br>
 
 After entering the command, a new window will appear showing you the user guide.
 
@@ -103,7 +103,7 @@ PARAMETER_TYPE the type of the parameter we want to change and NEW_VALUE is the 
 If the task you want to edit is not shown in the Visual Panel, you can use `view` or `find` command to find the required task. <br>
 
 **Example:**<br>
-Let's say you want to add deadline time for task named "CS2103T revision". Then, you must first check the INDEX of that task. In this case, the INDEX of the task is 1. So to add deadline for this task, enter `edit 1 t; DEADLINE`. This will update the deadline of the task. A demonstration of this functionality shown below.
+Let's say you want to add deadline time for task named "Presentation". Then, you must first check the INDEX of that task. In this case, the INDEX of the task is 1. So to add deadline for this task, enter `edit 1 t; DEADLINE`. This will update the deadline of the task. A demonstration of this functionality shown below.
 
 <img src="images/addeditCommand.png" width="500" align="middle"><br>Figure 4. Before(left) and after(right) of an edit command<br>
 
@@ -174,7 +174,7 @@ Format: `view PARAM`
 **Example:**<br>
 Let's say you want to know detailed information about the third task in the Visual Panel. All you need to do is enter `view 3` into command bar, just as shown below.
 
-<img src="images/view3Command.png" width="250" align="middle"><br>Figure 8. Example of view command<br>
+<img src="images/view3Command.png" width="500" align="middle"><br>Figure 8. Example of view command<br>
 
 After entering the command, Browser Panel will show a detailed description about task 3.
 
