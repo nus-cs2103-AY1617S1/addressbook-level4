@@ -127,18 +127,21 @@ public class StringUtilTest {
 
         //Test empty input.
         testSplitStringHelper("", expected);
+
+        //Test only space and commas.
+        testSplitStringHelper(" , ,   ,,, ,,,, , , ,,, , ,", expected);
     }
 
     @Test
     public void splitString_validInput() {
-        //Input does not include any character A-Z, a-z, 0-9, dash, or underscore
-        testSplitStringHelper("!@(*&$! ,", new String[0]);
+        //Input does not include space and comma
+        testSplitStringHelper("!@(*&$!R#@%", new String[]{"!@(*&$!R#@%"});
 
         //Test one element
-        testSplitStringHelper("Pichu-Pikachu_RAICHU", new String[] {"Pichu-Pikachu_RAICHU"});
+        testSplitStringHelper("Pichu-Pikachu_RAICHU's", new String[] {"Pichu-Pikachu_RAICHU's"});
 
-        //Test multiple element split by space, semicolon, comma, full stops and slash (common partitions)
-        testSplitStringHelper("an apple; a, day,, keeps / doctor. . , away", new String[] {"an", "apple", "a", "day", "keeps", "doctor", "away"});
+        //Test multiple element split by space and comma
+        testSplitStringHelper("an apple a, day, keeps , , doctor ,,, away", new String[] {"an", "apple", "a", "day", "keeps", "doctor", "away"});
     }
 
     /**
@@ -150,4 +153,35 @@ public class StringUtilTest {
         String[] outcome = StringUtil.splitString(input);
         assertArrayEquals(expected, outcome);
     }
+
+    @Test
+    public void testConvertListToString_emptyList() {
+        String expected = "";
+
+        //Test null list
+        testConvertListToStringHelper(null, expected);
+
+        //Test empty list
+        testConvertListToStringHelper(new String[0], expected);
+    }
+
+    @Test
+    public void testConvertListToString_validInput() {
+        //Test one element
+        testConvertListToStringHelper(new String[]{"applepie123!"}, "applepie123!");
+
+        //Test several elements
+        testConvertListToStringHelper(new String[]{"this", "is", "apple", "pen"}, "this, is, apple, pen");
+    }
+
+    /**
+     * Helper method to test splitString(...).
+     * @param input String to be split.
+     * @param expected Expected output as String array.
+     */
+    private void testConvertListToStringHelper(String[] input, String expected) {
+        String outcome = StringUtil.convertListToString(input);
+        assertEquals(expected, outcome);
+    }
+
 }
