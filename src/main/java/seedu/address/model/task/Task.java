@@ -26,7 +26,7 @@ public class Task implements ReadOnlyTask {
     private TaskType taskType;
     private RecurringType recurringType;
     
-    public List<TaskComponent> recurringDates;
+    private List<TaskComponent> recurringDates;
     /**
      * Every field must be present and not null.
      */
@@ -106,6 +106,9 @@ public class Task implements ReadOnlyTask {
     }
     //@@author
     
+    public void setRecurringDates(List<TaskComponent> newComponentList){
+    	this.recurringDates = newComponentList;
+    }
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */

@@ -1255,6 +1255,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1278,6 +1281,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1298,6 +1304,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedComponentList);
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1317,6 +1326,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedComponentList);
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1336,6 +1348,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedComponentList);
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1356,6 +1371,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedComponentList);
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1375,6 +1393,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedComponentList);
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1394,6 +1415,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedComponentList);
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
 
     /**

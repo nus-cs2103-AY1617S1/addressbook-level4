@@ -101,7 +101,7 @@ public class TaskMaster implements ReadOnlyTaskMaster {
 	        	newList.add(newTaskComponent);
 	        	fullList.add(newTaskComponent);
 	        }
-        	task.recurringDates = newList;
+        	task.setRecurringDates(newList);
         }
         this.tasks.getInternalComponentList().setAll(fullList);
 	}
