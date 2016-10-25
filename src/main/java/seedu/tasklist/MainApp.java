@@ -8,6 +8,7 @@ import seedu.tasklist.commons.core.Config;
 import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.core.Version;
+import seedu.tasklist.commons.events.TickEvent;
 import seedu.tasklist.commons.events.ui.ExitAppRequestEvent;
 import seedu.tasklist.commons.exceptions.DataConversionException;
 import seedu.tasklist.commons.util.ConfigUtil;
@@ -43,6 +44,7 @@ public class MainApp extends Application {
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
+    protected Thread updateThread;
 
     public MainApp() {}
 
@@ -63,8 +65,30 @@ public class MainApp extends Application {
         logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic, config, userPrefs);
+        
+        initThread();
 
         initEventsCenter();
+    }
+    
+    private void initThread(){
+    	updateThread = new Thread(){
+    		public void run(){
+    			while(true){
+    				Platform.runLater(()->{
+//    					model.updateListCounters();
+//    					ui.updateTaskList();
+    					EventsCenter.getInstance().post(new TickEvent());
+    				});
+    				try {
+						Thread.sleep(20*1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+    			}
+    		}
+    	};
+    	updateThread.start();
     }
 
     private String getApplicationParameter(String parameterName){
