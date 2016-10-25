@@ -23,6 +23,7 @@ public class CommandBoxTest extends TarsGuiTest {
         commandBox.runCommand("User Input Command");
         commandBox.runCommand("User Input Command 2");
         commandBox.runCommand("User Input Command 3");
+        commandBox.enterCommand("Temp User Input Command");
 
         commandBox.pressUpKey();
         assertEquals(commandBox.getCommandInput(), "User Input Command 3");
@@ -33,13 +34,11 @@ public class CommandBoxTest extends TarsGuiTest {
         commandBox.pressUpKey();
         assertEquals(commandBox.getCommandInput(), "User Input Command");
         commandBox.pressDownKey();
-        assertEquals(commandBox.getCommandInput(), "User Input Command");
-        commandBox.pressDownKey();
         assertEquals(commandBox.getCommandInput(), "User Input Command 2");
         commandBox.pressDownKey();
         assertEquals(commandBox.getCommandInput(), "User Input Command 3");
         commandBox.pressDownKey();
-        assertEquals(commandBox.getCommandInput(), "User Input Command 3");
+        assertEquals(commandBox.getCommandInput(), "Temp User Input Command");
 
     }
 
