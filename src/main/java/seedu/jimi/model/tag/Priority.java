@@ -17,7 +17,7 @@ public class Priority extends Tag{
     public final static String priorityHigh = "HIGH";
             
     public Priority()   {
-        tagName = "med"; 
+        tagName = "MED"; 
     }
     
     /**
@@ -29,7 +29,7 @@ public class Priority extends Tag{
         assert name != null;
         name = name.trim();
         if (!isValidPriorityName(name)) {
-            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
         }
         this.tagName = name;
     }
@@ -38,7 +38,7 @@ public class Priority extends Tag{
      * Returns true if a given string is a valid priority name.
      */
     public static boolean isValidPriorityName(String test) {
-        if (test == priorityLow || test == priorityMed || test == priorityHigh)    {
+        if (test.equals(priorityLow) || test.equals(priorityMed) || test.equals(priorityHigh))    {
             return true;
         }
         else 
