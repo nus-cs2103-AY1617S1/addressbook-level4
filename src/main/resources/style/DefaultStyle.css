@@ -1,3 +1,4 @@
+/*@@author A0135805H*/
 .main {
     -fx-background-color: #2D2D2D;
     -fx-border-color: #00A4FF;
@@ -283,7 +284,7 @@
 }
 
 
-/* @@author A0315805H */
+/* @@author A0135805H */
 /*Selected*/
 .selected {
     -fx-background-color: #00A4FF;
@@ -319,6 +320,7 @@
 
 /***TaskCardView Styles End***/
 
+/*@@author -reused*/
 /**Modern UI***/
 /*
  * Metro style Push Button
