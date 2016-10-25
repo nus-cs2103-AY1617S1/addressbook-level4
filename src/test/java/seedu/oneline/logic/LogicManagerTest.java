@@ -354,6 +354,40 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    //---------------- Tests for doneCommand --------------------------------------
+    /*
+     * Invalid equivalence partitions for index: null, signed integer, non-numeric characters
+     * Invalid equivalence partitions for index: index larger than no. of tasks in taskBook
+     * The two test cases below test invalid input above one by one.
+     */
+    
+    @Test
+    public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = Messages.getInvalidCommandFormatMessage(DoneCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
+    }
+    
+    @Test
+    public void execute_doneIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("done");
+    }
+    
+    @Test
+    public void execute_done_removesDoneTask() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> threeTasks = helper.generateTaskList(3);
+
+        TaskBook expectedAB = helper.generateTaskBook(threeTasks);
+//        expectedAB.doneTask(1);
+        expectedAB.removeTask(threeTasks.get(1));
+        helper.addToModel(model, threeTasks);
+
+        assertCommandBehavior("done 2",
+                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, threeTasks.get(1)),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
 
     @Test
     public void execute_undo_redo() throws Exception {

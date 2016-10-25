@@ -111,7 +111,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void doneTask(int index) throws TaskNotFoundException {
-        taskBook.doneTask(index);
+        Task done = taskBook.doneTask(index);
         updateFilteredListToShowAllNotDone();
         indicateTaskBookChanged();
     }
@@ -150,6 +150,24 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
+    }
+    
+    private void addTaskToFilter(ReadOnlyTask task) {
+        final Predicate<? super Task> oldPredicate = filteredTasks.getPredicate();
+        Qualifier newQualifier = new Qualifier() {
+
+            @Override
+            public boolean run(ReadOnlyTask person) {
+                return oldPredicate.test(new Task(person)) && !person.equals(task);
+            }
+            
+            @Override
+            public String toString() {
+                return oldPredicate.toString() + "&task!=" + task.toString();
+            }
+        };
+        PredicateExpression newPredicate = new PredicateExpression(newQualifier);
+        updateFilteredTaskList(newPredicate);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================

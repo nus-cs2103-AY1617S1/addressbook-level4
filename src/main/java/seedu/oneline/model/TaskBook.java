@@ -114,8 +114,8 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
     }
     
-    public void doneTask(int index) throws UniqueTaskList.TaskNotFoundException {
-        tasks.done(index);
+    public Task doneTask(int index) throws UniqueTaskList.TaskNotFoundException {
+        return tasks.done(index);
     }
     
 //// tag-level operations
