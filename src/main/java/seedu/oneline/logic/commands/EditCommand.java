@@ -15,9 +15,7 @@ import seedu.oneline.model.task.*;
 /**
  * Edits a task to the task book.
  */
-public class EditCommand extends Command {
-
-    public final int targetIndex;
+public abstract class EditCommand extends Command {
     
     public static final String COMMAND_WORD = "edit";
 
@@ -29,84 +27,12 @@ public class EditCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Task updated: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
 
-    private final Map<TaskField, String> fields;
-
-    public EditCommand(int targetIndex, Map<TaskField, String> fields) throws IllegalValueException, IllegalCmdArgsException {
-        this.targetIndex = targetIndex;
-        this.fields = fields;
-    }
-
     public static EditCommand createFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
-        Entry<Integer, Map<TaskField, String>> info = Parser.getIndexAndTaskFieldsFromArgs(args);
-        assert info.getValue().containsKey(TaskField.NAME);
-        int targetIndex = info.getKey();
-        Map<TaskField, String> fields = info.getValue();
-        return new EditCommand(targetIndex, fields);
-    }
-    
-    @Override
-    public CommandResult execute() {
-        assert model != null;
-        
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        if (args.startsWith("#")) {
+            return EditTagCommand.createFromArgs(args);
+        } else {
+            return EditTaskCommand.createFromArgs(args);
         }
-
-        ReadOnlyTask oldTask = lastShownList.get(targetIndex - 1);
-        
-        TaskName newName = oldTask.getName();
-        TaskTime newStartTime = oldTask.getStartTime();
-        TaskTime newEndTime = oldTask.getEndTime();
-        TaskTime newDeadline = oldTask.getDeadline();
-        TaskRecurrence newRecurrence = oldTask.getRecurrence();
-        Tag newTag = oldTask.getTag();
-
-        try {
-            for (Entry<TaskField, String> entry : fields.entrySet()) {
-                switch (entry.getKey()) {
-                case NAME:
-                    newName = new TaskName(entry.getValue());
-                    break;
-                case START_TIME:
-                    newStartTime = new TaskTime(entry.getValue());
-                    break;
-                case END_TIME:
-                    newEndTime = new TaskTime(entry.getValue());
-                    break;
-                case DEADLINE:
-                    newDeadline = new TaskTime(entry.getValue());
-                    break;
-                case RECURRENCE:
-                    newRecurrence = new TaskRecurrence(entry.getValue());
-                    break;
-                case TAG:
-                    newTag = new Tag(Parser.getTagFromArgs(entry.getValue()));
-                    break;
-                }
-            }
-        } catch (IllegalValueException e) {
-            return new CommandResult(e.getMessage());
-        }
-        
-        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag);
-        
-        if (model.getTaskBook().getTaskList().contains(newTask)) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
-        
-        try {
-            model.replaceTask(oldTask, newTask);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, newTask));
-        } catch (UniqueTaskList.TaskNotFoundException e) {
-            assert false : "The target task cannot be missing";
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            assert false : "The update task should not already exist";
-        }
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.toString()));
     }
     
     @Override
