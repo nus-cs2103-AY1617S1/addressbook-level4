@@ -15,7 +15,7 @@ import seedu.address.model.deadline.Deadline;
  */
 public class Startline  {
 	
-	public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task start date must be in [ddmmyy] [HH:MM]  or dd-MM-yy [HH:MM] format.";
+	public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Date must be in [ddmmyy] [HH:MM]  or dd-MM-yy [HH:MM] format.";
 	public static final String STARTLINE_VALIDATION_REGEX = "\\d+";
     public static final String STARTLINE_DASH_VALIDATION_REGEX = "[\\d]+-[\\d]+-[\\d]+";
 	
@@ -29,7 +29,6 @@ public class Startline  {
      * @throws IllegalValueException if given address string is invalid.
      */
 	public Startline(String startline) throws IllegalValueException {
-		//assert startline != null;
 		if(startline != null){
 			String [] date_time = startline.trim().split("\\s+");
 			this.value = mutateToDash(date_time[0])  + " " + date_time[1];

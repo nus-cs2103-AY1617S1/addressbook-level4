@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.deadline.Deadline;
-import seedu.address.model.deadline.UniqueDeadlineList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -49,7 +48,7 @@ public class XmlAdaptedPerson {
     public XmlAdaptedPerson(ReadOnlyTask source) {
         name = source.getName().fullName;
         startline = source.getStartline().value;
-        deadlined = source.deadlinesString();
+        deadlined = source.getDeadline().value;
         priority = source.getPriority().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
@@ -68,27 +67,24 @@ public class XmlAdaptedPerson {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        Set<String> deadlineString = getDeadlinesFromArgs(this.deadlined);
-        final Set<Deadline> deadlineSet = new HashSet<>();
-        for (String deadlineDate : deadlineString) {
-        	deadlineSet.add(new Deadline(deadlineDate));
-        }
-        final UniqueDeadlineList deadlines = new UniqueDeadlineList(deadlineSet);
         final Startline startline = new Startline(getStartlineFromArgs(this.startline));
+        final Deadline deadline = new Deadline(getDeadlineFromArgs(this.deadlined));
         final Priority priority = new Priority(this.priority);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, startline, deadlines, priority, tags);
+        return new Task(name, startline, deadline, priority, tags);
     }
     
-    private Set<String> getDeadlinesFromArgs(String deadlineArguments) {
-    	// no tags
-    	if (deadlineArguments.isEmpty()) {
-    		return Collections.emptySet();
+    private String getDeadlineFromArgs(String args) {
+    	if(args.isEmpty()){
+    		return null;
     	}
-    	// replace first delimiter prefix, then split
-    	final Collection<String> deadlineStrings = Arrays.asList(deadlineArguments.replaceFirst(" d/",  "").split("t/"));
-    	return new HashSet<>(deadlineStrings);
-    }
+    	args = args.replaceFirst(" d/", "");
+    	String[] strArr = args.split("\\s+");
+    	if(strArr.length == 1){
+    		return args + " " + "23:59";
+    	}
+    	return args; 
+	}
     
     private String getStartlineFromArgs(String args){
     	if(args.isEmpty()){

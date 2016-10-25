@@ -1,7 +1,7 @@
 package seedu.address.model.task;
 
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.model.deadline.UniqueDeadlineList;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
@@ -15,18 +15,18 @@ public class Task implements ReadOnlyTask {
     private Name name;
     private Priority priority;
     private Startline startline;
-    private UniqueDeadlineList deadlines;
+    private Deadline deadline;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Startline startline, UniqueDeadlineList deadlines, Priority priority, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, deadlines, priority, tags);
+    public Task(Name name, Startline startline, Deadline deadline, Priority priority, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, startline, deadline, priority, tags);
         this.name = name;
         this.startline = startline;
-        this.deadlines = deadlines;
+        this.deadline = deadline;
         this.priority = priority;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
@@ -35,7 +35,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartline(), source.getDeadlines(), source.getPriority(), source.getTags());
+        this(source.getName(), source.getStartline(), source.getDeadline(), source.getPriority(), source.getTags());
     }
 
     @Override
@@ -54,8 +54,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public UniqueDeadlineList getDeadlines() {
-        return deadlines;
+    public Deadline getDeadline() {
+        return deadline;
     }
 
     @Override
@@ -66,8 +66,8 @@ public class Task implements ReadOnlyTask {
     /**
      * Replaces this person's deadlines with the deadlines in the argument deadline list.
      */
-    public void setDeadlines(UniqueDeadlineList replacement) {
-        deadlines.setDeadlines(replacement);
+    public void setDeadline(Deadline replacement) {
+        deadline = replacement;
     }
 
 
@@ -88,7 +88,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, deadlines, priority, tags);
+        return Objects.hash(name, deadline, priority, tags);
     }
 
     @Override

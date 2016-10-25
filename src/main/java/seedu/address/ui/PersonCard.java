@@ -44,7 +44,7 @@ public class PersonCard extends UiPart{
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         startline.setText("Start: " + task.getStartline().value);
-        deadlines.setText("End: " + task.deadlinesString());
+        deadlines.setText("End: " + task.getDeadline().value);
         priority.setText("Priority: " + task.getPriority().value);
         tags.setText(task.tagsString());
     }

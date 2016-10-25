@@ -34,10 +34,8 @@ public class TaskBuilder {
     	return this;
     }
 
-    public TaskBuilder withDeadline(String... deadlines) throws IllegalValueException {
-    	for (String deadline: deadlines) {
-            task.getDeadlines().add(new Deadline(deadline));
-        }
+    public TaskBuilder withDeadline(String deadline) throws IllegalValueException {
+    	this.task.setDeadline(new Deadline(deadline));
         return this;
     }
 

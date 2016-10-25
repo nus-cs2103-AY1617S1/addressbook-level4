@@ -19,7 +19,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.TaskManager;
 import seedu.address.model.deadline.Deadline;
-import seedu.address.model.deadline.UniqueDeadlineList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
@@ -390,13 +389,12 @@ public class LogicManagerTest {
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             Startline startline = new Startline("000000 00:00");
-            Deadline deadline = new Deadline("111111");
-            UniqueDeadlineList deadlines = new UniqueDeadlineList(deadline);
+            Deadline deadline = new Deadline("111111 23:59");
             Priority priority = new Priority("5");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, startline, deadlines, priority, tags);
+            return new Task(name, startline, deadline, priority, tags);
         }
 
         /**
@@ -410,7 +408,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Person " + seed),
                     new Startline("101010 00:00"),
-                    new UniqueDeadlineList(new Deadline("121212")),
+                    new Deadline("121212 23:59"),
                     new Priority("" + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -426,10 +424,7 @@ public class LogicManagerTest {
             
             cmd.append(" s/").append(p.getStartline().value);
            
-            UniqueDeadlineList deadlines = p.getDeadlines();
-            for(Deadline d: deadlines){
-                cmd.append(" d/").append(d.deadlineDate);
-            }
+            cmd.append(" d/").append(p.getDeadline());
             
             cmd.append(" p/").append(p.getPriority());
 
@@ -515,7 +510,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new Startline("181016 23:59"),
-                    new UniqueDeadlineList(new Deadline("191016")),
+                    new Deadline("191016 00:00"),
                     new Priority("1"),
                     new UniqueTagList(new Tag("tag"))
             );

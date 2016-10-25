@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.deadline.UniqueDeadlineList;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
@@ -11,12 +11,11 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Startline startline;
-    private UniqueDeadlineList deadlines;
+    private Deadline deadlines;
     private Priority priority;
     private UniqueTagList tags;
 
     public TestTask() {
-    	deadlines = new UniqueDeadlineList();
         tags = new UniqueTagList();
     }
 
@@ -28,9 +27,9 @@ public class TestTask implements ReadOnlyTask {
     	this.startline = startline;
     }
 
-//    public void setDeadline(Deadline deadline) {
-//        this.deadline = deadline;
-//    }
+    public void setDeadline(Deadline deadline) {
+        this.deadlines = deadline;
+    }
 
     public void setPriority(Priority priority) {
         this.priority = priority;
@@ -52,7 +51,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public UniqueDeadlineList getDeadlines() {
+    public Deadline getDeadline() {
         return deadlines;
     }
 
@@ -70,7 +69,7 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
         sb.append("s/" + this.getStartline().value + " ");
-        sb.append("d/" + this.deadlinesString() + " ");
+        sb.append("d/" + this.getDeadline().value + " ");
         sb.append("p/" + this.getPriority().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();

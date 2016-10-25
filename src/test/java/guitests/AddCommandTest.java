@@ -40,6 +40,7 @@ public class AddCommandTest extends AddressBookGuiTest {
     }
 
     private void assertAddSuccess(TestTask personToAdd, TestTask... currentList) {
+    	System.out.println(personToAdd.getAddCommand());
         commandBox.runCommand(personToAdd.getAddCommand());
 
         //confirm the new card contains the right data
