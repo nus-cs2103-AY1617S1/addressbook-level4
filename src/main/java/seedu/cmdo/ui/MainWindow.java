@@ -100,8 +100,8 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-    	taskCategoryPlaceholder.getChildren().add((new TaskCategory()).getTaskCategoryPane());
-    	welcomePanePlaceholder.getChildren().add((new WelcomeMessage()).getWelcomePane());
+    	taskCategoryPlaceholder.getChildren().add((new TaskCategory(logic.getAllTaskList())).getTaskCategoryPane());
+    	//welcomePanePlaceholder.getChildren().add((new WelcomeMessage()).getWelcomePane());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(true));
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
