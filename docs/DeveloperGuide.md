@@ -103,6 +103,24 @@ The _Sequence Diagram_ below show how recurring tasks have dates appended to the
 
 > Note that repeatingTasks is a reference to the UniqueTaskList from the TaskMaster. Any changes made to repeatingTasks in RecurringTaskManager will affect TaskMaster's version of UniqueTaskList.
 
+The _Sequence Diagram_ below shows how Happy Jim Task Master handles undo request from user.
+
+<img src="images/UndoSequenceDiagram.jpg" width="800"><br>
+
+> Note that the context is a class that stores previous task master in the previous model before the target command executes.
+
+The _Class Diagram_ below shows the structure of how Happy Jim Task Master implements undo and redo operations.
+
+<img src="images/URManager.png" width="800"><br>
+
+> Note that LogicManager maintains an URManager. UR manager contains two ArrayDeque, one for undo and the other for redo,  
+> to store the command and its context, specifically, the model before the command executes. 
+> To undo/redo a command, it is just to  restore the previous model (specifically, the data, which is TaskMaster). 
+> As a result, as the task master grows, the consumption of memory to store the context grows. 
+> To maintain a good performance regarding to memory consumption, we restrict maximum undo/redo number to 3.
+> (Noted that it is possible to reach unlimited undo/redo by simply wiping off the limit number.)
+
+
 The sections below give more details of each component.
 
 ### UI component
@@ -215,7 +233,7 @@ We have two types of tests:
 1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
    These are in the `guitests` package.
    
-   Currently, _Systems Tests_ have covered the basic functionalities of Happy Jim Task Master v0.1. 
+   Currently, _Systems Tests_ have covered the basic functionalities of Happy Jim Task Master v0.4. 
    Following form shows the some of the essential commands and corresponding testcases.
    
    1. _AddCommandTest_ 
@@ -291,6 +309,14 @@ We have two types of tests:
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
       e.g. `seedu.taskmaster.logic.LogicManagerTest`
+      > In the `LogicManagerTest`, Happy Jim Task Master tests the logic it uses.
+      > Typically, Happy Jim Task Master focuses on some boundary tests.
+      > e.g. To `find` a task, for instance, `Test Task 1 by 20 oct 11am `,
+      > try execute 
+      > `find by 20 oct 11am` --> exact boundary, task found;
+      > `find by 20 oct 10.59am` --> smaller boundary, lists nothing;
+      > `find by 20 oct 11.01am` --> lax boundary, task found.
+      > Note that this is a test not merely for `logic`, but also `parser` and `model`.
       
   
 **Headless GUI Testing** :
