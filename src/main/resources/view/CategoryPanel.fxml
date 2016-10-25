@@ -96,7 +96,7 @@
                         <Insets left="38.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Total Tasks" textFill="RED" GridPane.rowIndex="5">
+                  <Label id="total_tasks_label" text="Total Tasks" textFill="RED" GridPane.rowIndex="5">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -107,7 +107,7 @@
                         <Insets left="40.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label text="Upcoming Events" textFill="#3700ff" GridPane.rowIndex="6">
+                  <Label id="upcoming_events_label" text="Upcoming Events" textFill="#3700ff" GridPane.rowIndex="6">
                      <font>
                         <Font size="25.0" />
                      </font>

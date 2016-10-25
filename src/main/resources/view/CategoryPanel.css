@@ -1,0 +1,7 @@
+#total_tasks_label {
+    -fx-fill: red;
+}
+
+#upcoming_events_label {
+    -fx-fill: blue;
+}

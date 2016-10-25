@@ -76,8 +76,14 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
+    -fx-max-width: 0px;    
+    -fx-pref-width: 0px;
+    -fx-min-width: 0px;
+    -fx-min-height: 0px;
+    -fx-max-height: 0px;
+    -fx-pref-height: 0px;
 }
 
 .split-pane {
