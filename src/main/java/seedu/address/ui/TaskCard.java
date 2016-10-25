@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
+	import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -11,8 +11,14 @@ import seedu.address.model.task.ReadOnlyTask;
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
-    ImageView tickmark = new ImageView("file:///C:/Users/hastyrush/Documents/main/src/main/resources/images/tick.png");
+    ImageView tickmark = new ImageView("/images/tick.png");
+    ImageView recurringIcon = new ImageView("/images/recurring.png");
+    ImageView floatingIcon = new ImageView("/images/floatingicon.png");
     
+    @FXML
+    private ImageView floating;
+    @FXML
+    private ImageView recurring;
     @FXML
     private ImageView tickicon;
     @FXML
@@ -24,13 +30,10 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label date;
-    @FXML
     private Label address;
     @FXML
     private Label start;
-    @FXML
-    private Label tags;
+
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -51,13 +54,19 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-//        date.setText(task.getDate().value);
         address.setText("End Time: " + task.getEndTime().appearOnUIFormat());
         start.setText("Start Time: " + task.getStartTime().appearOnUIFormat());
-        tags.setText(task.tagsString());
         if (task.getDone().getDoneValue() == true) {
         	tickicon.setImage(tickmark.getImage());
         }
+        if (task.getRecurrence().getValue() == true) {
+        	recurring.setImage(recurringIcon.getImage());
+        }
+        if (task.getStartTime().isMissing() 
+				 && task.getEndTime().isMissing()) {
+        	floating.setImage(floatingIcon.getImage());
+        }
+				 	
     }
 
     public HBox getLayout() {

@@ -4,45 +4,51 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefHeight="133.0" prefWidth="713.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane fx:id="gridpane" HBox.hgrow="ALWAYS">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="484.0" minWidth="10.0" prefWidth="171.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="542.0" minWidth="10.0" prefWidth="542.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="138.0" prefWidth="171.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                     </stylesheets>
                     <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
+                        <Insets bottom="15.0" left="15.0" right="5.0" top="15.0" />
                     </padding>
 
                     <children>
                         <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label" />
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+                                    <Label fx:id="id" style="-fx-font-size: 200%;" styleClass="cell_big_label" />
+                                    <Label fx:id="name" style="-fx-font-size: 200%;" styleClass="cell_big_label" text="\$first" />
                                 </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
-                        <Label fx:id="date" styleClass="cell_small_label" text="" />
-                        <Label fx:id="start" styleClass="cell_small_label" text="\$start" />
-                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+                        <Label fx:id="start" style="-fx-font-size: 150%;" styleClass="cell_small_label" text="\$start" />
+                        <Label fx:id="address" style="-fx-font-size: 150%;" styleClass="cell_small_label" text="\$address" />
                     </children>
                 </VBox>
-            <ImageView fx:id="tickicon" fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" />
+            <AnchorPane prefHeight="115.0" prefWidth="146.0" GridPane.columnIndex="1">
+               <children>
+                  <ImageView fx:id="tickicon" fitHeight="64.0" fitWidth="92.0" layoutX="436.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" />
+                  <ImageView fx:id="overdue" fitHeight="64.0" fitWidth="128.0" layoutX="14.0" layoutY="38.0" pickOnBounds="true" translateY="5.0" />
+                  <ImageView fx:id="recurring" fitHeight="64.0" fitWidth="128.0" layoutX="152.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" />
+                  <ImageView fx:id="floating" fitHeight="64.0" fitWidth="128.0" layoutX="287.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" />
+               </children>
+            </AnchorPane>
             </children>
          <rowConstraints>
             <RowConstraints />

@@ -39,7 +39,7 @@
                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
            </padding>
        </AnchorPane>
-      <BorderPane VBox.vgrow="ALWAYS">
+      <BorderPane style="-fx-background-color: derive(#1d1d1d, 20%);" VBox.vgrow="ALWAYS">
          <center>
             <VBox prefHeight="20.0">
                <children>

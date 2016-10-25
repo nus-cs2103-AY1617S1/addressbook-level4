@@ -37,9 +37,6 @@ public class ContentBox extends UiPart {
 
     
     @FXML
-    private ImageView imagetest;
-    
-    @FXML
     private AnchorPane summarypane;
     
     @FXML
@@ -55,7 +52,7 @@ public class ContentBox extends UiPart {
     private ImageView upcomingicon;
     
     @FXML
-    private ImageView alltaskicon;
+    private ImageView overdueicon;
     
     @FXML
     private Label summary;
@@ -64,7 +61,7 @@ public class ContentBox extends UiPart {
     private GridPane gridpane;
     
     @FXML
-    private Label alltask;
+    private Label overdue;
     
     @FXML
     private Label today;
@@ -125,7 +122,7 @@ public class ContentBox extends UiPart {
     
     @Subscribe
     private void modelChangedEvent(TaskManagerChangedEvent change) {
-    	dummy1.setText(Integer.toString(list.size()));
+    	dummy1.setText("X");
      	dummy2.setText(Integer.toString(TaskManager.todayCounter));
     	dummy3.setText(Integer.toString(TaskManager.tomorrowCounter));
     	dummy4.setText(Integer.toString(TaskManager.upcomingCounter));
@@ -143,7 +140,7 @@ public class ContentBox extends UiPart {
     
     @FXML
     public void initialize() {
-       	dummy1.setText(Integer.toString(list.size()));
+       	dummy1.setText("X");
     	dummy2.setText(Integer.toString(TaskManager.todayCounter));
     	dummy3.setText(Integer.toString(TaskManager.tomorrowCounter));
     	dummy4.setText(Integer.toString(TaskManager.upcomingCounter));

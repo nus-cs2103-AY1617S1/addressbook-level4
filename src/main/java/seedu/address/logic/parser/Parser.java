@@ -29,7 +29,7 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile(
-            "(?<name>([^/](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by|every) ))|(\\[^/]))+))?"
+            "(?<name>([^;](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by|every) ))|(\\[^/]))+))?"
                     + "((?: (to|by) )(?<end>(([^;](?<! every ))|(\\[^/]))+))?"
             		+ "((?: every )(?<recurring>(([^;](?<! p/))|(\\[^/]))+))?"
                     + "(?<tagArguments>(?: t/[^;]+)*)"
