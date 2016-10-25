@@ -51,10 +51,19 @@ public class FilteredListManager {
         /*
          *  1. Initializing each list with taskBook's own internal list.
          *  2. Setting default filters for each list.
+         *  
+         *  Adds in CompletedQualifiers when initializing agenda lists.
          */
         for (ListId id : ListId.values()) {
             listMap.put(id, new FilteredList<ReadOnlyTask>(taskBook.getTasks()));
-            listMap.get(id).setPredicate(defaultExpressions.get(id)::satisfies);
+            
+            if(id.equals(ListId.TASKS_AGENDA)) {
+                listMap.get(id).setPredicate(new PredicateExpression(new TaskQualifier(true), new CompletedQualifier(false))::satisfies);
+            } else if(id.equals(ListId.EVENTS_AGENDA)) {
+                listMap.get(id).setPredicate(new PredicateExpression(new EventQualifier(true), new CompletedQualifier(false))::satisfies);
+            } else {
+                listMap.get(id).setPredicate(defaultExpressions.get(id)::satisfies);
+            }
         }
     }
     
@@ -91,12 +100,12 @@ public class FilteredListManager {
         defaultExpressions.put(ListId.DAY_AHEAD_6,
                 new PredicateExpression(new WeekQualifier(ListId.DAY_AHEAD_6), new CompletedQualifier(false)));
         
-        // Expression matches if it's an incomplete task.
+        // Expression matches if it's a task.
         defaultExpressions.put(ListId.TASKS_AGENDA,
-                new PredicateExpression(new TaskQualifier(true), new CompletedQualifier(false)));
-        // Expression matches if it's an incomplete event.
+                new PredicateExpression(new TaskQualifier(true)));
+        // Expression matches if it's an event.
         defaultExpressions.put(ListId.EVENTS_AGENDA,
-                new PredicateExpression(new EventQualifier(true), new CompletedQualifier(false)));
+                new PredicateExpression(new EventQualifier(true)));
     }
     
     /*
