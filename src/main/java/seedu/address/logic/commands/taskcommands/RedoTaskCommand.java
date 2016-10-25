@@ -9,7 +9,6 @@ import seedu.address.logic.commands.CommandResult;
 public class RedoTaskCommand extends TaskCommand {
     
     public static final String COMMAND_WORD = "redo";
-    
     public static final String MESSAGE_REDO_TASK_SUCCESS = "Redo successful";
     public static final String MESSAGE_REDO_INVALID_STATE = "Redo is not successful because the previous successful command is not undo";
 
@@ -25,5 +24,10 @@ public class RedoTaskCommand extends TaskCommand {
     		return new CommandResult(MESSAGE_REDO_INVALID_STATE);
     	}
     	return new CommandResult(MESSAGE_REDO_TASK_SUCCESS);
+    }
+    
+    @Override
+    public String toString(){
+        return MESSAGE_REDO_TASK_SUCCESS;
     }
 }
