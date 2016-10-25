@@ -23,7 +23,7 @@ import seedu.menion.storage.XmlSerializableActivityManager;
 public class ModifyStoragePathCommand extends Command {
 
     public static final String COMMAND_WORD = "modify";
-    public static final String MESSAGE_SUCCESS = "You have successfully changed Menion's storage location!";
+    public static final String MESSAGE_SUCCESS = "You have successfully changed Menion's storage location to %1$s";
     public static final String MESSAGE_FAILURE = "Please provide a valid storage path!";
     private final String pathToChange;
     
@@ -73,7 +73,7 @@ public class ModifyStoragePathCommand extends Command {
 				return new CommandResult(MESSAGE_FAILURE);
 			}
         	
-        	return new CommandResult(MESSAGE_SUCCESS);
+        	return new CommandResult(String.format(MESSAGE_SUCCESS, pathToChange));
         }
         return new CommandResult(MESSAGE_FAILURE);
     }
