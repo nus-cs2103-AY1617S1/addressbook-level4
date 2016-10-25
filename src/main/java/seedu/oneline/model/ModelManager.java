@@ -16,10 +16,13 @@ import seedu.oneline.model.task.UniqueTaskList;
 import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.Comparator;
 import java.util.Set;
 import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -117,7 +120,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+        return new UnmodifiableObservableList<>(filteredTasks.sorted());
     }
 
     @Override
@@ -194,7 +197,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-    
+  //@@author
   //========== Inner functions and classes used for undo/redo ==================================================
     
     public void undo() throws StateNonExistentException {
