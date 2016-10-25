@@ -51,7 +51,7 @@ public class EditCommand extends Command {
 	private String newTitle, description, startDate, dueDate, interval, timeInterval;
 	private Set<String> tags;
 	private UnmodifiableObservableList<ReadOnlyTask> taskList;
-	private int taskIndex;
+	private int taskIndex, realIndex;
 	private ArrayList<Task> tempCopy = new ArrayList<Task>();
 	//Task (before modification) for undo command
 	private Task savedTaskForUndo; 
@@ -82,8 +82,9 @@ public class EditCommand extends Command {
 	 * @throws TaskNotFoundException if the task was not found
 	 */
 	public ReadOnlyTask searchTask(int index) throws TaskNotFoundException {
+		realIndex = taskIndex - 1;
 		assert !taskList.isEmpty();
-		return taskList.get(taskIndex - 1);
+		return taskList.get(realIndex);
 	}
 
 	@Override
@@ -117,17 +118,18 @@ public class EditCommand extends Command {
 	 * @throws DuplicateTaskException
 	 */
 	private void modifyList() throws TaskNotFoundException, DuplicateTaskException {
-		for (int i = taskIndex; i < taskList.size(); i++) {
-			tempCopy.add((Task) taskList.get(i));
-		}
+		realIndex = taskIndex - 1;
+		//for (int i = taskIndex; i < taskList.size(); i++) {
+			//tempCopy.add((Task) taskList.get(i));
+		//}
 		model.deleteTask(selectedTask);
-		for (int i = 0; i < tempCopy.size(); i++) {
-			model.deleteTask(tempCopy.get(i));
-		}
-		model.addTask(editedTask);
-		for (int i = 0; i < tempCopy.size(); i++) {
-			model.addTask((Task) tempCopy.get(i));
-		}
+		//for (int i = 0; i < tempCopy.size(); i++) {
+			//model.deleteTask(tempCopy.get(i));
+		//}
+		model.addTaskWithSpecifiedIndex(editedTask, realIndex);
+		//for (int i = 0; i < tempCopy.size(); i++) {
+			//model.addTask((Task) tempCopy.get(i));
+		//}
 	}
 	
 	/**
