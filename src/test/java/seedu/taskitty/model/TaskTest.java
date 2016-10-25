@@ -1,4 +1,3 @@
-//@@author A0139930B
 package seedu.taskitty.model;
 
 import seedu.taskitty.commons.exceptions.IllegalValueException;
@@ -10,6 +9,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+//@@author A0139930B
 public class TaskTest {
 
     @Rule
