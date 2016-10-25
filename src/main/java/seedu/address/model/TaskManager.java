@@ -244,8 +244,8 @@ public class TaskManager implements ReadOnlyTaskManager {
 				 upcoming++;
 			 }
 			 
-			 if ((toCount.checkOverdue())
-			         overdue++;
+			 if ((toCount.checkOverdue()))
+			     overdue++;
 		 }
 		 
 		 floatingCounter = floating;
@@ -258,6 +258,8 @@ public class TaskManager implements ReadOnlyTaskManager {
 		 System.out.println("Today: " + todayCounter);
 		 System.out.println("Tomorrow: " + tomorrowCounter);
 		 System.out.println("Upcoming: " + upcomingCounter);
+	      System.out.println("Overdue: " + overdueCounter);
+
 		 
 	}
 	

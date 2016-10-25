@@ -4,6 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -119,12 +120,12 @@ public class Task implements ReadOnlyTask {
      * @return true if the tasks is past the current time
      * @throws IllegalValueException
      */
-    public boolean checkOverdue() throws IllegalValueException {
+    public boolean checkOverdue() {
         if (start.isMissing() && !end.isMissing())
-            return end.time.compareTo(new Time("today").time) < 0;
+            return end.time.compareTo(Calendar.getInstance()) < 0;
         
         if (!start.isMissing())
-            return start.time.compareTo(new Time("today").time) < 0;
+            return start.time.compareTo(Calendar.getInstance()) < 0;
         
         return false;
             
