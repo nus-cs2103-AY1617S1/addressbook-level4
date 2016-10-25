@@ -27,7 +27,7 @@ public class SaveCommand extends Command {
     String storageLocation;
 
     public SaveCommand(String storageLocation) {
-        this.storageLocation = storageLocation;
+        this.storageLocation = storageLocation.trim();
     }
 
 
