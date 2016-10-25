@@ -3,7 +3,7 @@ package seedu.todolist.model.task;
 import seedu.todolist.commons.exceptions.IllegalValueException;
 
 //@@author A0138601M
-public class Interval {
+public class Interval implements Comparable<Interval> {
     
     public static final String MESSAGE_INTERVAL_CONSTRAINTS_DATE = "End date cannot be earlier than start date";
     public static final String MESSAGE_INTERVAL_CONSTRAINTS_TIME = "End time cannot be earlier than start time";
@@ -75,11 +75,7 @@ public class Interval {
     }
     
     /**
-     * Returns the int if a the interval object is a deadline with time.
-     */
-    
-    /**
-     * Returns true if a the interval object is a deadline with time.
+     * Returns true if the interval object is a deadline with time.
      */
     public boolean isDeadlineWithTime() {
         if (this.startDate == null && this.startTime == null && this.endDate != null && this.endTime != null) {
@@ -167,6 +163,71 @@ public class Interval {
             }
         }
         return null;
+    }
+    
+    @Override
+    public int compareTo(Interval interval) {
+        TaskDate firstDate = this.getDateToCompare();
+        TaskDate secondDate = interval.getDateToCompare();
+        TaskTime firstTime = this.getTimeToCompare();
+        TaskTime secondTime = interval.getTimeToCompare();
+        
+        if (firstDate == null) { //first task is float
+            if (secondDate == null) { //both are floating task
+                return 0;
+            }
+            else { //floating tasks always later than timed task
+                return 1;
+            }
+        }
+        else { //first task is timed
+            if (secondDate == null) { //timed tasks always earlier than floating task
+                return -1;
+            }
+            else { //both are timed tasks
+                if (firstDate.isEquals(secondDate)) { //if date are the same, determine order with time
+                    if (firstTime.isEquals(secondTime)) { //both datetime are equal
+                        return 0;
+                    }
+                    else if (firstTime.isBefore(secondTime)) { //first task is earlier
+                        return -1;
+                    }
+                    else { //first task is later
+                        return 1;
+                    }
+                }
+                else if (firstDate.isBefore(secondDate)) { //first task is earlier
+                    return -1;
+                }
+                else { //first task is later
+                    return 1;
+                }
+            }
+        }
+    }
+    
+    private TaskDate getDateToCompare() {
+        if (this.startDate != null) {
+            return this.startDate;
+        }
+        else if (this.endDate != null) {
+            return this.endDate;
+        }
+        else {
+            return null;
+        }
+    }
+    
+    private TaskTime getTimeToCompare() {
+        if (this.startTime != null) {
+            return this.startTime;
+        }
+        else if (this.endTime != null) {
+            return this.endTime;
+        }
+        else {
+            return null;
+        }
     }
 
 }
