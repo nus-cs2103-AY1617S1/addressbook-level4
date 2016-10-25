@@ -1,7 +1,5 @@
 package seedu.address.model;
 
-import seedu.address.model.deadline.Deadline;
-import seedu.address.model.deadline.UniqueDeadlineList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
@@ -18,7 +16,6 @@ public interface ReadOnlyTaskManager {
 
     UniqueTaskList getUniqueTaskList();
     
-    UniqueDeadlineList getUniqueDeadlineList();
 
     /**
      * Returns an unmodifiable view of tasks list
@@ -29,10 +26,5 @@ public interface ReadOnlyTaskManager {
      * Returns an unmodifiable view of tags list
      */
     List<Tag> getTagList();
-    
-    /**
-     * Returns an unmodifiable view of deadlines list
-     */
-    List<Deadline> getDeadlineList();
 
 }

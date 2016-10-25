@@ -1,6 +1,6 @@
 package seedu.address.model.task;
 
-import seedu.address.model.deadline.UniqueDeadlineList;
+import seedu.address.model.deadline.Deadline;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -12,12 +12,7 @@ public interface ReadOnlyTask {
     Name getName();
     Priority getPriority();
     Startline getStartline();
-    
-    /**
-     * The returned DeadlineList is a deep copy of the internal DeadlineList,
-     * changes on the returned list will not affect the person's internal deadlines.
-     */
-    UniqueDeadlineList getDeadlines();
+    Deadline getDeadline();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -43,8 +38,8 @@ public interface ReadOnlyTask {
         builder.append(getName())
         		.append(" Start: ")
         		.append(getStartline())
-                .append(" Deadline: ");
-                getDeadlines().forEach(builder::append);               
+                .append(" Deadline: ")
+                .append(getDeadline());               
         builder.append(" Priority: ")
                 .append(getPriority())
         		.append(" Tags: ");
@@ -65,16 +60,5 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-    
-    default String deadlinesString() {
-        final StringBuffer buffer = new StringBuffer();
-        final String separator = ", ";
-        getDeadlines().forEach(deadline -> buffer.append(deadline).append(separator));
-        if (buffer.length() == 0) {
-            return "";
-        } else {
-            return buffer.substring(0, buffer.length() - separator.length());
-        }
-    }
-
+   
 }

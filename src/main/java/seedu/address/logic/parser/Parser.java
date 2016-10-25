@@ -30,7 +30,7 @@ public class Parser {
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
             		+ "(?<startline>(?: s/[^/]+)*)"
-                    + "(?<deadlineArguments>(?: d/[^/]+)*)"
+                    + "d/(?<deadline>[^/]+)"
                     + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
@@ -38,7 +38,7 @@ public class Parser {
             Pattern.compile("(?<targetIndex>.+)"
             		+ " (?<name>[^/]+)"
             		+ "s/(?<startline>[^/]+)"
-            		+ "(?<deadlineArguments>(?: d/[^/]+)*)"
+            		+ "d/(?<deadline>[^/]+)"
                     + "(?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
@@ -113,7 +113,7 @@ public class Parser {
             return new AddCommand(
                     matcher.group("name"),
                     getStartlineFromArgs(matcher.group("startline")),
-                    getDeadlinesFromArgs(matcher.group("deadlineArguments")),
+                    getDeadlinesFromArgs(matcher.group("deadline")),
                     matcher.group("priority"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
@@ -141,14 +141,16 @@ public class Parser {
     	return args;    	
     }
 
-    private Set<String> getDeadlinesFromArgs(String deadlineArguments) {
-    	 // no tags
-        if (deadlineArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> deadlineStrings = Arrays.asList(deadlineArguments.replaceFirst(" d/", "").trim().split(" t/"));
-        return new HashSet<>(deadlineStrings);
+    private String getDeadlinesFromArgs(String args) {
+    	if(args.isEmpty()){
+    		return null;
+    	}
+    	args = args.replaceFirst(" d/", "");
+    	String[] strArr = args.split("\\s+");
+    	if(strArr.length == 1){
+    		return args + " " + "23:59";
+    	}
+    	return args; 
 	}
 
 	/**
@@ -253,7 +255,7 @@ public class Parser {
             		matcher.group("targetIndex"),
                     matcher.group("name"),
                     getStartlineFromArgs(matcher.group("startline")),
-                    getDeadlinesFromArgs(matcher.group("deadlineArguments")),
+                    getDeadlinesFromArgs(matcher.group("deadline")),
                     matcher.group("priority"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );

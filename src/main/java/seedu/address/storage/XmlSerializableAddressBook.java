@@ -3,7 +3,6 @@ package seedu.address.storage;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.deadline.Deadline;
-import seedu.address.model.deadline.UniqueDeadlineList;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
@@ -46,7 +45,6 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
     public XmlSerializableAddressBook(ReadOnlyTaskManager src) {
         persons.addAll(src.getTaskList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
-        deadlines = src.getDeadlineList();
     }
 
     @Override
@@ -60,17 +58,6 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
         }
     }
     
-    @Override
-    public UniqueDeadlineList getUniqueDeadlineList() {
-        try {
-            return new UniqueDeadlineList(deadlines);
-        } catch (UniqueDeadlineList.DuplicateDeadlineException e) {
-            //TODO: better error handling
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
@@ -102,8 +89,4 @@ public class XmlSerializableAddressBook implements ReadOnlyTaskManager {
         return Collections.unmodifiableList(tags);
     }
 
-    @Override
-    public List<Deadline> getDeadlineList() {
-        return Collections.unmodifiableList(deadlines);
-    }
 }
