@@ -8,7 +8,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
  */
 public class Priority {
 
-    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task prioritys should be high, mid or low";
+    public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority should be high, mid or low";
     public static final String PRIORITY_VALIDATION_REGEX = "(high|mid|low)";
     public static final String DEFAULT_PRIORITY = "low";
 

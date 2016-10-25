@@ -61,14 +61,12 @@ public class ParserFormats {
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_FT = Pattern
             .compile("from (?<fromDateTime>.+) to (?<tillDateTime>.+)", Pattern.CASE_INSENSITIVE);
     
-
-
     public static final Pattern UPDATE_TASK_ARGS_FORMAT = Pattern
             .compile("(?<name>[^/]*?)? "
                       + "?((^| )((on|from) (?<onDateTime>[^;]+?)?"
-                      +"|by (?<byDateTime>[^;]+?)|"
-                      +"priority (?<priority>.+?)"
-                      +"every (?<rec>.+?)))*?"
+                      +"|by (?<byDateTime>[^;]+?)"
+                      +"|priority (?<priority>[^;]+?)"
+                      +"|every (?<rec>[^;]+?)))*?"
                       +"(?: ?;(?<detail>.+))?$", Pattern.CASE_INSENSITIVE);
 
     
