@@ -518,7 +518,7 @@ public class Parser {
 
         String[] argComponents = args.trim().split(DELIMITER_BLANK_SPACE);
 
-        if (argComponents.length < 3)
+        if (argComponents.length < UPDATE_COMMAND_MIN_ARGUMENTS)
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         
         String taskType = argComponents[TASK_TYPE];
@@ -528,43 +528,43 @@ public class Parser {
         
         int numOfDate = 0;
         int numOfTime = 0;
-        
+           
         if (argComponents.length > UPDATE_COMMAND_MIN_ARGUMENTS) {
             for (int i = ARG; i < argComponents.length; i++) {            
                 if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_DESCRIPTION) == 0) {
                     if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
                         return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT + UpdateCommand.MESSAGE_USAGE); 
                     
-                    arg += argComponents[i] + " ";
+                    arg += argComponents[i] + DELIMITER_BLANK_SPACE;
                 } else if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_DATE) == 0) {
                     if (DATE_WITH_SLASH_FORMAT.matcher(argComponents[i]).find()) {
                         numOfDate++;
-                        if (numOfDate == 1)
+                        if (numOfDate == ONE)
                             arg = argComponents[i];
-                        else if (numOfDate == 2)
-                            arg += " " + argComponents[i];
+                        else if (numOfDate == TWO)
+                            arg += DELIMITER_BLANK_SPACE + argComponents[i];
                     } else if (TODAY_OR_TOMORROW.matcher(argComponents[i].toLowerCase()).find()) {
                         numOfDate++;
-                        if (numOfDate == 1)
+                        if (numOfDate == ONE)
                             arg = argComponents[i];
-                        else if (numOfDate == 2)
-                            arg += " " + argComponents[i];
+                        else if (numOfDate == TWO)
+                            arg += DELIMITER_BLANK_SPACE + argComponents[i];
                     } else if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
                         arg = null;
                 } else if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_TIME) == 0) {
                     if (TIME_FORMAT.matcher(argComponents[i]).find()) {
                         numOfTime++;
-                        if (numOfTime == 1)
+                        if (numOfTime == ONE)
                             arg = argComponents[i];
-                        else if (numOfTime == 2)
-                            arg += " " + argComponents[i];
+                        else if (numOfTime == TWO)
+                            arg += DELIMITER_BLANK_SPACE + argComponents[i];
                     } else if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
                         arg = null;
                 } else if (argType.toUpperCase().compareToIgnoreCase(TASK_ARG_TAG) == 0) {
                     if (argComponents[i].toUpperCase().compareToIgnoreCase(NONE) == 0)
                         arg = null;
                     else
-                        arg += argComponents[i] + " ";
+                        arg += argComponents[i] + DELIMITER_BLANK_SPACE;
                 }
             }
             
