@@ -8,41 +8,40 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Marks a task identified using it's last displayed index from WhatNow as completed.
  */
-public class MarkDoneCommand extends UndoAndRedo {
+public class MarkUndoneCommand extends UndoAndRedo {
 
-    public static final String COMMAND_WORD = "done";
+    public static final String COMMAND_WORD = "undone";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Mark the task identified by the index number used in the last task listing as completed.\n"
+            + ": Mark the task identified by the index number used in the last task listing as incompleted.\n"
             + "Parameters: TODO/SCHEDULE INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " todo 1\n"
             + "Example: " + COMMAND_WORD + " schedule 1";
 
-    public static final String MESSAGE_MARK_TASK_SUCCESS = "Task marked as completed: %1$s";
-    public static final String MESSAGE_MARK_TASK_FAIL = "Unable to mark task as complete";
+    public static final String MESSAGE_MARK_TASK_SUCCESS = "Task marked as incompleted: %1$s";
+    public static final String MESSAGE_MARK_TASK_FAIL = "Unable to mark task as incomplete";
     private static final String TASK_TYPE_FLOATING = "todo";
 
     public final String taskType;
     public final int targetIndex;
 
-    public MarkDoneCommand(String taskType, int targetIndex) {
+    public MarkUndoneCommand(String taskType, int targetIndex) {
         this.taskType = taskType;
         this.targetIndex = targetIndex;
     }
-
 
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList;
         if (taskType.equals(TASK_TYPE_FLOATING)) {
-            model.updateFilteredListToShowAllIncomplete();
+            model.updateFilteredListToShowAllCompleted();
             lastShownList = model.getCurrentFilteredTaskList();
         } else {
             model.updateFilteredScheduleListToShowAllIncomplete();
             lastShownList = model.getCurrentFilteredScheduleList();
         }
-
         if (lastShownList.size() < targetIndex) {
+            System.out.println("INVALID INDEX");
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -50,10 +49,10 @@ public class MarkDoneCommand extends UndoAndRedo {
         ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
 
         try {
-            model.markTask(taskToMark);
+            model.unMarkTask(taskToMark);
             model.getUndoStack().push(this);
-            model.getStackOfMarkDoneTask().push(taskToMark);
-            model.getStackOfMarkDoneTaskTaskType().push(taskType);
+            model.getStackOfMarkUndoneTask().push(taskToMark);
+            model.getStackOfMarkUndoneTaskTaskType().push(taskType);
         } catch (TaskNotFoundException pnfe) {
             return new CommandResult(String.format(MESSAGE_MARK_TASK_FAIL));
         }
@@ -63,14 +62,14 @@ public class MarkDoneCommand extends UndoAndRedo {
 
     @Override
     public CommandResult undo() {
-        if(model.getStackOfMarkDoneTask().isEmpty() || model.getStackOfMarkDoneTaskTaskType().isEmpty()) {
+        if(model.getStackOfMarkUndoneTask().isEmpty() || model.getStackOfMarkUndoneTaskTaskType().isEmpty()) {
             return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
         }
 
-        ReadOnlyTask taskToReAdd = model.getStackOfMarkDoneTask().pop();
-        String taskTypeToReAdd = model.getStackOfMarkDoneTaskTaskType().pop();
+        ReadOnlyTask taskToReAdd = model.getStackOfMarkUndoneTask().pop();
+        String taskTypeToReAdd = model.getStackOfMarkUndoneTaskTaskType().pop();
         try {
-            model.unMarkTask(taskToReAdd);
+            model.markTask(taskToReAdd);
         } catch(TaskNotFoundException pufe) {
             return new CommandResult(UndoCommand.MESSAGE_FAIL);
         }
@@ -92,9 +91,9 @@ public class MarkDoneCommand extends UndoAndRedo {
         }
         ReadOnlyTask taskToMark = lastShownList.get(targetIndex - 1);
         try {
-            model.markTask(taskToMark);
-            model.getStackOfMarkDoneTask().push(taskToMark);
-            model.getStackOfMarkDoneTaskTaskType().push(taskType);
+            model.unMarkTask(taskToMark);
+            model.getStackOfMarkUndoneTask().push(taskToMark);
+            model.getStackOfMarkUndoneTaskTaskType().push(taskType);
         } catch (TaskNotFoundException pnfe) {
             return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
         }
