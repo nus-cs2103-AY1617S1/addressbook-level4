@@ -154,6 +154,7 @@
 
 .status-bar .label {
     -fx-text-fill: #F5F5F5;
+    -fx-font-size: 12px;
 }
 
 .status-bar-with-border {

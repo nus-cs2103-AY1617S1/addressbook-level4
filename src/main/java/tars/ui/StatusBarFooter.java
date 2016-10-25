@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
 
@@ -34,6 +36,10 @@ public class StatusBarFooter extends UiPart {
 
     private AnchorPane placeHolder;
 
+    private Text locationText = new Text();
+    
+    
+
     private static final String FXML = "StatusBarFooter.fxml";
 
     public static StatusBarFooter load(Stage stage, AnchorPane placeHolder, String saveLocation) {
@@ -47,7 +53,7 @@ public class StatusBarFooter extends UiPart {
         addSyncStatus();
         setSyncStatus("Not updated yet in this session");
         addSaveLocation();
-        setSaveLocation("./" + saveLocation);
+        setSaveLocation("Storage Directory: ./" + saveLocation);
         registerAsAnEventHandler(this);
     }
 
@@ -57,11 +63,16 @@ public class StatusBarFooter extends UiPart {
     }
 
     private void setSaveLocation(String location) {
-        this.saveLocationStatus.setText(location);
+        locationText.setText(location);
+        locationText.setFill(Color.WHITE);
+        this.saveLocationStatus.setText("");
+
+
     }
 
     private void addSaveLocation() {
         this.saveLocationStatus = new StatusBar();
+        this.saveLocationStatus.getRightItems().add(locationText);
         FxViewUtil.applyAnchorBoundaryParameters(saveLocationStatus, 0.0, 0.0, 0.0, 0.0);
         saveLocStatusBarPane.getChildren().add(saveLocationStatus);
     }
@@ -102,6 +113,6 @@ public class StatusBarFooter extends UiPart {
     @Subscribe
     private void handleTarsStorageChangeDirectoryEvent(TarsStorageDirectoryChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        setSaveLocation("Storage Location: " + event.getNewFilePath());
+        setSaveLocation("Storage Location Changed: ./" + event.getNewFilePath());
     }
 }
