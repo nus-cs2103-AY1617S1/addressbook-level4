@@ -57,6 +57,7 @@ public class CommandBox extends UiPart {
         registerAsAnEventHandler(this);
     }
 
+    //@@author A0147971U
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
@@ -101,7 +102,7 @@ public class CommandBox extends UiPart {
             wordList.setPrefHeight(0);
             return;
         }
-        String[] keywords = {"add", "by", "clear", "complete", "delete", "exit", "find", "from", "help", "hide", "list", "relocate", "repeat", "redo", "select", "show", "to", "undo", "update"};
+        String[] keywords = {"add", "by", "clear", "complete", "delete", "exit", "find", "from", "help", "hide", "list", "relocate", "repeat", "redo", "renamelist", "select", "show", "switchlist", "to", "undo", "update"};
         ObservableList<String> words = FXCollections.observableArrayList();
         int endIndex = word.length();
         for(String keyword: keywords) {
@@ -121,6 +122,7 @@ public class CommandBox extends UiPart {
         String lastWord = words[words.length-1];
         setWordChoices(lastWord);
     }
+    //@@author
 
     @Override
     public void setNode(Node node) {
