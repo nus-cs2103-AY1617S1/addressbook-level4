@@ -97,9 +97,9 @@ public class ToDoListParser {
      */
     private Command prepareAdd(String args) {
         
-        Pattern[] dataPatterns = {ParserFormats.ADD_TASK_PRIORITY_FT,  
-                ParserFormats.ADD_TASK_PRIORITY_ON, ParserFormats.ADD_TASK_PRIORITY_BY,
-                ParserFormats.ADD_TASK_PRIORITY_FLOAT,
+        Pattern[] dataPatterns = {ParserFormats.ADD_PRIORITY_FT,  
+                ParserFormats.ADD_PRIORITY_ON, ParserFormats.ADD_PRIORITY_BY,
+                ParserFormats.ADD_PRIORITY_FLOAT,
                 ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_FT, ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_BY, 
                 ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_ON, ParserFormats.ADD_TASK_ARGS_FORMAT_FT, 
                 ParserFormats.ADD_TASK_ARGS_FORMAT_BY, ParserFormats.ADD_TASK_ARGS_FORMAT_ON, 
@@ -135,19 +135,19 @@ public class ToDoListParser {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"),
                                 matcher.group("onDateTime"), null, Priority.DEFAULT_PRIORITY, Frequency.valueOf(matcher.group("rec").toUpperCase().trim()));
                     
-                    } else if (p.equals(ParserFormats.ADD_TASK_PRIORITY_FT)) {
+                    } else if (p.equals(ParserFormats.ADD_PRIORITY_FT)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"),
                                 matcher.group("onDateTime"), matcher.group("byDateTime"), matcher.group("priority"), Frequency.NONE);
                         
-                    } else if (p.equals(ParserFormats.ADD_TASK_PRIORITY_FLOAT)) {
+                    } else if (p.equals(ParserFormats.ADD_PRIORITY_FLOAT)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"),
                                 null, null, matcher.group("priority"), Frequency.NONE);
                         
-                    } else if (p.equals(ParserFormats.ADD_TASK_PRIORITY_ON)) {
+                    } else if (p.equals(ParserFormats.ADD_PRIORITY_ON)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"),
                                 matcher.group("onDateTime"), null, matcher.group("priority"), Frequency.NONE);  
 
-                    } else if (p.equals(ParserFormats.ADD_TASK_PRIORITY_BY)) {
+                    } else if (p.equals(ParserFormats.ADD_PRIORITY_BY)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"), null, 
                         		matcher.group("byDateTime"), matcher.group("priority"), Frequency.NONE);
                         

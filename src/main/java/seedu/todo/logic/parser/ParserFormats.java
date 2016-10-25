@@ -42,16 +42,16 @@ public class ParserFormats {
 
     
     
-    public static final Pattern ADD_TASK_PRIORITY_FT = Pattern.compile(
+    public static final Pattern ADD_PRIORITY_FT = Pattern.compile(
             "(?<name>[^/]+)" + " (on|from) (?<onDateTime>.+)" + " (by|to) (?<byDateTime>[^;]+)" + " priority (?<priority>[^;]+)" + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
 
-    public static final Pattern ADD_TASK_PRIORITY_ON = Pattern
+    public static final Pattern ADD_PRIORITY_ON = Pattern
             .compile("(?<name>[^/]+) (on|from) (?<onDateTime>[^;]+)" + " priority (?<priority>[^;]+)" + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
 
-    public static final Pattern ADD_TASK_PRIORITY_BY = Pattern
+    public static final Pattern ADD_PRIORITY_BY = Pattern
             .compile("(?<name>[^/]+) (by|to) (?<byDateTime>[^;]+)" + " priority (?<priority>[^;]+)" + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
     
-    public static final Pattern ADD_TASK_PRIORITY_FLOAT = Pattern
+    public static final Pattern ADD_PRIORITY_FLOAT = Pattern
             .compile("(?<name>[a-zA-Z_0-9 ]+)" + " priority (?<priority>[^;]+)" + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_ON = Pattern
