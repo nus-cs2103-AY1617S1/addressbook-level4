@@ -78,7 +78,7 @@ Example:
 * `help` 
 
 <!-- @@author A0135782Y-->
-#### Adding a floating task: `add`
+#### Adding a floating task : `add`
 Adds a task to the todo list<br>
 Format:`add TASK_NAME [t/TAG]...` 
 
@@ -88,7 +88,7 @@ Examples:
 	<img src="images/ug_add_floating_before.PNG" width="600">
 	<img src="images/ug_add_floating_after.PNG" width="600">
 
-#### Adding a task with deadline: `add`
+#### Adding a task with deadline : `add`
 Format: `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
 
 > `RECURRING_TYPE` consists of daily, weekly, monthly and yearly case insensitive. 
@@ -101,7 +101,7 @@ Examples: <br>
 	<img src="images/ug_add_by_date_before.PNG" width="600">
 	<img src="images/ug_add_by_date_after.PNG" width="600">
 
-#### Adding a task with start time and end time: `add`
+#### Adding a task with start time and end time : `add`
 Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
 
 > `RECURRING_TYPE` consists of daily, weekly, monthly and yearly case insensitive. 
@@ -199,7 +199,7 @@ Examples:
    <img src="images/beforeredo.png" width="600">
    <img src="images/afterredo.png" width="600">
 
-#### View agenda of a day: `view`
+#### View agenda of a day : `view`
 Format: view DATE [TIME]
 
 Examples:
@@ -248,7 +248,7 @@ Examples:
 
 <!--@@author A0147967J-->
 
-#### Change directory: `cd`
+#### Change directory : `cd`
 Format: cd FILE_PATH
 
 Examples: 
