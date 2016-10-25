@@ -17,7 +17,8 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
-    public static final String MESSAGE_INVALID = "Argument given is invalid";
+    public static final String MESSAGE_INVALID = "Argument given is invalid." +
+                                                "Supported formats: list done, today, week, float";
 
     public String listBy;
 
