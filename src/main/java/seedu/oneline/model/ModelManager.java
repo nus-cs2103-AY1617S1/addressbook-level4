@@ -94,8 +94,19 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void doneTask(int index) throws TaskNotFoundException {
         Task done = filteredTasks.get(index);
+        assert done != null;
         done.setCompleted(true);
         updateFilteredListToShowAllNotDone();
+        indicateAddressBookChanged();
+//        addTaskToFilter(done);
+    }
+    
+    @Override
+    public synchronized void undoneTask(int index) throws TaskNotFoundException {
+        Task undone = filteredTasks.get(index);
+        assert undone != null;
+        undone.setCompleted(false);
+        updateFilteredListToShowAllDone();
         indicateAddressBookChanged();
 //        addTaskToFilter(done);
     }
