@@ -101,14 +101,15 @@ Examples:
 Updates a specified activity from Menion.
 
 Format : `edit ACTIVITY_TYPE INDEX PARAMETERS`
-> Edits the task at the specified `INDEX`. The index refers to the index number shown beside the task. <br>
+> Edits the activity at the specified `INDEX`. The index refers to the index number shown beside the activity. <br>
 > The input field is the same as Add command. <br>
 > The index must be a positive integer 1,2,3, ...
 
 Examples :
 
-* `edit event 3 by: 08-19-2016 1900` 
-* `edit task 4 n: buy extra stuff` 
+* `edit event 3 by 08-19-2016 1900`
+* `edit task 4 note buy extra stuff`
+* `edit task 1 name Hello World`
 
 #### Undo
 Undo the most previous command.
