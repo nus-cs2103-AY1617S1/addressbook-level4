@@ -40,7 +40,20 @@ We are from [School of Computing, National University of Singapore](http://www.c
 <img src="https://avatars0.githubusercontent.com/u/19281538?v=3&s=400" width="150"><br>
 **Role:** Developer<br>
 **Responsibilities:** Code Quality, Documentation Formatting<br>
-**Component-In-Charge:** UI
+**Component-In-Charge:** [UI](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/DeveloperGuide.md#ui-component)<br>
+**Features Implemented:**<br>
+ * [List tasks using filters with sorting](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#listing-all-tasksevents-with-specified-conditions-list)
+ * [Show tasks on current list using filters](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#narrowing-listing-results-with-specified-type-date-or-tags-show)
+ * [Hide tasks on current list using filters](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#hiding-listing-results-with-specified-type-date-or-tags-hide)
+ * [Undo previous commands](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#undoing-the-last-action-undo)<br>
+ * [Change calendar view](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-calendar-view-calendar)
+
+**Code written: [functional code][test code][docs]**<br>
+**Other major contributions:**
+ * Implemented multiple filtering for FilteredTaskList
+ * Implemented HistoryStack class
+
+<br><br>
 
 
 ## AddressBook-Level4 Project Team (Original Codebase)
