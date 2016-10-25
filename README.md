@@ -1,6 +1,5 @@
-[![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
-[![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
-
+[![Build Status](https://travis-ci.org/CS2103AUG2016-T09-C4/main)](https://travis-ci.org/CS2103AUG2016-T09-C4/main)
+[![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T09-C4/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-T09-C4/main?branch=master)
 # Unburden
 
 <img src="docs/images/Ui.png" width="600"><br>
