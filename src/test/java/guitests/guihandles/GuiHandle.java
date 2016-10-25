@@ -69,9 +69,21 @@ public class GuiHandle {
         guiRobot.type(KeyCode.ENTER).sleep(500);
     }
     
+    //@@author A0148145E
+    public void pressUp() {
+        guiRobot.type(KeyCode.UP).sleep(500);
+    }
+
+    public void pressDown() {
+        guiRobot.type(KeyCode.DOWN).sleep(500);
+    }
+
     protected String getStyleFromHBox(String fieldId, Node parentNode) {
         return ((HBox) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getStyle();
     }
+
+    //@@author
+    
     protected String getTextFromLabel(String fieldId, Node parentNode) {
         return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
     }
