@@ -21,8 +21,7 @@ public class ViewCommand extends Command {
 
     public static final String MESSAGE_PARAMETER = COMMAND_WORD + " [date]";
     public static final String MESSAGE_USAGE = "This command shows all tasks for the specified date, Meow!"
-    		+ "If no date is entered, events for today and all other tasks will be shown, Meow Meow!"
-            + " Use \"view done\" to see all done tasks, or \"view all\" to see all tasks!";
+            + "\nUse \"view\" to see tasks today, \"view done\" to see all done tasks, or \"view all\" to see all tasks!";
     public static final String VIEW_ALL_MESSAGE_SUCCESS = "All tasks are listed, Meow!";
     private LocalDate date;
     private boolean hasDate; // specific to the view [date], 
