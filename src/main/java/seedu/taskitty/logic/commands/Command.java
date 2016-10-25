@@ -20,22 +20,24 @@ public abstract class Command {
             };
     
     public static final String[] ALL_COMMAND_MESSAGE_PARAMETER = {
-            AddCommand.MESSAGE_PARAMETER, ViewCommand.MESSAGE_PARAMETER,
-            FindCommand.MESSAGE_PARAMETER, EditCommand.MESSAGE_PARAMETER,
-            DeleteCommand.MESSAGE_PARAMETER, DoneCommand.MESSAGE_PARAMETER,
-            SaveCommand.MESSAGE_PARAMETER, UndoCommand.MESSAGE_PARAMETER, 
-            ClearCommand.MESSAGE_PARAMETER, HelpCommand.MESSAGE_PARAMETER, 
-            ExitCommand.MESSAGE_PARAMETER,
-        };
+                AddCommand.MESSAGE_PARAMETER, ViewCommand.MESSAGE_PARAMETER,
+                FindCommand.MESSAGE_PARAMETER, EditCommand.MESSAGE_PARAMETER,
+                DeleteCommand.MESSAGE_PARAMETER, DoneCommand.MESSAGE_PARAMETER,
+                SaveCommand.MESSAGE_PARAMETER, UndoCommand.MESSAGE_PARAMETER, 
+                ClearCommand.MESSAGE_PARAMETER, HelpCommand.MESSAGE_PARAMETER, 
+                ExitCommand.MESSAGE_PARAMETER,
+            };
     
     public static final String[] ALL_COMMAND_MESSAGE_USAGE = {
-            AddCommand.MESSAGE_USAGE, ViewCommand.MESSAGE_USAGE,
-            FindCommand.MESSAGE_USAGE, EditCommand.MESSAGE_USAGE,
-            DeleteCommand.MESSAGE_USAGE, DoneCommand.MESSAGE_USAGE,
-            SaveCommand.MESSAGE_USAGE, UndoCommand.MESSAGE_USAGE, 
-            ClearCommand.MESSAGE_USAGE, HelpCommand.MESSAGE_USAGE, 
-            ExitCommand.MESSAGE_USAGE,
-        };
+                AddCommand.MESSAGE_USAGE, ViewCommand.MESSAGE_USAGE,
+                FindCommand.MESSAGE_USAGE, EditCommand.MESSAGE_USAGE,
+                DeleteCommand.MESSAGE_USAGE, DoneCommand.MESSAGE_USAGE,
+                SaveCommand.MESSAGE_USAGE, UndoCommand.MESSAGE_USAGE, 
+                ClearCommand.MESSAGE_USAGE, HelpCommand.MESSAGE_USAGE, 
+                ExitCommand.MESSAGE_USAGE,
+            };
+    
+    public static final String MESSAGE_FORMAT = "Format: ";
     
     protected Model model;
 

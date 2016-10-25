@@ -13,6 +13,7 @@ public class HelpCommand extends Command {
 
     public static final String MESSAGE_PARAMETER = COMMAND_WORD;
     public static final String MESSAGE_USAGE = "Am I not good enough, Meow?";
+    public static final String MESSAGE_ERROR = "Use \"" + COMMAND_WORD + "\" for more information";
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 

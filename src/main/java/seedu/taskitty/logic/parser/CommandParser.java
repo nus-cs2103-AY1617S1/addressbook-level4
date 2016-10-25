@@ -59,7 +59,8 @@ public class CommandParser {
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    HelpCommand.MESSAGE_ERROR));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -103,7 +104,8 @@ public class CommandParser {
             return prepareSave(arguments);
             
         default:
-            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    HelpCommand.MESSAGE_ERROR));
         }
     }
     
@@ -135,7 +137,8 @@ public class CommandParser {
     	}
 		String[] details = extractTaskDetailsNatty(arguments);
 		if (details.length!= 3) { // no date was successfully extracted
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+			        Command.MESSAGE_FORMAT + ViewCommand.MESSAGE_PARAMETER));
 	    } else {
 	        assert details[1] != null; // contains date
 	        return new ViewCommand(details[1]);
@@ -153,7 +156,8 @@ public class CommandParser {
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    Command.MESSAGE_FORMAT + AddCommand.MESSAGE_PARAMETER));
         }
         try {
             String arguments = matcher.group("arguments");
@@ -385,7 +389,8 @@ public class CommandParser {
             categoryAndIndex= getCategoryAndIndex(index);
             if (categoryAndIndex == null) {
                 return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                Command.MESSAGE_FORMAT + DeleteCommand.MESSAGE_PARAMETER));
             }
             listOfIndexes.add(categoryAndIndex);
         }
@@ -411,7 +416,8 @@ public class CommandParser {
             categoryAndIndex= getCategoryAndIndex(index);
             if (categoryAndIndex == null) {
                 return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                Command.MESSAGE_FORMAT + DoneCommand.MESSAGE_PARAMETER));
             }
             listOfIndexes.add(categoryAndIndex);
         }
@@ -429,14 +435,16 @@ public class CommandParser {
         String[] splitArgs = args.trim().split(" ");
         if (splitArgs.length < 2) {
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            Command.MESSAGE_FORMAT + EditCommand.MESSAGE_PARAMETER));
         }
         
         Pair<Integer, Integer> categoryAndIndexPair = getCategoryAndIndex(splitArgs[0]);
         
         if (categoryAndIndexPair == null) {
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                            Command.MESSAGE_FORMAT + EditCommand.MESSAGE_PARAMETER));
         }
         
         try {
