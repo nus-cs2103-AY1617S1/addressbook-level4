@@ -10,13 +10,10 @@ import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
-import seedu.todo.model.ErrorBag;
 import seedu.todo.model.tag.Tag;
-import seedu.todo.model.task.ImmutableTask;
 
 import java.util.stream.Collectors;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 import java.util.Arrays;
@@ -36,7 +33,6 @@ public class TagCommand extends BaseCommand {
     private static final String ERROR_INPUT_DELETE_TAGS_REQUIRED = "A list of tags \"tag1, tag2, ...\" to delete is required.";
     private static final String ERROR_TAGS_DUPLICATED = "You might have keyed in duplicated tag names.";
     private static final String ERROR_TAGS_ILLEGAL_CHAR = "Tags may only include alphanumeric characters, including dashes and underscores.";
-    private static final String ERROR_TAGS_NOT_FOUND_IN_TASK = " are not found from the task.";
 
     private static final String SUCCESS_ADD_TAGS = " tags have been added successfully.";
     private static final String SUCCESS_DELETE_TAGS = " tags have been removed successfully.";
@@ -227,12 +223,5 @@ public class TagCommand extends BaseCommand {
      */
     private static boolean isValidTagName(String test) {
         return test.matches(TAG_VALIDATION_REGEX);
-    }
-
-    /**
-     * Returns a list of tag names fom the supplied {@code tags}
-     */
-    private static Set<String> getTagNames(Collection<Tag> tags) {
-        return tags.stream().map(Tag::getTagName).collect(Collectors.toSet());
     }
 }
