@@ -144,13 +144,13 @@ Format: `setstorage FILEPATH`
 Undo the latest change made to the task list.
 Format: `undo`
 
-> * Allows undo to up to 100 previous changes to the task list
+> * Allows undo to up to unlimited previous changes to the task list
 
 #### Redo previous action(s): `redo`
 Redo the latest change that was reverted using undo.
 Format: `redo`
 
-> * Allows redo to up to 100 consecutive undo operations done
+> * Allows redo to up to unlimited consecutive undo operations done
 > * Does not work if the undo command was not used just before this command
 
 #### Viewing help : `help`
