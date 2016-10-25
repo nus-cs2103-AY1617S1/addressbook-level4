@@ -460,10 +460,11 @@ Or perhaps you prefer to see an overview of many tasks at one glance at the task
 
 `collapse`
 
-This will change the view from something like this:
-[comment]:<>(TODO Attach screenshot)
-To this:
-[comment]:<>(TODO Attach screenshot)
+This will change the view from something like this: <br>
+//TODO Attach screenshot
+
+To this:<br>
+//Todo Attach screenshot
 
 If you want to see all the details of your tasks agains, type:
 
