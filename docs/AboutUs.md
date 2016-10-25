@@ -14,7 +14,16 @@ We are from [School of Computing, National University of Singapore](http://www.c
 <img src="https://avatars3.githubusercontent.com/u/3168908?v=3&s=400" width="150"><br>
 **Role:** Project Lead, Developer<br>
 **Responsibilities:** Integration, Work Breakdown<br>
-**Component-In-Charge:** Model
+**Component-In-Charge:** Model<br>
+**Features Implemented:**<br>
+ * [Update](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-the-details-of-a-taskevent-update)
+ * [Complete](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#marking-a-task-as-complete-complete)
+
+**Other major contributions:**
+ * GitHub repository maintainer/maid (accepting PRs, resolving conflicts, set up Travis and Coveralls, issue tracker maintainence, generating 'collated' folder, etc)
+ * [Added new task fields to model](https://github.com/CS2103AUG2016-W11-C4/main/pull/33)
+ * Added calendar UI with task display [148](https://github.com/CS2103AUG2016-W11-C4/main/pull/148), [175](https://github.com/CS2103AUG2016-W11-C4/main/pull/175), [178](https://github.com/CS2103AUG2016-W11-C4/main/pull/178)
+ * [Renamed the packages from seedu.addressbook to teamfour.tasc] (https://github.com/CS2103AUG2016-W11-C4/main/commit/3f1530c316fbfa6613256fe55bd56803687d70c3)
 
 #### [Cherlynn Cha](https://github.com/Cherc)
 <img src="https://avatars0.githubusercontent.com/u/11135802?v=3&s=400" width="150"><br>
@@ -24,12 +33,12 @@ We are from [School of Computing, National University of Singapore](http://www.c
 **Features Implemented:**<br>
  * [Add](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#adding-a-new-taskevent-add)
  * [Find](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#finding-tasksevents-which-match-keywords-find)
- * [Collapse] (https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-the-view-of-the-task-list-panel-collapse-and-expand) and [Expand] (https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-the-view-of-the-task-list-panel-collapse-and-expand) 
- 
+ * [Collapse] (https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-the-view-of-the-task-list-panel-collapse-and-expand) and [Expand] (https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-the-view-of-the-task-list-panel-collapse-and-expand)
+
 **Other major contributions:**
  * Implemented some CommandHelper class methods
  * Implemented KeywordParser class
- 
+
 #### [Wu Zefeng](https://github.com/DesperadoFlames)
 <img src="https://avatars3.githubusercontent.com/u/16379229?v=3&s=400" width="150"><br>
 **Role:** Developer<br>
@@ -39,7 +48,7 @@ We are from [School of Computing, National University of Singapore](http://www.c
  * [Redo](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#redoing-the-last-action-redo)
  * [Relocate](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#relocating-the-data-storage-location-relocate)
  * [Switchlist](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#switching-to-a-different-task-list-switchlist)
- * [Renamelist](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#renaming-the-task-list-file-renamelist) 
+ * [Renamelist](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#renaming-the-task-list-file-renamelist)
 
 **Other major contributions:**
  * Added commandbox auto-complete feature
@@ -80,7 +89,7 @@ We are from [School of Computing, National University of Singapore](http://www.c
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
+#### [Leow Yijin](http://github.com/yijinl)
 <img src="images/LeowYijin.jpg" width="150"><br>
 **Role:** Developer <br>  
 **Responsibilities:** Data
@@ -97,14 +106,14 @@ We are from [School of Computing, National University of Singapore](http://www.c
 #### [Thien Nguyen](https://github.com/ndt93)
 **Role:** Developer <br>  
 **Responsibilities:** Threading
- 
+
 -----
 
-#### [You Liang](http://github.com/yl-coder) 
+#### [You Liang](http://github.com/yl-coder)
 <img src="images/YouLiang.jpg" width="150"><br>
 **Role:** Developer <br>  
 **Responsibilities:** UI
- 
+
 -----
 
 # Contributors
