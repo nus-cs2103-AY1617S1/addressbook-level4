@@ -64,8 +64,6 @@ import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.TaskBuilder;
-import seedu.address.testutil.TestTask;
 
 public class LogicManagerTest {
 
@@ -168,9 +166,28 @@ public class LogicManagerTest {
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTaskList, model.getTaskMaster());
         assertEquals(expectedTaskList, latestSavedTaskList);
+        
     }
+    
+    private void assertUndoRedoAble(String expectedMessage,
+            ReadOnlyTaskMaster expectedTaskList,
+            List<? extends TaskComponent> expectedShownList) throws Exception {
 
+    	//Execute the command
+    	logic.execute("u");
+    	CommandResult result = logic.execute("r");
 
+    	List<TaskComponent> componentList = model.getFilteredTaskComponentList();
+    	//Confirm the ui display elements should contain the right data
+    	assertEquals(expectedMessage, result.feedbackToUser);
+    	assertEquals(expectedShownList, componentList);
+
+    	//Confirm the state of data (saved and in-memory) is as expected
+    	assertEquals(expectedTaskList, model.getTaskMaster());
+    	assertEquals(expectedTaskList, latestSavedTaskList);
+
+}
+    
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
@@ -196,6 +213,7 @@ public class LogicManagerTest {
         model.addTask(helper.generateTask(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskMaster(), Collections.emptyList());
+        assertUndoRedoAble(ClearCommand.MESSAGE_SUCCESS, new TaskMaster(), Collections.emptyList());
     }
     
 
@@ -217,20 +235,32 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_add_successful() throws Exception {
+    public void execute_nonFloatingUnrecognizableDate_notAllowed() throws Exception {
+    	String expectedMessage = Messages.MESSAGE_ILLEGAL_DATE_INPUT;
+        assertCommandBehavior(
+                "add task from not a date to not a date", expectedMessage);
+        assertCommandBehavior(
+                "add task by not a date", expectedMessage);
+    }
+    //@@author A0147967J
+    @Test
+    public void execute_addNonFloating_sucessful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        Task toBeAdded = helper.nonFloatingFromDateToDate();
         TaskMaster expectedAB = new TaskMaster();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskComponentList());
     }
-    
+    //@@author
     //@@author A0135782Y
     @Test
     public void execute_add_successful_non_floating_from_date_to_date() throws Exception {
@@ -243,6 +273,9 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskComponentList());
     }
@@ -259,7 +292,10 @@ public class LogicManagerTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                expectedAB.getTaskComponentList());        
+                expectedAB.getTaskComponentList());  
+        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     //@@author A0147967J
@@ -332,6 +368,9 @@ public class LogicManagerTest {
                 String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter),
                 expectedAB,
                 expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(AddNonFloatingCommand.MESSAGE_SUCCESS, toBeAddedAfter),
+                expectedAB,
+                expectedAB.getTaskComponentList());
 
     }
     
@@ -368,12 +407,22 @@ public class LogicManagerTest {
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
+        assertUndoRedoAble(ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
     }
     
     //@@author A0147967J    
     /**
      * The logic for block command is actually the same as add-non=floating commands.
-     * */     
+     * */   
+    @Test
+    public void execute_block_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, BlockCommand.MESSAGE_USAGE);
+        assertCommandBehavior(
+                "block 2am to 3am", expectedMessage);
+    }
+    
     @Test
     public void execute_block_successful() throws Exception {
         // setup expectations
@@ -387,6 +436,9 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(helper.generateBlockCommand(toBeAdded),
                 String.format(BlockCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(BlockCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskComponentList());
 
@@ -678,6 +730,9 @@ public class LogicManagerTest {
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
+                expectedAB,
+                expectedAB.getTaskComponentList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getTaskList().get(1), threeTasks.get(1));
     }
@@ -707,6 +762,10 @@ public class LogicManagerTest {
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
+                expectedAB,
+                expectedAB.getTaskComponentList());
+        
     }
     
     //@@author A0147967J
@@ -734,6 +793,9 @@ public class LogicManagerTest {
         		String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, toComplete),
         	    expectedAB,
         	    new TaskMaster().getTaskComponentList());
+        assertUndoRedoAble(String.format(CompleteCommand.MESSAGE_COMPLETE_TASK_SUCCESS, toComplete),
+        	    expectedAB,
+        	    new TaskMaster().getTaskComponentList());
 
     }
     //@@author
@@ -742,6 +804,7 @@ public class LogicManagerTest {
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
+        assertCommandBehavior("find", expectedMessage);
     }
 
     @Test
@@ -761,7 +824,7 @@ public class LogicManagerTest {
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
-                expectedComponentList);
+                expectedComponentList);        
     }
 
     @Test
@@ -943,6 +1006,30 @@ public class LogicManagerTest {
                 expectedComponentList);
         
     }
+    @Test
+    public void execute_findbyMultipleConstraints_Successful() throws Exception{
+    	TestDataHelper helper = new TestDataHelper();
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task test = helper.nonFloatingFromDateToDate();
+
+        TaskMaster expectedAB = new TaskMaster();
+        List<Task> expectedList = helper.generateTasks(test);
+        
+        expectedAB.addTask(pTarget1);
+        expectedAB.addTask(test);
+
+        model.addTask(pTarget1);
+        model.addTask(test);
+        
+        List<TaskComponent> expectedComponentList = helper.buildTaskComponentsFromTaskList(expectedList);
+        
+        assertCommandBehavior("find non floating from 19 oct 1am to 21 oct 3am",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedComponentList);
+        
+    }
+    
     
     @Test
     public void execute_findbyTag_Successful() throws Exception {
@@ -1104,6 +1191,7 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_ILLEGAL_TIME_SLOT),
                 expectedAB,
                 expectedAB.getTaskComponentList());
+    
     }
     
     @Test
@@ -1144,6 +1232,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1162,6 +1253,9 @@ public class LogicManagerTest {
         assertCommandBehavior(
         		"edit 1 t/anytag",
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedAB.getTaskComponentList());
     }
@@ -1187,6 +1281,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedAB.getTaskComponentList());
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1207,6 +1304,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedComponentList);
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1226,6 +1326,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedComponentList);
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1245,6 +1348,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedComponentList);
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1265,6 +1371,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedComponentList);
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1284,6 +1393,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedComponentList);
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
     
     @Test
@@ -1303,6 +1415,9 @@ public class LogicManagerTest {
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
                 expectedAB,
                 expectedComponentList);
+        assertUndoRedoAble(String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, afterModification),
+                expectedAB,
+                expectedAB.getTaskComponentList());
     }
 
     /**
@@ -1406,7 +1521,6 @@ public class LogicManagerTest {
             for(Tag t: tags){
                 cmd.append(" t/").append(t.tagName);
             }
-            System.out.println(cmd.toString());
             return cmd.toString();
         }
 

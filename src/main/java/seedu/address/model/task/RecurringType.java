@@ -6,5 +6,6 @@ public enum RecurringType {
     DAILY,
     WEEKLY,
     MONTHLY,
-    YEARLY
+    YEARLY,
+    IGNORED //Merely for parsing
 }

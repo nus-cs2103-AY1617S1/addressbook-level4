@@ -23,13 +23,14 @@ public class RecurringDateParser {
         for(RecurringType t : RecurringType.values()) {
             recurringTypes.add(t);
         }
+        recurringTypes.remove(RecurringType.IGNORED);
     }
     
     public RecurringType getRecurringType(String input) throws IllegalArgumentException {
         if (recurringTypes.contains(RecurringType.valueOf(input))) {
             return RecurringType.valueOf(input);
         }
-        return RecurringType.NONE;
+        return RecurringType.IGNORED;
     }
     
     public static RecurringDateParser getInstance() {

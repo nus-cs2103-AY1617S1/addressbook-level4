@@ -1,11 +1,8 @@
 package seedu.address.logic.commands;
 
-import java.util.List;
-
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskComponent;
 import seedu.address.commons.core.UnmodifiableObservableList;
 

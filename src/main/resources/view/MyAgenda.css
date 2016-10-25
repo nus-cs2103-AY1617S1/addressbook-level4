@@ -76,15 +76,15 @@
 }
 
 .group0 { -fx-background-color: #AC725E; -fx-fill: #AC725E; }
-.group1 { -fx-background-color: #D06B64; -fx-fill: #D06B64; }
+.archive { -fx-background-color: rgba(102,171,140,0.8); -fx-fill: rgba(102,171,140,0.8); }
 .group2 { -fx-background-color: #F83A22; -fx-fill: #F83A22; }
 .group3 { -fx-background-color: #FA573C; -fx-fill: #FA573C; }
 .group4 { -fx-background-color: #FF7537; -fx-fill: #FF7537; }
 .group5 { -fx-background-color: #FFAD46; -fx-fill: #FFAD46; }
-.group6 { -fx-background-color: #42D692; -fx-fill: #42D692; }
+.block { -fx-background-color: rgba(148, 93, 96, 0.8); -fx-fill: rgba(148, 93, 96, 0.8); }
 .group7 { -fx-background-color: #16A765; -fx-fill: #16A765; }
 .group8 { -fx-background-color: #7BD148; -fx-fill: #7BD148; }
-.group9 { -fx-background-color: #B3DC6C; -fx-fill: #B3DC6C; }
+.normal { -fx-background-color: rgba(110, 196, 219, 0.8); -fx-fill: rgba(110, 196, 219, 0.8); }
 .group10 { -fx-background-color: #FBE983; -fx-fill: #FBE983; }
 .group11 { -fx-background-color: #FAD165; -fx-fill: #FAD165; }
 .group12 { -fx-background-color: #92E1C0; -fx-fill: #92E1C0; }

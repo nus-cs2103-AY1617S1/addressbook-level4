@@ -8,8 +8,6 @@ import seedu.address.model.ReadOnlyTaskMaster;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.XmlSerializableTaskList;
 import seedu.address.testutil.TestUtil;
-import seedu.address.ui.MyAgenda;
-
 import java.util.function.Supplier;
 
 import org.apache.logging.log4j.Level;

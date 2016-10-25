@@ -14,8 +14,6 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.controlsfx.control.textfield.TextFields;
-
 //@@author A0147967J
 /**
  * This class extends javafx text field for auto complete
@@ -51,7 +49,7 @@ public class AutoCompleteTextField extends TextField
 					LinkedList<String> searchResult = new LinkedList<>();
 					searchResult.addAll(dictionary.subSet(getCurrentWord(), getCurrentWord() + Character.MAX_VALUE));
 					if (dictionary.size() > 0){
-						populatePopup(searchResult);
+						popup(searchResult);
 						if (!dictionaryPopup.isShowing() && turnOn){
 							dictionaryPopup.show(AutoCompleteTextField.this, Side.BOTTOM, getText().length()*8, 0);
 						}
@@ -73,7 +71,7 @@ public class AutoCompleteTextField extends TextField
 	/**
 	 * Pop out the entry set with the given search results.
 	 */
-	private void populatePopup(List<String> searchResult) {
+	private void popup(List<String> searchResult) {
 		
 		List<CustomMenuItem> menuItems = new LinkedList<>();
 
@@ -89,6 +87,7 @@ public class AutoCompleteTextField extends TextField
 					positionCaret(getText().length());
 				}
 			});
+			
 			menuItems.add(item);
 		}
 		dictionaryPopup.getItems().clear();

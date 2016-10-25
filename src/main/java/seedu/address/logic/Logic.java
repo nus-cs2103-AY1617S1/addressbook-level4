@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskComponent;
 
 /**
