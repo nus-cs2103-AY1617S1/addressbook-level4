@@ -23,6 +23,7 @@
     * [Renaming the task list file: `renamelist`](#renaming-the-task-list-file-renamelist)
     * [Relocating the data storage location: `relocate`](#relocating-the-data-storage-location-relocate)
     * [Changing the view of the task list panel: `collapse` and `expand`](#changing-the-view-of-the-task-list-panel-collapse-and-expand)
+    * [Changing calendar view: `calendar`](#changing-calendar-view-calendar)
     * [Viewing help: `help`](#viewing-help-help)
 * [Other Features](#other-features)
     * [Autocomplete and suggestions](#autocomplete-and-suggestions)
