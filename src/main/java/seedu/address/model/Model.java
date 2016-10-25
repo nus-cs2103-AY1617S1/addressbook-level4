@@ -61,5 +61,11 @@ public interface Model {
     void updateFilteredTaskList(Set<String> keywords);
     
     void updateFilteredTaskListToShow(Predicate<Task> predicate);
+    
+    /** Clears all the done tasks in the list
+     * @throws TaskNotFoundException */
+    void clearDone() throws TaskNotFoundException;
+
+    void sortTasks();
 
 }

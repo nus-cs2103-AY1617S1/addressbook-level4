@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
@@ -18,6 +19,8 @@ import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayDeque;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -66,6 +69,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    @Override
+    public void clearDone() throws TaskNotFoundException {
+    	taskManager.clearDone();
+    	indicateTaskManagerChanged();
+    }
+    
     public void clearHistory() {
         taskManagerHistory.clear();
         undoHistory.clear();
@@ -107,6 +116,11 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void sortTasks() {
+        taskManager.sortTasksList();
     }
     
     @Override
@@ -203,20 +217,24 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredListToShowAll() {
+    	sortTasks();
         filteredTasks.setPredicate(null);
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
+    	sortTasks();
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
+    	sortTasks();
         filteredTasks.setPredicate(expression::satisfies);
     }
     
     @Override
     public void updateFilteredTaskListToShow(Predicate<Task> predicate) {
+    	sortTasks();
     	filteredTasks.setPredicate(predicate);
     }
 

@@ -82,9 +82,22 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
     
+    public void sortTasksList() {
+        tasks.sortList();
+    }
+    
     public void doneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
     	tasks.done(task);
     }
+	
+    public void clearDone() throws UniqueTaskList.TaskNotFoundException{
+	   	for (int i = 0; i < tasks.getInternalList().size(); i++ ) {
+			if (tasks.getInternalList().get(i).getDone().getDoneValue() == true) {
+				tasks.remove(tasks.getInternalList().get(i));
+				i--;
+			}
+		}
+	}
     
     public void undoneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
     	tasks.undone(task);

@@ -66,7 +66,7 @@ public class Time {
      * 
      * @return true if the time parameter is missing
      */
-    private boolean isMissing() {
+    public boolean isMissing() {
 		return time.getTime().toString().equalsIgnoreCase(DEFAULT_DATE);
 	}
     
@@ -76,6 +76,16 @@ public class Time {
     	}
     	else {
     		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy h:mm a");
+    		return dateFormat.format(time.getTime());
+    	}
+    }
+    
+    public String appearOnUIFormatForDate() {
+    	if(time.getTime().equals(new Date(0))) {
+    		return "-";
+    	}
+    	else {
+    		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
     		return dateFormat.format(time.getTime());
     	}
     }
@@ -132,14 +142,13 @@ public class Time {
      * @return true only if startTime < endTime
      * @throws IllegalValueException
      */
-    public static boolean checkOrderOfDates(String startTime, String endTime) throws IllegalValueException {
-    	Time start = new Time(startTime);
-    	Time end = new Time(endTime);
-    	
+    public static boolean checkOrderOfDates(Time start, Time end) throws IllegalValueException {    	
     	return end.isMissing() || start.time.compareTo(end.time) <= 0;
-
 	}
 
+    public static boolean checkOrderOfTime(Time firstTime, Time secondTime) {
+        return firstTime.time.compareTo(secondTime.time) <= 0;
+    }
   
     
     /**

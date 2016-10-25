@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.task.*;
@@ -44,7 +46,7 @@ public class AddCommand extends Command {
         Time startTime = new Time(start);
         Time endTime = new Time(end);
         
-        if(!Time.checkOrderOfDates(start, end)) {
+        if(!Time.checkOrderOfDates(startTime, endTime)) {
         	throw new IllegalValueException(MESSAGE_INVALID_START_AND_END_TIME);
         }
         
