@@ -1,10 +1,8 @@
 package teamfour.tasc.logic.commands;
 
-import java.io.IOException;
-
-import javax.xml.bind.JAXBException;
-
 import teamfour.tasc.MainApp;
+import teamfour.tasc.commons.core.EventsCenter;
+import teamfour.tasc.commons.events.storage.FileRelocateEvent;
 import teamfour.tasc.model.keyword.RelocateCommandKeyword;
 
 /**
@@ -22,7 +20,7 @@ public class RelocateCommand extends Command {
 
     
     public static final String MESSAGE_SUCCESS = 
-            "File Relocated: %1$s \nWill take effect after restarting the app.";
+            "File Relocated: %1$s.";
     public static final String MESSAGE_UNDO_SUCCESS = 
             "File Relocation cancelled. Data will be stored in %1$s.";
     public static final String MESSAGE_FILE_OPERATION_FAILURE = 
@@ -50,19 +48,13 @@ public class RelocateCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        try {
-            MainApp.setDataStorageFilePath(destination);
-            undoable = true;
-            return new CommandResult(String.format(MESSAGE_SUCCESS, 
-                    destination + "/tasklist.xml"));
-        } catch (IOException | JAXBException e) {
-            return new CommandResult(MESSAGE_FILE_OPERATION_FAILURE);
-        }
+        EventsCenter.getInstance().post(new FileRelocateEvent(destination));
+        undoable = true;
+        return new CommandResult(String.format(MESSAGE_SUCCESS, destination));
     }
 
     @Override
     public boolean canUndo() {
         return undoable;
     }
-
 }

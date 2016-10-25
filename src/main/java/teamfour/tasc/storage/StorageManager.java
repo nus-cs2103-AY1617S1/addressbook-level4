@@ -30,9 +30,10 @@ public class StorageManager extends ComponentManager implements Storage {
         this.taskListStorage = new XmlTaskListStorage(taskListFilePath);
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
+    
 
     // ================ UserPrefs methods ==============================
-
+    
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
         return userPrefStorage.readUserPrefs();
@@ -46,6 +47,11 @@ public class StorageManager extends ComponentManager implements Storage {
 
     // ================ TaskList methods ==============================
 
+    @Override
+    public void changeTaskListStorage(String newTaskListFilePath) throws FileNotFoundException, DataConversionException {
+        this.taskListStorage = new XmlTaskListStorage(newTaskListFilePath);
+    }
+    
     @Override
     public String getTaskListFilePath() {
         return taskListStorage.getTaskListFilePath();
