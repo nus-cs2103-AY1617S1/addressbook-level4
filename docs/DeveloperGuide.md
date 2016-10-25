@@ -315,8 +315,9 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | add new tasks with no date and time | keep track of tasks that have no date and time
 `* * *` | user | add new tasks with deadlines | keep track of deadlines
 `* * *` | user | add new tasks with start and end time | keep track of tasks with start time and end time
-`* * *` | user | view all tasks today | keep track of my agenda for today
-`* * *` | user | view all tasks for a specific date | keep track of my tasks
+`* * *` | user | view all upcoming tasks | keep track of all the uncompleted and upcoming tasks I have
+`* * *` | user | view all tasks | keep track of all tasks I have ever added
+`* * *` | user | view all tasks for a specific date | keep track of my agenda for a specific date
 `* * *` | user | view all completed tasks | remember what I have completed
 `* * *` | user | find a task using keywords | find a specific task easily
 `* * *` | user | edit a task | update the details of specific tasks
@@ -413,20 +414,42 @@ Use case ends
   Use case resumes at step 1
 
 <br></br>
-### Use case: View all tasks
+### Use case: View all upcoming tasks
 
 **MSS**
 
-1. User requests to view all tasks
-2. Program shows the list of todo tasks, events for today and all deadlines<br>
+1. User requests to view all upcoming tasks
+2. Program shows the list of uncompleted todo tasks, events from today onwards, and all uncompleted deadlines<br>
 
 Use case ends
 
 **Extensions**
 
-* There are no events for today
+* There are no events from today onwards
 
-> * Program returns a message, saying there are no tasks for today<br>
+> * Program returns a message, saying there are no events from today onwards<br>
+  Use case ends
+  
+* There are no tasks with deadlines
+
+> * Program returns a message, saying there are no uncompleted deadlines<br>
+  Use case ends
+  
+<br></br>
+### Use case: View all tasks
+
+**MSS**
+
+1. User requests to view all tasks
+2. Program shows the list of all todo tasks, deadlines and events<br>
+
+Use case ends
+
+**Extensions**
+
+* There are no events
+
+> * Program returns a message, saying there are no events<br>
   Use case ends
   
 * There are no tasks with deadlines
