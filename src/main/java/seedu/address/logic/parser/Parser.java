@@ -63,6 +63,14 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+			
+	case CompleteCommand.COMMAND_WORD:
+       		try {
+			return prepareComplete(arguments);
+		} catch (IllegalValueException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -78,6 +86,9 @@ public class Parser {
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
+
+	case ListAllCommand.COMMAND_WORD:
+            return new ListAllCommand();
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -184,6 +195,23 @@ public class Parser {
         return new DeleteCommand(index.get());
     }
 
+	
+	
+	
+	
+	
+	
+	
+	private Command prepareComplete(String args) throws IllegalValueException {
+  		  
+        Optional<Integer> index = parseIndex(args);
+	if(!index.isPresent()){
+     		return new IncorrectCommand(
+	     		String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+ 	}
+ 
+ 	return new CompleteCommand(index.get());
+}
     /**
      * Parses arguments in the context of the select task command.
      *
