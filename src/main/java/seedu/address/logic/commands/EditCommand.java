@@ -53,17 +53,13 @@ public class EditCommand extends Command {
        try{ 
            model.saveToHistory();
            model.editTask(taskToEdit, newName, newStart, newEnd, newRecur);
-           model.updateFilteredTaskListToShow(isNotDone());
+           model.updateFilteredTaskListToShowNotDone();
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (IllegalValueException e) {
             return new CommandResult(MESSAGE_EDIT_TASK_NOT_SUCCESSFUL);
         }
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
-    }
-    
-    public static Predicate<Task> isNotDone() {
-    	return t -> t.getDone().value == false;
     }
     
 }

@@ -14,15 +14,11 @@ public class ShowDoneCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Shown all done tasks";
 
     public ShowDoneCommand() {}
-
-    public static Predicate<Task> isDone() {
-    	return t -> t.getDone().value == true;
-    }
     
     @Override
     public CommandResult execute() {
     	model.updateFilteredListToShowAll();
-        model.updateFilteredTaskListToShow(isDone());
+        model.updateFilteredTaskListToShowDone();
         return new CommandResult(MESSAGE_SUCCESS);
     }
     
