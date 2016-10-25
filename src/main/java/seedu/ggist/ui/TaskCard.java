@@ -36,6 +36,7 @@ public class TaskCard extends UiPart{
     private ColorPicker high = new ColorPicker(Color.web("#e80549"));
     private ColorPicker none = new ColorPicker(Color.web("#663220"));
     private ColorPicker done = new ColorPicker(Color.web("#2eb211"));
+    private ColorPicker overdue = new ColorPicker(Color.web("#ff0000"));
 
     public TaskCard(){
 
@@ -91,7 +92,13 @@ public class TaskCard extends UiPart{
         if (task.isDone()) {
             id.textFillProperty().bind(done.valueProperty());
             taskName.textFillProperty().bind(done.valueProperty());
-        }     
+        }
+        if (task.isOverdue()) {
+            startTime.textFillProperty().bind(overdue.valueProperty());
+            endTime.textFillProperty().bind(overdue.valueProperty());
+            startDate.textFillProperty().bind(overdue.valueProperty());
+            endDate.textFillProperty().bind(overdue.valueProperty());
+        } 
     }
 
     public HBox getLayout() {

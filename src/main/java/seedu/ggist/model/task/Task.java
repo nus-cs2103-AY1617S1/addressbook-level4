@@ -22,7 +22,7 @@ public class Task implements ReadOnlyTask{
     protected TaskTime endTime;
     protected Priority priority;
     protected boolean done;
-    
+    protected boolean overdue;
     protected Date start;
     protected Date end;
 
@@ -39,7 +39,6 @@ public class Task implements ReadOnlyTask{
         this.endDate = endDate;
         this.endTime = endTime;
         this.priority = priority;
-        this.done = false;
         if (startDate.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || startTime.value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
             start = constructDateTime(endDate, endTime);
         } else {
@@ -48,10 +47,9 @@ public class Task implements ReadOnlyTask{
         end = constructDateTime(endDate, endTime);
         
         Date currentDate  = new Date();
-        if (end.before(currentDate)) {
-            throw new IllegalValueException("You have enetered a past date or time!");
-        }
-        
+        if (end.before(currentDate) && done == false) {
+            overdue = true;
+        }      
     }
     
 
@@ -64,6 +62,7 @@ public class Task implements ReadOnlyTask{
     }
     public void setDone() {
         done = true;
+        overdue = false;
     }
     
     public void setUnDone() {
@@ -152,25 +151,9 @@ public class Task implements ReadOnlyTask{
         return Objects.hash(taskName,startDate, startTime, endDate, endTime, priority);
     }
 
-
     @Override
-    public boolean isDeleted() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-
-    @Override
-    public void constructStartDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
-        // TODO Auto-generated method stub
-        
-    }
-
-
-    @Override
-    public void constructEndDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
-        // TODO Auto-generated method stub
-        
+    public boolean isOverdue() {
+        return overdue;
     }
 
 
