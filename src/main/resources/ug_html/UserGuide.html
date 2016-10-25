@@ -6,7 +6,41 @@
 
 		<h2>Commands</h2>
 
-								<blockquote>
+		<style>
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 500px;
+    background-color: #FF6347;
+    opacity: 0.9;
+    color: #fff;
+    text-align: center;
+    border-radius: 20px;
+    padding-right: 80px;
+    padding-left: 80px;
+    padding: 30px;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+p.serif {
+    font-family: "Calibri", times, serif;
+}
+.icon-info-circled { *zoom: expression( this.runtimeStyle['zoom'] = '1', this.innerHTML = '&#xe800;&nbsp;'); }
+
+</style>
+<blockquote>
 									<p><strong>Command Format</strong></p>
 
 									<ul>
@@ -15,12 +49,76 @@
 										<li>Items with <code>...</code> after them can have multiple instances.</li>
 										<li>Flexible ordering of parameters.</li>
 									</ul>
-								</blockquote>
+								</blockquote><br>
+
+<div class="tooltip">Hover to see Command Summary
+  <span class="tooltiptext">
+  <img src="Dialog-Box-About.png" alt="Help icon" ><br><br>
+  <font size="8">Need help?</font><br><br>
+
+																					<table><thead>
+																						<tr>
+																						
+																						</tr>
+																					</thead><tbody>
+																					<tr>
+																						<td><font color="white">Add</font></td>
+																						<td align="right"><code><font color="white">add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE] [PRIORITY]</font></code></td>
+																					</tr>
+																					<tr>
+																						<td><font color="white">Show</font></td>
+																						<td align="right"><code><font color="white">show [TYPE]</font></code></td>
+																					</tr>
+																					<tr>
+																						<td><font color="white">Find</font></td>
+																						<td align="right"><code><font color="white">find SEARCHSTRING</font></code></td>
+																					</tr>
+																					<tr>
+																						<td><font color="white">Delete</font></td>
+																						<td align="right"><code><font color="white">delete INDEX/TASKNAME</font></code></td>
+																					</tr>
+																					<tr>
+																						<td><font color="white">Update</font></td>
+																						<td align="right"><code><font color="white">update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [PRIORITY]</font></code></td>
+																					</tr>
+																					<tr>
+																						<td><font color="white">Done</font></td>
+																						<td align="right"><code><font color="white">done INDEX/TASKNAME</font></code></td>
+																					</tr>
+																					<tr>
+																						<td><font color="white">Set Storage</font></td>
+																						<td align="right"><code><font color="white">setstorage FILEPATH</font></code></td>
+																					</tr>
+																					<tr>
+																						<td><font color="white">Undo</font></td>
+																						<td align="right"><code><font color="white">undo</font></code></td>
+																					</tr>
+																					<tr>
+																						<td><font color="white">Redo</font></td>
+																						<td align="right"><code><font color="white">redo</code></font></td>
+																					</tr>
+																					<tr>
+																						<td><font color="white">Help</font></td>
+																						<td align="right"><code><font color="white">help</code></font></td>
+																					</tr>
+																					<tr>
+																						<td><font color="white">Clear</font></td>
+																						<td align="right"><code><font color="white">clear</font></code></td>
+																					</tr>
+																					<tr>
+																						<td><font color="white">Exit</font></td>
+																						<td align="right"><code><font color="white">exit</font></code></td>
+																					</tr>
+																				</tbody></table></span>
+</div><br>
+
+								
+								<hr>
 
 								<h4>Adding a task : <code>add</code></h4>
 
-								<p>Adds a task, deadline, event or a floating task to the list. <br>
-									Format: <code>add TASKNAME [at/from TIMEDATE] [by/to TIMEDATE] [PRIORITY]</code> </p>
+								<p>Adds a task, deadline, event or a floating task to the list. <br></p>
+									<p><strong>Format: </strong><code>add TASKNAME [at/from TIMEDATE] [by/to TIMEDATE] [PRIORITY]</code></p> 
 
 									<blockquote>
 										<ul>
@@ -31,19 +129,20 @@
 										</ul>
 									</blockquote>
 
-									<p>Examples: </p>
+									<h4>Examples: </h4>
 
 									<ul>
-										<li><code>add Buy eggs at 5pm 13/09/2016 ***</code></li>
-										<li><code>add Meeting from 13/09/2016 5pm to 13/09/2016 7pm **</code></li>
-										<li><code>add Pay bills by 13/09/2016 5pm</code></li>
-										<li><code>add Do laundry *</code></li>
+										<li><code><font size="4">add Buy eggs at 5pm 13/09/2016 ***</font></code></li>
+										<li><code><font size="4">add Meeting from 13/09/2016 5pm to 13/09/2016 7pm **</font></code></li>
+										<li><code><font size="4">add Pay bills by 13/09/2016 5pm</font></code></li>
+										<li><code><font size="4">add Do laundry *</font></code></li>
 									</ul>
+									<hr>
 
 									<h4>Displaying tasks : <code>show</code></h4>
 
-									<p>Displays tasks and their indexes in the specified timeframe.<br>
-										Format: <code>show [TYPE]</code></p>
+									<p>Displays tasks and their indexes in the specified timeframe.<br></p>
+										<p><strong>Format: </strong><code><font size="4">show [TYPE]</font></code></p>
 
 										<blockquote>
 											<ul>
@@ -52,42 +151,37 @@
 											</ul>
 										</blockquote>
 
-										<p>Examples:</p>
+										<h4>Examples:</h4>
 
 										<ul>
-											<li><code>show floating</code><br></li>
+											<li><code><font size="4">show floating</font></code><br></li>
+											<blockquote><font size="3">
+											- Lists all the floating tasks
+											</font></blockquote>
 										</ul>
-
-										<blockquote>
-											<ul>
-												<li>Lists all the floating tasks</li>
-											</ul>
-										</blockquote>
+										
 
 										<ul>
-											<li><code>show tomorrow</code><br></li>
-										</ul>
-
-										<blockquote>
-											<ul>
-												<li>Lists all tasks for tomorrow</li>
-											</ul>
+											<li><code><font size="4">show tomorrow</font></code><br></li>
+											<blockquote>
+												<font size="3"> - Lists all tasks for tomorrow</font>
 										</blockquote>
+										</ul>
 
 										<ul>
-											<li><code>show overdue</code><br></li>
+											<li><code><font size="4">show overdue</font></code><br></li>
+											<blockquote>
+												- Lists all the overdue tasks
+										</blockquote>
 										</ul>
 
-										<blockquote>
-											<ul>
-												<li>Lists all the overdue tasks</li>
-											</ul>
-										</blockquote>
+										
+										<hr>
 
 										<h4>Searching for tasks : <code>find</code></h4>
 
-										<p>Lists tasks whose names match the given input.<br>
-											Format: <code>find SEARCHSTRING</code></p>
+										<p>Lists tasks whose names match the given input.<br></p>
+											<p><strong>Format: </strong><code><font size="4">find SEARCHSTRING</font></code></p>
 
 											<blockquote>
 												<ul>
@@ -98,32 +192,29 @@
 												</ul>
 											</blockquote>
 
-											<p>Examples: </p>
+											<h4>Examples: </h4>
 
 											<ul>
-												<li><code>find b*y</code><br></li>
-											</ul>
-
-											<blockquote>
-												<ul>
-													<li>Returns <code>buy</code> but not <code>buy eggs</code></li>
-												</ul>
+												<li><code><font size="4">find b*y</font></code><br></li>
+												<blockquote>
+													Returns <code>buy</code> but not <code>buy eggs</code>
 											</blockquote>
-
-											<ul>
-												<li><code>find b*y*</code><br></li>
 											</ul>
 
-											<blockquote>
-												<ul>
+											<ul>
+												<li><code><font size="4">find b*y*</font></code><br></li>
+												<blockquote>
 													<li>Returns <code>buy eggs</code> but not <code>must buy eggs</code></li>
-												</ul>
 											</blockquote>
+											</ul>
+
+											
+											<hr>
 
 											<h4>Deleting a task : <code>delete</code></h4>
 
-											<p>Deletes the specified task.<br>
-												Format: <code>delete INDEX/TASKNAME</code></p>
+											<p>Deletes the specified task.<br></p>
+												<p><strong>Format: </strong><code><font size="4">delete INDEX/TASKNAME</font></code></p>
 
 												<blockquote>
 													<ul>
@@ -132,32 +223,30 @@
 													</ul>
 												</blockquote>
 
-												<p>Examples:</p>
+												<h4>Examples:</h4>
 
 												<ul>
-													<li><code>delete 1</code></li>
-												</ul>
-
-												<blockquote>
-													<ul>
+													<li><code><font size="4">delete 1</font></code></li>
+													<blockquote>
 														<li>Deletes task at index 1</li>
-													</ul>
 												</blockquote>
-
-												<ul>
-													<li><code>delete b*y*</code></li>
 												</ul>
 
-												<blockquote>
-													<ul>
+												<ul>
+													<li><code><font size="4">delete b*y*</font></code></li>
+													<blockquote>
 														<li>Lists tasks matching <code>b*y*</code> for the user to choose from.</li>
-													</ul>
 												</blockquote>
+												</ul>
+
+												
+												<hr>
 
 												<h4>Updating a task : <code>update</code></h4>
 
-												<p>Updates information for a task referred by its index.<br>
-													Format: <code>update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [PRIORITY]</code></p>
+												<p>Updates information for a task referred by its index.<br></p>
+
+													<p><strong>Format: </strong><code><font size="4">update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [PRIORITY]</font></code></p>
 
 													<blockquote>
 														<ul>
@@ -166,32 +255,29 @@
 														</ul>
 													</blockquote>
 
-													<p>Examples:</p>
+													<h4>Examples:</h4>
 
 													<ul>
-														<li><code>update 1 at 13/09/2016 5pm</code><br></li>
-													</ul>
-
-													<blockquote>
-														<ul>
-															<li><code>Meeting from 13/09/2016 4pm to 13/09/2016 6pm</code> will be replaced with <code>Meeting at 13/09/2016 5pm</code></li>
-														</ul>
+														<li><code><font size="4">update 1 at 13/09/2016 5pm</font></code><br></li>
+														<blockquote>
+																				<code>Meeting from 13/09/2016 4pm to 13/09/2016 6pm</code> will be replaced with <code>Meeting at 13/09/2016 5pm</code>
+					
 													</blockquote>
+													</ul>
 
 													<ul>
-														<li><code>update 1 from 13/09/2016 4pm to 13/09/2016 6pm</code></li>
-													</ul>
-
-													<blockquote>
-														<ul>
-															<li><code>Meeting at 13/09/2016 5pm</code> will be replaced with <code>Meeting from 13/09/2016 4pm to 13/09/2016 6pm</code></li>
-														</ul>
+														<li><code><font size="4">update 1 from 13/09/2016 4pm to 13/09/2016 6pm</font></code></li>
+														<blockquote>
+															<code>Meeting at 13/09/2016 5pm</code> will be replaced with <code>Meeting from 13/09/2016 4pm to 13/09/2016 6pm</code>
 													</blockquote>
+													</ul>
+													
+													<hr>
 
 													<h4>Marking a task as complete : <code>done</code></h4>
 
-													<p>Marks a task as complete.<br>
-														Format: <code>done INDEX/TASKNAME</code></p>
+													<p>Marks a task as complete.<br></p>
+														<p><strong>Format: </strong><code><font size="4">done INDEX/TASKNAME</font></code></p>
 
 														<blockquote>
 															<ul>
@@ -200,33 +286,38 @@
 															</ul>
 														</blockquote>
 
-														<p>Examples:</p>
+														<h4>Examples:</h4>
 
 														<ul>
 															<li><code>done 1</code></li>
 															<li><code>done b*y*</code></li>
 														</ul>
+														<hr>
 
 														<h4>Setting the storage location: <code>setstorage</code></h4>
 
-														<p>Sets the data storage location <br>
-															Format: <code>setstorage FILEPATH</code></p>
+														<p>Sets the data storage location to the specified file path.<br>
+														If file path eneterd is default, then it will be stored in the project file as data/tasklist.xml<br>
+															<p><strong>Format: </strong><code><font size="4">setstorage FILEPATH</font></code><br></p>
+															<p><strong>Format: </strong><code><font size="4">setstorage default</font></code><br></p>
+															<hr>
 
 															<h4>Undo previous action(s): <code>undo</code></h4>
 
-															<p>Undo the latest change made to the task list.
-																Format: <code>undo</code></p>
+															<p>Undo the latest change made to the task list.<br><br></p>
+																<p><strong>Format: </strong><code><font size="4">undo</font></code></strong></p>
 
 																<blockquote>
 																	<ul>
 																		<li>Allows undo to up to 3 previous changes to the task list</li>
 																	</ul>
 																</blockquote>
+																<hr>
 
 																<h4>Redo previous action(s): <code>redo</code></h4>
 
-																<p>Redo the latest change that was reverted using undo.
-																	Format: <code>redo</code></p>
+																<p>Redo the latest change that was reverted using undo.<br><br>
+																	<strong>Format: </strong><code><font size="4">redo</font></code></p>
 
 																	<blockquote>
 																		<ul>
@@ -234,89 +325,37 @@
 																			<li>Does not work if the undo command was not used just before this command</li>
 																		</ul>
 																	</blockquote>
+																	<hr>
 
 																	<h4>Viewing help : <code>help</code></h4>
 
-																	<p>Format: <code>help</code></p>
+																	<p><strong>Format: </strong><code><font size="4">help</font></code></p>
 
 																	<blockquote>
 																		<ul>
 																			<li>Help is also shown if you enter an incorrect command e.g. <code>abcd</code>.</li>
 																		</ul>
 																	</blockquote>
+																	<hr>
 
 																	<h4>Clear all tasks : <code>clear</code></h4>
 
-																	<p>Clears all tasks from the to-do list.<br>
-																		Format: <code>clear</code></p>
+																	<p>Clears all tasks from the to-do list.<br><br>
+																		<strong>Format: </strong><code><font size="4">clear</font></code></p>
+																		<hr>
 
 																		<h4>Exiting the program : <code>exit</code></h4>
 
-																		<p>Exits the program.<br>
-																			Format: <code>exit</code>  </p>
+																		<p>Exits the program.<br><br>
+																			<strong>Format: </strong><code><font size="4">exit</font></code>  </p>
+																			<hr>
 
 																			<h4>Saving the data</h4>
 
 																			<p>The task manager data is saved on the hard disk automatically after any command that changes the data.<br>
 																				There is no need to save manually.</p>
 
-																					<h2>Command Summary</h2>
-
-																					<table><thead>
-																						<tr>
-																							<th>Command</th>
-																							<th align="left">Format</th>
-																						</tr>
-																					</thead><tbody>
-																					<tr>
-																						<td>add</td>
-																						<td align="left"><code>add TASKNAME [at/from TIMEDATE] [to/by TIMEDATE] [PRIORITY]</code></td>
-																					</tr>
-																					<tr>
-																						<td>show</td>
-																						<td align="left"><code>show [TYPE]</code></td>
-																					</tr>
-																					<tr>
-																						<td>find</td>
-																						<td align="left"><code>find SEARCHSTRING</code></td>
-																					</tr>
-																					<tr>
-																						<td>delete</td>
-																						<td align="left"><code>delete INDEX/TASKNAME</code></td>
-																					</tr>
-																					<tr>
-																						<td>update</td>
-																						<td align="left"><code>update INDEX [TASKNAME] [at/from [START_TIME][START_DATE]] [to/by [END_TIME][END_DATE]] [PRIORITY]</code></td>
-																					</tr>
-																					<tr>
-																						<td>done</td>
-																						<td align="left"><code>done INDEX/TASKNAME</code></td>
-																					</tr>
-																					<tr>
-																						<td>setstorage</td>
-																						<td align="left"><code>setstorage FILEPATH</code></td>
-																					</tr>
-																					<tr>
-																						<td>undo</td>
-																						<td align="left"><code>undo</code></td>
-																					</tr>
-																					<tr>
-																						<td>redo</td>
-																						<td align="left"><code>redo</code></td>
-																					</tr>
-																					<tr>
-																						<td>help</td>
-																						<td align="left"><code>help</code></td>
-																					</tr>
-																					<tr>
-																						<td>clear</td>
-																						<td align="left"><code>clear</code></td>
-																					</tr>
-																					<tr>
-																						<td>exit</td>
-																						<td align="left"><code>exit</code></td>
-																					</tr>
-																				</tbody></table>
+																					
 																			</article>
 
 																		</body>
