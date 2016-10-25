@@ -75,6 +75,7 @@ public class CommandParserHelper {
     private static final Pattern RECURRENCE_RATE_ARGS_FORMAT = Pattern.compile("(?<rate>\\d+)?(?<timePeriod>.*?)");
 
 
+    //TODO: Change CommandParserHelper to static?
     private Pattern pattern;
     private Matcher matcher;
 
@@ -97,7 +98,7 @@ public class CommandParserHelper {
         }
         
         assignTaskParameters(task);
-        return putVariablesInMap(task);
+        return mapContainingVariables(task);
     }
     
     //@@author 
@@ -112,7 +113,7 @@ public class CommandParserHelper {
         }
         
         assignTaskParametersEdit(task);
-        return putVariablesInMap(task);
+        return mapContainingVariables(task);
     }
     
     //@@author A0139655U
@@ -576,7 +577,7 @@ public class CommandParserHelper {
     }
 
     
-    private HashMap<String, Optional<String>> putVariablesInMap(OptionalStringTask task) {
+    private HashMap<String, Optional<String>> mapContainingVariables(OptionalStringTask task) {
         HashMap<String, Optional<String>> map = new HashMap<String, Optional<String>>();
         
         map.put("taskName", task.taskName);

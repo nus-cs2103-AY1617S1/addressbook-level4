@@ -7,11 +7,10 @@ import java.util.List;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-
 //@@author A0139655U
 public abstract class DateTime {
 
+    private static final int NEGATIVE_ONE = -1;
     public static final String TIME = "EXPLICIT_TIME";
     private static final String DATE_FORMAT_ONE = "EXPLICIT_DATE";
     private static final String DATE_FORMAT_TWO = "RELATIVE_DATE";
@@ -117,11 +116,23 @@ public abstract class DateTime {
         dateString.toLowerCase().equals("friday") || dateString.toLowerCase().equals("saturday") || 
         dateString.toLowerCase().equals("sunday"));
         
-        Date date;
         List<DateGroup> dates = new Parser().parse(dateString);
-        
-        date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
+        Date date = dates.get(BASE_INDEX).getDates().get(BASE_INDEX);
         date = setTimeToStartOfDay(date);
+        date = correctDateIfSameDay(date);
+        
+        return date;
+    }
+
+    private static Date correctDateIfSameDay(Date date) {
+        Calendar temp = Calendar.getInstance();
+        Calendar actual = Calendar.getInstance();
+        actual.setTime(date);
+        
+        if (actual.get(Calendar.DAY_OF_WEEK) == temp.get(Calendar.DAY_OF_WEEK)) {
+            actual.add(Calendar.DATE, NUMBER_OF_DAYS_IN_A_WEEK * NEGATIVE_ONE);
+            date = actual.getTime();
+        }
         
         return date;
     }
