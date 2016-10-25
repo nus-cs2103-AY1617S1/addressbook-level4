@@ -88,7 +88,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * Both the 'task manager' and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, ReadOnlyTaskManager, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -421,6 +421,12 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     } 
     
+    @Test
+    public void execute_undo_nothingToUndo() throws Exception {
+        String expectedMessage = UndoCommand.MESSAGE_UNDO_INVALID;
+        assertCommandBehavior("undo", expectedMessage);
+    }
+
     
     /**
      * A utility class to generate test data.
