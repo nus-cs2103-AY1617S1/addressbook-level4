@@ -6,6 +6,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import java.time.LocalTime;
 
 /**
+ * @@author A0138993L
  * Represents a task's start time in Simply.
  * Guarantees: immutable; is valid as declared in {@link #isValidStart(String)}
  */
@@ -24,7 +25,7 @@ public class Start {
 
     /**
      * Validates given start time.
-     *
+     * @@author A0138993L
      * @throws IllegalValueException if given start time string is invalid.
      */
     public Start(String start) throws IllegalValueException {
@@ -50,7 +51,7 @@ public class Start {
     		this.value = changeTo24HourFormat(start);
     	
     }
-
+    //@@author A0138993L
     private String changeTo24HourFormat(String start) {
 		if (Character.isDigit(start.charAt(start.length()-1)))
 			return start;
