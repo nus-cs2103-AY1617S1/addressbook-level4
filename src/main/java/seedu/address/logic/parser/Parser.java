@@ -37,39 +37,28 @@ public class Parser {
 	// @@author A0141019U
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-	// Different regex for different permutations of arguments
+	// Different regexps for different permutations of arguments
 	private static final Pattern ADD_COMMAND_FORMAT_1 = Pattern
 			.compile("(?i)(?<taskType>event|ev|deadline|dl|someday|sd)(?<addTaskArgs>.*)");
 	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern
-			.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|deadline|someday)");
+			.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|ev|deadline|dl|someday|sd)");
+
 	
-	// Start and end on same day
 	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+(on\\s+)*(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
+			"(?i)'(?<taskName>.*\\S+.*)'(\\s+on\\s+)?(?<date>\\S+)?\\s+from\\s+(?<startTime>\\S+\\s?\\S+)\\s+to\\s+(?<endTime>\\S+\\s?\\S+)");
 	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+(on\\s+)*(?<date>\\S+)");
+			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>\\S+\\s?\\S+)\\s+to\\s+(?<endTime>\\S+\\s?\\S+)(\\s+on\\s+)?(?<date>\\S+)?");
 	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile(
-			"(?i)(on\\s+)*(?<date>\\S+)\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+'(?<taskName>.*\\S+.*)'");
-	private static final Pattern EVENT_ARGS_FORMAT_4 = Pattern.compile(
-			"(?i)(on\\s+)*(?<date>\\S+)\\s+'(?<taskName>.*\\S+.*\\S+.+)'\\s+from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)");
-	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile(
-			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+(on\\s+)*(?<date>\\S+)\\s+'(?<taskName>.*\\S+.*)'");
-	private static final Pattern EVENT_ARGS_FORMAT_6 = Pattern.compile(
-			"(?i)from\\s+(?<startTime>\\S+)\\s+to\\s+(?<endTime>\\S+)\\s+'(?<taskName>.*\\S+.*)'\\s+(on\\s+)*(?<date>\\S+)");
-	// Start and end on different days
-	private static final Pattern EVENT_ARGS_FORMAT_7 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)");
-	private static final Pattern EVENT_ARGS_FORMAT_8 = Pattern.compile(
-			"(?i)from\\s+(?<startDateTime>.+)\\s+to\\s+(?<endDateTime>.+)\\s+'(?<taskName>.*\\S+.*)'");
+			"(?i)from\\s+(?<startTime>\\S+\\s?\\S+)\\s+to\\s+(?<endTime>\\S+\\s?\\S+)(\\s+on\\s+)?(?<date>\\S+)?\\s+'(?<taskName>.*\\S+.*)'");
 
-
+	
 	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern
 			.compile("(?i)'(?<taskName>.*\\S+.*)'\\s+by\\s+(?<dateTime>.+)");
 	private static final Pattern DEADLINE_ARGS_FORMAT_2 = Pattern
 			.compile("(?i)by\\s+(?<dateTime>.+)\\s+'(?<taskName>.*\\S+.*)'");
 
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>.*\\S+.*)'");
-	
+
 	//@@author A0143756Y
 	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile
 			("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s*[^\\s+])+)");
@@ -230,9 +219,7 @@ public class Parser {
 		matchers.add(EVENT_ARGS_FORMAT_1.matcher(arguments));
 		matchers.add(EVENT_ARGS_FORMAT_2.matcher(arguments));
 		matchers.add(EVENT_ARGS_FORMAT_3.matcher(arguments));
-		matchers.add(EVENT_ARGS_FORMAT_4.matcher(arguments));
-		matchers.add(EVENT_ARGS_FORMAT_5.matcher(arguments));
-		matchers.add(EVENT_ARGS_FORMAT_6.matcher(arguments));
+
 
 		// Null values will always be overwritten if the matcher matches.
 		String taskName = null;
@@ -241,78 +228,41 @@ public class Parser {
 		
 		boolean isAnyMatch = false;
 		
-		int i = -1;
 		for (Matcher matcher : matchers) {
-			i++;
 			if (matcher.matches()) {
-				System.out.println("i: " + i);
-				
-				
 				isAnyMatch = true;
 
 				taskName = matcher.group("taskName").trim();
-				String date = matcher.group("date").trim();
+			
 				String startTime = matcher.group("startTime").trim();
 				String endTime = matcher.group("endTime").trim();
 				
+				Optional<String> dateOpt = Optional.ofNullable(matcher.group("date"));
+				String date = dateOpt.orElse("");
+				
 				try {
-					
 					System.out.println("start: " + date + " " + startTime);
 					System.out.println("end: " + date + " " + endTime);
 					
 					startDateTime = DateParser.parse(date + " " + startTime);
 					endDateTime = DateParser.parse(date + " " + endTime);
-					
-					System.out.println("startDateTime: " + startDateTime.toString());
 				} catch (ParseException e) {
-					// TODO better command
-					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+					return new IncorrectCommand(e.getMessage());
 				}				
 
 				try {
 					return new AddCommand(taskName, startDateTime, endDateTime);
 				} catch (IllegalValueException e) {
-					// TODO Auto-generated catch block
 					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 				}
 			}
 		}
 
-		ArrayList<Matcher> diffDayMatchers = new ArrayList<>();
-		diffDayMatchers.add(EVENT_ARGS_FORMAT_7.matcher(arguments));
-		diffDayMatchers.add(EVENT_ARGS_FORMAT_8.matcher(arguments));
-		
-		for (Matcher matcher : diffDayMatchers) {
-			if (matcher.matches()) {
-				isAnyMatch = true;
-				
-
-				taskName = matcher.group("taskName").trim();
-				String startDayAndTime = matcher.group("startDateTime").trim();
-				String endDayAndTime = matcher.group("endDateTime").trim();
-				
-				try {
-					startDateTime = DateParser.parse(startDayAndTime);
-					endDateTime = DateParser.parse(endDayAndTime);
-				} catch (ParseException e) {
-					// TODO better command
-					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-				}				
-
-				break;
-			}
-		}
-
-		//System.out.println("task name: " + taskName);
-		//System.out.println("start date: " + startDateTime.toString());
-		//System.out.println("end date: " + endDateTime.toString());
-		
 		if (!isAnyMatch) {
 			System.out.println("no match");
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 
-		// TODO format date properly
 		try {
 			return new AddCommand(taskName, startDateTime, endDateTime);
 		} catch (IllegalValueException e) {
@@ -339,11 +289,11 @@ public class Parser {
 				taskName = matcher.group("taskName").trim();
 				String dateTimeString = matcher.group("dateTime").trim();
 				System.out.println("dateTimeString: " + dateTimeString);
+				
 				try {
 					dateTime = DateParser.parse(dateTimeString);
 				} catch (ParseException e) {
-					// TODO better command
-					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+					return new IncorrectCommand(e.getMessage());
 				}
 
 				break;
@@ -437,7 +387,7 @@ public class Parser {
 		return new ListCommand(taskType, done);
 	}
 	
-	//@@author
+	//@@author A0141019U
 	/**
 	 * Parses arguments in the context of the delete task command.
 	 *
