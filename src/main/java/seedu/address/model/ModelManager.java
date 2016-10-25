@@ -169,7 +169,7 @@ public class ModelManager extends ComponentManager implements Model {
         isDoneList = false;
     }
     
-    //@@author
+    //@@author A0139655U
     public synchronized void editTask(ReadOnlyTask floatingTask, Name name, Date startDate,
             Date endDate, Priority priority, RecurrenceRate recurrenceRate) {
         taskManager.editFloatingTask(floatingTask, name, startDate, endDate, priority, recurrenceRate);
