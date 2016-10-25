@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import seedu.todo.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
@@ -26,6 +28,8 @@ public class TaskCard extends UiPart{
     private Label byDate;
     @FXML
     private Label tags;
+    @FXML
+    private Circle priorityLevel;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -49,6 +53,13 @@ public class TaskCard extends UiPart{
         onDate.setText("Start: " + task.getOnDate().toString());
         byDate.setText("End: " + task.getByDate().toString());
         priority.setText("Priority: " + task.getPriority().toString());
+        if (task.getPriority().toString().equals("low")) {
+        	priorityLevel.setFill(Color.LIMEGREEN);
+        } else if (task.getPriority().toString().equals("mid")) {
+        	priorityLevel.setFill(Color.YELLOW);
+        } else {
+        	priorityLevel.setFill(Color.RED);
+        }
         tags.setText(task.tagsString());
     }
 

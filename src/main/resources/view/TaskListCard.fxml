@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 
@@ -51,6 +52,7 @@
                         </graphic>
                      </Label>
                           </HBox>
+                  <Circle fx:id="priorityLevel" fill="#1fff4d" radius="7.0" stroke="BLACK" strokeType="INSIDE" translateX="25.0" />
                </children>
             </GridPane>
             <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" translateY="-5.0" GridPane.columnIndex="1">
