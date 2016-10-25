@@ -1,9 +1,11 @@
 package seedu.whatnow.storage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Optional;
 
+import seedu.whatnow.commons.core.Config;
+import seedu.whatnow.commons.events.model.ConfigChangedEvent;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.events.storage.DataSavingExceptionEvent;
 import seedu.whatnow.commons.exceptions.DataConversionException;
@@ -36,4 +38,10 @@ public interface Storage extends WhatNowStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleWhatNowChangedEvent(WhatNowChangedEvent abce);
+    
+    void handleFileLocationChangedEvent(ConfigChangedEvent dfgh);
+
+    void saveConfig(Config config) throws IOException;
+
+    void saveConfig(Config config, String filePath) throws IOException;
 }

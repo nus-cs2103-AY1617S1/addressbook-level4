@@ -27,7 +27,15 @@ public class XmlWhatNowStorage implements WhatNowStorage {
     public String getWhatNowFilePath(){
         return filePath;
     }
-
+    
+    /**
+     * Sets the file path of the WhatNow data
+     * @param filePath new location of the WhatNow data file.
+     */
+    public void setWhatNowFilePath(String filePath){
+        this.filePath = filePath;
+    }
+    
     /**
      * Similar to {@link #readWhatNow()}
      * @param filePath location of the data. Cannot be null
