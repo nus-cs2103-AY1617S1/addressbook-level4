@@ -10,6 +10,10 @@ import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.model.tag.Tag;
+import seedu.todo.model.tag.UniqueTagCollection;
+import seedu.todo.model.tag.UniqueTagCollectionModel;
+import seedu.todo.model.tag.UniqueTagCollectionUtil;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
@@ -19,6 +23,7 @@ import seedu.todo.storage.TodoListStorage;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -38,7 +43,8 @@ public class TodoModel implements Model {
     private static final String NO_MORE_UNDO_REDO_FORMAT = "There are no more steps to %s";
     
     // Dependencies
-    private TodoListModel todolist;
+    private TodoListModel todoList;
+    private UniqueTagCollectionModel uniqueTagCollection = new UniqueTagCollection();
     private MovableStorage<ImmutableTodoList> storage;
     
     // Stack of transformation that the tasks go through before being displayed to the user
@@ -65,11 +71,11 @@ public class TodoModel implements Model {
         this(new TodoList(storage), storage);
     }
     
-    public TodoModel(TodoListModel todolist, MovableStorage<ImmutableTodoList> storage) {
+    public TodoModel(TodoListModel todoList, MovableStorage<ImmutableTodoList> storage) {
         this.storage = storage;
-        this.todolist = todolist;
+        this.todoList = todoList;
 
-        tasks = todolist.getObservableList();
+        tasks = todoList.getObservableList();
         viewFilteredTasks = new FilteredList<>(tasks);
         findFilteredTasks = new FilteredList<>(viewFilteredTasks);
         sortedTasks = new SortedList<>(findFilteredTasks);
@@ -80,7 +86,7 @@ public class TodoModel implements Model {
 
     /**
      * Because the model does filtering and sorting on the tasks, the incoming index needs to be 
-     * translated into it's index in the underlying todolist. The code below is not particularly 
+     * translated into it's index in the underlying todoList. The code below is not particularly
      * clean, but it works well enough. 
      * 
      * @throws ValidationException if the index is invalid
@@ -104,7 +110,7 @@ public class TodoModel implements Model {
     }
     
     private void saveState(Deque<List<ImmutableTask>> stack) {
-        List<ImmutableTask> tasks = todolist.getTasks().stream()
+        List<ImmutableTask> tasks = todoList.getTasks().stream()
             .map(Task::new).collect(Collectors.toList());
         
         stack.addFirst(tasks);
@@ -121,25 +127,27 @@ public class TodoModel implements Model {
     @Override
     public ImmutableTask add(String title) throws IllegalValueException {
         saveUndoState();
-        return todolist.add(title);
+        return todoList.add(title);
     }
 
     @Override
     public ImmutableTask add(String title, Consumer<MutableTask> update) throws ValidationException {
         saveUndoState();
-        return todolist.add(title, update);
+        return todoList.add(title, update);
     }
 
     @Override
     public ImmutableTask delete(int index) throws ValidationException {
         saveUndoState();
-        return todolist.delete(getTaskIndex(index));
+        ImmutableTask taskToDelete = getObservableList().get(getTaskIndex(index));
+        uniqueTagCollection.notifyTaskDeleted(taskToDelete);
+        return todoList.delete(getTaskIndex(index));
     }
 
     @Override
     public ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException {
         saveUndoState();
-        return todolist.update(getTaskIndex(index), update);
+        return todoList.update(getTaskIndex(index), update);
     }
 
     @Override
@@ -168,7 +176,7 @@ public class TodoModel implements Model {
         
         List<ImmutableTask> tasks = undoStack.removeFirst();
         saveState(redoStack);
-        todolist.setTasks(tasks);
+        todoList.setTasks(tasks);
     }
 
     @Override
@@ -180,17 +188,18 @@ public class TodoModel implements Model {
 
         List<ImmutableTask> tasks = redoStack.removeFirst();
         saveState(undoStack);
-        todolist.setTasks(tasks);
+        todoList.setTasks(tasks);
     }
 
     @Override
     public void save(String location) throws ValidationException {
-        todolist.save(location);
+        todoList.save(location);
     }
 
     @Override
     public void load(String location) throws ValidationException {
-        todolist.load(location);
+        todoList.load(location);
+        uniqueTagCollection.initialise(todoList.getObservableList());
     }
 
     @Override
@@ -206,5 +215,40 @@ public class TodoModel implements Model {
     @Override
     public ObjectProperty<TaskViewFilter> getViewFilter() {
         return view;
+    }
+
+    //@@author A0135805H
+    @Override
+    public void addTagsToTask(int index, String[] tagNames) throws ValidationException {
+        ImmutableTask task = getObservableList().get(getTaskIndex(index));
+
+        //Data validation
+        UniqueTagCollectionUtil.checkForIllegalCharInTagNames(tagNames);
+        UniqueTagCollectionUtil.checkForDuplicatedTagNames(tagNames);
+
+        //Perform adding
+        Set<Tag> tagsFromTask = task.getTags();
+        for (String tagName : tagNames) {
+            Tag newTag = uniqueTagCollection.registerTagWithTask(task, tagName);
+            tagsFromTask.add(newTag);
+        }
+        update(index, mutableTask -> mutableTask.setTags(tagsFromTask));
+    }
+
+    @Override
+    public void deleteTagsFromTask(int index, String[] tagNames) throws ValidationException {
+        ImmutableTask task = getObservableList().get(getTaskIndex(index));
+
+        //Data validation
+        UniqueTagCollectionUtil.checkForTagNamesNotExisted(task, tagNames);
+        UniqueTagCollectionUtil.checkForDuplicatedTagNames(tagNames);
+
+        //Perform deleting
+        Set<Tag> tagsFromTask = task.getTags();
+        for (String tagName : tagNames) {
+            Tag deletedTag = uniqueTagCollection.unregisterTagWithTask(task, tagName);
+            tagsFromTask.remove(deletedTag);
+        }
+        update(index, mutableTask -> mutableTask.setTags(tagsFromTask));
     }
 }
