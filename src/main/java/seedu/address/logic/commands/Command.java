@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
-import seedu.address.history.History;
+import seedu.address.history.UndoableCommandHistoryManager;
 import seedu.address.history.UndoableCommandHistory;
 import seedu.address.model.Model;
 

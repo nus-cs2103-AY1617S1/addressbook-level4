@@ -25,10 +25,10 @@ public class CommandBox2 extends UiPart {
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
+    private ResultDisplay resultDisplay;
 
 
     private Logic logic;
-    private InputHistory history;
     
     @FXML
     private HBox hb;
@@ -39,18 +39,16 @@ public class CommandBox2 extends UiPart {
     @FXML
     private ToggleButton tb2;
     
-    private CommandResult mostRecentResult;
-
-    public static CommandBox2 load(Stage primaryStage, AnchorPane commandBoxPlaceholder, Logic logic, InputHistory history) {
+    public static CommandBox2 load(Stage primaryStage, AnchorPane commandBoxPlaceholder, ResultDisplay resultDisplay, Logic logic, InputHistory history) {
         CommandBox2 commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox2());
-        commandBox.configure(logic, history);
+        commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
         return commandBox;
     }
 
-    public void configure(Logic logic, InputHistory history) {
+    public void configure(ResultDisplay resultDisplay, Logic logic) {
+        this.resultDisplay = resultDisplay;
         this.logic = logic;
-        this.history = history;
         registerAsAnEventHandler(this);
     }
 
@@ -84,12 +82,14 @@ public class CommandBox2 extends UiPart {
     
     @FXML
     private void switchToListDoneView() {
-        logic.execute("list done");
+        CommandResult cmdRes = logic.execute("list done");
+        resultDisplay.postMessage(cmdRes.feedbackToUser);
     }
     
     @FXML
     private void switchToListUndoneView() {
-        logic.execute("list");
+        CommandResult cmdRes = logic.execute("list");
+        resultDisplay.postMessage(cmdRes.feedbackToUser);
     }
     
     @Subscribe

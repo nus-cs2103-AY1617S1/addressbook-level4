@@ -11,7 +11,10 @@ import seedu.address.commons.core.Version;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.history.History;
+import seedu.address.history.InputHistory;
+import seedu.address.history.InputHistoryManager;
+import seedu.address.history.UndoableCommandHistory;
+import seedu.address.history.UndoableCommandHistoryManager;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.*;
@@ -37,7 +40,8 @@ public class MainApp extends Application {
     protected Ui ui;
     protected Logic logic;
     protected Storage storage;
-    protected History history; //TODO
+    protected UndoableCommandHistoryManager undoableCommandHistory;
+    protected InputHistoryManager inputHistory;
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
@@ -58,11 +62,13 @@ public class MainApp extends Application {
 
         model = initModelManager(storage, userPrefs);
 
-        history = History.getInstance();
+        undoableCommandHistory = UndoableCommandHistoryManager.getInstance();
         
-        logic = new LogicManager(model, storage, history);
+        inputHistory = InputHistoryManager.getInstance();
+                
+        logic = new LogicManager(model, storage, undoableCommandHistory);
 
-        ui = new UiManager(logic, config, userPrefs, history);
+        ui = new UiManager(logic, config, userPrefs, inputHistory);
         
         initEventsCenter();
     }

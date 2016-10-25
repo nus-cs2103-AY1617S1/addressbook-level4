@@ -19,6 +19,4 @@ public interface UndoableCommandHistory {
     /** Executes a redo step on the command history, returning the UndoableCommand that was redone **/
     public UndoableCommand redoStep();
     
-    /** Resets the history of undos (the past undos that can be redone) **/
-    public void resetRedo();
 }
