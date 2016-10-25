@@ -244,7 +244,7 @@ public class EditCommandTest extends ActivityManagerGuiTest {
         assertTaskMatching(task, editedCard);
         
         // Confirms the result message is correct
-        assertResultMessage(String.format(ActivityDate.MESSAGE_ACTIVITYDATE_CONSTRAINTS));
+        assertResultMessage(String.format(ActivityDate.MESSAGE_ACTIVITYDATE_INVALID));
     }
     
     private void assertInvalidDateInput(TestActivity task, int index, String changes) {
