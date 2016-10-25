@@ -105,6 +105,8 @@ public class Config {
         XmlUtil.saveDataToFile(newFile, data);
     }
     
+    
+    //@@author A0147971U
     /**
      * Checks if the file name already exists in name list.
      * If exists, do nothing. If not, add it into the name list.
@@ -166,6 +168,7 @@ public class Config {
         newConfigFileWriter.write(newConfig);
         newConfigFileWriter.close();
     }
+    //@@author
 
     /**
      * return the current tasklist's file name.

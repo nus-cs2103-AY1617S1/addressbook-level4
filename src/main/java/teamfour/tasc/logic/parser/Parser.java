@@ -186,6 +186,7 @@ public class Parser {
         return new SwitchlistCommand(args.trim());
     }
     
+    //@@author A0147971U
     /**
      * Parses arguments in the context of the rename list command.
      *
