@@ -69,8 +69,12 @@ public class Config {
 
     public void setTaskListFilePathAndName(String newTaskListFilePathAndName) {
         String[] pathName = newTaskListFilePathAndName.split("/");
-        this.taskListFilePath = pathName[0];
-        this.taskListFileName = pathName[1];
+        this.taskListFilePath = "";
+        for (int i=0; i<pathName.length-2; i++) {
+            this.taskListFilePath += pathName[i] + "/";
+        }
+        this.taskListFilePath += pathName[pathName.length-2];
+        this.taskListFileName = pathName[pathName.length-1];
     }
     
     public void changeTaskListFilePath(String newTaskListFilePath) throws IOException, JAXBException {
