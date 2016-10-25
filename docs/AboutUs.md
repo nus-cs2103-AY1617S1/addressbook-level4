@@ -14,21 +14,21 @@ We are a group of Computer Engineering students taking CS2103T Software Engineer
 #### [Irwin Mah](https://github.com/chooxy) <br>
 <img src="images/IrwinMah.jpg" width="150"><br>
 Role: Developer <br>
-Responsibilities: 
+Responsibilities: Codes about storage.
 
 -----
 
 #### [Yip Bing You](https://github.com/leaffriend)
 <img src="images/YipBingYou.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: 
+Responsibilities: Codes about features.
 
 -----
 
 #### [Xie Jihui](https://github.com/xjh666) 
 <img src="images/XieJihui.JPG" width="150"><br>
 Role: Developer <br>  
-Responsibilities: 
+Responsibilities: Codes about features.
 
 -----
 
