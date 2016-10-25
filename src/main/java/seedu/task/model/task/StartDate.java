@@ -47,6 +47,7 @@ public class StartDate {
 	public boolean equals(Object other) {
 	      return other == this // short circuit if same object
 	              || (other instanceof StartDate // instanceof handles nulls
+	              && ((StartDate) other).startDate != null
 	              && this.startDate.equals(((StartDate) other).startDate)); // state check
 	}
 
