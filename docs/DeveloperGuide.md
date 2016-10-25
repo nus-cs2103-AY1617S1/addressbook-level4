@@ -433,23 +433,27 @@ Use case  ends
 {TODO: Add a summary of competing products}
 
 1. Google Keep
-   * Similar to sticky notes, events tracking, with sub-events
-   * Alarms, time tracking optional
-   * Tagging
-   * Checklist
-   * Archive
+   * Strength: 
+>    1. Users can add notes, lists, photos and audio as a task
+>    2. The search function is convenient.
+   * Weakness
+>    The UI is not poor.
 2. Trello
-   * Similar to Google Keep
-   * Color-coded tagging
-   * Multiple boards to segregate events
-   * Collaboration with other users using dedicated boards
+   * Strength
+>    1. The tags are in different colors which is convenient for users to read.
+>    2. A user can collaborate with other users using dedicated boards
+   * Weakness
+>    It contains multiple boards to show several tasks on UI. This feature makes the UI a little messy.
+
 3. Wunderlist
-   * Multiple boards
-   * Contacts incorporation
-   * Ability to dedicate certain tasks to users
-   * Templates
+   * Strength
+>    1. The UI is simple and concise.
+>    2. It can be used across all major devices.
+>    3. It is able to dedicate certain tasks to users
+   
 4. Todoist
-   * Priority tasking
-   * Recurring dates
-   * Productivity charting
-   * Upcoming tasks
+   * Strength
+>    1. It can be used with apps and extensions for 10+ platforms, and both online and offline.
+>    2. It has a multi-level function wich can help users to break big tasks/project into small ones.
+   * Weakness
+>    The tasks cannot be displayed on a calendar.
