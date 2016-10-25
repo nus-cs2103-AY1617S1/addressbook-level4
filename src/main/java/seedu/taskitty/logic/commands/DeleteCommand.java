@@ -14,8 +14,9 @@ public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
-    public static final String MESSAGE_PARAMETER = COMMAND_WORD + " [category] [index]";
-    public static final String MESSAGE_USAGE = "This command deletes a task from TasKitty, Meow!";
+    public static final String MESSAGE_PARAMETER = COMMAND_WORD + " [index]";
+    public static final String MESSAGE_USAGE = "This command deletes a task from TasKitty, Meow!"
+            + "\n[index] is the index eg. t1, d1, e1.";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted" + " %1$s: %2$s";
     
