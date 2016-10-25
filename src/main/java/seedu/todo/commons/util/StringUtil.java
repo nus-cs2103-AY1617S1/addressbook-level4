@@ -80,7 +80,6 @@ public class StringUtil {
         }
     }
 
-    //@@author A0135805H
     /**
      * Given a string list, gets the text from the list in the following manner:
      *      apple, pear, pineapple
