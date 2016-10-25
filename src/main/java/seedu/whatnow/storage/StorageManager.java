@@ -13,8 +13,6 @@ import seedu.whatnow.model.ReadOnlyWhatNow;
 import seedu.whatnow.model.UserPrefs;
 import seedu.whatnow.model.WhatNow;
 
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
@@ -110,7 +108,9 @@ public class StorageManager extends ComponentManager implements Storage {
     
     @Override
     @Subscribe
-    //change xml and config file path
+    /**
+     * Changes the xml and config file path to the new file path location.
+     */
     public void handleFileLocationChangedEvent(ConfigChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local config data changed, saving to file"));
         try {     

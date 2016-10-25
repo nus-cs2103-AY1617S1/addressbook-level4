@@ -9,19 +9,18 @@ import seedu.whatnow.commons.events.BaseEvent;
 public class ConfigChangedEvent extends BaseEvent {
 
     public final Path destination;
-    
+
     public final Config config;
     
+    public static final String DESTINATION = "Destination";
+    
     public ConfigChangedEvent(Path destination, Config config){
-        
         this.destination = destination;
-        
         this.config = config;
     }
 
     @Override
     public String toString(){
-        return "destination = " + destination;
-        
+        return DESTINATION + " = " + destination;
     }
 }
