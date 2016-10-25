@@ -47,42 +47,31 @@ Example:
 Adds a task to the todo list<br>
 Format:`add TASK_NAME [t/TAG]...` 
 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-> items with `...` after them can have multiple instances. Order of parameters are fixed. 
->  
-> Tasks can have any number of tags (including 0)
-
 Examples: <br>
 * `add Homework`<br>
-* `add Homework tag/CS1231`
+* `add Homework t/CS1231`
 
 #### Adding a task with deadline: `add`
 Format: `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-> items with `...` after them can have multiple instances. Order of parameters are fixed. 
->  
-> `RECURRING_TYPE` consists of daily, weekly, monthly and yearly. 
+> `RECURRING_TYPE` consists of daily, weekly, monthly and yearly case insensitive. 
 > Tasks can have only 1 `RECURRING_TYPE`.
-> Tasks can have any number of tags (including 0).
+> If multiple `RECURRING_TYPE` are used, only the first instance will be accepted.
 
 Examples:
-* `add Homework by 24 sep 8pm tag/CS1231`
-* `add Homework by 24 sep 6pm daily tag/CS1231`
+* `add Homework by 24 sep 8pm t/CS1231`
+* `add Homework by 24 sep 6pm daily t/CS1231`
 
 #### Adding a task with start time and end time: `add`
 Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-> items with `...` after them can have multiple instances. Order of parameters are fixed. 
->  
-> `RECURRING_TYPE` consists of daily, weekly, monthly and yearly. 
+> `RECURRING_TYPE` consists of daily, weekly, monthly and yearly case insensitive. 
 > Tasks can have only 1 `RECURRING_TYPE`.
-> Tasks can have any number of tags (including 0).
+> If multiple `RECURRING_TYPE` are used, only the first instance will be accepted.
 
 Examples:
 * `add Homework from 24 sep 8pm to 25 sep 9pm tag/CS1231`
-* `add Homework start/24 sep 9pm end/25 sep 7pm daily tag/CS1231`
+* `add Homework from today 8.03pm to today 8.15pm t/CS1231`
 
 #### View floating task of the day : `view`
 Format: view /OPTION
