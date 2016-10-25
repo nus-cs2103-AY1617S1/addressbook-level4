@@ -57,7 +57,7 @@ import com.joestelmach.natty.Parser;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private static final int MAXIMUM_UNDO_REDO_SIZE = 3;
+    private static final int MAXIMUM_UNDO_REDO_SIZE = 100;
 
     public static LinkedList<UndoInfo> undoStack = new LinkedList<UndoInfo>();
     public static LinkedList<UndoInfo> redoStack = new LinkedList<UndoInfo>();

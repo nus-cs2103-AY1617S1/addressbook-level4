@@ -5,74 +5,55 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane HBox.hgrow="ALWAYS">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
-            </columnConstraints>
-            <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
-                    <stylesheets>
-                        <URL value="@DarkTheme.css" />
-                        <URL value="@Extensions.css" />
-                    </stylesheets>
-                    <padding>
-                        <Insets bottom="5" left="15" right="5" top="5" />
-                    </padding>
+          <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="40.0" prefHeight="40.0" prefWidth="956.0">
+              <stylesheets>
+                  <URL value="@DarkTheme.css" />
+                  <URL value="@Extensions.css" />
+              </stylesheets>
+              <padding>
+                  <Insets bottom="5" left="15" right="5" top="5" />
+              </padding>
 
-                    <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
-                            <children>
-                                <HBox>
-                           <ImageView fx:id="statusButton" fitHeight="14.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" smooth="true">
-                              <HBox.margin>
-                                 <Insets top="3.0" />
-                              </HBox.margin>
-                              <image>
-                                 <Image url="@../images/icon_incomplete.png" />
-                              </image>
-                           </ImageView>
-                                    <Label fx:id="id" styleClass="cell_big_label">
-                              <padding>
-                                 <Insets left="5.0" />
-                              </padding></Label>
-                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-                                </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
-                            </children>
-                        </HBox>
-                  <HBox>
-                     <children>
-                        <Label styleClass="cell_small_label" text="Start: " />
-                              <Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
-                     </children>
+              <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="900.0" spacing="5">
+                      <children>
+                          <HBox maxWidth="319.0" prefWidth="319.0">
+                     <ImageView fx:id="statusButton" fitHeight="14.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" smooth="true">
+                        <HBox.margin>
+                           <Insets top="3.0" />
+                        </HBox.margin>
+                        <image>
+                           <Image url="@../images/icon_incomplete.png" />
+                        </image>
+                     </ImageView>
+                              <Label fx:id="id" minHeight="25.0" minWidth="5.0" prefHeight="25.0" prefWidth="5.0" styleClass="cell_big_label">
+                        <padding>
+                           <Insets left="5.0" />
+                        </padding>
+                     </Label>
+                              <Label fx:id="name" maxWidth="300.0" prefHeight="25.0" prefWidth="300.0" styleClass="cell_big_label" text="\$first" />
+                             <Label fx:id="tags" prefHeight="16.0" prefWidth="82.0" styleClass="cell_small_label" text="\$tags">
+                        <HBox.margin>
+                           <Insets top="5.0" />
+                        </HBox.margin>
+                     </Label>
+                          </HBox>
+                  <HBox />
+                  <Label prefHeight="25.0" prefWidth="31.0" styleClass="cell_small_label" text="Start: " />
+                        <Label fx:id="startTime" prefHeight="16.0" prefWidth="136.0" styleClass="cell_small_label" text="\$startTime" />
+                  <Label prefHeight="16.0" prefWidth="27.0" styleClass="cell_small_label" text="End: " />
+                        <Label fx:id="endTime" prefHeight="16.0" prefWidth="136.0" styleClass="cell_small_label" text="\$endTime" />
+                  <Label styleClass="cell_small_label" text="Priority: " />
+                        <Label fx:id="priority" prefHeight="16.0" prefWidth="86.0" styleClass="cell_small_label" text="\$priority" />
+                      </children>
                   </HBox>
-                  <HBox>
-                     <children>
-                        <Label styleClass="cell_small_label" text="End: " />
-                              <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />
-                     </children>
-                  </HBox>
-                  <HBox>
-                     <children>
-                        <Label styleClass="cell_small_label" text="Priority: " />
-                              <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
-                     </children>
-                  </HBox>
-                    </children>
-                </VBox>
-            </children>
-         <rowConstraints>
-            <RowConstraints />
-         </rowConstraints>
-        </GridPane>
+            <HBox />
+              </children>
+          </VBox>
     </children>
 </HBox>
