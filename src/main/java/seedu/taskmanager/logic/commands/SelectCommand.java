@@ -15,8 +15,11 @@ public class SelectCommand extends Command {
     public final int targetIndex;
 
     public static final String COMMAND_WORD = "select";
+    
+    //@@author A0140060A
     public static final String SHORT_COMMAND_WORD = "s";
-
+    //@@author 
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the item identified by the index number used in the last item listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
