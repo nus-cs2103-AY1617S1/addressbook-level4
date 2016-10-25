@@ -118,6 +118,13 @@ public class AddCommand extends UndoableCommand {
             for(Task toAdd: toAddArray) {
                 conflictingTaskList += model.getTaskConflictingDateTimeWarningMessage(toAdd.getDateTime());
                 model.addTask(toAdd);
+                
+                if (toAddArray.size() == 1 && toAdd.getDateTime().getStartDate() == null
+                        && toAdd.getDateTime().getEndDate() != null) {
+                    System.out.println("run");
+                    model.updateFilteredTaskListUsingDate(toAdd.getDateTime());
+                }
+                
             }
             model.getUndoableCmdHist().push(this);
             EventsCenter.getInstance().post(new TaskAddedEvent(model.getFilteredTaskList().size()+1));

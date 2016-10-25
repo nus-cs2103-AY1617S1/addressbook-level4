@@ -101,6 +101,8 @@ public interface Model {
      * 
      * @@author A0140022H
      */
-	void sortFilteredTaskList(Set<String> keywords);  
+	void sortFilteredTaskList(Set<String> keywords);
+
+	void updateFilteredTaskListUsingDate(DateTime dateTime);  
 
 }

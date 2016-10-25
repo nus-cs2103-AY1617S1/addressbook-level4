@@ -26,6 +26,7 @@ import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
 import java.time.DateTimeException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.Stack;
@@ -249,7 +250,12 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-
+    
+    @Override
+    public void updateFilteredTaskListUsingDate(DateTime dateTime) {
+        updateFilteredTaskList(new PredicateExpression(new DateQualifier(dateTime)));
+    }
+    
     /**
      * Sorts filtered list based on keywords
      * 
@@ -267,7 +273,6 @@ public class ModelManager extends ComponentManager implements Model {
                 tars.sortByDatetimeDescending();
             } else {
                 tars.sortByDatetime();
-                ;
             }
         }
     }
@@ -409,6 +414,28 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+
+    private class DateQualifier implements Qualifier {
+
+        LocalDateTime startDateTime;
+        LocalDateTime endDateTime;
+        DateTime dateTimeQuery;
+        
+        DateQualifier(DateTime dateTime) {
+            startDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(), 0, 0, 0);
+            endDateTime = DateTimeUtil.setLocalTime(dateTime.getEndDate(), 23, 59, 59);
+            
+            dateTimeQuery = new DateTime();
+            dateTimeQuery.setStartDateTime(startDateTime);
+            dateTimeQuery.setEndDateTime(endDateTime);
+        }
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+                return DateTimeUtil.isDateTimeWithinRange(task.getDateTime(), dateTimeQuery);
+        }
+        
     }
 
 }

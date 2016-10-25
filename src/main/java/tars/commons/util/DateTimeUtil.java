@@ -71,7 +71,7 @@ public class DateTimeUtil {
             firstTreeString = group.getSyntaxTree().getChild(0).toStringTree();
             firstDate = group.getDates().get(0);
             if (!firstTreeString.contains(NATTY_TIME_PREFIX)) {
-                firstDate = setTime(firstDate, 23, 59, 0);
+                firstDate = setDateTime(firstDate, 23, 59, 0);
             }
 
             endDateTime = CONVERT_NATTY_TIME_FORMAT.format(firstDate);
@@ -85,11 +85,11 @@ public class DateTimeUtil {
             secondDate = group.getDates().get(1);
 
             if (!firstTreeString.contains(NATTY_TIME_PREFIX)) {
-                firstDate = setTime(firstDate, 0, 0, 0);
+                firstDate = setDateTime(firstDate, 0, 0, 0);
             }
 
             if (!secondTreeString.contains(NATTY_TIME_PREFIX)) {
-                secondDate = setTime(secondDate, 23, 59, 0);
+                secondDate = setDateTime(secondDate, 23, 59, 0);
             }
 
             startDateTime = CONVERT_NATTY_TIME_FORMAT.format(firstDate);
@@ -186,7 +186,7 @@ public class DateTimeUtil {
      * 
      * @@author A0139924W
      */
-    private static Date setTime(Date toBeEdit, int hour, int min, int sec) {
+    public static Date setDateTime(Date toBeEdit, int hour, int min, int sec) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(toBeEdit);
         calendar.set(Calendar.HOUR_OF_DAY, hour);
@@ -218,5 +218,10 @@ public class DateTimeUtil {
 
         dateToModify = date.format(stringFormatter);
         return dateToModify;
+    }
+    
+    public static LocalDateTime setLocalTime(LocalDateTime dateTime, int hour, int min, int sec) {
+        return LocalDateTime.of(dateTime.getYear(), dateTime.getMonth(), dateTime.getDayOfMonth(),
+                hour, min, sec);
     }
 }
