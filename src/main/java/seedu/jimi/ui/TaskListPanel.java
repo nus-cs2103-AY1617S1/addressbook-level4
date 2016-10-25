@@ -1,9 +1,15 @@
 package seedu.jimi.ui;
 
+import java.time.LocalDateTime;
+import java.time.format.TextStyle;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
@@ -18,21 +24,7 @@ import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.events.model.TaskBookChangedEvent;
 import seedu.jimi.commons.events.ui.ShowTaskPanelSectionEvent;
 import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.jimi.model.datetime.DateTime;
-import seedu.jimi.model.task.DeadlineTask;
-import seedu.jimi.model.event.Event;
 import seedu.jimi.model.task.ReadOnlyTask;
-
-import java.time.LocalDateTime;
-import java.time.format.TextStyle;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.logging.Logger;
-
-import com.google.common.eventbus.Subscribe;
 
 /**
  * Panel containing the list of tasks.
@@ -235,13 +227,13 @@ public class TaskListPanel extends UiPart {
     @Subscribe
     public void handleShowTaskPanelSelectionEvent(ShowTaskPanelSectionEvent event) {
         switch (event.sectionToDisplay) {
-        case "floating tasks":
+        case "floating":
             showFloatingTasks();
             break;
-        case "incomplete tasks":
+        case "incomplete":
             showIncompleteTasks();
             break;
-        case "complete tasks":
+        case "complete":
             showCompleteTasks();
             break;
         case "today":
@@ -257,7 +249,7 @@ public class TaskListPanel extends UiPart {
         case "friday":
         case "saturday":
         case "sunday":
-            showRequiredDay(event.sectionToDisplay);
+            showRequiredDay(event.sectionToDisplay.toLowerCase());
         default:
             break;
         }
@@ -267,19 +259,19 @@ public class TaskListPanel extends UiPart {
      * @param sectionToDisplay
      */
     private void showRequiredDay(String sectionToDisplay) {
-        if(titleTaskDay1.getText().contains(sectionToDisplay)) {
+        if(titleTaskDay1.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay1();
-        } else if(titleTaskDay2.getText().contains(sectionToDisplay)) {
+        } else if(titleTaskDay2.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay2();
-        } else if(titleTaskDay3.getText().contains(sectionToDisplay)) {
+        } else if(titleTaskDay3.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay3();
-        }else if(titleTaskDay4.getText().contains(sectionToDisplay)) {
+        }else if(titleTaskDay4.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay4();
-        }else if(titleTaskDay5.getText().contains(sectionToDisplay)) {
+        }else if(titleTaskDay5.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay5();
-        }else if(titleTaskDay6.getText().contains(sectionToDisplay)) {
+        }else if(titleTaskDay6.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay6();
-        }else if(titleTaskDay7.getText().contains(sectionToDisplay)) {
+        }else if(titleTaskDay7.getText().toLowerCase().contains(sectionToDisplay)) {
             showDay7();
         }
     }

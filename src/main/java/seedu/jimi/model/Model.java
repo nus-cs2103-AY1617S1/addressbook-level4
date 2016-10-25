@@ -3,6 +3,7 @@ package seedu.jimi.model;
 import java.util.Set;
 
 import seedu.jimi.commons.core.UnmodifiableObservableList;
+import seedu.jimi.model.FilteredListManager.ListId;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
@@ -22,6 +23,12 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Sets the task to be completed/incomplete */
+    void completeTask(ReadOnlyTask taskToComplete, boolean isComplete);
+    
+    /** Replaces {@code oldTask} with {@code newTask} */
+    void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask);
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredFloatingTaskList();
@@ -48,7 +55,6 @@ public interface Model {
 
     UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaEventList();
 
-
     /** Updates the filter of the filtered task list to show the default listings */
     void updateAllFilteredListsShowDefault();
 
@@ -62,6 +68,6 @@ public interface Model {
      * @throws TaskNotFoundException */
     void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) throws TaskNotFoundException;
     
-    /** Replaces {@code oldTask} with {@code newTask} */
-    void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask);
+    /** Updates the filter of the filtered event list to copy the filter of the list identified by {@code other} */
+    void updateFilteredAgendaEventList(ListId other);
 }
