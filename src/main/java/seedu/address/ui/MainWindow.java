@@ -122,7 +122,7 @@ public class MainWindow extends UiPart {
     	floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredTaskList().filtered(isFloating()));
     	contentBox = ContentBox.load(primaryStage, getContentBoxPlaceholder(), logic.getFilteredTaskList());
 //        browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList().filtered(isNotFloating()));
+        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);

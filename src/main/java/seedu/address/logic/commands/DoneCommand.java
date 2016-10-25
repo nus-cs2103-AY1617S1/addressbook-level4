@@ -47,6 +47,7 @@ public class DoneCommand extends Command {
                 System.out.println(taskToMark.getRecurrence().getRecurFreq());
                 model.addRecurringTask(taskToMark, taskToMark.getRecurrence().getRecurFreq());
             }
+            model.updateFilteredTaskListToShowNotDone();
             
             
         } catch (TaskNotFoundException pnfe) {
