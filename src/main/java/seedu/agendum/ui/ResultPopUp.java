@@ -1,15 +1,13 @@
 package seedu.agendum.ui;
 
 import javafx.animation.PauseTransition;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -53,7 +51,13 @@ public class ResultPopUp extends UiPart {
     private void configure(){
         
         Scene scene = new Scene(mainPane);
+        
         dialogStage = createDialogStage(null, null, scene);
+        dialogStage.initModality(Modality.NONE);
+        dialogStage.setAlwaysOnTop(true);
+        dialogStage.setOnShown((e1) -> {
+            primaryStage.requestFocus();
+        });
         
         scene.setFill(Color.TRANSPARENT);
         dialogStage.initStyle(StageStyle.TRANSPARENT);
@@ -62,9 +66,10 @@ public class ResultPopUp extends UiPart {
     public void postMessage(String message) {
         resultDisplay.setWrapText(true);
         resultDisplay.setText(message);
+        
         show();
         
-        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
         delay.setOnFinished(event -> reFocusRoot());
         delay.play();
     }
@@ -75,7 +80,6 @@ public class ResultPopUp extends UiPart {
     }
     
     public void show() {
-        dialogStage.requestFocus();
         dialogStage.setOpacity(1.0);
         dialogStage.sizeToScene();
         dialogStage.show();
