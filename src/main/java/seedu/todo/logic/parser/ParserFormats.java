@@ -67,7 +67,7 @@ public class ParserFormats {
             .compile("(?<name>[^/]*?)? "
                       + "?((^| )((on|from) (?<onDateTime>[^;]+?)?"
                       +"|by (?<byDateTime>[^;]+?)|"
-                      +"priority (?<priority>.+?)))*?"
+                      +"priority (?<priority>.+?)"
                       +"every (?<rec>.+?)))*?"
                       +"(?: ?;(?<detail>.+))?$", Pattern.CASE_INSENSITIVE);
 

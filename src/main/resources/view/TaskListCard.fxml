@@ -58,9 +58,9 @@
                   <Insets bottom="2.0" left="-20.0" right="2.0" top="2.0" />
                </padding>
                <children>
-                        <Label fx:id="onDate" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="168.0" styleClass="cell_small_label" text="\$onDate" translateY="-30.0" />
-                        <Label fx:id="byDate" prefHeight="17.0" prefWidth="174.0" styleClass="cell_small_label" text="\$byDate" translateY="-30.0" />
-                  <Label fx:id="byDate1" prefHeight="17.0" prefWidth="174.0" styleClass="cell_small_label" text="\$priority" translateY="-30.0" />
+                        <Label fx:id="onDate" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="168.0" styleClass="cell_small_label" text="\$onDate" translateY="-18.0" />
+                        <Label fx:id="byDate" prefHeight="17.0" prefWidth="174.0" styleClass="cell_small_label" text="\$byDate" translateY="-18.0" />
+                  <Label fx:id="priority" prefHeight="17.0" prefWidth="174.0" styleClass="cell_small_label" text="\$priority" translateX="-150.0" translateY="-45.0" />
                </children>
             </VBox>
             </children>
