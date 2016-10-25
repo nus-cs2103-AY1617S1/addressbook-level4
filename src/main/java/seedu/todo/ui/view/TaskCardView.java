@@ -110,7 +110,7 @@ public class TaskCardView extends UiPart {
         } else {
             tagList.sort((o1, o2) -> o1.toString().compareToIgnoreCase(o2.toString()));
             for (Tag tag : tagList) {
-                Label tagLabel = ViewGeneratorUtil.constructRoundedText(tag.tagName);
+                Label tagLabel = ViewGeneratorUtil.constructRoundedText(tag.getTagName());
                 tagsBox.getChildren().add(tagLabel);
             }
         }
