@@ -14,6 +14,7 @@ import seedu.todo.model.tag.Tag;
 
 import java.util.List;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 //@@author A0135805H
 /**
@@ -22,7 +23,6 @@ import java.util.Arrays;
 public class TagCommand extends BaseCommand {
     /* Constants */
     private static final String VERB = "tagged";
-    private static final String TAG_VALIDATION_REGEX = "([A-Za-z0-9_-])+";
 
     private static final String ERROR_INCOMPLETE_PARAMETERS = "You have not supplied sufficient parameters to run a Tag command.";
     private static final String ERROR_INPUT_INDEX_REQUIRED = "A task index is required.";
@@ -33,6 +33,8 @@ public class TagCommand extends BaseCommand {
 
     private static final String SUCCESS_ADD_TAGS = " tags have been added successfully.";
     private static final String SUCCESS_DELETE_TAGS = " tags have been removed successfully.";
+
+    private static final Pattern TAG_VALIDATION_REGEX = Pattern.compile("^[\\w\\d_-]+$");
 
     /* Variables */
     private Argument<Integer> index = new IntArgument("index");
@@ -136,27 +138,21 @@ public class TagCommand extends BaseCommand {
      * Returns true if the command matches the action of adding tag(s) to a task.
      */
     private boolean isAddTagsToTask() {
-        boolean isIndexAvailable = index.getValue() != null;
-        boolean isTagsToAddAvailable = addTags.getValue() != null;
-        return isIndexAvailable && isTagsToAddAvailable;
+        return index.hasBoundValue() && addTags.hasBoundValue();
     }
 
     /**
      * Returns true if the command matches the action of deleting tag(s) from a task.
      */
     private boolean isDeleteTagsFromTask() {
-        boolean isIndexAvailable = index.getValue() != null;
-        boolean isTagsToDeleteAvailable = deleteTags.getValue() != null;
-        return isIndexAvailable && isTagsToDeleteAvailable;
+        return index.hasBoundValue() && deleteTags.hasBoundValue();
     }
 
     /**
      * Returns true if the command matches the action of deleting tag(s) from all tasks.
      */
     private boolean isDeleteTagsFromAllTasks() {
-        boolean isIndexAvailable = index.getValue() != null;
-        boolean isTagsToDeleteAvailable = deleteTags.getValue() != null;
-        return !isIndexAvailable && isTagsToDeleteAvailable;
+        return !index.hasBoundValue() && deleteTags.hasBoundValue();
     }
 
     /**
@@ -167,7 +163,7 @@ public class TagCommand extends BaseCommand {
         boolean isAddTagsToTask = isAddTagsToTask();
         boolean isDeleteTagsFromTask = isDeleteTagsFromTask();
         boolean isDeleteTagsFromAll = isDeleteTagsFromAllTasks();
-        return BooleanUtils.xor(isAddTagsToTask, isDeleteTagsFromTask, isDeleteTagsFromAll);
+        return BooleanUtils.xor(new boolean[]{isAddTagsToTask, isDeleteTagsFromTask, isDeleteTagsFromAll});
     }
 
     /**
@@ -219,6 +215,6 @@ public class TagCommand extends BaseCommand {
      * Originated from {@link Tag}
      */
     private static boolean isValidTagName(String test) {
-        return test.matches(TAG_VALIDATION_REGEX);
+        return TAG_VALIDATION_REGEX.matcher(test).matches();
     }
 }

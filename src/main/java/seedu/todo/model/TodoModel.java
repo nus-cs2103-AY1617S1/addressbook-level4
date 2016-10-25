@@ -256,28 +256,26 @@ public class TodoModel implements Model {
     @Override
     public void addTagsToTask(int index, String[] tagNames) throws ValidationException {
         saveUndoState();
-        Consumer<MutableTask> consumer = mutableTask -> {
+        update(index, mutableTask -> {
             Set<Tag> tagsFromTask = new HashSet<>(mutableTask.getTags());
             for (String tagName : tagNames) {
                 Tag newTag = uniqueTagCollection.registerTagWithTask(mutableTask, tagName);
                 tagsFromTask.add(newTag);
             }
             mutableTask.setTags(tagsFromTask);
-        };
-        update(index, consumer);
+        });
     }
 
     @Override
     public void deleteTagsFromTask(int index, String[] tagNames) throws ValidationException {
         saveUndoState();
-        Consumer<MutableTask> consumer = mutableTask -> {
+        update(index, mutableTask -> {
             Set<Tag> tagsFromTask = new HashSet<>(mutableTask.getTags());
             for (String tagName : tagNames) {
                 Tag deletedTag = uniqueTagCollection.unregisterTagWithTask(mutableTask, tagName);
                 tagsFromTask.remove(deletedTag);
             }
             mutableTask.setTags(tagsFromTask);
-        };
-        update(index, consumer);
+        });
     }
 }
