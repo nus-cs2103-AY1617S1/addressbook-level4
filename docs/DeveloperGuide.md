@@ -9,7 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
 ## Setting up
@@ -108,6 +108,7 @@ The _Sequence Diagram_ below show how recurring tasks have dates appended to the
 
 > Note that repeatingTasks is a reference to the UniqueTaskList from the TaskMaster. Any changes made to repeatingTasks in RecurringTaskManager will affect TaskMaster's version of UniqueTaskList.
 <!--@@author-->
+<!--@@author A0147967J-->
 The _Sequence Diagram_ below shows how Happy Jim Task Master handles undo request from user.
 
 <img src="images/UndoSequenceDiagram.jpg" width="800"><br>
@@ -125,6 +126,7 @@ The _Class Diagram_ below shows the structure of how Happy Jim Task Master imple
 > To maintain a good performance regarding to memory consumption, we restrict maximum undo/redo number to 3.
 > (Noted that it is possible to reach unlimited undo/redo by simply wiping off the limit number.)
 
+<!--@@author-->
 
 The sections below give more details of each component.
 
@@ -237,6 +239,8 @@ Tests can be found in the `./src/test/java` folder.
 
 We have two types of tests:
 
+<!--@@author A0147967J-->
+
 1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
    These are in the `guitests` package.
    
@@ -294,7 +298,8 @@ We have two types of tests:
    | 4 | find in non-empty list with one result `find read` | 1 -> 2 | `1 tasks listed!` |
    | 5 | find in empty list `find Jean` | 1 -> 2 | `0 tasks listed!` |
    | 6 | invalid find command `findgeorge` | 1 | `Unknown command` |
-   
+
+<!--@@author-->
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    <!-- @@author A0135782Y-->
@@ -311,8 +316,8 @@ We have two types of tests:
 
    _XmlTaskListStorage.java_<br>
    <img src="images/test_snipper_XmlTaskListStorage.PNG" width="800"><br>
-   <!-- @@author-->
-   Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+   <!-- @@author A0147967J-->
+      Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together. Below are some snippets,<br>
       e.g. `seedu.taskmaster.logic.LogicManagerTest`<br>
       In the `LogicManagerTest`, Happy Jim Task Master tests the logic it uses.<br>
