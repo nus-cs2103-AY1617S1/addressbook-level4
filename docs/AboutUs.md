@@ -24,8 +24,16 @@ In-Charge: DearJim
 
 #### [Yong Lin Han](https://github.com/ylhlh) 
 <img src="images/YLH.png" width="150"><br>
-Responsibilities: Integration <br>
-In-Charge: Model
+* Responsibilities: Integration <br>
+* Components in charge of: [Model](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/DeveloperGuide.md#model-component) <br>
+* Features implemented: <br>
+   * Archive tasks
+   * List done tasks
+   * Delete tasks
+   * Help command
+   * Store command
+* Code written: [functional code][test code][docs] <br>
+
 
 -----
 
