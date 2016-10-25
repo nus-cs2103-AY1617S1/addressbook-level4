@@ -97,7 +97,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized UndoTask undoTask() {
-        return undoableTasks.removeLast();
+        return undoableTasks.removeFromFront();
     }
 
     @Override
@@ -109,12 +109,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addUndo(String command, ReadOnlyTask toUndo) {
-        undoableTasks.addToList(command, toUndo, null);
+        undoableTasks.addToFront(command, toUndo, null);
     }
     
     @Override
     public void addUndo(String command, ReadOnlyTask initData, ReadOnlyTask finalData) {
-        undoableTasks.addToList(command, initData, finalData);
+        undoableTasks.addToFront(command, initData, finalData);
     }
 
     //=========== Filtered Task List Accessors =============================================================== 
