@@ -31,8 +31,10 @@ In-Charge: Model
 
 #### [Hee Han Xiang](https://github.com/fisherhx)
 <img src="images/HHX.png" width="150"><br>
-Responsibilities: UI designer <br>
-In-Charge: UI
+Responsibilities: Developer <br>
+* Components in charge of: [Model](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/DeveloperGuide.md#model-component) <br>
+   * [Edit task](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#editing-a-task-edit) <br>
+* Code written: [functional code][test code][docs] <br>
 
 -----
 
