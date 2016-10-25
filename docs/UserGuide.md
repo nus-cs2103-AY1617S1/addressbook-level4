@@ -70,24 +70,24 @@ Format: `list 07102016`
 #### Finding all deadlines/floating tasks/events containing any keyword in their names and tags: `find`
 Finds all input entries specified by the type (deadlines/ floating tasks/ events) whose names contain any of the given keywords.<br>
 If the type is not specified, all entries containing the keyword will be displayed. <br>
-Format: `find KEYWORD  [MORE KEYWORDS] [t/TYPE]`
+Format: `find [f|d|e] KEYWORD  [MORE KEYWORDS]`
 
 > * The search is case insensitive.
 > * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the task name and tags are searched.
+> * Only the task names are searched.
 > * Only full words will be matched e.g. `Han` will not match `Hans`
 > * Task matching at least one keyword will be returned (i.e. `OR` search).
     e.g. `Hans` will match `Hans Bo`
 
 Examples: 
-* `find lunch t\task`<br>
-  Returns `lunch with mom in task` 
-* `find lunch t\deadlines`<br>
+* `find f lunch`<br>
+  Returns `lunch with mom in floating task` 
+* `find d lunch`<br>
   Returns `lunch with mom in deadlines` 
-* `find lunch t\events`<br>
+* `find e lunch`<br>
   Returns `lunch with mom in events` 
 * `find lunch dinner breakfast`<br>
-  Returns Any task having names `lunch`, `dinner`, or `breakfast`
+  Returns any tasks having names `lunch`, `dinner`, or `breakfast`
 
 #### Deleting a task : `delete`
 Deletes the specified task from the to-do list. Irreversible.<br>
@@ -95,31 +95,14 @@ Format: `delete INDEX`
 
 > Deletes the task at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+  The index **must have either 'f','d' or 'e' as a prefix and also a positive integer** f1, e2, d3, ...<br>
 
 Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd task in the to-do list.
-* `find lunch`<br> 
-  `delete 1`<br>
-  Deletes the 1st task in the results of the `find` command. 
+* `delete e2`<br>
+  Deletes the 2nd task in the currently showing events list.
+* `delete f1`<br>
+  Deletes the 1st task in the currently showing floating task list. 
 
-#### Deleting a task: `delete`
-Deletes the specified task from the to-do list.<br>
-Format: `delete INDEX`
-
-> Deletes the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd task in the to-do list.
-* `find lunch`<br> 
-  `delete 1`<br>
-  Deletes the 1st task in the results of the `find` or ‘ command.
 
 #### Edit a task : `edit`
 Edits the specified task from the to-do list.<br>
