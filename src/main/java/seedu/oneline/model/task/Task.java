@@ -40,7 +40,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.deadline = endTime.isValid() ? endTime : deadline;
+        this.deadline = deadline;
         this.recurrence = recurrence;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }

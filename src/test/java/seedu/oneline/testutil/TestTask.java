@@ -106,18 +106,10 @@ public class TestTask implements ReadOnlyTask {
     }
 
     //@@author A0138848M
-    /**
-     * Returns true if task is floating
-     * 
-     * floating task is defined as a task without a start/end time or a deadline
-     * 
-     * @return true if task is floating
-     */
     public boolean isFloating() {
         return !startTime.isValid() && !endTime.isValid() && !deadline.isValid();
     }
     
-    //@@author: A0138848M
     public boolean isEvent() {
         return startTime.isValid() && endTime.isValid();
     }
