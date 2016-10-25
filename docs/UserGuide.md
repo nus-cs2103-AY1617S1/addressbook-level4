@@ -73,8 +73,8 @@ Examples:
 * `add get eggs pr/low t/family`
 * `add organize room`
 
-
-#### List all tasks: `list`
+#### List
+##### List all tasks: `list`
 Shows a list of all tasks in the task manager.<br>
 Format: `list [-pr] [-st] [-ed] [-t/TAGS]...`
 
@@ -96,6 +96,10 @@ Modifiers | Action
 <figcaption>Fig. 2: Task manager listing tasks by priority</figcaption>
 </div>
 
+##### List all tags used: `list tags`
+Lists all the tags used in the task manager.<br>
+Format: `list tags`
+
 
 #### Delete a task: `delete`
 Deletes the specified task from the task manager.<br>
@@ -107,15 +111,7 @@ Examples:
   Deletes the 2nd task in the task manager.
 
 
-
-
-
-#### List all tags used: `list tags`
-Lists all the tags used in the task manager.<br>
-Format: `list tags`
-
-
-#### Finding tasks
+#### Find
 ##### Find all tasks containing any keyword in their description: `find`
 Finds tasks whose description contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
