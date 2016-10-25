@@ -29,16 +29,18 @@ public class ParseSwitcher {
      */
     public Command parseCommand(String userInput) {
         String[] commandSegments = userInput.split(" ", 2);
+        final String commandWord = (commandSegments.length > 0) ? commandSegments[0] : "";
+        final String commandArgs = (commandSegments.length > 1) ? commandSegments[1] : "";
         
         Optional<Class<? extends BaseParser>> selectedParser = parserMappings.getParserForCommand(commandSegments[0]);
         
-        if (selectedParser.isPresent()) {
+        if (!selectedParser.isPresent()) {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         } else {
             BaseParser parser;
             try {
                 parser = selectedParser.get().newInstance();
-                return parser.parse(commandSegments[1]);
+                return parser.parse(commandWord, commandArgs);
             } catch (InstantiationException | IllegalAccessException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
