@@ -22,6 +22,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the to-do list.";
+    public static final String MESSAGE_NOT_CHRONO_TASK = "The start time for this task should be after the end time.";
 
     private final Task toAdd;
 
@@ -35,10 +36,12 @@ public class AddCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        StartTime start= new StartTime(startTime); 
+        EndTime end = new EndTime(endTime); 
         this.toAdd = new Task(
                 new TaskDetails(name.replace("\\", "")),
-                new StartTime(startTime),
-                new EndTime(endTime),
+                start,
+                end,
                 new Priority(priority),
                 new UniqueTagList(tagSet),
                 frequency
@@ -62,12 +65,21 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
+        	isNotChronoTime(toAdd.getStartTime(), toAdd.getEndTime());
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
+        }catch(IllegalValueException ive){
+        	return new CommandResult(ive.getMessage());
         }
 
+    }
+    public boolean isNotChronoTime(StartTime starttime, EndTime endtime) throws IllegalValueException{
+       boolean finalres;
+    	finalres = starttime.getAsCalendar().after(endtime.getAsCalendar());
+    	if(finalres) throw new IllegalValueException(MESSAGE_NOT_CHRONO_TASK);
+    	else return false;
     }
 
 }
