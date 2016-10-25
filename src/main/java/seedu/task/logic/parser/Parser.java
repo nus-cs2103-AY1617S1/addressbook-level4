@@ -38,13 +38,13 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT_EDIT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[^/]+)"
-            		+ "( t/(?<newTitle>[^/]+))?"
-                    + "( d/(?<description>[^/]+))?"
-                    + "( sd/(?<startDate>[^/]+))?"
-                    + "( dd/(?<dueDate>[^/]+))?"
-                    + "( i/(?<interval>[^/]+))?"
-                    + "( ti/(?<timeInterval>[^/]+))?"
-                    + "( (?<tagArguments>(?: t/[^/]+)*))?");
+            		+ "(( t/(?<newTitle>[^/]+))|"
+                    + "( d/(?<description>[^/]+))|"
+                    + "( sd/(?<startDate>[^/]+))|"
+                    + "( dd/(?<dueDate>[^/]+))|"
+                    + "( i/(?<interval>[^/]+))|"
+                    + "( ti/(?<timeInterval>[^/]+))|"
+                    + "( tg/(?<tagArguments>(?: t/[^/]+)*)))+?");
 
     
     private static final Pattern SAVE_COMMAND_FORMAT = Pattern.compile("(?<path>[^/]+)");
