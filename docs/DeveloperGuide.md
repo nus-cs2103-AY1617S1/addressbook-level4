@@ -519,8 +519,13 @@ Use case ends
 
 * The given alphabet is invalid (not `t`, `d`, or `e`)
 
-> * Program returns error message, saying that alphabet representing the type of task is invalid<br>
-  Use case resumes at step 2
+> * Program defaults to the todo list<br>
+  Use case resumes at step 3
+  
+* No alphabet is given
+
+> * Program defaults to the todo list<br>
+  Use case resumes at step 3
   
 * Changes made are invalid
 
@@ -551,8 +556,13 @@ Use case ends
 
 * The given alphabet is invalid (not `t`, `d`, or `e`)
 
-> * Program returns error message, saying that alphabet representing the type of task is invalid<br>
-  Use case resumes at step 2
+> * Program defaults to the todo list<br>
+  Use case resumes at step 3
+  
+* No alphabet is given
+
+> * Program defaults to the todo list<br>
+  Use case resumes at step 3
 
 <br></br>
 ### Use case: Mark a task when done
@@ -578,8 +588,13 @@ Use case ends
   
 * The given alphabet is invalid (not `t`, `d`, or `e`)
 
-> * Program returns error message, saying that alphabet representing the type of task is invalid<br>
-  Use case resumes at step 2
+> * Program defaults to the todo list<br>
+  Use case resumes at step 3
+  
+* No alphabet is given
+
+> * Program defaults to the todo list<br>
+  Use case resumes at step 3
  
 <br></br> 
 ### Use case: Undo previous action
@@ -587,14 +602,14 @@ Use case ends
 **MSS**
 
 1. User requests to undo previous action
-2. Program restores the previous version<br>
+2. Program restores the previous state<br>
 Use case ends
 
 **Extension**
 
-* There are no actions to undo.
+* There are no previous valid actions to undo.
 
-> * Program returns error message, saying that no action was executed since startup of task manager<br>
+> * Program returns error message, saying that no more previous valid action was executed for the current session<br>
   Use case ends.
 
 <br></br> 
