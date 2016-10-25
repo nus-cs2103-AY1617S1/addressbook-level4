@@ -1,8 +1,10 @@
+[![Build Status](https://travis-ci.org/CS2103AUG2016-W15-C4/main.svg?branch=master)](https://travis-ci.org/CS2103AUG2016-W15-C4/main)
+
 # WhatNow (V0.0)
 
 <img src="docs/images/UI_Prototype/WhatNowUI-Welcome-Colour.png" width="600"><br>
 
-Have you ever missed a deadline because you had forgotten to write it down? Have you ever missed out on something that you have?
+Have you ever missed a deadline because you did not write it down?
 
 Don't worry! WhatNow will help you to remember your schedule and todos so that you will never miss a deadline or forget anything! It is a desktop application which allows you to store, retrieve and update your schedule and todos. All you need to do is to type a command and the output will be displayed in a Graphical User Interface (GUI).
 

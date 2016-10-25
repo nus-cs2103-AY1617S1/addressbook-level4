@@ -1,7 +1,11 @@
 package seedu.whatnow.logic.commands;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
@@ -26,38 +30,25 @@ public class AddCommand extends UndoAndRedo {
 
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in WhatNow";
+	private static final String STATUS_INCOMPLETE = "incomplete";
 
 	private final Task toAdd;
-
-	/**
-	 * Convenience constructor using raw values.
-	 *
-	 * @throws IllegalValueException if any of the raw values are invalid
-	 */
-	public AddCommand(String name, Set<String> tags) throws IllegalValueException {
-		final Set<Tag> tagSet = new HashSet<>();
-		for (String tagName : tags) {
-			tagSet.add(new Tag(tagName));
-		}
-		this.toAdd = new Task(
-				new Name(name),
-				new UniqueTagList(tagSet),
-				"incomplete"
-				);
-	}
-
-	public AddCommand(String name, String date, Set<String> tags) throws IllegalValueException, ParseException {
-		// TODO Auto-generated constructor stub
-		final Set<Tag> tagSet = new HashSet<>();
-		for (String tagName : tags) {
-			tagSet.add(new Tag(tagName));
-		}
-		this.toAdd = new Task(
-				new Name(name),
-				new TaskDate(date),
-				new UniqueTagList(tagSet),
-				"incomplete"
-				);
+	
+	public AddCommand(String name, String date, String startDate, String endDate, String time, String startTime, String endTime, Set<String> tags) throws IllegalValueException, ParseException {
+	    TaskTime validateTime = null;
+	    
+	    if (time != null || startTime != null || endTime != null) {
+	        validateTime = new TaskTime(time, startTime, endTime, date, startDate, endDate);
+	        if (date == null && startDate == null && endDate == null)
+	            date = validateTime.getDate();
+	    }
+	    
+	    final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }    
+        
+        this.toAdd = new Task(new Name(name), new TaskDate(date), new TaskDate(startDate), new TaskDate(endDate), time, startTime, endTime, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
 	}
 
 	@Override
@@ -76,7 +67,6 @@ public class AddCommand extends UndoAndRedo {
 	public CommandResult undo() {
 		assert model != null;
 		try {
-			//Task todo = model.getUndoStack().pop();
 			model.deleteTask(toAdd);
 			return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
 		} catch (TaskNotFoundException pnfe) {
@@ -89,7 +79,6 @@ public class AddCommand extends UndoAndRedo {
 		assert model != null;
 		try {
 			model.addTask(toAdd);
-	//		model.getUndoStack().push(model.getRedoStack().pop());
 			return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
 		} catch (DuplicateTaskException e) {
 			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));

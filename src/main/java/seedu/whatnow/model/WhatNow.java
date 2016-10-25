@@ -6,6 +6,7 @@ import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
+import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.*;
@@ -62,7 +63,8 @@ public class WhatNow implements ReadOnlyWhatNow {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        
+    	setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -135,7 +137,7 @@ public class WhatNow implements ReadOnlyWhatNow {
      * 
      * @throws UniqueTaskList.TaskNotFoundException
      */
-    public boolean updateTask(ReadOnlyTask old, Task toUpdate) throws UniqueTaskList.TaskNotFoundException {
+    public boolean updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
         if (tasks.update(old, toUpdate)) {
             return true;
         } else {

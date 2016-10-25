@@ -89,11 +89,14 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean update(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException {
+    public boolean update(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
         assert old != null;
         final boolean taskFoundAndUpdated = internalList.contains(old);
         if (!taskFoundAndUpdated) {
             throw new TaskNotFoundException();
+        }
+        if (internalList.contains(toUpdate)) {
+            throw new DuplicateTaskException();
         }
         internalList.set(internalList.indexOf(old), toUpdate);
         return taskFoundAndUpdated;
@@ -138,6 +141,7 @@ public class UniqueTaskList implements Iterable<Task> {
 
     @Override
     public boolean equals(Object other) {
+        
         return other == this // short circuit if same object
                 || (other instanceof UniqueTaskList // instanceof handles nulls
                 && this.internalList.equals(

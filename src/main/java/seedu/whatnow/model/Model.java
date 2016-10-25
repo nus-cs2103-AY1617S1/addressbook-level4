@@ -10,6 +10,7 @@ import seedu.whatnow.logic.commands.Command;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
+import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -21,16 +22,21 @@ public interface Model {
 
     /** Reverts to the pre-existing backing model and replaces with backup-ed data */
 	void revertData();
-    /** Returns the WhatNow */
+    
+	/** Returns the WhatNow */
     ReadOnlyWhatNow getWhatNow();
     
+    /** Reverts to previous data of WhatNow */
+	void revertDataUpdate();
+	
+	void revertToPrevDataUpdate();
   //=========== Methods for Task List ===============================================================
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
 
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task task) throws DuplicateTaskException;
 
     /** Changes the file data storage location */
     void changeTask(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException;
@@ -63,13 +69,13 @@ public interface Model {
     void updateFilteredListToShowAllByStatus(Set<String> keyword);
     
     /** Update the given task */
-    void updateTask(ReadOnlyTask old, Task toUpdate) throws UniqueTaskList.TaskNotFoundException;
+    void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException;
     
     /** Undo the update done on given task */
-	void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException;
+	void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException, DuplicateTaskException;
 
     /** Mark the given task as completed */
-    void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void markTask(ReadOnlyTask target) throws TaskNotFoundException;
    
     /** Mark the given task as incomplete */
 	void unMarkTask(ReadOnlyTask target) throws TaskNotFoundException;
@@ -86,6 +92,24 @@ public interface Model {
 	/**Gets the newTask if possible */
 	Stack<ReadOnlyTask> getNewTask();
 	
+	/** Gets the deletedStackOfTask */
+	Stack<ReadOnlyTask> getDeletedStackOfTask();
+
+	/** Gets the deletedStackOfTaskType corresponding to stackOfTask */
+	Stack<String> getDeletedStackOfTaskType();
+	
+	/** Gets Stack of Task that were marked */
+	Stack<ReadOnlyTask> getStackOfMarkDoneTask();  
+	
+	/** Gets stack of TaskTypes corresponding to stackOfMarkDoneTask */
+	Stack<String> getStackOfMarkDoneTaskTaskType();
+	
+	/** Gets a stack of WhatNow corresponding to Undoes of Update */
+	Stack<ReadOnlyWhatNow> getStackOfWhatNowUpdate();  
+	
+	/** Gets a stack of WhatNow corresponding to Redoes of Update */
+	Stack<ReadOnlyWhatNow> getStackOfWhatNowRedoUpdate();
+    
   //=========== Methods for Schedule List ===============================================================
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList();
@@ -116,5 +140,4 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to display all task types*/
     UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList();
-    
 }

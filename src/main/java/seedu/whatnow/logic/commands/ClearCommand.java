@@ -37,7 +37,6 @@ public class ClearCommand extends UndoAndRedo {
 	@Override
 	public CommandResult redo() {
 		model.resetData(WhatNow.getEmptyWhatNow());
-		model.getUndoStack().push(this);
-		return null;
+		return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
 	}
 }

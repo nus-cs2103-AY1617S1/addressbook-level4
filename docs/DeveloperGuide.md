@@ -270,15 +270,15 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | delete a task | remove completed or unwanted tasks
 `* * *` | user | find a task by task description | locate the specific task without having to go through the entire list
 `* * *` | user | view all tasks | look at the list of all tasks to be done
-`* * *` | user | view completed tasks only | look at what are the tasks that are completed
+`* * *` | user | view completed tasks only | double check that I have really completed the tasks
 `* * *` | user | edit a task | change any task without having to remove the old task and create a new one
 `* *` | user | add a recurring task | add a task once only without having to add it multiple times 
-`* *` | user | undo a command | change my mind without deleting and creating or changing anything
-`* *` | user | redo a command |  change my mind without deleting and creating or changing anything
+`* *` | user | undo a command | undo an accidental command
+`* *` | user | redo a command | redo an accidental undo command
 `* *` | user | choose the data file location | store the file on the cloud (For e.g. Dropbox) to sync the data across multiple computers or other preferable locations.
 `*` | user with many tasks in WhatNow | sort tasks by priority | locate the most important and immediate tasks easily
 
-{More to be added}
+
 
 
 ## Appendix B : Use Cases
@@ -447,7 +447,6 @@ Use case ends<br>
   >1a1. System displays `Invalid priority level` message<br>
   >Use case ends<br>
 
-{More to be added}
 
 ## Appendix C : Non Functional Requirements
 
@@ -462,7 +461,6 @@ Use case ends<br>
 9. Should be able to retrieve backup or archived data. 
 10. Should be secured. 
 
-{More to be added}
 
 
 ## Appendix D : Glossary

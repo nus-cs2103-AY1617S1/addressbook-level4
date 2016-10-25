@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.*;
@@ -17,7 +18,6 @@ import seedu.whatnow.logic.commands.*;
  * Parses user input.
  */
 public class Parser {
-
 	/**
 	 * Used for initial separation of command word and args.
 	 */
@@ -25,46 +25,88 @@ public class Parser {
 
 	private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-	private static final Pattern KEYWORDS_ARGS_FORMAT =
-			Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+	/**
+	 * One or more keywords separated by whitespace
+	 */
+	private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
-	private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-			Pattern.compile("(?<name>[^/]+)"
-					+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+	/**
+	 * Forward slashes are reserved for delimiter prefixes
+	 * variable number of tags
+	 */
+	private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); 
 
-
-	private static final Pattern TASK_MODIFIED_WITH_DATE_ARGS_FORMAT =				//This arguments is for e.g. add task on today, add task on 18/10/2016
-			Pattern.compile("(?<name>[^/]+)\\s" + "(.*?\\bon|by\\b.*?\\s)??" +
+	/**
+	 * This arguments is for e.g. add task on today, add task on 18/10/2016
+	 */
+	private static final Pattern TASK_MODIFIED_WITH_DATE_ARGS_FORMAT = Pattern.compile("(?<name>[^/]+)\\s" + "(.*?\\bon|by\\b.*?\\s)??" +
 					"(?<dateArguments>([0-3]??[0-9][//][0-1]??[0-9][//][0-9]{4})??)" + "(?<tagArguments>(?: t/[^/]+)*)");	
-
 	
-//	private static final Pattern TEMP2 = 
-//			Pattern.compile("(?<name>[^/]+)\\s" +".*?\\bon|by\\b.*?" +
-//					" (?<date>[^;]+");
-	private static final Pattern TEMP3 = 
-			Pattern.compile("(?<name>[^/]+)\\s" +"(.*?\\bon|by\\b.*?\\s)??" +
-					"(?<dateArguments>([0-3]??[0-9][//][0-1]??[0-9][//][0-9]{4})??)" + "(?<tagArguments>(?: t/[^/]+)*)");
-				
+	/**
+     * Regular Expressions
+     */
+    private static final Pattern DATE_WITH_SLASH_FORMAT = Pattern.compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[/](([1][0-2])|([0]??[1-9]))[/]([0-9]{4})$");
+    private static final Pattern TIME_FORMAT = Pattern.compile("^(([1][0-2])|([0-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
+    private static final Pattern TAG_FORMAT = Pattern.compile("^(t/)");
+    
+    private static final Pattern TODAY_OR_TOMORROW = Pattern.compile("^(today|tomorrow)$");
+    private static final Pattern DAYS_IN_FULL = Pattern.compile("^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$");
+    private static final Pattern DAYS_IN_SHORT = Pattern.compile("^(mon|tue|tues|wed|thu|thur|fri|sat|sun)$");
+    
+    private static final Pattern KEYWORD_FOR_DATE = Pattern.compile("^((on)|(by)|(from)|(to))$");
+    private static final Pattern KEYWORD_FOR_TIME = Pattern.compile("^((at)|(by)|(from)|(to)|(till))$");
+    
+    
+	/**
+	 * Integer Constants
+	 */
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    
 	private static final int TASK_TYPE = 0;
 	private static final int INDEX = 1;
 	private static final int ARG_TYPE = 2;
 	private static final int ARG = 3;
+	
+	private static final int DESCRIPTION = 1;
+	private static final int TAG = 1;
+    private static final int MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS = 2;
+    private static final int NUM_OF_QUOTATION_MARKS = 2;
+    
+    private static final int TIME_WITHOUT_PERIOD = 0;
+    private static final int TIME_HOUR = 0;
+    private static final int TIME_MINUTES = 1;
+    
 	private static final int LIST_ARG = 0;
+    
+	private static final int CHANGE_LOCATION = 0;
+    private static final int CHANGE_LOCATION_TO = 1;
+    private static final int CHANGE_LOCATION_TO_PATH = 2;
+    
+    /**
+     * String Constants
+     */
 	private static final String DELIMITER_BLANK_SPACE = " ";
+	private static final String DELIMITER_DOUBLE_QUOTATION_MARK = "\"";
+	private static final String DELIMITER_BACK_SLASH = "\\";
+
+	private static final String TIME_COLON = ":";
+	private static final String TIME_DOT = ".";
+	private static final String TIME_AM = "am";
+    private static final String TIME_PM = "pm";
+    private static final String TIME_DEFAULT_MINUTES = "00";
+	
 	private static final String TASK_TYPE_FLOATING = "todo";
 	private static final String TASK_TYPE_NON_FLOATING = "schedule";
+	
 	private static final String LIST_COMMAND_ARG_COMPLETED = "done";
 	private static final String LIST_COMMAND_ARG_NOT_SPECIFIED = "";
 	private static final String LIST_COMMAND_ARG_ALL_TASKS = "all";
+	
 	private static final String TASK_ARG_DESCRIPTION = "description";
 	private static final String TASK_ARG_TAG = "tag";
 	private static final String TASK_ARG_DATE = "date";
 	private static final String TASK_ARG_TIME = "time";
-	private static final int CHANGE_LOCATION = 0;
-	private static final int CHANGE_LOCATION_TO = 1;
-	private static final int CHANGE_LOCATION_TO_PATH = 2;
-	
-
 
 	public Parser() {}
 
@@ -127,7 +169,56 @@ public class Parser {
 			return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
 		}
 	}
+	
+	/**
+	 * Counts the number of occurrence of a substring in a string
+	 * @param str The given string
+	 * @param findStr The substring to look for in a given string
+	 * @return the number of occurrence
+	 */
+	public static int countOccurence(String str, String findStr) {
+	    int lastIndex = 0;
+	    int count = 0;
 
+	    while(lastIndex != -1){
+
+	        lastIndex = str.indexOf(findStr,lastIndex);
+
+	        if(lastIndex != -1){
+	            count++;
+	            lastIndex += findStr.length();
+	        }
+	    }
+	    
+	    return count;
+	}
+
+	public static String formatTime(String time, String period, String[] splitTimePeriod, String[] splitTime) {
+	    splitTimePeriod = time.toLowerCase().split(period);
+        if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_COLON))
+            splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(TIME_COLON);
+        if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_DOT))
+            splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(DELIMITER_BACK_SLASH + TIME_DOT);
+        
+        time = (splitTime != null) ? splitTime[TIME_HOUR] : splitTimePeriod[TIME_WITHOUT_PERIOD];
+        time += TIME_COLON;
+        time += (splitTime != null) ? splitTime[TIME_MINUTES] : TIME_DEFAULT_MINUTES;
+        time += period;
+        
+        return time;
+	}
+	
+	public static String formatTime(String time) {
+	    String[] splitTimePeriod = null;
+	    String[] splitTime = null;
+	    if (time.contains(TIME_AM))
+	        time = formatTime(time, TIME_AM, splitTimePeriod, splitTime);
+        else
+            time = formatTime(time, TIME_PM, splitTimePeriod, splitTime);
+	    
+	    return time;
+	}
+	
 	/**
 	 * Parses arguments in the context of the add task command.
 	 *
@@ -135,75 +226,165 @@ public class Parser {
 	 * @return the prepared command
 	 */
 	private Command prepareAdd(String args){
-		int DESCRIPTION = 1;
-
-		final Matcher matcher = TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args.trim());
+	    boolean validArgument = true;
+	    boolean hasDate = false;
+        boolean hasTime = false;
+        int numOfDate = 0;
+        int numOfTime = 0;
+        String name = null;
+        String date = null;
+        String startDate = null;
+        String endDate = null;
+        String time = null;
+        String startTime = null;
+        String endTime = null;
+        Set<String> tags = new HashSet<String>();
+        String[] additionalArgs = null;
 		
-		// Validate args string format
-		if (!TASK_DATA_ARGS_FORMAT.matcher(args).find() && !TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args).find()){
+	    args = args.trim();
+	    
+	    //final Matcher matcher = TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args.trim());
+		// Validate the format of the arguments
+		/*if (!TASK_DATA_ARGS_FORMAT.matcher(args).find() && !TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args).find()){
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-		}
+		}*/
+	    
+	    // Check whether there are two quotation marks ""
+	    if (countOccurence(args, DELIMITER_DOUBLE_QUOTATION_MARK) != NUM_OF_QUOTATION_MARKS)
+	        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+	    
+		String[] arguments = args.split(DELIMITER_DOUBLE_QUOTATION_MARK);
 		
-		String[] arguments = args.trim().split("\"");
-		
-		if (arguments.length < 2) {
+		if (arguments.length < MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS) {
 		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		}
 		
-		// E.g. add "Buy Milk"
-		if (arguments.length == 2) {
+		// E.g. add "Without date and time"
+		if (arguments.length == MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS) {
+		    name = arguments[DESCRIPTION].trim();
+		    
 			try {
-				return new AddCommand(arguments[DESCRIPTION], Collections.emptySet());
+				return new AddCommand(name, date, startDate, endDate, time, startTime, endTime, Collections.emptySet());
 			} catch (IllegalValueException ive) {
 				return new IncorrectCommand(ive.getMessage());
-			}
-		}
-		
-		String[] additionalArgs = null;
-		
-		if (arguments.length > 2) {
-			additionalArgs = arguments[arguments.length - 1].trim().split(" ");
-		}
-		
-		if (additionalArgs[0].equals("on") || additionalArgs[0].equals("by")) {
-		    if (additionalArgs.length > 2) {
-		        Set<String> tags = new HashSet<String>();
-		        
-		        for (int i = 2; i < additionalArgs.length; i++) {
-		            String[] splitTag = additionalArgs[i].trim().split("/");
-		            tags.add(splitTag[1]);
-		        }
-		        
-		        try {
-	                return new AddCommand(arguments[DESCRIPTION], additionalArgs[1], tags);
-	            } catch (IllegalValueException ive) {
-	                return new IncorrectCommand(ive.getMessage());
-	            } catch (ParseException ive) {
-	                return new IncorrectCommand(ive.getMessage());
-	            }
-		    }
-		    
-		    try {
-                return new AddCommand(arguments[DESCRIPTION], additionalArgs[1], Collections.emptySet());
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            } catch (ParseException ive) {
-                return new IncorrectCommand(ive.getMessage());
+			} catch (ParseException e) {
+			    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
 		}
 		
-		Set<String> tags = new HashSet<String>();
-        
-        for (int i = 0; i < additionalArgs.length; i++) {
-            String[] splitTag = additionalArgs[i].trim().split("/");
-            tags.add(splitTag[1]);
-        }
+		name = arguments[DESCRIPTION].trim();
+		
+		if (arguments.length > MIN_NUM_OF_VALID_PARTS_IN_ADD_ARGUMENTS) {
+			additionalArgs = arguments[arguments.length - 1].trim().split(DELIMITER_BLANK_SPACE);
+		}
+		
+		for (int i = 0; i < additionalArgs.length; i++) {
+		    if (KEYWORD_FOR_DATE.matcher(additionalArgs[i].toLowerCase()).find()) {
+		        hasDate = true;
+		        continue;
+		    }	        
+		    else if (KEYWORD_FOR_TIME.matcher(additionalArgs[i].toLowerCase()).find()) {
+		        hasTime = true;
+		        continue;
+		    }
+		    else if (TAG_FORMAT.matcher(additionalArgs[i]).find()) {
+		        String[] splitTag = additionalArgs[i].trim().split(DELIMITER_BACK_SLASH);
+		        tags.add(splitTag[TAG]);
+		        continue;
+		    } else if (!hasDate && TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
+		        numOfDate++;
+                if (numOfDate == ONE) {
+                    date = additionalArgs[i].toLowerCase();
+                } else if (numOfDate == TWO) {
+                    startDate = date;
+                    date = null;
+                    endDate = additionalArgs[i].toLowerCase();
+                }
+                continue;
+		    } else if (!hasTime && TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
+                numOfTime++;
+                if (numOfTime == ONE) {
+                    time = additionalArgs[i].toLowerCase();
+                } else if (numOfTime == TWO) {       
+                    startTime = time;      
+                    time = null;
+                    endTime = additionalArgs[i].toLowerCase();
+                }
+                continue;
+            } else if (!hasDate && !hasTime) {
+                validArgument = false;
+            }
+		    
+		    if (hasDate) {
+                if (DATE_WITH_SLASH_FORMAT.matcher(additionalArgs[i]).find()) {
+                    numOfDate++;
+                    if (numOfDate == ONE) {
+                        date = additionalArgs[i];
+                    } else if (numOfDate == TWO) {
+                        startDate = date;
+                        date = null;
+                        endDate = additionalArgs[i];
+                    }
+                } else if (TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    numOfDate++;
+                    if (numOfDate == ONE) {
+                        date = additionalArgs[i].toLowerCase();
+                    } else if (numOfDate == TWO) {
+                        startDate = date;
+                        date = null;
+                        endDate = additionalArgs[i].toLowerCase();
+                    }
+                } else if (TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    numOfTime++;
+                    if (numOfTime == ONE) {
+                        time = additionalArgs[i].toLowerCase();
+                    } else if (numOfTime == TWO) {
+                        startTime = time;                    
+                        time = null;
+                        endTime = additionalArgs[i].toLowerCase();
+                        
+                        
+                    }
+                } else {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                }
+                
+                hasDate = false;
+            }
+            
+            if (hasTime) {
+                if (TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    numOfTime++;
+                    if (numOfTime == ONE) {
+                        time = additionalArgs[i].toLowerCase();
+                    } else if (numOfTime == TWO) {
+                        startTime = time;             
+                        time = null;
+                        endTime = additionalArgs[i].toLowerCase();
+                    }
+                } else {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                }
+                
+                hasTime = false;
+            }
+            
+            if (!validArgument)
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+		}
+		
+		if (startTime != null) {
+		    startTime = formatTime(startTime);
+		    endTime = formatTime(endTime);
+		}
 		
 		try {
-			return new AddCommand(arguments[DESCRIPTION], tags);
+			return new AddCommand(name, date, startDate, endDate, time, startTime, endTime, tags);
 		} catch (IllegalValueException ive) {
 			return new IncorrectCommand(ive.getMessage());
-		}
+		} catch (ParseException e) {
+		    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
 	}
 	
 	/**
@@ -297,6 +478,14 @@ public class Parser {
         String arg = "";
         Optional<Integer> index = parseIndex(argComponents[INDEX]);
         for (int i = ARG; i < argComponents.length; i++) {
+            if (argComponents[i].toUpperCase().compareToIgnoreCase("none") == 0 && argType.toUpperCase().compareToIgnoreCase("description") != 0) {
+                arg = argComponents[i];
+                try {
+                    return new UpdateCommand(type, index.get(), argType, arg);
+                } catch (IllegalValueException ive) {
+                    return new IncorrectCommand(ive.getMessage());
+                }
+            }
             arg += argComponents[i] + " ";
         }
         if(!index.isPresent()){
@@ -309,11 +498,7 @@ public class Parser {
         }
         
         try {
-            return new UpdateCommand(
-                type,
-                index.get(),
-                argType,
-                arg);
+            return new UpdateCommand(type, index.get(), argType, arg);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

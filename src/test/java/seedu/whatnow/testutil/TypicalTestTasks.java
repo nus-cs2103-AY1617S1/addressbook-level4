@@ -1,5 +1,7 @@
 package seedu.whatnow.testutil;
 
+import java.text.ParseException;
+
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.model.WhatNow;
 import seedu.whatnow.model.task.*;
@@ -28,6 +30,9 @@ public class TypicalTestTasks {
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
+        } catch (ParseException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
         }
     }
 

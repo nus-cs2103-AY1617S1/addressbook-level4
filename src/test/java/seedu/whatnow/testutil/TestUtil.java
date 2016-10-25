@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new UniqueTagList(), null),
-                    new Task(new Name("Boris Mueller"), new UniqueTagList(), null),
-                    new Task(new Name("Carl Kurz"), new UniqueTagList(), null),
-                    new Task(new Name("Daniel Meier"), new UniqueTagList(), null),
-                    new Task(new Name("Elle Meyer"), new UniqueTagList(), null),
-                    new Task(new Name("Fiona Kunz"), new UniqueTagList(), null),
-                    new Task(new Name("George Best"), new UniqueTagList(), null),
-                    new Task(new Name("Hoon Meier"), new UniqueTagList(), null),
-                    new Task(new Name("Ida Mueller"), new UniqueTagList(), null)
+                    new Task(new Name("Ali Muster"), null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Boris Mueller"), null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Carl Kurz"), null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Daniel Meier"), null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Elle Meyer"), null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Fiona Kunz"), null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("George Best"), null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Hoon Meier"), null, null, null, null, null, null, new UniqueTagList(), null, null),
+                    new Task(new Name("Ida Mueller"), null, null, null, null, null, null, new UniqueTagList(), null, null)
             };
         } catch (IllegalValueException e) {
             assert false;
