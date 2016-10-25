@@ -133,7 +133,6 @@
 /***TaskCardView Styles Start***/
 /*Default and Base*/
 .taskCard .label {
-    -fx-text-fill: #2D2D2D;
     -fx-font-smoothing-type: lcd;
 }
 
