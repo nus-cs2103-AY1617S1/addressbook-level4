@@ -25,17 +25,27 @@
       <Region HBox.hgrow="ALWAYS" />
       <HBox>
          <children>
-                  <Label fx:id="dbt" alignment="CENTER" styleClass="cell_small_label" text="\$duetime" HBox.hgrow="ALWAYS">
+            <Label fx:id="sd" alignment="CENTER" prefWidth="75.0" text="10/19/2016">
                <HBox.margin>
-                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="st" alignment="CENTER" prefWidth="38.0" text="2359">
+               <HBox.margin>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </HBox.margin>
+            </Label>
+                  <Label fx:id="dbd" alignment="CENTER" prefWidth="75.0" styleClass="cell_small_label" text="10/19/2016" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin></Label>
-                  <Label fx:id="dbd" alignment="CENTER" styleClass="cell_small_label" text="\$duedate" HBox.hgrow="ALWAYS">
+                  <Label fx:id="dbt" alignment="CENTER" prefWidth="38.0" styleClass="cell_small_label" text="2359" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin></Label>
-                  <Label fx:id="priority" alignment="CENTER" prefWidth="60.0" styleClass="cell_small_label" text="priority" HBox.hgrow="ALWAYS">
+                  <Label fx:id="priority" alignment="CENTER" prefWidth="49.0" styleClass="cell_small_label" text="medium" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin></Label>
          </children>
       </HBox>

@@ -18,6 +18,10 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
+    private Label st;
+    @FXML
+    private Label sd;
+    @FXML
     private Label dbd;
     @FXML
     private Label dbt;
@@ -43,8 +47,10 @@ public class TaskCard extends UiPart{
     public void initialize() {
         detail.setText(task.getDetail().details);
         id.setText(displayedIndex + ". ");
-        dbd.setText(task.getDueByDate().getFriendlyString());
-        dbt.setText(task.getDueByTime().getFriendlyString());
+        sd.setText(task.getDueByDate().getFriendlyStartString());
+        st.setText(task.getDueByTime().getFriendlyStartString());
+        dbd.setText(task.getDueByDate().getFriendlyEndString());
+        dbt.setText(task.getDueByTime().getFriendlyEndString());
         priority.setText(task.getPriority().value);        
         switch(task.getPriority().value) {
         	case "low": 

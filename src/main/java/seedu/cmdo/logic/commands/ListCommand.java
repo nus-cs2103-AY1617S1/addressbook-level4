@@ -15,6 +15,10 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD_BLOCK = "list block";
 
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + "/" + COMMAND_WORD_SHORT_ALL + "/" 
+    		+ COMMAND_WORD_SHORT_DONE + "/" + COMMAND_WORD_SHORT_BLOCK + "/" + COMMAND_WORD_ALL + "/" 
+    		+ COMMAND_WORD_DONE + "/" + COMMAND_WORD_BLOCK + ": lists wanted list\n" 
+    		+ "Example: list all";
     
     private final int type; // 0 for done false, 1 for done true, 2 for blocked and done false
 
