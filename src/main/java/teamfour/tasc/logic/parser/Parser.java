@@ -117,6 +117,9 @@ public class Parser {
 
         case SwitchlistCommand.COMMAND_WORD:
             return prepareSwitchlist(arguments);
+            
+        case RenamelistCommand.COMMAND_WORD:
+            return prepareRenamelist(arguments);
 
         case CalendarCommand.COMMAND_WORD:
             return prepareCalendar(arguments);
@@ -183,6 +186,22 @@ public class Parser {
                     SwitchlistCommand.MESSAGE_USAGE));
         }
         return new SwitchlistCommand(args.trim());
+    }
+    
+    //@@author A0147971U
+    /**
+     * Parses arguments in the context of the rename list command.
+     *
+     * @param args the file name of list that user wish to rename to. 
+     * @return the prepared command
+     */
+    public Command prepareRenamelist(String args) {
+        final Matcher matcher = FILE_NAME_ONLY_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RenamelistCommand.MESSAGE_USAGE));
+        }
+        return new RenamelistCommand(args.trim());
     }
 
     //@@author A0148096W

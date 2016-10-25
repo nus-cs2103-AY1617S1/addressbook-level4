@@ -10,9 +10,11 @@ import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.core.Version;
 import teamfour.tasc.commons.events.storage.FileRelocateEvent;
+import teamfour.tasc.commons.events.storage.RequestTaskListRenameEvent;
 import teamfour.tasc.commons.events.storage.RequestTaskListSwitchEvent;
 import teamfour.tasc.commons.events.ui.ExitAppRequestEvent;
 import teamfour.tasc.commons.exceptions.DataConversionException;
+import teamfour.tasc.commons.exceptions.TaskListFileExistException;
 import teamfour.tasc.commons.util.ConfigUtil;
 import teamfour.tasc.commons.util.StringUtil;
 import teamfour.tasc.logic.Logic;
@@ -210,18 +212,18 @@ public class MainApp extends Application {
         setDataStorageFilePath(event.getDestination());
     }
     
-    public void switchList() {
-//        TODO: implement switchList()
-//        use config.getTaskListName() to get the tasklist file name to be switched to.
-        this.stop();
-    }
-    
     @Subscribe
     public void handleRequestTaskListSwitchEvent(RequestTaskListSwitchEvent event) throws IOException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         config.switchToNewTaskList(event.getFilename());
-        // After this line, config is updated.
-        switchList();
+        this.stop();
+    }
+    
+    @Subscribe
+    public void handleRequestTaskListRenameEvent(RequestTaskListRenameEvent event) throws IOException, TaskListFileExistException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        config.renameCurrentTaskList(event.getNewFilename());
+        this.stop();
     }
   //@@author
     

@@ -2,6 +2,7 @@
 package teamfour.tasc.logic.commands;
 
 import teamfour.tasc.commons.events.storage.RequestTaskListSwitchEvent;
+import teamfour.tasc.model.keyword.SwitchListCommandKeyword;
 import teamfour.tasc.commons.core.EventsCenter;
 
 /**
@@ -9,7 +10,7 @@ import teamfour.tasc.commons.core.EventsCenter;
  */
 public class SwitchlistCommand extends Command {
 
-    public static final String COMMAND_WORD = "switchlist";
+    public static final String COMMAND_WORD = SwitchListCommandKeyword.keyword;
 
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Switches to another tasklist. If it does not exist, creates a new file. \n"
@@ -26,7 +27,7 @@ public class SwitchlistCommand extends Command {
     private final String filename;
 
     /**
-     * Relocate Command for changing storage path to new directory.
+     * Switchlist command for switching the current list to a new one.
      */
     public SwitchlistCommand(String filename) {
         this.filename = filename;
