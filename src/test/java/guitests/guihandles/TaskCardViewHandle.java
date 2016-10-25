@@ -11,6 +11,8 @@ import seedu.todo.testutil.UiTestUtil;
 
 import java.time.LocalDateTime;
 
+import static org.junit.Assert.assertTrue;
+
 //@@author A0135805H
 /**
  * Provides a handle to a {@link seedu.todo.ui.view.TaskCardView}
@@ -106,6 +108,14 @@ public class TaskCardViewHandle extends GuiHandle {
         return UiTestUtil.containsStyleClass(rootNode, "overdue");
     }
 
+    public boolean isTaskCardCollapsed() {
+        return UiTestUtil.containsStyleClass(rootNode, "collapsed");
+    }
+
+    public boolean isTaskCollapsible() {
+        return !getDisplayedDescription().isEmpty();
+    }
+
     /* General Methods */
     /**
      * Checks if the supplied index matches to what this node displays.
@@ -131,10 +141,19 @@ public class TaskCardViewHandle extends GuiHandle {
         boolean isCorrectPinDisplay = isPinDisplayCorrect(task);
         boolean isCorrectCompleteDisplay = isCompletedDisplayCorrect(task);
         boolean isCorrectOverdueDisplay = isOverdueDisplayCorrect(task);
+        boolean isCorrectCollapsedState = isTaskCardCollapsedStateCorrect();
 
-        return isCorrectTitle && isCorrectDescription && isCorrectDateText
-                && isCorrectLocation && isCorrectType && isCorrectPinDisplay
-                && isCorrectCompleteDisplay && isCorrectOverdueDisplay;
+        //JUnit Assertion Test: To know which test are failing in detail
+        assertTrue(isCorrectTitle);
+        assertTrue(isCorrectDescription);
+        assertTrue(isCorrectCollapsedState);
+        assertTrue(isCorrectCompleteDisplay);
+        assertTrue(isCorrectDateText);
+        assertTrue(isCorrectLocation);
+        assertTrue(isCorrectType);
+        assertTrue(isCorrectPinDisplay);
+        assertTrue(isCorrectOverdueDisplay);
+        return true;
     }
 
     private boolean isTitleCorrect(int displayedIndex, ImmutableTask task) {
@@ -236,6 +255,17 @@ public class TaskCardViewHandle extends GuiHandle {
         }
 
         return expected.equals(actual);
+    }
+
+    public boolean isTaskCardCollapsedStateCorrect() {
+        boolean collapsedStyleApplied = UiTestUtil.containsStyleClass(rootNode, "collapsed");
+        boolean moreInfoLabelDisplayed = UiTestUtil.isDisplayed(getNode(MOREINFO_LABEL_ID));
+
+        if (isTaskCollapsible()) {
+            return collapsedStyleApplied == moreInfoLabelDisplayed;
+        } else {
+            return !moreInfoLabelDisplayed;
+        }
     }
 
     /* View Elements Helper Methods */

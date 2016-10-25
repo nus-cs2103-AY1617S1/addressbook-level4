@@ -256,6 +256,34 @@
 }
 
 
+/*Ongoing*/
+.ongoing {
+    -fx-background-color: #388E3C;
+}
+
+
+.ongoing .label {
+    -fx-text-fill: #FFFFFF;
+}
+
+.ongoing .roundLabel {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #388E3C;
+}
+
+.ongoing .pinImage {
+    -fx-image: url("../images/star_white.png");
+}
+
+.ongoing .dateImage {
+    -fx-image: url("../images/clock_white.png");
+}
+
+.ongoing .locationImage {
+    -fx-image: url("../images/location_white.png");
+}
+
+
 /*Selected*/
 .selected {
     -fx-background-color: #00A4FF;

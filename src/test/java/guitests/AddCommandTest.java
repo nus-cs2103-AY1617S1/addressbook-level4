@@ -76,8 +76,7 @@ public class AddCommandTest extends TodoListGuiTest {
     private void executeAddTestHelper(ImmutableTask task) {
         updatePreviousTaskListFromView();
         executeAddCommand(task);
-        assertAddSuccess(task);
-        assertCorrectFeedbackDisplayed(task);
+        assertCorrectnessHelper(task);
     }
 
     /**
@@ -88,18 +87,26 @@ public class AddCommandTest extends TodoListGuiTest {
         runCommand(commandText);
     }
 
+    private void assertCorrectnessHelper(ImmutableTask newTask) {
+        int addedIndex = getNewlyAddedTaskIndex();
+        TaskCardViewHandle taskCardHandle = todoListView.getTaskCardViewHandle(addedIndex);
+
+        assertAddSuccess(taskCardHandle, newTask, addedIndex);
+        assertCorrectFeedbackDisplayed(newTask);
+        assertCollapsed(taskCardHandle);
+    }
+
     /**
      * Check the two following areas:
      *      1. If the {@code task} added to the view is reflected correctly in it's own task card view.
      *      2. If the remaining task cards are present and still displayed correctly in their own
      *         respective card views.
      */
-    private void assertAddSuccess(ImmutableTask task) {
+    private void assertAddSuccess(TaskCardViewHandle newTaskHandle, ImmutableTask newTask, int addedListIndex) {
+        int expectedDisplayedIndex = UiTestUtil.convertToUiIndex(addedListIndex);
+
         //Test for the newly added task.
-        int addedIndex = getNewlyAddedTaskIndex();
-        int expectedDisplayedIndex = UiTestUtil.convertToUiIndex(addedIndex);
-        TaskCardViewHandle taskCard = todoListView.getTaskCardViewHandle(addedIndex);
-        assertTrue(taskCard.isDisplayedCorrectly(expectedDisplayedIndex, task));
+        assertTrue(newTaskHandle.isDisplayedCorrectly(expectedDisplayedIndex, newTask));
 
         //Test for remaining tasks.
         assertTrue(todoListView.isDisplayedCorrectly());
@@ -110,5 +117,15 @@ public class AddCommandTest extends TodoListGuiTest {
      */
     private void assertCorrectFeedbackDisplayed(ImmutableTask task) {
         assertFeedbackMessage("\'" + task.getTitle() + "\' successfully added!");
+    }
+
+    /**
+     * Tasks should be collapsed when newly added.
+     * Checks the case where if the task is collapsible, then the task is in the collapsed state when newly added.
+     */
+    private void assertCollapsed(TaskCardViewHandle newTask) {
+        if (newTask.isTaskCollapsible()) {
+            assertTrue(newTask.isTaskCardCollapsed());
+        }
     }
 }
