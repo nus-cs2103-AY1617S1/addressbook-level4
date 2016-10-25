@@ -2,10 +2,10 @@ package seedu.address.logic.commands;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
-import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -39,7 +39,6 @@ public class DoneCommand extends UndoableCommand {
     private List<Task> readdedRecurringTasks;
     private List<Task> doneTasksUndoFail;
     private final List<Integer> targetIndexes;
-    private List<String> displayArchivedTasks;
     private int adjustmentForRemovedTask = 0;
     private boolean isViewingDoneList;
 
@@ -63,18 +62,33 @@ public class DoneCommand extends UndoableCommand {
             return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
         }
         
-        assert isViewingDoneList == false;
-        logger.fine("Preparing to archive tasks.");
-        prepareToArchiveTasks();
+        prepareToArchiveTasks(); 
+        archiveTasksFromGivenTargetIndexes();
+        updateHistory();
+        
+        if (doneTasks.isEmpty()) {
+            logger.warning("No tasks archived. Non of the given task indexes are valid.");
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+        String toDisplay = doneTasks.toString().replace("[", "").replace("]", "");
+        return (doneTasks.size() == 1)? 
+                new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, toDisplay)):
+                new CommandResult(String.format(MESSAGE_DONE_ITEMS_SUCCESS, toDisplay));
+    }
 
+    /**
+     * Goes through the list of target indexes provided.
+     * Archives these tasks if target index is valid.
+     * Ignores any invalid target indexes provided.
+     */
+    private void archiveTasksFromGivenTargetIndexes() {
         for (int targetIndex: targetIndexes) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
-    
             if (lastShownList.size() < targetIndex - adjustmentForRemovedTask) {
                 logger.warning("Task target index out of bounds detected. Skipping task with current target index.");
-                continue;      
+                continue;
             }
-            
             Task taskToArchive = new Task(lastShownList.get(targetIndex - adjustmentForRemovedTask - 1));
             assert isViewingDoneList == false;
             try {
@@ -82,29 +96,14 @@ public class DoneCommand extends UndoableCommand {
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
             }
-            
             doneTasks.add(taskToArchive);
-            
             if (taskToArchive.getRecurrenceRate().isPresent()) {
                 updateRecurrenceAndReAddTask(taskToArchive);
             } else {
                 adjustmentForRemovedTask++;
             }
-            
             model.addDoneTask(taskToArchive);
-            displayArchivedTasks.add(taskToArchive.toString());
         }
-        
-        updateHistory();
-        if (displayArchivedTasks.isEmpty()) {
-            logger.warning("No tasks archived. Non of the given task indexes are valid.");
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-//        String toDisplay = displayArchivedTasks.toString().replace("[", "").replace("]", "");
-        return (displayArchivedTasks.size() == 1)? 
-                new CommandResult(String.format(MESSAGE_DONE_ITEM_SUCCESS, doneTasks)):
-                new CommandResult(String.format(MESSAGE_DONE_ITEMS_SUCCESS, doneTasks));
     }
 
     /**
@@ -113,7 +112,7 @@ public class DoneCommand extends UndoableCommand {
      * @param taskToArchive
      */
     private void updateRecurrenceAndReAddTask(Task taskToArchive) {
-        logger.fine("Task is recurring. Updating task details.");
+        logger.fine("In updateRecurrenceAndReAddTask(). Task is recurring. Updating task details.");
         Task recurringTaskToReAdd = new Task(taskToArchive);
         recurringTaskToReAdd.updateRecurringTask();
         readdedRecurringTasks.add(recurringTaskToReAdd);
@@ -126,6 +125,7 @@ public class DoneCommand extends UndoableCommand {
      * while viewing the done list.
      */
     private void setCurrentViewingList() {
+        logger.fine("In setCurrentViewingList(), updating boolean isViewingDoneList.");
         isViewingDoneList = model.isCurrentListDoneList();
     }
     
@@ -135,9 +135,9 @@ public class DoneCommand extends UndoableCommand {
      * Sorts the indexes to ensure the proper offset is used
      */
     private void prepareToArchiveTasks() {
+        logger.fine("In prepareToArchiveTasks(). Setting up.");
         doneTasks = new ArrayList<Task>();
         readdedRecurringTasks = new ArrayList<Task>();
-        displayArchivedTasks = new ArrayList<String>();
         Collections.sort(targetIndexes);
         adjustmentForRemovedTask = 0;
     }
