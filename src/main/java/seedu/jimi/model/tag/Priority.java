@@ -15,6 +15,7 @@ public class Priority extends Tag{
     public final static String priorityLow = "LOW";
     public final static String priorityMed = "MED";
     public final static String priorityHigh = "HIGH";
+    public final static String priorityNull = "NULL";
             
     /**
      * Instantiate with no priority tag.
@@ -41,7 +42,7 @@ public class Priority extends Tag{
      * Returns true if a given string is a valid priority name.
      */
     public static boolean isValidPriorityName(String test) {
-        if (test.equals(priorityLow) || test.equals(priorityMed) || test.equals(priorityHigh))    {
+        if (test.equals(priorityLow) || test.equals(priorityMed) || test.equals(priorityHigh) || test.equals(priorityNull)) {
             return true;
         }
         else 

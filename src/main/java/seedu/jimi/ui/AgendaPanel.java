@@ -153,7 +153,7 @@ public class AgendaPanel extends UiPart{
         eventsTableColumnDetails.setCellFactory(getCustomPriorityCellFactory());
         eventsTableColumnStartDate.setCellValueFactory(cellData -> new SimpleStringProperty(((Event) cellData.getValue()).getStart().toString()));
         eventsTableColumnStartDate.setCellFactory(getCustomPriorityCellFactory());
-        eventsTableColumnEndDate.setCellValueFactory(cellData -> new SimpleStringProperty(((Event) cellData.getValue()).getEnd().toString()));
+        eventsTableColumnEndDate.setCellValueFactory(cellData -> new SimpleStringProperty(((Event) (cellData.getValue())).getEnd() == null ? null : ((Event) cellData.getValue()).getEnd().toString()));
         eventsTableColumnEndDate.setCellFactory(getCustomPriorityCellFactory());
     }
     
