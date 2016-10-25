@@ -2,7 +2,7 @@ package harmony.mastermind.commons.events.storage;
 
 import harmony.mastermind.commons.events.BaseEvent;
 
-//@author A013914X
+//@@author A0139194X
 public class RelocateFilePathEvent extends BaseEvent {
 
     public final String newFilePath;
