@@ -155,6 +155,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
      */
     @Override
     public int compareTo(Task o) {
+        assert o != null;
         if (deadline.compareTo(o.deadline) == 0){
             return name.compareTo(o.name);
         } else {
