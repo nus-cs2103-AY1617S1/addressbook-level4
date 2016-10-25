@@ -11,7 +11,7 @@ public interface ReadOnlyDeadline {
 
         Name getName();
         DateTime getDue();
-        boolean isCompleted();
+        boolean getCompleted();
         void setCompleted();
         
         /**

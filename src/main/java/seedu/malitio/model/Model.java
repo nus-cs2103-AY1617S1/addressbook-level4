@@ -106,7 +106,7 @@ public interface Model {
     /** Complete the floating task.*/
 	void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskNotFoundException, FloatingTaskCompletedException;
 	
-	 /** Complete the floating task.*/
+	 /** Complete the deadline.*/
 	void completeDeadline(ReadOnlyDeadline deadlineToEdit) throws DeadlineCompletedException, DeadlineNotFoundException;
     
 }

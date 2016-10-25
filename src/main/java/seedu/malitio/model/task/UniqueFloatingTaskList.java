@@ -106,7 +106,6 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
     
     public void complete(ReadOnlyFloatingTask toComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
         assert toComplete != null;
-        System.out.println(toComplete.getCompleted());
         if (toComplete.getCompleted()) {
             throw new FloatingTaskCompletedException();
         }

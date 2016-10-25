@@ -71,9 +71,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyMalitio initialData, UserPrefs userPrefs) {
-        System.out.println(initialData.getUniqueFloatingTaskList().getInternalList().get(0).getCompleted());
         malitio = new Malitio(initialData);
-        System.out.println(malitio.getFloatingTasks().get(0).getCompleted());
         filteredFloatingTasks = new FilteredList<>(malitio.getFloatingTasks());
         filteredDeadlines = new FilteredList<>(malitio.getDeadlines());
         filteredEvents = new FilteredList<>(malitio.getEvents());

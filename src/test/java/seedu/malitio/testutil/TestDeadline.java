@@ -64,7 +64,7 @@ public class TestDeadline implements ReadOnlyDeadline {
     }
 
 	@Override
-	public boolean isCompleted() {
+	public boolean getCompleted() {
 		return completed;
 	}
 

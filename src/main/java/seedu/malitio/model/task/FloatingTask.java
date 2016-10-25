@@ -35,6 +35,7 @@ public class FloatingTask implements ReadOnlyFloatingTask {
      */
     public FloatingTask(ReadOnlyFloatingTask source) {
         this(source.getName(), source.getTags());
+        this.completed = source.getCompleted();
     }
 
     @Override

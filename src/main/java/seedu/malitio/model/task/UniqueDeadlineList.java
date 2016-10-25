@@ -98,7 +98,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
 	public void complete(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
         assert deadlineToComplete!=null;
         
-        if(deadlineToComplete.isCompleted()) {
+        if(deadlineToComplete.getCompleted()) {
         	throw new DeadlineCompletedException();
         }
 

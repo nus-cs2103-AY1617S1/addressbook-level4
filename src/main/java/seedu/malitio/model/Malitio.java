@@ -51,7 +51,6 @@ public class Malitio implements ReadOnlyMalitio {
     //@@author A0129595N
     public Malitio(ReadOnlyMalitio toBeCopied) {
         this(toBeCopied.getUniqueFloatingTaskList(), toBeCopied.getUniqueDeadlineList(), toBeCopied.getUniqueEventList(), toBeCopied.getUniqueTagList());
-        //System.out.println(toBeCopied.getUniqueFloatingTaskList().getInternalList().get(0).getCompleted());
     }
 
     /**
@@ -59,7 +58,6 @@ public class Malitio implements ReadOnlyMalitio {
      */
     public Malitio(UniqueFloatingTaskList tasks, UniqueDeadlineList deadlines, UniqueEventList event, UniqueTagList tags) {
         resetData(tasks.getInternalList(), deadlines.getInternalList(), event.getInternalList(), tags.getInternalList());
-        System.out.println(tasks.getInternalList().get(0).getCompleted());
     }
 
     public static ReadOnlyMalitio getEmptymalitio() {

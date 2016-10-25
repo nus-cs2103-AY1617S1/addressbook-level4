@@ -17,6 +17,8 @@ public class XmlAdaptedDeadline {
 
     @XmlElement(required = true)
     private String name;
+    @XmlElement(required = true)
+    private boolean completed; 
 
 
     @XmlElement(required = true)
@@ -39,6 +41,7 @@ public class XmlAdaptedDeadline {
     public XmlAdaptedDeadline(ReadOnlyDeadline source) {
         name = source.getName().fullName;
         due = source.getDue().toString();
+        completed = source.getCompleted();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -57,7 +60,8 @@ public class XmlAdaptedDeadline {
         }
         final Name name = new Name(this.name);
         final DateTime due = new DateTime(this.due);
+        final boolean complete = this.completed;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-            return new Deadline(name, due, tags);
+            return new Deadline(name, due, complete, tags);
     }
 }
