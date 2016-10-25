@@ -1,5 +1,9 @@
 package seedu.cmdo.model.task;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import seedu.cmdo.commons.util.CollectionUtil;
@@ -58,8 +62,27 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getDetail(), source.checkDone(), source.getDueByDate(), source.getDueByTime(), source.getPriority(), source.getBlock(), source.getTags());
     }
-
-
+    
+    //@@author A0141128R
+    //to edit it to a floating task
+    public void setFloating(){
+    	dueByTime.setFloating();
+    	dueByDate.setFloating();
+	}
+    
+    //change detail used in edit command
+    public void setDetail(Detail d) {
+        detail = d;
+    }
+    //setter to edit due by date for edit command
+    public void setDueByDate(DueByDate dbd){
+    	dueByDate = dbd;
+    }
+    //setter to edit due by time for edit command
+    public void setDueByTime(DueByTime dbt){
+    	dueByTime = dbt;
+    }
+    
 	@Override
     public Detail getDetail() {
         return detail;
