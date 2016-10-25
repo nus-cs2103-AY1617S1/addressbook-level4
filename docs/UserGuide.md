@@ -112,16 +112,16 @@ Format: `edit TASK_ID [NEW_TASK_NAME] [from DATE_TIME to DATE_TIME | by DATE_TIM
 
 Examples: 
 * `edit 1 cs2103 webcast`<br>
-	<img src="images/before_edit.png" width="600">
-	<img src="images/edit_command_1.png" width="600">
+   <img src="images/before_edit.png" width="600">
+   <img src="images/edit_command_1.png" width="600">
 * `edit 1 t/study`<br>
-	<img src="images/edit_command_2.png" width="600">
+   <img src="images/edit_command_2.png" width="600">
 * `edit 1 from today 4pm to today 5pm`<br>
-	<img src="images/edit_command_3.png" width="600">
+   <img src="images/edit_command_3.png" width="600">
 * `edit 2 by today 7pm`<br>
-	<img src="images/edit_command_4.png" width="600">
+   <img src="images/edit_command_4.png" width="600">
 * `edit 1 from today 4pm to today 5pm daily`<br>
-	<img src="images/edit_command_5.png" width="600">
+   <img src="images/edit_command_5.png" width="600">
 
 #### Delete tasks : `delete`
 Format: delete TASK_ID
@@ -129,13 +129,13 @@ Format: delete TASK_ID
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 
 Examples:
-* `Delete 212`
+* `Delete 2`
 
 #### Archive completed tasks : `done`
 Format: done TASK_ID
 
 Examples:
-* `done 1`
+* `done 5`
 
    <img src="images/beforedone.png" width="600">
    <img src="images/afterdone1.png" width="600">
@@ -146,7 +146,7 @@ Examples:
 Format: block from [START_DATE] START_TIME to [START_DATE] START_TIME [t/TAG] 
 
 Examples:
-* `block from today 8pm to today 9pm`
+* `block from tomorrow 3pm to tomorrow 5pm t/meeting`
 
  > <img src="images/beforeblock.png" width="600">
  > <img src="images/afterblock.png" width="600">
@@ -193,15 +193,22 @@ Format: `find [KEY_WORD] [from DATE_TIME to DATE_TIME | by DATE_TIME] [t/TAG]...
 > (You can have more than one tags to search)
 
 Examples: <br>
-* `find cs2103 <br>`
-	<img src="images/before_find.png" width="600">
-	<img src="images/find_command_1.png" width="600">
-* `find from today 5am to today 6am <br>`
-	<img src="images/find_command_2.png" width="600">
-* `find by today 10am`
-	<img src="images/find_command_3.png" width="600">
-* `find cs2103 tag/lolo`
-	<img src="images/find_command_4.png" width="600">
+   * `find cs2103`<br>
+
+   <img src="images/before_find.png" width="600">
+   <img src="images/find_command_1.png" width="600">
+   
+   * `find from today 5am to today 6am`<br>
+
+   <img src="images/find_command_2.png" width="600">
+   
+   * `find by today 10am`<br>
+
+   <img src="images/find_command_3.png" width="600">
+   
+   * `find cs2103 tag/lolo`<br>
+
+   <img src="images/find_command_4.png" width="600">
 	
 #### Undo tasks : `clear`
 Format: clear
