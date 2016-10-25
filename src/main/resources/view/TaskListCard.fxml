@@ -20,9 +20,9 @@
 			</padding>
 
 			<children>
-				<HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="900.0" spacing="5">
+				<HBox alignment="CENTER_LEFT" prefHeight="39.0" prefWidth="936.0" spacing="5">
 					<children>
-						<HBox maxWidth="504.0" prefHeight="25.0" prefWidth="504.0">
+						<HBox maxWidth="629.0" prefHeight="30.0" prefWidth="629.0">
 							<ImageView fx:id="statusButton" fitHeight="14.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true" smooth="true">
 								<HBox.margin>
 									<Insets top="3.0" />
@@ -46,11 +46,11 @@
 -->
 						</HBox>
 						<HBox />
-						<Label fx:id="priority" prefHeight="16.0" prefWidth="94.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$priority">
+						<Label fx:id="priority" prefHeight="41.0" prefWidth="94.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$priority">
 							
 						</Label>
-						<Label fx:id="startTime" prefHeight="16.0" prefWidth="136.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$startTime" />
-						<Label fx:id="endTime" prefHeight="16.0" prefWidth="136.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$endTime" />
+						<Label fx:id="startTime" prefHeight="30.0" prefWidth="101.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$startTime" />
+						<Label fx:id="endTime" prefHeight="30.0" prefWidth="105.0" style="-fx-alignment: center;" styleClass="cell_small_label" text="\$endTime" />
 					</children>
 				</HBox>
 				<HBox />
