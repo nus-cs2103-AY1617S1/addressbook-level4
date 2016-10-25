@@ -44,7 +44,7 @@ public class Parser {
                     + "( dd/(?<dueDate>[^/]+))|"
                     + "( i/(?<interval>[^/]+))|"
                     + "( ti/(?<timeInterval>[^/]+))|"
-                    + "( ts/(?<tagArguments>(?: t/[^/]+)*)))+?");
+                    + "(?<tagArguments>(?: ts/[^/]+)*))+?");
 
     
     private static final Pattern SAVE_COMMAND_FORMAT = Pattern.compile("(?<path>[^/]+)");
@@ -177,7 +177,7 @@ public class Parser {
                     matcher.group("dueDate"),
                     matcher.group("interval"),
                     matcher.group("timeInterval"),
-                    null
+                    getTagsFromArgs(matcher.group("tagArguments"))
 			);
 		} catch (NumberFormatException e) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -191,7 +191,19 @@ public class Parser {
                     matcher.group("interval"),
                     matcher.group("timeInterval"),
                     null);
+		} catch (IllegalValueException e) {
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
+    }
+    
+    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
+        // no tags
+        if (tagArguments.isEmpty()) {
+            return Collections.emptySet();
+        }
+        // replace first delimiter prefix, then split
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" ts/", "").split(" ts/"));
+        return new HashSet<>(tagStrings);
     }
 
     private Set<String> toSet(Optional<List<String>> tagsOptional) {

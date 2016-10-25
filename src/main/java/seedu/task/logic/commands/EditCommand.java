@@ -11,6 +11,7 @@ import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.tag.Tag;
+import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.Title;
 import seedu.task.model.task.Description;
 import seedu.task.model.task.DueDate;
@@ -168,9 +169,9 @@ public class EditCommand extends Command {
 		//if (timeInterval != null) {
 			//changeTimeInterval(timeInterval);
 		//}
-		//if (tags != null) {
-			//changeTags(tags);
-		//}
+		if (tags != null && !tags.isEmpty()) {
+			changeTags(tags);
+		}
 	}
 	
 	/**
@@ -233,6 +234,14 @@ public class EditCommand extends Command {
 	public void changeTimeInterval(String timeInterval) throws IllegalValueException {
 		TimeInterval newTimeInterval = new TimeInterval(timeInterval);
 		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), newTimeInterval, copy.getStatus(), copy.getTags());
+	}
+	
+	public void changeTags(Set<String> tags) throws IllegalValueException {
+		Set<Tag> newTags = new HashSet<>();
+		for (String tagName : tags) {
+            newTags.add(new Tag(tagName));
+        }
+		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), new UniqueTagList(newTags));
 	}
 
 	private void saveTaskForUndo(ReadOnlyTask task){
