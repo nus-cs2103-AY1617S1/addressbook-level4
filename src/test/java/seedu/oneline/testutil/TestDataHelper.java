@@ -18,7 +18,7 @@ import seedu.oneline.model.task.TaskTime;
  */
 public class TestDataHelper{
 
-    public Task myTask() throws Exception {
+    public static Task myTask() throws Exception {
         TaskName name = new TaskName("Do seagull stuff");
         TaskTime startTime = new TaskTime("Sun Oct 16 21:35:45");
         TaskTime endTime = new TaskTime("Mon Oct 17 21:35:45");
@@ -37,7 +37,7 @@ public class TestDataHelper{
      *
      * @param seed used to generate the task data field values
      */
-    public Task generateTask(int seed) throws Exception {
+    public static Task generateTask(int seed) throws Exception {
         return new Task(
                 new TaskName("Task " + seed),
                 new TaskTime("" + Math.abs(seed)),
@@ -49,7 +49,7 @@ public class TestDataHelper{
     }
 
     /** Generates the correct add command based on the task given */
-    public String generateAddCommand(Task p) {
+    public static String generateAddCommand(Task p) {
         StringBuffer cmd = new StringBuffer();
 
         cmd.append("add ");
@@ -70,7 +70,7 @@ public class TestDataHelper{
     /**
      * Generates an TaskBook with auto-generated tasks.
      */
-    public TaskBook generateTaskBook(int numGenerated) throws Exception{
+    public static TaskBook generateTaskBook(int numGenerated) throws Exception{
         TaskBook taskBook = new TaskBook();
         addToTaskBook(taskBook, numGenerated);
         return taskBook;
@@ -79,7 +79,7 @@ public class TestDataHelper{
     /**
      * Generates an AddressBook based on the list of Tasks given.
      */
-    public TaskBook generateTaskBook(List<Task> tasks) throws Exception{
+    public static TaskBook generateTaskBook(List<Task> tasks) throws Exception{
         TaskBook taskBook = new TaskBook();
         addToTaskBook(taskBook, tasks);
         return taskBook;
@@ -89,14 +89,14 @@ public class TestDataHelper{
      * Adds auto-generated Task objects to the given Task Book
      * @param taskBook The Task Book to which the Tasks will be added
      */
-    public void addToTaskBook(TaskBook taskBook, int numGenerated) throws Exception{
+    public static void addToTaskBook(TaskBook taskBook, int numGenerated) throws Exception{
         addToTaskBook(taskBook, generateTaskList(numGenerated));
     }
 
     /**
      * Adds the given list of Tasks to the given Task Book
      */
-    public void addToTaskBook(TaskBook taskBook, List<Task> tasksToAdd) throws Exception{
+    public static void addToTaskBook(TaskBook taskBook, List<Task> tasksToAdd) throws Exception{
         for(Task p: tasksToAdd){
             taskBook.addTask(p);
         }
@@ -106,14 +106,14 @@ public class TestDataHelper{
      * Adds auto-generated Task objects to the given model
      * @param model The model to which the Tasks will be added
      */
-    public void addToModel(Model model, int numGenerated) throws Exception{
+    public static void addToModel(Model model, int numGenerated) throws Exception{
         addToModel(model, generateTaskList(numGenerated));
     }
 
     /**
      * Adds the given list of Tasks to the given model
      */
-    public void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
+    public static void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
         for(Task p: tasksToAdd){
             model.addTask(p);
         }
@@ -122,7 +122,7 @@ public class TestDataHelper{
     /**
      * Generates a list of Tasks based on the flags.
      */
-    public List<Task> generateTaskList(int numGenerated) throws Exception{
+    public static List<Task> generateTaskList(int numGenerated) throws Exception{
         List<Task> tasks = new ArrayList<>();
         for(int i = 1; i <= numGenerated; i++){
             tasks.add(generateTask(i));
@@ -130,14 +130,14 @@ public class TestDataHelper{
         return tasks;
     }
 
-    public List<Task> generateTaskList(Task... tasks) {
+    public static List<Task> generateTaskList(Task... tasks) {
         return Arrays.asList(tasks);
     }
 
     /**
      * Generates a Task object with given name. Other fields will have some dummy values.
      */
-    public Task generateTaskWithName(String name) throws Exception {
+    public static Task generateTaskWithName(String name) throws Exception {
         return new Task(
                 new TaskName(name),
                 new TaskTime(""),

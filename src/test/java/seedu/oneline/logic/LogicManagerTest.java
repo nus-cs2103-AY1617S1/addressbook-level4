@@ -140,10 +140,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_clear() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        model.addTask(helper.generateTask(1));
-        model.addTask(helper.generateTask(2));
-        model.addTask(helper.generateTask(3));
+        model.addTask(TestDataHelper.generateTask(1));
+        model.addTask(TestDataHelper.generateTask(2));
+        model.addTask(TestDataHelper.generateTask(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskBook(), Collections.emptyList());
     }
@@ -165,13 +164,12 @@ public class LogicManagerTest {
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.myTask();
+        Task toBeAdded = TestDataHelper.myTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+        assertCommandBehavior(TestDataHelper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -181,8 +179,7 @@ public class LogicManagerTest {
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.myTask();
+        Task toBeAdded = TestDataHelper.myTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
 
@@ -191,7 +188,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
+                TestDataHelper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.getTaskList());
@@ -201,13 +198,11 @@ public class LogicManagerTest {
 
     @Test
     public void execute_list_showsAllTasks() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        TaskBook expectedTB = helper.generateTaskBook(2);
+        TaskBook expectedTB = TestDataHelper.generateTaskBook(2);
         List<? extends ReadOnlyTask> expectedList = expectedTB.getTaskList();
 
         // prepare task book state
-        helper.addToModel(model, 2);
+        TestDataHelper.addToModel(model, 2);
 
         assertCommandBehavior("list",
                 ListCommand.MESSAGE_SUCCESS,
@@ -236,8 +231,7 @@ public class LogicManagerTest {
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> taskList = helper.generateTaskList(2);
+        List<Task> taskList = TestDataHelper.generateTaskList(2);
 
         // set Task book state to 2 tasks
         model.resetData(new TaskBook());
@@ -261,11 +255,10 @@ public class LogicManagerTest {
 
     @Test
     public void execute_select_jumpsToCorrectTask() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> threeTasks = helper.generateTaskList(3);
+        List<Task> threeTasks = TestDataHelper.generateTaskList(3);
 
-        TaskBook expectedAB = helper.generateTaskBook(threeTasks);
-        helper.addToModel(model, threeTasks);
+        TaskBook expectedAB = TestDataHelper.generateTaskBook(threeTasks);
+        TestDataHelper.addToModel(model, threeTasks);
 
         assertCommandBehavior("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
@@ -289,12 +282,11 @@ public class LogicManagerTest {
 
     @Test
     public void execute_delete_removesCorrectTask() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> threeTasks = helper.generateTaskList(3);
+        List<Task> threeTasks = TestDataHelper.generateTaskList(3);
 
-        TaskBook expectedAB = helper.generateTaskBook(threeTasks);
+        TaskBook expectedAB = TestDataHelper.generateTaskBook(threeTasks);
         expectedAB.removeTask(threeTasks.get(1));
-        helper.addToModel(model, threeTasks);
+        TestDataHelper.addToModel(model, threeTasks);
 
         assertCommandBehavior("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
@@ -311,16 +303,15 @@ public class LogicManagerTest {
 
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p1 = helper.generateTaskWithName("KE Y");
-        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+        Task pTarget1 = TestDataHelper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = TestDataHelper.generateTaskWithName("bla KEY bla bceofeia");
+        Task p1 = TestDataHelper.generateTaskWithName("KE Y");
+        Task p2 = TestDataHelper.generateTaskWithName("KEYKEYKEY sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        TaskBook expectedAB = helper.generateTaskBook(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-        helper.addToModel(model, fourTasks);
+        List<Task> fourTasks = TestDataHelper.generateTaskList(p1, pTarget1, p2, pTarget2);
+        TaskBook expectedAB = TestDataHelper.generateTaskBook(fourTasks);
+        List<Task> expectedList = TestDataHelper.generateTaskList(pTarget1, pTarget2);
+        TestDataHelper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -330,16 +321,15 @@ public class LogicManagerTest {
 
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Task p3 = helper.generateTaskWithName("key key");
-        Task p4 = helper.generateTaskWithName("KEy sduauo");
+        Task p1 = TestDataHelper.generateTaskWithName("bla bla KEY bla");
+        Task p2 = TestDataHelper.generateTaskWithName("bla KEY bla bceofeia");
+        Task p3 = TestDataHelper.generateTaskWithName("key key");
+        Task p4 = TestDataHelper.generateTaskWithName("KEy sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
-        TaskBook expectedAB = helper.generateTaskBook(fourTasks);
+        List<Task> fourTasks = TestDataHelper.generateTaskList(p3, p1, p4, p2);
+        TaskBook expectedAB = TestDataHelper.generateTaskBook(fourTasks);
         List<Task> expectedList = fourTasks;
-        helper.addToModel(model, fourTasks);
+        TestDataHelper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -349,16 +339,15 @@ public class LogicManagerTest {
 
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generateTaskWithName("key key");
-        Task p1 = helper.generateTaskWithName("sduauo");
+        Task pTarget1 = TestDataHelper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = TestDataHelper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        Task pTarget3 = TestDataHelper.generateTaskWithName("key key");
+        Task p1 = TestDataHelper.generateTaskWithName("sduauo");
 
-        List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        TaskBook expectedAB = helper.generateTaskBook(fourTasks);
-        List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourTasks);
+        List<Task> fourTasks = TestDataHelper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
+        TaskBook expectedAB = TestDataHelper.generateTaskBook(fourTasks);
+        List<Task> expectedList = TestDataHelper.generateTaskList(pTarget1, pTarget2, pTarget3);
+        TestDataHelper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find key rAnDoM",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -368,16 +357,15 @@ public class LogicManagerTest {
 
     @Test
     public void execute_undo_redo() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task task1 = helper.generateTask(1);
-        Task task2 = helper.generateTask(2);
-        Task task3 = helper.generateTask(3);
+        Task task1 = TestDataHelper.generateTask(1);
+        Task task2 = TestDataHelper.generateTask(2);
+        Task task3 = TestDataHelper.generateTask(3);
         TaskBook expectedTaskBook1 = new TaskBook(model.getTaskBook());
-        logic.execute(helper.generateAddCommand(task1));
+        logic.execute(TestDataHelper.generateAddCommand(task1));
         TaskBook expectedTaskBook2 = new TaskBook(model.getTaskBook());
-        logic.execute(helper.generateAddCommand(task2));
+        logic.execute(TestDataHelper.generateAddCommand(task2));
         TaskBook expectedTaskBook3 = new TaskBook(model.getTaskBook());
-        logic.execute(helper.generateAddCommand(task3));
+        logic.execute(TestDataHelper.generateAddCommand(task3));
         
         // Undo command
         assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_SUCCESS, expectedTaskBook3, Arrays.asList(task1, task2));
@@ -388,8 +376,8 @@ public class LogicManagerTest {
         // Redo command
         assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_SUCCESS, expectedTaskBook2, Arrays.asList(task1));
         assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_SUCCESS, expectedTaskBook3, Arrays.asList(task1, task2));
-        Task task4 = helper.generateTask(4);
-        logic.execute(helper.generateAddCommand(task4));
+        Task task4 = TestDataHelper.generateTask(4);
+        logic.execute(TestDataHelper.generateAddCommand(task4));
         TaskBook expectedTaskBook4 = new TaskBook(model.getTaskBook());
         assertCommandBehavior("redo", RedoCommand.MESSAGE_NO_NEXT_STATE, expectedTaskBook4, Arrays.asList(task1, task2, task4));
     }
