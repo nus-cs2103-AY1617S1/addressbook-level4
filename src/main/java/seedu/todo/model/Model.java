@@ -73,4 +73,7 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to filter by the given from and till dates*/
     void updateFilteredTaskListFromTillDate(LocalDateTime fromDateTime, LocalDateTime tillDateTime);
+    
+    /** Updates the filter of the filtered task list to filter for today's date only */
+    void updateFilteredTaskListTodayDate(LocalDateTime datetime);
 }
