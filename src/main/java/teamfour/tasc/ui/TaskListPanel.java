@@ -108,7 +108,7 @@ public class TaskListPanel extends UiPart {
     }
 
     //@@author A0127014W
-    public void setCollapse(boolean collapse){
+    public void setCollapsed(boolean collapse){
         this.isCollapsed = collapse;
     }
 
