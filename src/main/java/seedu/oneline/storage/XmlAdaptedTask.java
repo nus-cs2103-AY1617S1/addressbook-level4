@@ -71,7 +71,7 @@ public class XmlAdaptedTask {
         final TaskTime deadline = TaskTime.deserialize(this.deadline);
         final TaskRecurrence recurrence = TaskRecurrence.deserialize(this.recurrence);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        Task task = new Task(name, startTime, endTime, deadline, recurrence, tags);
+        Task task = new Task(name, startTime, endTime, deadline, recurrence, tags, isCompleted);
         task.setCompleted(isCompleted);
         return task;
     }

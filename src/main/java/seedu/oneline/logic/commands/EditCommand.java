@@ -57,6 +57,7 @@ public class EditCommand extends Command {
         TaskTime newDeadline = oldTask.getDeadline();
         TaskRecurrence newRecurrence = oldTask.getRecurrence();
         UniqueTagList newTags = oldTask.getTags();
+        boolean isCompleted = oldTask.isCompleted();
 
         try {
             for (Entry<TaskField, String> entry : fields.entrySet()) {
@@ -89,7 +90,7 @@ public class EditCommand extends Command {
             return new CommandResult(e.getMessage());
         }
         
-        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTags);
+        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTags, isCompleted);
         
         if (model.getTaskBook().getTaskList().contains(newTask)) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

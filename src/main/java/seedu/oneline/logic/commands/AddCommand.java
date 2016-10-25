@@ -63,7 +63,8 @@ public class AddCommand extends Command {
                 newEndTime,
                 newDeadline,
                 newRecurrence,
-                new UniqueTagList(tagSet)
+                new UniqueTagList(tagSet),
+                false
         );
     }
     
@@ -84,7 +85,8 @@ public class AddCommand extends Command {
                 new TaskTime(endTime),
                 new TaskTime(deadline),
                 new TaskRecurrence(recurrence),
-                new UniqueTagList(tagSet)
+                new UniqueTagList(tagSet),
+                false
         );
     }
 
