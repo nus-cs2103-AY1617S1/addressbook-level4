@@ -118,6 +118,8 @@ Format: list
 Examples: 
 * `list`
 
+<!--@@author A0147995H-->
+
 #### Edit tasks : `edit`
 Format: `edit TASK_ID [NEW_TASK_NAME] [from DATE_TIME to DATE_TIME | by DATE_TIME [daily | weekly | monthly | yearly] ] [tag/EDIT_TAG]...`
 
@@ -145,6 +147,8 @@ Format: delete TASK_ID
 
 Examples:
 * `delete 2`
+
+<!--@@author A0147967J-->
 
 #### Archive completed tasks : `done`
 Format: done TASK_ID
@@ -198,6 +202,8 @@ Examples:
    <img src="images/afterview1.png" width="600">
    <img src="images/afterview2.png" width="600">
 
+<!--@@author A0147995H-->
+
 #### Find tasks : `find`
 Format: `find [KEY_WORD] [from DATE_TIME to DATE_TIME | by DATE_TIME] [t/TAG]...`
 
@@ -233,6 +239,8 @@ Format: clear
 Examples: 
 * `clear`
 
+<!--@@author A0147967J-->
+
 #### Change directory: `cd`
 Format: cd FILE_PATH
 
@@ -242,6 +250,8 @@ Examples:
    <img src="images/beforecd.png" width="600">
    <img src="images/aftercd1.png" width="600">
    <img src="images/aftercd2.png" width="600">
+
+<!--@@author-->
 
 #### Exiting the program : `exit`
 Exits the program.<br>
