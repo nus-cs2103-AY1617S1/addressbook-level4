@@ -9,7 +9,7 @@ public class ShowCommandTest extends AddressBookGuiTest {
 
     @Test
     public void show_floatingTasks() {
-        assertShowResult("show floating tasks");
+        assertShowResult("show floating");
     }
     
     //tests dynamic day titles

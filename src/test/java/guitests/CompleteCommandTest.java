@@ -29,7 +29,7 @@ public class CompleteCommandTest extends AddressBookGuiTest {
         assertCompleteSuccess(targetIndex, currentList);
 
         //invalid index
-        commandBox.runCommand("complete " + currentList.length + 1);
+        commandBox.runCommand("complete t" + currentList.length + 1);
         assertResultMessage("The task index provided is invalid");
 
     }

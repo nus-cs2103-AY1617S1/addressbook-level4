@@ -18,7 +18,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
         //verify other commands can work after a clear command
         commandBox.runCommand(TypicalTestFloatingTasks.night.getAddCommand());
         assertTrue(taskListPanel.isListMatching(TypicalTestFloatingTasks.night));
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand("delete t1");
         assertListSize(0);
 
         //verify clear command works when the list is empty
