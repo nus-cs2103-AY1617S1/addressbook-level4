@@ -17,7 +17,7 @@ public class DoneCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Well done!Task Done!";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Well done! Task Done!";
 
     public final int targetIndex;
 

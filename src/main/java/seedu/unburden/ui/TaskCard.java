@@ -29,16 +29,16 @@ public class TaskCard extends UiPart{
     @FXML
     private Label done;
 
-    private ReadOnlyTask person;
+    private ReadOnlyTask task;
     private int displayedIndex;
 
     public TaskCard(){
 
     }
 
-    public static TaskCard load(ReadOnlyTask person, int displayedIndex){
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
         TaskCard card = new TaskCard();
-        card.person = person;
+        card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
@@ -47,13 +47,13 @@ public class TaskCard extends UiPart{
     public void initialize() {
         
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
-        taskD.setText("Task Description : " + person.getTaskDescription().fullTaskDescriptions);
-        date.setText("Date: " + person.getDate().fullDate);
-        startTime.setText("Start Time: " + person.getStartTime().fullTime);
-        endTime.setText("End Time: " + person.getEndTime().fullTime);
-        done.setText(" [ " + person.getDoneString() + " ] ");
-        tags.setText("      " + person.tagsString());
+        name.setText(task.getName().fullName);
+        taskD.setText("Task Description : " + task.getTaskDescription().fullTaskDescriptions);
+        date.setText("Date: " + task.getDate().fullDate);
+        startTime.setText("Start Time: " + task.getStartTime().fullTime);
+        endTime.setText("End Time: " + task.getEndTime().fullTime);
+        done.setText(" [ " + task.getDoneString() + " ] ");
+        tags.setText("      " + task.tagsString());
         
         /*
     	if(person.getDate().fullDate != "NIL" && person.getStartTime().fullTime != "NIL"){
