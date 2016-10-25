@@ -30,16 +30,13 @@ public class AddCommand extends UndoableCommand {
             + "Parameters: [add] NAME [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]\n"
             + "Example: " + COMMAND_WORD
             + " feed cat by today 11:30am repeat every day -high";
-
     public static final String MESSAGE_SUCCESS = "New item added: %1$s";
-    
-    public static final String TOOL_TIP = "[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]";
-
     public static final String MESSAGE_UNDO_SUCCESS = "Undid add item: %1$s";
-
     public static final String MESSAGE_RECUR_DATE_TIME_CONSTRAINTS = "For recurring tasks to be valid, "
             + "at least one DATE_TIME must be provided";
     
+    public static final String TOOL_TIP = "[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]";
+
     private Task toAdd;
 
     /**
@@ -52,24 +49,42 @@ public class AddCommand extends UndoableCommand {
         this.toAdd = new Task(new Name(taskName));
     }
 
+    //@@author A0139655U
     public AddCommand(Optional<String> taskNameString, Optional<String> startDateString, Optional<String> endDateString, 
             Optional<String> rateString, Optional<String> timePeriodString, Optional<String> priorityString) 
                     throws IllegalValueException {
         assert taskNameString != null;
         
-    	Name taskName = new Name(taskNameString.get());
-        Date startDate = null;
-        Date endDate = null;
-        RecurrenceRate recurrenceRate = null;
-        Priority priority;
+        Name taskName = new Name(taskNameString.get());
+        Date startDate = generateStartDateIfPresent(startDateString);
+        Date endDate = generateEndDateIfPresent(endDateString, startDate);
+        RecurrenceRate recurrenceRate = generateRecurrenceRateIfPresent(rateString, timePeriodString); 
+        Priority priority = Priority.convertStringToPriority(priorityString.get());
 
+        if (recurWeekdaysButDateNotGiven(startDate, endDate, recurrenceRate)) {
+            startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
+        } else if (otherRecurrenceButDateNotGiven(startDate, endDate, recurrenceRate)) {
+            throw new IllegalValueException(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
+        }
+
+        this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);
+    }
+
+    private Date generateStartDateIfPresent(Optional<String> startDateString) {
+        Date startDate = null;
+        
         if (startDateString.isPresent()) {
             startDate = DateTime.convertStringToDate(startDateString.get());
             if (!DateTime.hasTimeValue(startDateString.get())) {
                 startDate = DateTime.setTimeToStartOfDay(startDate);
             }
         }
-
+        return startDate;
+    }
+    
+    private Date generateEndDateIfPresent(Optional<String> endDateString, Date startDate) {
+        Date endDate = null;
+        
         if (endDateString.isPresent()) {
             endDate = DateTime.convertStringToDate(endDateString.get());
             if (startDate != null && !DateTime.hasDateValue(endDateString.get())) {
@@ -79,28 +94,31 @@ public class AddCommand extends UndoableCommand {
                 endDate = DateTime.setTimeToEndOfDay(endDate);
             }
         }
-
+        return endDate;
+    }
+    
+    private RecurrenceRate generateRecurrenceRateIfPresent(Optional<String> rateString,
+            Optional<String> timePeriodString) throws IllegalValueException {
+        RecurrenceRate recurrenceRate = null;
+        
         if (rateString.isPresent() && timePeriodString.isPresent()) {
             recurrenceRate = new RecurrenceRate(rateString.get(), timePeriodString.get());
         } else if (!rateString.isPresent() && timePeriodString.isPresent()) {
             recurrenceRate = new RecurrenceRate(STRING_CONSTANT_ONE, timePeriodString.get());
         } else if (rateString.isPresent() && !timePeriodString.isPresent()) {
             throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
-        } 
-        
-        if (recurrenceRate != null && recurrenceRate.timePeriod != TimePeriod.DAY && 
+        }
+        return recurrenceRate;
+    }
+    
+    private boolean recurWeekdaysButDateNotGiven(Date startDate, Date endDate, RecurrenceRate recurrenceRate) {
+        return recurrenceRate != null && recurrenceRate.timePeriod != TimePeriod.DAY && 
                 recurrenceRate.timePeriod.toString().toLowerCase().contains("day") &&
-                startDate == null && endDate == null) {
-            startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
-        }
-        
-        if (recurrenceRate != null && startDate == null && endDate == null) {
-            throw new IllegalValueException(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
-        }
+                startDate == null && endDate == null;
+    }
 
-        priority = Priority.stringToPriority(priorityString.get());
-            
-        this.toAdd = new Task(taskName, startDate, endDate, recurrenceRate, priority);
+    private boolean otherRecurrenceButDateNotGiven(Date startDate, Date endDate, RecurrenceRate recurrenceRate) {
+        return recurrenceRate != null && startDate == null && endDate == null;
     }
 
     @Override
@@ -138,4 +156,7 @@ public class AddCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
     }
 
+    public Task getToAdd() {
+        return toAdd;
+    }
 }

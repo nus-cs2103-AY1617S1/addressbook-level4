@@ -27,8 +27,6 @@ public class EditCommand extends UndoableCommand {
               
     public static final String TOOL_TIP = "edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset parameter]";
 
-    //public static final String MESSAGE_DUPLICATE_FLOATING_TASK = "This task already exists in the task manager";
-
     public static final String MESSAGE_SUCCESS = "Item edited: %1$s";
     
     public static final String MESSAGE_UNDO_SUCCESS = "Undid edit item: %1$s reverted back to %2$s";
@@ -44,11 +42,11 @@ public class EditCommand extends UndoableCommand {
     private Task beforeEdit;
     
     Name taskName;
-	Date startDate ;
+	Date startDate;
     Date endDate;
     RecurrenceRate recurrenceRate;
     Priority priority;
-    boolean removeRepeat, removeStart, removeEnd;
+    boolean removeReccurence, removeStartDate, removeEndDate;
 
 	public EditCommand(int targetIndex, Optional<String> taskNameString, Optional<String> startDateString,
 			Optional<String> endDateString, Optional<String> rateString, Optional<String> timePeriodString,
@@ -59,9 +57,9 @@ public class EditCommand extends UndoableCommand {
 		startDate = null;
         endDate = null;
         priority = null;
-        removeRepeat = false;
-        removeStart = false;
-        removeEnd = false;
+        removeReccurence = false;
+        removeStartDate = false;
+        removeEndDate = false;
         
         if (taskNameString.isPresent() && !taskNameString.get().toString().trim().equals("")) {
     		taskName = new Name(taskNameString.get());
@@ -92,8 +90,18 @@ public class EditCommand extends UndoableCommand {
             startDate = DateTime.assignStartDateToSpecifiedWeekday(recurrenceRate.timePeriod.toString());
         }
 
-        priority = Priority.stringToPriority(priorityString.get());
-                
+        /*
+         * Assign priority depending on the level stated
+         * Otherwise leave it as null
+         */
+        if (priorityString.isPresent()) {
+        	switch (priorityString.get()) {
+            	case ("low"): case ("l"): priority = Priority.LOW; break; 
+            	case ("high"): case ("h"): priority = Priority.HIGH; break;
+            	case ("medium"): case ("m"): case ("med"): priority = Priority.MEDIUM; break;
+        	}
+        } 
+                        
         /*
          * Check which field is to be reset
          */
@@ -101,9 +109,9 @@ public class EditCommand extends UndoableCommand {
         	String[] resetField = resetFieldString.trim().split(" ");
         	for(int i = 0; i < resetField.length; i++){
         		switch (resetField[i].trim()) {
-            		case ("repeat"):  removeRepeat = true; break; 
-            		case ("start"): removeStart = true; break;
-            		case ("end"): removeEnd = true; break;
+            		case ("repeat"):  removeReccurence = true; break; 
+            		case ("start"): removeStartDate = true; break;
+            		case ("end"): removeEndDate = true; break;
         		}
         	}
         } 
@@ -130,38 +138,41 @@ public class EditCommand extends UndoableCommand {
         
         // Copy this task for history usage
         beforeEdit = new Task(taskToEdit);
-        
-        if (taskName != null) {        
-            model.editName(taskToEdit, taskName);
+
+        if (taskName == null) {        
+            taskName = toEdit.getName();
         }
         
-        if (startDate != null) {
-            model.editStartDate(taskToEdit, startDate);
+        if (startDate == null && toEdit.getStartDate().isPresent()) {
+            startDate = toEdit.getStartDate().get();
         }
-        if (removeStart){
+        
+        if (removeStartDate) {
         	startDate = null;
-            model.editStartDate(taskToEdit, startDate);
         }
 
-        if (endDate != null) {
-            model.editEndDate(taskToEdit, endDate);
+        if (endDate == null && toEdit.getEndDate().isPresent()) {
+        	endDate = toEdit.getEndDate().get();
         }
-        if (removeEnd){
+        
+        if (removeEndDate) {
         	endDate = null;
-            model.editEndDate(taskToEdit, endDate);
         }
 
-        if (priority != null){
-            model.editPriority(taskToEdit, priority);
+        if (priority == null) {
+        	priority = toEdit.getPriorityValue();
         }
-
-        if (recurrenceRate != null && (toEdit.getEndDate().isPresent() || toEdit.getStartDate().isPresent())) {
-            model.editRecurrence(taskToEdit, recurrenceRate);
+                
+        if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
+        	recurrenceRate = toEdit.getRecurrenceRate().get();
         } 
-        if (removeRepeat){
+                
+        if (removeReccurence) {
         	recurrenceRate = null;
-            model.editRecurrence(taskToEdit, recurrenceRate);
         }
+        
+        model.editTask(taskToEdit, taskName, startDate, endDate, priority, recurrenceRate);
+
         updateHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
         
@@ -183,35 +194,37 @@ public class EditCommand extends UndoableCommand {
         Optional<Date> oldEndDate = beforeEdit.getEndDate();
         Priority oldPriority = beforeEdit.getPriorityValue();
         Optional<RecurrenceRate> oldReccurence = beforeEdit.getRecurrenceRate();
-                
-        model.editName(toUndo, oldTaskName);
-        
-        model.editPriority(toUndo, oldPriority);
- 
-        
+             
+    	Date undoStartDate;
+        Date undoEndDate;
+        RecurrenceRate undoRecurrenceRate;
+       
         // edit back the start date
-        if (oldStartDate.isPresent()) {
-            model.editStartDate(toUndo, oldStartDate.get());
+        if (!oldStartDate.isPresent()) {
+        	undoStartDate = null;
         }
         else {
-            model.editStartDate(toUndo, null);
+        	undoStartDate = oldStartDate.get();
         }
         
         // edit back the end date
-        if (oldEndDate.isPresent()) {
-            model.editEndDate(toUndo, oldEndDate.get());
+        if (!oldEndDate.isPresent()) {
+        	undoEndDate = null;
         }
         else {
-            model.editEndDate(toUndo, null);
+        	undoEndDate = oldEndDate.get();
         }
         
         // edit back the recurrence rate
-        if (oldReccurence.isPresent()) {
-            model.editRecurrence(toUndo, oldReccurence.get());
+        if (!oldReccurence.isPresent()) {
+        	undoRecurrenceRate = null;
         }
         else {
-            model.editRecurrence(toUndo, null);
+        	undoRecurrenceRate =  oldReccurence.get();
         }
+        
+        model.editTask(toUndo, oldTaskName, undoStartDate, undoEndDate, oldPriority, undoRecurrenceRate);
+
         
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toUndoForPrint, toUndo));
     }

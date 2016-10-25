@@ -10,6 +10,7 @@ import org.junit.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.CommandParserHelper;
 
+//@@author A0139655U
 public class CommandParserHelperTest {
     
     CommandParserHelper helper;
@@ -18,13 +19,14 @@ public class CommandParserHelperTest {
     public void prepareAdd_containsEscape_TwoKeywords() {
         try {
             helper = new CommandParserHelper();
-            HashMap<String, Optional<String>> map = helper.prepareAdd("\"cut word count from 1000 to 500\" from 1am to 3pm");
+            HashMap<String, Optional<String>> map = helper.prepareAdd("\"cut word count from 1000 to 500\" from 1am to 3pm"
+                    + " repeat every 3 days -h");
             assertEquals(map.get("taskName").get(), "cut word count from 1000 to 500");
             assertEquals(map.get("startDate").get(), "1am");
             assertEquals(map.get("endDate").get(), "3pm");
-            assertEquals(map.get("rate"), Optional.empty());
-            assertEquals(map.get("timePeriod"), Optional.empty());
-            assertEquals(map.get("priority").get(), "medium");
+            assertEquals(map.get("rate").get(), "3");
+            assertEquals(map.get("timePeriod").get(), "days");
+            assertEquals(map.get("priority").get(), "h");
         } catch (IllegalValueException ive) {
             assert false;
         }
@@ -34,11 +36,11 @@ public class CommandParserHelperTest {
     public void prepareAdd_containsEscape_OneKeyword_Recurrence() {
         try {
             helper = new CommandParserHelper();
-            HashMap<String, Optional<String>> map = helper.prepareAdd("\"cut word count from 1000 to 500\" from 1am repeat every 3 days");
+            HashMap<String, Optional<String>> map = helper.prepareAdd("\"cut word count from 1000 to 500\" from 1am repeat every 5 days");
             assertEquals(map.get("taskName").get(), "cut word count from 1000 to 500");
             assertEquals(map.get("startDate").get(), "1am");
             assertEquals(map.get("endDate"), Optional.empty());
-            assertEquals(map.get("rate").get(), "3");
+            assertEquals(map.get("rate").get(), "5");
             assertEquals(map.get("timePeriod").get(), "days");
             assertEquals(map.get("priority").get(), "medium");
         } catch (IllegalValueException ive) {
@@ -66,13 +68,13 @@ public class CommandParserHelperTest {
     public void prepareAdd_TwoValidKeywords_TwoKeywords() {
         try {
             helper = new CommandParserHelper();
-            HashMap<String, Optional<String>> map = helper.prepareAdd("have dinner from 7pm to 8pm");
+            HashMap<String, Optional<String>> map = helper.prepareAdd("have dinner from 7pm to 8pm repeat every week -l");
             assertEquals(map.get("taskName").get(), "have dinner");
             assertEquals(map.get("startDate").get(), "7pm");
             assertEquals(map.get("endDate").get(), "8pm");
             assertEquals(map.get("rate"), Optional.empty());
-            assertEquals(map.get("timePeriod"), Optional.empty());
-            assertEquals(map.get("priority").get(), "medium");
+            assertEquals(map.get("timePeriod").get(), "week");
+            assertEquals(map.get("priority").get(), "l");
         } catch (IllegalValueException ive) {
             assert false;
         }
@@ -125,13 +127,13 @@ public class CommandParserHelperTest {
     public void prepareAdd_OneValidKeyword_OneKeyword() {
         try {
             helper = new CommandParserHelper();
-            HashMap<String, Optional<String>> map = helper.prepareAdd("have dinner from 10:30pm");
+            HashMap<String, Optional<String>> map = helper.prepareAdd("have dinner from 10:30pm -low");
             assertEquals(map.get("taskName").get(), "have dinner");
             assertEquals(map.get("startDate").get(), "10:30pm");
             assertEquals(map.get("endDate"), Optional.empty());
             assertEquals(map.get("rate"), Optional.empty());
             assertEquals(map.get("timePeriod"), Optional.empty());
-            assertEquals(map.get("priority").get(), "medium");
+            assertEquals(map.get("priority").get(), "low");
         } catch (IllegalValueException ive) {
             assert false;
         }
@@ -141,12 +143,12 @@ public class CommandParserHelperTest {
     public void prepareAdd_NoValidKeyword_OneKeyword() {
         try {
             helper = new CommandParserHelper();
-            HashMap<String, Optional<String>> map = helper.prepareAdd("have dinner from the beach");
+            HashMap<String, Optional<String>> map = helper.prepareAdd("have dinner from the beach repeat every monday");
             assertEquals(map.get("taskName").get(), "have dinner from the beach");
             assertEquals(map.get("startDate"), Optional.empty());
             assertEquals(map.get("endDate"), Optional.empty());
             assertEquals(map.get("rate"), Optional.empty());
-            assertEquals(map.get("timePeriod"), Optional.empty());
+            assertEquals(map.get("timePeriod").get(), "monday");
             assertEquals(map.get("priority").get(), "medium");
         } catch (IllegalValueException ive) {
             assert false;

@@ -162,38 +162,9 @@ public class ModelManager extends ComponentManager implements Model {
         isDoneList = false;
     }
     
-    @Override
-    public synchronized void editName(ReadOnlyTask floatingTask, Name name) {
-        taskManager.editFloatingTaskName(floatingTask, name);
-        updateFilteredListToShowAll();
-        indicateTaskManagerChanged();
-    }
-    
-    @Override
-    public synchronized void editStartDate(ReadOnlyTask floatingTask, Date startDate) {
-        taskManager.editFloatingTaskStartDate(floatingTask, startDate);
-        updateFilteredListToShowAll();
-        indicateTaskManagerChanged();
-    }
-
-    
-    @Override
-    public synchronized void editEndDate(ReadOnlyTask floatingTask, Date endDate) {
-        taskManager.editFloatingTaskEndDate(floatingTask, endDate);
-        updateFilteredListToShowAll();
-        indicateTaskManagerChanged();
-    }
-    
-    @Override
-    public synchronized void editPriority(ReadOnlyTask floatingTask, Priority priority) {
-        taskManager.editFloatingTaskpriority(floatingTask, priority);
-        updateFilteredListToShowAll();
-        indicateTaskManagerChanged();
-    }
-    
-    @Override
-    public synchronized void editRecurrence(ReadOnlyTask floatingTask, RecurrenceRate recurrenceRate) {
-        taskManager.editFloatingTaskRecurrence(floatingTask, recurrenceRate);
+    public synchronized void editTask(ReadOnlyTask floatingTask, Name name, Date startDate,
+    		Date endDate, Priority priority, RecurrenceRate recurrenceRate) {
+        taskManager.editFloatingTask(floatingTask, name, startDate, endDate, priority, recurrenceRate);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
