@@ -353,7 +353,8 @@ public class CommandParser {
     public String parseForTooltip(String userInput) {
         assert userInput != null;
 
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());       
+        String trimmedUserInput = userInput.trim();
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(trimmedUserInput);       
         boolean invalidCommandFormat = !matcher.matches();
         
         if (invalidCommandFormat) {

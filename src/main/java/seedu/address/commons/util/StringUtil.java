@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class StringUtil {
     
+    //@@author A0093960X
     /**
      * Returns true if query is a valid substring of source (beginning at the first character of source)
      * Will return false if either source or query is null
@@ -52,6 +53,7 @@ public class StringUtil {
         return sb.toString();
     }
     
+    //@@author
     public static boolean containsIgnoreCase(String source, String query) {
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
