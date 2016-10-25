@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.todo.commons.core.LogsCenter;
@@ -13,12 +14,16 @@ import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.logic.Logic;
 import seedu.todo.logic.commands.*;
 
+import java.util.Stack;
 import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
-
+    
+    private Stack<String> commandHistory = new Stack<>();
+    private Stack<String> commandFuture = new Stack<>();
+    
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
@@ -71,6 +76,7 @@ public class CommandBox extends UiPart {
     private void handleCommandInputChanged() {
         //Take a copy of the command text
         previousCommandTest = commandTextField.getText();
+        commandHistory.push(previousCommandTest);
 
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
@@ -79,6 +85,20 @@ public class CommandBox extends UiPart {
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
+    }
+    
+    @FXML
+    private void handleKeyPressed(KeyEvent e) {
+        if (e.getCode().toString().equals("UP") && !commandHistory.isEmpty()) {
+            String c = commandHistory.pop();
+            commandFuture.push(c);
+            commandTextField.setText(c);
+        }
+        if (e.getCode().toString().equals("DOWN") && !commandFuture.isEmpty()) {
+            String c = commandFuture.pop();
+            commandHistory.push(c);
+            commandTextField.setText(c);
+        }
     }
 
 
