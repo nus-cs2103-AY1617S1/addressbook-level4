@@ -51,7 +51,7 @@ To get started, proceed to the Quick Start section below.
 Format: `help`
 
 A pop-up window displaying the command summary will be shown. Help is also shown if you enter an incorrect command e.g. `abcd`.<br>
-<img src="images/UIhelp.png" width="600">
+<img src="images/UIhelp.png" width="900">
 
 
 <br>
@@ -65,7 +65,7 @@ All uncompleted todo tasks, upcoming events and deadlines will be displayed.
 Example:
 
 * `view`<br>
-  <img src="images/UIview.png" width="600">
+  <img src="images/UIview.png" width="900">
   
 <br>
 #### View all tasks for a specified date: `view DATE`
@@ -78,7 +78,7 @@ If `view today` is entered, today's tasks, events and deadlines up to today will
 Example:
 
 * `view 5 Nov`<br>
-  <img src="images/UIviewDate.png" width="600">
+  <img src="images/UIviewDate.png" width="900">
  
 <br>
 
@@ -92,7 +92,7 @@ All todo tasks, deadlines and events ever added will be displayed, including eve
 Example:
 
 * `view all`<br>
-  <img src="images/UIviewAll.png" width="600">
+  <img src="images/UIviewAll.png" width="900">
   
 <br>
 
@@ -105,7 +105,7 @@ All completed todo tasks, deadlines and events will be shown.
 Example:
 
 * `view done`<br>
-  <<img src="images/UIviewDone.png" width="600">
+  <img src="images/UIviewDone.png" width="900">
   
 <br>
 <!-- @@author -->
@@ -134,15 +134,15 @@ Examples:
 
 * `add study for test`<br>
   Adds a `todo` task with NAME as `study for test`.<br>
-  <img src="images/UItodo.png" width="600">
+  <img src="images/UItodo.png" width="900">
 
 * `add math assignment 17 Nov 2pm`<br>
   Adds a `deadline` task with NAME as `math assignment`, DATE as `17 Nov`, END_TIME as `2pm`.<br>
-  <img src="images/UIdeadline.png" width="600">
+  <img src="images/UIdeadline.png" width="900">
 
 * `add walk dog 5 Nov 2016 17:00 to 18:00`<br>
   Adds an `event` task with NAME as `walk dog`, DATE as `5 Nov 2016`, START\_TIME as `17:00`, END\_TIME as `18:00`.<br>
-  <img src="images/UIevent.png" width="600">
+  <img src="images/UIevent.png" width="900">
 
 <!-- @@author A0130853L -->
 
@@ -155,7 +155,7 @@ Tasks that partly or completely match the keywords entered will be displayed.<br
 
 Example: 
 * `find assign`<br>
-  <img src="images/UIfind.png" width="600">
+  <img src="images/UIfind.png" width="900">
 
 <!-- @@author -->
 <br>
@@ -176,7 +176,7 @@ Example:
 * `view`<br>
   `edit d2 math assignment2 15 Nov 2016`<br>
   Edits the 2nd task under the deadline tasks section. Change the NAME to `math assignment2` and DATE to `15 Nov 2016`.<br>
-  <img src="images/UIedit.png" width="600">
+  <img src="images/UIedit.png" width="900">
 
 <br>
 #### Delete task: `delete`
@@ -190,20 +190,20 @@ Examples:
   Deletes the 1st task under the deadlines section as shown by the `view` command.<br>
   
   Before:<br>
-  <img src="images/UIdeleteBefore.png" width="600"><br>
+  <img src="images/UIdeleteBefore.png" width="900"><br>
   
   After:<br>
-  <img src="images/UIdeleteAfter.png" width="600"><br>
+  <img src="images/UIdeleteAfter.png" width="900"><br>
   
 * `view 5 Nov 2016`<br>
   `delete e1`<br>
   Deletes the 1st task under the events section for 5 Nov 2016 as shown by the `view DATE` command.<br>
   
   Before:<br>
-  <img src="images/UIdeleteBeforeDate.png" width="600"><br>
+  <img src="images/UIdeleteBeforeDate.png" width="900"><br>
   
   After:<br>
-  <img src="images/UIdeleteAfterDate.png" width="600"><br>
+  <img src="images/UIdeleteAfterDate.png" width="900"><br>
 
 <br>
 #### Mark task as done: `done`
@@ -219,10 +219,10 @@ Example:
   Marks the 1st task today under the deadlines section shown by the `view all` command as completed.<br>
   
   Before:<br>
-  <img src="images/UIdoneBefore.png" width="600"><br>
+  <img src="images/UIdoneBefore.png" width="900"><br>
   
   After:<br>
-  <img src="images/UIdoneAfter.png" width="600"><br>
+  <img src="images/UIdoneAfter.png" width="900"><br>
 
 <!-- @@author --> 
 <br>
@@ -238,10 +238,10 @@ Example:
   Undoes the last deleted item.<br>
   
   Before:<br>
-  <img src="images/UIundoBefore.png" width="600"><br>
+  <img src="images/UIundoBefore.png" width="900"><br>
   
   After:<br>
-  <img src="images/UIundoAfter.png" width="600"><br>
+  <img src="images/UIundoAfter.png" width="900"><br>
 
 <br>
 
@@ -268,7 +268,7 @@ Example:
 #### Clearing all entries : `clear`
 Clears all tasks from the task manager.<br>
 Format: `clear`  
-> <img src="images/UIclear.png" width="600">
+<img src="images/UIclear.png" width="900">
 
 <br>
 <!-- @@author -->
