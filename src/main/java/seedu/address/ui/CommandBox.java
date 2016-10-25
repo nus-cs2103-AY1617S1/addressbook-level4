@@ -4,10 +4,14 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.beans.value.ChangeListener;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
@@ -26,7 +30,13 @@ public class CommandBox extends UiPart {
     String previousCommandTest;
 
     private Logic logic;
-
+    
+    private boolean hasTextChangedForAutocomplete = true;
+    
+	private final ChangeListener<? super String> textChangedListener = (observable, newVal, oldVal) -> {
+		hasTextChangedForAutocomplete = true;
+	};
+	
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
@@ -36,6 +46,8 @@ public class CommandBox extends UiPart {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
         commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
+        commandBox.setKeyListener();
+        commandBox.setTextChangedListener();
         return commandBox;
     }
 
@@ -81,8 +93,60 @@ public class CommandBox extends UiPart {
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
-
-
+    
+    private void setKeyListener() {
+    	commandTextField.setOnKeyPressed(keyListener);
+    }
+    
+    /*
+     * Handles Up/Down keys to replace commandbox content with previous/next commands
+     * Handles Tab key by autocompleting command in the current box if it's a new command,
+     * or cycles through autocomplete suggestions if nothing else has changed except the TAB press
+     */
+    private EventHandler<KeyEvent> keyListener = new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent event) {
+            if(event.getCode() == KeyCode.UP) {
+            	String previousCommand = logic.getPreviousCommand();
+            	commandTextField.setText(previousCommand);
+            	
+            } else if(event.getCode() == KeyCode.DOWN) {
+            	String nextCommand = logic.getNextCommand();
+            	commandTextField.setText(nextCommand);
+            	
+            } else if(event.getCode() == KeyCode.TAB) {
+            	// If we've gotten a totally new value in the text box - set the autocomplete souce
+            	if (hasTextChangedForAutocomplete) {
+            		logic.setTextToAutocomplete(commandTextField.getText());
+            		hasTextChangedForAutocomplete = false;
+            	}
+            	
+            	// Temporarily disable the text changed listener so that we don't update hasTextChangedForAutocomplete
+            	removeTextChangedListener();
+            	
+            	// Get a new autocompleted command and update the commandTextField
+            	String autocompletedCommand = logic.getNextAutocompleteSuggestion();
+            	commandTextField.setText(autocompletedCommand);
+            	setCaretPositionToEnd();
+            	
+            	// Add the listener back
+            	setTextChangedListener();
+            	
+            } else {
+            	return;
+            }
+            event.consume();
+        }
+    };
+    
+    private void setTextChangedListener() {
+		commandTextField.textProperty().addListener(textChangedListener);
+	}
+    
+    private void removeTextChangedListener() {
+    	commandTextField.textProperty().removeListener(textChangedListener);
+    }
+    
     /**
      * Sets the command box style to indicate a correct command.
      */
@@ -110,6 +174,13 @@ public class CommandBox extends UiPart {
      */
     private void setStyleToIndicateIncorrectCommand() {
         commandTextField.getStyleClass().add("error");
+    }
+    
+    /**
+     * Sets the caret of the textfield to the end position
+     */
+    private void setCaretPositionToEnd() {
+    	commandTextField.positionCaret(Integer.MAX_VALUE);
     }
 
 }

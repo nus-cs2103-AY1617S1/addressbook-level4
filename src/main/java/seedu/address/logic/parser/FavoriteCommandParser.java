@@ -48,6 +48,7 @@ public class FavoriteCommandParser extends CommandParser{
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
-
     }
+    
+    
 }
