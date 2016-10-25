@@ -79,6 +79,10 @@ public class TaskListPanel extends UiPart {
             }
         });
     }
+    
+    public void clear() {
+        taskListView.getSelectionModel().clearSelection();
+    }
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {

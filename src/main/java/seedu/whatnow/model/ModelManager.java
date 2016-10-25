@@ -5,7 +5,9 @@ import seedu.whatnow.commons.core.ComponentManager;
 import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
+import seedu.whatnow.commons.events.model.AddTaskEvent;
 import seedu.whatnow.commons.events.model.ConfigChangedEvent;
+import seedu.whatnow.commons.events.model.UpdateTaskEvent;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.util.StringUtil;
@@ -152,6 +154,16 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new ConfigChangedEvent(destination, config));
     }
     
+    /** Raises an event to indicate that a task was added */
+    private void indicateAddTask(Task task) {
+        raise(new AddTaskEvent(task));
+    }
+    
+    /** Raises an even to indicate that a task was updated */
+    private void indicateUpdateTask(Task task) {
+        raise (new UpdateTaskEvent(task));
+    }
+    
     @Override
     public synchronized void changeLocation(Path destination, Config config) throws DataConversionException, IOException, TaskNotFoundException {
         indicateConfigChanged(destination, config);
@@ -168,6 +180,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         whatNow.addTask(task);
         updateFilteredListToShowAll();
+        indicateAddTask(task);
         indicateWhatNowChanged();
     }
     @Override
@@ -175,6 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfWhatNowUndoUpdate.push(new WhatNow(whatNow));
     	stackOfOldTask.push(old);
     	whatNow.updateTask(old, toUpdate);
+    	indicateUpdateTask(toUpdate);
         indicateWhatNowChanged();
     }
     @Override

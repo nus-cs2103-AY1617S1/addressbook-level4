@@ -14,7 +14,7 @@
    <children>
       <MenuBar VBox.vgrow="NEVER">
          <menus>
-            <Menu mnemonicParsing="false" text="File">
+            <Menu mnemonicParsing="false" text="File" styleClass = "label-bright">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                </items>

@@ -80,6 +80,10 @@ public class ScheduleListPanel extends UiPart {
         });
     }
 
+    public void clear() {
+        scheduleListView.getSelectionModel().clearSelection();
+    }
+    
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             scheduleListView.scrollTo(index);
