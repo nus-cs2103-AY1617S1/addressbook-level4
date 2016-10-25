@@ -10,7 +10,7 @@ import java.util.Objects;
  * Represents a Person in the address book. Guarantees: details are present and
  * not null, field values are validated.
  */
-public class Task implements ReadOnlyTask, Comparable<Task>{
+public class Task implements ReadOnlyTask{
 
     private Name name;
     private DateTimeInfo dueDate;
@@ -158,19 +158,4 @@ public class Task implements ReadOnlyTask, Comparable<Task>{
         this.isEvent = bool;
     }
 
-	@Override
-	public int compareTo(Task task) {
-		if(!this.getIsEvent() && !this.getIsTask()){ //floating tasks come first
-			if (!task.getIsEvent() && !task.getIsTask()){
-				return this.getName().fullName.compareTo(task.getName().fullName);
-			}else{
-				return -1;
-			}
-		}else{
-		    DateTimeInfo time1 = (this.getIsEvent()) ? this.getStartTime() : this.getDueDate();
-		    DateTimeInfo time2 = (task.getIsEvent()) ? task.getStartTime() : task.getDueDate();
-		    int c = time1.compareTo(time2);
-		    return ((c == 0) ? this.getName().fullName.compareTo(task.getName().fullName) : c);
-		}
-	}
 }

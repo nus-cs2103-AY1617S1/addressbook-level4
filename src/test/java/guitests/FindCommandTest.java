@@ -1,6 +1,8 @@
 package guitests;
 
 import org.junit.Test;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.testutil.TestTask;
 
@@ -33,6 +35,7 @@ public class FindCommandTest extends FlexiTrackGuiTest {
 
     private void assertFindResult(String command, TestTask... expectedHits) {
         commandBox.runCommand(command);
+        Arrays.sort(expectedHits);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");
         assertTrue(taskListPanel.isListMatching(expectedHits));

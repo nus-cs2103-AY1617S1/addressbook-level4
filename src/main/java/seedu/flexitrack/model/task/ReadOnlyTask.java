@@ -7,7 +7,7 @@ import seedu.flexitrack.model.tag.UniqueTagList;
  * should guarantee: details are present and not null, field values are
  * validated.
  */
-public interface ReadOnlyTask {
+public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
 
     Name getName();
 
@@ -67,6 +67,21 @@ public interface ReadOnlyTask {
             return "";
         } else {
             return buffer.substring(0, buffer.length() - separator.length());
+        }
+    }
+    
+    default int compareTo(ReadOnlyTask task) {
+        if(!this.getIsEvent() && !this.getIsTask()){ //floating tasks come first
+            if (!task.getIsEvent() && !task.getIsTask()){
+                return this.getName().fullName.compareTo(task.getName().fullName);
+            }else{
+                return -1;
+            }
+        }else{
+            DateTimeInfo time1 = (this.getIsEvent()) ? this.getStartTime() : this.getDueDate();
+            DateTimeInfo time2 = (task.getIsEvent()) ? task.getStartTime() : task.getDueDate();
+            int c = time1.compareTo(time2);
+            return ((c == 0) ? this.getName().fullName.compareTo(task.getName().fullName) : c);
         }
     }
 

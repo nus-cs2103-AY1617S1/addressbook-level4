@@ -1,6 +1,8 @@
 package seedu.flexitrack.testutil;
 
 import com.google.common.io.Files;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -339,12 +341,14 @@ public class TestUtil {
     public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.addAll(asList(tasksToAdd));
+        Collections.sort(listOfTasks);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
     public static TestTask[] editTasksToList(final TestTask[] tasks, int index, TestTask EditedTask) {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.set(index, EditedTask);
+        Collections.sort(listOfTasks);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
@@ -436,22 +440,26 @@ public class TestUtil {
 
     public static TestTask[] listTasksAccordingToCommand(TestTask[] currentList, String listCommand) {
         TypicalTestTasks tt = new TypicalTestTasks();
+        TestTask[] testTaskArray;
         switch (listCommand) { 
         case "list":
-            return tt.getTypicalTasks(); 
+            testTaskArray = tt.getTypicalTasks(); break;
         case "list future":
-            return tt.getExpectedTypicalFutureTasks(); 
+            testTaskArray = tt.getExpectedTypicalFutureTasks(); break;
         case "list past": 
-            return tt.getExpectedTypicalPastTasks();
+            testTaskArray = tt.getExpectedTypicalPastTasks(); break;
         case "list mark": 
-            return tt.getExpectedTypicalMarkTasks();
+            testTaskArray = tt.getExpectedTypicalMarkTasks(); break;
         case "list unmark": 
-            return tt.getExpectedTypicalUnMarkTasks();
+            testTaskArray = tt.getExpectedTypicalUnMarkTasks(); break;
         case "list future mark":
-            return tt.getExpectedTypicalFutureMarkTasks();
+            testTaskArray = tt.getExpectedTypicalFutureMarkTasks(); break;
         default: 
             return null;
         }
+        
+        Arrays.sort(testTaskArray);
+        return testTaskArray;
     }
 
 }

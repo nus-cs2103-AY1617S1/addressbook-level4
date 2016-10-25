@@ -335,8 +335,10 @@ public class LogicManagerTest {
         Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
         List<Task> fourPersons = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
+        Collections.sort(fourPersons);
         FlexiTrack expectedAB = helper.generateFlexiTracker(fourPersons);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
+        Collections.sort(expectedList);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
@@ -352,6 +354,7 @@ public class LogicManagerTest {
         Task p4 = helper.generateTaskWithName("KEy sduauo");
 
         List<Task> fourPersons = helper.generateTaskList(p3, p1, p4, p2);
+        Collections.sort(fourPersons);
         FlexiTrack expectedAB = helper.generateFlexiTracker(fourPersons);
         List<Task> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
@@ -369,6 +372,7 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithName("sduauo");
 
         List<Task> fourPersons = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
+        Collections.sort(fourPersons);
         FlexiTrack expectedAB = helper.generateFlexiTracker(fourPersons);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);

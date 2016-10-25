@@ -53,7 +53,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public void setDueDate(DateTimeInfo date) {
-        this.name = name;
+        this.dueDate = date;
     }
 
     public void setStartTime(DateTimeInfo date) {
@@ -158,5 +158,6 @@ public class TestTask implements ReadOnlyTask {
         sb.append("unmark " + taskToUnMark);
         return sb.toString();
     }
+    
 
 }

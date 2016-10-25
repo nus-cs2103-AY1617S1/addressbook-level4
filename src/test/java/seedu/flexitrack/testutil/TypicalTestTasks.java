@@ -1,5 +1,8 @@
 package seedu.flexitrack.testutil;
 
+import java.util.Arrays;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.FlexiTrack;
 import seedu.flexitrack.model.task.*;
@@ -79,6 +82,7 @@ public class TypicalTestTasks {
             ab.addTask(new Task(exam));
             ab.addTask(new Task(midterm));
             ab.addTask(new Task(event));
+            ab.sort();
 
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
@@ -86,7 +90,9 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[] { homework1, homework2, homework3, soccer, dinner, exam, midterm, event };
+        TestTask[] testTask = new TestTask[] { homework1, homework2, homework3, soccer, dinner, exam, midterm, event };
+        Arrays.sort(testTask);
+        return testTask;
     }
     
     public TestTask[] getExpectedTypicalFutureTasks() {
