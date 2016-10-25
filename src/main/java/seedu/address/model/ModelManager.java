@@ -1,20 +1,22 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.address.commons.events.model.TaskBookChangedEvent;
-import seedu.address.commons.core.ComponentManager;
-
-import java.util.ArrayList;
-import java.util.Set;
-import java.util.logging.Logger;
+import seedu.address.model.undo.UndoList;
+import seedu.address.model.undo.UndoTask;
 
 /**
  * Represents the in-memory model of the task book data.
@@ -26,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredDatedTasks;
     private final FilteredList<Task> filteredUndatedTasks;
+    private UndoList undoableTasks;
 
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -41,6 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook = new TaskBook(src);
         filteredDatedTasks = new FilteredList<>(taskBook.getDatedTasks());
         filteredUndatedTasks = new FilteredList<>(taskBook.getUndatedTasks());
+        undoableTasks = new UndoList();
     }
 
     public ModelManager() {
@@ -51,11 +55,13 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook = new TaskBook(initialData);
         filteredDatedTasks = new FilteredList<>(taskBook.getDatedTasks());
         filteredUndatedTasks = new FilteredList<>(taskBook.getUndatedTasks());
+        undoableTasks = new UndoList();
     }
 
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
+        undoableTasks = new UndoList(); 
         indicateTaskBookChanged();
     }
 
@@ -76,23 +82,44 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskBook.addTask(task);
+    public synchronized void addTask(Task target) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.addTask(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
 
     @Override
-    public void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+    public synchronized void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         taskBook.completeTask(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
-
-
-    //=========== Filtered Task List Accessors ===============================================================
+    
+    @Override
+    public synchronized UndoTask undoTask() {
+        return undoableTasks.removeLast();
+    }
 
     @Override
+    public synchronized void overdueTask(ReadOnlyTask target) throws TaskNotFoundException {
+        taskBook.overdueTask(target);
+        updateFilteredListToShowAll();
+        indicateTaskBookChanged();
+    }
+
+    @Override
+    public void addUndo(String command, ReadOnlyTask toUndo) {
+        undoableTasks.addToList(command, toUndo, null);
+    }
+    
+    @Override
+    public void addUndo(String command, ReadOnlyTask initData, ReadOnlyTask finalData) {
+        undoableTasks.addToList(command, initData, finalData);
+    }
+
+    //=========== Filtered Task List Accessors =============================================================== 
+
+	@Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDatedTaskList() {
         return new UnmodifiableObservableList<>(filteredDatedTasks);
     }
@@ -121,14 +148,6 @@ public class ModelManager extends ComponentManager implements Model {
             listOfKeywords.add(word);
         }
         updateFilteredTaskList(new PredicateExpression(new StatusQualifier(listOfKeywords)));
-    }
-
-    @Override
-    public void overdueTask(ReadOnlyTask target) throws TaskNotFoundException {
-        taskBook.overdueTask(target);
-        updateFilteredListToShowAll();
-        indicateTaskBookChanged();
-
     }
 
     private void updateFilteredTaskList(Expression expression) {

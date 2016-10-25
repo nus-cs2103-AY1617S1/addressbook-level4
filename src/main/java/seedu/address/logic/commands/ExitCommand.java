@@ -20,4 +20,9 @@ public class ExitCommand extends Command {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
+    @Override
+    public boolean isMutating(){
+        return false;
+    }
+
 }

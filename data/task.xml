@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <undatedTasks>
-        <name>Floating Task not done</name>
+    <datedTasks>
+        <name>event</name>
         <description></description>
-        <datetime></datetime>
+        <datetime>26-Oct-2016 15:00</datetime>
         <status>NONE</status>
-    </undatedTasks>
+    </datedTasks>
 </addressbook>

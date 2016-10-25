@@ -27,4 +27,9 @@ public class FindCommand extends Command {
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredDatedTaskList().size()+model.getFilteredUndatedTaskList().size()));
     }
 
+    @Override
+    public boolean isMutating() {
+        return false;
+    }
+    
 }

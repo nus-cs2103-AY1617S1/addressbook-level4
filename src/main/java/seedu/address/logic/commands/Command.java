@@ -38,6 +38,11 @@ public abstract class Command {
     }
 
     /**
+     * @return true if the Command makes changes to the data
+     */
+    public abstract boolean isMutating();
+
+    /**
      * Raises an event to indicate an attempt to execute an incorrect command
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {

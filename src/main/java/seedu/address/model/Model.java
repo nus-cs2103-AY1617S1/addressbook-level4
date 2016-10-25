@@ -4,6 +4,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.undo.UndoTask;
 
 import java.util.Set;
 
@@ -22,9 +23,18 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task toAdd) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Adds the given undo */
+    void addUndo(String command, ReadOnlyTask data);
+    
+    /** Adds the given undo */
+    void addUndo(String command, ReadOnlyTask before, ReadOnlyTask after);
 
     /** Marks the given task as completed */
     void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Undoes the last reversible action */
+    UndoTask undoTask();
     
     /** Returns the filtered dated task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredDatedTaskList();
