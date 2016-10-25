@@ -8,6 +8,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
+import seedu.address.commons.events.storage.ChangeStorageFilePathEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
@@ -55,7 +56,7 @@ public class MainApp extends Application {
 
         config = initConfig(getApplicationParameter("config"));
         storage = new StorageManager(config.getTaskManagerFilePath(), config.getUserPrefsFilePath());
-
+                
         userPrefs = initPrefs(config);
 
         initLogging(config);
@@ -190,7 +191,13 @@ public class MainApp extends Application {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
     }
-
+    //@@author A0139498J
+    @Subscribe
+    public void handleChangeStorageFilePathEvent(ChangeStorageFilePathEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        storage.setTaskManagerFilePath(event.getNewStorageFilePath());
+    }
+    //@@author
     public static void main(String[] args) {
         launch(args);
     }

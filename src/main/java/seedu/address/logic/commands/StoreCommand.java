@@ -22,8 +22,7 @@ public class StoreCommand extends Command {
             + "Example: " + COMMAND_WORD 
             + "data/hello_bunny" + XML_FILE_EXTENSION;      
     public static final String TOOL_TIP = "store [FILEPATH]";
-    public static final String MESSAGE_SUCCESS = "Storage location changed to %1$s. You need to restart DearJim"
-            + "for the changes to take effect.";
+    public static final String MESSAGE_SUCCESS = "Storage location changed to %1$s.";
     public static final String MESSAGE_FAILURE = "Unable to write to the storage location specified. "
             + "Please choose another storage location.";
    
