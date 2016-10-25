@@ -19,7 +19,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_ITEM_SUCCESS;
 
 public class EditCommandTest extends AddressBookGuiTest {
-  /*  
+    
+    //@@author A0139552B
     @Test
     public void edit() {    	
     	
@@ -93,8 +94,8 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         
     }
-    */
-
+    
+/*
     @Test
     public void editCheckSort() {
         TestTask[] currentList = td.getTypicalTasks();
@@ -117,7 +118,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(currentList));
         
     }
-    
+*/    
     private void assertAddSuccess(TestTask personToAdd, TestTask... currentList) {
         commandBox.runCommand(personToAdd.getAddCommand());
 

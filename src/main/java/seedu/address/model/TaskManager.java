@@ -104,6 +104,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
     
+    //@@author A0139552B
     /*
      * Edit the parameters in the current task
      * Sort the list afterwards
@@ -127,7 +128,9 @@ public class TaskManager implements ReadOnlyTaskManager {
 		currTask.setPriority(priority);
 		currTask.setRecurrence(recurrenceRate);
     }
-	
+    
+    //@@author 
+    
 //// util methods
 
 	@Override
