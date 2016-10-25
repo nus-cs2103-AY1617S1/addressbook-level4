@@ -1,12 +1,11 @@
+//@@author A0148096W
+
 package teamfour.tasc.logic.commands;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
 
-import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
 import teamfour.tasc.model.keyword.ByKeyword;
 import teamfour.tasc.model.keyword.FromKeyword;
@@ -16,7 +15,7 @@ import teamfour.tasc.model.keyword.TagKeyword;
 import teamfour.tasc.model.keyword.ToKeyword;
 
 /**
- * Shows only tasks filtered from current listing results to the user.
+ * Shows results from current listing results to the user that match the filters.
  */
 public class ShowCommand extends Command {
     public static final String COMMAND_WORD = ShowCommandKeyword.keyword;
@@ -50,16 +49,16 @@ public class ShowCommand extends Command {
      */
     public ShowCommand(String type, String date, String deadline, String startTime, 
                         String endTime, Set<String> tags) throws IllegalValueException {
-        this.deadline = CommandHelper.convertStringToDateIfPossible(deadline);
-        Date convertedDate = CommandHelper.convertStringToDateIfPossible(date);
+        this.deadline = CommandHelper.tryConvertStringToDateOrReturnNull(deadline);
+        Date convertedDate = CommandHelper.tryConvertStringToDateOrReturnNull(date);
         if (convertedDate != null) {
             hasDate = true;
             this.startTime = CommandHelper.getStartOfTheDate(convertedDate);
             this.endTime = CommandHelper.getEndOfTheDate(convertedDate);
         } else {
             hasDate = false;
-            this.startTime = CommandHelper.convertStringToDateIfPossible(startTime);
-            this.endTime = CommandHelper.convertStringToDateIfPossible(endTime);
+            this.startTime = CommandHelper.tryConvertStringToDateOrReturnNull(startTime);
+            this.endTime = CommandHelper.tryConvertStringToDateOrReturnNull(endTime);
         }
         
         this.tags = new HashSet<>();

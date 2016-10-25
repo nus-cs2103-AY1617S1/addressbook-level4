@@ -1,20 +1,14 @@
+//@@author A0148096W
+
 package teamfour.tasc.model.history;
 
 import static org.junit.Assert.*;
 
-import java.util.Date;
-import java.util.logging.Logger;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import teamfour.tasc.commons.core.LogsCenter;
-import teamfour.tasc.commons.exceptions.IllegalValueException;
-import teamfour.tasc.model.ModelManager;
-import teamfour.tasc.model.TaskList;
 import teamfour.tasc.model.history.HistoryStack;
 import teamfour.tasc.model.history.HistoryStack.OutOfHistoryException;
-import teamfour.tasc.model.task.Period;
 
 public class HistoryStackTest {
     
@@ -43,7 +37,6 @@ public class HistoryStackTest {
         }
     }
 
-    private static final Logger logger = LogsCenter.getLogger(HistoryStackTest.class);
     private HistoryStack<HistoryItemStub> historyStack;
     
     @Before
@@ -84,43 +77,43 @@ public class HistoryStackTest {
     
     @Test (expected = AssertionError.class)
     public void pushState_nullArg_throwsAssertionError() {
-        historyStack.pushState(null);
+        historyStack.push(null);
     }
     
     @Test (expected = OutOfHistoryException.class)
     public void popState_emptyHistoryStack_throwsException() throws OutOfHistoryException {
-        historyStack.popState();
+        historyStack.pop();
     }
     
     @Test
     public void pushFromZeroToMaxSize_popsNewestToOldest_success() throws OutOfHistoryException {
-        historyStack.pushState(new HistoryItemStub(1));
-        historyStack.pushState(new HistoryItemStub(2));
-        historyStack.pushState(new HistoryItemStub(3));
-        assertEquals(historyStack.popState(), new HistoryItemStub(3));
-        assertEquals(historyStack.popState(), new HistoryItemStub(2));
-        assertEquals(historyStack.popState(), new HistoryItemStub(1));
+        historyStack.push(new HistoryItemStub(1));
+        historyStack.push(new HistoryItemStub(2));
+        historyStack.push(new HistoryItemStub(3));
+        assertEquals(historyStack.pop(), new HistoryItemStub(3));
+        assertEquals(historyStack.pop(), new HistoryItemStub(2));
+        assertEquals(historyStack.pop(), new HistoryItemStub(1));
     }
     
     @Test
     public void pushFromZeroToOverMaxSize_popsNewestToOldest_success() throws OutOfHistoryException {
-        historyStack.pushState(new HistoryItemStub(1));
-        historyStack.pushState(new HistoryItemStub(2));
-        historyStack.pushState(new HistoryItemStub(3));
-        historyStack.pushState(new HistoryItemStub(4));
-        assertEquals(historyStack.popState(), new HistoryItemStub(4));
-        assertEquals(historyStack.popState(), new HistoryItemStub(3));
-        assertEquals(historyStack.popState(), new HistoryItemStub(2));
+        historyStack.push(new HistoryItemStub(1));
+        historyStack.push(new HistoryItemStub(2));
+        historyStack.push(new HistoryItemStub(3));
+        historyStack.push(new HistoryItemStub(4));
+        assertEquals(historyStack.pop(), new HistoryItemStub(4));
+        assertEquals(historyStack.pop(), new HistoryItemStub(3));
+        assertEquals(historyStack.pop(), new HistoryItemStub(2));
     }
     
     @Test (expected = OutOfHistoryException.class)
     public void pushFromZeroToMaxSize_popsTooMuch_throwsException() throws OutOfHistoryException {
-        historyStack.pushState(new HistoryItemStub(1));
-        historyStack.pushState(new HistoryItemStub(2));
-        historyStack.pushState(new HistoryItemStub(3));
-        assertEquals(historyStack.popState(), new HistoryItemStub(3));
-        assertEquals(historyStack.popState(), new HistoryItemStub(2));
-        assertEquals(historyStack.popState(), new HistoryItemStub(1));
-        assertEquals(historyStack.popState(), new HistoryItemStub(0));
+        historyStack.push(new HistoryItemStub(1));
+        historyStack.push(new HistoryItemStub(2));
+        historyStack.push(new HistoryItemStub(3));
+        assertEquals(historyStack.pop(), new HistoryItemStub(3));
+        assertEquals(historyStack.pop(), new HistoryItemStub(2));
+        assertEquals(historyStack.pop(), new HistoryItemStub(1));
+        assertEquals(historyStack.pop(), new HistoryItemStub(0));
     }
 }
