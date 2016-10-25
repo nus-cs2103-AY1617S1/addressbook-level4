@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.AliasCommand;
-import seedu.savvytasker.logic.commands.models.AliasCommandModel;
 
 public class AliasCommandParser implements CommandParser<AliasCommand> {
     private static final String HEADER = "alias";
@@ -42,7 +41,7 @@ public class AliasCommandParser implements CommandParser<AliasCommand> {
         if (matcher.matches()) {
             String representation = parseRepresentation(matcher.group(REGEX_REF_REPRESENTATION));
             String keyword = parseKeyword(matcher.group(REGEX_REF_KEYWORD));
-            return new AliasCommand(new AliasCommandModel(keyword, representation));
+            return new AliasCommand(keyword, representation);
         }
 
         throw new ParseException(commandText, String.format(

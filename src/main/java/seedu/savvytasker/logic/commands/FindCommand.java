@@ -1,6 +1,5 @@
 package seedu.savvytasker.logic.commands;
 
-import seedu.savvytasker.logic.commands.models.FindCommandModel;
 import seedu.savvytasker.model.task.FindType;
 
 /**
@@ -17,22 +16,23 @@ public class FindCommand extends ModelRequiringCommand {
             + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
+    
+    private final FindType findType;
+    private final String[] keywords;
 
-    private final FindCommandModel commandModel;
-
-    public FindCommand(FindCommandModel commandModel) {
-        assert (commandModel != null);
-        this.commandModel = commandModel;
+    public FindCommand(FindType findType, String[] keywords) {
+        this.findType = findType;
+        this.keywords = keywords;
     }
 
     @Override
     public CommandResult execute() {
-        FindType findType = commandModel.getFindType();
-        if (findType == null) {
+        FindType _findType = findType;
+        if (_findType == null) {
             // use default find type, partial.
-            findType = FindType.Partial;
+            _findType = FindType.Partial;
         }
-        model.updateFilteredTaskList(findType, commandModel.getKeywords());
+        model.updateFilteredTaskList(_findType, keywords);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
     

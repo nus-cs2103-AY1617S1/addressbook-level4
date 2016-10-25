@@ -3,8 +3,6 @@ package seedu.savvytasker.model.task;
 import java.util.Date;
 import java.util.Objects;
 
-import seedu.savvytasker.logic.commands.models.ModifyCommandModel;
-
 /**
  * Represents a Task in the task list.
  */
@@ -59,7 +57,9 @@ public class Task implements ReadOnlyTask {
     /**
      * Copy and modify constructor
      */
-    public Task(ReadOnlyTask source, ModifyCommandModel commandModel) {
+    public Task(ReadOnlyTask source, String taskName, Date startDateTime, Date endDateTime, String location,
+            PriorityLevel priority, RecurrenceType recurringType, Integer numberOfRecurrence, String category, 
+            String description) {
         this(source.getId(), source.getTaskName(), source.getStartDateTime(), 
                 source.getEndDateTime(), source.getLocation(), source.getPriority(), 
                 source.getRecurringType(), source.getNumberOfRecurrence(), 
@@ -67,15 +67,15 @@ public class Task implements ReadOnlyTask {
         
         //this.id should follow that of the source.
         //this.isArchived should follow that of the source.
-        this.taskName = commandModel.getTaskName() == null ? this.taskName : commandModel.getTaskName();
-        this.startDateTime = commandModel.getStartDateTime() == null ? this.startDateTime : commandModel.getStartDateTime();
-        this.endDateTime = commandModel.getEndDateTime() == null ? this.endDateTime : commandModel.getEndDateTime();
-        this.location = commandModel.getLocation() == null ? this.location : commandModel.getLocation();
-        this.priority = commandModel.getPriority() == null ? this.priority : commandModel.getPriority();
-        this.recurringType = commandModel.getRecurringType() == null ? this.recurringType : commandModel.getRecurringType();
-        this.numberOfRecurrence = commandModel.getNumberOfRecurrence() == null ? this.numberOfRecurrence : commandModel.getNumberOfRecurrence().intValue();
-        this.category = commandModel.getCategory() == null ? this.category : commandModel.getCategory();
-        this.description = commandModel.getDescription() == null ? this.description : commandModel.getDescription();
+        this.taskName = taskName == null ? this.taskName : taskName;
+        this.startDateTime = startDateTime == null ? this.startDateTime : startDateTime;
+        this.endDateTime = endDateTime == null ? this.endDateTime : endDateTime;
+        this.location = location == null ? this.location : location;
+        this.priority = priority == null ? this.priority : priority;
+        this.recurringType = recurringType == null ? this.recurringType : recurringType;
+        this.numberOfRecurrence = numberOfRecurrence == null ? this.numberOfRecurrence : numberOfRecurrence.intValue();
+        this.category = category == null ? this.category : category;
+        this.description = description == null ? this.description : description;
     }
 
     @Override

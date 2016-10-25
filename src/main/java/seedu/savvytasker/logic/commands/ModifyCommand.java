@@ -1,14 +1,18 @@
 package seedu.savvytasker.logic.commands;
 
+import java.util.Date;
+
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
-import seedu.savvytasker.logic.commands.models.ModifyCommandModel;
+import seedu.savvytasker.logic.parser.DateParser.InferredDate;
+import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.RecurrenceType;
 import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 /**
- * Adds a person to the address book.
+ * Modifies a task in savvy tasker.
  */
 public class ModifyCommand extends ModelRequiringCommand {
 
@@ -23,31 +27,56 @@ public class ModifyCommand extends ModelRequiringCommand {
     public static final String MESSAGE_SUCCESS = "Task modified: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
 
-    private final ModifyCommandModel commandModel;
     private Task originalTask;
+    private Task replacement;
+    private final int index;
+    private final String taskName;
+    private final InferredDate startDateTime;
+    private Date inferredStart;
+    private final InferredDate endDateTime;
+    private Date inferredEnd;
+    private final String location;
+    private final PriorityLevel priority;
+    private final RecurrenceType recurringType;
+    private final Integer numberOfRecurrence;
+    private final String category;
+    private final String description;
     
     /**
      * Creates an add command.
      */
-    public ModifyCommand(ModifyCommandModel commandModel) {
-        this.commandModel = commandModel;
+    public ModifyCommand(int index, String taskName, InferredDate startDateTime, InferredDate endDateTime, String location,
+            PriorityLevel priority, RecurrenceType recurringType, Integer numberOfRecurrence, String category, 
+            String description) {
+        this.index = index;
+        this.taskName = taskName;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.location = location;
+        this.priority = priority;
+        this.recurringType = recurringType;
+        this.numberOfRecurrence = numberOfRecurrence;
+        this.category = category;
+        this.description = description;
         this.originalTask = null;
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
-        assert commandModel != null;
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
-        if (lastShownList.size() < commandModel.getIndex()) {
+        if (lastShownList.size() < index) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToModify = lastShownList.get(commandModel.getIndex() - 1);
-        Task replacement = new Task(taskToModify, commandModel);
+        ReadOnlyTask taskToModify = lastShownList.get(index - 1);
+        Task replacement = new Task(taskToModify, taskName, inferredStart, 
+                                    inferredEnd, location, priority, 
+                                    recurringType, numberOfRecurrence, 
+                                    category, description);
 
         try {
             originalTask = (Task)taskToModify;
@@ -86,10 +115,9 @@ public class ModifyCommand extends ModelRequiringCommand {
     public boolean undo() {
 
         assert model != null;
-        assert commandModel != null;
 
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        ReadOnlyTask taskToModify = lastShownList.get(commandModel.getIndex() - 1);
+        ReadOnlyTask taskToModify = lastShownList.get(index - 1);
 
         try {
             model.modifyTask(taskToModify, originalTask);

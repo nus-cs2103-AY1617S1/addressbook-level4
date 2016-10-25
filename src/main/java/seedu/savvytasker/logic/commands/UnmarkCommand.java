@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
-import seedu.savvytasker.logic.commands.models.UnmarkCommandModel;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
 import seedu.savvytasker.model.SavvyTasker;
 import seedu.savvytasker.model.task.ReadOnlyTask;
@@ -24,13 +23,12 @@ public class UnmarkCommand extends ModelRequiringCommand {
     
     public static final String MESSAGE_UNMARK_TASK_SUCCESS = "Unmarked Task: %1$s\n";
     public static final String MESSAGE_UNMARK_TASK_FAIL = "Task is already unmarked!\n";
-    
-    public final UnmarkCommandModel commandModel;
+
+    private final int[] targetIndices;
     private ReadOnlySavvyTasker original;
     
-    public UnmarkCommand(UnmarkCommandModel commandModel) {
-        assert (commandModel != null);
-        this.commandModel = commandModel;
+    public UnmarkCommand(int[] targetIndices) {
+        this.targetIndices = targetIndices;
     }
     
     @Override
@@ -39,7 +37,7 @@ public class UnmarkCommand extends ModelRequiringCommand {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         LinkedList<Task> tasksToUnmark = new LinkedList<Task>();
-        for(int targetIndex : commandModel.getTargetIndex()) {
+        for(int targetIndex : targetIndices) {
             if (lastShownList.size() < targetIndex || targetIndex <= 0) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
