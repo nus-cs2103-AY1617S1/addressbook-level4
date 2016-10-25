@@ -92,7 +92,10 @@ public class MainWindow extends UiPart {
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 460;
     
+    // @@author A0138862W
+    // init only one parser for all parsing, save memory and computation time
     private static final PrettyTime prettyTime = new PrettyTime();
+    // @@author
     
     private Logic logic;
 
@@ -239,6 +242,7 @@ public class MainWindow extends UiPart {
         mainWindow.configure(config.getAppTitle(), config.getTaskManagerName(), config, prefs, logic);
         return mainWindow;
     }
+    // @@author
 
     private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs, Logic logic) {
 
@@ -283,6 +287,7 @@ public class MainWindow extends UiPart {
         actionHistory.getItems().add(aHistory);
         actionHistory.scrollTo(actionHistory.getItems().size()-1);
     }
+    // @@author
 
     /**
      * Sets the default size based on user preferences.

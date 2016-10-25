@@ -43,6 +43,7 @@ public class XmlAdaptedTask {
             tagged.add(new XmlAdaptedTag(tag));
         }
     }
+    // @@author
 
     /**
      * Converts this jaxb-friendly adapted task object into the model's Task object.
