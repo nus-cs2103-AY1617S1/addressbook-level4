@@ -4,7 +4,8 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Messages;
-import seedu.address.history.History;
+import seedu.address.history.UndoableCommandHistory;
+import seedu.address.history.UndoableCommandHistoryManager;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HelpCommand;
@@ -26,10 +27,10 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final History history;
+    private final UndoableCommandHistory history;
     private final CommandParser parser;
 
-    public LogicManager(Model model, Storage storage, History history) {
+    public LogicManager(Model model, Storage storage, UndoableCommandHistory history) {
         this.model = model;
         this.history = history;
         this.parser = new CommandParser();
@@ -61,36 +62,7 @@ public class LogicManager extends ComponentManager implements Logic {
      */
     @Override
     public String generateToolTip(String commandText){
-        assert commandText != null;
-        
-        //logger.info("----------------[INCOMPLETE USER COMMAND][" + commandText + "]");
-        List<String> toolTips = parser.parseIncompleteCommand(commandText);
-        
-        // toolTips should have at least one string in it
-        // as there is a default case (add command)
-        assert toolTips != null && toolTips.size() > 0;        
-        
-        // check if invalid command format
-        if (toolTips.contains(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE))){
-            assert toolTips.size() == 1;
-            return toolTips.get(0);
-        }
-        
-        // check if unknown command typed
-        if (toolTips.contains(Messages.MESSAGE_UNKNOWN_COMMAND)){
-            assert toolTips.size() == 1;
-            return toolTips.get(0);
-        }
-        
-        // return all matches
-        StringBuilder stringBuilder = new StringBuilder();
-        for (String toolTip : toolTips){
-            stringBuilder.append(toolTip);
-            stringBuilder.append("\n");
-        }
-        
-        // return the tooltip as a single string separated by \n
-        return stringBuilder.toString();
-        
+        assert commandText != null;     
+        return parser.parseForTooltip(commandText);    
     }
 }

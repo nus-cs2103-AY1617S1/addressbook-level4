@@ -17,7 +17,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.history.History;
+import seedu.address.history.UndoableCommandHistoryManager;
 import seedu.address.history.InputHistory;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;

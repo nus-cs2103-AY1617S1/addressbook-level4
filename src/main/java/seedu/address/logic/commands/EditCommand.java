@@ -150,7 +150,12 @@ public class EditCommand extends UndoableCommand {
 
 	@Override
 	public CommandResult execute() {	    
-		assert model != null;
+	    assert model != null;
+		
+	    if (model.isCurrentListDoneList()) {
+	        indicateAttemptToExecuteIncorrectCommand();
+	        return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
+	    }
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
 
         if (lastShownList.size() < targetIndex || targetIndex == 0) {

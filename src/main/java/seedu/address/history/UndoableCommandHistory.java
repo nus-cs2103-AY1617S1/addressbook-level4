@@ -2,6 +2,7 @@ package seedu.address.history;
 
 import seedu.address.logic.commands.UndoableCommand;
 
+//@@author A0093960X
 public interface UndoableCommandHistory {
 
     /** Updates the command history with the given UndoableCommand **/
@@ -19,6 +20,4 @@ public interface UndoableCommandHistory {
     /** Executes a redo step on the command history, returning the UndoableCommand that was redone **/
     public UndoableCommand redoStep();
     
-    /** Resets the history of undos (the past undos that can be redone) **/
-    public void resetRedo();
 }

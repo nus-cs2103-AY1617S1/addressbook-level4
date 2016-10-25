@@ -69,8 +69,12 @@ public class TaskManager implements ReadOnlyTaskManager {
         setDoneTasks(newDoneTasks.stream().map(Task::new).collect(Collectors.toList()));
     }
 
-    public void resetData(ReadOnlyTaskManager newData) {
-        resetData(newData.getUndoneTaskList(), newData.getDoneTaskList());
+    public void resetDoneData(ReadOnlyTaskManager newData) {
+        setDoneTasks(newData.getDoneTaskList().stream().map(Task::new).collect(Collectors.toList()));
+    }
+    
+    public void resetUndoneData(ReadOnlyTaskManager newData) {
+        setUndoneTasks(newData.getUndoneTaskList().stream().map(Task::new).collect(Collectors.toList()));
     }
 
 //// person-level operations

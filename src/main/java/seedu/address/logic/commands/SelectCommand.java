@@ -7,7 +7,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.item.ReadOnlyTask;
 
 /**
- * Selects a person identified using it's last displayed index from the address book.
+ * Selects a task identified using it's last displayed index from the task manager.
  */
 public class SelectCommand extends Command {
 
@@ -22,7 +22,7 @@ public class SelectCommand extends Command {
     
     public static final String TOOL_TIP = "select";
     
-    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
+    public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Task: %1$s";
 
     public SelectCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -30,8 +30,13 @@ public class SelectCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
+        assert model != null;
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList;
+        if (model.isCurrentListDoneList()) {
+            lastShownList = model.getFilteredDoneTaskList();
+        } else {
+            lastShownList = model.getFilteredUndoneTaskList();
+        }
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

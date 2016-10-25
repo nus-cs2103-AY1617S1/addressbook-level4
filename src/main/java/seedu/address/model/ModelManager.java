@@ -5,7 +5,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
+import seedu.address.commons.events.ui.ChangeToListDoneViewEvent;
+import seedu.address.commons.events.ui.ChangeToListUndoneViewEvent;
 import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.Name;
 import seedu.address.model.item.Priority;
@@ -29,7 +32,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredUndoneTasks;
     private final FilteredList<Task> filteredDoneTasks;
-
+    private Boolean isDoneList = false;
+    
     /**
      * Initializes a ModelManager with the given AddressBook
      * AddressBook and its variables should not be null
@@ -58,7 +62,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
-        taskManager.resetData(newData);
+        taskManager.resetUndoneData(newData);
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public void resetDoneData(ReadOnlyTaskManager newData) {
+        taskManager.resetDoneData(newData);
         indicateTaskManagerChanged();
     }
 
@@ -77,23 +87,24 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeFloatingTask(floatingTask);
         indicateTaskManagerChanged();
     }
+    
 
     @Override
-    public synchronized void addTask(Task floatingTask) {
-        taskManager.addTask(floatingTask);
-        updateFilteredListToShowAll();
+    public synchronized void addTask(Task task) {
+        taskManager.addTask(task);
+        updateFilteredListsToShowAll();
         indicateTaskManagerChanged();
     }
     
     @Override
-    public synchronized void addDoneTask(Task floatingTask) {
-        taskManager.addDoneTask(floatingTask);
+    public synchronized void addDoneTask(Task task) {
+        taskManager.addDoneTask(task);
         indicateTaskManagerChanged();
     }
     
     @Override
-    public synchronized void deleteDoneTask(ReadOnlyTask floatingTask) throws TaskNotFoundException {
-        taskManager.removeDoneTask(floatingTask);
+    public synchronized void deleteDoneTask(ReadOnlyTask task) throws TaskNotFoundException {
+        taskManager.removeDoneTask(task);
         indicateTaskManagerChanged();
     }
     
@@ -140,10 +151,26 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public Boolean isCurrentListDoneList() {
+        return isDoneList;
+    }
+    
+    @Override
+    public void setCurrentListToBeDoneList() {
+        EventsCenter.getInstance().post(new ChangeToListDoneViewEvent());
+        isDoneList = true;
+    }
+    
+    @Override
+    public void setCurrentListToBeUndoneList() {
+        EventsCenter.getInstance().post(new ChangeToListUndoneViewEvent());
+        isDoneList = false;
+    }
+    
     public synchronized void editTask(ReadOnlyTask floatingTask, Name name, Date startDate,
-    		Date endDate, Priority priority, RecurrenceRate recurrenceRate) {
+            Date endDate, Priority priority, RecurrenceRate recurrenceRate) {
         taskManager.editFloatingTask(floatingTask, name, startDate, endDate, priority, recurrenceRate);
-        updateFilteredListToShowAll();
+        updateFilteredListsToShowAll();
         indicateTaskManagerChanged();
     }
 
@@ -161,15 +188,25 @@ public class ModelManager extends ComponentManager implements Model {
 
     public void TaskManager() {
         filteredUndoneTasks.setPredicate(null);
+        filteredDoneTasks.setPredicate(null);
     }
 
     @Override
-    public void updateFilteredFloatingTaskList(Set<String> keywords){
-        updateFilteredFloatingTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilteredUndoneTaskList(Set<String> keywords){
+        updateFilteredUndoneTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredFloatingTaskList(Expression expression) {
+    private void updateFilteredUndoneTaskList(Expression expression) {
         filteredUndoneTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredDoneTaskList(Set<String> keywords){
+        updateFilteredDoneTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
+    private void updateFilteredDoneTaskList(Expression expression) {
+        filteredDoneTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -225,8 +262,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredListToShowAll() {
+    public void updateFilteredListsToShowAll() {
         filteredUndoneTasks.setPredicate(null);
+        filteredDoneTasks.setPredicate(null);
     }
     
 }

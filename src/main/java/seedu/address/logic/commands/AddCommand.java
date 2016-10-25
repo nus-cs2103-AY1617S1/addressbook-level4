@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
@@ -122,11 +123,19 @@ public class AddCommand extends UndoableCommand {
 
     @Override
     public CommandResult execute() {
-        assert model != null;
-        model.addTask(toAdd);
+        assert model != null && toAdd != null;
         
-        // TODO: i don't like updating the history here, to refactor further
-        // not sure if EVERY command should access history, or i pass history to parser then parser prepareUndoCmd together with the history
+        // check if viewing done list
+        // cannot add to done list, return an incorrect command msg
+        if (model.isCurrentListDoneList()) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(String.format(Messages.MESSAGE_DONE_LIST_RESTRICTION));
+        }
+        
+        // add this task to the model
+        model.addTask(toAdd);     
+        
+        // update the history with this command
         updateHistory();
         
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
@@ -134,12 +143,16 @@ public class AddCommand extends UndoableCommand {
 
     @Override
     public CommandResult undo() {
-        assert model != null;
+        assert model != null && toAdd != null;
+        
+        // attempt to undo the add by deleting the same task that was added
         try {
             model.deleteTask(toAdd);
         } catch (TaskNotFoundException e) {
+            // cannot find the task that was added
             return new CommandResult("Failed to undo last add command: add " + toAdd);
         }
+        
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toAdd));
     }
 
