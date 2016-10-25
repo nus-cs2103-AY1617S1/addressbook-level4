@@ -173,7 +173,7 @@ Examples:
 * `Go visit mom repeat every sun`
 
 > There may be occasions where DearJim will convert the task wrongly. For example, the following input "lower word count from 1000 to 500" will create a task with name "lower word count" and starting time of "10am" and ending time of "5am". In events like this, you have to enclose the task name with double quotation marks. For example: <br>
-"lower word count from 1000 to 500" from today 9pm to tmr 11pm -high
+`"lower word count from 1000 to 500" from today 9pm to tmr 11pm -high`
 
 ### Editing a task: `edit`
 Just in case you need to change any details, or add in missing ones into your task, simply edit them in DearJim.  <br>
