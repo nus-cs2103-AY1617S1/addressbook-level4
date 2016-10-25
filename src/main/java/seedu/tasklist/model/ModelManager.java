@@ -298,12 +298,14 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void sortByDateAndPriority() {
         // Collections.sort(taskList.getListOfTasks(), Comparators.DATE_TIME);
-        Collections.sort(taskList.getListOfTasks(), Comparators.PRIORITY);
+        // Collections.sort(taskList.getListOfTasks(), Comparators.PRIORITY);
+    	Collections.sort(taskList.getListOfTasks());
     }
 
     // ========== Inner classes/interfaces used for filtering
     // ==================================================
 
+    /*
     private static class Comparators {
         public static Comparator<Task> DATE_TIME = new Comparator<Task>() {
             @Override
@@ -325,6 +327,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
         };
     }
+    */
 
     interface Expression {
         boolean satisfies(ReadOnlyTask person);
