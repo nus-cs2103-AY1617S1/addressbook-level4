@@ -10,8 +10,6 @@ import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
 import java.time.LocalDate;
 import java.util.Set;
 
-import javafx.beans.value.ObservableValue;
-
 /**
  * The API of the Model component.
  */

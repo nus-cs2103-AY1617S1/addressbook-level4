@@ -1,6 +1,5 @@
 package seedu.taskitty.ui;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -14,7 +13,6 @@ import seedu.taskitty.commons.core.GuiSettings;
 import seedu.taskitty.commons.events.ui.ExitAppRequestEvent;
 import seedu.taskitty.logic.Logic;
 import seedu.taskitty.model.UserPrefs;
-import seedu.taskitty.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
