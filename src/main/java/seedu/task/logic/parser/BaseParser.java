@@ -2,45 +2,100 @@ package seedu.task.logic.parser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.StringJoiner;
 
+import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.commands.Command;
 
 public abstract class BaseParser {
+    
+    protected final HashMap<String, ArrayList<String>> argumentsTable = new HashMap<>();
         
     /**
-     * Extracts out arguments from the user's input
-     * @param userInput full (or partial) user input string
-     * @return a mapping of the keyword and the value(s) associated to it.
-     * the value mapped to the empty string ("") is the non-keyword argument
+     * Extracts out arguments from the user's input into a HashMap.
+     * The value mapped to the empty string ("") is the non-keyword argument.
+     * 
+     * @param args full (or partial) user input arguments
      */
-    private HashMap<String, ArrayList<String>> extractArguments(String userInput) {
-        HashMap<String, ArrayList<String>> result = new HashMap<>();
-        String[] segments = userInput.split(" ");
+    protected void extractArguments(String args) {
+        argumentsTable.clear();
+        String[] segments = args.trim().split(" ");
         String currentKey = "";
         StringJoiner joiner = new StringJoiner(" ");
         
         for (String segment : segments) {
             if (segment.contains("/")) {
                 ArrayList<String> arrayItems;
-                if (result.containsKey(currentKey)) {
-                    arrayItems = result.get(currentKey);
+                if (argumentsTable.containsKey(currentKey)) {
+                    arrayItems = argumentsTable.get(currentKey);
                 } else {
                     arrayItems = new ArrayList<String>();
                 }
                 
                 arrayItems.add(joiner.toString());
-                result.put(currentKey, arrayItems);
+                argumentsTable.put(currentKey, arrayItems);
+                
+                String[] kwargComponent = segment.split("/", 2);
                 
                 // set to next keyword
-                currentKey = segment.split("/", 2)[0];
+                currentKey = kwargComponent[0];
+                
+                joiner = new StringJoiner(" ");
+                if (kwargComponent.length > 1) {
+                    joiner.add(kwargComponent[1]);
+                }
+                
                 continue;
             } else {
                 joiner.add(segment);
             }
         }
+    }
+    
+    protected boolean checkForRequiredArguments(String[] requiredArgs) {
+        if (argumentsTable == null) {
+            return false;
+        }
         
-        return result;
+        for (String arg : requiredArgs) {
+            if (!argumentsTable.containsKey(arg)) {
+                return false;
+            } else {
+                ArrayList<String> values = argumentsTable.get(arg);
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Retrieves the value for the keyword argument
+     * @param keyword the keyword of the argument
+     * @return the current value of the keyword argument
+     */
+    protected String getSingleKeywordArgValue(String keyword) {
+        if (argumentsTable.containsKey(keyword)) {
+            return argumentsTable.get(keyword).get(0);
+        } else {
+            return null;
+        }
+    }
+    
+    /**
+     * Returns a positive integer, if the user supplied unnamed keyword argument is a positive integer.
+     * Returns an {@code Optional.empty()} otherwise.
+     */
+    protected Optional<Integer> parseIndex() {
+        String index = getSingleKeywordArgValue("");
+        return parseIndex(index);
+    }
+    
+    protected Optional<Integer> parseIndex(String index) {
+        if (!StringUtil.isUnsignedInteger(index)) {
+            return Optional.empty();
+        }
+        return Optional.of(Integer.parseInt(index));
     }
     
     /**
@@ -48,5 +103,5 @@ public abstract class BaseParser {
      * @param userInput full user input string
      * @return the command based on the user input
      */
-    public abstract Command parse(String userInput);
+    public abstract Command parse(String command, String arguments);
 }
