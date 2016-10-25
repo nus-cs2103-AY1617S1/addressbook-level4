@@ -11,8 +11,6 @@ import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.model.ReadOnlyToDoList;
 import seedu.todo.model.ToDoList;
 import seedu.todo.model.UserPrefs;
-import seedu.todo.model.task.Task;
-import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.testutil.EventsCollector;
 import seedu.todo.testutil.TypicalTestTasks;
 

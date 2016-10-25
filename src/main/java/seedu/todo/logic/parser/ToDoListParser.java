@@ -21,9 +21,6 @@ import com.joestelmach.natty.*;
  */
 public class ToDoListParser {
     
-    public ToDoListParser() {
-    }
-
     /**
      * Parses user input into command for execution.
      *

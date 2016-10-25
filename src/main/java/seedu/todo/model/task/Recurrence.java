@@ -59,6 +59,7 @@ public class Recurrence {
             if (task.getByDate().getDate() != null) {
                 task.getByDate().setDate(task.getByDate().getDate().plusYears(1));
             }
+            break;
         case MONTH :
             if (task.getOnDate().getDate() != null) {
                 task.getOnDate().setDate(task.getOnDate().getDate().plusMonths(1));
@@ -66,6 +67,7 @@ public class Recurrence {
             if (task.getByDate().getDate() != null) {
                 task.getByDate().setDate(task.getByDate().getDate().plusMonths(1));
             }
+            break;
         case WEEK:
             if (task.getOnDate().getDate() != null) {
                 task.getOnDate().setDate(task.getOnDate().getDate().plusWeeks(1));
@@ -73,6 +75,7 @@ public class Recurrence {
             if (task.getByDate().getDate() != null) {
                 task.getByDate().setDate(task.getByDate().getDate().plusWeeks(1));
             }
+            break;
         case DAY :
             if (task.getOnDate().getDate() != null) {
                 task.getOnDate().setDate(task.getOnDate().getDate().plusDays(1));
@@ -80,6 +83,7 @@ public class Recurrence {
             if (task.getByDate().getDate() != null) {
                 task.getByDate().setDate(task.getByDate().getDate().plusDays(1));
             }
+            break;
         default :
             //NONE - do nothing
         }
