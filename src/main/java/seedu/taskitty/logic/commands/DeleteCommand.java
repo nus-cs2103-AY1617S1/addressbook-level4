@@ -1,5 +1,9 @@
 package seedu.taskitty.logic.commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.util.Pair;
 import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.util.AppUtil;
@@ -17,42 +21,52 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_PARAMETER = COMMAND_WORD + " [category] [index]";
     public static final String MESSAGE_USAGE = "This command deletes a task from TasKitty, Meow!";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted" + " %1$s: %2$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted" + " %1$s: %2$s\n";
     
-    public final int categoryIndex;
+    public int categoryIndex;
     
-    public final int targetIndex;
+    public int targetIndex;
     
-    public DeleteCommand(int targetIndex) {
-        // default to Todo category if no given category
-        this(targetIndex, Task.DEFAULT_CATEGORY_INDEX);
-    }
+    private final List<Pair<Integer, Integer>> listOfIndexes;
     
-    public DeleteCommand(int targetIndex, int categoryIndex) {
-        this.targetIndex = targetIndex;
-        this.categoryIndex = categoryIndex;
+    public DeleteCommand(List<Pair<Integer, Integer>> listOfIndexes) {
+        this.listOfIndexes = listOfIndexes;
     }
 
     @Override
     public CommandResult execute() {
-        assert categoryIndex >= 0 && categoryIndex < 3;
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model, categoryIndex);   
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            model.removeUnchangedState();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        ArrayList<ReadOnlyTask> listOfTaskToDelete = new ArrayList<ReadOnlyTask>();
+        StringBuilder listOfTaskToDeleteBuilder = new StringBuilder();
+        for (Pair<Integer, Integer> indexPair: listOfIndexes) {
+            categoryIndex = indexPair.getKey();
+            targetIndex = indexPair.getValue();
+            assert categoryIndex >= 0 && categoryIndex < 3;
+            
+            UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model, categoryIndex); 
+            if (lastShownList.size() < targetIndex) {
+                indicateAttemptToExecuteIncorrectCommand();
+                model.removeUnchangedState();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+            
+            ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+            if (!listOfTaskToDelete.contains(taskToDelete)) {
+                listOfTaskToDelete.add(taskToDelete);
+                listOfTaskToDeleteBuilder.append(String.format(MESSAGE_DELETE_TASK_SUCCESS, 
+                        Task.CATEGORIES[categoryIndex], taskToDelete.toString()));
+            }                        
         }
-
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-
+        
         try {
-            model.deleteTask(taskToDelete);
+            for (ReadOnlyTask taskToDelete: listOfTaskToDelete) {
+                model.deleteTask(taskToDelete);
+            }
         } catch (TaskNotFoundException pnfe) {
             model.removeUnchangedState();
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, Task.CATEGORIES[categoryIndex], taskToDelete));
+        return new CommandResult(listOfTaskToDeleteBuilder.toString());
     }
 
     @Override

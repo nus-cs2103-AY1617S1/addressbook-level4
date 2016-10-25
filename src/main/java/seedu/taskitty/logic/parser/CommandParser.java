@@ -380,7 +380,7 @@ public class CommandParser {
         listOfIndexes.sort((p1, p2) -> p1.getKey().compareTo(p2.getKey()) == 0 
                         ? -p1.getValue().compareTo(p2.getValue()) 
                         : p1.getKey().compareTo(p2.getKey()));
-        return new DeleteCommand(categoryAndIndex.getValue(), categoryAndIndex.getKey());
+        return new DeleteCommand(listOfIndexes);
     }
     
     //@@author A0135793W
