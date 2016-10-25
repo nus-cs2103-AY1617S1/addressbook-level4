@@ -42,7 +42,8 @@ Format: `help`
 
 Example:
 * `help` 
- 
+
+<!-- @@author A0135782Y-->
 #### Adding a floating task: `add`
 Adds a task to the todo list<br>
 Format:`add TASK_NAME [t/TAG]...` 
@@ -81,7 +82,7 @@ Examples:
 * `add Homework from 26 oct 10am to 26 oct 11am daily`
 	<img src="images/ug_add_fromto_date_recurring_before.png" width="600">
 	<img src="images/ug_add_fromto_date_recurring_after.png" width="600">
-	
+<!--@@author-->
 #### View floating task of the day : `view`
 Format: view /OPTION
 
