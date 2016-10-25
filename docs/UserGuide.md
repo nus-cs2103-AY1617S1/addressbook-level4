@@ -25,15 +25,44 @@
    * **`delete`**` 212` : deletes the task with ID 212 shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
-
-
+<!-- @@author A0135784W-->
+## HappyJimTaskMaster's GUI
+ <img src="images/Ui.PNG" width="700">
+1. Command box. This is where the commands are entered. Simply type in the command and press enter to execute it.
+2. Result display. This is where the results of commands are shown.
+3. Agenda. This where the agenda of this week is shown.
+4. Tasklist panel. This is where the tasks are displayed. 
+5. Navigation bar panel. This is where the navigation categories are displayed.
+<!--@@author-->
+### Color Secheme
+1. Yellow for floating tasks.
+2. Blue for normal non-floating tasks.
+3. Brown for blocked time slots.
+4. Red for deadlines.
+5. Green for completed tasks.
+> Change of color scheme can done through click `Customize Skin` using pre-load alternatives,
+> or thorugh modifying `ColorTheme.css` in `src/main/resources/view` folder.
+<!-- @@author A0135784W-->
 ## Features
-
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
+### Command Format
+> * Each command consists of a command word (such as add or delete), followed by other options such as DATE,TIME or [t/TAG]
+> * Words in `UPPER_CASE` are the description of what kind data to input.
+> * Items in `SQUARE_BRACKETS` `[items]` are optional.
 > * Items with `...` after them can have multiple instances.
 > * The order of parameters is fixed.
+
+### Date and Time Format
+HappyJimTaskMaster uses Natty date parser to parse date and time options. <br>
+
+Some examples of acceptable format include:
+* 21 nov 2005
+* 24 sep 8pm
+* jan 1st
+* next thursday
+* 3 days from now
+
+For a full list of acceptable formats, please refer to http://natty.joestelmach.com/doc.jsp
+<!--@@author-->
 
 #### Viewing help : `help`
 Format: `help`
@@ -43,7 +72,7 @@ Format: `help`
 Example:
 * `help` 
 
-<!-- @@author A0135782Y -->
+<!-- @@author A0135782Y-->
 #### Adding a floating task: `add`
 Adds a task to the todo list<br>
 Format:`add TASK_NAME [t/TAG]...` 
@@ -51,8 +80,8 @@ Format:`add TASK_NAME [t/TAG]...`
 Examples:
 * `add Homework` 
 * `add Homework t/CS1231` <br>
-	<img src="images/ug_add_floating_before.PNG" width="600">
-	<img src="images/ug_add_floating_after.PNG" width="600">
+	<img src="images/ug_add_floating_before.png" width="600">
+	<img src="images/ug_add_floating_after.png" width="600">
 
 #### Adding a task with deadline: `add`
 Format: `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
@@ -64,8 +93,8 @@ Format: `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
 Examples: <br>
 * `add Homework by 24 sep 8pm t/CS1231`
 * `add Homework by 24 sep 6pm daily t/CS1231`
-	<img src="images/ug_add_by_date_before.PNG" width="600">
-	<img src="images/ug_add_by_date_after.PNG" width="600">
+	<img src="images/ug_add_by_date_before.png" width="600">
+	<img src="images/ug_add_by_date_after.png" width="600">
 
 #### Adding a task with start time and end time: `add`
 Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
@@ -77,22 +106,17 @@ Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
 Examples:
 * `add Homework from 24 sep 8pm to 25 sep 9pm tag/CS1231`
 * `add Homework from today 8.03pm to today 8.15pm t/CS1231`
-
-   <img src="images/ug_add_fromto_date_before.PNG" width="600">
-   <img src="images/ug_add_fromto_date_after.PNG" width="600">
+	<img src="images/ug_add_fromto_date_before.png" width="600">
+	<img src="images/ug_add_fromto_date_after.png" width="600">
 * `add Homework from 26 oct 10am to 26 oct 11am daily`
-
-   <img src="images/ug_add_fromto_date_recurring_before.PNG" width="600">
-   <img src="images/ug_add_fromto_date_recurring_after.PNG" width="600"> <br>
-<!-- @@author -->
-
+	<img src="images/ug_add_fromto_date_recurring_before.png" width="600">
+	<img src="images/ug_add_fromto_date_recurring_after.png" width="600">
+<!--@@author-->
 #### Lists all active tasks : `list`
 Format: list
 
 Examples: 
 * `list`
-
-<!--@@author A0147995H-->
 
 #### Edit tasks : `edit`
 Format: `edit TASK_ID [NEW_TASK_NAME] [from DATE_TIME to DATE_TIME | by DATE_TIME [daily | weekly | monthly | yearly] ] [tag/EDIT_TAG]...`
@@ -121,8 +145,6 @@ Format: delete TASK_ID
 
 Examples:
 * `delete 2`
-
-<!--@@author A0147967J-->
 
 #### Archive completed tasks : `done`
 Format: done TASK_ID
@@ -175,8 +197,6 @@ Examples:
    <img src="images/beforeview.png" width="600">
    <img src="images/afterview1.png" width="600">
    <img src="images/afterview2.png" width="600">
-   
-<!--@@author A0147995H-->
 
 #### Find tasks : `find`
 Format: `find [KEY_WORD] [from DATE_TIME to DATE_TIME | by DATE_TIME] [t/TAG]...`
@@ -213,8 +233,6 @@ Format: clear
 Examples: 
 * `clear`
 
-<!--@@author A0147967J-->
-
 #### Change directory: `cd`
 Format: cd FILE_PATH
 
@@ -224,8 +242,6 @@ Examples:
    <img src="images/beforecd.png" width="600">
    <img src="images/aftercd1.png" width="600">
    <img src="images/aftercd2.png" width="600">
-   
-<!--@@author-->
 
 #### Exiting the program : `exit`
 Exits the program.<br>
@@ -239,7 +255,7 @@ Format: `exit`
 
 **Q**: How do i get started using the task manager?<br>
 **A**: Type 'help' or any incorrect command will bring you to the help screen.
-       
+<!-- @@author A0135784W-->       
 ## Command Summary
 
 Command | Format  
@@ -258,3 +274,6 @@ View | `view DATE [TIME]`
 Clear | `clear`
 Change directory | `cd FILE_PATH`
 Exit | `exit`
+
+-----
+<!--@@author-->
