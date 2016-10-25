@@ -87,6 +87,7 @@ public class PersonListPanelHandle extends GuiHandle {
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getListView().getItems().size() - 1) + " persons");
         }
+        if(startPosition!= 0 && persons.length!=0){
         assertTrue(this.containsInOrder(startPosition, persons));
         for (int i = 0; i < persons.length; i++) {
             final int scrollTo = i + startPosition;
@@ -95,7 +96,7 @@ public class PersonListPanelHandle extends GuiHandle {
             if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
                 return false;
             }
-        }
+        }}
         return true;
     }
 
