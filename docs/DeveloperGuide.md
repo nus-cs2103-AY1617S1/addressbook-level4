@@ -43,11 +43,12 @@
     * [iCalendar](#icalendar)
 
 ## Introduction
-
+<!-- @@author A0148096W -->
 TaSc is a task manager for users to manage their schedules using only keyboard commands. Users can add and manipulate tasks and events. Users can schedule their tasks with deadlines and periods, and use tags to categorize them. TaSc is a desktop application written in Java, and its GUI is built using JavaFx.
 
 This guide contains all necessary information for both new and experienced contributors to continue the development of TaSc. Each section provides an overview on a topic, which will then be explained in greater detail in the subsections. Each subsection is mostly self contained for ease of reference. Throughout your development of TaSc you may freely revisit the topics as and when you need to.
 <br><br>
+<!-- @@author -->
 
 ## Setting up
 
@@ -97,6 +98,7 @@ d. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 ## Design
 
+<!-- @@author A0127014W -->
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
@@ -158,6 +160,7 @@ The next sections give more details of each component.
 
 <br>
 
+<!-- @@author A0148096W -->
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
@@ -204,6 +207,7 @@ The `HelpWindow` is a window separate from the `MainWindow`. It shows our produc
 
 <br>
 
+<!-- @@author A0127014W -->
 ### Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
@@ -253,6 +257,7 @@ The `Command` class takes input arguments from the `Parser`class, and produces a
 
 <br>
 
+<!-- @@author A0140011L -->
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
@@ -367,6 +372,7 @@ The `UniqueTaskList` class provides a task list with no duplicate tasks.
 
 <br>
 
+<!-- @@author A0147971U -->
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
@@ -419,6 +425,7 @@ JAXB-friendly adapted version of the `Tag` and `Task` and Task Lists.
 
 <br>
 
+<!-- @@author A0127014W -->
 ### Common classes
 
 The `teamfour.tasc.commons` package contains classes used by multiple components.
@@ -445,6 +452,7 @@ The `LogsCenter` class configures and manages loggers and handlers. It contains 
 
 
 <br>
+<!-- @@author -->
 
 ## Implementation
 
@@ -589,6 +597,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `TaSc` and the **Actor** is the `user`, unless specified otherwise)
 
+<!-- @@author A0140011L -->
 #### Use case: Create new event
 
 **MSS:**
@@ -630,6 +639,7 @@ Use case ends
 
 <br>
 
+<!-- @@author A0147971U -->
 #### Use case: Update information of a task
 
 **MSS:**
@@ -682,6 +692,7 @@ Use case ends
 
 <br>
 
+<!-- @@author A0148096W -->
 #### Use case: Show all tasks with given conditions
 
 **MSS:**
@@ -731,6 +742,7 @@ Use case ends
 
 <br>
 
+<!-- @@author A0127014W -->
 #### Use case: Change data storage file location
 
 **MSS:**
@@ -753,6 +765,7 @@ Use case ends
 
 <br>
 
+<!-- @@author -->
 ## Appendix C: Non Functional Requirements
 
 1. The application should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -800,6 +813,7 @@ Use case ends
 
 This section indicates the strengths and weaknesses of our competitors’ products with regards to their capability in catering to Jim’s requirements.
 
+<!-- @@author A0148096W -->
 #### Google Calendar
 
 Strengths:
@@ -837,6 +851,7 @@ Our Program:
 We will allow tasks with no deadlines and time slots (periods).
 <br><br>
 
+<!-- @@author A0127014W -->
 #### Todoist
 
 Strengths:
@@ -868,6 +883,7 @@ We will include completion status for all tasks. All commands will be able to be
 them through the command box.
 <br><br>
 
+<!-- @@author A0140011L -->
 #### Microsoft Outlook
 
 Strengths:
@@ -907,6 +923,7 @@ We will not only provide a good calendar UI for tasks, we will also strive to mi
 user to access the commands by typing through the command box.
 <br><br>
 
+<!-- @@author A0147971U -->
 #### iCalendar
 
 Strengths:

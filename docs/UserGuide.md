@@ -33,6 +33,7 @@
 - [Commands Cheat Sheet](#commands-cheat-sheet)
 <br><br>
 
+<!-- @@author A0127014W -->
 ## Introduction
 
 Organize your tasks with just a *single* line of command.
@@ -46,6 +47,7 @@ This is the motivation behind TaSc, our Task Scheduler with keyboard usability a
 
 Just type in your command, and hit <kbd>Enter</kbd>. Let us handle the rest - you have more important things to do.
 <br><br>
+<!-- @@author -->
 
 ## Quick Start
 
@@ -87,6 +89,7 @@ You can try some of these example commands:
 
 <br>
 
+<!-- @@author A0127014W -->
 ## Features
 
 ### Adding a new task/event: `add`
@@ -144,6 +147,7 @@ In general, you may use this format to add tasks with various parameters.<br>
 
 <br>
 
+<!-- @@author A0148096W -->
 ### Listing all tasks/events with specified conditions: `list`
 
 You may have a lot of tasks in your task list after using TaSc for a
@@ -250,6 +254,7 @@ In general, you may use this format to hide various tasks from the tasks listed.
 
 <br>
 
+<!-- @@author A0127014W -->
 ### Finding tasks/events which match keywords: `find`
 
 You don't have to remember every details of the tasks you added, just use the `find`
@@ -273,6 +278,7 @@ In general, you may use this format to find tasks using keywords.<br>
 `find KEYWORD...`
 <br>
 
+<!-- @@author A0140011L -->
 ### Changing the details of a task/event: `update`
 
 You have a list of tasks, and you realised that there is a typo in the name of the first task. You can correct the typo by typing:
@@ -322,6 +328,7 @@ In general, you may use this format to mark your tasks as complete.
 `complete INDEX`
 <br>
 
+<!-- @@author A0148096W -->
 ###  Undoing the last action: `undo`
 
 Mistakes in TaSc have very little consequence. You can easily undo any previous action which
@@ -349,6 +356,7 @@ If you simply type:
 , the last step will be undone.
 <br>
 
+<!-- @@author A0147971U -->
 ###  Redoing the last action: `redo`
 
 Whenver you want to redo the tasks you undid, you can simply reverse them by redoing.
@@ -373,7 +381,7 @@ If you simply type:
 , the last step undone will be redone.
 <br>
 
-
+<!-- @@author A0127014W -->
 ### Deleting a task/event: `delete`
 
 Sometimes, instead of marking it as `complete`, you may want to clean up
@@ -403,6 +411,7 @@ Same as `delete`, but deletes the entire list.
 
 <br>
 
+<!-- @@author A0147971U -->
 ### Switching to a different task list: `switchlist`
 
 You should keep different schedules on separate lists (for example,
@@ -453,6 +462,7 @@ In general, you may use this format to relocate your data to different location.
 `relocate PATH`
 <br>
 
+<!-- @@author A0127014W -->
 ### Changing the view of the task list panel: `collapse` and `expand`
 
 You might find that each task takes up too much in the task list panel, requiring you to scroll a lot to see all the tasks you have.
@@ -470,7 +480,7 @@ If you want to see all the details of your tasks agains, type:
 
 `expand`
 
-
+<!-- @@author -->
 ### Viewing help: `help`
 
 There are so many commands in TaSc, but you don't have to memorise them.
@@ -482,6 +492,7 @@ Just open this document anytime again by typing the `help` command:
 
 ## Other Features
 
+<!-- @@author A0147971U -->
 ### Autocomplete and suggestions
 Shows suggested command keywords, dates, sorting order, and tags as you type.
 
@@ -492,6 +503,7 @@ and the <kbd>tab</kbd> key to autocomplete with the highlighted keyword.
 
 <br>
 
+<!-- @@author -->
 ### Saving the Data
 TaSc saves automatically after every command that changes the data.
 Don't worry about your data getting lost.
