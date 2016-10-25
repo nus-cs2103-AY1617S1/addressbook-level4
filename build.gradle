@@ -77,7 +77,7 @@ allprojects {
         archiveName = "taskmanager.jar"
 
         manifest {
-            attributes "Main-Class": "seedu.address.MainApp"
+            attributes "Main-Class": "seedu.task.MainApp"
         }
 
         destinationDir = file("${buildDir}/jar/")
