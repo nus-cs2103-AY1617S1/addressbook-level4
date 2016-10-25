@@ -74,7 +74,7 @@ If `view today` is entered, today's tasks, events and deadlines up to today will
 
 Example:
 
-* `view 17 Nov`
+* `view 5 Nov`
   <img src="images/UIviewDate.png" width="600">
  
 <br>
@@ -84,6 +84,7 @@ Lists all todo tasks, deadlines and events ever added.
 Format: `view all`
 
 All todo tasks, deadlines and events ever added will be displayed, including events that have passed and done tasks.
+> Note that events that are over will be marked in orange, and events done will be marked in grey.
 
 Example:
 
@@ -132,12 +133,12 @@ Examples:
   Adds a `todo` task with NAME as `study for test`.
   <img src="images/UItodo.png" width="600">
 
-* `add assignment 4 17 Nov 2pm`<br>
-  Adds a `deadline` task with NAME as `assignment 4`, DATE as `17 Nov 2016`, END_TIME as `2pm`.
+* `add math assignment 17 Nov 2pm`<br>
+  Adds a `deadline` task with NAME as `math assignment`, DATE as `17 Nov`, END_TIME as `2pm`.
   <img src="images/UIdeadline.png" width="600">
 
 * `add walk dog 5 Nov 2016 17:00 to 18:00`<br>
-  Adds an `event` task with NAME as `walk dog`, DATE as `5 Oct 2016`, START\_TIME as `17:00`, END\_TIME as `18:00`.
+  Adds an `event` task with NAME as `walk dog`, DATE as `5 Nov 2016`, START\_TIME as `17:00`, END\_TIME as `18:00`.
   <img src="images/UIevent.png" width="600">
 
 
@@ -149,7 +150,7 @@ Format: `find KEYWORDS`
 Tasks that partly or completely match the keywords entered will be displayed.<br><br>
 
 Example: 
-* `find assignment`<br>
+* `find assign`<br>
   <img src="images/UIfind.png" width="600">
 
 
@@ -166,8 +167,8 @@ Edits a todo, deadline or event already inside the task manager using the index 
 Example:
 
 * `view`<br>
-  `edit d1 assignment 2 15 Nov 2016`<br>
-  Edits the 1st task under the deadline tasks section. Change the NAME to `assignment 2` and DATE to `15 Nov 2016`.<br>
+  `edit d2 math assignment2 15 Nov 2016`<br>
+  Edits the 2nd task under the deadline tasks section. Change the NAME to `math assignment2` and DATE to `15 Nov 2016`.<br>
   <img src="images/UIedit.png" width="600">
 
 <br>
@@ -200,17 +201,15 @@ Examples:
 <br>
 #### Mark task as done: `done`
 Marks a task in the task list as done.<br>
-* Todo done format: `done INDEX`
-* Deadline done format: `done INDEX`
-* Event done format: `done INDEX`
+* Format: `done INDEX`
 
 Tasks that are marked as done are moved to the bottom of the list in their respective sections.<br><br>
 
 Example:
 
 * `view all`<br>
-  `done t1`<br>
-  Marks the 1st task today under the todo section shown by the `view all` command as completed.<br>
+  `done d1`<br>
+  Marks the 1st task today under the deadlines section shown by the `view all` command as completed.<br>
   
   Before:<br>
   <img src="images/UIdoneBefore.png" width="600"><br>
