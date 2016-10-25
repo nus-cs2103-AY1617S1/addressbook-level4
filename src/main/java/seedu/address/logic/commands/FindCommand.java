@@ -20,7 +20,7 @@ public class FindCommand extends Command {
     public FindCommand(Set<String> keywords) {
         this.keywords = keywords;
     }
-
+    //@@author A0139430L JingRui
     @Override
     public CommandResult execute() {
         model.updateFilteredEventList(keywords);

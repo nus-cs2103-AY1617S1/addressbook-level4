@@ -152,6 +152,7 @@ public class UniqueTaskList implements Iterable<Task> {
             toEdit.setEnd(new End(args));
             internalList.set(editIndex, toEdit);
             return true;
+//@@author A0139430L JingRui
         } else if (keyword.equals(EditCommand.TAG_WORD)) {
             //internalList.get(editIndex).setTags(new UniqueTagList(new Tag(args)));
             //Task toEdit = new Task(internalList.get(editIndex));
@@ -166,7 +167,7 @@ public class UniqueTaskList implements Iterable<Task> {
 
             internalList.set(editIndex, toEdit);
             return true;
-            
+//@@author A0139430L JingRui
         } else if (keyword.equals(EditCommand.ADD_WORD)) {            
             String[] newTag = args.replaceAll(" ", "").replaceFirst("#", "").split("#");          
             final Set<Tag> tagSet = new HashSet<>();

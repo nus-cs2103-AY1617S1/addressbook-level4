@@ -123,7 +123,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
     }
-
+    //@@author A0139430L JingRui
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         addressBook.removeTask(target);
@@ -262,7 +262,7 @@ public class ModelManager extends ComponentManager implements Model {
         NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
         }
-
+        //@@author A0139430L JingRui
         @Override
         public boolean run(ReadOnlyTask Task) {
             return nameKeyWords.stream()

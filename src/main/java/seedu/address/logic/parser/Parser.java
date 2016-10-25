@@ -137,6 +137,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+  //@@author A0139430L JingRui
     private Command prepareAddTags(String args) {
         final Matcher matcher = ADD_TAGS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -287,6 +288,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    //@@author A0139430L JingRui
     private Command prepareDelete(String args){
         final Matcher matcher = DELETE_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -342,7 +344,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    
+    //@@author A0139430L JingRui
     private Command prepareEdit(String args) {
     	final Matcher matcher = EDIT_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -483,6 +485,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    //@@author A0139430L JingRui
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {

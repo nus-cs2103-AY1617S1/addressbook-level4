@@ -13,7 +13,7 @@ import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 /** 
  * Edits a task identified using its last displayed index in the task manager.
  * @author Ronald
- *
+ * @author A0139430L JingRui
  */
 
 
@@ -62,8 +62,6 @@ public class EditCommand extends Command{
             }
 
             ReadOnlyTask eventToEdit = lastShownEventList.get(targetIndex - 1);
-            System.out.println(eventToEdit +"his adasd " + category + " " + editArgs );
-
             try {
                 model.addToUndoStack();
                 model.editTask(eventToEdit, editArgs, category);

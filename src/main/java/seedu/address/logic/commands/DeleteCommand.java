@@ -1,3 +1,4 @@
+
 package seedu.address.logic.commands;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class DeleteCommand extends Command {
     public final ArrayList<Integer> targetIndexesT = new ArrayList<Integer>();
     public final ArrayList<String> pass; 
 
-
+    //@@author A0139430L JingRui
     public DeleteCommand(ArrayList<String> targetIndexes) throws IllegalValueException {
         pass = targetIndexes;
         for(int i= 0; i < targetIndexes.size(); i++){
@@ -59,7 +60,7 @@ public class DeleteCommand extends Command {
         }
     }
 
-
+    //@@author A0139430L JingRui
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownEventList = model.getFilteredEventList();
