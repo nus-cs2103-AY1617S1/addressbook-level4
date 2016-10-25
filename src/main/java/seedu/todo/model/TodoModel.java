@@ -13,7 +13,6 @@ import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagCollection;
 import seedu.todo.model.tag.UniqueTagCollectionModel;
-import seedu.todo.model.tag.UniqueTagCollectionUtil;
 import seedu.todo.model.property.SearchStatus;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;

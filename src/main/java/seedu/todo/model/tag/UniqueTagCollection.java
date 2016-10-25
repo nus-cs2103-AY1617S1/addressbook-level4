@@ -35,7 +35,6 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
      */
     private final Map<Tag, Set<ImmutableTask>> uniqueTagsToTasksMap = new HashMap<>();
 
-
     /**
      * Constructs empty TagList.
      */
