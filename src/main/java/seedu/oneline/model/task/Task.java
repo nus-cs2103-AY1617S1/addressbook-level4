@@ -127,4 +127,15 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         return startTime.isValid() && endTime.isValid();
     }
 
+    /**
+     * Returns true if task has a deadline
+     * 
+     * Note that events and tasks with deadline will have a deadline.
+     * Event tasks automatically has its endTime set as the deadline.
+     * 
+     * @return true if task has a deadline
+     */
+    public boolean hasDeadline() {
+        return deadline.isValid();
+    }
 }
