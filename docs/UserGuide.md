@@ -44,6 +44,7 @@ This user guide covers the features of the application and has a short summary o
 
 Parameters | Input Limit
 --- | :---
+PROPERTY | `description`, `priority`,` start` (refers to start time),`end` (refers to end time)
 DESCRIPTION | Alphanumeric
 PRIORITY | `normal`, `high`, `low`
 TIME | Day of the Week or 24:00 format
@@ -63,7 +64,7 @@ Adds a task to the task manager.<br>
 Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [end/ENDTIME] [t/TAG]...`
 
 > * Tasks can have different priorities, normal by default, high or low
-> * Deadlines are set for tasks if a endtime entered without a start time
+> * Deadlines are set for tasks if an endtime entered without a starttime
 > * Tasks can have any number of tags (including 0)
 
 Examples:

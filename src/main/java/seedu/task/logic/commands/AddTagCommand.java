@@ -7,6 +7,7 @@ import seedu.task.logic.LogicManager;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.tag.UniqueTagList.DuplicateTagException;
+import seedu.task.model.tag.UniqueTagList.NotExistTagException;
 import seedu.task.model.task.*;
 
 /**

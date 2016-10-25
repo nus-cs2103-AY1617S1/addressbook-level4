@@ -275,21 +275,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :------------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a task |
+`* * *` | user | add a task | create a new task to do in the task manager
 `* * *` | user | edit a task | update the details of a task
 `* * *` | user | delete a task | delete a task with wrong details
-`* * *` | user | add tags to a specific task |
-`* * *` | user | remove tags from a specific task |
-`* * *` | user | list tasks chronologically | see what tasks I have yet to complete
-`* * *` | user | list all tags used |
+`* * *` | user | add a tag to a task | specify a task with a tag
+`* * *` | user | remove a tag of a task | generalize a task
+`* * *` | user | list tasks chronologically | see what tasks I need to do next
+`* * *` | user | list all tags used | see all categories of tasks
 `* * *` | user | search a task by name | find the details of a task quickly
-`* * *` | user | clear all tasks |
+`* * *` | user | clear all tasks | delete all tasks in the task manager
 `* *` | user | list tasks by priority | decide on the order of what to do next
 `* *` | user | list tasks by tags | classify the tasks
 `* *` | user | archive tasks | look up on completed tasks for future reference
 `* *` | user | search a tag | look up a set of tasks with the same category
 `*` | user | have notifications on tasks | get alerted on due tasks
-`*` | user | see tasks on a calendar GUI |
+`*` | user | see tasks on a calendar GUI | see the tasks chronologically and concretely
 
 
 ## Appendix B : Use Cases
@@ -391,7 +391,7 @@ Use case ends.
 
 2a. There is no edit to undo.
 > 2a1. TaskManager shows an error message <br>
-Use case  ends
+Use case ends
 
 #### Use case: Complete task
 
@@ -414,7 +414,7 @@ Use case  ends
 2. Should be able to hold up to 1000 tasks.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
-5. Commands should run almost instantly
+5. Should implement commands within 0.5 seconds.
 
 
 ## Appendix D : Glossary
@@ -430,30 +430,29 @@ Use case  ends
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
-
-1. Google Keep
-   * Strength: 
->    1. Users can add notes, lists, photos and audio as a task
->    2. The search function is convenient.
-   * Weakness
->    The UI is not poor.
-2. Trello
+**Google Keep**
    * Strength
->    1. The tags are in different colors which is convenient for users to read.
->    2. A user can collaborate with other users using dedicated boards
+    1. Users can add notes, lists, photos and audio as a task
+    2. The search function is convenient.
    * Weakness
->    It contains multiple boards to show several tasks on UI. This feature makes the UI a little messy.
-
-3. Wunderlist
+    1. The UI is not poor.
+    
+**Trello**
    * Strength
->    1. The UI is simple and concise.
->    2. It can be used across all major devices.
->    3. It is able to dedicate certain tasks to users
+    1. The tags are in different colors which is convenient for users to read.
+    2. A user can collaborate with other users using dedicated boards
+   * Weakness
+    1. It contains multiple boards to show several tasks on UI. This feature makes the UI a little messy.
+
+**Wunderlist**
+   * Strength
+    1. The UI is simple and concise.
+    2. It can be used across all major devices.
+    3. It is able to dedicate certain tasks to users
    
-4. Todoist
+**Todoist**
    * Strength
->    1. It can be used with apps and extensions for 10+ platforms, and both online and offline.
->    2. It has a multi-level function wich can help users to break big tasks/project into small ones.
+    1. It can be used with apps and extensions for 10+ platforms, and both online and offline.
+    2. It has a multi-level function wich can help users to break big tasks/project into small ones.
    * Weakness
->    The tasks cannot be displayed on a calendar.
+    1. The tasks cannot be displayed on a calendar.
