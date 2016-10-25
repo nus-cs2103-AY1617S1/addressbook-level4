@@ -13,36 +13,36 @@ import teamfour.tasc.model.task.Recurrence;
 import org.junit.Test;
 
 public class CommandHelperTest {
-    
+
     /*
-     * Equivalence partitions for date strings: 
+     * Equivalence partitions for date strings:
      *  - null
      *  - empty string
      *  - invalid date string
      *  - valid date string
      */
-    
+
     @Test
     public void convertStringToDateIfPossible_stringIsNull_returnsNull() {
         String string = null;
         Date date = CommandHelper.convertStringToDateIfPossible(string);
         assertTrue(date == null);
     }
-    
+
     @Test
     public void convertStringToDateIfPossible_stringIsEmpty_returnsNull() {
         String string = "";
         Date date = CommandHelper.convertStringToDateIfPossible(string);
         assertTrue(date == null);
     }
-    
+
     @Test
     public void convertStringToDateIfPossible_stringIsInvalidDate_returnsNull() {
         String string = "invalidstringdate";
         Date date = CommandHelper.convertStringToDateIfPossible(string);
         assertTrue(date == null);
     }
-    
+
     @Test
     public void convertStringToDateIfPossible_stringIsValidDate_returnsDate() {
         String string = "13 sep 2013";
@@ -51,7 +51,7 @@ public class CommandHelperTest {
         assertTrue(date.getMonth() == 8);
         assertTrue(date.getYear() == 2013 - 1900);
     }
-
+    //@@author A0127014W
     @Test
     public void convertStringToMultipleDates_shortName_correct_date_month_year() {
         String date = "13 sep 2013";
@@ -189,14 +189,15 @@ public class CommandHelperTest {
         } catch (IllegalValueException e) {
         }
     }
-    
+    //@@author
+
     @Test
     public void convertDateToPrettyTimeParserFriendlyString_validInput() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2016, 0, 1, 0, 0, 0);
         Date input = calendar.getTime();
         String expectedOutput = "Jan 01 2016 00:00:00";
-        
+
         assertEquals(expectedOutput,
                 CommandHelper.convertDateToPrettyTimeParserFriendlyString(input));
     }
