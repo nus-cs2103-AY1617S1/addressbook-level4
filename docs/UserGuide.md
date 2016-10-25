@@ -61,7 +61,6 @@ Format: `[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_IN
 
 >We do not require an explicit command for `add`. We make it the default thing to do, when you type in anything! Hence typing in `add` itself is optional. However, if you want to add a task that begins with other command words, please include the `add` to override the other command words. For e.g, `add help my mom to buy cooking ingredients`
 
-
 **_Adding a task_**
 
 Format: `NAME `
@@ -173,7 +172,8 @@ Examples:
 * `Go run at track at 7am repeat every day`
 * `Go visit mom repeat every sun`
 
-
+> There may be occasions where DearJim will convert the task wrongly. For example, the following input "lower word count from 1000 to 500" will create a task with name "lower word count" and starting time of "10am" and ending time of "5am". In events like this, you have to enclose the task name with double quotation marks. For example: <br>
+"lower word count from 1000 to 500" from today 9pm to tmr 11pm -high
 
 ### Editing a task: `edit`
 Just in case you need to change any details, or add in missing ones into your task, simply edit them in DearJim.  <br>
