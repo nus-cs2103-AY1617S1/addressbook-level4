@@ -451,9 +451,6 @@ public class Parser {
      */
     private Command prepareChange(String args) {
         String[] argComponents= args.trim().split(" ");
-        for (int i = 0; i < argComponents.length; i++) {
-            System.out.println(i + " " + argComponents[i]);
-        }
         if(argComponents[CHANGE_LOCATION].equals("location") && argComponents[CHANGE_LOCATION_TO].equals("to")){
             return new ChangeCommand(argComponents[CHANGE_LOCATION_TO_PATH]);
         }

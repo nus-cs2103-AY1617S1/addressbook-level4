@@ -2,8 +2,10 @@ package seedu.whatnow.model;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.whatnow.commons.core.ComponentManager;
+import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
+import seedu.whatnow.commons.events.model.ConfigChangedEvent;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.util.StringUtil;
@@ -12,16 +14,15 @@ import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.whatnow.model.task.UniqueTaskList.NoPrevCommandException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 /**
  * Represents the in-memory model of the WhatNow data.
@@ -53,7 +54,6 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<ReadOnlyWhatNow> stackOfWhatNowUndoUpdate;
     private final Stack<ReadOnlyWhatNow> stackOfWhatNowRedoUpdate;
 
-    // private final Stack<ReadyOnlyTask> stackOf
     /**
      * Initializes a ModelManager with the given WhatNow
      * WhatNow and its variables should not be null
@@ -66,6 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with WhatNow: " + src + " and user prefs " + userPrefs);
 
         whatNow = new WhatNow(src);
+        new Config();
         filteredTasks = new FilteredList<>(whatNow.getTasks());
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
         stackOfUndo = new Stack<>();
@@ -91,6 +92,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyWhatNow initialData, UserPrefs userPrefs) {
         whatNow = new WhatNow(initialData);
+        new Config();
         filteredTasks = new FilteredList<>(whatNow.getTasks());
         filteredSchedules = new FilteredList<>(whatNow.getTasks());
         stackOfUndo =  new Stack<>();
@@ -112,28 +114,28 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyWhatNow newData) {
-        stackOfWhatNow.push(new WhatNow(whatNow));
-        whatNow.resetData(newData);
+    	stackOfWhatNow.push(new WhatNow(whatNow));
+    	whatNow.resetData(newData);
         indicateWhatNowChanged();
     }
+    
+    @Override
+	public synchronized void revertData() {
+		whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());
+		indicateWhatNowChanged();
+	}
 
     @Override
-    public synchronized void revertData() {
-        whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());
-        indicateWhatNowChanged();
-    }
-    @Override
     public synchronized void revertDataUpdate() {
-        //	stackOfWhatNowRedoUpdate.push(stackOfWhatNowUndoUpdate.peek());
-        System.out.println("stackOfWhatNowUndoUpdate.peek() is : " + stackOfWhatNowUndoUpdate.peek());
-        whatNow.revertEmptyWhatNow(stackOfWhatNowUndoUpdate.pop());
-        indicateWhatNowChanged();
+    	stackOfWhatNowRedoUpdate.push(stackOfWhatNowUndoUpdate.peek());
+    	whatNow.revertEmptyWhatNow(stackOfWhatNowUndoUpdate.pop());
+    	indicateWhatNowChanged();
     }
     @Override
     public synchronized void revertToPrevDataUpdate() {
-        stackOfWhatNowUndoUpdate.push(stackOfWhatNowRedoUpdate.peek());
-        whatNow.revertEmptyWhatNow(stackOfWhatNowRedoUpdate.pop());	
-        indicateWhatNowChanged();
+    	stackOfWhatNowUndoUpdate.push(stackOfWhatNowRedoUpdate.peek());
+    	whatNow.revertEmptyWhatNow(stackOfWhatNowRedoUpdate.pop());	
+    	indicateWhatNowChanged();
     }
     @Override
     public ReadOnlyWhatNow getWhatNow() {
@@ -145,40 +147,41 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new WhatNowChangedEvent(whatNow));
     }
 
+    /** Raises an event to indicate the config has changed */
+    private void indicateConfigChanged(Path destination, Config config) {
+        raise(new ConfigChangedEvent(destination, config));
+    }
+    
     @Override
-    public synchronized void changeTask(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException {
-        whatNow.changeTask(target);
+    public synchronized void changeLocation(Path destination, Config config) throws DataConversionException, IOException, TaskNotFoundException {
+        indicateConfigChanged(destination, config);
         indicateWhatNowChanged();
     }
-
+    
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         stackOfDeletedTasks.push(target);
-        whatNow.removeTask(target);
+    	whatNow.removeTask(target);
         indicateWhatNowChanged();
     }
-
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         whatNow.addTask(task);
         updateFilteredListToShowAll();
         indicateWhatNowChanged();
     }
-
     @Override
     public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
         stackOfWhatNowUndoUpdate.push(new WhatNow(whatNow));
-        stackOfOldTask.push(old);
-        whatNow.updateTask(old, toUpdate);
-        System.out.println("i am at updateTask and pushing in this whatNow of this tasklist: " + whatNow.getTaskList() );
-        stackOfWhatNowRedoUpdate.push(new WhatNow(whatNow));
+    	stackOfOldTask.push(old);
+    	whatNow.updateTask(old, toUpdate);
         indicateWhatNowChanged();
     }
     @Override
     public synchronized void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException, DuplicateTaskException {
         stackOfNewTask.push(old);
-        whatNow.updateTask(old, (Task) toUpdate);
-        indicateWhatNowChanged();
+    	whatNow.updateTask(old, (Task) toUpdate);
+    	indicateWhatNowChanged();
     }
     @Override
     public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
@@ -481,10 +484,15 @@ public class ModelManager extends ComponentManager implements Model {
                     .findAny()
                     .isPresent();
         }
-
+        
         @Override
         public String toString() {
             return "TaskType=" + String.join(", ", taskType);
         }
+    }
+
+    @Override
+    public void changeLocation(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException {
+        
     }
 }
