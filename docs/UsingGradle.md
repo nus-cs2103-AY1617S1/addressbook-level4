@@ -56,7 +56,7 @@ If we package only our own class files into the JAR file, it will not work prope
   Runs all tests in the `guitests` package
   
 * **`nonGuiTests`**<br>
-  Runs all non-GUI tests in the `seedu.address` package
+  Runs all non-GUI tests in the `seedu.forgetmenot` package
   
 * **`headless`**<br>
   Sets the test mode as _headless_. 
