@@ -11,7 +11,7 @@ import seedu.menion.commons.core.Messages;
 import seedu.menion.logic.commands.CompleteCommand;
 import seedu.menion.model.activity.Activity;
 
-// @author A0139164A
+//@@author A0139164A
 public class CompleteCommandTest extends ActivityManagerGuiTest {
     
     @Test
