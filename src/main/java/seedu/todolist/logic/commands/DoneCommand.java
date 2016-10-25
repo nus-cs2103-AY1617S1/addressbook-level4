@@ -2,7 +2,10 @@ package seedu.todolist.logic.commands;
 
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.commons.core.UnmodifiableObservableList;
+import seedu.todolist.model.AddressBook;
 import seedu.todolist.model.task.ReadOnlyTask;
+import seedu.todolist.model.task.Status;
+import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todolist.ui.MainWindow;
 
@@ -46,17 +49,23 @@ public class DoneCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
+        AddressBook previousAddressBook = new AddressBook(model.getAddressBook());
+        
         for (int i = 0; i < targetIndexes.length; i++) {
             ReadOnlyTask taskToMark = lastShownList.get(targetIndexes[i] - (i + MULTIPLE_MARK_OFFSET));
     
             try {
                 model.markTask(taskToMark);
+                Task taskBeforeMark = new Task(taskToMark.getName(), taskToMark.getInterval(), 
+                		taskToMark.getLocation(), taskToMark.getRemarks(), new Status(false));
+                previousAddressBook.editTask(taskToMark, taskBeforeMark);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
             }
             
         }
 
+        model.addAddressBookHistory(previousAddressBook);
         return new CommandResult(MESSAGE_MARK_TASK_SUCCESS);
     }
     
