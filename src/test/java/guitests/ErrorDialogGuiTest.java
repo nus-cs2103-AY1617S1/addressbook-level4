@@ -1,14 +1,15 @@
 package guitests;
 
 import guitests.guihandles.AlertDialogHandle;
+import seedu.task.commons.events.storage.DataSavingExceptionEvent;
+
 import org.junit.Test;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 
 import java.io.IOException;
 
 import static junit.framework.TestCase.assertTrue;
 
-public class ErrorDialogGuiTest extends AddressBookGuiTest{
+public class ErrorDialogGuiTest extends TaskManagerGuiTest{
 
     @Test
     public void showErrorDialogs() throws InterruptedException {
