@@ -6,6 +6,11 @@ import seedu.address.logic.commands.taskcommands.HelpTaskCommand;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
+
+/**
+ * Parses Help commands
+ */
+//@@author A0139708W
 public class HelpCommandParser extends CommandParser {
     public static final String COMMAND_WORD = HelpTaskCommand.COMMAND_WORD;
     

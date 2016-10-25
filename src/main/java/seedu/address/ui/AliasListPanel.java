@@ -21,6 +21,7 @@ import seedu.address.commons.events.model.AliasChangedEvent;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.model.Alias;
 
+//@@author A0139708W
 public class AliasListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(AliasListPanel.class);
     private static final String FXML = "AliasListPanel.fxml";

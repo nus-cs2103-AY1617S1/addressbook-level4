@@ -10,6 +10,7 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
 /*
  * Parses the list command
  */
+//@@author A0139708W
 public class ListCommandParser extends CommandParser{
     public static final String COMMAND_WORD = ListTaskCommand.COMMAND_WORD;
 

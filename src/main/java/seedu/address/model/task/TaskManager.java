@@ -259,7 +259,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		indicateNewTaskListEvent();
 		indicateAliasChanged();
 	}
-	
+	//@@author A0139708W
     @Override
     public ObservableList<String> getHelpList() {
         ObservableList<String> helpItems = FXCollections.observableArrayList ();
@@ -327,7 +327,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 		filteredTasks.setPredicate(p -> p.isComplete());
 	}
 
-	//@@author
+	//@@author A0139708W
 	@Override
 	public UnmodifiableObservableList<Task> getCurrentFilteredTasks() {
 		return new UnmodifiableObservableList<>(filteredTasks);
@@ -339,6 +339,7 @@ public class TaskManager extends ComponentManager implements InMemoryTaskList {
 	}
     
    
+  //@@author A0139708W
 	interface Expression {
         boolean satisfies(Task task);
         String toString();

@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.testutil.SerializableTestClass;
 import seedu.address.testutil.TestUtil;
 
+//@@author A0139708W
 public class FileUtilTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
     private static final File TEST_FILE = new File(TestUtil.getFilePathInSandboxFolder("test.json"));

@@ -157,7 +157,7 @@ public class MainWindow extends UiPart {
         primaryStage.setMinHeight(MIN_HEIGHT);
         primaryStage.setMinWidth(MIN_WIDTH);
     }
-    
+  //@@author A0139708W
     void hideHelp() {
         helpListPanelPlaceholder.getParent().toBack();
         helpListPanelPlaceholder.getParent().setOpacity(0);

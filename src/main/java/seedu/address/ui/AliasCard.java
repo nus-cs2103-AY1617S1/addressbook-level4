@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.Alias;
 
+//@@author A0139708W
 public class AliasCard extends UiPart{
         private static final String FXML = "AliasListCard.fxml";
 
