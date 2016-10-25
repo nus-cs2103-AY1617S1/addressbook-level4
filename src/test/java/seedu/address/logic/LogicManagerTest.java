@@ -180,29 +180,22 @@ public class LogicManagerTest {
         //TODO
     }
 
-    @Test
-    public void execute_add_successful() throws Exception {
-    	//TODO
-        
-   	// setup expectations
-       TestDataHelper helper = new TestDataHelper();
-       Task toBeAdded = helper.homework();
-        TaskManager expectedAB = new TaskManager();
-        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS,
-        		toBeAdded.getTitle() + " Description: " + toBeAdded.getDescription()
-				+ " Start Date: " + toBeAdded.getStartDate() + " Due Date: "
-				+ toBeAdded.getDueDate() + " Status: " + toBeAdded.getStatus());
-       expectedAB.addTask(toBeAdded);
-       
+	@Test
+	public void execute_add_successful() throws Exception {
+		// setup expectations
+		TestDataHelper helper = new TestDataHelper();
+		Task toBeAdded = helper.homework();
+		TaskManager expectedAB = new TaskManager();
+		String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS,
+				toBeAdded.getTitle() + " Description: " + toBeAdded.getDescription() + " Start Date: "
+						+ toBeAdded.getStartDate() + " Due Date: " + toBeAdded.getDueDate() + " Status: "
+						+ toBeAdded.getStatus());
+		expectedAB.addTask(toBeAdded);
 
-        // execute command and verify result
-       assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-    		   expectedMessage,
-               expectedAB,
-                expectedAB.getTaskList());
-                
-
-    }
+		// execute command and verify result
+		assertCommandBehavior(helper.generateAddCommand(toBeAdded), expectedMessage, expectedAB,
+				expectedAB.getTaskList());
+	}
 
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
