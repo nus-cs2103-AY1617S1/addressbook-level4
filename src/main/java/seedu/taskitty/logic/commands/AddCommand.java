@@ -62,7 +62,7 @@ public class AddCommand extends Command {
             );
         } else {
             throw new IllegalValueException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                    MESSAGE_FORMAT + MESSAGE_USAGE));
+                    MESSAGE_FORMAT + MESSAGE_PARAMETER));
         }
     }
 
