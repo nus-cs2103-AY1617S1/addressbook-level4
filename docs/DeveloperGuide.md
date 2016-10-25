@@ -135,7 +135,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <br><br>
 
 The _Sequence Diagram_ below shows how the components interact when the user issues the
-command `delete 3`.
+command `delete 1`.
 
 <img src="images\SDforDeleteTask.png" width="800"><br>
 *Figure 3: Sequence Diagram of user interaction*
@@ -292,7 +292,7 @@ directly use this class outside the model component.
 **`HistoryStack` and `HistoryItem<T>` Classes:**
 
 The `HistoryStack` class stores the most recent states of the implemented `HistoryItem<T>` objects.
-There is a maximum size for the stack, and older history states are discarded whenever new states are 
+There is a maximum size for the stack, and older history states are discarded whenever new states are
 pushed and the size is exceeded. History states stored in the stack can be popped and returned as type `T` objects.
 <br><br>
 
