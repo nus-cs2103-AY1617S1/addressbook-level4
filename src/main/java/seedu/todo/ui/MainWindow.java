@@ -39,7 +39,6 @@ public class MainWindow extends UiPart {
     private CommandInputView commandInputView;
     private CommandFeedbackView commandFeedbackView;
     private CommandErrorView commandErrorView;
-    private FilterBarView filterBarView;
     private TodoListView todoListView;
     private HelpView helpView;
 
@@ -90,11 +89,12 @@ public class MainWindow extends UiPart {
         //Initialise the view elements to each placeholders.
         todoListView = TodoListView.load(primaryStage, todoListViewPlaceholder, model.getObservableList());
         helpView = HelpView.load(primaryStage, helpViewPlaceholder);
-        filterBarView = FilterBarView.load(primaryStage, filterBarViewPlaceholder, model.getViewFilter());
         commandFeedbackView = CommandFeedbackView.load(primaryStage, commandFeedbackViewPlaceholder);
         commandInputView = CommandInputView.load(primaryStage, commandInputViewPlaceholder);
         commandErrorView = CommandErrorView.load(primaryStage, commandErrorViewPlaceholder);
-
+        
+        FilterBarView.load(primaryStage, filterBarViewPlaceholder, model.getViewFilter());
+        SearchStatusView.load(primaryStage, searchResultViewPlaceholder, model.getSearchStatus());
         //Constructs a command communication link between the commandXViews and logic.
         CommandController.constructLink(logic, commandInputView, commandFeedbackView, commandErrorView);
     }
