@@ -5,10 +5,10 @@ public class UndoNode {
     public String command;
     public UndoNode next, prev;
     
-    public UndoNode(String text, UndoNode prev){
+    public UndoNode(String text, UndoNode next, UndoNode prev){
         this.command = text;
+        this.next = next;
         this.prev = prev;
-        this.next = null;
     }
     
     public UndoNode getNext(){

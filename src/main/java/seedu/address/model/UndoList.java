@@ -14,12 +14,18 @@ public class UndoList {
     
     public void addToList(String text){
         if (head == null){ //currently empty
-            head = new UndoNode(text, head);
+            head = new UndoNode(text, null, null);
             tail = head;
             size++;
         }
         else if (size < 3){
-            tail.setNext(new UndoNode(text, head));
+            tail.setNext(new UndoNode(text, null, tail));
+            tail = tail.getNext();
+            size++;
+        }
+        else if (size == 3){
+            head = head.getNext();
+            tail.setNext(new UndoNode(text, head, tail));
             tail = tail.getNext();
         }
     }
