@@ -63,6 +63,7 @@ public class ToolTip {
      * @param input to determine the tooltip to be shown
      */
     public void createToolTip(String input) {
+        logger.info("Finding tooltip for: " + input);
         clearToolTip();
         String[] splitedInput = input.split(COMMAND_WORD_DELIMITER);
         
