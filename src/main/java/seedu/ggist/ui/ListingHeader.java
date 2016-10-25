@@ -4,6 +4,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.events.ui.ChangeListingEvent;
@@ -17,15 +18,16 @@ import java.util.logging.Logger;
 
 import org.controlsfx.control.StatusBar;
 
-import java.util.Date;
-import java.util.logging.Logger;
-
 public class ListingHeader extends UiPart {
     
     private static final Logger logger = LogsCenter.getLogger(ListingHeader.class);
     
     private static final String FXML = "ListingHeader.fxml";
     
+
+    private AnchorPane mainPane;
+    
+    private AnchorPane placeHolder;
     @FXML
     private AnchorPane listHeader;
     @FXML
@@ -44,34 +46,48 @@ public class ListingHeader extends UiPart {
     }
 
     public void configure(String listing) {
+        addMainPane();
+        addListing();
         setListing(listing);
         registerAsAnEventHandler(this);
     }
     
-    public void setListing(String listing) {
-        lastListing = listing;
+    private void addMainPane() {
+        FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
+        placeHolder.getChildren().add(mainPane);
     }
     
-    @FXML
-    public void initialize() {
-        listing.setText(lastListing);
+    public void setListing(String listing) {
+        this.listing.setText(listing);
+    }
+   
+    private void addListing() {
+        FxViewUtil.applyAnchorBoundaryParameters(listHeader, 0.0, 0.0, 0.0, 0.0);
+        placeHolder.getChildren().add(this.listing);
+    }
+
+
+    @Override
+    public void setPlaceholder(AnchorPane placeholder) {
+        this.placeHolder = placeholder;
     }
     
     @Override
     public String getFxmlPath() {
-        return "ListingHeader.fxml";
+        return FXML;
     }
     
     @Override
     public void setNode(Node node) {
-        listHeader = (AnchorPane)node;
+        mainPane = (AnchorPane)node;
     }
+
     
     @Subscribe
     public void handleChangeListingEvent(ChangeListingEvent abce) {
-        String lastListing = abce.toString();
+        this.lastListing = abce.listing;
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last listing status to " + lastListing));
-        this.lastListing = lastListing;
+        setListing(lastListing);
     }
 
 

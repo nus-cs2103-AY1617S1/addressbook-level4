@@ -3,10 +3,12 @@ package seedu.ggist.model;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.ggist.commons.core.ComponentManager;
+import seedu.ggist.commons.core.EventsCenter;
 import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.core.UnmodifiableObservableList;
 import seedu.ggist.commons.events.model.TaskManagerChangedEvent;
+import seedu.ggist.commons.events.ui.ChangeListingEvent;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.commons.util.StringUtil;
 import seedu.ggist.logic.commands.Command;
@@ -63,6 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
         today = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM YY"));
         lastListing = today;
         updateListing();
+        EventsCenter.getInstance().post(new ChangeListingEvent(lastListing));
     }
     
     @Override
