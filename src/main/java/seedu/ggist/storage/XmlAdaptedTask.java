@@ -28,7 +28,7 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private boolean done;
     @XmlElement(required = true)
-    private boolean deleted;
+    private boolean overdue;
     @XmlElement(required = true)
     private String priority;
 
@@ -51,10 +51,7 @@ public class XmlAdaptedTask {
         endTime = source.getEndTime().value;
         done = source.isDone();
         priority = source.getPriority().value;
-        if (source.isDeleted()) {
-            endDate = "Sun, 23 Oct 16";
-            endTime = "12:00 am";
-        }
+        overdue = source.isOverdue();
     }
 
     /**
