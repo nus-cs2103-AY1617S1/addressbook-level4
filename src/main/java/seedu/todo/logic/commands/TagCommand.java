@@ -12,10 +12,7 @@ import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
 import seedu.todo.model.tag.Tag;
 
-import java.util.stream.Collectors;
 import java.util.List;
-import java.util.Collection;
-import java.util.Set;
 import java.util.Arrays;
 
 //@@author A0135805H
