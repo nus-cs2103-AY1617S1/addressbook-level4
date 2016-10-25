@@ -50,14 +50,14 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_ITEM_SUCCESS = "Edited %1$s";
     public static final String MESSAGE_TAG_NOT_FOUND = "Tag [%1$s] does not exist! Tags must exist in order to be deletable";
     
-    int targetIndex;
-    Name name;
-    ItemDate startDate;
-    ItemTime startTime;
-    ItemDate endDate;
-    ItemTime endTime;
-    UniqueTagList tagsToAdd;
-    UniqueTagList tagsToRemove;
+    private int targetIndex;
+    private Name name;
+    private ItemDate startDate;
+    private ItemTime startTime;
+    private ItemDate endDate;
+    private ItemTime endTime;
+    private UniqueTagList tagsToAdd;
+    private UniqueTagList tagsToRemove;
 
     /*
      * Edits deadline, task, or event by index.
