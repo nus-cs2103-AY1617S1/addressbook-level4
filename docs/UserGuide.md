@@ -25,7 +25,9 @@
    * **`delete`**` 212` : deletes the task with ID 212 shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
+
 <!-- @@author A0135784W-->
+
 ## HappyJimTaskMaster's GUI
  <img src="images/Ui.PNG" width="700">
 1. Command box. This is where the commands are entered. Simply type in the command and press enter to execute it.
@@ -34,6 +36,7 @@
 4. Tasklist panel. This is where the tasks are displayed. 
 5. Navigation bar panel. This is where the navigation categories are displayed.
 <!--@@author-->
+
 ### Color Secheme
 1. Yellow for floating tasks.
 2. Blue for normal non-floating tasks.
@@ -42,7 +45,9 @@
 5. Green for completed tasks.
 > Change of color scheme can done through click `Customize Skin` using pre-load alternatives,
 > or thorugh modifying `ColorTheme.css` in `src/main/resources/view` folder.
+
 <!-- @@author A0135784W-->
+
 ## Features
 ### Command Format
 > * Each command consists of a command word (such as add or delete), followed by other options such as DATE,TIME or [t/TAG]
@@ -80,8 +85,8 @@ Format:`add TASK_NAME [t/TAG]...`
 Examples:
 * `add Homework` 
 * `add Homework t/CS1231` <br>
-	<img src="images/ug_add_floating_before.png" width="600">
-	<img src="images/ug_add_floating_after.png" width="600">
+	<img src="images/ug_add_floating_before.PNG" width="600">
+	<img src="images/ug_add_floating_after.PNG" width="600">
 
 #### Adding a task with deadline: `add`
 Format: `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
@@ -93,8 +98,8 @@ Format: `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
 Examples: <br>
 * `add Homework by 24 sep 8pm t/CS1231`
 * `add Homework by 24 sep 6pm daily t/CS1231`
-	<img src="images/ug_add_by_date_before.png" width="600">
-	<img src="images/ug_add_by_date_after.png" width="600">
+	<img src="images/ug_add_by_date_before.PNG" width="600">
+	<img src="images/ug_add_by_date_after.PNG" width="600">
 
 #### Adding a task with start time and end time: `add`
 Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
@@ -106,11 +111,11 @@ Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
 Examples:
 * `add Homework from 24 sep 8pm to 25 sep 9pm tag/CS1231`
 * `add Homework from today 8.03pm to today 8.15pm t/CS1231`
-	<img src="images/ug_add_fromto_date_before.png" width="600">
-	<img src="images/ug_add_fromto_date_after.png" width="600">
+	<img src="images/ug_add_fromto_date_before.PNG" width="600">
+	<img src="images/ug_add_fromto_date_after.PNG" width="600">
 * `add Homework from 26 oct 10am to 26 oct 11am daily`
-	<img src="images/ug_add_fromto_date_recurring_before.png" width="600">
-	<img src="images/ug_add_fromto_date_recurring_after.png" width="600">
+	<img src="images/ug_add_fromto_date_recurring_before.PNG" width="600">
+	<img src="images/ug_add_fromto_date_recurring_after.PNG" width="600">
 <!--@@author-->
 #### Lists all active tasks : `list`
 Format: list
