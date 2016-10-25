@@ -293,16 +293,16 @@ We have two types of tests:
    1. _Unit tests_ targeting the lowest level methods/classes. Below are some snippets, <br>
    
    _Task_<br>
-   <img src="images/test_snippet_Task.png" width="800"><br>
+   <img src="images/test_snippet_Task.PNG" width="800"><br>
    
    _RecurringTaskManager_<br>
-   <img src="images/test_snippet_RecurringManager.png" width="800"><br>
+   <img src="images/test_snippet_RecurringTaskManager.PNG" width="800"><br>
    
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working). Below are some snippets, <br>
 
    _XmlTaskListStorage_<br>
-   <img src="images/test_snippet_XmlTaskListStorage.png" width="800"><br>
+   <img src="images/test_snipper_XmlTaskListStorage.PNG" width="800"><br>
    
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together. Below are some snippets,<br>
@@ -311,7 +311,7 @@ We have two types of tests:
       Typically, Happy Jim Task Master focuses on some boundary tests.<br>
     
 	_LogicManagerTest_
-	<img src="images/test_snippet_LogicManagerTeest.png" width="800"><br>
+	<img src="images/test_snippet_LogicManagerTest.PNG" width="800"><br>
       e.g. To `find` a task, for instance, `Test Task 1 by 20 oct 11am `,<br>
       try execute <br>
       *`find by 20 oct 11am` --> exact boundary, task found;<br>
