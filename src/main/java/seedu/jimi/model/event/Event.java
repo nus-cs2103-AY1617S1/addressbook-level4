@@ -4,6 +4,7 @@ import java.util.Objects;
 
 import seedu.jimi.commons.util.CollectionUtil;
 import seedu.jimi.model.datetime.DateTime;
+import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.Name;
 import seedu.jimi.model.task.ReadOnlyTask;
@@ -15,13 +16,14 @@ public class Event implements ReadOnlyTask {
     private DateTime end;
     private UniqueTagList tags;
     private boolean isCompleted;
+    private Priority priority;
     
-    public Event(Name name, DateTime start, DateTime end, UniqueTagList tags, boolean isCompleted) {
-        this(name, start, end, tags);
+    public Event(Name name, DateTime start, DateTime end, UniqueTagList tags, boolean isCompleted, Priority priority) {
+        this(name, start, end, tags, priority);
         this.isCompleted = isCompleted;
     }
     
-    public Event(Name name, DateTime start, DateTime end, UniqueTagList tags) {
+    public Event(Name name, DateTime start, DateTime end, UniqueTagList tags, Priority priority) {
         assert !CollectionUtil.isAnyNull(name, start, end, tags);
         assert start.compareTo(end) <= 0;
         this.isCompleted = false;
@@ -29,6 +31,7 @@ public class Event implements ReadOnlyTask {
         this.start = start;
         this.end = end;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.priority = priority;
     }
     
     /**
@@ -36,7 +39,7 @@ public class Event implements ReadOnlyTask {
      */
     public Event(Event source) {
         this(source.getName(), ((Event) source).getStart(), ((Event) source).getEnd(), source.getTags(),
-                source.isCompleted());
+                source.isCompleted(), source.getPriority());
     }
     
     
@@ -65,6 +68,11 @@ public class Event implements ReadOnlyTask {
     @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
+    }
+    
+    @Override
+    public Priority getPriority()   {
+        return priority;
     }
 
     @Override
@@ -111,6 +119,8 @@ public class Event implements ReadOnlyTask {
                .append(getEnd() == null ? "none" : getEnd())
                .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Priority: ")
+               .append(getPriority());
         return builder.toString();
     }
 
