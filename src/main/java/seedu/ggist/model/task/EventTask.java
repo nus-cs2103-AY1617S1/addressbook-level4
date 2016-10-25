@@ -30,7 +30,7 @@ public class EventTask extends Task implements ReadOnlyTask {
      * @throws IllegalValueException 
      */
     public EventTask(ReadOnlyTask source) throws IllegalValueException {
-        this(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getPriority(), source.getDone());
+        this(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getPriority(), source.isDone());
     }
 
     @Override

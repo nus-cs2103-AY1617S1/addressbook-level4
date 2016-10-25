@@ -2,6 +2,7 @@ package seedu.ggist.model.task;
 
 import java.util.Date;
 
+import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.tag.UniqueTagList;
 
 /**
@@ -18,9 +19,10 @@ public interface ReadOnlyTask {
     Priority getPriority();
     Date getStartDateTime();
     Date getEndDateTime();
-    boolean getDone();
-    void setDone();
-    void setUnDone();
+    boolean isDone();
+    boolean isDeleted();
+    void constructStartDateTime(TaskDate date, TaskTime time) throws IllegalValueException;
+    void constructEndDateTime(TaskDate date, TaskTime time) throws IllegalValueException;
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -33,6 +35,8 @@ public interface ReadOnlyTask {
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndDate().equals(this.getEndDate())
                 && other.getEndTime().equals(this.getEndTime())
+                && isDone() == this.isDone()
+                && isDeleted() == this.isDeleted()
                 && other.getPriority().equals(this.getPriority())
          );
     }
@@ -57,5 +61,7 @@ public interface ReadOnlyTask {
                 .append(getPriority());
         return builder.toString();
     }
+    void setDone();
+    void setUnDone();
 
 }
