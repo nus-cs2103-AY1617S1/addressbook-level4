@@ -39,8 +39,6 @@ public class Task implements ReadOnlyTask{
         this.endDate = endDate;
         this.endTime = endTime;
         this.priority = priority;
-        this.done = false;
-        this.overdue = false;
         if (startDate.value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) || startTime.value.equals(Messages.MESSAGE_NO_START_TIME_SET)) {
             start = constructDateTime(endDate, endTime);
         } else {

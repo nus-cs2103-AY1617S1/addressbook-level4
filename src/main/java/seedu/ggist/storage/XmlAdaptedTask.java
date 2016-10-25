@@ -67,6 +67,7 @@ public class XmlAdaptedTask {
         final TaskDate endDate = new TaskDate(this.endDate);
         final TaskTime endTime = new TaskTime(this.endTime);
         final boolean done = this.done;
+        final boolean overdue = this.overdue;
         final Priority priority = new Priority(this.priority);
         Task newTask = new Task(taskName, startDate, startTime, endDate, endTime, priority);
         if (done) {
