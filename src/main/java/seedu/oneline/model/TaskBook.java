@@ -33,6 +33,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      */
     public TaskBook(ReadOnlyTaskBook toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        clearUnusedTags();
     }
 
     /**
@@ -40,6 +41,7 @@ public class TaskBook implements ReadOnlyTaskBook {
      */
     public TaskBook(UniqueTaskList persons, UniqueTagList tags) {
         resetData(persons.getInternalList(), tags.getInternalList());
+        clearUnusedTags();
     }
 
     public static ReadOnlyTaskBook getEmptyTaskBook() {
@@ -54,6 +56,7 @@ public class TaskBook implements ReadOnlyTaskBook {
 
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
+        clearUnusedTags();
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -63,10 +66,12 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
+        clearUnusedTags();
     }
 
     public void resetData(ReadOnlyTaskBook newData) {
         resetData(newData.getTaskList(), newData.getTagList());
+        clearUnusedTags();
     }
 
 //// person-level operations
@@ -81,6 +86,7 @@ public class TaskBook implements ReadOnlyTaskBook {
     public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
         syncTagsWithMasterList(t);
         tasks.add(t);
+        clearUnusedTags();
     }
 
     /**
@@ -97,9 +103,18 @@ public class TaskBook implements ReadOnlyTaskBook {
             }
         }
     }
+    
+    private void clearUnusedTags() {
+        Set<Tag> allTags = new HashSet<Tag>();
+        for (Task t : tasks.getInternalList()) {
+            allTags.add(t.getTag());
+        }
+        setTags(allTags);
+    }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
+            clearUnusedTags();
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();

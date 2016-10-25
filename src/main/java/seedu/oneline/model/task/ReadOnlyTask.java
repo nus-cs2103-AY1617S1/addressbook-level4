@@ -1,5 +1,8 @@
 package seedu.oneline.model.task;
 
+import java.util.Map;
+
+import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 
@@ -19,7 +22,7 @@ public interface ReadOnlyTask {
     /**
      * Returns the tag of the current task
      */
-    Tag getTag();
+    public Tag getTag();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -52,5 +55,7 @@ public interface ReadOnlyTask {
                 .append(getTag());
         return builder.toString();
     }
+    
+    Task update(Map<TaskField, String> fields) throws IllegalValueException;
 
 }

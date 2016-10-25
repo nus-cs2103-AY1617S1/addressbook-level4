@@ -38,7 +38,6 @@ public class EditTaskCommand extends EditCommand {
     
     public static EditTaskCommand createFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
         Entry<Integer, Map<TaskField, String>> info = Parser.getIndexAndTaskFieldsFromArgs(args);
-        assert info.getValue().containsKey(TaskField.NAME);
         int targetIndex = info.getKey();
         Map<TaskField, String> fields = info.getValue();
         return new EditTaskCommand(targetIndex, fields);
@@ -54,49 +53,13 @@ public class EditTaskCommand extends EditCommand {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
         ReadOnlyTask oldTask = lastShownList.get(targetIndex - 1);
-        
-        TaskName newName = oldTask.getName();
-        TaskTime newStartTime = oldTask.getStartTime();
-        TaskTime newEndTime = oldTask.getEndTime();
-        TaskTime newDeadline = oldTask.getDeadline();
-        TaskRecurrence newRecurrence = oldTask.getRecurrence();
-        Tag newTag = oldTask.getTag();
-
+        Task newTask = null;
         try {
-            for (Entry<TaskField, String> entry : fields.entrySet()) {
-                switch (entry.getKey()) {
-                case NAME:
-                    newName = new TaskName(entry.getValue());
-                    break;
-                case START_TIME:
-                    newStartTime = new TaskTime(entry.getValue());
-                    break;
-                case END_TIME:
-                    newEndTime = new TaskTime(entry.getValue());
-                    break;
-                case DEADLINE:
-                    newDeadline = new TaskTime(entry.getValue());
-                    break;
-                case RECURRENCE:
-                    newRecurrence = new TaskRecurrence(entry.getValue());
-                    break;
-                case TAG:
-                    newTag = new Tag(Parser.getTagFromArgs(entry.getValue()));
-                    break;
-                }
-            }
+            newTask = oldTask.update(fields);
         } catch (IllegalValueException e) {
             return new CommandResult(e.getMessage());
         }
-        
-        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag);
-        
-        if (model.getTaskBook().getTaskList().contains(newTask)) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
-        
         try {
             model.replaceTask(oldTask, newTask);
             return new CommandResult(String.format(MESSAGE_SUCCESS, newTask));
@@ -105,7 +68,6 @@ public class EditTaskCommand extends EditCommand {
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "The update task should not already exist";
         }
-
         return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.toString()));
     }
     

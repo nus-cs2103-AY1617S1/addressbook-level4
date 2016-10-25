@@ -94,6 +94,10 @@ public class Parser {
             assert false : e.getClass().toString() + " : " + e.getMessage();
             assert false : "Command class should implement \"createFromArgs(String)\".";
         } catch (InvocationTargetException e) {
+            if (e.getCause().getMessage() == null) {
+                e.printStackTrace();
+                return new IncorrectCommand("Unknown error");
+            }
             return new IncorrectCommand(e.getCause().getMessage());
         }
         return null;
@@ -241,7 +245,7 @@ public class Parser {
     public static String getTagFromArgs(String args) {
         final Matcher matcher = TAG_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-            return null; // TODO: THROW ERROR
+            assert false;
         }
         return matcher.group("tag");
     }

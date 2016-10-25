@@ -26,8 +26,8 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String recurrence;
 
-    @XmlElement
-    private String tag = null;
+    @XmlElement(required = true)
+    private String tag = "#";
 
     /**
      * No-arg constructor for JAXB use.
@@ -60,7 +60,7 @@ public class XmlAdaptedTask {
         final TaskTime endTime = TaskTime.deserialize(this.endtime);
         final TaskTime deadline = TaskTime.deserialize(this.deadline);
         final TaskRecurrence recurrence = TaskRecurrence.deserialize(this.recurrence);
-        final Tag tag = this.tag == null ? Tag.getDefault() : new Tag(this.tag);
+        final Tag tag = this.tag == "#" ? Tag.getDefault() : Tag.getTag(this.tag);
         return new Task(name, startTime, endTime, deadline, recurrence, tag);
     }
 }

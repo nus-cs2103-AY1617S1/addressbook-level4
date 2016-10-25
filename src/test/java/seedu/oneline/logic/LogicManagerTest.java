@@ -415,7 +415,7 @@ public class LogicManagerTest {
             TaskTime endTime = new TaskTime("Sun Oct 16 21:35:45");
             TaskTime deadline = new TaskTime("Sun Oct 16 21:35:45");
             TaskRecurrence recurrence = new TaskRecurrence("X");
-            Tag tag = new Tag("tag1");
+            Tag tag = Tag.getTag("tag1");
             return new Task(name, startTime, endTime, deadline, recurrence, tag);
         }
 
@@ -433,7 +433,7 @@ public class LogicManagerTest {
                     new TaskTime("" + seed),
                     new TaskTime("" + seed),
                     new TaskRecurrence("" + seed),
-                    new Tag("tag" + Math.abs(seed))
+                    Tag.getTag("tag" + Math.abs(seed))
             );
         }
 
@@ -448,7 +448,7 @@ public class LogicManagerTest {
             cmd.append(" .to ").append(p.getEndTime());
             cmd.append(" .due ").append(p.getDeadline());
             cmd.append(" .every ").append(p.getRecurrence());
-            cmd.append(" #").append(p.getTag().tagName);
+            cmd.append(" #").append(p.getTag().getTagName());
 
             return cmd.toString();
         }
@@ -530,7 +530,7 @@ public class LogicManagerTest {
                     new TaskTime(""),
                     new TaskTime(""),
                     new TaskRecurrence(""),
-                    new Tag("tag")
+                    Tag.getTag("tag")
             );
         }
     }

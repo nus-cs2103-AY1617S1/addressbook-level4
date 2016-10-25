@@ -28,6 +28,7 @@ public abstract class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
 
     public static EditCommand createFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
+        args = args.trim();
         if (args.startsWith("#")) {
             return EditTagCommand.createFromArgs(args);
         } else {

@@ -1,6 +1,10 @@
 package seedu.oneline.model.tag;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
+import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.model.task.TaskRecurrence;
 
@@ -15,9 +19,11 @@ public class Tag {
 
     public static final Tag EMPTY_TAG = new Tag();
     
-    public String tagName = null;
+    public String tagName = "#";
 
-    public Tag() {
+    public static final Map<String, Tag> allTags = new HashMap<String, Tag>();
+    
+    private Tag() {
     }
 
     /**
@@ -25,7 +31,7 @@ public class Tag {
      *
      * @throws IllegalValueException if the given tag name string is invalid.
      */
-    public Tag(String name) throws IllegalValueException {
+    private Tag(String name) throws IllegalValueException {
         assert name != null;
         name = name.trim();
         if (!isValidTagName(name)) {
@@ -34,6 +40,20 @@ public class Tag {
         this.tagName = name;
     }
 
+    public static Tag getTag(String name) throws IllegalValueException {
+        assert name != null;
+        if (allTags.containsKey(name)) {
+            return allTags.get(name);
+        }
+        Tag newTag = new Tag(name);
+        allTags.put(name, newTag);
+        return newTag;
+    }
+    
+    public String getTagName() {
+        return tagName;
+    }
+    
     /**
      * Returns true if a given string is a valid tag name.
      */

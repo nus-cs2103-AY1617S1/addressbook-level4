@@ -47,7 +47,7 @@ public class AddCommand extends Command {
                 new TaskTime(endTime),
                 new TaskTime(deadline),
                 new TaskRecurrence(recurrence),
-                new Tag(tag)
+                Tag.getTag(tag)
         );
     }
     
@@ -72,7 +72,7 @@ public class AddCommand extends Command {
                                     new TaskRecurrence(fields.get(TaskField.RECURRENCE)) :
                                         TaskRecurrence.getDefault();
         Tag newTag = fields.containsKey(TaskField.TAG) ?
-                                    new Tag(fields.get(TaskField.TAG)) :
+                                    Tag.getTag(fields.get(TaskField.TAG)) :
                                     Tag.getDefault();       
         return new AddCommand(new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag));
     }

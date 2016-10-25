@@ -112,7 +112,7 @@ public class EditCommandTest extends TaskBookGuiTest {
             }
             if (fields.containsKey(TaskField.TAG)) {
                 String newTag = fields.get(TaskField.TAG);
-                newTask.setTag(new Tag(newTag));
+                newTask.setTag(Tag.getTag(newTag));
             }
         } catch (IllegalValueException e) {
             assert false : "Invalid input";
