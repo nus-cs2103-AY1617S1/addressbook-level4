@@ -20,7 +20,6 @@ public class SearchStatusView extends UiPart {
     private static final String FXML = "SearchStatusView.fxml";
     private static final String TASK_FOUND_FORMAT = "%d %s found";
     
-    @FXML private HBox searchStatusContent;
     @FXML private Text searchCount;
     @FXML private Text searchTerm;
     
