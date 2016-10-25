@@ -1,12 +1,8 @@
 package seedu.todo.ui.controller;
 
 import javafx.scene.input.KeyCode;
-import seedu.todo.commons.core.EventsCenter;
-import seedu.todo.commons.events.ui.CommandInputEnterEvent;
-import seedu.todo.commons.events.ui.ShowPreviewEvent;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.Logic;
-import seedu.todo.logic.commands.CommandPreview;
 import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.ui.view.CommandErrorView;
@@ -14,7 +10,7 @@ import seedu.todo.ui.view.CommandFeedbackView;
 import seedu.todo.ui.view.CommandInputView;
 import seedu.todo.ui.view.CommandPreviewView;
 
-//@@author A0315805H
+//@@author A0315805H & A0139021U
 /**
  * Processes the input command from {@link CommandInputView}, pass it to {@link seedu.todo.logic.Logic}
  * and hands the {@link seedu.todo.logic.commands.CommandResult}
@@ -68,28 +64,17 @@ public class CommandController {
         switch (keyCode) {
         case ENTER :    // Submitting command
             //Note: Do not execute an empty command. TODO: This check should be done in the parser class.
-            System.out.println("EXECUTED ENTER");
             if (!StringUtil.isEmpty(userInput)) {
                 CommandResult result = logic.execute(userInput);
                 handleCommandResult(result);
             }
             break;
         default :   // Typing command, show preview
-            System.out.println("SHOW PREVIEW");
-            CommandPreview previewInfo = logic.preview(userInput);
-            handleCommandPreview(previewInfo);
+            logic.preview(userInput);
+            errorView.hideCommandErrorView();     // Don't show error when previewing
             break;
         }
     }
-    
-    /**
-     * Handles a CommandPreview object, and updates the user interface to reflect the information.
-     * @param previewInfo produced by {@link Logic}
-     */
-    private void handleCommandPreview(CommandPreview previewInfo) {
-        previewView.displayCommandSummaries(previewInfo.getPreview());
-    }
-
 
     /**
      * Handles a CommandResult object, and updates the user interface to reflect the result.

@@ -18,6 +18,7 @@
       </VBox>
       <AnchorPane fx:id="commandErrorViewPlaceholder" />
       <AnchorPane fx:id="helpViewPlaceholder" />
+      <AnchorPane fx:id="commandPreviewViewPlaceholder" />
        <AnchorPane fx:id="commandFeedbackViewPlaceholder" prefHeight="16.0" VBox.vgrow="NEVER">
          <VBox.margin>
             <Insets />
@@ -25,14 +26,6 @@
          <padding>
             <Insets left="2.0" right="2.0" />
          </padding>
-       </AnchorPane>
-       <AnchorPane fx:id="commandPreviewViewPlaceholder" prefHeight="16.0" VBox.vgrow="NEVER">
-           <VBox.margin>
-               <Insets />
-           </VBox.margin>
-           <padding>
-               <Insets left="2.0" right="2.0" />
-           </padding>
        </AnchorPane>
       <AnchorPane fx:id="commandInputViewPlaceholder" VBox.vgrow="NEVER">
          <VBox.margin>

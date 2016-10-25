@@ -1,6 +1,5 @@
 package seedu.todo.logic;
 
-import seedu.todo.logic.commands.CommandPreview;
 import seedu.todo.logic.commands.CommandResult;
 
 //@@author A0135817B
@@ -18,5 +17,5 @@ public interface Logic {
      * Receives the intermediate product of the command and sends back a CommandPreview.
      * @param input The intermediate input as entered by the user.
      */
-    CommandPreview preview(String input);
+    void preview(String input);
 }

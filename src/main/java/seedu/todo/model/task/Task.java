@@ -53,6 +53,7 @@ public class Task implements MutableTask {
         this.setEndTime(task.getEndTime().orElse(null));
         this.setCompleted(task.isCompleted());
         this.setPinned(task.isPinned());
+        this.setTags(task.getTags());
         this.setCreatedAt(task.getCreatedAt());
         this.uuid = task.getUUID();
     }

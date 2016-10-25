@@ -113,6 +113,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleShowPreviewEvent(ShowPreviewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getHelpView().hideHelpPanel();
         mainWindow.getCommandPreviewView().displayCommandSummaries(event.getPreviewInfo());
     }
 

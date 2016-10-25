@@ -1,20 +1,25 @@
 package seedu.todo.logic;
 
+import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.LogsCenter;
+import seedu.todo.commons.events.ui.ShowHelpEvent;
+import seedu.todo.commons.events.ui.ShowPreviewEvent;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.commands.BaseCommand;
 import seedu.todo.logic.commands.CommandPreview;
 import seedu.todo.logic.commands.CommandResult;
+import seedu.todo.logic.commands.CommandSummary;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.logic.parser.Parser;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.Model;
 
+import java.util.List;
 import java.util.logging.Logger;
 
-//@@author A0135817B
+//@@author A0135817B & A0139021U
 /**
  * Central controller for the application, abstracting application logic from the UI
  */
@@ -62,7 +67,8 @@ public class TodoLogic implements Logic {
     }
 
     @Override
-    public CommandPreview preview(String input) {
-        return new CommandPreview(input);
+    public void preview(String input) {
+        List<CommandSummary> listOfCommands = new CommandPreview(input).getPreview();
+        EventsCenter.getInstance().post(new ShowPreviewEvent(listOfCommands));
     }
 }
