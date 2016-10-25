@@ -34,9 +34,11 @@ import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
 import seedu.jimi.logic.commands.IncorrectCommand;
 import seedu.jimi.logic.commands.ListCommand;
+import seedu.jimi.logic.commands.RedoCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
 import seedu.jimi.logic.commands.SelectCommand;
 import seedu.jimi.logic.commands.ShowCommand;
+import seedu.jimi.logic.commands.UndoCommand;
 
 /**
  * Parses user input.
@@ -86,6 +88,8 @@ public class JimiParser {
                     new FindCommand(), 
                     new ListCommand(),
                     new ShowCommand(),
+                    new UndoCommand(),
+                    new RedoCommand(),
                     new ExitCommand(), 
                     new HelpCommand(), 
                     new SaveAsCommand()

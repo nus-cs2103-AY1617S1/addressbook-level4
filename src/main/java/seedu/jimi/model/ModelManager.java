@@ -22,6 +22,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     private final TaskBook taskBook;
     private final FilteredListManager filteredListManager;
+    private final UserPrefs userPrefs;
     
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -35,7 +36,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with task book: " + src + " and user prefs " + userPrefs);
         
         taskBook = new TaskBook(src);
-        
+        this.userPrefs = userPrefs;
         this.filteredListManager = new FilteredListManager(taskBook);
     }
     
@@ -45,8 +46,12 @@ public class ModelManager extends ComponentManager implements Model {
     
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         taskBook = new TaskBook(initialData);
-        
+        this.userPrefs = userPrefs;
         this.filteredListManager = new FilteredListManager(taskBook);
+    }
+    
+    public ModelManager(Model other) {
+        this(new TaskBook(other.getTaskBook()), new UserPrefs(other.getUserPrefs()));
     }
     
     @Override
@@ -108,6 +113,10 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook.completeTask(taskToComplete, isComplete);
         updateAllFilteredListsShowDefault();
         indicateTaskBookChanged();
+    }
+    
+    public Model clone() {
+        return new ModelManager(new TaskBook(taskBook), new UserPrefs(userPrefs));
     }
     
     /*
@@ -206,5 +215,10 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredAgendaEventList() {
         return this.filteredListManager.getFilteredList(ListId.EVENTS_AGENDA);
+    }
+
+    @Override
+    public UserPrefs getUserPrefs() {
+        return userPrefs;
     }
 }

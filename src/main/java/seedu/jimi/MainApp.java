@@ -20,7 +20,6 @@ import seedu.jimi.storage.StorageManager;
 import seedu.jimi.ui.Ui;
 import seedu.jimi.ui.UiManager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;

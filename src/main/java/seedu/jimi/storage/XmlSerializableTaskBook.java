@@ -57,8 +57,8 @@ public class XmlSerializableTaskBook implements ReadOnlyTaskBook {
     }
 
     @Override
-    public UniqueTaskList<ReadOnlyTask> getUniqueTaskList() {
-        UniqueTaskList<ReadOnlyTask> lists = new UniqueTaskList<ReadOnlyTask>();
+    public UniqueTaskList getUniqueTaskList() {
+        UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedTask p : tasks) {
             try {
                 lists.add(p.toModelType());

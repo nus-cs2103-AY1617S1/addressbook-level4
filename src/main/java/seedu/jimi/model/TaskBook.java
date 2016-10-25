@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.jimi.model.event.Event;
@@ -27,7 +26,7 @@ import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class TaskBook implements ReadOnlyTaskBook {
 
-    private final UniqueTaskList<ReadOnlyTask> tasks;
+    private final UniqueTaskList tasks;
     private final UniqueTagList tags;
 
     {

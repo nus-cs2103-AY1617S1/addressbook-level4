@@ -22,6 +22,10 @@ public class UserPrefs {
     public UserPrefs(){
         this.setGuiSettings(500, 500, 0, 0);
     }
+    
+    public UserPrefs(UserPrefs other) {
+        this.guiSettings = new GuiSettings(other.getGuiSettings());
+    }
 
     public void setGuiSettings(double width, double height, int x, int y) {
         guiSettings = new GuiSettings(width, height, x, y);

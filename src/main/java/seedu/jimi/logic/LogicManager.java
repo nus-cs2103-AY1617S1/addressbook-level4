@@ -21,10 +21,12 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final JimiParser jimiParser;
+    private final History history;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.jimiParser = new JimiParser();
+        this.history = History.getInstance();
     }
 
     @Override
@@ -32,7 +34,9 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = jimiParser.parseCommand(commandText);
         command.setData(model);
-        return command.execute();
+        CommandResult result = command.execute();
+        history.execute(command, result);
+        return result;
     }
 
     @Override

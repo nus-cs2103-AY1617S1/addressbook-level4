@@ -137,7 +137,8 @@ public class TaskListPanel extends UiPart {
      * @param daysTaskList
      * @param taskListViewDays
      */
-    private void setupDaysListViews(ArrayList<ObservableList<ReadOnlyTask>> daysTaskList,
+    @SafeVarargs
+    private final void setupDaysListViews(ArrayList<ObservableList<ReadOnlyTask>> daysTaskList,
             ListView<ReadOnlyTask>... taskListViewDays) {
         int i = 0;
         for (ListView<ReadOnlyTask> lv : taskListViewDays) {

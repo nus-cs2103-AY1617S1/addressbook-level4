@@ -11,7 +11,7 @@ import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * The API of the Model component.
  */
-public interface Model {
+public interface Model{
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyTaskBook newData);
 
@@ -70,4 +70,8 @@ public interface Model {
     
     /** Updates the filter of the filtered event list to copy the filter of the list identified by {@code other} */
     void updateFilteredAgendaEventList(ListId other);
+
+    UserPrefs getUserPrefs();
+    
+    Model clone();
 }
