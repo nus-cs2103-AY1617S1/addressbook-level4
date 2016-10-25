@@ -1,3 +1,4 @@
+//@@author A0138967J
 package seedu.todo.ui;
 
 import javafx.application.Platform;
@@ -49,10 +50,10 @@ public class SummaryPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static SummaryPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
+    public static SummaryPanel load(Stage primaryStage, AnchorPane summaryPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
         SummaryPanel summaryPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new SummaryPanel());
+                UiPartLoader.loadUiPart(primaryStage, summaryPlaceholder, new SummaryPanel());
         summaryPanel.configure(taskList);
         return summaryPanel;
     }
