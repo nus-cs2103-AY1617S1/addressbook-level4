@@ -1,11 +1,13 @@
 package seedu.taskitty.model;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.transformation.FilteredList;
 import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;
 import seedu.taskitty.commons.core.UnmodifiableObservableList;
 import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
 import seedu.taskitty.commons.exceptions.NoPreviousValidCommandException;
+import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
@@ -32,6 +34,7 @@ public class ModelManager extends ComponentManager implements Model {
     private FilteredList<Task> filteredTodos;
     private FilteredList<Task> filteredDeadlines;
     private FilteredList<Task> filteredEvents;
+    private ObservableValue<String> date;
     
     private final Stack<ReadOnlyTaskManager> historyTaskManagers;
     private final Stack<String> historyCommands;
@@ -127,7 +130,7 @@ public class ModelManager extends ComponentManager implements Model {
         historyPredicates.pop();
     }    
     
-    //@@author
+    //@@author A0130853L
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
     	taskManager.doneTask(target);
@@ -187,7 +190,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredDoneList() {
     	updateFilteredTaskList(new PredicateExpression(p -> p.getIsDone() == true));
     }
-    	
+    
+    @Override
+    public void initialiseFilteredList() {
+    	updateFilteredDateTaskList(DateUtil.createCurrentDate(), false);
+    }
 
 	@Override
 	public void updateFilteredDateTaskList(LocalDate date, boolean hasDate) {

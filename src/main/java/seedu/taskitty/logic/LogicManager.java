@@ -1,5 +1,6 @@
 package seedu.taskitty.logic;
 
+import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;
@@ -49,5 +50,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyTask> getFilteredEventList() {
         return model.getFilteredEventList();
+    }
+    
+    //@@author A0130853L
+    @Override
+    public void initialiseList() {
+    	model.initialiseFilteredList();
     }
 }
