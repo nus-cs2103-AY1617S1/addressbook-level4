@@ -16,7 +16,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="spacing">
                <children>
-                  <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" styleClass="titleLabel" text="1. Tasking Title">
+                  <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" styleClass="titleLabel" text="1. $Tasking Title$">
                      <font>
                         <Font name="Segoe UI Semibold" size="20.0" />
                      </font>
@@ -70,7 +70,7 @@
                   <String fx:value="highlightedBackground" />
                   <String fx:value="roundLabel" />
                </styleClass></Label>
-            <Label fx:id="descriptionLabel" lineSpacing="1.0" styleClass="descriptionLabel" text="Task description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id iaculis arcu. Curabitur at dapibus magna, at molestie diam. Integer posuere." wrapText="true">
+            <Label fx:id="descriptionLabel" lineSpacing="1.0" styleClass="descriptionLabel" text="Task description. $Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id iaculis arcu. Curabitur at dapibus magna, at molestie diam. Integer posuere.$" wrapText="true">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -100,7 +100,7 @@
                         <Insets />
                      </HBox.margin>
                   </ImageView>
-                  <Label fx:id="dateLabel" maxHeight="1.7976931348623157E308" styleClass="footnoteLabel" text="from 31 October 2016 3:45 PM to 4:15 PM">
+                  <Label fx:id="dateLabel" maxHeight="1.7976931348623157E308" styleClass="footnoteLabel" text="from $date missing$">
                      <font>
                         <Font name="Segoe UI Italic" size="16.0" />
                      </font>
@@ -120,7 +120,7 @@
                         <Insets />
                      </HBox.margin>
                   </ImageView>
-                  <Label fx:id="locationLabel" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" styleClass="footnoteLabel" text="at Some Specific Location">
+                  <Label fx:id="locationLabel" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" styleClass="footnoteLabel" text="at $location missing$">
                      <font>
                         <Font name="Segoe UI Italic" size="16.0" />
                      </font>

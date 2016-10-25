@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 /**
  * Provides a handle to the help window of the app.
  */
+@Deprecated
 public class HelpWindowHandle extends GuiHandle {
 
     private static final String HELP_WINDOW_TITLE = "Help";

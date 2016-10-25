@@ -12,20 +12,18 @@ import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
-
 import seedu.todo.TestApp;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.commons.util.XmlUtil;
 import seedu.todo.model.AddressBook;
-import seedu.todo.model.ImmutableTodoList;
+import seedu.todo.model.TodoList;
 import seedu.todo.model.person.*;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.storage.TodoListStorage;
 import seedu.todo.storage.XmlSerializableAddressBook;
-
-import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,11 +32,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * A utility class for test cases.
@@ -153,10 +151,33 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
+    /**
+     * Creates a new {@link TodoList} given the path of the file, {@code filePath}.
+     *
+     * @param filePath Location where the file should be saved.
+     * @return Returns a new instance of {@link TodoList}.
+     */
+    public static TodoList generateEmptyTodoList(String filePath) {
+        TodoListStorage storage = new TodoListStorage(filePath);
+        return new TodoList(storage);
+    }
+
+    /**
+     * Loads the {@link TodoList} with sample data stored in {@code tasks}.
+     *
+     * @param todoList The to-do list to inject the data from.
+     * @param tasks The list of {@link ImmutableTask} that should be stored inside the {@code todoList}.
+     */
+    public static void loadTodoListWithData(TodoList todoList, List<ImmutableTask> tasks) {
+        todoList.setTasks(tasks);
+    }
+
+    @Deprecated
     public static AddressBook generateEmptyAddressBook() {
         return new AddressBook(new UniquePersonList(), new UniqueTagList());
     }
 
+    @Deprecated
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
         return new XmlSerializableAddressBook(generateEmptyAddressBook());
     }
@@ -192,6 +213,49 @@ public class TestUtil {
         }
 
         return true;
+    }
+
+    /**
+     * Compares whether 2 tasks contain the same vital information, such as:
+     *      title, details, start and end time, location, is pinned, is completed
+     * @return True when two tasks are the same.
+     */
+    public static boolean isShallowEqual(ImmutableTask task1, ImmutableTask task2) {
+        boolean hasSameTitle = task1.getTitle().equals(task2.getTitle());
+        boolean hasSameDescription = task1.getDescription().equals(task2.getDescription());
+        boolean hasSameStartTime = task1.getStartTime().equals(task2.getStartTime());
+        boolean hasSameEndTime = task1.getEndTime().equals(task2.getEndTime());
+        boolean hasSameLocation = task1.getLocation().equals(task2.getLocation());
+        boolean hasSamePinFlag = task1.isPinned() == task2.isPinned();
+        boolean hasSameCompletedFlag = task1.isCompleted() == task2.isCompleted();
+        boolean hasSameTags = task1.getTags().equals(task2.getTags());
+
+        return hasSameTitle && hasSameDescription && hasSameStartTime
+                && hasSameEndTime && hasSameLocation && hasSamePinFlag
+                && hasSameCompletedFlag && hasSameTags;
+    }
+
+    /**
+     * Compares two list that are almost similar, except that longer list has 1 item more than shorter list.
+     * So, return the index of that 1 item.
+     * @return Index of the item from longerList that is missing in shorterList.
+     *         If the two list are identical, returns -1.
+     */
+    public static int compareAndGetIndex(List<ImmutableTask> shorterList, List<ImmutableTask> longerList) {
+        for (int listIndex = 0; listIndex < longerList.size(); listIndex ++) {
+            ImmutableTask taskInLongerList = longerList.get(listIndex);
+
+            //Note, that ImmutableTask does not support *shallow* hashing and equals.
+            java.util.Optional<ImmutableTask> foundItem = shorterList.stream()
+                    .filter(taskInShorterList -> isShallowEqual(taskInLongerList, taskInShorterList))
+                    .findFirst();
+            if (foundItem.isPresent()) {
+                shorterList.remove(foundItem.get());
+            } else {
+                return listIndex;
+            }
+        }
+        return -2048;
     }
 
     /**
@@ -346,29 +410,7 @@ public class TestUtil {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
-    /**
-     * Replaces persons[i] with a person.
-     * @param persons The array of persons.
-     * @param person The replacement person
-     * @param index The index of the person to be replaced.
-     * @return
-     */
-    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
-        persons[index] = person;
-        return persons;
-    }
 
-    /**
-     * Appends persons to the array of persons.
-     * @param persons A array of persons.
-     * @param personsToAdd The persons that are to be appended behind the original array.
-     * @return The modified array of persons.
-     */
-    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
-        List<TestPerson> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
-    }
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
@@ -378,6 +420,8 @@ public class TestUtil {
         return list;
     }
 
+
+    @Deprecated
     public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
         return card.isSamePerson(person);
     }

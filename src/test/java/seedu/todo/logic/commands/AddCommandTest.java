@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.TimeUtil;
 
@@ -105,4 +106,34 @@ public class AddCommandTest extends CommandTest {
         assertEquals("COM1", taskWithParams.getLocation().get());
         assertEquals("Useless task", taskWithParams.getDescription().get());
     }
+    
+    @Test
+    public void testAdd_switchViewsNecessary() throws Exception {
+        model.view(TaskViewFilter.COMPLETED);
+        assertTotalTaskCount(0);
+        setParameter("Task 1");
+        setParameter("p", null);
+        setParameter("l", "COM1");
+        setParameter("m", "Useless task");
+        execute(true);
+        assertEquals(model.getViewFilter().get(), TaskViewFilter.DEFAULT);
+        assertTotalTaskCount(1);
+        assertVisibleTaskCount(1);
+    }
+    
+    @Test
+    public void testAdd_switchViewsUnnecessary() throws Exception {
+        model.view(TaskViewFilter.INCOMPLETE);
+        assertTotalTaskCount(0);
+        setParameter("Task 1");
+        setParameter("p", null);
+        setParameter("l", "COM1");
+        setParameter("m", "Useless task");
+        execute(true);
+        assertEquals(model.getViewFilter().get(), TaskViewFilter.INCOMPLETE);
+        assertTotalTaskCount(1);
+        assertVisibleTaskCount(1);
+    }
+    
+    
 }

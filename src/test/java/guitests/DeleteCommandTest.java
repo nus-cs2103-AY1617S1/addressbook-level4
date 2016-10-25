@@ -1,56 +1,88 @@
 package guitests;
 
-import org.junit.Ignore;
 import org.junit.Test;
+import seedu.todo.model.TodoList;
+import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.testutil.CommandGeneratorUtil;
+import seedu.todo.testutil.UiTestUtil;
 
-import seedu.todo.testutil.TestPerson;
-import seedu.todo.testutil.TestUtil;
+import java.util.Random;
 
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+//@@author A0135805H
+/**
+ * Test the delete command via GUI.
+ * Note:
+ *      Invalid indices are not tested.
+ */
+public class DeleteCommandTest extends TodoListGuiTest {
+
+    @Override
+    protected TodoList getInitialData() {
+        return getInitialDataHelper(10, 20);
+    }
 
     @Test
-    @Ignore
-    public void delete() {
+    public void delete_correctBoundary() {
+        //delete the last item in the list
+        executeDeleteHelper(initialTaskData.size());
 
-        //delete the first in the list
-        TestPerson[] currentList = td.getTypicalPersons();
-        int targetIndex = 1;
-        assertDeleteSuccess(targetIndex, currentList);
-
-        //delete the last in the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-        targetIndex = currentList.length;
-        assertDeleteSuccess(targetIndex, currentList);
-
-        //delete from the middle of the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-        targetIndex = currentList.length/2;
-        assertDeleteSuccess(targetIndex, currentList);
-
-        //invalid index
-        commandBox.runCommand("delete " + currentList.length + 1);
-        assertResultMessage("The person index provided is invalid");
+        //delete the first in the list (note that we initialised the size to be > 2.
+        executeDeleteHelper(1);
 
     }
 
+    @Test
+    public void delete_allTasks() {
+        //delete all the elements, until you have none left.
+        Random random = new Random();
+        int remainingTasks = initialTaskData.size();
+        while (remainingTasks > 0) {
+            int randomChoice = random.nextInt(remainingTasks--) + 1;
+            executeDeleteHelper(randomChoice);
+        }
+    }
+
     /**
-     * Runs the delete command to delete the person at specified index and confirms the result is correct.
-     * @param targetIndexOneIndexed e.g. to delete the first person in the list, 1 should be given as the target index.
-     * @param currentList A copy of the current list of persons (before deletion).
+     * A helper method to run the entire delete command process and testing.
      */
-    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestPerson[] currentList) {
-        TestPerson personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestPerson[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
+    private void executeDeleteHelper(int displayedIndex) {
+        ImmutableTask deletedTask = executeDeleteCommand(displayedIndex);
+        assertDeleteSuccess(deletedTask);
+        assertCorrectFeedbackDisplayed(deletedTask);
+    }
 
-        commandBox.runCommand("delete " + targetIndexOneIndexed);
+    /**
+     * Deletes a task from the to-do list view, and returns the deleted task for verification.
+     */
+    private ImmutableTask executeDeleteCommand(int displayedIndex) {
+        int listIndex = UiTestUtil.convertToListIndex(displayedIndex);
+        String commandText = CommandGeneratorUtil.generateDeleteCommand(displayedIndex);
+        ImmutableTask deletedTask = todoListView.getTask(listIndex);
 
-        //confirm the list now contains all previous persons except the deleted person
-        assertTrue(personListPanel.isListMatching(expectedRemainder));
+        runCommand(commandText);
+        return deletedTask;
+    }
 
-        //confirm the result message is correct
-        // assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+    /**
+     * Check if the {@code task} deleted from the view is reflected correctly (i.e. it's no longer there)
+     * and check if the remaining tasks are displayed correctly.
+     */
+    private void assertDeleteSuccess(ImmutableTask deletedTask) {
+        //Check if the task is really deleted.
+        assertFalse(todoListView.getImmutableTaskList().contains(deletedTask));
+
+        //Test if the remaining list is correct.
+        assertTrue(todoListView.isDisplayedCorrectly());
+    }
+
+    /**
+     * Check if the correct feedback message for deleting has been displayed to the user.
+     */
+    private void assertCorrectFeedbackDisplayed(ImmutableTask task) {
+        assertFeedbackMessage("\'" + task.getTitle() + "\' successfully deleted!");
     }
 
 }

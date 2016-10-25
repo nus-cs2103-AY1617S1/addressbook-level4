@@ -7,6 +7,7 @@ import seedu.todo.model.person.*;
 /**
  *
  */
+@Deprecated
 public class TypicalTestPersons {
 
     public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
