@@ -31,7 +31,8 @@ public interface ReadOnlyTask {
     
     public boolean isDue();
     public boolean isHappening();
-    public Duration getDurationDue();
+    public Duration getDueDuration();
+    public Duration getEventDuration();
     
     //@@author A0124797R
     default boolean isSameTask(ReadOnlyTask task) {

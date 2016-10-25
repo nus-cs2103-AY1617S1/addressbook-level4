@@ -189,12 +189,22 @@ public class Task implements ReadOnlyTask {
         return false;
     }
     
+    public Duration getEventDuration(){
+        if(isEvent()){
+            long differencel = endDate.getTime() - startDate.getTime();
+            
+            return Duration.of(differencel, ChronoUnit.MILLIS);
+        }else{
+            return null;
+        }
+    }
+    
     /*
      * calculate the duration until due date
      * 
      */
     //@@author A0138862W
-    public Duration getDurationDue(){
+    public Duration getDueDuration(){
         if(endDate != null){
             long nowl = System.currentTimeMillis();
             long endDatel = endDate.getTime();

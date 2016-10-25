@@ -485,23 +485,38 @@ public class MainWindow extends UiPart {
                 
                 if(!isEmpty()){
                     
-                    VBox vBox = new VBox(5);                   
+                    VBox vBox = new VBox(3);                   
                     
                     Text taskName = generateStyledText(readOnlyTask, readOnlyTask.getName());
                     taskName.getStyleClass().add("task-name-column");
                     vBox.getChildren().add(taskName);
                     
+                    HBox hBox = new HBox(5);
                     
                     Button status = new Button();
                     if(readOnlyTask.isHappening()){
                         status.setText("HAPPENING");
                         status.getStyleClass().add("tag-happening");
-                        vBox.getChildren().add(status);
+                        hBox.getChildren().add(status);
                     }else if(readOnlyTask.isDue()){
                         status.setText("DUE");
                         status.getStyleClass().add("tag-overdue");
-                        vBox.getChildren().add(status);
+                        hBox.getChildren().add(status);
                     }
+                    
+                    if(readOnlyTask.isEvent()){
+                        Button eventDuration = new Button();
+                        eventDuration.setText(readOnlyTask.getEventDuration().toDays()+" DAY(S) EVENT");
+                        eventDuration.getStyleClass().add("tag-event-duration");
+                        hBox.getChildren().add(eventDuration);
+                    }else if(readOnlyTask.isDeadline() && !readOnlyTask.isDue()){
+                        Button dueDuration = new Button();
+                        dueDuration.setText("DUE IN "+readOnlyTask.getDueDuration().toDays()+" DAY(S)");
+                        dueDuration.getStyleClass().add("tag-due-duration");
+                        hBox.getChildren().add(dueDuration);
+                    }
+                    
+                    vBox.getChildren().add(hBox);
                     
                     this.setGraphic(vBox);
                     this.setPrefHeight(50);
