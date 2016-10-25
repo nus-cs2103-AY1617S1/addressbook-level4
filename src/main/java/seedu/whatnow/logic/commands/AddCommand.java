@@ -53,7 +53,7 @@ public class AddCommand extends UndoAndRedo {
             tagSet.add(new Tag(tagName));
         }    
         
-        this.toAdd = new Task(new Name(name), new TaskDate(date), new TaskDate(startDate), new TaskDate(endDate), time, startTime, endTime, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
+        this.toAdd = new Task(new Name(name), date, startDate, endDate, time, startTime, endTime, new UniqueTagList(tagSet), STATUS_INCOMPLETE, null);
 	}
 
 	@Override

@@ -12,9 +12,9 @@ public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private String date;
-    private TaskDate taskDate;
-    private TaskDate startDate;
-    private TaskDate endDate;
+    private String taskDate;
+    private String startDate;
+    private String endDate;
     private String taskTime;
     private String startTime;
     private String endTime;
@@ -97,17 +97,17 @@ public class TestTask implements ReadOnlyTask {
     }
 
 	@Override
-	public TaskDate getTaskDate() {
+	public String getTaskDate() {
 		return taskDate;
 	}
 
     @Override
-    public TaskDate getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
     @Override
-    public TaskDate getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 

@@ -58,11 +58,11 @@ public class XmlAdaptedTask {
         name = source.getName().fullName;
         tagged = new ArrayList<>();
         if(source.getTaskDate() != null)
-        	taskDate = source.getTaskDate().getDate();
+        	taskDate = source.getTaskDate();
         if (source.getStartDate() != null)
-            startDate = source.getStartDate().getDate();
+            startDate = source.getStartDate();
         if (source.getEndDate() != null)
-            endDate = source.getEndDate().getDate();
+            endDate = source.getEndDate();
         if (source.getTaskTime() != null)
             taskTime = source.getTaskTime();
         if (source.getStartTime() != null)
@@ -88,6 +88,6 @@ public class XmlAdaptedTask {
         }
         final Name name = new Name(this.name);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, new TaskDate(taskDate), new TaskDate(startDate), new TaskDate(endDate), taskTime, startTime, endTime, tags, status, null);
+        return new Task(name, taskDate, startDate, endDate, taskTime, startTime, endTime, tags, status, null);
     }
 }

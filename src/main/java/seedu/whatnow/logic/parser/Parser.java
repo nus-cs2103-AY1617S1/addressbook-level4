@@ -502,6 +502,7 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
+     * @throws ParseException 
      */
     private Command prepareUpdate(String args) {
         if (args.equals(null))
@@ -523,6 +524,8 @@ public class Parser {
                     return new UpdateCommand(type, index.get(), argType, arg);
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
+                } catch (ParseException pe) {
+                    return new IncorrectCommand(pe.getMessage());
                 }
             }
             arg += argComponents[i] + " ";
@@ -540,6 +543,8 @@ public class Parser {
             return new UpdateCommand(type, index.get(), argType, arg);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (ParseException pe) {
+            return new IncorrectCommand(pe.getMessage());
         }
     }
     

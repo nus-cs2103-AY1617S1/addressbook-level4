@@ -12,9 +12,9 @@ import seedu.whatnow.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private TaskDate taskDate;
-    private TaskDate startDate;
-    private TaskDate endDate;
+    private String taskDate;
+    private String startDate;
+    private String endDate;
     private String taskTime;
     private String startTime;
     private String endTime;
@@ -28,24 +28,24 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, TaskDate taskDate, TaskDate startDate, TaskDate endDate, String taskTime, String startTime, String endTime, UniqueTagList tags, String status, String taskType) {
+    public Task(Name name, String taskDate, String startDate, String endDate, String taskTime, String startTime, String endTime, UniqueTagList tags, String status, String taskType) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.tags = new UniqueTagList(tags);
         this.status = status;
         this.taskType = FLOATING;
              
-        if (taskDate != null && taskDate.getDate() != null) {
+        if (taskDate != null) {
             this.taskDate = taskDate;
             this.taskType = NOT_FLOATING;
         }
         
-        if (startDate != null && startDate.getDate() != null) {
+        if (startDate != null) {
             this.startDate = startDate;
             this.taskType = NOT_FLOATING;
         }
             
-        if (endDate != null && endDate.getDate() != null) {
+        if (endDate != null) {
             this.endDate = endDate;
             this.taskType = NOT_FLOATING;
         }
@@ -83,17 +83,17 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public TaskDate getTaskDate() {
-    	return taskDate;
+    public String getTaskDate() {
+        return taskDate;
     }
     
     @Override
-    public TaskDate getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
     
     @Override
-    public TaskDate getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
     
@@ -131,15 +131,15 @@ public class Task implements ReadOnlyTask {
         this.name = name;
     }
     
-    public void setTaskDate(TaskDate taskDate) {
+    public void setTaskDate(String taskDate) {
         this.taskDate = taskDate;
     }
     
-    public void setStartDate(TaskDate startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
     
-    public void setEndDate(TaskDate endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
     
