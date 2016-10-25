@@ -341,6 +341,7 @@ public class ModelManager extends ComponentManager implements Model {
     
     private class RecurringQualifier implements Qualifier{
         private String recurring;
+        private static final String EMPTY = "";
         
         RecurringQualifier(String recurring){
             this.recurring = recurring;
@@ -348,7 +349,11 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return task.getRecurring() != null && this.recurring.equals(task.getRecurring().toString());
+            if (recurring.equals(EMPTY)) {
+                return task.getRecurring() == null;
+            } else {
+                return task.getRecurring() != null && this.recurring.equals(task.getRecurring().toString());
+            }
         }
         
         @Override
@@ -366,16 +371,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return tagKeyWords.stream()
-                    .filter(keyword -> {
-                        try {
-                            return task.getTags().contains(new Tag(keyword));
-                        } catch (IllegalValueException e) {
-                            return false;
-                        }
-                    })
-                    .findAny()
-                    .isPresent();
+            return tagKeyWords.stream().filter(keyword -> {
+                try {
+                    return task.getTags().contains(new Tag(keyword));
+                } catch (IllegalValueException e) {
+                    return false;
+                }
+            }).findAny().isPresent();
         }
 
         @Override
