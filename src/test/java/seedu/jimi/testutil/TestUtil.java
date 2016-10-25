@@ -18,6 +18,7 @@ import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.commons.util.FileUtil;
 import seedu.jimi.commons.util.XmlUtil;
 import seedu.jimi.model.TaskBook;
+import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.*;
@@ -66,15 +67,15 @@ public class TestUtil {
     private static FloatingTask[] getSampleFloatingTaskData() {
         try {
             return new FloatingTask[]{
-                    new FloatingTask(new Name("add water"), new UniqueTagList()),
-                    new FloatingTask(new Name("brainstorm ideas"), new UniqueTagList()),
-                    new FloatingTask(new Name("catch a car"), new UniqueTagList()),
-                    new FloatingTask(new Name("drive to airport"), new UniqueTagList()),
-                    new FloatingTask(new Name("eat lunch"), new UniqueTagList()),
-                    new FloatingTask(new Name("fly to spain"), new UniqueTagList()),
-                    new FloatingTask(new Name("go to the beach"), new UniqueTagList()),
-                    new FloatingTask(new Name("have a nice night"), new UniqueTagList()),
-                    new FloatingTask(new Name("into a dream"), new UniqueTagList())
+                    new FloatingTask(new Name("add water"), new UniqueTagList(), new Priority("LOW")),
+                    new FloatingTask(new Name("brainstorm ideas"), new UniqueTagList(), new Priority("LOW")),
+                    new FloatingTask(new Name("catch a car"), new UniqueTagList(), new Priority("LOW")),
+                    new FloatingTask(new Name("drive to airport"), new UniqueTagList(), new Priority("MED")),
+                    new FloatingTask(new Name("eat lunch"), new UniqueTagList(), new Priority("LOW")),
+                    new FloatingTask(new Name("fly to spain"), new UniqueTagList(), new Priority("LOW")),
+                    new FloatingTask(new Name("go to the beach"), new UniqueTagList(), new Priority("LOW")),
+                    new FloatingTask(new Name("have a nice night"), new UniqueTagList(), new Priority("HIGH")),
+                    new FloatingTask(new Name("into a dream"), new UniqueTagList(), new Priority("MED"))
             };
         } catch (IllegalValueException e) {
             assert false;
