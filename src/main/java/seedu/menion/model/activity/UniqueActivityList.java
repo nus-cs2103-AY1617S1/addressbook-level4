@@ -30,7 +30,7 @@ public class UniqueActivityList implements Iterable<Activity> {
      * Signals that an operation targeting a specified task in the list would fail because
      * there is no such matching task in the list.
      */
-    public static class TaskNotFoundException extends Exception {}
+    public static class ActivityNotFoundException extends Exception {}
 
     private final ObservableList<Activity> internalList = FXCollections.observableArrayList();
 
@@ -63,13 +63,13 @@ public class UniqueActivityList implements Iterable<Activity> {
     /**
      * Removes the equivalent task from the list.
      *
-     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws ActivityNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(ReadOnlyActivity toRemove) throws TaskNotFoundException {
+    public boolean remove(ReadOnlyActivity toRemove) throws ActivityNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {
-            throw new TaskNotFoundException();
+            throw new ActivityNotFoundException();
         }
         return taskFoundAndDeleted;
     }

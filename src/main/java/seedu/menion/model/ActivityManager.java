@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the task manager level
  * Duplicates are not allowed (by .equals comparison)
  */
+//@@author A0146752B
 public class ActivityManager implements ReadOnlyActivityManager {
 
     private final UniqueActivityList tasks;
@@ -140,6 +141,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         events.add(t);
         Collections.sort(events.getInternalList(), new EventComparator());
     }
+    //@@author A0146752B
     
     //@@author A0139164A
     /**
@@ -299,30 +301,31 @@ public class ActivityManager implements ReadOnlyActivityManager {
         dub.setActivityEndDateTime(newDate, newTime);
         events.getInternalList().set(index, dub);
     }
-
-    public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    
+    //@@author A0146752B
+    public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.ActivityNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueActivityList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
     
     
-    public boolean removeFloatingTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    public boolean removeFloatingTask(ReadOnlyActivity key) throws UniqueActivityList.ActivityNotFoundException {
         if (floatingTasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueActivityList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
     
     
-    public boolean removeEvent(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    public boolean removeEvent(ReadOnlyActivity key) throws UniqueActivityList.ActivityNotFoundException {
         if (events.remove(key)) {
             return true;
         } else {
-            throw new UniqueActivityList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
     
@@ -375,15 +378,15 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ActivityManager // instanceof handles nulls
-                && this.tasks.equals(((ActivityManager) other).tasks));
-                //&& this.floatingTasks.equals(((ActivityManager) other).floatingTasks)
-                //&& this.events.equals(((ActivityManager) other).events);
+                && this.tasks.equals(((ActivityManager) other).tasks)
+                && this.floatingTasks.equals(((ActivityManager) other).floatingTasks)
+                && this.events.equals(((ActivityManager) other).events));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks);
-        //return Objects.hash(tasks, tags, floatingTasks, events);
+        //return Objects.hash(tasks);
+        return Objects.hash(tasks, floatingTasks, events);
     }
 }

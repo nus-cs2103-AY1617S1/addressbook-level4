@@ -5,7 +5,7 @@ import seedu.menion.commons.util.DateChecker;
 import seedu.menion.model.ActivityManager;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.*;
-import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 
 import java.util.ArrayList;
 
