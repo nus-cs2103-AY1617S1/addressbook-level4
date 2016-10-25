@@ -47,7 +47,9 @@ public class TimeInterval {
 
     @Override
     public boolean equals(Object other) {
-        return other == this;
+        return other == this // short circuit if same object
+                || (other instanceof TimeInterval // instanceof handles nulls
+                && this.value.equals(((TimeInterval) other).value)); // state check
     }
 
     @Override

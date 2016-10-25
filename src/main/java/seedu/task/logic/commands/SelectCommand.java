@@ -5,6 +5,7 @@ import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.Task;
 
 /**
  * Selects a task identified using it's last displayed index from the address book.
@@ -40,5 +41,15 @@ public class SelectCommand extends Command {
         return new CommandResult(String.format(MESSAGE_SELECT_TASK_SUCCESS, targetIndex));
 
     }
+
+	@Override
+	public CommandResult executeUndo() {
+		return null;
+	}
+
+	@Override
+	public boolean isReversible() {
+		return false;
+	}
 
 }

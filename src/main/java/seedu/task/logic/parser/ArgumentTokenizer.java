@@ -1,8 +1,11 @@
 package seedu.task.logic.parser;
 
+import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import java.util.*;
 
 import seedu.task.commons.core.Messages;
+import seedu.task.logic.commands.AddCommand;
 
 /**
  * Tokenizes arguments string of the form:
@@ -126,7 +129,7 @@ public class ArgumentTokenizer {
 			return null;
 		} else if (!prefix.isOptional && !valuesForPrexix.isPresent()) {
 			throw new NoValueForRequiredTagException(
-					String.format(Messages.MESSAGE_NO_VALUE_FOR_REQUIRED_PREFIX, prefix.getPrefix()));
+					String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EVENT_USAGE));
 		} else {
 			return valuesForPrexix.get().trim();
 		}

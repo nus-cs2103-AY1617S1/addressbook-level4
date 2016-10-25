@@ -6,6 +6,7 @@ import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.util.StringUtil;
+import seedu.task.logic.commands.Command;
 import seedu.task.model.task.Task;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.UniqueTaskList;
@@ -22,7 +23,8 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TaskManager taskManager;
+    private TaskManager taskManager;
+    private final UndoCommandManager undoManager;
     private final FilteredList<Task> filteredTasks;
 
     /**
@@ -38,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         taskManager = new TaskManager(src);
+        undoManager = new UndoCommandManager();
         filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
 
@@ -47,6 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) throws ParseException {
         taskManager = new TaskManager(initialData);
+        undoManager = new UndoCommandManager();
         filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
 
@@ -55,7 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.resetData(newData);
         indicateTaskManagerChanged();
     }
-
+    
     @Override
     public ReadOnlyTaskManager getTaskManager() {
         return taskManager;
@@ -85,6 +89,15 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
+    @Override
+    public synchronized void addTaskWithSpecifiedIndex(Task task, int index) throws UniqueTaskList.DuplicateTaskException {
+        
+    	taskManager.addAtSpecificPlace(task, index);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    
+    
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -157,5 +170,15 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+
+	@Override
+	public Command getCommandForUndo() {
+        return undoManager.getCommandForUndo();
+	}
+
+	@Override
+	public void updateCommandsForUndo(Command commandForUndo) {
+		undoManager.addCommand(commandForUndo);
+	}
 
 }

@@ -7,7 +7,9 @@ import seedu.task.logic.commands.Command;
 import seedu.task.logic.commands.CommandResult;
 import seedu.task.logic.parser.Parser;
 import seedu.task.model.Model;
+import seedu.task.model.UndoCommandManager;
 import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.Task;
 import seedu.task.storage.Storage;
 
 import java.text.ParseException;
@@ -18,7 +20,6 @@ import java.util.logging.Logger;
  */
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
-
     private final Model model;
     private final Parser parser;
 
@@ -31,6 +32,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
+        addCommandForUndo(command);
         command.setData(model);
         return command.execute();
     }
@@ -38,5 +40,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
+    }
+    
+    private void addCommandForUndo(Command command){
+    	if(command.isReversible()){
+    		model.updateCommandsForUndo(command);
+    	}
     }
 }

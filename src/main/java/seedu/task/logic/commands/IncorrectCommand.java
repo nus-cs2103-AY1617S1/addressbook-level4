@@ -1,5 +1,6 @@
 package seedu.task.logic.commands;
 
+import seedu.task.model.task.Task;
 
 /**
  * Represents an incorrect command. Upon execution, produces some feedback to the user.
@@ -17,6 +18,17 @@ public class IncorrectCommand extends Command {
         indicateAttemptToExecuteIncorrectCommand();
         return new CommandResult(feedbackToUser);
     }
+
+	@Override
+	public CommandResult executeUndo() {
+		return null;
+	}
+
+
+	@Override
+	public boolean isReversible() {
+		return false;
+	}
 
 }
 

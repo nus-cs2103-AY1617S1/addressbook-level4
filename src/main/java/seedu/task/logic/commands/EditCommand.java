@@ -41,6 +41,7 @@ public class EditCommand extends Command {
 	public final String MESSAGE_SUCCESS = "The data has been successfully edited.";
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";
 	public final String MESSAGE_DUPLICATE = "The edited task is a duplicate of an existing task.";
+	public static final String MESSAGE_SUCCESS_UNDO = "Undo of edit command";
 	public final String MESSAGE_PARAM = "Incorrect parameters.";
 	
 	private ReadOnlyTask selectedTask;
@@ -52,6 +53,8 @@ public class EditCommand extends Command {
 	private UnmodifiableObservableList<ReadOnlyTask> taskList;
 	private int taskIndex;
 	private ArrayList<Task> tempCopy = new ArrayList<Task>();
+	//Task (before modification) for undo command
+	private Task savedTaskForUndo; 
 
 	/**
 	 * Constructor
@@ -93,6 +96,7 @@ public class EditCommand extends Command {
         }
 		try {
 			selectedTask = searchTask(taskIndex);
+			saveTaskForUndo(selectedTask);
 			edit(selectedTask);
 			modifyList();
 		} catch (TaskNotFoundException e) {
@@ -228,6 +232,30 @@ public class EditCommand extends Command {
 	public void changeTimeInterval(String timeInterval) throws IllegalValueException {
 		TimeInterval newTimeInterval = new TimeInterval(timeInterval);
 		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), newTimeInterval, copy.getStatus(), copy.getTags());
+	}
+
+	private void saveTaskForUndo(ReadOnlyTask task){
+		this.savedTaskForUndo = new Task(task.getTitle(), task.getDescription(), task.getStartDate(), task.getDueDate(), task.getInterval(), task.getTimeInterval(), task.getStatus(), task.getTags()); 
+	}
+	
+	@Override
+	public CommandResult executeUndo() {
+		taskList = model.getFilteredTaskList();
+		try {
+			model.deleteTask(searchTask(taskIndex));
+			model.addTaskWithSpecifiedIndex(savedTaskForUndo, taskIndex-1);
+		} catch (TaskNotFoundException e) {
+			return new CommandResult(MESSAGE_NOT_FOUND);
+		} catch (DuplicateTaskException e) {
+			return new CommandResult(MESSAGE_DUPLICATE);
+		}
+		return new CommandResult(MESSAGE_SUCCESS_UNDO);
+	}
+
+
+	@Override
+	public boolean isReversible() {
+		return true;
 	}
 
 }

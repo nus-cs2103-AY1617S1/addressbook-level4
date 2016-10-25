@@ -4,6 +4,7 @@ import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.task.model.Model;
+import seedu.task.model.task.Task;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -27,7 +28,21 @@ public abstract class Command {
      * @return feedback message of the operation result for display
      */
     public abstract CommandResult execute();
-
+    
+    /**
+     * Executes the undo command and returns the result message.
+     *
+     * @return feedback message of the operation result for display
+     */
+    public abstract CommandResult executeUndo();
+    
+    /**
+     * Indicates value whether command is reversible
+     *
+     * @return boolean value
+     */
+    public abstract boolean isReversible();
+    
     /**
      * Provides any needed dependencies to the command.
      * Commands making use of any of these should override this method to gain

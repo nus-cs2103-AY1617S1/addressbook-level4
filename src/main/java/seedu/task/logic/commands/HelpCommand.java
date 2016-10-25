@@ -3,6 +3,7 @@ package seedu.task.logic.commands;
 
 import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.ui.ShowHelpRequestEvent;
+import seedu.task.model.task.Task;
 
 /**
  * Format full help instructions for every command for display.
@@ -23,4 +24,16 @@ public class HelpCommand extends Command {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
+
+	@Override
+	public CommandResult executeUndo() {
+		return this.execute();
+	}
+
+
+	@Override
+	public boolean isReversible() {
+		return true;
+	}
+
 }

@@ -3,8 +3,10 @@ package seedu.task.logic.commands;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.task.model.task.Status;
+import seedu.task.model.task.Task;
 
 /**
  * Mark a task as completed which is identified using it's last displayed index from the task manager.
@@ -19,9 +21,12 @@ public class DoneCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
     
     public static final String MESSAGE_COMPLETED_TASK_SUCCESS = "Completed Task: %1$s";
+	public static final String MESSAGE_SUCCESS_UNDO = "Undo of done command";
+	public final String MESSAGE_DUPLICATE = "The task is a duplicate of an existing task.";
+	public final String MESSAGE_NOT_FOUND = "The task was not found.";
     
-    public final int targetIndex;
-
+    public int targetIndex;
+    
     public DoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -40,15 +45,42 @@ public class DoneCommand extends Command {
 
         try {
             ReadOnlyTask completedTask = taskToComplete;
-            completedTask.setStatus(new Status("Completed"));
+            completedTask.setStatus(new Status("COMPLETED"));
             model.completeTask(taskToComplete, completedTask);
             
         } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+            assert false : MESSAGE_NOT_FOUND;
         }
         
 
         return new CommandResult(String.format(MESSAGE_COMPLETED_TASK_SUCCESS, taskToComplete));
     }
+
+	/**
+	 * Assume that done task is at the end of list
+	 */
+	@Override
+	public CommandResult executeUndo() {
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+		int numberOfTasks = lastShownList.size();
+		ReadOnlyTask task = lastShownList.get(numberOfTasks - 1);
+		Task taskToAdd = new Task(task.getTitle(), task.getDescription(), task.getStartDate(), task.getDueDate(),
+				task.getInterval(), task.getTimeInterval(), task.getStatus(), task.getTags());
+		taskToAdd.setStatus(new Status("ONGOING"));
+		try {
+			model.deleteTask(task);
+			model.addTaskWithSpecifiedIndex(taskToAdd, targetIndex - 1);
+		} catch (DuplicateTaskException e) {
+			return new CommandResult(MESSAGE_DUPLICATE);
+		} catch (TaskNotFoundException e) {
+			return new CommandResult(MESSAGE_NOT_FOUND);
+		}
+		return new CommandResult(String.format(MESSAGE_SUCCESS_UNDO));
+	}
+
+	@Override
+	public boolean isReversible() {
+		return true;
+	}
 
 }
