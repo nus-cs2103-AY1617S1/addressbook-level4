@@ -50,9 +50,9 @@ public class AddCommand extends Command {
         	throw new IllegalValueException(MESSAGE_INVALID_START_AND_END_TIME);
         }
         
-        if(!Time.taskTimeisAfterCurrentTime(start) || !Time.taskTimeisAfterCurrentTime(end)) {
-        	throw new IllegalValueException(MESSAGE_INVALID_TIME);
-        }
+//        if(!Time.taskTimeisAfterCurrentTime(start) || !Time.taskTimeisAfterCurrentTime(end)) {
+//        	throw new IllegalValueException(MESSAGE_INVALID_TIME);
+//        }
         
         this.toAdd = new Task(
                 new Name(name),
