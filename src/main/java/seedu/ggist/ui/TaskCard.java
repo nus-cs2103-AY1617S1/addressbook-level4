@@ -91,7 +91,7 @@ public class TaskCard extends UiPart{
             }
             //priority.setText(level);
         }
-        if (task.getDone()) {
+        if (task.isDone()) {
             taskName.textFillProperty().bind(done.valueProperty());
         }     
     }

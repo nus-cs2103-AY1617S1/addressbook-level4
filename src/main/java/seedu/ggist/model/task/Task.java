@@ -89,7 +89,7 @@ public class Task implements ReadOnlyTask{
 
     
     @Override
-    public boolean getDone() {
+    public boolean isDone() {
         return done;
     }
 
@@ -150,6 +150,27 @@ public class Task implements ReadOnlyTask{
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(taskName,startDate, startTime, endDate, endTime, priority);
+    }
+
+
+    @Override
+    public boolean isDeleted() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+
+    @Override
+    public void constructStartDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
+        // TODO Auto-generated method stub
+        
+    }
+
+
+    @Override
+    public void constructEndDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
+        // TODO Auto-generated method stub
+        
     }
 
 
