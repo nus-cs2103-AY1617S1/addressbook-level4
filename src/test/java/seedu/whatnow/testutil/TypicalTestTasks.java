@@ -1,5 +1,7 @@
 package seedu.whatnow.testutil;
 
+import java.text.ParseException;
+
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.model.WhatNow;
 import seedu.whatnow.model.task.*;
@@ -13,13 +15,13 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-            a = new TaskBuilder().withName("Buy apricots").withDate("").withTaskType("todo").withTags("low").withStatus("incomplete").build();
-            b = new TaskBuilder().withName("Business meeting").withDate("24/12/2016").withTaskType("schedule").withTags("high").withStatus("incomplete").build();
-            c = new TaskBuilder().withName("Buy cake").withDate("11/10/2017").withTaskType("todo").withTags("").withStatus("incomplete").build();
-            d = new TaskBuilder().withName("Buy a doggie").withDate("18/10/2016").withTaskType("todo").withTags("medium").withStatus("incomplete").build();
-            e = new TaskBuilder().withName("Economics Class").withDate("20/10/2016").withTaskType("schedule").withTags("").withStatus("incomplete").build();
-            f = new TaskBuilder().withName("Family Day Outing").withDate("10/08/2017").withTaskType("schedule").withTags("medium").withStatus("incomplete").build();
-            g = new TaskBuilder().withName("Buy grapes").withDate("").withTaskType("todo").withTags("low").withStatus("incomplete").build();
+            a = new TaskBuilder().withName("Buy apricots").withStartDate("").withTaskType("todo").withTags("low").withStatus("incomplete").build();
+            b = new TaskBuilder().withName("Business meeting").withStartDate("24/12/2016").withTaskType("schedule").withTags("high").withStatus("incomplete").build();
+            c = new TaskBuilder().withName("Buy cake").withStartDate("11/10/2017").withTaskType("todo").withTags("").withStatus("incomplete").build();
+            d = new TaskBuilder().withName("Buy a doggie").withStartDate("18/10/2016").withTaskType("todo").withTags("medium").withStatus("incomplete").build();
+            e = new TaskBuilder().withName("Economics Class").withStartDate("20/10/2016").withTaskType("schedule").withTags("").withStatus("incomplete").build();
+            f = new TaskBuilder().withName("Family Day Outing").withStartDate("10/08/2017").withTaskType("schedule").withTags("medium").withStatus("incomplete").build();
+            g = new TaskBuilder().withName("Buy grapes").withStartDate("").withTaskType("todo").withTags("low").withStatus("incomplete").build();
             
             
             //Manually added
@@ -28,6 +30,9 @@ public class TypicalTestTasks {
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
+        } catch (ParseException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
         }
     }
 

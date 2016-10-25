@@ -1,5 +1,7 @@
 package seedu.whatnow.testutil;
 
+import java.text.ParseException;
+
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.model.tag.Tag;
 import seedu.whatnow.model.task.*;
@@ -11,7 +13,7 @@ public class TaskBuilder {
 
     private TestTask task;
 
-    public TaskBuilder() {
+    public TaskBuilder() throws IllegalValueException, ParseException {
         this.task = new TestTask();
     }
 
@@ -37,13 +39,24 @@ public class TaskBuilder {
         return this;
     }
     
-    public TaskBuilder withDate(String date) throws IllegalValueException {
-        this.task.setDate(date);
+    public TaskBuilder withStartDate(String date) throws IllegalValueException, ParseException {
+        this.task.setStartDate(new TaskDate(date));
         return this;
     }
     
+    public TaskBuilder withEndDate(String date) throws IllegalValueException, ParseException {
+        this.task.setEndDate(new TaskDate(date));
+        return this;
+    }
+    
+    
     public TestTask build() {
         return this.task;
+    }
+
+    public TaskBuilder withDate(String date) throws IllegalValueException, ParseException {
+        this.task.setDate(new TaskDate(date));
+        return this;
     }
 
 }

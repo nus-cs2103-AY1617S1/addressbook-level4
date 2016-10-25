@@ -1,7 +1,9 @@
 package seedu.whatnow.testutil;
 
+import java.text.ParseException;
 import java.util.Objects;
 
+import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.*;
 
@@ -11,7 +13,6 @@ import seedu.whatnow.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private String date;
     private TaskDate taskDate;
     private TaskDate startDate;
     private TaskDate endDate;
@@ -21,10 +22,12 @@ public class TestTask implements ReadOnlyTask {
     private UniqueTagList tags;
     private String status;
     private String taskType;//todo or schedule
-    
 
-    public TestTask() {
-        setDate("");
+    public TestTask() throws IllegalValueException, ParseException {
+        setStartDate(new TaskDate(""));
+        setEndDate(new TaskDate(""));
+        setStartTime("");
+        setEndTime("");
         setTaskType("");
         tags = new UniqueTagList();
     }
@@ -68,12 +71,28 @@ public class TestTask implements ReadOnlyTask {
         this.taskType = taskType;
     }
 
-    public String getDate() {
-        return date;
+    public TaskDate getStartDate() {
+        return startDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public TaskDate getEndDate() {
+        return endDate;
+    }
+    
+    public void setStartDate(TaskDate date) {
+        this.startDate = date;
+    }
+    
+    public void setEndDate(TaskDate date) {
+        this.endDate = date;
+    }
+    
+    public void setStartTime(String time) {
+        this.startTime = time;
+    }
+    
+    public void setEndTime(String time) {
+        this.endTime = time;
     }
     
     @Override
@@ -84,31 +103,21 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, status, tags, taskType, date);
+        return Objects.hash(name, status, tags, taskType, startDate, endDate, startTime, endTime);
     }
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add \"" + this.getName().fullName + "\" ");
-        if (!this.getDate().equals(null) && !this.getDate().equals(""))
-            sb.append("on" + " " + this.getDate());
+        if (!this.getStartDate().equals(null) && !this.getStartDate().equals(""))
+            sb.append("on" + " " + this.getStartDate());
         this.getTags().getInternalList().stream().forEach(s -> sb.append(" t/" + s.tagName + " "));
         return sb.toString();
     }
 
-	@Override
-	public TaskDate getTaskDate() {
-		return taskDate;
-	}
-
     @Override
-    public TaskDate getStartDate() {
-        return startDate;
-    }
-
-    @Override
-    public TaskDate getEndDate() {
-        return endDate;
+    public TaskDate getTaskDate() {
+        return taskDate;
     }
 
     @Override
@@ -124,5 +133,9 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public String getEndTime() {
         return endTime;
+    }
+
+    public void setDate(TaskDate date) {
+        this.taskDate = date;
     }
 }
