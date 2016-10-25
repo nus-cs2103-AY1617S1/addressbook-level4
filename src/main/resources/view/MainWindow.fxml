@@ -23,7 +23,7 @@
                             <center>
                                 <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                                     <tabs>
-                                        <Tab text="Home">
+                                        <Tab fx:id="Home" text="Home">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
@@ -41,7 +41,7 @@
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
-                                        <Tab text="Tasks">
+                                        <Tab fx:id="Tasks" text="Tasks">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
@@ -59,7 +59,7 @@
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
-                                        <Tab text="Events">
+                                        <Tab fx:id="Events" text="Events">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
@@ -77,7 +77,7 @@
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
-                                        <Tab text="Deadlines">
+                                        <Tab fx:id="Deadlines" text="Deadlines">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
@@ -95,7 +95,7 @@
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
-                                        <Tab text="Archives">
+                                        <Tab fx:id="Archives" text="Archives">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
