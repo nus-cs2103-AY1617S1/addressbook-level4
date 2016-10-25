@@ -1,20 +1,21 @@
 package seedu.jimi.model.task;
 
 import seedu.jimi.model.datetime.DateTime;
+import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.UniqueTagList;
 
 public class DeadlineTask extends FloatingTask implements ReadOnlyTask {
 
     private DateTime deadline;
     
-    public DeadlineTask(Name name, DateTime deadline, UniqueTagList tags, boolean isCompleted) {
-        super(name, tags, isCompleted);
+    public DeadlineTask(Name name, DateTime deadline, UniqueTagList tags, boolean isCompleted, Priority priority) {
+        super(name, tags, isCompleted, priority);
         assert deadline != null;
         this.deadline = deadline;
     }
     
-    public DeadlineTask(Name name, DateTime deadline, UniqueTagList tags) {
-        super(name, tags);
+    public DeadlineTask(Name name, DateTime deadline, UniqueTagList tags, Priority priority) {
+        super(name, tags, priority);
         assert deadline != null;
         this.deadline = deadline;
     }
@@ -23,7 +24,7 @@ public class DeadlineTask extends FloatingTask implements ReadOnlyTask {
      * Copy constructor.
      */
     public DeadlineTask(DeadlineTask source) {
-        super(source.getName(), source.getTags(), source.isCompleted());
+        super(source.getName(), source.getTags(), source.isCompleted(), source.getPriority());
         this.deadline = ((DeadlineTask) source).getDeadline();
     }
     
@@ -61,6 +62,8 @@ public class DeadlineTask extends FloatingTask implements ReadOnlyTask {
                .append(getDeadline())
                .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Priority: ")
+        .append(getPriority());
         return builder.toString();
     }
     
