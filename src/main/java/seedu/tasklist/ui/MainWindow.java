@@ -45,7 +45,7 @@ public class MainWindow extends UiPart {
     private CategoryPanel categoryPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
+    //private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
@@ -65,8 +65,8 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane commandBoxPlaceholder;
 
-    @FXML
-    private MenuItem helpMenuItem;
+    //@FXML
+    //private MenuItem helpMenuItem;
 
     @FXML
     private AnchorPane personListPanelPlaceholder;
@@ -74,8 +74,8 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
-    @FXML
-    private AnchorPane statusbarPlaceholder;
+    //@FXML
+    //private AnchorPane statusbarPlaceholder;
 
     //@FXML
     //private SplitPane dateTimePlaceholder;
@@ -129,14 +129,14 @@ public class MainWindow extends UiPart {
     }
 
     private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        //helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
     void fillInnerParts() {
         categoryPanel = CategoryPanel.load(primaryStage, getCategoryPanelPlaceholder(), logic.getTaskCounter());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
+        //statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
         setLabelText();
         System.out.println();
@@ -145,11 +145,11 @@ public class MainWindow extends UiPart {
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
-
+    /*
     private AnchorPane getStatusbarPlaceholder() {
         return statusbarPlaceholder;
     }
-
+    */
     private AnchorPane getResultDisplayPlaceholder() {
         return resultDisplayPlaceholder;
     }

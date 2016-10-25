@@ -30,8 +30,8 @@ public class TaskCard extends UiPart{
     private Label endTime;
     @FXML
     private Label priority;
-    @FXML
-    private Label tags;
+    //@FXML
+    //private Label tags;
     @FXML
     private ImageView statusButton;
 
@@ -54,12 +54,18 @@ public class TaskCard extends UiPart{
         name.setText(task.getTaskDetails().taskDetails);
         id.setText(displayedIndex + ". ");
         startTime.setText(task.getStartTime().toCardString());
-        priority.setText(task.getPriority().toString());
+        //priority.setText(task.getPriority().toString());
+        if (task.getPriority().toString().equals("high"))
+            priority.setGraphic(new ImageView(new Image("/images/three_stars.png")));
+        else if (task.getPriority().toString().equals("med"))
+            priority.setGraphic(new ImageView(new Image("/images/two_stars.png")));
+        else priority.setGraphic(new ImageView(new Image("/images/one_star.png")));
+        priority.setText("");
         endTime.setText(task.getEndTime().toCardString());
         setColour();
         statusButton.setVisible(true);
         setStatusButtonColour();
-        tags.setText(task.tagsString());
+        //tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {
