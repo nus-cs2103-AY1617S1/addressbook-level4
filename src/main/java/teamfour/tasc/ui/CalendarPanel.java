@@ -1,10 +1,9 @@
+//@@author A0140011L
 package teamfour.tasc.ui;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.temporal.Temporal;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -18,9 +17,7 @@ import jfxtras.internal.scene.control.skin.agenda.AgendaDaySkin;
 import jfxtras.internal.scene.control.skin.agenda.AgendaWeekSkin;
 import jfxtras.scene.control.agenda.Agenda;
 import jfxtras.scene.control.agenda.Agenda.Appointment;
-import jfxtras.scene.control.agenda.Agenda.AppointmentGroup;
 import teamfour.tasc.commons.core.LogsCenter;
-import teamfour.tasc.commons.events.ui.TaskPanelListChangedEvent;
 import teamfour.tasc.commons.exceptions.IllegalValueException;
 import teamfour.tasc.commons.util.FxViewUtil;
 import teamfour.tasc.logic.commands.CalendarCommand;
@@ -28,7 +25,6 @@ import teamfour.tasc.model.task.Deadline;
 import teamfour.tasc.model.task.Period;
 import teamfour.tasc.model.task.ReadOnlyTask;
 import teamfour.tasc.model.task.Recurrence;
-import teamfour.tasc.ui.calendar.CalendarAppointmentGroups;
 import teamfour.tasc.ui.calendar.CalendarReadOnlyAppointment;
 import teamfour.tasc.ui.calendar.CalendarReadOnlyRecurredAppointment;
 
@@ -104,6 +100,7 @@ public class CalendarPanel extends UiPart {
         agendaView = null;
     }
     
+    //@@author A0148096W
     /**
      * Precondition: argument is not null.
      * Change the view of the calendar.
@@ -121,12 +118,13 @@ public class CalendarPanel extends UiPart {
             currentCalendarView = CalendarCommand.KEYWORD_CALENDAR_VIEW_WEEK;
             break;
         default:
-            logger.warning("Calendar view type is invalid: " + view);
+            logger.warning("Calendar view type is not recognized: " + view);
             break;
         }
         selectLastSelectedTask();
     }
-
+    
+    //@@author A0140011L
     /** 
      * Refresh the calendar using the new task list given.
      */

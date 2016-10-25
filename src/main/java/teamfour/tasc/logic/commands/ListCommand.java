@@ -1,3 +1,5 @@
+//@@author A0148096W
+
 package teamfour.tasc.logic.commands;
 
 import java.util.Date;
@@ -14,7 +16,7 @@ import teamfour.tasc.model.keyword.TagKeyword;
 import teamfour.tasc.model.keyword.ToKeyword;
 
 /**
- * Lists all tasks in the task list to the user.
+ * Lists all tasks in the task list to the user with filters and sort.
  */
 public class ListCommand extends Command {
     public static final String COMMAND_WORD = ListCommandKeyword.keyword;
@@ -61,9 +63,9 @@ public class ListCommand extends Command {
      */
     public ListCommand(String type, String deadline, String startTime, String endTime,
                         Set<String> tags, String sortingOrder) throws IllegalValueException {
-        this.deadline = CommandHelper.convertStringToDateIfPossible(deadline);
-        this.startTime = CommandHelper.convertStringToDateIfPossible(startTime);
-        this.endTime = CommandHelper.convertStringToDateIfPossible(endTime);
+        this.deadline = CommandHelper.tryConvertStringToDateOrReturnNull(deadline);
+        this.startTime = CommandHelper.tryConvertStringToDateOrReturnNull(startTime);
+        this.endTime = CommandHelper.tryConvertStringToDateOrReturnNull(endTime);
 
         this.tags = new HashSet<>();
         for (String tagName : tags) {

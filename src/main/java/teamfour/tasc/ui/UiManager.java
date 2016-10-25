@@ -30,7 +30,7 @@ import java.util.logging.Logger;
  */
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION = "/images/task_list_app_icon_32.png";
 
     private Logic logic;
     private Config config;
@@ -137,7 +137,8 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getCalendarPanel().refreshTasks(event.getNewTaskList());
     }
-
+    
+    //@@author A0148096W
     /**
      * Handle the event when change calendar view is requested.
      */

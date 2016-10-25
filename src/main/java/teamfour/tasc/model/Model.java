@@ -13,17 +13,20 @@ import java.util.Set;
  * The API of the Model component.
  */
 public interface Model {
+    //@@author A0148096W
     public static final String SORT_ORDER_BY_EARLIEST_FIRST = "earliest first";
     public static final String SORT_ORDER_BY_LATEST_FIRST = "latest first";
     public static final String SORT_ORDER_BY_A_TO_Z = "a-z";
     public static final String SORT_ORDER_BY_Z_TO_A = "z-a";
 
+    //@@author
     /** Clears existing backing model and replaces with the provided new data */
     void resetData(ReadOnlyTaskList newData);
 
     /** Returns the TaskList */
     ReadOnlyTaskList getTaskList();
 
+    //@@author A0148096W
     /** Saves the current state of the TaskList into history */
     void saveTaskListHistory();
     
@@ -34,6 +37,7 @@ public interface Model {
      */
     int undoTaskListHistory(int numToUndo);
     
+    //@@author
     /** Deletes the given task */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
@@ -49,6 +53,7 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords */
     void updateFilteredTaskList(Set<String> keywords);
 
+    //@@author A0148096W
     /** Removes all filters of the filtered task list */
     void resetTaskListFilter();
 
@@ -97,9 +102,11 @@ public interface Model {
     /** Updates the filtered task list by the added filters */
     void updateFilteredTaskListByFilter();
 
+    //@@author A0140011L
     /** Updates the old task with new task details */
     void updateTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException;
 
+    //@@author
     /**
      * Precondition: numToRedo must be > 0.
      * Redo the past undos.

@@ -13,7 +13,8 @@ import teamfour.tasc.model.task.Recurrence;
 import org.junit.Test;
 
 public class CommandHelperTest {
-
+    
+    //@@author A0148096W
     /*
      * Equivalence partitions for date strings:
      *  - null
@@ -23,34 +24,35 @@ public class CommandHelperTest {
      */
 
     @Test
-    public void convertStringToDateIfPossible_stringIsNull_returnsNull() {
+    public void tryConvertStringToDateOrReturnNull_inputNull_returnsNull() {
         String string = null;
-        Date date = CommandHelper.convertStringToDateIfPossible(string);
+        Date date = CommandHelper.tryConvertStringToDateOrReturnNull(string);
         assertTrue(date == null);
     }
 
     @Test
-    public void convertStringToDateIfPossible_stringIsEmpty_returnsNull() {
+    public void tryConvertStringToDateOrReturnNull_inputEmptyString_returnsNull() {
         String string = "";
-        Date date = CommandHelper.convertStringToDateIfPossible(string);
+        Date date = CommandHelper.tryConvertStringToDateOrReturnNull(string);
         assertTrue(date == null);
     }
 
     @Test
-    public void convertStringToDateIfPossible_stringIsInvalidDate_returnsNull() {
-        String string = "invalidstringdate";
-        Date date = CommandHelper.convertStringToDateIfPossible(string);
+    public void tryConvertStringToDateOrReturnNull_inputInvalidDateString_returnsNull() {
+        String string = "invaliddatestring";
+        Date date = CommandHelper.tryConvertStringToDateOrReturnNull(string);
         assertTrue(date == null);
     }
 
     @Test
-    public void convertStringToDateIfPossible_stringIsValidDate_returnsDate() {
+    public void tryConvertStringToDateOrReturnNull_inputValidDateString_returnsDate() {
         String string = "13 sep 2013";
-        Date date = CommandHelper.convertStringToDateIfPossible(string);
+        Date date = CommandHelper.tryConvertStringToDateOrReturnNull(string);
         assertTrue(date.getDate() == 13);
         assertTrue(date.getMonth() == 8);
         assertTrue(date.getYear() == 2013 - 1900);
     }
+
     //@@author A0127014W
     @Test
     public void convertStringToMultipleDates_shortName_correct_date_month_year() {
@@ -189,8 +191,8 @@ public class CommandHelperTest {
         } catch (IllegalValueException e) {
         }
     }
-    //@@author
-
+    
+    //@@author A0140011L
     @Test
     public void convertDateToPrettyTimeParserFriendlyString_validInput() {
         Calendar calendar = Calendar.getInstance();

@@ -27,6 +27,7 @@ public class TaskBuilder {
         return this;
     }
     
+    //@@author A0140011L
     public TaskBuilder withCompleteStatus(boolean complete) throws IllegalValueException {
         this.task.setComplete(new Complete(complete));
         return this;
@@ -47,7 +48,8 @@ public class TaskBuilder {
         this.task.setRecurrence(new Recurrence(pattern, frequency));
         return this;
     }
-
+    
+    //@@author
     public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
             task.getTags().add(new Tag(tag));
