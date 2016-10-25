@@ -17,8 +17,8 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n"
-            + "Edits a task identified by the index number used in the last task listing. "
-            + "Parameters: INDEX [FIELD TO CHANGE] [NEW INFO] \n\t" + "Example: " + COMMAND_WORD + " 1 task, buy eggs";
+            + "Edits a task identified by the index number used in the last task listing. \n"
+            + "Parameters: INDEX [FIELD TO CHANGE] [NEW INFO] \n" + "Example: " + COMMAND_WORD + " 1 task, buy eggs";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Task edited: %1$s";
 
