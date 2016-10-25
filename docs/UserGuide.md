@@ -19,9 +19,9 @@
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : Lists all active tasks.
-   * **`add`**` Homework by 24 sep 6pm : 
-     adds a task named `Homework` to the Task Master .
+   * **`list`** : Lists all active tasks 
+   * **`add`**` Homework by 24 sep 6pm`: 
+     adds a task named `Homework` to the Task Master
    * **`delete`**` 212` : deletes the task with ID 212 shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -49,7 +49,8 @@
 <!-- @@author A0135784W-->
 
 ## Features
-### Command Format
+
+> **Command Format**
 > * Each command consists of a command word (such as add or delete), followed by other options such as DATE,TIME or [t/TAG]
 > * Words in `UPPER_CASE` are the description of what kind data to input.
 > * Items in `SQUARE_BRACKETS` `[items]` are optional.
