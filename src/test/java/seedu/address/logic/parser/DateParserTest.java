@@ -66,7 +66,7 @@ public class DateParserTest {
 	
 	@Test
 	public void ddMMMyyyyHHmm_valid_valueAsExpected() throws ParseException {
-		String userInput = "25 dec 2016 16:30";
+		String userInput = "25-dec-2016 16:30";
 		LocalDateTime date = DateParser.parse(userInput);
 
 		assertEquals(christmas430pm, date);
@@ -74,7 +74,7 @@ public class DateParserTest {
 	
 	@Test
 	public void ddMMMyyyyHHmm_validOrder2_valueAsExpected() throws ParseException {
-		String userInput = "16:30 25 dec 2016";
+		String userInput = "16:30 25-dec-2016";
 		LocalDateTime date = DateParser.parse(userInput);
 
 		assertEquals(christmas430pm, date);
@@ -85,7 +85,7 @@ public class DateParserTest {
 		thrown.expect(ParseException.class);
 		thrown.expectMessage("Month is not an integer or one of the standard 3 letter abbreviations.");
 		
-		String userInput = "25 pop 2016 16:30";
+		String userInput = "25-pop-2016 16:30";
 		DateParser.parse(userInput);
 	}
 	

@@ -14,14 +14,14 @@ public class DateParser {
 			Pattern.compile("(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?"), // dd-MM-yyyy HH:mm am
 			Pattern.compile("(?<year>\\d{4})-(?<month>\\d{1,2})-(?<day>\\d{1,2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?"), // yyyy-MM-dd HH:mmpm
 			Pattern.compile("(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?"), // dd-MM-yy HH:mm pm
-			Pattern.compile("(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?"), // dd MMM yyyy HH:mm am
-			Pattern.compile("(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?"), // dd MMM yy HH:mm am
+			Pattern.compile("(?<day>\\d{1,2})-(?<month>[a-z]{3})-(?<year>\\d{4})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?"), // dd-MMM-yyyy HH:mm am
+			Pattern.compile("(?<day>\\d{1,2})-(?<month>[a-z]{3})-(?<year>\\d{2})\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?"), // dd-MMM-yy HH:mm am
 
 			Pattern.compile("(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?\\s(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{4})"), // HH:mm am dd-MM-yyyy 
 			Pattern.compile("(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?\\s(?<year>\\d{4})-(?<month>\\d{1,2})-(?<day>\\d{1,2})"), // HH:mmpm yyyy-MM-dd 
 			Pattern.compile("(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?\\s(?<day>\\d{1,2})-(?<month>\\d{1,2})-(?<year>\\d{2})"), // HH:mm pm dd-MM-yy 
-			Pattern.compile("(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?\\s(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{4})"), // HH:mm am dd MMM yyyy 
-			Pattern.compile("(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?\\s(?<day>\\d{1,2})\\s(?<month>[a-z]{3})\\s(?<year>\\d{2})") // HH:mm am dd MMM yy 
+			Pattern.compile("(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?\\s(?<day>\\d{1,2})-(?<month>[a-z]{3})-(?<year>\\d{4})"), // HH:mm am dd-MMM-yyyy 
+			Pattern.compile("(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?\\s(?<day>\\d{1,2})-(?<month>[a-z]{3})-(?<year>\\d{2})") // HH:mm am dd-MMM-yy 
 	};
 
 	private static final Pattern[] NATURAL_LANGUAGE = new Pattern[] {
