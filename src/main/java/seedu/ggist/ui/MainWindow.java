@@ -1,6 +1,7 @@
 package seedu.ggist.ui;
 
 import javafx.fxml.FXML;
+import java.util.Date;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
@@ -33,6 +34,7 @@ public class MainWindow extends UiPart {
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
+    private ListingHeader listHeader;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
@@ -48,6 +50,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
+    
+    @FXML
+    private AnchorPane listHeaderPlaceHolder;
 
     @FXML
     private MenuItem helpMenuItem;
@@ -109,6 +114,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         //browserPanel = BrowserPanel.load(browserPlaceholder);
+        listHeader = ListingHeader.load(primaryStage, getListHeaderPlaceHolder(), (new Date()).toString());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
@@ -117,6 +123,10 @@ public class MainWindow extends UiPart {
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
+    }
+    
+    private AnchorPane getListHeaderPlaceHolder() {
+        return listHeaderPlaceHolder;
     }
 
     private AnchorPane getStatusbarPlaceholder() {

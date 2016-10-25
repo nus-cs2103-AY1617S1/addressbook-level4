@@ -1,5 +1,8 @@
 package seedu.ggist.logic.commands;
 
+import seedu.ggist.commons.core.EventsCenter;
+import seedu.ggist.commons.events.ui.JumpToListRequestEvent;
+import seedu.ggist.commons.events.ui.ChangeListingEvent;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.task.TaskDate;
 
@@ -39,6 +42,7 @@ public class ListCommand extends Command {
             model.updateFilteredListToShowAllUndone();
         }
         model.setLastListing(listing);
+        EventsCenter.getInstance().post(new ChangeListingEvent(listing));
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 }
