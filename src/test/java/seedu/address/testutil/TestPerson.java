@@ -16,7 +16,8 @@ public class TestPerson implements ReadOnlyTask {
     private int task_cat;
     private int overdue;
     private UniqueTagList tags;
-
+    boolean isCompleted;
+    
     public TestPerson() {
         tags = new UniqueTagList();
     }
@@ -65,6 +66,11 @@ public class TestPerson implements ReadOnlyTask {
     @Override
     public int getOverdue(){
     	return overdue;
+    }
+    
+    @Override
+    public boolean getIsCompleted() {
+    	return isCompleted;
     }
 
     @Override
