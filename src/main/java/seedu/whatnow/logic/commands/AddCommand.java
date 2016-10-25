@@ -22,11 +22,15 @@ public class AddCommand extends UndoAndRedo {
 
 	public static final String COMMAND_WORD = "add";
 
-	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to WhatNow. "
-			+ "Parameters: TASK_NAME [t/TAG]...\n"
-			+ "Example: " + COMMAND_WORD
-			+ " Buy groceries 18 January t/highPriority\n"
-			+ " Buy dinner 18/10/2016 t/lowPriority\n";
+	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to WhatNow. \n"
+			+ "Parameters: \"TASK_NAME\" [t/TAG]...\n"
+	        + "Parameters: \"TASK_NAME\" [on/by/from] [today/tomorrow/DATE] [to] [today/tomorrow/DATE] [t/TAG]...\n"
+			+ "Parameters: \"TASK_NAME\" [by/at/from] [TIME] [till/to] [TIME] [t/TAG]...\n"
+			+ "Example: \n"
+			+ COMMAND_WORD + " \"Buy groceries\" on 23/2/2017 t/highPriority\n"
+			+ COMMAND_WORD + " \"Buy dinner\" at 6pm t/highPriority\n"
+			+ COMMAND_WORD + " \"Lesson\" on 24/2/2017 from 8.30am to 4:30pm t/lowPriority\n"
+			+ COMMAND_WORD + " \"Submit homework\" by tomorrow 12pm t/lowPriority\n";
 
 	public static final String MESSAGE_SUCCESS = "New task added: %1$s";
 	public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in WhatNow";
