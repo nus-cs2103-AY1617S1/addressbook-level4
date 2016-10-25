@@ -65,9 +65,16 @@ public class ModelManager extends ComponentManager implements Model {
         updateListing();
     }
     
+    @Override
+    public String getLastListing() {
+        return lastListing;
+    }
+    
+    @Override
     public void setLastListing(String listing) {
         lastListing = listing;
     }
+    
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);

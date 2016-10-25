@@ -59,12 +59,12 @@ public class ListingHeader extends UiPart {
     
     @Override
     public String getFxmlPath() {
-        return FXML;
+        return "ListingHeader.fxml";
     }
     
     @Override
     public void setNode(Node node) {
-        listing = (Label)node;
+        listHeader = (AnchorPane)node;
     }
     
     @Subscribe
