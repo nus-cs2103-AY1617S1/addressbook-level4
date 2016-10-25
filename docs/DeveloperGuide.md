@@ -165,36 +165,42 @@ The next sections give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/teamfour/tasc/ui/Ui.java)
 
-*Figure 5* above shows the overview of the UI component. It consists of a `MainWindow` that is made up of parts, which includes `CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+*Figure 5* above shows the overview of the UI component. It consists of a `MainWindow` that is made up of parts, which includes `CommandBox`, `TaskListPanel`,
+`CalendarPanel`, etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 which can be loaded using the `UiPartLoader`.
 
 The **`UI`** component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- which are in the `src/main/resources/view` folder.<br>
+ which are in the `src/main/resources/view` folder.
  For example, the layout of the [`MainWindow`](../src/main/java/teamfour/tasc/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
-
-<br>
+<br><br>
 
 The **`UI`** component
 * executes user commands using the **`Logic`** component.
 * binds itself to some data in the **`Model`** so that the UI can auto-update when data in the **`Model`** change.
 * responds to events raised from various parts of the App and updates the UI accordingly.
 
-<img src="images/UiComponentParts.png" width="600"><br>
+<img src="images/UiComponentParts.png" width="480"><br>
 *Figure 6. UI component in the application's interface*
 
-*Figure 6* above shows where each `UiPart` is attached to the `MainWindow`. The `TaskListPanel` class shows the list of tasks, and each task is contained in a `TaskCard` object.
+*Figure 6* above shows where each `UiPart` is attached to the `MainWindow`.
 <br><br>
 
-**`TaskCard` Class:**
+**`TaskListPanel` Class:**
 
- Each `TaskCard` is assigned a unique index in increasing order, which is used in other commands to specify a task, e.g. `delete 3` deletes the third item in the list.
+The `TaskListPanel` shows a list of `TaskCard` object, where each `TaskCard` contains the details of a task shown to the user. 
+The `TaskCard` is also assigned a unique index in increasing order, which is used in other commands to identify a task, e.g. `delete 3` deletes the third item in the list.
+<br><br>
+
+**`CalendarPanel` Class:**
+
+The `CalendarPanel` encapsulates the `Agenda` control from [`JFXtras`](http://jfxtras.org/doc/8.0/jfxtras-agenda/) library. 
+The `CalendarPanel` handles the display and selection of tasks on the calendar, and also handles the switching between *Day* and *Week* view of the calendar.
 <br><br>
 
 **`HelpWindow` Class:**
 
-The `HelpWindow` is a window separate from the `MainWindow`. It shows our product's User Guide using a Web Browser which supports modern HTML and CSS.
+The `HelpWindow` is a window separate from the `MainWindow`. It shows our product's User Guide using a WebBrowser which supports modern HTML and CSS.
 
 <br>
 
