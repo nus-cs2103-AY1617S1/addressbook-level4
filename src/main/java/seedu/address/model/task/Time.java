@@ -86,7 +86,7 @@ public class Time {
      * @param token
      * @return true if the given date is a valid date
      */
-	private static boolean isValidDate(String token) {
+	public static boolean isValidDate(String token) {
 		
 		String[] date = token.split(" ");
 		Pattern dateType = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/(\\d\\d)");
