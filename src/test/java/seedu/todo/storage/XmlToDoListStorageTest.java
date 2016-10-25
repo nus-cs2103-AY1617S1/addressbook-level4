@@ -73,7 +73,7 @@ public class XmlToDoListStorageTest {
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(TypicalTestTasks.buyNoodles));
-        original.removeTask(new Task(TypicalTestTasks.buyMilk));
+        original.removeTask(new Task(TypicalTestTasks.buyNoodles));
         xmlToDoListStorage.saveToDoList(original, filePath);
         readBack = xmlToDoListStorage.readToDoList(filePath).get();
         assertEquals(original, new ToDoList(readBack));
