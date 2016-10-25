@@ -294,12 +294,14 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-            return (taskDateKeyWords.equalsIgnoreCase(task.getStartDate().toString()) || 
+          /*  return (taskDateKeyWords.equalsIgnoreCase(task.getStartDate().toString()) || 
                    taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString())) && 
                    !task.getDone() ||
                    (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && 
                    task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) && 
-                   !task.getDone());          
+                   !task.getDone());     
+                   */
+        	return true;
                    
         }
 

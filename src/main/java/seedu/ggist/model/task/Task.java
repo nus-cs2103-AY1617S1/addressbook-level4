@@ -46,12 +46,13 @@ public class Task implements ReadOnlyTask{
             start = constructDateTime(startDate, startTime);
         }
         end = constructDateTime(endDate, endTime);
-        
+    /* 
         Date currentDate  = new Date();
-        if (start.before(currentDate) || end.before(currentDate)) {
+        if (end.before(currentDate)) {
             throw new IllegalValueException("You have enetered a past date or time!");
         }
-        
+       
+        */
     }
     
 
@@ -82,7 +83,7 @@ public class Task implements ReadOnlyTask{
             Date date2 = new DateTimeParser("11:59 pm " + date.value).getDateTime();
             return date2;
         } else {
-            Date date3 = new DateTimeParser(time.value + " " + date.value).getDateTime();
+            Date date3 = new DateTimeParser(date.testValue + " " + time.value).getDateTime();
             return date3;
         }
     }
