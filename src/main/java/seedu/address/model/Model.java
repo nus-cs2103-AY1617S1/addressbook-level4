@@ -54,11 +54,11 @@ public interface Model {
     /** Returns the filtered done task list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredDoneTaskList();
 
-    /** Updates the filter of the filtered floating task list to show all floating tasks */
-    void updateFilteredListToShowAll();
+    /** Updates the filter of the filtered task lists to show all tasks */
+    void updateFilteredListsToShowAll();
 
-    /** Updates the filter of the filtered floating task list to filter by the given keywords*/
-    void updateFilteredFloatingTaskList(Set<String> keywords);
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    void updateFilteredUndoneTaskList(Set<String> keywords);
 
     /** Updates the filter of the filtered done task list to filter by the given keywords*/
     void updateFilteredDoneTaskList(Set<String> keywords);
