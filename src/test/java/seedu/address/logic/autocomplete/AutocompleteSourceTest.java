@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import seedu.address.logic.parser.CommandParserList;
 
+//@@author A0138978E
 public class AutocompleteSourceTest {
 	
 	@Test

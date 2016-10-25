@@ -23,6 +23,7 @@ public interface Logic {
     
     ObservableList<String> getHelpList();
 
+    //@@author A0138978E
     /** Returns the previous command in the command history */
     String getPreviousCommand();
     

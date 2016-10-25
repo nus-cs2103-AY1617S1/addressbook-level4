@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.taskcommands.SetStorageCommand;
 
+//@@author A0138978E
 public class SetStorageCommandTest {
 
 	@Test

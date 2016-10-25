@@ -73,6 +73,7 @@ public class TaskConfig {
         this.taskManagerName = taskManagerName;
     }
     
+    //@@author A0138978E
     /*
      * Modifes the task and alias file path based on the input storage location
      */
@@ -101,6 +102,7 @@ public class TaskConfig {
                 && Objects.equals(taskManagerName, o.taskManagerName);
     }
 
+    //@@author 
     @Override
     public int hashCode() {
         return Objects.hash(appTitle, logLevel, userPrefsFilePath, tasksFilePath, aliasFilePath, taskManagerName);

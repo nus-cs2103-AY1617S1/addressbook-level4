@@ -62,6 +62,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getHelpList();
     }
     
+  //@@author A0138978E
     @Override
     public String getPreviousCommand() {
     	return commandHistory.getPreviousCommand();

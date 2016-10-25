@@ -46,6 +46,7 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
     
+    //@@author A0138978E
     @Test
     public void addSpacesBetweenNumbersAndWords_combinedNumberWordStringsGiven() {
     	assertEquals(StringUtil.addSpacesBetweenNumbersAndWords("31Oct2016"), "31 Oct 2016");

@@ -39,6 +39,7 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask() {}
 
 
+    //@@author A0138978E
     /**
      * Converts a given Task into this class for JAXB use.
      *
@@ -105,6 +106,7 @@ public class XmlAdaptedTask {
         
     }
     
+  //@@author
     public boolean equals(XmlAdaptedTask o) {
         if((this.complete==o.complete) && this.description.equals(o.description) &&
                 this.endDate.equals(o.endDate) && this.startDate.equals(o.endDate) &&

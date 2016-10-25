@@ -12,6 +12,7 @@ public class TaskConfigTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    //@@author A0138978E
     @Test
     public void toString_defaultObject_stringReturned() {
         String defaultConfigAsString = "App title : Task Manager\n" +

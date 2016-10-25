@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 import seedu.address.model.Copiable;
 
-
+//@@author A0138978E
 public class UniqueItemCollection<T> implements Iterable<T>{
 	
 	/**
@@ -33,6 +33,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
      */
     public UniqueItemCollection() {}
     
+    //@@author A0139817U
     /**
      * Duplicates an existing UniqueItemCollection
      */
@@ -54,6 +55,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
     	return copiedCollection;
     }
 
+    //@@author A0138978E
     /**
      * Returns true if the list contains an equivalent item as the given argument.
      */
@@ -89,6 +91,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
         return itemFoundAndDeleted;
     }
     
+    //@@author A0139817U
     /**
      * Replaces an item to remove with an item to add from the list.
      * 
@@ -106,6 +109,7 @@ public class UniqueItemCollection<T> implements Iterable<T>{
     	throw new ItemNotFoundException();
     }
 
+    //@@author A0138978E
     public ObservableList<T> getInternalList() {
         return internalList;
     }

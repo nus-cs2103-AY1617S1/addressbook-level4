@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.CommandParserList;
 
+//@@author A0138978E
 /*
  * Returns a set of words for autocomplete purposes based on the requested
  * source
