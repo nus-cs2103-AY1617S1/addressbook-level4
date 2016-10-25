@@ -9,7 +9,7 @@ import seedu.oneline.model.tag.UniqueTagList;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask, Comparable<Task> {
 
     private TaskName name;
     private TaskTime startTime;
@@ -103,5 +103,18 @@ public class Task implements ReadOnlyTask {
     public void setCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
+
+    //@@author A0138848M
+    /**
+     * Returns true if task is floating
+     * 
+     * floating task is defined as a task without a start/end time or a deadline
+     * 
+     * @return true if task is floating
+     */
+    public boolean isFloating() {
+        return !startTime.isValid() && !endTime.isValid() && !deadline.isValid();
+    }
+    
 
 }
