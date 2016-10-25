@@ -74,6 +74,7 @@ public class ConfigUtilTest {
         assertEquals(expected, actual);
     }
 
+    //@@author A0147971U
     private Config getTypicalConfig() {
         Config config = new Config();
         config.setAppTitle("Typical App Title");
@@ -85,6 +86,7 @@ public class ConfigUtilTest {
         config.setTaskListFileNames("tasklist");
         return config;
     }
+    //@@author
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);

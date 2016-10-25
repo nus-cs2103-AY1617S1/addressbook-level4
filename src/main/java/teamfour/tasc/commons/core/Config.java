@@ -55,6 +55,7 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
+    //@@author A0147971U
     public String getTaskListFilePathAndName() {
         return taskListFilePath + "/" + taskListFileName;
     }
@@ -139,7 +140,7 @@ public class Config {
     public String[] getTaskListNames() {
         return this.taskListFileNames.split(", ");
     }
-
+    //@@author
 
     @Override
     public boolean equals(Object other) {
