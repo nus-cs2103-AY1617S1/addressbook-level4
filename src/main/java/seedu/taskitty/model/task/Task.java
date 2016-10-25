@@ -156,7 +156,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 		return isOverdue;
 	}
 	
-	//@@author
+	//@@author A0139052L
 	@Override
     public int compareTo(Task taskToCompare) {
 	    // sort all tasks that are done to the back of the list

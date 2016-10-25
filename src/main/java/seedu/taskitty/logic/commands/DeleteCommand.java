@@ -11,6 +11,7 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0139052L
 /**
  * Deletes a task identified using it's last displayed index from the task manager.
  */
@@ -24,9 +25,9 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted" + " %1$s: %2$s\n";
     
-    public int categoryIndex;
+    private int categoryIndex;
     
-    public int targetIndex;
+    private int targetIndex;
     
     private final List<Pair<Integer, Integer>> listOfIndexes;
     

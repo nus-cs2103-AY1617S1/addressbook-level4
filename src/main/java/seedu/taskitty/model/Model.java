@@ -34,6 +34,7 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
     
+    //@@author A0139052L
     /** Undoes the previous command if there is any 
      * @throws NoPreviousValidCommandException */
     String undo() throws NoPreviousValidCommandException;
@@ -44,6 +45,7 @@ public interface Model {
     /** Removes the current state saved when an invalid command is given */
     void removeUnchangedState();
     
+    //@@author
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getTaskList();
     

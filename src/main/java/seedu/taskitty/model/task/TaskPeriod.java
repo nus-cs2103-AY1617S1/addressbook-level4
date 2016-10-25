@@ -145,7 +145,7 @@ public class TaskPeriod implements Comparable<TaskPeriod>{
         return numArgs == Task.EVENT_COMPONENT_COUNT;
     }
 
-    //@@author
+    //@@author A0139052L
     @Override
     public int compareTo(TaskPeriod periodToCompare) {
         if (this.getNumArgs() == periodToCompare.getNumArgs()) {

@@ -60,11 +60,11 @@ public class TestTaskList {
         }
     }
     
+    //@@author A0139052L
     public TestTask getTaskFromList(int index, char category) {
         return getCategoryList(category).get(index);  
     }
-    
-    //@@author A0139052L
+       
     public void editTaskFromList(int index, char category, TestTask task) {
         removeTaskFromList(index, category);
         addTaskToList(task);
@@ -78,12 +78,14 @@ public class TestTaskList {
         removeTaskFromList(index, ' ');;
     }
     
+    //@@author
     public void markTaskAsDoneInList(int index, char category, TestTask task) {
     	removeTaskFromList(index, category);
     	task.markAsDone();
     	addTaskToList(task);
     }
     
+    //@@author A0139052L
     public int size(char category) {
         return getCategoryList(category).size();
     }
@@ -109,7 +111,7 @@ public class TestTaskList {
         }
     }
     
-    //@@author
+    //@@author A0139930B
     public void clear() {
         todoList = new ArrayList<TestTask>();
         deadlineList = new ArrayList<TestTask>();
