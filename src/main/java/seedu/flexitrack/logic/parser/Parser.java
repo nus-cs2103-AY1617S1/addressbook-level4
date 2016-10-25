@@ -22,11 +22,8 @@ public class Parser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); 
-    
     private static final HashMap<String, String> SHORTCUT_MAP = new HashMap<String, String>();                                                                                                       // more
                                                                                                            
     static {
@@ -42,43 +39,15 @@ public class Parser {
         SHORTCUT_MAP.put(UnmarkCommand.COMMAND_SHORTCUT, UnmarkCommand.COMMAND_WORD);
         SHORTCUT_MAP.put(SelectCommand.COMMAND_SHORTCUT, SelectCommand.COMMAND_WORD);
     }                                                                                                      
-    private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = // '/'
-                                                                    // forward
-                                                                    // slashes
-                                                                    // are
-                                                                    // reserved
-                                                                    // for
-                                                                    // delimiter
-                                                                    // prefixes
+    private static final Pattern TASK_EVENT_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>.+)" + "from/(?<startTime>[^/]+)" + "to/(?<endTime>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of
-                                                         // tags
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    private static final Pattern TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT = // '/'
-                                                                       // forward
-                                                                       // slashes
-                                                                       // are
-                                                                       // reserved
-                                                                       // for
-                                                                       // delimiter
-                                                                       // prefixes
-            Pattern.compile("(?<name>.+)" + "by/(?<dueDate>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable
-                                                                                                        // number
-                                                                                                        // of
-                                                                                                        // tags
+    private static final Pattern TASK_DEADLINE_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>.+)" + "by/(?<dueDate>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    private static final Pattern TASK_FLOATING_TYPE_DATA_ARGS_FORMAT = // '/'
-                                                                       // forward
-                                                                       // slashes
-                                                                       // are
-                                                                       // reserved
-                                                                       // for
-                                                                       // delimiter
-                                                                       // prefixes
-            Pattern.compile("(?<name>.+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable
-                                                                               // number
-                                                                               // of
-                                                                               // tags
+    private static final Pattern TASK_FLOATING_TYPE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<name>.+)" + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern EDIT_COMMAND_FORMAT = Pattern.compile("(?<index>[0-9]+)(?<arguments>.*)");
 
@@ -172,13 +141,17 @@ public class Parser {
      */
     private boolean isValideListFormat(String arguments) throws IllegalValueException {
         String dateInfo = (arguments.replace(ListCommand.LIST_FUTURE_COMMAND, "").replace(ListCommand.LIST_PAST_COMMAND, "").
-        replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "").trim());
+        replace(ListCommand.LIST_UNMARK_COMMAND, "").replace(ListCommand.LIST_MARK_COMMAND, "").
+        replace(ListCommand.LIST_LAST_MONTH_COMMAND, "").replace(ListCommand.LIST_LAST_WEEK_COMMAND, "").
+        replace(ListCommand.LIST_NEXT_MONTH_COMMAND, "").replace(ListCommand.LIST_NEXT_WEEK_COMMAND, "").trim());
         if ( !dateInfo.equals("") ){
             DateTimeInfoParser timeArgs = new DateTimeInfoParser(dateInfo);
         }
         return (arguments.contains(ListCommand.LIST_FUTURE_COMMAND) || arguments.contains(ListCommand.LIST_UNMARK_COMMAND)
                 || arguments.contains(ListCommand.LIST_PAST_COMMAND) || arguments.contains(ListCommand.LIST_MARK_COMMAND)
-                || arguments.contains(ListCommand.LIST_UNSPECIFIED_COMMAND));
+                || arguments.contains(ListCommand.LIST_UNSPECIFIED_COMMAND) || arguments.contains(ListCommand.LIST_LAST_WEEK_COMMAND) 
+                || arguments.contains(ListCommand.LIST_LAST_MONTH_COMMAND) || arguments.contains(ListCommand.LIST_NEXT_MONTH_COMMAND) 
+                || arguments.contains(ListCommand.LIST_NEXT_WEEK_COMMAND));
     }
 
     private Command prepareEdit(String arguments) {
