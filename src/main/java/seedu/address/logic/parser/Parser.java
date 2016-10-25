@@ -193,15 +193,8 @@ public class Parser {
         }
 
         return new DeleteCommand(index.get());
-    }
-
-	
-	
-	
-	
-	
-	
-	
+    }	
+				
 	private Command prepareComplete(String args) throws IllegalValueException {
   		  
         Optional<Integer> index = parseIndex(args);
