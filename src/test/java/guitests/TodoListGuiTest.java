@@ -95,6 +95,17 @@ public abstract class TodoListGuiTest {
     }
 
     /**
+     * Override {@link #getInitialData()} and use this method to set a variable initial
+     * task size between {@code lowerBound} and {@code upperBound} inclusive.
+     */
+    protected TodoList getInitialDataHelper(int lowerBound, int upperBound) {
+        TodoList todoList = TestUtil.generateEmptyTodoList(getDataFileLocation());
+        initialTaskData = TaskFactory.list(lowerBound, upperBound);
+        TestUtil.loadTodoListWithData(todoList, initialTaskData);
+        return todoList;
+    }
+
+    /**
      * Override this in child classes to set the data file location.
      */
     protected String getDataFileLocation() {

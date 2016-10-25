@@ -8,6 +8,8 @@ import seedu.todo.testutil.TaskFactory;
 import seedu.todo.testutil.TestUtil;
 import seedu.todo.testutil.UiTestUtil;
 
+import java.util.List;
+
 import static org.junit.Assert.assertTrue;
 
 //@@author A0135805H
@@ -54,14 +56,10 @@ public class AddCommandTest extends TodoListGuiTest {
     }
 
     @Test
-    public void add_addRandom() {
-        //Add a random task
-        ImmutableTask random1 = TaskFactory.random();
-        executeAddTestHelper(random1);
-
-        //Add another random task
-        ImmutableTask random2 = TaskFactory.random();
-        executeAddTestHelper(random2);
+    public void add_addManyRandom() {
+        //Add a long list of random task, which in the end spans at least 2 pages.
+        List<ImmutableTask> randomTaskList = TaskFactory.list(15, 25);
+        randomTaskList.forEach(this::executeAddTestHelper);
     }
 
     /* Helper Methods */
@@ -78,8 +76,7 @@ public class AddCommandTest extends TodoListGuiTest {
     private void executeAddTestHelper(ImmutableTask task) {
         updatePreviousTaskListFromView();
         executeAddCommand(task);
-        assertAddSuccess(task);
-        assertCorrectFeedbackDisplayed(task);
+        assertCorrectnessHelper(task);
     }
 
     /**
@@ -90,18 +87,28 @@ public class AddCommandTest extends TodoListGuiTest {
         runCommand(commandText);
     }
 
-    /**
-     * Check if the {@code task} added to the view is reflected correctly,
-     * and the remaining tasks remains in the list, and is displayed correctly.
-     */
-    private void assertAddSuccess(ImmutableTask task) {
-        //Test if this single add is correct.
+    private void assertCorrectnessHelper(ImmutableTask newTask) {
         int addedIndex = getNewlyAddedTaskIndex();
-        int expectedDisplayedIndex = UiTestUtil.convertToUiIndex(addedIndex);
-        TaskCardViewHandle taskCard = todoListView.getTaskCardViewHandle(addedIndex);
-        assertTrue(taskCard.isDisplayedCorrectly(expectedDisplayedIndex, task));
+        TaskCardViewHandle taskCardHandle = todoListView.getTaskCardViewHandle(addedIndex);
 
-        //Test if the remaining list is correct.
+        assertAddSuccess(taskCardHandle, newTask, addedIndex);
+        assertCorrectFeedbackDisplayed(newTask);
+        assertCollapsed(taskCardHandle);
+    }
+
+    /**
+     * Check the two following areas:
+     *      1. If the {@code task} added to the view is reflected correctly in it's own task card view.
+     *      2. If the remaining task cards are present and still displayed correctly in their own
+     *         respective card views.
+     */
+    private void assertAddSuccess(TaskCardViewHandle newTaskHandle, ImmutableTask newTask, int addedListIndex) {
+        int expectedDisplayedIndex = UiTestUtil.convertToUiIndex(addedListIndex);
+
+        //Test for the newly added task.
+        assertTrue(newTaskHandle.isDisplayedCorrectly(expectedDisplayedIndex, newTask));
+
+        //Test for remaining tasks.
         assertTrue(todoListView.isDisplayedCorrectly());
     }
 
@@ -110,5 +117,15 @@ public class AddCommandTest extends TodoListGuiTest {
      */
     private void assertCorrectFeedbackDisplayed(ImmutableTask task) {
         assertFeedbackMessage("\'" + task.getTitle() + "\' successfully added!");
+    }
+
+    /**
+     * Tasks should be collapsed when newly added.
+     * Checks the case where if the task is collapsible, then the task is in the collapsed state when newly added.
+     */
+    private void assertCollapsed(TaskCardViewHandle newTask) {
+        if (newTask.isTaskCollapsible()) {
+            assertTrue(newTask.isTaskCardCollapsed());
+        }
     }
 }
