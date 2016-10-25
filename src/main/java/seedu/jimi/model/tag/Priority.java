@@ -17,7 +17,6 @@ public class Priority extends Tag{
     public final static String priorityHigh = "HIGH";
             
     public Priority()   {
-        tagName = "MED"; 
     }
     
     /**
