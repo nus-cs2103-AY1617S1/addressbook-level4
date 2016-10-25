@@ -58,8 +58,7 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
 
-#### Add a task/tag
-##### Add a task: `add`
+#### Add a task: `add`
 Adds a task to the task manager.<br>
 Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [end/ENDTIME] [t/TAG]...`
 
@@ -74,35 +73,44 @@ Examples:
 * `add get eggs pr/low t/family`
 * `add organize room`
 
-##### Add tags: `addTag`
-Add tags to specified task.<br>
-Format: `addTag INDEX TAG`
 
-Example:
-* `list`<br>
-  `addTag 2 NUS`<br>
-  Adds the tag `NUS` to the task with the index 2
-
-
-#### List all tasks/tags
-##### List all tasks: `list`
+#### List all tasks: `list`
 Shows a list of all tasks in the task manager.<br>
-Format: `list [-pr] [-t/TAGS]...`
+Format: `list [-pr] [-st] [-ed] [-t/TAGS]...`
 
-> * Tasks are sorted chronologically by default
-> * Tasks without deadlines are listed at the end when chronologically sorted
+> * Tasks are listed in the order of the user inputs the tasks by default.
+> * With different modifiers, tasks is listed in different order.
 
 Modifiers | Action
 --- | :---
 -pr | Tasks are listed by priority
+-st | Tasks are listed by start time
+-ed | Tasks are listed by end time
 -t/TAG | Tasks with the specified tag are listed
+> * When `list -st`, tasks without start time will be listed at the end of the list. 
+> * When `list -ed`, tasks without end time will be listed at the end of the list. 
+
 
 <div style="text-align:center" markdown="1">
 <img src="images/UserGuide Mock up2.png" title="Task manager listing tasks by priority" width="900">
 <figcaption>Fig. 2: Task manager listing tasks by priority</figcaption>
 </div>
 
-##### List all tags used: `list tags`
+
+#### Delete a task: `delete`
+Deletes the specified task from the task manager.<br>
+Format: `delete INDEX`
+
+Examples:
+* `list`<br>
+  `delete 2`<br>
+  Deletes the 2nd task in the task manager.
+
+
+
+
+
+#### List all tags used: `list tags`
 Lists all the tags used in the task manager.<br>
 Format: `list tags`
 
@@ -148,28 +156,9 @@ Find tasks that have any of the specified tags.<br>
 Format: `find t/TAG [MORE_TAGS]`
 
 
-#### Delete a task/tag
-##### Delete a task: `delete`
-Deletes the specified task from the task manager.<br>
-Format: `delete INDEX`
-
-Examples:
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd task in the task manager.
-
-##### Delete tags from a task: `deleteTag`
-Delete tags from specified task.<br>
-Format: `deleteTag INDEX TAG`
-
-Example:
-* `list`<br>
-  `deleteTag 3 NTU`<br>
-  Removes the tag `NTU` from the task with the index 3
-
-
-#### Edit a task: `update`
-Edits the specified task.<br>
+#### Edit: 
+##### Edit a task: `update`
+Update a detail of a task with the specific index in the list.<br>
 Format: `update INDEX PROPERTY INPUT`
 
 > * Edits a property of the task with the input index by replacing the information stored with the new information accordingly
@@ -180,6 +169,24 @@ Examples:
 * `list`<br>
   `update 3 descrition Go to SOC`<br>
   Edits the 3rd task in the task manager by replacing the previous description with `Go to SOC`.
+
+##### Add a tag: `addTag`
+Add a tag to a task with specific index in the list.<br>
+Format: `addTag INDEX TAG`
+
+Example:
+* `list`<br>
+  `addTag 2 NUS`<br>
+  Adds the tag `NUS` to the task with the index 2
+  
+##### Delete a tag: `deleteTag`
+Delete a tag of a task with specific index in the list.<br><br>
+Format: `deleteTag INDEX TAG`
+
+Example:
+* `list`<br>
+  `deleteTag 3 NTU`<br>
+  Removes the tag `NTU` from the task with the index 3
 
 
 #### Complete a task: `complete`
