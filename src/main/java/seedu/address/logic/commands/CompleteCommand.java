@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.sun.xml.internal.ws.api.pipe.ThrowableContainerPropertySet;
-
 import seedu.address.commons.core.Messages;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -19,6 +17,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Priority;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Startline;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
@@ -36,6 +35,7 @@ public class CompleteCommand extends Command {
 
 	public final int targetIndex;
 	public Name name;
+	public final Startline startline;
 	public final UniqueDeadlineList deadlineSet;
 	public final Priority priority;
 	public final UniqueTagList tagSet;
@@ -53,7 +53,8 @@ public class CompleteCommand extends Command {
 		for (String deadlineDate : getDeadlinesFromArgs("")) {
 			deadlineSet.add(new Deadline(deadlineDate));
 		}
-
+        
+		this.startline = new Startline(null);
 		this.deadlineSet = new UniqueDeadlineList(deadlineSet);
 		this.priority = new Priority("0");
 		this.tagSet = new UniqueTagList(tagSet);
@@ -122,7 +123,7 @@ public class CompleteCommand extends Command {
 			e1.printStackTrace();
 		}
 
-		toAdd = new Task(this.name, this.deadlineSet, this.priority, this.tagSet);
+		toAdd = new Task(this.name, this.startline, this.deadlineSet, this.priority, this.tagSet);
 
 		assert model != null;
 		try {
