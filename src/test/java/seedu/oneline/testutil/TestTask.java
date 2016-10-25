@@ -6,7 +6,7 @@ import seedu.oneline.model.task.*;
 /**
  * A mutable task object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 
     private TaskName name;
     private TaskTime startTime;
@@ -116,5 +116,17 @@ public class TestTask implements ReadOnlyTask {
 
     public boolean hasDeadline() {
         return deadline.isValid();
+    }
+    
+    /**
+     * Compares by deadline, then compares by name
+     */
+    @Override
+    public int compareTo(TestTask o) {
+        if (deadline.compareTo(o.deadline) == 0){
+            return name.compareTo(o.name);
+        } else {
+            return deadline.compareTo(o.deadline);
+        }
     }
 }
