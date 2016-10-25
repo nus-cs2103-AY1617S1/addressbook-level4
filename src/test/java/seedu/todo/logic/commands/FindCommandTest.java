@@ -62,4 +62,15 @@ public class FindCommandTest extends CommandTest {
         execute(true);
         assertVisibleTaskCount(1);
     }
+    
+    @Test
+    public void testDismissFind() throws ValidationException {
+        setParameter("project");
+        execute(true);
+        assertVisibleTaskCount(2);
+        
+        setParameter("");
+        execute(true);
+        assertVisibleTaskCount(4);
+    }
 }

@@ -146,6 +146,10 @@ public abstract class CommandTest {
         result = command.execute();
         
         assertEquals(expectSuccess, result.isSuccessful());
+        
+        // Resets the command object for re-execution
+        command = commandUnderTest();
+        params = new StubParseResult();
     }
 
     private class StubParseResult implements ParseResult {

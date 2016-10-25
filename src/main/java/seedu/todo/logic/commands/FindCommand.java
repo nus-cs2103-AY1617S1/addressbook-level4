@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import org.atteo.evo.inflector.English;
 import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
@@ -35,9 +36,9 @@ public class FindCommand extends BaseCommand {
     }
     @Override
     public CommandResult execute() throws ValidationException {
-        // Dismissing search results 
-        if (!keywords.hasBoundValue()) {
-            model.find(null);
+        // Dismissing search results if there are no keywords
+        if (!keywords.hasBoundValue() || StringUtil.isEmpty(keywords.getValue())) {
+            model.find(t -> true);
             return new CommandResult();
         }
         
