@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import org.atteo.evo.inflector.English;
 import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.Parameter;
 import seedu.todo.logic.arguments.StringArgument;
@@ -16,7 +17,7 @@ import java.util.function.Predicate;
 public class FindCommand extends BaseCommand {
     private static final String TASK_FOUND_FORMAT = "%d %s found!";
     
-    private Argument<String> keywords = new StringArgument("keywords").required();
+    private Argument<String> keywords = new StringArgument("keywords");
     
     @Override
     protected Parameter[] getArguments() {
@@ -35,6 +36,12 @@ public class FindCommand extends BaseCommand {
     }
     @Override
     public CommandResult execute() throws ValidationException {
+        // Dismissing search results if there are no keywords
+        if (!keywords.hasBoundValue() || StringUtil.isEmpty(keywords.getValue())) {
+            model.find(t -> true);
+            return new CommandResult();
+        }
+        
         List<String> keywordList = Lists.newArrayList(Splitter.on(" ")
             .trimResults()
             .omitEmptyStrings()
@@ -45,7 +52,7 @@ public class FindCommand extends BaseCommand {
             return keywordList.stream().anyMatch(title::contains);
         };
         
-        model.find(filter);
+        model.find(filter, keywordList);
         
         int resultSize = model.getObservableList().size();
         String feedback = String.format(TASK_FOUND_FORMAT, resultSize, English.plural("result", resultSize));

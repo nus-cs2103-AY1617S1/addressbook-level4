@@ -33,6 +33,8 @@ import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertEquals;
+
 //import seedu.todo.model.tag.UniqueTagList;
 
 /**
@@ -125,6 +127,18 @@ public class TestUtil {
     @Deprecated
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
         return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    }
+
+    public static void assertAllPropertiesEqual(ImmutableTask a, ImmutableTask b) {
+        assertEquals(a.getTitle(), b.getTitle());
+        assertEquals(a.getDescription(), b.getDescription());
+        assertEquals(a.getLocation(), b.getLocation());
+        assertEquals(a.getStartTime(), b.getStartTime());
+        assertEquals(a.getEndTime(), b.getEndTime());
+        assertEquals(a.isPinned(), b.isPinned());
+        assertEquals(a.isCompleted(), b.isCompleted());
+        assertEquals(a.getTags(), b.getTags());
+        assertEquals(a.getUUID(), b.getUUID());
     }
 
     /**

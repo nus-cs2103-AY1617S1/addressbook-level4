@@ -236,14 +236,16 @@ public class TimeUtil {
     
     //@@author A0092382A
     public boolean isOngoing(LocalDateTime startTime, LocalDateTime endTime) {
-        if(endTime == null) {
-            logger.log(Level.WARNING, "endTime in isOngoing(...) is null.");
+        if (endTime == null) {
+            logger.log(Level.WARNING, "endTime in isOngoing(..., ...) is null.");
             return false;
-        }
-        else if(startTime == null) {
+        } 
+        
+        if (startTime == null) {
             logger.log(Level.WARNING, "startTime in isOngoing(..., ...) is null");
             return false;
         }
+        
         return LocalDateTime.now(clock).isAfter(startTime) && LocalDateTime.now(clock).isBefore(endTime);
     }
 

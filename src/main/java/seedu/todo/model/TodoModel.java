@@ -14,6 +14,7 @@ import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagCollection;
 import seedu.todo.model.tag.UniqueTagCollectionModel;
 import seedu.todo.model.tag.UniqueTagCollectionUtil;
+import seedu.todo.model.property.SearchStatus;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
@@ -68,6 +69,8 @@ public class TodoModel implements Model {
      */
     private ObjectProperty<TaskViewFilter> view = new SimpleObjectProperty<>();
     
+    private ObjectProperty<SearchStatus> search = new SimpleObjectProperty<>();
+
     public TodoModel(Config config) {
         this(new TodoListStorage(config.getTodoListFilePath()));
     }
@@ -184,6 +187,13 @@ public class TodoModel implements Model {
     @Override
     public void find(Predicate<ImmutableTask> predicate) {
         findFilteredTasks.setPredicate(predicate);
+        search.setValue(null);
+    }
+
+    @Override
+    public void find(Predicate<ImmutableTask> predicate, List<String> terms) {
+        findFilteredTasks.setPredicate(predicate);
+        search.setValue(new SearchStatus(terms, findFilteredTasks.size(), tasks.size()));
     }
 
     @Override
@@ -236,6 +246,11 @@ public class TodoModel implements Model {
     @Override
     public ObjectProperty<TaskViewFilter> getViewFilter() {
         return view;
+    }
+
+    @Override
+    public ObjectProperty<SearchStatus> getSearchStatus() {
+        return search;
     }
 
     //@@author A0135805H
