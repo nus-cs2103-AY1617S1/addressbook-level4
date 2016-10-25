@@ -2,9 +2,12 @@ package seedu.tasklist.model;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.tasklist.commons.core.Config;
+import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.ComponentManager;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
+import seedu.tasklist.commons.events.TickEvent;
+import seedu.tasklist.commons.events.model.TaskCountersChangedEvent;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.logic.commands.UndoCommand;
@@ -43,6 +46,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.google.common.eventbus.Subscribe;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
@@ -76,6 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskList = new TaskList(src);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskCounter = new TaskCounter(src);
+        EventsCenter.getInstance().registerHandler(this);
     }
 
     public ModelManager() {
@@ -86,6 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskList = new TaskList(initialData);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskCounter = new TaskCounter(initialData);
+        EventsCenter.getInstance().registerHandler(this);
     }
 
     @Override
@@ -99,6 +105,11 @@ public class ModelManager extends ComponentManager implements Model {
         clearRedoStack();
     }
 
+    @Subscribe
+    private void tickEvent(TickEvent te) {
+    	indicateTaskListChanged();
+    }
+    
     private void clearRedoStack() {
         redoStack.clear();
     }
@@ -119,7 +130,7 @@ public class ModelManager extends ComponentManager implements Model {
     public TaskCounter getTaskCounter(){
     	return taskCounter;
     }
-
+    
     /** Raises an event to indicate the model has changed */
     private void indicateTaskListChanged() {
         raise(new TaskListChangedEvent(taskList));
