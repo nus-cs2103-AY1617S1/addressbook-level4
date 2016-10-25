@@ -160,6 +160,11 @@ public class ModelManager extends ComponentManager implements Model {
         addToUndoStack(UndoCommand.ADD_CMD_ID, null, task);
         clearRedoStack();
     }
+    
+    @Override
+    public boolean isOverlapping(Task task) {
+    	return taskList.isOverlapping(task);
+    }
 
     @Override
     public void addTaskUndo(Task task) throws UniqueTaskList.DuplicateTaskException {
@@ -295,6 +300,12 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         updateFilteredTaskList(new PredicateExpression(new RecurringQualifier()));
     }
+    
+    @Override
+    public void updateFilteredListToShowOverlapping(Task task) {
+        updateFilteredListToShowAll();
+        updateFilteredTaskList(new PredicateExpression(new OverlappingQualifier(task)));
+    }
 
     private void sortByDateAndPriority() {
         // Collections.sort(taskList.getListOfTasks(), Comparators.DATE_TIME);
@@ -427,6 +438,35 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask person) {
             return person.isRecurring();
+        }
+    }
+    
+    private class OverlappingQualifier implements Qualifier {
+        private Task task;
+    	
+    	public OverlappingQualifier(Task task) {
+            this.task = task;
+        }
+    	
+    	@Override
+        public boolean run(ReadOnlyTask person) {
+    		if (task.getEndTime().toCardString().equals("-")) {
+    			return !task.equals(person)
+            		&& !task.getStartTime().toCardString().equals("-")
+            		//&& !task.getEndTime().toCardString().equals("-")
+    				&& !person.getStartTime().toCardString().equals("-")
+    				&& !person.getEndTime().toCardString().equals("-")
+    				&& !task.getStartTime().getAsCalendar().after(person.getEndTime().getAsCalendar())
+    				&& !task.getStartTime().getAsCalendar().before(person.getStartTime().getAsCalendar());
+    		}
+    		
+    		return !task.equals(person)
+            		&& !task.getStartTime().toCardString().equals("-")
+            		//&& !task.getEndTime().toCardString().equals("-")
+    				&& !person.getStartTime().toCardString().equals("-")
+    				&& !person.getEndTime().toCardString().equals("-")
+    				&& !task.getStartTime().getAsCalendar().after(person.getEndTime().getAsCalendar())
+    				&& !person.getStartTime().getAsCalendar().after(task.getEndTime().getAsCalendar());
         }
     }
 

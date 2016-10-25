@@ -114,5 +114,9 @@ public interface Model {
     void changeFileStorageRedo(String filePath) throws FileNotFoundException, IOException, ParseException, JSONException;
 
 	TaskCounter getTaskCounter();
+	
+	boolean isOverlapping(Task task);
+	
+	void updateFilteredListToShowOverlapping(Task task);
 
 }

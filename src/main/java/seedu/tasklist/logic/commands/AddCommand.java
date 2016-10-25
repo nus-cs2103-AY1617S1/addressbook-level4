@@ -22,6 +22,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the to-do list.";
+    public static final String MESSAGE_OVERLAP = "There is an overlap with other existing task(s).";
 
     private final Task toAdd;
 
@@ -63,7 +64,13 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            if (model.isOverlapping(toAdd)) {
+            	model.updateFilteredListToShowOverlapping(toAdd);
+                return new CommandResult(String.format(MESSAGE_SUCCESS + MESSAGE_OVERLAP, toAdd));
+            }
+            else {
+            	return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            }
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
