@@ -5,11 +5,13 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import org.ocpsoft.prettytime.shade.edu.emory.mathcs.backport.java.util.Collections;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.model.property.SearchStatus;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
@@ -56,6 +58,8 @@ public class TodoModel implements Model {
      * {@link #getViewFilter()} is the getter and {@link #view(TaskViewFilter)} is the setter
      */
     private ObjectProperty<TaskViewFilter> view = new SimpleObjectProperty<>();
+    
+    private ObjectProperty<SearchStatus> search = new SimpleObjectProperty<>();
     
     public TodoModel(Config config) {
         this(new TodoListStorage(config.getTodoListFilePath()));
@@ -157,6 +161,13 @@ public class TodoModel implements Model {
     @Override
     public void find(Predicate<ImmutableTask> predicate) {
         findFilteredTasks.setPredicate(predicate);
+        search.setValue(null);
+    }
+
+    @Override
+    public void find(Predicate<ImmutableTask> predicate, List<String> terms) {
+        findFilteredTasks.setPredicate(predicate);
+        search.setValue(new SearchStatus(terms, findFilteredTasks.size(), tasks.size()));
     }
 
     @Override
@@ -206,5 +217,10 @@ public class TodoModel implements Model {
     @Override
     public ObjectProperty<TaskViewFilter> getViewFilter() {
         return view;
+    }
+
+    @Override
+    public ObjectProperty<SearchStatus> getSearchStatus() {
+        return search;
     }
 }
