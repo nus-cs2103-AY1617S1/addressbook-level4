@@ -31,8 +31,8 @@ In-Charge: Model
 #### [Hee Han Xiang](https://github.com/fisherhx)
 <img src="images/HHX.png" width="150"><br>
 Role: Developer <br>  
-Responsibilities: UI designer <br>
-In-Charge: UI
+* Features implemented: <br>
+   * [Edit task](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#editing-a-task-edit) <br>
 
 -----
 
