@@ -10,11 +10,13 @@ public class Priority {
     
     public final String priority;
     public String level = "HIGH";
+    public final String savePriority;
     
 	public Priority(String priority) throws IllegalValueException {
 	    assert priority != null;
 	    priority = priority.trim();
-        if (!isValidPriority(priority)) {
+        savePriority = priority.trim();
+	    if (!isValidPriority(priority)) {
             throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
         }
         
