@@ -15,7 +15,6 @@ import seedu.whatnow.model.tag.UniqueTagList;
 import seedu.whatnow.model.task.Name;
 import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
-import seedu.whatnow.model.task.TaskDate;
 import seedu.whatnow.model.task.UniqueTaskList;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -109,13 +108,13 @@ public class UpdateCommand extends UndoAndRedo {
     private void updateTheCorrectField(ReadOnlyTask taskToUpdate) {
         if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_TAG) == 0) {
             toUpdate.setName(taskToUpdate.getName());
-            toUpdate.setTaskDate(taskToUpdate.getTaskDate());
+            toUpdate.setDate(taskToUpdate.getDate());
             toUpdate.setStatus(taskToUpdate.getStatus());
             toUpdate.setTaskType(taskToUpdate.getTaskType());
         }
         if (arg_type.toUpperCase().compareToIgnoreCase(ARG_TYPE_DESCRIPTION) == 0) {
             toUpdate.setTags(taskToUpdate.getTags());
-            toUpdate.setTaskDate(taskToUpdate.getTaskDate());
+            toUpdate.setDate(taskToUpdate.getDate());
             toUpdate.setStatus(taskToUpdate.getStatus());
             toUpdate.setTaskType(taskToUpdate.getTaskType());
         }

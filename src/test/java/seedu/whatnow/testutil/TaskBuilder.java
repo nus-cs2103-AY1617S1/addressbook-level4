@@ -38,7 +38,7 @@ public class TaskBuilder {
     }
     
     public TaskBuilder withDate(String date) throws IllegalValueException {
-        this.task.setTaskDate(date);
+        this.task.setDate(date);
         return this;
     }
     
@@ -53,7 +53,7 @@ public class TaskBuilder {
     }
     
     public TaskBuilder withTime(String time) throws IllegalValueException {
-        this.task.setTaskTime(time);
+        this.task.setTime(time);
         return this;
     }
     

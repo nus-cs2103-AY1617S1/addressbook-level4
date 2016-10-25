@@ -37,6 +37,10 @@ public class AddCommandTest extends WhatNowGuiTest {
         //invalid command
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+        //invalid command
+        commandBox.runCommand("add \"workwork\" lalala");
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {

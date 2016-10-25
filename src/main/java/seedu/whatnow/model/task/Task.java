@@ -12,10 +12,10 @@ import seedu.whatnow.model.tag.UniqueTagList;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private String taskDate;
+    private String date;
     private String startDate;
     private String endDate;
-    private String taskTime;
+    private String time;
     private String startTime;
     private String endTime;
     private UniqueTagList tags;
@@ -36,7 +36,7 @@ public class Task implements ReadOnlyTask {
         this.taskType = FLOATING;
              
         if (taskDate != null) {
-            this.taskDate = taskDate;
+            this.date = taskDate;
             this.taskType = NOT_FLOATING;
         }
         
@@ -51,7 +51,7 @@ public class Task implements ReadOnlyTask {
         }
             
         if (taskTime != null) {
-            this.taskTime = taskTime;
+            this.time = taskTime;
             this.taskType = NOT_FLOATING;
         }
             
@@ -74,7 +74,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTaskDate(), source.getStartDate(), source.getEndDate(), source.getTaskTime(), source.getStartTime(), source.getEndTime(), source.getTags(), source.getStatus(), source.getTaskType());
+        this(source.getName(), source.getDate(), source.getStartDate(), source.getEndDate(), source.getTime(), source.getStartTime(), source.getEndTime(), source.getTags(), source.getStatus(), source.getTaskType());
     }
    
     @Override
@@ -83,8 +83,8 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public String getTaskDate() {
-        return taskDate;
+    public String getDate() {
+        return date;
     }
     
     @Override
@@ -98,8 +98,8 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
-    public String getTaskTime() {
-        return taskTime;
+    public String getTime() {
+        return time;
     }
 
     @Override
@@ -131,8 +131,8 @@ public class Task implements ReadOnlyTask {
         this.name = name;
     }
     
-    public void setTaskDate(String taskDate) {
-        this.taskDate = taskDate;
+    public void setDate(String date) {
+        this.date = date;
     }
     
     public void setStartDate(String startDate) {
@@ -143,8 +143,8 @@ public class Task implements ReadOnlyTask {
         this.endDate = endDate;
     }
     
-    public void setTaskTime(String taskTime) {
-        this.taskTime = taskTime;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public void setStartTime(String startTime) {
@@ -180,7 +180,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, taskDate, tags, status, taskType);
+        return Objects.hash(name, date, startDate, endDate, time, startTime, endTime, tags, status, taskType);
     }
 
     @Override

@@ -12,10 +12,10 @@ import seedu.whatnow.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private String taskDate;
+    private String date;
     private String startDate;
     private String endDate;
-    private String taskTime;
+    private String time;
     private String startTime;
     private String endTime;
     private UniqueTagList tags;
@@ -23,13 +23,14 @@ public class TestTask implements ReadOnlyTask {
     private String taskType; //todo or schedule
 
     public TestTask() throws IllegalValueException {
-        setTaskDate("");
+        setDate("");
         setStartDate("");
         setEndDate("");
-        setTaskTime("");
+        setTime("");
         setStartTime("");
         setEndTime("");
         setTaskType("");
+        setStatus("incomplete");
         tags = new UniqueTagList();
     }
     
@@ -73,8 +74,8 @@ public class TestTask implements ReadOnlyTask {
     }
     
     @Override
-    public String getTaskDate() {
-        return taskDate;
+    public String getDate() {
+        return date;
     }
 
     @Override
@@ -88,8 +89,8 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public String getTaskTime() {
-        return taskTime;
+    public String getTime() {
+        return time;
     }
 
     @Override
@@ -102,8 +103,8 @@ public class TestTask implements ReadOnlyTask {
         return endTime;
     }
     
-    public void setTaskDate(String date) {
-        this.taskDate = date;
+    public void setDate(String date) {
+        this.date = date;
     }
     
     public void setStartDate(String date) {
@@ -114,8 +115,8 @@ public class TestTask implements ReadOnlyTask {
         this.endDate = date;
     }
     
-    public void setTaskTime(String time) {
-        this.taskTime = time;
+    public void setTime(String time) {
+        this.time = time;
     }
     
     public void setStartTime(String time) {

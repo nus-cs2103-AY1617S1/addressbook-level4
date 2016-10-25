@@ -9,10 +9,10 @@ import seedu.whatnow.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
-    String getTaskDate();
+    String getDate();
     String getStartDate();
     String getEndDate();
-    String getTaskTime();
+    String getTime();
     String getStartTime();
     String getEndTime();
 
@@ -26,7 +26,7 @@ public interface ReadOnlyTask {
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
-        if (other.getTaskDate() == null && this.getTaskDate() == null) {
+        if (other.getDate() == null && this.getDate() == null) {
             return other == this // short circuit if same object
                     || (other != null // this is first to avoid NPE below
                     && other.getName().equals(this.getName())
@@ -36,7 +36,7 @@ public interface ReadOnlyTask {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName())
-                && other.getTaskDate().equals(this.getTaskDate())
+                && other.getDate().equals(this.getDate())
                 && other.getTags().equals(this.getTags())
                 );
     }
@@ -59,8 +59,8 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        if (getTaskDate() != null)
-            builder.append(" " + getTaskDate());
+        if (getDate() != null)
+            builder.append(" " + getDate());
         		
         if (getStartDate() != null)
             builder.append(" " + getStartDate());
@@ -68,8 +68,8 @@ public interface ReadOnlyTask {
         if (getEndDate() != null)
             builder.append(" " + getEndDate());
         
-        if (getTaskTime() != null)
-            builder.append(" " + getTaskTime());
+        if (getTime() != null)
+            builder.append(" " + getTime());
         
         if (getStartTime() != null)
             builder.append(" " + getStartTime());

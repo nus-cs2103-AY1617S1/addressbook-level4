@@ -57,14 +57,14 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
         tagged = new ArrayList<>();
-        if(source.getTaskDate() != null)
-        	taskDate = source.getTaskDate();
+        if(source.getDate() != null)
+        	taskDate = source.getDate();
         if (source.getStartDate() != null)
             startDate = source.getStartDate();
         if (source.getEndDate() != null)
             endDate = source.getEndDate();
-        if (source.getTaskTime() != null)
-            taskTime = source.getTaskTime();
+        if (source.getTime() != null)
+            taskTime = source.getTime();
         if (source.getStartTime() != null)
             startTime = source.getStartTime();
         if (source.getEndTime() != null)
