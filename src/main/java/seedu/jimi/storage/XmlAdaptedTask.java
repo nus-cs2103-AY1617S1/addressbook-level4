@@ -69,7 +69,7 @@ public class XmlAdaptedTask {
             tagged.add(new XmlAdaptedTag(tag));
         }
         
-        priority = source.getPriority().toString();
+        priority = source.getPriority().tagName;
     }
 
     /**

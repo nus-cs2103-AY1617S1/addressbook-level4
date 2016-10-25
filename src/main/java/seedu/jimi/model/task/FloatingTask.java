@@ -93,6 +93,7 @@ public class FloatingTask implements ReadOnlyTask {
                 || (other instanceof FloatingTask // instanceof handles nulls
                 && (other).getName().equals(this.getName()) // state checks here onwards
                 && (other).isCompleted() == this.isCompleted()
+                && (other).getPriority().equals(this.getPriority())
                 );
     }
 
