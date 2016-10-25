@@ -15,11 +15,12 @@ public class StringUtil {
         return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
     }
 
+    //@@author A0127014W
     //Partial match version for find command
     public static boolean containsIgnoreCasePartial(String source, String query) {
         return source.toLowerCase().contains(query.toLowerCase());
     }
-
+    //@@author
     /**
      * Returns a detailed message of the t, including the stack trace.
      */

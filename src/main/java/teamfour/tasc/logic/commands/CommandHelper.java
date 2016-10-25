@@ -1,3 +1,4 @@
+
 package teamfour.tasc.logic.commands;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class CommandHelper {
     private static final Logger logger = LogsCenter.getLogger(CommandHelper.class);
 
     public static String MESSAGE_REPEAT_PARAMETERS_INVALID = "Invalid repeat parameters";
-    
+
     /**
      * Converts a String to Date if possible, otherwise returns null.
      * @param dateString the String containing the Date
@@ -29,14 +30,14 @@ public class CommandHelper {
             try {
                 return CommandHelper.convertStringToDate(dateString);
             } catch (IllegalValueException e) {
-                logger.warning("Invalid date string in method " + 
+                logger.warning("Invalid date string in method " +
                             "convertStringToDateIfPossible: " + dateString);
                 return null;
             }
         }
         return null;
     }
-    
+
     /**
      * Precondition: date argument is not null.
      * Returns the Date set to the start of the date.
@@ -53,7 +54,7 @@ public class CommandHelper {
         c.set(Calendar.MILLISECOND, 0);
         return c.getTime();
     }
-    
+
     /**
      * Precondition: date argument is not null.
      * Returns the Date set to the end of the date.
@@ -70,7 +71,7 @@ public class CommandHelper {
         c.set(Calendar.MILLISECOND, 999);
         return c.getTime();
     }
-
+    //@@author A0127014W
     /**
      * Parses date(s) from an input String containing the dates
      * Dates parsed include time of day, day of week, day of month, month of year, and year
@@ -163,11 +164,12 @@ public class CommandHelper {
         }
 
     }
-    
+    //@@author
+
     /**
      * Convert the date object into a string that the pretty time parser
      * can actually understand.
-     * 
+     *
      * @param date to convert to
      * @return string that can be parsed by pretty time library
      */

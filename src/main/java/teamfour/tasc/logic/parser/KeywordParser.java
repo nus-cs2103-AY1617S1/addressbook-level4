@@ -57,7 +57,10 @@ public class KeywordParser {
     }
 
     /**
-     * Like parse, but allows optional parameters
+     * Parses input string arguments using keywords provided at construction
+     * Substring associated with keyword starts after keyword, and ends before the next keyword or end of line
+     * Keyword and associated substring put in a HashMap, with key = keyword and value = associated substring
+     * If no match found then empty HashMap returned
      * @param string to be parsed
      * @return HashMap containing the keyword - associated substring pairs
      */
