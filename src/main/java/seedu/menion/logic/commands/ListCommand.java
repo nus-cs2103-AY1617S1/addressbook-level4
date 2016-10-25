@@ -90,6 +90,7 @@ public class ListCommand extends Command {
     	}
     }
     
+
     /**
      * This method checks if the arguments is a month
      * @param args
@@ -109,6 +110,18 @@ public class ListCommand extends Command {
     	}
     	
     	return false;
+    }
+    
+    public String getKeywordToList(){
+    	return this.keywordToList;
+    }
+    
+    public String getDateToList(){
+    	return this.dateToList;
+    }
+    
+    public String getMonthToList(){
+    	return this.monthToList;
     }
     
 	@Override

@@ -1,5 +1,9 @@
 package seedu.menion.logic.parser;
 
+import com.joestelmach.natty.*;
+
+import seedu.menion.commons.exceptions.IllegalValueException;
+
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -26,6 +30,7 @@ public class AddParser {
 	private static final String EVENTS = "event";
 	private static final String FLOATING_TASK = "floatingTask";
 	private static final String DATE_FORMAT = "dd-MM-yyyy";
+	private static final String MESSAGE_WRONG_ADD_FORMAT = "You have input the wrong add format.";
 
 	
 	
@@ -39,7 +44,7 @@ public class AddParser {
 	 * @param args
 	 * @return An array of parsed commands
 	 */
-	public static ArrayList<String> parseCommand(String args) {
+	public static ArrayList<String> parseCommand (String args) throws IllegalValueException {
 
 		parsedArguments = new ArrayList<String>();
 		checkActivityType(args);
@@ -52,8 +57,9 @@ public class AddParser {
 	 * the arguments into an array list.
 	 * 
 	 * @param args
+	 * @throws IllegalValueException 
 	 */
-	public static void checkActivityType(String args) {
+	public static void checkActivityType(String args) throws IllegalValueException {
 
 		if (isEvents(args)) {
 			parsedArguments.add(EVENTS);
@@ -68,6 +74,9 @@ public class AddParser {
 		else if (isFloatingTask(args)){
 			parsedArguments.add(FLOATING_TASK);
 			inputFloatingTaskArguments();
+		}
+		else {
+			throw new IllegalValueException(MESSAGE_WRONG_ADD_FORMAT);
 		}
 		
 

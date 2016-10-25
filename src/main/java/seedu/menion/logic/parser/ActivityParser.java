@@ -191,16 +191,19 @@ public class ActivityParser {
      */
     private Command prepareAdd(String args){
     	
-        ArrayList<String> details = AddParser.parseCommand(args);
-        if (details.isEmpty()){
-        	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-        
-        try {
-            return new AddCommand(details);
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
+		try {
+			ArrayList<String> details = AddParser.parseCommand(args);
+			if (details.isEmpty()) {
+				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+			}
+
+			return new AddCommand(details);
+
+		} catch (IllegalValueException e) {
+			return new IncorrectCommand(e.getMessage());
+		}
+    	  
+   
     }
     //@@author
 

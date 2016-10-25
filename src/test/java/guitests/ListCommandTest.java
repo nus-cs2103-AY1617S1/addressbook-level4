@@ -90,13 +90,13 @@ public class ListCommandTest extends ActivityManagerGuiTest {
 		
 		// Test wrong command
 		commandBox.runCommand("list oktober");
-		assertResultMessage(ListCommand.WRONG_ARGUMENT);
+		assertResultMessage(ListCommand.MESSAGE_SUCCESS_LIST_KEYWORDS + "oktober");
 		assertTrue(activityListPanel.isTaskListMatching(expectedTaskListMonth1));
 		assertTrue(activityListPanel.isEventListMatching(expectedEventListMonth1));
 		assertTrue(activityListPanel.isFloatingTaskListMatching());
 		
 		commandBox.runCommand("list cs2103t");
-		assertResultMessage(ListCommand.WRONG_ARGUMENT);
+		assertResultMessage(ListCommand.MESSAGE_SUCCESS_LIST_KEYWORDS + "cs2103t");
 		assertTrue(activityListPanel.isTaskListMatching(expectedTaskListMonth1));
 		assertTrue(activityListPanel.isEventListMatching(expectedEventListMonth1));
 		assertTrue(activityListPanel.isFloatingTaskListMatching());
