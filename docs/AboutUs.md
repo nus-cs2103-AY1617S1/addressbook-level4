@@ -32,7 +32,6 @@ In-Charge: DearJim
    * Delete tasks
    * Help command
    * Store command
-   * Events (switch list view, switch storage file location)
 * Code written: [functional code][test code][docs] <br>
 
 
