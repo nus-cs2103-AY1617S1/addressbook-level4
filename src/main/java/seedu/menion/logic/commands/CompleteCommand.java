@@ -51,7 +51,7 @@ public class CompleteCommand extends Command {
             lastShownList = model.getFilteredEventList();
         }
 
-        if (lastShownList.size() < targetIndex) {
+        if (lastShownList.size() <= targetIndex || targetIndex < 0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }

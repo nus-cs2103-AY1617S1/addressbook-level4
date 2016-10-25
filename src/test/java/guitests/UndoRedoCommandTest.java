@@ -26,6 +26,8 @@ public class UndoRedoCommandTest extends ActivityManagerGuiTest {
         
         //testing redo command 
         commandBox.runCommand("redo");
+        System.out.println(currentList.length);
+        System.out.println(activityListPanel.getTaskListView().getItems().size());
         assertTrue(activityListPanel.isTaskListMatching(currentList));
         assertResultMessage("Menion successfully redo your previous changes");
         

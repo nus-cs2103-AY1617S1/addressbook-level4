@@ -59,7 +59,16 @@ public class DateChecker {
         boolean sameDate = false;
         
         // Compare date
-        if (fromYear > toYear || fromMonth > toMonth || fromDay > toDay ) {
+        if (fromYear > toYear) {
+            throw new IllegalValueException(END_DATE_BEFORE_START_DATE_ERROR);
+        }
+        if (fromYear == toYear && fromMonth > toMonth) {
+            throw new IllegalValueException(END_DATE_BEFORE_START_DATE_ERROR);
+        }
+        if (fromYear == toYear && fromMonth == toMonth && fromDay > toDay) {
+            throw new IllegalValueException(END_DATE_BEFORE_START_DATE_ERROR);
+        }
+        if (fromYear == toYear && fromMonth == toMonth && fromDay == toDay && fromTime > toTime) {
             throw new IllegalValueException(END_DATE_BEFORE_START_DATE_ERROR);
         }
         
