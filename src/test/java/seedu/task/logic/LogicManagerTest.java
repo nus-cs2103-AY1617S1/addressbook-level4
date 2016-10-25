@@ -24,7 +24,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -399,8 +401,8 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Description description = new Description("Adam Brown");
-            Time timeStart = new Time(LocalDateTime.now().getDayOfWeek().toString() + " 15:30");
-            Time timeEnd = new Time(LocalDateTime.now().getDayOfWeek().toString() + " 16:30");
+            Time timeStart = new Time(LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.THURSDAY)).getDayOfWeek().toString() + " 15:30");
+            Time timeEnd = new Time(LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.THURSDAY)).getDayOfWeek().toString() + " 16:30");
             Priority priority = new Priority("high");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -419,7 +421,7 @@ public class LogicManagerTest {
         
         Task charlie() throws Exception {
             Description description = new Description("Charlie Denver");
-            Time timeStart = new Time(LocalDateTime.now().getDayOfWeek().toString() + " 15:30");
+            Time timeStart = new Time(LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.THURSDAY)).getDayOfWeek().toString() + " 15:30");
             Time timeEnd = new Time("");
             Priority priority = new Priority("");
             UniqueTagList tags = new UniqueTagList();
@@ -429,7 +431,7 @@ public class LogicManagerTest {
         Task desmond() throws Exception {
             Description description = new Description("Desmond Exteli");
             Time timeStart = new Time("");
-            Time timeEnd = new Time(LocalDateTime.now().getDayOfWeek().toString() + " 19:00");
+            Time timeEnd = new Time(LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.THURSDAY)).getDayOfWeek().toString() + " 19:00");
             Priority priority = new Priority("");
             UniqueTagList tags = new UniqueTagList();
             return new Task(description, priority, timeStart, timeEnd, tags);
