@@ -149,6 +149,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
 
+    //@@author A0140011L
     @Override
     public synchronized void updateTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException {
         taskList.updateTask(oldTask, newTask);
@@ -156,7 +157,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
 
-
+    //@@author
 
     //=========== Filtered Task List Accessors ===============================================================
 

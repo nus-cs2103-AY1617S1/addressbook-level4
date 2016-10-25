@@ -11,7 +11,8 @@ import teamfour.tasc.testutil.TestTask;
 import teamfour.tasc.testutil.TestUtil;
 
 public class CompleteCommandTest extends AddressBookGuiTest {
-
+  
+    //@@author A0140011L-unused
     /*
     @Test
     public void complete() throws Exception {

@@ -46,6 +46,7 @@ public class Task implements ReadOnlyTask {
                 source.getRecurrence(), source.getTags());
     }
     
+    //@@author A0140011L
     /**
      * Floating task should never have recurrence value.
      * @return
@@ -61,6 +62,7 @@ public class Task implements ReadOnlyTask {
         
         return true;
     }
+    //@@author
         
     @Override
     public Name getName() {
@@ -97,6 +99,7 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
 
+    //@@author A0140011L
     @Override
     public Complete getComplete() {
         return complete;

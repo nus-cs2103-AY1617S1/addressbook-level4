@@ -1,3 +1,4 @@
+//@@author A0140011L
 package teamfour.tasc.model.task.util;
 
 import static org.junit.Assert.*;
@@ -58,15 +59,25 @@ public class TaskCompleteConverterTest {
     /*
      * --- Test for TaskCompleteConverter's constructor method
      * 
-     * Equivalence partitions are: 1. null a. null task b. null date 2.
-     * completed - [no sub-partitions] (EP: Does not matter if the completed
-     * tasks have a deadline, period or even recurrence. As long as it is
-     * completed, converter should always throw error) - uncompleted 3. deadline
-     * & period with no recurrence 4. deadline only with 1 recurrence 5. period
-     * only with 2 recurrence (Heuristics: No need to test period with 1
-     * recurrence or deadline with 2 recurrence, because whether there is
-     * deadline or period only has nothing to do with recurrence count)
-     * (Boundary: 0, 1, >1) (Heuristics: No need to test > 2, not going to be
+     * Equivalence partitions are: 
+     * 1. null 
+     *      a. null task 
+     *      b. null date 
+     * 2. completed 
+     *      - [no sub-partitions] 
+     *      (EP: Does not matter if the completed tasks have a deadline, period 
+     *      or even recurrence. As long as it is completed, converter should
+     *      always throw error)
+     * 3. deadline & period with no recurrence
+     * 4. deadline only with 1 recurrence
+     * 5. period only with 2 recurrence 
+     * 
+     * (Heuristics: No need to test period with 1 recurrence or deadline 
+     * with 2 recurrence, because whether there is deadline or period only 
+     * has nothing to do with recurrence count)
+     * 
+     * (Boundary: 0, 1, >1) 
+     * (Heuristics: No need to test > 2, not going to be
      * different)
      * 
      * (Heuristics: Only test weekly. This is because testing for daily and

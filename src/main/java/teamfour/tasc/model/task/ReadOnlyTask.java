@@ -48,6 +48,7 @@ public interface ReadOnlyTask {
                    && other.getRecurrence().equals(this.getRecurrence())));
     }
     
+    //@@author A0140011L
     /**
      * Is it a floating task?
      */
