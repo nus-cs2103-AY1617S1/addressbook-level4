@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import seedu.tasklist.commons.core.Config;
 import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.GuiSettings;
+import seedu.tasklist.commons.events.TickEvent;
 import seedu.tasklist.commons.events.ui.ExitAppRequestEvent;
 import seedu.tasklist.logic.Logic;
 import seedu.tasklist.model.UserPrefs;
