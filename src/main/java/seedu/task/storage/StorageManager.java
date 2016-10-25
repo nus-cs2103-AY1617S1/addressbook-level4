@@ -40,6 +40,10 @@ public class StorageManager extends ComponentManager implements Storage {
         this(new XmlTaskManagerStorage(config.getTaskManagerFilePath()), new JsonUserPrefsStorage(config.getUserPrefsFilePath()));
         this.config = config;
     }
+    
+    public StorageManager(String taskManagerFilePath, String userPrefsFilePath) {
+        this(new XmlTaskManagerStorage(taskManagerFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    }
 
     // ================ UserPrefs methods ==============================
 
@@ -102,11 +106,12 @@ public class StorageManager extends ComponentManager implements Storage {
     }
     //@@author A0144939R
     @Subscribe
-    public void handleFilePathChangedEvent(FilePathChangedEvent event, ReadOnlyTaskManager taskManager) throws DataConversionException {
+    public void handleFilePathChangedEvent(FilePathChangedEvent event) throws DataConversionException {
+        //ReadOnlyTaskManager taskManager
         try {
             logger.info(LogsCenter.getEventHandlingLogMessage(event, "File path change requested, updating file path"));
             setTaskManagerFilePath(event.newFilePath);
-            saveTaskManager(taskManager);
+            saveTaskManager(event.taskManager);
             config.setTaskManagerFilePath(event.newFilePath);
             ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
             raise(new ConfigFilePathChangedEvent(event.newFilePath));

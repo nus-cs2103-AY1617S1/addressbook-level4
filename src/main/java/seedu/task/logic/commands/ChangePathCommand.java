@@ -48,9 +48,10 @@ public class ChangePathCommand extends UndoableCommand{
 
 
     @Override
-    public CommandResult rollback() { 
-        EventsCenter.getInstance().post(new FilePathChangedEvent(newFilePath, model.getTaskManager()));
-        return null;
+    public CommandResult rollback() {
+        return null; 
+        
+        
     }
     
 
