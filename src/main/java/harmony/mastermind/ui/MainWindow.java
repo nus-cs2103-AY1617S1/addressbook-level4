@@ -46,6 +46,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -688,6 +690,7 @@ public class MainWindow extends UiPart {
      */
     //@@author A0124797R
     private void initRecur(TableColumn<ReadOnlyTask, Boolean> recurColumn) {
+        recurColumn.setGraphic(new ImageView("file:src/main/resources/images/recur_white.png"));
         recurColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_RECUR));
         recurColumn.setCellValueFactory(task -> new SimpleBooleanProperty(task.getValue().isRecur()));
         recurColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, Boolean>(){
@@ -698,6 +701,8 @@ public class MainWindow extends UiPart {
                 if(!isEmpty()){
                     CheckBox box = new CheckBox();
                     box.setSelected(isRecur);
+                    box.setDisable(true);
+                    box.setStyle("-fx-opacity: 1");
                     
                     this.setAlignment(Pos.CENTER);
                     this.setGraphic(box);
