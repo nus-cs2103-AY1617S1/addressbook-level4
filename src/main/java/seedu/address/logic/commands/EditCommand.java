@@ -65,6 +65,7 @@ public class EditCommand extends Command{
             System.out.println(eventToEdit +"his adasd " + category + " " + editArgs );
 
             try {
+                model.addToUndoStack();
                 model.editTask(eventToEdit, editArgs, category);
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
@@ -87,6 +88,7 @@ public class EditCommand extends Command{
             ReadOnlyTask deadlineToEdit = lastShownDeadlineList.get(targetIndex - 1);
 
             try {
+                model.addToUndoStack();
                 model.editTask(deadlineToEdit, editArgs, category);
             } catch (TaskNotFoundException ive){
                 indicateAttemptToExecuteIncorrectCommand();
