@@ -35,12 +35,6 @@ public interface UniqueTagCollectionModel {
      */
     void notifyTaskDeleted(ImmutableTask task);
 
-    /**
-     * Saves a copy of the state of {@link UniqueTagCollectionModel}
-     */
-    void saveCollectionState();
-
-
     /* Tag Command Interfacing Methods */
     /**
      * Unregistere the given {@code task} from the {@link Tag} in the {@link UniqueTagCollectionModel}.

@@ -23,16 +23,18 @@ import java.util.Set;
  */
 public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionModel {
     /* Constants */
-    public static final String ERROR_DATA_INTEGRITY = "Data Integrity Issue: A tag is missing from the collection.";
+    private static final String ERROR_DATA_INTEGRITY = "Data Integrity Issue: A tag is missing from the collection.";
 
     /* Variables */
+    private final Logger logger = Logger.getLogger(UniqueTagCollection.class.getName());
+
     /*
         Stores a list of tags with unique tag names.
         TODO: ImmutableTask does not have consistent hashing.
         TODO: So, duplicated ImmutableTask may be found in the set of each Tag.
      */
     private final Map<Tag, Set<ImmutableTask>> uniqueTagsToTasksMap = new HashMap<>();
-    private final Logger logger = Logger.getLogger(UniqueTagCollection.class.getName());
+
 
     /**
      * Constructs empty TagList.
@@ -44,11 +46,6 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     public void initialise(ObservableList<ImmutableTask> globalTaskList) {
         uniqueTagsToTasksMap.clear();
         globalTaskList.forEach(task -> task.getTags().forEach(tag -> associateTaskToTag(task, tag)));
-    }
-
-    @Override
-    public void saveCollectionState() {
-        //TODO: To be implemented
     }
 
     @Override
