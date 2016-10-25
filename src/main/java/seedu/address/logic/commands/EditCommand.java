@@ -100,8 +100,6 @@ public class EditCommand extends Command {
             if(newEndDateTime.isPresent()) {
                 postEdit.setEndDate(newEndDateTime.get());
             }
-            
-
         	
             if(lastShownList.contains(postEdit)) {
                 model.loadPreviousState();
