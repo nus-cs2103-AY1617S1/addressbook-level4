@@ -275,21 +275,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :------------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a task |
+`* * *` | user | add a task | create a new task to do in the task manager
 `* * *` | user | edit a task | update the details of a task
 `* * *` | user | delete a task | delete a task with wrong details
-`* * *` | user | add tags to a specific task |
-`* * *` | user | remove tags from a specific task |
-`* * *` | user | list tasks chronologically | see what tasks I have yet to complete
-`* * *` | user | list all tags used |
+`* * *` | user | add a tag to a task | specify a task with a tag
+`* * *` | user | remove a tag of a task | generalize a task
+`* * *` | user | list tasks chronologically | see what tasks I need to do next
+`* * *` | user | list all tags used | see all categories of tasks
 `* * *` | user | search a task by name | find the details of a task quickly
-`* * *` | user | clear all tasks |
+`* * *` | user | clear all tasks | delete all tasks in the task manager
 `* *` | user | list tasks by priority | decide on the order of what to do next
 `* *` | user | list tasks by tags | classify the tasks
 `* *` | user | archive tasks | look up on completed tasks for future reference
 `* *` | user | search a tag | look up a set of tasks with the same category
 `*` | user | have notifications on tasks | get alerted on due tasks
-`*` | user | see tasks on a calendar GUI |
+`*` | user | see tasks on a calendar GUI | see the tasks chronologically and concretely
 
 
 ## Appendix B : Use Cases
