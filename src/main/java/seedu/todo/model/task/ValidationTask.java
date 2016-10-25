@@ -12,6 +12,7 @@ import seedu.todo.commons.util.StringUtil;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.model.tag.Tag;
 
+//@@author A0139021U
 public class ValidationTask implements MutableTask {
     private static final String END_TIME = "endTime";
     private static final String TITLE = "title";
@@ -32,7 +33,7 @@ public class ValidationTask implements MutableTask {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    private Set<Tag> tags = new HashSet<Tag>();
+    private Set<Tag> tags = new HashSet<>();
     private LocalDateTime lastUpdated;
     private UUID uuid;
 

@@ -8,6 +8,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.Task;
 
+//@@author A0139021U
 /**
  * Builds a task for testing purposes.
  */
@@ -15,8 +16,7 @@ public class TaskBuilder {
 
     private Task task;
     private boolean defaultTime = true; 
-    
-    // Set the time back six hours to ensure lastModified can be set properly 
+
     private static LocalDateTime now = LocalDateTime.now();
 
     private TaskBuilder(String name) {
