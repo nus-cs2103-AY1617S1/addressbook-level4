@@ -120,7 +120,8 @@ public interface Model {
     
     /** Search */
     void searchTask(String input);
-
+    
+    //@@author A0139149X
     /** Indicate that user needs to confirm command execution */
     void indicateConfirmationToUser() throws CommandCancelledException;
 

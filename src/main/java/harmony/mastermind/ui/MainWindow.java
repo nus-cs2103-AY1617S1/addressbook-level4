@@ -32,6 +32,7 @@ import harmony.mastermind.model.task.ReadOnlyTask;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -43,6 +44,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -80,6 +82,9 @@ public class MainWindow extends UiPart {
     private static final short INDEX_DEADLINES = 3;
     private static final short INDEX_ARCHIVES = 4;
     
+    private static final String[] NAME_TABS = {"Home", "Tasks", "Events", "Deadlines", "Archives"};
+    
+    
     private static final KeyCombination CTRL_ONE = new KeyCodeCombination(KeyCode.DIGIT1, KeyCombination.CONTROL_DOWN);
     private static final KeyCombination CTRL_TWO = new KeyCodeCombination(KeyCode.DIGIT2, KeyCombination.CONTROL_DOWN);
     private static final KeyCombination CTRL_THREE = new KeyCodeCombination(KeyCode.DIGIT3, KeyCombination.CONTROL_DOWN);
@@ -106,6 +111,7 @@ public class MainWindow extends UiPart {
     private String currCommandText;
     private Stack<String> commandHistory = new Stack<String>();
     private int commandIndex = 0;
+    
     private boolean isExpectingConfirmation = false;
     
     private AutoCompletionBinding<String> autoCompletionBinding;
@@ -114,6 +120,9 @@ public class MainWindow extends UiPart {
     Set listOfWords = new HashSet<>();
     String[] words = {"add", "delete", "edit", "clear", "help", "undo", "mark", "find", "exit"
             ,"do", "delete"};
+    
+
+    ObservableList<Tab> tabLst;
 
     // UI elements
     @FXML
@@ -247,11 +256,14 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
         
+        tabLst = tabPane.getTabs();
+        updateTabTitle();
         taskTableHome.setItems(logic.getFilteredTaskList());
         taskTableTask.setItems(logic.getFilteredFloatingTaskList());
         taskTableEvent.setItems(logic.getFilteredEventList());
         taskTableDeadline.setItems(logic.getFilteredDeadlineList());
         taskTableArchive.setItems(logic.getFilteredArchiveList());
+        
 
         registerAsAnEventHandler(this);
     }
@@ -307,6 +319,21 @@ public class MainWindow extends UiPart {
 
     // ==================================
 
+    //@@author A0124797R
+    private void updateTabTitle() {
+        tabLst.get(INDEX_HOME).setText(NAME_TABS[INDEX_HOME] + "(" 
+                + logic.getFilteredTaskList().size() + ")");
+        tabLst.get(INDEX_TASKS).setText(NAME_TABS[INDEX_TASKS] + "("
+                + logic.getFilteredFloatingTaskList().size() + ")");
+        tabLst.get(INDEX_EVENTS).setText(NAME_TABS[INDEX_EVENTS] + "("
+                + logic.getFilteredEventList().size() + ")");
+        tabLst.get(INDEX_DEADLINES).setText(NAME_TABS[INDEX_DEADLINES] + "("
+                + logic.getFilteredDeadlineList().size() + ")");
+        tabLst.get(INDEX_ARCHIVES).setText(NAME_TABS[INDEX_ARCHIVES] + "("
+                + logic.getFilteredFloatingTaskList().size() + ")");
+    }
+    
+    
     @FXML
     //@@author A0124797R
     private void initialize() {
@@ -315,7 +342,6 @@ public class MainWindow extends UiPart {
         initEventTab();
         initDeadlineTab();
         initArchiveTab();
-
         
         initAutoComplete();
         
@@ -329,7 +355,6 @@ public class MainWindow extends UiPart {
     /**
      * Initialise the tasks in the Home tab 
      */
-    @FXML
     //@@author A0124797R
     private void initHomeTab() {
         initIndex(indexHome);
@@ -343,7 +368,6 @@ public class MainWindow extends UiPart {
     /**
      * Initialise the tasks in the Task tab 
      */
-    @FXML
     //@@author A0124797R
     private void initTaskTab() {
         initIndex(indexTask);
@@ -351,12 +375,11 @@ public class MainWindow extends UiPart {
         initStartDate(startDateTask);
         initEndDate(endDateTask);
         initTags(tagsTask);
-        initRecur(recurTask);       
+        initRecur(recurTask);
     }
     /**
      * Initialise the task in the Event tab 
      */
-    @FXML
     //@@author A0124797R
     private void initEventTab() {
         initIndex(indexEvent);
@@ -369,7 +392,6 @@ public class MainWindow extends UiPart {
     /**
      * Initialise the task in the Deadline tab 
      */
-    @FXML
     //@@author A0124797R
     private void initDeadlineTab() {
         initIndex(indexDeadline);
@@ -377,12 +399,11 @@ public class MainWindow extends UiPart {
         initStartDate(startDateDeadline);
         initEndDate(endDateDeadline);
         initTags(tagsDeadline);
-        initRecur(recurDeadline);    
+        initRecur(recurDeadline);
     }
     /**
      * Initialise the task in the archive tab 
      */
-    @FXML
     //@@author A0124797R
     private void initArchiveTab() {
         initIndex(indexArchive);
@@ -390,7 +411,7 @@ public class MainWindow extends UiPart {
         initStartDate(startDateArchive);
         initEndDate(endDateArchive);
         initTags(tagsArchive);  
-        initRecur(recurArchive);    
+        initRecur(recurArchive);
     }
     
     //@@author A0138862W
@@ -785,12 +806,6 @@ public class MainWindow extends UiPart {
         }
     }
     
-    @Subscribe
-    //@@author A0124797R
-    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + currCommandText));
-        restoreCommandText();
-    }
 
     //@@author A0124797R
     private void updateTab(CommandResult result) {
@@ -798,7 +813,16 @@ public class MainWindow extends UiPart {
         updateTab(tab);
     }
     
+    @Subscribe
     //@@author A0124797R
+    private void handleTaskManagerChanged(TaskManagerChangedEvent event) {
+        updateTabTitle();
+    }
+    
+    //@@author A0124797R
+    /**
+     * handle the switching of tabs
+     */
     private void updateTab(String result) {
         switch (result) {
             case ListCommand.MESSAGE_SUCCESS:               tabPane.getSelectionModel().select(INDEX_HOME);
@@ -851,6 +875,13 @@ public class MainWindow extends UiPart {
     
     public void disposeAutoCompleteBinding(){
         this.autoCompletionBinding.dispose();
+    }
+    
+    @Subscribe
+    //@@author A0124797R
+    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Invalid command: " + currCommandText));
+        restoreCommandText();
     }
     
     /**

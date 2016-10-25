@@ -86,6 +86,7 @@ public class ModelManager extends ComponentManager implements Model {
         this(new TaskManager(), new UserPrefs());
     }
 
+    //@@author A0124797R
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
@@ -96,6 +97,7 @@ public class ModelManager extends ComponentManager implements Model {
         undoHistory = new Stack<>();
         redoHistory = new Stack<>();
         commandHistory = new Stack<String>();
+        indicateTaskManagerChanged();
     }
 
     @Override
@@ -112,7 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateTaskManagerChanged() {
+    protected void indicateTaskManagerChanged() {
         raise(new TaskManagerChangedEvent(taskManager));
     }
     
