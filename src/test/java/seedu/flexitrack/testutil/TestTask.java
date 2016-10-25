@@ -159,4 +159,9 @@ public class TestTask implements ReadOnlyTask {
         return sb.toString();
     }
 
+    @Override
+    public boolean isNotFloatingTask() {
+        return !( this.isEvent || this.isTask );
+    }
+
 }

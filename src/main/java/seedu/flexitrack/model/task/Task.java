@@ -157,4 +157,9 @@ public class Task implements ReadOnlyTask {
     public void setIsEvent(Boolean bool) {
         this.isEvent = bool;
     }
+    
+    public boolean isNotFloatingTask(){
+        return (this.isEvent || this.isTask);
+    }
+    
 }

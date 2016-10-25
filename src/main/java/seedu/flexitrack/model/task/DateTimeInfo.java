@@ -41,6 +41,10 @@ public class DateTimeInfo {
         formatTiming(parsedTiming.isInferred());
     }
 
+    /**
+     * Change the format of the timing saved in setTime 
+     * @param inferred
+     */
     private void formatTiming(boolean inferred) {
         if (inferred) {
             setTime = getDateMonthYear() + " 07:59";
@@ -116,6 +120,12 @@ public class DateTimeInfo {
         return durationBetweenTwoTiming(startingTime,endingTime);
     }
 
+    /** 
+     * prepare variables needed to calculate the duration between two timing 
+     * @param startingTime
+     * @param endingTime
+     * @return the duration of the event in a string
+     */
     private static String durationBetweenTwoTiming(String startingTime, String endingTime) {
         int years = yearsOfTheEvent(startingTime, endingTime);
         int months = monthsOfTheEvent(startingTime, endingTime);
@@ -126,6 +136,15 @@ public class DateTimeInfo {
         return combineDuratingOfEvent(years, months, days, hours, minutes);        
     }
 
+    /**
+     * Calculate the duration of the event
+     * @param years
+     * @param months
+     * @param days
+     * @param hours
+     * @param minutes
+     * @return the duration of the event in a string 
+     */
     private static String combineDuratingOfEvent(int years, int months, int days, int hours, int minutes) {
         String duration1 = new String("");
 
@@ -255,36 +274,49 @@ public class DateTimeInfo {
         return setTime.hashCode();
     }
 
+    /**
+     * @return true if the date not specified; 
+     */
     public boolean isDateNull() {
         return this.setTime.equals("Feb 29 2000 00:00");
     }
 
+    /**
+     * If the time is inferred, replace "07:59" with "16:59" 
+     */
     public void isEndTimeInferred() {
         if (setTime.substring(12, 17).equals("07:59")) {
             setTime = setTime.substring(0, 12) + "16:59";
         }
     }
 
-    public static boolean isInTheFuture(DateTimeInfo Date) {
+    /**
+     * @param timeNow
+     * @param Date
+     * @return true if the timing timeNow is after the timing Date
+     */
+    public static boolean isInTheFuture(DateTimeInfo timeNow, DateTimeInfo Date) {
         String result = MESSAGE_FROM_IS_AFTER_TO;
-        try {
-            result = durationBetweenTwoTiming(new DateTimeInfo ("now").toString(),Date.toString());
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-        }
+        result = durationBetweenTwoTiming(timeNow.toString(),Date.toString());
         return !result.equals(MESSAGE_FROM_IS_AFTER_TO);
     }
 
-    public static boolean isInThePast(DateTimeInfo Date) {
-        String result = MESSAGE_FROM_IS_AFTER_TO;
-        try {
-            result = durationBetweenTwoTiming(Date.toString(),new DateTimeInfo ("now").toString());
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-        }
-        return !result.equals(MESSAGE_FROM_IS_AFTER_TO);
+    /**
+     * 
+     * @param timeNow
+     * @param Date
+     * @return true if the timing timeNow is before the timing Date
+     */
+    public static boolean isInThePast(DateTimeInfo timeNow, DateTimeInfo Date) {
+        return isInTheFuture(Date,timeNow);
     }
-
+    
+    /**
+     * Prepare the keyword and proces if the task is within the specified date. 
+     * @param keyWords
+     * @param task
+     * @return 
+     */
     public static boolean isOnTheDate(String keyWords, ReadOnlyTask task) {
         String dateInfo = keyWords.replace(ListCommand.LIST_MARK_COMMAND, "").replace(ListCommand.LIST_UNMARK_COMMAND, "").trim();
         try {
@@ -292,83 +324,146 @@ public class DateTimeInfo {
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
-        if ( task.getDueDate().toString().contains(dateInfo) || task.getEndTime().toString().contains(dateInfo) 
-                || task.getStartTime().toString().contains(dateInfo)){
-            return true; 
+        return isTaskOnTheSpecifiedDate(task, dateInfo);
+    }
+
+    /**
+     * @param task
+     * @param dateInfo
+     * @return true if the task has anything to do with the day of interest
+     */
+    private static boolean isTaskOnTheSpecifiedDate(ReadOnlyTask task, String dateInfo) {
+        return task.getDueDate().toString().contains(dateInfo) || task.getEndTime().toString().contains(dateInfo) 
+                || task.getStartTime().toString().contains(dateInfo) 
+                || isTaskAnEventPassingThisDate(task, dateInfo);
+    }
+
+    /**
+     * @param task
+     * @param dateInfo
+     * @return true if a task is an event and the day interest is within the starting date and the ending date 
+     */
+    private static boolean isTaskAnEventPassingThisDate(ReadOnlyTask task, String dateInfo) {
+        if (!task.getIsEvent()){
+            return false; 
         }
-        return false;
+        DateTimeInfo dateSpecified =null;
+        try {
+            dateSpecified = new DateTimeInfo (dateInfo);
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
+        return isInTheFuture(task.getEndTime(), dateSpecified) && isInTheFuture(dateSpecified, task.getStartTime()); 
     }
 
     public static boolean withInTheDuration(String keyWords, ReadOnlyTask task) {
         
-        String dateNow=null; 
-        boolean timeDifference=false; 
+        String dateNow = getCurrentTimeInString().toString(); 
+        boolean isWithInTime = isTaskWithinTheDurationSpecified(keyWords, task, dateNow);
+        return isWithInTime;
+    }
 
+    /**
+     * @param keyWords
+     * @param task
+     * @param dateNow
+     * @return if the task is within the specified duration
+     */
+    private static boolean isTaskWithinTheDurationSpecified(String keyWords, ReadOnlyTask task, String dateNow) {
+        boolean isWithInTime = false; 
+        if ( keyWords.contains(ListCommand.LIST_LAST_WEEK_COMMAND) ){
+            return isTaskAndWithinTheTime(task, dateNow, -DAYS_IN_A_WEEK);
+        } else if ( keyWords.contains(ListCommand.LIST_LAST_MONTH_COMMAND) ){
+            return isTaskAndWithinTheTime(task, dateNow, -AVERAGE_DAYS_IN_A_MONTH);
+        } else if ( keyWords.contains(ListCommand.LIST_NEXT_MONTH_COMMAND) ){
+            return isTaskAndWithinTheTime(task, dateNow, AVERAGE_DAYS_IN_A_MONTH);
+        } else if ( keyWords.contains(ListCommand.LIST_NEXT_WEEK_COMMAND) ){
+            return isTaskAndWithinTheTime(task, dateNow, DAYS_IN_A_WEEK);
+        }
+        return isWithInTime;
+    }
+
+    /**
+     * @param task
+     * @param dateNow
+     * @param expectedDays 
+     * @return true if the task is not a floating task and it is within the specified timing
+     */
+    private static boolean isTaskAndWithinTheTime(ReadOnlyTask task, String dateNow, int expectedDays) {
+        if (task.isNotFloatingTask()){
+            return isTaskWithInTheDuration(task, dateNow, expectedDays); 
+        } else { 
+            return false; 
+        }
+    }
+
+    /**
+     * @param task
+     * @param dateNow
+     * @param expectedDays
+     * @return true if the task is within the stated duration 
+     */
+    private static boolean isTaskWithInTheDuration(ReadOnlyTask task, String dateNow, int expectedDays) {
+        boolean isTimeWithinExpectedTime=false;
+        if (task.getIsTask()){
+            isTimeWithinExpectedTime = isTimeDifferenceLessThanSpecified(dateNow, task.getDueDate().toString(), expectedDays);
+        } else if (task.getIsEvent()){
+            isTimeWithinExpectedTime = isTimeDifferenceLessThanSpecified(dateNow, task.getEndTime().toString(), expectedDays);
+        }
+        return isTimeWithinExpectedTime;
+    }
+
+    /**
+     * Provide an easy access to the current timing in String 
+     * @return String of the current time MMM DD YYYY HH:MM format. 
+     */
+    public static DateTimeInfo getCurrentTimeInString() {
+        DateTimeInfo dateNow = null;
         try {
-            dateNow = new DateTimeInfo ("now").toString();
+            dateNow = new DateTimeInfo ("now");
         } catch (IllegalValueException e) {
             e.printStackTrace();
         }
-        
-        if ( keyWords.contains(ListCommand.LIST_LAST_WEEK_COMMAND) ){
-            if (task.getIsTask()){
-                timeDifference = isDurationLessThanSpecified(dateNow, task.getDueDate().toString(), DAYS_IN_A_WEEK);
-            } else if (task.getIsEvent()){
-                timeDifference = isDurationLessThanSpecified(dateNow, task.getEndTime().toString(), DAYS_IN_A_WEEK);
-            } else { 
-                return false; 
-            }
-        } else if ( keyWords.contains(ListCommand.LIST_LAST_MONTH_COMMAND) ){
-            if (task.getIsTask()){
-                timeDifference = isDurationLessThanSpecified(dateNow, task.getDueDate().toString(), AVERAGE_DAYS_IN_A_MONTH);
-            } else if (task.getIsEvent()){
-                timeDifference = isDurationLessThanSpecified(dateNow, task.getEndTime().toString(), AVERAGE_DAYS_IN_A_MONTH);
-            } else { 
-                return false; 
-            }
-        } else if ( keyWords.contains(ListCommand.LIST_NEXT_MONTH_COMMAND) ){
-            if (task.getIsTask()){
-                timeDifference = isDurationLessThanSpecified(task.getDueDate().toString(), dateNow, AVERAGE_DAYS_IN_A_MONTH);
-            } else if (task.getIsEvent()){
-                timeDifference = isDurationLessThanSpecified(task.getEndTime().toString(), dateNow, AVERAGE_DAYS_IN_A_MONTH);
-            } else { 
-                return false; 
-            }
-        } else if ( keyWords.contains(ListCommand.LIST_NEXT_WEEK_COMMAND) ){
-            if (task.getIsTask()){
-                timeDifference = isDurationLessThanSpecified(task.getDueDate().toString(), dateNow, DAYS_IN_A_WEEK);
-            } else if (task.getIsEvent()){
-                timeDifference = isDurationLessThanSpecified(task.getEndTime().toString(), dateNow, DAYS_IN_A_WEEK);
-            } else { 
-                return false; 
-            }
-        }
-        return timeDifference;
+        return dateNow;
     }
 
-    private static boolean isDurationLessThanSpecified(String startTime, String endTime, int maxDuration) {
+    /**
+     * @param startTime 
+     * @param endTime 
+     * @param limitTimeDuration 
+     * @return  true if the time Difference is less than specified
+     */
+    private static boolean isTimeDifferenceLessThanSpecified(String startTime, String endTime, int limitTimeDuration) {
+        if (limitTimeDuration<0){
+            limitTimeDuration = limitTimeDuration*(-1);  
+            return isTimeDifferenceLessThanSpecified (endTime, startTime, limitTimeDuration);
+        }
+
         int years = yearsOfTheEvent(startTime, endTime);
         int months = monthsOfTheEvent(startTime, endTime);
         int days = daysOfTheEvent(startTime, endTime);
         int hours = hoursOfTheEvent(startTime, endTime);
-        
+
         if (hours < 0) {
             hours = Math.floorMod(hours, 24);
             days=days-1;
         } 
         if (days < 0) {
-            return false; 
+            days = Math.floorMod(days, 30);
+            months=months-1;
         }
-        if (months < 0 || months>0) {
+        if (months < 0 || months>1) {
             return false; 
         }
         if (years < 0 || years > 0) {
             return false;
         } 
-        if(days < maxDuration || (months == 1 && days == 0)){
+        if(days <= limitTimeDuration && months==0){
             return true; 
-        }
-        else {
+        } else if ( limitTimeDuration==AVERAGE_DAYS_IN_A_MONTH && months==1){
+            return true; 
+        } else {
             return false; 
         }
     }

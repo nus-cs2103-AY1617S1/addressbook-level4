@@ -204,7 +204,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    //TODO: 
+
     private class DateQualifier implements Qualifier {
         private String keyWords;
         private String dateInfo; 
@@ -217,23 +217,24 @@ public class ModelManager extends ComponentManager implements Model {
                     .replace(ListCommand.LIST_NEXT_WEEK_COMMAND, "").replace(ListCommand.LIST_NEXT_MONTH_COMMAND, "").trim();
         }
 
+        //TODO: need to refactor 
         @Override
         public boolean run(ReadOnlyTask task) {
             boolean willBeShown=true; 
 
             if (keyWords.contains(ListCommand.LIST_FUTURE_COMMAND)) {
                 if (task.getIsTask()){ 
-                    willBeShown = DateTimeInfo.isInTheFuture(task.getDueDate());
+                    willBeShown = DateTimeInfo.isInTheFuture(DateTimeInfo.getCurrentTimeInString(), task.getDueDate());
                 } else if (task.getIsEvent()){
-                    willBeShown = DateTimeInfo.isInTheFuture(task.getEndTime());
+                    willBeShown = DateTimeInfo.isInTheFuture(DateTimeInfo.getCurrentTimeInString(), task.getEndTime());
                 }else { 
                     willBeShown = !task.getIsDone();
                 }
             } else if (keyWords.contains(ListCommand.LIST_PAST_COMMAND)){
                 if (task.getIsTask()){ 
-                    willBeShown = DateTimeInfo.isInThePast(task.getDueDate());
+                    willBeShown = DateTimeInfo.isInThePast(DateTimeInfo.getCurrentTimeInString(), task.getDueDate());
                 } else {
-                    willBeShown = DateTimeInfo.isInThePast(task.getEndTime());
+                    willBeShown = DateTimeInfo.isInThePast(DateTimeInfo.getCurrentTimeInString(), task.getEndTime());
                 } 
             } else if (keyWords.contains(ListCommand.LIST_LAST_COMMAND) || keyWords.contains(ListCommand.LIST_NEXT_COMMAND)){
                 willBeShown = DateTimeInfo.withInTheDuration(keyWords,task);
@@ -254,10 +255,6 @@ public class ModelManager extends ComponentManager implements Model {
             
         }
         
-//        @Override
-//        public String toString() {
-//            return "name=" + String.join(", ", dateKeyWords);
-//        }
     }
     
     
