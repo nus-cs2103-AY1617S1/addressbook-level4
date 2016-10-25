@@ -52,8 +52,12 @@ public class AddressBook implements ReadOnlyLifeKeeper {
 
 //// list overwrite operations
 
-    public ObservableList<Activity> getPersons() {
+    public ObservableList<Activity> getAllEntries() {
         return activities.getInternalList();
+    }
+    
+    public ObservableList<Tag> getTag() {
+        return tags.getInternalList();
     }
 
     public void setPersons(List<Activity> persons) {

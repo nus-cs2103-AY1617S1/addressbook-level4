@@ -42,17 +42,25 @@ public interface Model {
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<Task>} */
     UnmodifiableObservableList<Activity> getFilteredTaskListForEditing();
 
-    /** Updates the filter of the filtered task list to show all tasks */
+    /** Updates the filter of the filtered list to show all tasks */
     void updateFilteredListToShowAll();
     
-    /** Updates the filter of the filtered task list to show all tasks with the specific tag*/
-    void updateFilteredTagListToShowAll(String tag);
+    /** Updates the filter of the filtered list to show all tasks with the specific tag*/
+    void updateFilteredByTagListToShowAll(String tag);
+    
+    /** Updates the filter of the filtered list to show all tasks type entries*/
+    void updateFilteredTaskListToShowAll();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    /** Updates the filter of the filtered list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
 
     /** Marks task as completed **/
 	void markTask(Activity unmarkedTask, boolean isComplete) throws TaskNotFoundException;
 
+    /** Updates the filter of the filtered list to show all activity type entries*/
+    void updateFilteredActivityListToShowAll();
+
+    /** Updates the filter of the filtered list to show all event type entries*/
+    void updateFilteredEventListToShowAll();
     
 }
