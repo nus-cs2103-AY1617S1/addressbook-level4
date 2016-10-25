@@ -23,9 +23,9 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */    
-    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, UniqueTagList tags) {
+    public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, UniqueTagList tags, boolean isCompleted) {
         assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, recurrence, tags);
-        this.setCompleted(false);
+        this.setCompleted(isCompleted);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -38,7 +38,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getDeadline(), source.getRecurrence(), source.getTags());
+        this(source.getName(), source.getStartTime(), source.getEndTime(), source.getDeadline(), source.getRecurrence(), source.getTags(), source.isCompleted());
     }
 
     @Override

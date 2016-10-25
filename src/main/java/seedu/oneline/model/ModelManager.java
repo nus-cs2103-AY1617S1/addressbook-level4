@@ -48,6 +48,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskBook = new TaskBook(src);
         filteredTasks = new FilteredList<>(taskBook.getTasks());
+        filteredTasks.setPredicate(getNotDonePredicate());
     }
 
     public ModelManager() {
@@ -57,6 +58,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         taskBook = new TaskBook(initialData);
         filteredTasks = new FilteredList<>(taskBook.getTasks());
+        filteredTasks.setPredicate(getNotDonePredicate());
     }
 
     @Override
@@ -108,8 +110,19 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void doneTask(int index) throws TaskNotFoundException {
-        taskBook.doneTask(index);
+        Task done = filteredTasks.get(index);
+        assert done != null;
+        done.setCompleted(true);
         updateFilteredListToShowAllNotDone();
+        indicateTaskBookChanged();
+    }
+    
+    @Override
+    public synchronized void undoneTask(int index) throws TaskNotFoundException {
+        Task undone = filteredTasks.get(index);
+        assert undone != null;
+        undone.setCompleted(false);
+        updateFilteredListToShowAllDone();
         indicateTaskBookChanged();
     }
 
@@ -127,11 +140,22 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredListToShowAllNotDone() {
+        filteredTasks.setPredicate(null);
         filteredTasks.setPredicate(getNotDonePredicate());
+    }
+    
+    @Override
+    public void updateFilteredListToShowAllDone() {
+        filteredTasks.setPredicate(null);
+        filteredTasks.setPredicate(getDonePredicate());
     }
     
     private Predicate<Task> getNotDonePredicate() {
         return task -> !task.isCompleted();
+    }
+    
+    private Predicate<Task> getDonePredicate() {
+        return task -> task.isCompleted();
     }
 
     @Override

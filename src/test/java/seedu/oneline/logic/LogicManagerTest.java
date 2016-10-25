@@ -367,6 +367,40 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    //---------------- Tests for doneCommand --------------------------------------
+    /*
+     * Invalid equivalence partitions for index: null, signed integer, non-numeric characters
+     * Invalid equivalence partitions for index: index larger than no. of tasks in taskBook
+     * The two test cases below test invalid input above one by one.
+     */
+    
+    @Test
+    public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = Messages.getInvalidCommandFormatMessage(DoneCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
+    }
+    
+    @Test
+    public void execute_doneIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("done");
+    }
+    
+//    @Test
+//    public void execute_done_removesDoneTask() throws Exception {
+//        TestDataHelper helper = new TestDataHelper();
+//        List<Task> threeTasks = helper.generateTaskList(3);
+//
+//        TaskBook expectedAB = helper.generateTaskBook(threeTasks);
+////        expectedAB.doneTask(1);
+//        expectedAB.removeTask(threeTasks.get(1));
+//        helper.addToModel(model, threeTasks);
+//
+//        assertCommandBehavior("done 2",
+//                String.format(DoneCommand.MESSAGE_DONE_TASK_SUCCESS, threeTasks.get(1)),
+//                expectedAB,
+//                expectedAB.getTaskList());
+//    }
 
     @Test
     public void execute_undo_redo() throws Exception {
@@ -411,7 +445,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, startTime, endTime, deadline, recurrence, tags);
+            return new Task(name, startTime, endTime, deadline, recurrence, tags, false);
         }
 
         /**
@@ -428,7 +462,8 @@ public class LogicManagerTest {
                     new TaskTime("" + seed),
                     new TaskTime("" + seed),
                     new TaskRecurrence("" + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
+                    false
             );
         }
 
@@ -528,7 +563,8 @@ public class LogicManagerTest {
                     new TaskTime(""),
                     new TaskTime(""),
                     new TaskRecurrence(""),
-                    new UniqueTagList(new Tag("tag"))
+                    new UniqueTagList(new Tag("tag")),
+                    false
             );
         }
     }

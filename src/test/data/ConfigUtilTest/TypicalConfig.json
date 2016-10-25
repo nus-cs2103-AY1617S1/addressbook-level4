@@ -2,6 +2,7 @@
   "appTitle" : "Typical App Title",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
-  "addressBookFilePath" : "taskbook.xml",
-  "addressBookName" : "TypicalTaskBookName"
+  "taskBookFileName" : "taskbook.xml",
+  "taskBookFilePath" : "data/taskbook.xml",
+  "taskBookName" : "TypicalTaskBookName"
 }

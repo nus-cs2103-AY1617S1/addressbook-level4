@@ -11,22 +11,22 @@ import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Marks a task identified using it's last displayed index from the task book as done.
  */
-public class DoneCommand extends Command {
+public class UndoneCommand extends Command {
 
-    public static final String COMMAND_WORD = "done";
+    public static final String COMMAND_WORD = "undone";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the task identified by the index number used in the last task listing as done.\n"
+            + ": Marks the task identified by the index number used in the last task listing as not done.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DONE_TASK_SUCCESS = "Marked task as done: %1$s";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Marked task as not done: %1$s";
 
-    public static final String MESSAGE_TASK_ALR_DONE = "Task is already marked as done.";
+    public static final String MESSAGE_TASK_ALR_NOT_DONE = "Task is currently marked not done.";
 
     public final int targetIndex;
 
-    public DoneCommand(String args) throws IllegalCmdArgsException {
+    public UndoneCommand(String args) throws IllegalCmdArgsException {
         Integer index = null;
         try {
             index = Parser.getIndexFromArgs(args);
@@ -39,7 +39,7 @@ public class DoneCommand extends Command {
         this.targetIndex = index;
     }
 
-    public DoneCommand(int targetIndex) {
+    public UndoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -54,18 +54,18 @@ public class DoneCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToUndone = lastShownList.get(targetIndex - 1);
 
-        if(taskToDone.isCompleted()) {
-            return new CommandResult(String.format(MESSAGE_TASK_ALR_DONE, taskToDone));
+        if(!taskToUndone.isCompleted()) {
+            return new CommandResult(String.format(MESSAGE_TASK_ALR_NOT_DONE, taskToUndone));
         } else {
             try {
-                model.doneTask(targetIndex - 1);
+                model.undoneTask(targetIndex - 1);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
             }
 
-            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
+            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToUndone));
         }
     }
 

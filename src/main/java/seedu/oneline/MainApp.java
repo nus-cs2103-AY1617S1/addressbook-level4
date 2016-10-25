@@ -8,6 +8,8 @@ import seedu.oneline.commons.core.Config;
 import seedu.oneline.commons.core.EventsCenter;
 import seedu.oneline.commons.core.LogsCenter;
 import seedu.oneline.commons.core.Version;
+import seedu.oneline.commons.events.storage.DataSavingExceptionEvent;
+import seedu.oneline.commons.events.storage.StorageLocationChangedEvent;
 import seedu.oneline.commons.events.ui.ExitAppRequestEvent;
 import seedu.oneline.commons.exceptions.DataConversionException;
 import seedu.oneline.commons.util.ConfigUtil;
@@ -185,4 +187,30 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    
+    @Subscribe
+    private void handleStorageChangedEvent(StorageLocationChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        
+        // Set the new storage location in the config object
+        config.setStorageLocation(event.getStoragePath());
+        
+        try {
+            // Save the config object so that the changed file location is updated on next app reload
+            ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+            ReadOnlyTaskBook tasks = storage.readTaskBook().orElse(new TaskBook());
+            
+            // Reinitialize the current storage object
+            storage = new StorageManager(config.getTaskBookFilePath(), config.getUserPrefsFilePath());
+            
+            // Save the current status of taskBook into the new location
+            // This is if we close the app without adding new tasks
+            storage.saveTaskBook(tasks);
+        
+        } catch (IOException iox) {
+            EventsCenter.getInstance().post(new DataSavingExceptionEvent(iox));
+        } catch (DataConversionException dcex) {
+            EventsCenter.getInstance().post(new DataSavingExceptionEvent(dcex));
+        }
+    }   
 }
