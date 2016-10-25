@@ -46,7 +46,7 @@ public class Parser {
 	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile(
 			"(?i)'(?<taskName>.*\\S+.*)'\\s+(on\\s+)*(?<date>\\S+)\\s+from\\s+(?<startTime>.+\\s?(am|pm)*)\\s+to\\s+(?<endTime>.+\\s?(am|pm)*)");
 	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>.+\\s?(am|pm)*)\\s+to\\s+(?<endTime>.+\\s?(am|pm)*)\\s+(on\\s+)(?<date>\\S+)");
+			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>.+\\s?(am|pm)*)\\s+to\\s+(?<endTime>.+\\s?(am|pm)*)\\s+(on\\s+)*(?<date>\\S+)");
 	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile(
 			"(?i)from\\s+(?<startTime>.+\\s?(am|pm)*)\\s+to\\s+(?<endTime>.+\\s?(am|pm)*)\\s+(on\\s+)*(?<date>\\S+)\\s+'(?<taskName>.*\\S+.*)'");
 	// Start and end on different days

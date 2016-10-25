@@ -128,4 +128,14 @@ public class DateParserTest {
 		
 		assertEquals(oneAmNextWeek, date);
 	}
+	
+	@Test
+	public void noDay1am_valid_valueAsExpected() throws ParseException {
+		String userInput = "01:00";
+		LocalDateTime date = DateParser.parse(userInput);
+		
+		LocalDateTime oneAmNextWeek = LocalDateTime.now().withHour(1).truncatedTo(ChronoUnit.HOURS);
+		
+		assertEquals(oneAmNextWeek, date);
+	}
 }
