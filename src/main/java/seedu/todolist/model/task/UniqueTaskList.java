@@ -87,6 +87,7 @@ public class UniqueTaskList implements Iterable<Task> {
         toMark.getStatus().setStatus(true);
         internalList.remove(toMark);
         internalList.add((Task)toMark);
+        Collections.sort(internalList);
         if (!taskFound) {
             throw new TaskNotFoundException();
         }
