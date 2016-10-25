@@ -3,7 +3,6 @@ package seedu.todo.testutil;
 import com.github.javafaker.Faker;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.time.LocalDateTime;
