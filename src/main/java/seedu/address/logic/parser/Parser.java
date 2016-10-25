@@ -80,7 +80,7 @@ public class Parser {
 
 	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+'(?<newName>(\\s*[^\\s+])+)'");
 	
-	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile();
+	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s[^\\s+])+)");
 
 	private com.joestelmach.natty.Parser nattyParser;
 
@@ -433,9 +433,20 @@ public class Parser {
 	}
 	
 	private Command prepareSetStorage(String arguments){
-		final Matcher matcher = 
+		final Matcher matcher = SET_STORAGE_ARGS_FORMAT.matcher(arguments.trim());
+		
+		if(!matcher.matches()){
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetStorageCommand.MESSAGE_USAGE));
+		}
+		
+		final String folderFilePath = matcher.group("folderFilePath").trim();
+		final String fileName = matcher.group("fileName").trim();
+		
+		System.out.println("Folder File Path: " + folderFilePath);
+		System.out.println("File Name: " + fileName);
+		
+		return new SetStorageCommand(folderFilePath, fileName);
 	}
-	
 
 	/**
 	 * Returns an ArrayList of the specified indices in the {@code command} IF

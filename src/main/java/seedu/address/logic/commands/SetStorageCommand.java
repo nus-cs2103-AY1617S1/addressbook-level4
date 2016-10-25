@@ -19,7 +19,7 @@ public class SetStorageCommand extends Command {
     		+ ": Sets task manager data storage location, according to user specifications. "
     		+ "Task manager data to be saved to user-specified folder, with user-specified file name.\n"
     		+ "Parameters: FOLDER_FILE_PATH save-as FILE_NAME\n"
-    		+ "Example: " + COMMAND_WORD + "C:\\Users\\Liang\\Desktop save-as TaskInformation\n";
+    		+ "Example: " + COMMAND_WORD + " C:\\Users\\Liang\\Desktop save-as TaskInformation\n";
     
     public static final String MESSAGE_SUCCESS = "Task manager data storage location set to: %s\n"
     		+ "Please exit and restart Amethyst for new storage settings to be registered.\n";
