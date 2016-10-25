@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.*;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;

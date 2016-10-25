@@ -206,7 +206,6 @@ public class UniqueTaskList implements Iterable<Task> {
         		if(overlaps(checkTask))
         			throw new TimeslotOverlapException();
         		
-        		int componentToChange = internalComponentList.indexOf(t.getLastAppendedComponent());
         		t.updateTask(name, tags, startDate, endDate, recurringType);
         		internalComponentList.clear();
         		for(Task h: internalList) {

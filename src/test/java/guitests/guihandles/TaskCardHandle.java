@@ -3,7 +3,6 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.TaskComponent;
 
 /**

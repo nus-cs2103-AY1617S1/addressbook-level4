@@ -64,8 +64,6 @@ import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.TaskType;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.TaskBuilder;
-import seedu.address.testutil.TestTask;
 
 public class LogicManagerTest {
 

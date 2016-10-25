@@ -16,7 +16,6 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TaskComponent;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -40,16 +39,11 @@ public class MainWindow extends UiPart {
     private NavbarPanel navbarPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
-    private UserPrefs userPrefs;
-
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
-
-    private String taskListName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -99,10 +93,7 @@ public class MainWindow extends UiPart {
 
         //Set dependencies
         this.logic = logic;
-        this.taskListName = taskListName;
         this.config = config;
-        this.userPrefs = prefs;
-
         //Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
@@ -125,7 +116,7 @@ public class MainWindow extends UiPart {
         navbarPanel = NavbarPanel.load(primaryStage, getNavbarPlaceholder());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
+        StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
     

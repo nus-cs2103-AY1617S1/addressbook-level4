@@ -53,7 +53,6 @@ public class DeleteCommandTest extends TaskMasterGuiTest {
         for(TestTask t : expectedRemainder) {
             componentList.addAll(t.getTaskDateComponent());
         }
-        TaskComponent[] taskComponents = new TaskComponent[componentList.size()];
         //confirm the list now contains all previous floatingTasks except the deleted floatingTask
         assertTrue(taskListPanel.isListMatching(TestUtil.convertTasksToDateComponents(expectedRemainder)));
 

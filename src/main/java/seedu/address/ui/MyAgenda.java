@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
-import javafx.collections.ObservableList;
 import javafx.util.Callback;
 import jfxtras.scene.control.agenda.Agenda;
 import seedu.address.logic.commands.BlockCommand;

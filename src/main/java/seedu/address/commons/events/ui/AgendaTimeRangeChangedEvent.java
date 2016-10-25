@@ -2,7 +2,6 @@ package seedu.address.commons.events.ui;
 
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskDate;
