@@ -91,4 +91,9 @@ public class TestTask implements ReadOnlyTask {
         }
         return sb.toString();
     }
+
+    @Override
+    public int compareTo(ReadOnlyTask task) {
+        return this.interval.compareTo(task.getInterval());
+    }
 }
