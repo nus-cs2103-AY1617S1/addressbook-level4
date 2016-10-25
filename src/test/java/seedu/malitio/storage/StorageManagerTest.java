@@ -61,7 +61,7 @@ public class StorageManagerTest {
     @Test
     public void malitioReadSave() throws Exception {
         Malitio original = new TypicalTestTasks().getTypicalMalitio();
-        storageManager.savemalitio(original);
+        storageManager.saveMalitio(original);
         ReadOnlyMalitio retrieved = storageManager.readMalitio().get();
         assertEquals(original, new Malitio(retrieved));
         //More extensive testing of malitio saving/reading is done in XmlmalitioStorageTest
@@ -77,7 +77,7 @@ public class StorageManagerTest {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlmalitioStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handlemalitioChangedEvent(new MalitioChangedEvent(new Malitio()));
+        storage.handleMalitioChangedEvent(new MalitioChangedEvent(new Malitio()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
@@ -92,7 +92,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void savemalitio(ReadOnlyMalitio malitio, String filePath) throws IOException {
+        public void saveMalitio(ReadOnlyMalitio malitio, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

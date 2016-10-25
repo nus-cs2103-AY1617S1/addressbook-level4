@@ -69,20 +69,20 @@ public class XmlMalitioStorageTest {
         XmlMalitioStorage xmlmalitioStorage = new XmlMalitioStorage(filePath);
 
         //Save in new file and read back
-        xmlmalitioStorage.savemalitio(original, filePath);
+        xmlmalitioStorage.saveMalitio(original, filePath);
         ReadOnlyMalitio readBack = xmlmalitioStorage.readMalitio(filePath).get();
         assertEquals(original, new Malitio(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addFloatingTask(new FloatingTask(TypicalTestTasks.manualFloatingTask1));
         original.removeTask(new FloatingTask(TypicalTestTasks.floatingTask1));
-        xmlmalitioStorage.savemalitio(original, filePath);
+        xmlmalitioStorage.saveMalitio(original, filePath);
         readBack = xmlmalitioStorage.readMalitio(filePath).get();
         assertEquals(original, new Malitio(readBack));
 
         //Save and read without specifying file path
         original.addDeadline(new Deadline(TypicalTestTasks.manualDeadline1));
-        xmlmalitioStorage.savemalitio(original); //file path not specified
+        xmlmalitioStorage.saveMalitio(original); //file path not specified
         readBack = xmlmalitioStorage.readMalitio().get(); //file path not specified
         assertEquals(original, new Malitio(readBack));
 
@@ -95,7 +95,7 @@ public class XmlMalitioStorageTest {
     }
 
     private void savemalitio(ReadOnlyMalitio malitio, String filePath) throws IOException {
-        new XmlMalitioStorage(filePath).savemalitio(malitio, addToTestDataPathIfNotNull(filePath));
+        new XmlMalitioStorage(filePath).saveMalitio(malitio, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test

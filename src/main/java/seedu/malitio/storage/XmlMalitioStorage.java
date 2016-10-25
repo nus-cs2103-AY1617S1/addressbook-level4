@@ -49,10 +49,10 @@ public class XmlMalitioStorage implements MalitioStorage {
     }
 
     /**
-     * Similar to {@link #savemalitio(ReadOnlyMalitio)}
+     * Similar to {@link #saveMalitio(ReadOnlyMalitio)}
      * @param filePath location of the data. Cannot be null
      */
-    public void savemalitio(ReadOnlyMalitio malitio, String filePath) throws IOException {
+    public void saveMalitio(ReadOnlyMalitio malitio, String filePath) throws IOException {
         assert malitio != null;
         assert filePath != null;
 
@@ -67,7 +67,7 @@ public class XmlMalitioStorage implements MalitioStorage {
     }
 
     @Override
-    public void savemalitio(ReadOnlyMalitio malitio) throws IOException {
-        savemalitio(malitio, filePath);
+    public void saveMalitio(ReadOnlyMalitio malitio) throws IOException {
+        saveMalitio(malitio, filePath);
     }
 }
