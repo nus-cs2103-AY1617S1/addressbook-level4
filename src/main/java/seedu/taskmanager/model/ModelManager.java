@@ -176,34 +176,40 @@ public class ModelManager extends ComponentManager implements Model {
     	raise(new FilterEvent(filteredItems));
     }
     
-    
+    //@@author A0140060A
+    @Override
+    public void updateFilteredListToShowNotDone() {
+        updateFilteredItemList(new PredicateExpression(new StatusQualifier(false)));
+    }
+    //@@author 
+
     @Override
     public void updateFilteredListToShowTask() {
         final String[] itemType = {"task"}; 
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(itemType));
-        updateFilteredPersonList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
+        updateFilteredItemList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
     }
     
     @Override
     public void updateFilteredListToShowDeadline() {
     	final String[] itemType = {"deadline"}; 
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(itemType));
-        updateFilteredPersonList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
+        updateFilteredItemList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
     }
     
     @Override
     public void updateFilteredListToShowEvent() {
     	final String[] itemType = {"event"}; 
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(itemType));
-        updateFilteredPersonList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
+        updateFilteredItemList(new PredicateExpression(new ItemTypeQualifier(keywordSet)));
     }
 
     @Override
     public void updateFilteredItemList(Set<String> keywords){
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredItemList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredPersonList(Expression expression) {
+    private void updateFilteredItemList(Expression expression) {
         filteredItems.setPredicate(expression::satisfies);
         raise(new FilterEvent(filteredItems));
     }
@@ -259,7 +265,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     interface Qualifier {
-        boolean run(ReadOnlyItem person);
+        boolean run(ReadOnlyItem item);
         String toString();
     }
     
@@ -271,9 +277,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyItem person) {
+        public boolean run(ReadOnlyItem item) {
             return itemType.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getItemType().value, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(item.getItemType().value, keyword))
                     .findAny()
                     .isPresent();
         }
@@ -292,9 +298,9 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyItem person) {
+        public boolean run(ReadOnlyItem item) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().value, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(item.getName().value, keyword))
                     .findAny()
                     .isPresent();
         }
@@ -304,5 +310,23 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    
+    //@@author A0140060A
+    private class StatusQualifier implements Qualifier {
+        private boolean isDone;
 
+        StatusQualifier(boolean isDone) {
+            this.isDone = isDone;
+        }
+        
+        @Override
+        public boolean run(ReadOnlyItem item) {
+            return item.getDone() == isDone;
+        }
+
+        @Override
+        public String toString() {
+            return "done=" + isDone;
+        }
+    }
 }
