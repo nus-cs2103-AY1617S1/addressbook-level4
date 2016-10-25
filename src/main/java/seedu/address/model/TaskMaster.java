@@ -1,30 +1,34 @@
 package seedu.address.model;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
-import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
-import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskDateComponent;
-import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskType;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
+import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Wraps all data at the task-list level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TaskList implements ReadOnlyTaskList {
+public class TaskMaster implements ReadOnlyTaskMaster {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -34,56 +38,75 @@ public class TaskList implements ReadOnlyTaskList {
         tags = new UniqueTagList();
     }
 
-    public TaskList() {}
+    public TaskMaster() {}
 
     /**
      * Tasks and Tags are copied into this task list
      */
-    public TaskList(ReadOnlyTaskList toBeCopied) {
+    public TaskMaster(ReadOnlyTaskMaster toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Tasks and Tags are copied into this task list
      */
-    public TaskList(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tasks.getInternalComponentList(), tags.getInternalList());
+    public TaskMaster(UniqueTaskList tasks, UniqueTagList tags) {
+        resetData(tasks.getInternalTaskList(), tasks.getInternalComponentList(), tags.getInternalList());
     }
 
-    public static ReadOnlyTaskList getEmptyTaskList() {
-        return new TaskList();
+    public static ReadOnlyTaskMaster getEmptyTaskList() {
+        return new TaskMaster();
     }
 
 //// list overwrite operations
 
-    public ObservableList<Task> getTasks() {
-        return tasks.getInternalList();
+    public List<Task> getTasks() {
+        return tasks.getInternalTaskList();
     }
 
     @Override
-    public ObservableList<TaskDateComponent> getTaskComponentList() {
+    public ObservableList<TaskComponent> getTaskComponentList() {
         return tasks.getInternalComponentList();
     }
 
     public void setTasks(List<Task> tasks) {
-        this.tasks.getInternalList().setAll(tasks);
-    }
-    
-    public void setComponents(List<TaskDateComponent> components) {
-        this.tasks.getInternalComponentList().setAll(components);
+        this.tasks.getInternalTaskList().clear();
+        this.tasks.getInternalTaskList().addAll(tasks);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends TaskDateComponent> newComponents, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<? extends TaskComponent> newComponents, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
-        setComponents(newComponents.stream().map(TaskDateComponent::new).collect(Collectors.toList()));
+        rebuildComponentList();
         setTags(newTags);
     }
+    
+    /** Rebuilds the component list based on restored tasks, 
+     * as copy constructor of task component does not work.
+     */
+	public void rebuildComponentList() {
+		this.tasks.getInternalComponentList().clear();
+        ArrayList<TaskComponent> fullList = new ArrayList<TaskComponent>();
+        for (Task task : tasks.getInternalTaskList()) {
+        	ArrayList<TaskComponent> newList = new ArrayList<TaskComponent>();
+        	for (TaskComponent c : task.getTaskDateComponent()) {
+        		TaskDate startDate = c.getStartDate();
+        		TaskDate endDate = c.getEndDate();
+	        	boolean isArchived = c.isArchived();
+	        	TaskComponent newTaskComponent = new TaskComponent(task, startDate, endDate);
+	        	if (isArchived)  newTaskComponent.archive();	        	
+	        	newList.add(newTaskComponent);
+	        	fullList.add(newTaskComponent);
+	        }
+        	task.setRecurringDates(newList);
+        }
+        this.tasks.getInternalComponentList().setAll(fullList);
+	}
 
-    public void resetData(ReadOnlyTaskList newData) {
+    public void resetData(ReadOnlyTaskMaster newData) {
         resetData(newData.getTaskList(), newData.getTaskComponentList(), newData.getTagList());
     }
 
@@ -143,13 +166,13 @@ public class TaskList implements ReadOnlyTaskList {
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalTaskList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
     public List<ReadOnlyTask> getTaskList() {
-        return Collections.unmodifiableList(tasks.getInternalList());
+        return Collections.unmodifiableList(tasks.getInternalTaskList());
     }
 
     @Override
@@ -171,9 +194,9 @@ public class TaskList implements ReadOnlyTaskList {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskList // instanceof handles nulls
-                && this.tasks.equals(((TaskList) other).tasks)
-                && this.tags.equals(((TaskList) other).tags));
+                || (other instanceof TaskMaster // instanceof handles nulls
+                && this.tasks.equals(((TaskMaster) other).tasks)
+                && this.tags.equals(((TaskMaster) other).tags));
     }
 
     @Override
@@ -182,19 +205,8 @@ public class TaskList implements ReadOnlyTaskList {
         return Objects.hash(tasks, tags);
     }
 
-	@Override
-	public ReadOnlyTaskList purify() throws TaskNotFoundException  {
-		TaskList newList = new TaskList(this); 
-		for(Task t : tasks){
-			if(t.getTaskType()==TaskType.COMPLETED) {
-				Task copyToRemove = new Task(t);
-				newList.removeTask(copyToRemove);					
-			}
-		}
-		return new TaskList(newList);
-	}
-
-	public boolean archiveTask(TaskDateComponent target) throws TaskNotFoundException {
+    //@@author A0147967J
+	public boolean archiveTask(TaskComponent target) throws TaskNotFoundException {
 		// TODO Auto-generated method stub
 		if (tasks.archive(target)) {
             return true;
@@ -202,10 +214,11 @@ public class TaskList implements ReadOnlyTaskList {
             throw new UniqueTaskList.TaskNotFoundException();
         }
 	}
+	//@@author
 	
 	public boolean updateTask(Task target, Name name, UniqueTagList tags,
-    		TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException {
-		if (tasks.updateTask(target, name, tags, startDate, endDate)) {
+    		TaskDate startDate, TaskDate endDate, RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException {
+		if (tasks.updateTask(target, name, tags, startDate, endDate, recurringType)) {
 			if(tags != null) {
 				this.tags.mergeFrom(tags);
 
@@ -222,7 +235,6 @@ public class TaskList implements ReadOnlyTaskList {
 		        }
 		        target.setTags(new UniqueTagList(commonTagReferences));
 			}
-
 			return true;
 		} else {
 			throw new UniqueTaskList.TaskNotFoundException();

@@ -2,11 +2,10 @@ package guitests;
 
 import org.junit.Test;
 import seedu.address.commons.core.Messages;
-import seedu.address.model.task.TaskDateComponent;
-import seedu.address.testutil.TestTask;
+import seedu.address.model.task.TaskComponent;
 import static org.junit.Assert.assertTrue;
 
-public class FindCommandTest extends TaskListGuiTest {
+public class FindCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void find_nonEmptyList() {
@@ -30,13 +29,14 @@ public class FindCommandTest extends TaskListGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
     
+    //@@author A0147967J
     @Test
     public void find_byDeadline(){
     	try{
     		//By time-after and sharp
     		assertFindResult("find by 18 oct 5pm", td.labDeadline.getTaskDateComponent().get(0));
     		//By time-before
-    		assertFindResult("find by 18 oct 4pm");
+    		assertFindResult("find by 18 oct 4.59pm");
     	}catch(Exception e){}
     }
     
@@ -71,8 +71,8 @@ public class FindCommandTest extends TaskListGuiTest {
     	commandBox.runCommand("done 1");
     	assertFindResult("find -C", td.trash.getTaskDateComponent().get(0));    	
     }
-    
-    private void assertFindResult(String command, TaskDateComponent... expectedHits ) {
+    //@@author
+    private void assertFindResult(String command, TaskComponent... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");

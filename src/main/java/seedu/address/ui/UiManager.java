@@ -12,15 +12,15 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.events.ui.AgendaTimeRangeChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.NavigationSelectionChangedEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.UserPrefs;
-
+import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
@@ -63,7 +63,7 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Override
     public void stop() {
-        //prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
+        prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
         mainWindow.releaseResources();
     }
@@ -115,7 +115,7 @@ public class UiManager extends ComponentManager implements Ui {
     
 
     @Subscribe
-    private void handleShowHelpEvent(ShowHelpRequestEvent event) {
+    private void handleShowHelpEvent(ShowHelpRequestEvent event) throws IOException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.handleHelp();
     }
@@ -132,10 +132,23 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.loadTaskPage(event.getNewSelection());
     }
     
+    //@@author A0147967J
     @Subscribe
     private void handleNavigationSelectionChangedEvent(NavigationSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getCommandBox().handleNavigationChanged(mainWindow.getNavbarPanel().getNavigationCommand(event.getNewSelection()));
+    }
+    
+    @Subscribe
+    private void handleTaskListChangedEvent(TaskListChangedEvent event){
+    	logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    	mainWindow.getBrowserPanel().reloadAgenda(event.data.getTaskComponentList());
+    }
+    
+    @Subscribe
+    private void handleAgendaTimeRangeChangedEvent(AgendaTimeRangeChangedEvent event){
+    	logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    	mainWindow.getBrowserPanel().updateAgenda(event.getInputDate(), event.getData());
     }
 
 }

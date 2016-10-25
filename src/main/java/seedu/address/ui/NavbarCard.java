@@ -10,9 +10,9 @@ public class NavbarCard extends UiPart{
     private static final String FXML = "NavbarCard.fxml";
 
     @FXML
-    private HBox cardPane;
+    private HBox cardPaneNav;
     @FXML
-    private Label name;
+    private Label navname;
 
     private String label;
 
@@ -26,17 +26,17 @@ public class NavbarCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(label);
+        navname.setText(label);
         
     }
 
     public HBox getLayout() {
-        return cardPane;
+        return cardPaneNav;
     }
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        cardPaneNav = (HBox)node;
     }
 
     @Override

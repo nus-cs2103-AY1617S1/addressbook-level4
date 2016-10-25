@@ -9,7 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e--product-survey)
+* [Appendix E : Product Survey](#appendix-e-product-survey)
 
 
 ## Setting up
@@ -90,6 +90,36 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
+
+The _Sequence Diagram_ below show how recurring tasks are handled when they are first added by the user into Happy Jim Task Master. 
+
+<img src="images/SD_add_recurring_tasks.png" width="800"><br>
+
+> Note task is a Task reference from the Model and thus any changes made in the RecurringTaskManager will mutate the values of the task.
+
+The _Sequence Diagram_ below show how recurring tasks have dates appended to them every startup of Happy Jim Task Master
+
+<img src="images/SD_update_recurring_tasks.png" width="800"><br>
+
+> Note that repeatingTasks is a reference to the UniqueTaskList from the TaskMaster. Any changes made to repeatingTasks in RecurringTaskManager will affect TaskMaster's version of UniqueTaskList.
+
+The _Sequence Diagram_ below shows how Happy Jim Task Master handles undo request from user.
+
+<img src="images/UndoSequenceDiagram.jpg" width="800"><br>
+
+> Note that the context is a class that stores previous task master in the previous model before the target command executes.
+
+The _Class Diagram_ below shows the structure of how Happy Jim Task Master implements undo and redo operations.
+
+<img src="images/URManager.jpg" width="800"><br>
+
+> Note that LogicManager maintains an URManager. UR manager contains two ArrayDeque, one for undo and the other for redo,  
+> to store the command and its context, specifically, the model before the command executes. 
+> To undo/redo a command, it is just to  restore the previous model (specifically, the data, which is TaskMaster). 
+> As a result, as the task master grows, the consumption of memory to store the context grows. 
+> To maintain a good performance regarding to memory consumption, we restrict maximum undo/redo number to 3.
+> (Noted that it is possible to reach unlimited undo/redo by simply wiping off the limit number.)
+
 
 The sections below give more details of each component.
 
@@ -203,8 +233,8 @@ We have two types of tests:
 1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
    These are in the `guitests` package.
    
-   Currently, _Systems Tests_ have covered the basic functionalities of Happy Jim Task Master v0.1. 
-   Following form shows the more essential commands and corresponding testcases.
+   Currently, _Systems Tests_ have covered the basic functionalities of Happy Jim Task Master v0.4. 
+   Following form shows the some of the essential commands and corresponding testcases.
    
    1. _AddCommandTest_ 
    
@@ -260,25 +290,35 @@ We have two types of tests:
    
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. This includes, <br>
-      1. `seedu.taskmaster.commons.AppUtilTest`
-      2. `seedu.taskmaster.commons.ConfigUtilTest`
-      3. `seedu.taskmaster.commons.FileUtilTest`
-      4. `seedu.taskmaster.commons.JsonUtilTest`
-      5. `seedu.taskmaster.commons.StringUtilTest`
-      6. `seedu.taskmaster.commons.UrlUtilTest`
-      7. `seedu.taskmaster.commons.XmlUtilTest`
-      8. `seedu.taskmaster.model.UnmodifiableObservableListTest`
-      9. `seedu.taskmaster.commons.core.ConfigTest`
-      10. `seedu.taskmaster.commons.core.VersionTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
-     (those code units are assumed to be working). This includes, <br>
-      1.  `seedu.taskmaster.storage.StorageManagerTest`
-      2. `seedu.taskmaster.storage.XmlTaskListStorageTest`
-      3. `seedu.taskmaster.storage.JsonUserPrefStorageTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how the are connected together.<br>
-      e.g. `seedu.taskmaster.logic.LogicManagerTest`
+   _Unit tests_ targeting the lowest level methods/classes. Below are some snippets, <br>
+   
+   _Task.java_<br>
+   <img src="images/test_snippet_Task.PNG" width="800"><br>
+   
+   _RecurringTaskManager.java_<br>
+   <img src="images/test_snippet_RecurringTaskManager.PNG" width="800"><br>
+   
+   _Integration tests_ that are checking the integration of multiple code units 
+     (those code units are assumed to be working). Below are some snippets, <br>
+
+   _XmlTaskListStorage.java_<br>
+   <img src="images/test_snipper_XmlTaskListStorage.PNG" width="800"><br>
+   
+   Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+      how the are connected together. Below are some snippets,<br>
+      e.g. `seedu.taskmaster.logic.LogicManagerTest`<br>
+      In the `LogicManagerTest`, Happy Jim Task Master tests the logic it uses.<br>
+      Typically, Happy Jim Task Master focuses on some boundary tests.<br>
+    
+	_LogicManagerTest.java_
+	<img src="images/test_snippet_LogicManagerTest.PNG" width="800"><br>
+      e.g. To `find` a task, for instance, `Test Task 1 by 20 oct 11am `,<br>
+      try execute <br>
+      *`find by 20 oct 11am` --> exact boundary, task found;<br>
+      *`find by 20 oct 10.59am` --> smaller boundary, lists nothing;<br>
+      *`find by 20 oct 11.01am` --> lax boundary, task found.<br>
+      > Note that this is a test not merely for `logic`, but also `parser` and `model`.<br>
+      
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -304,7 +344,7 @@ Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
 ### Managing Dependencies
@@ -341,12 +381,10 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | have recurring tasks | do weekly tasks easily
 `* *` | user | save my files in another location | choose where to save my tasks 
 `* *` | user | customize/add tags
-`*` | user | be able to integrate to google calendar | sync with google calendar
 `*` | user | archive the tasks
-`*` | user | be able to postpone a tasks
-`*` | user | be prompted to reschedule if i exceeded my tasks | 
 `*` | user | have autocomplete 	| be more productive
 `*` | user | have gui | to make it easier to use
+`*` | user | have a calendar or agenda on GUI | view my schedule more clearly
 `*` | advanced user | customize the commands| to use it more easily
 
 ## Appendix B : Use Cases
@@ -489,13 +527,14 @@ Use case ends.
 
 > 3a1. Happy Jim Task Manager shows an error message <br>
   Use case resumes at step 2
-  
-#### Use case: UC08 - View agenda for a day
+
+#### Use case: UC08 - View agenda for specific week
 
 **MSS**
 
-1. User request to view one day's agenda.
-2. Happy Jim Task Manager shows agenda. <br>
+1. User request to view a week's agenda specified by a day.
+2. Happy Jim Task Manager updates agenda.
+3. Happy Jim Task Manager displays updayed agenda. <br>
 Use case ends.
 
 **Extensions**
@@ -619,9 +658,6 @@ Use case ends
 8. Should not contain any database
 9. Should be able to tell whether the day is valid. Eg. 30 feb is invalid.
 10. Should be able to handle cross-year tasks.
-11. Should have command line as the primary mode of input.
-12. Should be easy for a user with no command line experience to use.
-13. Should be stored in a file that is easy to edit.
 
 ## Appendix D : Glossary
 
@@ -654,10 +690,11 @@ Use case ends
 > Time is in 12 hours format 12pm, 7am
 
 ## Appendix E : Product Survey
-
 Product Name | Strengths | Weaknesses
 ---|---|---
 **Remember the Milk**|<li>Allows for recurring tasks</li><li>Allows floating tasks</li><li>Allows for location</li><li>Allows for estimate</li><li>Allows priority</li> | <li>Requires an accounr</li><li>Not really command line input friendly</li><li>Requires internet connection</li>
 **Google Calendar**|<li>Generally suitable for target audience's requirements</li><li>Has a database to store tasks that can be synced</li>|	<li>Not command line input friendly</li><li>Requires internet connection</li>
 **Any.do**|	<li>Can sync across platforms</li><li>Provide convenience service for scheduling</li>|	<li>Not command line input friendly</li><li>Requires an account</li><li>Requires internet connection`</li>
 **Calendar Iphone App**|	<li>Separates tasks and calendar into one app</li><li>Able to add task and tag them</li><li>Able to add recurring task</li><li>Able to add in tasks to calendar in one line using auto detect</li><li>Able to view completed tasks</li>| 	<li>Not really command line input friendly, use touch input heavily</li>
+
+

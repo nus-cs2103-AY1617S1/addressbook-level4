@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.FailedCommandAttemptedEvent;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.logic.URManager;
 import seedu.address.model.Model;
@@ -39,10 +40,6 @@ public abstract class Command {
         this.model = model;
     }
     
-    public void assignManager(URManager urManager) {
-        this.urManager = urManager;
-    }
-
     /**
      * Raises an event to indicate an attempt to execute an incorrect command
      */
@@ -50,4 +47,18 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
+    //@@author A0147967J
+    /**
+     * Assigns an undo/redo manager to the command to manage undo/redo operation.
+     */
+    public void assignManager(URManager urManager) {
+        this.urManager = urManager;
+    }
+
+    /**
+     * Raises an event to indicate an attempt to execute a failed command
+     */
+    protected void indicateAttemptToExecuteFailedCommand() {
+        EventsCenter.getInstance().post(new FailedCommandAttemptedEvent(this));
+    }
 }

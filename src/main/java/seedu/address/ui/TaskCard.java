@@ -7,7 +7,7 @@ import javafx.scene.layout.HBox;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskType;
 
 public class TaskCard extends UiPart{
@@ -31,11 +31,11 @@ public class TaskCard extends UiPart{
 
     private ReadOnlyTask task;
     private int displayedIndex;
-    private TaskDateComponent dateComponent;
+    private TaskComponent dateComponent;
     
     public TaskCard() {}
 
-    public static TaskCard load(TaskDateComponent taskComponent, int displayedIndex){
+    public static TaskCard load(TaskComponent taskComponent, int displayedIndex){
         TaskCard card = new TaskCard();
         card.task = taskComponent.getTaskReference();
         card.displayedIndex = displayedIndex;
@@ -61,7 +61,7 @@ public class TaskCard extends UiPart{
         recurringType.setText(recurringTypeToShow);
     }
 
-    
+    //@@author A0147967J
     private void initializeDate() {
     	if (dateComponent.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
             startDate.setText("");
@@ -76,27 +76,31 @@ public class TaskCard extends UiPart{
         }
     }
     
-    private void setCellColor(){
-    	
+    /** Sets cell color for the task list. Style the css here to prevent overriding. */
+    private void setCellColor(){   	
     	//normal non-floating task
-    	cardPane.setStyle("-fx-background-color : derive(#11aabb, 20%);");
+    	cardPane.setStyle("-fx-background-color : rgba(110, 196, 219, 0.3);");
     	//Deadline
-    	if(dateComponent.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT
-    			&& dateComponent.getEndDate().getDateInLong() != TaskDate.DATE_NOT_PRESENT)
-    		cardPane.setStyle("-fx-background-color : derive(#dd0000, 20%);");
+    	if(dateComponent.hasOnlyEndDate())
+    		cardPane.setStyle("-fx-background-color : rgba(250, 124, 146, 0.3);");
     	//Floating task
-    	if(dateComponent.getStartDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT
-    			&& dateComponent.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT)
-    		cardPane.setStyle("-fx-background-color : derive(#fff000, 20%);");
+    	if(task.getTaskType() == TaskType.FLOATING)
+    		cardPane.setStyle("-fx-background-color : rgba(255, 247, 192, 0.3);");
     	//Blocked Slot
     	if(task.getName().fullName.equals("BLOCKED SLOT"))
-    		cardPane.setStyle("-fx-background-color : derive(#ff00dd, 20%);");
-    	
+    		cardPane.setStyle("-fx-background-color : rgba(148, 93, 96, 0.3);");
+    	//Completed
+    	if(dateComponent.isArchived()){
+    		cardPane.setStyle("-fx-background-color : rgba(102,171,140,0.3);");
+    		name.setStyle("-fx-text-fill : derive(#373737, 20%);");
+    		id.setStyle("-fx-text-fill : derive(#373737, 20%);");
+    		startDate.setStyle("-fx-text-fill : derive(#373737, 20%);");
+    		endDate.setStyle("-fx-text-fill : derive(#373737, 20%);");
+    		recurringType.setStyle("-fx-text-fill : derive(#373737, 20%);");
+    	}  	
     }
 
-
-
-    public HBox getLayout() {
+    public HBox getLayout() {    	
         return cardPane;
     }
 

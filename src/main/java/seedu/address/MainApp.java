@@ -20,7 +20,6 @@ import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
@@ -28,8 +27,6 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.status.StatusLogger;
 
 /**
@@ -77,20 +74,20 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyTaskList> taskListOptional;
-        ReadOnlyTaskList initialData;
+        Optional<ReadOnlyTaskMaster> taskListOptional;
+        ReadOnlyTaskMaster initialData;
         try {
             taskListOptional = storage.readTaskList();
             if(!taskListOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty TaskList");
             }
-            initialData = taskListOptional.orElse(new TaskList());
+            initialData = taskListOptional.orElse(new TaskMaster());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty TaskList");
-            initialData = new TaskList();
+            initialData = new TaskMaster();
         } catch (FileNotFoundException e) {
             logger.warning("Problem while reading from the file. . Will be starting with an empty TaskList");
-            initialData = new TaskList();
+            initialData = new TaskMaster();
         }
 
         return new ModelManager(initialData, userPrefs);

@@ -2,14 +2,12 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.RecurringType;
-import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0147967J
 /**
- * Deletes a task identified using it's last displayed index from the task list.
+ * Marks a task as done identified using it's last displayed index from the task list.
  */
 public class CompleteCommand extends Command {
 
@@ -32,14 +30,15 @@ public class CompleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<TaskDateComponent> lastShownList = model.getFilteredTaskComponentList();
+        UnmodifiableObservableList<TaskComponent> lastShownList = model.getFilteredTaskComponentList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
+            urManager.popFromUndoQueue();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        TaskDateComponent taskToDelete = lastShownList.get(targetIndex - 1);
+        TaskComponent taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
             model.archiveTask(taskToDelete);

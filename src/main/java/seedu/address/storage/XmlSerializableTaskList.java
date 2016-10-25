@@ -3,15 +3,10 @@ package seedu.address.storage;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TaskDateComponent;
-import seedu.address.model.task.TaskType;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
-import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
-import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyTaskMaster;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
@@ -23,10 +18,10 @@ import java.util.stream.Collectors;
  * An Immutable TaskList that is serializable to XML format
  */
 @XmlRootElement(name = "tasklist")
-public class XmlSerializableTaskList implements ReadOnlyTaskList {
+public class XmlSerializableTaskList implements ReadOnlyTaskMaster {
 
     @XmlElement
-    private List<XmlAdaptedTask> tasks;
+    private List<XmlAdaptedTaskComponent> tasks;
     @XmlElement
     private List<Tag> tags;
 
@@ -43,14 +38,9 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
     /**
      * Conversion
      */
-    public XmlSerializableTaskList(ReadOnlyTaskList src) {
-    	try {
-			src = src.purify();
-		} catch (TaskNotFoundException e) {
-			// TODO Auto-generated catch block
-			assert false : "impossible";
-		}
-        tasks.addAll(src.getTaskComponentList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+    public XmlSerializableTaskList(ReadOnlyTaskMaster src) {
+
+        tasks.addAll(src.getTaskComponentList().stream().map(XmlAdaptedTaskComponent::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -67,7 +57,7 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
     @Override
     public UniqueTaskList getUniqueTaskList() {
         UniqueTaskList lists = new UniqueTaskList();
-        for (XmlAdaptedTask p : tasks) {
+        for (XmlAdaptedTaskComponent p : tasks) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
@@ -94,14 +84,9 @@ public class XmlSerializableTaskList implements ReadOnlyTaskList {
         return Collections.unmodifiableList(tags);
     }
 
-	@Override
-	public ReadOnlyTaskList purify() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
     @Override
-    public List<TaskDateComponent> getTaskComponentList() {
+    public List<TaskComponent> getTaskComponentList() {
         // TODO Auto-generated method stub
         return null;
     }

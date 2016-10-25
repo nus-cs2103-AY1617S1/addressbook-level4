@@ -5,13 +5,19 @@ import java.util.ArrayDeque;
 import seedu.address.logic.commands.*;
 
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyTaskList;
-import seedu.address.model.TaskList;
+import seedu.address.model.ReadOnlyTaskMaster;
+import seedu.address.model.TaskMaster;
 
+//@@author A0147967J
+/**
+ * Stores and provides context for undo/redo operations.
+ */
 public class URManager {
 	
 	private ArrayDeque<Context> undoQueue;
 	private ArrayDeque<Context> redoQueue;
+	
+	/** Arbitrarily chosen number to ensure overall performance. */
 	private final int MAX_TIMES = 3;
 	
 	public URManager(){		
@@ -24,8 +30,7 @@ public class URManager {
 	 */
 	public void addToUndoQueue(Model model, Command command){
 		if(!isUndoable(command)){
-			undoQueue.clear();
-			redoQueue.clear();
+			//Stop here to wait for result.
 		}else{
 			if(!isIgnored(command)){
 				if(undoQueue.size() == MAX_TIMES) undoQueue.removeFirst();
@@ -33,6 +38,21 @@ public class URManager {
 				redoQueue.clear();
 			}
 		}
+	}
+	
+	/**
+	 * Pops the failed or incorrect (but not detected during parsing) command from undo queue 
+	 */
+	public void popFromUndoQueue(){
+		undoQueue.removeLast();
+	}
+	
+	/**
+	 * Change Directory command succeeds, clear all undo and redo queue. 
+	 */
+	public void resetQueue(){
+		undoQueue.clear();
+		redoQueue.clear();
 	}
 	
 	/**
@@ -72,10 +92,12 @@ public class URManager {
 	
 	/**
 	 * Returns true if the command does not need to be added in undo/redo queue.
+	 * Exclusion for view command is just tentative and needs further consideration.
 	 */
 	public Boolean isIgnored(Command command){
 		return command instanceof RedoCommand || 
 			   command instanceof UndoCommand ||
+			   command instanceof ViewCommand ||
 			   command instanceof IncorrectCommand;
 	}
 	
@@ -94,16 +116,16 @@ public class URManager {
 	 */
 	public class Context{
 		
-		private ReadOnlyTaskList taskList;
+		private ReadOnlyTaskMaster taskList;
 		private Command command;
 		Context(Model model, Command command){
 			this.command = command;
-			this.taskList = new TaskList(model.getTaskList());
+			this.taskList = new TaskMaster(model.getTaskMaster());
 		}
 		public Command getCommand(){
 			return command;			
 		}
-		public ReadOnlyTaskList getData(){
+		public ReadOnlyTaskMaster getData(){
 			return taskList;
 		}
 	}

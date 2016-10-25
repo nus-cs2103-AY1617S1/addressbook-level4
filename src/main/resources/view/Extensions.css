@@ -1,8 +1,11 @@
-
+/*@@author A0147967J-reused */
 .error {
     -fx-background-color: red;
 }
 
+.fail {
+    -fx-background-color: orange;
+}
 
 .tag-selector {
     -fx-border-width: 1;
@@ -14,3 +17,4 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+

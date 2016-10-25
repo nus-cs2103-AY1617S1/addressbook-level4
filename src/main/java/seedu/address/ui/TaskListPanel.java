@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -26,7 +26,7 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<TaskDateComponent> taskListView;
+    private ListView<TaskComponent> taskListView;
 
     public TaskListPanel() {
         super();
@@ -48,19 +48,19 @@ public class TaskListPanel extends UiPart {
     }
 
     public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<TaskDateComponent> taskList) {
+                                       ObservableList<TaskComponent> taskList) {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configure(taskList);
         return taskListPanel;
     }
 
-    private void configure(ObservableList<TaskDateComponent> taskList) {
+    private void configure(ObservableList<TaskComponent> taskList) {
         setConnections(taskList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<TaskDateComponent> taskList) {
+    private void setConnections(ObservableList<TaskComponent> taskList) {
         taskListView.setItems(taskList);
         taskListView.setCellFactory(listView -> new TaskListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -87,13 +87,16 @@ public class TaskListPanel extends UiPart {
         });
     }
 
-    class TaskListViewCell extends ListCell<TaskDateComponent> {
+    class TaskListViewCell extends ListCell<TaskComponent> {
 
         public TaskListViewCell() {
+        	
         }
+        
+        
 
         @Override
-        protected void updateItem(TaskDateComponent taskComponent, boolean empty) {
+        protected void updateItem(TaskComponent taskComponent, boolean empty) {
             super.updateItem(taskComponent, empty);
 
             if (empty || taskComponent == null) {
@@ -102,6 +105,7 @@ public class TaskListPanel extends UiPart {
             } else {
                 setGraphic(TaskCard.load(taskComponent, getIndex() + 1).getLayout());
             }
+            
         }
     }
 

@@ -10,13 +10,14 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.TaskList;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.TaskMaster;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestTasks;
+import seedu.address.ui.MyAgenda;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertEquals;
@@ -25,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * A GUI Test class for TaskList.
  */
-public abstract class TaskListGuiTest {
+public abstract class TaskMasterGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -44,6 +45,8 @@ public abstract class TaskListGuiTest {
     protected TaskListPanelHandle taskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
+    protected NavbarPanelHandle navbar;
+    protected BrowserPanelHandle browser;
     private Stage stage;
 
     @BeforeClass
@@ -61,9 +64,11 @@ public abstract class TaskListGuiTest {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
-            taskListPanel = mainGui.getFloatingTaskListPanel();
+            taskListPanel = mainGui.getTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
+            navbar = mainGui.getNavbar();
+            browser = mainGui.getBrowser();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
@@ -86,8 +91,8 @@ public abstract class TaskListGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      * @throws TimeslotOverlapException 
      */
-    protected TaskList getInitialData() throws TimeslotOverlapException {
-        TaskList ab = TestUtil.generateEmptyTaskList();
+    protected TaskMaster getInitialData() throws TimeslotOverlapException {
+        TaskMaster ab = TestUtil.generateEmptyTaskList();
         TypicalTestTasks.loadTaskListWithSampleData(ab);
         return ab;
     }
@@ -108,7 +113,7 @@ public abstract class TaskListGuiTest {
     /**
      * Asserts the floatingTask shown in the card is same as the given floatingTask
      */
-    public void assertMatching(TaskDateComponent task, TaskCardHandle card) {
+    public void assertMatching(TaskComponent task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
@@ -127,4 +132,21 @@ public abstract class TaskListGuiTest {
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
     }
+    
+    //@@author A0147967J
+    /**
+     * Asserts the expected task components are reflected in the agenda.
+     * @param expected
+     */
+    protected void assertIsAgendaMatching(ArrayList<TaskComponent> expectedShown){
+		//Get the updated agenda
+		MyAgenda toBeChecked = browser.getMyAgenda();
+		//Checks the number of items in the agenda
+		assertEquals(expectedShown.size(), toBeChecked.appointments().size());
+		//Checks one-to-one match
+		for(TaskComponent t: expectedShown){
+			assertTrue(browser.isContained(TestUtil.getAppointment(t)));
+		}
+	}
+
 }

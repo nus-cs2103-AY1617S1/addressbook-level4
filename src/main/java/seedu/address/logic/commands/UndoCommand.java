@@ -3,6 +3,10 @@ package seedu.address.logic.commands;
 import seedu.address.logic.URManager.Context;
 import seedu.address.logic.URManager.NoAvailableCommandException;
 
+//@@author A0147967J
+/**
+ * Undos the previous undoable operation. 
+ */
 public class UndoCommand extends Command{
 
 	public static final String COMMAND_WORD = "u";
@@ -17,9 +21,9 @@ public class UndoCommand extends Command{
     	try {
     		Context contextToUndo = urManager.getContextToUndo();
     		model.resetData(contextToUndo.getData());
-    		model.updateFilteredListToShowAll();
     		return new CommandResult(MESSAGE_SUCCESS);
         } catch (NoAvailableCommandException nace){
+        	indicateAttemptToExecuteFailedCommand();
         	return new CommandResult(MESSAGE_FAIL);
         }
     }

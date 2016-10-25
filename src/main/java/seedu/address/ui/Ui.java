@@ -12,7 +12,8 @@ public interface Ui {
 
     /** Stops the UI. */
     void stop();
-
+    
+    /** Turns off auto-complete. */
 	void turnOffAutoComplete();
-
+	
 }

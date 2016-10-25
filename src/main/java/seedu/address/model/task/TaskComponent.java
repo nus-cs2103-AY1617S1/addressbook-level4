@@ -2,35 +2,27 @@ package seedu.address.model.task;
 
 import seedu.address.commons.util.CollectionUtil;
 
-/**
- * This class served as the occurrence portion in an abstraction occurrence pattern.
- * The abstraction is the Task and the occurrence is the TaskDateComponent.
- * @author User
- *
- */
-public class TaskDateComponent {
+//@@author A0135782Y
+/** 
+* This class served as the occurrence portion in an abstraction occurrence pattern.
+* The abstraction is the Task and the occurrence is the TaskDateComponent.
+*
+*/
+public class TaskComponent {
+
     private Task taskReference;
     private TaskDate startDate, endDate;
     private boolean isArchived;
     
-    public TaskDateComponent(Task taskReference) {
-        assert taskReference != null : "Reference must not be null";
-        this.taskReference = taskReference; 
-        this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
-        this.endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
-        isArchived = false;
-    }
-    
-    public TaskDateComponent(Task taskReference,TaskDate startDate, TaskDate endDate) {
+    public TaskComponent(Task taskReference, TaskDate startDate, TaskDate endDate) {
         assert !CollectionUtil.isAnyNull(startDate, endDate);
-        assert taskReference != null : "Reference must not be null";
-        this.taskReference = taskReference;
         this.startDate = new TaskDate(startDate);
         this.endDate = new TaskDate(endDate);
+        this.taskReference = taskReference;
     }
     
-    /** copy constructor */
-    public TaskDateComponent(TaskDateComponent taskDateComponent) {
+    public TaskComponent(TaskComponent taskDateComponent) {
+        assert taskDateComponent != null : "Cannot pass in null values";
         this.taskReference = taskDateComponent.taskReference;
         this.startDate = taskDateComponent.startDate;
         this.endDate = taskDateComponent.endDate;
@@ -43,6 +35,10 @@ public class TaskDateComponent {
     
     public void setEndDate(TaskDate endDate) {
         this.endDate = endDate;
+    }
+    
+    public void setTaskReferrence(Task task) {
+    	this.taskReference = task;
     }
     
     public TaskDate getStartDate() {
@@ -91,11 +87,18 @@ public class TaskDateComponent {
         isArchived = true;
     }
     
+    public void update(TaskDate startDate, TaskDate endDate) {
+    	TaskDate realStartDate = startDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : startDate;
+    	TaskDate realEndDate = endDate == null ? new TaskDate(TaskDate.DATE_NOT_PRESENT) : endDate;
+    	setStartDate(realStartDate);
+    	setEndDate(realEndDate);
+    }
+    
     public boolean isArchived() {
         return isArchived;
     }
     
-    private boolean isSameStateAs(TaskDateComponent other) {
+    private boolean isSameStateAs(TaskComponent other) {
         return other == this // short circuit if same object
             || (other != null // this is first to avoid NPE below
             && other.getTaskReference().getName().equals(this.getTaskReference().getName()) // state checks here onwards
@@ -108,8 +111,8 @@ public class TaskDateComponent {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TaskDateComponent // instanceof handles nulls
-                && this.isSameStateAs((TaskDateComponent) other));        
+                || (other instanceof TaskComponent // instanceof handles nulls
+                && this.isSameStateAs((TaskComponent) other));        
     }
     
 }

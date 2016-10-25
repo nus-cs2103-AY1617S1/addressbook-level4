@@ -14,22 +14,32 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.controlsfx.control.textfield.TextFields;
-
+//@@author A0147967J
+/**
+ * This class extends javafx text field for auto complete
+ * implementation for Happy Jim Task Master. 
+ */
 public class AutoCompleteTextField extends TextField
-{
-
+{	
+	/** Stores command, syntax and utility words.*/
 	private final SortedSet<String> dictionary;
 	
+	/** Pops up the dictionary words. */
 	private ContextMenu dictionaryPopup;
 	
+	/** Determines whether to turn on the auto-complete function. */
 	public boolean turnOn = true;
 	
+	/** Constructor */
 	public AutoCompleteTextField() {
+		
 		super();
+		
 		dictionary = new TreeSet<>();
 		setDictionary();
 		dictionaryPopup = new ContextMenu();
+		
+		
 		textProperty().addListener(new ChangeListener<String>(){
 			@Override
 			public void changed(ObservableValue<? extends String> observableValue, String oldString, String newString) {				
@@ -39,7 +49,7 @@ public class AutoCompleteTextField extends TextField
 					LinkedList<String> searchResult = new LinkedList<>();
 					searchResult.addAll(dictionary.subSet(getCurrentWord(), getCurrentWord() + Character.MAX_VALUE));
 					if (dictionary.size() > 0){
-						populatePopup(searchResult);
+						popup(searchResult);
 						if (!dictionaryPopup.isShowing() && turnOn){
 							dictionaryPopup.show(AutoCompleteTextField.this, Side.BOTTOM, getText().length()*8, 0);
 						}
@@ -61,12 +71,12 @@ public class AutoCompleteTextField extends TextField
 	/**
 	 * Pop out the entry set with the given search results.
 	 */
-	private void populatePopup(List<String> searchResult) {
+	private void popup(List<String> searchResult) {
 		
 		List<CustomMenuItem> menuItems = new LinkedList<>();
 
-		for (int i = 0; i < searchResult.size(); i++){
-			final String result = searchResult.get(i);
+		for (String result: searchResult){
+			
 			Label entryLabel = new Label(result);
 			CustomMenuItem item = new CustomMenuItem(entryLabel, true);
 			item.setOnAction(new EventHandler<ActionEvent>(){
@@ -77,11 +87,11 @@ public class AutoCompleteTextField extends TextField
 					positionCaret(getText().length());
 				}
 			});
+			
 			menuItems.add(item);
 		}
 		dictionaryPopup.getItems().clear();
 		dictionaryPopup.getItems().addAll(menuItems);
-
 	}
 	
 	/**
@@ -99,9 +109,10 @@ public class AutoCompleteTextField extends TextField
 		for(String s: commandWords) dictionary.add(s);
 		//date
 		String[] dateWords = {"jan","feb","mar","apr","may","jun","jul",
-							  "aug","sep","oct","nov","dec","today","tomorrow",
-							  "mon","tue","wed","thur","fri","sat","sun",
-							  "daily", "weekly", "monthly"};
+							  "aug","sep","oct","nov","dec","today","tomorrow","yesterday",
+							  "monday","tuesday","wednesday","thursday","friday","saturday","sunday",
+							  "daily", "weekly", "monthly", "yearly","next",
+							  "day", "week", "year"};
 		for(String s: dateWords) dictionary.add(s);
 	}
 	

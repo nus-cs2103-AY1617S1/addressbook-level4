@@ -1,9 +1,9 @@
 package seedu.address.commons.events.model;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.ReadOnlyTaskList;
 
-/** Indicates the TaskList in the model has changed*/
+//@@author A0147967J
+/** Indicates the file path of the task master should change.*/
 public class FilePathChangeEvent extends BaseEvent {
 
     public final String newFilePath;

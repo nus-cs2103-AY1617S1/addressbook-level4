@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPaneNav" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPaneNav" fx:id="cardPaneNav" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane id="navBarGrid" prefHeight="71.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -50,7 +50,7 @@
                                  </ImageView>
                                       </children>
                            </VBox>
-                                       <Label fx:id="name" styleClass="cell_big_label" text="\$first" textAlignment="CENTER">
+                                       <Label fx:id="navname" styleClass="cell_big_label" text="\$first" textAlignment="CENTER">
                                  		</Label>
                                    </children>
                                 </HBox>

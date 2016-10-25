@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.commons.core.LogsCenter;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.logging.Logger;
 
 /**
@@ -19,14 +22,11 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-W09-C2/main/blob/master/docs/UserGuide.md";
-
     private AnchorPane mainPane;
 
     private Stage dialogStage;
 
-    public static HelpWindow load(Stage primaryStage) {
+    public static HelpWindow load(Stage primaryStage) throws IOException {
         logger.fine("Showing help page about the application.");
         HelpWindow helpWindow = UiPartLoader.loadUiPart(primaryStage, new HelpWindow());
         helpWindow.configure();
@@ -43,15 +43,18 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
-    private void configure(){
+    private void configure() throws IOException{
         Scene scene = new Scene(mainPane);
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         setIcon(dialogStage, ICON);
 
+        ClassLoader classloader = getClass().getClassLoader();
+        File file = new File(classloader.getResource("help.html").getFile());
+        String content = new String(Files.readAllBytes(file.toPath()));
         WebView browser = new WebView();
-        browser.getEngine().load(USERGUIDE_URL);
+        browser.getEngine().loadContent(content);
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(browser);
     }

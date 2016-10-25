@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.TaskList;
+import seedu.address.model.TaskMaster;
 import seedu.address.model.task.*;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
@@ -17,11 +17,14 @@ public class TypicalTestTasks {
     public static TestTask trash, book, homework, lecture, meeting, george, hoon, ida;
     
     /** Non-floating test tasks. */
-    public static TestTask labDeadline, tutorialSlot, essayDeadline, concert, movie, project, paper;
+    public static TestTask labDeadline, tutorialSlot, essayDeadline, concert, movie, project, paper, incoming;
     
     /** Blocked slots. */
     public static TestTask block1, block2, block3;
 
+    /** Recurring Task. */
+    public static TestTask daily, weekly, monthly, yearly, none, block;
+    
     public TypicalTestTasks() {
         try {
         	//Floating tasks
@@ -41,20 +44,33 @@ public class TypicalTestTasks {
             ida = new TaskBuilder().withName("play with Ida Mueller").build();
             project = new TaskBuilder().withName("project discussion").withStartDate("19 oct 4pm").withEndDate("19 oct 5pm").build();
             paper = new TaskBuilder().withName("cs paper").withEndDate("18 oct 5pm").build();
-            block1 = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("20 oct 2pm").withEndDate("20 oct 3pm").build();
-            
+            block1 = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("20 oct 2pm").withEndDate("20 oct 3pm").withTags("tag").build();
+            incoming = new TaskBuilder().withName("incoming").withEndDate("tomorrow 5pm").build();
             //Exceptions
             //Add non-floating overlapped timeslot
             movie = new TaskBuilder().withName("movie").withStartDate("17 oct 8pm").withEndDate("17 oct 11pm").build();
             //Block overlapped timeslot
-            block2 = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("17 oct 8pm").withEndDate("17 oct 11pm").build();
+            block2 = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("17 oct 8pm").withEndDate("17 oct 11pm").build(); 
+            //Recurring Type
+            daily = new TaskBuilder().withName("Daily Task").withStartDate("7am").withEndDate("8am")
+            		.withRecurringType(RecurringType.DAILY).build();
+            weekly = new TaskBuilder().withName("Weekly Task").withStartDate("6am").withEndDate("7am")
+            		.withRecurringType(RecurringType.WEEKLY).build();
+            monthly = new TaskBuilder().withName("Monthly Task").withStartDate("5am").withEndDate("6am")
+            		.withRecurringType(RecurringType.MONTHLY).build();
+            yearly = new TaskBuilder().withName("Yearly Task").withStartDate("3am").withEndDate("5am")
+            		.withRecurringType(RecurringType.YEARLY).build();
+            none = new TaskBuilder().withName("Normal Task").withStartDate("1am").withEndDate("3am")
+            		.withRecurringType(RecurringType.NONE).build();
+            block = new TaskBuilder().withName("BLOCKED SLOT").withStartDate("8am").withEndDate("9am")
+            		.withRecurringType(RecurringType.NONE).build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
         }
     }
 
-    public static void loadTaskListWithSampleData(TaskList ab) throws TimeslotOverlapException {
+    public static void loadTaskListWithSampleData(TaskMaster ab) throws TimeslotOverlapException {
 
         try {
             ab.addTask(new Task(trash));
@@ -76,18 +92,22 @@ public class TypicalTestTasks {
         return new TestTask[]{trash, book, homework, lecture, meeting, george, labDeadline, tutorialSlot, essayDeadline,concert};
     }
     
-    public TaskDateComponent[] getTypicalTaskComponents() {
-        List<TaskDateComponent> components = new ArrayList<TaskDateComponent>();
+    public TestTask[] getTypicalTasksWithRecurringOnes(){
+    	return new TestTask[]{trash, tutorialSlot, essayDeadline,concert, yearly, monthly, weekly, daily, none};
+    }
+    
+    public TaskComponent[] getTypicalTaskComponents() {
+        List<TaskComponent> components = new ArrayList<TaskComponent>();
         TestTask[] tasks = getTypicalTasks();
         for(TestTask t : tasks) {
             components.addAll(t.getTaskDateComponent());
         }
-        TaskDateComponent[] taskComponents = new TaskDateComponent[components.size()];
+        TaskComponent[] taskComponents = new TaskComponent[components.size()];
         return components.toArray(taskComponents);
     }
 
-    public TaskList getTypicalTaskList() throws TimeslotOverlapException{
-        TaskList ab = new TaskList();
+    public TaskMaster getTypicalTaskList() throws TimeslotOverlapException{
+        TaskMaster ab = new TaskMaster();
         loadTaskListWithSampleData(ab);
         return ab;
     }

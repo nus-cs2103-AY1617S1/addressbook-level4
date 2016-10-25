@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tasklist>
+    <tasks>
+        <name>write tests</name>
+        <startDate>-1</startDate>
+        <endDate>1477386000000</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs3241 lab4</name>
+        <startDate>-1</startDate>
+        <endDate>1477663200000</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2106 lab4</name>
+        <startDate>-1</startDate>
+        <endDate>1477904400000</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2105 assign3</name>
+        <startDate>-1</startDate>
+        <endDate>1478163600000</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>BLOCKED SLOT</name>
+        <startDate>1477551600000</startDate>
+        <endDate>1477569600000</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>BLOCKED SLOT</name>
+        <startDate>1478156400000</startDate>
+        <endDate>1478174400000</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2101 conference</name>
+        <startDate>1477274400000</startDate>
+        <endDate>1477278000000</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2106 lab 3</name>
+        <startDate>1477278000000</startDate>
+        <endDate>1477281600000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs3241 lab 2</name>
+        <startDate>1477281600000</startDate>
+        <endDate>1477285200000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2105 lecture</name>
+        <startDate>1477285200000</startDate>
+        <endDate>1477292400000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>geh1036 lec1</name>
+        <startDate>1477299600000</startDate>
+        <endDate>1477301502885</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>geh1036 tut</name>
+        <startDate>1477350000000</startDate>
+        <endDate>1477353600000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2103t tut</name>
+        <startDate>1477440000000</startDate>
+        <endDate>1477443600000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs3241 tut</name>
+        <startDate>1477447200000</startDate>
+        <endDate>1477450800000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>geh1036 lec2</name>
+        <startDate>1477472400000</startDate>
+        <endDate>1477479600000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs3241 lec</name>
+        <startDate>1477537200000</startDate>
+        <endDate>1477544400000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2106 tut2</name>
+        <startDate>1477548000000</startDate>
+        <endDate>1477551600000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2105 tut</name>
+        <startDate>1477620000000</startDate>
+        <endDate>1477623600000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2103t lec</name>
+        <startDate>1477630800000</startDate>
+        <endDate>1477638000000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2106 lec</name>
+        <startDate>1477623600000</startDate>
+        <endDate>1477630800000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>visit llderly</name>
+        <startDate>1477098000000</startDate>
+        <endDate>1477108800000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <name>cs2103t proj</name>
+        <startDate>1477357200000</startDate>
+        <endDate>1477400400000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>skype with parents</name>
+        <startDate>1477126800000</startDate>
+        <endDate>1477130400000</endDate>
+        <recurringType>WEEKLY</recurringType>
+        <isArchived>true</isArchived>
+    </tasks>
+    <tasks>
+        <name>celebrate friend birthday</name>
+        <startDate>-1</startDate>
+        <endDate>1478617140000</endDate>
+        <recurringType>YEARLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>celebrate mom birthday</name>
+        <startDate>-1</startDate>
+        <endDate>1480863540000</endDate>
+        <recurringType>YEARLY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>watch 2106 webcast</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>write 1036 tuts</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>fix printer</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>fix chair</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>go kinokuniya</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>buy junior high teacher peach tea</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>tell senior abt work</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>call grandma</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>ug and dg</name>
+        <tagged>ivle</tagged>
+        <startDate>-1</startDate>
+        <endDate>1478530740000</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>ca5 reflection</name>
+        <startDate>1478480400000</startDate>
+        <endDate>1478487600000</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>ca6 oral discussion</name>
+        <startDate>1478745000000</startDate>
+        <endDate>1478746800000</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>demo</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>trash</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>buy nephew toys</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>read kojin</name>
+        <startDate>-1</startDate>
+        <endDate>-1</endDate>
+        <recurringType>NONE</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tasks>
+        <name>clean</name>
+        <startDate>1477083600000</startDate>
+        <endDate>1477087200000</endDate>
+        <recurringType>DAILY</recurringType>
+        <isArchived>false</isArchived>
+    </tasks>
+    <tags>
+        <tagName>ivle</tagName>
+    </tags>
+</tasklist>

@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.io.IOException;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -28,6 +30,7 @@ public class MainWindow extends UiPart {
     
     private final String BLUE_THEME = getClass().getResource("/view/BlueTheme.css").toExternalForm();
     private final String DARK_THEME = getClass().getResource("/view/DarkTheme.css").toExternalForm();
+    private final String AGENDA = getClass().getResource("/view/MyAgenda.css").toExternalForm();
 
     private Logic logic;
 
@@ -36,16 +39,11 @@ public class MainWindow extends UiPart {
     private NavbarPanel navbarPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
-    private UserPrefs userPrefs;
-
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
-
-    private String taskListName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -95,10 +93,7 @@ public class MainWindow extends UiPart {
 
         //Set dependencies
         this.logic = logic;
-        this.taskListName = taskListName;
         this.config = config;
-        this.userPrefs = prefs;
-
         //Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
@@ -106,6 +101,7 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         scene.getStylesheets().add(DARK_THEME);
+        scene.getStylesheets().add(AGENDA);
         primaryStage.setScene(scene);
 
         setAccelerators();
@@ -116,14 +112,18 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        browserPanel = BrowserPanel.load(primaryStage, getBrowserPanelPlaceholder(), logic.getFilteredTaskList());
         navbarPanel = NavbarPanel.load(primaryStage, getNavbarPlaceholder());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
+        StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
-
+    
+    private AnchorPane getBrowserPanelPlaceholder() {
+        return browserPlaceholder;
+    }
+    
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
@@ -178,7 +178,7 @@ public class MainWindow extends UiPart {
     }
 
     @FXML
-    public void handleHelp() {
+    public void handleHelp() throws IOException {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
         helpWindow.show();
     }
@@ -217,6 +217,10 @@ public class MainWindow extends UiPart {
 
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
+    }
+    
+    public BrowserPanel getBrowserPanel() {
+        return this.browserPanel;
     }
 
     public void loadTaskPage(ReadOnlyTask task) {

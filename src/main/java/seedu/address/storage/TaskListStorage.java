@@ -1,13 +1,13 @@
 package seedu.address.storage;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyTaskMaster;
 
 import java.io.IOException;
 import java.util.Optional;
 
 /**
- * Represents a storage for {@link seedu.address.model.TaskList}.
+ * Represents a storage for {@link seedu.address.model.TaskMaster}.
  */
 public interface TaskListStorage {
 
@@ -18,18 +18,18 @@ public interface TaskListStorage {
 
 
     /**
-     * Returns TaskList data as a {@link ReadOnlyTaskList}.
+     * Returns TaskList data as a {@link ReadOnlyTaskMaster}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskMaster> readTaskList() throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyTaskList} to the storage.
+     * Saves the given {@link ReadOnlyTaskMaster} to the storage.
      * @param taskList cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveTaskList(ReadOnlyTaskList taskList) throws IOException;
+    void saveTaskList(ReadOnlyTaskMaster taskList) throws IOException;
 
 }

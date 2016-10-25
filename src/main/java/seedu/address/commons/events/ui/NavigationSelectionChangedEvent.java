@@ -2,6 +2,7 @@ package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
 
+//@@author A0147967J
 /**
  * Represents a selection change in the Navigation Bar Panel
  */

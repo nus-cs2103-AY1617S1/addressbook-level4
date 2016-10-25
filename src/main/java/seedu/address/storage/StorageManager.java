@@ -7,7 +7,7 @@ import seedu.address.commons.events.model.TaskListChangedEvent;
 import seedu.address.commons.events.model.FilePathChangeEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyTaskMaster;
 import seedu.address.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -52,14 +52,14 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyTaskMaster> readTaskList() throws DataConversionException, FileNotFoundException {
         logger.fine("Attempting to read data from file: " + taskListStorage.getTaskListFilePath());
 
         return taskListStorage.readTaskList(taskListStorage.getTaskListFilePath());
     }
 
     @Override
-    public void saveTaskList(ReadOnlyTaskList taskList) throws IOException {
+    public void saveTaskList(ReadOnlyTaskMaster taskList) throws IOException {
         taskListStorage.saveTaskList(taskList, taskListStorage.getTaskListFilePath());
     }
 

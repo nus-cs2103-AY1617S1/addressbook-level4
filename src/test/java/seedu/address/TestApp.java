@@ -4,11 +4,10 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.ReadOnlyTaskList;
+import seedu.address.model.ReadOnlyTaskMaster;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.XmlSerializableTaskList;
 import seedu.address.testutil.TestUtil;
-
 import java.util.function.Supplier;
 
 import org.apache.logging.log4j.Level;
@@ -24,13 +23,13 @@ public class TestApp extends MainApp {
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
     protected static final String ADDRESS_BOOK_NAME = "Test";
-    protected Supplier<ReadOnlyTaskList> initialDataSupplier = () -> null;
+    protected Supplier<ReadOnlyTaskMaster> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyTaskList> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyTaskMaster> initialDataSupplier, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
@@ -58,11 +57,10 @@ public class TestApp extends MainApp {
         UserPrefs userPrefs = super.initPrefs(config);
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
-        userPrefs.updateLastUsedGuiSetting(new GuiSettings(1200.0, 900.0, (int) x, (int) y));
+        userPrefs.updateLastUsedGuiSetting(new GuiSettings(1200.0, 1000.0, (int) x, (int) y));
         return userPrefs;
     }
-
-
+    
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);
@@ -73,4 +71,5 @@ public class TestApp extends MainApp {
     	StatusLogger.getLogger().setLevel(Level.OFF);
         launch(args);
     }
+
 }

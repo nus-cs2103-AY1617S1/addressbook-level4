@@ -1,12 +1,11 @@
 package seedu.address.model.task;
 
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.logic.RecurringTaskManager;
-import seedu.address.model.tag.UniqueTagList;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Represents a Task in the task list.
@@ -24,13 +23,10 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     private UniqueTagList tags;
-    
-    private TaskDate startDate, endDate;
-    private List<TaskDateComponent> recurringDates;
     private TaskType taskType;
-    
     private RecurringType recurringType;
     
+    private List<TaskComponent> recurringDates;
     /**
      * Every field must be present and not null.
      */
@@ -38,12 +34,10 @@ public class Task implements ReadOnlyTask {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.tags = tags;
-        this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
-        this.endDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
         this.taskType = TaskType.FLOATING;
         this.recurringType = RecurringType.NONE;
-        this.recurringDates = new ArrayList<TaskDateComponent>();
-        this.recurringDates.add(new TaskDateComponent(this,new TaskDate(), new TaskDate()));
+        this.recurringDates = new ArrayList<TaskComponent>();
+        this.recurringDates.add(new TaskComponent(this ,new TaskDate(), new TaskDate()));
     }
 
     /**
@@ -51,38 +45,28 @@ public class Task implements ReadOnlyTask {
      */
     public Task(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType) {
         this(name, tags);
-        assert !CollectionUtil.isAnyNull(name, tags);
-        this.startDate = startDate;
-        this.endDate = endDate;
+        assert !CollectionUtil.isAnyNull(startDate, endDate, recurringType);
         this.taskType = TaskType.NON_FLOATING;
         this.recurringType = recurringType;
-        this.recurringDates.get(0).setStartDate(new TaskDate(startDate));
-        this.recurringDates.get(0).setEndDate(new TaskDate(endDate));
+        getComponentForNonRecurringType().setStartDate(startDate);
+        getComponentForNonRecurringType().setEndDate(endDate);
+    }
+    
+    public Task(Name name, UniqueTagList tags, RecurringType recurringType) {
+        this(name, tags);
+        assert recurringType != null : "Recurring Type must be specified";
+        this.recurringType = recurringType;
     }
     
     public Task(){}
-    
-    public boolean isValidTimeSlot(){
-    	if(startDate!=null && endDate!=null){
-    		return (endDate.getDate()).after(startDate.getDate());
-    	}else{
-    		return true;
-    	}
-    }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags(), source.getStartDate(), source.getEndDate(), source.getRecurringType());
+        this(source.getName(), source.getTags(), source.getRecurringType());
         this.recurringDates = source.getTaskDateComponent();
-        if (source.getEndDate().getDateInLong() == TaskDate.DATE_NOT_PRESENT) {
-            taskType = TaskType.FLOATING;
-        }
-        
-        if(source.getTaskType() == TaskType.COMPLETED){
-            taskType = TaskType.COMPLETED;
-        }
+        this.taskType = source.getTaskType();
     }
 
     @Override
@@ -94,19 +78,10 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-    
-    @Override
-    public TaskDate getStartDate() {
-        return startDate;
-    }
 
+    //@@author A0135782Y
     @Override
-    public TaskDate getEndDate() {
-        return endDate;
-    }
-    
-    @Override
-    public List<TaskDateComponent> getTaskDateComponent() {
+    public List<TaskComponent> getTaskDateComponent() {
         return recurringDates;
     }
     
@@ -119,30 +94,21 @@ public class Task implements ReadOnlyTask {
         return recurringType;
     }
     
-    public void setType(TaskType type) {
+    public void setTaskType(TaskType type) {
         this.taskType = type;
     }
+    
     public void setRecurringType(RecurringType type) {
         if (taskType == TaskType.FLOATING) {
             assert (!type.equals(RecurringType.NONE)) : "Floating Task cannot be a recurring task";
         }
         this.recurringType = type;
     }
+    //@@author
     
-    public boolean hasOnlyEndDate() {
-        if (taskType == TaskType.FLOATING) {
-            return false;
-        }
-        if (startDate.getDateInLong() != TaskDate.DATE_NOT_PRESENT){
-            return false;
-        }
-        return true;
+    public void setRecurringDates(List<TaskComponent> newComponentList){
+    	this.recurringDates = newComponentList;
     }
-    
-    public void appendRecurringTaskDate(TaskDateComponent toBeAppended) {
-        recurringDates.add(toBeAppended);
-    }
-    
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
@@ -168,45 +134,58 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
     
+    //@@author A0135782Y
     @Override
     public void completeTaskWhenAllComponentArchived() {
-        for (TaskDateComponent c : recurringDates) {
+        for (TaskComponent c : recurringDates) {
             if (c.isArchived() == false || c.getTaskReference().getRecurringType() != RecurringType.NONE) {
                 return;
             }
         }
         taskType = TaskType.COMPLETED;
     }
-
+    //@@author
+    
 	@Override
-	public void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) {
+	public void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType) {
 		if(name != null)
 			this.name = name;
 		
 		if(tags != null)		
 			this.tags = tags;
-
 		
-		if(this.startDate.equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
-				&& this.endDate.equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
+		if(this.getComponentForNonRecurringType().getStartDate().equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
+				&& this.getComponentForNonRecurringType().getStartDate().equals(new TaskDate(TaskDate.DATE_NOT_PRESENT))
 				&& endDate != null) {
 			this.taskType = TaskType.NON_FLOATING;
 		}
 		
-		if(startDate != null) {
-			this.startDate = startDate;
-		} else if(endDate != null) {
-			this.startDate = new TaskDate(TaskDate.DATE_NOT_PRESENT);
-		}
+		if(endDate != null) 
+			this.getLastAppendedComponent().update(startDate, endDate);
 		
-		if(endDate != null)
-			this.endDate = endDate;
+		if(recurringType != RecurringType.IGNORED)
+			this.recurringType = recurringType; 
 		
-		// needs to be changed just a stop gap measure
-		if (recurringType.equals(RecurringType.NONE)) {
-		    recurringDates.get(0).setStartDate(this.startDate);
-            recurringDates.get(0).setEndDate(this.endDate);
-		}
+		getLastAppendedComponent().setTaskReferrence(this);
+	}
+	
+	//@@author A0135782Y
+	@Override
+	public TaskComponent getComponentForNonRecurringType() {
+	    assert recurringDates.size() == 1 : "This method should only be used for non recurring tasks";
+	    return recurringDates.get(0);
+	}
+	
+	@Override
+	public TaskComponent getLastAppendedComponent() {
+	    return recurringDates.get(recurringDates.size()-1);
 	}
 
+	@Override
+	public void appendRecurringDate(TaskComponent componentToBeAdded) {
+	    assert !recurringType.equals(RecurringType.NONE) : "You cannot append new dates to non recurring tasks";
+	    recurringDates.add(componentToBeAdded);
+	    recurringDates.get(recurringDates.size()-1).setTaskReferrence(this);
+	}
+	//@@author
 }

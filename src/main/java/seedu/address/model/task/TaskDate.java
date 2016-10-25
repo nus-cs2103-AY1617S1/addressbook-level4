@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+//@@author A0135782Y
 /**
  * Helper class for storing date for the Task
  */
@@ -31,7 +32,7 @@ public class TaskDate {
         this.date = copy.date;
     }
     
-    //For sake of testing, not implemeted in main app
+    //For sake of testing, not implemented in main app
     public TaskDate(String inputDate) {
         this.date = new com.joestelmach.natty.Parser().parse(inputDate).get(0).getDates().get(0).getTime();
     }
@@ -74,15 +75,11 @@ public class TaskDate {
     	return new Date(date);
     }
     
-    public void extendByDay() {
-        
-    }
-    
     @Override
     public boolean equals(Object other){
 		return other == this ||
 				(other instanceof TaskDate // instanceof handles nulls
-		                && this.getDateInLong() == ((TaskDate) other).getDateInLong());
+		         && this.getDate().equals(((TaskDate) other).getDate()));
     }
 
     public boolean isValid() {
@@ -93,4 +90,5 @@ public class TaskDate {
     public String toString() {
         return getFormattedDate();
     }
+
 }

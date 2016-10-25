@@ -7,11 +7,11 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.BlockCommand;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
-public class BlockCommandTest extends TaskListGuiTest {
+public class BlockCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void block() {
@@ -20,9 +20,9 @@ public class BlockCommandTest extends TaskListGuiTest {
         TestTask slotToBlock = td.block1;
         assertBlockSuccess(slotToBlock, currentList);
         currentList = TestUtil.addTasksToList(currentList, slotToBlock);
-        TaskDateComponent[] taskComponents = TestUtil.convertTasksToDateComponents(currentList);
+        TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(currentList);
         
-        //block slot is overlapped with tasks
+        //block slot is overlapped with tasks in the list
         commandBox.runCommand(td.block2.getBlockCommand());
         assertResultMessage(BlockCommand.MESSAGE_TIMESLOT_OCCUPIED);
         assertTrue(taskListPanel.isListMatching(taskComponents));
@@ -50,7 +50,7 @@ public class BlockCommandTest extends TaskListGuiTest {
 
         //confirm the list now contains all previous floatingTasks plus the new floatingTask
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, slotToBlock);
-        TaskDateComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
+        TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(expectedList);
         assertTrue(taskListPanel.isListMatching(taskComponents));
     }
     

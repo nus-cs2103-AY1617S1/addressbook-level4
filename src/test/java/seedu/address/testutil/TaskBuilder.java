@@ -29,25 +29,27 @@ public class TaskBuilder {
     
     public TaskBuilder withStartDate(String date) throws IllegalValueException {
         this.task.setStartDate(date);
-        this.task.setType(TaskType.NON_FLOATING);
+        this.task.setTaskType(TaskType.NON_FLOATING);
         return this;
     }
     
     public TaskBuilder withEndDate(String date) throws IllegalValueException {
         this.task.setEndDate(date);
-        this.task.setType(TaskType.NON_FLOATING);
+        this.task.setTaskType(TaskType.NON_FLOATING);
         return this;
     }
     
     public TaskBuilder withType(TaskType type) throws IllegalValueException {
-        this.task.setType(type);
+        this.task.setTaskType(type);
+        return this;
+    }
+    
+    public TaskBuilder withRecurringType(RecurringType type) throws IllegalValueException {
+        this.task.setRecurringType(type);
         return this;
     }
 
     public TestTask build() {
-        Task copyTask = new Task(this.task);
-        TaskDateComponent component = new TaskDateComponent(copyTask ,this.task.getStartDate(),this.task.getEndDate());
-        this.task.getTaskDateComponent().add(component);
         return this.task;
     }
 

@@ -2,8 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -30,14 +29,15 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<TaskDateComponent> lastShownList = model.getFilteredTaskComponentList();
+        UnmodifiableObservableList<TaskComponent> lastShownList = model.getFilteredTaskComponentList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
+            urManager.popFromUndoQueue();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        TaskDateComponent taskToDelete = lastShownList.get(targetIndex - 1);
+        TaskComponent taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
             model.deleteTask(taskToDelete);

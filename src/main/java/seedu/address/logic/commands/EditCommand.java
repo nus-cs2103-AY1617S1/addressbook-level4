@@ -10,8 +10,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
@@ -35,6 +36,7 @@ public class EditCommand extends Command {
 	private final TaskDate startDate;
 	private final TaskDate endDate;
 	private final int targetIndex;
+	private final RecurringType recurringType;
 	
 	private Name constructName(String taskName) throws IllegalValueException {
 		if (taskName.isEmpty())
@@ -60,21 +62,23 @@ public class EditCommand extends Command {
 		return null;
 	}
 	
-	public EditCommand(int targetIndex, String taskName, Set<String> tags, Date startDate, Date endDate) throws IllegalValueException {
+	public EditCommand(int targetIndex, String taskName, Set<String> tags, Date startDate, Date endDate, RecurringType recurringType) throws IllegalValueException {
 		this.targetIndex = targetIndex;
 		this.taskName = constructName(taskName);
 		this.tags = constructTagList(tags);
 		this.startDate = constructTaskDate(startDate);
 		this.endDate = constructTaskDate(endDate);
+		this.recurringType = recurringType;
 	}
 
 
 	@Override
 	public CommandResult execute() {
-		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-		
+		UnmodifiableObservableList<TaskComponent> lastShownList = model.getFilteredTaskComponentList();
+
 		if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
+            urManager.popFromUndoQueue();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 		
@@ -82,15 +86,18 @@ public class EditCommand extends Command {
 			return new CommandResult(MESSAGE_ILLEGAL_TIME_SLOT);
 		}
 		
-		Task taskToEdit = (Task)lastShownList.get(targetIndex - 1);
+		TaskComponent taskToEdit = lastShownList.get(targetIndex - 1);
+		Task targetTask = (Task) taskToEdit.getTaskReference();
 		try {
-			model.editTask(taskToEdit, taskName, tags, startDate, endDate);
+			model.editTask(targetTask, taskName, tags, startDate, endDate, recurringType);
 		} catch (TaskNotFoundException e) {
 			assert false : "The target task cannot be missing";
 		} catch (TimeslotOverlapException e) {
+			indicateAttemptToExecuteFailedCommand();
+			urManager.popFromUndoQueue();
 			return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		}
-		return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
+		return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, targetTask));
 	}
 
 }

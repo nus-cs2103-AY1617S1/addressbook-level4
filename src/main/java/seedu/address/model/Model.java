@@ -2,40 +2,40 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.model.task.TaskDate;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
-
-import javafx.collections.ObservableList;
 
 /**
  * The API of the Model component.
  */
 public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyTaskList newData);
+    void resetData(ReadOnlyTaskMaster newData);
 
-    /** Returns the TaskList */
-    ReadOnlyTaskList getTaskList();
+    /** Returns the TaskMaster */
+    ReadOnlyTaskMaster getTaskMaster();
 
     /** Deletes the given task. */
-    void deleteTask(TaskDateComponent target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(TaskComponent target) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task 
      * @throws TimeslotOverlapException */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException, TimeslotOverlapException;
 
+    List<ReadOnlyTask> getTaskList();
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-    UnmodifiableObservableList<TaskDateComponent> getFilteredTaskComponentList();
+    UnmodifiableObservableList<TaskComponent> getFilteredTaskComponentList();
     
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
@@ -45,9 +45,10 @@ public interface Model {
     
     /** Updates the file path for current storage manager of the model.*/
 	void changeDirectory(String filePath);
+	
+	/** Archives the given task component. */
+	void archiveTask(TaskComponent target) throws TaskNotFoundException;
 
-	void archiveTask(TaskDateComponent target) throws TaskNotFoundException;
-
-	void editTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate) throws TaskNotFoundException, TimeslotOverlapException;
+	void editTask(Task target, Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException;
 
 }

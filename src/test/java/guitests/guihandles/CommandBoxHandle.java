@@ -1,8 +1,9 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 /**
  * A handle to the Command Box in the GUI.
  */
@@ -35,5 +36,9 @@ public class CommandBoxHandle extends GuiHandle{
         enterCommand("help");
         pressEnter();
         return new HelpWindowHandle(guiRobot, primaryStage);
+    }
+    
+    public ObservableList<String> getStyleClass(){
+    	return ((TextField)guiRobot.lookup(COMMAND_INPUT_FIELD_ID).tryQuery().get()).getStyleClass();
     }
 }

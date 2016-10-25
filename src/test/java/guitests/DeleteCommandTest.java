@@ -2,7 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUC
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeleteCommandTest extends TaskListGuiTest {
+public class DeleteCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void delete() {
@@ -49,11 +49,10 @@ public class DeleteCommandTest extends TaskListGuiTest {
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 
-        List<TaskDateComponent> componentList = new ArrayList<TaskDateComponent>();
+        List<TaskComponent> componentList = new ArrayList<TaskComponent>();
         for(TestTask t : expectedRemainder) {
             componentList.addAll(t.getTaskDateComponent());
         }
-        TaskDateComponent[] taskComponents = new TaskDateComponent[componentList.size()];
         //confirm the list now contains all previous floatingTasks except the deleted floatingTask
         assertTrue(taskListPanel.isListMatching(TestUtil.convertTasksToDateComponents(expectedRemainder)));
 

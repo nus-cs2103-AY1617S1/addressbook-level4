@@ -1,38 +1,51 @@
 package seedu.address.ui;
 
-import javafx.event.Event;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebView;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskComponent;
+import seedu.address.model.task.TaskDate;
 import seedu.address.commons.core.LogsCenter;
-
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
+//@@author A0147967J-reused
 /**
- * The Browser Panel of the App.
+ * The Browser Panel of the App modified to display the agenda.
  */
 public class BrowserPanel extends UiPart{
 
     private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
-    private WebView browser;
+    private static final String FXML = "BrowserPanel.fxml";
+    private VBox panel;
+    private AnchorPane placeHolderPane;
+    
+    @FXML
+    private MyAgenda agenda;
 
     /**
      * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a BrowserPanel.
      */
-    private BrowserPanel() {
-
-    }
-
     @Override
     public void setNode(Node node) {
-        //not applicable
+    	panel = (VBox) node;
     }
 
     @Override
     public String getFxmlPath() {
-        return null; //not applicable
+		return FXML;
+       //not applicable
+    }
+    
+    @Override
+    public void setPlaceholder(AnchorPane pane) {
+    	this.placeHolderPane = pane;
     }
 
     /**
@@ -40,29 +53,49 @@ public class BrowserPanel extends UiPart{
      * This method should be called after the FX runtime is initialized and in FX application thread.
      * @param placeholder The AnchorPane where the BrowserPanel must be inserted
      */
-    public static BrowserPanel load(AnchorPane placeholder){
-        logger.info("Initializing browser");
-        BrowserPanel browserPanel = new BrowserPanel();
-        browserPanel.browser = new WebView();
-        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
-        FxViewUtil.applyAnchorBoundaryParameters(browserPanel.browser, 0.0, 0.0, 0.0, 0.0);
-        placeholder.getChildren().add(browserPanel.browser);
+    public static BrowserPanel load(Stage primaryStage, AnchorPane browserPanelPlaceholder,
+            ObservableList<TaskComponent> taskList){
+        logger.info("Initializing Agenda");       
+        BrowserPanel browserPanel =
+                UiPartLoader.loadUiPart(primaryStage, browserPanelPlaceholder, new BrowserPanel());
+        browserPanel.initialize(taskList);
+        FxViewUtil.applyAnchorBoundaryParameters(browserPanel.agenda, 0.0, 0.0, 0.0, 0.0);
+        browserPanel.placeHolderPane.getChildren().add(browserPanel.panel);
         return browserPanel;
+    }
+    
+  //@@author A0147967J
+    private void initialize(ObservableList<TaskComponent> taskList){
+    	agenda.setDisplayedDateTime(new TaskDate(new Date(System.currentTimeMillis())));
+    	loadTaskList(taskList);
     }
 
     public void loadTaskPage(ReadOnlyTask task) {
-        loadPage("https://www.google.com.sg/#safe=off&q=" + task.getName().fullName.replaceAll(" ", "+"));
+        //Deprecated method
     }
-
-    public void loadPage(String url){
-        browser.getEngine().load(url);
+    
+    public void updateAgenda(TaskDate inputDate, List<TaskComponent> taskList){
+    	agenda.setDisplayedDateTime(inputDate);
+    	loadTaskList(taskList);
+    }
+    
+    public void reloadAgenda(List<TaskComponent> taskList){
+    	loadTaskList(taskList);
     }
 
     /**
      * Frees resources allocated to the browser.
      */
     public void freeResources() {
-        browser = null;
+        agenda = null;
     }
-
+    
+    public void loadTaskList(List<TaskComponent> taskList){   	
+    	agenda.addAllToAgenda(taskList);    		
+    }
+    
+    public MyAgenda getAgenda(){
+    	return agenda;
+    }
+    
 }

@@ -1,21 +1,43 @@
 package seedu.address.logic.parser;
-import seedu.address.logic.commands.*;
-import seedu.address.model.task.Name;
-import seedu.address.model.task.RecurringDateParser;
-import seedu.address.model.task.RecurringType;
-import seedu.address.model.task.TaskDate;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.exceptions.IllegalValueException;
+import static seedu.address.commons.core.Messages.*;
 
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.joestelmach.natty.DateGroup;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddFloatingCommand;
+import seedu.address.logic.commands.AddNonFloatingCommand;
+import seedu.address.logic.commands.BlockCommand;
+import seedu.address.logic.commands.ChangeDirectoryCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CompleteCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.ViewCommand;
+import seedu.address.model.task.RecurringType;
+import seedu.address.model.task.TaskDate;
 
 /**
  * Parses user input.
@@ -27,7 +49,7 @@ public class Parser {
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern FIND_ARGS_WITHOUT_DATE_FORMAT = 
     		Pattern.compile("(?<keywords>[^/]+)" + "(?<tagArguments>(?: t/[^/]+)*)");
@@ -74,15 +96,15 @@ public class Parser {
     
     private static final Pattern NON_FLOATING_TASK_DATA_ARGS_FORMAT = 
             Pattern.compile("(?<name>[^/]+)"
-                    + " (from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
-                    + " to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
-                    + "|by (?<deadline>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+))"
-                    + "(?<recurring>(?: [^/(t/) ]+)*)"
+            		+ "((?<startTime>(?: from [^/]+)(?<endTime>(?: to [^/]+)))|"
+    				+ "(?<deadline>(?: by [^/]+)))"
                     + "(?<tagArguments>(?: t/[^ ]+)*)"); // variable number of tags
+    
+    private static final Pattern RECURRING_TASK_DATA_ARGS_FORMAT = 
+            Pattern.compile("(?<recurring>\\b(?i)daily|weekly|monthly|yearly|none(?i)\\b)");
         
     private static final Pattern BLOCK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("from (?<startdate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
-                    +" to (?<enddate>[^/ a-zA-Z]+ [^/ 0-9]+ [^/ ]+)"
+            Pattern.compile("(?<startTime>(?:from [^/]+)(?<endTime>(?: to [^/]+)))"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
     private static final int DEADLINE_INDEX = 0;
@@ -95,7 +117,11 @@ public class Parser {
     
     private static final int TIME_PERIOD = 2;
     
-    public Parser() {}
+    private static final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
+    
+    public Parser() {
+        
+    }
 
     /**
      * Parses user input into command for execution.
@@ -153,16 +179,16 @@ public class Parser {
             return new UndoCommand();
             
         case RedoCommand.COMMAND_WORD:
-            return new RedoCommand();          
+            return new RedoCommand();  
+            
+        case ViewCommand.COMMAND_WORD:
+        	return prepareView(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
-    
-
-	
 
 	/**
      * Parses arguments in the context of the add task command.
@@ -210,28 +236,32 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));
         }
         try {
-            RecurringType recurringType = RecurringType.NONE;
-            
-            if (matcher.group("recurring").isEmpty()) {
-                recurringType = RecurringType.NONE;
-            }
-            else {
-                try{
-                    recurringType = extractRecurringInfo(matcher.group("recurring"));
-                } catch (IllegalArgumentException iae) {
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddNonFloatingCommand.MESSAGE_USAGE));                    
-                }
-            }
-            
             if(matcher.group("deadline") != null) {
-                return prepareAddNonFloatingByDate(matcher, recurringType);
+                return prepareAddNonFloatingByDate(matcher);
             } else {
-                return prepareAddNonFloatingFromDateToDate(matcher, recurringType);
+                return prepareAddNonFloatingFromDateToDate(matcher);
             }
-
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (IllegalArgumentException iae) {
+            return new IncorrectCommand(iae.getMessage());
         }
+    }
+
+    private RecurringType checkForRecurringTask(String args) throws IllegalArgumentException {
+        final Matcher matcher = RECURRING_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+        RecurringType recurringType = RecurringType.IGNORED;
+        if (!matcher.find()) {
+            return recurringType;
+        }
+        else {
+            try{
+                recurringType = extractRecurringInfo(matcher.group("recurring"));
+            } catch (IllegalArgumentException iae) {
+                throw iae;                 
+            }
+        }
+        return recurringType;
     }
 
     /**
@@ -241,8 +271,13 @@ public class Parser {
      * @return the prepared add non floating command
      * @throws IllegalValueException Signals for incorrect command
      */
-    private Command prepareAddNonFloatingByDate(Matcher matcher, RecurringType recurringType) throws IllegalValueException {
+    private Command prepareAddNonFloatingByDate(Matcher matcher) throws IllegalValueException {
         String endInput = matcher.group("deadline");
+        RecurringType recurringType = checkForRecurringTask(endInput);
+        if(recurringType == RecurringType.IGNORED) {
+        	recurringType = RecurringType.NONE;
+        }
+        try{
         return new AddNonFloatingCommand(
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
@@ -250,6 +285,11 @@ public class Parser {
                 new TaskDate(getDateFromString(endInput).getTime()),
                 recurringType
                 );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        } catch (IllegalArgumentException iae) {
+            return new IncorrectCommand(iae.getMessage());
+        }
     }
 
     /**
@@ -259,10 +299,14 @@ public class Parser {
      * @return the prepared add non floating command
      * @throws IllegalValueException Signals for incorrect command
      */    
-    private Command prepareAddNonFloatingFromDateToDate(Matcher matcher, RecurringType recurringType) throws IllegalValueException {
-        String startInput = matcher.group("startdate");
-        String endInput = matcher.group("enddate");
-        
+    private Command prepareAddNonFloatingFromDateToDate(Matcher matcher) throws IllegalValueException {
+        String startInput = matcher.group("startTime");
+        String endInput = matcher.group("endTime");
+        RecurringType recurringType = checkForRecurringTask(endInput);
+        if(recurringType == RecurringType.IGNORED){ 
+        	recurringType = RecurringType.NONE;
+        }
+        try {
         return new AddNonFloatingCommand(
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
@@ -270,18 +314,23 @@ public class Parser {
                 new TaskDate(getDateFromString(endInput).getTime()),
                 recurringType
                 );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        } catch (IllegalArgumentException iae) {
+            return new IncorrectCommand(iae.getMessage());
+        }
     }
     
+    //@@author A0147967J
     private Command prepareBlock(String args) {
-		// TODO Auto-generated method stub
     	Matcher matcher = BLOCK_DATA_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, BlockCommand.MESSAGE_USAGE));
         }
         try {
             
-            String startInput = matcher.group("startdate");
-            String endInput = matcher.group("enddate");
+            String startInput = matcher.group("startTime");
+            String endInput = matcher.group("endTime");
             
             return new BlockCommand(
                     getTagsFromArgs(matcher.group("tagArguments")),
@@ -292,7 +341,8 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
 	}
-
+    //@@author
+    
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
@@ -324,6 +374,13 @@ public class Parser {
         return new DeleteCommand(index.get());
     }
     
+    //@@author A0147967J
+    /**
+     * Parses arguments in the context of the complete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
     private Command prepareComplete(String args) {
 
         Optional<Integer> index = parseIndex(args);
@@ -334,7 +391,7 @@ public class Parser {
 
         return new CompleteCommand(index.get());
     }
-    
+    //@@author
     
 
     /**
@@ -358,7 +415,7 @@ public class Parser {
      *   Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
+        final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
@@ -390,7 +447,6 @@ public class Parser {
         Date startTime = null;
         Date endTime = null;
         Date deadline = null;
-        Date today = null;
         Set<String> tagSet = new HashSet<String>();
         
         boolean dateMatcherMatches = dateMatcher.matches();
@@ -451,7 +507,6 @@ public class Parser {
         	return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-        System.out.println(tagSet.toString());
         return new FindCommand(keywordSet, startTime, endTime, deadline, tagSet);
     }
     
@@ -470,6 +525,7 @@ public class Parser {
         Date startTime = null;
         Date endTime = null;
         Set<String> tagSet = new HashSet<String>();
+        RecurringType recurringType = RecurringType.NONE;
         
         boolean dateMatcherMatches = dateMatcher.matches();
         boolean noDateMatcherMatches = noDateMatcher.matches();
@@ -484,9 +540,11 @@ public class Parser {
     			ArrayList<Date> dateSet = extractDateInfo(dateMatcher);
     			if(dateSet.size() == ONLY_DEADLINE) {
     				endTime = dateSet.get(DEADLINE_INDEX);
+    				recurringType = checkForRecurringTask(dateMatcher.group("deadline"));
         		} else if(dateSet.size() == TIME_PERIOD) {
         			startTime = dateSet.get(START_TIME_INDEX);
         			endTime = dateSet.get(END_TIME_INDEX);
+        			recurringType = checkForRecurringTask(dateMatcher.group("startTime"));
         		}
     		} catch(IllegalArgumentException iae) {
     			return new IncorrectCommand(iae.getMessage());
@@ -504,9 +562,11 @@ public class Parser {
     			ArrayList<Date> dateSet = extractDateInfo(noNameMatcher);
     			if(dateSet.size() == ONLY_DEADLINE) {
         			endTime = dateSet.get(DEADLINE_INDEX);
+        			recurringType = checkForRecurringTask(noNameMatcher.group("deadline"));
         		} else if(dateSet.size() == TIME_PERIOD) {
         			startTime = dateSet.get(START_TIME_INDEX);
         			endTime = dateSet.get(END_TIME_INDEX);
+        			recurringType = checkForRecurringTask(noNameMatcher.group("startTime"));
         		}
     		} catch(IllegalArgumentException iae) {
     			return new IncorrectCommand(iae.getMessage());
@@ -528,7 +588,15 @@ public class Parser {
         } else if(noDateMatcherMatches) {
         	targetIndex = Integer.parseInt(noDateMatcher.group("targetIndex"));
         	taskName = noDateMatcher.group("name").replaceFirst("\\s", "");
-        	
+        	//-------Parts for detecting recurring information-----------------
+        	String[] words = taskName.split(" ");
+        	String lastWord = words[words.length - 1];
+        	recurringType = checkForRecurringTask(lastWord);
+        	if(recurringType != RecurringType.IGNORED){
+        		taskName = (words.length == 1) ? "" :
+        			taskName.substring(0, taskName.length() - lastWord.length());
+        	}
+        	//-----------------------------------------------------------------
         	try {
         		tagSet = getTagsFromArgs(noDateMatcher.group("tagArguments"));
         	} catch(IllegalValueException ive) {
@@ -540,22 +608,29 @@ public class Parser {
         }
         
         try {
-        	return new EditCommand(targetIndex, taskName, tagSet, startTime, endTime);
+        	return new EditCommand(targetIndex, taskName, tagSet, startTime, endTime, recurringType);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }   
     }
     
+    //@@author A0147967J
     /**
-     * Reformats any date into the format that we are storing and using in this software 
-     * @param oldDate
-     * @return the new formatted date
+     * Returns the view command with input date parsed 
+     * @param arguments passed by user
+     * @return prepared view command
      */
-    public static String reformatDate(String oldDate) {
-    	long newDate = getDateFromString(oldDate).getTime();
-    	SimpleDateFormat formatter = new SimpleDateFormat("EEE, MMM d hh.mma");
-        return formatter.format(new Date(newDate));
-    }
+    private Command prepareView(String arguments) {
+		// TODO Auto-generated method stub
+    	Date date;
+    	try{
+    		date = getDateFromString(arguments);
+    	}catch(IllegalArgumentException e){
+    		return new IncorrectCommand(e.getMessage());
+    	}
+		return new ViewCommand(new TaskDate(date));
+	}
+    //@@author
     
     public static ArrayList<Date> extractDateInfo(Matcher m) throws IllegalArgumentException {
     	ArrayList<Date> resultSet = new ArrayList<Date>();
@@ -566,7 +641,7 @@ public class Parser {
 				resultSet.add(getDateFromString(time[START_TIME_INDEX]));
 	    		resultSet.add(getDateFromString(time[END_TIME_INDEX]));
 			} catch(Exception cnp) {
-				throw new IllegalArgumentException("Illegal date input");
+				throw new IllegalArgumentException(MESSAGE_ILLEGAL_DATE_INPUT);
 			}
 			
 		} catch(Exception ise) {
@@ -574,7 +649,7 @@ public class Parser {
 			try {
 				resultSet.add(getDateFromString(m.group("deadline").replace(" by ", "")));
 			} catch(Exception cnp) {
-				throw new IllegalArgumentException("Illegal date input");
+				throw new IllegalArgumentException(MESSAGE_ILLEGAL_DATE_INPUT);
 			}
     	} 	
     	return resultSet;
@@ -586,13 +661,15 @@ public class Parser {
      * @return A single Date from the string
      */
     public static Date getDateFromString(String dateInput) {
-        final com.joestelmach.natty.Parser nattyParser = new com.joestelmach.natty.Parser();
         List<DateGroup> dateGroups = nattyParser.parse(dateInput);
-        
-        return dateGroups.get(0).getDates().get(0);
+        try{
+        	return dateGroups.get(0).getDates().get(0);
+        }catch (Exception e){
+        	throw new IllegalArgumentException(MESSAGE_ILLEGAL_DATE_INPUT);
+        }
     }
     
-    public static RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {
+    private static RecurringType extractRecurringInfo(String recurringInfo) throws IllegalArgumentException {
         recurringInfo = recurringInfo.toUpperCase().trim();
         RecurringDateParser recurringParser = RecurringDateParser.getInstance();
         return recurringParser.getRecurringType(recurringInfo);

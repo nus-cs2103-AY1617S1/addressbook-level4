@@ -6,8 +6,8 @@ import org.junit.Test;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
-import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.TaskDateComponent;
+import seedu.address.model.task.RecurringType;
+import seedu.address.model.task.TaskComponent;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.testutil.TestTask;
@@ -15,7 +15,8 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-public class EditCommandTest extends TaskListGuiTest {
+//@@author A0147967J
+public class EditCommandTest extends TaskMasterGuiTest {
 
     @Test
     public void edit() throws IllegalValueException {
@@ -48,11 +49,11 @@ public class EditCommandTest extends TaskListGuiTest {
         currentList[index-1] = toBeEdited;
         assertEditSuccess(toBeEdited, "edit 4 t/testTag t/testTag1", currentList);
         
-//        //change name
-//        toBeEdited = currentList[index-1];
-//        toBeEdited.setName(new Name("Test name"));
-//        currentList[index-1] = toBeEdited;
-//        assertEditSuccess(toBeEdited, "edit 4 Test name", currentList);
+        //change name
+        toBeEdited = currentList[index-1];
+        toBeEdited.setName(new Name("Test name"));
+        currentList[index-1] = toBeEdited;
+        assertEditSuccess(toBeEdited, "edit 4 Test name", currentList);
         
         //invalid index
         commandBox.runCommand("edit " + currentList.length + 1 + " invalid index");
@@ -61,6 +62,18 @@ public class EditCommandTest extends TaskListGuiTest {
         //invalid command
         commandBox.runCommand("edits read weblecture");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+        //Edit a normal task to a recurring task
+        toBeEdited = currentList[index - 1];
+        toBeEdited.setRecurringType(RecurringType.MONTHLY);
+        currentList[index - 1] = toBeEdited;
+        assertEditSuccess(toBeEdited, "edit 4 monthly", currentList);
+        
+        //Edit it back also enabled
+        toBeEdited = currentList[index - 1];
+        toBeEdited.setRecurringType(RecurringType.NONE);;
+        currentList[index - 1] = toBeEdited;
+        assertEditSuccess(toBeEdited, "edit 4 none", currentList);
 
     }
     
@@ -73,7 +86,7 @@ public class EditCommandTest extends TaskListGuiTest {
         assertMatching(editedCopy.getTaskDateComponent().get(0), editedCard);
 
         //confirm the list now contains all the unmodified tasks and the edited task
-        TaskDateComponent[] taskComponents = TestUtil.convertTasksToDateComponents(modifiedList);
+        TaskComponent[] taskComponents = TestUtil.convertTasksToDateComponents(modifiedList);
         
         assertTrue(taskListPanel.isListMatching(taskComponents));
     }

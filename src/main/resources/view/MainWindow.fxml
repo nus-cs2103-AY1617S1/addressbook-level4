@@ -9,9 +9,9 @@
 <?import java.net.URL?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="920.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
-   <stylesheets>
-      
+<!-- @@author A0147967J -->
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1010.0" prefWidth="1210.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
+   <stylesheets>     
       <URL value="@Extensions.css" />
    </stylesheets>
    <children>
@@ -58,7 +58,7 @@
        				</AnchorPane>
          			<SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" layoutY="170.0" minHeight="560.0" prefWidth="870.0" VBox.vgrow="ALWAYS">
             			<items>
-               			<VBox fx:id="taskList" minWidth="430" prefWidth="430">
+               			<VBox fx:id="taskList" minWidth="100" prefWidth="430">
                    			<padding>
                        			<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                    			</padding>
@@ -66,7 +66,7 @@
                      				<AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
                   				</children>
                			</VBox>
-               			<AnchorPane fx:id="browserPlaceholder" minWidth="100">
+               			<AnchorPane fx:id="browserPlaceholder" minWidth="100" maxWidth = "Infinity">
                    			<padding>
                        			<Insets bottom="10" left="10" right="10" top="10" />
                    			</padding>

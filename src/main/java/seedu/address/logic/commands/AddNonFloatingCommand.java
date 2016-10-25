@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
@@ -13,6 +14,7 @@ import seedu.address.model.task.TaskDate;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
+//@@A0135782Y
 /**
  * Adds a non floating task to the task list
  */
@@ -37,6 +39,7 @@ public class AddNonFloatingCommand extends AddCommand {
      */
     public AddNonFloatingCommand(String name, Set<String> tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType)
             throws IllegalValueException {
+        assert !CollectionUtil.isAnyNull(name, tags, startDate, endDate, recurringType);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
@@ -48,7 +51,7 @@ public class AddNonFloatingCommand extends AddCommand {
                 new TaskDate(endDate),
                 recurringType
         );
-        if(!this.toAdd.isValidTimeSlot()){
+        if(!this.toAdd.getComponentForNonRecurringType().isValidTimeSlot()){
         	indicateAttemptToExecuteIncorrectCommand();
         	throw new IllegalValueException(MESSAGE_ILLEGAL_TIME_SLOT);
         }
@@ -61,8 +64,12 @@ public class AddNonFloatingCommand extends AddCommand {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
+        	indicateAttemptToExecuteFailedCommand();
+        	urManager.popFromUndoQueue();
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TimeslotOverlapException e) {
+        	indicateAttemptToExecuteFailedCommand();
+        	urManager.popFromUndoQueue();
         	return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		}
 

@@ -13,7 +13,7 @@ public class MainGuiHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public TaskListPanelHandle getFloatingTaskListPanel() {
+    public TaskListPanelHandle getTaskListPanel() {
         return new TaskListPanelHandle(guiRobot, primaryStage);
     }
 
@@ -27,6 +27,14 @@ public class MainGuiHandle extends GuiHandle {
 
     public MainMenuHandle getMainMenu() {
         return new MainMenuHandle(guiRobot, primaryStage);
+    }
+    
+    public NavbarPanelHandle getNavbar() {
+    	return new NavbarPanelHandle(guiRobot, primaryStage);
+    }
+    
+    public BrowserPanelHandle getBrowser() {
+    	return new BrowserPanelHandle(guiRobot, primaryStage);
     }
 
 }

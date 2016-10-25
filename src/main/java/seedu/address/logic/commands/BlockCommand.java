@@ -10,9 +10,13 @@ import seedu.address.model.task.Name;
 import seedu.address.model.task.RecurringType;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskDate;
-import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TimeslotOverlapException;
 
+//@@author A0147967J
+/**
+ * Blocks a certain time slot in the task list. 
+ */
 public class BlockCommand extends Command {
 	
 	public static final String COMMAND_WORD = "block";
@@ -49,7 +53,7 @@ public class BlockCommand extends Command {
                 new TaskDate(endDate),
                 RecurringType.NONE
         );
-        if(!this.toBlock.isValidTimeSlot()){
+        if(!this.toBlock.getComponentForNonRecurringType().isValidTimeSlot()){
         	indicateAttemptToExecuteIncorrectCommand();
         	throw new IllegalValueException(MESSAGE_ILLEGAL_TIME_SLOT);
         }
@@ -61,11 +65,13 @@ public class BlockCommand extends Command {
         try {
             model.addTask(toBlock);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toBlock));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
         } catch (TimeslotOverlapException e) {
-			// TODO Auto-generated catch block
+        	indicateAttemptToExecuteFailedCommand();
+        	urManager.popFromUndoQueue();
         	return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
+		} catch (DuplicateTaskException e) {
+			assert false: "not applicable for block command";
+			return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		}
 
     }
