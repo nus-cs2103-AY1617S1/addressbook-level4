@@ -26,7 +26,6 @@ public class CompleteCommand extends Command {
     
     public final int targetIndex;
     public final String targetType;
-
     ReadOnlyActivity activityToComplete;
 
     public CompleteCommand(String[] splited) {
@@ -57,6 +56,7 @@ public class CompleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
         if (activityToComplete.getActivityStatus().status) {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_ALREADY_COMPLETED);
         }
         
