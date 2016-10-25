@@ -87,6 +87,7 @@ public class UiManager extends ComponentManager implements Ui {
         helpPopup.show(mainWindow.getNode());
     }
 
+    //@@author
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
