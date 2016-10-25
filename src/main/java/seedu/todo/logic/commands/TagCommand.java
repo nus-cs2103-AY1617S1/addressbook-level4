@@ -13,7 +13,6 @@ import seedu.todo.logic.arguments.StringArgument;
 import java.util.List;
 
 //@@author A0135805H
-
 /**
  * This class handles all tagging command
  */
