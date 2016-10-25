@@ -36,11 +36,16 @@ public class AddCommand extends UndoAndRedo {
 	
 	public AddCommand(String name, String date, String startDate, String endDate, String time, String startTime, String endTime, Set<String> tags) throws IllegalValueException, ParseException {
 	    TaskTime validateTime = null;
+	    TaskDate validateDate = null;
 	    
 	    if (time != null || startTime != null || endTime != null) {
 	        validateTime = new TaskTime(time, startTime, endTime, date, startDate, endDate);
 	        if (date == null && startDate == null && endDate == null)
 	            date = validateTime.getDate();
+	    }
+	    
+	    if (date != null || startDate != null || endDate != null) {
+	        validateDate = new TaskDate(date, startDate, endDate);
 	    }
 	    
 	    final Set<Tag> tagSet = new HashSet<>();
