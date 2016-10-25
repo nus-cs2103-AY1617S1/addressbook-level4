@@ -53,9 +53,7 @@ public class DoneCommand extends Command {
         if (!readTaskToComplete.getStatus().equals(new Status(Status.State.DONE))){
             try {
                 model.completeTask(readTaskToComplete);
-                if (isMutating()){
-                    model.addUndo(COMMAND_WORD, readTaskToComplete);
-                }
+                
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be found";
             }
@@ -71,7 +69,7 @@ public class DoneCommand extends Command {
 
     @Override
     public boolean isMutating() {
-        return true;
+        return false;
     }
 
 }

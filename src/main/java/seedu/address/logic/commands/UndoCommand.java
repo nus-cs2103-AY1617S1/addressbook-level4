@@ -26,10 +26,6 @@ public class UndoCommand extends Command {
             case AddCommand.COMMAND_WORD:
                 model.deleteTask(toUndo.getInitData());
                 break;
-
-            case DoneCommand.COMMAND_WORD:
-                System.out.println("Do nothing");
-                break;
                 
             case DeleteCommand.COMMAND_WORD:
                 model.addTask(toUndo.getInitData());
