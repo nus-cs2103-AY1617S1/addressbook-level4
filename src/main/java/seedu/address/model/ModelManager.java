@@ -96,6 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
     
+    //@@author A0147995H
     @Override
     public synchronized void editTask(Task target, Name name, UniqueTagList tags,
     		TaskDate startDate, TaskDate endDate, RecurringType recurringType) throws TaskNotFoundException, TimeslotOverlapException {
@@ -103,6 +104,7 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskListChanged();
     	updateFilteredListToShowAll();
     }
+    //@@author
     
     //@@author A0135782Y
     @Override
@@ -229,6 +231,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author
     
+    //@@author A0147995H
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
@@ -420,4 +423,5 @@ public class ModelManager extends ComponentManager implements Model {
     				+ archiveQualifier.toString() + " ";
     	}
     }
+    //@@author
 }
