@@ -13,6 +13,7 @@ import static org.junit.matchers.JUnitMatchers.*;
 import static org.hamcrest.CoreMatchers.*;
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +38,13 @@ public class CommandPreviewTest {
         List<CommandSummary> expected = CommandMap.getCommand("add").getCommandSummary();
         List<CommandSummary> actual = new CommandPreview("add").getPreview();
         assertTrue(isShallowCompareCommandSummaries(expected, actual));
+    }
+
+    @Test
+    public void testFilterEmptyString() throws Exception {
+        List<CommandSummary> expected = new ArrayList<>();
+        List<CommandSummary> actual = new CommandPreview("").getPreview();
+        assertEquals(expected, actual);
     }
     
     private boolean isShallowCompareCommandSummaries(List<CommandSummary> list, List<CommandSummary> otherList) {
