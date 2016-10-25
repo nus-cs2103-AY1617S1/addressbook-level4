@@ -423,7 +423,6 @@ public class TestActivity implements ReadOnlyActivity {
     }
 
     /**
-     * @Author Marx Low A0139164A
      * List of methods to set Activity's param : Name, Note, startDate, startTime
      * Exception handling to be editted ----------> ALERT! (Assumes User to pass in correct parameters)
      */

@@ -138,7 +138,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         events.add(t);
     }
     
-    //@@author: A0139164A
+    //@@author A0139164A
     /**
      * Methods, Completes an activity in the activity manager.
      * Passes in the index of the list to complete

@@ -22,7 +22,7 @@ public interface Model {
     /** Deletes the given task */
     void deleteTask(ReadOnlyActivity target) throws UniqueActivityList.TaskNotFoundException;
     
-    //@@author: A0139164A
+    //@@author A0139164A
     /** Completes the given Activity, given it's index. */
     void completeFloatingTask(int index);
     void completeTask(int index);
@@ -86,7 +86,7 @@ public interface Model {
   
     /** check if there is any previous activity manager in redo stack */
     boolean checkStatesInRedoStack();
-    //@@author
+
 
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
