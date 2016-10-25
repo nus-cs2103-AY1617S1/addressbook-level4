@@ -33,7 +33,7 @@ public class Priority {
      * Returns if a given string is a valid priority.
      */
     public static boolean isValidPriority(String test) {
-    	if(Integer.parseInt(test) > 0 && Integer.parseInt(test) < 6) {
+    	if(Integer.parseInt(test) >= 0 && Integer.parseInt(test) < 6) {
     		return test.matches(PRIORITY_VALIDATION_REGEX);
     	}
     	return true;
