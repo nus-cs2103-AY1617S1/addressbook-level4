@@ -46,13 +46,13 @@ public class AddCommand extends Command {
         Time startTime = new Time(start);
         Time endTime = new Time(end);
         
-        if(!Time.checkOrderOfDates(startTime, endTime)) {
+        if(!Time.checkOrderOfDates(start, end)) {
         	throw new IllegalValueException(MESSAGE_INVALID_START_AND_END_TIME);
         }
         
-        if(!Time.taskTimeisAfterCurrentTime(start) || !Time.taskTimeisAfterCurrentTime(end)) {
-        	throw new IllegalValueException(MESSAGE_INVALID_TIME);
-        }
+//        if(!Time.taskTimeisAfterCurrentTime(start) || !Time.taskTimeisAfterCurrentTime(end)) {
+//        	throw new IllegalValueException(MESSAGE_INVALID_TIME);
+//        }
         
         this.toAdd = new Task(
                 new Name(name),
@@ -70,9 +70,6 @@ public class AddCommand extends Command {
             model.saveToHistory();
             model.addTask(toAdd);
             model.updateFilteredTaskListToShow(isNotDone());
-//            System.out.println("Size: " + new LogicManager(model, storage).getFilteredTaskList().size());
-//            TaskListPanel panel = new TaskListPanel();
-//            panel.scrollTo(new LogicManager(model, storage).getFilteredTaskList().size());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

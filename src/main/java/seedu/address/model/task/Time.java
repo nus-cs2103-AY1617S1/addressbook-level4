@@ -89,6 +89,58 @@ public class Time {
     		return dateFormat.format(time.getTime());
     	}
     }
+    
+    public boolean isToday(String date) {
+    	Calendar cal = Calendar.getInstance();
+    	DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    	if (date.equals(dateFormat.format(cal.getTime()))){
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public boolean isTomorrow(String date) {
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, 1);
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+    	
+    	if(date.equals(dateFormat.format(cal.getTime()))) {
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public boolean isUpcoming(String date) {
+    	Calendar cal = Calendar.getInstance();
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+		
+		String d0 = dateFormat.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1);
+		String d1 = dateFormat.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1);
+		String d2 = dateFormat.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1);
+		String d3 = dateFormat.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1);
+		String d4 = dateFormat.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1);
+		String d5 = dateFormat.format(cal.getTime());
+		
+		cal.add(Calendar.DATE, 1);
+		String d6 = dateFormat.format(cal.getTime());
+		
+		if (date.equals(d0) || date.equals(d1) || date.equals(d2) || date.equals(d3) || date.equals(d4) ||
+				date.equals(d5) || date.equals(d6)) {
+			return true;
+		}
+		
+		return false;
+    }
 
     
     /**
@@ -96,7 +148,7 @@ public class Time {
      * @param token
      * @return true if the given date is a valid date
      */
-	public static boolean isValidDate(String token) {
+	static boolean isValidDate(String token) {
 		
 		String[] date = token.split(" ");
 		Pattern dateType = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/(\\d\\d)");
@@ -135,14 +187,16 @@ public class Time {
 	}
 	
 	 /**
-     * Checks whether startTime < endTime or not
+     * Checks whether time1 < time2 or not
      * 
-     * @param startTime
-     * @param endTime
-     * @return true only if startTime < endTime
+     * @return true only if time1 < time2
      * @throws IllegalValueException
      */
-    public static boolean checkOrderOfDates(Time start, Time end) throws IllegalValueException {    	
+    public static boolean checkOrderOfDates(String startTime, String endTime) throws IllegalValueException {  
+    	
+    	Time start = new Time(startTime);
+    	Time end = new Time(endTime);
+    	
     	return end.isMissing() || start.time.compareTo(end.time) <= 0;
 	}
 

@@ -20,7 +20,13 @@ import java.util.stream.Collectors;
 public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
-
+    
+    private static int floatingCounter;
+    private static int todayCounter;
+    private static int tomorrowCounter;
+    private static int upcomingCounter;
+    private static int overdueCounter;
+    
     {
         tasks = new UniqueTaskList();
     }
@@ -61,6 +67,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     public void resetData(ReadOnlyTaskManager newData) {
         resetData(newData.getTaskList());
+		counter();
     }
 
 //// task-level operations
@@ -72,10 +79,12 @@ public class TaskManager implements ReadOnlyTaskManager {
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         tasks.add(p);
+        counter();
     }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
+        	counter();
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
@@ -88,6 +97,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     
     public void doneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
     	tasks.done(task);
+    	counter();
     }
 	
     public void clearDone() throws UniqueTaskList.TaskNotFoundException{
@@ -97,22 +107,27 @@ public class TaskManager implements ReadOnlyTaskManager {
 				i--;
 			}
 		}
+	   	counter();
 	}
     
     public void undoneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
     	tasks.undone(task);
+    	counter();
     }
 
     public void editTaskName(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.editTaskName(task, new Name(newInfo));
+		counter();
     }
     
     public void editTaskStartTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.editStartTime(task, new Time(newInfo));
+		counter();
     }
     
     public void editTaskEndTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.editEndTime(task, new Time(newInfo));
+		counter();
     }
     
     public void editTaskRecurFreq(ReadOnlyTask task, String newRecur) throws TaskNotFoundException {
@@ -150,4 +165,59 @@ public class TaskManager implements ReadOnlyTaskManager {
         return Objects.hash(tasks);
     }
 
+
+	private void counter() {
+		int floating = 0;
+		int today = 0;
+		int tomorrow = 0;
+		int upcoming = 0;
+		int overdue = 0;
+		
+		 for (int i = 0; i < tasks.getInternalList().size(); i++) {
+		     
+		     Task toCount = tasks.getInternalList().get(i);
+		     
+			 if (toCount.getStartTime().isMissing() 
+					 && toCount.getEndTime().isMissing()
+					 	&& toCount.getDone().getDoneValue() == false) {
+				 floating++;
+			 }
+			 
+			 if (((toCount.getStartTime().isToday(toCount.getStartTime().appearOnUIFormatForDate()))
+					 || toCount.getEndTime().isToday(toCount.getEndTime().appearOnUIFormatForDate()))
+					 	&& toCount.getDone().getDoneValue() == false) {
+				 today++;
+			 }
+			 
+			 if ((toCount.getStartTime().isTomorrow(toCount.getStartTime().appearOnUIFormatForDate())
+					 || toCount.getEndTime().isTomorrow(toCount.getEndTime().appearOnUIFormatForDate()))
+					 	&& toCount.getDone().getDoneValue() == false) {
+				 tomorrow++;
+			 }
+			 
+			 if ((toCount.getStartTime().isUpcoming(toCount.getStartTime().appearOnUIFormatForDate())
+					 || toCount.getEndTime().isUpcoming(toCount.getEndTime().appearOnUIFormatForDate()))
+					 	&& toCount.getDone().getDoneValue() == false) {
+				 upcoming++;
+			 }
+			 
+			 if ((toCount.checkOverdue()))
+			     overdue++;
+		 }
+		 
+		 floatingCounter = floating;
+		 todayCounter = today;
+		 tomorrowCounter = tomorrow;
+		 upcomingCounter = upcoming;
+		 overdueCounter = overdue;
+		 
+		 System.out.println("Floating: " + floatingCounter);
+		 System.out.println("Today: " + todayCounter);
+		 System.out.println("Tomorrow: " + tomorrowCounter);
+		 System.out.println("Upcoming: " + upcomingCounter);
+	      System.out.println("Overdue: " + overdueCounter);
+
+		 
+	}
+	
 }
