@@ -14,8 +14,9 @@ public abstract class Command {
                 AddCommand.COMMAND_WORD, ViewCommand.COMMAND_WORD,
                 FindCommand.COMMAND_WORD, EditCommand.COMMAND_WORD,
                 DeleteCommand.COMMAND_WORD, DoneCommand.COMMAND_WORD,
-                UndoCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
-                HelpCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
+                SaveCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, 
+                ClearCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD, 
+                ExitCommand.COMMAND_WORD,
             };
     
     protected Model model;
