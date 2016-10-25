@@ -1,6 +1,7 @@
 package seedu.tasklist.model.task;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 import seedu.tasklist.commons.util.CollectionUtil;
@@ -49,6 +50,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
                 this.isRecurring = false;
                 this.recurringFrequency = "";
 		}
+		endTimeOnly();	
 	}
 	
 	public Task(TaskDetails taskDetails, StartTime startTime, EndTime endTime, Priority priority, UniqueTagList tags) {
@@ -85,6 +87,16 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 	    return recurringFrequency;
 	}
 
+	public void endTimeOnly(){
+		if(!startTime.isMissing()&&endTime.isMissing()){
+		     Time time = new Time(startTime.getAsCalendar());
+		     time.getAsCalendar().set(Calendar.HOUR_OF_DAY, endTime.DEFAULT_HOUR_VAL);
+		     time.getAsCalendar().set(Calendar.MINUTE, endTime.DEFAULT_MINUTE_VAL);
+		     endTime.setCalendar(time.getAsCalendar());
+		}
+	}	
+	
+	
 	@Override
 	public int getUniqueID() {
 		return uniqueID;

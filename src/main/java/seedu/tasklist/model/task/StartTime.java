@@ -30,7 +30,7 @@ public class StartTime extends Time{
     }
 
     @Override
-    protected int getDefaultMinuteVal(){
+	protected int getDefaultMinuteVal(){
     	return DEFAULT_MINUTE_VAL;
     }
     
