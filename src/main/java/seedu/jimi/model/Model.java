@@ -24,9 +24,6 @@ public interface Model{
     /** Adds the given task */
     void addTask(ReadOnlyTask task) throws UniqueTaskList.DuplicateTaskException;
     
-    /** Sets the task to be completed/incomplete */
-    void completeTask(ReadOnlyTask taskToComplete, boolean isComplete);
-    
     /** Replaces {@code oldTask} with {@code newTask} */
     void replaceTask(ReadOnlyTask oldTask, ReadOnlyTask newTask);
     
@@ -68,9 +65,12 @@ public interface Model{
      * @throws TaskNotFoundException */
     void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) throws TaskNotFoundException;
     
+    /** Updates the filter of the filtered task list to copy the filter of the list identified by {@code other} */
+    void updateFilteredAgendaTaskList(ListId other);
+
     /** Updates the filter of the filtered event list to copy the filter of the list identified by {@code other} */
     void updateFilteredAgendaEventList(ListId other);
-
+    
     UserPrefs getUserPrefs();
     
     Model clone();
