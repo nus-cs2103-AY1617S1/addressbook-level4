@@ -27,7 +27,7 @@ public class ListCommand extends Command {
     }
 
     public ListCommand(String args) throws IllegalCmdArgsException {
-        args = args.trim();
+        args = args.trim().toLowerCase();
         if(args.isEmpty()){
             this.listBy = " ";
         } else {
