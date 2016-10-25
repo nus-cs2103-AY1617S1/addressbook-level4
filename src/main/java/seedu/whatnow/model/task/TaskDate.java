@@ -106,6 +106,8 @@ public class TaskDate {
 		ListOfDateFormat.add(DATE_AlPHA_WHITESPACE_WITH_YEAR_FORMAT);
 		ListOfDateFormat.add(DATE_ALPHA_WHITESPACE_WITHOUT_YEAR_FORMAT);
 		
+		System.out.println("Entered here");
+		
 		if(taskDate == null && startDate != null &&  endDate != null) {
 			if(!isValidDateRange(startDate, endDate)) {
 				throw new IllegalValueException(INVALID_TASK_DATE_RANGE_FORMAT);
@@ -326,7 +328,7 @@ public class TaskDate {
 	}
 	@Override
 	public String toString() {
-		if(fullDate != null) {
+		if(fullDate == null) {
 			return startDate + " "  + endDate;
 		}
 		else {
