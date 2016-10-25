@@ -12,6 +12,8 @@ import seedu.address.model.item.Task;
 public class ClearCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "clear";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" + "Clears task manager permanently.\n\t"
+            + "Example: " + COMMAND_WORD;
     
     public static final String TOOL_TIP = "clear";
 

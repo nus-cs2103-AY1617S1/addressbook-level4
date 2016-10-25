@@ -74,7 +74,7 @@ public class CommandParser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return prepareHelp(arguments);
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
@@ -262,6 +262,20 @@ public class CommandParser {
         }
 
         return new ListCommand(isListDoneCommand);
+    }
+    
+    /**
+     * Parses arguments in the context of the help command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareHelp(String args) {
+        if (args != null) {
+            return new HelpCommand(args.trim());
+        }
+        
+        return new HelpCommand(HelpCommand.COMMAND_WORD);
     }
 
     /**
