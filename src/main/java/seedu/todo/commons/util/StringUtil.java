@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 
 /**
  * Helper functions for handling strings.
@@ -68,14 +69,30 @@ public class StringUtil {
     }
 
     /**
-     * Splits string at all possible characters except a-z, A-Z, 0-9, dash and underscore.
+     * Splits string at only space and comma.
      * @return Returns a String array with all the split components of the string.
      */
     public static String[] splitString(String string) {
         if (string == null || string.isEmpty()) {
             return new String[0];
         } else {
-            return string.trim().split("([^a-zA-Z0-9_-])+");
+            return string.trim().split("([, ])+");
         }
+    }
+
+    //@@author A0135805H
+    /**
+     * Given a string list, gets the text from the list in the following manner:
+     *      apple, pear, pineapple
+     */
+    public static String convertListToString(String[] stringList) {
+        if (stringList == null || stringList.length == 0) {
+            return "";
+        }
+        StringJoiner stringJoiner = new StringJoiner(", ");
+        for (String string : stringList) {
+            stringJoiner.add(string);
+        }
+        return stringJoiner.toString();
     }
 }
