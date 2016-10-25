@@ -22,7 +22,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the to-do list.";
-    public static final String MESSAGE_NOT_CHRONO_TASK = "The start time for this task should be after the end time.";
+    public static final String MESSAGE_NOT_CHRONO_TASK = "The end time must not be before the start time.";
 
     private final Task toAdd;
 
