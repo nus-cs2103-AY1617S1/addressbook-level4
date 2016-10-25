@@ -89,7 +89,7 @@
 
 .commandInput {
     -fx-font-family: "Consolas";
-    -fx-font-size: 14pt;
+    -fx-font-size: 20px;
 }
 
 .commandInput.error {
