@@ -1,13 +1,12 @@
 package seedu.todo.commons.util;
 
 import com.google.common.base.CharMatcher;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
-
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Helper functions for handling strings.
