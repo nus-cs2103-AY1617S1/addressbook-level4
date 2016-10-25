@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_START_AND_END_TIME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIME;
@@ -37,19 +35,11 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String date, String start, String end, Set<String> tags)
+    public AddCommand(String name, String date, String start, String end)
             throws IllegalValueException {
-    	System.out.println("start");
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
         
         Time startTime = new Time(start);
         Time endTime = new Time(end);
-        
-        System.out.println(startTime.toString());
-        System.out.println(endTime.toString());
         
         if(!Time.checkOrderOfDates(start, end)) {
         	throw new IllegalValueException(MESSAGE_INVALID_START_AND_END_TIME);
@@ -63,11 +53,8 @@ public class AddCommand extends Command {
                 new Name(name),
                 new Done(false),
                 startTime,
-                endTime,
-                new UniqueTagList(tagSet)
+                endTime
         );
-        
-        System.out.println("end");
     }
 
 	@Override

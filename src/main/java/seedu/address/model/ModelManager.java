@@ -84,7 +84,6 @@ public class ModelManager extends ComponentManager implements Model {
         TaskManager oldManager = taskManagerHistory.pop();
         undoHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());
-        taskManager.setTags(oldManager.getTagList());
         indicateTaskManagerChanged();
     }
     
@@ -93,7 +92,6 @@ public class ModelManager extends ComponentManager implements Model {
         TaskManager oldManager = undoHistory.pop();
         taskManagerHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());
-        taskManager.setTags(oldManager.getTagList());
         indicateTaskManagerChanged();
     }
     

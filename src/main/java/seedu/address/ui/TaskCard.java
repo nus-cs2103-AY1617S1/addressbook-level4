@@ -22,8 +22,6 @@ public class TaskCard extends UiPart{
     private Label address;
     @FXML
     private Label start;
-    @FXML
-    private Label tags;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -46,7 +44,6 @@ public class TaskCard extends UiPart{
 //        date.setText(task.getDate().value);
         address.setText("End Time: " + task.getEndTime().appearOnUIFormat());
         start.setText("Start Time: " + task.getStartTime().appearOnUIFormat());
-        tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {

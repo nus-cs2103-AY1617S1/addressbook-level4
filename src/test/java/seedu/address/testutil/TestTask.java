@@ -1,6 +1,5 @@
 package seedu.address.testutil;
 
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
 /**
@@ -12,11 +11,6 @@ public class TestTask implements ReadOnlyTask {
     private Time end;
     private Time start;
     private Done done;
-    private UniqueTagList tags;
-
-    public TestTask() {
-        tags = new UniqueTagList();
-    }
 
     public void setName(Name name) {
         this.name = name;
@@ -55,11 +49,6 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return tags;
-    }
-
-    @Override
     public String toString() {
         return getAsText();
     }
@@ -70,7 +59,6 @@ public class TestTask implements ReadOnlyTask {
 //        sb.append("d/" + this.getDate().value + " ");
         sb.append("from " + this.getStartTime().appearOnUIFormat() + " ");
         sb.append("to " + this.getEndTime().appearOnUIFormat() + " ");
-//        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 }

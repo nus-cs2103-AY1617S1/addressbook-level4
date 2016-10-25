@@ -17,8 +17,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.task.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
 
 import java.util.ArrayList;
@@ -168,7 +166,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name at e/5:00pm", Time.MESSAGE_INCORRECT_DATE_FORMAT);
 //        assertCommandBehavior(
-//                "add Valid Name d/01/01/10 s/5:00pm a/5:00am e/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+//                "add Valid Name d/01/01/10 s/5:00pm a/5:00am e/invalid_-);
     }
 
     @Test
@@ -438,11 +436,7 @@ public class LogicManagerTest {
             Done privateDate = new Done(false);
             Time start = new Time("1/1/17 5pm");
             Time privateEndTime = new Time("2/1/17 5:00am");
-//            Tag tag1 = new Tag("tag1");
-//            Tag tag2 = new Tag("tag2");
-//            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            UniqueTagList tags = new UniqueTagList();
-            return new Task(name, privateDate, start, privateEndTime, tags);
+            return new Task(name, privateDate, start, privateEndTime);
         }
 
         /**
@@ -457,8 +451,7 @@ public class LogicManagerTest {
                     new Name("Task " + seed),
                     new Done(false),
                     new Time("1/1/17 5:00pm"),
-                    new Time("2/1/17 5:00am"),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new Time("2/1/17 5:00am")
             );
         }
 
@@ -475,11 +468,6 @@ public class LogicManagerTest {
             cmd.append(" to ");
             cmd.append(p.getEndTime().appearOnUIFormat());
             cmd.append(" ");
-//            UniqueTagList tags = p.getTags();
-//            for(Tag t: tags){
-//                cmd.append(" t/").append(t.tagName);
-//            }
-            System.out.println(cmd);
             return cmd.toString();
         }
 
@@ -558,8 +546,7 @@ public class LogicManagerTest {
                     new Name(name),
                     new Done(false),
                     new Time("1/1/17 5:00pm"),
-                    new Time("2/1/17 5:00am"),
-                    new UniqueTagList(new Tag("tag"))
+                    new Time("2/1/17 5:00am")
             );
         }
     }

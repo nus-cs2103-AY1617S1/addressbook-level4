@@ -28,13 +28,11 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile(
             "(?<name>([^/](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
                     + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?"
-                    + "(?<tagArguments>(?: t/[^;]+)*)"
                     );
     
     private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
     		+ "((?: )(?<name>([^/](?<! (at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
             + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?"
-            + "(?<tagArguments>(?: t/[^;]+)*)"
             );
 
     public Parser() {}
@@ -153,26 +151,11 @@ public class Parser {
 	                    matcher.group("name").replace('\\', '\0'),
 	                    "false",
 	                    startTime,
-	                    endTime,
-	                    getTagsFromArgs(matcher.group("tagArguments"))
+	                    endTime
 	            );       
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-    }
-
-	/**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
     }
 
     /**
