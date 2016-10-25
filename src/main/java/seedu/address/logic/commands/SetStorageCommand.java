@@ -18,7 +18,7 @@ public class SetStorageCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD 
     		+ ": Sets task manager data storage location, according to user specifications. "
     		+ "Task manager data to be saved to user-specified folder, with user-specified file name.\n"
-    		+ "Parameters: FOLDER_FILE_PATH save-as FILE NAME\n"
+    		+ "Parameters: FOLDER_FILE_PATH save-as FILE_NAME\n"
     		+ "Example: " + COMMAND_WORD + "C:\\Users\\Liang\\Desktop save-as TaskInformation\n";
     
     public static final String MESSAGE_SUCCESS = "Task manager data storage location set to: %s\n"
