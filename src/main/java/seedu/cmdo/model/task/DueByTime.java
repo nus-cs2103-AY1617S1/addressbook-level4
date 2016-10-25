@@ -1,7 +1,6 @@
 package seedu.cmdo.model.task;
 
 
-import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -16,11 +15,13 @@ import seedu.cmdo.commons.exceptions.IllegalValueException;
 public class DueByTime {
 
     public static final String MESSAGE_DUEBYTIME_CONSTRAINTS = "Due at what time? You should type in a time in format HHMM";
-//    public static final String DUEBYTIME_VALIDATION_REGEX = ".*";
-
-    public LocalTime start;
-    public LocalTime end;
+    private final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HHmm");
+    private final LocalTime NO_TIME = LocalTime.MAX;
+    
+    public final LocalTime start;
+    public final LocalTime end;
     public final Boolean isRange;
+    private Boolean isFloating = false; // Floating time is found in tasks with no time. 
     
     /**
      * Validates given dueByTime.
@@ -31,13 +32,14 @@ public class DueByTime {
      */
     public DueByTime(LocalTime dueByTime) throws IllegalValueException {
         assert dueByTime != null;
-        // Enable storage of floating time
-        if (!dueByTime.equals(LocalTime.MAX)) {
+        // Check for date with time
+        if (!dueByTime.equals(NO_TIME)) {
         	this.start = dueByTime.truncatedTo(ChronoUnit.MINUTES);
-        } else {
-        	this.start = dueByTime;
+        } else { 
+        	this.start = NO_TIME;
+        	this.isFloating = true;
         }
-    	this.end = LocalTime.MAX;
+    	this.end = NO_TIME;
     	this.isRange = false;
     }
     
@@ -51,9 +53,10 @@ public class DueByTime {
     public DueByTime(LocalTime dueByTimeStart, LocalTime dueByTimeEnd) throws IllegalValueException {
         assert dueByTimeStart != null && dueByTimeEnd != null;
         // Enable storage of floating time in date range
-        if (dueByTimeStart.equals(LocalTime.MAX) && dueByTimeEnd.equals(LocalTime.MAX)) {
-        	this.start = LocalTime.MAX;
+        if (dueByTimeStart.equals(NO_TIME) && dueByTimeEnd.equals(NO_TIME)) {
+        	this.start = NO_TIME;
         	this.end = start;
+        	this.isFloating = true;
         } else {
         	this.start = dueByTimeStart.truncatedTo(ChronoUnit.MINUTES);
         	this.end = dueByTimeEnd.truncatedTo(ChronoUnit.MINUTES);
@@ -107,29 +110,32 @@ public class DueByTime {
      */
     public String getFriendlyString() {
 		// If floating date, return do not print anything
-		if (start.equals(LocalTime.MAX) && end.equals(LocalTime.MAX)) {
+		if (start.equals(NO_TIME) && end.equals(NO_TIME)) {
 			return "";
 		}
     	if (!isRange) {
-    		return new StringBuilder(start.format(DateTimeFormatter.ofPattern("HHmm"))).toString();
+    		return new StringBuilder(start.format(TIME_FORMAT)).toString();
     	}
-		return new StringBuilder(start.format(DateTimeFormatter.ofPattern("HHmm")) 
+		return new StringBuilder(start.format(TIME_FORMAT) 
 				+ " - " 
-				+ end.format(DateTimeFormatter.ofPattern("HHmm")))
+				+ end.format(TIME_FORMAT))
 				.toString();
 	}
     
 	// @@author A0139661Y
 	public String getFriendlyStartString() {
-		if (!isRange)
+		if (!isRange && isFloating)
 			return "";
-		return start.format(DateTimeFormatter.ofPattern("HHmm")).toString(); 
+		return start.format(TIME_FORMAT).toString(); 
 	}
 	
 	// @@author A0139661Y
 	public String getFriendlyEndString() {
-		if (end.equals(LocalTime.MAX)) {
+		if (!isRange) {
 			return "";
-		} else return end.format(DateTimeFormatter.ofPattern("HHmm")).toString();
+		}
+		if (end.equals(NO_TIME)) {
+			return "";
+		} else return end.format(TIME_FORMAT).toString();
 	}
 }

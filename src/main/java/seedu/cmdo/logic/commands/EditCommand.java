@@ -27,9 +27,9 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the task residing at index input \n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the task residing at index input. \n"
             + "Parameters: <index> <details> by/on <date> at <time> /<priority> /<TAG...>\n"
-    		+ "NOTE: You must reenter all parameters again.\n\n"
+    		+ "NOTE: You must reenter all parameters again.\n"
             + "Example: " + COMMAND_WORD + " 2 Take Bongo out for a walk tomorrow 2pm /medium -dog";
     
     public static final String MESSAGE_EDITED_PERSON_SUCCESS = "Edited Task: %1$s";

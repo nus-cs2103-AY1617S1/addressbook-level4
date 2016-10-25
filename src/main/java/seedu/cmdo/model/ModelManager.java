@@ -112,11 +112,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered Task List Accessors ===============================================================
     
+    // @@author A0139661Y
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getAllTaskList() {
+    	return new UnmodifiableObservableList<>(toDoList.getTasks());
+    }
+    
+    // @@author A0139661Y
     @Override 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
     	return new UnmodifiableObservableList<>(filteredTasks); 
     }
     
+    // @@author A0139661Y
     @Override 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(boolean firstRun) {
     	UnmodifiableObservableList<ReadOnlyTask> initList = new UnmodifiableObservableList<>(filteredTasks);
