@@ -33,12 +33,12 @@ public class LogicManager extends ComponentManager implements Logic {
         command.setData(model);
         return command.execute();
     }
-
+    
+    //@@author A0146752B
     @Override
     public ObservableList<ReadOnlyActivity> getFilteredTaskList() {
         return model.getFilteredTaskList();
     }
-    
     
     @Override
     public ObservableList<ReadOnlyActivity> getFilteredFloatingTaskList() {

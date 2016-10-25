@@ -10,7 +10,7 @@ import seedu.menion.commons.util.StringUtil;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
-import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 import seedu.menion.model.TaskComparator;
 
 import java.util.Set;
@@ -230,9 +230,10 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
-
+    
+    //@@author A0146752B
     @Override
-    public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyActivity target) throws ActivityNotFoundException {
         activityManager.removeTask(target);
         indicateActivityManagerChanged();
     }
@@ -245,7 +246,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void deleteFloatingTask(ReadOnlyActivity target) throws TaskNotFoundException {
+    public synchronized void deleteFloatingTask(ReadOnlyActivity target) throws ActivityNotFoundException {
         activityManager.removeFloatingTask(target);
         indicateActivityManagerChanged();
     }
@@ -258,7 +259,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void deleteEvent(ReadOnlyActivity target) throws TaskNotFoundException {
+    public synchronized void deleteEvent(ReadOnlyActivity target) throws ActivityNotFoundException {
         activityManager.removeEvent(target);
         indicateActivityManagerChanged();
     }
