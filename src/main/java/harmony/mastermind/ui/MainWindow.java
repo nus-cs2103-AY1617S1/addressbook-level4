@@ -621,7 +621,7 @@ public class MainWindow extends UiPart {
      */
     //@@author A0124797R
     private void initRecur(TableColumn<ReadOnlyTask, Boolean> recurColumn) {
-        recurColumn.setGraphic(new ImageView("file:src/main/resources/images/recur.png"));
+        recurColumn.setGraphic(new ImageView("file:src/main/resources/images/recur_white.png"));
         recurColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_RECUR));
         recurColumn.setCellValueFactory(task -> new SimpleBooleanProperty(task.getValue().isRecur()));
         
