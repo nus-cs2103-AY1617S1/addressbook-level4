@@ -524,8 +524,6 @@ public class Parser {
                     return new UpdateCommand(type, index.get(), argType, arg);
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
-                } catch (ParseException pe) {
-                    return new IncorrectCommand(pe.getMessage());
                 }
             }
             arg += argComponents[i] + " ";
@@ -543,8 +541,6 @@ public class Parser {
             return new UpdateCommand(type, index.get(), argType, arg);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
-        } catch (ParseException pe) {
-            return new IncorrectCommand(pe.getMessage());
         }
     }
 
