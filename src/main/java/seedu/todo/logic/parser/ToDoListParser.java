@@ -201,15 +201,15 @@ public class ToDoListParser {
      */
     private Command prepareTag(String args) {
         try {
-            args = args.trim();
-            String indexString = args.substring(0, 1);
+            String tempArgs = args.trim();
+            String indexString = tempArgs.substring(0, 1);
 
             Optional<Integer> index = parseIndex(indexString);
             if (!index.isPresent()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
             }
 
-            String tagNames = args.substring(1);
+            String tagNames = tempArgs.substring(1);
 
             return new TagCommand(index.get(), tagNames);
         } catch (Exception e) {
@@ -226,15 +226,15 @@ public class ToDoListParser {
      */
     private Command prepareUntag(String args) {
         try {
-            args = args.trim();
-            String indexString = args.substring(0, 1);
+            String tempArgs = args.trim();
+            String indexString = tempArgs.substring(0, 1);
 
             Optional<Integer> index = parseIndex(indexString);
             if (!index.isPresent()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UntagCommand.MESSAGE_USAGE));
             }
 
-            String tagNames = args.substring(1);
+            String tagNames = tempArgs.substring(1);
 
             return new UntagCommand(index.get(), tagNames);
         } catch (Exception e) {
@@ -269,22 +269,23 @@ public class ToDoListParser {
      * @return the prepared command
      */
     private Command prepareUpdate(String args) {
-
-        args = args.trim();
-        if (args.length() < 1) {
+        
+        String tempArgs = args.trim(); 
+        
+        if (tempArgs.length() < 1) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
-        String indexString = args.substring(0, 1);
+        String indexString = tempArgs.substring(0, 1);
 
         Optional<Integer> index = parseIndex(indexString);
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
 
-        args = args.substring(1).trim();
+        tempArgs = tempArgs.substring(1).trim();
 
         Matcher matcher;
-        matcher = ParserFormats.UPDATE_TASK_ARGS_FORMAT.matcher(args.trim());
+        matcher = ParserFormats.UPDATE_TASK_ARGS_FORMAT.matcher(tempArgs.trim());
         if (matcher.matches()) {
             return new UpdateCommand(index.get(), matcher.group("name").trim(), matcher.group("onDateTime"), 
                     matcher.group("byDateTime"), matcher.group("detail"), matcher.group("rec"));
@@ -306,11 +307,11 @@ public class ToDoListParser {
             ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER,
             ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, ParserFormats.KEYWORDS_ARGS_FORMAT };
         
-        args = args.trim();
+        String tempArgs = args.trim(); 
         
         Matcher matcher;        
         for (Pattern p : dataPatterns) {
-            matcher = p.matcher(args);
+            matcher = p.matcher(tempArgs);
             
             if (matcher.matches()) {
                 if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON)) {
@@ -321,22 +322,22 @@ public class ToDoListParser {
                     return new SearchCommand(matcher.group("afterDateTime"), 2);
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT)) {
                     return new SearchCommand(matcher.group("fromDateTime") + "@" + matcher.group("tillDateTime"), 3);
-                } else if (p.equals(ParserFormats.KEYWORDS_ARGS_FORMAT) && args.indexOf("tag") != 0
-                        && args.indexOf("done") != 0 && args.indexOf("undone") != 0) {
+                } else if (p.equals(ParserFormats.KEYWORDS_ARGS_FORMAT) && tempArgs.indexOf("tag") != 0
+                        && tempArgs.indexOf("done") != 0 && tempArgs.indexOf("undone") != 0) {
                     return new SearchCommand(matcher.group("keywords"), 4);
                 }
             }
         }
-        if (args.indexOf("tag") == 0) {
-            return new SearchCommand(args, 5);
+        if (tempArgs.indexOf("tag") == 0) {
+            return new SearchCommand(tempArgs, 5);
         }
 
-        if (args.indexOf("done") == 0) {
-            return new SearchCommand(args, 6);
+        if (tempArgs.indexOf("done") == 0) {
+            return new SearchCommand(tempArgs, 6);
         }
 
-        if (args.indexOf("undone") == 0) {
-            return new SearchCommand(args, 7);
+        if (tempArgs.indexOf("undone") == 0) {
+            return new SearchCommand(tempArgs, 7);
         }
 
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));

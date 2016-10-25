@@ -78,7 +78,7 @@ public class LogicManagerTest {
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
         EventsCenter.clearSubscribers();
     }
 
@@ -541,7 +541,7 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredTaskList());
+        assertEquals(expectedShownList, model.getUnmodifiableFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedAddressBook, model.getToDoList());
@@ -578,7 +578,7 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        if (commandWord.equals("tag") || commandWord.equals("untag")) {
+        if ("tag".equals(commandWord) || "untag".equals(commandWord)) {
             assertCommandBehavior(commandWord + " 3 hello", expectedMessage, model.getToDoList(), taskList);
         } else {
             assertCommandBehavior(commandWord + " 3", expectedMessage, model.getToDoList(), taskList);

@@ -38,7 +38,7 @@ public class SearchCommand extends Command {
             try {
                 LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_ON);
                 model.updateFilteredTaskListOnDate(datetime);
-                return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+                return new CommandResult(getMessageForTaskListShownSummary(model.getUnmodifiableFilteredTaskList().size()));
             } catch (DateTimeParseException e) {
                 return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
             }
@@ -47,7 +47,7 @@ public class SearchCommand extends Command {
                 LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_BY);
                 model.updateFilteredTaskListBeforeDate(datetime);
                     
-                return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+                return new CommandResult(getMessageForTaskListShownSummary(model.getUnmodifiableFilteredTaskList().size()));
                     
             } catch (DateTimeParseException e) {
                 return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
@@ -58,7 +58,7 @@ public class SearchCommand extends Command {
                 LocalDateTime datetime = DateTimeUtil.parseDateTimeString(data, TaskDate.TASK_DATE_ON);
                 model.updateFilteredTaskListAfterDate(datetime);
                     
-                return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+                return new CommandResult(getMessageForTaskListShownSummary(model.getUnmodifiableFilteredTaskList().size()));
                     
             } catch (DateTimeParseException e) {
                 return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
@@ -73,7 +73,7 @@ public class SearchCommand extends Command {
                 LocalDateTime tillDateTime = DateTimeUtil.parseDateTimeString(tillDateString, TaskDate.TASK_DATE_BY);
                     
                 model.updateFilteredTaskListFromTillDate(fromDateTime, tillDateTime);
-                return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+                return new CommandResult(getMessageForTaskListShownSummary(model.getUnmodifiableFilteredTaskList().size()));
                     
             } catch (DateTimeParseException e) {
                 return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
@@ -83,20 +83,20 @@ public class SearchCommand extends Command {
             final String[] keywords = data.split("\\s+");
             final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
             model.updateFilteredTaskListByKeywords(keywordSet);
-            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+            return new CommandResult(getMessageForTaskListShownSummary(model.getUnmodifiableFilteredTaskList().size()));
                 
         case 5 : //tag search
             String tag = data.split("tag")[1].trim();
             model.updateFilteredTaskListByTag(tag);
-            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+            return new CommandResult(getMessageForTaskListShownSummary(model.getUnmodifiableFilteredTaskList().size()));
                 
         case 6 : //done search
             model.updateFilteredListToShowAllCompleted();
-            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+            return new CommandResult(getMessageForTaskListShownSummary(model.getUnmodifiableFilteredTaskList().size()));
                 
         case 7 : //undone search
             model.updateFilteredListToShowAllNotCompleted();
-            return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+            return new CommandResult(getMessageForTaskListShownSummary(model.getUnmodifiableFilteredTaskList().size()));
                 
         default :
             return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);

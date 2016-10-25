@@ -1,19 +1,11 @@
 package seedu.todo.commons.util;
 
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.todo.model.ToDoList;
-import seedu.todo.storage.XmlSerializableToDoList;
 import seedu.todo.testutil.TestUtil;
-import seedu.todo.testutil.ToDoListBuilder;
 
-import javax.xml.bind.JAXBException;
 import java.io.File;
-import java.io.FileNotFoundException;
-
-import static org.junit.Assert.assertEquals;
 
 public class XmlUtilTest {
 

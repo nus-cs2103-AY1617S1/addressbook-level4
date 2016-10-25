@@ -2,7 +2,6 @@ package seedu.todo.model;
 
 import java.util.Set;
 
-import seedu.todo.commons.core.ModifiableObservableList;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
@@ -37,14 +36,9 @@ public interface Model {
     
     /** Update the given task's tags */
     void updateTaskTags(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws UniqueTaskList.TaskNotFoundException;
-    
-
-    /** Returns the filtered person list as an {@code ModifiableObservableList<Task>} */
-    ModifiableObservableList<Task> getFilteredTaskList();
-    
+        
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getUnmodifiableFilteredTaskList();
-
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();

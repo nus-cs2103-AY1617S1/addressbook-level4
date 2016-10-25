@@ -77,8 +77,9 @@ public class TaskDate {
 
     @Override
     public String toString() {
+        String dateString;
+        String timeString;
         
-        String dateString, timeString;
         if (date == null) {
             dateString = "";
         } else {

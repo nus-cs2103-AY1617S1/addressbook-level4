@@ -17,14 +17,8 @@ import java.util.stream.Collectors;
  */
 public class ToDoList implements ReadOnlyToDoList {
 
-    
     private final Stack<UniqueTaskList> tasksHistory;
     private final Stack<UniqueTagList> tagsHistory;
-
-    {
-        tasksHistory = new Stack<>();
-        tagsHistory = new Stack<>();
-    }
 
     public ToDoList() {
         this(new UniqueTaskList(), new UniqueTagList());
@@ -41,6 +35,8 @@ public class ToDoList implements ReadOnlyToDoList {
      * Tasks and Tags are copied into this ToDoList
      */
     public ToDoList(UniqueTaskList tasks, UniqueTagList tags) {
+        tasksHistory = new Stack<>();
+        tagsHistory = new Stack<>();
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 

@@ -1,6 +1,5 @@
 package seedu.todo.model.task;
 
-import seedu.todo.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's details in the to do application. Guarantees: mutable; no

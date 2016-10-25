@@ -10,7 +10,7 @@ import seedu.todo.model.task.Recurrence.Frequency;
  */
 public class TypicalTestTasks {
 
-    public static TestTask buyGroceries, buyMilk, buyRice, buyChilli;
+    public static TestTask buyGroceries, buyMilk, buyRice, buyChilli, buyNoodles, buyCheese;
 
     public TypicalTestTasks() {
         try {
@@ -26,6 +26,13 @@ public class TypicalTestTasks {
             buyChilli =  new TaskBuilder().withName("Buy Chilli").withByDate("12/12/2016")
                     .withOnDate("12/12/2016").withDetail("Red").withCompletion(true).withRecurrence(Frequency.NONE)
                     .withTags("urgent").build();
+            buyNoodles = new TaskBuilder().withName("Buy Noodles").withByDate("12/12/2016")
+                    .withOnDate("12/12/2016").withDetail("Red").withCompletion(true).withRecurrence(Frequency.NONE)
+                    .withTags("urgent").build();
+            buyCheese = new TaskBuilder().withName("Buy Cheese").withByDate("12/12/2016")
+                    .withOnDate("12/12/2016").withDetail("Red").withCompletion(true).withRecurrence(Frequency.NONE)
+                    .withTags("urgent").build();
+            
             
         } catch (IllegalValueException e) {
             e.printStackTrace();

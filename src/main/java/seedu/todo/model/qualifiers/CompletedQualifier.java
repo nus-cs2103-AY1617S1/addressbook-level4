@@ -3,7 +3,7 @@ package seedu.todo.model.qualifiers;
 import seedu.todo.model.task.ReadOnlyTask;
 
 public class CompletedQualifier implements Qualifier{
-    boolean wantsDone;
+    private boolean wantsDone;
     
     public CompletedQualifier(boolean wantsDone){
         this.wantsDone = wantsDone;

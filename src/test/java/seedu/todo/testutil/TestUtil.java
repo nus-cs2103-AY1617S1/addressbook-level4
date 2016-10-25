@@ -41,6 +41,9 @@ import java.util.stream.Collectors;
 public class TestUtil {
 
     public static String LS = System.lineSeparator();
+    
+    public static final Task[] samplePersonData = getSamplePersonData();
+    public static final Tag[] sampleTagData = getSampleTagData();
 
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
@@ -61,9 +64,7 @@ public class TestUtil {
      * Folder used for temp files created during testing. Ignored by Git.
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
-
-    public static final Task[] samplePersonData = getSamplePersonData();
-
+    
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
@@ -112,8 +113,6 @@ public class TestUtil {
         }
     }
 
-    public static final Tag[] sampleTagData = getSampleTagData();
-
     private static Tag[] getSampleTagData() {
         try {
             return new Tag[]{ new Tag("relatives"), new Tag("friends")};
@@ -156,10 +155,10 @@ public class TestUtil {
             throw new RuntimeException(e);
         }
     }
-/*
+
     public static void main(String... s) {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
-    }*/
+    }
 
     public static ToDoList generateEmptyToDoList() {
         return new ToDoList(new UniqueTaskList(), new UniqueTagList());
@@ -358,8 +357,9 @@ public class TestUtil {
     }
 
     public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
+        assert tags != null;
+        
+        if ("".equals(tags)) {
             return new Tag[]{};
         }
 
