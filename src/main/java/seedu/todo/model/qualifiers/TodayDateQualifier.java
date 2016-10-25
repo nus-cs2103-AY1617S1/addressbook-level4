@@ -21,15 +21,11 @@ public class TodayDateQualifier implements Qualifier{
             try{
                 onDateTime = DateTimeUtil.combineLocalDateAndTime(task.getOnDate().getDate(), 
                         task.getOnDate().getTime());
-            } catch(Exception e){
-                ;
-            }
+            } catch(Exception e){}
             try{
                 byDateTime = DateTimeUtil.combineLocalDateAndTime(task.getByDate().getDate(),
                         task.getByDate().getTime());
-            } catch(Exception e){
-                ;
-            }
+            } catch(Exception e){}
             boolean byTodayCheck = true;
             byTodayCheck = onDateTime.toLocalDate().equals(datetime.toLocalDate()) || onDateTime.toLocalDate().isBefore(datetime.toLocalDate());
             boolean onTodayCheck = true;

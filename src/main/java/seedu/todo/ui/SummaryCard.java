@@ -22,10 +22,6 @@ public class SummaryCard extends UiPart{
 
     private ReadOnlyTask task;
 
-    public SummaryCard(){
-
-    }
-
     public static SummaryCard load(ReadOnlyTask task){
         SummaryCard card = new SummaryCard();
         card.task = task;

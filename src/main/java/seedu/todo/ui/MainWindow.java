@@ -29,7 +29,6 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     //@@author A0138967J
     private SummaryPanel summaryPanel;
     //@@author

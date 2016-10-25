@@ -1,4 +1,4 @@
-# User Guide
+	# User Guide
 
 * [Quick Start](#quick-start)
 * [Features](#features)

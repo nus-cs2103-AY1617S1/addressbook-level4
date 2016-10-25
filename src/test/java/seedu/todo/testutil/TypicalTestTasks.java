@@ -36,8 +36,6 @@ public class TypicalTestTasks {
 
         try {
             ab.addTask(new Task(buyGroceries));
-            ab.addTask(new Task(buyMilk));
-            ab.addTask(new Task(buyRice));
             ab.addTask(new Task(buyChilli));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
@@ -46,6 +44,10 @@ public class TypicalTestTasks {
 
     public TestTask[] getTypicalTasks() {
         return new TestTask[]{buyGroceries, buyMilk, buyRice, buyChilli};
+    }
+    
+    public TestTask[] getEmptyTaskList() {
+        return new TestTask[]{};
     }
 
     public ToDoList getTypicalToDoList(){
