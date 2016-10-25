@@ -3,9 +3,8 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox prefHeight="711.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.FloatingPanel">
+<VBox maxHeight="700.0" prefHeight="500.0" prefWidth="378.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.FloatingPanel">
    <children>
-      <ListView fx:id="floatingListView" prefHeight="711.0" prefWidth="378.0" />
+      <ListView fx:id="floatingListView" maxHeight="700.0" maxWidth="300.0" prefHeight="500.0" prefWidth="378.0" />
    </children>
 </VBox>

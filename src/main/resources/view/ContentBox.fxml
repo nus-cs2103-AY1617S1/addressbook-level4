@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.ContentBox">
+<VBox maxHeight="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.ContentBox">
    <children>
-      <GridPane prefHeight="508.0" prefWidth="378.0" style="-fx-background-color: #ededed;" styleClass="contentbox" VBox.vgrow="ALWAYS">
+      <GridPane maxHeight="500.0" minWidth="350.0" prefHeight="300.0" prefWidth="378.0" style="-fx-background-color: #ededed;" styleClass="contentbox" VBox.vgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" />
-          <ColumnConstraints hgrow="ALWAYS" />
-          <ColumnConstraints hgrow="ALWAYS" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="215.0" minWidth="171.0" prefWidth="215.0" />
+          <ColumnConstraints hgrow="ALWAYS" maxWidth="152.0" minWidth="108.0" prefWidth="108.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints vgrow="ALWAYS" />
@@ -67,7 +67,7 @@
             </ImageView>
          </children>
          <padding>
-            <Insets right="5.0" />
+            <Insets right="2.0" />
          </padding>
       </GridPane>
    </children>
