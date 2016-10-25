@@ -36,7 +36,6 @@ public class DeleteAliasCommand extends TaskCommand {
         this.shortcut = shortcut;
     }
 
-
     @Override
     public CommandResult execute() {
     	Alias aliasToDelete = new Alias();
