@@ -5,21 +5,24 @@ import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.events.ui.CollapseChangeEvent;
 import teamfour.tasc.model.keyword.CollapseCommandKeyword;
 
-
+/**
+ * Collapses the task list panel view
+ * In collapsed view, each task card takes up less space in the panel and shows less detail
+ */
 public class CollapseCommand extends Command {
 
     public static final String COMMAND_WORD = CollapseCommandKeyword.keyword;
     public static final String MESSAGE_SUCCESS = "Task view collapsed";
-    public static final String MESSAGE_FAILURE = "Already in collapsed view, type \"expand\" to go into expanded view";
+    public static final String MESSAGE_FAILURE_ALREADY_COLLAPSED = "Already in collapsed view, type \"expand\" to go into expanded view";
 
     public CollapseCommand(){
 
     }
 
     public CommandResult execute(){
-
+        assert model != null;
         if(CollapseChangeEvent.getCollapsed()){
-            return new CommandResult(MESSAGE_FAILURE);
+            return new CommandResult(MESSAGE_FAILURE_ALREADY_COLLAPSED);
         }
         EventsCenter.getInstance().post(new CollapseChangeEvent(true));
         model.updateFilteredTaskListByFilter(); //refresh the list view

@@ -50,6 +50,7 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         // TODO ensure that we input the correct details!
+        // TODO refactor this - extract methods
         //Input validation
         Deadline deadline = new Deadline();
         if(by != null){
