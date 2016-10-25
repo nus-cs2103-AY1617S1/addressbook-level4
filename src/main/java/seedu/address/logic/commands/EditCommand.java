@@ -93,7 +93,7 @@ public class EditCommand extends Command {
             model.deleteTask(toEdit);
             model.addTask(toAdd);
             if (isMutating()){
-                model.addUndo(COMMAND_WORD, toEdit, toAdd);
+                model.addUndo(COMMAND_WORD, toAdd, toEdit);
             }
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(AddCommand.MESSAGE_DUPLICATE_PERSON);     

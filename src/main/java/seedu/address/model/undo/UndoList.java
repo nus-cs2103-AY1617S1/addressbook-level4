@@ -22,20 +22,20 @@ public class UndoList {
     /*
      * Adds a Undo action to the front of the list.
      */
-    public void addToFront(String cmd, ReadOnlyTask initData, ReadOnlyTask finalData){
-        if (head == null){ //currently empty
-            head = new UndoNode(cmd, initData, finalData, null, null);
+    public void addToFront(String cmd, ReadOnlyTask postData, ReadOnlyTask preData){
+        if (size == 0){ //currently empty
+            head = new UndoNode(cmd, postData, preData, head, tail);
             tail = head;
             size++;
         }
         else if (size < 3){
-            tail.setNext(new UndoNode(cmd, initData, finalData, null, null));
+            tail.setNext(new UndoNode(cmd, postData, preData, head, tail));
             tail = tail.getNext();
             size++;
         }
         else if (size == 3){
             head = head.getNext();
-            tail.setNext(new UndoNode(cmd, initData, finalData, head, tail));
+            tail.setNext(new UndoNode(cmd, postData, preData, head, tail));
             tail = tail.getNext();
         }
     }
@@ -89,10 +89,10 @@ public class UndoList {
 
         /*
          * Initialises a UndoNode
-         * cmd. initData cannot be null
+         * cmd. postData cannot be null
          */
-        public UndoNode(String cmd, ReadOnlyTask initData, ReadOnlyTask finalData, UndoNode next, UndoNode prev){
-            this.data = new UndoTask(cmd, initData, finalData);
+        public UndoNode(String cmd, ReadOnlyTask postData, ReadOnlyTask preData, UndoNode next, UndoNode prev){
+            this.data = new UndoTask(cmd, postData, preData);
             this.next = next;
             this.prev = prev;
         }

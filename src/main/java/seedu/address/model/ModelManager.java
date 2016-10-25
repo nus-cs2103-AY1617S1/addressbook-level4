@@ -108,13 +108,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addUndo(String command, ReadOnlyTask toUndo) {
-        undoableTasks.addToFront(command, toUndo, null);
+    public void addUndo(String command, ReadOnlyTask postData) {
+        undoableTasks.addToFront(command, postData, null);
     }
     
     @Override
-    public void addUndo(String command, ReadOnlyTask initData, ReadOnlyTask finalData) {
-        undoableTasks.addToFront(command, initData, finalData);
+    public void addUndo(String command, ReadOnlyTask postData, ReadOnlyTask preData) {
+        undoableTasks.addToFront(command, postData, preData);
     }
 
     //=========== Filtered Task List Accessors =============================================================== 
