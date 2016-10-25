@@ -4,13 +4,10 @@ import static org.junit.Assert.*;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Optional;
 
 import org.junit.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.CommandParserHelper;
 
 //@@author A0139655U
 public class DateTimeTest {
@@ -24,7 +21,7 @@ public class DateTimeTest {
         calendarExpected.set(2016, Calendar.SEPTEMBER, 11, 7, 15);
         assertEquals(calendarActual.get(Calendar.YEAR), calendarExpected.get(Calendar.YEAR));
         assertEquals(calendarActual.get(Calendar.MONTH), calendarExpected.get(Calendar.MONTH));
-        assertEquals(calendarActual.get(Calendar.DAY_OF_YEAR), calendarExpected.get(Calendar.DAY_OF_YEAR));
+        assertEquals(calendarActual.get(Calendar.DAY_OF_MONTH), calendarExpected.get(Calendar.DAY_OF_MONTH));
         assertEquals(calendarActual.get(Calendar.HOUR_OF_DAY), calendarExpected.get(Calendar.HOUR_OF_DAY));
         assertEquals(calendarActual.get(Calendar.MINUTE), calendarExpected.get(Calendar.MINUTE));
     }
