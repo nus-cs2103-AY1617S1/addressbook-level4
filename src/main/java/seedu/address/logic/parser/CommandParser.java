@@ -146,6 +146,7 @@ public class CommandParser {
         return new HashSet<>(tagStrings);
     }
     
+    //@@author A0139552B
     /**
      * Parses arguments in the context of the edit task command.
      *
@@ -157,7 +158,6 @@ public class CommandParser {
     	int index = ZERO;	 
    	 	
     	args = args.trim();
-   	 	//System.out.println(args);   	 
    	 	String[] parts = args.split(" ");
    	 	String indexNum = parts[ZERO];
 
@@ -182,8 +182,6 @@ public class CommandParser {
                	resetField = split[ONE];
             }
             
-            //System.out.println(extractedValues.get("taskName"));
-
             return new EditCommand(index, extractedValues.get("taskName"), extractedValues.get("startDate"), 
                     extractedValues.get("endDate"), extractedValues.get("rate"), 
                     extractedValues.get("timePeriod"), extractedValues.get("priority"),resetField);

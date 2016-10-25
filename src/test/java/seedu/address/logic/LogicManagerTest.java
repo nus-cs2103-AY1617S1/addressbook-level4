@@ -22,6 +22,7 @@ import seedu.address.storage.StorageManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -219,6 +220,35 @@ public class LogicManagerTest {
                 expectedAB.getUndoneTaskList());
 
     }
+    //@@author A0139655U
+    @Test
+    public void execute_edit_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeEdited = helper.adam();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeEdited);
+        
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeEdited),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeEdited),
+                expectedAB,
+                expectedAB.getUndoneTaskList());
+
+        Name name = new Name("Do stuff later");
+        Date startDate = DateTime.convertStringToDate("10am");
+        Date endDate = DateTime.convertStringToDate("12pm");
+        Priority priority = Priority.LOW;
+        RecurrenceRate recurrenceRate = null;
+        expectedAB.editFloatingTask(toBeEdited, name, startDate, endDate, priority, recurrenceRate);
+
+        assertCommandBehavior(helper.generateEditCommand(toBeEdited),
+                String.format(EditCommand.MESSAGE_SUCCESS, toBeEdited),
+                expectedAB,
+                expectedAB.getUndoneTaskList());
+
+    }
+
 
     /* Duplicate is allowed?
     @Test
@@ -613,7 +643,22 @@ public class LogicManagerTest {
 
             return cmd.toString();
         }
+        
+        //@@author A0139552B
+        /** Generates the correct edit command */
+        String generateEditCommand(Task p) {
+            StringBuffer cmd = new StringBuffer();
 
+            cmd.append("edit 1 ");
+            
+            cmd.append("Do stuff later ");            
+            cmd.append("from 10am ");
+            cmd.append("to 12pm ");
+            cmd.append(" -").append(p.getPriorityValue().toString().toLowerCase());
+            
+            return cmd.toString();
+        }
+        
         /**
          * Generates an TaskManager with auto-generated persons.
          */
