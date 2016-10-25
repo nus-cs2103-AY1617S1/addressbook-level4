@@ -58,9 +58,13 @@ public class Config {
     public String getTaskListFilePathAndName() {
         return taskListFilePath + "/" + taskListFileName;
     }
+    
+    public void setTaskListFilePath(String taskListFilePath) {
+        this.taskListFilePath = taskListFilePath;
+    }
 
-    public void setTaskListFilePath(String newTaskListFilePath) {
-        String[] pathName = newTaskListFilePath.split("/");
+    public void setTaskListFilePathAndName(String newTaskListFilePathAndName) {
+        String[] pathName = newTaskListFilePathAndName.split("/");
         this.taskListFilePath = pathName[0];
         this.taskListFileName = pathName[1];
     }
@@ -114,6 +118,14 @@ public class Config {
 
     public void setTaskListName(String taskListName) {
         this.taskListName = taskListName;
+    }
+    
+    public void setTaskListFileName(String taskListFileName) {
+        this.taskListFileName = taskListFileName;
+    }
+    
+    public void setTaskListFileNames(String taskListFileNames) {
+        this.taskListFileNames = taskListFileNames;
     }
     
     public String[] getTaskListNames() {
