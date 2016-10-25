@@ -115,10 +115,10 @@ public class ModelManager extends ComponentManager implements Model {
 		for (int i = 0; i < filteredPersons.size() - 1; i++) {
 			boolean isClashing = false;
 			Task task = filteredPersons.get(i);
-			Deadline deadline = task.getDeadlines();
+			Deadline deadline = task.getDeadline();
 			for (int j = i + 1; j < filteredPersons.size(); j++) {
 				Task task2 = filteredPersons.get(j);
-				Deadline deadline2 = task2.getDeadlines();
+				Deadline deadline2 = task2.getDeadline();
 				if (deadline != null && deadline2 != null && deadline.equals(deadline2)) {
 					if (!taskmanager.contains(task2))
 						taskmanager.addTask(task2);
