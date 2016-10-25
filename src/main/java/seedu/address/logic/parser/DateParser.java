@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,9 +63,9 @@ public class DateParser {
 	};
 	
 	private static final Pattern[] NATURAL_LANGUAGE_NO_DATE = new Pattern[] {
-			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})$"), // today 14:30
-			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})\\s*(?<meridiem>am|pm)$"), // tomorrow 2:30 pm
-			Pattern.compile("^(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)$"), // next week 2 pm
+			//Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})"), // 14:30
+			Pattern.compile("^(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?"), // 2:30 pm
+			//Pattern.compile("^(?<hour>\\d{1,2})\\s*(?<meridiem>am|pm)?"), // 2 pm
 	};
 
 	
@@ -160,23 +161,11 @@ public class DateParser {
 		
 		for (Matcher matcher : matchers) {
 			if (matcher.matches()) {	
-				String meridiem;
-				try {
-					meridiem = matcher.group("meridiem");
-				} catch (IllegalArgumentException e) {
-					meridiem = "";
-				}
+				Optional<String> meridiemOpt = Optional.ofNullable(matcher.group("meridiem"));
+				int hour = parseHour(matcher.group("hour"), meridiemOpt.orElse(""));
 				
-				int hour = parseHour(matcher.group("hour"), meridiem);
-				
-				String minuteString;
-				try {
-					minuteString = matcher.group("minute");
-					System.out.println(minuteString);
-				} catch (IllegalArgumentException e) {
-					minuteString = "0";
-				}
-				int minute = parseMinute(minuteString);
+				Optional<String> minuteOpt = Optional.ofNullable(matcher.group("minute"));
+				int minute = parseMinute(minuteOpt.orElse("0"));
 
 				return LocalDateTime.of(now.getYear(), now.getMonthValue(), now.getDayOfMonth(), hour, minute);
 			}
