@@ -319,29 +319,29 @@ public class ActivityManager implements ReadOnlyActivityManager {
     }
     
     //@@author A0146752B
-    public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.ActivityNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueActivityList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
     
     
-    public boolean removeFloatingTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    public boolean removeFloatingTask(ReadOnlyActivity key) throws UniqueActivityList.ActivityNotFoundException {
         if (floatingTasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueActivityList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
     
     
-    public boolean removeEvent(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    public boolean removeEvent(ReadOnlyActivity key) throws UniqueActivityList.ActivityNotFoundException {
         if (events.remove(key)) {
             return true;
         } else {
-            throw new UniqueActivityList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
     

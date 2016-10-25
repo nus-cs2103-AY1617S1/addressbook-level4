@@ -8,7 +8,7 @@ import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.UniqueActivityList;
 import seedu.menion.model.activity.UniqueActivityList.DuplicateTaskException;
-import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 
 //@@author A0146752B
 /**
@@ -77,7 +77,7 @@ public class DeleteCommand extends Command {
             else {
                 model.deleteFloatingTask(activityToDelete);
             }
-        } catch (TaskNotFoundException pnfe) {
+        } catch (ActivityNotFoundException pnfe) {
             assert false : "The target activity cannot be missing";
         }
 
