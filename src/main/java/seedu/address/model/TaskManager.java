@@ -225,42 +225,52 @@ counter();
 		int today = 0;
 		int tomorrow = 0;
 		int upcoming = 0;
+		int overdue = 0;
 		
 		 for (int i = 0; i < tasks.getInternalList().size(); i++) {
-			 if (tasks.getInternalList().get(i).getStartTime().isMissing() 
-					 && tasks.getInternalList().get(i).getEndTime().isMissing()
-					 	&& tasks.getInternalList().get(i).getDone().getDoneValue() == false) {
+		     
+		     Task toCount = tasks.getInternalList().get(i);
+		     
+			 if (toCount.getStartTime().isMissing() 
+					 && toCount.getEndTime().isMissing()
+					 	&& toCount.getDone().getDoneValue() == false) {
 				 floating++;
-				 
 			 }
-			 if (((tasks.getInternalList().get(i).getStartTime().isToday(tasks.getInternalList().get(i).getStartTime().appearOnUIFormatForDate()))
-					 || tasks.getInternalList().get(i).getEndTime().isToday(tasks.getInternalList().get(i).getEndTime().appearOnUIFormatForDate()))
-					 	&& tasks.getInternalList().get(i).getDone().getDoneValue() == false) {
+			 
+			 if (((toCount.getStartTime().isToday(toCount.getStartTime().appearOnUIFormatForDate()))
+					 || toCount.getEndTime().isToday(toCount.getEndTime().appearOnUIFormatForDate()))
+					 	&& toCount.getDone().getDoneValue() == false) {
 				 today++;
-				 
 			 }
-			 if ((tasks.getInternalList().get(i).getStartTime().isTomorrow(tasks.getInternalList().get(i).getStartTime().appearOnUIFormatForDate())
-					 || tasks.getInternalList().get(i).getEndTime().isTomorrow(tasks.getInternalList().get(i).getEndTime().appearOnUIFormatForDate()))
-					 	&& tasks.getInternalList().get(i).getDone().getDoneValue() == false) {
+			 
+			 if ((toCount.getStartTime().isTomorrow(toCount.getStartTime().appearOnUIFormatForDate())
+					 || toCount.getEndTime().isTomorrow(toCount.getEndTime().appearOnUIFormatForDate()))
+					 	&& toCount.getDone().getDoneValue() == false) {
 				 tomorrow++;
-				
 			 }
-			 if ((tasks.getInternalList().get(i).getStartTime().isUpcoming(tasks.getInternalList().get(i).getStartTime().appearOnUIFormatForDate())
-					 || tasks.getInternalList().get(i).getEndTime().isUpcoming(tasks.getInternalList().get(i).getEndTime().appearOnUIFormatForDate()))
-					 	&& tasks.getInternalList().get(i).getDone().getDoneValue() == false) {
+			 
+			 if ((toCount.getStartTime().isUpcoming(toCount.getStartTime().appearOnUIFormatForDate())
+					 || toCount.getEndTime().isUpcoming(toCount.getEndTime().appearOnUIFormatForDate()))
+					 	&& toCount.getDone().getDoneValue() == false) {
 				 upcoming++;
-				 
 			 }
+			 
+			 if ((toCount.checkOverdue()))
+			     overdue++;
 		 }
 		 
 		 floatingCounter = floating;
 		 todayCounter = today;
 		 tomorrowCounter = tomorrow;
 		 upcomingCounter = upcoming;
+		 overdueCounter = overdue;
+		 
 		 System.out.println("Floating: " + floatingCounter);
 		 System.out.println("Today: " + todayCounter);
 		 System.out.println("Tomorrow: " + tomorrowCounter);
 		 System.out.println("Upcoming: " + upcomingCounter);
+	      System.out.println("Overdue: " + overdueCounter);
+
 		 
 	}
 	

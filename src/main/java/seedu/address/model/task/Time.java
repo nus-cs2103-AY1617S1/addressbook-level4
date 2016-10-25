@@ -148,7 +148,7 @@ public class Time {
      * @param token
      * @return true if the given date is a valid date
      */
-	private static boolean isValidDate(String token) {
+	static boolean isValidDate(String token) {
 		
 		String[] date = token.split(" ");
 		Pattern dateType = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/(\\d\\d)");
@@ -187,16 +187,14 @@ public class Time {
 	}
 	
 	 /**
-     * Checks whether startTime < endTime or not
+     * Checks whether time1 < time2 or not
      * 
-     * @param startTime
-     * @param endTime
-     * @return true only if startTime < endTime
+     * @return true only if time1 < time2
      * @throws IllegalValueException
      */
-    public static boolean checkOrderOfDates(String startTime, String endTime) throws IllegalValueException {
-    	Time start = new Time(startTime);
-    	Time end = new Time(endTime);
+    public static boolean checkOrderOfDates(String time1, String time2) throws IllegalValueException {
+    	Time start = new Time(time1);
+    	Time end = new Time(time2);
     	
     	return end.isMissing() || start.time.compareTo(end.time) <= 0;
 
