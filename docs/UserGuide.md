@@ -23,6 +23,7 @@
     * [Renaming the task list file: `renamelist`](#renaming-the-task-list-file-renamelist)
     * [Relocating the data storage location: `relocate`](#relocating-the-data-storage-location-relocate)
     * [Changing the view of the task list panel: `collapse` and `expand`](#changing-the-view-of-the-task-list-panel-collapse-and-expand)
+    * [Changing calendar view: `calendar`](#changing-calendar-view-calendar)
     * [Viewing help: `help`](#viewing-help-help)
 * [Other Features](#other-features)
     * [Autocomplete and suggestions](#autocomplete-and-suggestions)
@@ -477,6 +478,19 @@ To this:<br>
 If you want to see all the details of your tasks agains, type:
 
 `expand`
+<br><br>
+
+<!-- @@author A0148096W -->
+### Changing calendar view: `calendar`
+
+Sometimes, you may want to focus on your day, and find the calendar too cluttered. We can fix that for you, just type:
+
+`calendar day`
+
+You can switch back to the week view by typing:
+
+`calendar week`
+<br><br>
 
 <!-- @@author -->
 ### Viewing help: `help`
