@@ -9,7 +9,7 @@ import seedu.task.commons.events.storage.FilePathChangedEvent;
 /**
  * Change the file path
  */
-public class ChangePathCommand extends UndoableCommand{
+public class ChangePathCommand extends Command{
     
     public static final String COMMAND_WORD = "change-to";
     
@@ -39,20 +39,15 @@ public class ChangePathCommand extends UndoableCommand{
             return new CommandResult(false, String.format(MESSAGE_PATH_CHANGE_FAIL, newFilePath));
         }
     }
-    
+    /**
+     * Checks if the user defined file path is valid.
+     * A file path is defined to be valid if it has a valid parent folder, if it can be written to, and if 
+     * it is an xml file.
+     * @param newFilePath The user defined file path 
+     * @return boolean variable indicating if file path is valid
+     */
     private boolean isValidFilePath(String newFilePath) {
         File file = new File(newFilePath);
-        return (file.getParent() != null && file.canWrite());         
+        return (file.getParentFile() != null && file.canWrite() && newFilePath.endsWith(".xml"));         
     }
-
-
-
-    @Override
-    public CommandResult rollback() {
-        return null; 
-        
-        
-    }
-    
-
 }
