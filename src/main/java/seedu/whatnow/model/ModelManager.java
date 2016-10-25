@@ -45,6 +45,9 @@ public class ModelManager extends ComponentManager implements Model {
 	private final Stack<ReadOnlyTask> stackOfNewTask;
 	private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
 	private final Stack<ReadOnlyTask> stackOfDeletedTasks;
+	private final Stack<ReadOnlyTask> stackOfDeletedTasksRedo;
+	private final Stack<ReadOnlyTask> stackOfDeletedTasksAdd;
+	private final Stack<ReadOnlyTask> stackOfDeletedTasksAddRedo;
 	private final Stack<String> stackOfDeletedTaskTypes;
 	private final Stack<ReadOnlyTask> stackOfMarkDone;
 	private final Stack<String> stackOfMarkDoneTaskTypes;
@@ -76,6 +79,9 @@ public class ModelManager extends ComponentManager implements Model {
 		stackOfWhatNow = new Stack<>();
 		stackOfDeletedTasks = new Stack<>();
 		stackOfDeletedTaskTypes = new Stack<>();
+		stackOfDeletedTasksRedo = new Stack<>();
+		stackOfDeletedTasksAdd = new Stack<>();
+		stackOfDeletedTasksAddRedo = new Stack<>();
 		stackOfMarkDone= new Stack<>();
 		stackOfMarkDoneTaskTypes = new Stack<>();
 		stackOfWhatNowUndoUpdate = new Stack<>();
@@ -101,6 +107,9 @@ public class ModelManager extends ComponentManager implements Model {
 		stackOfWhatNow = new Stack<>();
 		stackOfDeletedTasks = new Stack<>();
 		stackOfDeletedTaskTypes = new Stack<>();
+		stackOfDeletedTasksRedo = new Stack<>();
+		stackOfDeletedTasksAdd = new Stack<>();
+		stackOfDeletedTasksAddRedo = new Stack<>();
 		stackOfMarkDone = new Stack<>();
 		stackOfMarkDoneTaskTypes = new Stack<>();
 		stackOfWhatNowUndoUpdate = new Stack<>();
@@ -108,7 +117,6 @@ public class ModelManager extends ComponentManager implements Model {
 		stackOfListTypes = new Stack<>();
 		stackOfListTypesRedo = new Stack<>();
 	}
-
 	@Override
 	public void resetData(ReadOnlyWhatNow newData) {
 		stackOfWhatNow.push(new WhatNow(whatNow));
@@ -137,15 +145,11 @@ public class ModelManager extends ComponentManager implements Model {
 		whatNow.changeTask(target);
 		indicateWhatNowChanged();
 	}
-
 	@Override
 	public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-		stackOfDeletedTasks.push(target);
-		System.out.println("I have pushed this into stackOfDeletedTask: " + target);
 		whatNow.removeTask(target);
 		indicateWhatNowChanged();
 	}
-
 	@Override
 	public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
 		whatNow.addTask(task);
@@ -206,12 +210,24 @@ public class ModelManager extends ComponentManager implements Model {
 		return new UnmodifiableObservableList<>(filteredTasks);
 	}
 	@Override
-	public Stack<ReadOnlyTask> getDeletedStackOfTask() {
+	public Stack<ReadOnlyTask> getDeletedStackOfTasks() {
 		return stackOfDeletedTasks;
+	}
+	@Override
+	public Stack<ReadOnlyTask> getDeletedStackOfTasksRedo() {
+		return stackOfDeletedTasksRedo;
 	}
 	@Override
 	public Stack<String> getDeletedStackOfTaskType() {
 		return stackOfDeletedTaskTypes;
+	}
+	@Override
+	public Stack<ReadOnlyTask> getDeletedStackOfTasksAdd() {
+		return stackOfDeletedTasksAdd;
+	}
+	@Override
+	public Stack<ReadOnlyTask> getDeletedStackOfTasksAddRedo() {
+		return stackOfDeletedTasksAddRedo;
 	}
 	@Override
 	public Stack<ReadOnlyTask> getStackOfMarkDoneTask() {

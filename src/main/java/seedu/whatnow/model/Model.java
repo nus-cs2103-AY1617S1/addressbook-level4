@@ -90,11 +90,20 @@ public interface Model {
 	/**Gets the newTask if possible */
 	Stack<ReadOnlyTask> getNewTask();
 	
-	/** Gets the deletedStackOfTask */
-	Stack<ReadOnlyTask> getDeletedStackOfTask();
+	/** Gets the deletedStackOfTask that corresponds to deleteCommand*/
+	Stack<ReadOnlyTask> getDeletedStackOfTasks();
 
+	/** Gets the deletedStackOfTaskRedo that corresponds to deleteCommand*/
+	Stack<ReadOnlyTask> getDeletedStackOfTasksRedo();
+	
 	/** Gets the deletedStackOfTaskType corresponding to stackOfTask */
 	Stack<String> getDeletedStackOfTaskType();
+	
+	/** Gets the deleted StackOfTasks that corresponds to AddCommand */
+	Stack<ReadOnlyTask> getDeletedStackOfTasksAdd();
+
+	/** Gets the deleted StackOfTasksRedo that corresponds to AddCommand */
+	Stack<ReadOnlyTask> getDeletedStackOfTasksAddRedo();
 	
 	/** Gets Stack of Task that were marked */
 	Stack<ReadOnlyTask> getStackOfMarkDoneTask();  
