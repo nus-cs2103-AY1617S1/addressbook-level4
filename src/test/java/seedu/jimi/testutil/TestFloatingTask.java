@@ -1,5 +1,6 @@
 package seedu.jimi.testutil;
 
+import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.*;
 
@@ -11,6 +12,7 @@ public class TestFloatingTask implements ReadOnlyTask {
     private Name name;
     private UniqueTagList tags;
     private boolean isCompleted;
+    private Priority priority;
 
     public TestFloatingTask() {
         tags = new UniqueTagList();
@@ -34,6 +36,15 @@ public class TestFloatingTask implements ReadOnlyTask {
     public void setTags(UniqueTagList tags) {
         this.tags = tags;
     }
+    
+    @Override
+    public Priority getPriority()  {
+        return priority;
+    }
+    
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
 
     @Override
     public String toString() {
@@ -44,6 +55,7 @@ public class TestFloatingTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + "\"" + this.getName().fullName + "\"" + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        sb.append("p/" + this.getPriority().tagName + " ");
         return sb.toString();
     }
 
@@ -62,6 +74,8 @@ public class TestFloatingTask implements ReadOnlyTask {
         builder.append(getName())
                .append(" Tags: ");
         getTags().forEach(builder::append);
+        builder.append(" Priority: ")
+               .append(getPriority());
         return builder.toString();
     }
 
@@ -71,6 +85,7 @@ public class TestFloatingTask implements ReadOnlyTask {
                 || (other instanceof TestFloatingTask // instanceof handles nulls
                 && (other).getName().equals(this.getName()) // state checks here onwards
                 && (other).isCompleted() == this.isCompleted()
+                && (other).getPriority().equals(this.getPriority())
                 );
 
     }

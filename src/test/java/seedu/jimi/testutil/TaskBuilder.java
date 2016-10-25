@@ -1,6 +1,7 @@
 package seedu.jimi.testutil;
 
 import seedu.jimi.commons.exceptions.IllegalValueException;
+import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.task.*;
 
@@ -24,6 +25,11 @@ public class TaskBuilder {
         for (String tag: tags) {
             this.task.getTags().add(new Tag(tag));
         }
+        return this;
+    }
+    
+    public TaskBuilder withPriority(String priority) throws IllegalValueException {
+        this.task.setPriority(new Priority(priority));
         return this;
     }
 
