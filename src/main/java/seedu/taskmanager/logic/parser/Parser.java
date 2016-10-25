@@ -402,7 +402,6 @@ public class Parser {
                 logger.fine("In prepareEdit, before tokenize");
                 argsTokenizer.tokenize(editCommandArgs);
                 
-                
                 //Capture argument values into their respective variables if available
                 String name = getParsedArgumentFromArgumentTokenizer(argsTokenizer, namePrefix);
                 String startDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDatePrefix);
@@ -414,9 +413,7 @@ public class Parser {
                 List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
                 List<String> tagsToRemove = getParsedTagsToRemoveFromArgumentTokenizer(argsTokenizer, tagPrefix);
                 
-                
                 try {
-                    
                     //Handle case where user enters start date and time using natural language via sdt/
                     if (startDateTime != null) {
                         String[] startDateTimeArr = parseDateTime(startDateTime, ItemDate.DATE_FORMAT, ItemTime.TIME_FORMAT);
@@ -465,16 +462,20 @@ public class Parser {
     private List<String> getParsedTagsToRemoveFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix tagPrefix) {
         try {
             List<String> tags = argsTokenizer.getAllValues(tagPrefix).orElse(null);
-            List<String> tagsToRemove = new ArrayList<String>();
+            
+            if (tags == null) {
+                return null;
+            }
             
             logger.fine("Before remove tags check");
-            if (tags != null) {
-                for (String tag : tags) {
-                    if (tag.length() > 0 && isATagToBeRemoved(tag)) {                            
-                        tagsToRemove.add(processTagToBeRemoved(tag));
-                    }
+            
+            List<String> tagsToRemove = new ArrayList<String>();
+            for (String tag : tags) {
+                if (tag.length() > 0 && isATagToBeRemoved(tag)) {                            
+                    tagsToRemove.add(processTagToBeRemoved(tag));
                 }
             }
+            
             return tagsToRemove;
         } catch (NoSuchElementException nsee) {
             return null;
@@ -489,15 +490,18 @@ public class Parser {
     private List<String> getParsedTagsToAddFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix tagPrefix) {
         try {
             List<String> tags = argsTokenizer.getAllValues(tagPrefix).orElse(null);
-            List<String> tagsToAdd = new ArrayList<String>();
             
-            if (tags != null) {
-                for (String tag : tags) {
-                    if (tag.length() > 0 && !isATagToBeRemoved(tag)) {                            
-                        tagsToAdd.add(tag);
-                    }
+            if (tags == null) {
+                return null;
+            }
+            
+            List<String> tagsToAdd = new ArrayList<String>();
+            for (String tag : tags) {
+                if (tag.length() > 0 && !isATagToBeRemoved(tag)) {                            
+                    tagsToAdd.add(tag);
                 }
             }
+            
             return tagsToAdd;
         } catch (NoSuchElementException nsee) {
             return null;
