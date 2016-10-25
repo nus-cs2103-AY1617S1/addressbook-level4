@@ -14,6 +14,9 @@ import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.Set;
 import java.util.Stack;
@@ -129,16 +132,10 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors ===============================================================
     //@@author: A0138848M
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks.sorted());
-    }
-    
-    //@@author:
-    @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
-
+    //@@author:
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
@@ -170,6 +167,22 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredListToShowWeek() {
+        LocalDateTime today = LocalDate.now(ZoneId.systemDefault()).atStartOfDay();
+        LocalDateTime weekLater = today.plusWeeks(1);
+        updateFilteredListToShowAllNotDone();
+        Predicate<Task> isEvent = t -> t.isEvent();
+        Predicate<Task> eventSameWeek = t -> 
+        (t.getEndTime().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                .isBefore(weekLater)
+                && t.getEndTime().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                .isAfter(today));
+        Predicate<Task> hasDeadline = t -> t.hasDeadline();
+        Predicate<Task> deadlineSameWeek = t ->
+        (t.getDeadline().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                .isBefore(weekLater)
+                && t.getDeadline().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                .isAfter(today));
+        filteredTasks.setPredicate((isEvent.and(eventSameWeek)).or(hasDeadline.and(deadlineSameWeek)));
     }
     
     @Override
