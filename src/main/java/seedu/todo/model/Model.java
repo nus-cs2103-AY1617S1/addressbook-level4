@@ -9,7 +9,6 @@ import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
 
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
