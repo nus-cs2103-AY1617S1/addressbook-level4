@@ -89,7 +89,7 @@ public class CommandParser {
         
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
-//@@author A0130853L            
+            
         case DoneCommand.COMMAND_WORD:
         	return prepareDone(arguments);
         	
@@ -115,7 +115,7 @@ public class CommandParser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    //@@author
+    //@@author A0130853L
 
     /**
      * Parses arguments in the context of the view command.
@@ -125,7 +125,7 @@ public class CommandParser {
      */
     private Command prepareView(String arguments) {
     	if (arguments == null) {
-			return new ViewCommand(); // view events today, and all deadlines and todos
+			return new ViewCommand(); // view all upcoming uncompleted tasks, events and deadlines
 		}
     	if (arguments.trim().equals("done")) {
     		return new ViewCommand("done"); // view done command

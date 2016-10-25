@@ -26,7 +26,7 @@ public interface Logic {
     ObservableList<ReadOnlyTask> getFilteredEventList();
     
     //@@author A0130853L
-    /** Returns the filtered list when the app first opens, such that only today's events are shown */
+    /** Returns the filtered list when the app first opens, such that only events from today onwards are shown */
 	void initialiseList();
 
 }

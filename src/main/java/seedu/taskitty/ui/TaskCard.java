@@ -79,7 +79,7 @@ public class TaskCard extends UiPart{
         } else {
             indexPrefix = "e";
         }
-        
+        //@@author A0130853L
         boolean isDone = task.getIsDone();
         if (isDone) {
         	cardPane.setStyle("-fx-background-color: grey");
@@ -93,11 +93,15 @@ public class TaskCard extends UiPart{
         } else {
         	
         	boolean isOverdue = task.isOverdue();
+        	boolean isOver = task.isOver();
         	if (isOverdue) {
         		cardPane.setStyle("-fx-background-color: red");
+        	} else if (isOver) {
+        		cardPane.setStyle("-fx-background-color: orange");
         	}
         }
         
+        //@@author
         id.setText(indexPrefix + displayedIndex + ". ");
         tags.setText(task.tagsString());
     }

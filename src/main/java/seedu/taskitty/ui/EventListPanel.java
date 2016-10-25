@@ -40,12 +40,21 @@ public class EventListPanel extends TaskListPanel {
     public void configure(ObservableList<ReadOnlyTask> eventList) {
     	header.setText("EVENTS [e]");
     	header.setStyle("-fx-text-fill: white");
-    	setDefaultDate();
         setConnections(eventListView, eventList);
         addToPlaceholder();
     }
     
-    private void setDefaultDate() {
+    /**
+     * For when no view command is executed.
+     */
+    public void setEmptyDate() {
+    	date.setText("");
+    }
+    
+    /** 
+     * For when `view today` is executed, and today's date with the "(today)" label will be shown.
+     */
+    public void setDefaultDate() {
     	DateFormat df = new SimpleDateFormat("dd MMM yyyy");
     	Date dateobj = new Date();
     	date.setText(df.format(dateobj) + " (Today)");
@@ -53,6 +62,10 @@ public class EventListPanel extends TaskListPanel {
     	date.setStyle("-fx-background-color: white");
     }
     
+    /**
+     * FOr when `view date` is executed, and that date will be shown.
+     * @param newDate
+     */
     public void updateDate(LocalDate newDate) {
     	DateFormat df = new SimpleDateFormat("dd MMM yyyy");
     	date.setText(df.format(newDate));

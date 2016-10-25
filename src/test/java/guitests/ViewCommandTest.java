@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.taskitty.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 //@@author A0130853L
 /**
- * This command test tests 3 types of command functionalities under the view command: view all, view done, and view [date].
+ * This command test tests 4 types of command functionalities under the view command: view, view all, view done, and view date.
  *
  */
 public class ViewCommandTest extends TaskManagerGuiTest {
@@ -76,15 +76,14 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     }
     
     /**
-     * Type 3: `view [date]` tests.
+     * Type 3: `view DATE` tests.
      */
     @Test
     public void viewDate_nonEmptyList() {
     	
-    	// view today since no date is entered
+    	// view today 
     	TestTask[] expectedTodos = {td.read};
-    	TestTask[] expectedDeadlines = {td.spring};
-        assertViewDoneOrDateResult("view", expectedTodos, expectedDeadlines, new TestTask[0]); 
+        assertViewDoneOrDateResult("view today", expectedTodos, new TestTask[0], new TestTask[0]); 
         
         // view xmas which natty will translate into a date
         TestTask[] expectedTodosSpecialDate = {td.read};
@@ -122,7 +121,37 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     }
     
     /**
-     * Invalid command test for all 3 functionalities.
+     *  Type 4: `view` tests.
+     */
+    @Test
+    public void view_nonEmptyList() {
+
+    	// add an event that is already over, then run `view`
+    	TestTask overEvent = td.overEvent;
+    	commandBox.runCommand(overEvent.getAddCommand());
+    	TestTask[] expectedTodosAfterAddCommand = {td.read};
+    	TestTask[] expectedDeadlinesAfterAddCommand = {td.spring};
+    	TestTask[] expectedEventsAfterAddCommand = {td.shop, td.dinner};
+    	assertViewDoneOrDateResult("view", expectedTodosAfterAddCommand, 
+    			expectedDeadlinesAfterAddCommand, expectedEventsAfterAddCommand);
+        
+    	// mark a task as done, then run `view`
+    	commandBox.runCommand("done t1");
+    	TestTask[] expectedDeadlinesAfterDoneCommand = {td.spring};
+    	TestTask[] expectedEventsAfterDoneCommand = {td.shop, td.dinner};
+    	assertViewDoneOrDateResult("view", new TestTask[0], 
+    			expectedDeadlinesAfterDoneCommand, expectedEventsAfterDoneCommand);
+    }
+    
+    @Test
+    public void view_invalidCommand_fail() {
+        commandBox.runCommand("vieww");
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+    }
+    
+    
+    /**
+     * Invalid command test for all 4 functionalities.
      */
     @Test
     public void view_invalidSuffix_fail() {
@@ -131,7 +160,7 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     }
     
     /**
-     * Assert result method for `view done` or `view date`.
+     * Assert result method for `view done` or `view date` or `view`.
      */
     private void assertViewDoneOrDateResult(String command, TestTask[] expectedTodos,
             TestTask[] expectedDeadlines, TestTask[] expectedEvents) {

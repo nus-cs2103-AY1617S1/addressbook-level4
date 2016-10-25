@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import seedu.taskitty.model.task.ReadOnlyTask;
 
+//@@author A0130853L
 /**
  * Panel containing the list of deadline tasks.
  */
@@ -33,13 +34,5 @@ public class DeadlineListPanel extends TaskListPanel {
         setConnections(deadlineListView, deadlineList);
         addToPlaceholder();
     }
-
-    // since we have no more select command this becomes useless... right?
-//    public void scrollTo(int index) {
-//        Platform.runLater(() -> {
-//            deadlineListView.scrollTo(index);
-//            deadlineListView.getSelectionModel().clearAndSelect(index);
-//        });
-//    }
     
 }

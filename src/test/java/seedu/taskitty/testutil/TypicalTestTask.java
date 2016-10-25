@@ -10,7 +10,7 @@ import seedu.taskitty.model.task.*;
 public class TypicalTestTask {
 
     //@@author A0139930B
-    public static TestTask read, spring, shop, dinner, todo, deadline, event;
+    public static TestTask read, spring, shop, dinner, todo, deadline, event, overEvent;
     
     public TypicalTestTask() {
         try {
@@ -32,6 +32,9 @@ public class TypicalTestTask {
                     .withTags("generic").build();
             event = new TaskBuilder().withName("event")
                     .withEvent("13/12/2016", "13:00", "15/12/2016", "10:00")
+                    .withTags("generic").build();
+            overEvent = new TaskBuilder().withName("overEvent")
+                    .withEvent("02/01/2016", "12:00", "03/01/2016", "12:00")
                     .withTags("generic").build();
             
         } catch (IllegalValueException e) {

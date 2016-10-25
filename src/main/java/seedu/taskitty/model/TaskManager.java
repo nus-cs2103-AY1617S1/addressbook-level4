@@ -101,6 +101,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.add(p);
     }
     
+    //@@author A0130853L
     /**
      * Marks a task as done in the task manager.
      * 
@@ -111,6 +112,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     	tasks.mark(key);
     }
     
+    //@@author
     /**
      * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
