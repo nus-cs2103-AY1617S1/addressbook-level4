@@ -20,7 +20,7 @@ We are from [School of Computing, National University of Singapore](http://www.c
  * [Complete](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#marking-a-task-as-complete-complete)
 
 **Code written: 
-[[functional code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0140011L.md)]
+[[functional code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/main/A0140011L.md)]
 [[test code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/test/A0140011L.md)]
 [[docs](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0140011L.md)]**<br>
 **Other major contributions:**
@@ -40,7 +40,7 @@ We are from [School of Computing, National University of Singapore](http://www.c
  * [Collapse] (https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-the-view-of-the-task-list-panel-collapse-and-expand) and [Expand] (https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-the-view-of-the-task-list-panel-collapse-and-expand)
 
 **Code written: 
-[[functional code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0127014W.md)]
+[[functional code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/main/A0127014W.md)]
 [[test code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/test/A0127014W.md)]
 [[docs](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0127014W.md)]**<br>
 **Other major contributions:**
@@ -59,7 +59,7 @@ We are from [School of Computing, National University of Singapore](http://www.c
  * [Renamelist](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#renaming-the-task-list-file-renamelist)
 
 **Code written: 
-[[functional code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0147971U.md)]
+[[functional code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/main/A0147971U.md)]
 [[test code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/test/A0147971U.md)]
 [[docs](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0147971U.md)]**<br>
 **Other major contributions:**
@@ -79,7 +79,7 @@ We are from [School of Computing, National University of Singapore](http://www.c
  * [Change calendar view](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-calendar-view-calendar)
 
 **Code written: 
-[[functional code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0148096W.md)]
+[[functional code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/main/A0148096W.md)]
 [[test code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/test/A0148096W.md)]
 [[docs](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0148096W.md)]**<br>
 **Other major contributions:**
