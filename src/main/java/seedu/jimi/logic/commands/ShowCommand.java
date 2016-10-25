@@ -22,7 +22,7 @@ public class ShowCommand extends Command {
     public static final List<String> VALID_KEYWORDS = Arrays.asList(
             "floating", 
             "incomplete", 
-            "complete",
+            "completed",
             "today", 
             "tomorrow", 
             "monday", 
@@ -68,7 +68,7 @@ public class ShowCommand extends Command {
         case "incomplete" :
             sectionToShow = ListId.INCOMPLETE;
             break;
-        case "complete" :
+        case "completed" :
             sectionToShow = ListId.COMPLETED;
             break;
         case "today" :
