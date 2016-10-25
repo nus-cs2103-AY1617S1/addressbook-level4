@@ -79,7 +79,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -135,7 +135,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Task Manager data.
+* stores the Task Manager states.
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -148,7 +149,7 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Task Manager data in xml format and read it back.
 
 ### Common classes
 
@@ -241,7 +242,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Task Manager depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -267,7 +268,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | have some flexibility in the command format | do operations in an intuitively way
 `* * ` | user | add tags to a task | categorize my tasks better
 `* * ` | user with many tasks | filter tasks by attributes such as start time, deadline, tag, and priority | locate some tasks easily
-`*` | user with many tasks in the address book | sort tasks by date or priority level  | know my most important upcoming tasks or know what needs to be done soon. 
+`*` | user with many tasks in the task manager | sort tasks by date or priority level  | know my most important upcoming tasks or know what needs to be done soon. 
 `* ` | user | mark a task as done | monitor my task progression
 `* ` | user | add a recurring task | save my troubles to retype my tasks
 `* ` | user | add priority level to a task| focus on more important tasks
