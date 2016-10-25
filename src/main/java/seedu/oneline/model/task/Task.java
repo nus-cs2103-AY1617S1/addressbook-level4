@@ -22,6 +22,17 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     /**
      * Every field must be present and not null.
+     * 
+     * Definitions:
+     * Event: 
+     *  A task with start time and end time.
+     *  If a task has a start time, it is guaranteed to have an end time
+     * Task w/ Deadline: 
+     *  A task with a non empty deadline
+     *  If a task has an end time, its deadline is automatically set to its end time
+     * Floating task: 
+     *  A task without a deadline
+     * 
      */    
     public Task(TaskName name, TaskTime startTime, TaskTime endTime, TaskTime deadline, TaskRecurrence recurrence, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, startTime, endTime, deadline, recurrence, tags);
@@ -29,7 +40,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.deadline = deadline;
+        this.deadline = endTime.isValid() ? endTime : deadline;
         this.recurrence = recurrence;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
