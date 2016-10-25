@@ -9,15 +9,15 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="686.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="686.0" style="-fx-background-color: #6499be;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.MainWindow">
    <stylesheets>
       <URL value="@DarkTheme.css" />
       <URL value="@Extensions.css" />
    </stylesheets>
    <children>
-      <MenuBar VBox.vgrow="NEVER">
+      <MenuBar style="-fx-background-color: #324c5f;" VBox.vgrow="NEVER">
          <menus>
-            <Menu mnemonicParsing="false" text="File">
+            <Menu mnemonicParsing="false" style="-fx-text-fill: #1d1d1d;" text="File">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                </items>
@@ -29,17 +29,17 @@
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+      <AnchorPane fx:id="commandBoxPlaceholder" style="-fx-background-color: #324c5f;" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
          <padding>
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </padding>
       </AnchorPane>
-       <AnchorPane fx:id="resultDisplayPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+       <AnchorPane fx:id="resultDisplayPlaceholder" style="-fx-background-color: #324c5f;" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
            <padding>
                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
            </padding>
        </AnchorPane>
-      <BorderPane style="-fx-background-color: derive(#1d1d1d, 20%);" VBox.vgrow="ALWAYS">
+      <BorderPane style="-fx-background-color: #324c5f;" VBox.vgrow="ALWAYS">
          <center>
             <VBox prefHeight="20.0">
                <children>
@@ -79,6 +79,6 @@
             <URL value="@Extensions.css" />
          </stylesheets>
       </BorderPane>
-      <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+      <AnchorPane fx:id="statusbarPlaceholder" style="-fx-background-color: #324c5f;" VBox.vgrow="NEVER" />
    </children>
 </VBox>

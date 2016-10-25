@@ -58,6 +58,7 @@ public class TaskCard extends UiPart{
         start.setText("Start Time: " + task.getStartTime().appearOnUIFormat());
         if (task.getDone().getDoneValue() == true) {
         	tickicon.setImage(tickmark.getImage());
+            cardPane.setStyle("-fx-background-color : #adebad;");   
         }
         if (task.getRecurrence().getValue() == true) {
         	recurring.setImage(recurringIcon.getImage());
@@ -66,6 +67,7 @@ public class TaskCard extends UiPart{
 				 && task.getEndTime().isMissing()) {
         	floating.setImage(floatingIcon.getImage());
         }
+        
 				 	
     }
 
