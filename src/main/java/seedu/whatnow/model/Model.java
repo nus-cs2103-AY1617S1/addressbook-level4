@@ -102,9 +102,15 @@ public interface Model {
 	/** Gets Stack of Task that were marked */
 	Stack<ReadOnlyTask> getStackOfMarkDoneTask();  
 	
+	/** Gets Stack of Task that were marked */
+    Stack<ReadOnlyTask> getStackOfMarkUndoneTask();  
+	
 	/** Gets stack of TaskTypes corresponding to stackOfMarkDoneTask */
 	Stack<String> getStackOfMarkDoneTaskTaskType();
 	
+	/** Gets stack of TaskTypes corresponding to stackOfMarkDoneTask */
+    Stack<String> getStackOfMarkUndoneTaskTaskType();
+    
 	/** Gets a stack of WhatNow corresponding to Undoes of Update */
 	Stack<ReadOnlyWhatNow> getStackOfWhatNowUpdate();  
 	
