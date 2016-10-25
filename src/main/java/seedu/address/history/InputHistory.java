@@ -10,22 +10,10 @@ public interface InputHistory {
     
     /** Returns whether we are already at the latest input state (no more later input in memory to move forward to) **/
     public boolean isLatestInput();
-    
-    /** Returns the immediate previous input stored in memory and no longer keep in memory **/
-    public String popPrevInput();
-    
-    /** Stores the given input string in memory as the immediate 'previous' input from the current state  **/
-    public String pushPrevInput(String input);
-    
-    /** 
-     * Returns the immediate next input (that was previously stored when we try to get previous) stored in memory 
-     *  and no longer keep it in memory 
-     */
-    public String popNextInput();
-    
-    /** Stores the given input string in memory as the immediate 'next' input from the current state **/
-    public String pushNextInput(String input);
-    
-    /** Returns the current shown input string that is to be displayed to the user **/
-    public String getStoredCurrentShownInput();
+
+    /** Executes the action to get the next input from the input history **/
+    String nextStep();
+
+    /** Executes the action to get the prev input from the input history **/
+    String prevStep(String currentInput);
 }

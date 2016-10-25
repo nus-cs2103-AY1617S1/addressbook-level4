@@ -13,9 +13,6 @@ public class CommandResult {
     public CommandResult(String feedbackToUser) {
         assert feedbackToUser != null;
         
-        if (!feedbackToUser.equals(ListCommand.DONE_MESSAGE_SUCCESS)) {
-            EventsCenter.getInstance().post(new ChangeToListUndoneViewEvent());
-        }
         this.feedbackToUser = feedbackToUser;
     }
 

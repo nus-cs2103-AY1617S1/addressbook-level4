@@ -29,7 +29,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredUndoneTasks;
     private final FilteredList<Task> filteredDoneTasks;
-
+    private Boolean isDoneList = false;
+    
     /**
      * Initializes a ModelManager with the given AddressBook
      * AddressBook and its variables should not be null
@@ -58,7 +59,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
-        taskManager.resetData(newData);
+        taskManager.resetUndoneData(newData);
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public void resetDoneData(ReadOnlyTaskManager newData) {
+        taskManager.resetDoneData(newData);
         indicateTaskManagerChanged();
     }
 
@@ -77,6 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeFloatingTask(floatingTask);
         indicateTaskManagerChanged();
     }
+    
 
     @Override
     public synchronized void addTask(Task floatingTask) {
@@ -140,6 +148,20 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public Boolean isCurrentListDoneList() {
+        return isDoneList;
+    }
+    
+    @Override
+    public void setCurrentListToBeDoneList() {
+        isDoneList = true;
+    }
+    
+    @Override
+    public void setCurrentListToBeUndoneList() {
+        isDoneList = false;
+    }
+    
     public synchronized void editTask(ReadOnlyTask floatingTask, Name name, Date startDate,
     		Date endDate, Priority priority, RecurrenceRate recurrenceRate) {
         taskManager.editFloatingTask(floatingTask, name, startDate, endDate, priority, recurrenceRate);
@@ -161,6 +183,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     public void TaskManager() {
         filteredUndoneTasks.setPredicate(null);
+        filteredDoneTasks.setPredicate(null);
     }
 
     @Override
@@ -170,6 +193,15 @@ public class ModelManager extends ComponentManager implements Model {
 
     private void updateFilteredFloatingTaskList(Expression expression) {
         filteredUndoneTasks.setPredicate(expression::satisfies);
+    }
+    
+    @Override
+    public void updateFilteredDoneTaskList(Set<String> keywords){
+        updateFilteredDoneTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
+    private void updateFilteredDoneTaskList(Expression expression) {
+        filteredDoneTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -227,6 +259,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredUndoneTasks.setPredicate(null);
+        filteredDoneTasks.setPredicate(null);
     }
     
 }

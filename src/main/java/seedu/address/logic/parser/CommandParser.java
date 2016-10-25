@@ -13,6 +13,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_TOOLTIP_INVALID_COMMAND_FORMAT;
+
 
 /**
  * Parses user input.
@@ -342,77 +344,147 @@ public class CommandParser {
     
     /**
      * Parses an incomplete user input to determine the most appropriate tooltip for the user to see.
-     * The tooltip depends on the command that the user is trying to execute (which this parser tries to determine).
+     * The tooltip depends on the command that the user is trying to execute (which this parser tries to 
+     * determine).
      * 
      * @param userInput user input string
      * @return a list of Strings for tooltips
      */
-    public List<String> parseIncompleteCommand(String userInput) {
-        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
-        ArrayList<String> toolTips = new ArrayList<String>();
-        if (!matcher.matches()) {
-            //TODO: make this thing make sense
-            toolTips.add(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-            return toolTips;
-        }
+    public String parseForTooltip(String userInput) {
+        assert userInput != null;
 
-        final String commandWord = matcher.group("commandWord");
-        // reserve this maybe can use next time to match more precisely
-        // final String arguments = matcher.group("arguments");
-        updateMatchedCommands(toolTips, commandWord);
+        final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());       
+        boolean invalidCommandFormat = !matcher.matches();
         
-        // if no command matches, by default it is an add command so add the add command tooltip
-        if (toolTips.isEmpty()){
-            toolTips.add(AddCommand.TOOL_TIP);
-        }
-        return toolTips;      
+        if (invalidCommandFormat) {
+            return MESSAGE_TOOLTIP_INVALID_COMMAND_FORMAT;
+        }    
+        
+        final String commandWord = matcher.group("commandWord");
+        boolean interpretAsNoArgs = commandWord.equals(userInput);
+         
+        return getTooltip(commandWord, interpretAsNoArgs);
     }
 
     /**
-     * Updates the list of toolTips by checking if the user's input command word is a substring of the actual command word.
+     * Returns the list of tooltips that matches the current user's input.
+     * 
      * @param toolTips list of tooltips
      * @param commandWord the user input command word
+     * @param inputHasNoArgs boolean representing whether user input has no arguments
      */
-    private void updateMatchedCommands(List<String> toolTips, final String commandWord) {
+    private String getTooltip(final String commandWord, boolean inputHasNoArgs) {               
+        // tooltip depends on whether the input command has arguments
+        if (inputHasNoArgs) {
+            return getTooltipForCmdWithNoArgs(commandWord);
+        }
+        else {
+            return getTooltipForCmdWithArgs(commandWord);
+        }
+    }
+
+    /**
+     * Get the tooltip string appropriate for the current user input that has no arguments.
+     * 
+     * @param commandWord the command part of the user input
+     * @return the tooltip
+     */
+    private String getTooltipForCmdWithNoArgs(final String commandWord) {
+        List<String> tooltips = new ArrayList<String>();
         
-        
-        // checks all command words to see if there is a match/*
         if (StringUtil.isSubstringFromStart(AddCommand.COMMAND_WORD, commandWord)) {
-            toolTips.add(AddCommand.TOOL_TIP);
+            tooltips.add(AddCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(ClearCommand.COMMAND_WORD, commandWord)) {
-            toolTips.add(ClearCommand.TOOL_TIP);
+            tooltips.add(ClearCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(DeleteCommand.COMMAND_WORD, commandWord)) {
-            toolTips.add(DeleteCommand.TOOL_TIP);
+            tooltips.add(DeleteCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(DoneCommand.COMMAND_WORD, commandWord)) {
-            toolTips.add(DoneCommand.TOOL_TIP);
+            tooltips.add(DoneCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(EditCommand.COMMAND_WORD, commandWord)) {
-            toolTips.add(EditCommand.TOOL_TIP);
+            tooltips.add(EditCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(ExitCommand.COMMAND_WORD, commandWord)) {
-            toolTips.add(ExitCommand.TOOL_TIP);
+            tooltips.add(ExitCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(FindCommand.COMMAND_WORD, commandWord)) {
-            toolTips.add(FindCommand.TOOL_TIP);
+            tooltips.add(FindCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(HelpCommand.COMMAND_WORD, commandWord)) {
-            toolTips.add(HelpCommand.TOOL_TIP);
+            tooltips.add(HelpCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(ListCommand.COMMAND_WORD, commandWord)) {
-            toolTips.add(ListCommand.TOOL_TIP);
+            tooltips.add(ListCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(RedoCommand.COMMAND_WORD, commandWord)) {
-            toolTips.add(RedoCommand.TOOL_TIP);
+            tooltips.add(RedoCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(SelectCommand.COMMAND_WORD, commandWord)) {
-            toolTips.add(SelectCommand.TOOL_TIP);
+            tooltips.add(SelectCommand.TOOL_TIP);
         }
         if (StringUtil.isSubstringFromStart(UndoCommand.COMMAND_WORD, commandWord)) {
-            toolTips.add(UndoCommand.TOOL_TIP);
+            tooltips.add(UndoCommand.TOOL_TIP);
         }
         
+        boolean hasNoTooltipMatches = tooltips.isEmpty();       
+        if (hasNoTooltipMatches) {
+            return AddCommand.TOOL_TIP;
+        } 
+        
+        String combinedTooltip = StringUtil.combineStrings(tooltips);
+        return combinedTooltip;
+    }
+    
+    /**
+     * Get the tooltip string appropriate for the current user input that has arguments.
+     * 
+     * @param commandWord the command part of the user input
+     * @return the tooltip
+     */
+    private String getTooltipForCmdWithArgs(final String commandWord) {        
+        if (commandWord.equals(AddCommand.COMMAND_WORD)) {
+            return AddCommand.TOOL_TIP;
+        }
+        else if (commandWord.equals(ClearCommand.COMMAND_WORD)) {
+            return ClearCommand.TOOL_TIP;
+        }
+        else if (commandWord.equals(DeleteCommand.COMMAND_WORD)) {
+            return DeleteCommand.TOOL_TIP;
+        }
+        else if (commandWord.equals(DoneCommand.COMMAND_WORD)) {
+            return DoneCommand.TOOL_TIP;
+        }
+        else if (commandWord.equals(EditCommand.COMMAND_WORD)) {
+            return EditCommand.TOOL_TIP;
+        }
+        else if (commandWord.equals(ExitCommand.COMMAND_WORD)) {
+            return ExitCommand.TOOL_TIP;
+        }
+        else if (commandWord.equals(FindCommand.COMMAND_WORD)) {
+            return FindCommand.TOOL_TIP;
+        }
+        else if (commandWord.equals(HelpCommand.COMMAND_WORD)) {
+            return HelpCommand.TOOL_TIP;
+        }
+        else if (commandWord.equals(ListCommand.COMMAND_WORD)) {
+            return ListCommand.TOOL_TIP;
+        }
+        else if (commandWord.equals(RedoCommand.COMMAND_WORD)) {
+            return RedoCommand.TOOL_TIP;
+        }
+        else if (commandWord.equals(SelectCommand.COMMAND_WORD)) {
+            return SelectCommand.TOOL_TIP;
+        }
+        else if (commandWord.equals(UndoCommand.COMMAND_WORD)) {
+            return UndoCommand.TOOL_TIP;
+        }
+        else {
+            // default command is an add command
+            return AddCommand.TOOL_TIP;
+        }
+
     }
 }

@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
-import seedu.address.history.History;
+import seedu.address.history.UndoableCommandHistoryManager;
 import seedu.address.history.UndoableCommandHistory;
 import seedu.address.model.Model;
 
@@ -12,8 +12,7 @@ import seedu.address.model.Model;
  */
 public abstract class Command {
     protected Model model;
-    protected UndoableCommandHistory history; // TODO: Not sure if this is a good idea, not all commands need to know about command history.
-                                              // although the same applies for model, e.g. help and exit do not need to know about model..
+    protected UndoableCommandHistory history; 
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.

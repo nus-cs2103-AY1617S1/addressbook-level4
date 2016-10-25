@@ -11,8 +11,9 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.history.History;
+import seedu.address.history.UndoableCommandHistoryManager;
 import seedu.address.history.InputHistory;
+import seedu.address.history.UndoableCommandHistory;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.item.ReadOnlyTask;
@@ -29,7 +30,8 @@ public class MainWindow extends UiPart {
     public static final int MIN_WIDTH = 450;
 
     private Logic logic;
-    private InputHistory history;
+    private InputHistory inputHistory;
+    private UndoableCommandHistory undoableCmdHistory;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
@@ -37,6 +39,7 @@ public class MainWindow extends UiPart {
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
+    private CommandBox2 commandBox2;
     private Config config;
     private UserPrefs userPrefs;
 
@@ -52,6 +55,9 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane commandBoxPlaceholder;
 
+    @FXML
+    private AnchorPane commandBoxPlaceholder1;
+    
     @FXML
     private MenuItem helpMenuItem;
 
@@ -87,14 +93,14 @@ public class MainWindow extends UiPart {
     }
 
     private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
-                           Logic logic, InputHistory history) {
+                           Logic logic, InputHistory inputHistory) {
 
         //Set dependencies
         this.logic = logic;
         this.addressBookName = addressBookName;
         this.config = config;
         this.userPrefs = prefs;
-        this.history = history;
+        this.inputHistory = inputHistory;
 
         //Configure the UI
         setTitle(appTitle);
@@ -117,11 +123,16 @@ public class MainWindow extends UiPart {
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredUndoneTaskList(), logic.getFilteredDoneTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, history);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, inputHistory);
+        commandBox2 = CommandBox2.load(primaryStage, getCommandBox2Placeholder(), resultDisplay, logic, inputHistory);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
+    }
+    
+    private AnchorPane getCommandBox2Placeholder() {
+        return commandBoxPlaceholder1;
     }
 
     private AnchorPane getStatusbarPlaceholder() {

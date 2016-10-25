@@ -11,7 +11,7 @@ import seedu.address.model.item.Task;
 import seedu.address.model.item.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes a task identified using its last displayed index from the task manager.
  */
 public class DeleteCommand extends UndoableCommand {
 
@@ -24,15 +24,15 @@ public class DeleteCommand extends UndoableCommand {
     
     public static final String TOOL_TIP = "delete INDEX [ANOTHER_INDEX ...]";
 
-    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Item: %1$s";
+    public static final String MESSAGE_DELETE_ITEM_SUCCESS = "Deleted Task: %1$s";
+    public static final String MESSAGE_DELETE_ITEMS_SUCCESS = "Deleted Tasks: %1$s";
     
     public static final String MESSAGE_UNDO_SUCCESS = "Undid delete on tasks! %1$s Tasks restored!";
     
     private List<Task> deletedTasks;
-    
     private List<String> displayDeletedTasks;
-
     public final List<Integer> targetIndexes;
+    private boolean viewingDoneList;
 
     public DeleteCommand(List<Integer> targetIndexes) {
         assert targetIndexes != null;
@@ -42,18 +42,73 @@ public class DeleteCommand extends UndoableCommand {
 
     @Override
     public CommandResult execute() {
-        assert model != null;
+        assert model != null && targetIndexes != null;
+        
         displayDeletedTasks = new ArrayList<String>();
+        if (!checkIfRedoAction()) {
+            viewingDoneList = model.isCurrentListDoneList();
+        }
         Collections.sort(targetIndexes);
         int adjustmentForRemovedTask = 0;
         deletedTasks = new ArrayList<Task>();
-
+        
+        if (viewingDoneList) {
+            return deleteFromDoneList(adjustmentForRemovedTask);
+        }
+        else {
+            return deleteFromUndoneList(adjustmentForRemovedTask);
+        }
+    }
+    
+    private CommandResult deleteFromDoneList(int adjustmentForRemovedTask) {
         for (int targetIndex: targetIndexes) {
-            UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
+            UnmodifiableObservableList<ReadOnlyTask> lastShownList;
+            if (viewingDoneList) {
+                lastShownList = model.getFilteredDoneTaskList();
+            } else {
+                lastShownList = model.getFilteredUndoneTaskList();
+            }
     
             if (lastShownList.size() < targetIndex - adjustmentForRemovedTask) {
-                indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+                continue;
+            }
+    
+            ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - adjustmentForRemovedTask - 1);
+    
+            try {
+                model.deleteDoneTask(taskToDelete);
+                deletedTasks.add((Task) taskToDelete);
+            } catch (TaskNotFoundException pnfe) {
+                assert false : "The target task cannot be missing";
+            }
+            displayDeletedTasks.add(taskToDelete.toString());
+            adjustmentForRemovedTask++;
+        }
+        
+       
+        updateHistory();
+        if (displayDeletedTasks.isEmpty()) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        }
+        String toDisplay = displayDeletedTasks.toString().replace("[", "").replace("]", "");
+        return (displayDeletedTasks.size() == 1)? 
+                new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay)):
+                new CommandResult(String.format(MESSAGE_DELETE_ITEMS_SUCCESS, toDisplay));
+    }
+
+
+    private CommandResult deleteFromUndoneList(int adjustmentForRemovedTask) {
+        for (int targetIndex: targetIndexes) {
+            UnmodifiableObservableList<ReadOnlyTask> lastShownList;
+            if (viewingDoneList) {
+                lastShownList = model.getFilteredDoneTaskList();
+            } else {
+                lastShownList = model.getFilteredUndoneTaskList();
+            }
+    
+            if (lastShownList.size() < targetIndex - adjustmentForRemovedTask) {
+                continue;
             }
     
             ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - adjustmentForRemovedTask - 1);
@@ -70,15 +125,30 @@ public class DeleteCommand extends UndoableCommand {
         
        
         updateHistory();
-
+        if (displayDeletedTasks.isEmpty()) {
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+        }
         String toDisplay = displayDeletedTasks.toString().replace("[", "").replace("]", "");
-        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay));
+        return (displayDeletedTasks.size() == 1)? 
+                new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, toDisplay)):
+                new CommandResult(String.format(MESSAGE_DELETE_ITEMS_SUCCESS, toDisplay));
     }
 
 
     @Override
     public CommandResult undo() {
-        model.addTasks(deletedTasks);
+        assert model != null && deletedTasks != null;    
+        
+        // attempt to undo the delete by adding back the list of tasks that was deleted
+        // add back to the list the user was viewing when clear was executed
+        if (viewingDoneList) {
+            model.addDoneTasks(deletedTasks);
+        }
+        else {
+            model.addTasks(deletedTasks);
+        }
+        
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, displayDeletedTasks));
     }
 

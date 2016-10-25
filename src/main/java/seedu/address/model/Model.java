@@ -59,10 +59,24 @@ public interface Model {
 
     /** Updates the filter of the filtered floating task list to filter by the given keywords*/
     void updateFilteredFloatingTaskList(Set<String> keywords);
+
+    /** Updates the filter of the filtered done task list to filter by the given keywords*/
+    void updateFilteredDoneTaskList(Set<String> keywords);
     
+    /** Returns true is current list is done task list, false if current list is undone task list*/
+    Boolean isCurrentListDoneList();
+    
+    /** Sets current list to be done list*/
+    public void setCurrentListToBeDoneList();
+    
+    /** Sets current list to be undone list*/
+    public void setCurrentListToBeUndoneList();
+        
     /** Edits the parameters of the given floating task*/
 	void editTask(ReadOnlyTask taskToEdit, Name taskName, Date startDate, Date endDate, Priority priority,
 			RecurrenceRate recurrenceRate);
+
+    void resetDoneData(ReadOnlyTaskManager emptyTaskManager);
 
 
 
