@@ -62,7 +62,8 @@ public class EditCommand extends Command {
         }
 
         ReadOnlyTask personToDelete = lastShownList.get(targetIndex - 1);
-
+        
+  
         try {
             model.deleteTask(personToDelete);
         } catch (TaskNotFoundException pnfe) {
