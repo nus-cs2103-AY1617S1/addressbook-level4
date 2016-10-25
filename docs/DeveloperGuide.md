@@ -430,8 +430,6 @@ Use case  ends
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
-
 1. Google Keep
    * Strength: 
     1. Users can add notes, lists, photos and audio as a task
