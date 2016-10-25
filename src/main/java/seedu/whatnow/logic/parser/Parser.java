@@ -319,6 +319,11 @@ public class Parser {
                 numOfTime++;
                 if (numOfTime == ONE) {
                     time = additionalArgs[i].toLowerCase();
+                    if (startDate != null & endDate != null) {
+                        endTime = time;
+                        time = null;
+                        startTime = "12:00am";
+                    }
                 } else if (numOfTime == TWO) {       
                     startTime = time;      
                     time = null;
@@ -352,6 +357,11 @@ public class Parser {
                     numOfTime++;
                     if (numOfTime == ONE) {
                         time = additionalArgs[i].toLowerCase();
+                        if (startDate != null & endDate != null) {
+                            endTime = time;
+                            time = null;
+                            startTime = "12:00am";
+                        }
                     } else if (numOfTime == TWO) {
                         startTime = time;                    
                         time = null;
@@ -371,6 +381,11 @@ public class Parser {
                     numOfTime++;
                     if (numOfTime == ONE) {
                         time = additionalArgs[i].toLowerCase();
+                        if (startDate != null & endDate != null) {
+                            endTime = time;
+                            time = null;
+                            startTime = "12:00am";
+                        }
                     } else if (numOfTime == TWO) {
                         startTime = time;             
                         time = null;
@@ -393,6 +408,14 @@ public class Parser {
 		    startTime = formatTime(startTime);
 		    endTime = formatTime(endTime);
 		}
+		
+		if (startDate != null) {
+            if (time != null) {
+                startTime = time;
+                time = null;
+                endTime = "11:59pm";
+            }
+        }
 		
 		try {
 			return new AddCommand(name, date, startDate, endDate, time, startTime, endTime, tags);
