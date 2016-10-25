@@ -86,4 +86,10 @@ public class TestPerson implements ReadOnlyTask {
        // this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+    @Override
+    public boolean getIsCompleted() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }
