@@ -18,9 +18,9 @@ public class DeleteTagCommand extends Command{
     public static final String MESSAGE_USAGE = COMMAND_WORD
     		+ ": delete a tag of the task identified by the index number used in the last task listing.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1" + " Tired(an existing one)";
+            + "Example: " + COMMAND_WORD + " 1" + " Tired(an existing tag)";
 
-    public static final String MESSAGE_ADD_TAG_SUCCESS = "Tag deleted: %1$s";
+    public static final String MESSAGE_DELETE_TAG_SUCCESS = "Tag deleted: %1$s";
     public static final String MESSAGE_TAG_NOT_EXIST = "This Tag does not exist";
 
     public final int targetIndex;
@@ -68,7 +68,7 @@ public class DeleteTagCommand extends Command{
 			return new CommandResult("re-adding failed");
 		};
 
-        return new CommandResult(String.format(MESSAGE_ADD_TAG_SUCCESS, taskToUpdate));
+        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, lastShownList.get(targetIndex - 1)));
     }
 
 	@Override

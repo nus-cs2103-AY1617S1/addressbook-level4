@@ -49,7 +49,7 @@ public class PersonCard extends UiPart {
         address.setText("Start Time: " + person.getTimeStart().toString());
         email.setText("End Time: "+ person.getTimeEnd().toString());
         tags.setText("Tags: " + person.tagsString());
-        complete.setText(person.getCompleteStatus()? "  [Compeled]": "  [Not Completed]");
+        complete.setText(person.getCompleteStatus()? "  [Completed]": "  [Not Completed]");
     }
 
     public HBox getLayout() {
