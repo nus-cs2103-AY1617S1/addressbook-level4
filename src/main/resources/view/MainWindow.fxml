@@ -15,19 +15,23 @@
          <items>
             <Pane minHeight="35.0" prefHeight="35.0" prefWidth="486.0" style="-fx-background-color: white; -fx-border-color: white;">
                <children>
-                  <ImageView fitHeight="29.0" fitWidth="37.0" layoutX="382.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/calendar-icon.png" />
-                     </image>
-                  </ImageView>
-                  <Label id="dateTimeLabel" fx:id="dateTimeLabel" layoutX="405.0" layoutY="5.0" style="-fx-background-color: white;" text="Test">
-                     <padding>
-                        <Insets left="8.0" />
-                     </padding>
-                  </Label>
-                  <Label layoutX="1177.0" layoutY="4.0" text="Start" />
-                  <Label layoutX="1278.0" layoutY="4.0" text="End" />
-                  <Label layoutX="1086.0" layoutY="4.0" text="Priority" />
+                  <Pane layoutX="382.0">
+                     <children>
+                        <ImageView fitHeight="29.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/calendar-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label id="dateTimeLabel" fx:id="dateTimeLabel" layoutX="23.0" layoutY="5.0" style="-fx-background-color: white;" text="Test">
+                           <padding>
+                              <Insets left="8.0" />
+                           </padding>
+                        </Label>
+                        <Label id="task_det" layoutX="795.0" layoutY="4.0" text="Start" />
+                        <Label id="task_det" layoutX="896.0" layoutY="4.0" text="End" />
+                        <Label id="task_det" layoutX="704.0" layoutY="4.0" text="Priority" />
+                     </children>
+                  </Pane>
                </children>
             </Pane>
          </items>

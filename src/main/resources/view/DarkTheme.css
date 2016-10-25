@@ -292,3 +292,12 @@
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
+
+#dateTimeLabel {
+    -fx-text-fill: purple;
+}
+
+#task_det {
+    -fx-text-fill: purple;
+    -fx-font-weight: bold;
+}
