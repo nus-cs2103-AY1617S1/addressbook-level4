@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import static com.google.common.base.Preconditions.*;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -103,7 +104,7 @@ public class MainWindow extends UiPart {
 
     @Subscribe
     private void handleTickEvent(TickEvent tickEvent){
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMMMMMMMM, yyyy | h:mm a");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd\'"+getDateSuffix(Integer.parseInt(new SimpleDateFormat("dd").format(new Date())))+"\' MMMMMMMMM, yyyy | h:mm a");
         dateTimeLabel.setText(dateFormatter.format(new Date()));
     }
     
@@ -226,7 +227,20 @@ public class MainWindow extends UiPart {
 
     public void setLabelText() {
         assert dateTimeLabel != null;
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMMMMMMMM, yyyy | h:mm a");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd\'"+getDateSuffix(Integer.parseInt(new SimpleDateFormat("dd").format(new Date())))+"\' MMMMMMMMM, yyyy | h:mm a");
         dateTimeLabel.setText(dateFormatter.format(new Date()));
+    }
+
+    private String getDateSuffix(int date) {
+        checkArgument(date >= 1 && date <= 31, "illegal day of month: " + date);
+        if (date >= 11 && date <= 13) {
+            return "th";
+        }
+        switch (date % 10) {
+            case 1:  return "st";
+            case 2:  return "nd";
+            case 3:  return "rd";
+            default: return "th";
+        }
     }
 }
