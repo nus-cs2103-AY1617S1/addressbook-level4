@@ -44,13 +44,13 @@ public interface UniqueTagCollectionModel {
     /* Tag Command Interfacing Methods */
     /**
      * Unregistere the given {@code task} from the {@link Tag} in the {@link UniqueTagCollectionModel}.
+     * TODO: Tags not found may throw an exception. This will be implemented next time.
      *
      * @param task The task to be detached from the {@link Tag}.
      * @param tagName The name of the {@link Tag}.
      * @return Returns a {@link Tag} object with the {@code tagName} so that this tag can be removed from the {@code task}.
-     * @throws ValidationException when the {@code tagName} is not found.
      */
-    Tag unregisterTagWithTask(ImmutableTask task, String tagName) throws ValidationException;
+    Tag unregisterTagWithTask(ImmutableTask task, String tagName);
 
     /**
      * Renames a {@link Tag} with the given {@code originalName} with the {@code newName}
