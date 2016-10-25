@@ -82,7 +82,7 @@ Examples:
    <img src="images/ug_add_fromto_date_after.PNG" width="600">
 * `add Homework from 26 oct 10am to 26 oct 11am daily`
 
-   <img src="images/ug_add_fromto_date_recurring_before.png" width="600">
+   <img src="images/ug_add_fromto_date_recurring_before.PNG" width="600">
    <img src="images/ug_add_fromto_date_recurring_after.PNG" width="600"> <br>
 <!-- @@author -->
 
