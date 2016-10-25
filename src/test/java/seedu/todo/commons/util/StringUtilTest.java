@@ -74,52 +74,117 @@ public class StringUtilTest {
 
     //@@author A0135805H
     @Test
-    public void partitionStringAtPosition_nullString() {
-        String[] expected = {"", "", ""};
-        String[] outcome = StringUtil.partitionStringAtPosition(null, 0);
-        assertArrayEquals(expected, outcome);
-    }
-
-    @Test
     public void partitionStringAtPosition_emptyString() {
         String[] expected = {"", "", ""};
-        String[] outcome = StringUtil.partitionStringAtPosition("", 0);
-        assertArrayEquals(expected, outcome);
+
+        //Tests null string
+        testPartitionStringAtPositionHelper(null, 0, expected);
+
+        //Test empty String
+        testPartitionStringAtPositionHelper("", 0, expected);
     }
 
     @Test
-    public void partitionStringAtPosition_positionTooLow() {
+    public void partitionStringAtPosition_positionOutOfBounds() {
+        String input = "I have a Pikachu";
         String[] expected = {"", "", ""};
-        String[] outcome = StringUtil.partitionStringAtPosition("I have a Pikachu", -1);
+
+        //Tests position too low
+        testPartitionStringAtPositionHelper(input, -1, expected);
+
+        //Tests position too high
+        testPartitionStringAtPositionHelper(input, 16, expected);
+    }
+
+    @Test
+    public void partitionStringAtPosition_partitionCorrectly() {
+        String input = "I have a Pikachu";
+
+        //Test lower bound
+        testPartitionStringAtPositionHelper(input, 0, new String[] {"", "I", " have a Pikachu"});
+
+        //Test upper bound
+        testPartitionStringAtPositionHelper(input, 15, new String[] {"I have a Pikach", "u", ""});
+
+        //Test normal partition
+        testPartitionStringAtPositionHelper(input, 5, new String[] {"I hav", "e", " a Pikachu"});
+    }
+
+    /**
+     * Helper method to test partitionStringAtPosition(...).
+     * @param input String to be partitioned.
+     * @param position Position where partition should take place.
+     * @param expected Expected output as String array.
+     */
+    private void testPartitionStringAtPositionHelper(String input, int position, String[] expected) {
+        String[] outcome = StringUtil.partitionStringAtPosition(input, position);
         assertArrayEquals(expected, outcome);
     }
 
     @Test
-    public void partitionStringAtPosition_positionTooHigh() {
-        String[] expected = {"", "", ""};
-        String[] outcome = StringUtil.partitionStringAtPosition("I have a Pikachu", 16);
+    public void splitString_emptyInput() {
+        String[] expected = new String[0];
+
+        //Test null input.
+        testSplitStringHelper(null, expected);
+
+        //Test empty input.
+        testSplitStringHelper("", expected);
+
+        //Test only space and commas.
+        testSplitStringHelper(" , ,   ,,, ,,,, , , ,,, , ,", expected);
+    }
+
+    @Test
+    public void splitString_validInput() {
+        //Input does not include space and comma
+        testSplitStringHelper("!@(*&$!R#@%", new String[]{"!@(*&$!R#@%"});
+
+        //Test one element
+        testSplitStringHelper("Pichu-Pikachu_RAICHU's", new String[] {"Pichu-Pikachu_RAICHU's"});
+
+        //Test multiple element split by space and comma
+        testSplitStringHelper("an apple a, day, keeps , , doctor ,,, away", new String[] {"an", "apple", "a", "day", "keeps", "doctor", "away"});
+    }
+
+    /**
+     * Helper method to test splitString(...).
+     * @param input String to be split.
+     * @param expected Expected output as String array.
+     */
+    private void testSplitStringHelper(String input, String[] expected) {
+        String[] outcome = StringUtil.splitString(input);
         assertArrayEquals(expected, outcome);
     }
 
     @Test
-    public void partitionStringAtPosition_partitionLower() {
-        String[] expected = {"", "I", " have a Pikachu"};
-        String[] outcome = StringUtil.partitionStringAtPosition("I have a Pikachu", 0);
-        assertArrayEquals(expected, outcome);
+    public void testConvertListToString_emptyList() {
+        String expected = "";
+
+        //Test null list
+        testConvertListToStringHelper(null, expected);
+
+        //Test empty list
+        testConvertListToStringHelper(new String[0], expected);
     }
 
     @Test
-    public void partitionStringAtPosition_partitionUpper() {
-        String[] expected = {"I have a Pikach", "u", ""};
-        String[] outcome = StringUtil.partitionStringAtPosition("I have a Pikachu", 15);
-        assertArrayEquals(expected, outcome);
+    public void testConvertListToString_validInput() {
+        //Test one element
+        testConvertListToStringHelper(new String[]{"applepie123!"}, "applepie123!");
+
+        //Test several elements
+        testConvertListToStringHelper(new String[]{"this", "is", "apple", "pen"}, "this, is, apple, pen");
     }
 
-    @Test
-    public void partitionStringAtPosition_partitionMiddle() {
-        String[] expected = {"I hav", "e", " a Pikachu"};
-        String[] outcome = StringUtil.partitionStringAtPosition("I have a Pikachu", 5);
-        assertArrayEquals(expected, outcome);
+    /**
+     * Helper method to test splitString(...).
+     * @param input String to be split.
+     * @param expected Expected output as String array.
+     */
+    private void testConvertListToStringHelper(String[] input, String expected) {
+        String outcome = StringUtil.convertListToString(input);
+        assertEquals(expected, outcome);
     }
     //@@author
 
@@ -130,35 +195,35 @@ public class StringUtilTest {
         double outcome = StringUtil.calculateClosenessScore(null, null);
         assertEquals(expected, outcome, 0d);
     }
-    
+
     @Test
     public void calculateClosenessScoreEmptyString() {
         double expected = 0d;
         double outcome = StringUtil.calculateClosenessScore("", "");
         assertEquals(expected, outcome, 0d);
     }
-    
+
     @Test
     public void calculateClosenessScoreSameString() {
         double expected = 100d;
         double outcome = StringUtil.calculateClosenessScore("test", "test");
         assertEquals(expected, outcome, 0d);
     }
-    
+
     @Test
     public void calculateClosenessScoreDifferentString() {
         double expected = 0d;
         double outcome = StringUtil.calculateClosenessScore("test", "ioio");
         assertEquals(expected, outcome, 0d);
     }
-    
+
     @Test
     public void calculateClosenessScoreSomewhatCloseAdd() {
         double expected = 50d;
         double outcome = StringUtil.calculateClosenessScore("add", "a");
         assertEquals(expected, outcome, 20d);
     }
-    
+
     @Test
     public void calculateClosenessScoreSomewhatCloseComplete() {
         double expected = 50d;

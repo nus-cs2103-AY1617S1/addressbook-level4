@@ -1,12 +1,10 @@
 package seedu.todo.storage;
 
-import javax.xml.bind.annotation.XmlElement;
-
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.person.*;
 import seedu.todo.model.tag.Tag;
-import seedu.todo.model.tag.UniqueTagList;
 
+import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +61,8 @@ public class XmlAdaptedPerson {
         final Phone phone = new Phone(this.phone);
         final Email email = new Email(this.email);
         final Address address = new Address(this.address);
-        final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Person(name, phone, email, address, tags);
+//        final UniqueTagCollection tags = new UniqueTagCollection(personTags);
+//        return new Person(name, phone, email, address, tags);
+        return null;
     }
 }

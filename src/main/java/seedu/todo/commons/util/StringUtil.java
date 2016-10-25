@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.StringJoiner;
 
 /**
  * Helper functions for handling strings.
@@ -68,7 +69,34 @@ public class StringUtil {
         return stringArray;
     }
 
-    //@@author A0135817B
+    /**
+     * Splits string at only space and comma.
+     * @return Returns a String array with all the split components of the string.
+     */
+    public static String[] splitString(String string) {
+        if (string == null || string.isEmpty()) {
+            return new String[0];
+        } else {
+            return string.trim().split("([, ])+");
+        }
+    }
+
+    /**
+     * Given a string list, gets the text from the list in the following manner:
+     *      apple, pear, pineapple
+     */
+    public static String convertListToString(String[] stringList) {
+        if (stringList == null || stringList.length == 0) {
+            return "";
+        }
+        StringJoiner stringJoiner = new StringJoiner(", ");
+        for (String string : stringList) {
+            stringJoiner.add(string);
+        }
+        return stringJoiner.toString();
+    }
+
+    //@@author A0139021U
     /**
      * Calculates the levenstein distance between the two strings and returns
      * their closeness in a percentage score.
@@ -81,7 +109,7 @@ public class StringUtil {
         if (isEmpty(s1) || isEmpty(s2)) {
             return 0d;
         }
-        
+
         s1 = s1.toLowerCase();
         s2 = s2.toLowerCase();
         int distance = StringUtils.getLevenshteinDistance(s1, s2);

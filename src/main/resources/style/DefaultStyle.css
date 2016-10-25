@@ -1,3 +1,4 @@
+/*@@author A0135805H*/
 .main {
     -fx-background-color: #2D2D2D;
     -fx-border-color: #00A4FF;
@@ -157,7 +158,6 @@
 /***TaskCardView Styles Start***/
 /*Default and Base*/
 .taskCard .label {
-    -fx-text-fill: #2D2D2D;
     -fx-font-smoothing-type: lcd;
 }
 
@@ -320,6 +320,7 @@
 
 /***TaskCardView Styles End***/
 
+/*@@author -reused*/
 /**Modern UI***/
 /*
  * Metro style Push Button

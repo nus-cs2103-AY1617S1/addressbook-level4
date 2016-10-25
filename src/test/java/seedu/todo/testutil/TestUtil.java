@@ -13,14 +13,11 @@ import junit.framework.AssertionFailedError;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
 import seedu.todo.TestApp;
-import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.commons.util.XmlUtil;
 import seedu.todo.model.AddressBook;
 import seedu.todo.model.TodoList;
-import seedu.todo.model.person.*;
-import seedu.todo.model.tag.Tag;
-import seedu.todo.model.tag.UniqueTagList;
+import seedu.todo.model.person.ReadOnlyPerson;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.storage.TodoListStorage;
 import seedu.todo.storage.XmlSerializableAddressBook;
@@ -62,7 +59,7 @@ public class TestUtil {
      * Folder used for temp files created during testing. Ignored by Git.
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
-    
+
     public static void assertAllPropertiesEqual(ImmutableTask a, ImmutableTask b) {
         assertEquals(a.getTitle(), b.getTitle());
         assertEquals(a.getDescription(), b.getDescription());
@@ -89,6 +86,7 @@ public class TestUtil {
             //not possible
         }
     }
+
 
     /**
      * Appends the file name to the sandbox folder path.
@@ -146,12 +144,25 @@ public class TestUtil {
 
     @Deprecated
     public static AddressBook generateEmptyAddressBook() {
-        return new AddressBook(new UniquePersonList(), new UniqueTagList());
+//        return new AddressBook(new UniquePersonList(), new UniqueTagList());
+        return null;
     }
 
     @Deprecated
     public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
         return new XmlSerializableAddressBook(generateEmptyAddressBook());
+    }
+
+    public static void assertAllPropertiesEqual(ImmutableTask a, ImmutableTask b) {
+        assertEquals(a.getTitle(), b.getTitle());
+        assertEquals(a.getDescription(), b.getDescription());
+        assertEquals(a.getLocation(), b.getLocation());
+        assertEquals(a.getStartTime(), b.getStartTime());
+        assertEquals(a.getEndTime(), b.getEndTime());
+        assertEquals(a.isPinned(), b.isPinned());
+        assertEquals(a.isCompleted(), b.isCompleted());
+        assertEquals(a.getTags(), b.getTags());
+        assertEquals(a.getUUID(), b.getUUID());
     }
 
     /**
@@ -360,31 +371,8 @@ public class TestUtil {
         return list.get(list.size() - 1);
     }
 
-
     @Deprecated
     public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
         return card.isSamePerson(person);
     }
-
-    public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
-            return new Tag[]{};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                //not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
-    }
-
 }

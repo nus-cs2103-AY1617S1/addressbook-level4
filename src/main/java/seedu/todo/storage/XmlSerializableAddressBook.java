@@ -1,15 +1,14 @@
 package seedu.todo.storage;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.ReadOnlyAddressBook;
 import seedu.todo.model.person.ReadOnlyPerson;
 import seedu.todo.model.person.UniquePersonList;
 import seedu.todo.model.tag.Tag;
-import seedu.todo.model.tag.UniqueTagList;
+import seedu.todo.model.tag.UniqueTagCollection;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -45,14 +44,15 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public UniqueTagList getUniqueTagList() {
-        try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
-            e.printStackTrace();
-            return null;
-        }
+    public UniqueTagCollection getUniqueTagList() {
+//        try {
+//            return new UniqueTagCollection(tags);
+//        } catch (UniqueTagCollection.DuplicateTagException e) {
+//            //TODO: better error handling
+//            e.printStackTrace();
+//            return null;
+//        }
+        return null;
     }
 
     @Override

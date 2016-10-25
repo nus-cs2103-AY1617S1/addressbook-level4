@@ -79,15 +79,15 @@ public interface Model {
     void view(TaskViewFilter view);
 
     /**
-     * Filters the list of tasks by this predicate. This is filtering is ran 
-     * after the view predicate. No information about the search is shown to the user. 
-     * Setting predicate to null will reset the search. 
+     * Filters the list of tasks by this predicate. This is filtering is ran
+     * after the view predicate. No information about the search is shown to the user.
+     * Setting predicate to null will reset the search.
      */
     void find(Predicate<ImmutableTask> predicate);
 
     /**
-     * Filters the list of tasks by this predicate. This is filtering is ran 
-     * after the view predicate. A list of search terms is also shown to the user. 
+     * Filters the list of tasks by this predicate. This is filtering is ran
+     * after the view predicate. A list of search terms is also shown to the user.
      */
     void find(Predicate<ImmutableTask> predicate, List<String> terms);
 
@@ -131,7 +131,26 @@ public interface Model {
     ObjectProperty<TaskViewFilter> getViewFilter();
 
     /**
-     * Get the current status of the search used on the model.  
+     * Get the current status of the search used on the model.
      */
     ObjectProperty<SearchStatus> getSearchStatus();
+
+    //@@author A0135805H
+    /**
+     * Adds the supplied list of tags (as tag names) to the specified task.
+     *
+     * @param index The task displayed index.
+     * @param tagNames The list of tag names to be added.
+     * @throws ValidationException when the given index is invalid, or the given tagNames contain illegal characters.
+     */
+    void addTagsToTask(int index, String[] tagNames) throws ValidationException;
+
+    /**
+     * Deletes a list of tags from the specified task.
+     *
+     * @param index The task displayed index.
+     * @param tagNames The list of tag names to be deleted.
+     * @throws ValidationException when the given index is invalid, or when there is duplicates.
+     */
+    void deleteTagsFromTask(int index, String[] tagNames) throws ValidationException;
 }

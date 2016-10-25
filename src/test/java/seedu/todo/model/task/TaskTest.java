@@ -1,18 +1,18 @@
 package seedu.todo.model.task;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
-import static seedu.todo.testutil.TestUtil.assertAllPropertiesEqual;
+import org.junit.Before;
+import org.junit.Test;
+import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.model.tag.Tag;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.model.tag.Tag;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static seedu.todo.testutil.TestUtil.assertAllPropertiesEqual;
 
 public class TaskTest {
     private Task task;
@@ -105,7 +105,7 @@ public class TaskTest {
 
 
     @Test
-    public void testTags() throws IllegalValueException {
+    public void testTags() throws ValidationException {
         assertEquals(0, task.getTags().size());
 
         Set<Tag> tags = new HashSet<>();
