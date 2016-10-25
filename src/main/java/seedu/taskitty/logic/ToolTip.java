@@ -6,17 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.taskitty.commons.core.LogsCenter;
-import seedu.taskitty.logic.commands.AddCommand;
-import seedu.taskitty.logic.commands.ClearCommand;
 import seedu.taskitty.logic.commands.Command;
-import seedu.taskitty.logic.commands.DeleteCommand;
-import seedu.taskitty.logic.commands.DoneCommand;
-import seedu.taskitty.logic.commands.EditCommand;
-import seedu.taskitty.logic.commands.ExitCommand;
-import seedu.taskitty.logic.commands.FindCommand;
-import seedu.taskitty.logic.commands.HelpCommand;
-import seedu.taskitty.logic.commands.UndoCommand;
-import seedu.taskitty.logic.commands.ViewCommand;
 
 import static seedu.taskitty.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -63,6 +53,7 @@ public class ToolTip {
      * @param input to determine the tooltip to be shown
      */
     public void createToolTip(String input) {
+        logger.info("Finding tooltip for: " + input);
         clearToolTip();
         String[] splitedInput = input.split(COMMAND_WORD_DELIMITER);
         
@@ -107,49 +98,13 @@ public class ToolTip {
      * @param command to determine which command tooltip to show
      */
     private void getMatchCommandToolTipSingle(String command) {
-        if (AddCommand.COMMAND_WORD.startsWith(command)) {
-            
-            setToolTip(AddCommand.MESSAGE_PARAMETER, AddCommand.MESSAGE_USAGE);
-            
-        } else if (ViewCommand.COMMAND_WORD.startsWith(command)) {
-            
-            setToolTip(ViewCommand.MESSAGE_PARAMETER, ViewCommand.MESSAGE_USAGE);
-            
-        } else if (FindCommand.COMMAND_WORD.startsWith(command)) {
-            
-            setToolTip(FindCommand.MESSAGE_PARAMETER, FindCommand.MESSAGE_USAGE);
-            
-        } else if (EditCommand.COMMAND_WORD.startsWith(command)) {
-            
-            setToolTip(EditCommand.MESSAGE_PARAMETER, EditCommand.MESSAGE_USAGE);
-            
-        } else if (DeleteCommand.COMMAND_WORD.startsWith(command)) {
-            
-            setToolTip(DeleteCommand.MESSAGE_PARAMETER, DeleteCommand.MESSAGE_USAGE);
-            
-        } else if (DoneCommand.COMMAND_WORD.startsWith(command)) {
-            
-            setToolTip(DoneCommand.MESSAGE_PARAMETER, DoneCommand.MESSAGE_USAGE);
-            
-        } else if (UndoCommand.COMMAND_WORD.startsWith(command)) {
-            
-            setToolTip(UndoCommand.MESSAGE_PARAMETER, UndoCommand.MESSAGE_USAGE);
-            
-        } else if (ClearCommand.COMMAND_WORD.startsWith(command)) {
-            
-            setToolTip(ClearCommand.MESSAGE_PARAMETER, ClearCommand.MESSAGE_USAGE);
-            
-        } else if (HelpCommand.COMMAND_WORD.startsWith(command)) {
-            
-            setToolTip(HelpCommand.MESSAGE_PARAMETER, HelpCommand.MESSAGE_USAGE);
-            
-        } else if (ExitCommand.COMMAND_WORD.startsWith(command)) {
-            
-            setToolTip(ExitCommand.MESSAGE_PARAMETER, ExitCommand.MESSAGE_USAGE);
-            
-        } else {
-            setToolTip(MESSAGE_UNKNOWN_COMMAND);
+        for (int i = 0; i < Command.ALL_COMMAND_WORDS.length; i++) {
+            if (Command.ALL_COMMAND_WORDS[i].startsWith(command)) {
+                setToolTip(Command.ALL_COMMAND_MESSAGE_PARAMETER[i], Command.ALL_COMMAND_MESSAGE_USAGE[i]);
+                return;
+            }            
         }
+        setToolTip(MESSAGE_UNKNOWN_COMMAND);
     }
     
     /**

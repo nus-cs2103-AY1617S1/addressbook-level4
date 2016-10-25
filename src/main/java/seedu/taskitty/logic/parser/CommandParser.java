@@ -38,8 +38,7 @@ public class CommandParser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-    
-      
+         
     //Used for checking for number date formats in arguments
     private static final Pattern LOCAL_DATE_FORMAT =  Pattern.compile(".* (?<arguments>\\d(\\d)?[/-]\\d(\\d)?).*");
     
@@ -48,7 +47,7 @@ public class CommandParser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = //Tags must be at the end
             Pattern.compile("(?<arguments>[\\p{Graph} ]+)"); // \p{Graph} is \p{Alnum} or \p{Punct}
-
+    
     public CommandParser() {}
 
     /**
@@ -100,11 +99,24 @@ public class CommandParser {
         	}
         	return prepareView(arguments);
         
+        case SaveCommand.COMMAND_WORD:
+            return prepareSave(arguments);
+            
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
     
+    //@@author A0135793W
+    private Command prepareSave(String argument) {
+        try {
+            return new SaveCommand(argument.trim());
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    //@@author
+
     /**
      * Parses arguments in the context of the view command.
      *

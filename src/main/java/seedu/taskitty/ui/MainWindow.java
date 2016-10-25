@@ -1,6 +1,5 @@
 package seedu.taskitty.ui;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -14,7 +13,6 @@ import seedu.taskitty.commons.core.GuiSettings;
 import seedu.taskitty.commons.events.ui.ExitAppRequestEvent;
 import seedu.taskitty.logic.Logic;
 import seedu.taskitty.model.UserPrefs;
-import seedu.taskitty.model.task.ReadOnlyTask;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -24,6 +22,7 @@ public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/Tasks-icon.png";
     private static final String FXML = "MainWindow.fxml";
+    private static final String VIEW_TODAY = "view";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
@@ -67,6 +66,7 @@ public class MainWindow extends UiPart {
     @FXML
     private MenuItem viewDoneMenuItem;
 
+    //@@author A0130853L
     @FXML
     private AnchorPane taskListPanelPlaceholder;
     
@@ -76,14 +76,13 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane eventListPanelPlaceholder;
 
+    //@@author 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
     @FXML
     private AnchorPane statusbarPlaceholder;
 
-    // Placeholder for deadline section of UI
-    ObservableList<ReadOnlyTask> dummyPersonList = null;
     
     public MainWindow() {
         super();
@@ -136,7 +135,7 @@ public class MainWindow extends UiPart {
         viewDoneMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + D"));
     }
     
-    //@@author
+    //@@author A0130853L
     void fillInnerParts() {
 
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList(), new TodoListPanel());
@@ -147,6 +146,7 @@ public class MainWindow extends UiPart {
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
+    //@@author
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
@@ -159,6 +159,7 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
+    //@@author A0130853L
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
     }
@@ -171,6 +172,7 @@ public class MainWindow extends UiPart {
         return eventListPanelPlaceholder;
     }
 
+    //@author A0130853L
     public void hide() {
         primaryStage.hide();
     }
@@ -235,25 +237,21 @@ public class MainWindow extends UiPart {
         commandBox.handleCommands("view done");
     }
     
-    //@@author    
+    //@@author A0130853L
+    /**
+     *  initialises the list to show today's events upon UI initialisation
+     * */
+    public void initialiseList() {
+    	logic.initialiseList();
+    }
+    
+    //@@author
     /**
      * Closes the application.
      */
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
-    }
-
-    public TodoListPanel getPersonListPanel() {
-        return this.taskListPanel;
-    }
-    
-    public DeadlineListPanel getDeadlineListPanel() {
-        return this.deadlineListPanel;
-    }
-    
-    public EventListPanel getEventListPanel() {
-        return this.eventListPanel;
     }
 
 }

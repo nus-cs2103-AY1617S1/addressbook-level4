@@ -64,9 +64,14 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
+    //@@author A0130853L
     /** Updates the filter of the filtered task list to filter out tasks that are done*/
 	void updateFilteredDoneList();
 
+	/** Updates the filter of the filtered task list according to date specified*/
 	void updateFilteredDateTaskList(LocalDate date, boolean hasDate);
+	
+	/** Updates the filter for only today's events to be shown when the application is opened*/
+	void initialiseFilteredList();
 
 }

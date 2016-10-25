@@ -50,6 +50,7 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            mainWindow.initialiseList();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -108,13 +109,6 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.handleHelp();
     }
-
-    // since we have no more select command this becomes useless... right?
-//    @Subscribe
-//    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-//        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-//        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
-//    }
 
     @Subscribe
     private void handlePersonPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){

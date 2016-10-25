@@ -34,7 +34,7 @@ public class LogicManager extends ComponentManager implements Logic {
         command.saveStateIfNeeded(commandText);
         return command.execute();
     }
-
+    
     //@@author A0139930B
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
@@ -49,5 +49,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyTask> getFilteredEventList() {
         return model.getFilteredEventList();
+    }
+    
+    //@@author A0130853L
+    @Override
+    public void initialiseList() {
+    	model.initialiseFilteredList();
     }
 }

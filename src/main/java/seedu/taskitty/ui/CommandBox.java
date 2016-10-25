@@ -59,7 +59,6 @@ public class CommandBox extends UiPart {
     private void setTooltipListener() {
         ToolTip tooltip = ToolTip.getInstance();
         commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            logger.info("Text changed: " + newValue);
             tooltip.createToolTip(newValue);
             resultDisplay.postMessage(tooltip.getMessage(), tooltip.getDecription());
         });

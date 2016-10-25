@@ -3,7 +3,6 @@ package guitests;
 import org.junit.Test;
 
 import seedu.taskitty.commons.core.Messages;
-import seedu.taskitty.logic.commands.AddCommand;
 import seedu.taskitty.logic.commands.ViewCommand;
 import seedu.taskitty.testutil.TestTask;
 

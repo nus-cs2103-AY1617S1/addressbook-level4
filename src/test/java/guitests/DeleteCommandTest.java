@@ -16,6 +16,9 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
     @Test
     public void delete() {
 
+        //display all tasks
+        commandBox.runViewAllCommand();
+        
         //delete using todo/default
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         
