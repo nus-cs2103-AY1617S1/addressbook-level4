@@ -209,6 +209,22 @@ Example:
   <img src="images/UIundoAfter.png" width="600"><br>
 
 <br>
+#### Save data: `save`
+Saves data to a specified folder.<br>
+Format: `save FILEPATH`
+
+* Windows OS FILEPATH format example: `C:\\Users\\<username>\\Desktop\\CS2103 Tutorial`
+* Mac OS FILEPATH format example: `/Users/<username>/Desktop/CS2103 Tutorial`
+
+TasKitty will save any other FILEPATH format in the same directory as TasKitty<br>
+TasKitty will automatically create the folder if the folder is not present<br>
+
+Example:
+* `save /Users/<username>/Desktop/CS2103 Tutorial`<br>
+  Saves TasKitty data into the folder CS2103 Tutorial<br>
+  If folder CS2103 Tutorial is not present, TasKitty will create the folder.
+
+<br>
 #### Clearing all entries : `clear`
 Clears all tasks from the task manager.<br>
 Format: `clear`  
@@ -251,6 +267,7 @@ Delete event | `delete e INDEX`
 Done todo | `done t INDEX`
 Done deadline | `done d INDEX`
 Done event | `done e INDEX`
+Save | `save FILEPATH`
 Undo | `undo`
 Help | `help`
 Clear | `clear`

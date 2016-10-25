@@ -597,7 +597,26 @@ Use case ends
 > * Program returns error message, saying that no action was executed since startup of task manager<br>
   Use case ends.
 
-{More to be added}
+<br></br> 
+### Use case: Save data to a specified folder
+
+**MSS**
+
+1. User requests to save data to a folder
+2. Program saves data to the specified folder<br>
+Use case ends
+
+**Extension**
+
+* There is no folder specified by user.
+
+> * Program returns error message, saying that command was invalid<br>
+  Use case resumes at step 1.
+
+* Specified folder has not been created.
+
+> * Program automatically creates the folder<br>
+  Use case ends.
 
 ## Appendix C : Non Functional Requirements
 
