@@ -13,29 +13,62 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Dylan Chew Zhi Jiang](https://github.com/zavfel) <br>
 <img src="images/DylanChew.png" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Logic, Code Quality, Deliverables
+* Components in charge of: [Logic](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
+* Aspects/tools in charge of: Testing, Code quality
+* Features implemented:
+   * [Mark](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#listing-all-persons--list)
+   * [Unmark](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
+   * 
+* Code written: [[functional code](A123456.md)][[test code](A123456.md)][[docs](A123456.md)]
+* Other major contributions:
+  * Did the initial refactoring from AddressBook to ToDoList
+  * Set up Travis and Coveralls 
 
 -----
 
 #### [Wong Kang Fei](https://github.com/kfwong)
 <img src="images/KangFei.png" width="150"><br>
-Role: Developer<br>  
-Responsibilities: Logic, Testing, Git Expert
+* Components in charge of: [Logic](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
+* Aspects/tools in charge of: Git, Travis, UI, Logic
+* Features implemented:
+   * [Undo](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#listing-all-persons--list)
+   * [Redo](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
+   * 
+* Code written: [[functional code](A123456.md)][[test code](A123456.md)][[docs](A123456.md)]
+* Other major contributions:
+  * Set up Travis and Coveralls
+  * Git expert
 
 -----
 
 #### [Lim Hui Qi](https://github.com/LuMiN0uSaRc) 
 <img src="images/HuiQi.png" width="150"><br>
-Role: Team Lead and Developer <br>  
-Responsibilities: UI, Scheduling and deadlines, Tracking
+* Components in charge of: [Memory](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
+* Aspects/tools in charge of: UI, Scheduling and deadlines, Tracking
+* Features implemented:
+   * [Auto Complete](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#listing-all-persons--list)
+   * [](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
+   * 
+* Code written: [[functional code](A123456.md)][[test code](A123456.md)][[docs](A123456.md)]
+* Other major contributions:
+  * Documentation
 
 -----
 
 #### [Albert Yeoh Ji Bin](https://github.com/bertojo)
 <img src="images/AlbertYeoh.png" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data, Integration, Documentation
+* Components in charge of: [Data](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#storage-component)
+* Aspects/tools in charge of: Data, Integration, Documentation, Deliverables
+* Features implemented:
+   * [Relocate Command](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#changing-save-location--relocate)
+   * [Help Command](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#viewing-help--help)
+   * [Clear Command](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#clearing-all-entries-clear)
+* Code written: [[functional code](A0139194.md)][[test code](A0139194.md)][[docs](A0139194.md)]
+* Other major contributions:
+  * Documentation
+  * Proof reading
+  * Issue tracking
+  * Sequence Diagrams
  
 -----
 

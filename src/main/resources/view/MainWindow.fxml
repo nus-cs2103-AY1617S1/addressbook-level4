@@ -23,7 +23,7 @@
                             <center>
                                 <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                                     <tabs>
-                                        <Tab text="Home">
+                                        <Tab fx:id="Home" text="Home">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
@@ -34,14 +34,14 @@
                                                                 <TableColumn fx:id="startDateHome" text="Start Date" />
                                                                 <TableColumn fx:id="endDateHome" text="End Date" />
                                                                 <TableColumn fx:id="tagsHome" text="Tags" />
-                                                                <TableColumn fx:id="recurHome" text="Recur" />
+                                                                <TableColumn fx:id="recurHome" />
                                                             </columns>
                                                         </TableView>
                                                     </children>
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
-                                        <Tab text="Tasks">
+                                        <Tab fx:id="Tasks" text="Tasks">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
@@ -52,14 +52,14 @@
                                                                 <TableColumn fx:id="startDateTask" text="Start Date" />
                                                                 <TableColumn fx:id="endDateTask" text="End Date" />
                                                                 <TableColumn fx:id="tagsTask" text="Tags" />
-                                                                <TableColumn fx:id="recurTask" text="Recur" />
+                                                                <TableColumn fx:id="recurTask"/>
                                                             </columns>
                                                         </TableView>
                                                     </children>
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
-                                        <Tab text="Events">
+                                        <Tab fx:id="Events" text="Events">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
@@ -70,14 +70,14 @@
                                                                 <TableColumn fx:id="startDateEvent" text="Start Date" />
                                                                 <TableColumn fx:id="endDateEvent" text="End Date" />
                                                                 <TableColumn fx:id="tagsEvent" text="Tags" />
-                                                                <TableColumn fx:id="recurEvent" text="Recur" />
+                                                                <TableColumn fx:id="recurEvent"/>
                                                             </columns>
                                                         </TableView>
                                                     </children>
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
-                                        <Tab text="Deadlines">
+                                        <Tab fx:id="Deadlines" text="Deadlines">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
@@ -88,14 +88,14 @@
                                                                 <TableColumn fx:id="startDateDeadline" text="Start Date" />
                                                                 <TableColumn fx:id="endDateDeadline" text="End Date" />
                                                                 <TableColumn fx:id="tagsDeadline" text="Tags" />
-                                                                <TableColumn fx:id="recurDeadline" text="Recur" />
+                                                                <TableColumn fx:id="recurDeadline" />
                                                             </columns>
                                                         </TableView>
                                                     </children>
                                                 </AnchorPane>
                                             </content>
                                         </Tab>
-                                        <Tab text="Archives">
+                                        <Tab fx:id="Archives" text="Archives">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
@@ -106,7 +106,7 @@
                                                                 <TableColumn fx:id="startDateArchive" text="Start Date" />
                                                                 <TableColumn fx:id="endDateArchive" text="End Date" />
                                                                 <TableColumn fx:id="tagsArchive" text="Tags" />
-                                                                <TableColumn fx:id="recurArchive" text="Recur" />
+                                                                <TableColumn fx:id="recurArchive"/>
                                                             </columns>
                                                         </TableView>
                                                     </children>

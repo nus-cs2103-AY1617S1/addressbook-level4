@@ -46,6 +46,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -300,7 +302,7 @@ public class MainWindow extends UiPart {
     }
     
     public String getCurrentTab() {
-        return tabPane.getSelectionModel().getSelectedItem().getText();
+        return tabPane.getSelectionModel().getSelectedItem().getId();
     }
 
     /**
@@ -318,6 +320,9 @@ public class MainWindow extends UiPart {
     // ==================================
 
     //@@author A0124797R
+    /**
+     * update the number of task in each tab in the tab title
+     */
     private void updateTabTitle() {
         tabLst.get(INDEX_HOME).setText(NAME_TABS[INDEX_HOME] + "(" 
                 + logic.getFilteredTaskList().size() + ")");
@@ -685,6 +690,7 @@ public class MainWindow extends UiPart {
      */
     //@@author A0124797R
     private void initRecur(TableColumn<ReadOnlyTask, Boolean> recurColumn) {
+        recurColumn.setGraphic(new ImageView("file:src/main/resources/images/recur_white.png"));
         recurColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_RECUR));
         recurColumn.setCellValueFactory(task -> new SimpleBooleanProperty(task.getValue().isRecur()));
         recurColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, Boolean>(){
@@ -695,6 +701,8 @@ public class MainWindow extends UiPart {
                 if(!isEmpty()){
                     CheckBox box = new CheckBox();
                     box.setSelected(isRecur);
+                    box.setDisable(true);
+                    box.setStyle("-fx-opacity: 1");
                     
                     this.setAlignment(Pos.CENTER);
                     this.setGraphic(box);
@@ -825,12 +833,14 @@ public class MainWindow extends UiPart {
     }
     
     //@@author A0124797R
+    //updates the tab if list/upcoming command is used
     /**
      * handle the switching of tabs
      */
     private void updateTab(String result) {
         switch (result) {
             case ListCommand.MESSAGE_SUCCESS:               tabPane.getSelectionModel().select(INDEX_HOME);
+                        
                                                             break;
             case UpcomingCommand.MESSAGE_SUCCESS_UPCOMING:  tabPane.getSelectionModel().select(INDEX_HOME);
                                                             break;
@@ -870,11 +880,11 @@ public class MainWindow extends UiPart {
     private String getNextCommandHistory() {
         if (commandHistory.empty()) {
             return null;
-        }else if (commandIndex >= commandHistory.size()) {
+        }else if (commandIndex >= commandHistory.size()-1) {
             return null;
         }else {
             commandIndex++;
-            return commandHistory.get(commandIndex-1);
+            return commandHistory.get(commandIndex);
         }
     }
     
@@ -906,17 +916,29 @@ public class MainWindow extends UiPart {
     private void restorePrevCommandText() {
         String prevCommand = getPrevCommandHistory();
         if (prevCommand!=null) {
-            commandField.setText(prevCommand);
+            //need to wrap in runLater due to concurrency threading in JavaFX
+            Platform.runLater(new Runnable() {
+                public void run() {
+                    commandField.setText(prevCommand);
+                    commandField.positionCaret(prevCommand.length());
+                }
+            });
         }//else ignore
     }
     
     //@@author A0124797R
     private void restoreNextCommandText() {
         String nextCommand = getNextCommandHistory();
-        if (nextCommand!=null) {
-            commandField.setText(nextCommand);
-        }else {
-            commandField.setText("");
-        }
+        //need to wrap in runLater due to concurrency threading in JavaFX
+        Platform.runLater(new Runnable() {
+            public void run() {
+                if (nextCommand!=null) {
+                    commandField.setText(nextCommand);
+                    commandField.positionCaret(nextCommand.length());
+                }else {
+                    commandField.setText("");
+                }
+            }
+        });
     }
 }

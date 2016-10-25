@@ -51,8 +51,6 @@ public class MarkCommand extends Command implements Undoable, Redoable {
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_SUCCESS, taskToMark));
         } catch (TaskAlreadyMarkedException ex) {
             return new CommandResult(COMMAND_WORD, String.format(MESSAGE_MARKED_TASK, taskToMark));
-        } catch (IndexOutOfBoundsException ex) {
-            return new CommandResult(COMMAND_WORD, Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (TaskNotFoundException pnfe) {
             return new CommandResult(COMMAND_WORD,Messages.MESSAGE_TASK_NOT_IN_MASTERMIND);
         } catch (DuplicateTaskException e) {
