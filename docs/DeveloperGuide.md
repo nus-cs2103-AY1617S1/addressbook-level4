@@ -3,9 +3,9 @@
 <br>
 ## Introduction
 
-Amethyst is a command-line task manager targeted at power users, who would like to store, access and edit information about one's tasks efficiently.
+Amethyst is a command-line task manager targeted at power users who would like to store, access and edit information about their tasks efficiently.
 
-This developer guide will provide you with the necessary basic information to start programming work on Amethyst. This guide also describes the design and implementation of Amethyst, to help you understand how Amethyst works. Relevant information regarding implementation, testing and available developer tools/ resources has also been included in this guide to help you along as you work on Amethyst's future development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections. 
+This guide describes the design and implementation of Amethyst, to help you understand how Amethyst works. Relevant information regarding implementation, testing and available developer tools/resources have also been included in this guide to help you along as you work on Amethyst's future development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections. 
 
 <br>
 ## Table of Contents
@@ -37,46 +37,51 @@ This developer guide will provide you with the necessary basic information to st
 <br>
 ## Setting Up
 
-#### Prerequisites
+### Prerequisites
 
-1. **Install Java 8 Update 60 (JDK `1.8.0_60`) or higher** <br>
-    The latest version is available for download [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+1. Install Java 8 Update 60 (JDK `1.8.0_60`) or higher.  <br>
+	Download the latest version via this [link](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
 
     > Note that the application will not work with earlier versions of Java 8.
     
-2. **Install Eclipse Integrated Development Environment (IDE)** <br>
-    The latest version is available for download [here](http://download.eclipse.org/eclipse/downloads/).
+2. Install Eclipse Integrated Development Environment (IDE).  <br>
+    Download the latest version via this [link](http://download.eclipse.org/eclipse/downloads/).
     
-3. **Install e(fx)clipse plugin for Eclipse** <br>
-    Refer to this [guide](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious) for step-by-step instructions, begin at         Step 2.
+3. Install e(fx)clipse plugin for Eclipse.  <br>
+    Begin at Step 2, with reference to this [instructional guide](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious).
    
-4. **Install Buildship Gradle Integration plugin from the Eclipse Marketplace**
+4. Install Buildship Gradle Integration plugin for Eclipse from the Eclipse Marketplace.  <br>
+	Install the latest version via this [link](https://marketplace.eclipse.org/content/buildship-gradle-integration).
 
 
-#### Importing existing project into Eclipse
+### Import existing project into Eclipse
 
-1. Fork this repository (repo), and clone the fork to your computer.
-2. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
-   in the prerequisites above)
-3. Click `File` > `Import`
-4. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-5. Click `Browse`, then locate the project's directory
-6. Click `Finish`
+1. Fork this repository, and clone the fork to your computer.
+2. Open Eclipse 
+	
+	> Ensure that you have installed the **e(fx)clipse** and **Buildship Gradle Integration** plugins as stated
+   in the prerequisites above.
+   
+3. Click `File` > `Import`.
+4. Click `Gradle` > `Gradle Project` > `Next` > `Next`.
+5. Click `Browse`, then locate the project's directory.
+6. Click `Finish`.
 
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+  > Select `keep` if you are asked whether to 'keep' or 'overwrite' configuration files.
+  >
+  > Note that project set up may take up to 30 minutes to finish. Project set up duration varies according to connection speed and server load. (Gradle downloads library files from servers during the project set up process.)
+  > 
+  > Discard changes if Eclipse auto-changed any settings file during the import process.
 
 <br>
 ## Architecture
 
 <img src="images/ArchitectureClassDiagram.PNG" width="800"><br>
 
-> Diagram 1: Archicture Class Diagram
+> Diagram 1: Architecture Class Diagram
 
-The _Architecture Class Diagram_ given above explains the high-level design of the App.
-Given below is a quick overview of each component.
+The _Architecture Class Diagram_ given above explains to you the high-level design of the App.
+You can refer to the sections below to get a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
@@ -88,7 +93,7 @@ Two of those classes play important roles at the architecture level.
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
-The rest of the App consists four components.
+The rest of the App consists of four components.
 * [**`UI`**](#ui-component) : The UI of tha App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
@@ -98,33 +103,33 @@ Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
+For example, the `Logic` component (class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicComponentClassDiagram.PNG" width="800"><br>
 
-> Diagram 2: Logic Componenet Class Diagram
+> Diagram 2: Logic Component Class Diagram
 
-The _Delete Task Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+The _Delete Task Sequence Diagram_ below shows you how the components interact for the scenario where the user issues the
 command `delete 3`.
 
 <img src="images\DeleteTaskSequenceDiagram.PNG" width="800">
 
 > Diagram 3: Delete Task Sequence Diagram
 
-> Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
+> This diagram shows you how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+The diagram below illustrates to you how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images\DeleteTaskEventHandlingSequenceDiagram.PNG" width="800">
 
 > Diagram 4: Delete Task Event Handing Sequence Diagram
 
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
+> This diagram shows you how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
+  to be coupled to either of them. This is an example of how this Event Driven approach helps to reduce direct 
   coupling between components.
 
-The sections below give more details of each component.
+You can refer to the sections below for more details of each component.
 
 <br>
 ## UI Component
@@ -135,16 +140,15 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+As you can see in the diagram, the UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter` etc. All these different parts, including the `MainWindow`, inherit from the abstract `UiPart` class
+and can be loaded using the `UiPartLoader`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
+The `UI` component uses the JavaFx UI framework. The layout of each UI part is defined in the corresponding `.fxml` file in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
+The `UI` component:
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly
@@ -159,7 +163,7 @@ The `UI` component,
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
+2. The `Parser` class returns a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
@@ -179,9 +183,9 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
-The `Model`,
+The `Model`:
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Task Manager data.
 * exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
@@ -195,14 +199,14 @@ The `Model`,
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
-The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the Task Manager data in xml format and read it back.
+The `Storage` component:
+* reads user preferences in JSON format, and task manager data in XML format, from file paths specified in configuration file.
+* saves changes to user preferences in JSON format, and task manager data in XML format.
 
 <br>
 ## Commons Component
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+You can find all classes used by multiple components in the `seedu.address.commons` package.
 
 <br>
 ## Implementation
@@ -234,7 +238,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 <br>
 ## Testing
 
-Tests can be found in the `./src/test/java` folder.
+You can find the tests in the `./src/test/java` folder.
 
 **In Eclipse**:
 > If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
@@ -265,10 +269,10 @@ We have two types of tests:
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ you can run our GUI tests in the _headless_ mode. 
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running. 
- See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+ You can look at [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
 <br>
 ## Dev Ops
@@ -286,7 +290,7 @@ Refer to [UsingTravis.md](UsingTravis.md) to learn how to use [Travis CI](https:
 To create a new release:
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
- 2. Tag the repo with the version number. e.g. `v0.1`
+ 2. Tag the repository with the version number. e.g. `v0.1`
  2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
@@ -296,7 +300,7 @@ A project often depends on third-party libraries. For example, Task Manager depe
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than the following alternatives.<br>  
-  - Include those libraries in the repo (this bloats the repo size)<br>  
+  - Include those libraries in the repository (this bloats the repository size)<br>  
   - Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 <br>
@@ -330,16 +334,16 @@ user wants to collate the source files in the same folder periodically.
 Priority | As a ... | I want to ... | So that I can...
 :------- | :--------| :------------ | :-----------
 `* * *`  | new user | see usage instructions | refer to instructions when I forget how to use the application
-`* * *`  | user | add a new task |
+`* * *`  | user | add a new task | keep a record of what I have to do without the need to remember them
 `* * *`  | user | list tasks that fulfil specific parameters | filter tasks according to specific parameters 
 `* * *`  | user | delete a task | remove entries that are no longer relevant
 `* * *`  | user | find a task by name | locate details of tasks without having to go through the entire list
-`* * *` | user | undo an action |
-`* * *` | user  | update a task |
+`* * *` | user | undo an action | easily revert the wrong actions I have done
+`* * *` | user  | update a task | change the details whenever the situation changes without the need to re-add the task
 `* * *` | user | mark a task as done | keep track of my progress
 `* *`   | advanced user | set data storage location | sync data to the cloud and access tasks from multiple computers
 `* *` | user | set command aliases | type more efficiently
-`* *` | user | clear all tasks |
+`* *` | user | clear all tasks | start with a fresh page again when the task manager gets too messy
 
 <br>
 ## Appendix B: Use Cases
@@ -370,8 +374,8 @@ Use case ends
 **MSS**
 
 1. User requests to add task
-2. Amethyst adds the task
-3. Amethyst displays successful addition <br>
+2. Amethyst adds the task <br>
+[//]: # (3. Amethyst displays successful addition <br>)
 Use case ends
 
 **Extensions**
@@ -382,7 +386,7 @@ Use case ends
   2a2. Amethyst prompts user to input in correct format <br>
   Use case ends
 
-2b. Duplicate entry entered by user
+2b. Duplicate entry (entries with the same task name, type, date and time) entered by user
 
 > 2b1. Amethyst displays prompt message, requests user to differentiate entry <br>
   Use case ends
@@ -462,7 +466,7 @@ Use case ends
 4a. Invalid format entered by user
 
 > 4a1. Amethyst displays error message
-  4a2. Amethyst prompts user to input in correct format
+> 4a2. Amethyst prompts user to input in correct format
   Use case ends
 
 <br>
@@ -482,24 +486,30 @@ Use case ends
 
 ##### Mainstream Operating Systems (OSs)
 
-> Windows, Linux, Unix, OS-X
+> Windows, Linux, Unix, OS X
 
 <br>
 ## Appendix E: Product Survey
 ###Any.do
 ####Any.do is a mobile and online task manager application (not a command-line application).
+####Strengths
 1.	User can add new lists of tasks, add new tasks to a selected list.
 2.	User can include task descriptions, notes and set date, time in 24- or 12-hour format.
 3.	User can add sub-tasks under a selected task.
 4.	User can delete tasks and lists of tasks.
 5.	User can set recurring tasks.
 6.	User can undo marking a task done.
-7.	User can set the priority level of a task. Only two priority levels are supported
-8.	User can choose to view completed and uncompleted tasks. For completed tasks, they are listed in the order of completion, rather than in the order of task date or time. The task name, date/time and list name are shown. Viewing by list or date is not supported. For uncompleted tasks, users can choose to view by list, time and priority.
+7.	User can set the priority level of a task.
+8.	User can choose to view completed tasks by list, time and priority.
 9.	User can choose from different themes of UI.
+
+####Weaknesses
+1. Only two priority levels are supported.
+2. List of uncompleted tasks is not sorted according to date and time, but by order of creation.
 
 ###Taskwarrior
 ####Taskwarrior is a well-developed command line task manager software. It has implemented many functionalities, but only the ones most applicable to the project are detailed in this document.
+####Strengths
 1.	User can execute all the must-have commands (CRUD, Undo, Mark Done etc.).
 2.	User can also search or list by filters like status of tasks, due date, tags/virtual tags.
 3.	User can also update the task name by using the prepend and append commands.
@@ -508,8 +518,13 @@ Use case ends
 6.	User can type very flexibly in terms of date and time. A wide range of accepted date/time formats is supported. User can also set duration of events by typing keywords like “3 weeks”.
 7.	User can choose from different themes of UI.
 
+####Weaknesses
+1. Command words are usually long.
+2. The use of colon is frequent to indicate command parameters, which might not be natural for the user.
+
 ###Wunderlist
 ####Wunderlist is a task manager application for mobile phones, tablets, and computers.
+####Strengths
 1.	User can add new lists of tasks, add new tasks to a selected list.
 2.	User can set due date/time as well as reminder before the due date/time.
 3.	User can add subtasks, notes and comments to a task.
@@ -521,8 +536,12 @@ Use case ends
 9.	User can sort the displayed tasks alphabetically, by creation date, due day, and priority.
 10.	User can use the default short-cuts or customize the short-cuts.
 
+####Weaknesses
+1. Only one priority level is supported (mark as "starred").
+
 ###Todoist
 ####Todoist is an online and mobile task manager application.
+####Strengths
 1.	User can add new projects (lists) of tasks, add new tasks to a selected project (list).
 2.	User can set due date/time as well as reminder before the due date/time.
 3.	User can add comments to a task.
@@ -535,4 +554,5 @@ Use case ends
 10.	User can set new filters and labels to categorize different tasks. For example, the existing priority level is implemented as a filter.
 11.	User can choose from different themes of UI.
 
-
+####Weaknesses
+1. List of completed tasks is in the order of completion, rather than in the order of task date or time. 

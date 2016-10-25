@@ -40,6 +40,11 @@ public abstract class TaskManagerGuiTest {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected TaskListPanelHandle taskListPanel;
+    protected TaskListPanelHandle todayTaskListTabPanel;
+    protected TaskListPanelHandle tomorrowTaskListTabPanel;
+    protected TaskListPanelHandle in7DaysTaskListTabPanel;
+    protected TaskListPanelHandle in30DaysTaskListTabPanel;
+    protected TaskListPanelHandle somedayTaskListTabPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -60,6 +65,11 @@ public abstract class TaskManagerGuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getTaskListPanel();
+            todayTaskListTabPanel = mainGui.getTodayTaskListTabPanel();
+            tomorrowTaskListTabPanel = mainGui.getTomorrowTaskListTabPanel();
+            in7DaysTaskListTabPanel = mainGui.getIn7DaysTaskListTabPanel();
+            in30DaysTaskListTabPanel = mainGui.getIn30DaysTaskListTabPanel();
+            somedayTaskListTabPanel = mainGui.getSomedayTaskListTabPanel();
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             this.stage = stage;
@@ -95,19 +105,74 @@ public abstract class TaskManagerGuiTest {
     }
 
     /**
-     * Asserts the task shown in the card is same as the given task
+     * Asserts the someday task shown in the card is same as the given someday task
      */
-    public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
-        assertTrue(TestUtil.compareCardAndTask(card, task));
+    public void assertSomedayTaskMatching(ReadOnlyTask task, SomedayTaskCardHandle card) {
+        assertTrue(TestUtil.compareSomedayCardAndTask(card, task));
+    }
+    
+    /**
+     * Asserts the deadline task shown in the card is same as the given deadline task
+     */
+    public void assertDeadlineTaskMatching(ReadOnlyTask task, DeadlineTaskCardHandle card) {
+        assertTrue(TestUtil.compareDeadlineCardAndTask(card, task));
+    }
+    
+    /**
+     * Asserts the event task shown in the card is same as the given event task
+     */
+    public void assertEventTaskMatching(ReadOnlyTask task, EventTaskCardHandle card) {
+        assertTrue(TestUtil.compareEventCardAndTask(card, task));
     }
 
     /**
      * Asserts the size of the task list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = taskListPanel.getNumberOfPeople();
-        assertEquals(size, numberOfPeople);
+        int numberOfTasks = taskListPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
     }
+    
+    /**
+     * Asserts the size of the today task list in the tab pane is equal to the given number.
+     */
+    protected void assertTodayListSize(int size) {
+        int numberOfTasks = todayTaskListTabPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
+    
+    /**
+     * Asserts the size of the tomorrow task list in the tab pane is equal to the given number.
+     */
+    protected void assertTomorrowListSize(int size) {
+        int numberOfTasks = tomorrowTaskListTabPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
+    
+    /**
+     * Asserts the size of the in-7-days task list in the tab pane is equal to the given number.
+     */
+    protected void assertIn7DaysListSize(int size) {
+        int numberOfTasks = in7DaysTaskListTabPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
+    
+    /**
+     * Asserts the size of the in-30-days task list in the tab pane is equal to the given number.
+     */
+    protected void assertIn30DaysListSize(int size) {
+        int numberOfTasks = in30DaysTaskListTabPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
+    
+    /**
+     * Asserts the size of the someday task list in the tab pane is equal to the given number.
+     */
+    protected void assertSomedayListSize(int size) {
+        int numberOfTasks = somedayTaskListTabPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
+    
 
     /**
      * Asserts the message shown in the Result Display area is same as the given string.

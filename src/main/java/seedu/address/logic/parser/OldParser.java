@@ -93,16 +93,16 @@ public class OldParser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-        try {
-        	// TODO change
-            return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email")
-            );
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
+//        try {
+//        	// TODO change
+//            return new AddCommand(
+//                    matcher.group("name"),
+//                    matcher.group("phone"),
+//                    matcher.group("email")
+//            );
+//        } catch (IllegalValueException ive) {
+            return new IncorrectCommand("");
+//        }
     }
 
     /**

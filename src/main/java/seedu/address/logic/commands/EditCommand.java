@@ -1,21 +1,20 @@
 package seedu.address.logic.commands;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskType;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Edits a task identified using it's last displayed index from the task manager.
  */
+//@@author A0139339W
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -30,15 +29,24 @@ public class EditCommand extends Command {
 
 
     public final int targetIndex;
-    private final Name toEdit;
+    private final Optional<Name> newName;
+    private final Optional<LocalDateTime> newStartDateTime;
+    private final Optional<LocalDateTime> newEndDateTime;
 
     /**
      * For editing name of task
      * @throws IllegalValueException 
      */
-    public EditCommand(int targetIndex, String name) throws IllegalValueException {
+    public EditCommand(int targetIndex, String name, LocalDateTime startDateTime, LocalDateTime endDateTime)
+    		throws IllegalValueException {
         this.targetIndex = targetIndex;
-        this.toEdit = new Name(name);
+        if(name.equals("")) {
+        	this.newName = Optional.empty();
+        } else {
+        	this.newName = Optional.ofNullable(new Name(name));
+        }
+        this.newStartDateTime = Optional.ofNullable(startDateTime);
+        this.newEndDateTime = Optional.ofNullable(endDateTime);
     }
 
 
@@ -48,8 +56,10 @@ public class EditCommand extends Command {
         model.saveState();
         
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> fullList = model.getUnfilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
+            model.loadPreviousState();
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
@@ -57,13 +67,32 @@ public class EditCommand extends Command {
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
 
         try {
-        	Task postEdit = new Task(taskToEdit);
-        	postEdit.setName(toEdit);
-        	if(lastShownList.contains(postEdit)) {
-        		return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        	}
-            model.editTask(targetIndex, postEdit);
-        } catch (TaskNotFoundException pnfe) {
+            Task postEdit = new Task(taskToEdit);
+            int index = fullList.indexOf(postEdit);
+            if(newName.isPresent()) {
+        	    postEdit.setName(newName.get());
+            }
+        	
+            if(newStartDateTime.isPresent()) {
+                postEdit.setStartDate(newStartDateTime.get());
+            }
+        	
+            if(newEndDateTime.isPresent()) {
+                postEdit.setEndDate(newEndDateTime.get());
+            }
+        	
+            if(lastShownList.contains(postEdit)) {
+                model.loadPreviousState();
+                return new CommandResult(MESSAGE_DUPLICATE_TASK);
+            }
+        	
+            model.editTask(index, postEdit);
+            
+        } catch (UnsupportedOperationException uoe) {
+            model.loadPreviousState();
+            return new CommandResult(uoe.getMessage());
+        } catch (TaskNotFoundException tnfe) {
+            model.loadPreviousState();
             assert false : "The target task cannot be missing";
         }
         

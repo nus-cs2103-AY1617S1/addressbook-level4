@@ -14,6 +14,13 @@ public class Status {
             public String toString() {
                 return "Not done";
             }
+        },
+        
+        OVERDUE {
+        	@Override
+        	public String toString() {
+        		return "Overdue";
+        	}
         }
     }
 	
@@ -32,6 +39,8 @@ public class Status {
 		case "not done":
 			value = DoneStatus.NOT_DONE;
 			break;
+		case "overdue":
+			value = DoneStatus.OVERDUE;
 		default:
 			throw new IllegalArgumentException("Invalid string input");
 		}

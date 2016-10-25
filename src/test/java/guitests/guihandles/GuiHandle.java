@@ -12,6 +12,8 @@ import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
+import com.google.common.base.Optional;
+
 /**
  * Base class for all GUI Handles used in testing.
  */
@@ -64,7 +66,17 @@ public class GuiHandle {
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
-        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
+        Optional<Node> node = guiRobot.from(parentNode).lookup(fieldId).tryQuery();
+//        System.out.println("node: " + node);
+        if (node.isPresent()) {
+        	return ((Label) node.get()).getText();
+        }
+        else {
+        	System.out.println("node absent");
+        	return "";
+        }
+    	
+    	//return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
     }
 
     public void focusOnSelf() {

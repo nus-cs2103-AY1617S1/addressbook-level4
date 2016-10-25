@@ -1,12 +1,12 @@
-package guitests;
-
-import org.junit.Test;
-import seedu.address.model.task.ReadOnlyTask;
-
-import static org.junit.Assert.assertEquals;
-
-public class SelectCommandTest extends TaskManagerGuiTest {
-
+//package guitests;
+//
+//import org.junit.Test;
+//import seedu.address.model.task.ReadOnlyTask;
+//
+//import static org.junit.Assert.assertEquals;
+//
+//public class SelectCommandTest extends TaskManagerGuiTest {
+//
 //
 //    @Test
 //    public void selectTask_nonEmptyList() {
@@ -54,5 +54,5 @@ public class SelectCommandTest extends TaskManagerGuiTest {
 //    private void assertNoTaskSelected() {
 //        assertEquals(taskListPanel.getSelectedTasks().size(), 0);
 //    }
-
-}
+//
+//}

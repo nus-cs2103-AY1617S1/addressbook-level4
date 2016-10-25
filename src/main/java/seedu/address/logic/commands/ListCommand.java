@@ -1,7 +1,11 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.task.Status;
-import seedu.address.model.task.TaskType;
+import java.util.Optional;
+import java.util.function.Predicate;
+
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.TaskFilter;
+import seedu.address.model.task.ReadOnlyTaskFilter;
 
 /**
  * Lists all tasks in the address book to the user.
@@ -16,23 +20,64 @@ public class ListCommand extends Command {
             + " someday not-done\n";  
     
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
+
+    //@@author A0139339W
+    private Optional<String> taskType = Optional.empty();
+    private Optional<String> doneStatus = Optional.empty();
     
-    private TaskType taskType;
-    private Status status;
+    public ListCommand() {}
     
-    public ListCommand() {
-    	taskType = null;
-    	status = null;
-    }
-    
-    public ListCommand(TaskType taskType, Status status) {
-    	this.taskType = taskType;
-    	this.status = status;
+    public ListCommand(String taskType, String doneStatus) {
+    	this.taskType = Optional.ofNullable(taskType);
+    	this.doneStatus = Optional.ofNullable(doneStatus);
     }
 
     @Override
     public CommandResult execute() {
-    	model.updateFilteredListToShowAll();
+    	Predicate <ReadOnlyTask> taskTypePredicate = null;
+    	Predicate <ReadOnlyTask> donePredicate = null;
+    	
+    	
+    	if(taskType.isPresent()) {
+    		assert taskType.get().equals("someday") || taskType.get().equals("sd") ||
+    				taskType.get().equals("deadline") || taskType.get().equals("dl") ||
+    				taskType.get().equals("event") || taskType.get().equals("ev"); 
+    		switch(taskType.get()) {
+    		case "someday":
+    		case "sd":
+    			taskTypePredicate = (ReadOnlyTaskFilter.isSomedayTask());
+    			break;
+    		case "deadline":
+    		case "dl":
+    			taskTypePredicate = (ReadOnlyTaskFilter.isDeadlineTask());
+    			break;
+    		case "event":
+    		case "ev":
+    			taskTypePredicate = (ReadOnlyTaskFilter.isEventTask());
+    			break;
+    		}
+    	}
+    	if(doneStatus.isPresent()) {
+    		assert doneStatus.get().equals("done") || doneStatus.get().equals("not-done");
+    		switch(doneStatus.get()) {
+    		case "done":
+    			donePredicate = ReadOnlyTaskFilter.isDone();
+    			break;
+    		case "not-done":
+    			donePredicate = ReadOnlyTaskFilter.isDone().negate();
+    		}
+    	}
+    	
+    	if(doneStatus.isPresent() && taskType.isPresent()) {
+    		model.updateFilteredTaskList(taskTypePredicate.and(donePredicate));
+    	} else if(!doneStatus.isPresent() && taskType.isPresent()) {
+    		model.updateFilteredTaskList(taskTypePredicate);
+    	} else if(doneStatus.isPresent() && !taskType.isPresent()) {
+    		model.updateFilteredTaskList(donePredicate);
+    	} else if(!doneStatus.isPresent() && !taskType.isPresent()) {
+    		model.updateFilteredListToShowAll();
+    	}
         return new CommandResult(MESSAGE_SUCCESS);
     }
+    //@@author
 }
