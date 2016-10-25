@@ -92,6 +92,8 @@ Format: list
 Examples: 
 * `list`
 
+<!--@@author A0147995H-->
+
 #### Edit tasks : `edit`
 Format: `edit TASK_ID [NEW_TASK_NAME] [from DATE_TIME to DATE_TIME | by DATE_TIME [daily | weekly | monthly | yearly] ] [tag/EDIT_TAG]...`
 
@@ -174,7 +176,7 @@ Examples:
    <img src="images/afterview1.png" width="600">
    <img src="images/afterview2.png" width="600">
    
-<!--@@author-->
+<!--@@author A0147995H-->
 
 #### Find tasks : `find`
 Format: `find [KEY_WORD] [from DATE_TIME to DATE_TIME | by DATE_TIME] [t/TAG]...`
