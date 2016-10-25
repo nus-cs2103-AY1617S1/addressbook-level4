@@ -1,5 +1,6 @@
 package seedu.address.model.task;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -112,6 +113,21 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+    
+    /**
+     * @return true if the tasks is past the current time
+     * @throws IllegalValueException
+     */
+    public boolean checkOverdue() throws IllegalValueException {
+        if (start.isMissing() && !end.isMissing())
+            return end.time.compareTo(new Time("today").time) < 0;
+        
+        if (!start.isMissing())
+            return start.time.compareTo(new Time("today").time) < 0;
+        
+        return false;
+            
     }
     
 }
