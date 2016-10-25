@@ -5,6 +5,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.commands.BaseCommand;
+import seedu.todo.logic.commands.CommandPreview;
 import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.logic.parser.ParseResult;
 import seedu.todo.logic.parser.Parser;
@@ -58,5 +59,14 @@ public class TodoLogic implements Logic {
             logger.info(e.getMessage());
             return new CommandResult(e.getMessage(), e.getErrors());
         }
+    }
+
+    @Override
+    public CommandPreview preview(String input) {
+        // Don't show any thing when no input
+        if (StringUtil.isEmpty(input)) {
+            return new CommandPreview("");
+        }
+        return new CommandPreview("testeste");
     }
 }

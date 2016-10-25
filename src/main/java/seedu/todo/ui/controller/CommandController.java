@@ -6,6 +6,7 @@ import seedu.todo.commons.events.ui.CommandInputEnterEvent;
 import seedu.todo.commons.events.ui.ShowPreviewEvent;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.Logic;
+import seedu.todo.logic.commands.CommandPreview;
 import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.model.ErrorBag;
 import seedu.todo.ui.view.CommandErrorView;
@@ -77,11 +78,21 @@ public class CommandController {
         default :   // Typing command, show preview
             System.out.println("SHOW PREVIEW");
             if (!StringUtil.isEmpty(userInput)) {
-
+                CommandPreview previewInfo = logic.preview(userInput);
+                handleCommandPreview(previewInfo);
             }
             break;
         }
     }
+    
+    /**
+     * Handles a CommandPreview object, and updates the user interface to reflect the information.
+     * @param previewInfo produced by {@link Logic}
+     */
+    private void handleCommandPreview(CommandPreview previewInfo) {
+        previewView.displayCommandSummaries(previewInfo.getPreview());
+    }
+
 
     /**
      * Handles a CommandResult object, and updates the user interface to reflect the result.

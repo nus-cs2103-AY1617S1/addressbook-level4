@@ -15,7 +15,7 @@ public class ShowPreviewEvent extends BaseEvent {
         this.commandSummaries = commandSummaries;
     }
 
-    public List<CommandSummary> getCommandSummaries() {
+    public List<CommandSummary> getPreviewInfo() {
         return commandSummaries;
     }
 
