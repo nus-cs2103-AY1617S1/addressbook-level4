@@ -302,7 +302,7 @@ public class MainWindow extends UiPart {
     }
     
     public String getCurrentTab() {
-        return tabPane.getSelectionModel().getSelectedItem().getText();
+        return tabPane.getSelectionModel().getSelectedItem().getId();
     }
 
     /**
@@ -754,10 +754,8 @@ public class MainWindow extends UiPart {
         KeyCode key = event.getCode();
         switch (key) {
             case UP:    restorePrevCommandText();
-            System.out.println("up");
                         return;
             case DOWN:  restoreNextCommandText();
-            System.out.println("down");
                         return;
             case ENTER: learnWord(commandField.getText());
                         return;
@@ -842,6 +840,7 @@ public class MainWindow extends UiPart {
     private void updateTab(String result) {
         switch (result) {
             case ListCommand.MESSAGE_SUCCESS:               tabPane.getSelectionModel().select(INDEX_HOME);
+                        
                                                             break;
             case UpcomingCommand.MESSAGE_SUCCESS_UPCOMING:  tabPane.getSelectionModel().select(INDEX_HOME);
                                                             break;
