@@ -1,19 +1,19 @@
 package seedu.todo.model;
 
 
-import java.util.List;
-
 import seedu.todo.model.person.ReadOnlyPerson;
 import seedu.todo.model.person.UniquePersonList;
 import seedu.todo.model.tag.Tag;
-import seedu.todo.model.tag.UniqueTagList;
+import seedu.todo.model.tag.UniqueTagCollection;
+
+import java.util.List;
 
 /**
  * Unmodifiable view of an address book
  */
 public interface ReadOnlyAddressBook {
 
-    UniqueTagList getUniqueTagList();
+    UniqueTagCollection getUniqueTagList();
 
     UniquePersonList getUniquePersonList();
 

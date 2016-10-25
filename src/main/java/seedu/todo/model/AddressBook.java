@@ -5,7 +5,7 @@ import seedu.todo.model.person.Person;
 import seedu.todo.model.person.ReadOnlyPerson;
 import seedu.todo.model.person.UniquePersonList;
 import seedu.todo.model.tag.Tag;
-import seedu.todo.model.tag.UniqueTagList;
+import seedu.todo.model.tag.UniqueTagCollection;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
-    private final UniqueTagList tags;
+//    private final UniqueTagList tags;
 
     {
         persons = new UniquePersonList();
-        tags = new UniqueTagList();
+//        tags = new UniqueTagList();
     }
 
     public AddressBook() {}
@@ -30,15 +30,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Persons and Tags are copied into this addressbook
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+//        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
     }
-
-    /**
-     * Persons and Tags are copied into this addressbook
-     */
-    public AddressBook(UniquePersonList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
-    }
+//
+//    /**
+//     * Persons and Tags are copied into this addressbook
+//     */
+//    public AddressBook(UniquePersonList persons, UniqueTagList tags) {
+////        resetData(persons.getInternalList(), tags.getGlobalTagList());
+//    }
 
     public static ReadOnlyAddressBook getEmptyAddressBook() {
         return new AddressBook();
@@ -55,7 +55,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
+//        this.tags.getGlobalTagList().setAll(tags);
     }
 
     public void resetData(Collection<? extends ReadOnlyPerson> newPersons, Collection<Tag> newTags) {
@@ -69,39 +69,40 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 //// person-level operations
 
-    /**
-     * Adds a person to the address book.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
-     *
-     * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
-     */
+//    /**
+//     * Adds a person to the address book.
+//     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
+//     * and updates the Tag objects in the person to point to those in {@link #tags}.
+//     *
+//     * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
+//     */
     public void addPerson(Person p) throws UniquePersonList.DuplicatePersonException {
         syncTagsWithMasterList(p);
         persons.add(p);
     }
 
-    /**
-     * Ensures that every tag in this person:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
-     */
+//    /**
+//     * Ensures that every tag in this person:
+//     *  - exists in the master list {@link #tags}
+//     *  - points to a Tag object in the master list
+//     */
     private void syncTagsWithMasterList(Person person) {
-        final UniqueTagList personTags = person.getTags();
-        tags.mergeFrom(personTags);
+//        final UniqueTagList personTags = person.getTags();
+//        tags.mergeFrom(personTags);
 
         // Create map with values = tag object references in the master list
         final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
+//        for (Tag tag : tags) {
+//            masterTagObjects.put(tag, tag);
+
 
         // Rebuild the list of person tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : personTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        person.setTags(new UniqueTagList(commonTagReferences));
+//        final Set<Tag> commonTagReferences = new HashSet<>();
+//        for (Tag tag : personTags) {
+//            commonTagReferences.add(masterTagObjects.get(tag));
+//        }
+//        person.setTags(new UniqueTagList(commonTagReferences));
+
     }
 
     public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
@@ -114,15 +115,16 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 //// tag-level operations
 
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
+//    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
+////        tags.add(t);
+//    }
 
 //// util methods
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+//        return persons.getInternalList().size() + " persons, " + tags.getGlobalTagList().size() +  " tags";
+        return null;
         // TODO: refine later
     }
 
@@ -133,7 +135,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
+//        return Collections.unmodifiableList(tags.getGlobalTagList());
+        return null;
+    }
+
+    @Override
+    public UniqueTagCollection getUniqueTagList() {
+        return null;
     }
 
     @Override
@@ -141,23 +149,23 @@ public class AddressBook implements ReadOnlyAddressBook {
         return this.persons;
     }
 
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
+//    @Override
+//    public UniqueTagList getUniqueTagList() {
+//        return this.tags;
+//    }
 
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && this.persons.equals(((AddressBook) other).persons)
-                && this.tags.equals(((AddressBook) other).tags));
+                && this.persons.equals(((AddressBook) other).persons));
+//                && this.tags.equals(((AddressBook) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(persons);
     }
 }

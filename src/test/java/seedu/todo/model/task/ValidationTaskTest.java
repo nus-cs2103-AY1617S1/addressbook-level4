@@ -1,21 +1,16 @@
 package seedu.todo.model.task;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static seedu.todo.testutil.TestUtil.assertAllPropertiesEqual;
+import org.junit.Before;
+import org.junit.Test;
+import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.model.tag.Tag;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.commons.exceptions.ValidationException;
-import seedu.todo.model.tag.Tag;
+import static org.junit.Assert.*;
+import static seedu.todo.testutil.TestUtil.assertAllPropertiesEqual;
 
 public class ValidationTaskTest {
     private ValidationTask task;
@@ -166,7 +161,7 @@ public class ValidationTaskTest {
     }
 
     @Test
-    public void testTags() throws IllegalValueException {
+    public void testTags() throws ValidationException {
         assertEquals(0, task.getTags().size());
 
         Set<Tag> tags = new HashSet<>();

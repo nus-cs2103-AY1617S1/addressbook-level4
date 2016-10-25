@@ -1,9 +1,9 @@
 package seedu.todo.model.person;
 
-import java.util.Objects;
-
 import seedu.todo.commons.util.CollectionUtil;
-import seedu.todo.model.tag.UniqueTagList;
+import seedu.todo.model.tag.UniqueTagCollection;
+
+import java.util.Objects;
 
 /**
  * Represents a Person in the address book.
@@ -16,18 +16,18 @@ public class Person implements ReadOnlyPerson {
     private Email email;
     private Address address;
 
-    private UniqueTagList tags;
+    private UniqueTagCollection tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
+    public Person(Name name, Phone phone, Email email, Address address, UniqueTagCollection tags) {
         assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+//        this.tags = new UniqueTagCollection(tags); // protect internal tags from changes in the arg list
     }
 
     /**
@@ -58,15 +58,16 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
+    public UniqueTagCollection getTags() {
+//        return new UniqueTagCollection(tags);
+        return null;
     }
 
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
+    public void setTags(UniqueTagCollection replacement) {
+//        tags.setTags(replacement);
     }
 
     @Override
