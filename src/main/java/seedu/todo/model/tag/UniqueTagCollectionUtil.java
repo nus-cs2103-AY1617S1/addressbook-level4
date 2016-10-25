@@ -9,6 +9,7 @@ import seedu.todo.model.task.ImmutableTask;
 import java.util.*;
 import java.util.stream.Collectors;
 
+//@@author A0135805H
 /**
  * Stores the utilities method to help with tag manipulation.
  * Contains:
@@ -20,8 +21,8 @@ public class UniqueTagCollectionUtil {
     /* Constants */
     public static final String TAG_VALIDATION_REGEX = "([A-Za-z0-9_-])+";
 
-
     /* Default Error Messages */
+    public static final String ERROR_DATA_INTEGRITY = "Data Integrity Issue: A tag is missing from the collection.";
     private static final String ERROR_TAGS_DUPLICATED = "You might have keyed in duplicated tag names.";
     private static final String ERROR_TAGS_ILLEGAL_CHAR = "Tags may only include alphanumeric characters, including dashes and underscores.";
     private static final String ERROR_TAGS_NOT_FOUND_IN_TASK = " are not found from the task.";

@@ -1,17 +1,18 @@
 package seedu.todo.model.tag;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
-import javafx.collections.ObservableSet;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
+import java.util.Set;
 
 //@@author A0135805H
 /**
@@ -30,7 +31,7 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
 
     /* Variables */
     //Stores a list of tags with unique tag names.
-    private final ObservableMap<Tag, ObservableSet<ImmutableTask>> uniqueTagsToTasksMap = FXCollections.observableHashMap();
+    private final Map<Tag, Set<ImmutableTask>> uniqueTagsToTasksMap = new HashMap<>();
 
     /**
      * Constructs empty TagList.
@@ -71,7 +72,7 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     @Override
     public void renameTag(String originalName, String newName) {
         Tag tag = getTagWithName(originalName, true);
-        ObservableSet<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.remove(tag);
+        Set<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.remove(tag);
         tag.rename(newName);
         uniqueTagsToTasksMap.put(tag, setOfTasks);
     }
@@ -81,9 +82,9 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
      * Links a {@code task} to the {@code tag} in the {@link #uniqueTagsToTasksMap}.
      */
     private void associateTaskToTag(ImmutableTask task, Tag tag) {
-        ObservableSet<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.get(tag);
+        Set<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.get(tag);
         if (setOfTasks == null) {
-            setOfTasks = FXCollections.emptyObservableSet();
+            setOfTasks = new HashSet<>();
             uniqueTagsToTasksMap.put(tag, setOfTasks);
         }
         setOfTasks.add(task);
@@ -94,7 +95,7 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
      * the {@link #uniqueTagsToTasksMap}.
      */
     private void dissociateTaskFromTag(ImmutableTask task, Tag tag) {
-        ObservableSet<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.get(tag);
+        Set<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.get(tag);
         if (setOfTasks != null) {
             setOfTasks.remove(task);
         }
@@ -127,7 +128,7 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
             targetTag = possibleTag.get();
         } else {
             targetTag = new Tag(tagName);
-            uniqueTagsToTasksMap.put(targetTag, FXCollections.emptyObservableSet());
+            uniqueTagsToTasksMap.put(targetTag, new HashSet<>());
         }
         return targetTag;
     }
@@ -150,7 +151,7 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     public List<ImmutableTask> getTasksLinkedToTag(String tagName) {
         Optional<Tag> possibleTag = findTagWithName(tagName);
         if (possibleTag.isPresent()) {
-            ObservableSet<ImmutableTask> tasks = uniqueTagsToTasksMap.get(possibleTag.get());
+            Set<ImmutableTask> tasks = uniqueTagsToTasksMap.get(possibleTag.get());
             return new ArrayList<>(tasks);
         } else {
             return new ArrayList<>();

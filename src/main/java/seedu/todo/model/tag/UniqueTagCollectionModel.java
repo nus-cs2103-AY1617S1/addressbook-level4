@@ -63,7 +63,7 @@ public interface UniqueTagCollectionModel {
     List<Tag> getUniqueTagList();
 
     /**
-     * Gets a list of task associated with the {@link Tag} with the name {@code tagName}
+     * Gets a copy of list of task associated with the {@link Tag} with the name {@code tagName}
      */
     List<ImmutableTask> getTasksLinkedToTag(String tagName);
 }
