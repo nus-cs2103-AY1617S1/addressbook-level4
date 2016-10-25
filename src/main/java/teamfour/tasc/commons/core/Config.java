@@ -1,6 +1,7 @@
 package teamfour.tasc.commons.core;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Objects;
@@ -8,6 +9,11 @@ import java.util.logging.Level;
 
 import javax.xml.bind.JAXBException;
 
+import org.ocpsoft.prettytime.shade.org.apache.commons.lang.StringUtils;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+
+import teamfour.tasc.commons.exceptions.TaskListFileExistException;
 import teamfour.tasc.commons.util.JsonUtil;
 import teamfour.tasc.commons.util.XmlUtil;
 import teamfour.tasc.storage.XmlSerializableTaskList;
@@ -99,7 +105,11 @@ public class Config {
         XmlUtil.saveDataToFile(newFile, data);
     }
     
-    private void checkNameInTasklists(String tasklistFileName) {
+    /**
+     * Checks if the file name already exists in name list.
+     * If exists, do nothing. If not, add it into the name list.
+     * */
+    private void addNameToTasklists(String tasklistFileName) {
         for (String file : this.getTaskListNames()) {
             if (file.equals(tasklistFileName)) {
                 return;
@@ -108,13 +118,54 @@ public class Config {
         this.taskListFileNames += ", " + tasklistFileName;
     }
     
+    /**
+     * Modify config file for switchlist command execution.
+     * */
     public void switchToNewTaskList(String tasklistFileName) throws IOException {
-        checkNameInTasklists(tasklistFileName);
+        addNameToTasklists(tasklistFileName);
         this.taskListFileName = tasklistFileName + ".xml";
         String newConfig = JsonUtil.toJsonString(this);
         PrintWriter newConfigFileWriter = new PrintWriter(DEFAULT_CONFIG_FILE);
         newConfigFileWriter.write(newConfig);
         newConfigFileWriter.close();
+    }
+    
+    /**
+     * Replace the old file name with the new one 
+     * in the current file name list. 
+     * @throws TaskListFileExistException 
+     * @throws JsonProcessingException 
+     * @throws FileNotFoundException 
+     * */
+    public void replaceWithNewNameInNameList(String newName) throws IOException, TaskListFileExistException {
+        String[] names = this.getTaskListNames();
+        for (int i=0; i<names.length; i++) {
+            if ((names[i] + ".xml").equals(newName)) {
+                throw new TaskListFileExistException();
+            }
+            if ((names[i] + ".xml").equals(this.taskListFileName)) {
+                names[i] = newName;
+            }
+        }
+        this.taskListFileNames = StringUtils.join(names, ", ");
+        this.taskListFileName = newName + ".xml";
+        String newConfig = JsonUtil.toJsonString(this);
+        PrintWriter newConfigFileWriter = new PrintWriter(DEFAULT_CONFIG_FILE);
+        newConfigFileWriter.write(newConfig);
+        newConfigFileWriter.close();
+    }
+    
+    /**
+     * Modify config file for renamelist command execution.
+     * @throws TaskListFileExistException 
+     * @throws IOException 
+     * */
+    public void renameCurrentTaskList(String newTasklistFileName) throws TaskListFileExistException, IOException {
+        File newFile = new File(taskListFilePath + "/" + newTasklistFileName + ".xml");
+        File oldFile = new File(taskListFilePath + "/" + this.taskListFileName);
+        if (oldFile.renameTo(newFile)) {
+            replaceWithNewNameInNameList(newTasklistFileName);
+        }
     }
 
     /**
