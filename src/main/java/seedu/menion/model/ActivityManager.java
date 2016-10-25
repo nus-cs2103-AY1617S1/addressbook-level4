@@ -155,14 +155,6 @@ public class ActivityManager implements ReadOnlyActivityManager {
         tasks.getInternalList().set(index, dub);  
         Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
-    
-    public void completeEvent(int index) {
-        Activity dub;
-        dub = events.getInternalList().get(index);
-        dub.setCompleted();
-        events.getInternalList().set(index, dub);
-        Collections.sort(events.getInternalList(), new EventComparator());
-    }
 
     public void completeFloatingTask(int index) {
         Activity dub;
@@ -191,14 +183,6 @@ public class ActivityManager implements ReadOnlyActivityManager {
         dub.setUncompleted();
         tasks.getInternalList().set(index, dub); 
         Collections.sort(tasks.getInternalList(), new TaskComparator());
-    }
-    
-    public void unCompleteEvent(int index) {
-        Activity dub;
-        dub = events.getInternalList().get(index);
-        dub.setUncompleted();
-        events.getInternalList().set(index, dub); 
-        Collections.sort(events.getInternalList(), new EventComparator());
     }
     
     /**

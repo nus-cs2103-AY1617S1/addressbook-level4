@@ -135,13 +135,6 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
-    
-    @Override
-    public void completeEvent(int index) {
-        activityManager.completeEvent(index);
-        updateFilteredListToShowAll();
-        indicateActivityManagerChanged();
-    }
 
     /**
      * Methods for Un-completing an activity
@@ -160,12 +153,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateActivityManagerChanged();
     }
 
-    @Override
-    public void UncompleteEvent(int index) {
-        activityManager.unCompleteEvent(index);
-        updateFilteredListToShowAll();
-        indicateActivityManagerChanged();
-    }
     
     //@@author A0139164A
     /**

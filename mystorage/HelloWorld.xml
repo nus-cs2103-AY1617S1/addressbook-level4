@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<activitymanager>
+    <tasks>
+        <activityType>task</activityType>
+        <name>complete cs2101</name>
+        <note>must complete urgent</note>
+        <startDate>10-08-2016</startDate>
+        <startTime>1900</startTime>
+        <status>Uncompleted</status>
+    </tasks>
+    <tasks>
+        <activityType>task</activityType>
+        <name>complete cs2103t</name>
+        <note>must complete urgent</note>
+        <startDate>11-08-2016</startDate>
+        <startTime>2200</startTime>
+        <status>Uncompleted</status>
+    </tasks>
+    <tasks>
+        <activityType>task</activityType>
+        <name>complete cs2106</name>
+        <note>must complete urgent</note>
+        <startDate>10-08-2016</startDate>
+        <startTime>1900</startTime>
+        <status>Completed</status>
+    </tasks>
+    <events>
+        <activityType>event</activityType>
+        <name>project meeting</name>
+        <note>celebrate</note>
+        <startDate>10-10-2016</startDate>
+        <startTime>1400</startTime>
+        <endDate>10-10-2016</endDate>
+        <endTime>1800</endTime>
+        <status>Uncompleted</status>
+    </events>
+</activitymanager>

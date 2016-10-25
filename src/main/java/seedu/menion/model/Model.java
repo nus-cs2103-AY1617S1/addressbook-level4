@@ -26,12 +26,10 @@ public interface Model {
     /** Completes the given Activity, given it's index. */
     void completeFloatingTask(int index);
     void completeTask(int index);
-    void completeEvent(int index);
     
     /** Uncompletes the given Activity, given it's index. */
     void UncompleteFloatingTask(int index);
     void UncompleteTask(int index);
-    void UncompleteEvent(int index);
  
     /** 
      * Edits the name of the given Activity, given it's index. 
