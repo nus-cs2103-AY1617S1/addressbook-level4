@@ -19,7 +19,7 @@ public class FindCommandTest extends AddressBookGuiTest {
                 TypicalTestFloatingTasks.beach); //multiple results
         
         //find after deleting one result
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand("delete t1");
         assertFindResult("find to", 
                 TypicalTestFloatingTasks.flight, 
                 TypicalTestFloatingTasks.beach);
