@@ -13,11 +13,13 @@ import junit.framework.AssertionFailedError;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
 import seedu.todo.TestApp;
+import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.commons.util.XmlUtil;
 import seedu.todo.model.AddressBook;
 import seedu.todo.model.TodoList;
 import seedu.todo.model.person.ReadOnlyPerson;
+import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.storage.TodoListStorage;
 import seedu.todo.storage.XmlSerializableAddressBook;
@@ -59,34 +61,6 @@ public class TestUtil {
      * Folder used for temp files created during testing. Ignored by Git.
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
-
-    public static void assertAllPropertiesEqual(ImmutableTask a, ImmutableTask b) {
-        assertEquals(a.getTitle(), b.getTitle());
-        assertEquals(a.getDescription(), b.getDescription());
-        assertEquals(a.getLocation(), b.getLocation());
-        assertEquals(a.getStartTime(), b.getStartTime());
-        assertEquals(a.getEndTime(), b.getEndTime());
-        assertEquals(a.isPinned(), b.isPinned());
-        assertEquals(a.isCompleted(), b.isCompleted());
-        assertEquals(a.getTags(), b.getTags());
-        assertEquals(a.getUUID(), b.getUUID());
-    }
-
-    public static final Tag[] sampleTagData = getSampleTagData();
-
-    private static Tag[] getSampleTagData() {
-        try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            return null;
-            //not possible
-        }
-    }
-
 
     /**
      * Appends the file name to the sandbox folder path.
