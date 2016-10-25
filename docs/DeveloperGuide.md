@@ -435,14 +435,14 @@ Use case  ends
     1. Users can add notes, lists, photos and audio as a task
     2. The search function is convenient.
    * Weakness
-    2. The UI is not poor.
+    1. The UI is not poor.
     
 **Trello**
    * Strength
     1. The tags are in different colors which is convenient for users to read.
     2. A user can collaborate with other users using dedicated boards
    * Weakness
-    It contains multiple boards to show several tasks on UI. This feature makes the UI a little messy.
+    1. It contains multiple boards to show several tasks on UI. This feature makes the UI a little messy.
 
 **Wunderlist**
    * Strength
@@ -455,4 +455,4 @@ Use case  ends
     1. It can be used with apps and extensions for 10+ platforms, and both online and offline.
     2. It has a multi-level function wich can help users to break big tasks/project into small ones.
    * Weakness
-    The tasks cannot be displayed on a calendar.
+    1. The tasks cannot be displayed on a calendar.
