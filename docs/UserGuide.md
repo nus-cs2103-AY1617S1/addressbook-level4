@@ -6,6 +6,7 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
+<-- !@@author A0130853L -->
 <br>
 ## Introduction
 
@@ -18,12 +19,14 @@ If you are a keyboard lover and dislike clicking, then TasKitty is the right tas
 To get started, proceed to the Quick Start section below.
 
 <br>
+<-- !@@author -->
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
-   
+  
+  <-- !@@author A0130853L -->
 1. Download the latest `TasKitty.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your TasKitty.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
@@ -105,7 +108,7 @@ Example:
   <<img src="images/UIviewDone.png" width="600">
   
 <br>
-
+<-- !@@author -->
 #### Create a new task: `add`
 Adds a new task to the todo or deadlines list, or a new event to the event calendar.<br>
 * Todo format: `add NAME`<br>
@@ -141,6 +144,7 @@ Examples:
   Adds an `event` task with NAME as `walk dog`, DATE as `5 Nov 2016`, START\_TIME as `17:00`, END\_TIME as `18:00`.<br>
   <img src="images/UIevent.png" width="600">
 
+<-- !@@author A0130853L -->
 
 <br>
 #### Find tasks: `find`
@@ -153,7 +157,7 @@ Example:
 * `find assign`<br>
   <img src="images/UIfind.png" width="600">
 
-
+<-- !@@author -->
 <br>
 #### Edit task details: `edit`
 Edits a todo, deadline or event already inside the task manager using the index of the task.<br>
@@ -164,6 +168,7 @@ Edits a todo, deadline or event already inside the task manager using the index 
 > Format depends on the type of task being edited. When only 1 `TIME` is provided, it is treated as `END_TIME` for both deadline and event.<br><br>
 > Note that you can enter the `view` command before the `edit` command, to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the [`find`](#find-tasks-find) command to narrow down the displayed list of tasks and events.
 
+<-- !@@author A0130853L -->
 Example:
 
 * `view`<br>
@@ -236,6 +241,8 @@ Example:
   <img src="images/UIundoAfter.png" width="600"><br>
 
 <br>
+<-- !@@author -->
+
 #### Save data: `save`
 Saves data to a specified folder.<br>
 Format: `save FILEPATH`
@@ -252,12 +259,14 @@ Example:
   If folder CS2103 Tutorial is not present, TasKitty will create the folder.
 
 <br>
+<-- !@@author A0130853L -->
 #### Clearing all entries : `clear`
 Clears all tasks from the task manager.<br>
 Format: `clear`  
 > <img src="images/UIclear.png" width="600">
 
 <br>
+<-- !@@author -->
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
@@ -275,6 +284,7 @@ There is no need to save manually.
        the file that contains the data of your previous task manager's folder.      
 
 <br>
+<-- !@@author A0130853L -->
 ## Command Summary
 
 Command | Format  
