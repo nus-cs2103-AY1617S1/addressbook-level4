@@ -233,13 +233,16 @@ See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automa
 ### Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
-See [UsingTravis.md](UsingTravis.md) for more details.
 
 [comment]: # (@@author A0140060A)
 
 ### Test Coverage
 
 We use [Coveralls](https://coveralls.io/) to track test coverage of our code built using Travis CI
+
+### Code Quality
+
+We use [Codacy](https://www.codacy.com/) for static analysis of our code.
 
 [comment]: # (@@author )
 
@@ -252,20 +255,12 @@ Here are the steps to create a new release.
  2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file your created.
 
-### Managing Dependencies
-
-A project often depends on third-party libraries. For example, Taskmanager depends on the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+[comment]: # (@@author A0140060A)
 
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-[comment]: # (@@author A0140060A)
 Priority | As a ... | I want to ...           | So that I can...
 -------- | :------- | :---------------------- | :---------------
 `* * *`  | new user | see usage instructions  | learn how to use the app

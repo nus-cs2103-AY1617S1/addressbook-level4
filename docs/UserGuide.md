@@ -261,7 +261,7 @@ For events, you can edit the name and both start and end dates and times.
 
 1. Type `u[ndo]`. Press `Enter`.
 
-3. Console refreshes to display items as per previous state.
+3. Bottom left panel displays items as per previous state.
 
 [comment]: # (@@author A0140060A)
 
@@ -269,7 +269,7 @@ For events, you can edit the name and both start and end dates and times.
 
 1. Type `r[edo]`. Press `Enter`.
 
-3. Console refreshes to display items as per previous state.
+3. App's bottom left panel reverts items to before the latest undo action.
 
 [comment]: # (@@author )
 
