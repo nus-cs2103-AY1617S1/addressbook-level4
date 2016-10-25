@@ -11,7 +11,7 @@ public class TaskBuilder {
 
     private TestTask task;
 
-    public TaskBuilder() {
+    public TaskBuilder() throws IllegalValueException {
         this.task = new TestTask();
     }
 
@@ -38,12 +38,36 @@ public class TaskBuilder {
     }
     
     public TaskBuilder withDate(String date) throws IllegalValueException {
-        this.task.setDate(date);
+        this.task.setTaskDate(date);
         return this;
     }
     
+    public TaskBuilder withStartDate(String date) throws IllegalValueException {
+        this.task.setStartDate(date);
+        return this;
+    }
+    
+    public TaskBuilder withEndDate(String date) throws IllegalValueException {
+        this.task.setEndDate(date);
+        return this;
+    }
+    
+    public TaskBuilder withTime(String time) throws IllegalValueException {
+        this.task.setTaskTime(time);
+        return this;
+    }
+    
+    public TaskBuilder withStartTime(String time) throws IllegalValueException {
+        this.task.setStartTime(time);
+        return this;
+    }
+    
+    public TaskBuilder withEndTime(String time) throws IllegalValueException {
+        this.task.setEndTime(time);
+        return this;
+    }
+       
     public TestTask build() {
         return this.task;
     }
-
 }

@@ -9,9 +9,9 @@ import seedu.whatnow.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
-    TaskDate getTaskDate();
-    TaskDate getStartDate();
-    TaskDate getEndDate();
+    String getTaskDate();
+    String getStartDate();
+    String getEndDate();
     String getTaskTime();
     String getStartTime();
     String getEndTime();

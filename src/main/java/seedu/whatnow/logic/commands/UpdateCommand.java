@@ -51,7 +51,7 @@ public class UpdateCommand extends UndoAndRedo {
     public final String arg;
     private Task toUpdate;
     
-    public UpdateCommand(String taskType, int targetIndex, String arg_type, String arg) throws IllegalValueException {
+    public UpdateCommand(String taskType, int targetIndex, String arg_type, String arg) throws IllegalValueException, ParseException {
         this.taskType = taskType;
         this.targetIndex = targetIndex;
         this.arg_type = arg_type;
@@ -64,7 +64,7 @@ public class UpdateCommand extends UndoAndRedo {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    private void processArg() throws IllegalValueException {
+    private void processArg() throws IllegalValueException, ParseException {
         String newName = "a";
         String date = null;
         final Set<Tag> tagSet = new HashSet<>();
@@ -85,15 +85,13 @@ public class UpdateCommand extends UndoAndRedo {
             newName = arg;
         }
         
-        try {
-            toUpdate = new Task(new Name(newName), new TaskDate(date), null, null, null, null, null, new UniqueTagList(tagSet), null, null);
-            //toUpdate = (date == null) ? new Task(new Name(newName), new UniqueTagList(tagSet), null) : new Task(new Name(newName), new TaskDate(date), new UniqueTagList(tagSet), null);
-            if (date == null)
-                toUpdate.setTaskType(TASK_TYPE_FLOATING);
-            else
-                toUpdate.setTaskType(TASK_TYPE_NOT_FLOATING);
-        } catch (ParseException e) {
-            System.out.println("ParseException in UpdateCommand.java line 71");
+        toUpdate = new Task(new Name(newName), date, null, null, null, null, null, new UniqueTagList(tagSet), null, null);
+        
+        if (date == null) {
+            toUpdate.setTaskType(TASK_TYPE_FLOATING);
+        }
+        else {
+            toUpdate.setTaskType(TASK_TYPE_NOT_FLOATING);
         }
     }
     
@@ -127,10 +125,6 @@ public class UpdateCommand extends UndoAndRedo {
             toUpdate.setStatus(taskToUpdate.getStatus());
         }
         toUpdate.setStatus(taskToUpdate.getStatus());
-    }
-    
-    private void undoUpdateTheCorrectField(ReadOnlyTask tasktoUndoUpdate) {
-    	
     }
     
     @Override
@@ -173,6 +167,6 @@ public class UpdateCommand extends UndoAndRedo {
 	public CommandResult redo() {
 		assert model != null;
 		model.revertToPrevDataUpdate();
-		return new CommandResult(RedoCommand.MESSAGE_FAIL);
+		return new CommandResult(RedoCommand.MESSAGE_SUCCESS);
 	}
 }
