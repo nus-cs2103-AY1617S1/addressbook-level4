@@ -24,6 +24,7 @@ public class MainWindow extends UiPart {
 
     private static final String ICON = "/images/Tasks-icon.png";
     private static final String FXML = "MainWindow.fxml";
+    private static final String VIEW_TODAY = "view";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
@@ -143,6 +144,7 @@ public class MainWindow extends UiPart {
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        initialiseList();
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -241,16 +243,8 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public TodoListPanel getPersonListPanel() {
-        return this.taskListPanel;
-    }
-    
-    public DeadlineListPanel getDeadlineListPanel() {
-        return this.deadlineListPanel;
-    }
-    
-    public EventListPanel getEventListPanel() {
-        return this.eventListPanel;
+    private void initialiseList() {
+    	logic.initialiseList();
     }
 
 }
