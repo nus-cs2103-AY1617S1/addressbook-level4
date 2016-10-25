@@ -3,6 +3,7 @@ package seedu.oneline.commons.events.ui;
 import seedu.oneline.commons.events.BaseEvent;
 import seedu.oneline.model.tag.Tag;
 
+//@@author A0142605N 
 /**
  * Represents a selection change in the Tag List Panel
  */

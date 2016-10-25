@@ -14,7 +14,8 @@ public class TaskCardParser {
     public String getName() {
         return task.getName().toString();
     }
-    
+
+    //@@author A0142605N 
     public String getTime() {
         String deadline = task.getDeadline().toString(); 
         String startTime = task.getStartTime().toString(); 

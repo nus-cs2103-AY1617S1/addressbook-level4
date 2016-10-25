@@ -16,8 +16,10 @@ import seedu.oneline.model.tag.Tag;
 
 import java.util.logging.Logger;
 
+//@@author A0142605N
+
 /**
- * Panel containing the list of tasks.
+ * Panel containing the list of tags.
  */
 public class TagListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TagListPanel.class);
@@ -74,7 +76,7 @@ public class TagListPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         tagListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in tag list panel changed to : '" + newValue + "'");
                 raise(new TagPanelSelectionChangedEvent(newValue));
             }
         });
