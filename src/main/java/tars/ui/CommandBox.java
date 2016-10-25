@@ -65,10 +65,11 @@ public class CommandBox extends UiPart {
         commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             // To allow users to cycle through the command text history
             public void handle(KeyEvent ke) {
+                String tempCmdText = "";
                 if (ke.getCode().equals(KeyCode.UP)) {
                     setTextToShowPrevCmdText(ke);
                 } else if (ke.getCode().equals(KeyCode.DOWN)) {
-                    setTextToShowNextCmdText(ke);
+                    setTextToShowNextCmdText(ke, tempCmdText);
                 }
 
             }
@@ -127,26 +128,39 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * Shows the prev cmdtext in the CommandBox
-     * Does nothing if "prev" stack is empty
+     * Shows the prev cmdtext in the CommandBox Does nothing if "prev" stack is
+     * empty
      */
     private void setTextToShowPrevCmdText(KeyEvent ke) {
         if (!prevCmdTextHistStack.isEmpty()) {
+            if (nextCmdTextHistStack.isEmpty()) {
+                nextCmdTextHistStack.push(commandTextField.getText());
+            }
             String cmdTextToShow = prevCmdTextHistStack.pop();
             addCmdTextToNextStack(cmdTextToShow);
+            if (commandTextField.getText().equals(cmdTextToShow)) {
+                cmdTextToShow = prevCmdTextHistStack.pop();
+                addCmdTextToNextStack(cmdTextToShow);
+            }
             ke.consume();
             commandTextField.setText(cmdTextToShow);
         }
     }
-    
+
     /**
-     * Shows the prev cmdtext in the CommandBox
-     * Does nothing if "prev" stack is empty
+     * Shows the prev cmdtext in the CommandBox Does nothing if "prev" stack is
+     * empty
      */
-    private void setTextToShowNextCmdText(KeyEvent ke) {
+    private void setTextToShowNextCmdText(KeyEvent ke, String tempCmdText) {
         if (!nextCmdTextHistStack.isEmpty()) {
             String cmdTextToShow = nextCmdTextHistStack.pop();
             addCmdTextToPrevStack(cmdTextToShow);
+            if (commandTextField.getText().equals(cmdTextToShow)) {
+                cmdTextToShow = nextCmdTextHistStack.pop();
+                if (!nextCmdTextHistStack.isEmpty()) {
+                    addCmdTextToNextStack(cmdTextToShow);
+                }
+            }
             ke.consume();
             commandTextField.setText(cmdTextToShow);
         }
