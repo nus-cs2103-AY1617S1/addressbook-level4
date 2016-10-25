@@ -149,4 +149,16 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public boolean hasDeadline() {
         return deadline.isValid();
     }
+
+    /**
+     * Compares by deadline, then compares by name
+     */
+    @Override
+    public int compareTo(Task o) {
+        if (deadline.compareTo(o.deadline) == 0){
+            return name.compareTo(o.name);
+        } else {
+            return deadline.compareTo(o.deadline);
+        }
+    }
 }
