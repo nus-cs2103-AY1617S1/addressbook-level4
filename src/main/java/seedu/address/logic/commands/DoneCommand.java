@@ -85,11 +85,13 @@ public class DoneCommand extends UndoableCommand {
     private void archiveTasksFromGivenTargetIndexes() {
         for (int targetIndex: targetIndexes) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredUndoneTaskList();
-            if (lastShownList.size() < targetIndex - adjustmentForRemovedTask) {
+            boolean taskTargetIndexIsOutOfBounds = (lastShownList.size() < targetIndex - adjustmentForRemovedTask);
+            if (taskTargetIndexIsOutOfBounds) {
                 logger.warning("Task target index out of bounds detected. Skipping task with current target index.");
                 continue;
             }
-            Task taskToArchive = new Task(lastShownList.get(targetIndex - adjustmentForRemovedTask - 1));
+            int adjustedTaskIndex = targetIndex - adjustmentForRemovedTask - 1;
+            Task taskToArchive = new Task(lastShownList.get(adjustedTaskIndex));
             assert isViewingDoneList == false;
             try {
                 model.deleteTask(taskToArchive);
