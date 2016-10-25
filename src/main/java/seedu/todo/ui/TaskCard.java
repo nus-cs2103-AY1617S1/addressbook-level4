@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
@@ -53,9 +54,9 @@ public class TaskCard extends UiPart{
         onDate.setText("Start: " + task.getOnDate().toString());
         byDate.setText("End: " + task.getByDate().toString());
         priority.setText("Priority: " + task.getPriority().toString());
-        if (task.getPriority().toString().equals("low")) {
+        if (task.getPriority().toString().equals(Priority.LOW)) {
         	priorityLevel.setFill(Color.LIMEGREEN);
-        } else if (task.getPriority().toString().equals("mid")) {
+        } else if (task.getPriority().toString().equals(Priority.MID)) {
         	priorityLevel.setFill(Color.YELLOW);
         } else {
         	priorityLevel.setFill(Color.RED);
