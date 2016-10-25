@@ -35,9 +35,9 @@ public class TodoLogic implements Logic {
     }
     
     public CommandResult execute(String input) {
-        // Sanity check
+        // Sanity check - input should not be empty 
         if (StringUtil.isEmpty(input)) {
-            return new CommandResult("");
+            return new CommandResult();
         }
         
         ParseResult parseResult = parser.parse(input);

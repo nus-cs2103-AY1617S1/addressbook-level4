@@ -10,6 +10,11 @@ public class CommandResult {
     private final String feedback;
     private final ErrorBag errors; 
     
+    public CommandResult() {
+        this.feedback = "";
+        this.errors = null;
+    }
+    
     public CommandResult(String feedback) {
         this.feedback = feedback;
         this.errors = null;
