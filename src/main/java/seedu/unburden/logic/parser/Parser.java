@@ -356,7 +356,7 @@ public class Parser {
 		}
 		if (matcherDate.matches()) {
 			try {
-				return new ListCommand(args);
+				return new ListCommand(args, "date");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -367,12 +367,14 @@ public class Parser {
 				calendar.setTime(calendar.getTime());
 				calendar.add(Calendar.DAY_OF_YEAR, 1);
 				final String tomorrowKeyword = dateFormatter.format(calendar.getTime());
-				return new ListCommand(tomorrowKeyword);
+				return new ListCommand(tomorrowKeyword, "date");
 			case nextWeek:
 				calendar.setTime(calendar.getTime());
 				calendar.add(Calendar.WEEK_OF_YEAR, 1);
 				final String nextWeekKeyword = dateFormatter.format(calendar.getTime());
-				return new ListCommand(nextWeekKeyword);
+				return new ListCommand(nextWeekKeyword, "date");
+			case done:
+				return new ListCommand(done);
 			}
 		}
 		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
@@ -465,7 +467,6 @@ public class Parser {
 				final String tomorrowKeyword = dateFormatter.format(calendar.getTime());
 				final Set<String> tomorrowKeywords = new HashSet<>(Arrays.asList(tomorrowKeyword));
 				return new FindCommand(tomorrowKeywords, "date");
-			case done: 
 			}
 			final String[] nameKeywords = matcherName.group("keywords").split("\\s+");
 			final Set<String> nameKeyword = new HashSet<>(Arrays.asList(nameKeywords));

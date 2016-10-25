@@ -28,8 +28,13 @@ public class ListCommand extends Command {
     	this.date = null;
     	this.mode = "all";
     }
+    
+    public ListCommand(String done){
+    	this.date = null;
+    	this.mode = "done";
+    }
 
-    public ListCommand(String args) throws ParseException {
+    public ListCommand(String args, String mode) throws ParseException {
 		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		this.date = df.parse(args);
 		this.mode = "date";
