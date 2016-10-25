@@ -2,6 +2,11 @@ package seedu.address.model.undo;
 
 import seedu.address.model.task.ReadOnlyTask;
 
+//@@author A0139145E
+/*
+ * Implements a circular linked list to store the UndoTasks (up to 3 actions)
+ * using Last-In-First-Out (LIFO)
+ */
 public class UndoList {
 
     public UndoNode head;
@@ -14,25 +19,31 @@ public class UndoList {
         this.size = 0;
     }
 
-    public void addToList(String cmd, ReadOnlyTask initData, ReadOnlyTask finalData){
-        if (head == null){ //currently empty
-            head = new UndoNode(cmd, initData, finalData, null, null);
+    /*
+     * Adds a Undo action to the front of the list.
+     */
+    public void addToFront(String cmd, ReadOnlyTask postData, ReadOnlyTask preData){
+        if (size == 0){ //currently empty
+            head = new UndoNode(cmd, postData, preData, head, tail);
             tail = head;
             size++;
         }
         else if (size < 3){
-            tail.setNext(new UndoNode(cmd, initData, finalData, null, null));
+            tail.setNext(new UndoNode(cmd, postData, preData, head, tail));
             tail = tail.getNext();
             size++;
         }
         else if (size == 3){
             head = head.getNext();
-            tail.setNext(new UndoNode(cmd, initData, finalData, head, tail));
+            tail.setNext(new UndoNode(cmd, postData, preData, head, tail));
             tail = tail.getNext();
         }
     }
 
-    public UndoTask removeLast(){
+    /*
+     * Removes a Undo action to the front of the list.
+     */
+    public UndoTask removeFromFront(){
         if (size == 0) {
             return null;
         }
@@ -68,36 +79,43 @@ public class UndoList {
         return value.toString();
     }
 
-}
+    /*
+     * List Node class for the UndoList circular linked list
+     */
+    class UndoNode {
 
-class UndoNode {
-    
-    public UndoTask data;
-    public UndoNode next, prev;
-    
-    public UndoNode(String cmd, ReadOnlyTask initData, ReadOnlyTask finalData, UndoNode next, UndoNode prev){
-        this.data = new UndoTask(cmd, initData, finalData);
-        this.next = next;
-        this.prev = prev;
-    }
-    
-    UndoNode getNext(){
-        return this.next;
-    }
-    
-    UndoNode getPrev(){
-        return this.prev;
-    }
-    
-    UndoTask getUndoData(){
-        return this.data;
-    }
-    
-    void setNext(UndoNode next){
-        this.next = next;
-    }
-    
-    void setPrev(UndoNode prev){
-        this.prev = prev;
+        public UndoTask data;
+        public UndoNode next, prev;
+
+        /*
+         * Initialises a UndoNode
+         * cmd. postData cannot be null
+         */
+        public UndoNode(String cmd, ReadOnlyTask postData, ReadOnlyTask preData, UndoNode next, UndoNode prev){
+            this.data = new UndoTask(cmd, postData, preData);
+            this.next = next;
+            this.prev = prev;
+        }
+
+        UndoNode getNext(){
+            return this.next;
+        }
+
+        UndoNode getPrev(){
+            return this.prev;
+        }
+
+        UndoTask getUndoData(){
+            return this.data;
+        }
+
+        void setNext(UndoNode next){
+            this.next = next;
+        }
+
+        void setPrev(UndoNode prev){
+            this.prev = prev;
+        }
     }
 }
+//@@author

@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.model.undo.UndoTask;
 
+//@@author A0139145E
 /**
  * Lists all persons in the address book to the user.
  */
@@ -24,16 +25,16 @@ public class UndoCommand extends Command {
             switch (toUndo.command){
             
             case AddCommand.COMMAND_WORD:
-                model.deleteTask(toUndo.getInitData());
+                model.deleteTask(toUndo.getPostData());
                 break;
                 
             case DeleteCommand.COMMAND_WORD:
-                model.addTask(toUndo.getInitData());
+                model.addTask(toUndo.getPostData());
                 break;
                 
             case EditCommand.COMMAND_WORD:
-                model.deleteTask(toUndo.getFinalData());
-                model.addTask(toUndo.getInitData());
+                model.deleteTask(toUndo.getPostData());
+                model.addTask(toUndo.getPreData());
                 break;
                 
             }
@@ -51,3 +52,4 @@ public class UndoCommand extends Command {
     }
 
 }
+//@@author

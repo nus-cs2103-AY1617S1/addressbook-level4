@@ -28,7 +28,7 @@ public interface Model {
     void addUndo(String command, ReadOnlyTask data);
     
     /** Adds the given undo */
-    void addUndo(String command, ReadOnlyTask before, ReadOnlyTask after);
+    void addUndo(String command, ReadOnlyTask postData, ReadOnlyTask preData);
 
     /** Marks the given task as completed */
     void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
