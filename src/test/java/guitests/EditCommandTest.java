@@ -36,11 +36,11 @@ public class EditCommandTest extends TaskBookGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         Map<TaskField, String> fields = new HashMap<TaskField, String>();
         fields.put(TaskField.NAME, "New Task");
-        fields.put(TaskField.START_TIME, "New Start Time");
-        fields.put(TaskField.END_TIME, "New End Time");
-        fields.put(TaskField.DEADLINE, "New Deadline");
+        fields.put(TaskField.START_TIME, "Sun Oct 16 21:35:45");
+        fields.put(TaskField.END_TIME, "Sun Oct 16 21:35:45");
+        fields.put(TaskField.DEADLINE, "Sun Oct 16 21:35:45");
         fields.put(TaskField.RECURRENCE, "Monday");
-        fields.put(TaskField.TAG, "#Tag2");
+        fields.put(TaskField.TAG, "Tag2");
         assertEditSuccess(2, fields, currentList);
 
 //        //add another task

@@ -8,14 +8,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.oneline.commons.core.LogsCenter;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.commons.util.StringUtil;
 import seedu.oneline.logic.commands.*;
 import seedu.oneline.model.task.TaskField;
+import seedu.oneline.ui.BrowserPanel;
 
 /**
  * Parses user input.
@@ -37,7 +40,7 @@ public class Parser {
                     + " (?<args>.+)"); // the other arguments
     
     private static final Pattern TAG_ARGS_FORMAT =
-            Pattern.compile("#(?<tag>[\\w]+)"); // #<tag>
+            Pattern.compile("\\#(?<tag>\\p{Alnum}+)"); // #<tag>
     
     public Parser() {}
 
@@ -156,6 +159,11 @@ public class Parser {
                                     fieldIndexes.get(i).getValue() + 1,
                                 (i == fieldIndexes.size() - 1) ?
                                     splitted.length : fieldIndexes.get(i + 1).getValue());
+            if (fieldIndexes.get(i).getKey() == TaskField.TAG) {
+                for (int j = 0; j < subArr.length; j++) {
+                    subArr[j] = getTagFromArgs(subArr[j]);
+                }
+            }
             result.put(fieldIndexes.get(i).getKey(), String.join(" ", subArr));
         }
         return result;

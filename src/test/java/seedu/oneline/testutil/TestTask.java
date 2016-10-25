@@ -95,7 +95,7 @@ public class TestTask implements ReadOnlyTask {
         sb.append(".to " + this.getEndTime().toString() + " ");
         sb.append(".due " + this.getDeadline().toString() + " ");
         sb.append(".every " + this.getRecurrence().toString() + " ");
-        sb.append("#" + this.getTag().tagName + " ");
+        sb.append("#" + this.getTag().tagName);
         return sb.toString();
     }
 }
