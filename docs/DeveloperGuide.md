@@ -295,13 +295,6 @@ Other components should reference this class indirectly by using the **`Model`**
 directly use this class outside the model component.
 <br><br>
 
-**`HistoryStack` and `HistoryItem<T>` Classes:**
-
-The `HistoryStack` class stores the most recent states of the implemented `HistoryItem<T>` objects.
-There is a maximum size for the stack, and older history states are discarded whenever new states are 
-pushed and the size is exceeded. History states stored in the stack can be popped and returned as type `T` objects.
-<br><br>
-
 **`ReadOnlyTaskList`, `ReadOnlyTask` Interfaces:**
 
 These interfaces allow you to retrieve tasks, but not modify them. You can retrieve the tasks
@@ -324,6 +317,18 @@ if the detail for such task is blank (e.g. there is no deadline for a task), the
 details is **never `null`**. Instead, a `Deadline()` will be created to represent that there is no
 deadline for the task (usually, you would use `Deadline(Date date)` if the task has a deadline).
 <br><br>
+
+**`HistoryStack` and `HistoryItem<T>` Classes:**
+
+The `HistoryStack` class stores the most recent states of the implemented `HistoryItem<T>` objects.
+You can specify a maximum size for the stack, and older history states are discarded whenever new states are 
+pushed and the size has exceeded the maximum size. History states stored in the stack are returned as type `T` objects when popped.
+
+> **Note:** The `undo` and `redo` command uses HistoryStack to store recent states of the TaskList.<br>
+> This design eliminates the need to implement an undo/redo method for every command.
+> This saves time and effort for implementing new commands, and also reduces complications and potential bugs.
+
+<br>
 
 **`UserPrefs` Class:**
 
