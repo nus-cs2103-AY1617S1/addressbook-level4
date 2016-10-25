@@ -4,17 +4,13 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Damith C.Rajapakse](http://www.comp.nus.edu.sg/~damithch/) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Tutor
-
 #### [Brandon Yeo Xiang Guang](https://github.com/brandonyeoxg) <br>
 <img src="images/BrandonYeoXiangGuang.jpg" width="150"><br>
 **Role**: Project Leader
 * Aspects/tools in charge of: Leader
 * Features implemented:
     * [Add recurring](https://github.com/CS2103AUG2016-W09-C2/main/blob/master/docs/UserGuide.md#adding-a-floating-task-add)
-* Code written: [functional code](../collated/main/A0135782Y.md)[testcode](../collated/test/A0135782Y.md)[docs](../collated/docs/A0135782Y.md)
+* Code written: [[functional code](../collated/main/A0135782Y.md)][[testcode](../collated/test/A0135782Y.md)][[docs](../collated/docs/A0135782Y.md)]
 * Other major contributions:
     * Set up Travis and EclEmma
 -----
@@ -29,7 +25,7 @@ Role: Developer <br>
     * [Undo](https://github.com/CS2103AUG2016-W09-C2/main/blob/master/docs/UserGuide.md#undo-tasks--undo)
     * [Redo](https://github.com/CS2103AUG2016-W09-C2/main/blob/master/docs/UserGuide.md#redo-tasks--redo)
     * [Cd](https://github.com/CS2103AUG2016-W09-C2/main/blob/master/docs/UserGuide.md#change-directory-cd)
-* Code written: [functional code](../collated/main/A0147967J.md)[testcode](../collated/test/A0147967J.md)[docs](../collated/docs/A0147967J.md)
+* Code written: [[functional code](../collated/main/A0147967J.md)][[testcode](../collated/test/A0147967J.md)][[docs](../collated/docs/A0147967J.md)]
 
 -----
 
@@ -38,7 +34,7 @@ Role: Developer <br>
 Role: Developer <br>  
 * Aspects/tools in charge of: Documentation
 * Features implemented:
-* Code written: [functional code](../collated/main/A0135784W.md)[docs](../collated/docs/A0135784W.md)
+* Code written: [[functional code](../collated/main/A0135784W.md)][[docs](../collated/docs/A0135784W.md)]
 -----
 
 #### [Yang Zhuo Han](http://github.com/m133225)
@@ -48,6 +44,6 @@ Role: Developer <br>
 * Features implemented:
     * [Edit](https://github.com/CS2103AUG2016-W09-C2/main/blob/master/docs/UserGuide.md#edit-tasks--edit)
     * [Find](https://github.com/CS2103AUG2016-W09-C2/main/blob/master/docs/UserGuide.md#find-tasks--find)
-* Code written: [functional code](../collated/main/A0147995H.md)[testcode](../collated/test/A0147995H.md)[docs](../collated/docs/A0147995H.md)
+* Code written: [[functional code](../collated/main/A0147995H.md)][[testcode](../collated/test/A0147995H.md)][[docs](../collated/docs/A0147995H.md)]
 
 -----
