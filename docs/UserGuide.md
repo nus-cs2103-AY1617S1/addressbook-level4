@@ -135,20 +135,16 @@ Examples:
 #### Archive completed tasks : `done`
 Format: done TASK_ID
 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-
 Examples:
 * `done 1`
 
-   <img src="images/ugdone_0.png" width="600">
-   <img src="images/ugdone_1.png" width="600">
-   <img src="images/ugdone_2.png" width="600">
+   <img src="images/beforedone.png" width="600">
+   <img src="images/afterdone1.png" width="600">
+   <img src="images/afterdone2.png" width="600">
    >Completed tasks can be viewed from navigation bar on the side.
 
 #### Block out timeslot : `block`
-Format: block from [START_DATE] START_TIME to [START_DATE] START_TIME [t/TAG]
-
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
+Format: block from [START_DATE] START_TIME to [START_DATE] START_TIME [t/TAG] 
 
 Examples:
 * `block from today 8pm to today 9pm`
@@ -219,8 +215,6 @@ Examples:
 #### Change directory: `cd`
 Format: cd FILE_PATH
 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
-
 Examples: 
 * `cd data\newlist.xml`
 
@@ -255,6 +249,7 @@ Block | `block TASK_NAME from [START_DATE] START_TIME to [START_DATE] START_TIME
 Redo | `r`
 Undo | `u`
 Find | `find [KEY_WORD] [from DATE_TIME to DATE_TIME | by DATE_TIME] [t/TAG]...`
+View | `view DATE [TIME]`
 Clear | `clear`
 Change directory | `cd FILE_PATH`
 Exit | `exit`
