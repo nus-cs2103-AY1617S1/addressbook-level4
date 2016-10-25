@@ -36,7 +36,7 @@ To get started, proceed to the Quick Start section below.
    * **`add`**` math homework 1 Jan 2015 2pm` : adds a new task that has the deadline `1 Jan 2015 2pm`.
    * **`view`** : lists all tasks for today.
    * **`view`**` 1 Jan 2015` : lists all tasks for specific date.
-   * **`delete`**` 1` : deletes the 1st task shown in the current list of tasks.
+   * **`delete`**` d1` : deletes the 1st task shown in the current list of deadline tasks.
    * **`exit`** : exits the program.
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -60,10 +60,10 @@ All tasks for the specified date and deadlines up to the specified date will be 
 
 Examples:
 
-* `view`
+* `view`<br> 
   <img src="images/UIview.png" width="600">
 
-* `view 16 Oct 2016`
+* `view 16 Oct 2016`<br> 
   <img src="images/UIviewDate.png" width="600">
 
 <br>  
@@ -110,7 +110,7 @@ Examples:
 <br>
 #### Find tasks: `find`
 Finds tasks based on keywords.<br>
-Format: `find KEYWORDS`
+Format: `find KEYWORDS...`
 
 Tasks that partly or completely match the keywords entered will be displayed.<br><br>
 
@@ -122,11 +122,10 @@ Example:
 <br>
 #### Edit task details: `edit`
 Edits a todo, deadline or event already inside the task manager using the index of the task.<br>
-* Edit todo format: `edit t INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
-* Edit deadline format: `edit d INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
-* Edit event format: `edit e INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
+* Format: `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
 
-> Edits a task at the specified `INDEX` under the todos `t`, deadlines `d` or events `e` section. The `INDEX` refers to the index number shown in the most recent listing.<br><br>
+> Edits a task at the specified `INDEX` under the todos `t`, deadlines `d` or events `e` section. The `INDEX` refers to the category and index number shown in the most recent listing. eg. `t1` `d2` `e3` <br>
+If no or an invalid category was listed, the app will default to todo format `t`. eg. `1` and `+1` becomes `t1` <br><br>
 > Format depends on the type of task being edited. When only 1 `TIME` is provided, it is treated as `END_TIME` for both deadline and event.<br><br>
 > Note that you are required to enter the `view` command before the `edit` command, in order to view the list of tasks and events and edit the specified task accordingly. Alternatively, you can use the [`find`](#find-tasks-find) command to narrow down the displayed list of tasks and events.
 
@@ -134,7 +133,7 @@ Examples:
 
 * `view`<br>
   `edit d1 assignment 2 15 Oct 2016`<br>
-  Edits the 1st task under the todo tasks section. Change the NAME to `assignment 2` and DATE to `15 Oct 2016`.<br>
+  Edits the 1st task under the delete tasks section. Change the NAME to `assignment 2` and DATE to `15 Oct 2016`.<br>
   <img src="images/UIedit.png" width="600">
 
 * `edit e2 22:00 00:00`<br>
@@ -143,9 +142,7 @@ Examples:
 <br>
 #### Delete task: `delete`
 Deletes a todo, deadline or event already inside the task manager using the index of the task.<br>
-* Delete todo format: `delete t INDEX`
-* Delete deadline format: `delete d INDEX`
-* Delete event format: `delete e INDEX`
+* Format: `delete INDEX...`
 
 Examples:
 
@@ -172,9 +169,7 @@ Examples:
 <br>
 #### Mark task as done: `done`
 Marks a task in the task list as done.<br>
-* Todo done format: `done t INDEX`
-* Deadline done format: `done d INDEX`
-* Event done format: `done e INDEX`
+* Format: `done INDEX...`
 
 Tasks that are marked as done are moved to the bottom of the list in their respective sections.<br><br>
 
@@ -257,16 +252,10 @@ Add deadline | `add NAME DATE END_TIME`
 Add event | `add NAME DATE START_TIME END_TIME`
 View | `view [DATE]`
 View done | `view done`
-Find | `find KEYWORDS`
-Edit todo | `edit t INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
-Edit deadline | `edit d INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
-Edit event | `edit e INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
-Delete todo | `delete t INDEX`
-Delete deadline | `delete d INDEX`
-Delete event | `delete e INDEX`
-Done todo | `done t INDEX`
-Done deadline | `done d INDEX`
-Done event | `done e INDEX`
+Find | `find KEYWORDS...`
+Edit | `edit INDEX [NEW_NAME] [NEW_DATE] [NEW_START_TIME] [NEW_END_TIME]`
+Delete | `delete INDEX...`
+Done | `done INDEX...`
 Save | `save FILEPATH`
 Undo | `undo`
 Help | `help`
