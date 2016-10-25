@@ -80,7 +80,8 @@ public class Parser {
 
 	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+'(?<newName>(\\s*[^\\s+])+)'");
 	
-	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s[^\\s+])+)");
+	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile
+			("(?<folderFilePath>(\\s*[^\\s+])+)\\s+save-as\\s+(?<fileName>(\\s*[^\\s+])+)");
 
 	private com.joestelmach.natty.Parser nattyParser;
 
