@@ -55,9 +55,10 @@ public class SetStorageCommand extends Command {
         
         model.saveState();
         
-        try{       	
+        try{
         	Path newStorageFolderFilePath = Paths.get(userSpecifiedStorageFolder);  //Throws InvalidPathException
         	
+        	//
         	if(Files.notExists(newStorageFolderFilePath)){  //Throws SecurityException
         		return new CommandResult(String.format(MESSAGE_FOLDER_DOES_NOT_EXIST, userSpecifiedStorageFolder)); 
         	}

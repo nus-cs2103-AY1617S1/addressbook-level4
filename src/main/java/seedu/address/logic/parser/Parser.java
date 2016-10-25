@@ -37,6 +37,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SetStorageCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.TaskManager;
 import seedu.address.model.tag.UniqueTagList;
@@ -78,6 +79,8 @@ public class Parser {
 	private static final Pattern SOMEDAY_ARGS_FORMAT = Pattern.compile("'(?<taskName>(\\s*[^\\s+])+)'");
 
 	private static final Pattern EDIT_ARGS_FORMAT_1 = Pattern.compile("(?<index>\\d)\\s+'(?<newName>(\\s*[^\\s+])+)'");
+	
+	private static final Pattern SET_STORAGE_ARGS_FORMAT = Pattern.compile();
 
 	private com.joestelmach.natty.Parser nattyParser;
 
@@ -109,6 +112,9 @@ public class Parser {
 
 		case EditCommand.COMMAND_WORD:
 			return prepareEdit(arguments);
+			
+		case SetStorageCommand.COMMAND_WORD:
+			return prepareSetStorage(arguments);	
 			
 		case DoneCommand.COMMAND_WORD:
 			return prepareDone(arguments);
@@ -425,6 +431,11 @@ public class Parser {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 		}
 	}
+	
+	private Command prepareSetStorage(String arguments){
+		final Matcher matcher = 
+	}
+	
 
 	/**
 	 * Returns an ArrayList of the specified indices in the {@code command} IF

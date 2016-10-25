@@ -3,6 +3,7 @@ package seedu.address.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
@@ -135,6 +136,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
 	}
     
+    //@@author A0143756Y
     @Override
     public synchronized void setStorage(File newStorageFile, File oldStorageFile) throws IOException{
     	assert newStorageFile!= null;
@@ -143,8 +145,13 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	Files.copy(oldStorageFile, newStorageFile);  //Throws IOException
     	
-    	config.setTaskManagerFilePath(newStorageFile.getCanonicalPath());
+    	//Updates taskManagerFilePath (attribute) in config (Config object)
+    	config.setTaskManagerFilePath(newStorageFile.getCanonicalPath());  //Throws IOException
+    	
+    	//Saves config (Config object) to config.json (JSON file), overwrites existing config.json
+    	ConfigUtil.saveConfig(config, "config.json");  //Throws IOException
     }
+    //@@author 
     
     //=========== Filtered Task List Accessors ===============================================================
 
