@@ -33,6 +33,7 @@ In-Charge: Model
 Role: Developer <br>  
 * Features implemented: <br>
    * [Edit task](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#editing-a-task-edit) <br>
+* Code written: [functional code][test code][docs] <br>
 
 -----
 
