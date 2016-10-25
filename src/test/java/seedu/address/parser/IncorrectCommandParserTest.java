@@ -10,11 +10,15 @@ import org.junit.Test;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.IncorrectCommandParser;
 
+//@@author A0143107U
 public class IncorrectCommandParserTest {
 	IncorrectCommandParser parser = new IncorrectCommandParser();
 
 	@Test
 	public void prepareCommand_validFormat() {
+		/*
+		 * Testing valid incorrect command format
+		 */
 		String expected = String.format(MESSAGE_UNKNOWN_COMMAND);
 		IncorrectTaskCommand command = (IncorrectTaskCommand) parser.prepareCommand("");
 		CommandResult result = command.execute();

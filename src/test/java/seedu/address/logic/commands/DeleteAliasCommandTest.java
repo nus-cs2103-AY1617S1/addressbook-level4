@@ -10,6 +10,7 @@ import seedu.address.logic.commands.taskcommands.DeleteAliasCommand;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.model.task.TaskManager;
 
+//@@author A0143107U
 public class DeleteAliasCommandTest {
 
 	// Initialized to support the tests

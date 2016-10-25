@@ -9,6 +9,7 @@ import seedu.address.logic.commands.taskcommands.UnfavoriteTaskCommand;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.parser.UnfavoriteCommandParser;
 
+//@@author A0143107U
 public class UnfavoriteCommandParserTest {
 	// Initialized to support the tests
 	UnfavoriteCommandParser parser = new UnfavoriteCommandParser();
@@ -26,9 +27,9 @@ public class UnfavoriteCommandParserTest {
 	}
 	
 	@Test
-	public void prepareCommand_favoriteTask() {
+	public void prepareCommand_unfavoriteTask() {
 		/*
-		 * Testing correct handling of invalid update types
+		 * Testing valid unfavorite command format
 		 */
 		String expected = "2";
 		

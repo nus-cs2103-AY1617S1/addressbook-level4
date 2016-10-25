@@ -9,6 +9,7 @@ import seedu.address.logic.commands.taskcommands.FavoriteTaskCommand;
 import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.parser.FavoriteCommandParser;
 
+//@@author A0143107U
 public class FavoriteCommandParserTest {
 	// Initialized to support the tests
 	FavoriteCommandParser parser = new FavoriteCommandParser();
@@ -28,7 +29,7 @@ public class FavoriteCommandParserTest {
 	@Test
 	public void prepareCommand_favoriteTask() {
 		/*
-		 * Testing correct handling of invalid update types
+		 * Testing valid favorite task format
 		 */
 		String expected = "2";
 		

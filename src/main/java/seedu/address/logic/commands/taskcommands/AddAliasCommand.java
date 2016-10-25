@@ -10,6 +10,7 @@ import seedu.address.model.Alias;
 /**
  * Adds a task to TaskManager.
  */
+//@@author A0143107U
 public class AddAliasCommand extends TaskCommand {
 
     public static final String COMMAND_WORD = "alias";

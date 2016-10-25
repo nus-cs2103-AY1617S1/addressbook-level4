@@ -12,14 +12,15 @@ import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
 /*
- * Parses Favorite commands
+ * Parses Complete commands
  */
+//@@author A0143107U
 public class CompleteCommandParser extends CommandParser{
 	public static final String COMMAND_WORD = CompleteTaskCommand.COMMAND_WORD;
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
 	/**
-     * Parses arguments in the context of the Favorite task command.
+     * Parses arguments in the context of the Complete task command.
      *
      * @param args full command args string
      * @return the prepared command

@@ -8,6 +8,7 @@ import seedu.address.logic.commands.taskcommands.TaskCommand;
 /*
  * Parses Alias commands
  */
+//@@author A0143107U
 public class AddAliasCommandParser extends CommandParser{
     public static final String COMMAND_WORD = AddAliasCommand.COMMAND_WORD;
     

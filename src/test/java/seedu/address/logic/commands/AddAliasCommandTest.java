@@ -10,6 +10,7 @@ import seedu.address.logic.commands.taskcommands.AddAliasCommand;
 import seedu.address.model.task.InMemoryTaskList;
 import seedu.address.model.task.TaskManager;
 
+//@@author A0143107U
 public class AddAliasCommandTest {
 
 	// Initialized to support the tests

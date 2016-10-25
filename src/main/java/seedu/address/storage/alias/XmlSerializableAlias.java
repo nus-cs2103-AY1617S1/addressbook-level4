@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 /**
  * An Immutable Alias that is serializable to XML format
  */
+//@@author A0143107U
 @XmlRootElement(name = "alias")
 public class XmlSerializableAlias extends UniqueItemCollection<Alias>{ 
 

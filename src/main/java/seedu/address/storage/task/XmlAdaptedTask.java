@@ -43,7 +43,7 @@ public class XmlAdaptedTask {
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(Task source) {
     	description = source.getDescription().toString();

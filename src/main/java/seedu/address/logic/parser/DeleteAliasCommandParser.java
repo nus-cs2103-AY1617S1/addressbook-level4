@@ -6,8 +6,9 @@ import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 
 /*
- * Parses delete commands
+ * Parses delete alias commands
  */
+//@@author A0143107U
 public class DeleteAliasCommandParser extends CommandParser{
 	public static final String COMMAND_WORD = DeleteAliasCommand.COMMAND_WORD;
 

@@ -7,6 +7,7 @@ import seedu.address.model.task.InMemoryTaskList;
 /**
  * Replaces the shortcut of an alias with its sentence.
  */
+//@@author A0143107U
 public class ReplaceAlias {
     private InMemoryTaskList model;
     

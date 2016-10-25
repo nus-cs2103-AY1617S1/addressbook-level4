@@ -8,6 +8,7 @@ import seedu.address.model.task.Task;
 /**
  * Completes a task identified using it's last displayed index from TaskManager.
  */
+//@@author A0143107U
 public class CompleteTaskCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "complete";

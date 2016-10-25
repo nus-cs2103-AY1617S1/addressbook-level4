@@ -5,6 +5,7 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.Alias;
 
 /** Indicates the AddressBook in the model has changed*/
+//@@author A0143107U
 public class AliasChangedEvent extends BaseEvent {
 
     public final UniqueItemCollection<Alias> data;

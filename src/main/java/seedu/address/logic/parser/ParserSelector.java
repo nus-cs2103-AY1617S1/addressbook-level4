@@ -8,6 +8,7 @@ import seedu.address.commons.core.LogsCenter;
 /*
  * Responsible for selecting an appropriate parser from a pre-specified list
  */
+//@@author A0143107U
 public class ParserSelector {
 		
 	private static final Class<?>[] parserTypes = CommandParserList.getList();

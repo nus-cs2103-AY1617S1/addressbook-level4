@@ -9,13 +9,13 @@ import seedu.address.logic.commands.taskcommands.IncorrectTaskCommand;
 import seedu.address.logic.commands.taskcommands.ListTaskCommand;
 import seedu.address.logic.parser.ListCommandParser;
 
+//@@author A0143107U
 public class ListCommandParserTest {
 	// Initialized to support the tests
 		ListCommandParser parser = new ListCommandParser();
 		
 		/**
 		 * Testing correct handling of invalid formats, list types
-		 * 
 		 */
 		@Test
 		public void prepareCommand_invalidFormat() {

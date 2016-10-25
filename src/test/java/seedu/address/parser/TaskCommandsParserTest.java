@@ -9,6 +9,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.taskcommands.TaskCommand;
 import seedu.address.logic.parser.*;
 
+//@@author A0143107U
 public class TaskCommandsParserTest {
 
 	@Test
@@ -25,6 +26,9 @@ public class TaskCommandsParserTest {
 	
 	@Test
 	public void parserSelector_validCommand(){
+		/* CommandResult should return a string that denotes that 
+         * command is valid.
+         */
 		TaskCommandsParser parser = new TaskCommandsParser();
 		parser.parseCommand("add meeting with boss");	
 		String feedback = parser.getCommandWord();

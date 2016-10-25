@@ -14,12 +14,13 @@ import seedu.address.logic.commands.taskcommands.UncompleteTaskCommand;
 /*
  * Parses Uncomplete commands
  */
+//@@author A0143107U
 public class UncompleteCommandParser extends CommandParser{
 	public static final String COMMAND_WORD = UncompleteTaskCommand.COMMAND_WORD;
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
 	/**
-     * Parses arguments in the context of the Unfavorite task command.
+     * Parses arguments in the context of the Uncomplete task command.
      *
      * @param args full command args string
      * @return the prepared command

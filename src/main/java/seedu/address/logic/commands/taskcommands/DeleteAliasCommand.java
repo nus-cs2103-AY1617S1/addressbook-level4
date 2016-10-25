@@ -11,6 +11,7 @@ import seedu.address.model.Alias;
 /**
  * Deletes an alias identified using it's shortcut.
  */
+//@@author A0143107U
 public class DeleteAliasCommand extends TaskCommand {
 
 	public static final String COMMAND_WORD = "unalias";

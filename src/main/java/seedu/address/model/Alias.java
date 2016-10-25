@@ -3,6 +3,7 @@ package seedu.address.model;
 /*
  * A one-word alias for any sentence to be used as a command
  */
+//@@author A0143107U
 public class Alias implements Copiable<Alias> {
 	private String shortcut;
 	private String sentence;

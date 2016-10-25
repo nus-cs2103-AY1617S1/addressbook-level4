@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 /**
  * Manages storage of TaskManager data in local storage.
  */
+//@@author A0143107U
 public class TaskStorageManager extends ComponentManager implements TaskStorage {
 
     private static final Logger logger = LogsCenter.getLogger(TaskStorageManager.class);

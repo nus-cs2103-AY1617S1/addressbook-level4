@@ -1,5 +1,9 @@
 package seedu.address.model.task;
 
+/*
+ * Tasks that implement this interface can be completed
+ */
+//@@author A0143107U
 public interface CompletableTask {
 	/*
 	 * Gives the task a 'complete' status

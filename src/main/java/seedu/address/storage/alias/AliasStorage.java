@@ -10,6 +10,7 @@ import java.util.Optional;
 /**
  * Represents a storage for {@link seedu.address.model.Alias}.
  */
+//@@author A0143107U
 public interface AliasStorage {
 
     /**

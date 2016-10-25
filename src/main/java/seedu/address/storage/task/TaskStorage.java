@@ -17,6 +17,7 @@ import java.util.Optional;
 /**
  * API of the TaskStorage component
  */
+//@@author A0143107U
 public interface TaskStorage extends TaskManagerStorage, UserPrefsStorage, AliasStorage {
 
     @Override

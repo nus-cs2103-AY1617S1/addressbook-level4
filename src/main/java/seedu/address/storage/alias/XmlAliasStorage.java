@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 /**
  * A class to access Alias data stored as an xml file on the hard disk.
  */
+//@@author A0143107U
 public class XmlAliasStorage implements AliasStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlAliasStorage.class);
@@ -30,7 +31,7 @@ public class XmlAliasStorage implements AliasStorage {
     }
 
     /**
-     * Similar to {@link #UniqueItemCollection<Task>}
+     * Similar to {@link #UniqueItemCollection<Alias>}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
@@ -50,7 +51,7 @@ public class XmlAliasStorage implements AliasStorage {
     }
 
     /**
-     * Similar to {@link #saveAddressBook(UniqueItemCollection<Task>)}
+     * Similar to {@link #saveAlias(UniqueItemCollection<Alias>)}
      * @param filePath location of the data. Cannot be null
      */
     public void saveAlias(UniqueItemCollection<Alias> alias, String filePath) throws IOException {
