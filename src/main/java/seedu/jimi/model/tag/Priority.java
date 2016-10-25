@@ -16,7 +16,11 @@ public class Priority extends Tag{
     public final static String priorityMed = "MED";
     public final static String priorityHigh = "HIGH";
             
+    /**
+     * Instantiate with no priority tag.
+     */
     public Priority()   {
+        this.tagName = "NULL";
     }
     
     /**

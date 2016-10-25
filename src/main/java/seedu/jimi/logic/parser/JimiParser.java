@@ -194,9 +194,9 @@ public class JimiParser {
             List<Date> endDates = parseStringToDate(eventDetailsMatcher.group("endDateTime"));
             
             String priority = getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"));
-            if (priority == null)
-                priority = "MED";
-            
+            if (priority == null) {
+                priority = "NULL";
+            }
             return new AddCommand(
                     eventDetailsMatcher.group("taskDetails"),
                     startDates,
@@ -222,7 +222,7 @@ public class JimiParser {
             
             String priority = getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"));
             if (priority == null)
-                priority = "MED";
+                priority = "NULL";
             
             return new AddCommand(
                     taskDetailsMatcher.group("taskDetails"),
