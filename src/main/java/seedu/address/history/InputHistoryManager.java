@@ -22,7 +22,7 @@ public class InputHistoryManager implements InputHistory{
     }
     
     // Use Singleton Pattern here
-    public static InputHistoryManager getInstance(){
+    public static InputHistoryManager getInstance() {
         if (theInputHistoryManager == null){
             theInputHistoryManager = new InputHistoryManager();
         }
@@ -31,7 +31,7 @@ public class InputHistoryManager implements InputHistory{
     
     // Methods dealing with up and down arrow to retrieve prev/next entered commands
     @Override
-    public void updateInputHistory(String userInput){
+    public void updateInputHistory(String userInput) {
         assert prevCommands != null && nextCommands != null && currentStoredCommandShown != null;
         
         if (!isLatestInput()) {
@@ -52,45 +52,49 @@ public class InputHistoryManager implements InputHistory{
     }
     
     @Override
-    public boolean isEarliestInput(){
+    public boolean isEarliestInput() {
         assert prevCommands != null;
         return prevCommands.isEmpty();
     }
     
     @Override
-    public boolean isLatestInput(){
+    public boolean isLatestInput() {
         assert nextCommands != null;
         return nextCommands.isEmpty();
     }
     
+    public String getNextInput() {
+        return null;
+    }
+    
     @Override
-    public String popPrevInput(){
+    public String popPrevInput() {
         assert prevCommands != null;
         this.currentStoredCommandShown = prevCommands.pop();
         return currentStoredCommandShown;
     }
     
     @Override
-    public String pushPrevInput(String input){
+    public String pushPrevInput(String input) {
         assert prevCommands != null;
         return prevCommands.push(input);
     }
     
     @Override
-    public String popNextInput(){
+    public String popNextInput() {
         assert nextCommands != null;
         this.currentStoredCommandShown = nextCommands.pop();
         return currentStoredCommandShown;
     }
     
     @Override
-    public String pushNextInput(String input){
+    public String pushNextInput(String input) {
         assert nextCommands != null;
         return nextCommands.push(input);
     }
     
     @Override
-    public String getStoredCurrentShownInput(){
+    public String getStoredCurrentShownInput() {
         return currentStoredCommandShown;
     }
     

@@ -139,10 +139,21 @@ public class CommandBox extends UiPart {
         
     }
 
+    /**
+     * Returns a string that is the result of the key appended to the back of the user input
+     * @param userInput the user input
+     * @param keyString the key as a string
+     * @return string with key appended to the user input string
+     */
     private String applyKeyOnInputEnd(String userInput, String keyString) {
         return userInput + keyString;
     }
 
+    /**
+     * Returns the key code associated with the Key Event
+     * @param event the KeyEvent
+     * @return the key code associated
+     */
     private KeyCode getKeyCodeFromEvent(KeyEvent event) {
         return event.getCode();
     }
@@ -164,10 +175,23 @@ public class CommandBox extends UiPart {
         resultDisplay.postMessage(toDisplay);
     }
     
-    private String applySpaceOnInputEnd(String expectedUserInput) {
-        return expectedUserInput + " ";
+    /**
+     * Returns a string with a single whitespace character appended to the back of
+     * the given user input string
+     * @param userInput
+     * @return
+     */
+    private String applySpaceOnInputEnd(String userInput) {
+        return userInput + " ";
     }
 
+    /**
+     * Returns a string that is the result of applying a backspace on the user input string given.
+     * If the string is already empty, an empty string is returned.
+     * Otherwise, returns a string of the original input with the last character removed.
+     * @param userInput
+     * @return
+     */
     private String applyBackspaceOnInputEnd(String userInput) {
         if (userInput.isEmpty()) {
             return "";
@@ -177,43 +201,84 @@ public class CommandBox extends UiPart {
         }
     }
 
-    
+    /**
+     * Handles the event where the user is trying to navigate the input history.
+     * keyCode must either be up or down arrow key.
+     * 
+     * @param keyCode the keycode associated with this event
+     */
     private void handleInputHistoryNavigation(KeyCode keyCode) {
+        assert keyCode == KeyCode.UP || keyCode == KeyCode.DOWN;
+        
         boolean wantPrev = checkIfWantPrevInput(keyCode);
-        boolean wantNext = !wantPrev;
         
         // if attempt to get next command while at latest command input or prev while at earliest, return
-        if ((history.isLatestInput() && wantNext) || (history.isEarliestInput() && wantPrev)) {
+        if (desiredInputHistoryUnavailable(wantPrev)) {
             return;
         }
                 
-        // handle differently depending on up arrow
         if (wantPrev){
-            // store the current input into the next first
-            if (history.isLatestInput()) {
-                history.pushNextInput(commandTextField.getText());
-            }
-                
-            else {
-                history.pushNextInput(history.getStoredCurrentShownInput());
-            }
-                
-            // get a previous command input and replace current input
-            commandTextField.setText(history.popPrevInput());
-        }
-        
-        // or down arrow
+            handleGetPreviousInput();
+        }        
         else {
-            // store the current input into the prev first
-            history.pushPrevInput(history.getStoredCurrentShownInput());
-            
-            // get a next command input and replace current input
-            commandTextField.setText(history.popNextInput());
+            // else the user wants next
+            handleGetNextInput();
         }
         
+        updateCaretPosition();
+    }
+
+    /**
+     * Returns whether the user is trying to access a previous or next input in 
+     * the input history but is already at the limit (either earliest history or latest
+     * history respectively).
+     * 
+     * @param wantPrev boolean representing if the user wants the previous input
+     * @return
+     */
+    private boolean desiredInputHistoryUnavailable(boolean wantPrev) {
+        boolean wantNext = !wantPrev;
+        boolean atEarliestHistoryButWantPrevInput = history.isEarliestInput() && wantPrev;
+        boolean atLatestHistoryButWantNextInput = history.isLatestInput() && wantNext;
+        
+        return atEarliestHistoryButWantPrevInput || atLatestHistoryButWantNextInput;
+    }
+
+    /**
+     * Updates the caret position to the end of the current text input in the command box.
+     */
+    private void updateCaretPosition() {
         String currentInputShown = commandTextField.getText();
         // positions the caret at the end of the string for easy edit
         commandTextField.positionCaret(currentInputShown.length());
+    }
+
+    /**
+     * 
+     */
+    private void handleGetNextInput() {
+        // store the current input into the prev first
+        history.pushPrevInput(history.getStoredCurrentShownInput());
+        
+        // get a next command input and replace current input
+        commandTextField.setText(history.popNextInput());
+    }
+
+    /**
+     * 
+     */
+    private void handleGetPreviousInput() {
+        // store the current input into the next first
+        if (history.isLatestInput()) {
+            history.pushNextInput(commandTextField.getText());
+        }
+            
+        else {
+            history.pushNextInput(history.getStoredCurrentShownInput());
+        }
+            
+        // get a previous command input and replace current input
+        commandTextField.setText(history.popPrevInput());
     }
 
     private boolean checkIfWantPrevInput(KeyCode keyCode) {
