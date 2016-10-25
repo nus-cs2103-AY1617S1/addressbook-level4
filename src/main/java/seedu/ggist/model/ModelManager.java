@@ -247,7 +247,7 @@ public class ModelManager extends ComponentManager implements Model {
         AllQualifier() {}
         
         public boolean run(ReadOnlyTask task) {
-            return (task != null && !task.isDeleted());
+            return (task != null);
         }
     }
     
@@ -256,7 +256,7 @@ public class ModelManager extends ComponentManager implements Model {
         NotDoneQualifier() {}
         
         public boolean run(ReadOnlyTask task) {
-            return (!task.isDone() && !task.isDeleted());
+            return (!task.isDone());
         }
     }
     
@@ -265,7 +265,7 @@ public class ModelManager extends ComponentManager implements Model {
         DoneQualifier() {}
         
         public boolean run(ReadOnlyTask task) {
-            return task.isDone() && !task.isDeleted();
+            return task.isDone();
         }
     }
 
@@ -280,7 +280,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         public boolean run(ReadOnlyTask task) {
             return taskNameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTaskName().taskName, keyword) && !task.isDeleted())
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTaskName().taskName, keyword))
                     .findAny()
                     .isPresent();
         }
@@ -301,9 +301,10 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return ((taskDateKeyWords.equalsIgnoreCase(task.getStartDate().toString()) || 
-                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString())) && !task.isDone() && !task.isDeleted()) ||
+                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString())) && !task.isDone()) ||
                    (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && 
-                    task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) && !task.isDone() && !task.isDeleted());
+                    task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) && !task.isDone()) ||
+                   (task.isOverdue() && !task.isDone());
                    
         }
 

@@ -10,7 +10,7 @@ import seedu.ggist.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask floating, deadline, event, dance;
+    public static TestTask floating, deadline, event, dance, soccer;
 
     public TypicalTestTasks() {
         try {
@@ -37,6 +37,12 @@ public class TypicalTestTasks {
                     .withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
                     .withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED).withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
                     .withPriority("high").build();
+            soccer = new TaskBuilder()
+                    .withName("soccer")
+                    .withStartDate(Messages.MESSAGE_NO_START_DATE_SPECIFIED)
+                    .withStartTime(Messages.MESSAGE_NO_START_TIME_SET)
+                    .withEndDate(Messages.MESSAGE_NO_END_DATE_SPECIFIED).withEndTime(Messages.MESSAGE_NO_END_TIME_SET)
+                    .withPriority("high").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -49,7 +55,6 @@ public class TypicalTestTasks {
             ab.addTask(new Task(floating));
             ab.addTask(new Task(deadline));
             ab.addTask(new Task(event));
-            ab.addTask(new Task(dance));
           
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
@@ -57,7 +62,7 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{floating,deadline,event,dance};
+        return new TestTask[]{floating,deadline,event};
     }
 
     public TaskManager getTypicalTaskManager() throws IllegalValueException{
