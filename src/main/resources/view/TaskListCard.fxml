@@ -29,11 +29,11 @@
                         <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_id_label" text="index">
+                                    <Label fx:id="id" minWidth="-Infinity" prefWidth="20.0" styleClass="cell_id_label" text="index">
                               <HBox.margin>
                                  <Insets right="5.0" top="2.0" />
                               </HBox.margin></Label>
-                                    <Label fx:id="taskName" styleClass="cell_name_label" text="task name" wrapText="true" />
+                                    <Label fx:id="taskName" minWidth="-Infinity" prefWidth="900.0" styleClass="cell_name_label" text="task name" textOverrun="CENTER_ELLIPSIS" wrapText="true" />
                                 </HBox>
                             </children>
                         </HBox>
