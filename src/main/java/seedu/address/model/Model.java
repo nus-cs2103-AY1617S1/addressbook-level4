@@ -33,18 +33,19 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    /** Updates the filter of the filtered task list to filter by the given keywords */
     void updateFilteredTaskList(Set<String> keywords);
 
+    /** Updates the filter of the filtered task list to filter by the given type */
 	void updateFilteredTaskList(String type);
 	
-	/** Updates the filter of the filtered task list to filter by the given keywords of the given type*/
+	/** Updates the filter of the filtered task list to filter by the given keywords of the given type */
 	void updateFilteredTaskList(String keyword, String type);
 	
-	/** Updates the filter of the filtered task list to filter by the given tags*/
+	/** Updates the filter of the filtered task list to filter by the given tags */
     void updateFilteredTaskListByTags(Set<String> keywords);
-	
-	/** Update the task manager to the new file path*/
+
+	/** Update the task manager to the new file path */
 	void updateTaskManager(String filePath, boolean isToClearOld);
 
 	/** Saves the current state of the task manager. */
