@@ -256,5 +256,4 @@ public class TagCommand extends BaseCommand {
     private static Set<String> getTagNames(Collection<Tag> tags) {
         return tags.stream().map(Tag::getTagName).collect(Collectors.toSet());
     }
-
 }
