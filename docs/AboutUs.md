@@ -7,7 +7,7 @@ We are a team based in the [School of Computing, National University of Singapor
 #### [Brandon Yeo Xiang Guang](https://github.com/brandonyeoxg) <br>
 <img src="images/BrandonYeoXiangGuang.jpg" width="150"><br>
 **Role**: Project Leader <br>
-* Components in charge of: [Model](https://github.com/CS2103AUG2016-W09-C2/main/blob/master/docs/DeveloperGuide.md#model-component),  [Storage](https://github.com/CS2103AUG2016-W09-C2/main/blob/master/docs/DeveloperGuide.md.md#storage-component)
+* Components in charge of: [Model](https://github.com/CS2103AUG2016-W09-C2/main/blob/master/docs/DeveloperGuide.md#model-component),  [Storage](https://github.com/CS2103AUG2016-W09-C2/main/blob/master/docs/DeveloperGuide.md#storage-component)
 * Aspects/tools in charge of: Team Leader, Testing
 * Features implemented:
    * [General Add Commands](https://github.com/CS2103AUG2016-W09-C2/main/blob/master/docs/UserGuide.md#adding-a-floating-task--add)
