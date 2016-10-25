@@ -66,11 +66,9 @@ To import the lastest version of this project into Eclipse, follow the instructi
 ## 3. Design
 
 ### 3.1 Architecture
+The **_Architecture Diagram_** given above will explain to you the high-level design of the App. Below, we will give you a quick overview of each component.
 
-<img src="images/Architecture.png" width="600"><br>Figure 3.1.1. Overview of underlying architecture<br>
-
-The **_Architecture Diagram_** given above will explain to you the high-level design of the App.
-Below, we will give you a quick overview of each component.
+<img src="images/Architecture.png" width="600"><br>Figure 3.1.1. Overview of underlying architecture<br>Figure 1. Overview of Main
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: `Main` will initialize the components in the correct sequence, and connect them up with each other.
@@ -95,35 +93,35 @@ Each of the four components will
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>Figure 3.1.2. Overview of Logic<br>
+<img src="images/LogicClassDiagram.png" width="800"><br>Figure 2. Overview of Logic<br>
 
 The _Sequence Diagram_ below will show you how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeletePerson.png" width="800"><br>Figure 3.1.3. Sequence Diagram for delete<br>
+<img src="images\SDforDeletePerson.png" width="800"><br>Figure 3. Sequence Diagram: Delete 1<br>
 
 >Note how the `Model` simply raises a `ToDoChangedEvent` when the To-Do data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below will show you how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800"><br>Figure 3.1.4. Sequence Diagram for delete event handling<br>
+<img src="images\SDforDeletePersonEventHandling.png" width="800"><br>Figure 4. Sequence Diagram: ToDoEventChange<br>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
 
-The sections below will give you more details of each component.
+The follwing sections will give you more details about each component.
 
 ### 3.2 UI component
-
-<img src="images/UiClassDiagram.png" width="800"><br>Figure 3.2. Overview of UI<br>
-
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
+
+<img src="images/UiClassDiagram.png" width="800"><br>Figure 5. Overview of UI<br>
+
+**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
@@ -136,8 +134,9 @@ The `UI` component will
 * Respond to events raised from various parts of the App and updates the UI accordingly.
 
 ### 3.3 Logic component
+Logic is in charge of reading user input and executing the correct commands. It is also in charge of give the user feedback on their input.
 
-<img src="images/LogicClassDiagram.png" width="800"><br>Figure 3.3.1. Overview of Logic (same as Figure 3.1.2)<br>
+<img src="images/LogicClassDiagram.png" width="800"><br>Figure 6. Overview of Logic <br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
@@ -148,11 +147,12 @@ The `UI` component will
 
 Below, you will find the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>Figure 3.3.2. Sequence Diagram for delete within logic<br>
+<img src="images/DeletePersonSdForLogic.png" width="800"><br>Figure 7. Sequence Diagram: Delete in Logic<br>
 
 ### 3.4 Model component
+Model is in charge of the structure of the to-do list, and serves as the manager of the abstraction layer between Logic and the actual list of tasks.
 
-<img src="images/ModelClassDiagram.png" width="800"><br>Figure 3.4. Overview of Model<br>
+<img src="images/ModelClassDiagram.png" width="800"><br>Figure 8. Overview of Model<br>
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -164,8 +164,9 @@ The `Model`,
 * does not depend on any of the other three components.
 
 ### 3.5 Storage component
+Storage is in charge of saving and retrieving data from files stored on the user’s device.
 
-<img src="images/StorageClassDiagram.png" width="800"><br>Figure 3.5. Overview of Storage<br>
+<img src="images/StorageClassDiagram.png" width="800"><br>Figure 9. Overview of Storage<br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
