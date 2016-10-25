@@ -77,10 +77,8 @@ public class CommandController {
             break;
         default :   // Typing command, show preview
             System.out.println("SHOW PREVIEW");
-            if (!StringUtil.isEmpty(userInput)) {
-                CommandPreview previewInfo = logic.preview(userInput);
-                handleCommandPreview(previewInfo);
-            }
+            CommandPreview previewInfo = logic.preview(userInput);
+            handleCommandPreview(previewInfo);
             break;
         }
     }

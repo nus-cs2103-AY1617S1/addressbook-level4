@@ -67,6 +67,6 @@ public class TodoLogic implements Logic {
         if (StringUtil.isEmpty(input)) {
             return new CommandPreview("");
         }
-        return new CommandPreview("testeste");
+        return new CommandPreview(input);
     }
 }

@@ -7,6 +7,8 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * Helper functions for handling strings.
  */
@@ -65,5 +67,20 @@ public class StringUtil {
             stringArray[2] = string.substring(position + 1, string.length());
         }
         return stringArray;
+    }
+    
+    /**
+     * Calculates the levenstein distance between the two strings and returns
+     * their closeness in a percentage score.
+     * @param s1 The first string
+     * @param s2 The second string
+     * @return The percentage score of their closeness
+     */
+    public static double calculateClosenessScore(String s1, String s2) {
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
+        int distance = StringUtils.getLevenshteinDistance(s1, s2);
+        double ratio = ((double) distance) / (Math.max(s1.length(), s2.length()));
+        return 100 - new Double(ratio*100);      
     }
 }
