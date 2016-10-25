@@ -88,8 +88,8 @@ Format: `list [-pr] [-st] [-ed] [-t/TAGS]...`
 Modifiers | Action
 --- | :---
 -pr | Tasks are listed by priority
--st | Tasks are listed by start time
--ed | Tasks are listed by end time
+-st | Tasks are listed by start time chronologically
+-ed | Tasks are listed by end time chronological
 -t/TAG | Tasks with the specified tag are listed
 > * When `list -st`, tasks without start time will be listed at the end of the list. 
 > * When `list -ed`, tasks without end time will be listed at the end of the list. 
