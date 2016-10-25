@@ -177,7 +177,8 @@ public class EditCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));
         
 	}
-
+	
+    //@@author A0093960X
     @Override
     public CommandResult undo() {
         // edit all the fields back to the state before the edit took place
@@ -228,5 +229,5 @@ public class EditCommand extends UndoableCommand {
         
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toUndoForPrint, toUndo));
     }
-
+    //@@author
 }

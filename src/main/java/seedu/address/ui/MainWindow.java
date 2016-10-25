@@ -39,7 +39,7 @@ public class MainWindow extends UiPart {
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
-    private CommandBox2 commandBox2;
+    private SwitchViewButtons commandBox2;
     private Config config;
     private UserPrefs userPrefs;
 
@@ -56,7 +56,7 @@ public class MainWindow extends UiPart {
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
-    private AnchorPane commandBoxPlaceholder1;
+    private AnchorPane switchViewButtonsPlaceholder;
     
     @FXML
     private MenuItem helpMenuItem;
@@ -124,15 +124,15 @@ public class MainWindow extends UiPart {
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic, inputHistory);
-        commandBox2 = CommandBox2.load(primaryStage, getCommandBox2Placeholder(), resultDisplay, logic, inputHistory);
+        commandBox2 = SwitchViewButtons.load(primaryStage, getSwitchViewButtonsPlaceholder(), resultDisplay, logic, inputHistory);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
     
-    private AnchorPane getCommandBox2Placeholder() {
-        return commandBoxPlaceholder1;
+    private AnchorPane getSwitchViewButtonsPlaceholder() {
+        return switchViewButtonsPlaceholder;
     }
 
     private AnchorPane getStatusbarPlaceholder() {

@@ -18,6 +18,7 @@ import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
+//@@author A0093960X
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
@@ -247,7 +248,7 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * 
+     * Handles the event where the user wants to get the next input from input history.
      */
     private void handleGetNextInput() {
         // store the current input into the prev first
@@ -258,17 +259,22 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * 
+     * Handles the event where the user wants to get the previous input from input history.
      */
     private void handleGetPreviousInput() {
-        // store the current input into the next first
-        String currentInput = commandTextField.getText();
-        
+        // store the current input and get prev input
+        String currentInput = commandTextField.getText();      
         String prevInput = inputHistory.prevStep(currentInput);
-        // get a previous command input and replace current input
+        
+        // show user the prev input
         commandTextField.setText(prevInput);
     }
 
+    /**
+     * Returns whether the user wants to get the previous input from input history.
+     * @param keyCode the key the user pressed to trigger the event
+     * @return boolean representing the above
+     */
     private boolean checkIfWantPrevInput(KeyCode keyCode) {
         return keyCode == KeyCode.UP;
     }
@@ -292,14 +298,6 @@ public class CommandBox extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
 
-
-    /**
-     * Sets the command box style to indicate a correct command.
-     */
-    private void setStyleToIndicateCorrectCommand() {
-        commandTextField.getStyleClass().remove("error");
-    }
-
     @Subscribe
     private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandTest));
@@ -315,10 +313,19 @@ public class CommandBox extends UiPart {
     }
 
     /**
+     * Sets the command box style to indicate a correct command.
+     */
+    private void setStyleToIndicateCorrectCommand() {
+        commandTextField.getStyleClass().remove("error");
+    }
+    
+    /**
      * Sets the command box style to indicate an error
      */
     private void setStyleToIndicateIncorrectCommand() {
         commandTextField.getStyleClass().add("error");
     }
+    
+
 
 }

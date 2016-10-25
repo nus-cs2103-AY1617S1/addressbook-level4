@@ -19,9 +19,9 @@ import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
-public class CommandBox2 extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(CommandBox2.class);
-    private static final String FXML = "CommandBox2.fxml";
+public class SwitchViewButtons extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(SwitchViewButtons.class);
+    private static final String FXML = "SwitchViewButtons.fxml";
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
@@ -34,16 +34,16 @@ public class CommandBox2 extends UiPart {
     private HBox hb;
 
     @FXML
-    private ToggleButton tb;
+    private ToggleButton showListUndone;
     
     @FXML
-    private ToggleButton tb2;
+    private ToggleButton showListDone;
     
-    public static CommandBox2 load(Stage primaryStage, AnchorPane commandBoxPlaceholder, ResultDisplay resultDisplay, Logic logic, InputHistory history) {
-        CommandBox2 commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox2());
-        commandBox.configure(resultDisplay, logic);
-        commandBox.addToPlaceholder();
-        return commandBox;
+    public static SwitchViewButtons load(Stage primaryStage, AnchorPane commandBoxPlaceholder, ResultDisplay resultDisplay, Logic logic, InputHistory history) {
+        SwitchViewButtons switchViewButtons = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new SwitchViewButtons());
+        switchViewButtons.configure(resultDisplay, logic);
+        switchViewButtons.addToPlaceholder();
+        return switchViewButtons;
     }
 
     public void configure(ResultDisplay resultDisplay, Logic logic) {
@@ -60,9 +60,9 @@ public class CommandBox2 extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
         
         final ToggleGroup group = new ToggleGroup();
-        tb.setToggleGroup(group);
-        tb2.setToggleGroup(group);
-        tb.setSelected(true);
+        showListUndone.setToggleGroup(group);
+        showListDone.setToggleGroup(group);
+        showListUndone.setSelected(true);
     }
 
     @Override
@@ -94,12 +94,12 @@ public class CommandBox2 extends UiPart {
     
     @Subscribe
     private void handleChangeToListDoneViewEvent(ChangeToListDoneViewEvent event) {
-        tb2.setSelected(true);
+        showListDone.setSelected(true);
     }
     
     @Subscribe
     private void handleChangeToListUndoneViewEvent(ChangeToListUndoneViewEvent event) {
-        tb.setSelected(true);
+        showListUndone.setSelected(true);
     }
     
   
