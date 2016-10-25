@@ -11,11 +11,7 @@ package seedu.todo.model.tag;
  * the validation is done at {@link seedu.todo.model.TodoModel}
  */
 public class Tag {
-
-    //TODO: Make some of the methods package private.
-
     /* Variables */
-
     //Stores a unique tag name, that is alphanumeric, and contains dashes and underscores.
     private String tagName;
 
@@ -43,8 +39,9 @@ public class Tag {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Tag // instanceof handles nulls
-                && this.tagName.equals(((Tag) other).tagName)); // state check
+                || (other instanceof Tag && this.tagName.equals(((Tag) other).tagName)) // if is tag
+                || (other instanceof String && this.tagName.equals(other)); // if is string
+                //Enables string comparison for hashing.
     }
 
     @Override
