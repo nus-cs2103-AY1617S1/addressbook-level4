@@ -27,11 +27,11 @@ public class FindCommandTest extends TarsGuiTest {
     
     @Test
     public void find_filterSearch_nonEmptyList() {
-        assertFindResultForFilterSearch("find -n Task B", td.taskB); // single result                                                                                                    // results
+        assertFindResultForFilterSearch("find /n Task B", td.taskB); // single result                                                                                                    // results
 
         // find after deleting one result
         commandBox.runCommand("del 1");
-        assertFindResultForFilterSearch("find -n Task B"); //no results
+        assertFindResultForFilterSearch("find /n Task B"); //no results
     }
 
     @Test

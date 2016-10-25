@@ -2,15 +2,12 @@ package tars.commons.util;
 
 import tars.commons.core.Config;
 import tars.commons.core.LogsCenter;
-import tars.commons.events.storage.TarsStorageDirectoryChangedEvent;
 import tars.commons.exceptions.DataConversionException;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
-
-import com.google.common.eventbus.Subscribe;
 
 /**
  * A class for accessing the Config File.

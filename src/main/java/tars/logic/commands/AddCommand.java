@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
-
 /**
  * Adds a task to tars.
  * 
@@ -29,9 +27,9 @@ public class AddCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to tars. "
-            + "Parameters: NAME [-dt DATETIME] [-p PRIORITY] [-t TAG] [-r NUM_TIMES FREQUENCY]...\n " 
+            + "Parameters: NAME [/dt DATETIME] [/p PRIORITY] [/t TAG] [/r NUM_TIMES FREQUENCY]...\n " 
             + "Example: " + COMMAND_WORD
-            + " cs2103 project meeting -dt 05/09/2016 1400 to 06/09/2016 2200 -p h -t project -r 2 every week";
+            + " cs2103 project meeting /dt 05/09/2016 1400 to 06/09/2016 2200 /p h /t project /r 2 every week";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_UNDO = "Removed %1$s";
@@ -56,10 +54,8 @@ public class AddCommand extends UndoableCommand {
     /**
      * Convenience constructor using raw values.
      *
-     * @throws IllegalValueException
-     *             if any of the raw values are invalid
-     * @throws DateTimeException
-     *             if given dateTime string is invalid.
+     * @throws IllegalValueException if any of the raw values are invalid
+     * @throws DateTimeException if given dateTime string is invalid.
      */
     public AddCommand(String name, String[] dateTime, String priority, Set<String> tags, String[] recurringString)
             throws IllegalValueException, DateTimeException {

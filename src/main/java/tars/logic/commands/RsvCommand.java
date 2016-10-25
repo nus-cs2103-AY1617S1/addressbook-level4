@@ -28,8 +28,8 @@ public class RsvCommand extends UndoableCommand {
     public static final String COMMAND_WORD_DEL = "rsv -d";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reserves one or more timeslot for a task.\n"
-            + "Parameters: TASK [-dt DATETIME] [ADDITIONAL DATETIME]\n" + "Example: " + COMMAND_WORD
-            + " Meet John Doe -dt 26/09/2016 0900 to 1030, 28/09/2016 1000 to 1130";
+            + "Parameters: TASK [/dt DATETIME] [ADDITIONAL DATETIME]\n" + "Example: " + COMMAND_WORD
+            + " Meet John Doe /dt 26/09/2016 0900 to 1030, 28/09/2016 1000 to 1130";
 
     public static final String MESSAGE_USAGE_DEL = COMMAND_WORD_DEL
             + ": Deletes a reserved task in the last reserved task listing \n"

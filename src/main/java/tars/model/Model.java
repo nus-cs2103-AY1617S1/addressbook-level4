@@ -3,8 +3,8 @@ package tars.model;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
-import tars.commons.flags.Flag;
 import tars.logic.commands.Command;
+import tars.logic.parser.ArgumentTokenizer;
 import tars.model.task.Task;
 import tars.model.task.TaskQuery;
 import tars.model.tag.ReadOnlyTag;
@@ -16,7 +16,6 @@ import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
 import java.time.DateTimeException;
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.Stack;
@@ -34,7 +33,7 @@ public interface Model {
     ReadOnlyTars getTars();
 
     /** Edits the given task and returns the edited task */
-    Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit)
+    Task editTask(ReadOnlyTask toEdit, ArgumentTokenizer argsTokenizer)
             throws UniqueTaskList.TaskNotFoundException, DateTimeException, IllegalValueException,
             TagNotFoundException;
     
@@ -56,6 +55,10 @@ public interface Model {
     /** Rename all tag with the new tag name */
     void renameTag(ReadOnlyTag oldTag, String newTagName)
             throws IllegalValueException, TagNotFoundException, DuplicateTagException;
+    
+    /** Delete the tag from all task */
+    void deleteTag(ReadOnlyTag toBeDeleted)
+            throws DuplicateTagException, IllegalValueException, TagNotFoundException;
 
     /** Marks tasks as done or undone. */
     void mark(ArrayList<ReadOnlyTask> toMarkList, String status) throws DuplicateTaskException;

@@ -9,10 +9,10 @@ import tars.commons.events.model.TarsChangedEvent;
 import tars.commons.events.ui.TaskAddedEvent;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
-import tars.commons.flags.Flag;
 import tars.commons.util.DateTimeUtil;
 import tars.commons.util.StringUtil;
 import tars.logic.commands.Command;
+import tars.logic.parser.ArgumentTokenizer;
 import tars.model.task.Task;
 import tars.model.task.TaskQuery;
 import tars.model.tag.ReadOnlyTag;
@@ -26,7 +26,6 @@ import tars.model.task.rsv.RsvTask;
 import tars.model.task.rsv.UniqueRsvTaskList.RsvTaskNotFoundException;
 
 import java.time.DateTimeException;
-import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.Stack;
@@ -45,8 +44,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<Command> undoableCmdHistStack;
     private final Stack<Command> redoableCmdHistStack;
 
-	private static final String LIST_ARG_DATETIME = "-dt";
-	private static final String LIST_ARG_PRIORITY = "-p";
+	private static final String LIST_ARG_DATETIME = "/dt";
+	private static final String LIST_ARG_PRIORITY = "/p";
 	private static final String LIST_KEYWORD_DESCENDING = "dsc";
 
 	/**
@@ -114,10 +113,10 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * @@author A0121533W
      */
-    public synchronized Task editTask(ReadOnlyTask toEdit, HashMap<Flag, String> argsToEdit)
+    public synchronized Task editTask(ReadOnlyTask toEdit, ArgumentTokenizer argsTokenizer)
             throws TaskNotFoundException, DateTimeException, IllegalDateException,
             DuplicateTagException, TagNotFoundException, IllegalValueException {
-        Task editedTask = tars.editTask(toEdit, argsToEdit);
+        Task editedTask = tars.editTask(toEdit, argsTokenizer);
         indicateTarsChanged();
         return editedTask;
     }
@@ -128,8 +127,18 @@ public class ModelManager extends ComponentManager implements Model {
             throws IllegalValueException, TagNotFoundException, DuplicateTagException {
         Tag newTag = new Tag(newTagName);
 
-        tars.getUniqueTaskList().renameTag(oldTag, newTag);
+        tars.renameTag(oldTag, newTag);
         tars.getUniqueTagList().update(oldTag, newTag);
+
+        indicateTarsChanged();
+    }
+    
+    @Override
+    /** @@author A0139924W */
+    public synchronized void deleteTag(ReadOnlyTag toBeDeleted)
+            throws DuplicateTagException, IllegalValueException, TagNotFoundException {
+        tars.deleteTag(toBeDeleted);
+        tars.getUniqueTagList().remove(new Tag(toBeDeleted));
 
         indicateTarsChanged();
     }
@@ -289,7 +298,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private class FlagSearchQualifier implements Qualifier {
-        TaskQuery taskQuery;
+        private TaskQuery taskQuery;
         private final static String EMPTY_STRING = "";
 
         FlagSearchQualifier(TaskQuery taskQuery) {

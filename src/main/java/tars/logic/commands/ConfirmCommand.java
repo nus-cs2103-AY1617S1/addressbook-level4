@@ -29,15 +29,15 @@ public class ConfirmCommand extends UndoableCommand {
     
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Confirms a datetime for a reserved task"
             + " and adds the task into the task list.\n"
-            + "Parameters: <RESERVED_TASK_INDEX> <DATETIME_INDEX> -p <PRIORITY> -t <TAG>\n" 
-            + "Example: " + COMMAND_WORD + " 1 3 -p h -t tag1";
+            + "Parameters: <RESERVED_TASK_INDEX> <DATETIME_INDEX> /p <PRIORITY> /t <TAG>\n" 
+            + "Example: " + COMMAND_WORD + " 1 3 /p h /t tag1";
     
     public static final String MESSAGE_CONFIRM_SUCCESS = "Task Confirmation Success! New task added: %1$s";
     
     private final int taskIndex;
     private final int dateTimeIndex;
     private final String priority;
-    final Set<Tag> tagSet = new HashSet<>();
+    private final Set<Tag> tagSet = new HashSet<>();
     
     public ConfirmCommand(int taskIndex, int dateTimeIndex, String priority, Set<String> tags) throws IllegalValueException {
         this.taskIndex = taskIndex;

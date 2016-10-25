@@ -4,12 +4,11 @@ import tars.commons.core.Messages;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
-import tars.commons.flags.Flag;
+import tars.logic.parser.ArgumentTokenizer;
 import tars.model.tag.UniqueTagList.TagNotFoundException;
 import tars.model.task.*;
 import tars.model.task.UniqueTaskList.TaskNotFoundException;
 import java.time.DateTimeException;
-import java.util.HashMap;
 
 
 /**
@@ -22,10 +21,10 @@ public class EditCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": edit a task in tars. "
-            + "Parameters: INDEX (must be a positive integer) -n NAME -dt DATETIME -p PRIORITY "
-            + "-ta TAGTOADD -tr TAGTOREMOVE\n"
+            + "Parameters: INDEX (must be a positive integer) /n NAME /dt DATETIME /p PRIORITY "
+            + "/ta TAGTOADD /tr TAGTOREMOVE\n"
             + "Example: " + COMMAND_WORD
-            + " 1 -n Lunch with John -dt 10/09/2016 1200 to 10/09/2016 1300 -p l -ta lunch -tr dinner";
+            + " 1 /n Lunch with John /dt 10/09/2016 1200 to 10/09/2016 1300 /p l /ta lunch /tr dinner";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited task: %1$s";
 
@@ -39,14 +38,14 @@ public class EditCommand extends UndoableCommand {
     private ReadOnlyTask toEdit;
     private Task editedTask;
 
-    private HashMap<Flag, String> argsToEdit;
+    private ArgumentTokenizer argsTokenizer;
 
     /**
      * Convenience constructor using raw values.
      */
-    public EditCommand(int targetIndex, HashMap<Flag, String> argsToEdit) {
+    public EditCommand(int targetIndex, ArgumentTokenizer argsTokenizer) {
         this.targetIndex = targetIndex;
-        this.argsToEdit = argsToEdit;
+        this.argsTokenizer = argsTokenizer;
     }
 
     @Override
@@ -62,7 +61,7 @@ public class EditCommand extends UndoableCommand {
         toEdit = lastShownList.get(targetIndex - 1);
 
         try {
-            editedTask = model.editTask(toEdit, this.argsToEdit);
+            editedTask = model.editTask(toEdit, this.argsTokenizer);
             model.getUndoableCmdHist().push(this);
         } catch (TaskNotFoundException tnfe) {
             return new CommandResult(MESSAGE_MISSING_TASK);
@@ -91,7 +90,7 @@ public class EditCommand extends UndoableCommand {
     public CommandResult redo() {
         assert model != null;
         try {
-            model.editTask(toEdit, this.argsToEdit);
+            model.editTask(toEdit, this.argsTokenizer);
             return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS,
                     String.format(MESSAGE_REDO, toEdit)));
         } catch (DuplicateTaskException e) {

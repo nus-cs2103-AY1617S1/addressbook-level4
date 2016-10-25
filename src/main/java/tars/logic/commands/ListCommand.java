@@ -21,10 +21,10 @@ public class ListCommand extends Command {
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD
 			+ ": Lists all task with the specified keywords and displays them as a list with index numbers.\n"
-			+ "Parameters: [KEYWORD] " + "Example: " + COMMAND_WORD + " -do";
+			+ "Parameters: [KEYWORD] " + "Example: " + COMMAND_WORD + " /dt";
 
-	private static final String LIST_ARG_DATETIME = "-dt";
-	private static final String LIST_ARG_PRIORITY = "-p";
+	private static final String LIST_ARG_DATETIME = "/dt";
+	private static final String LIST_ARG_PRIORITY = "/p";
 	private static final String LIST_KEYWORD_DESCENDING = "dsc";
 
 	private Set<String> keywords;

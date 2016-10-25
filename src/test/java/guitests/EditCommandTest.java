@@ -27,7 +27,7 @@ public class EditCommandTest extends TarsGuiTest {
         // Edit one task
         Name nameToEdit = new Name("Edited Task A");
         Priority priorityToEdit = new Priority("l");
-        commandBox.runCommand("edit 1 -n Edited Task A -p l");
+        commandBox.runCommand("edit 1 /n Edited Task A /p l");
         int indexToEdit = 1;
 
         // confirm the list now contains the edited task
@@ -39,7 +39,7 @@ public class EditCommandTest extends TarsGuiTest {
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         // invalid index
-        commandBox.runCommand("edit " + (currentList.length + 1) + " -n invalidIndex");
+        commandBox.runCommand("edit " + (currentList.length + 1) + " /n invalidIndex");
         assertResultMessage("The task index provided is invalid");
     }
 

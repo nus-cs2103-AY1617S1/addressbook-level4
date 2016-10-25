@@ -6,18 +6,16 @@ import static tars.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import tars.commons.core.Messages;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.exceptions.InvalidRangeException;
-import tars.commons.flags.Flag;
 import tars.commons.util.DateTimeUtil;
 import tars.commons.util.ExtractorUtil;
 import tars.commons.util.StringUtil;
@@ -54,21 +52,30 @@ public class Parser {
 
     private static final Pattern FILEPATH_ARGS_FORMAT = Pattern.compile("(?<filepath>\\S+)");
 
-    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one
-                                                                                                           // or
-                                                                                                           // more
-                                                                                                           // whitespace
+    private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more whitespace
 
     private static final Pattern TAG_EDIT_COMMAND_FORMAT = Pattern.compile("\\d+ \\w+$");
-
-    public Parser() {
-    }
+    
+    private static final Prefix namePrefix = new Prefix("/n");
+    private static final Prefix tagPrefix = new Prefix("/t");
+    private static final Prefix priorityPrefix = new Prefix("/p");
+    private static final Prefix dateTimePrefix = new Prefix("/dt");
+    private static final Prefix recurringPrefix = new Prefix("/r");
+    private static final Prefix deletePrefix = new Prefix("/del");
+    private static final Prefix addTagPrefix = new Prefix("/ta");
+    private static final Prefix removeTagPrefix = new Prefix("/tr");
+    private static final Prefix donePrefix = new Prefix("/do");
+    private static final Prefix undonePrefix = new Prefix("/ud");
+    private static final Prefix listPrefix = new Prefix("/ls");
+    private static final Prefix editPrefix = new Prefix("/e");
+    
+    private static final String EMPTY_STRING = "";
+    private static final String EMPTY_SPACE_ONE = " ";
 
     /**
      * Parses user input into command for execution.
      *
-     * @param userInput
-     *            full user input string
+     * @param userInput full user input string
      * @return the command based on the user input
      */
     public Command parseCommand(String userInput) {
@@ -139,55 +146,27 @@ public class Parser {
      * Parses arguments in the context of the add task command.
      *
      * @@author A0139924W
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        // there is no arguments
-        if (args.trim().length() == 0) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
-
-        String name = "";
-
-        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
-        Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
-        Flag tagFlag = new Flag(Flag.TAG, true);
-        Flag recurringFlag = new Flag(Flag.RECURRING, false);
-
-        Flag[] flags = { priorityFlag, dateTimeFlag, tagFlag, recurringFlag };
-
-        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
-        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
-
-        if (flagsPosMap.size() == 0) {
-            name = args;
-        } else if (flagsPosMap.firstKey() == 0) {
-            // there are arguments but name should be the first argument
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        } else {
-            name = args.substring(0, flagsPosMap.firstKey()).trim();
-        }
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(tagPrefix, priorityPrefix, dateTimePrefix, recurringPrefix);
+        argsTokenizer.tokenize(args);
 
         try {
-            String[] dateTime = DateTimeUtil.getDateTimeFromArgs(argumentMap.get(dateTimeFlag).replace(Flag.DATETIME + " ", ""));
-            String priority = argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", "");
-            Set<String> tags = ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag);
-            String[] recurring = ExtractorUtil.getRecurringFromArgs(argumentMap.get(recurringFlag), recurringFlag);
-            
-            if(recurring.length > 1) {
-                if(dateTime[0].isEmpty() && dateTime[1].isEmpty()) {
-                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-                }
-            }
-            
-            return new AddCommand(name, dateTime, priority, tags, recurring);
-            
+            return new AddCommand(
+                    argsTokenizer.getPreamble().get(),
+                    DateTimeUtil.getDateTimeFromArgs(argsTokenizer.getValue(dateTimePrefix).orElse(EMPTY_STRING)),
+                    argsTokenizer.getValue(priorityPrefix).orElse(EMPTY_STRING),
+                    argsTokenizer.getMultipleValues(tagPrefix).orElse(new HashSet<String>()),
+                    ExtractorUtil.getRecurringFromArgs(argsTokenizer.getValue(recurringPrefix).orElse(EMPTY_STRING), recurringPrefix));           
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (DateTimeException dte) {
             return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
+        } catch (NoSuchElementException nse) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
     }
 
@@ -196,77 +175,55 @@ public class Parser {
         if (args.trim().length() == 0) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
         }
-
-        Flag dateTimeFlag = new Flag(Flag.DATETIME, true);
-        Flag rsvDelFlag = new Flag(Flag.DELETE_RSVTASK, false);
-
-        Flag[] flags = { dateTimeFlag, rsvDelFlag };
-
-        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
-        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
-
-        if (flagsPosMap.containsValue(rsvDelFlag)) {
-            return prepareRsvDel(flagsPosMap, argumentMap, rsvDelFlag);
+        
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(dateTimePrefix, deletePrefix);
+        argsTokenizer.tokenize(args);
+        
+        if(argsTokenizer.getValue(deletePrefix).isPresent()) {
+            return prepareRsvDel(argsTokenizer);
         } else {
-            return prepareRsvAdd(args, flagsPosMap, argumentMap, dateTimeFlag);
+            return prepareRsvAdd(argsTokenizer);
         }
-
     }
 
     // Parses arguments for adding a reserved task
-    private Command prepareRsvAdd(String args, TreeMap<Integer, Flag> flagsPosMap, HashMap<Flag, String> argumentMap,
-            Flag dateTimeFlag) {
-        String name = "";
-        if (!flagsPosMap.containsValue(dateTimeFlag)) {
-            // there are arguments but arguments must contain at least one
-            // DateTime
+    private Command prepareRsvAdd(ArgumentTokenizer argsTokenizer) {
+        if(!argsTokenizer.getValue(dateTimePrefix).isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_DATETIME_NOTFOUND));
-        } else if (flagsPosMap.firstKey() == 0) {
-            // there are arguments but name should be the first argument
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
-        } else {
-            name = args.substring(0, flagsPosMap.firstKey()).trim();
         }
-
+        
         Set<String[]> dateTimeStringSet = new HashSet<>();
+        
         try {
-            for (String dateTimeString : ExtractorUtil.getDateTimeStringSetFromArgs(argumentMap.get(dateTimeFlag),
-                    dateTimeFlag)) {
+            for (String dateTimeString : argsTokenizer.getMultipleValues(dateTimePrefix).get()) {
                 dateTimeStringSet.add(DateTimeUtil.getDateTimeFromArgs(dateTimeString));
             }
+            
+            return new RsvCommand(argsTokenizer.getPreamble().get(), dateTimeStringSet);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (DateTimeException dte) {
             return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
-        }
-
-        try {
-            return new RsvCommand(name, dateTimeStringSet);
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        } catch (DateTimeException dte) {
-            return new IncorrectCommand(Messages.MESSAGE_INVALID_DATE);
+        } catch(NoSuchElementException nse) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE));
         }
     }
 
     // Parses arguments for deleting one or more reserved tasks
-    private Command prepareRsvDel(TreeMap<Integer, Flag> flagsPosMap, HashMap<Flag, String> argumentMap,
-            Flag rsvDelFlag) {
-
-        if (flagsPosMap.size() > 1 || flagsPosMap.firstKey() != 0) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE_DEL));
-        } else {
-            String rangeIndex;
-            try {
-                rangeIndex = StringUtil
-                        .indexString(argumentMap.get(rsvDelFlag).replace(Flag.DELETE_RSVTASK, "").trim());
-                return new RsvCommand(rangeIndex);
-            } catch (InvalidRangeException | IllegalValueException ie) {
-                return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE_DEL));
+    private Command prepareRsvDel(ArgumentTokenizer argsTokenizer) {
+        try {
+            if (argsTokenizer.getPreamble().isPresent()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        RsvCommand.MESSAGE_USAGE_DEL));
             }
 
+            String rangeIndex = StringUtil.indexString(argsTokenizer.getValue(deletePrefix).get());
+            return new RsvCommand(rangeIndex);
+        } catch (InvalidRangeException | IllegalValueException ie) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RsvCommand.MESSAGE_USAGE_DEL));
         }
     }
 
@@ -274,15 +231,14 @@ public class Parser {
      * Parses arguments in the context of the edit task command.
      * 
      * @@author A0121533W
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
         args = args.trim();
         int targetIndex = 0;
-        if (args.indexOf(" ") != -1) {
-            targetIndex = args.indexOf(" ");
+        if (args.indexOf(EMPTY_SPACE_ONE) != -1) {
+            targetIndex = args.indexOf(EMPTY_SPACE_ONE);
         }
 
         Optional<Integer> index = parseIndex(args.substring(0, targetIndex));
@@ -290,43 +246,32 @@ public class Parser {
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
+        
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, priorityPrefix,
+                dateTimePrefix, addTagPrefix, removeTagPrefix);
+        argsTokenizer.tokenize(args);
 
-        Flag[] flags = generateFlagArrayForEditCommand();
-
-        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
-        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
-
-        if (flagsPosMap.size() == 0) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        if (argsTokenizer.numPrefixFound() == 0) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
-        return new EditCommand(index.get(), argumentMap);
-    }
-
-    private Flag[] generateFlagArrayForEditCommand() {
-        Flag nameFlag = new Flag(Flag.NAME, false);
-        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
-        Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
-        Flag addTagFlag = new Flag(Flag.ADDTAG, true);
-        Flag removeTagFlag = new Flag(Flag.REMOVETAG, true);
-
-        Flag[] flags = { nameFlag, priorityFlag, dateTimeFlag, addTagFlag, removeTagFlag };
-
-        return flags;
+        return new EditCommand(index.get(), argsTokenizer);
     }
 
     /**
      * Parses arguments in the context of the delete task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareDelete(String args) {
         args = args.trim();
-        if (args.equals("")) {
+        
+        if (EMPTY_STRING.equals(args)) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
+        
         try {
             String rangeIndex = StringUtil.indexString(args);
             args = rangeIndex;
@@ -335,6 +280,7 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
+        
         return new DeleteCommand(args);
     }
 
@@ -343,51 +289,37 @@ public class Parser {
         if (args.trim().length() == 0) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
         }
-
-        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
-        Flag tagFlag = new Flag(Flag.TAG, true);
-
-        Flag[] flags = { priorityFlag, tagFlag };
-
-        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
-        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
-
-        String indexArgs = "";
-
-        if (flagsPosMap.size() == 0) {
-            indexArgs = args.trim();
-        } else if (flagsPosMap.firstKey() == 0) {
-            // there are arguments but taskIndex & dateTimeIndex should be the
-            // first argument
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
-        } else {
-            indexArgs = args.substring(0, flagsPosMap.firstKey()).trim();
-        }
         
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(priorityPrefix, tagPrefix);
+        argsTokenizer.tokenize(args);
+
         int taskIndex;
         int dateTimeIndex;
         
         try {
-            String[] indexStringArray = StringUtil.indexString(indexArgs).split(" ");
+            String indexArgs = argsTokenizer.getPreamble().get();
+            String[] indexStringArray = StringUtil.indexString(indexArgs).split(EMPTY_SPACE_ONE);
             if (indexStringArray.length > 2) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        ConfirmCommand.MESSAGE_USAGE));
             } else {
                 taskIndex = Integer.parseInt(indexStringArray[0]);
                 dateTimeIndex = Integer.parseInt(indexStringArray[1]);
             }
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
+        } catch (IllegalValueException | NoSuchElementException e) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
         } catch (InvalidRangeException ire) {
             return new IncorrectCommand(ire.getMessage());
         }
         
-        
-        
         try {
-            return new ConfirmCommand(taskIndex, dateTimeIndex, argumentMap.get(priorityFlag).replace(Flag.PRIORITY + " ", ""),
-                    ExtractorUtil.getTagsFromArgs(argumentMap.get(tagFlag), tagFlag));
+            return new ConfirmCommand(taskIndex, dateTimeIndex,
+                    argsTokenizer.getValue(priorityPrefix).orElse(EMPTY_STRING),
+                    argsTokenizer.getMultipleValues(tagPrefix).orElse(new HashSet<>()));
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ConfirmCommand.MESSAGE_USAGE));
         }
     }
 
@@ -400,21 +332,12 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareMark(String args) {
+        
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(donePrefix, undonePrefix);
+        argsTokenizer.tokenize(args);
 
-        Flag doneFlag = new Flag(Flag.DONE, false);
-        Flag undoneFlag = new Flag(Flag.UNDONE, false);
-
-        Flag[] flags = { doneFlag, undoneFlag };
-
-        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args, flags);
-        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args, flags, flagsPosMap);
-
-        if (flagsPosMap.size() == 0) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
-        }
-
-        String markDone = argumentMap.get(doneFlag).replace(Flag.DONE + " ", "").trim();
-        String markUndone = argumentMap.get(undoneFlag).replace(Flag.UNDONE + " ", "").trim();
+        String markDone = argsTokenizer.getValue(donePrefix).orElse(EMPTY_STRING);
+        String markUndone = argsTokenizer.getValue(undonePrefix).orElse(EMPTY_STRING);
 
         try {
             String indexesToMarkDone = StringUtil.indexString(markDone);
@@ -459,19 +382,17 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
+        
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, priorityPrefix, dateTimePrefix, donePrefix, undonePrefix, tagPrefix);
+        argsTokenizer.tokenize(args);
 
-        Flag[] flags = generateFlagArrayForFindCommand();
-
-        TreeMap<Integer, Flag> flagsPosMap = ExtractorUtil.getFlagPositon(args.trim(), flags);
-        HashMap<Flag, String> argumentMap = ExtractorUtil.getArguments(args.trim(), flags, flagsPosMap);
-
-        if (flagsPosMap.size() == 0) {
+        if (argsTokenizer.numPrefixFound() == 0) {
             return new FindCommand(generateKeywordSetFromArgs(args.trim()));
         }
 
         TaskQuery taskQuery;
         try {
-            taskQuery = createTaskQuery(argumentMap, flags);
+            taskQuery = createTaskQuery(argsTokenizer);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         } catch (DateTimeException dte) {
@@ -481,27 +402,27 @@ public class Parser {
         return new FindCommand(taskQuery);
     }
 
-    private TaskQuery createTaskQuery(HashMap<Flag, String> argumentMap, Flag[] flags)
+    private TaskQuery createTaskQuery(ArgumentTokenizer argsTokenizer)
             throws DateTimeException, IllegalValueException {
         TaskQuery taskQuery = new TaskQuery();
         Boolean statusDone = true;
         Boolean statusUndone = false;
 
-        taskQuery.createNameQuery(argumentMap.get(flags[0]).replace(Flag.NAME, "").trim().replaceAll("( )+", " "));
+        taskQuery.createNameQuery(argsTokenizer.getValue(namePrefix).orElse(EMPTY_STRING).replaceAll("( )+", EMPTY_SPACE_ONE));
         taskQuery.createDateTimeQuery(
-                DateTimeUtil.getDateTimeFromArgs(argumentMap.get(flags[1]).replace(Flag.DATETIME, "").trim()));
-        taskQuery.createPriorityQuery(argumentMap.get(flags[2]).replace(Flag.PRIORITY, "").trim());
-        if (!argumentMap.get(flags[3]).isEmpty() && !argumentMap.get(flags[4]).isEmpty()) {
+                DateTimeUtil.getDateTimeFromArgs(argsTokenizer.getValue(dateTimePrefix).orElse(EMPTY_STRING)));
+        taskQuery.createPriorityQuery(argsTokenizer.getValue(priorityPrefix).orElse(EMPTY_STRING));
+        if (!argsTokenizer.getValue(donePrefix).orElse(EMPTY_STRING).isEmpty() && !argsTokenizer.getValue(undonePrefix).orElse(EMPTY_STRING).isEmpty()) {
             throw new IllegalValueException(TaskQuery.MESSAGE_BOTH_STATUS_SEARCHED_ERROR);
         } else {
-            if (!argumentMap.get(flags[3]).isEmpty()) {
+            if (!argsTokenizer.getValue(donePrefix).orElse(EMPTY_STRING).isEmpty()) {
                 taskQuery.createStatusQuery(statusDone);
             }
-            if (!argumentMap.get(flags[4]).isEmpty()) {
+            if (!argsTokenizer.getValue(undonePrefix).orElse(EMPTY_STRING).isEmpty()) {
                 taskQuery.createStatusQuery(statusUndone);
             }
         }
-        taskQuery.createTagsQuery(argumentMap.get(flags[5]).replace(Flag.TAG, "").trim().replaceAll("( )+", " "));
+        taskQuery.createTagsQuery(argsTokenizer.getMultipleRawValues(tagPrefix).orElse(EMPTY_STRING).replaceAll("( )+", EMPTY_SPACE_ONE));
 
         return taskQuery;
     }
@@ -511,25 +432,11 @@ public class Parser {
         return new ArrayList<String>(Arrays.asList(keywordsArray));
     }
 
-    private Flag[] generateFlagArrayForFindCommand() {
-        Flag nameFlag = new Flag(Flag.NAME, false);
-        Flag priorityFlag = new Flag(Flag.PRIORITY, false);
-        Flag dateTimeFlag = new Flag(Flag.DATETIME, false);
-        Flag doneFlag = new Flag(Flag.DONE, false);
-        Flag undoneFlag = new Flag(Flag.UNDONE, false);
-        Flag tagFlag = new Flag(Flag.TAG, false);
-
-        Flag[] flags = { nameFlag, dateTimeFlag, priorityFlag, doneFlag, undoneFlag, tagFlag };
-
-        return flags;
-    }
-
     /**
      * Parses arguments in the context of the list task command.
      *
      * @@author @A0140022H
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareList(String args) {
@@ -570,23 +477,33 @@ public class Parser {
      * Parses arguments in the context of the tag command.
      * 
      * @@author A0139924W
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
     private Command prepareTag(String args) {
-        if (args.trim().equals(Flag.LIST)) {
-            return new TagCommand(new Flag(Flag.LIST, false));
-        } else if (args.trim().indexOf(Flag.EDIT) == 0) {
-            args = args.replace(Flag.EDIT, "").trim();
+        ArgumentTokenizer argsTokenizer =
+                new ArgumentTokenizer(listPrefix, editPrefix, deletePrefix);
+        argsTokenizer.tokenize(args);
 
-            final Matcher matcher = TAG_EDIT_COMMAND_FORMAT.matcher(args);
+        if (argsTokenizer.getValue(listPrefix).isPresent()) {
+            return new TagCommand(listPrefix);
+        }
+
+        if (argsTokenizer.getValue(editPrefix).isPresent()) {
+            String editArgs = argsTokenizer.getValue(editPrefix).get();
+            final Matcher matcher = TAG_EDIT_COMMAND_FORMAT.matcher(editArgs);
             if (matcher.matches()) {
-                return new TagCommand(new Flag(Flag.EDIT, false), args.split(" "));
+                return new TagCommand(editPrefix, editArgs.split(EMPTY_SPACE_ONE));
             }
         }
 
-        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        if (argsTokenizer.getValue(deletePrefix).isPresent()) {
+            String index = argsTokenizer.getValue(deletePrefix).get();
+            return new TagCommand(deletePrefix, index);
+        }
+
+        return new IncorrectCommand(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
 
     /**
