@@ -1,6 +1,8 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.stage.Stage;
 
 /**
@@ -28,7 +30,17 @@ public class CommandBoxHandle extends GuiHandle{
     public void runCommand(String command) {
         enterCommand(command);
         pressEnter();
-        guiRobot.sleep(1000); //Give time for the command to take effect
+        guiRobot.sleep(2000); //Give time for the command to take effect
+    }
+    
+    public void scrollToPreviousCommand() {
+        guiRobot.push(new KeyCodeCombination(KeyCode.UP));
+        guiRobot.sleep(200);
+    }
+    
+    public void scrollToNextCommand() {
+        guiRobot.push(new KeyCodeCombination(KeyCode.DOWN));
+        guiRobot.sleep(200);
     }
 
     public HelpWindowHandle runHelpCommand() {
