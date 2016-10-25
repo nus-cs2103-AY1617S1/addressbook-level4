@@ -636,6 +636,7 @@ Use case ends
   Use case ends.
 
 <br></br> 
+<!-- @@author A0135793W -->
 ### Use case: Save data to a specified folder
 
 **MSS**
@@ -655,6 +656,7 @@ Use case ends
 
 > * Program automatically creates the folder<br>
   Use case ends.
+<!-- @@author -->
 
 ## Appendix C : Non Functional Requirements
 
@@ -742,7 +744,7 @@ Use case ends
 * Has no support for subtasks under main tasks.
 * Has no undo function.
 	
-
+<!-- @@author A0135793W -->
 #### Jia Wern: `iCal`
 
 **Pros**
@@ -760,5 +762,5 @@ Use case ends
 * Requires users to fill details individually into the respective categories. There is no option to type everything in one line and the relevant sections will be filled up automatically.
 * Has no way to mark an item as done.
 * Has no automatic way to block of timings. An actual event has to be created and deleted should the event is not happening anymore.
-
+<!-- @@author -->
 
