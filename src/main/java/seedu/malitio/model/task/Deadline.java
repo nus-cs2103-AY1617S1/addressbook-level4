@@ -10,6 +10,7 @@ public class Deadline implements ReadOnlyDeadline{
     private Name name;
     private DateTime due;
     private UniqueTagList tags;
+    private boolean completed = false;
 
     //@@author A0129595N
     /**
@@ -44,7 +45,15 @@ public class Deadline implements ReadOnlyDeadline{
         return new UniqueTagList(tags);
     }
 
-    /**
+    public boolean isCompleted() {
+		return completed;
+	}
+
+	public void setCompleted() {
+		this.completed = true;
+	}
+
+	/**
      * Replaces this deadline's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {

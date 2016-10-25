@@ -10,6 +10,7 @@ public class TestDeadline implements ReadOnlyDeadline {
 
     private Name name;
     private DateTime due;
+    private boolean completed = false;
     private UniqueTagList tags;
 
     public TestDeadline() {
@@ -61,5 +62,15 @@ public class TestDeadline implements ReadOnlyDeadline {
     public String getAsText() {
         return ReadOnlyDeadline.super.getAsText();
     }
+
+	@Override
+	public boolean isCompleted() {
+		return completed;
+	}
+
+	@Override
+	public void setCompleted() {
+		this.completed = true;
+	}
 
 }

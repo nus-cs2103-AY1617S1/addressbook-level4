@@ -14,11 +14,13 @@ import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.ReadOnlyDeadline;
 import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 import seedu.malitio.model.history.InputAddHistory;
 import seedu.malitio.model.history.InputClearHistory;
@@ -69,7 +71,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyMalitio initialData, UserPrefs userPrefs) {
+        System.out.println(initialData.getUniqueFloatingTaskList().getInternalList().get(0).getCompleted());
         malitio = new Malitio(initialData);
+        System.out.println(malitio.getFloatingTasks().get(0).getCompleted());
         filteredFloatingTasks = new FilteredList<>(malitio.getFloatingTasks());
         filteredDeadlines = new FilteredList<>(malitio.getDeadlines());
         filteredEvents = new FilteredList<>(malitio.getEvents());
@@ -161,6 +165,22 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredEventListToShowAll();
         indicatemalitioChanged();
     }
+    
+	@Override
+	public void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
+		malitio.completeTask(taskToComplete);
+        updateFilteredEventListToShowAll();
+        indicatemalitioChanged();
+	}
+	
+
+	@Override
+	public void completeDeadline(ReadOnlyDeadline deadlineToEdit) throws DeadlineCompletedException, DeadlineNotFoundException {
+		malitio.completeDeadline(deadlineToEdit);
+        updateFilteredEventListToShowAll();
+        indicatemalitioChanged();
+		
+	}
     
     @Override
     public Stack<InputHistory> getHistory() {
