@@ -11,7 +11,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
+/**
+ * This class checks for the validity of the user input date by checking with currentDate, and checking if the date range is valid
+ * Throws its respective message if the input is invalid
+ * @author A0139128A
+ *
+ */
+//@author A0139128A
 public class TaskDate {
 	public static final String MESSAGE_NAME_CONSTRAINTS = "Task Date should be represented as one of the followings:"
 			+ "dd/mm/yy\n" + "day month year\n" + "today\n" + "tomorrow\n";
@@ -191,7 +197,31 @@ public class TaskDate {
 		} catch (ParseException e) {
 			return false;
 		}
-		if(!validDateRange && !sameDate) {
+		Calendar b = new GregorianCalendar();
+		b.setTime(beginDate);
+		b.set(Calendar.HOUR_OF_DAY, 23);
+		b.set(Calendar.MINUTE, 59);
+		b.set(Calendar.SECOND, 59);
+		beginDate = b.getTime();
+		
+		Calendar a = new GregorianCalendar();
+		a.setTime(beginDate);
+		a.set(Calendar.HOUR_OF_DAY, 23);
+		a.set(Calendar.MINUTE, 59);
+		a.set(Calendar.SECOND, 59);
+		finishDate = a.getTime();
+		
+		//Following checks if the user input date is invalid i.e before today's date
+		Calendar c = new GregorianCalendar();
+		c.set(Calendar.HOUR_OF_DAY, 00);
+		c.set(Calendar.MINUTE, 00);
+		c.set(Calendar.SECOND, 00);
+		Date currDate = c.getTime();
+		
+		if(currDate.compareTo(beginDate) > 0 || currDate.compareTo(finishDate) > 0) {
+			return false;
+		}
+		else if(!validDateRange && !sameDate) {
 			return false;
 		}
 		else {
@@ -271,28 +301,31 @@ public class TaskDate {
 	 * @throws java.text.ParseException
 	 */
 	public boolean isValidNumDate(String test, String format) throws java.text.ParseException {
-		Date tempDate = null;
+		Date inputDate = null;
 		try {
 			DateFormat df = new SimpleDateFormat(format);
 			df.setLenient(false);
 
-			tempDate = df.parse(test);
+			inputDate = df.parse(test);
 		} catch(ParseException ex) {
 			ex.printStackTrace();
 			return false;
 		}
+		
 		Calendar d = new GregorianCalendar();
+		d.setTime(inputDate);
 		d.set(Calendar.HOUR_OF_DAY, 23);
 		d.set(Calendar.MINUTE, 59);
 		d.set(Calendar.SECOND, 59);
-		tempDate = d.getTime();
+		inputDate = d.getTime();
 		//Following checks if the user input date is invalid i.e before today's date
 		Calendar c = new GregorianCalendar();
 		c.set(Calendar.HOUR_OF_DAY, 00);
 		c.set(Calendar.MINUTE, 00);
 		c.set(Calendar.SECOND, 00);
 		Date currDate = c.getTime();
-		if(currDate.compareTo(tempDate) > 0) {
+		
+		if(currDate.compareTo(inputDate) > 0) {
 			return false;
 		}
 		//The following will ensure the date format to be DATE_NUM_SLASH_WITH_YEAR_FORMAT
@@ -324,7 +357,6 @@ public class TaskDate {
 			fullDate = test;
 			return true;
 		}
-
 	}
 	@Override
 	public String toString() {
