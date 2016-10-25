@@ -31,6 +31,10 @@ public class DeleteCommandTest extends WhatNowGuiTest {
         commandBox.runCommand("delete " + "todo " + currentList.length + 1);
         assertResultMessage("The task index provided is invalid");
 
+        //invalid command
+        commandBox.runCommand("delete " + (currentList.length - 1) );
+        assertResultMessage("Invalid command format!");
+
     }
 
     /**

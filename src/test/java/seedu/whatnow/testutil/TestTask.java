@@ -23,13 +23,13 @@ public class TestTask implements ReadOnlyTask {
     private String taskType; //todo or schedule
 
     public TestTask() throws IllegalValueException {
-        setDate("");
-        setStartDate("");
-        setEndDate("");
-        setTime("");
-        setStartTime("");
-        setEndTime("");
-        setTaskType("");
+        setDate(null);
+        setStartDate(null);
+        setEndDate(null);
+        setTime(null);
+        setStartTime(null);
+        setEndTime(null);
+        setTaskType(null);
         setStatus("incomplete");
         tags = new UniqueTagList();
     }
@@ -141,8 +141,11 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add \"" + this.getName().fullName + "\" ");
-        if (!this.getStartDate().equals(null) && !this.getStartDate().equals(""))
+        if (this.getStartDate() != null && !this.getStartDate().equals("")) {
             sb.append("on" + " " + this.getStartDate());
+        } else if (this.getDate() != null && !this.getDate().equals("")) {
+            sb.append("on" + " " + this.getDate());
+        }
         this.getTags().getInternalList().stream().forEach(s -> sb.append(" t/" + s.tagName + " "));
         return sb.toString();
     }
