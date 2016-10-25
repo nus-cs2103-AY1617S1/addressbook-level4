@@ -99,14 +99,14 @@ public class UniqueTaskList implements Iterable<Task> {
      * Marks a task as done
      * @return
      */
-    public Task done(int index) throws TaskNotFoundException {
-        Task toDone = internalList.get(index);
-        assert toDone != null;
-        toDone.setCompleted(true);
-//        internalList.set(index - 1, toDone);
-//        internalList.remove(toDone);
-        return toDone;
-    }
+//    public Task done(int index) throws TaskNotFoundException {
+//        Task toDone = internalList.get(index);
+//        assert toDone != null;
+//        toDone.setCompleted(true);
+////        internalList.set(index - 1, toDone);
+////        internalList.remove(toDone);
+//        return toDone;
+//    }
 
     public ObservableList<Task> getInternalList() {
         return internalList;
