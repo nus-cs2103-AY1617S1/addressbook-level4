@@ -21,7 +21,7 @@ public class DoneCommand extends Command {
     public static final String COMMAND_WORD = "done";
 
     public static final String MESSAGE_PARAMETER = COMMAND_WORD + " [categoryAndIndex] [moreCategoryAndIndex]...";
-    public static final String MESSAGE_USAGE = "This command marks a task in TasKitty as done, Meow!";
+    public static final String MESSAGE_USAGE = "This command marks tasks in TasKitty as done, Meow!";
 
     public static final String MESSAGE_MARK_TASK_AS_DONE_SUCCESS = "Task done: %1$s";
     public static final String MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR = "The task \"%1$s\" has already been marked as done.";
