@@ -14,10 +14,10 @@ public class UndoRedoCommandTest extends ActivityManagerGuiTest {
     public void add() {
         //add one activity
         TestActivity[] originalList = td.getTypicalTask();
-        TestActivity activityToAdd = td.task;
+        TestActivity activityToAdd = td.task2;
         
         assertAddSuccess(activityToAdd, originalList);
-        TestActivity[] currentList = TestUtil.addTasksToList(originalList, activityToAdd);
+        TestActivity[] currentList = TestUtil.addActivitiesToList(originalList, activityToAdd);
 
         //testing undo command for adding of task
         commandBox.runCommand("undo");
@@ -84,7 +84,7 @@ public class UndoRedoCommandTest extends ActivityManagerGuiTest {
         assertTaskMatching(activityToAdd, addedCard);
 
         //confirm the list now contains all previous activities plus the new activity
-        TestActivity[] expectedList = TestUtil.addTasksToList(currentList, activityToAdd);
+        TestActivity[] expectedList = TestUtil.addActivitiesToList(currentList, activityToAdd);
         assertTrue(activityListPanel.isTaskListMatching(expectedList));
     }
 }

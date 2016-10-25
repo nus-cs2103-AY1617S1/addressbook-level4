@@ -287,8 +287,9 @@ public class Activity implements ReadOnlyActivity {
     public boolean equals(Object o){
     	return o == this || 
     			(o instanceof ReadOnlyActivity &&
-    					(this.isTaskSameStateAs((ReadOnlyActivity) o))
-    					|| this.isEventSameStateAs((ReadOnlyActivity) o));
+    					(this.isFloatingTaskSameStateAs((ReadOnlyActivity) o)
+    					|| this.isTaskSameStateAs((ReadOnlyActivity) o)
+    					|| this.isEventSameStateAs((ReadOnlyActivity) o)));
     }
     
 }

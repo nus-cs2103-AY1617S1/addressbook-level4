@@ -9,6 +9,7 @@ import seedu.address.testutil.TestActivity;
 import seedu.address.testutil.TestUtil;
 import seedu.menion.commons.core.Messages;
 import seedu.menion.logic.commands.AddCommand;
+import seedu.menion.model.activity.Activity;
 
 import static org.junit.Assert.assertTrue;
 
@@ -16,25 +17,27 @@ public class AddCommandTest extends ActivityManagerGuiTest {
 
     @Test
     public void add() {
+    	
+//    	commandBox.runCommand("clear");
         //add one task
         TestActivity[] taskList = td.getTypicalTask();
-        TestActivity taskToAdd = td.task;
+        TestActivity taskToAdd = td.task2;
         
         assertAddSuccess(taskToAdd, taskList);
-        taskList = TestUtil.addTasksToList(taskList, taskToAdd);
+        taskList = TestUtil.addActivitiesToList(taskList, taskToAdd);
         
         //@@author A0139515A
         //add floating task
         TestActivity[] floatingTaskList = td.getTypicalFloatingTask();
-        TestActivity floatingTaskToAdd = td.floatingTask;
+        TestActivity floatingTaskToAdd = td.floatingTask2;
         assertAddSuccess(floatingTaskToAdd, floatingTaskList);
-        floatingTaskList = TestUtil.addTasksToList(floatingTaskList, floatingTaskToAdd);
+        floatingTaskList = TestUtil.addActivitiesToList(floatingTaskList, floatingTaskToAdd);
          
         //add event
         TestActivity[] eventList = td.getTypicalEvent();
-        TestActivity eventToAdd = td.event;
+        TestActivity eventToAdd = td.event2;
         assertAddSuccess(eventToAdd, eventList);
-        floatingTaskList = TestUtil.addTasksToList(eventList, eventToAdd);
+        floatingTaskList = TestUtil.addActivitiesToList(eventList, eventToAdd);
     
         //add to empty list
         commandBox.runCommand("clear");
@@ -49,22 +52,22 @@ public class AddCommandTest extends ActivityManagerGuiTest {
         
         commandBox.runCommand(activityToAdd.getAddCommand());
         
-        if (activityToAdd.getActivityType().equals("task")) {
+        if (activityToAdd.getActivityType().equals(Activity.TASK_TYPE)) {
 	        //confirm the new task card contains the right data
 	        TaskCardHandle addedCard = activityListPanel.navigateToTask(activityToAdd.getActivityName().fullName);
 	        assertTaskMatching(activityToAdd, addedCard);
 	
 	        //confirm the list now contains all previous activities plus the new activity
-	        TestActivity[] expectedList = TestUtil.addTasksToList(currentList, activityToAdd);
+	        TestActivity[] expectedList = TestUtil.addActivitiesToList(currentList, activityToAdd);
 	        assertTrue(activityListPanel.isTaskListMatching(expectedList));
         }
-        else if (activityToAdd.getActivityType().equals("floatingTask")) {
+        else if (activityToAdd.getActivityType().equals(Activity.FLOATING_TASK_TYPE)) {
 	        //confirm the new floating task card contains the right data
 	        FloatingTaskCardHandle addedCard = activityListPanel.navigateToFloatingTask(activityToAdd.getActivityName().fullName);
 	        assertFloatingTaskMatching(activityToAdd, addedCard);
 	
 	        //confirm the list now contains all previous activities plus the new activity
-	        TestActivity[] expectedList = TestUtil.addFloatingTasksToList(currentList, activityToAdd);
+	        TestActivity[] expectedList = TestUtil.addActivitiesToList(currentList, activityToAdd);
 	        assertTrue(activityListPanel.isFloatingTaskListMatching(expectedList));
         }
         else { 
@@ -73,7 +76,7 @@ public class AddCommandTest extends ActivityManagerGuiTest {
 	        assertEventMatching(activityToAdd, addedCard);
 	
 	        //confirm the list now contains all previous activities plus the new activity
-	        TestActivity[] expectedList = TestUtil.addEventsToList(currentList, activityToAdd);
+	        TestActivity[] expectedList = TestUtil.addActivitiesToList(currentList, activityToAdd);
 	        assertTrue(activityListPanel.isEventListMatching(expectedList));
         }
     }
