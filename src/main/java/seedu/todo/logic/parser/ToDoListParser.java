@@ -94,20 +94,25 @@ public class ToDoListParser {
     }
     
     private String matchDetailResult(Matcher matcher) {
-    	return matchDetailResult(matcher);
+    	return matcher.group("detail");
     }
     
     private String matchOnDateTimeResult(Matcher matcher) {
-    	return matchOnDateTimeResult(matcher);
+    	return matcher.group("onDateTime");
     }
     
     private String matchByDateTimeResult(Matcher matcher) {
-    	return matchByDateTimeResult(matcher);
+    	return matcher.group("byDateTime");
     }
     
     private String matchPriorityResult(Matcher matcher) {
-    	return matchPriorityResult(matcher);
+    	return matcher.group("priority");
     }
+    
+    private String matchRecurrenceResult(Matcher matcher) {
+    	return matcher.group("rec");
+    }
+    
 
     /**
      * Parses arguments in the context of the add task command.
@@ -120,7 +125,7 @@ public class ToDoListParser {
         
         Pattern[] dataPatterns = {ParserFormats.ADD_PRIORITY_FT,  
                 ParserFormats.ADD_PRIORITY_ON, ParserFormats.ADD_PRIORITY_BY,
-                ParserFormats.ADD_PRIORITY_FLOAT,
+                ParserFormats.ADD_PRIORITY_FL,
                 ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_FT, ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_BY, 
                 ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_ON, ParserFormats.ADD_TASK_ARGS_FORMAT_FT, 
                 ParserFormats.ADD_TASK_ARGS_FORMAT_BY, ParserFormats.ADD_TASK_ARGS_FORMAT_ON, 
@@ -146,21 +151,21 @@ public class ToDoListParser {
                     } else if (p.equals(ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_FT)) {
                         return new AddCommand(matchNameResult(matcher), matchDetailResult(matcher),
                                 matchOnDateTimeResult(matcher), matchByDateTimeResult(matcher), 
-                                Priority.DEFAULT_PRIORITY, Frequency.valueOf(matcher.group("rec").toUpperCase().trim()));
+                                Priority.DEFAULT_PRIORITY, Frequency.valueOf(matchRecurrenceResult(matcher).toUpperCase().trim()));
                         
                     } else if (p.equals(ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_BY)) {
                         return new AddCommand(matchNameResult(matcher), matchDetailResult(matcher), null,
-                                matchByDateTimeResult(matcher), Priority.DEFAULT_PRIORITY, Frequency.valueOf(matcher.group("rec").toUpperCase().trim()));
+                                matchByDateTimeResult(matcher), Priority.DEFAULT_PRIORITY, Frequency.valueOf(matchRecurrenceResult(matcher).toUpperCase().trim()));
                         
                     } else if (p.equals(ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_ON)) {
                         return new AddCommand(matchNameResult(matcher), matchDetailResult(matcher),
-                                matchOnDateTimeResult(matcher), null, Priority.DEFAULT_PRIORITY, Frequency.valueOf(matcher.group("rec").toUpperCase().trim()));
+                                matchOnDateTimeResult(matcher), null, Priority.DEFAULT_PRIORITY, Frequency.valueOf(matchRecurrenceResult(matcher).toUpperCase().trim()));
                     
                     } else if (p.equals(ParserFormats.ADD_PRIORITY_FT)) {
                         return new AddCommand(matchNameResult(matcher), matchDetailResult(matcher),
                                 matchOnDateTimeResult(matcher), matchByDateTimeResult(matcher), matchPriorityResult(matcher), Frequency.NONE);
                         
-                    } else if (p.equals(ParserFormats.ADD_PRIORITY_FLOAT)) {
+                    } else if (p.equals(ParserFormats.ADD_PRIORITY_FL)) {
                         return new AddCommand(matchNameResult(matcher), matchDetailResult(matcher),
                                 null, null, matchPriorityResult(matcher), Frequency.NONE);
                         
@@ -329,7 +334,7 @@ public class ToDoListParser {
         matcher = ParserFormats.UPDATE_TASK_ARGS_FORMAT.matcher(tempArgs.trim());
         if (matcher.matches()) {
             return new UpdateCommand(index.get(), matchNameResult(matcher).trim(), matchOnDateTimeResult(matcher), 
-                    matchByDateTimeResult(matcher), matchPriorityResult(matcher), matchDetailResult(matcher), matcher.group("rec"));
+                    matchByDateTimeResult(matcher), matchPriorityResult(matcher), matchDetailResult(matcher), matchRecurrenceResult(matcher));
         } else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }  
@@ -347,7 +352,7 @@ public class ToDoListParser {
         Pattern[] dataPatterns = { ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON,
             ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER,
             ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, ParserFormats.KEYWORDS_ARGS_FORMAT, 
-            ParserFormats.SEARCH_TASK_ARGS_FORMAT_PRIORITY };
+            ParserFormats.SEARCH_FORMAT_PRIORITY };
         
         String tempArgs = args.trim(); 
         
@@ -368,7 +373,7 @@ public class ToDoListParser {
                         && tempArgs.indexOf("done") != 0 && tempArgs.indexOf("undone") != 0 
                         && tempArgs.indexOf("priority") != 0) {
                     return new SearchCommand(matcher.group("keywords"), 4);
-                } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_PRIORITY)) {
+                } else if (p.equals(ParserFormats.SEARCH_FORMAT_PRIORITY)) {
                 	return new SearchCommand(matchPriorityResult(matcher), 8);
                 }
             }
