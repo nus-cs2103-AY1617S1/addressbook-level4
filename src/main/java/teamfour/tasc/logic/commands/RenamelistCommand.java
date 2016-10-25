@@ -2,13 +2,14 @@ package teamfour.tasc.logic.commands;
 
 import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.events.storage.RequestTaskListRenameEvent;
+import teamfour.tasc.model.keyword.RenameListCommandKeyword;
 
 /**
  * Renames the current tasklist.
  */
 public class RenamelistCommand extends Command {
 
-    public static final String COMMAND_WORD = "renamelist";
+    public static final String COMMAND_WORD = RenameListCommandKeyword.keyword;
 
     public static final String MESSAGE_USAGE = 
             COMMAND_WORD + ": Renames the current tasklist. \n"

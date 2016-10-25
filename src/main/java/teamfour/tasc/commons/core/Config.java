@@ -140,7 +140,7 @@ public class Config {
     public void replaceWithNewNameInNameList(String newName) throws IOException, TaskListFileExistException {
         String[] names = this.getTaskListNames();
         for (int i=0; i<names.length; i++) {
-            if ((names[i] + ".xml").equals(newName)) {
+            if (names[i].equals(newName)) {
                 throw new TaskListFileExistException();
             }
             if ((names[i] + ".xml").equals(this.taskListFileName)) {
@@ -148,11 +148,6 @@ public class Config {
             }
         }
         this.taskListFileNames = StringUtils.join(names, ", ");
-        this.taskListFileName = newName + ".xml";
-        String newConfig = JsonUtil.toJsonString(this);
-        PrintWriter newConfigFileWriter = new PrintWriter(DEFAULT_CONFIG_FILE);
-        newConfigFileWriter.write(newConfig);
-        newConfigFileWriter.close();
     }
     
     /**
@@ -161,11 +156,15 @@ public class Config {
      * @throws IOException 
      * */
     public void renameCurrentTaskList(String newTasklistFileName) throws TaskListFileExistException, IOException {
+        replaceWithNewNameInNameList(newTasklistFileName);
         File newFile = new File(taskListFilePath + "/" + newTasklistFileName + ".xml");
         File oldFile = new File(taskListFilePath + "/" + this.taskListFileName);
-        if (oldFile.renameTo(newFile)) {
-            replaceWithNewNameInNameList(newTasklistFileName);
-        }
+        oldFile.renameTo(newFile);
+        this.taskListFileName = newTasklistFileName + ".xml";
+        String newConfig = JsonUtil.toJsonString(this);
+        PrintWriter newConfigFileWriter = new PrintWriter(DEFAULT_CONFIG_FILE);
+        newConfigFileWriter.write(newConfig);
+        newConfigFileWriter.close();
     }
 
     /**
