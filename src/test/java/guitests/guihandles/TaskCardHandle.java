@@ -41,7 +41,7 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(BY_DATE_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyTask person){
+    public boolean isSameTask(ReadOnlyTask person){
         //TODO: compare the rest
         return getFullName().equals(person.getName().fullName) && getDetail().equals(person.getDetail().value); 
                 
