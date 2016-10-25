@@ -19,6 +19,10 @@ We are from [School of Computing, National University of Singapore](http://www.c
  * [Update](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-the-details-of-a-taskevent-update)
  * [Complete](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#marking-a-task-as-complete-complete)
 
+**Code written: 
+[[functional code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0140011L.md)]
+[[test code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/test/A0140011L.md)]
+[[docs](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0140011L.md)]**<br>
 **Other major contributions:**
  * GitHub repository maintainer/maid (accepting PRs, resolving conflicts, set up Travis and Coveralls, issue tracker maintainence, generating 'collated' folder, etc)
  * [Added new task fields to model](https://github.com/CS2103AUG2016-W11-C4/main/pull/33)
@@ -35,6 +39,10 @@ We are from [School of Computing, National University of Singapore](http://www.c
  * [Find](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#finding-tasksevents-which-match-keywords-find)
  * [Collapse] (https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-the-view-of-the-task-list-panel-collapse-and-expand) and [Expand] (https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-the-view-of-the-task-list-panel-collapse-and-expand)
 
+**Code written: 
+[[functional code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0127014W.md)]
+[[test code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/test/A0127014W.md)]
+[[docs](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0127014W.md)]**<br>
 **Other major contributions:**
  * Implemented some CommandHelper class methods
  * Implemented KeywordParser class
@@ -50,6 +58,10 @@ We are from [School of Computing, National University of Singapore](http://www.c
  * [Switchlist](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#switching-to-a-different-task-list-switchlist)
  * [Renamelist](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#renaming-the-task-list-file-renamelist)
 
+**Code written: 
+[[functional code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0147971U.md)]
+[[test code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/test/A0147971U.md)]
+[[docs](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0147971U.md)]**<br>
 **Other major contributions:**
  * Added commandbox auto-complete feature
  * Implemented Keyword class
@@ -66,7 +78,10 @@ We are from [School of Computing, National University of Singapore](http://www.c
  * [Undo previous commands](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#undoing-the-last-action-undo)<br>
  * [Change calendar view](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-calendar-view-calendar)
 
-**Code written: [functional code][test code][docs]**<br>
+**Code written: 
+[[functional code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0148096W.md)]
+[[test code](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/test/A0148096W.md)]
+[[docs](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/collated/docs/A0148096W.md)]**<br>
 **Other major contributions:**
  * Implemented multiple filtering for FilteredTaskList
  * Implemented HistoryStack class
