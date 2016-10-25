@@ -2,9 +2,9 @@ package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
 import org.ocpsoft.prettytime.shade.org.apache.commons.lang.BooleanUtils;
-import org.ocpsoft.prettytime.shade.org.apache.commons.lang.math.NumberUtils;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.IntArgument;
 import seedu.todo.logic.arguments.Parameter;
@@ -13,9 +13,18 @@ import seedu.todo.logic.arguments.StringArgument;
 import java.util.List;
 
 //@@author A0135805H
+
+/**
+ * This class handles all tagging command
+ */
 public class TagCommand extends BaseCommand {
+    /* Constants */
     private static final String VERB = "tagged";
-    
+
+    private static final String ERROR_INCOMPLETE_PARAMETERS = "You have not supplied sufficient parameters to run a Tag command.";
+    private static final String SUCCESS_ADD_TAGS = " tags have been added successfully.";
+
+    /* Variables */
     private Argument<Integer> index = new IntArgument("index");
 
     private Argument<String> addTags = new StringArgument("/a")
@@ -23,6 +32,12 @@ public class TagCommand extends BaseCommand {
 
     private Argument<String> deleteTags = new StringArgument("/d")
             .flag("d");
+
+    /* Constructor */
+    /**
+     * Empty constructor
+     */
+    public TagCommand() {}
 
     @Override
     public Parameter[] getArguments() {
@@ -34,7 +49,7 @@ public class TagCommand extends BaseCommand {
     @Override
     protected void setPositionalArgument(String argument) {
         String[] tokens = argument.trim().split(" ", 2);
-        boolean isFirstArgNumber = NumberUtils.isNumber(tokens[0]);
+        boolean isFirstArgNumber = StringUtil.isUnsignedInteger(tokens[0]);
 
         if (isFirstArgNumber) {
             try {
@@ -52,8 +67,8 @@ public class TagCommand extends BaseCommand {
 
     @Override
     public List<CommandSummary> getCommandSummary() {
-        String addNewTagsFromTaskArgument = index.getName() + " /a " + addTags.getName();
-        String deleteTagsFromTaskArgument = "[" + index.getName() + "] /d " + deleteTags.getName();
+        String addNewTagsFromTaskArgument = index.getName() + " /a tag1 [, tag2, ...]";
+        String deleteTagsFromTaskArgument = "[" + index.getName() + "] /d tag1 [, tag2, ...]";
 
         return ImmutableList.of(
             new CommandSummary("Add tags to a task", getCommandName(), addNewTagsFromTaskArgument),
@@ -63,46 +78,40 @@ public class TagCommand extends BaseCommand {
 
     @Override
     protected void validateArguments() {
-
         //Check if required combination of inputs are available.
         if (!isInputParametersAvailable()) {
             handleUnavailableInputParameters();
         }
-
-//        errors.put();
         super.validateArguments();
     }
 
     @Override
     public CommandResult execute() throws ValidationException {
+        //Obtain values for manipulation
+        Integer displayedIndex = index.getValue();
+        String[] tagsToAdd = StringUtil.splitString(addTags.getValue());
+        String[] tagsToDelete = StringUtil.splitString(deleteTags.getValue());
+        CommandResult result = null;
 
-        //Obtain values
+        if (isAddTagsToTask()) {
+            model.addTagsToTask(displayedIndex, tagsToAdd);
+            result = new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
 
+        } else if (isDeleteTagsFromTask()) {
+            model.deleteTagsFromTask(displayedIndex, tagsToDelete);
 
-        //Refer to Edit command for editing tasks.
+        } else {
+            //Invalid case, should not happen, as we have checked it validateArguments.
+            //However, for completeness, a command result is returned.
+            errors.put(ERROR_INCOMPLETE_PARAMETERS);
+            result = new CommandResult("", errors);
+        }
 
-        System.out.println("index" + index.getValue());
-        System.out.println("new" + addTags.getValue());
-        System.out.println("del" + deleteTags.getValue());
-
-//        this.model
-//
-//        this.model.add(title.getValue(), task -> {
-//            task.setDescription(description.getValue());
-//            task.setPinned(pin.getValue());
-//            task.setLocation(location.getValue());
-//            task.setStartTime(date.getValue().getStartTime());
-//            task.setEndTime(date.getValue().getEndTime());
-//        });
-//
-//        return taskSuccessfulResult(title.getValue(), TagCommand.VERB);
-        return new CommandResult("haha", null);
+        return result;
     }
 
-
-    /* Helper Methods */
-
-    /* Input Parameters Availability Validation */
+    
+    /* Input Parameters Validation */
     /**
      * Returns true if the command matches the action of adding tag(s) to a task.
      */
@@ -165,5 +174,4 @@ public class TagCommand extends BaseCommand {
             errors.put(deleteTags.getName(), deleteTagsRequired);
         }
     }
-
 }
