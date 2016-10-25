@@ -79,6 +79,8 @@ public class ActivityListPanelHandle extends GuiHandle {
      * Returns true if the list is showing the event details correctly and in correct order.
      * @param events A list of tasks in the correct order.
      */
+    
+    
     public boolean isEventListMatching(ReadOnlyActivity... events) {
         return this.isEventListMatching(0, events);
     }

@@ -8,7 +8,7 @@ import seedu.menion.commons.exceptions.IllegalValueException;
  */
 public class ActivityName {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Activity's names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "(.+)";
 
     public final String fullName;

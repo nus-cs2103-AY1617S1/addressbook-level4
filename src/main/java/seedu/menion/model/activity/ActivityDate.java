@@ -58,7 +58,7 @@ public class ActivityDate {
         DateChecker dateCheck = new DateChecker();
         
         if (!test.matches(ACTIVITYDATE_VALIDATION_REGEX)) {
-            throw new IllegalValueException(MESSAGE_ACTIVITYDATE_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_ACTIVITYDATE_INVALID);
         }
         dateCheck.validDate(test);
         return;
