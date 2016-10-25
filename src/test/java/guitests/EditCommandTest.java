@@ -3,12 +3,10 @@ package guitests;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import seedu.taskmanager.commons.core.LogsCenter;
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.logic.commands.EditCommand;
-import seedu.taskmanager.logic.parser.Parser;
 import seedu.taskmanager.model.item.ItemDate;
 import seedu.taskmanager.model.item.Name;
 import seedu.taskmanager.model.tag.Tag;
@@ -32,9 +30,6 @@ import static seedu.taskmanager.model.item.ItemDate.MESSAGE_DATE_CONSTRAINTS;
 import static seedu.taskmanager.logic.commands.Command.MESSAGE_DUPLICATE_ITEM;
 import static seedu.taskmanager.logic.commands.Command.MESSAGE_END_DATE_TIME_BEFORE_START_DATE_TIME;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
