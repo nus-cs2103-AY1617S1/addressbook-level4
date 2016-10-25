@@ -10,20 +10,20 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" prefHeight="115.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefWidth="270.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-      <GridPane prefHeight="90.0" prefWidth="250.0" HBox.hgrow="ALWAYS">
+      <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="ALWAYS" />
+          <ColumnConstraints percentWidth="20.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints vgrow="NEVER" />
         </rowConstraints>
          <children>
-            <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="250.0">
+            <VBox alignment="CENTER_LEFT" maxHeight="80.0" minHeight="70.0" prefHeight="70.0" GridPane.columnIndex="0" GridPane.vgrow="NEVER">
                <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="24.0" prefWidth="130.0" spacing="5">
+                        <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
                                     <Label fx:id="id" styleClass="cell_index_label">
@@ -44,7 +44,7 @@
                         </HBox>
                </children>
             </VBox>
-            <AnchorPane fx:id="dateTimeListPane" GridPane.columnIndex="1" />
+            <AnchorPane fx:id="dateTimeListPane" GridPane.columnIndex="1" GridPane.vgrow="NEVER" />
          </children>
       </GridPane>
     </children>

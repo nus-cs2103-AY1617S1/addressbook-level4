@@ -31,36 +31,11 @@
                   <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="NEVER" />
               </rowConstraints>
                <children>
-                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label fx:id="numUpcoming" alignment="CENTER" contentDisplay="CENTER" text="\$numUpcoming">
-                                 <padding>
-                                    <Insets left="20.0" right="5.0" />
-                                 </padding>
-                              </Label>
-                              <Label contentDisplay="CENTER" text="Upcoming" styleClass="info-header.labeL"/>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <Label fx:id="numOverdue" alignment="CENTER" contentDisplay="CENTER" text="\$numOverdue">
-                                 <padding>
-                                    <Insets right="5.0" />
-                                 </padding></Label>
-                              <Label alignment="CENTER" contentDisplay="CENTER" text="Overdue" styleClass="info-header.labeL" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1" />
+                  <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <children>
-                        <Label fx:id="date" alignment="CENTER" contentDisplay="CENTER" text="\$date" textAlignment="RIGHT" styleClass="info-header.labeL">
+                        <Label fx:id="date" alignment="CENTER" contentDisplay="CENTER" styleClass="info-header.labeL" text="\$date" textAlignment="RIGHT">
                           <padding>
                             <Insets right="15.0" />
                          </padding>
