@@ -4,25 +4,33 @@
         <name>Watch world news</name>
         <startTime isPrivate="false">2100hrs</startTime>
         <endTime isPrivate="false">2200hrs</endTime>
-        <location isPrivate="false">Living Room</location>
+        <deadline isPrivate="false">Living Room</deadline>
+        <doneStatus>false</doneStatus>
+        <overdueStatus>false</overdueStatus>
     </tasks>
     <tasks>
         <name>Play soccer</name>
         <startTime isPrivate="false">1800hrs</startTime>
         <endTime isPrivate="false">1900hrs</endTime>
-        <location isPrivate="false">Bedok Stadium</location>
+        <deadline isPrivate="false">Bedok Stadium</deadline>
+        <doneStatus>false</doneStatus>
+        <overdueStatus>false</overdueStatus>
     </tasks>
     <tasks>
         <name>Train for IPPT</name>
         <startTime isPrivate="false">0900hrs</startTime>
         <endTime isPrivate="false">1100hrs</endTime>
-        <location isPrivate="false">Tekong Park</location>
+        <deadline isPrivate="false">Tekong Park</deadline>
+        <doneStatus>false</doneStatus>
+        <overdueStatus>false</overdueStatus>
     </tasks>
     <tasks>
         <name>Buy pizza</name>
         <startTime isPrivate="false">1500hrs</startTime>
         <endTime isPrivate="false">1500hrs</endTime>
-        <location isPrivate="false">Pizza hut</location>
+        <deadline isPrivate="false">Pizza hut</deadline>
+        <doneStatus>false</doneStatus>
+        <overdueStatus>false</overdueStatus>
     </tasks>
     
     

@@ -62,6 +62,9 @@ public class TaskCard extends UiPart{
     }
 
     public HBox getLayout() {
+        if(task.getStatus().getDoneStatus() == true) {
+            cardPane.setStyle("-fx-background-color: #ADDBAC");
+        }
         return cardPane;
     }
 

@@ -12,6 +12,7 @@ public interface ReadOnlyTask {
     StartTime getStartTime();
     EndTime getEndTime();
     Deadline getDeadline();
+    Status getStatus();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

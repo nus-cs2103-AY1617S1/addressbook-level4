@@ -11,6 +11,7 @@ import seedu.task.model.Model;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.storage.Storage;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 /**
@@ -21,13 +22,12 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final CommandParser parser;
-    private HistoryList historyList;
+    private final HistoryManager historyManager;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new CommandParser();
-        historyList = new HistoryList();
-        historyList.setPreviousCommandCounter(1);
+        this.historyManager = new HistoryManager();
     }
 
     @Override
@@ -36,20 +36,23 @@ public class LogicManager extends ComponentManager implements Logic {
         Command command = parser.parseCommand(commandText);
         
         command.setData(model);
-        if (command instanceof IncorrectCommand) {
+        command.setHistory(historyManager);
+        if (command != null && command instanceof IncorrectCommand) {
+            return command.execute(false);
+        } else if (command == null && command instanceof IncorrectCommand) {
             return command.execute(false);
         }
         logger.info("SUCCESS");
         if(!commandText.equals("undo")){
-            HistoryList.getPreviousCommand().add(commandText);
-            for(int i = 0; i < historyList.getPreviousCommand().size(); i++){
-                logger.info("" + historyList.getPreviousCommand().get(i));
+            historyManager.getPreviousCommandList().add(commandText);
+            for(int i = 0; i < historyManager.getPreviousCommandList().size(); i++){
+                logger.info("" + historyManager.getPreviousCommandList().get(i));
             }
             return command.execute(false);
         }
         else{
-            for(int i = 0; i < historyList.getPreviousCommand().size(); i++){
-                logger.info("" + historyList.getPreviousCommand().get(i));
+            for(int i = 0; i < historyManager.getPreviousCommandList().size(); i++){
+                logger.info("" + historyManager.getPreviousCommandList().get(i));
             }
             return command.execute(true);
         }
@@ -57,12 +60,21 @@ public class LogicManager extends ComponentManager implements Logic {
         
     }
     
-    public HistoryList getHistoryList(){
-        return historyList;
-    }
     
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
+    }
+
+    @Override
+    public ArrayList<RollBackCommand> getUndoList() {
+        // TODO Auto-generated method stub
+        return historyManager.getUndoList();
+    }
+
+    @Override
+    public ArrayList<String> getPreviousCommandList() {
+        // TODO Auto-generated method stub
+        return historyManager.getPreviousCommandList();
     }
 }

@@ -1,11 +1,16 @@
 package seedu.task.logic.commands;
 
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.logic.HistoryList;
+import seedu.task.logic.HistoryManager;
+import seedu.task.model.tag.Tag;
+import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.ReadOnlyTask;
 
 
@@ -15,7 +20,9 @@ public class UndoCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo a command which was previously input by user. ";
 
-    public static final String MESSAGE_SUCCESS = "Undo the following command: ";
+    public static final String MESSAGE_SUCCESS = "Undo: ";
+    
+    public static final String MESSAGE_FAIL = "Cannot undo anymore!";
 
     /**
      * Convenience constructor using raw values.
@@ -31,75 +38,188 @@ public class UndoCommand extends Command {
         // TODO Auto-generated method stub
         //String taskToUndo = ""; //commented out by Jun Hao
         String outputUndoList = "";
-        if(HistoryList.getUndoList().size() != 0) {
-            String[] getIndex = HistoryList.getPreviousCommand().get(HistoryList.getPreviousCommand().size()-1).split(" ");
+        if(history.getUndoList().size() != 0) {
+            outputUndoList = MESSAGE_SUCCESS + history.getPreviousCommandList().get(history.getPreviousCommandList().size()-1);
+
+            String[] getIndex = history.getPreviousCommandList().get(history.getPreviousCommandList().size()-1).split(" ");
             String previousCommand = getIndex[0];
+            String[] previousCommandDetails = getIndex;
             
-            outputUndoList = prepareUndoDelete(outputUndoList, getIndex, previousCommand);
-            outputUndoList = prepareUndoAdd(outputUndoList, previousCommand);
+            switch (previousCommand) {
+
+            case AddCommand.COMMAND_WORD:
+                prepareUndoAdd();
+                break;
+            case DeleteCommand.COMMAND_WORD:
+                prepareUndoDelete(previousCommandDetails);
+                break;
+            case EditCommand.COMMAND_WORD:
+                prepareUndoEdit(previousCommandDetails);
+                break;
+            case ClearCommand.COMMAND_WORD:
+                prepareUndoClear(previousCommandDetails);
+                
+                break;
+            case UndoneCommand.COMMAND_WORD:
+                prepareUndoUndone(previousCommandDetails);
+                break;
+           
+            case DoneCommand.COMMAND_WORD:
+                prepareUndoDone(previousCommandDetails);
+                break;
+           default:
+                
+            }
+            
 
             checkCommandListSize();
         }
         else {
-            outputUndoList = "Cannot undo anymore!";
+            outputUndoList = MESSAGE_FAIL;
         }
 
         return new CommandResult(outputUndoList);
     }
 
+    
+
+    private void prepareUndoDone(String[] previousCommandDetails) {
+        int index = Integer.parseInt(previousCommandDetails[1]);
+
+        Command command = new UndoneCommand(index);     
+        command.setData(model);
+        command.execute(true);
+
+        history.getUndoList().remove(history.getUndoList().size() - 1);
+        // TODO Auto-generated method stub
+
+    }
+
+    private void prepareUndoUndone(String[] previousCommandDetails) {
+        int index = Integer.parseInt(previousCommandDetails[1]);
+        
+        Command command = new DoneCommand(index);     
+        command.setData(model);
+        command.execute(true);
+
+        history.getUndoList().remove(history.getUndoList().size() - 1);
+        // TODO Auto-generated method stub
+        
+    }
+
+    private void prepareUndoClear(String[] previousCommandDetails) {
+        
+        int size = history.getUndoList().size() - 1; 
+        
+            while(history.getUndoList().get(size).getCommandWord().equals("clear")){
+                HashSet<Tag> tagSet = new HashSet<>(history.getUndoList().get(size).getNewTask().getTags().toSet());
+                HashSet<String> tagStringSet = new HashSet<>(tagSet.size());
+                for(Tag tags: tagSet){
+                    tagStringSet.add(tags.tagName);
+                }
+
+                try {
+                    Command command = new AddCommand(
+                            "" + history.getUndoList().get(size).getNewTask().getName(),
+                            "" + history.getUndoList().get(size).getNewTask().getStartTime(),
+                            "" + history.getUndoList().get(size).getNewTask().getEndTime(),
+                            "" + history.getUndoList().get(size).getNewTask().getDeadline(),
+                            tagStringSet);
+                    command.setData(model);
+                    command.execute(0);
+
+
+
+                } catch (IllegalValueException e) {
+
+                }
+                history.getUndoList().remove(size);
+                size--;
+                if(size == -1){
+                    break;
+                }
+                if(!(history.getUndoList().get(size).getCommandWord().equals("clear"))){
+                    break;
+                }
+            }
+        
+    }
+
     private void checkCommandListSize() {
-        if(HistoryList.getPreviousCommand().size() != 0){
-            HistoryList.getPreviousCommand().remove(HistoryList.getPreviousCommand().size()-1);
+        if(history.getPreviousCommandList().size() != 0){
+            history.getPreviousCommandList().remove(history.getPreviousCommandList().size()-1);
         }
     }
 
-    private String prepareUndoAdd(String outputUndoList, String previousCommand) {
-        if(previousCommand.equals("add")) {
+    private void prepareUndoEdit(String[] previousCommandDetails) {
+        int index = Integer.parseInt(previousCommandDetails[1]);
+        int size = history.getUndoList().size() - 1; 
 
+     
+        String name = history.getUndoList().get(size).getOldTask().getName().toString();
+        String startTime = history.getUndoList().get(size).getOldTask().getStartTime().toString();
+        String endTime = history.getUndoList().get(size).getOldTask().getEndTime().toString();
+        String deadline = history.getUndoList().get(size).getOldTask().getDeadline().toString();
+        
+        HashSet<Tag> tagSet = new HashSet<>(history.getUndoList().get(size).getNewTask().getTags().toSet());
+        HashSet<String> tagStringSet = new HashSet<>(tagSet.size());
+        
+        try {
+            Command command = new EditCommand(index, name, startTime,  endTime,  deadline, tagStringSet);
+            command.setData(model);
+            command.execute(true);
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        history.getUndoList().remove(size);
+
+    }
+    
+    private void prepareUndoAdd() {
+        
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-            outputUndoList = "deleting: " + (lastShownList.size());
+            
             Command command = new DeleteCommand(lastShownList.size());     
             command.setData(model);
             command.execute(true);
 
-            HistoryList.getUndoList().remove(HistoryList.getUndoList().size() - 1);
+            history.getUndoList().remove(history.getUndoList().size() - 1);
 
 
-
-        }
-        return outputUndoList;
     }
 
-    private String prepareUndoDelete(String outputUndoList, String[] getIndex, String previousCommand) {
-        if(previousCommand.equals("delete")){
-            int index = Integer.parseInt(getIndex[1]) - 1;
-            final StringBuilder builder = new StringBuilder();
-            builder.append(HistoryList.getUndoList().get(HistoryList.getUndoList().size()-1).getNewTask().getName())
-            .append(" from ")
-            .append(HistoryList.getUndoList().get(HistoryList.getUndoList().size()-1).getNewTask().getStartTime())
-            .append(" to ")
-            .append(HistoryList.getUndoList().get(HistoryList.getUndoList().size()-1).getNewTask().getEndTime())
-            .append(" by ")
-            .append(HistoryList.getUndoList().get(HistoryList.getUndoList().size()-1).getNewTask().getDeadline());
-            int size = HistoryList.getUndoList().size() - 1; 
-            outputUndoList = "added "  + " " + builder.toString();
-
+    private void prepareUndoDelete(String[] previousCommandDetails) {
+        
+            int index = Integer.parseInt(previousCommandDetails[1]) - 1;
+            
+            
+            int size = history.getUndoList().size() - 1; 
+            
+            HashSet<Tag> tagSet = new HashSet<>(history.getUndoList().get(size).getNewTask().getTags().toSet());
+            HashSet<String> tagStringSet = new HashSet<>(tagSet.size());
+            for(Tag tags: tagSet){
+            tagStringSet.add(tags.tagName);
+            }
+            
             try {
                 Command command = new AddCommand(
-                        "" + HistoryList.getUndoList().get(size).getNewTask().getName(),
-                        "" + HistoryList.getUndoList().get(size).getNewTask().getStartTime(),
-                        "" + HistoryList.getUndoList().get(size).getNewTask().getEndTime(),
-                        "" + HistoryList.getUndoList().get(size).getNewTask().getDeadline(),
-                        Collections.emptySet());
+                        "" + history.getUndoList().get(size).getNewTask().getName(),
+                        "" + history.getUndoList().get(size).getNewTask().getStartTime(),
+                        "" + history.getUndoList().get(size).getNewTask().getEndTime(),
+                        "" + history.getUndoList().get(size).getNewTask().getDeadline(),
+                        tagStringSet);
                 command.setData(model);
                 command.execute(index);
+                
+
+                
             } catch (IllegalValueException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+                
             }
-            HistoryList.getUndoList().remove(size);
-        }
-        return outputUndoList;
+            history.getUndoList().remove(size);
+        
+        
     }
 
     @Override

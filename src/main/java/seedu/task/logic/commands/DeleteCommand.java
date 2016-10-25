@@ -2,7 +2,7 @@ package seedu.task.logic.commands;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
-import seedu.task.logic.HistoryList;
+import seedu.task.logic.HistoryManager;
 import seedu.task.logic.RollBackCommand;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
@@ -41,8 +41,8 @@ public class DeleteCommand extends Command {
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
         if(isUndo == false){
-            Task task = new Task(taskToDelete.getName(),taskToDelete.getStartTime(),taskToDelete.getEndTime(),taskToDelete.getDeadline(),taskToDelete.getTags());
-            HistoryList.getUndoList().add(new RollBackCommand("delete" , task, null, 1));
+            Task task = new Task(taskToDelete.getName(),taskToDelete.getStartTime(),taskToDelete.getEndTime(),taskToDelete.getDeadline(),taskToDelete.getTags(),taskToDelete.getStatus());
+            history.getUndoList().add(new RollBackCommand("delete" , task, null));
         }
         try {
             model.deleteTask(taskToDelete);
