@@ -9,6 +9,8 @@ import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.model.task.DateTimeInfoParser;
 import seedu.flexitrack.model.task.ReadOnlyTask;
+import seedu.flexitrack.model.task.Task;
+import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.flexitrack.model.task.UniqueTaskList.IllegalEditException;
 import seedu.flexitrack.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -33,7 +35,8 @@ public class EditCommand extends Command {
     public final String[] arguments;
 
     private static Stack<ReadOnlyTask> storeDataChanged = new Stack<ReadOnlyTask>(); 
-    
+    private static Stack<Integer> storeIndexChanged = new Stack<Integer>(); 
+
     public EditCommand(int targetIndex, String[] arguments) {
         this.targetIndex = targetIndex;
         this.arguments = arguments;
@@ -46,27 +49,52 @@ public class EditCommand extends Command {
 
         String duration = null;
 
+        storeDataChanged.add(new Task(lastShownList.get(targetIndex - 1))); 
+        
         try {
             duration = model.editTask(targetIndex - 1, arguments);
         } catch (TaskNotFoundException pnfe) {
             indicateAttemptToExecuteIncorrectCommand();
+            storeDataChanged.pop();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         } catch (IllegalEditException iee) {
             indicateAttemptToExecuteIncorrectCommand();
+            storeDataChanged.pop();
             return new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
+            storeDataChanged.pop();
             assert false : "Illegal value entered";
         }
         
-//        storeDataChanged.add();
-        recordCommand("unmark"); 
+        recordCommand("edit"); 
+        storeIndexChanged.add(targetIndex); 
 
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, lastShownList.get(targetIndex - 1).getName())
                 + "\n" + duration);
     }
     
     @Override
-    //TODO: to be implemented
     public void executeUndo() {
+        int targetIndex = storeIndexChanged.peek(); 
+        Task toAddBack = new Task (storeDataChanged.peek());
+
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+        }
+        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+
+        try {
+            model.deleteTask(taskToDelete);
+        } catch (TaskNotFoundException pnfe) {
+            assert false : "The target task cannot be missing";
+        }
+        
+        try {
+            model.addTask(toAddBack);
+        } catch (DuplicateTaskException e) {
+            indicateAttemptToExecuteIncorrectCommand();
+        }
     }
 }

@@ -60,7 +60,6 @@ public class DeleteCommand extends Command {
     }
     
     @Override
-    //TODO: to be implemented
     public void executeUndo() {
         Task toAdd = new Task (storeDataChanged.peek());
         assert model != null;

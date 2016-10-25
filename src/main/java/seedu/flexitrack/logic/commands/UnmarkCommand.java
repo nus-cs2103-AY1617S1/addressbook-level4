@@ -55,14 +55,13 @@ public class UnmarkCommand extends Command {
     public void executeUndo() {
         int targetIndex = storeDataChanged.peek();
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
         }
-
         try {
             model.markTask(lastShownList.get(targetIndex-1));
         } catch (IllegalValueException e) {
         }
+        storeDataChanged.pop();
     }
 }

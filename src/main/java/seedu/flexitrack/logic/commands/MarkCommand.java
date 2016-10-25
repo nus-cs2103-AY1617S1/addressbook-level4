@@ -56,5 +56,18 @@ public class MarkCommand extends Command {
     @Override
     //TODO: to be implemented 
     public void executeUndo() {
+        int targetIndex = storeDataChanged.peek();
+
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+
+        if (lastShownList.size() < targetIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+        }
+        try {
+            model.unmarkTask(lastShownList.get(targetIndex - 1));
+        } catch (IllegalValueException e) {
+        }
+        
+        storeDataChanged.pop();
     }
 }

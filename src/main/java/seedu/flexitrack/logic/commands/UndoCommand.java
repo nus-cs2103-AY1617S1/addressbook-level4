@@ -32,18 +32,23 @@ public class UndoCommand extends Command {
             return new CommandResult(String.format(MESSAGE_NOT_SUCCESS));
         }
         switch (commandRecord.peek()){
-        case "add":
-            (new FindCommand(AddCommand.storeDataChanged.peek().getName().fullName)).execute();
+        case "add":   
+            undo = new AddCommand();
+            break; 
+        case "delete":   
             undo = new DeleteCommand(1);
             break; 
-        case "delete": 
-            undo = new DeleteCommand(1);
-            break; 
-        case "mark": 
+        case "mark":   
             undo = new MarkCommand(1); 
             break;
-        case "unmark": 
+        case "unmark":  
             undo = new UnmarkCommand(1); 
+            break;
+        case "clear": 
+            undo = new ClearCommand(); 
+            break; 
+        case "edit":   
+            undo = new EditCommand(1,null ); 
             break;
         }
         undo.setData(model);
