@@ -19,7 +19,7 @@ import seedu.todo.ui.util.ViewStyleUtil;
 import java.util.List;
 import java.util.logging.Logger;
 
-//@author A0139021U
+//@author A0139021U-reused
 
 /**
  * A view that displays all the current relevant information.

@@ -62,6 +62,7 @@ public class CommandInputView extends UiPart {
         listenAndRaiseEnterEvent();
     }
 
+    //@@author A0139021U
     /**
      * Sets {@link #commandTextField} to listen out for keystrokes.
      * Once a keystroke is received, calls {@link KeyStrokeCallback} interface to process this command.
@@ -81,7 +82,8 @@ public class CommandInputView extends UiPart {
             }
         });
     }
-    
+    //@@author
+
     /**
      * Listens for Enter keystrokes, and raises an event when it happens.
      */
@@ -154,6 +156,7 @@ public class CommandInputView extends UiPart {
         this.placeHolder = pane;
     }
 
+    //@@author A0139021U
     /*Interface Declarations*/
     /**
      * Defines an interface for controller class to receive a key stroke from this view class, and process it.

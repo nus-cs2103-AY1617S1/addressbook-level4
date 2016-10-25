@@ -67,7 +67,8 @@ public class StringUtil {
         }
         return stringArray;
     }
-    
+
+    //@@author A0135817B
     /**
      * Calculates the levenstein distance between the two strings and returns
      * their closeness in a percentage score.

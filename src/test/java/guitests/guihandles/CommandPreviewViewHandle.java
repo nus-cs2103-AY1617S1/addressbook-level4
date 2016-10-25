@@ -5,9 +5,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.todo.TestApp;
 
-/**
- * Created by Kai on 26/10/2016.
- */
+//@@author A0139021U
 public class CommandPreviewViewHandle extends GuiHandle {
     /* Constants */
     public static final String PREVIEW_VIEW_GRID_ID = "#previewGrid";

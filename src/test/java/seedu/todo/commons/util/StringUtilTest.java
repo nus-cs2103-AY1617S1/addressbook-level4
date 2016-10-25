@@ -1,6 +1,5 @@
 package seedu.todo.commons.util;
 
-import org.apache.commons.lang.ObjectUtils.Null;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -122,7 +121,9 @@ public class StringUtilTest {
         String[] outcome = StringUtil.partitionStringAtPosition("I have a Pikachu", 5);
         assertArrayEquals(expected, outcome);
     }
-    
+    //@@author
+
+    //@@author A0139021U
     @Test
     public void calculateClosenessScoreNull() {
         double expected = 0d;

@@ -13,6 +13,7 @@ public interface Logic {
      */
     CommandResult execute(String input);
 
+    //@@author A0139021U
     /**
      * Receives the intermediate product of the command and sends a ShowPreviewEvent.
      * @param input The intermediate input as entered by the user.

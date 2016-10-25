@@ -19,7 +19,7 @@ import seedu.todo.model.Model;
 import java.util.List;
 import java.util.logging.Logger;
 
-//@@author A0135817B & A0139021U
+//@@author A0135817B
 /**
  * Central controller for the application, abstracting application logic from the UI
  */
@@ -66,6 +66,7 @@ public class TodoLogic implements Logic {
         }
     }
 
+    //@@author A0139021U
     @Override
     public void preview(String input) {
         List<CommandSummary> listOfCommands = new CommandPreview(input).getPreview();

@@ -10,7 +10,7 @@ import seedu.todo.ui.view.CommandFeedbackView;
 import seedu.todo.ui.view.CommandInputView;
 import seedu.todo.ui.view.CommandPreviewView;
 
-//@@author A0315805H & A0139021U
+//@@author A0315805H
 /**
  * Processes the input command from {@link CommandInputView}, pass it to {@link seedu.todo.logic.Logic}
  * and hands the {@link seedu.todo.logic.commands.CommandResult}
@@ -53,6 +53,7 @@ public class CommandController {
         inputView.listenToInput(this::handleInput);
     }
 
+    //@@author A0139021U
     /**
      * Handles a key stroke from input and sends it to logic. Once logic sends back a preview, it will be
      * processed by {@link #handleCommandResult(CommandResult)}
@@ -89,6 +90,7 @@ public class CommandController {
             viewDisplayError(result.getErrors());
         }
     }
+    //@@author
 
     /**
      * Displays error in the respective UI elements
