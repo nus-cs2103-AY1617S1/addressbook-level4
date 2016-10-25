@@ -13,7 +13,7 @@ import seedu.menion.logic.commands.EditCommand;
 import seedu.menion.model.activity.ActivityDate;
 import seedu.menion.model.activity.ActivityTime;
 
-//@@author: A0139164A
+//@@author A0139164A
 
 public class EditCommandTest extends ActivityManagerGuiTest {
     
