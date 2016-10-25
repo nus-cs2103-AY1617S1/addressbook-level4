@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
-import seedu.task.testutil.TestUtil;
 import seedu.todolist.commons.core.Messages;
 
 import static org.junit.Assert.assertTrue;
@@ -15,21 +14,21 @@ public class AddCommandTest extends AddressBookGuiTest {
 
     @Test
     public void add() {
-        //add one task
+        
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
+        
+        //add one task
         TestTask taskToAdd = td.event;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add another task
         taskToAdd = td.deadline;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add to empty list
         commandBox.runCommand("clear");
-        taskToAdd = td.eventWithLocationAndRemarks;
         currentList.clear();
+        taskToAdd = td.eventWithLocationAndRemarks;
         assertAddSuccess(taskToAdd, currentList);
 
         //invalid command
@@ -45,8 +44,8 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
-        TestTaskList expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(taskListPanel.isListMatching(expectedList.getIncompleteList()));
+        currentList.addTasksToList(taskToAdd);
+        assertTrue(taskListPanel.isListMatching(currentList.getIncompleteList()));
         
         //confirm no new task is added to completed pane
         assertCompleteListSize(0);

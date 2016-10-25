@@ -25,11 +25,13 @@ public class UndoCommandTest extends AddressBookGuiTest {
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
         TestTask taskToAdd = td.event;
         commandBox.runCommand(taskToAdd.getAddCommand());
-        commandBox.runCommand("delete " + currentList.getIncompleteList().length);
-        TestTaskList expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertUndoCommandSuccess(expectedList);
+        commandBox.runCommand("delete 1");
+        currentList.addTasksToList(taskToAdd);
+        assertUndoCommandSuccess(currentList);
               
         //undo another operation again after undoing one operation
+        TestTask[] taskToDelete  = new TestTask[]{taskToAdd};
+        currentList.removeTasksFromList(taskToDelete, true);
         assertUndoCommandSuccess(currentList);
 
         //invalid command

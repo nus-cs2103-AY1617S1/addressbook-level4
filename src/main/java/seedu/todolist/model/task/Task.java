@@ -1,12 +1,10 @@
 package seedu.todolist.model.task;
 
-import seedu.todolist.commons.util.CollectionUtil;
-
 import java.util.Objects;
 
 /**
  * Represents a Task in the to do list.
- * Guarantees: details are present and not null, field values are validated.
+ * Guarantees: name is present and not null, field values are validated.
  */
 public class Task implements ReadOnlyTask {
 
@@ -17,10 +15,10 @@ public class Task implements ReadOnlyTask {
     private Status status;
 
     /**
-     * Only Name and Interval field must be present and not null. Other fields can be null.
+     * Only Name field must be present and not null. Other fields can be null.
      */
     public Task(Name name, Interval interval, Location location, Remarks remarks, Status status) {
-        assert !CollectionUtil.isAnyNull(name, interval);
+        assert name != null;
         this.name = name;
         this.interval = interval;
         this.location = location;
@@ -76,6 +74,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+
+    @Override
+    public int compareTo(ReadOnlyTask task) {
+        return this.interval.compareTo(task.getInterval());
     }
 
 }

@@ -15,23 +15,21 @@ public class DoneCommandTest extends AddressBookGuiTest {
     @Test
     public void done() {
         
-        //mark the first in the incomplete list
         TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
+        
+        //mark the first in the incomplete list
         int[] targetIndexes = new int[]{1};
         assertDoneSuccess(targetIndexes, currentList);
 
         //mark the last in the incomplete list
-        currentList = TestUtil.markTaskFromList(currentList, targetIndexes);
         targetIndexes = new int[]{currentList.getIncompleteList().length};
         assertDoneSuccess(targetIndexes, currentList);
 
         //mark from the middle of the incomplete list
-        currentList = TestUtil.markTaskFromList(currentList, targetIndexes);
         targetIndexes = new int[]{currentList.getIncompleteList().length/2};
         assertDoneSuccess(targetIndexes, currentList);
         
         //delete multiple
-        currentList = TestUtil.markTaskFromList(currentList, targetIndexes);
         targetIndexes = new int[]{1,2};
         assertDoneSuccess(targetIndexes, currentList);
 
@@ -47,15 +45,15 @@ public class DoneCommandTest extends AddressBookGuiTest {
      * @param currentList A copy of the current list of tasks (before marking).
      */
     private void assertDoneSuccess(int[] targetIndexes, final TestTaskList currentList) {
-        TestTaskList expectedRemainder = TestUtil.markTaskFromList(currentList, targetIndexes);   
+        currentList.markTasksFromList(getTasks(targetIndexes, currentList));   
         
         commandBox.runCommand(getCommand(targetIndexes));
 
         //confirm the incomplete list now contains all previous tasks except the marked task
-        assertTrue(taskListPanel.isListMatching(expectedRemainder.getIncompleteList()));
+        assertTrue(taskListPanel.isListMatching(currentList.getIncompleteList()));
         
         //confirm complete list contains all marked task
-        assertTrue(completeTaskListPanel.isListMatching(expectedRemainder.getCompleteList()));
+        assertTrue(completeTaskListPanel.isListMatching(currentList.getCompleteList()));
 
         //confirm the result message is correct
         assertResultMessage(MESSAGE_MARK_TASK_SUCCESS);
@@ -76,6 +74,18 @@ public class DoneCommandTest extends AddressBookGuiTest {
             }
         }
         return builder.toString();
+    }
+    
+    /**
+     * Returns an array of tasks to be marked
+     */
+    private TestTask[] getTasks(int[] targetIndexes, TestTaskList currentList) {
+        TestTask[] tasksToMark = new TestTask[targetIndexes.length];
+        for (int i = 0; i < targetIndexes.length; i++) {
+
+            tasksToMark[i] = currentList.getIncompleteList()[targetIndexes[i] - 1]; //-1 because array uses zero indexing
+        }
+        return tasksToMark;
     }
 
 }

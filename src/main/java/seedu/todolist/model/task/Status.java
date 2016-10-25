@@ -9,35 +9,35 @@ public class Status {
     public static final String STATUS_COMPLETE = "complete";
     public static final String STATUS_INCOMPLETE = "incomplete";
 
-    private boolean isComplete;
+    private boolean status;
 
     /**
      * Set task's status. Default status is incomplete.
      */
-    public Status(boolean isComplete) {
-        setStatus(isComplete);
+    public Status(boolean status) {
+        setStatus(status);
     }
     
-    public Status(String isComplete) {
-        if (isComplete.equals(STATUS_COMPLETE)) {
-            this.isComplete = true;
+    public Status(String status) {
+        if (status.equals(STATUS_COMPLETE)) {
+            this.status = true;
         }
         else {
-            this.isComplete = false;
+            this.status = false;
         }
     }
     
-    public void setStatus(boolean isComplete) {
-        this.isComplete = isComplete;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
     
     public boolean isComplete() {
-        return this.isComplete;
+        return this.status;
     }
 
     @Override
     public String toString() {
-        if (this.isComplete) {
+        if (this.status) {
             return STATUS_COMPLETE;
         }
         else {
@@ -49,7 +49,7 @@ public class Status {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Status // instanceof handles nulls
-                && this.isComplete == ((Status) other).isComplete); // state check
+                && this.status == ((Status) other).status); // state check
     }
 
 }

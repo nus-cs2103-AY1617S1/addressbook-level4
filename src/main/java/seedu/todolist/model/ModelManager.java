@@ -7,12 +7,12 @@ import seedu.todolist.commons.core.UnmodifiableObservableList;
 import seedu.todolist.commons.events.model.AddressBookChangedEvent;
 import seedu.todolist.commons.util.StringUtil;
 import seedu.todolist.model.task.ReadOnlyTask;
-import seedu.todolist.model.task.Status;
 import seedu.todolist.model.task.Task;
 import seedu.todolist.model.task.UniqueTaskList;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todolist.ui.MainWindow;
 
+import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.Set;
 import java.util.Stack;
