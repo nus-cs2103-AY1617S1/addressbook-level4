@@ -16,16 +16,16 @@ public class TypicalTestTasks {
 
     public TypicalTestTasks() {
         try {
-        	task1 = new TaskBuilder().withTitle("Title1").withDescription("Description1").withStartDate("01-01-2012").withDueDate("02-01-2012").withInterval("1").withTimeInterval("1").withStatus("Ongoing").build();
-        	task2 = new TaskBuilder().withTitle("Title2").withDescription("Description2").withStartDate("03-02-2012").withDueDate("04-02-2012").withInterval("1").withTimeInterval("2").withStatus("Ongoing").build();
-        	task3 = new TaskBuilder().withTitle("Title3").withDescription("Description3").withStartDate("05-03-2012").withDueDate("06-03-2012").withInterval("1").withTimeInterval("3").withStatus("Ongoing").build();
-        	task4 = new TaskBuilder().withTitle("Title4").withDescription("Description4").withStartDate("07-04-2012").withDueDate("08-04-2012").withInterval("1").withTimeInterval("4").withStatus("Ongoing").build();
-        	task5 = new TaskBuilder().withTitle("Title5").withDescription("Description5").withStartDate("09-05-2012").withDueDate("10-05-2012").withInterval("1").withTimeInterval("5").withStatus("Ongoing").build();
-        	task6 = new TaskBuilder().withTitle("Title6").withDescription("Description6").withStartDate("11-06-2012").withDueDate("12-06-2012").withInterval("1").withTimeInterval("6").withStatus("Ongoing").build();
-        	task7 = new TaskBuilder().withTitle("Title7").withDescription("Description7").withStartDate("13-07-2012").withDueDate("14-07-2012").withInterval("1").withTimeInterval("7").withStatus("Ongoing").build();
-        	task8 = new TaskBuilder().withTitle("Title8").withDescription("Description8").withStartDate("15-08-2012").withDueDate("16-08-2012").withInterval("1").withTimeInterval("8").withStatus("Ongoing").build();
-        	task9 = new TaskBuilder().withTitle("Title9").withDescription("Description9").withStartDate("17-09-2012").withDueDate("18-09-2012").withInterval("1").withTimeInterval("9").withStatus("Ongoing").build();
-        	task10 = new TaskBuilder().withTitle("Title10").withDescription("Description10").withStartDate("19-10-2012").withDueDate("20-10-2012").withInterval("1").withTimeInterval("10").withStatus("Ongoing").build();        	
+        	task1 = new TaskBuilder().withTitle("Title1").withDescription("Description1").withStartDate("01-01-2012 00:00").withDueDate("02-01-2012 23:59").withInterval("1").withTimeInterval("1").withStatus("Ongoing").build();
+        	task2 = new TaskBuilder().withTitle("Title2").withDescription("Description2").withStartDate("03-02-2012 00:00").withDueDate("04-02-2012 23:59").withInterval("1").withTimeInterval("2").withStatus("Ongoing").build();
+        	task3 = new TaskBuilder().withTitle("Title3").withDescription("Description3").withStartDate("05-03-2012 00:00").withDueDate("06-03-2012 23:59").withInterval("1").withTimeInterval("3").withStatus("Ongoing").build();
+        	task4 = new TaskBuilder().withTitle("Title4").withDescription("Description4").withStartDate("07-04-2012 00:00").withDueDate("08-04-2012 23:59").withInterval("1").withTimeInterval("4").withStatus("Ongoing").build();
+        	task5 = new TaskBuilder().withTitle("Title5").withDescription("Description5").withStartDate("09-05-2012 00:00").withDueDate("10-05-2012 23:59").withInterval("1").withTimeInterval("5").withStatus("Ongoing").build();
+        	task6 = new TaskBuilder().withTitle("Title6").withDescription("Description6").withStartDate("11-06-2012 00:00").withDueDate("12-06-2012 23:59").withInterval("1").withTimeInterval("6").withStatus("Ongoing").build();
+        	task7 = new TaskBuilder().withTitle("Title7").withDescription("Description7").withStartDate("13-07-2012 00:00").withDueDate("14-07-2012 23:59").withInterval("1").withTimeInterval("7").withStatus("Ongoing").build();
+        	task8 = new TaskBuilder().withTitle("Title8").withDescription("Description8").withStartDate("15-08-2012 00:00").withDueDate("16-08-2012 23:59").withInterval("1").withTimeInterval("8").withStatus("Ongoing").build();
+        	task9 = new TaskBuilder().withTitle("Title9").withDescription("Description9").withStartDate("17-09-2012 00:00").withDueDate("18-09-2012 23:59").withInterval("1").withTimeInterval("9").withStatus("Ongoing").build();
+        	task10 = new TaskBuilder().withTitle("Title10").withDescription("Description10").withStartDate("19-10-2012 00:00").withDueDate("20-10-2012 23:59").withInterval("1").withTimeInterval("10").withStatus("Ongoing").build();        	
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
