@@ -116,6 +116,7 @@ public class AddCommand extends Command {
        
         assert model != null;
         try {
+            System.out.println(toAdd.toString());
             model.addTask(toAdd); 
             listOfCommands.push(COMMAND_WORD);
             listOfTasks.push(toAdd);

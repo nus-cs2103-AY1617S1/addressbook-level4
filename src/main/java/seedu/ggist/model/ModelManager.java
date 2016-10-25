@@ -34,7 +34,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private FilteredList<Task> filteredTasks;
-    private SortedList<Task> sortedTasks;
     private String today;
 
     public String lastListing;
@@ -61,7 +60,6 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        sortedTasks = new SortedList<>(filteredTasks);
         today = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM YY"));
         lastListing = today;
         updateListing();
@@ -89,7 +87,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
-        updateListing();
         indicateTaskManagerChanged();
     }
     
@@ -300,6 +297,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
+            
+            if (taskDateKeyWords == null) {
+                return true;
+            }
             return ((taskDateKeyWords.equalsIgnoreCase(task.getStartDate().toString()) || 
                    taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString())) && !task.isDone()) ||
                    (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && 

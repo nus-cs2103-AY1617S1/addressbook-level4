@@ -18,7 +18,7 @@ public class Messages {
     public static final String MESSAGE_NO_PREVIOUS_UNDO_COMMAND = "No previous undo command";
     public static final String MESSAGE_DEST_FILE_EXISTS = "Specified file already exists";
     public static final String MESSAGE_INVALID_TASK_VALUE = "The value for task name provided is invalid";
-    public static final String MESSAGE_INVALID_DATE_VALUE = "The value for date provided is invalid";
+    public static final String MESSAGE_INVALID_DATE_TIME_VALUE = "The value for date or time provided is invalid";
     public static final String MESSAGE_INVALID_TIME_VALUE = "The value for time provided is invalid";
     public static final String MESSAGE_INVALID_PRIORITY_VALUE = "The priority value is invalid";
     public static final String MESSAGE_NO_PRIORITY_VALUE = "No priority level set";

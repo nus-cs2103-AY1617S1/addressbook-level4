@@ -20,9 +20,10 @@ public class EventTask extends Task implements ReadOnlyTask {
         super(taskName, startDate, startTime, endDate, endTime, priority);
     }
     
-    public EventTask(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority, boolean done) throws IllegalValueException {
+    public EventTask(TaskName taskName, TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime, Priority priority, boolean done, boolean overdue) throws IllegalValueException {
         super(taskName, startDate, startTime, endDate, endTime, priority);
         this.done = done;
+        this.overdue = overdue;
     }
    
     /**
@@ -30,7 +31,7 @@ public class EventTask extends Task implements ReadOnlyTask {
      * @throws IllegalValueException 
      */
     public EventTask(ReadOnlyTask source) throws IllegalValueException {
-        this(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getPriority(), source.isDone());
+        this(source.getTaskName(), source.getStartDate(), source.getStartTime(), source.getEndDate(), source.getEndTime(), source.getPriority(), source.isDone(), source.isOverdue());
     }
 
     @Override

@@ -236,8 +236,12 @@ public class Parser {
     private Command prepareDelete(String args) {
         String[] parts = args.split(",");
         ArrayList<Integer> indexes = new ArrayList<Integer>();
-        for (int i = 0; i < parts.length; i++){
-            indexes.add(Integer.parseInt(parts[i].trim()));
+        for (int i = 0; i < parts.length; i++) {
+            try {
+                indexes.add(Integer.parseInt(parts[i].trim()));
+            } catch (NumberFormatException nfe) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+            }
         }
         
         for(int i = 0; i < parts.length; i++){
