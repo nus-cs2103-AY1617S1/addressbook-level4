@@ -2,25 +2,22 @@ package seedu.task.model.item;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.commons.util.StringUtil;
-
 import java.time.LocalDateTime;
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
- * Represents an event's duration in the task book. Guarantees: immutable; is
- * valid as declared in {@link #isValidDuration(String)}
+ * Represents an event's duration in the task book. 
+ * Guarantees: immutable; 
+ * is valid as declared in {@link #isValidDuration(String)}
  */
 public class EventDuration implements Comparable<EventDuration> {
 
-	public static final String MESSAGE_DURATION_CONSTRAINTS = "event duration should be seperated by >; \n"
-			+ "start time should be no later than end time. \n "
-			+ "eg: today 4pm > tomorrow 4pm";
-	public static final Pattern DURATION_VALIDATION_REGEX = 
-			Pattern.compile("^(?<startTime>[^\\>]+)"+"(?:\\>\\s(?<endTime>[^\\>]+))?");
-	private static final int DATE_INDEX = 0;
-	private static final String MESSAGE_DURATION_FORMAT = "%1$s > %2$s";
+	public static final String MESSAGE_DURATION_CONSTRAINTS = "Start time should be no later than end time. \n "
+			+ "No abbreviation is allowed for relative, ie: tmrw. \n"
+			+ "But Fri, Mon, etc is okay.\n"
+			+ "Possible event duration could be:"
+			+ "today 4pm /to tomorrow 4pm";
+	
+	private static final String MESSAGE_DURATION_FORMAT = "From: %1$s to %2$s";
 	private static final long DEFAULT_DURATION = 1;
 	
 	
@@ -29,46 +26,49 @@ public class EventDuration implements Comparable<EventDuration> {
 	
 
 	/**
-	 * Validates given duration.
+	 * Creates a given duration.
 	 *
 	 * @throws IllegalValueException
-	 *             if given duration string is invalid.
+	 *   		if given duration string is invalid.
 	 */
-	public EventDuration(String durationArg) throws IllegalValueException {
-		assert durationArg != null;
-		parseDuration(durationArg);
+	public EventDuration(String startTimeArg, String endTimeArg) throws IllegalValueException {
+		assert startTimeArg != null;
+		assert endTimeArg != null;
+		parseDuration(startTimeArg, endTimeArg);
 	}
 
 	
-	private void parseDuration(String durationArg) throws IllegalValueException {
-		final Matcher matcher = DURATION_VALIDATION_REGEX.matcher(durationArg);
-		if(!matcher.matches()) throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
+	private void parseDuration(String startTimeArg, String endTimeArg) throws IllegalValueException {
+		//if start time empty, set end time first, and start time will be {@code DEFAULT_DURATION} before.  
+		if(startTimeArg.isEmpty()) {
+			setEndTime(StringUtil.parseStringToTime(endTimeArg));
+			setStartTime(getEndTime().minusHours(DEFAULT_DURATION));
+			return;
+		} 
 		
-		//store the start date and end date 
-		Optional<String> startTimeArg = Optional.ofNullable(matcher.group("startTime"));
-		Optional<String> endTimeArg = Optional.ofNullable(matcher.group("endTime"));
-			
-		try{
-			parseStartAndEndTime(startTimeArg, endTimeArg);
-		} catch (IllegalValueException e) {
+		// if end time empty, set start time first, and end time will be {@code DEFAULT_DURATION} later. 
+		if(endTimeArg.isEmpty()) {
+			setStartTime(StringUtil.parseStringToTime(startTimeArg));
+			setEndTime(getStartTime().plusHours(DEFAULT_DURATION));
+			return;
+		}
+		
+		setStartTime(StringUtil.parseStringToTime(startTimeArg));
+		setEndTime(StringUtil.parseStringToTime(endTimeArg));
+		
+		if(!isValidDuration()) {
 			throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS);
 		}
+	}
 
+	/**
+	 * start time must be before end time.
+	 * @return if duration valid
+	 */
+	private boolean isValidDuration() {
+		return getStartTime().isBefore(getEndTime());
 	}
-	
-	private void parseStartAndEndTime(Optional<String> startTimeArg, Optional<String> endTimeArg) throws IllegalValueException {
-		if(!startTimeArg.isPresent()) throw new IllegalValueException(MESSAGE_DURATION_CONSTRAINTS); /* start time must not be empty */
-		
-		setStartTime(StringUtil.parseStringToTime(startTimeArg.get()));
-		assert getStartTime() != null;
-		
-		if(endTimeArg.isPresent()) {
-			setEndTime(StringUtil.parseStringToTime(endTimeArg.get()));
-		} else {
-			setEndTime(getStartTime().plusHours(DEFAULT_DURATION)); /* if no end time, set default duration of event to 1 hr */
-		}
-		assert getEndTime() != null;
-	}
+
 
 	public LocalDateTime getStartTime() {
 		return startTime;
@@ -91,6 +91,22 @@ public class EventDuration implements Comparable<EventDuration> {
 		return String.format(MESSAGE_DURATION_FORMAT, 
 				getStartTime().format(StringUtil.DATE_FORMATTER), 
 				getEndTime().format(StringUtil.DATE_FORMATTER));
+	}
+	
+	/**
+	 * format start time for UI 
+	 * @return
+	 */
+	public String getStartTimeAsText() {
+		return getStartTime().format(StringUtil.DATE_FORMATTER);
+	}
+	
+	/**
+	 * format end time for UI.
+	 * @return
+	 */
+	public String getEndTimeAsText() {
+		return getEndTime().format(StringUtil.DATE_FORMATTER);
 	}
 	
 	@Override

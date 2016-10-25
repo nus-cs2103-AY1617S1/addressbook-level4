@@ -11,6 +11,7 @@ import org.testfx.api.FxToolkit;
 
 import seedu.task.TestApp;
 import seedu.task.model.TaskBook;
+import seedu.task.model.item.ReadOnlyEvent;
 import seedu.task.model.item.ReadOnlyTask;
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestUtil;
@@ -107,6 +108,13 @@ public abstract class TaskBookGuiTest {
      */
     public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
+    }
+    
+    /**
+     * Asserts the event shown in the card is same as the given event
+     */
+    public void assertMatching(ReadOnlyEvent event, EventCardHandle card) {
+        assertTrue(TestUtil.compareCardAndEvent(card, event));
     }
 
     /**

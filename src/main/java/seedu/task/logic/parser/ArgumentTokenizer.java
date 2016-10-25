@@ -76,6 +76,10 @@ public class ArgumentTokenizer {
         public Prefix getPrefix() {
             return this.prefix;
         }
+        @Override
+        public String toString() {
+            return startPosition  + " " + prefix.getPrefix();
+        }
     }
 
     /**
@@ -185,7 +189,7 @@ public class ArgumentTokenizer {
         // Add a dummy PrefixPosition to represent the end of the string
         PrefixPosition endPositionMarker = new PrefixPosition(new Prefix(""), argsString.length());
         prefixPositions.add(endPositionMarker);
-
+        
         // Extract the prefixed arguments and preamble (if any)
         for (int i = 0; i < prefixPositions.size() - 1; i++) {
             String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));

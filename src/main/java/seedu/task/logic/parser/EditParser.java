@@ -2,15 +2,24 @@ package seedu.task.logic.parser;
 
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.task.commons.exceptions.EmptyValueException;
 import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.logic.commands.AddCommand;
+import seedu.task.logic.commands.AddEventCommand;
+import seedu.task.logic.commands.AddTaskCommand;
 import seedu.task.logic.commands.Command;
+import seedu.task.logic.commands.CommandResult;
 import seedu.task.logic.commands.EditCommand;
 import seedu.task.logic.commands.EditEventCommand;
 import seedu.task.logic.commands.EditTaskCommand;
 import seedu.task.logic.commands.IncorrectCommand;
+import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
+import seedu.taskcommons.core.Messages;
 
 /**
  * Prepares EditTaskCommand or EditEventCommand according to the input argument.
@@ -18,23 +27,10 @@ import seedu.task.logic.commands.IncorrectCommand;
  */
 
 public class EditParser implements Parser {
-
-    // remember to trim 
-    private static final Pattern EDIT_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?:-t)\\s(?<index>\\d*)"
-                    + "(?<newname>(?: /name [^/]+)*)"
-                    + "(?<newdescription>(?: /desc [^/]+)*)?"
-                    + "(?<newdeadline>(?: /by [^/]+)*)?"
-                    );
-
- // remember to trim 
-    private static final Pattern EDIT_EVENT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?:-e)\\s(?<index>\\d*)"
-                    + "(?<newname>(?: /name [^/]+)*)"
-                    + "(?<newdescription>(?: /desc [^/]+)*)?"
-                    + "(?<newduration>(?: /from [^/]+)*)?"
-                    );
     
+    private static final String INDEX_VALIDATION_REGEX = "[0-9]+";
+    
+    public EditParser() {}
     
     /**
      * Parses arguments in the context of the edit command.
@@ -44,45 +40,57 @@ public class EditParser implements Parser {
      */
     @Override
     public Command prepare(String args) {
-        final Matcher taskMatcher = EDIT_TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        final Matcher eventMatcher = EDIT_EVENT_DATA_ARGS_FORMAT.matcher(args.trim());
         
-        if (taskMatcher.matches()){
-            try {
-                return new EditTaskCommand(
-                        Integer.parseInt(taskMatcher.group("index").trim()),
-                        isFieldToBeEdited(taskMatcher.group("newname")),
-                        taskMatcher.group("newname").replaceFirst("/name","").trim(),
-                        isFieldToBeEdited(taskMatcher.group("newdescription")),
-                        taskMatcher.group("newdescription").replaceFirst("/desc", "").trim(),
-                        isFieldToBeEdited(taskMatcher.group("newdeadline")),
-                        taskMatcher.group("newdeadline").replaceFirst("/by", "").trim()
-                );
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
-        } else if (eventMatcher.matches()){
-            try {
-                return new EditEventCommand(
-                        Integer.parseInt(eventMatcher.group("index").trim()),
-                        isFieldToBeEdited(eventMatcher.group("newname")),
-                        eventMatcher.group("newname").replaceFirst("/name","").trim(),
-                        isFieldToBeEdited(eventMatcher.group("newdescription")),
-                        eventMatcher.group("newdescription").replaceFirst("/desc", "").trim(),
-                        isFieldToBeEdited(eventMatcher.group("newduration")),
-                        eventMatcher.group("newduration").replaceFirst("/from", "").trim()
-                );
-            } catch (IllegalValueException ive) {
-                return new IncorrectCommand(ive.getMessage());
-            }
-        }else {
+        
+        if (args.isEmpty()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        }
+        
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix, deadlinePrefix, 
+                durationStartPrefix, durationEndPrefix, taskPrefix, eventPrefix, namePrefix);
+       
+        argsTokenizer.tokenize(args.trim());
+        
+        try {           
+            Optional <String> taskIndex = argsTokenizer.getValue(taskPrefix);
+            Optional <String> eventIndex = argsTokenizer.getValue(eventPrefix);
+            Optional <String> name = argsTokenizer.getValue(namePrefix);
+            Optional <String> description = argsTokenizer.getValue(descriptionPrefix);
+            Optional <String> startDuration = argsTokenizer.getValue(durationStartPrefix);
+            Optional <String> endDuration = argsTokenizer.getValue(durationEndPrefix);
+            Optional <String> deadline = argsTokenizer.getValue(deadlinePrefix);
+            
+            if (eventIndex.isPresent()) { 
+                int index = getIndex(eventIndex.get().trim());
+                return new EditEventCommand(index, name.orElse(""), description.orElse(""), 
+                            startDuration.orElse(""), endDuration.orElse(""));                              
+            } else if (taskIndex.isPresent()) {  
+                int index = getIndex(taskIndex.get().trim());
+                return new EditTaskCommand(index, name.orElse(""), description.orElse(""), deadline.orElse(""));             
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            }
+        } catch (IllegalValueException ive) {
+            System.out.println("IVE");
+            return new IncorrectCommand(ive.getMessage());
+        } catch (NoSuchElementException nsee) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        } catch (EmptyValueException e) {
+            System.out.println("e");
+            return new IncorrectCommand(e.getMessage());
+        } catch (IndexOutOfBoundsException ie) {
+            return new IncorrectCommand(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
         }
     }
     
-    private boolean isFieldToBeEdited(String field) {
-        assert field != null;
-        return !field.isEmpty();
+    /**
+     * @throws IllegalValueException String index is invalid
+     */
+    public static int getIndex(String test) throws IllegalValueException {
+        if (!(test.trim().matches(INDEX_VALIDATION_REGEX))) {
+            throw new IllegalValueException (Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
+        }
+        return Integer.parseInt(test.trim());
     }
 
 }

@@ -122,7 +122,7 @@ public class CommandTest extends LogicBasicTest {
     protected void assertEventCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyTaskBook expectedTaskBook,
                                        List<? extends ReadOnlyEvent> expectedShownList) throws Exception {
-
+        
         //Execute the command
         CommandResult result = logic.execute(inputCommand);
         //List<ReadOnlyEvent> list = model.getFilteredEventList();

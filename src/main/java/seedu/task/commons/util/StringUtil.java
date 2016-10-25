@@ -13,6 +13,7 @@ import java.util.List;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.model.item.EventDuration;
 
 /**
  * Helper functions for handling strings.
@@ -35,12 +36,12 @@ public class StringUtil {
 		PrettyTimeParser parser = new PrettyTimeParser();
 		
 		//invalid start date
-		if(dateArg == null) throw new IllegalValueException(dateArg);
+		if(dateArg == null) throw new IllegalValueException(EventDuration.MESSAGE_DURATION_CONSTRAINTS);
 		
 		List<Date> parsedResult = parser.parse(dateArg);
 		
 		//cannot parse
-		if(parsedResult.isEmpty()) throw new IllegalValueException(dateArg);
+		if(parsedResult.isEmpty()) throw new IllegalValueException(EventDuration.MESSAGE_DURATION_CONSTRAINTS);
 		
 		return LocalDateTime.ofInstant(parsedResult.get(DATE_INDEX).toInstant(), ZoneId.systemDefault()); 
 	}

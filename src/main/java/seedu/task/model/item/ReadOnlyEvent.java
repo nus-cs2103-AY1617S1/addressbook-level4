@@ -1,5 +1,7 @@
 package seedu.task.model.item;
 
+import java.util.Optional;
+
 import seedu.task.model.item.Description;
 import seedu.task.model.item.Name;
 
@@ -10,7 +12,7 @@ import seedu.task.model.item.Name;
 public interface ReadOnlyEvent {
 
     Name getEvent();
-    Description getDescription();
+    Optional <Description> getDescription();
     EventDuration getDuration();
     boolean isEventCompleted();
 
@@ -31,12 +33,26 @@ public interface ReadOnlyEvent {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getEvent())
-               .append(" Desc: ")
-               .append(getDescription())
+               .append(getDescriptionToString())
                .append(" Duration: ")
                .append(getDuration());
         return builder.toString();
     }
-	
+    
+    /**
+     * Formats the description as text.
+     * If null, empty string is returned
+     */
+    default String getDescriptionToString() {
+        return getDescription().isPresent()? " Desc: " + getDescription().get().toString() : "";
+    }
+    
+    /**
+     * Formats the description as string.
+     * If null, empty string is returned
+     */
+    default String getDescriptionValue() {
+        return getDescription().isPresent()? getDescription().get().toString() : "";
+    }	
 
 }

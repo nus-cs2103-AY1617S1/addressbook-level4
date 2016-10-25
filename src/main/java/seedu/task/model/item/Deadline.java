@@ -19,7 +19,6 @@ public class Deadline implements Comparable<Deadline> {
     		+ "M D Y, eg: Oct 12 2016\n"
     		+ "M/D/Y, eg: 01/30/16\n"
     		+ "RELATIVE_DAY TIME, tomorrow 4pm\n";
-    
 
     private LocalDateTime deadLine; 
 

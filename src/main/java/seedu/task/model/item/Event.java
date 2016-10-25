@@ -7,6 +7,7 @@ import seedu.task.model.item.Name;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents a event in the task book.
@@ -19,14 +20,11 @@ public class Event implements ReadOnlyEvent {
     private EventDuration eventDuration;
 
     /**
-     * Every field must be present and not null.
+     * Name and event duration must be present and not null.
      */
-    public Event(Name name, Description description) {
-    	this(name, description, null);    
-    }
     
     public Event(Name name, Description description, EventDuration eventDuration) {
-        assert !CollectionUtil.isAnyNull(name, description);
+        assert !CollectionUtil.isAnyNull(name, eventDuration);
         this.name = name;
         this.description = description;
         this.eventDuration = eventDuration;
@@ -36,7 +34,7 @@ public class Event implements ReadOnlyEvent {
      * Copy constructor.
      */
     public Event(ReadOnlyEvent source) {
-        this(source.getEvent(), source.getDescription(), source.getDuration());
+        this(source.getEvent(), source.getDescription().orElse(null), source.getDuration());
     }
     
     /**
@@ -54,15 +52,14 @@ public class Event implements ReadOnlyEvent {
     }
 
     @Override
-    public Description getDescription() {
-        return description;
+    public Optional<Description> getDescription() {
+        return Optional.ofNullable(this.description);
     }
     
     @Override
     public EventDuration getDuration() {
         return eventDuration;
     }
-
 
     @Override
     public boolean equals(Object other) {

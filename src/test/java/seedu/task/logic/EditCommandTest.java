@@ -29,6 +29,7 @@ public class EditCommandTest extends CommandTest {
     
     @Test
     public void execute_editFloatTask_duplicate() throws Exception {
+        
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.computingDescTask();
@@ -305,6 +306,7 @@ public class EditCommandTest extends CommandTest {
     }
     
     //Removing deadline to change to floating task
+    //TODO
     @Ignore
     @Test
     public void execute_editTask_remove_deadline_successful() throws Exception {
@@ -331,7 +333,9 @@ public class EditCommandTest extends CommandTest {
      *   - Editing an event
      *      -> Editing name
      *      -> Editing description
-     *      -> Editing duration
+     *      -> Editing entire duration
+     *      -> Editing start duration
+     *      -> Editing end duration
      *      -> Editing all 3 fields
      *      
      */
@@ -369,7 +373,7 @@ public class EditCommandTest extends CommandTest {
 
         // execute command and verify result
         assertEditEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),helper.generateListEventCommand(),
-                helper.generateEditEventCommand(toBeEdited,1),
+                helper.generateEditEventDescCommand(toBeEdited,1),
                 String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, toBeEdited),
                 expectedAB,
                 expectedAB.getEventList());
@@ -389,7 +393,47 @@ public class EditCommandTest extends CommandTest {
 
         // execute command and verify result
         assertEditEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),helper.generateListEventCommand(),
-                helper.generateEditEventCommand(toBeEdited,1),
+                helper.generateEditEventDurationCommand(toBeEdited,1),
+                String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, toBeEdited),
+                expectedAB,
+                expectedAB.getEventList());
+
+    }
+    
+    //Editing start duration
+    @Test
+    public void execute_editEvent_StartDuration_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Event toBeAdded = helper.computingUpComingEvent();
+        TaskBook expectedAB = new TaskBook();
+        expectedAB.addEvent(toBeAdded);
+        Event toBeEdited = helper.computingEditedStartDurationUpComingEvent();
+        expectedAB.editEvent(toBeEdited, toBeAdded);
+
+        // execute command and verify result
+        assertEditEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),helper.generateListEventCommand(),
+                helper.generateEditEventStartDurationCommand(toBeEdited,1),
+                String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, toBeEdited),
+                expectedAB,
+                expectedAB.getEventList());
+
+    }
+    
+    //Editing end duration
+    @Test
+    public void execute_editEvent_EndDuration_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Event toBeAdded = helper.computingUpComingEvent();
+        TaskBook expectedAB = new TaskBook();
+        expectedAB.addEvent(toBeAdded);
+        Event toBeEdited = helper.computingEditedEndDurationUpComingEvent();
+        expectedAB.editEvent(toBeEdited, toBeAdded);
+
+        // execute command and verify result
+        assertEditEventCommandBehavior(helper.generateAddEventCommand(toBeAdded),helper.generateListEventCommand(),
+                helper.generateEditEventEndDurationCommand(toBeEdited,1),
                 String.format(EditEventCommand.MESSAGE_EDIT_EVENT_SUCCESS, toBeEdited),
                 expectedAB,
                 expectedAB.getEventList());

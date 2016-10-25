@@ -53,8 +53,8 @@ public class ListCommandTest extends CommandTest{
     public void execute_list_showsUncompletedEvents() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        Event tTarget1 = helper.generateEventWithNameAndDuration("Event1", "yesterday 1pm > tomorrow 2pm");
-        Event tTarget2 = helper.generateEventWithNameAndDuration("Event2", "Friday 4pm > Friday 5pm");
+        Event tTarget1 = helper.generateEventWithNameAndDuration("Event1", "yesterday 1pm","tomorrow 2pm");
+        Event tTarget2 = helper.generateEventWithNameAndDuration("Event2", "Friday 4pm","Friday 5pm");
         Event tTarget3 = helper.completedEvent();
         
         List<Event> threeEvents = helper.generateEventList(tTarget1, tTarget2, tTarget3);
@@ -95,8 +95,8 @@ public class ListCommandTest extends CommandTest{
     public void execute_list_showsAllEvents() throws Exception {
         // prepare expectations
     	TestDataHelper helper = new TestDataHelper();
-        Event eTarget1 = helper.generateEventWithNameAndDuration("Event1", "yesterday 1pm > tomorrow 2pm");
-        Event eTarget2 = helper.generateEventWithNameAndDuration("Event2", "Friday 4pm > Friday 5pm");
+        Event eTarget1 = helper.generateEventWithNameAndDuration("Event1", "yesterday 1pm","tomorrow 2pm");
+        Event eTarget2 = helper.generateEventWithNameAndDuration("Event2", "Friday 4pm","Friday 5pm");
         Event eTarget3 = helper.completedEvent();
         
         List<Event> threeEvents = helper.generateEventList(eTarget1, eTarget2, eTarget3);

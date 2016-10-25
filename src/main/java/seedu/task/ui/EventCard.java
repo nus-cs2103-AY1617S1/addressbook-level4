@@ -39,7 +39,7 @@ public class EventCard extends UiPart {
     public void initialize() {
         name.setText(event.getEvent().fullName);
         index.setText(displayedIndex + ". ");
-        description.setText(event.getDescription().value);
+        description.setText(event.getDescriptionValue());
         duration.setText(event.getDuration().toString());
     }
 

@@ -22,10 +22,6 @@ import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
  */
 
 public class AddParser implements Parser {
-
-    public static final Prefix descriptionPrefix = new Prefix("/desc");
-    public static final Prefix deadlinePrefix = new Prefix("/by");
-    public static final Prefix durationPrefix = new Prefix("/from");
     
     public AddParser() {}
     
@@ -42,28 +38,25 @@ public class AddParser implements Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix, deadlinePrefix, durationPrefix);
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix, deadlinePrefix, 
+                durationStartPrefix, durationEndPrefix);
         argsTokenizer.tokenize(args);
         
         try {           
             String name = argsTokenizer.getPreamble().get();
             Optional <String> description = argsTokenizer.getValue(descriptionPrefix);
-            Optional <String> duration = argsTokenizer.getValue(durationPrefix);
+            Optional <String> startDuration = argsTokenizer.getValue(durationStartPrefix);
+            Optional <String> endDuration = argsTokenizer.getValue(durationEndPrefix);
             Optional <String> deadline = argsTokenizer.getValue(deadlinePrefix);
             
-            if (duration.isPresent()) { //Only events have duration
-                try {
-                    return new AddEventCommand(name, description.orElse(""), duration.orElse(""));
-                } catch (IllegalValueException ive) {
-                    return new IncorrectCommand(ive.getMessage());
-                }
+            if (startDuration.isPresent()) { //Only events have duration
+                return new AddEventCommand(name, description.orElse(""), startDuration.orElse(""), endDuration.orElse(""));
             } else {
-                try {
-                    return new AddTaskCommand(name, description.orElse(""), deadline.orElse(""));             
-                } catch (IllegalValueException ive) {
-                    return new IncorrectCommand(ive.getMessage());
-                }
+                return new AddTaskCommand(name, description.orElse(""), deadline.orElse(""));             
             }
+        } catch (IllegalValueException ive) {
+            System.out.println("thrown");
+            return new IncorrectCommand(ive.getMessage());
         } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } catch (EmptyValueException e) {

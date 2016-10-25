@@ -26,13 +26,17 @@ public class AddEventCommand extends AddCommand {
      * @throws IllegalValueException
      *             if any of the raw values are invalid
      */
-  //TODO: more flexible of events type
-    public AddEventCommand(String name, String description, String duration) throws IllegalValueException {
-        this.toAddEvent = new Event(new Name(name), new Description(description), new EventDuration(duration));
+    public AddEventCommand(String name, String description, String startDuration, String endDuration) throws IllegalValueException {
+        
+        if (description.isEmpty()) {
+            this.toAddEvent = new Event(new Name(name), null, new EventDuration(startDuration, endDuration));
+        } else {
+            this.toAddEvent = new Event(new Name(name), new Description(description), new EventDuration(startDuration, endDuration));
+        }
     }
 
     public AddEventCommand(ReadOnlyEvent event) {
-    	this.toAddEvent = new Event(event.getEvent(), event.getDescription(), event.getDuration());
+    	this.toAddEvent = new Event(event);
 	}
 
 	@Override

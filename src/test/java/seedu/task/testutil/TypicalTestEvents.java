@@ -11,34 +11,40 @@ import seedu.task.model.item.UniqueEventList;
  *
  */
 public class TypicalTestEvents {
-	public static TestEvent  meeting1, meeting2, meeting3, addedEvent;
+	public static TestEvent  meeting1, meeting2, meeting3, addedEvent, addedEvent2;
 	
 	public TypicalTestEvents() {
 		try {
 			meeting1 = new EventBuilder()
 					.withName("ms v0")
 					.withDescription("for CS2103t project")
-					.withDuration("yesterday 1pm > yesterday 2pm")
+					.withDuration("yesterday 1pm /to yesterday 2pm")
 					.build();
 			
 			meeting2 = new EventBuilder()
 					.withName("ms v1")
 					.withDescription("for CS2103t project")
-					.withDuration("tomorrow 3pm > tomorrow 4pm")
+					.withDuration("tomorrow 3pm /to tomorrow 4pm")
 					.build();
 			
 			meeting3 = new EventBuilder()
 					.withName("ms v2")
 					.withDescription("for CS2103 discussion")
-					.withDuration("tomorrow 8pm > tomorrow 11pm")
+					.withDuration("tomorrow 8pm /to tomorrow 11pm")
 					.build();
 			
 			//manually added events
 			addedEvent = new EventBuilder()
 					.withName("manual event")
 					.withDescription("for manual testing")
-					.withDuration("tomorrow 1pm > next Friday")
+					.withDuration("tomorrow 1pm /to next Friday")
 					.build();
+			
+			addedEvent2 = new EventBuilder()
+                    .withName("manual event 2")
+                    .withDescription("for manual testing")
+                    .withDuration("tomorrow 1pm /to next Friday")
+                    .build();
 			
 		} catch (IllegalValueException e) {
 			e.printStackTrace();

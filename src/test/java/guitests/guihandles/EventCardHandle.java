@@ -48,7 +48,7 @@ public class EventCardHandle extends GuiHandle {
 
     	return getFullEventName().equals(event.getEvent().fullName) 
                 && getEventDuration().equals(event.getDuration().toString())
-                && getDescription().equals(event.getDescription().value);
+                && getDescription().equals(event.getDescriptionValue());
     }
 
     @Override

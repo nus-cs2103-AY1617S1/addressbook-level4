@@ -18,12 +18,12 @@ public class EventBuilder {
 	}
 	
 	public EventBuilder withDuration(String duration) throws IllegalValueException {
-		this.event.setEventDuration(new EventDuration(duration));
+		this.event.setEventDuration(new EventDuration(duration,""));
 		return this;
 	}
 	
 	public EventBuilder withDescription(String desc) throws IllegalValueException {
-		this.event.setDescription(new Description(desc));
+	    this.event.setDescription(new Description(desc));
 		return this;
 	}
 	

@@ -25,23 +25,7 @@ public class Task implements ReadOnlyTask {
      * Fields which are empty are to be null.
      * @throws IllegalValueException 
      */
-//
-//    public Task(String name, String description, String deadline, boolean status) throws IllegalValueException {
-//        assert !CollectionUtil.isAnyNull(name,description,deadline,status);
-//        this.name = new Name(name);
-//        if (description.isEmpty()) {
-//            this.description = new Description(description);
-//        } else {
-//            this.description = null;
-//        } 
-//        if (deadline.isEmpty()) {
-//            this.deadline = new Deadline(deadline);
-//        } else {
-//            this.deadline = null;
-//        }
-//        this.isTaskCompleted = status;
-//    }
-//    
+    
     public Task (Name name, Description description, Deadline deadline, boolean status) {
         assert !CollectionUtil.isAnyNull(name,status);
         this.name = name;

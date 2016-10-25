@@ -6,10 +6,7 @@ import seedu.task.model.item.Event;
 import seedu.task.model.item.EventDuration;
 import seedu.task.model.item.Name;
 import seedu.task.model.item.ReadOnlyEvent;
-import seedu.task.model.item.ReadOnlyTask;
-import seedu.task.model.item.Task;
 import seedu.task.model.item.UniqueEventList;
-import seedu.task.model.item.UniqueTaskList;
 import seedu.task.model.item.UniqueTaskList.DuplicateTaskException;
 import seedu.taskcommons.core.Messages;
 import seedu.taskcommons.core.UnmodifiableObservableList;
@@ -27,10 +24,8 @@ public class EditEventCommand extends EditCommand {
 	private Name newName;
 	private Description newDescription;
 	private EventDuration newDuration;
-
-	private boolean isNameToBeEdit;
-	private boolean isDescriptionToBeEdit;
-	private boolean isDurationToBeEdit;
+	private String newStartDuration;
+	private String newEndDuration;
 
 	private Event editEvent;
 	private ReadOnlyEvent targetEvent;
@@ -38,51 +33,40 @@ public class EditEventCommand extends EditCommand {
 	/**
 	 * Convenience constructor using raw values. Only fields to be edited will
 	 * have values parsed in. Empty string parsed in otherwise.
+	 * Gets the event to be edited based on the index. Only fields to be edited
+     * will have values updated.
 	 * 
 	 * @throws IllegalValueException
 	 *             if any of the raw values are invalid
 	 */
-	public EditEventCommand(Integer index, boolean isNameToBeEdited, String name, boolean isDescriptionToBeEdited,
-			String description, boolean isDurationToBeEdited, String duration) throws IllegalValueException {
+	public EditEventCommand(Integer index, String name, String description, 
+	        String startDuration, String endDuration) throws IllegalValueException, IndexOutOfBoundsException {
 
 		setTargetIndex(index);
-		this.isNameToBeEdit = isNameToBeEdited;
-		this.isDescriptionToBeEdit = isDescriptionToBeEdited;
-		this.isDurationToBeEdit = isDurationToBeEdited;
+		newStartDuration = startDuration;
+		newEndDuration = endDuration;
 
-		newName = null;
-		newDescription = null;
-		newDuration = null;
-
-		if (isNameToBeEdited) {
-			assert name != null && name != "";
+		if (!name.isEmpty()) {
 			newName = new Name(name);
 		}
-		if (isDescriptionToBeEdited) {
-			assert description != null && description != "";
+		if (!description.isEmpty()) {
 			newDescription = new Description(description);
 		}
-		if (isDurationToBeEdited) {
-			assert duration != null && duration != "";
-			newDuration = new EventDuration(duration);
-		}
-	}
+		        
+	} 
 
 	/**
-	 * Gets the event to be edited based on the index. Only fields to be edited
-	 * will have values updated.
+	 * Executes the editing of the event
 	 * 
 	 * @throws DuplicateTaskException
 	 */
 	@Override
 	public CommandResult execute() {
 		try {
-
-			UnmodifiableObservableList<ReadOnlyEvent> lastShownList = model.getFilteredEventList();
-			targetEvent = lastShownList.get(getTargetIndex());
-
-			editEvent = editEvent(targetEvent);
-			model.editEvent(editEvent, targetEvent);
+		    UnmodifiableObservableList<ReadOnlyEvent> lastShownList = model.getFilteredEventList();	        
+	        targetEvent = lastShownList.get(getTargetIndex());
+	        editEvent = editEvent(targetEvent); 		    
+		    model.editEvent(editEvent, targetEvent);
 
 			return new CommandResult(String.format(MESSAGE_EDIT_EVENT_SUCCESS, editEvent));
 
@@ -91,24 +75,36 @@ public class EditEventCommand extends EditCommand {
 		} catch (IndexOutOfBoundsException ie) {
 			indicateAttemptToExecuteIncorrectCommand();
 			return new CommandResult(Messages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX);
-		}
+		} catch (IllegalValueException e) {
+		    indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(e.getMessage());
+        } 
 	}
 
 	/**
 	 * Edits the necessary fields.
 	 * 
 	 * @return event that has the fields according to edit requirements.
+	 * @throws IllegalValueException 
 	 */
-	private Event editEvent(ReadOnlyEvent targetEvent) {
+	private Event editEvent(ReadOnlyEvent targetEvent) throws IllegalValueException {
 		assert targetEvent != null;
-		if (!isNameToBeEdit) {
+		if (newName == null) {
 			newName = targetEvent.getEvent();
 		}
-		if (!isDescriptionToBeEdit) {
-			newDescription = targetEvent.getDescription();
+		if (newDescription == null) {
+			newDescription = targetEvent.getDescription().orElse(null);
 		}
-		if (!isDurationToBeEdit) {
+		if (newStartDuration.isEmpty() && newEndDuration.isEmpty()) {
 			newDuration = targetEvent.getDuration();
+		} else {
+		    if (newStartDuration.isEmpty()) {
+		        newDuration = new EventDuration (targetEvent.getDuration().getStartTimeAsText(), newEndDuration);
+		    } else if (newEndDuration.isEmpty()){
+		        newDuration = new EventDuration (newStartDuration, targetEvent.getDuration().getEndTimeAsText());
+		    } else {
+                newDuration = new EventDuration (newStartDuration, newEndDuration);
+            }
 		}
 		return new Event(this.newName, this.newDescription, this.newDuration);
 	}
