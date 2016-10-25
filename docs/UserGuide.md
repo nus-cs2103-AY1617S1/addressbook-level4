@@ -13,6 +13,7 @@
   * [List Activities](#listing-all-activities)
   * [Find Activities](#finding-all-activities-containing-any-keyword-in-their-name)
   * [Undo Command](#undo-command)
+  * [Redo Command](#redo-command)
   * [Mark Completed Activities](#complete-an-activity)
   * [Modify Storage Path](#modifying-the-storage-path)
   * [Help](#viewing-help)
@@ -111,12 +112,18 @@ Examples :
 * `edit task 4 note buy extra stuff`
 * `edit task 1 name Hello World`
 
+
+[//]: <> (@@author A0139515A)
 #### Undo
 Undo the most previous command.
 
 Format : `undo`
 
-<br>
+#### Redo
+Redo the most previous command.
+
+Format : `redo`
+
 
 #### Complete an activity
 Marks an activity as completed.
@@ -150,7 +157,6 @@ Examples:
 * `list JANUARY`
 * `list 12/3/2016`
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 #### Finding all activities containing any keyword in their name
 Finds any activities whose names contain any of the given keywords.<br>
@@ -175,10 +181,11 @@ Clear all entries from Menion.<br>
 
 Format : `clear`
 
+[//]: <> (@@author A0139515A)
 #### Modifying the storage path
 Modify the storage path that stores all the data.<br>
 
-Format : `modify storage path STORAGE_LOCATION`
+Format : `modify STORAGE_LOCATION`
 
 Examples:
 
