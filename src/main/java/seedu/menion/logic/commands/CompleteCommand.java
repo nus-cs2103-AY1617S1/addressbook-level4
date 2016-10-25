@@ -10,8 +10,8 @@ import seedu.menion.model.activity.UniqueActivityList.DuplicateTaskException;
 
 /**
  * 
- * @author Marx A0139164A
- * Completes an activity given the index and it's activtyType
+ * @author Marx A0139164A Completes an activity given the index and it's
+ *         activtyType
  */
 public class CompleteCommand extends Command {
 
@@ -19,11 +19,11 @@ public class CompleteCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Completes an activity using their type and index: "
             + "\n" + "Parameters: [Activity_Type] + [Activity_Index] \n" + "Example: " + COMMAND_WORD + " "
             + Activity.EVENT_TYPE + " 1";
-    public static final String INDEX_MISSING_MESSAGE = "Oh no, your index is missing! Try: " + COMMAND_WORD + " [Activity Type] [Activity_index]" 
-            + "\n" + "Example: complete task 1";
+    public static final String INDEX_MISSING_MESSAGE = "Oh no, your index is missing! Try: " + COMMAND_WORD
+            + " [Activity Type] [Activity_index]" + "\n" + "Example: complete task 1";
     public static final String MESSAGE_COMPLETED_ACTIVITY_SUCCESS = "Completed Activity: %1$s";
     public static final String MESSAGE_ALREADY_COMPLETED = "Menion has already completed this activity!";
-    
+
     public final int targetIndex;
     public final String targetType;
     ReadOnlyActivity activityToComplete;
@@ -39,18 +39,20 @@ public class CompleteCommand extends Command {
     	storePreviousState();
     	
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
-        
-        if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
-            lastShownList = model.getFilteredFloatingTaskList();
-            activityToComplete = lastShownList.get(targetIndex);
-        } else if (targetType.equals(Activity.TASK_TYPE)) {
-            lastShownList = model.getFilteredTaskList();
-            activityToComplete = lastShownList.get(targetIndex);
-        } else {
-            lastShownList = model.getFilteredEventList();
-            activityToComplete = lastShownList.get(targetIndex);
+        try {
+            if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
+                lastShownList = model.getFilteredFloatingTaskList();
+                activityToComplete = lastShownList.get(targetIndex);
+            } else if (targetType.equals(Activity.TASK_TYPE)) {
+                lastShownList = model.getFilteredTaskList();
+                activityToComplete = lastShownList.get(targetIndex);
+            } else {
+                lastShownList = model.getFilteredEventList();
+                         activityToComplete = lastShownList.get(targetIndex);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
-
         if (lastShownList.size() <= targetIndex || targetIndex < 0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
@@ -89,17 +91,18 @@ public class CompleteCommand extends Command {
             model.UncompleteEvent(targetIndex);
         }
     }
-    
-    //@@author A0139515A
+
+    // @@author A0139515A
     /**
-     * Complete command will store previous activity manager to support undo command
+     * Complete command will store previous activity manager to support undo
+     * command
      * 
      */
     public void storePreviousState() {
         assert model != null;
 
         ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
-    	model.addStateToUndoStack(beforeState);
+        model.addStateToUndoStack(beforeState);
     }
-    //@@author
+    // @@author
 }
