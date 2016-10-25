@@ -14,7 +14,7 @@ import java.util.Objects;
 public class Activity implements ReadOnlyActivity {
 
     // Types of Activity
-    public static final String FLOATING_TASK_TYPE = "floatingTask";
+    public static final String FLOATING_TASK_TYPE = "floating";
     public static final String TASK_TYPE = "task";
     public static final String EVENT_TYPE = "event";
 
@@ -242,13 +242,13 @@ public class Activity implements ReadOnlyActivity {
 
     @Override
     public void setActivityDetails() {
-        if (activityType == FLOATING_TASK_TYPE) {
+        if (activityType.equals(FLOATING_TASK_TYPE)) {
             activityDetails = new ArrayList<String>(FLOATING_TASK_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
             activityDetails.add(note.toString());
             activityDetails.add(status.toString());
-        } else if (activityType == TASK_TYPE) {
+        } else if (activityType.equals(TASK_TYPE)) {
             activityDetails = new ArrayList<String>(TASK_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
@@ -256,7 +256,7 @@ public class Activity implements ReadOnlyActivity {
             activityDetails.add(startDate.toString());
             activityDetails.add(startTime.toString());
             activityDetails.add(status.toString());
-        } else if (activityType == EVENT_TYPE) {
+        } else if (activityType.equals(EVENT_TYPE)) {
             activityDetails = new ArrayList<String>(EVENT_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());

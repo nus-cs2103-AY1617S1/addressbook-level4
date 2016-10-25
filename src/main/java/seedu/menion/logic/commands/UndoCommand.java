@@ -23,9 +23,8 @@ public class UndoCommand extends Command {
         if (ableToUndo) {
         	return new CommandResult(MESSAGE_SUCCESS);
         }
-        else {
-        	return new CommandResult(MESSAGE_FAILURE);
-        }
+        
+        return new CommandResult(MESSAGE_FAILURE);
     }
 
     /**

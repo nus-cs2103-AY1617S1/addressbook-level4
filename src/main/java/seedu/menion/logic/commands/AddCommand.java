@@ -70,7 +70,8 @@ public class AddCommand extends Command {
             this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime, status);
         }
     }
-
+    
+    //@@author A0146752B
     @Override
     public CommandResult execute() {
     	assert model != null;
@@ -78,10 +79,10 @@ public class AddCommand extends Command {
     	storePreviousState();
     	
         try {
-            if (toAdd.getActivityType().equals("task")){
+            if (toAdd.getActivityType().equals(Activity.TASK_TYPE)){
                 model.addTask(toAdd);
             }
-            else if (toAdd.getActivityType().equals("event")){
+            else if (toAdd.getActivityType().equals(Activity.EVENT_TYPE)){
                 model.addEvent(toAdd);
             }
             else {

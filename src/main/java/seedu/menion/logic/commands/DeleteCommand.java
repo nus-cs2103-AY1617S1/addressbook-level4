@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the activity identified by the activity type followed by the index number used in the last activity listing.\n"
-            + "Parameters: ACTIVITY_TYPE(task,event,floatingTask) INDEX (must be a positive integer)\n"
+            + "Parameters: ACTIVITY_TYPE(task,event,floating) INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " floating" + " 1";
 
     public static final String MESSAGE_DELETE_ACTIVITY_SUCCESS = "Deleted Activity: %1$s";
@@ -46,7 +46,7 @@ public class DeleteCommand extends Command {
         if (targetType.equals(" task")) {
             lastShownList = model.getFilteredTaskList();
         }
-        else if (targetType.equals(" floatingTask")) {
+        else if (targetType.equals(" floating")) {
             lastShownList = model.getFilteredFloatingTaskList();
         }
         else if (targetType.equals(" event")) {
