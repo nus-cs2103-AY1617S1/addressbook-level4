@@ -26,13 +26,15 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     private static final Pattern TASK_DATA_ARGS_FORMAT = Pattern.compile(
-            "(?<name>([^/](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
-                    + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?"
+            "(?<name>([^/](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by|every) ))|(\\[^/]))+))?"
+                    + "((?: (to|by) )(?<end>(([^;](?<! every ))|(\\[^/]))+))?"
+            		+ "((?: every )(?<recurring>(([^;](?<! p/))|(\\[^/]))+))?"
                     );
     
     private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
     		+ "((?: )(?<name>([^/](?<! (at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
-            + "((?: (to|by) )(?<end>(([^;](?<! p/))|(\\[^/]))+))?"
+            + "((?: (to|by) )(?<end>(([^;](?<! (every) ))|(\\[^/]))+))?"
+    		+ "((?: (every) )(?<recurring>(([^;](?<! p/))|(\\[^/]))+))?"
             );
 
     public Parser() {}
@@ -64,6 +66,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case SetStorageCommand.COMMAND_WORD:
+    		return prepareSetStorage(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -113,9 +118,18 @@ public class Parser {
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
     }
     
+    private Command prepareSetStorage(String args) {
+    	if(args != null) {
+    		args = args.trim();
+    		return new SetStorageCommand(args);
+    	}
+    	else
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetStorageCommand.MESSAGE_USAGE));
+    }
+    
     private Command prepareEdit(String args) {
         final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
-        String name, startTime, endTime;
+        String name, startTime, endTime, recur;
         
         // Validate arg string format
         if (!matcher.matches()) {
@@ -124,9 +138,10 @@ public class Parser {
             name = (matcher.group("name") == null) ? null : matcher.group("name");
             startTime = (matcher.group("start") == null) ? null : matcher.group("start");
             endTime = (matcher.group("end") == null) ? null : matcher.group("end");
+            recur = (matcher.group("recurring") == null) ? null : matcher.group("recurring");
         }
         
-        return new EditCommand(matcher.group("index"), name, startTime, endTime);
+        return new EditCommand(matcher.group("index"), name, startTime, endTime, recur);
     }
 
     /**
@@ -145,13 +160,15 @@ public class Parser {
         
     	String startTime = (matcher.group("start") == null) ? "" : matcher.group("start");
         String endTime = (matcher.group("end") == null) ? "" : matcher.group("end");
+        String recurFreq = (matcher.group("recurring") == null)? "": matcher.group("recurring");
         
         try {
 	            return new AddCommand(
 	                    matcher.group("name").replace('\\', '\0'),
 	                    "false",
 	                    startTime,
-	                    endTime
+	                    endTime,
+	                    recurFreq
 	            );       
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());

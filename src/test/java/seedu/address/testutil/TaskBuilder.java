@@ -18,6 +18,11 @@ public class TaskBuilder {
         this.task.setName(new Name(name));
         return this;
     }
+    
+    public TaskBuilder withRecurrence(String recurrence) throws IllegalValueException {
+        this.task.setRecurrence(new Recurrence(recurrence));
+        return this;
+    }
 
     public TaskBuilder withEndTime(String end) throws IllegalValueException {
         this.task.setEndTime(new Time(end));

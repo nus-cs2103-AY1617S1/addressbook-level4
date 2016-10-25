@@ -1,7 +1,10 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.task.*;
+import seedu.address.storage.Storage;
+import seedu.address.ui.TaskListPanel;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_START_AND_END_TIME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIME;
@@ -26,16 +29,16 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in ForgetMeNot";
-    private static final String DEFAULT_DATE = "Thu Jan 01 07:30:00 SGT 1970";
-
+    
     private final Task toAdd;
+//    private Storage storage;
 
     /**
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String date, String start, String end)
+    public AddCommand(String name, String date, String start, String end, String recur)
             throws IllegalValueException {
         
         Time startTime = new Time(start);
@@ -53,7 +56,8 @@ public class AddCommand extends Command {
                 new Name(name),
                 new Done(false),
                 startTime,
-                endTime
+                endTime,
+                new Recurrence(recur)
         );
     }
 
@@ -64,6 +68,9 @@ public class AddCommand extends Command {
             model.saveToHistory();
             model.addTask(toAdd);
             model.updateFilteredTaskListToShow(isNotDone());
+//            System.out.println("Size: " + new LogicManager(model, storage).getFilteredTaskList().size());
+//            TaskListPanel panel = new TaskListPanel();
+//            panel.scrollTo(new LogicManager(model, storage).getFilteredTaskList().size());
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

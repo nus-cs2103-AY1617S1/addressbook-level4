@@ -19,7 +19,9 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String start;
     @XmlElement(required = true)
-    private String address;
+    private String end;
+    @XmlElement(required = true)
+    private String recurrence;
 
     /**
      * No-arg constructor for JAXB use.
@@ -36,7 +38,8 @@ public class XmlAdaptedTask {
         name = source.getName().fullName;
         done = source.getDone().value;
         start = source.getStartTime().toString();
-        address = source.getEndTime().toString();
+        end = source.getEndTime().toString();
+        recurrence = source.getRecurrence().days;
     }
 
     /**
@@ -48,7 +51,8 @@ public class XmlAdaptedTask {
         final Name name = new Name(this.name);
         final Done done = new Done(this.done);
         final Time start = new Time(this.start);
-        final Time address = new Time(this.address);
-        return new Task(name, done, start, address);
+        final Time end = new Time(this.end);
+        final Recurrence recurrence = new Recurrence(this.recurrence);
+        return new Task(name, done, start, end, recurrence);
     }
 }

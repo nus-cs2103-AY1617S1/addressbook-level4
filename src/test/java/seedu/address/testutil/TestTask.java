@@ -11,6 +11,7 @@ public class TestTask implements ReadOnlyTask {
     private Time end;
     private Time start;
     private Done done;
+    private Recurrence recurrence;
 
     public void setName(Name name) {
         this.name = name;
@@ -27,6 +28,10 @@ public class TestTask implements ReadOnlyTask {
     public void setDone(Done done) {
         this.done = done;
     }
+    
+    public void setRecurrence(Recurrence recurrence) {
+		this.recurrence = recurrence;
+	}
 
     @Override
     public Name getName() {
@@ -47,6 +52,11 @@ public class TestTask implements ReadOnlyTask {
     public Time getEndTime() {
         return end;
     }
+    
+    @Override
+    public Recurrence getRecurrence() {
+    	return recurrence;
+    }
 
     @Override
     public String toString() {
@@ -61,4 +71,5 @@ public class TestTask implements ReadOnlyTask {
         sb.append("to " + this.getEndTime().appearOnUIFormat() + " ");
         return sb.toString();
     }
+
 }

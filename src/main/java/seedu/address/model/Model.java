@@ -5,6 +5,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
@@ -25,9 +26,12 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+ 
+    /** Adds the given recurring task again with the correct date and time*/
+    void addRecurringTask(ReadOnlyTask taskToMark, String recurringDays) throws DuplicateTaskException, IllegalValueException;
     
     /** Edits the given task */
-    void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd) throws TaskNotFoundException, IllegalValueException;
+    void editTask(ReadOnlyTask task, String newName, String newInfo, String newEnd, String newRecur) throws TaskNotFoundException, IllegalValueException;
     
     /** Marks the given task as done */
     void doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;

@@ -436,7 +436,8 @@ public class LogicManagerTest {
             Done privateDate = new Done(false);
             Time start = new Time("1/1/17 5pm");
             Time privateEndTime = new Time("2/1/17 5:00am");
-            return new Task(name, privateDate, start, privateEndTime);
+            Recurrence recurrence = new Recurrence("");
+            return new Task(name, privateDate, start, privateEndTime, recurrence);
         }
 
         /**
@@ -451,7 +452,8 @@ public class LogicManagerTest {
                     new Name("Task " + seed),
                     new Done(false),
                     new Time("1/1/17 5:00pm"),
-                    new Time("2/1/17 5:00am")
+                    new Time("2/1/17 5:00am"),
+                    new Recurrence("")
             );
         }
 
@@ -546,7 +548,8 @@ public class LogicManagerTest {
                     new Name(name),
                     new Done(false),
                     new Time("1/1/17 5:00pm"),
-                    new Time("2/1/17 5:00am")
+                    new Time("2/1/17 5:00am"),
+                    new Recurrence("")
             );
         }
     }

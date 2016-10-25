@@ -14,23 +14,25 @@ public class Task implements ReadOnlyTask {
     private Done done;
     private Time start;
     private Time end;
+    private Recurrence recurrence;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Done done, Time start, Time end) {
+    public Task(Name name, Done done, Time start, Time end, Recurrence recurrence) {
         assert !CollectionUtil.isAnyNull(name, done, start, end);
         this.name = name;
         this.done = done;
         this.start = start;
         this.end = end;
+        this.recurrence = recurrence;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDone(), source.getStartTime(), source.getEndTime());
+        this(source.getName(), source.getDone(), source.getStartTime(), source.getEndTime(), source.getRecurrence());
     }
 
     @Override
@@ -52,6 +54,11 @@ public class Task implements ReadOnlyTask {
     public Time getEndTime() {
         return end;
     }
+    
+    @Override
+    public Recurrence getRecurrence() {
+    	return recurrence;
+    }
 
     public void setName(Name name) {
         this.name = name;
@@ -69,6 +76,10 @@ public class Task implements ReadOnlyTask {
     	this.done = done;
     }
     
+    public void setRecurrence(Recurrence recurrence) {
+    	this.recurrence = recurrence;
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
