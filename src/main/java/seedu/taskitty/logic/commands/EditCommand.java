@@ -44,7 +44,7 @@ public class EditCommand extends Command{
     public final int targetIndex;
 
     private Task toEdit;
-    ReadOnlyTask taskToEdit;
+    private ReadOnlyTask taskToEdit;
     private String[] data;
     private final Set<Tag> tagSet;
     
@@ -152,7 +152,7 @@ public class EditCommand extends Command{
                         new TaskTime(data[Task.EVENT_COMPONENT_INDEX_END_TIME])),
                 new UniqueTagList(tagSet)
             );
-        };
+        }
         return Optional.empty();
     }
 
