@@ -23,9 +23,15 @@ We are a group of Computer Science students from the School of Computing, Nation
 #### [Ian Teo](https://github.com/IanTeo)<br>
 
 <img src="images/IanTeo.png" width="150"><br>
-* Role: Developer<br>
-* Responsibilities: Integration<br>
-* In charge of: Storage
+* Components in charge of: [Storage](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/DeveloperGuide.md#storage-component)<br>
+* Aspects/tools in charge of: Integration<br>
+* Features implemented:
+  * [Add Task](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#create-a-new-task-add)
+  * [Show tooltips]
+* Code written: [functional code](../collated/main/A013993B.md)[test code](../collated/test/A013993B.md)[docs](../collated/docs/A013993B.md)
+* Other major contributions:
+  * Did the initial refactoring from AddressBook to TasKitty [[#15](https://github.com/CS2103AUG2016-W14-C4/main/pull/15)]
+  * Set up Codacy
 
 -----
 
