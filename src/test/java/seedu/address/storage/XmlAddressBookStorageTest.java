@@ -71,16 +71,16 @@ public class XmlAddressBookStorageTest {
         //Save in new file and read back
         xmlActivityManagerStorage.saveActivityManager(original, filePath);
         ReadOnlyActivityManager readBack = xmlActivityManagerStorage.readActivityManager(filePath).get();
- //       assertEquals(original, new ActivityManager(readBack));
+        assertEquals(original, new ActivityManager(readBack));
 
         //Modify data, overwrite exiting file, and read back
        
-//        original.addTask(new Activity(TypicalTestActivities.task));
-//        original.removeTask(new Activity(TypicalTestActivities.task));
+        original.addTask(new Activity(TypicalTestActivities.task2));
+        original.removeTask(new Activity(TypicalTestActivities.task));
 
         xmlActivityManagerStorage.saveActivityManager(original, filePath);
         readBack = xmlActivityManagerStorage.readActivityManager(filePath).get();
-  //      assertEquals(original, new ActivityManager(readBack));
+        assertEquals(original, new ActivityManager(readBack));
 
     }
 

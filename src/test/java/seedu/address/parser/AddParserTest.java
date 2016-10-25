@@ -67,7 +67,7 @@ public class AddParserTest {
 		
 		String arguments = "complete cs2103t n:important";
 		
-		assertEquals("floatingTask", AddParser.parseCommand(arguments).get(0));
+		assertEquals("floating", AddParser.parseCommand(arguments).get(0));
 	}
 	
 	@Test
