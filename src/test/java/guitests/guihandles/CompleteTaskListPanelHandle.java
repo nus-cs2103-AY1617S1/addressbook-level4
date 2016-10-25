@@ -77,9 +77,9 @@ public class CompleteTaskListPanelHandle extends GuiHandle {
         return true;
     }
 
+    //@@author A0138601M
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
-     * @param startPosition The starting position of the sub list.
      * @param tasks A list of task in the correct order.
      */
     public boolean isListMatching(ReadOnlyTask... tasks) throws IllegalArgumentException {
@@ -98,6 +98,7 @@ public class CompleteTaskListPanelHandle extends GuiHandle {
         }
         return true;
     }
+    //@@author
 
 
     public TaskCardHandle navigateToTask(String name) {

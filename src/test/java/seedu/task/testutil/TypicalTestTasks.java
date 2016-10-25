@@ -13,6 +13,7 @@ public class TypicalTestTasks {
                             eventWithLocationAndRemarks, deadlineWithoutParameter,  deadlineWithLocation, 
                             event, deadline;
 
+    //@@author A0138601M
     public TypicalTestTasks() {
         try {
             eventWithoutParameters = new TaskBuilder().withName("Event without parameters")
@@ -63,6 +64,7 @@ public class TypicalTestTasks {
             assert false : "not possible";
         }
     }
+    //@@author
 
     public static void loadAddressBookWithSampleData(AddressBook ab) {
 

@@ -17,9 +17,11 @@ public class TestTask implements ReadOnlyTask {
         this.name = name;
     }
     
+    //@@author A0138601M
     public void setInterval(Interval interval) {
         this.interval = interval;
     }
+    //@@author
     
     public void setLocation(Location location) {
         this.location = location;
@@ -29,19 +31,23 @@ public class TestTask implements ReadOnlyTask {
     	this.remarks = remarks;
     }
     
+    //@@author A0138601M
     public void setStatus(Status status) {
         this.status = status;
     }
+    //@@author
     
     @Override
     public Name getName() {
         return name;
     }
     
+    //@@author A0138601M
     @Override
     public Interval getInterval() {
         return interval;
     }
+    //author
 
     @Override
     public Location getLocation() {
@@ -53,6 +59,7 @@ public class TestTask implements ReadOnlyTask {
     	return remarks;
     }
     
+    //@@author A0138601M
     @Override
     public Status getStatus() {
         return status;
