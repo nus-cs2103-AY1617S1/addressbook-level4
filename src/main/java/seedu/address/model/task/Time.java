@@ -142,12 +142,8 @@ public class Time {
      * @return true only if startTime < endTime
      * @throws IllegalValueException
      */
-    public static boolean checkOrderOfDates(String startTime, String endTime) throws IllegalValueException {
-    	Time start = new Time(startTime);
-    	Time end = new Time(endTime);
-    	
+    public static boolean checkOrderOfDates(Time start, Time end) throws IllegalValueException {    	
     	return end.isMissing() || start.time.compareTo(end.time) <= 0;
-
 	}
 
     public static boolean checkOrderOfTime(Time firstTime, Time secondTime) {

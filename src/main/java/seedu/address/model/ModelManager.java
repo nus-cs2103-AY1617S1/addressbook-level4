@@ -169,20 +169,24 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredListToShowAll() {
+    	sortTasks();
         filteredTasks.setPredicate(null);
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
+    	sortTasks();
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
+    	sortTasks();
         filteredTasks.setPredicate(expression::satisfies);
     }
     
     @Override
     public void updateFilteredTaskListToShow(Predicate<Task> predicate) {
+    	sortTasks();
     	filteredTasks.setPredicate(predicate);
     }
 

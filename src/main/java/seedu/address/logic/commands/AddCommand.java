@@ -56,7 +56,7 @@ public class AddCommand extends Command {
         System.out.println(startTime.toString());
         System.out.println(endTime.toString());
         
-        if(!Time.checkOrderOfDates(start, end)) {
+        if(!Time.checkOrderOfDates(startTime, endTime)) {
         	throw new IllegalValueException(MESSAGE_INVALID_START_AND_END_TIME);
         }
         
@@ -82,7 +82,6 @@ public class AddCommand extends Command {
         try {
             model.saveToHistory();
             model.addTask(toAdd);
-            model.sortTasks();
             model.updateFilteredTaskListToShow(isNotDone());
 //            System.out.println("Size: " + new LogicManager(model, storage).getFilteredTaskList().size());
 //            TaskListPanel panel = new TaskListPanel();

@@ -60,41 +60,93 @@ public class UniqueTaskList implements Iterable<Task> {
     public void sortList() {
         if (internalList.size() <= 1)
             return;
+        Collections.sort(internalList, new Comparator<Task>() {
+        	@Override
+        	public int compare(Task task1, Task task2) {
+        		Time start1 = task1.getStartTime();
+        		Time end1 = task1.getEndTime();
+        		Time start2 = task2.getStartTime();
+        		Time end2 = task2.getEndTime();
+        		
+        		if(!start1.isMissing() && !end1.isMissing() && !start2.isMissing() && !end2.isMissing()) {
+        			if(start1.time.compareTo(start2.time) == 0)
+        				return end1.time.compareTo(end2.time);
+        			else
+        				return start1.time.compareTo(start2.time);
+        		}
+        			
+        		if(!start1.isMissing() && !end1.isMissing() && !start2.isMissing()) {
+        			if(start1.time.compareTo(start2.time) == 0) {
+        				System.out.println("Come here");
+        				return 1;
+        			}
+        			else
+        				return start1.time.compareTo(start2.time);
+        		}
+        		
+        		if(!start1.isMissing() && !end1.isMissing() && !end2.isMissing()) {
+        			if(start1.time.compareTo(end2.time) == 0)
+        				return 1;
+        			else
+        				return start1.time.compareTo(end2.time);
+        		}
+        		
+        		if(!start1.isMissing() && !start2.isMissing())
+        			return start1.time.compareTo(start2.time);
+        		
+        		if(!start1.isMissing() && !end2.isMissing()) {
+        			if(start1.time.compareTo(end2.time) == 0)
+        				return 1;
+        			else
+        				return start1.time.compareTo(end2.time);
+        		}
+        			
+        		if(!end1.isMissing() && !end2.isMissing())
+        			return end1.time.compareTo(end2.time);
+        		
+        		if(start1.isMissing() && end1.isMissing() && (!start2.isMissing() || !end2.isMissing()))
+        			return 1;
+        		
+        		return 0;
+        	}
+        });
+    }
         
-        for(int i = 0; i < internalList.size() - 1; i++) {
-            for(int j = 1; j < internalList.size() - i; j++) {
-            Task task1 = internalList.get(i);
-            Task task2 = internalList.get(j);
-            
-            if (task1.getStartTime().isMissing() && task1.getEndTime().isMissing())   
-                continue;
-            Time time1, time2;
-            if (task1.getStartTime().isMissing())
-                time1 = task1.getEndTime();
-            else
-                time1 = task1.getStartTime();
-            
-            if(task2.getStartTime().isMissing() && task2.getEndTime().isMissing())
-                swapTasks(task1, task2);
-               
-            if(task2.getStartTime().isMissing())
-                time2 = task2.getEndTime();
-            else
-                time2 = task2.getStartTime();
-            
-            if (!Time.checkOrderOfTime(time1, time2))
-                swapTasks(task1, task2);
-            }
-        }
-    }
-    
-    
-    public void swapTasks(Task task1, Task task2) {
-        int index1 = internalList.indexOf(task1);
-        int index2 = internalList.indexOf(task2);
-        internalList.set(index1, task2);
-        internalList.set(index2, task1);
-    }
+//        for(int i = 0; i < internalList.size() - 1; i++) {
+//            for(int j = 0; j < internalList.size() - 1 - i; j++) {
+//            Task task1 = internalList.get(j);
+//            Task task2 = internalList.get(j+1);
+//            
+//            if (task1.getStartTime().isMissing() && task1.getEndTime().isMissing())   
+//                continue;
+//            
+//            Time time1, time2;
+//            if (task1.getStartTime().isMissing())
+//                time1 = task1.getEndTime();
+//            else
+//                time1 = task1.getStartTime();
+//            
+//            if(task2.getStartTime().isMissing() && task2.getEndTime().isMissing())
+//                swapTasks(task1, task2);
+//               
+//            if(task2.getStartTime().isMissing())
+//                time2 = task2.getEndTime();
+//            else
+//                time2 = task2.getStartTime();
+//            
+//            if (!Time.checkOrderOfTime(time1, time2))
+//                swapTasks(task1, task2);
+//            }
+//        }
+//    }
+//    
+//    
+//    public void swapTasks(Task task1, Task task2) {
+//        int index1 = internalList.indexOf(task1);
+//        int index2 = internalList.indexOf(task2);
+//        internalList.set(index1, task2);
+//        internalList.set(index2, task1);
+//    }
     
     /**
      * Adds a task to the list.
