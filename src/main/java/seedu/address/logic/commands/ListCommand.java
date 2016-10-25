@@ -18,6 +18,11 @@ public class ListCommand extends Command {
     private static final Logger logger = LogsCenter.getLogger(ListCommand.class);
     
     public static final String COMMAND_WORD = "list";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ":\n" 
+            + "Displays all tasks in the task as a list with index numbers.\n\t"
+            + "Example: " + COMMAND_WORD + "\n"
+            + "Use " + COMMAND_WORD + " done to display all done tasks as a list with index numbers.\n\t"
+            + "Example: " + COMMAND_WORD + " done" + "\n\t";
     
     public static final String TOOL_TIP = "list [done]";
 

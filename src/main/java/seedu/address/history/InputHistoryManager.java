@@ -22,16 +22,15 @@ public class InputHistoryManager implements InputHistory{
     }
     
     // Use Singleton Pattern here
-    public static InputHistoryManager getInstance(){
+    public static InputHistoryManager getInstance() {
         if (theInputHistoryManager == null){
             theInputHistoryManager = new InputHistoryManager();
         }
         return theInputHistoryManager;
     }
     
-    // Methods dealing with up and down arrow to retrieve prev/next entered commands
     @Override
-    public void updateInputHistory(String userInput){
+    public void updateInputHistory(String userInput) {
         assert prevCommands != null && nextCommands != null && currentStoredCommandShown != null;
         
         if (!isLatestInput()) {
@@ -52,46 +51,58 @@ public class InputHistoryManager implements InputHistory{
     }
     
     @Override
-    public boolean isEarliestInput(){
+    public boolean isEarliestInput() {
         assert prevCommands != null;
         return prevCommands.isEmpty();
     }
     
     @Override
-    public boolean isLatestInput(){
+    public boolean isLatestInput() {
         assert nextCommands != null;
         return nextCommands.isEmpty();
     }
     
     @Override
-    public String popPrevInput(){
-        assert prevCommands != null;
-        this.currentStoredCommandShown = prevCommands.pop();
-        return currentStoredCommandShown;
+    public String prevStep(String currentInput) {
+        String inputToStore;
+        
+        if (isLatestInput()) {
+            inputToStore = currentInput;
+        }
+            
+        else {
+            inputToStore = currentStoredCommandShown;
+        }
+        pushNextInput(inputToStore);
+        return popPrevInput();
     }
     
     @Override
-    public String pushPrevInput(String input){
+    public String nextStep() {
+        pushPrevInput(currentStoredCommandShown);
+        return popNextInput();
+    }
+    
+    private String popPrevInput() {
+        assert prevCommands != null;
+        currentStoredCommandShown = prevCommands.pop();
+        return currentStoredCommandShown;
+    }  
+    
+    private String pushPrevInput(String input) {
         assert prevCommands != null;
         return prevCommands.push(input);
     }
     
-    @Override
-    public String popNextInput(){
+    private String popNextInput() {
         assert nextCommands != null;
-        this.currentStoredCommandShown = nextCommands.pop();
+        currentStoredCommandShown = nextCommands.pop();
         return currentStoredCommandShown;
     }
     
-    @Override
-    public String pushNextInput(String input){
+    private String pushNextInput(String input) {
         assert nextCommands != null;
         return nextCommands.push(input);
-    }
-    
-    @Override
-    public String getStoredCurrentShownInput(){
-        return currentStoredCommandShown;
     }
     
 }

@@ -71,21 +71,10 @@ public interface Model {
     
     /** Sets current list to be undone list*/
     public void setCurrentListToBeUndoneList();
-    
-    /** Edits the name of the given floating task. */
-	void editName(ReadOnlyTask personToEdit, Name taskName);
-    
-	/** Edits the start date of the given floating task. */
-	void editStartDate(ReadOnlyTask personToEdit, Date startDate);
-
-	/** Edits the end date of the given floating task. */
-	void editEndDate(ReadOnlyTask personToEdit, Date endDate);
-	
-    /** Edits the priority of the given floating task. */
-	void editPriority(ReadOnlyTask personToEdit, Priority priority);
-
-    /** Edits the recurrence of the given floating task. */
-	void editRecurrence(ReadOnlyTask personToEdit, RecurrenceRate recurrenceRate);
+        
+    /** Edits the parameters of the given floating task*/
+	void editTask(ReadOnlyTask taskToEdit, Name taskName, Date startDate, Date endDate, Priority priority,
+			RecurrenceRate recurrenceRate);
 
     void resetDoneData(ReadOnlyTaskManager emptyTaskManager);
 

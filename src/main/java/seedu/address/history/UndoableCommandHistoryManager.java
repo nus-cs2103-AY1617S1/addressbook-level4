@@ -29,7 +29,6 @@ public class UndoableCommandHistoryManager implements UndoableCommandHistory{
         return theUndoableCommandHistory;
     }
     
-    // Methods dealing with undo and redo
     @Override
     public void updateCommandHistory(UndoableCommand undoableCommand){
         assert undoableCommands != null;

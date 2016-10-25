@@ -42,7 +42,6 @@ public class LogicManagerTest {
 
     //These are for checking the correctness of the events raised
     private ReadOnlyTaskManager latestSavedTaskManager;
-    private boolean helpShown;
     private int targetedJumpIndex;
 
     @Subscribe
@@ -50,10 +49,6 @@ public class LogicManagerTest {
         latestSavedTaskManager = new TaskManager(abce.data);
     }
 
-    @Subscribe
-    private void handleShowHelpRequestEvent(ShowHelpRequestEvent she) {
-        helpShown = true;
-    }
 
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
@@ -70,7 +65,6 @@ public class LogicManagerTest {
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedTaskManager = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
-        helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
 
@@ -164,8 +158,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_help() throws Exception {
-        assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
-        assertTrue(helpShown);
+        assertCommandBehavior("help", HelpCommand.MESSAGE_ALL_COMMAND_WORDS +"\n" + HelpCommand.MESSAGE_USAGE);
     }
 
     @Test

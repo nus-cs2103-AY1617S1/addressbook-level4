@@ -76,7 +76,7 @@ public class CommandParser {
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+            return prepareHelp(arguments);
 
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
@@ -92,13 +92,16 @@ public class CommandParser {
         }
     }
 
+    //@@author A0139655U
 	/**
-     * Parses arguments in the context of the add person command.
+     * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareAdd(String args){
+        assert args != null;
+        
         logger.finer("Entering CommandParser, prepareAdd()");
         String argsTrimmed = args.trim();
         
@@ -162,15 +165,7 @@ public class CommandParser {
    	 	index = Integer.parseInt(indexNum);
    	 	String[] split = args.substring(2).split("-reset");
 
-   	 	String argsTrimmed = " " + split[0];
-/*
-   	 	String taskName = null;
-        String startDate = null;
-        String endDate = null;
-        String rate = null;
-        String timePeriod = null;
-        String priority = null;  
-*/        
+   	 	String argsTrimmed = " " + split[0];        
         String resetField = null;
 
         logger.finer("Entering CommandParser, prepareEdit()");
@@ -184,9 +179,6 @@ public class CommandParser {
             HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareEdit(argsTrimmed);
             
             logger.finer("Exiting CommandParser, prepareEdit()");
-            /*logger.log(Level.FINEST, "taskName, startDate, endDate, rate, timePeriod and "
-                    + "priority have these values respectively:", 
-                    new Object[] {taskName, startDate, endDate, rate, timePeriod, priority});*/
             
             if(split.length == 2){
                	resetField = split[1];
@@ -272,6 +264,20 @@ public class CommandParser {
         }
 
         return new ListCommand(isListDoneCommand);
+    }
+    
+    /**
+     * Parses arguments in the context of the help command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareHelp(String args) {
+        if (args != null) {
+            return new HelpCommand(args.trim());
+        }
+        
+        return new HelpCommand(HelpCommand.COMMAND_WORD);
     }
 
     /**
