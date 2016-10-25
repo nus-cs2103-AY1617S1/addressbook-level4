@@ -40,17 +40,17 @@ public class EditCommand extends Command{
     
     public static final String MESSAGE_DUPLICATE_TASK = "The intended edit correspond to a pre-existing floating task in Malitio";
  
-    private static final String MESSAGE_DUPLICATE_DEADLINE = "The intended edit correspond to a pre-existing deadline in Malitio";
+    public static final String MESSAGE_DUPLICATE_DEADLINE = "The intended edit correspond to a pre-existing deadline in Malitio";
 
-    private static final String MESSAGE_DUPLICATE_EVENT = "The intended edit correspond to a pre-existing event in Malitio";
+    public static final String MESSAGE_DUPLICATE_EVENT = "The intended edit correspond to a pre-existing event in Malitio";
 
-    private static final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
+    public static final String MESSAGE_INVALID_EVENT = "Event must start before it ends!";
     
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Successfully edited floating task.\nOld: %1$s\nNew: %2$s";
 
-    private static final String MESSAGE_EDIT_DEADLINE_SUCCESS = "Successfully edited deadline.\nOld: %1$s\nNew: %2$s";
+    public static final String MESSAGE_EDIT_DEADLINE_SUCCESS = "Successfully edited deadline.\nOld: %1$s\nNew: %2$s";
 
-    private static final String MESSAGE_EDIT_EVENT_SUCCESS = "Successfully edited event.\nOld: %1$s\nNew: %2$s";
+    public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Successfully edited event.\nOld: %1$s\nNew: %2$s";
     
     private final char taskType;
     
@@ -75,7 +75,7 @@ public class EditCommand extends Command{
     //@@author A0129595N  
     public EditCommand(char taskType, int targetIndex, String name, Set<String> newTags) 
             throws IllegalValueException {
-        assert taskType == 'd';
+        assert taskType == 'f';
         assert !name.equals("") || !newTags.isEmpty() ;
         this.taskType = taskType;
         this.targetIndex = targetIndex;

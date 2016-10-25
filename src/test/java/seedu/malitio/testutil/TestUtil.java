@@ -339,7 +339,31 @@ public class TestUtil {
         return listOfTasks.toArray(new TestFloatingTask[listOfTasks.size()]);
     }
 
+    
+    /**
+     * Removes a subset from the list of deadlines.
+     * @param tasks The list of deadlines
+     * @param tasksToRemove The subset of tasks.
+     * @return The modified deadline after removal of the subset from deadlines.
+     */
+    public static TestDeadline[] removeTasksFromList(final TestDeadline[] tasks, TestDeadline... tasksToRemove) {
+        List<TestDeadline> listOfTasks = asList(tasks);
+        listOfTasks.removeAll(asList(tasksToRemove));
+        return listOfTasks.toArray(new TestDeadline[listOfTasks.size()]);
+    }
 
+    /**
+     * Removes a subset from the list of tasks.
+     * @param tasks The list of tasks
+     * @param tasksToRemove The subset of tasks.
+     * @return The modified tasks after removal of the subset from tasks.
+     */
+    public static TestEvent[] removeTasksFromList(final TestEvent[] tasks, TestEvent... tasksToRemove) {
+        List<TestEvent> listOfTasks = asList(tasks);
+        listOfTasks.removeAll(asList(tasksToRemove));
+        return listOfTasks.toArray(new TestEvent[listOfTasks.size()]);
+    }
+    
     /**
      * Returns a copy of the list with the task at specified index removed.
      * @param list original list to copy from

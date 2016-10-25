@@ -193,7 +193,7 @@ public class Parser {
                 name = name.replaceAll(" end " + end, "");
             }
             
-            if (!deadline.isEmpty()) {
+            if (taskType == 'd') {
                 return new EditCommand(
                         taskType,
                         taskNum,
@@ -201,7 +201,7 @@ public class Parser {
                         deadline,
                         getTagsFromArgs(matcher.group("tagArguments"))
                         );
-            } else if (!start.isEmpty() || !end.isEmpty()) {
+            } else if (taskType == 'e') {
                 return new EditCommand(
                         taskType,
                         taskNum,

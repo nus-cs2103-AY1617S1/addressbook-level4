@@ -69,10 +69,12 @@ public class Malitio implements ReadOnlyMalitio {
     }
     
     public ObservableList<Deadline> getDeadlines() {
+        deadlines.sort();
         return deadlines.getInternalList();
     }
     
     public ObservableList<Event> getEvents() {
+        events.sort();
         return events.getInternalList();
     }
 
@@ -242,11 +244,13 @@ public class Malitio implements ReadOnlyMalitio {
     public void editDeadline(Deadline edited, ReadOnlyDeadline beforeEdit) throws DuplicateDeadlineException, DeadlineNotFoundException {
         syncTagsWithMasterList(edited);
         deadlines.edit(edited, beforeEdit);
+        sortDeadline();
     }
     
     public void editEvent(Event edited, ReadOnlyEvent beforeEdit) throws DuplicateEventException, EventNotFoundException {
         syncTagsWithMasterList(edited);
         events.edit(edited, beforeEdit);
+        sortEvent();
     }
 
     public boolean removeEvent(ReadOnlyEvent key) throws EventNotFoundException {
