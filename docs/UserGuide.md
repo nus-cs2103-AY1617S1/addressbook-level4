@@ -83,23 +83,11 @@ Examples:
 	<img src="images/ug_add_fromto_date_recurring_before.png" width="600">
 	<img src="images/ug_add_fromto_date_recurring_after.png" width="600">
 <!--@@author-->
-#### View floating task of the day : `view`
-Format: view /OPTION
-
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-> OPTION currently supports f : floating
+#### Lists all active tasks : `list`
+Format: list
 
 Examples: 
-* `view /f`
-
-#### View non-floating task of the day : `view`
-Format: view date/DATE
-
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
-
-Examples: 
-* `view date/2409`
-* `view date/24sep`
+* `list`
 
 #### Edit tasks : `edit`
 Format: `edit TASK_ID [NEW_TASK_NAME] [from DATE_TIME to DATE_TIME | by DATE_TIME [daily | weekly | monthly | yearly] ] [tag/EDIT_TAG]...`
@@ -126,10 +114,8 @@ Examples:
 #### Delete tasks : `delete`
 Format: delete TASK_ID
 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-
 Examples:
-* `Delete 2`
+* `delete 2`
 
 #### Archive completed tasks : `done`
 Format: done TASK_ID
