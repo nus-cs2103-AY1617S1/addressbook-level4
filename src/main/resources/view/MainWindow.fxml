@@ -23,7 +23,7 @@
       <URL value="@Extensions.css" />
    </stylesheets>
    <children>
-      <MenuBar stylesheets="@../../../../../DODOBIRD/src/main/resources/view/DarkTheme.css" VBox.vgrow="NEVER">
+      <MenuBar stylesheets="@DarkTheme.css" VBox.vgrow="NEVER">
          <menus>
             <Menu mnemonicParsing="false" styleClass="label" text="File">
                <items>
@@ -45,7 +45,8 @@
             <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
          </padding>
       </AnchorPane>
-      <SplitPane id="splitPane" dividerPositions="0.6" style="-fx-background-color: #FFFFFF;" stylesheets="@../../../../../DODOBIRD/src/main/resources/view/Extensions.css" VBox.vgrow="ALWAYS">
+      <SplitPane id="splitPane" dividerPositions="0.6" style="-fx-background-color: #FFFFFF;" stylesheets="@Extensions.css" VBox.vgrow="ALWAYS">
+
          <items>
             <VBox minWidth="340" prefWidth="340" style="-fx-background-color: #FFFFFF;">
                 <padding>
