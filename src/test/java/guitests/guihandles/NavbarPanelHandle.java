@@ -4,11 +4,9 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Point2D;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
-import seedu.address.testutil.TestUtil;
 import java.util.List;
 
 //@@author A0147967J

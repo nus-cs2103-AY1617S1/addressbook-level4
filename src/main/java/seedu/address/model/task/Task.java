@@ -106,6 +106,9 @@ public class Task implements ReadOnlyTask {
     }
     //@@author
     
+    public void setRecurringDates(List<TaskComponent> newComponentList){
+    	this.recurringDates = newComponentList;
+    }
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
@@ -158,18 +161,11 @@ public class Task implements ReadOnlyTask {
 			this.taskType = TaskType.NON_FLOATING;
 		}
 		
-		if(endDate != null) {
-//			System.out.println(startDate.toString());
-			TaskComponent needModification;
-			if(recurringType != RecurringType.NONE) {
-				// assume that if the recurring type is not none, they at least have endDate
-				this.recurringType = recurringType;
-				needModification = this.getLastAppendedComponent();
-			} else {
-				needModification = this.getComponentForNonRecurringType();
-			}
-			needModification.update(startDate, endDate);
-		}
+		if(endDate != null) 
+			this.getLastAppendedComponent().update(startDate, endDate);
+		
+		if(recurringType != RecurringType.IGNORED)
+			this.recurringType = recurringType; 
 		
 		getLastAppendedComponent().setTaskReferrence(this);
 	}

@@ -5,7 +5,6 @@ import java.io.IOException;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
-import seedu.address.model.task.Task;
 import seedu.address.storage.XmlTaskListStorage;
 
 //@@author A0147967J

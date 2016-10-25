@@ -64,10 +64,6 @@ public class BrowserPanel extends UiPart{
         return browserPanel;
     }
     
-    public void configure(ObservableList<TaskComponent> taskList){
-    	initialize(taskList);
-    }
-    
   //@@author A0147967J
     private void initialize(ObservableList<TaskComponent> taskList){
     	agenda.setDisplayedDateTime(new TaskDate(new Date(System.currentTimeMillis())));

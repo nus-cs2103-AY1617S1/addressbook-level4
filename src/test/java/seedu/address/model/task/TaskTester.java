@@ -2,11 +2,9 @@ package seedu.address.model.task;
 
 import static org.junit.Assert.*;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.testutil.TaskBuilder;
 
 //@@author A0135782Y
 /**

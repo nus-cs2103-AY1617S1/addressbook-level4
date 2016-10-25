@@ -14,7 +14,6 @@ import org.junit.Test;
 import seedu.address.logic.RecurringTaskManager;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.RecurringType;
-import seedu.address.model.task.TaskDate;
 import seedu.address.testutil.TaskBuilder;
 import seedu.address.testutil.TestTask;
 
