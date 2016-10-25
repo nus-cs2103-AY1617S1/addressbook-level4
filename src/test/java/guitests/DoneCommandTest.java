@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import seedu.task.testutil.TestTask;
 import seedu.task.testutil.TestTaskList;
-import seedu.task.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.todolist.logic.commands.DoneCommand.MESSAGE_MARK_TASK_SUCCESS;

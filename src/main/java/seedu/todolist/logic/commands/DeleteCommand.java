@@ -7,7 +7,7 @@ import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todolist.ui.MainWindow;
 
 /**
- * Deletes a task identified using it's last displayed index from the address book.
+ * Deletes a task identified using it's last displayed index from the to-do list.
  */
 public class DeleteCommand extends Command {
 
@@ -28,7 +28,7 @@ public class DeleteCommand extends Command {
         this.targetIndexes = targetIndexes;
     }
 
-
+  //@@author A0138601M
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = null;
@@ -57,6 +57,7 @@ public class DeleteCommand extends Command {
 
         return new CommandResult(MESSAGE_DELETE_TASK_SUCCESS);
     }
+    //@@author
     
     private boolean isValidIndexes(UnmodifiableObservableList<ReadOnlyTask> lastShownList, int[] targetIndex) {
         for (int index : targetIndexes) {

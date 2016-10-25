@@ -51,6 +51,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return tasks.getInternalList();
     }
     
+    //@@author A0138601M
     public ObservableList<Task> getCompletedTasks() {
         return tasks.getFilteredTaskList(Status.STATUS_COMPLETE);
     }
@@ -58,6 +59,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public ObservableList<Task> getIncompleteTasks() {
         return tasks.getFilteredTaskList(Status.STATUS_INCOMPLETE);
     }
+    //@@author
 
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);

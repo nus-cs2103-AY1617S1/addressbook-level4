@@ -276,6 +276,7 @@ public class Parser {
         return new DeleteCommand(indexes);
     }
 
+    //@@author A0138601M
     /**
      * Returns an int[] if valid indexes are provided.
      * throws IllegalValueException indexes are invalid
@@ -310,6 +311,7 @@ public class Parser {
         }
         return indexes;
     }
+    //@@author
 
     /**
      * Parses arguments in the context of the find task command.
