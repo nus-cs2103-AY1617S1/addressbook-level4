@@ -89,6 +89,10 @@ public class TaskList implements ReadOnlyTaskList{
 		syncTagsWithMasterList(p);
 		tasks.add(p);
 	}
+	
+	public boolean isOverlapping(Task p) {
+		return tasks.isOverlapping(p);
+	}
 
 	/**
 	 * Ensures that every tag in this person:

@@ -2,9 +2,12 @@ package seedu.tasklist.model;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.tasklist.commons.core.Config;
+import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.ComponentManager;
 import seedu.tasklist.commons.core.LogsCenter;
 import seedu.tasklist.commons.core.UnmodifiableObservableList;
+import seedu.tasklist.commons.events.TickEvent;
+import seedu.tasklist.commons.events.model.TaskCountersChangedEvent;
 import seedu.tasklist.commons.events.model.TaskListChangedEvent;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.logic.commands.UndoCommand;
@@ -43,6 +46,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import com.google.common.eventbus.Subscribe;
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
@@ -53,7 +57,7 @@ import com.joestelmach.natty.Parser;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private static final int MAXIMUM_UNDO_REDO_SIZE = 3;
+    private static final int MAXIMUM_UNDO_REDO_SIZE = 100;
 
     public static LinkedList<UndoInfo> undoStack = new LinkedList<UndoInfo>();
     public static LinkedList<UndoInfo> redoStack = new LinkedList<UndoInfo>();
@@ -76,6 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskList = new TaskList(src);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskCounter = new TaskCounter(src);
+        EventsCenter.getInstance().registerHandler(this);
     }
 
     public ModelManager() {
@@ -86,6 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskList = new TaskList(initialData);
         filteredTasks = new FilteredList<>(taskList.getTasks());
         taskCounter = new TaskCounter(initialData);
+        EventsCenter.getInstance().registerHandler(this);
     }
 
     @Override
@@ -99,6 +105,11 @@ public class ModelManager extends ComponentManager implements Model {
         clearRedoStack();
     }
 
+    @Subscribe
+    private void tickEvent(TickEvent te) {
+    	indicateTaskListChanged();
+    }
+    
     private void clearRedoStack() {
         redoStack.clear();
     }
@@ -119,7 +130,7 @@ public class ModelManager extends ComponentManager implements Model {
     public TaskCounter getTaskCounter(){
     	return taskCounter;
     }
-
+    
     /** Raises an event to indicate the model has changed */
     private void indicateTaskListChanged() {
         raise(new TaskListChangedEvent(taskList));
@@ -148,6 +159,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
         addToUndoStack(UndoCommand.ADD_CMD_ID, null, task);
         clearRedoStack();
+    }
+    
+    @Override
+    public boolean isOverlapping(Task task) {
+    	return taskList.isOverlapping(task);
     }
 
     @Override
@@ -284,15 +300,23 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         updateFilteredTaskList(new PredicateExpression(new RecurringQualifier()));
     }
+    
+    @Override
+    public void updateFilteredListToShowOverlapping(Task task) {
+        updateFilteredListToShowAll();
+        updateFilteredTaskList(new PredicateExpression(new OverlappingQualifier(task)));
+    }
 
     private void sortByDateAndPriority() {
         // Collections.sort(taskList.getListOfTasks(), Comparators.DATE_TIME);
-        Collections.sort(taskList.getListOfTasks(), Comparators.PRIORITY);
+        // Collections.sort(taskList.getListOfTasks(), Comparators.PRIORITY);
+    	Collections.sort(taskList.getListOfTasks());
     }
 
     // ========== Inner classes/interfaces used for filtering
     // ==================================================
 
+    /*
     private static class Comparators {
         public static Comparator<Task> DATE_TIME = new Comparator<Task>() {
             @Override
@@ -314,6 +338,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
         };
     }
+    */
 
     interface Expression {
         boolean satisfies(ReadOnlyTask person);
@@ -413,6 +438,35 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask person) {
             return person.isRecurring();
+        }
+    }
+    
+    private class OverlappingQualifier implements Qualifier {
+        private Task task;
+    	
+    	public OverlappingQualifier(Task task) {
+            this.task = task;
+        }
+    	
+    	@Override
+        public boolean run(ReadOnlyTask person) {
+    		if (task.getEndTime().toCardString().equals("-")) {
+    			return !task.equals(person)
+            		&& !task.getStartTime().toCardString().equals("-")
+            		//&& !task.getEndTime().toCardString().equals("-")
+    				&& !person.getStartTime().toCardString().equals("-")
+    				&& !person.getEndTime().toCardString().equals("-")
+    				&& !task.getStartTime().getAsCalendar().after(person.getEndTime().getAsCalendar())
+    				&& !task.getStartTime().getAsCalendar().before(person.getStartTime().getAsCalendar());
+    		}
+    		
+    		return !task.equals(person)
+            		&& !task.getStartTime().toCardString().equals("-")
+            		//&& !task.getEndTime().toCardString().equals("-")
+    				&& !person.getStartTime().toCardString().equals("-")
+    				&& !person.getEndTime().toCardString().equals("-")
+    				&& !task.getStartTime().getAsCalendar().after(person.getEndTime().getAsCalendar())
+    				&& !person.getStartTime().getAsCalendar().after(task.getEndTime().getAsCalendar());
         }
     }
 

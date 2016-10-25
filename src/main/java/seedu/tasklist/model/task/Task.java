@@ -234,6 +234,34 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
 	@Override
 	public int compareTo(Task o) {
+		// compare floating tasks
+		if (this.startTime.equals(o.getStartTime()) && this.endTime.equals(o.getEndTime())) {
+			return this.priority.compareTo(o.getPriority());
+		}
+		else {
+			if (this.startTime.equals(o.getStartTime())) {
+			    return this.endTime.compareTo(o.getEndTime());
+			}
+			else if (this.endTime.equals(o.getEndTime())) {
+			    return this.startTime.compareTo(o.getStartTime());
+			}
+			// if only has end time
+			else if(this.startTime.toCardString().equals("-")) {
+			    return this.endTime.compareTo(o.getStartTime());
+			}
+			else if (o.getStartTime().toCardString().equals("-")){
+			    return this.startTime.compareTo(o.getEndTime());
+			}
+			// if only has start time
+			else {
+			    return this.startTime.compareTo(o.getStartTime());
+			}
+		}
+	}
+	
+	/*
+	@Override
+	public int compareTo(Task o) {
 		if(!this.startTime.equals(o.getStartTime())){
 			return this.startTime.compareTo(o.getStartTime());
 		}
@@ -241,4 +269,5 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 			return this.priority.compareTo(o.getPriority());
 		}
 	}
+	*/
 }

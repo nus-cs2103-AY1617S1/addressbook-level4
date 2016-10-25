@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -9,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxWidth="370.0" minWidth="370.0" prefHeight="560.0" prefWidth="370.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.tasklist.ui.CategoryPanel">
+<AnchorPane maxWidth="370.0" minWidth="370.0" prefHeight="560.0" prefWidth="370.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.tasklist.ui.CategoryPanel">
    <children>
       <VBox layoutY="24.0" maxHeight="560.0" prefHeight="536.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <GridPane>
+            <GridPane style="-fx-background-color: white;">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="250.0" prefWidth="250.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="50.0" prefWidth="120.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="276.0" minWidth="250.0" prefWidth="276.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="50.0" prefWidth="94.0" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints minHeight="30.0" prefHeight="80.0" vgrow="SOMETIMES" />
@@ -28,18 +30,27 @@
                 <RowConstraints minHeight="30.0" prefHeight="80.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="Overdue">
+                  <Label prefHeight="36.0" prefWidth="146.0" text="Overdue">
                      <font>
                         <Font size="25.0" />
                      </font>
                      <padding>
                         <Insets left="20.0" />
                      </padding>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets left="38.0" />
+                     </GridPane.margin>
                   </Label>
                   <Label fx:id="overdueNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1">
                      <font>
                         <Font size="25.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="15.0" />
+                     </GridPane.margin>
                   </Label>
                   <Label text="Today" GridPane.rowIndex="1">
                      <font>
@@ -48,6 +59,9 @@
                      <padding>
                         <Insets left="20.0" />
                      </padding>
+                     <GridPane.margin>
+                        <Insets left="40.0" />
+                     </GridPane.margin>
                   </Label>
                   <Label text="Tomorrow" GridPane.rowIndex="2">
                      <font>
@@ -56,6 +70,9 @@
                      <padding>
                         <Insets left="20.0" />
                      </padding>
+                     <GridPane.margin>
+                        <Insets left="40.0" />
+                     </GridPane.margin>
                   </Label>
                   <Label text="Floating" GridPane.rowIndex="3">
                      <font>
@@ -64,6 +81,9 @@
                      <padding>
                         <Insets left="20.0" />
                      </padding>
+                     <GridPane.margin>
+                        <Insets left="40.0" />
+                     </GridPane.margin>
                   </Label>
                   <Label text="Other Tasks" GridPane.rowIndex="4">
                      <font>
@@ -72,54 +92,137 @@
                      <padding>
                         <Insets left="20.0" />
                      </padding>
+                     <GridPane.margin>
+                        <Insets left="38.0" />
+                     </GridPane.margin>
                   </Label>
-                  <Label text="Total Tasks" GridPane.rowIndex="5">
+                  <Label text="Total Tasks" textFill="RED" GridPane.rowIndex="5">
                      <font>
                         <Font size="25.0" />
                      </font>
                      <padding>
                         <Insets left="20.0" />
                      </padding>
+                     <GridPane.margin>
+                        <Insets left="40.0" />
+                     </GridPane.margin>
                   </Label>
-                  <Label text="Upcoming Events" GridPane.rowIndex="6">
+                  <Label text="Upcoming Events" textFill="#3700ff" GridPane.rowIndex="6">
                      <font>
                         <Font size="25.0" />
                      </font>
                      <padding>
                         <Insets left="20.0" />
                      </padding>
+                     <GridPane.margin>
+                        <Insets left="40.0" />
+                     </GridPane.margin>
                   </Label>
-                  <Label fx:id="upcomingNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <Label fx:id="upcomingNo" prefHeight="30.0" prefWidth="74.0" text="0" textFill="#1a00ff" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <font>
                         <Font size="25.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="15.0" />
+                     </GridPane.margin>
                   </Label>
-                  <Label fx:id="totalNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <Label fx:id="totalNo" prefHeight="30.0" prefWidth="74.0" text="0" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
                         <Font size="25.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="15.0" />
+                     </GridPane.margin>
                   </Label>
                   <Label fx:id="otherNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font size="25.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="15.0" />
+                     </GridPane.margin>
                   </Label>
                   <Label fx:id="floatingNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font size="25.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="15.0" />
+                     </GridPane.margin>
                   </Label>
                   <Label fx:id="tomorrowNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="25.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="15.0" />
+                     </GridPane.margin>
                   </Label>
                   <Label fx:id="todayNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="25.0" />
                      </font>
+                     <GridPane.margin>
+                        <Insets left="15.0" />
+                     </GridPane.margin>
                   </Label>
+                  <ImageView fitHeight="52.0" fitWidth="47.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/redclock.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                     <image>
+                        <Image url="@../images/today.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets left="8.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <ImageView fitHeight="38.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@../images/tomorrow.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets left="8.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <ImageView fitHeight="37.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@../images/floating.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets left="8.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <ImageView fitHeight="41.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@../images/upcoming.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets left="8.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <ImageView fitHeight="37.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5">
+                     <image>
+                        <Image url="@../images/fantastical_icon.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin>
+                  </ImageView>
+                  <ImageView fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="6">
+                     <image>
+                        <Image url="@../images/upcomingevent.png" />
+                     </image>
+                     <GridPane.margin>
+                        <Insets left="5.0" />
+                     </GridPane.margin>
+                  </ImageView>
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </GridPane>
          </children>
          <padding>

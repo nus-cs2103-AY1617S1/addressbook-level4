@@ -26,12 +26,14 @@ public class AddCommandTest extends TaskListGuiTest {
         assertAddSuccess(personToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, personToAdd);
 
-        //add duplicate person
+        //add overlapping person
         personToAdd = TypicalTestTasks.task8;
         commandBox.runCommand(personToAdd.getAddCommand());
-        assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS, personToAdd.toString()));
+        assertResultMessage(String.format(AddCommand.MESSAGE_SUCCESS + AddCommand.MESSAGE_OVERLAP, personToAdd.toString()));
         currentList = TestUtil.addTasksToList(currentList, personToAdd);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        TestTask[] overlappingList = new TestTask[0];
+        overlappingList = TestUtil.addTasksToList(overlappingList, personToAdd);
+        assertTrue(taskListPanel.isListMatching(overlappingList));
 
         //add to empty list
         commandBox.runCommand("clear");

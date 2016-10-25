@@ -10,11 +10,15 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.tasklist.commons.core.EventsCenter;
 import seedu.tasklist.commons.core.LogsCenter;
+import seedu.tasklist.commons.events.TickEvent;
 import seedu.tasklist.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.tasklist.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * Panel containing the list of persons.
@@ -31,7 +35,12 @@ public class TaskListPanel extends UiPart {
     public TaskListPanel() {
         super();
     }
-
+    
+    @Subscribe
+    public void tickEventHandler(TickEvent te){
+    	personListView.refresh();
+    }
+    
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
@@ -52,6 +61,7 @@ public class TaskListPanel extends UiPart {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new TaskListPanel());
         taskListPanel.configure(personList);
+        EventsCenter.getInstance().registerHandler(taskListPanel);
         return taskListPanel;
     }
 
