@@ -1,3 +1,4 @@
+//@@author A0139164A
 package seedu.menion.model.activity;
 
 import java.util.Calendar;

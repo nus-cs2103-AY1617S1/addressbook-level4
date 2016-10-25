@@ -1,3 +1,4 @@
+//@@author A0139164A
 package seedu.menion.model.activity;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
@@ -146,7 +147,6 @@ public class Activity implements ReadOnlyActivity {
         return this.name;
     }
     
-    //@@author: A0139164A
     /**
      * @throws IllegalValueException 
      * List of methods to set Activity's param : Name, Note, startDate, startTime
@@ -282,7 +282,7 @@ public class Activity implements ReadOnlyActivity {
         return null;
     }
     
-   //@@author: A0139277U
+   //@@author A0139277U
     @Override
     public boolean equals(Object o){
     	return o == this || 

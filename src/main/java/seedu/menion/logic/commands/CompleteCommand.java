@@ -16,16 +16,14 @@ import seedu.menion.model.activity.UniqueActivityList.DuplicateTaskException;
 public class CompleteCommand extends Command {
 
     public static final String COMMAND_WORD = "complete";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Completes an activity using their type and index: "
             + "\n" + "Parameters: [Activity_Type] + [Activity_Index] \n" + "Example: " + COMMAND_WORD + " "
             + Activity.EVENT_TYPE + " 1";
-    
     public static final String INDEX_MISSING_MESSAGE = "Oh no, your index is missing! Try: " + COMMAND_WORD + " [Activity Type] [Activity_index]" 
             + "\n" + "Example: complete task 1";
-    
     public static final String MESSAGE_COMPLETED_ACTIVITY_SUCCESS = "Completed Activity: %1$s";
-
+    public static final String MESSAGE_ALREADY_COMPLETED = "Menion has already completed this activity!";
+    
     public final int targetIndex;
     public final String targetType;
 
@@ -45,17 +43,23 @@ public class CompleteCommand extends Command {
         
         if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
             lastShownList = model.getFilteredFloatingTaskList();
+            ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex);
         } else if (targetType.equals(Activity.TASK_TYPE)) {
             lastShownList = model.getFilteredTaskList();
+            ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex);
         } else {
             lastShownList = model.getFilteredEventList();
+            ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex);
         }
 
         if (lastShownList.size() <= targetIndex || targetIndex < 0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
-
+        if (activityToComplete.getActivityStatus().status) {
+            return new CommandResult(MESSAGE_ALREADY_COMPLETED);
+        }
+        
         callCompleteActivity(targetType); // Calls the correct method depending
                                           // on type of activity.
         ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex);
