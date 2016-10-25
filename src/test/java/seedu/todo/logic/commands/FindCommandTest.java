@@ -8,7 +8,7 @@ import seedu.todo.commons.exceptions.ValidationException;
 
 import static org.junit.Assert.*;
 
-//@@author A00923282A
+//@@author A0092382A
 public class FindCommandTest extends CommandTest {
     
     @Override
