@@ -43,13 +43,13 @@ public class CompleteCommand extends Command {
         
         if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
             lastShownList = model.getFilteredFloatingTaskList();
-            ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex);
+            activityToComplete = lastShownList.get(targetIndex);
         } else if (targetType.equals(Activity.TASK_TYPE)) {
             lastShownList = model.getFilteredTaskList();
-            ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex);
+            activityToComplete = lastShownList.get(targetIndex);
         } else {
             lastShownList = model.getFilteredEventList();
-            ReadOnlyActivity activityToComplete = lastShownList.get(targetIndex);
+            activityToComplete = lastShownList.get(targetIndex);
         }
 
         if (lastShownList.size() <= targetIndex || targetIndex < 0) {
