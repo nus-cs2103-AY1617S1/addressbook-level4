@@ -21,6 +21,7 @@ import seedu.todo.model.ToDoList;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.*;
+import seedu.todo.model.task.Recurrence.Frequency;
 import seedu.todo.storage.XmlSerializableToDoList;
 
 import java.io.File;
@@ -40,6 +41,9 @@ import java.util.stream.Collectors;
 public class TestUtil {
 
     public static String LS = System.lineSeparator();
+    
+    public static final Task[] samplePersonData = getSamplePersonData();
+    public static final Tag[] sampleTagData = getSampleTagData();
 
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
@@ -60,30 +64,47 @@ public class TestUtil {
      * Folder used for temp files created during testing. Ignored by Git.
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
-
-    public static final Task[] samplePersonData = getSamplePersonData();
-
+    
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
                 new Task(new Name("Ali Muster"), new Detail("9482424"), 
-                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_ON), 
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_BY), 
+                        new Recurrence(Frequency.NONE)),
                 new Task(new Name("Boris Mueller"), new Detail("87249245"), 
-                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_ON), 
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_BY), 
+                        new Recurrence(Frequency.NONE)),
                 new Task(new Name("Carl Kurz"), new Detail("95352563"), 
-                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
-                new Task(new Name("Daniel Meier"), new Detail("87652533"), 
-                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_ON), 
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_BY), 
+                        new Recurrence(Frequency.NONE)),
+                new Task(new Name("Daniel Meier"), 
+                        new Detail("87652533"), 
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_ON), 
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_BY), 
+                        new Recurrence(Frequency.NONE)),
                 new Task(new Name("Elle Meyer"), new Detail("9482224"), 
-                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_ON), 
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_BY), 
+                        new Recurrence(Frequency.NONE)),
                 new Task(new Name("Fiona Kunz"), new Detail("9482427"), 
-                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_ON), 
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_BY), 
+                        new Recurrence(Frequency.NONE)),
                 new Task(new Name("George Best"), new Detail("9482442"), 
-                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_ON), 
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_BY), 
+                        new Recurrence(Frequency.NONE)),
                 new Task(new Name("Hoon Meier"), new Detail("8482424"), 
-                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234")),
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_ON), 
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_BY), 
+                        new Recurrence(Frequency.NONE)),
                 new Task(new Name("Ida Mueller"), new Detail("8482131"), 
-                        new TaskDate("12/12/1234"), new TaskDate("12/12/1234"))
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_ON), 
+                        new TaskDate("12/12/1234", TaskDate.TASK_DATE_BY), 
+                        new Recurrence(Frequency.NONE))
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -91,8 +112,6 @@ public class TestUtil {
             return null;
         }
     }
-
-    public static final Tag[] sampleTagData = getSampleTagData();
 
     private static Tag[] getSampleTagData() {
         try {
@@ -136,10 +155,10 @@ public class TestUtil {
             throw new RuntimeException(e);
         }
     }
-/*
+
     public static void main(String... s) {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
-    }*/
+    }
 
     public static ToDoList generateEmptyToDoList() {
         return new ToDoList(new UniqueTaskList(), new UniqueTagList());
@@ -338,8 +357,9 @@ public class TestUtil {
     }
 
     public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
+        assert tags != null;
+        
+        if ("".equals(tags)) {
             return new Tag[]{};
         }
 

@@ -107,7 +107,7 @@ public class MainWindow extends UiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
-    void fillInnerParts() {
+    public void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = taskListPanel.load(primaryStage, getTaskListPlaceholder(), 
                 logic.getUnmodifiableFilteredTaskList());

@@ -19,7 +19,7 @@ public class FileUtilTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-/*
+
     @Test
     public void getPath(){
 
@@ -33,7 +33,7 @@ public class FileUtilTest {
         // no forwards slash -> assertion failure
         thrown.expect(AssertionError.class);
         FileUtil.getPath("folder");
-    }*/
+    }
 
     @Test
     public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {

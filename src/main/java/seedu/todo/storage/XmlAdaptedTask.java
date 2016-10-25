@@ -6,6 +6,7 @@ import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.*;
+import seedu.todo.model.task.Recurrence.Frequency;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +21,13 @@ public class XmlAdaptedTask {
     @XmlElement
     private String detail;
     @XmlElement
-    private String fromDate;
+    private String onDate;
     @XmlElement
-    private String tillDate;
+    private String byDate;
     @XmlElement
-    private String done;
-    
+    private String completion;
+    @XmlElement
+    private String recurrence;
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -43,11 +45,10 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
         detail = source.getDetail().toString();
-        done = new Boolean(source.isDone()).toString();
-        fromDate = source.getOnDate().toString();
-        tillDate = source.getByDate().toString();
-        
-        
+        completion = source.getCompletion().toString();
+        onDate = source.getOnDate().toString();
+        byDate = source.getByDate().toString();
+        recurrence = source.getRecurrence().toString();
         tagged = new ArrayList<>();
         
         for (Tag tag : source.getTags()) {
@@ -70,10 +71,11 @@ public class XmlAdaptedTask {
        
         final Name name = new Name(this.name);
         final Detail detail = new Detail(this.detail);
-        final boolean done = new Boolean(this.done);
-        final TaskDate fromDate = new TaskDate(this.fromDate);
-        final TaskDate tillDate = new TaskDate(this.tillDate);
+        final Completion completion = new Completion(Boolean.parseBoolean(this.completion));
+        final TaskDate onDate = new TaskDate(this.onDate, TaskDate.TASK_DATE_ON);
+        final TaskDate byDate = new TaskDate(this.byDate, TaskDate.TASK_DATE_BY);
+        final Recurrence recurrence = new Recurrence(Frequency.valueOf(this.recurrence));
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, detail, done, fromDate, tillDate, tags);
+        return new Task(name, detail, completion, onDate, byDate, recurrence, tags);
     }
 }

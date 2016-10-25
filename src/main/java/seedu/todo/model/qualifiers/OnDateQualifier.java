@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.model.task.ReadOnlyTask;
-import seedu.todo.model.task.TaskDate;
 
 public class OnDateQualifier implements Qualifier{
     private LocalDateTime datetime;

@@ -3,12 +3,11 @@ package seedu.todo.logic.commands;
 import seedu.todo.commons.core.Messages;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.model.tag.Tag;
-import seedu.todo.model.tag.UniqueTagList;
-import seedu.todo.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.todo.model.task.Detail;
 import seedu.todo.model.task.Name;
 import seedu.todo.model.task.ReadOnlyTask;
+import seedu.todo.model.task.Recurrence;
+import seedu.todo.model.task.Recurrence.Frequency;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.TaskDate;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
@@ -34,14 +33,16 @@ public class UpdateCommand extends Command{
     private final String detail;
     private final String onDateTime;
     private final String byDateTime;
+    private final String recurrence;
     
-    public UpdateCommand(int targetIndex, String name, String onDateTime, String byDateTime, String detail) {
-        System.out.println("HELLO" + onDateTime);
+    public UpdateCommand(int targetIndex, String name, String onDateTime, 
+            String byDateTime, String detail, String recurrence) {
         this.targetIndex = targetIndex;
         this.name = name;
         this.detail = detail;
         this.onDateTime = onDateTime;
         this.byDateTime = byDateTime;
+        this.recurrence = recurrence;
     }
     
     
@@ -63,6 +64,7 @@ public class UpdateCommand extends Command{
             Detail newDetail;
             TaskDate newByDate;
             TaskDate newOnDate;
+            Recurrence newRecurrence;
             
             if (this.detail == null) {
                 newDetail = taskToUpdate.getDetail();
@@ -73,17 +75,23 @@ public class UpdateCommand extends Command{
             if (this.byDateTime == null) {
                 newByDate = taskToUpdate.getByDate();
             } else {
-                newByDate = this.byDateTime.trim().equals("-") ?  new TaskDate(null) : new TaskDate(this.byDateTime);
+                newByDate = this.byDateTime.trim().equals("-") ?  new TaskDate("", TaskDate.TASK_DATE_BY) : new TaskDate(this.byDateTime, TaskDate.TASK_DATE_BY);
             }
             
             if (this.onDateTime == null) {
                 newOnDate = taskToUpdate.getOnDate();
             } else {
-                newOnDate = this.onDateTime.trim().equals("-") ?  new TaskDate(null) : new TaskDate(this.onDateTime);
+                newOnDate = this.onDateTime.trim().equals("-") ?  new TaskDate("", TaskDate.TASK_DATE_ON) : new TaskDate(this.onDateTime, TaskDate.TASK_DATE_ON);
             }
             
-            Task newTask = new Task(newName, newDetail, taskToUpdate.isDone(), 
-                    newOnDate, newByDate, taskToUpdate.getTags());
+            if (this.recurrence == null) {
+                newRecurrence = taskToUpdate.getRecurrence();
+            } else {
+                newRecurrence = this.recurrence.trim().equals("-") ?  new Recurrence(Frequency.NONE) : new Recurrence(Frequency.valueOf(this.recurrence.toUpperCase().trim()));
+            }
+            
+            Task newTask = new Task(newName, newDetail, taskToUpdate.getCompletion(), 
+                    newOnDate, newByDate, newRecurrence, taskToUpdate.getTags());
             model.updateTask(taskToUpdate, newTask);
             model.updateFilteredListToShowAll();
             

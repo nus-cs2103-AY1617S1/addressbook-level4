@@ -12,8 +12,10 @@ public interface ReadOnlyTask {
     Detail getDetail();
     TaskDate getOnDate();
     TaskDate getByDate();
-    boolean isDone();
-
+    Completion getCompletion();
+    Recurrence getRecurrence();
+    boolean isRecurring();
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the person's internal tags.
@@ -25,11 +27,11 @@ public interface ReadOnlyTask {
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
-                || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName()) // state checks here onwards
+                || ((other != null) // this is first to avoid NPE below
+                && other.getName().equals(this.getName())
                 && other.getDetail().equals(this.getDetail())
-                && other.getOnDate().equals(this.getOnDate())
-                && other.getByDate().equals(this.getByDate()));
+                && (other.getOnDate().equals(this.getOnDate())
+                && other.getByDate().equals(this.getByDate())));
     }
 
     /**
@@ -37,14 +39,14 @@ public interface ReadOnlyTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Details: ")
-                .append(getDetail())
-                .append(" From: ")
-                .append(getOnDate())
-                .append(" Till: ")
-                .append(getByDate())
-                .append(" Tags: ");
+        builder.append(getName() + "\n")
+                .append("Details: ")
+                .append(getDetail() + "\n")
+                .append("From: ")
+                .append(getOnDate() + "\n")
+                .append("Till: ")
+                .append(getByDate() + "\n")
+                .append("Tags: ");
         //getTags().forEach(builder::append);
         return builder.toString();
     }

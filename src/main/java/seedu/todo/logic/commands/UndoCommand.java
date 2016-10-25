@@ -1,7 +1,5 @@
 package seedu.todo.logic.commands;
 
-import seedu.todo.commons.core.Messages;
-
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";

@@ -44,8 +44,8 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         details.setText(task.getDetail().value);
-        onDate.setText(task.getOnDate().toString());
-        byDate.setText(task.getByDate().toString());
+        onDate.setText("Start: " + task.getOnDate().toString());
+        byDate.setText("End: " + task.getByDate().toString());
         tags.setText(task.tagsString());
     }
 

@@ -3,15 +3,11 @@ package seedu.todo.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.todo.commons.core.ComponentManager;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.core.ModifiableObservableList;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.events.model.ToDoListChangedEvent;
-import seedu.todo.commons.util.DateTimeUtil;
-import seedu.todo.commons.util.StringUtil;
 import seedu.todo.model.qualifiers.*;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
-import seedu.todo.model.task.TaskDate;
 import seedu.todo.model.task.UniqueTaskList;
 import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -113,6 +109,7 @@ public class ModelManager extends ComponentManager implements Model {
             toDoList.getTasks().get(index).setDetail(newTask.getDetail());
             toDoList.getTasks().get(index).setOnDate(newTask.getOnDate());
             toDoList.getTasks().get(index).setByDate(newTask.getByDate());
+            toDoList.getTasks().get(index).setRecurrence(newTask.getRecurrence());
             toDoList.syncTagsWithMasterList(toDoList.getTasks().get(index));
             indicateToDoListChanged();
         }
@@ -135,11 +132,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getUnmodifiableFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
-    }
-    
-    @Override
-    public ModifiableObservableList<Task> getFilteredTaskList() {
-        return new ModifiableObservableList<>(filteredTasks);
     }
 
     @Override

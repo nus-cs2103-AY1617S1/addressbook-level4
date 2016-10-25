@@ -13,7 +13,6 @@ import seedu.todo.model.ModelManager;
 import seedu.todo.model.ReadOnlyToDoList;
 import seedu.todo.model.ToDoList;
 import seedu.todo.model.tag.Tag;
-import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.*;
 import seedu.todo.storage.StorageManager;
 
@@ -25,8 +24,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -81,7 +78,7 @@ public class LogicManagerTest {
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
         EventsCenter.clearSubscribers();
     }
 
@@ -112,9 +109,9 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addTask(helper.generateTask(1));
-        model.addTask(helper.generateTask(2));
-        model.addTask(helper.generateTask(3));
+        model.addTask(helper.generateFullTask(1));
+        model.addTask(helper.generateFullTask(2));
+        model.addTask(helper.generateFullTask(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new ToDoList(), Collections.emptyList());
     }
@@ -126,15 +123,15 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name on vdvd ; a line of details", TaskDate.MESSAGE_DATETIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name on 12/12/1234 by 09:00 ; a line of details", TaskDate.MESSAGE_DATETIME_CONSTRAINTS);
+                "add Valid Name on 12/12/1234 by asdasdsad ; a line of details", TaskDate.MESSAGE_DATETIME_CONSTRAINTS);
 
     }
 
     @Test
-    public void execute_add_successful() throws Exception {
+    public void execute_add_fullTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.generateTask(0);
+        Task toBeAdded = helper.generateFullTask(0);
         ToDoList expectedAB = new ToDoList();
         expectedAB.addTask(toBeAdded);
 
@@ -143,14 +140,43 @@ public class LogicManagerTest {
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
                 expectedAB,
                 expectedAB.getTaskList());
-
     }
 
+    @Test
+    public void execute_add_floatingTask_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.generateFloatingTask(0);
+        ToDoList expectedAB = new ToDoList();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_add_deadlineTask_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.generateDeadlineTask(0);
+        ToDoList expectedAB = new ToDoList();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded.getName()),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.generateTask(0);
+        Task toBeAdded = helper.generateFullTask(0);
         ToDoList expectedAB = new ToDoList();
         expectedAB.addTask(toBeAdded);
 
@@ -213,12 +239,12 @@ public class LogicManagerTest {
     public void execute_mark_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeMarked = helper.generateTask(0);
+        Task toBeMarked = helper.generateFullTask(0);
         ToDoList expectedAB = new ToDoList();
         expectedAB.addTask(toBeMarked);
         
-        toBeMarked.setIsDone(true);
-        model.addTask(helper.generateTask(0));
+        toBeMarked.setCompletion(new Completion(true));
+        model.addTask(helper.generateFullTask(0));
         
         // execute command and verify result
         assertCommandBehavior("mark 1",
@@ -244,12 +270,12 @@ public class LogicManagerTest {
     public void execute_unmark_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeMarked = helper.generateTask(0);
+        Task toBeMarked = helper.generateFullTask(0);
         ToDoList expectedAB = new ToDoList();
         expectedAB.addTask(toBeMarked);
         
-        Task toBeMarked2 = helper.generateTask(0);
-        toBeMarked2.setIsDone(true);
+        Task toBeMarked2 = helper.generateFullTask(0);
+        toBeMarked2.setCompletion(new Completion(true));
         toBeMarked2.addTag(new Tag("done"));
         model.addTask(toBeMarked2);        
        
@@ -276,13 +302,13 @@ public class LogicManagerTest {
     public void execute_tag_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeTagged = helper.generateTask(0);
+        Task toBeTagged = helper.generateFullTask(0);
         ToDoList expectedAB = new ToDoList();
         expectedAB.addTask(toBeTagged);
         
         toBeTagged.addTag(new Tag("yay"));
         
-        Task toBeTagged2 = helper.generateTask(0);
+        Task toBeTagged2 = helper.generateFullTask(0);
         model.addTask(toBeTagged2);        
         
         // execute command and verify result
@@ -309,11 +335,11 @@ public class LogicManagerTest {
     public void execute_untag_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeUntagged = helper.generateTask(0);
+        Task toBeUntagged = helper.generateFullTask(0);
         ToDoList expectedAB = new ToDoList();
         expectedAB.addTask(toBeUntagged);
         
-        Task toBeUntagged2 = helper.generateTask(0);
+        Task toBeUntagged2 = helper.generateFullTask(0);
         toBeUntagged2.addTag(new Tag("yay"));
         model.addTask(toBeUntagged2);        
         
@@ -465,7 +491,7 @@ public class LogicManagerTest {
         List<Task> expectedList = helper.generateTaskList(t1, t2);
         helper.addToModel(model, twoTasks);
 
-        assertCommandBehavior("search from 12/12/2013 till 12/12/2019",
+        assertCommandBehavior("search from 12/12/2013 to 12/12/2019",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
@@ -477,7 +503,7 @@ public class LogicManagerTest {
         Task t1 = helper.generateTaskWithName("bla bla KEY bla");
         Task t2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
         
-        t1.setIsDone(true);
+        t1.setCompletion(new Completion(true));
 
         List<Task> twoTasks = helper.generateTaskList(t1, t2);
         ToDoList expectedAB = helper.generateToDoList(twoTasks);
@@ -515,7 +541,7 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredTaskList());
+        assertEquals(expectedShownList, model.getUnmodifiableFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedAddressBook, model.getToDoList());
@@ -552,7 +578,7 @@ public class LogicManagerTest {
             model.addTask(p);
         }
 
-        if (commandWord.equals("tag") || commandWord.equals("untag")) {
+        if ("tag".equals(commandWord) || "untag".equals(commandWord)) {
             assertCommandBehavior(commandWord + " 3 hello", expectedMessage, model.getToDoList(), taskList);
         } else {
             assertCommandBehavior(commandWord + " 3", expectedMessage, model.getToDoList(), taskList);

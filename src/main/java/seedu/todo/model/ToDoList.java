@@ -7,6 +7,7 @@ import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -16,14 +17,8 @@ import java.util.stream.Collectors;
  */
 public class ToDoList implements ReadOnlyToDoList {
 
-    
     private final Stack<UniqueTaskList> tasksHistory;
     private final Stack<UniqueTagList> tagsHistory;
-
-    {
-        tasksHistory = new Stack<>();
-        tagsHistory = new Stack<>();
-    }
 
     public ToDoList() {
         this(new UniqueTaskList(), new UniqueTagList());
@@ -40,6 +35,8 @@ public class ToDoList implements ReadOnlyToDoList {
      * Tasks and Tags are copied into this ToDoList
      */
     public ToDoList(UniqueTaskList tasks, UniqueTagList tags) {
+        tasksHistory = new Stack<>();
+        tagsHistory = new Stack<>();
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
@@ -52,6 +49,25 @@ public class ToDoList implements ReadOnlyToDoList {
     public ObservableList<Task> getTasks() {
         return tasksHistory.peek().getInternalList();
     }
+
+    
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+        setTags(newTags);
+        
+        for (Task t : this.getTasks()) {
+            if (t.isRecurring() 
+                    && (t.getOnDate().getDate().isBefore(LocalDate.now()) 
+                    || t.getByDate().getDate().isBefore(LocalDate.now()))) {
+                t.getRecurrence().updateTaskDate(t);
+            }
+        }
+    }
+
+    public void resetData(ReadOnlyToDoList newData) {
+        resetData(newData.getTaskList(), newData.getTagList());
+    }
+    
 
     public void setTasks(List<Task> tasks) {
         if (this.tasksHistory.isEmpty()) {
@@ -73,14 +89,6 @@ public class ToDoList implements ReadOnlyToDoList {
         this.tagsHistory.push(newList);
     }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
-        setTags(newTags);
-    }
-
-    public void resetData(ReadOnlyToDoList newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
-    }
 
 //// task-level operations
 

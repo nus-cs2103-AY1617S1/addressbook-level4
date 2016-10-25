@@ -6,7 +6,6 @@ import java.time.LocalTime;
 
 import seedu.todo.commons.util.DateTimeUtil;
 import seedu.todo.model.task.ReadOnlyTask;
-import seedu.todo.model.task.TaskDate;
 
 public class AfterDateQualifier implements Qualifier{
     private LocalDateTime datetime;

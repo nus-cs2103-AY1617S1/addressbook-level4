@@ -6,9 +6,6 @@ import java.util.Optional;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.ConfigUtil;
-import seedu.todo.commons.util.FileUtil;
-import seedu.todo.commons.util.StringUtil;
-
 
 /**
  * Reset Config to default

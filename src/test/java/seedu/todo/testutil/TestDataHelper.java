@@ -8,6 +8,8 @@ import seedu.todo.model.Model;
 import seedu.todo.model.ToDoList;
 import seedu.todo.model.task.Detail;
 import seedu.todo.model.task.Name;
+import seedu.todo.model.task.Recurrence;
+import seedu.todo.model.task.Recurrence.Frequency;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.TaskDate;
 
@@ -17,29 +19,68 @@ import seedu.todo.model.task.TaskDate;
 public class TestDataHelper{
 
     /**
-     * Generates a valid task using the given seed.
+     * Generates a valid full task using the given seed.
      * Running this function with the same parameter values guarantees the returned task will have the same state.
      * Each unique seed will generate a unique Task object.
      *
      * @param seed used to generate the task data field values
      */
-    public Task generateTask(int seed) throws Exception {
+    public Task generateFullTask(int seed) throws Exception {
         return new Task(
                 new Name("Task " + seed),
                 new Detail("House of " + seed),
-                new TaskDate("2/3/2017 12:34 pm"),
-                new TaskDate("2/3/2017 12:34 pm")
+                new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_ON),
+                new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_BY),
+                new Recurrence(Frequency.NONE)
         );
     }
-
+    
+    /**
+     * Generates a valid floating task using the given seed.
+     * Running this function with the same parameter values guarantees the returned task will have the same state.
+     * Each unique seed will generate a unique Task object.
+     *
+     * @param seed used to generate the task data field values
+     */
+    public Task generateFloatingTask(int seed) throws Exception {
+        return new Task(
+                new Name("Task " + seed),
+                new Detail("House of " + seed),
+                new TaskDate("", TaskDate.TASK_DATE_ON),
+                new TaskDate("", TaskDate.TASK_DATE_BY),
+                new Recurrence(Frequency.NONE)
+        );
+    }
+    
+    /**
+     * Generates a valid deadline task using the given seed.
+     * Running this function with the same parameter values guarantees the returned task will have the same state.
+     * Each unique seed will generate a unique Task object.
+     *
+     * @param seed used to generate the task data field values
+     */
+    public Task generateDeadlineTask(int seed) throws Exception {
+        return new Task(
+                new Name("Task " + seed),
+                new Detail("House of " + seed),
+                new TaskDate("", TaskDate.TASK_DATE_ON),
+                new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_BY),
+                new Recurrence(Frequency.NONE)
+        );
+    }
+    
     /** Generates the correct add command based on the task given */
     public String generateAddCommand(Task p) {
         StringBuffer cmd = new StringBuffer();
 
         cmd.append("add ");
         cmd.append(p.getName().toString());
-        cmd.append(" on ").append(p.getOnDate().toString());
-        cmd.append(" by ").append(p.getByDate().toString());
+        if (p.getOnDate().getDate() != null) {
+            cmd.append(" on ").append(p.getOnDate().toString());
+        }
+        if (p.getByDate().getDate() != null) {
+            cmd.append(" by ").append(p.getByDate().toString());
+        }
         cmd.append(" ;").append(p.getDetail());
         
         return cmd.toString();
@@ -103,7 +144,7 @@ public class TestDataHelper{
     public List<Task> generateTaskList(int numGenerated) throws Exception{
         List<Task> tasks = new ArrayList<>();
         for (int i = 1; i <= numGenerated; i++){
-            tasks.add(generateTask(i));
+            tasks.add(generateFullTask(i));
         }
         return tasks;
     }
@@ -119,8 +160,22 @@ public class TestDataHelper{
         return new Task(
                 new Name(name),
                 new Detail("1"),
-                new TaskDate("5/3/2017 12:44 pm"),
-                new TaskDate("5/3/2017 12:44 pm")
+                new TaskDate("5/3/2017 12:44 pm", TaskDate.TASK_DATE_ON),
+                new TaskDate("5/3/2017 12:44 pm", TaskDate.TASK_DATE_BY),
+                new Recurrence(Frequency.NONE)
+        );
+    }
+    
+    /**
+     * Generates a Task object with given dates. Other fields will have some dummy values.
+     */
+    public Task generateTaskWithDates(String onDateString, String byDateString) throws Exception {
+        return new Task(
+                new Name("Task"),
+                new Detail("1"),
+                new TaskDate(onDateString, TaskDate.TASK_DATE_ON),
+                new TaskDate(byDateString, TaskDate.TASK_DATE_BY),
+                new Recurrence(Frequency.NONE)
         );
     }
 }
