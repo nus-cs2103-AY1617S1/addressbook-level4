@@ -212,6 +212,7 @@ public class MainApp extends Application {
     public void switchList() {
 //        TODO: implement switchList()
 //        use config.getTaskListName() to get the tasklist file name to be switched to.
+        this.stop();
     }
     
     @Subscribe
