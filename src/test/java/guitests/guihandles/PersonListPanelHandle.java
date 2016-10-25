@@ -35,7 +35,7 @@ public class PersonListPanelHandle extends GuiHandle {
         ListView<ReadOnlyActivity> personList = getListView();
         return personList.getSelectionModel().getSelectedItems();
     }
-
+    //my debugging gets stuck here. possibly timeout happening here.
     public ListView<ReadOnlyActivity> getListView() {
         return (ListView<ReadOnlyActivity>) getNode(PERSON_LIST_VIEW_ID);
     }
@@ -103,11 +103,12 @@ public class PersonListPanelHandle extends GuiHandle {
     public ActivityCardHandle navigateToActivity(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyActivity> activity = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
-        if (activity != null) System.out.println(activity.toString());
         
         if (!activity.isPresent()) {
             throw new IllegalStateException("Activity Name not found: " + name);
         }
+        
+        if (activity != null) System.out.println(activity.get().toString());
 
         return navigateToPerson(activity.get());
     }
@@ -120,8 +121,8 @@ public class PersonListPanelHandle extends GuiHandle {
 
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
-            guiRobot.sleep(150);
-            getListView().getSelectionModel().select(index);
+            guiRobot.sleep(500);
+            getListView().getSelectionModel().select(index); //get stuck here
         });
         guiRobot.sleep(100);
         return getPersonCardHandle(person);
