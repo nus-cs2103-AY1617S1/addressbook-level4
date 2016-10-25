@@ -39,6 +39,10 @@ public interface Model {
     /** Updates the filter of the filtered item list to filter by the given keywords*/
     void updateFilteredItemList(Set<String> keywords);
     
+    //@@author A0140060A
+    /** Updates the filter of the filtered person list to show all not done (uncompleted) items */
+    void updateFilteredListToShowNotDone();
+    
     //@@author 
     /**Updates the filter of the filtered item list to filter by task */
 	void updateFilteredListToShowTask();

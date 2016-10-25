@@ -15,6 +15,7 @@ import seedu.taskmanager.logic.commands.IncorrectCommand;
 import seedu.taskmanager.logic.commands.ListCommand;
 import seedu.taskmanager.logic.commands.ListDeadlineCommand;
 import seedu.taskmanager.logic.commands.ListEventCommand;
+import seedu.taskmanager.logic.commands.ListNotDoneCommand;
 import seedu.taskmanager.logic.commands.ListTaskCommand;
 import seedu.taskmanager.logic.commands.SelectCommand;
 import seedu.taskmanager.logic.commands.DoneCommand;
@@ -165,6 +166,10 @@ public class Parser {
         case ListCommand.COMMAND_WORD:
         case ListCommand.SHORT_COMMAND_WORD:
             return new ListCommand();
+            
+        case ListNotDoneCommand.COMMAND_WORD:
+        case ListNotDoneCommand.SHORT_COMMAND_WORD:
+            return new ListNotDoneCommand();
             
         case ListTaskCommand.COMMAND_WORD:
         case ListTaskCommand.SHORT_COMMAND_WORD:
