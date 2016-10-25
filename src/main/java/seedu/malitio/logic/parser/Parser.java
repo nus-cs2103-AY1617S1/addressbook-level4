@@ -113,18 +113,18 @@ public class Parser {
         try {
             String name = matcher.group("name");
             
-            String deadline = getDeadlineFromArgs(name);
+            String deadline = getDeadlineFromArgs(StringUtil.removeTagsFromString(name));
             if (!deadline.isEmpty()) {
                 name = name.replaceAll("by " + deadline, "");
             }
             
-            String start = getStartFromArgs(name);
+            String start = getStartFromArgs(StringUtil.removeTagsFromString(name));
             if (!start.isEmpty()) {
                 name = name.replaceAll("start " + start, "");
                 hasStart = true;
             }
             
-            String end = getEndFromArgs(name);
+            String end = getEndFromArgs(StringUtil.removeTagsFromString(name));
             if (!end.isEmpty()) {
                 name = name.replaceAll("end " + end, "");
                 hasEnd = true;
@@ -302,16 +302,7 @@ public class Parser {
         int byIndex = args.lastIndexOf("by");
         String deadline = "";
         if(byIndex > 0 && byIndex < args.length() - 2) {
-            try {
                 deadline = args.substring(byIndex + 3);
-                if (deadline.matches("[^\\d]+")) {
-                    return "";
-                } else if (!deadline.matches("\\d{8} \\d{4}")) {
-                    throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers\nExample: by 03122016 1320");
-                }
-            } catch (IndexOutOfBoundsException iob){
-                throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers\nExample: by 03122016 1320");
-            }
         }
         return deadline;
     }
@@ -321,21 +312,14 @@ public class Parser {
      */
     private static String getStartFromArgs(String args) throws IllegalValueException {
         int startIndex = args.lastIndexOf("start");
-        String start = "";
-        if(startIndex > 0 && startIndex < args.length() - 2) {
-            try {
-                start = args.substring(startIndex + 6, startIndex + 19);
-                if (start.matches("[^\\d]+")) {
-                    return "";
-                }
-                else if (!start.matches("\\d{8} \\d{4}")) {
-                    throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
-                }
-            } catch (IndexOutOfBoundsException iob){
-                throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
-            }
+        int endIndex = args.lastIndexOf("end");
+        if (startIndex > 0 && endIndex > 0) {
+            return args.substring(startIndex + 6, endIndex);
+        } else if (startIndex > 0 && endIndex < 0) {
+            return args.substring(startIndex + 6);
+        } else {
+            return "";
         }
-        return start;
     }
 
     /**
@@ -343,20 +327,11 @@ public class Parser {
      */
     private static String getEndFromArgs(String args) throws IllegalValueException {
         int endIndex = args.lastIndexOf("end");
-        String end = "";
-        if(endIndex > 0 && endIndex < args.length() - 2) {
-            try {
-                end = args.substring(endIndex + 4, endIndex + 17);
-                if (end.matches("[^\\d]+")) {
-                    return "";
-                } else if (!end.matches("\\d{8} \\d{4}")) {
-                    throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
-                }
-            } catch (IndexOutOfBoundsException iob){
-                throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
-            }
+        if (endIndex > 0) {
+         return args.substring(endIndex + 4);
+        } else {
+            return ""; 
         }
-        return end;
     }
 
     /**

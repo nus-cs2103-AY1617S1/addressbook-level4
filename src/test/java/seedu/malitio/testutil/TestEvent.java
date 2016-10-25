@@ -38,7 +38,7 @@ public class TestEvent implements ReadOnlyEvent {
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " " + "start " + this.getStart().toString() + "end " + this.getEnd().toString());
+        sb.append("add " + this.getName().fullName + " start " + this.getStart().toString() + " end " + this.getEnd().toString());
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
