@@ -29,7 +29,6 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private ActivityListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -187,13 +186,5 @@ public class MainWindow extends UiPart {
 
     public ActivityListPanel getTaskListPanel() {
         return this.taskListPanel;
-    }
-
-    /*public void loadTaskPage(ReadOnlyActivity task) {
-        browserPanel.loadActivityPage(task);
-    }*/
-
-    public void releaseResources() {
-        browserPanel.freeResources();
     }
 }
