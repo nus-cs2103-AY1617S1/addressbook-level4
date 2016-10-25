@@ -110,6 +110,8 @@ public class Parser {
 	private static final String nextWeek = "next week";
 	
 	private static final String done = "done";
+	
+	private static final String undone = "undone";
 
 	private static final DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -375,6 +377,8 @@ public class Parser {
 				return new ListCommand(nextWeekKeyword, "date");
 			case done:
 				return new ListCommand(done);
+			case undone:
+				return new ListCommand(undone);
 			}
 		}
 		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
