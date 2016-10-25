@@ -431,27 +431,28 @@ Use case  ends
 ## Appendix E : Product Survey
 
 1. Google Keep
-   ### Strength: 
+   Strength 
     1. Users can add notes, lists, photos and audio as a task
     2. The search function is convenient.
-   ### Weakness
+   Weakness
     The UI is not poor.
+    
 2. Trello
-   * Strength
+   Strength
     1. The tags are in different colors which is convenient for users to read.
     2. A user can collaborate with other users using dedicated boards
-   * Weakness
+   Weakness
     It contains multiple boards to show several tasks on UI. This feature makes the UI a little messy.
 
 3. Wunderlist
-   * Strength
+   Strength
     1. The UI is simple and concise.
     2. It can be used across all major devices.
     3. It is able to dedicate certain tasks to users
    
 4. Todoist
-   * Strength
+   Strength
     1. It can be used with apps and extensions for 10+ platforms, and both online and offline.
     2. It has a multi-level function wich can help users to break big tasks/project into small ones.
-   * Weakness
+   Weakness
     The tasks cannot be displayed on a calendar.
