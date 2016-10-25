@@ -21,18 +21,18 @@ public class EditCommandTest extends AddressBookGuiTest{
         int targetIndex = 1;
         
         //task to be changed to
-        String newName = "\"Get rich or die coding\"";
+        String newName = "Get rich or die coding";
 
         //edit the first task in list with only name changes
         assertEditTaskSuccess(currentList, targetIndex, newName);
         
         // edit last task in list with only name changes
-        newName = "\"Don't die poor\"";
+        newName = "Don't die poor";
         targetIndex = currentList.length;
         assertEditTaskSuccess(currentList, targetIndex, newName);
 
         //invalid index
-        commandBox.runCommand("edit " + currentList.length + 1 + " \"Change invalid stuff\"");
+        commandBox.runCommand("edit t" + currentList.length + 1 + " \"Change invalid stuff\"");
         assertResultMessage("The task index provided is invalid");
         
         //TODO: edit the first event in the list with all details
@@ -56,8 +56,10 @@ public class EditCommandTest extends AddressBookGuiTest{
             expectedTask.setTags(currentList[targetIndex - 1].getTags());
         }
         
+        expectedTask.setPriority(currentList[targetIndex - 1].getPriority());
+        
         //edit the name of the target task with the newName
-        commandBox.runCommand("edit " + targetIndex + " " + newName);
+        commandBox.runCommand("edit " + "t" + targetIndex + " \"" + newName + "\" ");
         
         //confirm the edited card contains the right data
         FloatingTaskCardHandle addedCard = taskListPanel.navigateToTask(expectedTask.getName().fullName);
