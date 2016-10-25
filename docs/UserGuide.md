@@ -6,9 +6,9 @@ In today's hectic society, our lives feel like a never-ending procession of task
 
 Ever wished for a tool that can manage all your daily activities in distinct categories, and suggest to you which one you want to complete first? Well, look no further as Uncle Jim's Discount To-do List is here to save your day.
 
-Uncle Jim's Discount To-do List (Uncle Jim in short) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities through the power of your keyboard. Gone are the days where you had to click through several pages of menus just to add a simple task to your schedule. Our command line interface is not only flexible but remarkably easy to use. Just type out the command and hit enter!
+Uncle Jim's Discount To-do List (Uncle Jim in short) is a revolutionary mouse-free personal task manager that helps you to keep track of your daily activities through the power of your keyboard. Gone are the days when you had to click through several pages of menus just to add a simple task to your schedule. Our command line interface is not only flexible but remarkably easy to use. Just type the command and hit enter!
 
-Moreover, we know that you understand your activities better. So Uncle Jim allows you to create your very own categories to organise your activities. At the same time, Uncle Jim is capable of managing both tasks *and* event so you don't have to use two different applications to be productive. Lastly, our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.
+Moreover, we know that you understand your activities better. So Uncle Jim allows you to create your very own categories to organise your activities. Uncle Jim is also capable of managing both tasks *and* event so you don't have to use two different applications to be productive. Our unique product will intelligently sieve out urgent deadlines and serve up reminders for you so you will no longer overlook another significant activity.
 
 Sounds exciting? Then let's get started!
 
@@ -25,8 +25,8 @@ Sounds exciting? Then let's get started!
 
     <img src="images/app_screenshot.png" width="700" alt="Example of UI once launched" /> <figcaption>Initial launch screen of Uncle Jim</figcaption>
 
-5. Type the command in the command box and press <kbd>Enter</kbd> to execute it. 
-6. Some example commands you can try:
+5. Type in the command box and press <kbd>Enter</kbd> to execute it. 
+6. Here are some example commands you can try:
 
      * **`add`**` Finish CS2103T homework /d next Friday` - 
        adds a new task with the deadline set at next Friday
@@ -36,9 +36,11 @@ Sounds exciting? Then let's get started!
 7. Refer to the [commands reference](#commands-reference) section below for details of each command.
 
 
-## Commands Reference
+## Command Reference
 
-### Command Format
+You can refer to the section below for the full list of commands that are available in Uncle Jim. For quick reference you can also refer to the [command summary](#command-summary) at the end of this guide or use the `help` command when using the app.   
+
+### Notes regarding command format
 
 * Words in `UPPERCASE` are the parameters.
 * Items in `[SQUARE BRACKETS]` are optional.
@@ -52,7 +54,7 @@ Sounds exciting? Then let's get started!
 
 ### Entering in dates 
 
-Since Uncle Jim supports flexible command format as much as possible, many natural variations in the date are acceptable. They include:
+Uncle Jim supports flexible date formats so you can enter dates in the formats specified below:
 
 * **Formal dates**
 
@@ -64,10 +66,10 @@ Since Uncle Jim supports flexible command format as much as possible, many natur
 
 * **Relaxed dates**
 
-    Allows for months and days to be expressed in words instead of numbers. If you don't include the full date we will use the current month or year 
+   It is not always necessary write it in full formal date formats, Uncle Jim allows relaxed date formats as well. If you don't include the full date we will use the current month or year 
   
     !!! example 
-        Oct 12  
+        Oct 12 9pm
         9 May
   
 
@@ -80,53 +82,58 @@ Since Uncle Jim supports flexible command format as much as possible, many natur
         tomorrow evening  
         in two days
 
+!!! note If no time is specified when entering a date, Uncle Jim will use the current time by default 
+
+
 ### Viewing help : **`help`**
 
 Format: **`help`**
 
-Shows a quick reference of common actions and commands. 
+Help allows you to have a quick reference of the commands in case you forgot the format to follow.  
  
 ### Adding a task or event: **`add`**
 
-Adds a new task or event.  
 Format:  
 **`add`**` TASK NAME [/d DEADLINE] [/m DESCRIPTION] [/p] [/t TAG 1, TAG 2...]`  
 **`add`**` EVENT NAME /d START END [/m DESCRIPTION] [/l LOCATION] [/p] [/t TAG 1, TAG 2...]`
 
-Although there are many parameters, all of them except name are optional. Tasks will be turned into events automatically if there are two dates specified under the `/d` flag. Here are some common scenarios:
+You can add new tasks or events to the To-do List using the `add` command.  
+
+Although the list of parameters above looks intimidating, all of them except the name of the task are optional. Tasks will be turned into events automatically if there are two dates specified under the `/d` flag. 
+
+Here are some common scenarios where you would use the various parameters:
 
 #### Adding a task
 
-Adding a task can be simply giving a name.
+You can add a task by simply giving a name.
 
 !!! example
     **`add`**` Finish up developer guide for CS2101` 
 
 #### Adding an event
 
-Events normally will have include a start time, end time and a location and can be phrased as follows using the `/d` and `/l` flags.
+You can add events by specifying a start time and end time with the `/d` flag. Event locations can be specified by adding them with the `/l` flag.  
 
 !!! example
     **`add`**` Music at the park /d 11 Dec 6pm to 8pm /l Botanic Gardens /p`
 
 #### Adding a deadline
 
-If you need something done by a specific time, add a deadline to your task.
+If you need something done by a specific time, add a deadline to your task by specifying a single date and time with the `/d` flag.
 
 !!! example
     **`add`**` Submit V.0.0 /d 5 Oct 2359`
 
 #### Adding descriptions to a task
 
-More details can be added to the task using the `/m` flag
+If you need to add more details to a task, you can add them under the `/m` flag. Note that these descriptions will be hidden from default view, once the task is added. To learn how to see these details again refer to [the `show` command](#showing-details-of-a-task-show).
 
 !!! example
     **`add`**` Destroy the Earth /m Going to need a lot of TNT for this. Remember to get them at sale on Friday - 50% discount on bulk orders!`
 
 #### Pinning a task
 
-Important tasks can be pinned to the top of the list using the `/p` flag. See [the `pin` command](#pinning-a-task-pin) 
-for more detail.
+Have task you don't want to forget? These types of tasks or events can be pinned to the top of the list using the `/p` flag. See [the `pin` command](#pinning-a-task-pin) for more details.
 
 !!! example
     **`add`**` Meet Li Kai at Friday Hacks! /d 21 Oct 6pm to 8pm /p`
@@ -152,10 +159,12 @@ Flag | Parameter        | Used to
 
 ### Deleting a task: **`delete`**
 
-Deletes the specified task from to-do list.  
 Format: **`delete`**` INDEX`
 
-Deletes the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
+This allows you to delete the task specified by the `INDEX` parameter. The index refers to the index number shown in the current view.
+
+!!! note
+    If you accidentally deleted the wrong task, not to worry! You can undo the action later on. See the [undo](#undoing-an-action-undo)
 
 !!! example
     
@@ -172,9 +181,13 @@ Format:
 **`complete`**` INDEX`  
 **`complete`**` --all`
 
-You can use this command to mark a task as completed. Completed task appear struckthrough to indicate they have been complete. Using the `all` flag will mark all tasks on the current view as completed. 
+After finishing a task, you can mark it complete by specifying the index of the task you wish to mark complete in the `INDEX` parameter. Completed tasks have their title struckthrough. 
 
-<img src="images/app_screenshot_completed.png" width="700" alt="Example of a Completed Task">
+If you wish to mark a batch of task in the current view as complete, you can use the `--all` flag to mark them all as complete. 
+
+Note that this is a toggle command, so if `INDEX` specified is an 
+
+<img src="images/app_screenshot_completed.png" width="700" alt="Example of a Completed Task" />
 
 <figcaption>Enjoy the satisfaction of marking completed tasks</figcaption>
 
@@ -190,14 +203,15 @@ If a particular task or event is important, you can pin it to the top of every l
 
 ### Editing a task: **`edit`**
 
-Allows you to edit a specific task.  
 Format:  
-**`edit`**` INDEX [/t NAME] [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p]`  
-**`edit`**` INDEX [/t NAME] [/d START END] [/m DESCRIPTION] [/l LOCATION] [/p]`
+**`edit`**` INDEX [NAME] [/d DEADLINE] [/m DESCRIPTION] [/r TIME] [/p]`  
+**`edit`**` INDEX [NAME] [/d START END] [/m DESCRIPTION] [/l LOCATION] [/p]`
 
-Use the `edit` command to make changes to the task specified by `INDEX`. The command accepts the same parameters as the `add` command. Any edit is immediately saved. To edit tags, use the `tag` command shown below. 
+You can edit tasks or events using the `edit` command. This command accepts the same parameters as the `add` command with the addition of `INDEX`, which specifies which task or event you want to edit. 
 
-### Manage tags : **`tag`** 
+Note that edits are automatically saved, and any errors can be undone using `undo`. 
+
+### Manage tags: **`tag`** 
 
 Add, edit and delete tags.  
 Format:   
@@ -206,19 +220,19 @@ Format:
 **`tag`**` /e OLD NEW`  
 **`tag`**` [INDEX] /d TAG`  
 
-You can use tags to organize your tasks easily. Tags are case insensitive, and each task can have up to five of them. Use the `tag` command to add, edit or delete tags from one or all of the tasks. Here are some examples of what you can do.
+You can use tags to organize your tasks easily. Tags are case insensitive, and each task can have up to five of them. Use the `tag` command to add, edit or delete tags from one or all of the tasks. Here are the scenarios you would use each format of the `tag` command: 
 
-#### Retag a task 
+#### Retagging a task 
 
-To replace the tags on a task with new ones, specify an `INDEX` with the list of tags you want to replace them with. 
+You can replace the tags on a task with new ones using the `INDEX` with the list of new tags:
 
 !!! example
-    **`tag`**`` 1 nus, cs2101, cs2103t` 
+    **`tag`**` 1 nus, cs2101, cs2103t` 
     :     Replace the tags on the first task with `nus`, `cs2101` and `cs2103t`
 
 #### Adding tags to a task 
 
-Use the `/a` flag to add tags to a task. 
+If you wish to add more tags to a task, use `/a`:
 
 !!! example
     **`tag`**` 1 /a cs2103T`
@@ -227,7 +241,7 @@ Use the `/a` flag to add tags to a task.
 
 #### Editing tags 
 
-To rename a tag, use the `/e` flag and specify the new name for the tag. 
+You can also rename tags using `/e`:
 
 !!! example
     **`tag`**` /e Business Pleasure` 
@@ -236,7 +250,7 @@ To rename a tag, use the `/e` flag and specify the new name for the tag.
 
 #### Deleting tags 
 
-You can also remove a tag from a single task, or all tasks at once with the `/d` flag. 
+You can also remove a tag from either a single task, or all tasks at once with `/d`: 
 
 !!! example
     **`tag`**` 1 /d important` 
@@ -248,38 +262,44 @@ You can also remove a tag from a single task, or all tasks at once with the `/d`
 !!! note "Keep it simple!"
     Tags are only really necessary if you have a *lot* of tasks. Uncle Jim works just as well even if you don't use tags. For maximum productivity, keep your tags short and simple, and keep them broad so that you can apply them to many tasks.
     
-### Show details of a task: **`show`**
+### Showing details of a task: **`show`**
 
-Shows all details of a task/event.  
+  
 Format: **`show`**` INDEX`
 
-Descriptions of tasks and events are hidden by default. In order to display them, use the show command to toggle between the expanded version of a task and its compact form.
+Descriptions of tasks and events are hidden by default. In order to display them, you can use this command to toggle between the expanded version of a task and its compact form.
 
 
-### Switch views : **`view`**
-
-Switch between different views.  
+### Switching views: **`view`**
+  
 Format: **`view`**` VIEW`
 
-To drill down into your to-do list and see specific tasks, use the `view` command.
-
-<img src="images/app_screenshot_completed.png" width="700" alt="View of completed tasks">
-
-<figcaption>Find important and soon overdue tasks</figcaption>
-
-You can also use the underlined character in the view's name as the shortcut when switching views. 
+You can drill down into your To-do List and see specific tasks, such as your incomplete tasks or today's schedule, using the `view` command:
 
 !!! example
     **`view`**` completed`
     :    Show completed tasks only 
 
 
+<img src="images/app_screenshot_completed.png" width="700" alt="View of completed tasks" />
+
+<figcaption>Find important and soon overdue tasks</figcaption>
+
+You can also use the underlined character in the view's name as the shortcut when switching views. 
+
+!!! example
+    **`view`**`i`
+    :    Show incomplete tasks only, since `i` is the underlined character as shown in the image above. 
+
+
 ### Finding tasks: **`find`**
 
-Find tasks whose tags/name contain any of the given keywords.  
 Format: **`find`**` KEYWORD [MORE KEYWORDS]`
 
-The search is case insensitive and the order of the keywords does not matter. Only the title and tags are searched, and tasks matching at least one keyword will be returned.
+You can search for tasks using the `find` command. The search is case insensitive and the order of the keywords does not matter. Only the title and tags are searched, and any tasks matching at least one keyword will be returned.
+
+!!! note 
+    Keywords are separated by spaces, not comma
 
 !!! example  
     **`find`**` John`  
@@ -293,30 +313,32 @@ The search is case insensitive and the order of the keywords does not matter. On
     :    Returns any task with either **Jo** or **Ja** in the title, such as 
          **Meet John for lunch**, **Meet Jane for lunch**, or **Jack and Jane's wedding**
 
-### Exiting the program : **`exit`**
-
-Exits the program.  
+### Exiting the app: **`exit`**
+  
 Format: **`exit`**  
+
+If you wish to exit the program, simply type `exit`.
 
 ### Undoing an action: **`undo`**
 
-Undo the most recent action.  
 Format: **`undo`**
 
+If you make any mistake, simply typing `undo` to undo your last action. 
+
 !!! note
-    Only applies to commands which have made changes to the to-do list like `add`, `edit` and `delete` 
+    Only applies to commands which have made changes to the To-do list like `add`, `edit` and `delete`
 
 ### Redoing an action: **`redo`**
-
-Redo the most recent action which was undone.  
+  
 Format: **`redo`**
+
+Similar to the `undo` command, you can redo your most recent action that you revoked as well. 
 
 ### Loading an existing data file: **`load`**
 
 Format: **`load`**` FILENAME`
 
-Loads in another save file. You can use this to restore a backup or switch to different lists so you can 
-(for example) have separate lists for school and home. 
+You can use `load` to load another `.xml` file into the application. This can be used to restore a backup or switch to different lists. You can also use this to manage different To-do lists, such as having one for home and another for work.
 
 !!! example
 
@@ -331,7 +353,7 @@ By default, to-do list data are saved in a file called `discountTodo.xml` in the
 The `save` command will show you the location of the current save file if you use it without specifying a `FILENAME`. 
 
 !!! note "Autosave"
-    Your to-do list is saved automatically every time it is updated. There is no need to save manually.
+    Your to-do list is saved automatically every time it is updated. There is no need to save manually after each edit. 
 
 
 ## FAQ

@@ -5,10 +5,12 @@ import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.model.property.SearchStatus;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -60,6 +62,15 @@ public interface Model {
      *                                task to be updated are not valid
      */
     ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException;
+    
+    /**
+     * Carries out the specified update in the fields of all visible tasks. Mutation of all {@link Task}
+     * objects should only be done in the <code>update</code> lambda. The lambda takes in a single parameter,
+     * a {@link MutableTask}, and does not expect any return value, as per the {@link update} command. 
+     * 
+     * @throws ValidationException if any updates on any of the task objects are considered invalid
+     */
+    void updateAll(Consumer <MutableTask> update) throws ValidationException;
 
     /**
      * Sets the model to the provided TaskViewFilter object. TaskViewFilters represents the
@@ -68,9 +79,17 @@ public interface Model {
     void view(TaskViewFilter view);
 
     /**
-     * Filters the list of tasks by this predicate. This is run after the view predicate. 
+     * Filters the list of tasks by this predicate. This is filtering is ran 
+     * after the view predicate. No information about the search is shown to the user. 
+     * Setting predicate to null will reset the search. 
      */
     void find(Predicate<ImmutableTask> predicate);
+
+    /**
+     * Filters the list of tasks by this predicate. This is filtering is ran 
+     * after the view predicate. A list of search terms is also shown to the user. 
+     */
+    void find(Predicate<ImmutableTask> predicate, List<String> terms);
 
     /**
      * Undoes the last operation that modifies the todolist
@@ -110,4 +129,9 @@ public interface Model {
      * Get the current view filter used on the model. Used mainly by the JavaFx UI. 
      */
     ObjectProperty<TaskViewFilter> getViewFilter();
+
+    /**
+     * Get the current status of the search used on the model.  
+     */
+    ObjectProperty<SearchStatus> getSearchStatus();
 }

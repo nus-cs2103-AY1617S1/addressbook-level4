@@ -130,6 +130,30 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
+/*@@author A0135817B */
+.searchStatus {
+    -fx-padding: 4px;
+}
+
+.searchStatus Text {
+    -fx-font-size: 14px;
+    -fx-fill: #fff;
+}
+
+.searchStatus .searchLabel {
+}
+
+.searchStatus .searchTerm {
+    -fx-font-weight: bold;
+}
+
+.searchStatus .searchCount {
+    -fx-text-alignment: right;
+}
+
+
+
+/*@@author A0315805H */
 /***TaskCardView Styles Start***/
 /*Default and Base*/
 .taskCard .label {
@@ -232,6 +256,35 @@
 }
 
 
+/*@@author A0092382A */
+/*Ongoing*/
+.ongoing {
+    -fx-background-color: #388E3C;
+}
+
+.ongoing .label {
+    -fx-text-fill: #FFFFFF;
+}
+
+.ongoing .roundLabel {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #388E3C;
+}
+
+.ongoing .pinImage {
+    -fx-image: url("../images/star_white.png");
+}
+
+.ongoing .dateImage {
+    -fx-image: url("../images/clock_white.png");
+}
+
+.ongoing .locationImage {
+    -fx-image: url("../images/location_white.png");
+}
+
+
+/* @@author A0315805H */
 /*Selected*/
 .selected {
     -fx-background-color: #00A4FF;

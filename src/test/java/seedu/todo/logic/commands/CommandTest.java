@@ -60,6 +60,14 @@ public abstract class CommandTest {
     }
     
     /**
+     * Asserts that the model has this number of tasks stored in internal storage (visible and not visible)
+     */
+    
+    protected void assertTotalTaskCount(int size) {
+        assertEquals(size, todolist.getTasks().size());
+    }
+    
+    /**
      * Asserts that the model has this number of tasks visible
      */
     protected void assertVisibleTaskCount(int size) {
@@ -146,6 +154,10 @@ public abstract class CommandTest {
         result = command.execute();
         
         assertEquals(expectSuccess, result.isSuccessful());
+        
+        // Resets the command object for re-execution
+        command = commandUnderTest();
+        params = new StubParseResult();
     }
 
     private class StubParseResult implements ParseResult {

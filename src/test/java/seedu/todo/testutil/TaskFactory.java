@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -125,6 +126,22 @@ public class TaskFactory {
             tasks.add(random());
         }
         
+        return tasks;
+    }
+
+    //@@author A0135805H
+    /**
+     * Generates a list of random tasks with a random size between {@code lowerBound}
+     * and {@code upperBound} inclusive.
+     *
+     * @return Returns a randomly generated list.
+     */
+    public static List<ImmutableTask> list(int lowerBound, int upperBound) {
+        int size = lowerBound + random.nextInt(upperBound - lowerBound + 1);
+        ArrayList<ImmutableTask> tasks = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            tasks.add(random());
+        }
         return tasks;
     }
 }
