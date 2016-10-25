@@ -77,10 +77,15 @@ public class StringUtil {
      * @return The percentage score of their closeness
      */
     public static double calculateClosenessScore(String s1, String s2) {
+        // empty string, not close at all
+        if (isEmpty(s1) || isEmpty(s2)) {
+            return 0d;
+        }
+        
         s1 = s1.toLowerCase();
         s2 = s2.toLowerCase();
         int distance = StringUtils.getLevenshteinDistance(s1, s2);
         double ratio = ((double) distance) / (Math.max(s1.length(), s2.length()));
-        return 100 - new Double(ratio*100);      
+        return 100 - ratio * 100;
     }
 }

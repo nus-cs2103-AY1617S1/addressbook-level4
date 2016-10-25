@@ -1,5 +1,6 @@
 package seedu.todo.commons.util;
 
+import org.apache.commons.lang.ObjectUtils.Null;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -120,6 +121,20 @@ public class StringUtilTest {
         String[] expected = {"I hav", "e", " a Pikachu"};
         String[] outcome = StringUtil.partitionStringAtPosition("I have a Pikachu", 5);
         assertArrayEquals(expected, outcome);
+    }
+    
+    @Test
+    public void calculateClosenessScoreNull() {
+        double expected = 0d;
+        double outcome = StringUtil.calculateClosenessScore(null, null);
+        assertEquals(expected, outcome, 0d);
+    }
+    
+    @Test
+    public void calculateClosenessScoreEmptyString() {
+        double expected = 0d;
+        double outcome = StringUtil.calculateClosenessScore("", "");
+        assertEquals(expected, outcome, 0d);
     }
     
     @Test
