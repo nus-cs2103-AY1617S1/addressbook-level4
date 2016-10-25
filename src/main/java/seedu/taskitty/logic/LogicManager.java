@@ -1,6 +1,5 @@
 package seedu.taskitty.logic;
 
-import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import seedu.taskitty.commons.core.ComponentManager;
 import seedu.taskitty.commons.core.LogsCenter;

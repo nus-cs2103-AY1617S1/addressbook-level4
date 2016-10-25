@@ -2,9 +2,6 @@
 package seedu.taskitty.model;
 
 import seedu.taskitty.commons.exceptions.IllegalValueException;
-import seedu.taskitty.model.tag.UniqueTagList;
-import seedu.taskitty.model.task.Name;
-import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.TaskDate;
 import seedu.taskitty.model.task.TaskPeriod;
 import seedu.taskitty.model.task.TaskTime;
