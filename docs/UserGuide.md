@@ -51,21 +51,24 @@ TIME | Day of the Week or 24:00 format
 TAG | Alphanumeric
 INDEX | Integers
 
-
-#### View help : `help`
+<br>
+### View help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-
-#### Add a task/tag
-##### Add a task: `add`
+<br>
+### Add a task: `add`
 Adds a task to the task manager.<br>
 Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [end/ENDTIME] [t/TAG]...`
 
-> * Tasks can have different priorities, normal by default, high or low
+> * Priority should be high, normal or low
+> * Starttime and endtime should either be in 24H format or given as a Day of the Week
 > * Deadlines are set for tasks if an endtime entered without a starttime
 > * Tasks can have any number of tags (including 0)
+> * If no priority added, the priority is set normal by default
+> * If no starttime/endtime/tag added, the starttime/endtime/tag will be empty
+
 
 Examples:
 * `add Midterms pr/high start/14:00 end/16:00 t/important`
@@ -73,29 +76,24 @@ Examples:
 * `add AFA pr/low start/9:00 t/anime`
 * `add get eggs pr/low t/family`
 * `add organize room`
-
-##### Add tags: `addTag`
-Add tags to specified task.<br>
-Format: `addTag INDEX TAG`
-
-Example:
-* `list`<br>
-  `addTag 2 NUS`<br>
-  Adds the tag `NUS` to the task with the index 2
-
-
-#### List all tasks/tags
+<br>
+### List
 ##### List all tasks: `list`
 Shows a list of all tasks in the task manager.<br>
-Format: `list [-pr] [-t/TAGS]...`
+Format: `list [-pr] [-st] [-ed] [-t/TAGS]...`
 
-> * Tasks are sorted chronologically by default
-> * Tasks without deadlines are listed at the end when chronologically sorted
+> * Tasks are listed in the order of the user inputs the tasks by default.
+> * With different modifiers, tasks is listed in different order.
 
 Modifiers | Action
 --- | :---
 -pr | Tasks are listed by priority
+-st | Tasks are listed by start time
+-ed | Tasks are listed by end time
 -t/TAG | Tasks with the specified tag are listed
+> * When `list -st`, tasks without start time will be listed at the end of the list. 
+> * When `list -ed`, tasks without end time will be listed at the end of the list. 
+
 
 <div style="text-align:center" markdown="1">
 <img src="images/UserGuide Mock up2.png" title="Task manager listing tasks by priority" width="900">
@@ -106,10 +104,20 @@ Modifiers | Action
 Lists all the tags used in the task manager.<br>
 Format: `list tags`
 
+<br>
+### Delete a task: `delete`
+Deletes the specified task from the task manager.<br>
+Format: `delete INDEX`
 
-#### Finding tasks
-##### Find all tasks containing any keyword in their description: `find`
-Finds tasks whose description contain any of the given keywords.<br>
+Examples:
+* `list`<br>
+  `delete 2`<br>
+  Deletes the 2nd task in the task manager.
+
+<br>
+### Find
+##### Find all tasks with keyword: `find`
+Finds tasks whose description contains any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 > * The search is not case sensitive. e.g. `Gives` will match `gives`
@@ -123,7 +131,7 @@ Examples:
 * `find Tutorial`<br>
   Returns `Tutorial 8` but not `tutorial`
 * `find Return lunch Meeting`<br>
-  Returns Any tasks having description containing `Return`, `lunch`, or `Meeting`
+  Returns any tasks having description containing `Return`, `lunch`, or `Meeting`
 
 ##### Find tasks using specified information: `find pr/`
 Find tasks with the specified priority.<br>
@@ -147,29 +155,10 @@ Format: `find end/TIME`
 Find tasks that have any of the specified tags.<br>
 Format: `find t/TAG [MORE_TAGS]`
 
-
-#### Delete a task/tag
-##### Delete a task: `delete`
-Deletes the specified task from the task manager.<br>
-Format: `delete INDEX`
-
-Examples:
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd task in the task manager.
-
-##### Delete tags from a task: `deleteTag`
-Delete tags from specified task.<br>
-Format: `deleteTag INDEX TAG`
-
-Example:
-* `list`<br>
-  `deleteTag 3 NTU`<br>
-  Removes the tag `NTU` from the task with the index 3
-
-
-#### Edit a task: `update`
-Edits the specified task.<br>
+<br>
+### Edit: 
+##### Edit a task: `update`
+Update a detail of a task with the specific index in the list.<br>
 Format: `update INDEX PROPERTY INPUT`
 
 > * Edits a property of the task with the input index by replacing the information stored with the new information accordingly
@@ -181,8 +170,26 @@ Examples:
   `update 3 descrition Go to SOC`<br>
   Edits the 3rd task in the task manager by replacing the previous description with `Go to SOC`.
 
+##### Add a tag: `addTag`
+Add a tag to a task with specific index in the list.<br>
+Format: `addTag INDEX TAG`
 
-#### Complete a task: `complete`
+Example:
+* `list`<br>
+  `addTag 2 NUS`<br>
+  Adds the tag `NUS` to the task with the index 2
+  
+##### Delete a tag: `deleteTag`
+Delete a tag of a task with specific index in the list.<br><br>
+Format: `deleteTag INDEX TAG`
+
+Example:
+* `list`<br>
+  `deleteTag 3 NTU`<br>
+  Removes the tag `NTU` from the task with the index 3
+
+<br>
+### Complete a task: `complete`
 Marks the task with the specified index as 'Completed' and removes it from the calendar.<br>
 Format: `complete INDEX`
 
@@ -191,23 +198,23 @@ Examples:
   `complete 2`<br>
   Marks the second task as 'Completed' and removes it from the calendar.<br>
 
-
-#### Undo action: `undo`
+<br>
+### Undo action: `undo`
 Undoes the most recent change from the task manager.<br>
 Format: `undo`
 
-
-#### Clear entries: `clear`
+<br>
+### Clear entries: `clear`
 Clears all entries from the task manager.<br>
 Format: `clear`
 
-
-#### Exit the program: `exit`
+<br>
+### Exit the program: `exit`
 Exits the program.<br>
 Format: `exit`
 
-
-#### Save data
+<br>
+### Save data
 Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
