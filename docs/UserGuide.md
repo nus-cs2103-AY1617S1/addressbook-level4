@@ -146,8 +146,16 @@ Format: `exit`
 
 #### Saving the data 
 Malitio data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.
+There is no need to save manually. <br>
 
+#### Specifying location of local data file: `save`
+Users can specify which directory to save their data file. Only valid directory will be created if it does not exist already. <br>
+The old data file will automatically be deleted.
+Format: `save DIRECTORY`
+
+Example: 
+* `save C://Users`<br>
+  Saves data in C://Users/malitio.xml
 
 
 ## FAQ
@@ -168,5 +176,6 @@ List | `list`
 Edit | `edit f\d\e+INDEX [NAME] [by DDMMYYYY TTTT] [start DDMMYYYY TTTT] [end DDMMYYYY TTTT] [t/TAG] `
 Help | `help`
 Undo | `undo`
+Save | `save DIRECTORY`
 
 
