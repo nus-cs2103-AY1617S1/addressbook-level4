@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.StateLimitException;
-import seedu.address.model.state.TaskManagerState;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
@@ -37,10 +36,13 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
 
-	void updateFilteredTaskList(String keyword);
+	void updateFilteredTaskList(String type);
 	
-	/** Updates the filter of the filtered task list to filter by the given date*/
-	void updateFilteredTaskList(String dateValue, boolean isEventDate);
+	/** Updates the filter of the filtered task list to filter by the given keywords of the given type*/
+	void updateFilteredTaskList(String keyword, String type);
+	
+	/** Updates the filter of the filtered task list to filter by the given tags*/
+    void updateFilteredTaskListByTags(Set<String> keywords);
 	
 	/** Update the task manager to the new file path*/
 	void updateTaskManager(String filePath, boolean isToClearOld);

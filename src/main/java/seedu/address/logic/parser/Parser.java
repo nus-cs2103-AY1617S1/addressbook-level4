@@ -360,14 +360,17 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFilter(String arguments) {
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, startDatePrefix);
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(deadlinePrefix, startDatePrefix, endDatePrefix,
+                recurringPrefix, tagPrefix);
         argsTokenizer.tokenize(arguments);
-        if (argsTokenizer.getTokenizedArguments().containsKey(deadlinePrefix)) {
-            if (!argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)) {
-                return new FilterCommand(argsTokenizer.getValue(deadlinePrefix).get(), false);
-            }
-        } else if (argsTokenizer.getTokenizedArguments().containsKey(startDatePrefix)) {
-            return new FilterCommand(argsTokenizer.getValue(startDatePrefix).get(), true);
+        Optional<String> deadline = argsTokenizer.getValue(deadlinePrefix);
+        Optional<String> startDate = argsTokenizer.getValue(startDatePrefix);
+        Optional<String> endDate = argsTokenizer.getValue(endDatePrefix);
+        Optional<String> recurring = argsTokenizer.getValue(recurringPrefix);
+        Optional<List<String>> tags = argsTokenizer.getAllValues(tagPrefix);
+        if (deadline.isPresent() || startDate.isPresent() || endDate.isPresent() 
+                || recurring.isPresent() || tags.isPresent()) {
+           return new FilterCommand(deadline, startDate, endDate, recurring, toSet(tags));
         }
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterCommand.MESSAGE_USAGE));
     }
