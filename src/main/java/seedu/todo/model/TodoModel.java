@@ -150,11 +150,11 @@ public class TodoModel implements Model {
     public void updateAll(Consumer<MutableTask> update) throws ValidationException {
         saveUndoState();
         Map<UUID, Integer> uuidMap = new HashMap<>();
-        for (int i = 0; i < tasks.size(); i++){
+        for (int i = 0; i < tasks.size(); i++) {
             uuidMap.put(tasks.get(i).getUUID(), i);
         }
         List<Integer> indexes = new ArrayList<>();
-        for (ImmutableTask task : getObservableList()){
+        for (ImmutableTask task : getObservableList()) {
             indexes.add(uuidMap.get(task.getUUID()));
         }
         todolist.updateAll(indexes, update);

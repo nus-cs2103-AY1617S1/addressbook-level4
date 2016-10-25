@@ -67,7 +67,6 @@ public class TodoList implements TodoListModel {
                 todoListModified = true;
             }
         }
-        
         if (todoListModified) {
             saveTodoList();
         }
@@ -127,14 +126,14 @@ public class TodoList implements TodoListModel {
     
     @Override
     public void updateAll(List<Integer> indexes, Consumer<MutableTask> update) throws ValidationException {
-        for (Integer x: indexes){
+        for (Integer x: indexes) {
             MutableTask task = tasks.get(x);
             ValidationTask validationTask = new ValidationTask(task);
             update.accept(validationTask);
             validationTask.validate();
         }
         
-        for (Integer i : indexes){
+        for (Integer i : indexes) {
             MutableTask task = tasks.get(i);
             update.accept(task);
         }
