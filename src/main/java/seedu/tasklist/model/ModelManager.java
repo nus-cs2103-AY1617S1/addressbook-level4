@@ -294,6 +294,7 @@ public class ModelManager extends ComponentManager implements Model {
     // ========== Inner classes/interfaces used for filtering
     // ==================================================
 
+    /*
     private static class Comparators {
         public static Comparator<Task> DATE_TIME = new Comparator<Task>() {
             @Override
@@ -315,6 +316,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
         };
     }
+    */
 
     interface Expression {
         boolean satisfies(ReadOnlyTask person);
