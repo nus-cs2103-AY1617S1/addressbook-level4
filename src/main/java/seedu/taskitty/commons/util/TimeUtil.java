@@ -4,6 +4,8 @@ import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+//@@author A0139930B-unused
+//Code was written before switching over to using Natty
 /**
  * Converts a String to Date and vice versa.
  */
