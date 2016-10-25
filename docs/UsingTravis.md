@@ -1,3 +1,4 @@
+//@@author A0139708W-reused
 # Travis CI
 
 [Travis CI](https://travis-ci.org/) is a _Continuous Integration_ platform for GitHub projects.
