@@ -113,8 +113,6 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 `DATE_TIME` is flexible!<br>
 If no `DATE` is specified, `DATE` will be assumed to be the current date<br>
 If no `TIME` is specified, `TIME` will be assumed to be 11:59pm
-* `DATE` formats:
-   * Dates such as `13th Sep`, `10 October 2016`, `02/10/2016 (mm/dd/yyyy)` are acceptable too. 
 
 <br>
 
@@ -132,8 +130,8 @@ If no `TIME` is specified, `TIME` will be assumed to be 11:59pm
 |Relative Date| `today`, `tonight`<br> `tmr`, `tommorow`|Today<br> Tomorrow|
 <br>
 
-|Time| Format| Interpreted Time
-|-------- | :-------- |
+|Time| Format| Interpreted Time|
+|-------- | :-------- |---|
 |24Hr| `20.50`, `20:50`, `2050`| 8.50pm|
 |AM/PM| `8.50pm`, `8:50pm`, `0850pm`| 8.50pm|
 |Preset|`midnight`<br> `noon`|12am<br>12pm|
