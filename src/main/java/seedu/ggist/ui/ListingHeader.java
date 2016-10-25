@@ -4,6 +4,8 @@ import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.events.ui.ChangeListingEvent;
@@ -13,12 +15,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import org.controlsfx.control.StatusBar;
-
-import java.util.Date;
-import java.util.logging.Logger;
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 public class ListingHeader extends UiPart {
     
@@ -26,6 +29,10 @@ public class ListingHeader extends UiPart {
     
     private static final String FXML = "ListingHeader.fxml";
     
+
+    private VBox mainPane;
+    
+    private AnchorPane placeHolder;
     @FXML
     private AnchorPane listHeader;
     @FXML
@@ -44,17 +51,40 @@ public class ListingHeader extends UiPart {
     }
 
     public void configure(String listing) {
+        addMainPane();
+        addListing();
         setListing(listing);
         registerAsAnEventHandler(this);
     }
     
-    public void setListing(String listing) {
-        lastListing = listing;
+    private void addMainPane() {
+        FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
+        placeHolder.getChildren().add(mainPane);
     }
     
-    @FXML
-    public void initialize() {
-        listing.setText(lastListing);
+    public void setListing(String listing) {
+        if (listing.equals("all")) {
+            this.listing.setText("ALL TASKS");
+        } else if (listing.equals("done")) {
+            this.listing.setText("ALL COMPLETED TASKS");
+        } else if (listing.equals("")) {
+            this.listing.setText("TASKS NOT COMPLETED");
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMMM yyyy");
+            this.listing.setText(sdf.format(new PrettyTimeParser().parse(listing).get(0)).toString());
+        }
+       
+    }
+   
+    private void addListing() {
+        FxViewUtil.applyAnchorBoundaryParameters(listHeader, 0.0, 0.0, 0.0, 0.0);
+        placeHolder.getChildren().add(this.listing);
+    }
+
+
+    @Override
+    public void setPlaceholder(AnchorPane placeholder) {
+        this.placeHolder = placeholder;
     }
     
     @Override
@@ -64,14 +94,14 @@ public class ListingHeader extends UiPart {
     
     @Override
     public void setNode(Node node) {
-        listing = (Label)node;
+        mainPane = (VBox)node;
     }
+
     
     @Subscribe
     public void handleChangeListingEvent(ChangeListingEvent abce) {
-        String lastListing = abce.toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last listing status to " + lastListing));
-        this.lastListing = lastListing;
+        setListing(abce.listing);
     }
 
 

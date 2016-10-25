@@ -113,7 +113,8 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        listHeader = ListingHeader.load(primaryStage, getListHeaderPlaceHolder(), (new Date()).toString());
+
+        listHeader = ListingHeader.load(primaryStage, getListHeaderPlaceHolder(), logic.getListing());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
