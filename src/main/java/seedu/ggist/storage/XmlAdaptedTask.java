@@ -28,6 +28,8 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private boolean done;
     @XmlElement(required = true)
+    private boolean deleted;
+    @XmlElement(required = true)
     private String priority;
 
     /**
@@ -47,8 +49,12 @@ public class XmlAdaptedTask {
         startTime = source.getStartTime().value;
         endDate = source.getEndDate().value;
         endTime = source.getEndTime().value;
-        done = source.getDone();
+        done = source.isDone();
         priority = source.getPriority().value;
+        if (source.isDeleted()) {
+            endDate = "Sun, 23 Oct 16";
+            endTime = "12:00 am";
+        }
     }
 
     /**
@@ -57,6 +63,7 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Task toModelType() throws IllegalValueException {
+        
         final TaskName taskName = new TaskName(this.taskName);
         final TaskDate startDate = new TaskDate(this.startDate);
         final TaskTime startTime = new TaskTime(this.startTime);

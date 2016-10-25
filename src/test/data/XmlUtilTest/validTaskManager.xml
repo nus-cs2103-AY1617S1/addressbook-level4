@@ -7,6 +7,7 @@
         <endDate>No end date specified</endDate>
         <endTime>No end time set</endTime>
         <done>false</done>
+        <deleted>false</deleted>
         <priority>low</priority>
     </tasks>
     <tasks>
@@ -16,6 +17,7 @@
         <endDate>Fri, 21 Oct 16</endDate>
         <endTime>11:59 PM</endTime>
         <done>false</done>
+         <deleted>false</deleted>
         <priority>high</priority>
     </tasks>
     <tasks>
@@ -25,6 +27,7 @@
         <endDate>Sat, 22 Oct 16</endDate>
         <endTime>11:00 PM</endTime>
         <done>false</done>
+        <deleted>false</deleted>
         <priority>med</priority>
     </tasks>
     <tasks>
@@ -34,6 +37,7 @@
         <endDate>Wed, 12 Oct 16</endDate>
         <endTime>1:00 PM</endTime>
         <done>false</done>
+        <deleted>false</deleted>
         <priority>high</priority>
     </tasks>
 </taskmanager>
