@@ -220,27 +220,6 @@ public class TagCommand extends BaseCommand {
         }
     }
 
-    /**
-     * Check if the given tag names are actually not found in the {@code task}.
-     * @throws ValidationException Throw an error if such a supplied tag name is not found.
-     */
-    private void checkForTagNamesNotExisted(ImmutableTask task,
-                                                  String[] tagNames) throws ValidationException {
-        List<String> tagNamesNotFound = new ArrayList<>();
-        Set<String> tagNamesFromTask = getTagNames(task.getTags());
-        for (String tagName : tagNames) {
-            if (!tagNamesFromTask.contains(tagName)) {
-                tagNamesNotFound.add(tagName);
-            }
-        }
-        if (!tagNamesNotFound.isEmpty()) {
-            String tagsNotFoundText = StringUtil.convertListToString(tagNamesNotFound.toArray(new String[0]));
-            ErrorBag bag = new ErrorBag();
-            bag.put(tagsNotFoundText + ERROR_TAGS_NOT_FOUND_IN_TASK);
-            throw new ValidationException("", bag);
-        }
-    }
-
     /* Helper Methods */
     /**
      * Returns true if a given string is a valid tag name (alphanumeric, can contain dashes and underscores)
