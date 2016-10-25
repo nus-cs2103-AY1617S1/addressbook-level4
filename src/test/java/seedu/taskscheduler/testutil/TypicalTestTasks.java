@@ -9,7 +9,7 @@ import seedu.taskscheduler.model.task.*;
  */
 public class TypicalTestTasks {
 
-    public static TestTask alice, benson, carl, daniel, elle, fiona, george, hoon, ida, overdue;
+    public static TestTask alice, benson, carl, daniel, elle, fiona, george, event, ida, overdue, floating, deadline;
 
     public TypicalTestTasks() {
         try {
@@ -28,12 +28,17 @@ public class TypicalTestTasks {
             george = new TaskBuilder().withName("Project Briefing").withAddress("ICube Lecture Hall")
                     .withEndDate("01 Jan 2034").withStartDate("01 Jan 2034").withTags("Event").build();
             //Manually added
-            hoon = new TaskBuilder().withName("Wildlife Photoshoot").withAddress("Wildlife Reserves")
-                    .withEndDate("today").withStartDate("yesterday").build();
             ida = new TaskBuilder().withName("University Graduation").withAddress("University Cultural Centre")
                     .withEndDate("15 July 2016").withStartDate("7 July 2016").build();
             overdue = new TaskBuilder().withName("Overdue Task Colour Test").withAddress("At ICube Lecture Hall")
                     .withEndDate("10 years ago").withStartDate("10 years ago").build();
+            event = new TaskBuilder().withName("Wildlife Photoshoot").withAddress("Wildlife Reserves")
+                    .withEndDate("today").withStartDate("yesterday").build(); // event task
+            floating = new TaskBuilder().withName("Floating Task").withAddress("")
+                    .withEndDate("").withStartDate("").withTags().build(); // floating task
+            deadline = new TaskBuilder().withName("Deadline Task").withAddress("")
+                    .withEndDate("tomorrow").withStartDate("").withTags("Deadline").build(); // deadline task
+
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -56,7 +61,7 @@ public class TypicalTestTasks {
     }
 
     public TestTask[] getTypicalTasks() {
-        return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
+        return new TestTask[] {alice, benson, carl, daniel, elle, fiona, george};
     }
 
     public TaskScheduler getTypicalTaskScheduler(){

@@ -19,7 +19,7 @@ public class DateFormatter {
 
     private static DateFormat fullTimeFormatter = new SimpleDateFormat("HHmmss");
     
-    private static DateFormat dateDisplayFormatter = new SimpleDateFormat("dd-MMM-yyyy");
+    private static DateFormat dateDisplayFormatter = new SimpleDateFormat("dd-MMM-yyyy, EEE");
     private static DateFormat timeDisplayFormatter = new SimpleDateFormat("hh:mm aa");
     
     public static Date convertStringToDate(String val) throws IllegalValueException {

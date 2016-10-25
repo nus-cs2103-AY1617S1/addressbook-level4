@@ -25,21 +25,21 @@ public class RecurCommandTest extends TaskSchedulerGuiTest {
         
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
-        commandBox.runCommand(td.hoon.getAddCommand());
+        commandBox.runCommand(td.event.getAddCommand());
         
         //recur without index
         commandBox.runCommand("recur every 3 days until next week");
         long dateInterval = 3 * 24 * 3600 * 1000; // 3 days
         long dateLimit = 7 * 24 * 3600 * 1000; // 1 week
 
-        currentList = TestUtil.addTasksToList(currentList, td.hoon);
-        currentList = generateExpectedList(td.hoon, currentList, dateInterval, dateLimit);
+        currentList = TestUtil.addTasksToList(currentList, td.event);
+        currentList = generateExpectedList(td.event, currentList, dateInterval, dateLimit);
         assertTrue(taskListPanel.isListMatching(currentList));
         
         //assert undo works for recur command
         commandBox.runCommand("undo");
         currentList = td.getTypicalTasks();
-        currentList = TestUtil.addTasksToList(currentList, td.hoon);
+        currentList = TestUtil.addTasksToList(currentList, td.event);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //recur with index

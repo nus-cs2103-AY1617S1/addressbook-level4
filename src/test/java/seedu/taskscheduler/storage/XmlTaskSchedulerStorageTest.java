@@ -73,7 +73,7 @@ public class XmlTaskSchedulerStorageTest {
         assertEquals(original, new TaskScheduler(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addTask(new Task(TypicalTestTasks.hoon));
+        original.addTask(new Task(TypicalTestTasks.event));
         original.removeTask(new Task(TypicalTestTasks.alice));
         xmlTaskSchedulerStorage.saveTaskScheduler(original, filePath);
         readBack = xmlTaskSchedulerStorage.readTaskScheduler(filePath).get();

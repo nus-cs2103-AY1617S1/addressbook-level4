@@ -80,6 +80,14 @@ public class CommandHistory {
 		executedCommands.clear();
 	}
 	
+    public static void flushPrevCommands() {
+        prevCmd.clear();
+    }
+    
+    public static void flushNextCommands() {
+        nextCmd.clear();
+    }
+	
 	public static void setModTask(ReadOnlyTask task) {
 	    lastModTask = task;
 	}

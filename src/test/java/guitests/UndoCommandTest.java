@@ -23,12 +23,12 @@ public class UndoCommandTest extends TaskSchedulerGuiTest {
 		//clear mutate command history
 		CommandHistory.flushExecutedCommands();
         TestTask[] currentList = td.getTypicalTasks();
-        ReadOnlyTask task = td.hoon;
+        ReadOnlyTask task = td.event;
         String commandKey;
         
         //undo add command
         commandKey = "add";
-        commandBox.runCommand(td.hoon.getAddCommand());
+        commandBox.runCommand(td.event.getAddCommand());
         assertUndoSuccess(commandKey,currentList,task);
         
         //undo delete command
@@ -64,7 +64,7 @@ public class UndoCommandTest extends TaskSchedulerGuiTest {
         commandBox.runCommand("edit " + 2 + " " + td.ida.getTaskString());
         commandBox.runCommand("mark 5");
         commandBox.runCommand("mark 3");
-        commandBox.runCommand(td.hoon.getAddCommand());
+        commandBox.runCommand(td.event.getAddCommand());
         commandBox.runCommand("delete 3");
         for (int i = 0; i < 5; i++) {
         	commandBox.runCommand(UndoCommand.COMMAND_WORD);

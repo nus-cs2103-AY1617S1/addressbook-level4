@@ -4,6 +4,8 @@ import seedu.taskscheduler.commons.util.CollectionUtil;
 import seedu.taskscheduler.model.tag.UniqueTagList;
 import seedu.taskscheduler.model.task.*;
 
+//@@author A0148145E
+
 /**
  * A mutable person object. For testing only.
  */
@@ -77,19 +79,20 @@ public class TestTask implements ReadOnlyTask {
     }
 
     public String getAddCommand() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        sb.append("s/" + this.getStartDate() + " ");
-        sb.append("e/" + this.getEndDate() + " ");
-        sb.append("at" + " " + this.getLocation().value);
-//        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
-        return sb.toString();
+        return "add " + getTaskString();
+//        StringBuilder sb = new StringBuilder();
+//        sb.append("add " + this.getName().fullName + " ");
+//        sb.append("s/" + this.getStartDate() + " ");
+//        sb.append("e/" + this.getEndDate() + " ");
+//        sb.append("at" + " " + this.getLocation().value);
+////        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+//        return sb.toString();
     }
     
     public String getTaskString() {
-        if (this.getEndDate() == null) {
+        if (this.getEndDate().toString().isEmpty()) {
             return getFloatingString();
-        } else if (this.getStartDate() == null) {
+        } else if (this.getStartDate().toString().isEmpty()) {
             return getDeadlineString();
         } else {
             return getEventString();

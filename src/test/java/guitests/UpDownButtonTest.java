@@ -3,6 +3,8 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.taskscheduler.logic.commands.CommandHistory;
+
 import static org.junit.Assert.assertEquals;
 
 //@@author A0148145E
@@ -12,12 +14,15 @@ public class UpDownButtonTest extends TaskSchedulerGuiTest {
     @Test
     public void buttonTest() {
         
+        CommandHistory.flushNextCommands();
+        CommandHistory.flushPrevCommands();
+        
         String rubbishCommand = "23r23r23534423";
-        commandBox.runCommand(td.hoon.getAddCommand());
+        commandBox.runCommand(td.event.getAddCommand());
 
         //retrieve previous entered command
         commandBox.pressUp();
-        assertEquals(commandBox.getCommandInput(), td.hoon.getAddCommand()); 
+        assertEquals(commandBox.getCommandInput(), td.event.getAddCommand()); 
         
         commandBox.runCommand(rubbishCommand);
         
@@ -29,7 +34,7 @@ public class UpDownButtonTest extends TaskSchedulerGuiTest {
         for (int i = 0; i < 3; i++) {
             commandBox.pressUp();
         }
-        assertEquals(commandBox.getCommandInput(), td.hoon.getAddCommand()); 
+        assertEquals(commandBox.getCommandInput(), td.event.getAddCommand()); 
         
         //retrieve the entered rubbish command
         commandBox.pressDown();

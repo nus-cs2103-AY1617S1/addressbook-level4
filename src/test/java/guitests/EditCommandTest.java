@@ -18,17 +18,31 @@ public class EditCommandTest extends TaskSchedulerGuiTest {
 
     @Test
     public void edit() {
-        //edit a task
+        //edit with an event task
         TestTask[] currentList = td.getTypicalTasks();
         int indexToEdit = 1;
-        TestTask taskToCopy = td.hoon;
+        TestTask taskToCopy = td.event;
         assertEditSuccess(indexToEdit, taskToCopy, currentList);
         currentList[indexToEdit - 1] = taskToCopy;
         currentList = TestUtil.addTasksToList(currentList);
         
-        //edit another task
-        taskToCopy = td.overdue;
+        //edit with a deadline task
+        indexToEdit = 2;
+        taskToCopy = td.deadline;
+        assertEditSuccess(indexToEdit, taskToCopy, currentList);
+        currentList[indexToEdit - 1] = taskToCopy;
+        currentList = TestUtil.addTasksToList(currentList);
+
+        //edit with a floating task
         indexToEdit = 3;
+        taskToCopy = td.floating;
+        assertEditSuccess(indexToEdit, taskToCopy, currentList);
+        currentList[indexToEdit - 1] = taskToCopy;
+        currentList = TestUtil.addTasksToList(currentList);
+        
+        //edit with overdue task
+        taskToCopy = td.overdue;
+        indexToEdit = 4;
         assertEditSuccess(indexToEdit, taskToCopy, currentList);        
         //assert that overdue task is red
         assertTrue(taskListPanel.navigateToTask(indexToEdit - 1).getHBoxStyle().equals(TaskCard.OVERDUE_INDICATION));
@@ -39,13 +53,13 @@ public class EditCommandTest extends TaskSchedulerGuiTest {
 
         //edit with a duplicate task
         indexToEdit = 5;
-        commandBox.runCommand("edit " + indexToEdit + " " + td.hoon.getTaskString());
+        commandBox.runCommand("edit " + indexToEdit + " " + td.event.getTaskString());
         assertResultMessage(Command.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //edit in empty list
         commandBox.runCommand("clear");
-        commandBox.runCommand("edit " + indexToEdit + " " + td.hoon.getTaskString());
+        commandBox.runCommand("edit " + indexToEdit + " " + td.event.getTaskString());
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 
         //invalid command
