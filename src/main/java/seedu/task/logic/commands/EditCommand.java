@@ -35,8 +35,7 @@ public class EditCommand extends Command {
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the address book. "
             + "Parameters: Index t/newTaskName d/description sd/startDate dd/dueDate ts/tagSet"
             + "\nExample: " + COMMAND_WORD
-            + " 1 t/newTaskName"
-            + "\nNote: Please enter your parameters in order.";
+            + " 1 t/newTaskName";
 	
 	public final String MESSAGE_SUCCESS = "The data has been successfully edited.";
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";

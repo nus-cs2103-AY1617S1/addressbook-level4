@@ -44,7 +44,7 @@ public class Parser {
                     + "( dd/(?<dueDate>[^/]+))|"
                     + "( i/(?<interval>[^/]+))|"
                     + "( ti/(?<timeInterval>[^/]+))|"
-                    + "( tg/(?<tagArguments>(?: t/[^/]+)*)))+?");
+                    + "( ts/(?<tagArguments>(?: t/[^/]+)*)))+?");
 
     
     private static final Pattern SAVE_COMMAND_FORMAT = Pattern.compile("(?<path>[^/]+)");
