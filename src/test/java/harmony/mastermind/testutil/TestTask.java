@@ -172,8 +172,13 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Duration getDurationDue() {
+    public Duration getDueDuration() {
         // TODO Auto-generated method stub
+        return null;
+    }
+    
+    @Override
+    public Duration getEventDuration(){
         return null;
     }
     

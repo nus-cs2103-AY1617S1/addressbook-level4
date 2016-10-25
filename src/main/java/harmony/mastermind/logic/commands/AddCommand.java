@@ -3,6 +3,7 @@ package harmony.mastermind.logic.commands;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -96,13 +97,17 @@ public class AddCommand extends Command implements Undoable, Redoable {
 
     // deadline
     // @@author A0138862W
-    public AddCommand(String name, String endDate, Set<String> tags, String recur) throws IllegalValueException {
+    public AddCommand(String name, String endDateStr, Set<String> tags, String recur) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
 
-        this.toAdd = new Task(name, prettyTimeParser.parse(endDate).get(0), new UniqueTagList(tagSet), recur);
+        // fix for #132
+        List<Date> endDates = prettyTimeParser.parse(endDateStr);
+        Date endDate = (endDates.isEmpty())? null: endDates.get(0);
+        
+        this.toAdd = new Task(name, endDate, new UniqueTagList(tagSet), recur);
 
     }
 

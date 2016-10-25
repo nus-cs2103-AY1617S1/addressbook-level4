@@ -4,7 +4,7 @@ package harmony.mastermind.logic.commands;
 import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
 
-/**
+/**@@author A0139194X
  * Format full help instructions for every command for display.
  */
 public class HelpCommand extends Command {

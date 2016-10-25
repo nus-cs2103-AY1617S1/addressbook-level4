@@ -130,12 +130,14 @@ public class LogicManagerTest {
         assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND+": uicfhmowqewca");
     }
 
+    //@@author A0139194X
     @Test
     public void execute_help() throws Exception {
         assertCommandBehavior("help", HelpCommand.SUCCESSFULLY_SHOWN);
         assertTrue(helpShown);
     }
 
+    //@@author
     @Test
     public void execute_exit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);

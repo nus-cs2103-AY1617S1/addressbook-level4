@@ -100,8 +100,8 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
     
-    //@@author A0139194X
     //Checks if directory is writable
+    //@@author A0139194X
     public void checkWrittableDirectory(String newFilePath) throws UnwrittableFolderException {
         File newFile = new File(newFilePath);
         if (!(newFile.isDirectory() && newFile.canWrite())) {
