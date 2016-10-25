@@ -2,14 +2,12 @@ package seedu.whatnow.logic.parser;
 
 import static seedu.whatnow.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.whatnow.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.whatnow.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 
 import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.*;
@@ -55,7 +53,6 @@ public class Parser {
     
     private static final Pattern KEYWORD_FOR_DATE = Pattern.compile("^((on)|(by)|(from)|(to))$");
     private static final Pattern KEYWORD_FOR_TIME = Pattern.compile("^((at)|(by)|(from)|(to)|(till))$");
-    
     
 	/**
 	 * Integer Constants
@@ -182,8 +179,7 @@ public class Parser {
 	    int lastIndex = 0;
 	    int count = 0;
 
-	    while(lastIndex != -1){
-
+	    while(lastIndex != -1) {
 	        lastIndex = str.indexOf(findStr,lastIndex);
 
 	        if(lastIndex != -1){
@@ -206,10 +202,13 @@ public class Parser {
         String[] splitTime = null;
         
 	    splitTimePeriod = time.toLowerCase().split(period);
-        if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_COLON))
+        if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_COLON)) {
             splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(TIME_COLON);
-        if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_DOT))
+        }
+        
+        if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_DOT)) {
             splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(BACK_SLASH + TIME_DOT);
+        }
         
         time = (splitTime != null) ? splitTime[TIME_HOUR] : splitTimePeriod[TIME_WITHOUT_PERIOD];
         time += TIME_COLON;
@@ -225,10 +224,11 @@ public class Parser {
 	 * @return the formatted time
 	 */
 	public static String formatTime(String time) {
-	    if (time.contains(TIME_AM))
+	    if (time.contains(TIME_AM)) {
 	        time = formatTime(time, TIME_AM);
-        else
+	    } else {
             time = formatTime(time, TIME_PM);
+	    }
 	    
 	    return time;
 	}
@@ -264,8 +264,9 @@ public class Parser {
 		}*/
 	    
 	    // Check whether there are two quotation marks ""
-	    if (countOccurence(args, DELIMITER_DOUBLE_QUOTATION_MARK) != NUM_OF_QUOTATION_MARKS)
+	    if (countOccurence(args, DELIMITER_DOUBLE_QUOTATION_MARK) != NUM_OF_QUOTATION_MARKS) {
 	        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+	    }
 	    
 		String[] arguments = args.split(DELIMITER_DOUBLE_QUOTATION_MARK);
 		
@@ -365,9 +366,7 @@ public class Parser {
                     } else if (numOfTime == TWO) {
                         startTime = time;                    
                         time = null;
-                        endTime = additionalArgs[i].toLowerCase();
-                        
-                        
+                        endTime = additionalArgs[i].toLowerCase();       
                     }
                 } else {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -398,8 +397,9 @@ public class Parser {
                 hasTime = false;
             }
             
-            if (!validArgument)
+            if (!validArgument) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
 		}
         
 		if (time != null) {
