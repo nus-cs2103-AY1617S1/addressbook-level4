@@ -12,11 +12,11 @@ import seedu.todo.testutil.TypicalTestTasks;
 import static org.junit.Assert.assertTrue;
 
 public class AddCommandTest extends ToDoListGuiTest {
-    /*
+    
     @Test
     public void add() {
         //add one task
-        TestTask[] currentList = td.getTypicalTasks();
+        TestTask[] currentList = td.getEmptyTaskList();
         TestTask taskToAdd = TypicalTestTasks.buyMilk;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
@@ -47,9 +47,9 @@ public class AddCommandTest extends ToDoListGuiTest {
         TaskCardHandle addedTask = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
         assertMatching(taskToAdd, addedTask);
 
-        //confirm the list now contains all previous persons plus the new person
+        //confirm the list now contains all previous tasks plus the new tasks
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
-    */
+    
 }
