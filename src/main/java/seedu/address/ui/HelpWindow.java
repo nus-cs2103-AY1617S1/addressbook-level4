@@ -10,7 +10,6 @@ import seedu.address.commons.core.LogsCenter;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.logging.Logger;
 
 /**
@@ -43,6 +42,7 @@ public class HelpWindow extends UiPart {
         return FXML;
     }
 
+    //@@author A0135784W
     private void configure() throws IOException{
         Scene scene = new Scene(mainPane);
         //Null passed as the parent stage to make it non-modal.
@@ -52,12 +52,12 @@ public class HelpWindow extends UiPart {
 
         ClassLoader classloader = getClass().getClassLoader();
         File file = new File(classloader.getResource("help.html").getFile());
-        String content = new String(Files.readAllBytes(file.toPath()));
         WebView browser = new WebView();
-        browser.getEngine().loadContent(content);
+        browser.getEngine().load(file.toURI().toURL().toString());
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(browser);
     }
+    //@@author
 
     public void show() {
         dialogStage.showAndWait();
