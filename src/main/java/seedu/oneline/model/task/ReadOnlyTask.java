@@ -14,6 +14,9 @@ public interface ReadOnlyTask {
     public TaskTime getDeadline();
     public TaskRecurrence getRecurrence();
     public boolean isCompleted();
+    public boolean isFloating();
+    public boolean isEvent();
+    public boolean hasDeadline();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
