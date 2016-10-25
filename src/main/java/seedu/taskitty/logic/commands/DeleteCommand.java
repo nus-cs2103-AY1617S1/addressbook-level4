@@ -35,8 +35,10 @@ public class DeleteCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        
         ArrayList<ReadOnlyTask> listOfTaskToDelete = new ArrayList<ReadOnlyTask>();
-        StringBuilder listOfTaskToDeleteBuilder = new StringBuilder();
+        StringBuilder resultMessageBuilder = new StringBuilder();
+        
         for (Pair<Integer, Integer> indexPair: listOfIndexes) {
             categoryIndex = indexPair.getKey();
             targetIndex = indexPair.getValue();
@@ -52,7 +54,7 @@ public class DeleteCommand extends Command {
             ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
             if (!listOfTaskToDelete.contains(taskToDelete)) {
                 listOfTaskToDelete.add(taskToDelete);
-                listOfTaskToDeleteBuilder.append(String.format(MESSAGE_DELETE_TASK_SUCCESS, 
+                resultMessageBuilder.append(String.format(MESSAGE_DELETE_TASK_SUCCESS, 
                         Task.CATEGORIES[categoryIndex], taskToDelete.toString()));
             }                        
         }
@@ -66,7 +68,7 @@ public class DeleteCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(listOfTaskToDeleteBuilder.toString());
+        return new CommandResult(resultMessageBuilder.toString());
     }
 
     @Override

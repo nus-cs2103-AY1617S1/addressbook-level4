@@ -409,7 +409,7 @@ public class CommandParser {
         listOfIndexes.sort((p1, p2) -> p1.getKey().compareTo(p2.getKey()) == 0 
                 ? -p1.getValue().compareTo(p2.getValue()) 
                 : p1.getKey().compareTo(p2.getKey()));
-        return new DoneCommand(categoryAndIndex.getValue(), categoryAndIndex.getKey());
+        return new DoneCommand(listOfIndexes);
     }
     
     /**
