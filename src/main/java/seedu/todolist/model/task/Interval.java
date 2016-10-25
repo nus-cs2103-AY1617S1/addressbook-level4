@@ -66,7 +66,7 @@ public class Interval implements Comparable<Interval> {
      * Returns true if a given interval has a valid task time interval.
      */
     private boolean isValidTimeInterval(TaskDate startDate, TaskTime startTime, TaskDate endDate, TaskTime endTime) {
-        if (startDate.isEquals(endDate)) {
+        if (startDate.equals(endDate)) {
             if (endTime.isBefore(startTime)) {
                 return false;
             }
@@ -185,8 +185,8 @@ public class Interval implements Comparable<Interval> {
                 return -1;
             }
             else { //both are timed tasks
-                if (firstDate.isEquals(secondDate)) { //if date are the same, determine order with time
-                    if (firstTime.isEquals(secondTime)) { //both datetime are equal
+                if (firstDate.equals(secondDate)) { //if date are the same, determine order with time
+                    if (firstTime.equals(secondTime)) { //both datetime are equal
                         return 0;
                     }
                     else if (firstTime.isBefore(secondTime)) { //first task is earlier
@@ -228,6 +228,16 @@ public class Interval implements Comparable<Interval> {
         else {
             return null;
         }
+    }
+    
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Interval // instanceof handles nulls
+                && this.startDate.equals(((Interval) other).getStartDate())
+                && this.startTime.equals(((Interval) other).getStartTime())
+                && this.endDate.equals(((Interval) other).getEndDate())
+                && this.endTime.equals(((Interval) other).getEndTime())); // state check
     }
 
 }
