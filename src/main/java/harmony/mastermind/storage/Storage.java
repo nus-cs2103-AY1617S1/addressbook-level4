@@ -11,9 +11,12 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Optional;
 
+import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.storage.DataSavingExceptionEvent;
 import harmony.mastermind.commons.exceptions.DataConversionException;
+import harmony.mastermind.commons.exceptions.FolderDoesNotExistException;
+import harmony.mastermind.commons.exceptions.UnwrittableFolderException;
 import harmony.mastermind.memory.GenericMemory;
 import harmony.mastermind.memory.Memory;
 import harmony.mastermind.model.ReadOnlyTaskManager;
@@ -31,7 +34,7 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
     static final String ERROR_NOT_FOUND = "File not found";
     static final String NULL = "-";
     static final String SPACE = " ";
-
+    
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
 
@@ -47,6 +50,10 @@ public interface Storage extends TaskManagerStorage, UserPrefsStorage {
     @Override
     void saveTaskManager(ReadOnlyTaskManager taskManager) throws IOException;
 
+    public void checkSaveLocation(String newFilePath) throws FolderDoesNotExistException;
+    
+    public void checkWrittableDirectory(String newFilePath) throws UnwrittableFolderException;
+    
     /**
      * Saves the current version of the Mastermind to the hard disk.
      *   Creates the data file if it is missing.

@@ -20,7 +20,7 @@ public class Config {
 
     public Config() {
     }
-
+    
     public String getAppTitle() {
         return appTitle;
     }
@@ -49,8 +49,8 @@ public class Config {
         return taskManagerFilePath;
     }
 
-    public void setTaskManagerFilePath(String addressBookFilePath) {
-        this.taskManagerFilePath = addressBookFilePath;
+    public void setTaskManagerFilePath(String taskManagerFilePath) {
+        this.taskManagerFilePath = taskManagerFilePath;
     }
 
     public String getTaskManagerName() {

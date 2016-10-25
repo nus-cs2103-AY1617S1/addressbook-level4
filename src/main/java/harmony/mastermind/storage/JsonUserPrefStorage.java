@@ -16,12 +16,17 @@ import harmony.mastermind.model.UserPrefs;
 public class JsonUserPrefStorage implements UserPrefsStorage{
 
     private static final Logger logger = LogsCenter.getLogger(JsonUserPrefStorage.class);
-
+    private final String SUCCESSFULLY_CHANGED_FILEPATH = "Successfully changed file path from " 
+            + this.filePath
+            + " to "
+            + "%1$s";
+    
     private String filePath;
 
     public JsonUserPrefStorage(String filePath){
         this.filePath = filePath;
     }
+    
 
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
@@ -69,5 +74,12 @@ public class JsonUserPrefStorage implements UserPrefsStorage{
         assert prefsFilePath != null;
 
         FileUtil.serializeObjectToJsonFile(new File(prefsFilePath), userPrefs);
+    }
+
+    //@@author A0139194X
+    public void setFilePath(String filePath) {
+        assert filePath != null;
+        logger.fine(String.format(SUCCESSFULLY_CHANGED_FILEPATH, filePath));
+        this.filePath = filePath;
     }
 }

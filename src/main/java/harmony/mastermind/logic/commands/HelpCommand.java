@@ -29,12 +29,15 @@ public class HelpCommand extends Command {
             + "\n" + HelpCommand.COMMAND_SUMMARY + "\n"
             + "\n" + ExitCommand.COMMAND_SUMMARY + "\n"
             + "====================";
+    
+    public static final String SUCCESSFULLY_SHOWN = "Command summary displayed.";
 
     public HelpCommand() {}
 
+    //@@author A0139194X
     @Override
     public CommandResult execute() {
-        EventsCenter.getInstance().post(new ShowHelpRequestEvent());
-        return new CommandResult(SHOWING_HELP_MESSAGE);
+        EventsCenter.getInstance().post(new ShowHelpRequestEvent(SHOWING_HELP_MESSAGE));
+        return new CommandResult(COMMAND_WORD, SUCCESSFULLY_SHOWN);
     }
 }

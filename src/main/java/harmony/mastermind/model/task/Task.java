@@ -1,5 +1,7 @@
 package harmony.mastermind.model.task;
 
+import java.time.Duration;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.Optional;
 
@@ -152,5 +154,56 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+
+    //@@author A0138862W
+    public boolean isDue(){        
+        if(isDeadline()){
+            Date now = new Date();
+            if(now.after(endDate)){
+                return true;
+            }else{
+                return false;
+            }
+        }else if(isEvent()){
+            Date now = new Date();
+            if(now.after(startDate) && now.after(endDate)){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    //@@author A0138862W
+    public boolean isHappening(){
+        if(isEvent()){
+            Date now = new Date();
+            if(now.after(startDate) && now.before(endDate)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
     
+    /*
+     * calculate the duration until due date
+     * 
+     */
+    //@@author A0138862W
+    public Duration getDurationDue(){
+        if(endDate != null){
+            long nowl = System.currentTimeMillis();
+            long endDatel = endDate.getTime();
+            
+            long differencel = endDatel - nowl;
+            
+            return Duration.of(differencel, ChronoUnit.MILLIS);
+        }else{
+            return null;
+        }
+    }
 }

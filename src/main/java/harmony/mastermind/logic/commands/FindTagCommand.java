@@ -38,7 +38,7 @@ public class FindTagCommand extends Command {
     @Override
     public CommandResult execute() {
         model.updateFilteredTagTaskList(keywords);
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+        return new CommandResult(COMMAND_WORD, getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 
 }

@@ -1,8 +1,14 @@
 package harmony.mastermind.ui;
 
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Random;
+import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
+import java.util.Collections;
 
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
@@ -20,13 +26,23 @@ import harmony.mastermind.commons.events.ui.IncorrectCommandAttemptedEvent;
 import harmony.mastermind.logic.Logic;
 import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.ListCommand;
+import harmony.mastermind.logic.commands.UpcomingCommand;
 import harmony.mastermind.model.UserPrefs;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -50,11 +66,13 @@ public class MainWindow extends UiPart {
     
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
-    private static final double WIDTH_MULTIPLIER_INDEX = 0.045;
-    private static final double WIDTH_MULTIPLIER_NAME = 0.315;
-    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.22;
-    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.22;
+    
+    private static final double WIDTH_MULTIPLIER_INDEX = 0.03;
+    private static final double WIDTH_MULTIPLIER_NAME = 0.285;
+    private static final double WIDTH_MULTIPLIER_STARTDATE = 0.18;
+    private static final double WIDTH_MULTIPLIER_ENDDATE = 0.18;
     private static final double WIDTH_MULTIPLIER_TAGS = 0.2;
+    private static final double WIDTH_MULTIPLIER_RECUR = 0.1;
     
     private static final short INDEX_HOME = 0;
     private static final short INDEX_TASKS = 1;
@@ -93,7 +111,8 @@ public class MainWindow extends UiPart {
     private AutoCompletionBinding<String> autoCompletionBinding;
     
     //List of words for autocomplete 
-    String[] listOfWords = {"add", "delete", "edit", "clear", "help", "undo", "mark", "find", "exit"
+    Set listOfWords = new HashSet<>();
+    String[] words = {"add", "delete", "edit", "clear", "help", "undo", "mark", "find", "exit"
             ,"do", "delete"};
 
     // UI elements
@@ -108,93 +127,82 @@ public class MainWindow extends UiPart {
 
     @FXML
     private TableView<ReadOnlyTask> taskTableHome;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> indexHome;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameHome;
 
     @FXML
     private TableColumn<ReadOnlyTask, String> startDateHome;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> endDateHome;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> tagsHome;
+    @FXML
+    private TableColumn<ReadOnlyTask, Boolean> recurHome;
 
     @FXML
     private TableView<ReadOnlyTask> taskTableTask;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> indexTask;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameTask;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> startDateTask;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> endDateTask;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> tagsTask;
-    
+    @FXML
+    private TableColumn<ReadOnlyTask, Boolean> recurTask;
+
     @FXML
     private TableView<ReadOnlyTask> taskTableEvent;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> indexEvent;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameEvent;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> startDateEvent;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> endDateEvent;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> tagsEvent;
-    
+    @FXML
+    private TableColumn<ReadOnlyTask, Boolean> recurEvent;
+
     @FXML
     private TableView<ReadOnlyTask> taskTableDeadline;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> indexDeadline;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameDeadline;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> startDateDeadline;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> endDateDeadline;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> tagsDeadline;
-    
+    @FXML
+    private TableColumn<ReadOnlyTask, Boolean> recurDeadline;
+
     @FXML
     private TableView<ReadOnlyTask> taskTableArchive;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> indexArchive;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> taskNameArchive;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> startDateArchive;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> endDateArchive;
-
     @FXML
     private TableColumn<ReadOnlyTask, String> tagsArchive;
+    @FXML
+    private TableColumn<ReadOnlyTask, Boolean> recurArchive;
+
+    @FXML
+    private ListView<ActionHistory> actionHistory;
 
     public MainWindow() {
         super();
@@ -210,6 +218,11 @@ public class MainWindow extends UiPart {
         return FXML;
     }
 
+    //@@author A0139194X
+    public Node getNode() {
+        return rootLayout;
+    }
+    
     //@@author A0138862W
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
@@ -249,6 +262,14 @@ public class MainWindow extends UiPart {
 
     private void setTitle(String appTitle) {
         primaryStage.setTitle(appTitle);
+    }
+    
+    //@@A0138862W
+    public void pushToActionHistory(String title, String description){
+        ActionHistory aHistory = new ActionHistory(title, description);
+        
+        actionHistory.getItems().add(aHistory);
+        actionHistory.scrollTo(actionHistory.getItems().size()-1);
     }
 
     /**
@@ -295,11 +316,14 @@ public class MainWindow extends UiPart {
         initDeadlineTab();
         initArchiveTab();
 
-        Platform.runLater(()->{
-            commandField.requestFocus();
-        });
         
         initAutoComplete();
+        
+        initActionHistory(actionHistory);
+        actionHistory.setPlaceholder(new Label("No action history yet"));
+        
+        // default focus to cammand box
+        Platform.runLater(()->commandField.requestFocus());
     }
 
     /**
@@ -313,6 +337,7 @@ public class MainWindow extends UiPart {
         initStartDate(startDateHome);
         initEndDate(endDateHome);
         initTags(tagsHome);
+        initRecur(recurHome);
     }
 
     /**
@@ -325,7 +350,8 @@ public class MainWindow extends UiPart {
         initName(taskNameTask);
         initStartDate(startDateTask);
         initEndDate(endDateTask);
-        initTags(tagsTask);        
+        initTags(tagsTask);
+        initRecur(recurTask);       
     }
     /**
      * Initialise the task in the Event tab 
@@ -338,6 +364,7 @@ public class MainWindow extends UiPart {
         initStartDate(startDateEvent);
         initEndDate(endDateEvent);
         initTags(tagsEvent);
+        initRecur(recurEvent);
     }
     /**
      * Initialise the task in the Deadline tab 
@@ -349,7 +376,8 @@ public class MainWindow extends UiPart {
         initName(taskNameDeadline);
         initStartDate(startDateDeadline);
         initEndDate(endDateDeadline);
-        initTags(tagsDeadline);        
+        initTags(tagsDeadline);
+        initRecur(recurDeadline);    
     }
     /**
      * Initialise the task in the archive tab 
@@ -361,10 +389,55 @@ public class MainWindow extends UiPart {
         initName(taskNameArchive);
         initStartDate(startDateArchive);
         initEndDate(endDateArchive);
-        initTags(tagsArchive);      
+        initTags(tagsArchive);  
+        initRecur(recurArchive);    
     }
     
+    //@@author A0138862W
+    private void initActionHistory(ListView<ActionHistory> actionHistory){
 
+        actionHistory.setOnMouseClicked(value->{
+            consoleOutput.setText(actionHistory.getSelectionModel().getSelectedItem().getDescription());
+        });
+        actionHistory.setCellFactory(listView -> {
+            ListCell<ActionHistory> actionCell = new ListCell<ActionHistory>(){
+              
+                @Override
+                protected void updateItem(ActionHistory item, boolean isEmpty){
+                    super.updateItem(item, isEmpty);
+                    
+                    if(!isEmpty){
+                        
+                        ActionHistoryEntry actionHistoryEntry = UiPartLoader.loadUiPart(new ActionHistoryEntry());
+                        
+                        
+                        actionHistoryEntry.setTitle(item.getTitle().toUpperCase());
+                        actionHistoryEntry.setDescription(item.getDescription());
+                        actionHistoryEntry.setDate(item.getDateActioned().toString().toUpperCase());
+                        
+                        
+                        if(item.getTitle().toUpperCase().equals("INVALID COMMAND")){
+                            actionHistoryEntry.setTypeFail();
+                        }else{
+                            actionHistoryEntry.setTypeSuccess();
+                        }
+                        
+                        this.setGraphic(actionHistoryEntry.getNode());
+                        
+                        this.setPrefHeight(50);
+                        this.setPrefWidth(250);
+                        
+                        this.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+                    }else{
+                        this.setGraphic(null);
+                    }
+                }
+            };
+            
+            
+            return actionCell;
+        });
+    }
     
     /**
      * Initializes the indexing of tasks
@@ -401,17 +474,14 @@ public class MainWindow extends UiPart {
             @Override
             public void updateItem(String item , boolean isEmpty){
                 super.updateItem(item, isEmpty);
+                
                 if(!isEmpty()){
+                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
                     
-                    TextFlow textFlow = new TextFlow();
+                    Text taskName = generateStyledText(readOnlyTask, item);
+                    taskName.getStyleClass().add("task-name-column");
                     
-                    Text taskName = new Text(item);
-                    taskName.setStyle("-fx-font-weight: bold; -fx-font-size: 18px; -fx-fill: deepSkyBlue;");
-                    
-                    textFlow.getChildren().add(taskName);
-                    
-                    
-                    this.setGraphic(textFlow);
+                    this.setGraphic(taskName);
                     this.setPrefHeight(50);
                     
                 }else{
@@ -422,6 +492,25 @@ public class MainWindow extends UiPart {
         });
         
     }
+    
+    /*
+     * Generate styled row base on the task status: due(red), happening(orange), normal(blue)
+     * 
+     */
+    //@@author A0138862W
+    private Text generateStyledText(ReadOnlyTask readOnlyTask, String text){
+        Text taskName = new Text(text);
+        
+        if(readOnlyTask.isHappening()){
+            taskName.getStyleClass().add("happening");
+        }else if(readOnlyTask.isDue()){
+            taskName.getStyleClass().add("overdue");
+        }else{
+            taskName.getStyleClass().add("normal");
+        }
+        return taskName;
+    }
+    
     
     /**
      * Initialize the start dates of the tasks
@@ -445,6 +534,7 @@ public class MainWindow extends UiPart {
             public void updateItem(String item , boolean isEmpty){
                 super.updateItem(item, isEmpty);
                 if(!isEmpty()){
+                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
                     
                     TextFlow textFlow = new TextFlow();
                     
@@ -452,14 +542,14 @@ public class MainWindow extends UiPart {
                     
                     if(dates.length>1){
                     
-                        Text prettyDate = new Text(dates[0]);
-                        prettyDate.setStyle("-fx-font-weight:bold; -fx-fill: white;");
+                        Text prettyDate = generateStyledText(readOnlyTask, dates[0]);
+                        prettyDate.getStyleClass().add("pretty-date");
                         
                         Text lineBreak = new Text("\n\n");
                         lineBreak.setStyle("-fx-font-size:2px;");
                         
-                        Text uglyDate = new Text(dates[1]);
-                        uglyDate.setStyle("fx-font-style: oblique; -fx-fill: deepSkyBlue; -fx-font-size: 10px;");
+                        Text uglyDate = generateStyledText(readOnlyTask, dates[1]);
+                        uglyDate.getStyleClass().add("ugly-date");
                         
                         textFlow.getChildren().add(prettyDate);
                         textFlow.getChildren().add(lineBreak);
@@ -500,6 +590,7 @@ public class MainWindow extends UiPart {
             public void updateItem(String item , boolean isEmpty){
                 super.updateItem(item, isEmpty);
                 if(!isEmpty()){
+                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
                     
                     TextFlow textFlow = new TextFlow();
                     
@@ -507,14 +598,14 @@ public class MainWindow extends UiPart {
                     
                     if(dates.length>1){
                     
-                        Text prettyDate = new Text(dates[0]);
-                        prettyDate.setStyle("-fx-font-weight:bold; -fx-fill: white;");
+                        Text prettyDate = generateStyledText(readOnlyTask, dates[0]);
+                        prettyDate.getStyleClass().add("pretty-date");
                         
                         Text lineBreak = new Text("\n\n");
                         lineBreak.setStyle("-fx-font-size:2px;");
                         
-                        Text uglyDate = new Text(dates[1]);
-                        uglyDate.setStyle("fx-font-style: oblique; -fx-fill: deepSkyBlue; -fx-font-size: 10px;");
+                        Text uglyDate = generateStyledText(readOnlyTask,dates[1]);
+                        uglyDate.getStyleClass().add("ugly-date");
                         
                         textFlow.getChildren().add(prettyDate);
                         textFlow.getChildren().add(lineBreak);
@@ -547,15 +638,45 @@ public class MainWindow extends UiPart {
             public void updateItem(String item , boolean isEmpty){
                 super.updateItem(item, isEmpty);
                 if(!isEmpty()){
-                    this.setText(item.replace(',', ' '));
-                    this.setStyle("-fx-font-weight:bold;");
-                    this.setWrapText(true);
+                    ReadOnlyTask readOnlyTask = this.getTableView().getItems().get(this.getIndex());
+                    
+                    Text tags = generateStyledText(readOnlyTask, item.replace(',', ' '));
+                    tags.getStyleClass().add("tags");
+                    
+                    this.setGraphic(tags);
                 }else{
-                    this.setText("");
+                    this.setGraphic(null);
                 }
             }
         });
         
+    }
+    
+    
+    /**
+     * Initialize a checkbox to determine whether task is recurring
+     */
+    //@@author A0124797R
+    private void initRecur(TableColumn<ReadOnlyTask, Boolean> recurColumn) {
+        recurColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_RECUR));
+        recurColumn.setCellValueFactory(task -> new SimpleBooleanProperty(task.getValue().isRecur()));
+        
+        recurColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, Boolean>(){
+            
+            @Override
+            public void updateItem(Boolean isRecur , boolean isEmpty){
+                super.updateItem(isRecur, isEmpty);
+                if(!isEmpty()){
+                    CheckBox box = new CheckBox();
+                    box.setSelected(isRecur);
+                    
+                    this.setAlignment(Pos.CENTER);
+                    this.setGraphic(box);
+                }else{
+                    this.setGraphic(null);;
+                }
+            }
+        });
     }
 
 
@@ -578,6 +699,8 @@ public class MainWindow extends UiPart {
          */
         mostRecentResult = logic.execute(currCommandText, currentTab);
         consoleOutput.setText(mostRecentResult.feedbackToUser);
+        
+        this.pushToActionHistory(mostRecentResult.title, mostRecentResult.feedbackToUser);
 
         //updates the tab when a list command is called
         updateTab(mostRecentResult);
@@ -600,6 +723,8 @@ public class MainWindow extends UiPart {
                         return;
             case DOWN:  restoreNextCommandText();
                         return;
+            case ENTER: learnWord(commandField.getText());
+                        return;
         }
         
         if (CTRL_ONE.match(event)) {
@@ -619,11 +744,25 @@ public class MainWindow extends UiPart {
     //@@author A0143378Y
     private void initAutoComplete(){
         //Autocomplete function
+        Collections.addAll(listOfWords, words);
         autoCompletionBinding = TextFields.bindAutoCompletion(commandField, listOfWords);
         autoCompletionBinding.setPrefWidth(500);
         autoCompletionBinding.setVisibleRowCount(5);
         autoCompletionBinding.setHideOnEscape(true);
 
+    }
+    
+    //@@author A0143378Y
+    //This function takes in whatever the user has "ENTER"-ed, and save in a dictionary of words
+    //These words will be in the autocomplete list of words 
+    private void learnWord(String text) { 
+        listOfWords.add(text);
+        
+        if(autoCompletionBinding != null) { 
+            autoCompletionBinding.dispose();
+        }
+        
+        autoCompletionBinding = TextFields.bindAutoCompletion(commandField, listOfWords);
     }
 
     @Subscribe
@@ -662,16 +801,18 @@ public class MainWindow extends UiPart {
     //@@author A0124797R
     private void updateTab(String result) {
         switch (result) {
-            case ListCommand.MESSAGE_SUCCESS:           tabPane.getSelectionModel().select(INDEX_HOME);
-                                                        break;
-            case ListCommand.MESSAGE_SUCCESS_TASKS:     tabPane.getSelectionModel().select(INDEX_TASKS);
-                                                        break;
-            case ListCommand.MESSAGE_SUCCESS_EVENTS:    tabPane.getSelectionModel().select(INDEX_EVENTS);
-                                                        break;
-            case ListCommand.MESSAGE_SUCCESS_DEADLINES: tabPane.getSelectionModel().select(INDEX_DEADLINES);
-                                                        break;
-            case ListCommand.MESSAGE_SUCCESS_ARCHIVES:  tabPane.getSelectionModel().select(INDEX_ARCHIVES);
-                                                        break;
+            case ListCommand.MESSAGE_SUCCESS:               tabPane.getSelectionModel().select(INDEX_HOME);
+                                                            break;
+            case UpcomingCommand.MESSAGE_SUCCESS_UPCOMING:  tabPane.getSelectionModel().select(INDEX_HOME);
+                                                            break;
+            case ListCommand.MESSAGE_SUCCESS_TASKS:         tabPane.getSelectionModel().select(INDEX_TASKS);
+                                                            break;
+            case ListCommand.MESSAGE_SUCCESS_EVENTS:        tabPane.getSelectionModel().select(INDEX_EVENTS);
+                                                            break;
+            case ListCommand.MESSAGE_SUCCESS_DEADLINES:     tabPane.getSelectionModel().select(INDEX_DEADLINES);
+                                                            break;
+            case ListCommand.MESSAGE_SUCCESS_ARCHIVES:      tabPane.getSelectionModel().select(INDEX_ARCHIVES);
+                                                            break;
         }
     }
     

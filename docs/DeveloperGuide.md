@@ -13,18 +13,18 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E: Product Survey](#appendix-e--product-survey)
 
 ## Introduction
-Welcome to Mastermind Developer Guide! <br>
+Welcome to Mastermind Developer Guide!  
 
 Mastermind is a to-do task manager that helps the user to keep track of their tasks. We aim to provide our users with an effective and efficient solution to managing their tasks so they are able to better handle their time, as well as completing tasks required. 
 
 
 ## Target Audience
-This developer guide is for both existing and new developers of the team who are interested in working on Mastermind in the future. <br>
+This developer guide is for both existing and new developers of the team who are interested in working on Mastermind in the future.  
 
-This guide will be showing you the Product Architecture, APIs and the details regarding the different components. <br>
+This guide will be showing you the Product Architecture, APIs and the details regarding the different components.  
 
 The next segment will show you how to set-up to make sure that you have the necessary tools before getting started, so do remember to read them! Feel free to approach our team for any clarifications that you may face during the process. Good luck and have fun coding! 
 
@@ -33,11 +33,9 @@ The next segment will show you how to set-up to make sure that you have the nece
 
 #### Prerequisites
 
-1. **JDK `1.8.0_60`**  or later<br>
-
-    > Having any Java 8 version is not enough. <br>
+1. **JDK `1.8.0_60`**  or later  
+    > Having any Java 8 version is not enough.  
     This app will not work with earlier versions of Java 8.
-
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -60,16 +58,14 @@ The next segment will show you how to set-up to make sure that you have the nece
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
 ### Troubleshooting Project Setup
-**Problem: Eclipse reports compile errors after new commits are pulled from Git**<br>
+1. **Eclipse reports compile errors after new commits are pulled from Git:**  
 
-�	Reason: Eclipse fails to recognize new files that appeared due to the Git pull. <br>
-�	Solution Refresh the project in Eclipse: Right click on the project (in Eclipse package explorer), choose Gradle -> Refresh Gradle Project
-<br>
+Reason: Eclipse fails to recognize new files that appeared due to the Git pull.  
+Solution Refresh the project in Eclipse: Right click on the project (in Eclipse package explorer), choose Gradle -> Refresh Gradle Project  
 
-**Problem: Eclipse reports some required libraries missing**<br>
+2. **Eclipse reports some required libraries missing:**  
 
-�	Reason: Required libraries may not have been downloaded during the project import.<br>
-�	Solution: Run tests using Gradle once (to refresh the libraries).
+Reason: Required libraries may not have been downloaded during the project import.  Solution: Run tests using Gradle once (to refresh the libraries).
 
 
 
@@ -77,16 +73,16 @@ The next segment will show you how to set-up to make sure that you have the nece
 
 ### Software Architecture
 
-To start off, let us introduce you to the overall structure of Mastermind. Do have a basic understanding of Mastermind's different components before focusing on them individually. <br>
+To start off, let us introduce you to the overall structure of Mastermind. Do have a basic understanding of Mastermind's different components before focusing on them individually.  
 
 Mastermind is split up into 5 main components, namely the `UI`, `Logic`, `Model`, `Storage` and `Commons`, as shown below, in Figure 1. 
 
 
-<img src="images/Mastermind_Software_Architecture.jpg" width="600"><br>
+<img src="images/Architecture_diagram.png" width="600">  
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/harmony/mastermind/MainApp.java). It is responsible for,
+**`Main`** has only one class called [`MainApp`](../src/main/java/harmony/mastermind/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke clean up method where necessary.
 
@@ -111,21 +107,21 @@ The sections below give more details of each component.
 
 #### UI component
 
-UI is implemented by JavaFX 8 and consists of the main panel Main Window. This component primarily handles user input such as text input which will be entered via Command Line Input (CLI) as shown in Figure 2. On top of text input, users are also allowed to use keypress or mouse click and pass on to the Logic component. <br>
+UI is implemented by JavaFX 8 and consists of the main panel Main Window. This component primarily handles user input such as text input which will be entered via Command Line Input (CLI) as shown in Figure 2. On top of text input, users are also allowed to use keypress or mouse click and pass on to the Logic component.  
 
-If you are intending to work on the UI, you will need to update the application's internal state, which also includes: <br>
-1.	UiManager.java <br>
-2.	UiPartLoader.java <br>
-3.	UiPart.java <br>
-4.	BrowserPanel.java
+If you are intending to work on the UI, you will need to update the application's internal state, which also includes:  
+1.  UiManager.java  
+2.  UiPartLoader.java  
+3.  UiPart.java  
+4.  BrowserPanel.java
 
 
-<img src="images/developer-guide-ui.png" width="800"><br>
+<img src="images/UI_diagram.png" width="800">  
 
 **API** : [`Ui.java`](../src/main/java/harmony/mastermind/ui/Ui.java)
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
+ that are in the `src/main/resources/view` folder.  
  For example, the layout of the [`MainWindow`](../src/main/java/harmony/mastermind/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
@@ -137,7 +133,7 @@ The `UI` component,
 #### Logic component
 Logic is the brain of the application as it controls and manages the overall flow of the application. Upon receiving the user input from UI, it will process the input using the parser and return the result of executing the user input back to the UI. The inputs Logic take in are command words such as add, edit, delete, etc., and executes them accordingly based on their functionality. If you were to work on this execution of user input, you will need to access Storage through the EventsCenter to retrieve and update state of tasks. 
 
-<img src="images/developer-guide-logic.png" width="800"><br>
+<img src="images/Logic_diagram.png" width="800">  
 
 **API** : [`Logic.java`](../src/main/java/harmony/mastermind/logic/Logic.java)
 
@@ -148,17 +144,17 @@ Logic is the brain of the application as it controls and manages the overall flo
 
 
 ##### Add 
-The add class allows the user to add tasks, deadlines or events to Mastermind. Tasks, deadlines and events are different objects. They are being stored as object attributes such as name, description, end date, start date and type. <br>
+The add class allows the user to add tasks, deadlines or events to Mastermind. Tasks, deadlines and events are different objects. They are being stored as object attributes such as name, description, end date, start date and type.  
 
 You can refer to Figure 4 and Figure 5 below and the next page for the class diagram of Add.
 
-<img src="images/Add Command Sequence Diagram part 1.png" width="800"><br>
+<img src="images/Add Command Sequence Diagram part 1.png" width="800">  
 
 > Note how the Model simply raises a TaskManagerChangedEvent when Mastermind's data is changed, instead of asking the Storage to save the updates to the hard disk.
 
 The diagram below shows how the EventsCenter reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-<img src="images/Add Command Sequence Diagram part 2.png" width="800"><br>
+<img src="images/Add Command Sequence Diagram part 2.png" width="800">  
 
 > Note how the event is propagated through the EventsCenter to the Storage and UI without Model having to be coupled to either of them. This is how we reduce direct coupling between 2 components.
 
@@ -167,54 +163,54 @@ This delete allows the user to delete whatever they have input into the program 
 
 Details are illustrated in the following diagrams.
 
-<img src="images/Delete Command Sequence Diagram part 1.png" width="800"><br>
+<img src="images/Delete Command Sequence Diagram part 1.png" width="800">  
 
 > Again, note how that model simply raises an event instead of relying on Storage directly.
 
 And EventsCeneter reacts to the event accordingly.
 
-<img src="images/Delete Command Sequence Diagram part 2.png" width="800"><br>
+<img src="images/Delete Command Sequence Diagram part 2.png" width="800">  
 
 
 ##### Clear 
-Clear wipes all tasks currently registered in Mastermind. <br>
+Clear wipes all tasks currently registered in Mastermind.  
 
-The user can delete the objects either at the homepage, deadlines, tasks or events tabs. The user is required to choose the correct index of the object. <br>
+The user can delete the objects either at the homepage, deadlines, tasks or events tabs. The user is required to choose the correct index of the object.  
  
-After inputing the command, the data is cleared from the Storage.<br> 
+After inputing the command, the data is cleared from the Storage.   
 
 
 ##### Edit 
-This is also to allow the user to update attributes of items he has already added in Mastermind. <br>
+This is also to allow the user to update attributes of items he has already added in Mastermind.  
 
 The user can update the task by choosing the index of the task they want to change. They will then choose the specific field such as start date that they want to change. 
-If there are multiple items, this is resolved by looking at the description of the task displayed to the user, allowing the user to choose the correct task instead. <br>
+If there are multiple items, this is resolved by looking at the description of the task displayed to the user, allowing the user to choose the correct task instead.  
 
 However, the user can only update one item at a time. To update, the item being updated must be found, and removed from the Storage. After updating the attribute, the item is re-added back into Storage. If the update is successful, the details of the item will be printed and it will be shown to the user the new updates. Otherwise, an error message is generated. 
 
 The details are shown in the following diagrams.
 
-<img src="images/Edit Command Sequence Diagram part 1.png" width="800"><br>
+<img src="images/Edit Command Sequence Diagram part 1.png" width="800">  
 
 2 events are raised during the execution of Edit.
 
-<img src="images/Edit Command Sequence Diagram part 2.png" width="800"><br>
+<img src="images/Edit Command Sequence Diagram part 2.png" width="800">  
 
 ##### Exit
-This exit command runs when the user tries to exit the program, allowing the program to close.
+This `exit` command runs when the user tries to exit the program, allowing the program to close.
 
 
 ##### Find
-To find an item, the user will search through the Storage by calling "find <task>", "find <date>" or "find <tag>". It calls FindTagCommand to find the exact terms of the keywords entered by the user.
+To find an item, the user will search through the Storage by calling "find `task`", "find `date`" or "find `tag`". It calls FindCommand to find the exact terms of the keywords entered by the user.
 
 
 ##### Mark
-The Mark command allows users to mark their tasks/deadlines/events as completed. This removes the task from the tasks/deadlines/events field, and moves it into the Archive. The Mark command will not delete the task immediately. In the event that users want to unmark the task, users can do so due to using the Unmark Command. 
+The `mark` command allows users to mark their tasks/deadlines/events as completed. This removes the task from the tasks/deadlines/events field, and moves it into the Archive. The `mark` command will not delete the task immediately. In the event that users want to unmark the task, users can do so due to using the `unmark` Command. 
 
 
 ### Model component
 
-<img src="images/Model UML.png" width="800"><br>
+<img src="images/Model_diagram.png" width="800">  
 
 **API** : [`Model.java`](../src/main/java/harmony/mastermind/model/Model.java)
 
@@ -226,7 +222,7 @@ The `Model`,
 
 ### Storage component
 
-<img src="images/Storage UML.png" width="800"><br>
+<img src="images/Storage_diagram.png" width="800">  
 
 **API** : [`Storage.java`](../src/main/java/harmony/mastermind/storage/Storage.java)
 
@@ -297,20 +293,20 @@ Tests can be found in the `./src/test/java` folder.
    These are in the `guitests` package.
 
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
+   1. _Unit tests_ targeting the lowest level methods/classes.  
       e.g. `harmony.mastermind`
    2. _Integration tests_ that are checking the integration of multiple code units
-     (those code units are assumed to be working).<br>
+     (those code units are assumed to be working).  
       e.g. `harmony.mastermind.commons.core`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
-      how the are connected together.<br>
+      how the are connected together.  
       e.g. `harmony.mastermind.storage`
 
 **Headless GUI Testing** :
 Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
  our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
+ That means the developer can do other things on the Computer while the tests are running.  
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
 
 ## Dev Ops
@@ -336,9 +332,9 @@ Here are the steps to create a new release.
 A project often depends on third party libraries. For example, Mastermind depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+is better than these alternatives.  
+a. Include those libraries in the repo (this bloats the repo size)  
+b. Require developers to download those libraries manually (this creates extra work for developers)  
 
 ## Appendix A : User Stories
 
@@ -384,11 +380,12 @@ Priority | As a ... | I want to ... | So that I can...
 | [UC6](#uc6-delete-a-task) | Delete a task  | Remove a task entry by index. |
 | [UC7](#uc7-undo-action) | Undo Action  | Undo last action performed. |
 | [UC8](#uc8-redo-action) | Redo Action  | Redo an action performed in UC7. |
-| [UC9](#uc9-mark-task-as-done) | Mark Task as done  | Mark a task as done by index. A marked task should be automatically archived and exclude from display and search. |
-| [UC10](#uc10-exit-application) | Repeat command  | Load the previous command as input	 |
-| [UC11](#uc11-clear-everything) | Clears everything | System performs bulk delete on the data (Deadlines, events, tasks). |
-| [UC12](#uc12-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
-| [UC13](#uc13-exit-application) | Exit application  | Quit the application |
+| [UC9](#uc9-upcoming-task) | Show upcoming Tasks  | Display floating tasks and task that is due in a weeks time. |
+| [UC10](#uc10-mark-task-as-done) | Mark Task as done  | Mark a task as done by index. A marked task should be automatically archived and exclude from display and search. |
+| [UC11](#uc11-repeat-command) | Repeat command  | Load the previous command as input  |
+| [UC12](#uc12-clear-everything) | Clears everything | System performs bulk delete on the data (Deadlines, events, tasks). |
+| [UC13](#uc13-relocate-storage-location) | Relocate storage location  | Change the current storage to other directory specified by the user. |
+| [UC14](#uc14-exit-application) | Exit application  | Quit the application |
 
 ---
 
@@ -561,7 +558,7 @@ Edit the details of a single task. The command only update fields specified by t
 
 ---
 
-### UC6: Delete a task
+### UC6: Delete a Task
 
 Remove a task entry by index.
 
@@ -655,15 +652,15 @@ Redo an action performed in UC7.
 
 ---
 
-### UC10: Repeat command
+### UC9: Mark Task as done
 
-Loads the previous input command into the text field.
+Mark a task entry by index.
 
 ##### Main Success Scenario
 
-1. User requests to load previous command.
+1. User request to mark a task by index.
 
-2. System finds and load previous command.
+2. System find and mark the task and remove from respective tab and add to archives tab.
 
 3. System display successful message.
 
@@ -677,9 +674,67 @@ Loads the previous input command into the text field.
 
 * 1a2. Use case ends.
 
+2a. Invalid index.
+
+* 2a1. System cannot find the task associated with the index.
+
+* 2a2. System display unsuccessful message.
+
+* 2a3. Use case ends.
+
+2b. User tries to mark a Task that is already marked.
+
+* 2b1. System check that task associated with the index is already marked.
+
+* 2b2. System display unsuccessful message.
+
+* 2b3. Use case ends.
+
 ---
 
-### UC11: Clear everything
+### UC10: Upcoming Tasks
+
+Shows all floating tasks and tasks/events that are due in a weeks time.
+
+##### Main Success Scenario
+
+1. User requests to load upcoming command.
+
+2. System filter and display upcoming tasks.
+
+4. Use case ends.
+
+##### Extensions
+
+1a. User entered an invalid command.
+
+* 1a1. System display unsuccessful message.
+
+* 1a2. Use case ends.
+
+---
+
+### UC11: Repeat command
+
+Loads the previous input command into the text field.
+
+##### Main Success Scenario
+
+1. User requests to load previous command.
+
+2. System finds and load previous command.
+
+4. Use case ends.
+
+##### Extensions
+
+1a. No previous command found.
+
+* 1a1. Use case ends.
+
+---
+
+### UC12: Clear everything
 
 System performs bulk delete on the data (Deadlines, events, tasks).
 ##### Main Success Scenario
@@ -700,7 +755,7 @@ System performs bulk delete on the data (Deadlines, events, tasks).
 
 ---
 
-### UC12: Relocate storage location
+### UC13: Relocate storage location
 
 Change the current storage to other directory specified by the user.
 
@@ -740,7 +795,7 @@ Change the current storage to other directory specified by the user.
 
 ---
 
-### UC13: Exit application
+### UC14: Exit application
 
 Quit the application.
 

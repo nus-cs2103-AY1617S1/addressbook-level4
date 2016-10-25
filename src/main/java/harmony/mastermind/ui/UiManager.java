@@ -7,6 +7,7 @@ import harmony.mastermind.commons.core.ComponentManager;
 import harmony.mastermind.commons.core.Config;
 import harmony.mastermind.commons.core.LogsCenter;
 import harmony.mastermind.commons.events.storage.DataSavingExceptionEvent;
+import harmony.mastermind.commons.events.ui.ExecuteCommandEvent;
 import harmony.mastermind.commons.events.ui.JumpToListRequestEvent;
 import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
 import harmony.mastermind.commons.util.StringUtil;
@@ -17,7 +18,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.Popup;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -26,6 +29,7 @@ import java.util.logging.Logger;
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private final HelpPopup helpPopup;
 
     private Logic logic;
     private Config config;
@@ -37,6 +41,7 @@ public class UiManager extends ComponentManager implements Ui {
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+        helpPopup = new HelpPopup();
     }
 
     @Override
@@ -74,9 +79,12 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 
+    //@@author A0139194X
     @Subscribe
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        helpPopup.setContent(event.message);
+        helpPopup.show(mainWindow.getNode());
     }
 
     @Subscribe
@@ -84,4 +92,8 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
     }
 
+    @Subscribe
+    private void handleExecuteCommandEvent(ExecuteCommandEvent event){
+        mainWindow.pushToActionHistory(event.title, event.description);
+    }
 }

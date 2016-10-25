@@ -38,7 +38,7 @@ public class FindCommand extends Command {
     public CommandResult execute() {
         model.updateFilteredTaskList(keywords);
 //        model.searchTask(keywords.toString());
-        return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
+        return new CommandResult(COMMAND_WORD, getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
     
     //@author A0143378Y
