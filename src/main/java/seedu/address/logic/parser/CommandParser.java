@@ -110,14 +110,8 @@ public class CommandParser {
         
         try {  
             HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareAdd(argsTrimmed);
-            
             logger.finer("Exiting CommandParser, prepareAdd()");
-            /*logger.log(Level.FINEST, "taskName, startDate, endDate, rate, timePeriod and "
-                    + "priority have these values respectively:", 
-                    new Object[] {taskName, startDate, endDate, rate, timePeriod, priority});*/
-            return new AddCommand(extractedValues.get("taskName"), extractedValues.get("startDate"), 
-                    extractedValues.get("endDate"), extractedValues.get("rate"), 
-                    extractedValues.get("timePeriod"), extractedValues.get("priority"));
+            return new AddCommand(extractedValues);
             
         } catch (IllegalValueException ive) {
             logger.finer("IllegalValueException caught in CommandParser, prepareAdd()");
