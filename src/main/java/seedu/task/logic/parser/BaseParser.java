@@ -26,7 +26,7 @@ public abstract class BaseParser {
         
         for (String segment : segments) {
             if (segment.contains("/")) {
-                addToArgumentsTable(currentKey, joiner.toString());
+                addToArgumentsTable(currentKey, joiner.toString().trim());
                 
                 String[] kwargComponent = segment.split("/", 2);
                 
@@ -66,18 +66,32 @@ public abstract class BaseParser {
         argumentsTable.put(keyword, arrayItems);
     }
     
-    protected boolean checkForRequiredArguments(String[] requiredArgs) {
-        if (argumentsTable == null) {
-            return false;
-        }
-        
+    /***
+     * Checks if the required keyword arguments were supplied by the user
+     * @param requiredArgs list of keyword arguments
+     * @param optionalArgs list of arguments that may appear
+     * @param isStrictSet does not allow for other keyword arguments
+     * @return true if required arguments were supplied, else false
+     */
+    protected boolean checkForRequiredArguments(String[] requiredArgs, String[] optionalArgs, boolean isStrictSet) {
         for (String arg : requiredArgs) {
             if (!argumentsTable.containsKey(arg)) {
                 return false;
+            } else {
+                if (argumentsTable.get(arg).get(0).isEmpty()) {
+                    return false;
+                }
             }
         }
         
-        return true;
+        int numOptional = 0;
+        for (String arg : optionalArgs) {
+            if (argumentsTable.containsKey(arg)) {
+                numOptional++;
+            }
+        }
+
+        return argumentsTable.size() >= numOptional + requiredArgs.length;
     }
     
     /**
