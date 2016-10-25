@@ -17,7 +17,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     public void add() throws IllegalArgumentException, IllegalValueException {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask TaskToAdd = td.dance;
+        TestTask TaskToAdd = td.soccer;
         assertAddSuccess(TaskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, TaskToAdd);
 

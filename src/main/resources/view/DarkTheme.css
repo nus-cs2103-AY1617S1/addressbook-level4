@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#cca302, 20%);
+    -fx-background-color: derive(#fcd744, 20%);
 }
 
 .label {
@@ -87,13 +87,27 @@
 }
 
 .list-cell {
-    -fx-label-padding: 0 0 0 0;
+    -fx-label-padding: 3 3 3 3;
     -fx-graphic-text-gap : 0;
     -fx-padding: 0 0 0 0;
 }
 
 .list-cell .label {
     -fx-text-fill: #010504;
+    	-fx-border-color:white;
+ -fx-border-width:0 0 0 0;
+
+}
+
+.list-view .list-cell:even {
+	-fx-background-color: white;
+	-fx-text-fill: black;
+}
+
+.list-view .list-cell:odd {
+	-fx-background-color: white;
+	-fx-text-fill: black;
+
 }
 
 .cell_name_label {
@@ -117,7 +131,7 @@
 .cell_small_label {
 	-fx-font-family: Arial, Helvetica, sans-serif;
     -fx-font-size: 20px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: #383f77;
 }
 
 .anchor-pane {
@@ -145,7 +159,8 @@
 }
 
 .status-bar .label {
-	-fx-font-size: 10px;
+	-fx-font-family: Arial, Helvetica, sans-serif;
+	-fx-font-size: 15px;
     -fx-text-fill: #fcd744;
 }
 
@@ -162,7 +177,7 @@
 .grid-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
     -fx-border-color: derive(#1d1d1d, 30%);
-    -fx-border-width: 1px;
+    -fx-border-width: 0px;
 }
 
 .grid-pane .anchor-pane {
@@ -182,8 +197,8 @@
 }
 
 .menu-bar .label {
-    -fx-font-size: 9pt;
-    -fx-font-family: "Lucida Console", Monaco, monospace;
+    -fx-font-family: Arial, Helvetica, sans-serif;
+	-fx-font-size: 15px;
     -fx-text-fill: #fcd744;
     -fx-opacity: 0.9;
 }
@@ -289,8 +304,8 @@
 }
 
 #cardPane {
-    -fx-background-color: transparent;
-    -fx-border-color: #d6d6d6;
+    -fx-background-color: derive(#fcd744, 85%);
+    -fx-border-color: derive(#fcd744, 85%);
     -fx-border-width: 1 1 1 1;
 }
 
@@ -299,6 +314,6 @@
     -fx-text-fill: #F70D1A;
 }
 
-#filterField, #personListPanel, #personWebpage {
+#filterField, #taskListPanel, #taskWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }

@@ -110,7 +110,6 @@ public class TaskListPanelHandle extends GuiHandle {
         if (!task.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
-
         return navigateToTask(task.get());
     }
 
@@ -119,7 +118,6 @@ public class TaskListPanelHandle extends GuiHandle {
      */
     public TaskCardHandle navigateToTask(ReadOnlyTask task) {
         int index = getTaskIndex(task);
-
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
             guiRobot.sleep(150);

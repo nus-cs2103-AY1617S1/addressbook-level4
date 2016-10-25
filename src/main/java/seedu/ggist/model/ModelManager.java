@@ -61,8 +61,10 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        sortedTasks = new SortedList<>(filteredTasks);
         today = LocalDate.now().format(DateTimeFormatter.ofPattern("EEE, dd MMM YY"));
-        updateFilteredListToShowDate(today);
+        lastListing = today;
+        updateListing();
     }
     
     public void setLastListing(String listing) {
@@ -124,7 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
             updateFilteredListToShowAllUndone();
         } else if (lastListing.equals("done")) {
             updateFilteredListToShowAllDone();
-        } else if (TaskDate.isValidDateFormat(lastListing)){
+        } else if (TaskDate.isValidDateFormat(lastListing)) {
             updateFilteredListToShowDate(lastListing);
         } else if (lastListing.equals("all")){
             updateFilteredListToShowAll();
@@ -138,24 +140,32 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getSortedTaskList() {
-        sortFilteredList();
-        return new UnmodifiableObservableList<>(sortedTasks);
+        Comparator<Task> compareDateTime = new Comparator<Task>(){
+            public int compare (Task t1, Task t2){
+                    
+                    if (t1.getStartDateTime().equals(t2.getStartDateTime())
+                            && (t1.getEndDateTime().equals(t2.getEndDateTime()))) {
+                        return t1.getTaskName().taskName.compareTo(t2.getTaskName().taskName);
+                    } else if (t1.getStartDateTime().before(t2.getStartDateTime())) {
+                        return -1;
+                    } else if (t1.getStartDateTime().equals(t2.getStartDateTime())) {
+                        return 0;
+                    } else if (t1.getEndDateTime().before(t2.getEndDateTime())) {
+                        return -1;
+                    } else if (t1.getEndDate().equals(t2.getEndDateTime())) {
+                        return 0;
+                    } else {
+                        return 1;
+                    }
+                }
+        };
+        return new UnmodifiableObservableList<>(new SortedList(filteredTasks, compareDateTime));
     }
     
-    public void sortFilteredList() {
-        Comparator<ReadOnlyTask> compareDateTime = new Comparator<ReadOnlyTask>(){
-            public int compare (ReadOnlyTask t1, ReadOnlyTask t2){
-                return t1.getStartDateTime().before(t2.getStartDateTime()) ? -1 : 
-                       (t1.getEndDateTime().before(t2.getEndDateTime()) ? -1 : 1);
-            }
-        };
-        sortedTasks = new SortedList<Task>(filteredTasks, compareDateTime);
-    }
 
     @Override
     public void updateFilteredListToShowAll() {
         updateFilteredListToShowAll(new PredicateExpression(new AllQualifier()));
-//      sortFilteredList();
     }
     public void updateFilteredListToShowAll(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
@@ -164,7 +174,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAllDone() {
         updateFilteredListToShowAllDone(new PredicateExpression(new DoneQualifier()));
-//        sortFilteredList();
     }
     
     private void updateFilteredListToShowAllDone(Expression expression) {
@@ -174,7 +183,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAllUndone() {
         updateFilteredListToShowAllUndone(new PredicateExpression(new NotDoneQualifier()));
-//        sortFilteredList();
     }
     
     private void updateFilteredListToShowAllUndone(Expression expression) {
@@ -184,7 +192,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowDate(String keywords){
         updateFilteredTaskList(new PredicateExpression(new DateQualifier(keywords)));
- //       sortFilteredList();
     }
 
     private void updateFilteredListToShowDate(Expression expression) {
@@ -194,7 +201,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
-//        sortFilteredList();
     }
 
     public void updateFilteredTaskList(Expression expression) {
@@ -250,7 +256,7 @@ public class ModelManager extends ComponentManager implements Model {
         NotDoneQualifier() {}
         
         public boolean run(ReadOnlyTask task) {
-            return (!task.getDone());
+            return (!task.isDone());
         }
     }
     
@@ -259,7 +265,7 @@ public class ModelManager extends ComponentManager implements Model {
         DoneQualifier() {}
         
         public boolean run(ReadOnlyTask task) {
-            return task.getDone();
+            return task.isDone();
         }
     }
 
@@ -274,7 +280,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         public boolean run(ReadOnlyTask task) {
             return taskNameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.toString(), keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTaskName().taskName, keyword))
                     .findAny()
                     .isPresent();
         }
@@ -294,14 +300,12 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
-          /*  return (taskDateKeyWords.equalsIgnoreCase(task.getStartDate().toString()) || 
-                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString())) && 
-                   !task.getDone() ||
+            
+            return ((taskDateKeyWords.equalsIgnoreCase(task.getStartDate().toString()) || 
+                   taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString())) && !task.isDone()) ||
                    (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && 
-                   task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) && 
-                   !task.getDone());     
-                   */
-        	return true;
+                    task.getEndDate().value.equals(Messages.MESSAGE_NO_END_DATE_SPECIFIED) && !task.isDone()) ||
+                   (task.isOverdue() && !task.isDone());
                    
         }
 

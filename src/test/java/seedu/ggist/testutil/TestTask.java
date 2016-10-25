@@ -1,6 +1,9 @@
 package seedu.ggist.testutil;
 
 import seedu.ggist.commons.core.Messages;
+import seedu.ggist.commons.exceptions.IllegalValueException;
+import seedu.ggist.logic.parser.DateTimeParser;
+
 import java.util.Date;
 
 import seedu.ggist.model.tag.UniqueTagList;
@@ -21,6 +24,7 @@ public class TestTask implements ReadOnlyTask {
     private Date end;
     private boolean done;
     private boolean undo;
+    private boolean overdue;
 
     public void setTaskName(TaskName taskName) {
         this.taskName = taskName;
@@ -93,18 +97,18 @@ public class TestTask implements ReadOnlyTask {
             sb.append(this.getEndTime().value);
         } else {
         	// event task, append everything
-        	sb.append(","+ this.getStartDate().getTestValue() + " ");
+        	sb.append(" ,"+ this.getStartDate().getTestValue() + " ");
         	sb.append(this.getStartTime().value + ",");
         	sb.append(this.getEndDate().getTestValue() + " ");
         	sb.append(this.getEndTime().value);
         }
         if (!(this.getPriority() == null))
-        	sb.append("-" + this.getPriority().value);
+        	sb.append(" -" + this.getPriority().value);
         return sb.toString();
     }
 
     @Override
-    public boolean getDone() {
+    public boolean isDone() {
         return done;
     }
 
@@ -127,6 +131,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Date getEndDateTime() {
         return end;
+    }
+
+    @Override
+    public boolean isOverdue() {
+        return overdue;
     }
 
 }
