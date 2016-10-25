@@ -4,12 +4,12 @@ import com.google.common.base.Joiner;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.atteo.evo.inflector.English;
 import seedu.todo.model.property.SearchStatus;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.util.FxViewUtil;
@@ -18,7 +18,7 @@ import seedu.todo.ui.util.UiPartLoaderUtil;
 //@author A0135817B
 public class SearchStatusView extends UiPart {
     private static final String FXML = "SearchStatusView.fxml";
-    private static final String STATUS_FORMAT = "";
+    private static final String TASK_FOUND_FORMAT = "%d %s found";
     
     @FXML private HBox searchStatusContent;
     @FXML private Text searchCount;
@@ -28,13 +28,17 @@ public class SearchStatusView extends UiPart {
     
     public static SearchStatusView load(Stage stage, AnchorPane placeholder, ObservableValue<SearchStatus> searchStatus) {
         SearchStatusView view = UiPartLoaderUtil.loadUiPart(stage, placeholder, new SearchStatusView());
+        view.configureLayOut();
         view.bindListeners(searchStatus);
         return view;
     }
     
+    private void configureLayOut() {
+        FxViewUtil.applyAnchorBoundaryParameters(node, 0.0, 0.0, 0.0, 0.0);
+    }
+    
     private void bindListeners(ObservableValue<SearchStatus> searchStatus) {
         searchStatus.addListener((observable, oldValue, newValue) -> updateStatus(newValue));
-        
         updateStatus(searchStatus.getValue());
     }
     
@@ -50,7 +54,9 @@ public class SearchStatusView extends UiPart {
     private void updateSearchTerm(SearchStatus status) {
         String terms = Joiner.on(", ").join(status.terms);
         searchTerm.setText(terms);
-        searchCount.setText(status.tasksFound + " tasks found");
+        
+        String taskFound = String.format(TASK_FOUND_FORMAT, status.tasksFound, English.plural("task", status.tasksFound));
+        searchCount.setText(taskFound);
     }
     
     @Override

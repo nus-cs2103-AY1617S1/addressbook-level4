@@ -4,7 +4,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane minWidth="300" maxWidth="Infinity" prefHeight="24" styleClass="searchStatus"
+<StackPane maxWidth="Infinity" prefHeight="24" styleClass="searchStatus"
            xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.SearchStatusView">
     <HBox fx:id="searchStatusContent" minWidth="0" maxWidth="Infinity" spacing="2.0" StackPane.alignment="CENTER_LEFT">
         <Text styleClass="searchLabel">Searching for:</Text>
