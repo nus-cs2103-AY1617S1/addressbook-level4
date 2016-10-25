@@ -78,7 +78,7 @@ Examples:
 * `add organize room`
 <br>
 ### List
-##### List all tasks: `list`
+#### List all tasks: `list`
 Shows a list of all tasks in the task manager.<br>
 Format: `list [-pr] [-st] [-ed] [-t/TAGS]...`
 
@@ -100,7 +100,7 @@ Modifiers | Action
 <figcaption>Fig. 2: Task manager listing tasks by priority</figcaption>
 </div>
 
-##### List all tags used: `list tags`
+#### List all tags used: `list tags`
 Lists all the tags used in the task manager.<br>
 Format: `list tags`
 
@@ -116,7 +116,7 @@ Examples:
 
 <br>
 ### Find
-##### Find all tasks with keyword: `find`
+#### Find all tasks with keyword: `find`
 Finds tasks whose description contains any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -133,31 +133,31 @@ Examples:
 * `find Return lunch Meeting`<br>
   Returns any tasks having description containing `Return`, `lunch`, or `Meeting`
 
-##### Find tasks using specified information: `find pr/`
+#### Find tasks using specified information: `find pr/`
 Find tasks with the specified priority.<br>
 Format: `find pr/PRIORITY`
 
 
-##### Find tasks starting after given time: `find start/`
+#### Find tasks starting after given time: `find start/`
 Find tasks that starts after the specified time.<br>
 Format: `find start/TIME`
 
 > * When only DayOfWeek is inputted, tasks that start on that day, current time is listed
 
-##### Find task due before given time: `find end/`
+#### Find task due before given time: `find end/`
 Find tasks that are due before the specified time.<br>
 Format: `find end/TIME`
 
 > * When only DayOfWeek is inputted, tasks that are due by that day, current time is listed
 
 
-##### Find task with given tags: `find t/`
+#### Find task with given tags: `find t/`
 Find tasks that have any of the specified tags.<br>
 Format: `find t/TAG [MORE_TAGS]`
 
 <br>
 ### Edit: 
-##### Edit a task: `update`
+#### Edit a task: `update`
 Update a detail of a task with the specific index in the list.<br>
 Format: `update INDEX PROPERTY INPUT`
 
@@ -170,7 +170,7 @@ Examples:
   `update 3 descrition Go to SOC`<br>
   Edits the 3rd task in the task manager by replacing the previous description with `Go to SOC`.
 
-##### Add a tag: `addTag`
+#### Add a tag: `addTag`
 Add a tag to a task with specific index in the list.<br>
 Format: `addTag INDEX TAG`
 
@@ -179,7 +179,7 @@ Example:
   `addTag 2 NUS`<br>
   Adds the tag `NUS` to the task with the index 2
   
-##### Delete a tag: `deleteTag`
+#### Delete a tag: `deleteTag`
 Delete a tag of a task with specific index in the list.<br><br>
 Format: `deleteTag INDEX TAG`
 
