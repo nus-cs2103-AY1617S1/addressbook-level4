@@ -146,6 +146,7 @@ public class Task implements ReadOnlyTask {
     }
     //@@author
     
+	//@@author A0147995H
 	@Override
 	public void updateTask(Name name, UniqueTagList tags, TaskDate startDate, TaskDate endDate, RecurringType recurringType) {
 		if(name != null)
@@ -168,6 +169,7 @@ public class Task implements ReadOnlyTask {
 		
 		getLastAppendedComponent().setTaskReferrence(this);
 	}
+	//@@author
 	
 	//@@author A0135782Y
 	@Override
