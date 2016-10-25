@@ -431,10 +431,10 @@ Use case  ends
 ## Appendix E : Product Survey
 
 1. Google Keep
-   * Strength 
+   **Strength** 
     1. Users can add notes, lists, photos and audio as a task
     2. The search function is convenient.
-   * Weakness
+   **Weakness**
     The UI is not poor.
     
 2. Trello
