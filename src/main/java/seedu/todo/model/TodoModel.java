@@ -21,10 +21,14 @@ import seedu.todo.storage.MovableStorage;
 import seedu.todo.storage.TodoListStorage;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
+import java.util.Map;
+import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -149,6 +153,20 @@ public class TodoModel implements Model {
     public ImmutableTask update(int index, Consumer<MutableTask> update) throws ValidationException {
         saveUndoState();
         return todoList.update(getTaskIndex(index), update);
+    }
+
+    @Override
+    public void updateAll(Consumer<MutableTask> update) throws ValidationException {
+        saveUndoState();
+        Map<UUID, Integer> uuidMap = new HashMap<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            uuidMap.put(tasks.get(i).getUUID(), i);
+        }
+        List<Integer> indexes = new ArrayList<>();
+        for (ImmutableTask task : getObservableList()) {
+            indexes.add(uuidMap.get(task.getUUID()));
+        }
+        todoList.updateAll(indexes, update);
     }
 
     @Override

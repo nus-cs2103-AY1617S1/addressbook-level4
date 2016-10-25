@@ -127,12 +127,15 @@ public class TaskCardView extends UiPart {
      */
     private void setStyle() {
         boolean isCompleted = task.isCompleted();
-        boolean isOverdue = task.getEndTime().isPresent() && timeUtil.isOverdue(task.getEndTime().get());
+        boolean isOverdue = task.getEndTime().isPresent() && timeUtil.isOverdue(task.getEndTime().get()) && !task.isEvent();
+        boolean isOngoing = task.isEvent() && timeUtil.isOngoing(task.getStartTime().get(), task.getEndTime().get());
         
         if (isCompleted) {
             ViewStyleUtil.addClassStyles(taskCard, ViewStyleUtil.STYLE_COMPLETED);
         } else if (isOverdue) {
             ViewStyleUtil.addClassStyles(taskCard, ViewStyleUtil.STYLE_OVERDUE);
+        } else if (isOngoing){
+            ViewStyleUtil.addClassStyles(taskCard, ViewStyleUtil.STYLE_ONGOING);
         }
     }
 

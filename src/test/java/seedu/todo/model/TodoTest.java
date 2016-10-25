@@ -1,29 +1,25 @@
 package seedu.todo.model;
 
-import java.io.FileNotFoundException;
-import java.time.LocalDateTime;
-
 import com.google.common.collect.ImmutableList;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.mockito.Mock;
-
 import org.junit.rules.ExpectedException;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.storage.MovableStorage;
 import seedu.todo.testutil.TaskBuilder;
-import seedu.todo.testutil.TimeUtil;
 
+import java.io.FileNotFoundException;
+import java.time.LocalDateTime;
+
+import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import static org.hamcrest.Matchers.*;
 
 public class TodoTest {
     @Rule

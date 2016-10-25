@@ -7,6 +7,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import org.testfx.service.finder.NodeFinderException;
 import seedu.todo.TestApp;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.TestUtil;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
+
 //@@author A0135805H
 /**
  * Provides a handle for the {@link seedu.todo.ui.view.TodoListView}
@@ -88,36 +90,61 @@ public class TodoListViewHandle extends GuiHandle {
     /**
      * Gets a {@link TaskCardViewHandle} object with the position {@code listIndex} located in the to-do list view.
      * Guaranteed unique result for identical tasks.
-     *
+     * Inherits the behaviour from {@link #getTaskCardViewNode(int)}.
      *
      * @param listIndex Index of the {@link #getImmutableTaskList()}.
      * @return An instance of the handle.
      */
     public TaskCardViewHandle getTaskCardViewHandle(int listIndex) {
-        Optional<Node> taskCardNode = getTaskCardViewNode(listIndex);
-        return (taskCardNode.isPresent()) ? new TaskCardViewHandle(guiRobot, primaryStage, taskCardNode.get())
-                                          : null;
+        Node taskCardNode = getTaskCardViewNode(listIndex);
+        if (taskCardNode != null) {
+            return new TaskCardViewHandle(guiRobot, primaryStage, taskCardNode);
+        } else {
+            return null;
+        }
     }
 
     /**
-     * Gets an optional {@link Node} object with the position {@code listIndex} located in the to-do list view.
-     * Guaranteed unique result for identical tasks. However, note that in order to retrieve nodes that are
-     * off the screen, the method will to scroll to that position first.
+     * Gets a {@link Node} object with the position {@code listIndex} located in the to-do list view.
+     * Guarantees:
+     *      -  Unique result for identical tasks, because we are referencing from the index displayed
+     *         in the UI.
+     *      -  The object returned will never be null.
+     *         This means if I can't find the object, an exception will be thrown.
+     * Behaviour:
+     *      Because a task card node is only drawn when the task card is shown on the screen,
+     *      this method will automatically scroll the to-do list view to the position where the
+     *      node is drawn.
      *
-     * @param listIndex Index of the {@link #getImmutableTaskList()}.
-     * @return An instance of the handle.
+     * @param listIndex Index of the {@link #getImmutableTaskList()}
+     *                  (must be a valid value from 0 to length of task list - 1,
+     *                  else {@link RuntimeException} is thrown.
+     * @return An instance of the node. Guarantees non-null.
+     * @throws NodeFinderException if we can't find the node after finite attempts.
      */
-    private Optional<Node> getTaskCardViewNode(int listIndex) {
-        Platform.runLater(() -> getTodoListView().scrollTo(listIndex));
-        guiRobot.sleep(100); //Allow the new nodes to be loaded from scrolling.
-
+    private Node getTaskCardViewNode(int listIndex) throws NodeFinderException {
         int displayedIndex = UiTestUtil.convertToUiIndex(listIndex);
-        Set<Node> taskCardNodes = getAllTaskCardNodes();
-        Stream<Node> nodesStream = taskCardNodes.stream().filter(node -> {
-            TaskCardViewHandle taskCardView = new TaskCardViewHandle(guiRobot, primaryStage, node);
-            return taskCardView.matchesTask(displayedIndex);
-        });
-        return nodesStream.findFirst();
+        Optional<Node> possibleNode;
+        int attemptCounter = 0;
+
+        do {
+            Platform.runLater(() -> getTodoListView().scrollTo(listIndex));
+            guiRobot.sleep(50 * attemptCounter++); //Allow the new nodes to be loaded from scrolling.
+
+            Set<Node> taskCardNodes = getAllTaskCardNodes();
+            possibleNode = taskCardNodes.stream().filter(node -> {
+                TaskCardViewHandle taskCardView = new TaskCardViewHandle(guiRobot, primaryStage, node);
+                return taskCardView.matchesTask(displayedIndex);
+            }).findFirst();
+        } while (!possibleNode.isPresent() && attemptCounter < 50);
+
+        if (possibleNode.isPresent()) {
+            return possibleNode.get();
+        } else {
+            String errorMessage = "Either the node fails to draw on the screen, or you provided an invalid index "
+                                  + listIndex + " where the number of nodes is " + getAllTaskCardNodes().size();
+            throw new NodeFinderException(errorMessage, NodeFinderException.ErrorType.NO_NODES_FOUND);
+        }
     }
 
     /**
