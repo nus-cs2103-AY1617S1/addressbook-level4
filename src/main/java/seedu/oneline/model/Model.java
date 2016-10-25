@@ -51,6 +51,15 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks that are done */
     void updateFilteredListToShowAllDone();
 
+    /** Updates the filter of the filtered task list to show all tasks that are due today */    
+    public void updateFilteredListToShowToday();
+
+    /** Updates the filter of the filtered task list to show all tasks that are due in the coming 7 days*/ 
+    public void updateFilteredListToShowWeek();
+
+    /** Updates the filter of the filtered task list to show all floating tasks */ 
+    public void updateFilteredListToShowFloat();
+    
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     

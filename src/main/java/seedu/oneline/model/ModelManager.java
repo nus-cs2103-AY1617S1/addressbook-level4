@@ -153,6 +153,20 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(getDonePredicate());
     }
     
+    //@@author: A0138848M
+    @Override
+    public void updateFilteredListToShowToday() {
+    }
+    
+    @Override
+    public void updateFilteredListToShowWeek() {
+    }
+    
+    @Override
+    public void updateFilteredListToShowFloat() {
+    }
+    
+    //@@author
     private Predicate<Task> getNotDonePredicate() {
         return task -> !task.isCompleted();
     }
