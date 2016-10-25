@@ -52,7 +52,7 @@ public class MainWindow extends UiPart {
     @FXML private AnchorPane todoListViewPlaceholder;
     @FXML private AnchorPane helpViewPlaceholder;
     @FXML private AnchorPane filterBarViewPlaceholder;
-    @FXML private AnchorPane searchResultViewPlaceholder;
+    @FXML private AnchorPane searchStatusViewPlaceholder;
 
     /**
      * Loads an instance of the {@link MainWindow} together with the associated view elements.
@@ -94,7 +94,7 @@ public class MainWindow extends UiPart {
         commandErrorView = CommandErrorView.load(primaryStage, commandErrorViewPlaceholder);
         
         FilterBarView.load(primaryStage, filterBarViewPlaceholder, model.getViewFilter());
-        SearchStatusView.load(primaryStage, searchResultViewPlaceholder, model.getSearchStatus());
+        SearchStatusView.load(primaryStage, searchStatusViewPlaceholder, model.getSearchStatus());
         //Constructs a command communication link between the commandXViews and logic.
         CommandController.constructLink(logic, commandInputView, commandFeedbackView, commandErrorView);
     }

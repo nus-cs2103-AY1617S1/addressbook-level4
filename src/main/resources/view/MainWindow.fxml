@@ -9,7 +9,7 @@
       <VBox>
          <children>
             <AnchorPane fx:id="filterBarViewPlaceholder" />
-            <AnchorPane fx:id="searchResultViewPlaceholder" />
+            <AnchorPane fx:id="searchStatusViewPlaceholder"/>
             <AnchorPane fx:id="todoListViewPlaceholder" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets />
