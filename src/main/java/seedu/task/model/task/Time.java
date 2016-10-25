@@ -21,8 +21,13 @@ import java.util.regex.Matcher;
 public class Time {
 
     public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Time should either be in 24H format or given as a Day of the Week\n"
-          + "Eg. 9:11, 09:11, thursday, Thursday, THURSDAY, thu, Thur, THURS";
+            "Time parameters should be in the given order: \"DayOfWeek, Date, Time\"\n"
+          + "Parameter formats:\n"
+          + "\tDayOfWeek: thursday, Thursday, THURSDAY, thu, Thur, THURS\n"
+          + "\t\t    Date: 01.01.2011, 1.1.2011\n"
+          + "\t\t    Time: 9:11, 09:11\n"
+          + "You need at least one parameter to specify the time.\n"
+          + "DayOfWeek is ignored if Date is specified.";
     public static final String TIME_VALIDATION_REGEX = "^\\s*$" // Empty String
             + "|^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$" // 24H Time
             // Day Of Week and Optional 24H Time
