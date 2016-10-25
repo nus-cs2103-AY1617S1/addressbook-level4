@@ -75,19 +75,23 @@
     -fx-background-color: -fx-focus-color;
 }
 
-.list-cell {
+.no-priority {
+    -fx-font-size: 14px;
     -fx-text-fill: white;
 }
 
-.list-cell .low-priority {
+.low-priority {
+    -fx-font-size: 14px;
     -fx-text-fill: green;
 }
 
-.list-cell .medium-priority {
+.medium-priority {
+    -fx-font-size: 14px;
     -fx-text-fill: yellow;
 }
 
-.list-cell .high-priority {
+.high-priority {
+    -fx-font-size: 16px;
     -fx-text-fill: red;
 }
 

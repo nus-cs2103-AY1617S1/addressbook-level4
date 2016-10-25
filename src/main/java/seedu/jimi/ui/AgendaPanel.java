@@ -135,7 +135,8 @@ public class AgendaPanel extends UiPart{
         tasksTableColumnTags.setCellFactory(getCustomPriorityCellFactory());
         tasksTableColumnDetails.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName().toString()));
         tasksTableColumnDetails.setCellFactory(getCustomPriorityCellFactory());
-        tasksTableColumnEndDate.setCellValueFactory(cellData -> new SimpleStringProperty(((DeadlineTask) cellData.getValue()).getDeadline().toString()));  
+        tasksTableColumnEndDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue() instanceof DeadlineTask ? 
+                ((DeadlineTask) cellData.getValue()).getDeadline().toString() : null));  
         tasksTableColumnEndDate.setCellFactory(getCustomPriorityCellFactory());
     }
     
@@ -156,6 +157,10 @@ public class AgendaPanel extends UiPart{
         eventsTableColumnEndDate.setCellFactory(getCustomPriorityCellFactory());
     }
     
+    /**
+     * Sets the font colour of the agenda items accordingly to their priorities.
+     * @return
+     */
     private Callback<TableColumn<ReadOnlyTask, String>, TableCell<ReadOnlyTask, String>> getCustomPriorityCellFactory() {
         return new Callback<TableColumn<ReadOnlyTask, String>, TableCell<ReadOnlyTask, String>>() {
 
@@ -167,6 +172,7 @@ public class AgendaPanel extends UiPart{
                     public void updateItem(final String item, boolean empty) {
                         
                         // CSS Styles
+                        String no_priority = "no-priority";
                         String low_priority = "low-priority";
                         String med_priority = "medium-priority";
                         String high_priority = "high-priority";
@@ -178,6 +184,7 @@ public class AgendaPanel extends UiPart{
                         }
 
                         //Remove all previously assigned CSS styles from the cell.
+                        getStyleClass().remove(no_priority);
                         getStyleClass().remove(low_priority);
                         getStyleClass().remove(med_priority);
                         getStyleClass().remove(high_priority);
@@ -185,14 +192,16 @@ public class AgendaPanel extends UiPart{
                         super.updateItem((String) item, empty);
 
                         //Determine how to format the cell based on the status of the container.
-                        if( rowTask == null ) {
+                        if( rowTask == null) {
+                            cssStyle = no_priority;
+                        } else if( rowTask.getPriority().toString().toLowerCase().contains("low") ) {
                             cssStyle = low_priority;
                         } else if( rowTask.getPriority().toString().toLowerCase().contains("med") ) {
                             cssStyle = med_priority;
                         } else if( rowTask.getPriority().toString().toLowerCase().contains("high") ) {
                             cssStyle = high_priority;
                         } else {
-                            cssStyle = low_priority;
+                            cssStyle = no_priority;
                         }
 
                         //Set the CSS style on the cell and set the cell's text.
