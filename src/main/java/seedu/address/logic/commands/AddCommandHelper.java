@@ -11,6 +11,7 @@ import seedu.address.model.item.Priority;
 import seedu.address.model.item.RecurrenceRate;
 import seedu.address.model.item.TimePeriod;
 
+//@@author A0139655U
 public class AddCommandHelper {
     
     private static final String STRING_CONSTANT_ONE = "1";
