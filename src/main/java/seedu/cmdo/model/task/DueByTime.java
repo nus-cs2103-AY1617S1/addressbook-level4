@@ -110,7 +110,7 @@ public class DueByTime {
     
 	// @@author A0139661Y
 	public String getFriendlyStartString() {
-		if (!isRange || isFloating)
+		if (!isRange && isFloating)
 			return "";
 		return start.format(TIME_FORMAT).toString(); 
 	}
