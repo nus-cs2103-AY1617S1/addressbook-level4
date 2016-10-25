@@ -165,6 +165,11 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTodos.setPredicate(null);
         //filteredCompleted.setPredicate(null);
     }
+    
+    @Override
+    public void updateFilteredListToShowAllCompleted() {
+        //updateFilteredEventList
+    }
 
     @Override
     public void updateFilteredEventList(Set<String> keywords){
