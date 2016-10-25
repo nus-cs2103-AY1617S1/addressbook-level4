@@ -14,7 +14,7 @@ public class DeleteCommandTest extends ActivityManagerGuiTest {
     public void delete() {
 
         //delete the first in the list
-        TestActivity[] currentList = td.getTypicalTask();
+        TestActivity[] currentList = td.getTypicalFloatingTask();
 
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
@@ -46,16 +46,16 @@ public class DeleteCommandTest extends ActivityManagerGuiTest {
      * @param currentList A copy of the current list of persons (before deletion).
      */
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestActivity[] currentList) {
-        TestActivity personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestActivity activityToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestActivity[] expectedRemainder = TestUtil.removeActivityFromList(currentList, targetIndexOneIndexed);
 
-        commandBox.runCommand("delete task " + targetIndexOneIndexed);
+        commandBox.runCommand("delete floating " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous persons except the deleted activity
-        assertTrue(activityListPanel.isTaskListMatching(expectedRemainder));
+        assertTrue(activityListPanel.isFloatingTaskListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, personToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_ACTIVITY_SUCCESS, activityToDelete));
     }
 
 }
