@@ -113,9 +113,15 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         if (!contains(toComplete)) {
             throw new FloatingTaskNotFoundException();
         }
-        
         toComplete.setCompleted();
+        updateFloatingTaskList(toComplete);
     }
+
+	private void updateFloatingTaskList(ReadOnlyFloatingTask toComplete) {
+		int indexToReplace = internalList.indexOf(toComplete);
+        internalList.remove(toComplete);
+        internalList.add(indexToReplace, (FloatingTask) toComplete);
+	}
 
     /**
      * Removes the equivalent task from the list.

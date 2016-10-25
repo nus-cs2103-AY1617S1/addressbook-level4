@@ -41,7 +41,12 @@ public class DeadlineCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(deadline.getName().fullName);
+    	if (deadline.getCompleted()){
+    		name.setText(deadline.getName().fullName);
+    		name.getStylesheets().addAll(getClass().getResource("/view/strikethrough.css").toExternalForm());
+    	} else {
+    		name.setText(deadline.getName().fullName);
+    	}
         id.setText("D"+displayedIndex + ". ");
         due.setText("Due: "+ deadline.getDue().toString());
         tags.setText(deadline.tagsString());

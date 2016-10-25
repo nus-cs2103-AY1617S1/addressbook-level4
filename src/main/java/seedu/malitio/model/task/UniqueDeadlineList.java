@@ -107,7 +107,13 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         }
         
         deadlineToComplete.setCompleted();
-		
+        updateDeadlineList(deadlineToComplete);
+	}
+
+	private void updateDeadlineList(ReadOnlyDeadline deadlineToComplete) {
+		int indexToReplace = internalList.indexOf(deadlineToComplete);
+        internalList.remove(deadlineToComplete);
+        internalList.add(indexToReplace, (Deadline) deadlineToComplete);
 	}
 
     /**
