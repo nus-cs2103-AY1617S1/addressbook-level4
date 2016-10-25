@@ -50,7 +50,8 @@ public class ModelManager extends ComponentManager implements Model {
 	private final Stack<String> stackOfMarkDoneTaskTypes;
 	private final Stack<ReadOnlyWhatNow> stackOfWhatNowUndoUpdate;
 	private final Stack<ReadOnlyWhatNow> stackOfWhatNowRedoUpdate;
-
+	private final Stack<String> stackOfListTypes;
+	private final Stack<String> stackOfListTypesRedo;
 	// private final Stack<ReadyOnlyTask> stackOf
 	/**
 	 * Initializes a ModelManager with the given WhatNow
@@ -79,6 +80,8 @@ public class ModelManager extends ComponentManager implements Model {
 		stackOfMarkDoneTaskTypes = new Stack<>();
 		stackOfWhatNowUndoUpdate = new Stack<>();
 		stackOfWhatNowRedoUpdate = new Stack<>();
+		stackOfListTypes = new Stack<>();
+		stackOfListTypesRedo = new Stack<>();
 	}
 
 	public ModelManager() {
@@ -102,6 +105,8 @@ public class ModelManager extends ComponentManager implements Model {
 		stackOfMarkDoneTaskTypes = new Stack<>();
 		stackOfWhatNowUndoUpdate = new Stack<>();
 		stackOfWhatNowRedoUpdate = new Stack<>();
+		stackOfListTypes = new Stack<>();
+		stackOfListTypesRedo = new Stack<>();
 	}
 
 	@Override
@@ -223,6 +228,14 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public Stack<ReadOnlyWhatNow> getStackOfWhatNowRedoUpdate() {
 		return stackOfWhatNowRedoUpdate;
+	}
+	@Override
+	public Stack<String> getStackOfListTypes() {
+		return stackOfListTypes;
+	}
+	@Override 
+	public Stack<String> getStackOfListTypesRedo() {
+		return stackOfListTypesRedo;
 	}
 	//=========== Filtered Task List Accessors ===============================================================
 

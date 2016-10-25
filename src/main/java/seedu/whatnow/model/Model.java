@@ -108,6 +108,12 @@ public interface Model {
 	/** Gets a stack of WhatNow corresponding to Redoes of Update */
 	Stack<ReadOnlyWhatNow> getStackOfWhatNowRedoUpdate();
     
+	/** Gets a stack of String that corresponds to the list of commands that were executed */
+	Stack<String> getStackOfListTypes();
+	
+	/**Gets a stack of String that corresponds to the list of Commands that were undone */
+	Stack<String> getStackOfListTypesRedo();
+	
   //=========== Methods for Schedule List ===============================================================
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList();
