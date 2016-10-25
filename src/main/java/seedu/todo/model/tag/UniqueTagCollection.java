@@ -1,7 +1,6 @@
 package seedu.todo.model.tag;
 
 import javafx.collections.ObservableList;
-import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
 
 import java.util.ArrayList;
@@ -23,15 +22,16 @@ import java.util.Set;
  * maintain uniqueness of the tag names.
  */
 public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionModel {
-
-    //TODO: We will also not allow external access to the uniqueTagList for modifications.
+    /* Variables */
+    /*
+        Stores a list of tags with unique tag names.
+        TODO: ImmutableTask does not have consistent hashing.
+        TODO: So, duplicated ImmutableTask may be found in the set of each Tag.
+     */
+    private final Map<Tag, Set<ImmutableTask>> uniqueTagsToTasksMap = new HashMap<>();
 
     /* Constants */
     private final Logger logger = Logger.getLogger(UniqueTagCollection.class.getName());
-
-    /* Variables */
-    //Stores a list of tags with unique tag names.
-    private final Map<Tag, Set<ImmutableTask>> uniqueTagsToTasksMap = new HashMap<>();
 
     /**
      * Constructs empty TagList.
@@ -58,7 +58,7 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     }
 
     @Override
-    public Tag unregisterTagWithTask(ImmutableTask task, String tagName) throws ValidationException {
+    public Tag unregisterTagWithTask(ImmutableTask task, String tagName) {
         Tag tag = getTagWithName(tagName, true);
         dissociateTaskFromTag(task, tag);
         return tag;
