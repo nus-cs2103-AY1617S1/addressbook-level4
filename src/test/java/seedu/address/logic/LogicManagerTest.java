@@ -17,8 +17,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyTaskManager;
 import seedu.address.model.task.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
 
 import java.util.ArrayList;
@@ -88,7 +86,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
+     * Both the 'task manager' and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, ReadOnlyTaskManager, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -168,7 +166,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add Valid Name at e/5:00pm", Time.MESSAGE_INCORRECT_DATE_FORMAT);
 //        assertCommandBehavior(
-//                "add Valid Name d/01/01/10 s/5:00pm a/5:00am e/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+//                "add Valid Name d/01/01/10 s/5:00pm a/5:00am e/invalid_-);
     }
 
     @Test
@@ -479,6 +477,12 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     } 
     
+    @Test
+    public void execute_undo_nothingToUndo() throws Exception {
+        String expectedMessage = UndoCommand.MESSAGE_UNDO_INVALID;
+        assertCommandBehavior("undo", expectedMessage);
+    }
+
     
     /**
      * A utility class to generate test data.
@@ -491,11 +495,7 @@ public class LogicManagerTest {
             Time start = new Time("1/1/17 5pm");
             Time privateEndTime = new Time("2/1/17 5:00am");
             Recurrence recurrence = new Recurrence("");
-//            Tag tag1 = new Tag("tag1");
-//            Tag tag2 = new Tag("tag2");
-//            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            UniqueTagList tags = new UniqueTagList();
-            return new Task(name, privateDate, start, privateEndTime, recurrence, tags);
+            return new Task(name, privateDate, start, privateEndTime, recurrence);
         }
 
         /**
@@ -511,8 +511,7 @@ public class LogicManagerTest {
                     new Done(false),
                     new Time("1/1/17 5:00pm"),
                     new Time("2/1/17 5:00am"),
-                    new Recurrence(""),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new Recurrence("")
             );
         }
 
@@ -529,11 +528,6 @@ public class LogicManagerTest {
             cmd.append(" to ");
             cmd.append(p.getEndTime().appearOnUIFormat());
             cmd.append(" ");
-//            UniqueTagList tags = p.getTags();
-//            for(Tag t: tags){
-//                cmd.append(" t/").append(t.tagName);
-//            }
-            System.out.println(cmd);
             return cmd.toString();
         }
 
@@ -613,8 +607,7 @@ public class LogicManagerTest {
                     new Done(false),
                     new Time("1/1/17 5:00pm"),
                     new Time("2/1/17 5:00am"),
-                    new Recurrence(""),
-                    new UniqueTagList(new Tag("tag"))
+                    new Recurrence("")
             );
         }
     }

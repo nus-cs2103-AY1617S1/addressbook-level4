@@ -2,7 +2,9 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -41,8 +43,20 @@ public class DoneCommand extends Command {
         try {
             model.saveToHistory();
             model.doneTask(taskToMark);
+            if (taskToMark.getRecurrence().getValue()) {
+                System.out.println(taskToMark.getRecurrence().getRecurFreq());
+                model.addRecurringTask(taskToMark, taskToMark.getRecurrence().getRecurFreq());
+            }
+            
+            
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
+        } catch (DuplicateTaskException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
 
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark));

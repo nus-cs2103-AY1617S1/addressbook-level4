@@ -11,8 +11,11 @@ import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.Time;
+import seedu.address.model.task.Done;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayDeque;
@@ -93,7 +96,6 @@ public class ModelManager extends ComponentManager implements Model {
         TaskManager oldManager = taskManagerHistory.pop();
         undoHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());
-        taskManager.setTags(oldManager.getTagList());
         indicateTaskManagerChanged();
     }
     
@@ -102,7 +104,6 @@ public class ModelManager extends ComponentManager implements Model {
         TaskManager oldManager = undoHistory.pop();
         taskManagerHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());
-        taskManager.setTags(oldManager.getTagList());
         indicateTaskManagerChanged();
     }
     
@@ -146,7 +147,48 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd) throws TaskNotFoundException, IllegalValueException {
+    public synchronized void addRecurringTask(ReadOnlyTask task, String days) throws DuplicateTaskException, IllegalValueException {
+        
+        //Recurring task with only end time.
+        if (task.getStartTime().appearOnUIFormat().equals("-") && !task.getEndTime().appearOnUIFormat().equals("")) {
+            System.out.println("adding a recurring tasks with only end time");
+            addTask(new Task(
+                    task.getName(), 
+                    new Done(false),
+                    new Time(""),
+                    new Time(days + " after " + task.getEndTime().appearOnUIFormat()),
+                    task.getRecurrence()
+                    ));
+        }
+        //Recurring task with only start time.
+        else if (!task.getStartTime().appearOnUIFormat().equals("-") && task.getEndTime().appearOnUIFormat().equals("-")) {
+            System.out.println("adding a recurring tasks with only start time");
+            addTask(new Task(
+                    task.getName(), 
+                    new Done(false),
+                    new Time(days + " after " + task.getStartTime().appearOnUIFormat()),
+                    new Time(""),
+                    task.getRecurrence()
+                    ));
+        }
+        //Recurring task wth both start and end times  
+        else if (!task.getStartTime().appearOnUIFormat().equals("") && !task.getEndTime().appearOnUIFormat().equals("")) {
+            System.out.println("adding a recurring tasks with start and end time");
+            addTask(new Task(
+                    task.getName(), 
+                    new Done(false),
+                    new Time(days + " after " + task.getStartTime().appearOnUIFormat()),
+                    new Time(days + " after " + task.getEndTime().appearOnUIFormat()),
+                    task.getRecurrence()
+                    ));
+        }
+        
+        updateFilteredTaskListToShow(ShowCommand.isNotDone());
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd, String newRecur) throws TaskNotFoundException, IllegalValueException {
         if (newName != null)
             taskManager.editTaskName(task, newName);
         
@@ -155,6 +197,9 @@ public class ModelManager extends ComponentManager implements Model {
         
         if (newEnd != null)
             taskManager.editTaskEndTime(task, newEnd);
+        
+        if (newRecur != null)
+            taskManager.editTaskRecurFreq(task, newRecur);
         
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();

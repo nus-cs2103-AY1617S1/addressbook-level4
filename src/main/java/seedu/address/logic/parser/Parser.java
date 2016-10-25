@@ -32,14 +32,12 @@ public class Parser {
             "(?<name>([^/](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by|every) ))|(\\[^/]))+))?"
                     + "((?: (to|by) )(?<end>(([^;](?<! every ))|(\\[^/]))+))?"
             		+ "((?: every )(?<recurring>(([^;](?<! p/))|(\\[^/]))+))?"
-                    + "(?<tagArguments>(?: t/[^;]+)*)"
                     );
     
     private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
     		+ "((?: )(?<name>([^/](?<! (at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
             + "((?: (to|by) )(?<end>(([^;](?<! (every) ))|(\\[^/]))+))?"
     		+ "((?: (every) )(?<recurring>(([^;](?<! p/))|(\\[^/]))+))?"
-            + "(?<tagArguments>(?: t/[^;]+)*)"
             );
     private static final Pattern DATE_ARGS_FORMAT = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/(\\d\\d)");
 
@@ -178,7 +176,7 @@ public class Parser {
     
     private Command prepareEdit(String args) {
         final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
-        String name, startTime, endTime;
+        String name, startTime, endTime, recur;
         
         // Validate arg string format
         if (!matcher.matches()) {
@@ -187,9 +185,10 @@ public class Parser {
             name = (matcher.group("name") == null) ? null : matcher.group("name");
             startTime = (matcher.group("start") == null) ? null : matcher.group("start");
             endTime = (matcher.group("end") == null) ? null : matcher.group("end");
+            recur = (matcher.group("recurring") == null) ? null : matcher.group("recurring");
         }
         
-        return new EditCommand(matcher.group("index"), name, startTime, endTime);
+        return new EditCommand(matcher.group("index"), name, startTime, endTime, recur);
     }
 
     /**
@@ -216,26 +215,11 @@ public class Parser {
 	                    "false",
 	                    startTime,
 	                    endTime,
-	                    recurFreq,
-	                    getTagsFromArgs(matcher.group("tagArguments"))
+	                    recurFreq
 	            );       
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-    }
-
-	/**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
     }
 
     /**

@@ -74,16 +74,24 @@ Examples:
 * `add exam from tmr 7pm to tmr 8pm`
 * `add event from today 5pm to next fri 10pm`
 
+##### Adding a recurring task
+Adds a task with a recurring period in days <br>
+Format : `add <task name> at/from <start time> by/to <end time> every <number> days`
+
+Examples:
+* `add school homework by 9pm friday every 8 days`
+* `add planning meeting from 2pm thursday to 3pm thursday every 30 days`
+* `add movie night at 8pm Friday every 7 days`
 
 #### Editing a Task: `edit`
 Allows the user to edit a particular task<br>
 Format: `edit <task index> <detail to edit> <new value>`
 
 Example:
-* `edit 2 from 11am to 2pm` (Edits the start time to 11am and end time to 2pm)
-* `edit 1 CS2103T Tutorial` (Edits the name to CS2103 Tutorial)
-* `edit 2 at today 3pm` (Edits the start time at today 3pm)
-
+* `edit 2 from 11am to 2pm` (Edits the start time to 11am and end time to 2pm for task 2)
+* `edit 1 CS2103T Tutorial` (Edits the name to CS2103 Tutorial for task 1)
+* `edit 2 at today 3pm` (Edits the start time to the current day 3pm for task 2)
+* `edit 3 every 7 days` (Edits the recurrence of task 3 to be every 7 days)
 
 #### Priority tasks: `priority`
 Allows the user to set the priority of a task when creating it. If the task is of importance, the user can assign it with a high priority. <br>

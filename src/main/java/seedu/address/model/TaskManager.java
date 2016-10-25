@@ -5,10 +5,10 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.Time;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Recurrence;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,27 +20,25 @@ import java.util.stream.Collectors;
 public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
-    private final UniqueTagList tags;
 
     {
         tasks = new UniqueTaskList();
-        tags = new UniqueTagList();
     }
 
     public TaskManager() {}
 
     /**
-     * Tasks and Tags are copied into this taskmanager
+     * Tasks are copied into this task manager
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList());
     }
 
     /**
-     * Tasks and Tags are copied into this taskmanager
+     * Tasks are copied into this task manager
      */
-    public TaskManager(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
+    public TaskManager(UniqueTaskList tasks) {
+        resetData(tasks.getInternalList());
     }
 
     public static ReadOnlyTaskManager getEmptyTaskManager() {
@@ -57,54 +55,23 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tasks.getInternalList().setAll(tasks);
     }
 
-    public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
-    }
-
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
-        setTags(newTags);
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        resetData(newData.getTaskList());
     }
 
 //// task-level operations
 
     /**
      * Adds a task to the task manager.
-     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
-        syncTagsWithMasterList(p);
         tasks.add(p);
-    }
-
-    /**
-     * Ensures that every tag in this task:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
-     */
-    private void syncTagsWithMasterList(Task task) {
-        final UniqueTagList taskTags = task.getTags();
-        tags.mergeFrom(taskTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
-
-        // Rebuild the list of task tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : taskTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        task.setTags(new UniqueTagList(commonTagReferences));
     }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
@@ -137,29 +104,26 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     public void editTaskName(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
-        tasks.setTaskName(task, new Name(newInfo));
+        tasks.editTaskName(task, new Name(newInfo));
     }
     
     public void editTaskStartTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
-        	tasks.setStartTime(task, new Time(newInfo));
+        tasks.editStartTime(task, new Time(newInfo));
     }
     
     public void editTaskEndTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
-        	tasks.setEndTime(task, new Time(newInfo));
+        tasks.editEndTime(task, new Time(newInfo));
     }
     
-//// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
+    public void editTaskRecurFreq(ReadOnlyTask task, String newRecur) throws TaskNotFoundException {
+        tasks.editRecurFreq(task, new Recurrence(newRecur));
     }
-
+    
 //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
-        // TODO: refine later
+        return tasks.getInternalList().size() + " tasks, ";
     }
 
     @Override
@@ -168,18 +132,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
-
-    @Override
     public UniqueTaskList getUniqueTaskList() {
         return this.tasks;
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
     }
 
 
@@ -187,13 +141,13 @@ public class TaskManager implements ReadOnlyTaskManager {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
-                && this.tasks.equals(((TaskManager) other).tasks)
-                && this.tags.equals(((TaskManager) other).tags));
+                && this.tasks.equals(((TaskManager) other).tasks));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, tags);
+        return Objects.hash(tasks);
     }
+
 }
