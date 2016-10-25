@@ -132,7 +132,7 @@ public class TestTask implements ReadOnlyTask {
                 newRecurrence = new TaskRecurrence(entry.getValue());
                 break;
             case TAG:
-                newTag = Tag.getTag(Parser.getTagFromArgs(entry.getValue()));
+                newTag = Tag.getTag(entry.getValue());
                 break;
             }
         }
