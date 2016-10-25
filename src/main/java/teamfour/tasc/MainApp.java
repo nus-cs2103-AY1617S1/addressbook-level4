@@ -192,6 +192,7 @@ public class MainApp extends Application {
         this.stop();
     }
     
+    //@@author A0147971U
     public void setDataStorageFilePath(String newPath) throws IOException, JAXBException, DataConversionException {
         newTaskListFilePath = newPath;
         config.changeTaskListFilePath(newTaskListFilePath);
@@ -222,7 +223,8 @@ public class MainApp extends Application {
         // After this line, config is updated.
         switchList();
     }
-
+  //@@author
+    
     public static void main(String[] args) {
         launch(args);
     }

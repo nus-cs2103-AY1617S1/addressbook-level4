@@ -168,6 +168,7 @@ public class Parser {
         }
     }
     
+    //@@author A0147971U
     /**
      * Parses arguments in the context of the switch list command.
      *
@@ -344,7 +345,7 @@ public class Parser {
         }
     }
 
-    //@@author
+    //@@author A0147971U
     /**
      * Parses arguments in the context of the relocate task command.
      *
@@ -461,7 +462,7 @@ public class Parser {
         }
     }
     
-    //@@author
+    //@@author A0147971U
     /**
      * Parses arguments in the context of the redo command.
      * Special case: if no arg is provided, redoes 1 command.

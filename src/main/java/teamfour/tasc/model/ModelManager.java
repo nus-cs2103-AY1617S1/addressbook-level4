@@ -108,7 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
         return numUndone;
     }
 
-    //@@author
+    //@@author A0147971U
     @Override
     public int redoTaskListHistory(int numToRedo) {
         assert numToRedo > 0;
@@ -135,6 +135,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void clearRedoTaskListHistory() {
         redoTaskListHistory = new HistoryStack<TaskList>();
     }
+  //@@author
     
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
