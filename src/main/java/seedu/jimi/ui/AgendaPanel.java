@@ -130,9 +130,13 @@ public class AgendaPanel extends UiPart{
      */
     private void configureTaskColumnsCellFactories() {
         tasksTableColumnId.setCellValueFactory(cellData -> new SimpleStringProperty("t" + (cellData.getTableView().getItems().indexOf(cellData.getValue()) + 1) + "."));
+        tasksTableColumnId.setCellFactory(getCustomPriorityCellFactory());
         tasksTableColumnTags.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tagsString()));
+        tasksTableColumnTags.setCellFactory(getCustomPriorityCellFactory());
         tasksTableColumnDetails.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName().toString()));
+        tasksTableColumnDetails.setCellFactory(getCustomPriorityCellFactory());
         tasksTableColumnEndDate.setCellValueFactory(cellData -> new SimpleStringProperty(((DeadlineTask) cellData.getValue()).getDeadline().toString()));  
+        tasksTableColumnEndDate.setCellFactory(getCustomPriorityCellFactory());
     }
     
     /**
@@ -141,10 +145,68 @@ public class AgendaPanel extends UiPart{
      */
     private void configureEventsColumnsCellFactories() {
         eventsTableColumnId.setCellValueFactory(cellData -> new SimpleStringProperty("e" + (cellData.getTableView().getItems().indexOf(cellData.getValue()) + 1) + "."));
+        eventsTableColumnId.setCellFactory(getCustomPriorityCellFactory());
         eventsTableColumnTags.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tagsString()));
+        eventsTableColumnTags.setCellFactory(getCustomPriorityCellFactory());
         eventsTableColumnDetails.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName().toString()));
+        eventsTableColumnDetails.setCellFactory(getCustomPriorityCellFactory());
         eventsTableColumnStartDate.setCellValueFactory(cellData -> new SimpleStringProperty(((Event) cellData.getValue()).getStart().toString()));
+        eventsTableColumnStartDate.setCellFactory(getCustomPriorityCellFactory());
         eventsTableColumnEndDate.setCellValueFactory(cellData -> new SimpleStringProperty(((Event) cellData.getValue()).getEnd().toString()));
+        eventsTableColumnEndDate.setCellFactory(getCustomPriorityCellFactory());
+    }
+    
+    private Callback<TableColumn<ReadOnlyTask, String>, TableCell<ReadOnlyTask, String>> getCustomPriorityCellFactory() {
+        return new Callback<TableColumn<ReadOnlyTask, String>, TableCell<ReadOnlyTask, String>>() {
+
+            @Override
+            public TableCell<ReadOnlyTask, String> call(TableColumn<ReadOnlyTask, String> param) {    
+                TableCell<ReadOnlyTask, String> cell = new TableCell<ReadOnlyTask, String>() {
+                    
+                    @Override
+                    public void updateItem(final String item, boolean empty) {
+                        
+                        // CSS Styles
+                        String low_priority = "low-priority";
+                        String med_priority = "medium-priority";
+                        String high_priority = "high-priority";
+                        String cssStyle = "";
+
+                        ReadOnlyTask rowTask = null;
+                        if( getTableRow() != null ) {
+                            rowTask = (ReadOnlyTask) getTableRow().getItem();
+                        }
+
+                        //Remove all previously assigned CSS styles from the cell.
+                        getStyleClass().remove(low_priority);
+                        getStyleClass().remove(med_priority);
+                        getStyleClass().remove(high_priority);
+
+                        super.updateItem((String) item, empty);
+
+                        //Determine how to format the cell based on the status of the container.
+                        if( rowTask == null ) {
+                            cssStyle = low_priority;
+                        } else if( rowTask.getPriority().toString().toLowerCase().contains("med") ) {
+                            cssStyle = med_priority;
+                        } else if( rowTask.getPriority().toString().toLowerCase().contains("high") ) {
+                            cssStyle = high_priority;
+                        } else {
+                            cssStyle = low_priority;
+                        }
+
+                        //Set the CSS style on the cell and set the cell's text.
+                        getStyleClass().add(cssStyle);
+                        if( item != null ) {
+                            setText( item.toString()  );
+                        } else {
+                            setText( "" );
+                        }                       
+                    }
+                };
+                return cell;
+            }
+        };
     }
 }
    
