@@ -111,7 +111,7 @@ The _Sequence Diagram_ below shows how Happy Jim Task Master handles undo reques
 
 The _Class Diagram_ below shows the structure of how Happy Jim Task Master implements undo and redo operations.
 
-<img src="images/URManager.png" width="800"><br>
+<img src="images/URManager.jpg" width="800"><br>
 
 > Note that LogicManager maintains an URManager. UR manager contains two ArrayDeque, one for undo and the other for redo,  
 > to store the command and its context, specifically, the model before the command executes. 
