@@ -6,6 +6,7 @@ import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.events.model.ToDoListChangedEvent;
 import seedu.todo.model.qualifiers.*;
+import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList;
@@ -181,6 +182,10 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new FromTillDateQualifier(fromDateTime, tillDateTime)));
     }
     
+	@Override
+	public void updateFilteredTaskListByPriority(Priority priority) {
+		updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));	
+	}
     
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
@@ -211,5 +216,6 @@ public class ModelManager extends ComponentManager implements Model {
             return qualifier.toString();
         }
     }
+
     
 }

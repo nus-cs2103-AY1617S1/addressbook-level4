@@ -3,6 +3,7 @@ package seedu.todo.model;
 import java.util.Set;
 
 import seedu.todo.commons.core.UnmodifiableObservableList;
+import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList;
@@ -66,4 +67,9 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to filter by the given from and till dates*/
     void updateFilteredTaskListFromTillDate(LocalDateTime fromDateTime, LocalDateTime tillDateTime);
+
+    /** updates the filter of the filtered task list to filter by the given priority level*/
+	void updateFilteredTaskListByPriority(Priority priority);
+    
+    
 }

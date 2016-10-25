@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.logic.commands.*;
+import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.Recurrence.Frequency;
 
 import com.joestelmach.natty.*;
@@ -99,7 +100,9 @@ public class ToDoListParser {
         Pattern[] dataPatterns = { ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_FT, 
                 ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_BY, ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_ON,
                 ParserFormats.ADD_TASK_ARGS_FORMAT_FT, ParserFormats.ADD_TASK_ARGS_FORMAT_BY,
-                ParserFormats.ADD_TASK_ARGS_FORMAT_ON, ParserFormats.ADD_TASK_ARGS_FORMAT_FLOAT};
+                ParserFormats.ADD_TASK_ARGS_FORMAT_ON, ParserFormats.ADD_TASK_ARGS_FORMAT_FLOAT, 
+                ParserFormats.ADD_TASK_ARGS_PRIORITY_FORMAT_BY, ParserFormats.ADD_TASK_ARGS_PRIORITY_FORMAT_FT,
+                ParserFormats.ADD_TASK_ARGS_PRIORITY_FORMAT_ON};
 
         Matcher matcher;
         try {
@@ -108,31 +111,43 @@ public class ToDoListParser {
                 if (matcher.matches()) {
                     if (p.equals(ParserFormats.ADD_TASK_ARGS_FORMAT_FT)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"),
-                                matcher.group("onDateTime"), matcher.group("byDateTime"), Frequency.NONE);
+                                matcher.group("onDateTime"), matcher.group("byDateTime"), Priority.DEFAULT_PRIORITY, Frequency.NONE);
                         
                     } else if (p.equals(ParserFormats.ADD_TASK_ARGS_FORMAT_ON)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"),
-                                matcher.group("onDateTime"), null, Frequency.NONE);
+                                matcher.group("onDateTime"), null, Priority.DEFAULT_PRIORITY, Frequency.NONE);
                         
                     } else if (p.equals(ParserFormats.ADD_TASK_ARGS_FORMAT_BY)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"), null,
-                                matcher.group("byDateTime"), Frequency.NONE);
+                                matcher.group("byDateTime"), Priority.DEFAULT_PRIORITY, Frequency.NONE);
                         
                     } else if (p.equals(ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_FT)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"),
                                 matcher.group("onDateTime"), matcher.group("byDateTime"), 
-                                Frequency.valueOf(matcher.group("rec").toUpperCase().trim()));
+                                Priority.DEFAULT_PRIORITY, Frequency.valueOf(matcher.group("rec").toUpperCase().trim()));
                         
                     } else if (p.equals(ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_BY)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"), null,
-                                matcher.group("byDateTime"), Frequency.valueOf(matcher.group("rec").toUpperCase().trim()));
+                                matcher.group("byDateTime"), Priority.DEFAULT_PRIORITY, Frequency.valueOf(matcher.group("rec").toUpperCase().trim()));
                         
                     } else if (p.equals(ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_ON)) {
                         return new AddCommand(matcher.group("name"), matcher.group("detail"),
-                                matcher.group("onDateTime"), null, Frequency.valueOf(matcher.group("rec").toUpperCase().trim()));
+                                matcher.group("onDateTime"), null, Priority.DEFAULT_PRIORITY, Frequency.valueOf(matcher.group("rec").toUpperCase().trim()));
+                    
+                    } else if (p.equals(ParserFormats.ADD_TASK_ARGS_PRIORITY_FORMAT_FT)) {
+                        return new AddCommand(matcher.group("name"), matcher.group("detail"),
+                                matcher.group("onDateTime"), matcher.group("byDateTime"), matcher.group("priority"), Frequency.NONE);
+                        
+                    } else if (p.equals(ParserFormats.ADD_TASK_ARGS_PRIORITY_FORMAT_ON)) {
+                        return new AddCommand(matcher.group("name"), matcher.group("detail"),
+                                matcher.group("onDateTime"), null, matcher.group("priority"), Frequency.NONE);  
+
+                    } else if (p.equals(ParserFormats.ADD_TASK_ARGS_PRIORITY_FORMAT_BY)) {
+                        return new AddCommand(matcher.group("name"), matcher.group("detail"), null, 
+                        		matcher.group("byDateTime"), matcher.group("priority"), Frequency.NONE);
                         
                     } else {
-                        return new AddCommand(matcher.group("name"), matcher.group("detail"), null, null, Frequency.NONE);
+                        return new AddCommand(matcher.group("name"), matcher.group("detail"), null, null, Priority.DEFAULT_PRIORITY, Frequency.NONE);
                     }
                 }
             }
@@ -288,7 +303,7 @@ public class ToDoListParser {
         matcher = ParserFormats.UPDATE_TASK_ARGS_FORMAT.matcher(tempArgs.trim());
         if (matcher.matches()) {
             return new UpdateCommand(index.get(), matcher.group("name").trim(), matcher.group("onDateTime"), 
-                    matcher.group("byDateTime"), matcher.group("detail"), matcher.group("rec"));
+                    matcher.group("byDateTime"), matcher.group("priority"), matcher.group("detail"), matcher.group("rec"));
         } else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }  
@@ -338,6 +353,10 @@ public class ToDoListParser {
 
         if (tempArgs.indexOf("undone") == 0) {
             return new SearchCommand(tempArgs, 7);
+        }
+        
+        if (tempArgs.indexOf("priority") == 0) {
+        	return new SearchCommand(tempArgs, 8); 
         }
 
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));

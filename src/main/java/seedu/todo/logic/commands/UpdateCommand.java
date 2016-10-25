@@ -5,6 +5,7 @@ import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.task.Detail;
 import seedu.todo.model.task.Name;
+import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Recurrence;
 import seedu.todo.model.task.Recurrence.Frequency;
@@ -33,15 +34,17 @@ public class UpdateCommand extends Command{
     private final String detail;
     private final String onDateTime;
     private final String byDateTime;
+    private final String priority;
     private final String recurrence;
     
     public UpdateCommand(int targetIndex, String name, String onDateTime, 
-            String byDateTime, String detail, String recurrence) {
+            String byDateTime, String detail, String priority, String recurrence) {
         this.targetIndex = targetIndex;
         this.name = name;
         this.detail = detail;
         this.onDateTime = onDateTime;
         this.byDateTime = byDateTime;
+        this.priority = priority;
         this.recurrence = recurrence;
     }
     
@@ -64,6 +67,7 @@ public class UpdateCommand extends Command{
             Detail newDetail;
             TaskDate newByDate;
             TaskDate newOnDate;
+            Priority newPriority;
             Recurrence newRecurrence;
             
             if (this.detail == null) {
@@ -84,6 +88,12 @@ public class UpdateCommand extends Command{
                 newOnDate = this.onDateTime.trim().equals("-") ?  new TaskDate("", TaskDate.TASK_DATE_ON) : new TaskDate(this.onDateTime, TaskDate.TASK_DATE_ON);
             }
             
+            if (this.priority == null) {
+            	newPriority = taskToUpdate.getPriority();
+            } else {
+            	newPriority = this.priority.trim().equals("-") ?  new Priority(Priority.DEFAULT_PRIORITY) : new Priority(this.priority);
+            }
+            
             if (this.recurrence == null) {
                 newRecurrence = taskToUpdate.getRecurrence();
             } else {
@@ -91,7 +101,7 @@ public class UpdateCommand extends Command{
             }
             
             Task newTask = new Task(newName, newDetail, taskToUpdate.getCompletion(), 
-                    newOnDate, newByDate, newRecurrence, taskToUpdate.getTags());
+                    newOnDate, newByDate, newPriority, newRecurrence, taskToUpdate.getTags());
             model.updateTask(taskToUpdate, newTask);
             model.updateFilteredListToShowAll();
             

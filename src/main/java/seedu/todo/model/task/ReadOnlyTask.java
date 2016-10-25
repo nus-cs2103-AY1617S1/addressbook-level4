@@ -12,6 +12,7 @@ public interface ReadOnlyTask {
     Detail getDetail();
     TaskDate getOnDate();
     TaskDate getByDate();
+    Priority getPriority();
     Completion getCompletion();
     Recurrence getRecurrence();
     boolean isRecurring();
@@ -30,6 +31,7 @@ public interface ReadOnlyTask {
                 || ((other != null) // this is first to avoid NPE below
                 && other.getName().equals(this.getName())
                 && other.getDetail().equals(this.getDetail())
+                && other.getPriority().equals(this.getPriority())
                 && (other.getOnDate().equals(this.getOnDate())
                 && other.getByDate().equals(this.getByDate())));
     }

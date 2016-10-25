@@ -16,6 +16,7 @@ public class Task implements ReadOnlyTask {
     private Detail detail;
     private TaskDate onDate;
     private TaskDate byDate; //deadline
+    private Priority priority;
     private Completion completion;
     private UniqueTagList tags;
     private Recurrence recurrence;
@@ -23,24 +24,26 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Detail detail, TaskDate fromDate, TaskDate tillDate, Recurrence recurrence) {
+    public Task(Name name, Detail detail, TaskDate fromDate, TaskDate tillDate, Priority priority, Recurrence recurrence) {
         assert !CollectionUtil.isAnyNull(name, detail, fromDate, tillDate, recurrence);
         this.name = name;
         this.detail = detail;
         this.onDate = fromDate;
         this.byDate = tillDate;
+        this.priority = priority;
         this.recurrence = recurrence;
         this.completion = new Completion(false);
         this.tags = new UniqueTagList(); // protect internal tags from changes in the arg list
     }
     
     public Task(Name name, Detail detail, Completion completion, TaskDate fromDate, 
-            TaskDate tillDate, Recurrence recurrence, UniqueTagList tags) {
+            TaskDate tillDate, Priority priority, Recurrence recurrence, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, detail, fromDate, tillDate, completion, recurrence);
         this.name = name;
         this.detail = detail;
         this.onDate = fromDate;
         this.byDate = tillDate;
+        this.priority = priority;
         this.completion = completion;
         this.recurrence = recurrence;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
@@ -51,7 +54,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getDetail(), source.getCompletion(), source.getOnDate(), 
-                source.getByDate(), source.getRecurrence(), source.getTags());
+                source.getByDate(), source.getPriority(), source.getRecurrence(), source.getTags());
     }
 
     @Override
@@ -90,6 +93,11 @@ public class Task implements ReadOnlyTask {
     }
     
     @Override
+    public Priority getPriority() {
+        return this.priority;
+    }
+    
+    @Override
     public boolean isRecurring() {
         return this.recurrence.isRecurring();
     }
@@ -108,6 +116,10 @@ public class Task implements ReadOnlyTask {
 
     public void setByDate(TaskDate td) {
         this.byDate = td;
+    }
+    
+    public void setPriority(Priority p) {
+    	this.priority = p;
     }
     
     public void setCompletion(Completion c) {

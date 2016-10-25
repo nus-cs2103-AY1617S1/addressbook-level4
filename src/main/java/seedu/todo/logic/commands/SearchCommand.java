@@ -7,7 +7,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.todo.commons.core.Messages;
+import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.DateTimeUtil;
+import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.TaskDate;
 
 /**
@@ -97,6 +99,16 @@ public class SearchCommand extends Command {
         case 7 : //undone search
             model.updateFilteredListToShowAllNotCompleted();
             return new CommandResult(getMessageForTaskListShownSummary(model.getUnmodifiableFilteredTaskList().size()));
+
+        case 8 : //priority search
+            try {
+            	String priority = data.split("priority")[1].trim();                   
+                model.updateFilteredTaskListByPriority(new Priority(priority));
+                return new CommandResult(getMessageForTaskListShownSummary(model.getUnmodifiableFilteredTaskList().size()));
+                    
+            } catch (IllegalValueException e) {
+                return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);
+            }
                 
         default :
             return new CommandResult(Messages.MESSAGE_INVALID_COMMAND_FORMAT);

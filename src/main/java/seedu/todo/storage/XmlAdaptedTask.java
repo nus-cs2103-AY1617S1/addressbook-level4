@@ -25,6 +25,8 @@ public class XmlAdaptedTask {
     @XmlElement
     private String byDate;
     @XmlElement
+    private String priority;
+    @XmlElement
     private String completion;
     @XmlElement
     private String recurrence;
@@ -48,6 +50,7 @@ public class XmlAdaptedTask {
         completion = source.getCompletion().toString();
         onDate = source.getOnDate().toString();
         byDate = source.getByDate().toString();
+        priority = source.getPriority().toString();
         recurrence = source.getRecurrence().toString();
         tagged = new ArrayList<>();
         
@@ -74,8 +77,9 @@ public class XmlAdaptedTask {
         final Completion completion = new Completion(Boolean.parseBoolean(this.completion));
         final TaskDate onDate = new TaskDate(this.onDate, TaskDate.TASK_DATE_ON);
         final TaskDate byDate = new TaskDate(this.byDate, TaskDate.TASK_DATE_BY);
+        final Priority priority = new Priority(this.priority);
         final Recurrence recurrence = new Recurrence(Frequency.valueOf(this.recurrence));
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, detail, completion, onDate, byDate, recurrence, tags);
+        return new Task(name, detail, completion, onDate, byDate, priority, recurrence, tags);
     }
 }
