@@ -75,6 +75,20 @@ public class DueByTime {
                 || (other instanceof DueByTime // instanceof handles nulls
                 && this.equals((DueByTime) other)); 
     }
+    
+    //@@author A0141128R
+    //to set it to a floating task for edit command purpose
+    public void setFloating(){
+    	this.start = LocalTime.MAX;
+    	this.end = start;
+    }
+    //check if time is entered
+    public boolean timeNotEntered(){
+    	if (end.equals(LocalTime.MAX) & start.equals(LocalTime.MAX))
+    		return true;
+    	else
+    		return false;
+    }
 
     @Override
     public int hashCode() {
