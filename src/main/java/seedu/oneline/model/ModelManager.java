@@ -14,10 +14,13 @@ import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.Date;
 import java.util.Set;
 import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
+import org.apache.commons.lang.time.DateUtils;
 
 
 /**
@@ -156,6 +159,13 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author: A0138848M
     @Override
     public void updateFilteredListToShowToday() {
+        Date now = new Date();
+        updateFilteredListToShowAllNotDone();
+        Predicate<Task> eventSameDay = t -> t.isEvent() 
+                && DateUtils.isSameDay(t.getEndTime().getDate(), now);
+        Predicate<Task> deadlineSameDay = t -> t.hasDeadline() 
+                && DateUtils.isSameDay(t.getDeadline().getDate(), now);
+        filteredTasks.setPredicate(eventSameDay.or(deadlineSameDay));
     }
     
     @Override
