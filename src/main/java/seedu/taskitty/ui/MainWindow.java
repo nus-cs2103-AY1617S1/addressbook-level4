@@ -144,7 +144,6 @@ public class MainWindow extends UiPart {
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
-        initialiseList();
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -234,17 +233,21 @@ public class MainWindow extends UiPart {
         commandBox.handleCommands("view done");
     }
     
+    //@@author A0130853L
+    /**
+     *  initialises the list to show today's events upon UI initialisation
+     * */
+    public void initialiseList() {
+    	logic.initialiseList();
+    }
     
+    //@@author A0130853L
     /**
      * Closes the application.
      */
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
-    }
-
-    private void initialiseList() {
-    	logic.initialiseList();
     }
 
 }
