@@ -39,20 +39,23 @@ public class UnCompleteCommand extends Command {
         storePreviousState();
         
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
-
-        if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
-            lastShownList = model.getFilteredFloatingTaskList();
-            activityToUncomplete = lastShownList.get(targetIndex);
+        try {
+            if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
+                lastShownList = model.getFilteredFloatingTaskList();
+                activityToUncomplete = lastShownList.get(targetIndex);
+            }
+            else if (targetType.equals(Activity.TASK_TYPE)) {
+                lastShownList = model.getFilteredTaskList();
+                activityToUncomplete = lastShownList.get(targetIndex);
+            }
+            else {
+                lastShownList = model.getFilteredEventList();
+                activityToUncomplete = lastShownList.get(targetIndex);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
-        else if (targetType.equals(Activity.TASK_TYPE)) {
-            lastShownList = model.getFilteredTaskList();
-            activityToUncomplete = lastShownList.get(targetIndex);
-        }
-        else {
-            lastShownList = model.getFilteredEventList();
-            activityToUncomplete = lastShownList.get(targetIndex);
-        }
-        
+            
         if (lastShownList.size() <= targetIndex || targetIndex < 0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
