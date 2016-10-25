@@ -136,6 +136,9 @@ public class EditCommand extends Command{
                 data[0] = taskToEdit.getName().toString();   
             }
             if (data[2] == null) {
+                if (categoryIndex != 2) {
+                    return Optional.of(new CommandResult(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE)));
+                }
                 data[2] = taskToEdit.getPeriod().getStartTime().toString();
             }
             if (data[4] == null) {
