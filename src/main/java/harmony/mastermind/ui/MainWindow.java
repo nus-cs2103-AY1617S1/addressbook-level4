@@ -630,6 +630,8 @@ public class MainWindow extends UiPart {
                 if(!isEmpty()){
                     CheckBox box = new CheckBox();
                     box.setSelected(isRecur);
+                    box.setDisable(true);
+                    box.setStyle("-fx-opacity: 1");
                     
                     this.setAlignment(Pos.CENTER);
                     this.setGraphic(box);
