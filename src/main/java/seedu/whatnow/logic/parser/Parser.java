@@ -2,14 +2,12 @@ package seedu.whatnow.logic.parser;
 
 import static seedu.whatnow.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.whatnow.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.whatnow.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 
 import java.text.ParseException;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.whatnow.commons.core.Messages;
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.commands.*;
@@ -56,7 +54,6 @@ public class Parser {
     private static final Pattern KEYWORD_FOR_DATE = Pattern.compile("^((on)|(by)|(from)|(to))$");
     private static final Pattern KEYWORD_FOR_TIME = Pattern.compile("^((at)|(by)|(from)|(to)|(till))$");
     
-    
 	/**
 	 * Integer Constants
 	 */
@@ -88,7 +85,9 @@ public class Parser {
      */
 	private static final String DELIMITER_BLANK_SPACE = " ";
 	private static final String DELIMITER_DOUBLE_QUOTATION_MARK = "\"";
-	private static final String DELIMITER_BACK_SLASH = "\\";
+	private static final String DELIMITER_FORWARD_SLASH = "/";
+	
+	private static final String BACK_SLASH = "\\";
 
 	private static final String TIME_COLON = ":";
 	private static final String TIME_DOT = ".";
@@ -180,8 +179,7 @@ public class Parser {
 	    int lastIndex = 0;
 	    int count = 0;
 
-	    while(lastIndex != -1){
-
+	    while(lastIndex != -1) {
 	        lastIndex = str.indexOf(findStr,lastIndex);
 
 	        if(lastIndex != -1){
@@ -192,13 +190,25 @@ public class Parser {
 	    
 	    return count;
 	}
-
-	public static String formatTime(String time, String period, String[] splitTimePeriod, String[] splitTime) {
+	
+	/**
+	 * Formats the time to the colon format E.g. 12:30am, 4:20pm etc
+	 * @param time The time to be formatted
+	 * @param period The time period
+	 * @return the formatted time
+	 */
+	public static String formatTime(String time, String period) {
+	    String[] splitTimePeriod = null;
+        String[] splitTime = null;
+        
 	    splitTimePeriod = time.toLowerCase().split(period);
-        if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_COLON))
+        if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_COLON)) {
             splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(TIME_COLON);
-        if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_DOT))
-            splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(DELIMITER_BACK_SLASH + TIME_DOT);
+        }
+        
+        if (splitTimePeriod[TIME_WITHOUT_PERIOD].contains(TIME_DOT)) {
+            splitTime = splitTimePeriod[TIME_WITHOUT_PERIOD].split(BACK_SLASH + TIME_DOT);
+        }
         
         time = (splitTime != null) ? splitTime[TIME_HOUR] : splitTimePeriod[TIME_WITHOUT_PERIOD];
         time += TIME_COLON;
@@ -208,13 +218,17 @@ public class Parser {
         return time;
 	}
 	
+	/**
+	 * Calls the formatTime method to format the time
+	 * @param time The time to be formatted
+	 * @return the formatted time
+	 */
 	public static String formatTime(String time) {
-	    String[] splitTimePeriod = null;
-	    String[] splitTime = null;
-	    if (time.contains(TIME_AM))
-	        time = formatTime(time, TIME_AM, splitTimePeriod, splitTime);
-        else
-            time = formatTime(time, TIME_PM, splitTimePeriod, splitTime);
+	    if (time.contains(TIME_AM)) {
+	        time = formatTime(time, TIME_AM);
+	    } else {
+            time = formatTime(time, TIME_PM);
+	    }
 	    
 	    return time;
 	}
@@ -250,8 +264,9 @@ public class Parser {
 		}*/
 	    
 	    // Check whether there are two quotation marks ""
-	    if (countOccurence(args, DELIMITER_DOUBLE_QUOTATION_MARK) != NUM_OF_QUOTATION_MARKS)
+	    if (countOccurence(args, DELIMITER_DOUBLE_QUOTATION_MARK) != NUM_OF_QUOTATION_MARKS) {
 	        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+	    }
 	    
 		String[] arguments = args.split(DELIMITER_DOUBLE_QUOTATION_MARK);
 		
@@ -288,7 +303,7 @@ public class Parser {
 		        continue;
 		    }
 		    else if (TAG_FORMAT.matcher(additionalArgs[i]).find()) {
-		        String[] splitTag = additionalArgs[i].trim().split(DELIMITER_BACK_SLASH);
+		        String[] splitTag = additionalArgs[i].trim().split(DELIMITER_FORWARD_SLASH);
 		        tags.add(splitTag[TAG]);
 		        continue;
 		    } else if (!hasDate && TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
@@ -305,6 +320,11 @@ public class Parser {
                 numOfTime++;
                 if (numOfTime == ONE) {
                     time = additionalArgs[i].toLowerCase();
+                    if (startDate != null & endDate != null) {
+                        endTime = time;
+                        time = null;
+                        startTime = "12:00am";
+                    }
                 } else if (numOfTime == TWO) {       
                     startTime = time;      
                     time = null;
@@ -338,12 +358,15 @@ public class Parser {
                     numOfTime++;
                     if (numOfTime == ONE) {
                         time = additionalArgs[i].toLowerCase();
+                        if (startDate != null & endDate != null) {
+                            endTime = time;
+                            time = null;
+                            startTime = "12:00am";
+                        }
                     } else if (numOfTime == TWO) {
                         startTime = time;                    
                         time = null;
-                        endTime = additionalArgs[i].toLowerCase();
-                        
-                        
+                        endTime = additionalArgs[i].toLowerCase();       
                     }
                 } else {
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -357,6 +380,11 @@ public class Parser {
                     numOfTime++;
                     if (numOfTime == ONE) {
                         time = additionalArgs[i].toLowerCase();
+                        if (startDate != null & endDate != null) {
+                            endTime = time;
+                            time = null;
+                            startTime = "12:00am";
+                        }
                     } else if (numOfTime == TWO) {
                         startTime = time;             
                         time = null;
@@ -369,14 +397,25 @@ public class Parser {
                 hasTime = false;
             }
             
-            if (!validArgument)
+            if (!validArgument) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
 		}
-		
-		if (startTime != null) {
+        
+		if (time != null) {
+		    time = formatTime(time);
+		} else if (startTime != null) {
 		    startTime = formatTime(startTime);
 		    endTime = formatTime(endTime);
 		}
+		
+		if (startDate != null) {
+            if (time != null) {
+                startTime = time;
+                time = null;
+                endTime = "11:59pm";
+            }
+        }
 		
 		try {
 			return new AddCommand(name, date, startDate, endDate, time, startTime, endTime, tags);
@@ -463,6 +502,7 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
+     * @throws ParseException 
      */
     private Command prepareUpdate(String args) {
         if (args.equals(null))
@@ -484,6 +524,8 @@ public class Parser {
                     return new UpdateCommand(type, index.get(), argType, arg);
                 } catch (IllegalValueException ive) {
                     return new IncorrectCommand(ive.getMessage());
+                } catch (ParseException pe) {
+                    return new IncorrectCommand(pe.getMessage());
                 }
             }
             arg += argComponents[i] + " ";
@@ -501,6 +543,8 @@ public class Parser {
             return new UpdateCommand(type, index.get(), argType, arg);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (ParseException pe) {
+            return new IncorrectCommand(pe.getMessage());
         }
     }
     

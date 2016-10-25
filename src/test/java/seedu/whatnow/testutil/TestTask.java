@@ -1,6 +1,5 @@
 package seedu.whatnow.testutil;
 
-import java.text.ParseException;
 import java.util.Objects;
 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
@@ -13,19 +12,21 @@ import seedu.whatnow.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private TaskDate taskDate;
-    private TaskDate startDate;
-    private TaskDate endDate;
+    private String taskDate;
+    private String startDate;
+    private String endDate;
     private String taskTime;
     private String startTime;
     private String endTime;
     private UniqueTagList tags;
     private String status;
-    private String taskType;//todo or schedule
+    private String taskType; //todo or schedule
 
-    public TestTask() throws IllegalValueException, ParseException {
-        setStartDate(new TaskDate(""));
-        setEndDate(new TaskDate(""));
+    public TestTask() throws IllegalValueException {
+        setTaskDate("");
+        setStartDate("");
+        setEndDate("");
+        setTaskTime("");
         setStartTime("");
         setEndTime("");
         setTaskType("");
@@ -70,21 +71,51 @@ public class TestTask implements ReadOnlyTask {
     public void setTaskType(String taskType) {
         this.taskType = taskType;
     }
+    
+    @Override
+    public String getTaskDate() {
+        return taskDate;
+    }
 
-    public TaskDate getStartDate() {
+    @Override
+    public String getStartDate() {
         return startDate;
     }
 
-    public TaskDate getEndDate() {
+    @Override
+    public String getEndDate() {
         return endDate;
     }
+
+    @Override
+    public String getTaskTime() {
+        return taskTime;
+    }
+
+    @Override
+    public String getStartTime() {
+        return startTime;
+    }
+
+    @Override
+    public String getEndTime() {
+        return endTime;
+    }
     
-    public void setStartDate(TaskDate date) {
+    public void setTaskDate(String date) {
+        this.taskDate = date;
+    }
+    
+    public void setStartDate(String date) {
         this.startDate = date;
     }
     
-    public void setEndDate(TaskDate date) {
+    public void setEndDate(String date) {
         this.endDate = date;
+    }
+    
+    public void setTaskTime(String time) {
+        this.taskTime = time;
     }
     
     public void setStartTime(String time) {
@@ -113,29 +144,5 @@ public class TestTask implements ReadOnlyTask {
             sb.append("on" + " " + this.getStartDate());
         this.getTags().getInternalList().stream().forEach(s -> sb.append(" t/" + s.tagName + " "));
         return sb.toString();
-    }
-
-    @Override
-    public TaskDate getTaskDate() {
-        return taskDate;
-    }
-
-    @Override
-    public String getTaskTime() {
-        return taskTime;
-    }
-
-    @Override
-    public String getStartTime() {
-        return startTime;
-    }
-
-    @Override
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setDate(TaskDate date) {
-        this.taskDate = date;
     }
 }

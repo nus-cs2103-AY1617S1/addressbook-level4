@@ -54,19 +54,19 @@ public class TaskCard extends UiPart{
         id.setText(displayedIndex + ". ");
 
         if(task.getTaskDate() != null) {
-        	taskDate.setText(task.getTaskDate().getDate());
+        	taskDate.setText(task.getTaskDate());
         } else if(task.getTaskDate() == null) {
         	taskDate.setText("");
         }
         
         if(task.getStartDate() != null) {
-            startDate.setText(task.getStartDate().getDate());
+            startDate.setText(task.getStartDate());
         } else if(task.getStartDate() == null) {
             startDate.setText("");
         }
         
         if(task.getEndDate() != null) {
-            endDate.setText("to " + task.getEndDate().getDate());
+            endDate.setText("to " + task.getEndDate());
         } else if(task.getEndDate() == null) {
             endDate.setText("");
         }

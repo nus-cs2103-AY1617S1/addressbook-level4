@@ -548,7 +548,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            TaskDate date = new TaskDate("12/12/2017");
+            String date = "12/12/2017";
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -557,7 +557,7 @@ public class LogicManagerTest {
         
         Task todo(String description, String dateString, String tag01, String tag02) throws Exception {
             Name name = new Name(description);
-            TaskDate date = new TaskDate(dateString);
+            String date = dateString;
             Tag tag1 = new Tag(tag01);
             Tag tag2 = new Tag(tag02);
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -574,7 +574,7 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new TaskDate("23/2/2017"),
+                    "23/2/2017",
                     null,
                     null,
                     null,
