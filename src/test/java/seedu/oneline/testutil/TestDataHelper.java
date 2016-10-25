@@ -27,7 +27,7 @@ public class TestDataHelper{
         Tag tag1 = new Tag("tag1");
         Tag tag2 = new Tag("tag2");
         UniqueTagList tags = new UniqueTagList(tag1, tag2);
-        return new Task(name, startTime, endTime, deadline, recurrence, tags);
+        return new Task(name, startTime, endTime, deadline, recurrence, tags, false);
     }
 
     /**
@@ -44,7 +44,8 @@ public class TestDataHelper{
                 new TaskTime("" + seed),
                 new TaskTime("" + seed),
                 new TaskRecurrence("" + seed),
-                new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
+                false
         );
     }
 
@@ -144,7 +145,8 @@ public class TestDataHelper{
                 new TaskTime(""),
                 new TaskTime(""),
                 new TaskRecurrence(""),
-                new UniqueTagList(new Tag("tag"))
+                new UniqueTagList(new Tag("tag")),
+                false
         );
     }
 }
