@@ -209,18 +209,11 @@ public class MainApp extends Application {
         setDataStorageFilePath(event.getDestination());
     }
     
-    public void switchList() {
-//        TODO: implement switchList()
-//        use config.getTaskListName() to get the tasklist file name to be switched to.
-        this.stop();
-    }
-    
     @Subscribe
     public void handleRequestTaskListSwitchEvent(RequestTaskListSwitchEvent event) throws IOException {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         config.switchToNewTaskList(event.getFilename());
-        // After this line, config is updated.
-        switchList();
+        this.stop();
     }
 
     public static void main(String[] args) {
