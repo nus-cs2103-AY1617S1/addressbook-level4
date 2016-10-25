@@ -53,9 +53,10 @@ public interface Model {
     void unmarkTask(Task target) throws UniqueTaskList.DuplicateTaskException,
     ArchiveTaskList.TaskNotFoundException;
     
-    //@@author A0139149X
+    //@@author A0139194X
     /** Relocates save location to given directory */
     void relocateSaveLocation(String directory) throws FolderDoesNotExistException;
+    
     
     /** push the command to undo history */
     void pushToUndoHistory(Undoable command);
@@ -121,6 +122,7 @@ public interface Model {
     /** Search */
     void searchTask(String input);
 
+    //@@author A0139194X
     /** Indicate that user needs to confirm command execution */
     void indicateConfirmationToUser() throws CommandCancelledException;
 
