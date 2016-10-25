@@ -1,7 +1,7 @@
 package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
-import org.ocpsoft.prettytime.shade.org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.commons.util.CollectionUtil;
@@ -167,7 +167,7 @@ public class TagCommand extends BaseCommand {
         boolean isAddTagsToTask = isAddTagsToTask();
         boolean isDeleteTagsFromTask = isDeleteTagsFromTask();
         boolean isDeleteTagsFromAll = isDeleteTagsFromAllTasks();
-        return BooleanUtils.xor(new boolean[] {isAddTagsToTask, isDeleteTagsFromTask, isDeleteTagsFromAll});
+        return BooleanUtils.xor(isAddTagsToTask, isDeleteTagsFromTask, isDeleteTagsFromAll);
     }
 
     /**

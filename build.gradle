@@ -59,6 +59,8 @@ allprojects {
         // https://mvnrepository.com/artifact/org.atteo/evo-inflector
         compile group: 'org.atteo', name: 'evo-inflector', version: '1.2.1'
 
+        // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 
         testCompile group: 'com.github.javafaker', name: 'javafaker', version: '0.10'
         testCompile "org.mockito:mockito-core:1.+"
