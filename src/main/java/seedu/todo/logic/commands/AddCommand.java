@@ -51,7 +51,6 @@ public class AddCommand extends BaseCommand {
 
     @Override
     public CommandResult execute() throws ValidationException {
-        TaskViewFilter currentView = model.getViewFilter().get();
         ImmutableTask addedTask = this.model.add(title.getValue(), task -> {
             task.setDescription(description.getValue());
             task.setPinned(pin.getValue());
@@ -59,7 +58,7 @@ public class AddCommand extends BaseCommand {
             task.setStartTime(date.getValue().getStartTime());
             task.setEndTime(date.getValue().getEndTime());
         });
-        if(!currentView.filter.test(addedTask)) {
+        if(!model.getObservableList().contains(addedTask)) {
             model.view(TaskViewFilter.DEFAULT);
         }
         return taskSuccessfulResult(title.getValue(), AddCommand.VERB);
