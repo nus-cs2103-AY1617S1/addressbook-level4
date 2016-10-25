@@ -26,8 +26,8 @@ To get started, proceed to the Quick Start section below.
    
 1. Download the latest `TasKitty.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your TasKitty.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
+3. Double-click the file to start the app. The GUI should appear in a few seconds. <br>
+   <img src="images/Ui.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
@@ -47,7 +47,7 @@ To get started, proceed to the Quick Start section below.
 #### View help : `help`
 Format: `help`
 
-> A pop-up window displaying the command summary will be shown. Help is also shown if you enter an incorrect command e.g. `abcd`.<br>
+A pop-up window displaying the command summary will be shown. Help is also shown if you enter an incorrect command e.g. `abcd`.<br>
 <img src="images/UIhelp.png" width="600">
 
 
@@ -61,7 +61,7 @@ All uncompleted todo tasks, upcoming events and deadlines will be displayed.
 
 Example:
 
-* `view`
+* `view`<br>
   <img src="images/UIview.png" width="600">
   
 <br>
@@ -74,7 +74,7 @@ If `view today` is entered, today's tasks, events and deadlines up to today will
 
 Example:
 
-* `view 5 Nov`
+* `view 5 Nov`<br>
   <img src="images/UIviewDate.png" width="600">
  
 <br>
@@ -88,7 +88,7 @@ All todo tasks, deadlines and events ever added will be displayed, including eve
 
 Example:
 
-* `view all`
+* `view all`<br>
   <img src="images/UIviewAll.png" width="600">
   
 <br>
@@ -101,7 +101,7 @@ All completed todo tasks, deadlines and events will be shown.
 
 Example:
 
-* `view done`
+* `view done`<br>
   <<img src="images/UIviewDone.png" width="600">
   
 <br>
@@ -130,15 +130,15 @@ Adds a new task to the todo or deadlines list, or a new event to the event calen
 Examples:
 
 * `add study for test`<br>
-  Adds a `todo` task with NAME as `study for test`.
+  Adds a `todo` task with NAME as `study for test`.<br>
   <img src="images/UItodo.png" width="600">
 
 * `add math assignment 17 Nov 2pm`<br>
-  Adds a `deadline` task with NAME as `math assignment`, DATE as `17 Nov`, END_TIME as `2pm`.
+  Adds a `deadline` task with NAME as `math assignment`, DATE as `17 Nov`, END_TIME as `2pm`.<br>
   <img src="images/UIdeadline.png" width="600">
 
 * `add walk dog 5 Nov 2016 17:00 to 18:00`<br>
-  Adds an `event` task with NAME as `walk dog`, DATE as `5 Nov 2016`, START\_TIME as `17:00`, END\_TIME as `18:00`.
+  Adds an `event` task with NAME as `walk dog`, DATE as `5 Nov 2016`, START\_TIME as `17:00`, END\_TIME as `18:00`.<br>
   <img src="images/UIevent.png" width="600">
 
 
