@@ -134,14 +134,14 @@ Format: `mark /do <START_INDEX>..<END_INDEX> /ud <START_INDEX>..<END_INDEX>`
 > The index refers to the index number shown in the tag list.
 > The index **must be a positive integer** 1, 2, 3, ..
 > Start index of range must be before end index
-> Use -do to mark a task(s) as `done`
-> Use -ud to mark a task(s) as `undone`
+> Use /do to mark a task(s) as `done`
+> Use /ud to mark a task(s) as `undone`
 
 Examples:
 * `mark /do 2 4 6`
 * `mark /ud 3 5 7`
-* `mark /do 3 5 7 -ud 2 4 6`
-* `mark /do 1..3 -ud 4..6`
+* `mark /do 3 5 7 /ud 2 4 6`
+* `mark /do 1..3 /ud 4..6`
 
 #### Deleting a task : `del`
 Deletes a particular task, or a list of task based on a specific criteria (i.e. INDEX, done/undone status, date, tags, priority)  
@@ -183,7 +183,7 @@ Finds all tasks containing a list of keywords (i.e. AND search).
 Two modes: Quick Search & Filter Search.  
 Format:
 * [Quick Search]: `find <KEYWORD>[, KEYWORD, KEYWORD]`  
-* [Filter Search]: `find -n <NAME_KEYWORD>[, NAME_KEYWORD, NAME_KEYWORD] -dt [START_DATE] to [END_DATE] -p [PRIORITY(h/m/l)] -do (or -ud) -t <TAG_KEYWORD>[, TAG_KEYWORD, TAG_KEYWORD]`
+* [Filter Search]: `find /n <NAME_KEYWORD>[, NAME_KEYWORD, NAME_KEYWORD] /dt [START_DATE] to [END_DATE] /p [PRIORITY(h/m/l)] /do (or /ud) /t <TAG_KEYWORD>[, TAG_KEYWORD, TAG_KEYWORD]`
 
 > **Quick Search Mode**: Find tasks quickly by entering keywords that match what is displayed in the task list  
 > **Filter Search Mode**: Find tasks using task filters (i.e. /n, /p, /dt, /do, /ud, /t)  
