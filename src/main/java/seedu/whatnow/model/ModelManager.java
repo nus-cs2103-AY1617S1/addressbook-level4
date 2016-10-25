@@ -118,7 +118,7 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 	@Override
 	public synchronized void revertDataUpdate() {
-	//	stackOfWhatNowRedoUpdate.push(stackOfWhatNowUndoUpdate.peek());
+		
 		System.out.println("stackOfWhatNowUndoUpdate.peek() is : " + stackOfWhatNowUndoUpdate.peek());
 		whatNow.revertEmptyWhatNow(stackOfWhatNowUndoUpdate.pop());
 		indicateWhatNowChanged();
@@ -162,11 +162,12 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
-		stackOfWhatNowUndoUpdate.push(new WhatNow(whatNow));
-		stackOfOldTask.push(old);
+//		stackOfWhatNowUndoUpdate.push(new WhatNow(whatNow));
+//		stackOfOldTask.push(old);
 		whatNow.updateTask(old, toUpdate);
 		System.out.println("i am at updateTask and pushing in this whatNow of this tasklist: " + whatNow.getTaskList() );
-		stackOfWhatNowRedoUpdate.push(new WhatNow(whatNow));
+		stackOfOldTask.push(old);
+		//		stackOfWhatNowRedoUpdate.push(new WhatNow(whatNow));
 		indicateWhatNowChanged();
 	}
 	@Override
