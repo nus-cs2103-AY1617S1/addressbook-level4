@@ -7,9 +7,8 @@ We are a group of Computer Science students from the School of Computing, Nation
 #### [Jia Wern](https://github.com/l0g1cal)<br>
 
 <img src="images/JiaWern.png" width="150"><br>
-* Role: Developer<br>
-* Responsibilities: Team Lead<br>
 * Component in charge of: Model
+* Aspects/tools in charge of: Overall development, Git<br>
 * Features implemented:
    * [Edit task](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#edit-task-details-edit)
    * [Save to specified folder](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#save-data-save)
