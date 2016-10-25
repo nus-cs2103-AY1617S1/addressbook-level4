@@ -27,8 +27,6 @@ public class AddCommandParser extends CommandParser {
      */
     public Command prepareCommand(String args) {
         try {
-            args = args.trim();
-            
             Matcher matcher = EVENT_DATA_ARGS_FORMAT.matcher(args);
             // Validate arg string format
             if (matcher.matches()) {
@@ -57,10 +55,7 @@ public class AddCommandParser extends CommandParser {
     }
     
     private boolean containsDelimiters(String args) {
-        if (args.contains(START_DATE_DELIMITER) || args.contains(END_DATE_DELIMITER)) {
-            return true; 
-        } else {
-            return false;
-        }
+        return (args.contains(START_DATE_DELIMITER) 
+                || args.contains(END_DATE_DELIMITER));
     }
 }

@@ -8,11 +8,9 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.taskscheduler.commons.core.EventsCenter;
-import seedu.taskscheduler.commons.core.Messages;
 import seedu.taskscheduler.commons.events.model.TaskSchedulerChangedEvent;
 import seedu.taskscheduler.commons.events.ui.JumpToListRequestEvent;
 import seedu.taskscheduler.commons.events.ui.ShowHelpEvent;
-import seedu.taskscheduler.commons.util.DateFormatter;
 import seedu.taskscheduler.logic.Logic;
 import seedu.taskscheduler.logic.LogicManager;
 import seedu.taskscheduler.logic.commands.*;
@@ -28,7 +26,6 @@ import seedu.taskscheduler.storage.StorageManager;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -67,7 +64,7 @@ public class LogicManagerTest {
     }
 
     @Before
-    public void setup() {
+    public void setUp() {
         model = new ModelManager();
         String tempTaskSchedulerFile = saveFolder.getRoot().getPath() + "TempTaskScheduler.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
@@ -80,7 +77,7 @@ public class LogicManagerTest {
     }
 
     @After
-    public void teardown() {
+    public void tearDown() {
         EventsCenter.clearSubscribers();
     }
 
@@ -172,10 +169,10 @@ public class LogicManagerTest {
                 "add []\\[;] s/090909 e/090909 at valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name s/" + invalidDate + " e/010116 at valid, address", 
-                String.format(Messages.MESSAGE_INVALID_DATE_FORMAT,invalidDate));
+                String.format(MESSAGE_INVALID_DATE_FORMAT,invalidDate));
         assertCommandBehavior(
                 "add Valid Name s/010116 e/" + invalidDate + " at valid, address", 
-                String.format(Messages.MESSAGE_INVALID_DATE_FORMAT,invalidDate));
+                String.format(MESSAGE_INVALID_DATE_FORMAT,invalidDate));
 //        assertCommandBehavior(
 //                "add Valid Name s/01012016 e/01012016 a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -334,7 +331,7 @@ public class LogicManagerTest {
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
         Task p1 = helper.generateTaskWithName("KE Y");
-        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
+        Task p2 = helper.generateTaskWithName("KE YKE YK EY sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
         TaskScheduler expectedAB = helper.generateTaskScheduler(fourTasks);
@@ -391,7 +388,7 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
 
-        Task adam() throws Exception {
+        private Task adam() throws Exception {
             Name name = new Name("Adam Brown");
             TaskDateTime startDate = new TaskDateTime("090911");
             TaskDateTime endDate = new TaskDateTime("090911");
@@ -409,7 +406,7 @@ public class LogicManagerTest {
          *
          * @param seed used to generate the task data field values
          */
-        Task generateTask(int seed) throws Exception {
+        private Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
                     new TaskDateTime("090901"),
@@ -420,7 +417,7 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct add command based on the task given */
-        String generateAddCommand(Task p) {
+        private String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
 
             cmd.append("add ");
@@ -441,7 +438,7 @@ public class LogicManagerTest {
         /**
          * Generates an TaskScheduler with auto-generated tasks.
          */
-        TaskScheduler generateTaskScheduler(int numGenerated) throws Exception{
+        private TaskScheduler generateTaskScheduler(int numGenerated) throws Exception{
             TaskScheduler taskScheduler = new TaskScheduler();
             addToTaskScheduler(taskScheduler, numGenerated);
             return taskScheduler;
@@ -450,7 +447,7 @@ public class LogicManagerTest {
         /**
          * Generates an TaskScheduler based on the list of Tasks given.
          */
-        TaskScheduler generateTaskScheduler(List<Task> tasks) throws Exception{
+        private TaskScheduler generateTaskScheduler(List<Task> tasks) throws Exception{
             TaskScheduler taskScheduler = new TaskScheduler();
             addToTaskScheduler(taskScheduler, tasks);
             return taskScheduler;
@@ -460,14 +457,14 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given TaskScheduler
          * @param taskScheduler The TaskScheduler to which the Tasks will be added
          */
-        void addToTaskScheduler(TaskScheduler taskScheduler, int numGenerated) throws Exception{
+        private void addToTaskScheduler(TaskScheduler taskScheduler, int numGenerated) throws Exception{
             addToTaskScheduler(taskScheduler, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given TaskScheduler
          */
-        void addToTaskScheduler(TaskScheduler taskScheduler, List<Task> tasksToAdd) throws Exception{
+        private void addToTaskScheduler(TaskScheduler taskScheduler, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 taskScheduler.addTask(p);
             }
@@ -477,14 +474,14 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given model
          * @param model The model to which the Tasks will be added
          */
-        void addToModel(Model model, int numGenerated) throws Exception{
+        private void addToModel(Model model, int numGenerated) throws Exception{
             addToModel(model, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given model
          */
-        void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
+        private void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 model.addTask(p);
             }
@@ -493,7 +490,7 @@ public class LogicManagerTest {
         /**
          * Generates a list of Tasks based on the flags.
          */
-        List<Task> generateTaskList(int numGenerated) throws Exception{
+        private List<Task> generateTaskList(int numGenerated) throws Exception{
             List<Task> tasks = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
                 tasks.add(generateTask(i));
@@ -501,14 +498,14 @@ public class LogicManagerTest {
             return tasks;
         }
 
-        List<Task> generateTaskList(Task... tasks) {
+        private List<Task> generateTaskList(Task... tasks) {
             return Arrays.asList(tasks);
         }
 
         /**
          * Generates a Task object with given name. Other fields will have some dummy values.
          */
-        Task generateTaskWithName(String name) throws Exception {
+        private Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
                     new TaskDateTime("161216"),

@@ -1,7 +1,6 @@
 package seedu.taskscheduler.storage;
 
 import seedu.taskscheduler.commons.exceptions.IllegalValueException;
-import seedu.taskscheduler.commons.util.CollectionUtil;
 import seedu.taskscheduler.model.tag.Tag;
 
 import javax.xml.bind.annotation.XmlValue;

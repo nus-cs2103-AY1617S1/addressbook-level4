@@ -16,19 +16,30 @@ public class AddCommandTest extends TaskSchedulerGuiTest {
 
     @Test
     public void add() {
-        //add one task
+        //add event task
         TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.hoon;
+        TestTask taskToAdd = td.event;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add another task
-        taskToAdd = td.ida;
+        //add deadline task
+        taskToAdd = td.deadline;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add duplicate task
-        commandBox.runCommand(td.hoon.getAddCommand());
+        //add floating task
+        taskToAdd = td.floating;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+
+        //add duplicate tasks
+        commandBox.runCommand(td.event.getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertTrue(taskListPanel.isListMatching(currentList));
+        commandBox.runCommand(td.deadline.getAddCommand());
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+        assertTrue(taskListPanel.isListMatching(currentList));
+        commandBox.runCommand(td.floating.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 

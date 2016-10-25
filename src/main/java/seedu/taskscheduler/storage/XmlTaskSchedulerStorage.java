@@ -1,9 +1,7 @@
 package seedu.taskscheduler.storage;
 
-import seedu.taskscheduler.commons.core.Config;
 import seedu.taskscheduler.commons.core.LogsCenter;
 import seedu.taskscheduler.commons.exceptions.DataConversionException;
-import seedu.taskscheduler.commons.util.ConfigUtil;
 import seedu.taskscheduler.commons.util.FileUtil;
 import seedu.taskscheduler.model.ReadOnlyTaskScheduler;
 

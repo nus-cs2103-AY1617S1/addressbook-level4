@@ -18,7 +18,6 @@ public class RecurCommandParser extends CommandParser {
     @Override
     public Command prepareCommand(String args) {
         
-        args = args.trim();
         if (args.isEmpty()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                     RecurCommand.MESSAGE_USAGE));

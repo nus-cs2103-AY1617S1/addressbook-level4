@@ -30,7 +30,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
@@ -334,7 +333,7 @@ public class TestUtil {
 
     public static Tag[] getTagList(String tags) {
 
-        if (tags.equals("")) {
+        if (tags.isEmpty()) {
             return new Tag[]{};
         }
 

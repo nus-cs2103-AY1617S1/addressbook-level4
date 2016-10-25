@@ -15,8 +15,6 @@ public class ListCommand extends Command {
 
     private Set<String> keywords;
     
-    public ListCommand() {}
-
     @Override
     public CommandResult execute() {
         model.updateFilteredListToShowAll();

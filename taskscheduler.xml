@@ -2,22 +2,22 @@
 <taskscheduler>
     <tasks>
         <name>Career Fair</name>
-        <phone>07-Oct-2016</phone>
-        <email>11-Oct-2016</email>
+        <phone>07-Oct-2016, Fri</phone>
+        <email>11-Oct-2016, Tue</email>
         <address>NUS COM1</address>
         <tagged>Event</tagged>
     </tasks>
     <tasks>
         <name>Groupwork Project</name>
         <phone></phone>
-        <email>14-Oct-2016</email>
+        <email>14-Oct-2016, Fri</email>
         <address></address>
         <tagged>Deadline</tagged>
     </tasks>
     <tasks>
         <name>Project Discussion</name>
-        <phone>14-Oct-2016</phone>
-        <email>21-Oct-2016</email>
+        <phone>14-Oct-2016, Fri</phone>
+        <email>21-Oct-2016, Fri</email>
         <address>Technoedge</address>
         <tagged>Event</tagged>
     </tasks>
@@ -29,22 +29,22 @@
     </tasks>
     <tasks>
         <name>CS2103 Lecture</name>
-        <phone>01-Jan-2018</phone>
-        <email>31-Dec-2018</email>
+        <phone>01-Jan-2018, Mon</phone>
+        <email>31-Dec-2018, Mon</email>
         <address>ICube Lecture Hall</address>
         <tagged>Event</tagged>
     </tasks>
     <tasks>
         <name>Send kid to NUS</name>
-        <phone>01-Jan-2034</phone>
-        <email>01-Jan-2038</email>
+        <phone>01-Jan-2034, Sun</phone>
+        <email>01-Jan-2038, Fri</email>
         <address>NUS</address>
         <tagged>Event</tagged>
     </tasks>
     <tasks>
         <name>Project Briefing</name>
-        <phone>01-Jan-2034</phone>
-        <email>01-Jan-2034</email>
+        <phone>01-Jan-2034, Sun</phone>
+        <email>01-Jan-2034, Sun</email>
         <address>ICube Lecture Hall</address>
         <tagged>Event</tagged>
     </tasks>

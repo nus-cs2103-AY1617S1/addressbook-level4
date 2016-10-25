@@ -4,9 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -14,7 +12,6 @@ import seedu.taskscheduler.commons.core.Config;
 import seedu.taskscheduler.commons.core.GuiSettings;
 import seedu.taskscheduler.commons.events.ui.ExitAppRequestEvent;
 import seedu.taskscheduler.logic.Logic;
-import seedu.taskscheduler.logic.commands.CommandHistory;
 import seedu.taskscheduler.model.UserPrefs;
 import seedu.taskscheduler.model.task.ReadOnlyTask;
 
@@ -111,7 +108,7 @@ public class MainWindow extends UiPart {
     }	
     
 
-    void fillInnerParts() {
+    public void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
