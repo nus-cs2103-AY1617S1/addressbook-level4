@@ -5,7 +5,9 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.Time;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.Recurrence;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -145,18 +147,27 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     public void editTaskName(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
-        tasks.setTaskName(task, new Name(newInfo));
-        counter();
+        tasks.editTaskName(task, new Name(newInfo));
+counter();
+
     }
     
     public void editTaskStartTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
-        	tasks.setStartTime(task, new Time(newInfo));
-        	counter();
+        tasks.editStartTime(task, new Time(newInfo));
+        counter();
+
     }
     
     public void editTaskEndTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
-        	tasks.setEndTime(task, new Time(newInfo));
-        	counter();
+        tasks.editEndTime(task, new Time(newInfo));
+        counter();
+
+    }
+    
+    public void editTaskRecurFreq(ReadOnlyTask task, String newRecur) throws TaskNotFoundException {
+	tasks.editRecurFreq(task, new Recurrence(newRecur));
+    counter();
+
     }
     
 //// tag-level operations
@@ -209,7 +220,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
 
-	private void counter() {
+	public void counter() {
 		int floating = 0;
 		int today = 0;
 		int tomorrow = 0;

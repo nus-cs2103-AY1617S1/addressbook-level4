@@ -44,7 +44,7 @@ public class XmlAdaptedTask {
         done = source.getDone().value;
         start = source.getStartTime().toString();
         end = source.getEndTime().toString();
-        recurrence = source.getRecurrence().recurFreq;
+        recurrence = source.getRecurrence().days;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));

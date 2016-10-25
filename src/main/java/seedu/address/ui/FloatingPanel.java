@@ -100,9 +100,7 @@ public class FloatingPanel extends UiPart {
             if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
-            } else if (task.getStartTime().isMissing() 
-					 && task.getEndTime().isMissing()
-					 	&& task.getDone().getDoneValue() == false) 				 {
+            } else {
                 setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
             }
         }

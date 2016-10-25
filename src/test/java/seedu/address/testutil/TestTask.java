@@ -14,6 +14,7 @@ public class TestTask implements ReadOnlyTask {
     private Done done;
     private Recurrence recurrence;
     private UniqueTagList tags;
+    private Recurrence rec;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -83,4 +84,5 @@ public class TestTask implements ReadOnlyTask {
 //        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
 }

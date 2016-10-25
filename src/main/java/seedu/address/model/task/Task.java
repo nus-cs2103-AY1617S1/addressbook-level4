@@ -12,6 +12,7 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
+    private Recurrence rec;
     private Done done;
     private Time start;
     private Time end;

@@ -67,7 +67,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
 
-    public void setTaskName(ReadOnlyTask toEdit, Name newName) throws TaskNotFoundException {
+    public void editTaskName(ReadOnlyTask toEdit, Name newName) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
             throw new TaskNotFoundException();
@@ -77,7 +77,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(taskIndex, taskFound);
     }
     
-    public void setStartTime(ReadOnlyTask toEdit, Time newTiming) throws TaskNotFoundException {
+    public void editStartTime(ReadOnlyTask toEdit, Time newTiming) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
             throw new TaskNotFoundException();
@@ -87,7 +87,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(taskIndex, taskFound);
     }
     
-    public void setEndTime(ReadOnlyTask toEdit, Time newTiming) throws TaskNotFoundException {
+    public void editEndTime(ReadOnlyTask toEdit, Time newTiming) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
             throw new TaskNotFoundException();
@@ -95,6 +95,16 @@ public class UniqueTaskList implements Iterable<Task> {
         Task taskFound = internalList.get(taskIndex);
         taskFound.setEndTime(newTiming);
         internalList.set(taskIndex, taskFound);
+    }
+    
+    public void editRecurFreq(ReadOnlyTask toEdit, Recurrence newRec) throws TaskNotFoundException {
+        assert toEdit != null;
+        if(!internalList.contains(toEdit))
+            throw new TaskNotFoundException();
+        int taskIndex = internalList.indexOf(toEdit);
+        Task taskFound = internalList.get(taskIndex);
+        taskFound.setRecurrence(newRec);
+        internalList.set(taskIndex, taskFound);        
     }
     
     /**
@@ -168,4 +178,5 @@ public class UniqueTaskList implements Iterable<Task> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
 }
