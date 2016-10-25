@@ -62,9 +62,13 @@ Format: `help`
 Adds a task to the task manager.<br>
 Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [end/ENDTIME] [t/TAG]...`
 
-> * Tasks can have different priorities, normal by default, high or low
+> * Priority should be high, normal or low
+> * Starttime and endtime should either be in 24H format or given as a Day of the Week
 > * Deadlines are set for tasks if an endtime entered without a starttime
 > * Tasks can have any number of tags (including 0)
+> * If no priority added, the priority is set normal by default
+> * If no starttime/endtime/tag added, the starttime/endtime/tag will be empty
+
 
 Examples:
 * `add Midterms pr/high start/14:00 end/16:00 t/important`
@@ -112,8 +116,8 @@ Examples:
 
 <br>
 #### Find
-##### Find all tasks containing any keyword in their description: `find`
-Finds tasks whose description contain any of the given keywords.<br>
+##### Find all tasks with keyword: `find`
+Finds tasks whose description contains any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 > * The search is not case sensitive. e.g. `Gives` will match `gives`
@@ -127,7 +131,7 @@ Examples:
 * `find Tutorial`<br>
   Returns `Tutorial 8` but not `tutorial`
 * `find Return lunch Meeting`<br>
-  Returns Any tasks having description containing `Return`, `lunch`, or `Meeting`
+  Returns any tasks having description containing `Return`, `lunch`, or `Meeting`
 
 ##### Find tasks using specified information: `find pr/`
 Find tasks with the specified priority.<br>
