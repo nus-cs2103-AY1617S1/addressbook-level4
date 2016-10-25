@@ -98,6 +98,9 @@ public class Tag {
      * Deserialize from storage
      */
     public static Tag deserialize(String args) throws IllegalValueException {
+        if (args.equals(EMPTY_TAG.getTagName())) {
+            return EMPTY_TAG;
+        }
         return new Tag(args);
     }
 
