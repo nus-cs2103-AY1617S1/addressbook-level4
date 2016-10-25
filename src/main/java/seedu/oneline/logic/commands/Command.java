@@ -43,4 +43,8 @@ public abstract class Command {
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
+    
+    public boolean canUndo() {
+        return false;
+    }
 }

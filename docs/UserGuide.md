@@ -230,10 +230,10 @@ You can choose to enter only the first 3 letters of any month or day when enteri
 
 | Examples | Interpretation |
 |----------|----------------|
-| 5 October 2016 <br /> 5 Oct 16 <br /> Oct 5 16 <br /> 5/10/16 <br /> 05/10/16 <br /> |5 October 2016|
-| 5 October <br /> 5 Oct <br /> 5/10 <br /> | 5 Oct of the current year if it has not passed, else 5 Oct of the next year|
+| 5 October 2016 <br /> 5 Oct 16 <br /> Oct 5 16 <br /> 10/5/16 <br /> 10/05/16 <br /> |5 October 2016|
+| 5 October <br /> 5 Oct <br /> 10/5 <br /> | 5 Oct of the current year|
 | Monday <br /> this mon | the nearest upcoming Monday | 
-| next mon <br /> | the Monday that is more than a week away | 
+| next mon <br /> | the nearest upcoming Monday after this Sunday | 
 | today | today | 
 | tomorrow <br /> tmr | tomorrow |
 

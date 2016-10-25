@@ -33,7 +33,6 @@ public class EditCommand extends Command {
 
     public EditCommand(String args) throws IllegalValueException, IllegalCmdArgsException {
         Entry<Integer, Map<TaskField, String>> info = Parser.getIndexAndTaskFieldsFromArgs(args);
-        assert info.getValue().containsKey(TaskField.NAME);
         targetIndex = info.getKey();
         fields = info.getValue();
     }
@@ -106,6 +105,11 @@ public class EditCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, newTask.toString()));
+    }
+    
+    @Override
+    public boolean canUndo() {
+        return true;
     }
 
 }

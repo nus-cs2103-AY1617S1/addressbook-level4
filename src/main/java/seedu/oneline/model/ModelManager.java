@@ -5,7 +5,10 @@ import seedu.oneline.commons.core.ComponentManager;
 import seedu.oneline.commons.core.LogsCenter;
 import seedu.oneline.commons.core.UnmodifiableObservableList;
 import seedu.oneline.commons.events.model.TaskBookChangedEvent;
+import seedu.oneline.commons.exceptions.StateNonExistentException;
 import seedu.oneline.commons.util.StringUtil;
+import seedu.oneline.logic.commands.Command;
+import seedu.oneline.logic.commands.CommandResult;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.TaskName;
@@ -14,6 +17,7 @@ import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
+import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -27,6 +31,10 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredTasks;
 
+    private final Stack<ModelState> prevState = new Stack<ModelState>();
+    private final Stack<ModelState> nextState = new Stack<ModelState>();
+    
+    
     /**
      * Initializes a ModelManager with the given Task book
      * Task book and its variables should not be null
@@ -54,9 +62,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public CommandResult executeCommand(Command command) {
+        command.setData(this);
+        if (command.canUndo()) {
+            saveState();
+        }
+        return command.execute();
+    }
+    
+    @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
 
     @Override
@@ -65,21 +82,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
+    private void indicateTaskBookChanged() {
         raise(new TaskBookChangedEvent(taskBook));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskBook.removeTask(target);
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskBook.addTask(task);
         updateFilteredListToShowAllNotDone();
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
 
     @Override
@@ -88,7 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
 //        assert !taskBook.getUniqueTaskList().contains(newTask);
         taskBook.getUniqueTaskList().replaceTask(oldTask, newTask);
         updateFilteredListToShowAllNotDone();
-        indicateAddressBookChanged();
+        indicateTaskBookChanged();
     }
     
     @Override
@@ -97,8 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
         assert done != null;
         done.setCompleted(true);
         updateFilteredListToShowAllNotDone();
-        indicateAddressBookChanged();
-//        addTaskToFilter(done);
+        indicateTaskBookChanged();
     }
     
     @Override
@@ -107,8 +123,7 @@ public class ModelManager extends ComponentManager implements Model {
         assert undone != null;
         undone.setCompleted(false);
         updateFilteredListToShowAllDone();
-        indicateAddressBookChanged();
-//        addTaskToFilter(done);
+        indicateTaskBookChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================
@@ -125,17 +140,14 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredListToShowAllNotDone() {
-//        Predicate<? super Task> currentPredicate = filteredTasks.getPredicate();
         filteredTasks.setPredicate(null);
         filteredTasks.setPredicate(getNotDonePredicate());
-//        filteredTasks.setPredicate(getNotDonePredicate());
     }
     
     @Override
     public void updateFilteredListToShowAllDone() {
         filteredTasks.setPredicate(null);
         filteredTasks.setPredicate(getDonePredicate());
-//        filteredTasks.setPredicate(getNotDonePredicate());
     }
     
     private Predicate<Task> getNotDonePredicate() {
@@ -154,24 +166,6 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-    
-//    private void addTaskToFilter(ReadOnlyTask task) {
-//        final Predicate<? super Task> oldPredicate = filteredTasks.getPredicate();
-//        Qualifier newQualifier = new Qualifier() {
-//
-//            @Override
-//            public boolean run(ReadOnlyTask person) {
-//                return oldPredicate.test(new Task(person)) && !person.equals(task);
-//            }
-//            
-//            @Override
-//            public String toString() {
-//                return oldPredicate.toString() + "&task!=" + task.toString();
-//            }
-//        };
-//        PredicateExpression newPredicate = new PredicateExpression(newQualifier);
-//        updateFilteredTaskList(newPredicate);
-//    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -223,6 +217,46 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+    
+  //========== Inner functions and classes used for undo/redo ==================================================
+    
+    public void undo() throws StateNonExistentException {
+        if (prevState.size() == 0) {
+            throw new StateNonExistentException();
+        }
+        nextState.push(new ModelState(this));
+        loadState(prevState.pop());
+    }
+    
+    public void redo() throws StateNonExistentException {
+        if (nextState.size() == 0) {
+            throw new StateNonExistentException();
+        }
+        prevState.push(new ModelState(this));
+        loadState(nextState.pop());
+    }
+    
+    private void saveState() {
+        prevState.push(new ModelState(this));
+        nextState.clear();
+    }
+    
+    private void loadState(ModelState state) {
+        resetData(state.data);
+        filteredTasks.setPredicate(state.filterPredicate);
+    }
+    
+    private static class ModelState {
+        
+        final ReadOnlyTaskBook data;
+        final Predicate<? super Task> filterPredicate;
+        
+        public ModelState(ModelManager manager) {
+            data = new TaskBook(manager.getTaskBook());
+            filterPredicate = manager.filteredTasks.getPredicate();
+        }
+        
     }
 
 }
