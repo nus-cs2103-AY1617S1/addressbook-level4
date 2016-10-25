@@ -10,6 +10,7 @@ import seedu.oneline.logic.commands.CommandConstants;
 import seedu.oneline.logic.commands.EditCommand;
 import seedu.oneline.logic.commands.EditTaskCommand;
 import seedu.oneline.logic.parser.Parser;
+import seedu.oneline.model.Model;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 import seedu.oneline.model.task.TaskField;
@@ -35,32 +36,21 @@ public class EditCommandTest extends TaskBookGuiTest {
     public void edit() {
         //edit one task
         TestTask[] currentList = td.getTypicalTasks();
+        TestTask newTask = td.eventExtra;
         Map<TaskField, String> fields = new HashMap<TaskField, String>();
-        fields.put(TaskField.NAME, "New Task");
-        fields.put(TaskField.START_TIME, "Sun Oct 16 21:35:45");
-        fields.put(TaskField.END_TIME, "Sun Oct 16 21:35:45");
-        fields.put(TaskField.DEADLINE, "Sun Oct 16 21:35:45");
-        fields.put(TaskField.RECURRENCE, "Monday");
-        fields.put(TaskField.TAG, "Tag2");
+        fields.put(TaskField.NAME, newTask.getName().name);
+        fields.put(TaskField.START_TIME, newTask.getStartTime().toString());
+        fields.put(TaskField.END_TIME, newTask.getEndTime().toString());
+        fields.put(TaskField.DEADLINE, newTask.getDeadline().toString());
+        fields.put(TaskField.RECURRENCE, newTask.getRecurrence().toString());
+        fields.put(TaskField.TAG, newTask.getTag().getTagName());
         assertEditSuccess(2, fields, currentList);
+        currentList[1] = newTask;
 
-//        //add another task
-//        taskToAdd = TypicalTestTasks.todoExtra;
-//        assertEditSuccess(taskToAdd, currentList);
-//        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-//        //add duplicate task
-//        commandBox.runCommand(TypicalTestTasks.eventExtra.getAddCommand());
-//        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-//        assertTrue(taskListPanel.isListMatching(currentList));
-
-//        //add to empty list
-//        commandBox.runCommand("clear");
-//        assertEditSuccess(TypicalTestTasks.event1);
-
-        //invalid command
-        commandBox.runCommand("edits Task");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        //edit with invalid fields
+        fields = new HashMap<TaskField, String>();
+        fields.put(TaskField.START_TIME, "X");
+        assertEditFailed(2, fields, TaskTime.MESSAGE_TASK_TIME_CONSTRAINTS, currentList);
     }
 
     private void assertEditSuccess(int index, Map<TaskField, String> fields, TestTask... currentList) {
@@ -113,6 +103,9 @@ public class EditCommandTest extends TaskBookGuiTest {
             }
             if (fields.containsKey(TaskField.TAG)) {
                 String newTag = fields.get(TaskField.TAG);
+                cmd.append(" ")
+                .append(CommandConstants.TAG_PREFIX)
+                .append(newTag);
                 newTask.setTag(Tag.getTag(newTag));
             }
         } catch (IllegalValueException e) {
@@ -125,6 +118,61 @@ public class EditCommandTest extends TaskBookGuiTest {
 
         //confirm the result message is correct
         assertResultMessage(String.format(EditTaskCommand.MESSAGE_SUCCESS, newTask.toString()));
+    }
+    
+    private void assertEditFailed(int index, Map<TaskField, String> fields, String message, TestTask... currentList) {
+        TestTask[] expectedRemainder = currentList.clone();
+        assert 0 <= index && index < expectedRemainder.length;
+        StringBuilder cmd = new StringBuilder();
+        cmd.append("edit ").append(index);
+        if (fields.containsKey(TaskField.NAME)) {
+            String newName = fields.get(TaskField.NAME);
+            cmd.append(" ").append(newName);
+        }
+        if (fields.containsKey(TaskField.START_TIME)) {
+            String newStartTime = fields.get(TaskField.START_TIME);
+            cmd.append(" ")
+                .append(CommandConstants.KEYWORD_PREFIX)
+                .append(CommandConstants.KEYWORD_START_TIME)
+                .append(" ")
+                .append(newStartTime);
+        }
+        if (fields.containsKey(TaskField.END_TIME)) {
+            String newEndTime = fields.get(TaskField.END_TIME);
+            cmd.append(" ")
+                .append(CommandConstants.KEYWORD_PREFIX)
+                .append(CommandConstants.KEYWORD_END_TIME)
+                .append(" ")
+                .append(newEndTime);
+        }
+        if (fields.containsKey(TaskField.DEADLINE)) {
+            String newDeadline = fields.get(TaskField.DEADLINE);
+            cmd.append(" ")
+                .append(CommandConstants.KEYWORD_PREFIX)
+                .append(CommandConstants.KEYWORD_DEADLINE)
+                .append(" ")
+                .append(newDeadline);
+        }
+        if (fields.containsKey(TaskField.RECURRENCE)) {
+            String newRecurrence = fields.get(TaskField.RECURRENCE);
+            cmd.append(" ")
+                .append(CommandConstants.KEYWORD_PREFIX)
+                .append(CommandConstants.KEYWORD_RECURRENCE)
+                .append(" ")
+                .append(newRecurrence);
+        }
+        if (fields.containsKey(TaskField.TAG)) {
+            String newTag = fields.get(TaskField.TAG);
+            cmd.append(" ")
+            .append(CommandConstants.TAG_PREFIX)
+            .append(newTag);
+        }
+        commandBox.runCommand(cmd.toString());
+
+        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+
+        //confirm the result message is correct
+        assertResultMessage(message);
     }
 
 }
