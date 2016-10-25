@@ -12,6 +12,8 @@ import seedu.taskitty.model.task.TaskDate;
  * Type 2: view done
  * Lists all tasks that have been completed.
  * Type 3: view
+ * Lists all upcoming and uncompleted tasks in the task manager.
+ * Type 4: view all
  * Lists all tasks in the task manager.
  */
 public class ViewCommand extends Command {
