@@ -86,10 +86,10 @@ public class EditCommand extends BaseCommand {
                 task.setEndTime(date.getValue().getEndTime());
             }
         });
+        eventBus.post(new HighlightTaskEvent(editedTask)); 
         if (description.hasBoundValue()){
             eventBus.post(new ExpandCollapseTaskEvent(editedTask));
         }
-        eventBus.post(new HighlightTaskEvent(editedTask)); 
         return taskSuccessfulResult(editedTask.getTitle(), EditCommand.VERB);
     }
 

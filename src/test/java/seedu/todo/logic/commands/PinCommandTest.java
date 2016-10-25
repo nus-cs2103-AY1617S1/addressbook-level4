@@ -1,11 +1,15 @@
 package seedu.todo.logic.commands;
 
 import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.testutil.EventsCollector;
+
 
 //@@author A0092382A
 public class PinCommandTest extends CommandTest {
@@ -29,9 +33,11 @@ public class PinCommandTest extends CommandTest {
     @Test
     public void testPinFirst() throws Exception {
         setParameter("3");
+        EventsCollector eventsCollector = new EventsCollector();
         execute(true);
 
         assertEquals(2, getPinnedCount());
+        assertThat(eventsCollector.get(0), instanceOf(HighlightTaskEvent.class));
     }
     
     @Test

@@ -1,11 +1,15 @@
 package seedu.todo.logic.commands;
 
+import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.testutil.EventsCollector;
 import seedu.todo.testutil.TimeUtil;
 
 //@@author A0092382A
@@ -18,13 +22,15 @@ public class AddCommandTest extends CommandTest {
     @Test
     public void testAddTask() throws Exception {
         setParameter("Hello World");
+        EventsCollector eventsCollector = new EventsCollector();
         execute(true);
-
         ImmutableTask addedTask = getTaskAt(1);
         assertEquals("Hello World", addedTask.getTitle());
         assertFalse(addedTask.isPinned());
         assertFalse(addedTask.getDescription().isPresent());
         assertFalse(addedTask.getLocation().isPresent());
+        assertThat(eventsCollector.get(0), instanceOf(HighlightTaskEvent.class));
+        assertThat(eventsCollector.get(1), instanceOf(ExpandCollapseTaskEvent.class));
     }
     
     @Test

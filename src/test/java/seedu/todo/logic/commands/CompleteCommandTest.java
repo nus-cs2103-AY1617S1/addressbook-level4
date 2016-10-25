@@ -9,7 +9,9 @@ import org.junit.Test;
 import static org.hamcrest.Matchers.*;
 
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.testutil.EventsCollector;
 import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.commands.CompleteCommand;
 
@@ -32,11 +34,13 @@ public class CompleteCommandTest extends CommandTest {
     @Test
     public void testMarkComplete() throws Exception {
         setParameter("3");
+        EventsCollector eventsCollector = new EventsCollector();
         execute(true);
         ImmutableTask markedComplete = getTaskAt(1);
         assertThat(result.getFeedback(), containsString(VERB_COMPLETE));
         assertEquals(markedComplete, markedComplete);
         assertTrue(markedComplete.isCompleted());
+        assertThat(eventsCollector.get(0), instanceOf(HighlightTaskEvent.class));
     }
 
     @Test
