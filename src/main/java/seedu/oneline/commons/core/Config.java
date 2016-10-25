@@ -1,5 +1,6 @@
 package seedu.oneline.commons.core;
 
+import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -14,8 +15,9 @@ public class Config {
     private String appTitle = "Task App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String addressBookFilePath = "data/taskbook.xml";
-    private String addressBookName = "MyTaskBook";
+    private String taskBookFileName = "taskbook.xml";
+    private String taskBookFilePath = "data/taskbook.xml";
+    private String taskBookName = "MyTaskBook";
 
 
     public Config() {
@@ -46,19 +48,23 @@ public class Config {
     }
 
     public String getTaskBookFilePath() {
-        return addressBookFilePath;
+        return taskBookFilePath;
     }
 
-    public void setTaskBookFilePath(String addressBookFilePath) {
-        this.addressBookFilePath = addressBookFilePath;
+    public void setTaskBookFilePath(String taskBookFilePath) {
+        this.taskBookFilePath = taskBookFilePath;
     }
 
     public String getTaskBookName() {
-        return addressBookName;
+        return taskBookName;
     }
 
-    public void setTaskBookName(String addressBookName) {
-        this.addressBookName = addressBookName;
+    public void setTaskBookName(String taskBookName) {
+        this.taskBookName = taskBookName;
+    }
+    
+    public void setStorageLocation(String storagePath) {
+        this.setTaskBookFilePath(Paths.get(storagePath, taskBookFileName).toString());
     }
 
 
@@ -76,13 +82,13 @@ public class Config {
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
-                && Objects.equals(addressBookName, o.addressBookName);
+                && Objects.equals(taskBookFilePath, o.taskBookFilePath)
+                && Objects.equals(taskBookName, o.taskBookName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, addressBookFilePath, addressBookName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskBookFilePath, taskBookName);
     }
 
     @Override
@@ -91,8 +97,8 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nTaskBook name : " + addressBookName);
+        sb.append("\nLocal data file location : " + taskBookFilePath);
+        sb.append("\nTaskBook name : " + taskBookName);
         return sb.toString();
     }
 
