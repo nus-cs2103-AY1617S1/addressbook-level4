@@ -81,7 +81,7 @@ public class TaskCard extends UiPart{
         
         Priority taskPriority = task.getPriorityValue();
         
-        Paint taskPriorityColour = Paint.valueOf("green");
+        Paint taskPriorityColour = Paint.valueOf("yellow");
         
         switch (taskPriority) {
             case LOW:
@@ -110,19 +110,6 @@ public class TaskCard extends UiPart{
         
         startDate.setText(startDateText);
     }
-
-    private String prepareStartDateToDisplay() {
-        Date startDate = task.getStartDate().get();
-        return "Start: " + formatDateForDisplay(startDate);
-    }
-    
-    private String formatDateForDisplay(Date date) {
-        return dateFormatter.format(date);
-    }
-
-    private boolean checkIfStartDatePresent() {
-        return task.getStartDate().isPresent();
-    }
     
     private void setTaskCardEndDate() {
         String endDateText = "";
@@ -132,16 +119,7 @@ public class TaskCard extends UiPart{
         }
         endDate.setText(endDateText);
     }
-
-    private String prepareEndDateToDisplay() {
-        Date endDate = task.getEndDate().get();
-        return "End: " + formatDateForDisplay(endDate);
-    }
-
-    private boolean checkIfEndDatePresent() {
-        return task.getEndDate().isPresent();
-    }
-
+    
     private void setTaskCardRecurrence() {
         String recurrenceRateText = "";
         boolean taskIsRecurring = task.getRecurrenceRate().isPresent();
@@ -151,6 +129,38 @@ public class TaskCard extends UiPart{
         }
         
         recurrenceRate.setText(recurrenceRateText);
+    }
+
+    private String prepareStartDateToDisplay() {
+        assert task.getStartDate().isPresent();
+        
+        Date startDate = task.getStartDate().get();
+        return "Start: " + formatDateForDisplay(startDate);
+    }
+    
+    private String formatDateForDisplay(Date date) {
+        assert date != null;
+        
+        return dateFormatter.format(date);
+    }
+
+    private boolean checkIfStartDatePresent() {
+        assert task != null;
+
+        return task.getStartDate().isPresent();
+    }
+    
+    private String prepareEndDateToDisplay() {
+        assert task.getEndDate().isPresent();
+
+        Date endDate = task.getEndDate().get();
+        return "End: " + formatDateForDisplay(endDate);
+    }
+
+    private boolean checkIfEndDatePresent() {
+        assert task != null;
+        
+        return task.getEndDate().isPresent();
     }
 
     private String prepareRecurrenceRateToDisplay() {
