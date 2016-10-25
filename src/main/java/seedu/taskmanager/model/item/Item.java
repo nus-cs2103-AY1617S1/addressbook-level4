@@ -1,7 +1,6 @@
 //@@author A0140060A-reused
 package seedu.taskmanager.model.item;
 
-import seedu.taskmanager.commons.exceptions.IllegalValueException;
 import seedu.taskmanager.commons.util.CollectionUtil;
 import seedu.taskmanager.model.tag.UniqueTagList;
 
