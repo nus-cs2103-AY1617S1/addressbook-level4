@@ -3,8 +3,11 @@ package guitests;
 import org.junit.Test;
 
 import seedu.oneline.logic.commands.ClearCommand;
+import seedu.oneline.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
 
 public class ClearCommandTest extends TaskBookGuiTest {
 
@@ -12,7 +15,9 @@ public class ClearCommandTest extends TaskBookGuiTest {
     public void clear() {
 
         //verify a non-empty list can be cleared
-        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
+        TestTask[] ts = td.getTypicalTasks();
+        Arrays.sort(ts);
+        assertTrue(taskListPanel.isListMatching(ts));
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command

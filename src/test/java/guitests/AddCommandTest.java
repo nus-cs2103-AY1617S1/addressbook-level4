@@ -3,6 +3,7 @@ package guitests;
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.logic.commands.AddCommand;
 import seedu.oneline.testutil.TestTask;
@@ -18,6 +19,7 @@ public class AddCommandTest extends TaskBookGuiTest {
     public void add() {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
+        Arrays.sort(currentList);
         TestTask taskToAdd = TypicalTestTasks.eventExtra;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
