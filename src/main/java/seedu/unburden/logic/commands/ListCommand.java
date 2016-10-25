@@ -49,11 +49,20 @@ public class ListCommand extends Command {
 			}
 		};
     }
+    
+    public java.util.function.Predicate<? super Task> getAllDone(){
+    	return t -> {
+    		return t.getDone();
+    	};
+    }
 
 	@Override
     public CommandResult execute() {
 		if(mode.equals("all")){
 			 model.updateFilteredListToShowAll();
+		}
+		else if(mode.equals("done")){
+			model.updateFilteredListToShowAllDone(getAllDone());
 		}
 		else{
 			model.updateFilteredListToShowAllDatesBefore(getAllDatesBefore(date));

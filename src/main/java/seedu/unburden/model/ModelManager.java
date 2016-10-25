@@ -122,6 +122,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAllDatesBefore(java.util.function.Predicate<? super Task> predicate){
     	filteredTasks.setPredicate(predicate);
     }
+	
+	@Override
+	public void updateFilteredListToShowAllDone(java.util.function.Predicate<? super Task> predicate){
+    	filteredTasks.setPredicate(predicate);
+    }
 
     private void updateFilteredPersonList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);

@@ -43,6 +43,9 @@ public interface Model {
 	/** Updates the filter of the filtered task list to filter all tasks with dates before the given date*/
 	void updateFilteredListToShowAllDatesBefore(java.util.function.Predicate<? super Task> predicate);
 	
+	/** Updates the filter of the filtered task list to filter all tasks that are done*/
+	public void updateFilteredListToShowAllDone(java.util.function.Predicate<? super Task> predicate);
+	
 	/** Marks a task as done when it is completed. */
 	void doneTask(ReadOnlyTask taskToDone, boolean isDone);
 
