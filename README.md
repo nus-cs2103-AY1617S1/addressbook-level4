@@ -24,5 +24,6 @@
 * Natrual Date Parser [Natty](http://natty.joestelmach.com/)
 * [JFXtras](http://jfxtras.org/) Agenda controls
 * AutoCompleteTextField reference from [here](https://gist.github.com/floralvikings/10290131)
+* Some parts of the user guide were inspired by CS2103AUG2016-W09-C3
 
 #### Licence : [MIT](LICENSE)
