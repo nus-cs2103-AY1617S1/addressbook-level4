@@ -130,6 +130,30 @@
     -fx-font-family: "Segoe UI Semibold";
 }
 
+/*@@author A0135817B */
+.searchStatus {
+    -fx-padding: 4px;
+}
+
+.searchStatus Text {
+    -fx-font-size: 14px;
+    -fx-fill: #fff;
+}
+
+.searchStatus .searchLabel {
+}
+
+.searchStatus .searchTerm {
+    -fx-font-weight: bold;
+}
+
+.searchStatus .searchCount {
+    -fx-text-alignment: right;
+}
+
+
+
+/*@@author A0315805H */
 /***TaskCardView Styles Start***/
 /*Default and Base*/
 .taskCard .label {
