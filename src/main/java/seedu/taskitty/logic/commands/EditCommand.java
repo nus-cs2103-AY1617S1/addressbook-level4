@@ -30,8 +30,9 @@ public class EditCommand extends Command{
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_PARAMETER = COMMAND_WORD
-            + " [category] [index] [name] [t/tag]...";
-    public static final String MESSAGE_USAGE = "This command edits a task in TasKitty, Meow!";
+            + " [index] [name] [t/tag]...";
+    public static final String MESSAGE_USAGE = "This command edits a task in TasKitty, Meow!"
+            + "\n[index] is the index eg. t1, d1, e1.";
 
     public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task manager";

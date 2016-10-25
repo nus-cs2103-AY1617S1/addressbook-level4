@@ -71,6 +71,15 @@ public class TaskCard extends UiPart{
             endTime.setText(taskEndTime.toString());
         }
         
+        String indexPrefix;
+        if(task.isTodo()) {
+            indexPrefix = "t";
+        } else if (task.isDeadline()) {
+            indexPrefix = "d";
+        } else {
+            indexPrefix = "e";
+        }
+        
         boolean isDone = task.getIsDone();
         if (isDone) {
         	cardPane.setStyle("-fx-background-color: grey");
@@ -89,7 +98,7 @@ public class TaskCard extends UiPart{
         	}
         }
         
-        id.setText(displayedIndex + ". ");
+        id.setText(indexPrefix + displayedIndex + ". ");
         tags.setText(task.tagsString());
     }
 
