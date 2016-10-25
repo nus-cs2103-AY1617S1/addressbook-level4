@@ -21,7 +21,6 @@ public class UndoCommand extends Command{
     	try {
     		Context contextToUndo = urManager.getContextToUndo();
     		model.resetData(contextToUndo.getData());
-
     		return new CommandResult(MESSAGE_SUCCESS);
         } catch (NoAvailableCommandException nace){
         	indicateAttemptToExecuteFailedCommand();

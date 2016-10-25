@@ -244,6 +244,8 @@ public class Parser {
             }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
+        } catch (IllegalArgumentException iae) {
+            return new IncorrectCommand(iae.getMessage());
         }
     }
 
@@ -274,6 +276,7 @@ public class Parser {
         String endInput = matcher.group("deadline");
         RecurringType recurringType = checkForRecurringTask(endInput);
         if(recurringType == RecurringType.IGNORED) recurringType = RecurringType.NONE;
+        try{
         return new AddNonFloatingCommand(
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
@@ -281,6 +284,11 @@ public class Parser {
                 new TaskDate(getDateFromString(endInput).getTime()),
                 recurringType
                 );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        } catch (IllegalArgumentException iae) {
+            return new IncorrectCommand(iae.getMessage());
+        }
     }
 
     /**
@@ -295,6 +303,7 @@ public class Parser {
         String endInput = matcher.group("endTime");
         RecurringType recurringType = checkForRecurringTask(endInput);
         if(recurringType == RecurringType.IGNORED) recurringType = RecurringType.NONE;
+        try {
         return new AddNonFloatingCommand(
                 matcher.group("name"),
                 getTagsFromArgs(matcher.group("tagArguments")),
@@ -302,6 +311,11 @@ public class Parser {
                 new TaskDate(getDateFromString(endInput).getTime()),
                 recurringType
                 );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        } catch (IllegalArgumentException iae) {
+            return new IncorrectCommand(iae.getMessage());
+        }
     }
     
     //@@author A0147967J
