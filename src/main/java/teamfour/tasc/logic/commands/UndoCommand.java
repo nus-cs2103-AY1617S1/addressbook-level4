@@ -1,6 +1,9 @@
+//@@author A0148096W
+
 package teamfour.tasc.logic.commands;
 
 import teamfour.tasc.model.keyword.UndoCommandKeyword;
+import teamfour.tasc.commons.exceptions.IllegalValueException;
 
 /**
  * Undo the last (n) commands.
@@ -18,13 +21,23 @@ public class UndoCommand extends Command {
             "There is no past command to undo.";
 
     private final int numCommandsToBeUndone;
+    
+    /**
+     * Default behavior of UndoCommand, undoes 1 command
+     */
+    public UndoCommand() throws IllegalValueException {
+        this(1);
+    }
 
     /**
      * Add Command for floating tasks
      * Convenience constructor using raw values.
-     * @throws IllegalValueException if any of the raw values are invalid
+     * @throws IllegalValueException if numCommandsToBeUndone is < 1
      */
-    public UndoCommand(int numCommandsToBeUndone) {
+    public UndoCommand(int numCommandsToBeUndone) throws IllegalValueException {
+        if (numCommandsToBeUndone < 1) {
+            throw new IllegalValueException("Number of undo must be positive.");
+        }
         this.numCommandsToBeUndone = numCommandsToBeUndone;
     }
 

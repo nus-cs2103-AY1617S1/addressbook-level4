@@ -223,6 +223,7 @@ public class LogicManagerTest {
 
     }
 
+    //@@author A0148096W
     @Test
     public void execute_list_showsDefaultUncompletedTasks() throws Exception {
         // prepare expectations
@@ -767,6 +768,7 @@ public class LogicManagerTest {
                 expectedList);
     }
 
+    //@@author
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single Task in the shown list, using visible index.

@@ -130,6 +130,7 @@ public class TaskList implements ReadOnlyTaskList, HistoryItem<TaskList> {
         tasks.updateTask(oldTask, newTask);
     }
     
+    //@@author A0148096W
     /**
      * Precondition: Argument is not null.
      * Sort this task list by comparator.
@@ -141,6 +142,7 @@ public class TaskList implements ReadOnlyTaskList, HistoryItem<TaskList> {
         assert comparator != null;
         FXCollections.sort(tasks.getInternalList(), comparator);
     }
+    //@@author
 
 //// tag-level operations
 
