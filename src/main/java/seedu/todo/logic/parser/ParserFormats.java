@@ -40,19 +40,19 @@ public class ParserFormats {
     public static final Pattern ADD_TASK_ARGS_RECUR_FORMAT_BY = Pattern
             .compile("(?<name>[^/]+) (by|to) (?<byDateTime>[^;]+)" + " every (?<rec>[^;]+)" + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
 
-    
+    public static final String priorityFormat = " priority (?<priority>[^;]+)";
     
     public static final Pattern ADD_PRIORITY_FT = Pattern.compile(
-            "(?<name>[^/]+)" + " (on|from) (?<onDateTime>.+)" + " (by|to) (?<byDateTime>[^;]+)" + " priority (?<priority>[^;]+)" + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
+            "(?<name>[^/]+)" + " (on|from) (?<onDateTime>.+)" + " (by|to) (?<byDateTime>[^;]+)" + priorityFormat + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
 
     public static final Pattern ADD_PRIORITY_ON = Pattern
-            .compile("(?<name>[^/]+) (on|from) (?<onDateTime>[^;]+)" + " priority (?<priority>[^;]+)" + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
+            .compile("(?<name>[^/]+) (on|from) (?<onDateTime>[^;]+)" + priorityFormat + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
 
     public static final Pattern ADD_PRIORITY_BY = Pattern
-            .compile("(?<name>[^/]+) (by|to) (?<byDateTime>[^;]+)" + " priority (?<priority>[^;]+)" + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
+            .compile("(?<name>[^/]+) (by|to) (?<byDateTime>[^;]+)" + priorityFormat + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern ADD_PRIORITY_FL = Pattern
-            .compile("(?<name>[a-zA-Z_0-9 ]+)" + " priority (?<priority>[^;]+)" + "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
+            .compile("(?<name>[a-zA-Z_0-9 ]+)" + priorityFormat+ "(?: ?; ?(?<detail>.+))?", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_ON = Pattern
             .compile("on (?<onDateTime>.+)", Pattern.CASE_INSENSITIVE);
@@ -66,7 +66,7 @@ public class ParserFormats {
     public static final Pattern SEARCH_TASK_ARGS_FORMAT_FT = Pattern
             .compile("from (?<fromDateTime>.+) to (?<tillDateTime>.+)", Pattern.CASE_INSENSITIVE);
     
-    public static final Pattern SEARCH_FORMAT_PRIORITY = Pattern
+    public static final Pattern SEARCH_PRIORITY = Pattern
             .compile("priority (?<priority>.+)", Pattern.CASE_INSENSITIVE);
     
     public static final Pattern UPDATE_TASK_ARGS_FORMAT = Pattern

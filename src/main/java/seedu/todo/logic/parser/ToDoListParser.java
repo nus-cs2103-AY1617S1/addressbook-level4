@@ -352,7 +352,7 @@ public class ToDoListParser {
         Pattern[] dataPatterns = { ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON,
             ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER,
             ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, ParserFormats.KEYWORDS_ARGS_FORMAT, 
-            ParserFormats.SEARCH_FORMAT_PRIORITY };
+            ParserFormats.SEARCH_PRIORITY };
         
         String tempArgs = args.trim(); 
         
@@ -373,7 +373,7 @@ public class ToDoListParser {
                         && tempArgs.indexOf("done") != 0 && tempArgs.indexOf("undone") != 0 
                         && tempArgs.indexOf("priority") != 0) {
                     return new SearchCommand(matcher.group("keywords"), 4);
-                } else if (p.equals(ParserFormats.SEARCH_FORMAT_PRIORITY)) {
+                } else if (p.equals(ParserFormats.SEARCH_PRIORITY)) {
                 	return new SearchCommand(matchPriorityResult(matcher), 8);
                 }
             }
