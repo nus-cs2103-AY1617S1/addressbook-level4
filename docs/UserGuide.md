@@ -7,7 +7,7 @@
 
 ## Quick Start
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+0. Ensure you have Java version `1.8.0_60` or later installed in your computer.<br>
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
@@ -58,9 +58,20 @@ Figure 2: Help Command
 Adds a task into the task manager.<br>
 Format: `[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
->To make the command format more natural, we allow you to substitute `start` with `from/at`, `end` with `to/by`.
+>You may also substitute `start` with `from/at`, `end` with `to/by`.
 
->We do not require an explicit command for `add`. We make it the default thing to do, when you type in anything! Hence typing in `add` itself is optional. However, if you want to add a task that begins with other command words, please include the `add` to override the other command words. For e.g, `add help my mum to buy cooking ingredients`
+By default, if no valid command is specified, the input will be treated as an `add` command.<br> 
+This means typing in `add` is optional. <br>
+If you would like to add a task with a name that begins with other command words, just include the `add` to override the other command words. <br>
+
+Example:
+
+|User Input|Interpreted Action|
+|---|---|
+|`help my mum to buy cooking ingredients`| Command: `help` <br> Arguments: `my mum to buy cooking ingredients` |
+|`add help my mum to buy cooking ingredients`|Command:`add` <br> Task name: `help my mum to buy cooking ingredients`|
+
+
 
 
 **_Adding a task_**
@@ -78,82 +89,55 @@ You can assign your task a `PRIORITY` of `low`, `medium` or `high`. <br>
 Tasks have `medium` `PRIORITY` by default.<br>
 Keyword: `-PRIORITY`
 
+To specify the priority for a task, input a `-` followed by the `PRIORITY` you would like.<br>
 `PRIORITY` also accepts variations of `low`, `medium` and `high`.
 
-PRIORITY | Variations  
+`PRIORITY` | Variations  
 -------- | :--------:
-low | l, low
-medium | m, med, medium
-high | h, high
- 
-> To assign a `PRIORITY`, simply enter `-PRIORITY` as part of the add command, where `PRIORITY` can be replaced by `low`, `medium` or `high`, e.g `-low`, `-medium`, `-high`.
+`low` | `l`, `low`
+`medium` | `m`, `med`, `medium`
+`high` | `h`, `high`
 
 Examples:
 * `Do something later -l`
 * `Buy coffee powder -med`
 * `Buy washing powder -high`
 
-**_Specifying repeated tasks_**
-
-Have one of those pesky tasks you need to do every now and then? DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`. Never forget them again!<br>
-Format: `repeat every RECURRING_INTERVAL`
-> To assign a `RECURRING_INTERVAL`, simply enter `repeat every RECURRING_INTERVAL` as part of the add command, where `RECURRING_INTERVAL` can be replaced by the appropriate `RECURRING_INTERVAL` below.
-
-Recurring Interval| Format  
--------- | :-------- 
-Hour | 8 hours
-Day | 3 days, monday
-Week | 5 weeks
-Month |  2 months
-Year | year
-
-Examples: 
-* `Go run at track at 7am repeat every 3 days`
-* `Go visit mum repeat every sun`
-
-> You cannot have a repeated task without specifying a time. Read on to see how to do so.
-
 **_Adding a task with deadline_**
 
 Nobody likes deadlines. What is worse, is missing them. <br>
 Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
-> The `end` keyword denotes a deadline. 
 
->`DATE_TIME` is flexible!
->* If no `DATE` is specified, `DATE` will be assumed to be the current date
->* `DATE` formats:
->   * `today`, `tonight` can be used to refer to the current day
->   * `tmr`, `tomorrow` can be used to refer to the next day
->   * `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday` and `Sunday` refers to the nearest matching day from the current date
->   * Dates such as `13th Sep`, `10 October 2016`, `02/10/2016 (mm/dd/yyyy)` are acceptable too. Note that the year must be specified in full e.g `10 October 2016` is allowed, but not `10 October 16`
->   * Relative dates such as `3 days later`, `1 week later` can be used as well
->* If no `TIME` is specified, `TIME` will be assumed to be 11:59pm
->* `TIME` formats:
->   * `am`, `AM`, `pm`, `PM` can be used to specify time of the day
->   * `midnight` can be used to specify 12AM
->   * `noon` can be used to specify 12PM
->   * 24-hour clock format such as `20:15` are also accepted
->   * Take note to demarcate the hours and minutes with a colon. The following examples are not allowed: `730am`, `1930`.
+> `end` denotes a deadline. 
+
+`DATE_TIME` is flexible!<br>
+If no `DATE` is specified, `DATE` will be assumed to be the current date<br>
+If no `TIME` is specified, `TIME` will be assumed to be 11:59pm
+* `DATE` formats:
+   * Dates such as `13th Sep`, `10 October 2016`, `02/10/2016 (mm/dd/yyyy)` are acceptable too. 
 
 <br>
 
 **_Valid Dates & Times_**
 
-Date| Format
--------- | :-------- 
-DD/MM/YYYY| 12/12/2016
-DD/MM/YY| 12/12/16
-DD/MM| 12/12
-Month Word| may, dec
-Day|monday
-Relative Date| tommorow
+|Date| Format|Interpreted Date|
+|-------- | :-------- |---|
+|MM/DD/YYYY| `12/12/2016`| 12 December 2016
+|MM/DD/YY| `12/12/16`|12 December 2016|
+|MM/DD| `12/12` |12 December, Current Year|
+|Calendar|`12 December 2016`<br> `12 December 16`|12 December 2016
+|Calendar Day and Month|`12 December`|12 December, Current Year
+|Calendar Month only| `may`<br> `dec`| 1 May, Current Year<br> 1 December, Current Year|
+|Day|`monday`|Nearest upcoming Monday|
+|Relative Date| `today`, `tonight`<br> `tmr`, `tommorow`|Today<br> Tomorrow|
 <br>
 
-Time| Format
--------- | :-------- 
-24Hr| 20:50
-AM/PM| 8:50pm
-Preset|midnight, noon
+|Time| Format| Interpreted Time
+|-------- | :-------- |
+|24Hr| `20.50`, `20:50`, `2050`| 8.50pm|
+|AM/PM| `8.50pm`, `8:50pm`, `0850pm`| 8.50pm|
+|Preset|`midnight`<br> `noon`|12am<br>12pm|
+
 <br>
 
 Examples:
@@ -162,7 +146,7 @@ Examples:
 * `Buy coffee for boss by 7:00 repeat every day`
 * `finish CS2101 assignment by 13th Sep`
 
-> Notice how the `end` keyword can be substituted with `by`.
+> Notice how `end` can be substituted with `by`.
 
 
 **_Adding a task with time interval_**
@@ -180,12 +164,31 @@ Example:
 
 >Tip: If you do not know the end time for your event yet, you can leave it blank first, and `edit` it in later!
 
+**_Specifying repeated tasks_**
+
+Have one of those pesky tasks you need to do every now and then? DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`. Never forget them again!<br>
+Format: `repeat every RECURRING_INTERVAL`
+> Note: You may only specify a `RECCURING_INTERVAL` for tasks that are timed.
+
+`RECURRING_INTERVAL` can be specified in a few formats, with some examples listed below.
+
+Recurring Interval | Format  
+-------- | :-------- 
+Hour | `hour`, `3 hours`
+Day | `day`, `3 days`, `monday`
+Week | `week`, `5 weeks`
+Month | `month`, `2 months`
+Year | `year`, `6 years`
+
+Examples: 
+* `Go run at track at 7am repeat every 3 days`
+* `Go visit mum repeat every sun`
 
 ### Editing a task: `edit`
 Edits an existing task in the task manager. Just in case you need to change any details, or add in missing ones. <br>
 Format: `edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 > `INDEX` refers to the task number in the current displayed list.<br>
-> Notice that this is similar to the `add` command format!  
+> Notice that this is similar to the format for `add`!  
 
 Examples:
 * `Company meeting tonight at 7pm to 9pm`
@@ -211,7 +214,7 @@ Examples:
 
 
 ### Deleting a task: `delete`
-Deletes an existing task in your task manager. This will remove them from the storage. If you want to mark them as done instead, take a look at the `done` command below. <br>
+Deletes an existing task in your task manager. This will remove them from the storage. If you want to mark them as done instead, take a look at the format for `done` below. <br>
 Format: `delete INDEX`
 > `INDEX` refers to the task number in the current displayed list.<br>
 
@@ -220,7 +223,7 @@ Example:
 
 ### Clearing the task manager: `clear`
 Deletes all tasks in your task manager.<br>
-This process is reversible with the `undo` command.<br>
+This process is reversible with `undo`.<br>
 Format: `clear`
 > `clear` allows you to `delete` all tasks with a single command!
 
@@ -298,7 +301,7 @@ Format: none, just type a command and let DearJim provide you hints on the comma
 >DearJim provides you hints on command formats as you type the command!
 
 Examples:
-* Typing `add` in the command input generates the `add` command format in the result display
+* Typing `add` in the command input generates the format for `add` in the result display
 <img src="images/dearjim_hint_add.png">
 
 <p align="center">
@@ -306,7 +309,7 @@ Figure 4: Hints for add command
 </p>
 <br>
 
-* Typing `delete` in the command input generates the `delete` command format in the result display
+* Typing `delete` in the command input generates the format for `delete` in the result display
 <img src="images/dearjim_hint_delete.png">
 
 <p align="center">
@@ -320,7 +323,7 @@ There is no need to save manually.
 
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?<br>
+**Q**: How do I transfer my data to another computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous *DearJim* folder.
 
