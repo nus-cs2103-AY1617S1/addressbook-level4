@@ -28,7 +28,7 @@ public class CommandBox extends UiPart {
     String previousCommandTest;
 
     private Logic logic;
-    private InputHistory history;
+    private InputHistory inputHistory;
     
     private static final String BACKSPACE_UNICODE = "\u0008";
     private static final String SPACE_UNICODE = "\u0020";
@@ -49,7 +49,7 @@ public class CommandBox extends UiPart {
     public void configure(ResultDisplay resultDisplay, Logic logic, InputHistory history) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
-        this.history = history;
+        this.inputHistory = history;
         registerAsAnEventHandler(this);
     }
 
@@ -238,8 +238,8 @@ public class CommandBox extends UiPart {
      */
     private boolean desiredInputHistoryUnavailable(boolean wantPrev) {
         boolean wantNext = !wantPrev;
-        boolean atEarliestHistoryButWantPrevInput = history.isEarliestInput() && wantPrev;
-        boolean atLatestHistoryButWantNextInput = history.isLatestInput() && wantNext;
+        boolean atEarliestHistoryButWantPrevInput = inputHistory.isEarliestInput() && wantPrev;
+        boolean atLatestHistoryButWantNextInput = inputHistory.isLatestInput() && wantNext;
         
         return atEarliestHistoryButWantPrevInput || atLatestHistoryButWantNextInput;
     }
@@ -258,10 +258,10 @@ public class CommandBox extends UiPart {
      */
     private void handleGetNextInput() {
         // store the current input into the prev first
-        history.pushPrevInput(history.getStoredCurrentShownInput());
+        String nextInput = inputHistory.nextStep(); 
         
         // get a next command input and replace current input
-        commandTextField.setText(history.popNextInput());
+        commandTextField.setText(nextInput);
     }
 
     /**
@@ -269,16 +269,11 @@ public class CommandBox extends UiPart {
      */
     private void handleGetPreviousInput() {
         // store the current input into the next first
-        if (history.isLatestInput()) {
-            history.pushNextInput(commandTextField.getText());
-        }
-            
-        else {
-            history.pushNextInput(history.getStoredCurrentShownInput());
-        }
-            
+        String currentInput = commandTextField.getText();
+        
+        String prevInput = inputHistory.prevStep(currentInput);
         // get a previous command input and replace current input
-        commandTextField.setText(history.popPrevInput());
+        commandTextField.setText(prevInput);
     }
 
     private boolean checkIfWantPrevInput(KeyCode keyCode) {
@@ -292,7 +287,7 @@ public class CommandBox extends UiPart {
         
         // first push back all 'next' commands into 'prev' command       
         // immediately add it to the history of command inputs
-        history.updateInputHistory(previousCommandTest); 
+        inputHistory.updateInputHistory(previousCommandTest); 
 
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
