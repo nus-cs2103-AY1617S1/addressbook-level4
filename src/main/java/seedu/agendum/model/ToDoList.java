@@ -79,6 +79,7 @@ public class ToDoList implements ReadOnlyToDoList {
         }
     }
 
+    //@@author A0133367E
     /**
      * Updates an existing task in the to-do list.
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task (to updatedTask) already exists.
@@ -105,6 +106,7 @@ public class ToDoList implements ReadOnlyToDoList {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    //@@author
 
 //// util methods
 

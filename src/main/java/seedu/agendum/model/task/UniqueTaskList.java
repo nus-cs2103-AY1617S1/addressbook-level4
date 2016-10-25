@@ -50,6 +50,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return internalList.contains(toCheck);
     }
 
+    //@@author A0133367E
     /**
      * Adds a task to the list.
      *
@@ -167,6 +168,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndUnmarked;
     }
 
+    //@@author
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

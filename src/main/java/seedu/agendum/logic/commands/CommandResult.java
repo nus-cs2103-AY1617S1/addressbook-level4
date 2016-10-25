@@ -17,6 +17,7 @@ public class CommandResult {
         this.feedbackToUser = feedbackToUser;
     }
 
+    //@@author A0133367E
     /**
      * Pre-condition: tasks and originalIndices must be of the same size.
      * Returns a string containing each task in tasks
@@ -25,7 +26,7 @@ public class CommandResult {
     public static String tasksToString(List<ReadOnlyTask> tasks, List<Integer> originalIndices) {
         final StringBuilder builder = new StringBuilder();
         builder.append("\n");
-        for (int i=0; i < tasks.size(); i++) {
+        for (int i = 0; i < tasks.size(); i++) {
             builder.append("#" + originalIndices.get(i) + ": ");
             builder.append(tasks.get(i).getAsText());
         }

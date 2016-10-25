@@ -47,11 +47,11 @@ public class RenameCommandTest extends ToDoListGuiTest {
      * @param currentList A copy of the current list of tasks (before renaming).
      */
     private void assertRenameSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
-        TestTask taskToRename = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestTask taskToRename = currentList[targetIndexOneIndexed - 1]; //-1 because array uses zero indexing
         String newTaskName = taskToRename.getName().toString() + " renamed";
-        TestTask renamedTask;
+
         try {
-            renamedTask = new TaskBuilder(taskToRename).withName(newTaskName).build();
+            TestTask renamedTask = new TaskBuilder(taskToRename).withName(newTaskName).build();
             TestTask[] expectedList = TestUtil.replaceTaskFromList(currentList, renamedTask, targetIndexOneIndexed - 1);
 
             commandBox.runCommand("rename " + targetIndexOneIndexed + " " + newTaskName);

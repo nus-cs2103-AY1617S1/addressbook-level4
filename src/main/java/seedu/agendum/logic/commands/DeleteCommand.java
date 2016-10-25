@@ -30,13 +30,13 @@ public class DeleteCommand extends Command {
     public ArrayList<ReadOnlyTask> tasksToDelete;
 
     public DeleteCommand() {}
-    
+
+    //@@author A0133367E
     public DeleteCommand(Set<Integer> targetIndexes) {
         this.targetIndexes = new ArrayList<Integer>(targetIndexes);
         Collections.sort(this.targetIndexes);
         this.tasksToDelete = new ArrayList<ReadOnlyTask>();
     }
-
 
     @Override
     public CommandResult execute() {
@@ -67,6 +67,7 @@ public class DeleteCommand extends Command {
         return targetIndexes.stream().anyMatch(index -> index > lastShownList.size());
     }
 
+  //@@author
     @Override
     public String getName() {
         return COMMAND_WORD;

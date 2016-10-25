@@ -220,6 +220,7 @@ public class LogicManagerTest {
     }
 
 
+    //@@author A0133367E
     /**
      * Confirms the 'incorrect index format behaviour' for the given command
      * targeting a single task in the shown list, using visible index.
@@ -304,6 +305,7 @@ public class LogicManagerTest {
         assertCommandBehavior(commandWord + " 1-6", expectedMessage, model.getToDoList(), taskList);
     }
 
+    //@@author
     @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
@@ -343,6 +345,7 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("delete");
     }
 
+    //@@author A0133367E
     @Test
     public void execute_delete_removesCorrectSingleTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -418,6 +421,7 @@ public class LogicManagerTest {
                 expectedTDL,
                 expectedTDL.getTaskList());
     }
+    //@author
 
 
     @Test
@@ -458,6 +462,7 @@ public class LogicManagerTest {
     }
 
 
+    //@@author A0133367E
     @Test
     public void execute_markInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE);
@@ -713,6 +718,7 @@ public class LogicManagerTest {
     }
 
 
+    //@@author
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
@@ -776,7 +782,7 @@ public class LogicManagerTest {
                 expectedList);
     }
 
-
+    //@@author A0133367E
     @Test
     public void execute_undo_identifiesNoPreviousCommand() throws Exception {
         assertCommandBehavior("undo", UndoCommand.MESSAGE_FAILURE, new ToDoList(), Collections.emptyList());
@@ -824,6 +830,7 @@ public class LogicManagerTest {
         assertCommandBehavior("undo", UndoCommand.MESSAGE_SUCCESS, expectedTDL, listWithOneTask);
 
     }
+    //@@author
 
 
     /**
@@ -944,7 +951,8 @@ public class LogicManagerTest {
         List<Task> generateTaskList(Task... tasks) {
             return Arrays.asList(tasks);
         }
-  
+ 
+        //@@author A0133367E
         List<ReadOnlyTask> generateReadOnlyTaskList(ReadOnlyTask... tasks) {
             return Arrays.asList(tasks);
         }

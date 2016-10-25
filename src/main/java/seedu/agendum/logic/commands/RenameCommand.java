@@ -12,7 +12,7 @@ import seedu.agendum.model.task.UniqueTaskList.TaskNotFoundException;
  */
 public class RenameCommand extends Command {
 
- // COMMAND_WORD, COMMAND_FORMAT, COMMAND_DESCRIPTION are for display in help window
+    // COMMAND_WORD, COMMAND_FORMAT, COMMAND_DESCRIPTION are for display in help window
     public static final String COMMAND_WORD = "rename";
     public static String COMMAND_FORMAT = "rename <index> <new-name>";
     public static String COMMAND_DESCRIPTION = "update the name of a task";
@@ -28,11 +28,11 @@ public class RenameCommand extends Command {
     public Name newTaskName = null;
 
     public RenameCommand() {};
-    
+
+    //@@author A0133367E
     /**
-     * Convenience constructor using raw values.
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
+     * Constructor for rename command
+     * @throws IllegalValueException only if the name is invalid
      */
     public RenameCommand(int targetIndex, String name)
             throws IllegalValueException {
@@ -66,6 +66,7 @@ public class RenameCommand extends Command {
 
     }
 
+    //@@author
     @Override
     public String getName() {
         return COMMAND_WORD;
