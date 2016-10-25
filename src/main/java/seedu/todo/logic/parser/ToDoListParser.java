@@ -325,7 +325,8 @@ public class ToDoListParser {
     private Command prepareSearch(String args) {
         Pattern[] dataPatterns = { ParserFormats.SEARCH_TASK_ARGS_FORMAT_ON,
             ParserFormats.SEARCH_TASK_ARGS_FORMAT_BEFORE, ParserFormats.SEARCH_TASK_ARGS_FORMAT_AFTER,
-            ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, ParserFormats.KEYWORDS_ARGS_FORMAT };
+            ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT, ParserFormats.KEYWORDS_ARGS_FORMAT, 
+            ParserFormats.SEARCH_TASK_ARGS_FORMAT_PRIORITY };
         
         String tempArgs = args.trim(); 
         
@@ -345,6 +346,8 @@ public class ToDoListParser {
                 } else if (p.equals(ParserFormats.KEYWORDS_ARGS_FORMAT) && tempArgs.indexOf("tag") != 0
                         && tempArgs.indexOf("done") != 0 && tempArgs.indexOf("undone") != 0) {
                     return new SearchCommand(matcher.group("keywords"), 4);
+                } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_PRIORITY)) {
+                	return new SearchCommand(matcher.group("priority"), 8);
                 }
             }
         }
@@ -360,9 +363,6 @@ public class ToDoListParser {
             return new SearchCommand(tempArgs, 7);
         }
         
-        if (tempArgs.indexOf("priority") == 0) {
-        	return new SearchCommand(tempArgs, 8); 
-        }
 
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SearchCommand.MESSAGE_USAGE));
 
