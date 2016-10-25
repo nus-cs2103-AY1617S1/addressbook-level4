@@ -188,12 +188,17 @@ public class JimiParser {
         try {
             List<Date> startDates = parseStringToDate(eventDetailsMatcher.group("startDateTime"));
             List<Date> endDates = parseStringToDate(eventDetailsMatcher.group("endDateTime"));
+            
+            String priority = getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"));
+            if (priority == null)
+                priority = "MED";
+            
             return new AddCommand(
                     eventDetailsMatcher.group("taskDetails"),
                     startDates,
                     endDates,
                     getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
-                    getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"))
+                    priority
             );
         } catch (DateNotParsableException e) {
             return new IncorrectCommand(e.getMessage());
@@ -210,11 +215,16 @@ public class JimiParser {
     private Command generateAddCommandForTask(final Matcher detailsAndTagsMatcher, final Matcher taskDetailsMatcher) {
         try {
             List<Date> dates = parseStringToDate(taskDetailsMatcher.group("dateTime"));
+            
+            String priority = getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"));
+            if (priority == null)
+                priority = "MED";
+            
             return new AddCommand(
                     taskDetailsMatcher.group("taskDetails"),
                     dates,
                     getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
-                    getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"))
+                    priority
             );
         } catch (DateNotParsableException e) {
             return new IncorrectCommand(e.getMessage());
@@ -323,7 +333,7 @@ public class JimiParser {
     private static String getPriorityFromArgs(String priorityArguments) throws IllegalValueException {
         // no tags
         if (priorityArguments.isEmpty()) {
-            return "MED";   //default priority to be "MED"
+            return null;   
         }
         // replace first delimiter prefix, then split
         final String priorityString = priorityArguments.replaceFirst(" p/", "");
