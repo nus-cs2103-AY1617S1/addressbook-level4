@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.lang.String;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
@@ -55,6 +56,9 @@ public class JimiParser {
     
     private static final Pattern TAGGABLE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)"); // zero or one tag only
+    
+    private static final Pattern PRIORITY_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<otherDetails>[^/]+)(?<priorityArguments>(?: p/[^/]+)?)"); // zero or one tag only
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
             Pattern.compile("(?<targetIndex>[^\\s]+) (?<editDetails>.+)");
@@ -157,9 +161,10 @@ public class JimiParser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        final Matcher detailsAndTagsMatcher = TAGGABLE_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher otherDetailsAndPriorityMatcher = PRIORITY_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher detailsAndTagsMatcher = TAGGABLE_DATA_ARGS_FORMAT.matcher(otherDetailsAndPriorityMatcher.group("otherDetails").trim());
         // Validate entire args string format
-        if (!detailsAndTagsMatcher.matches()) {
+        if (!detailsAndTagsMatcher.matches() || !otherDetailsAndPriorityMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         
@@ -169,9 +174,9 @@ public class JimiParser {
                 ADD_EVENT_DATA_ARGS_FORMAT.matcher(detailsAndTagsMatcher.group("ArgsDetails").trim());
         
         if (taskDetailsMatcher.matches()) { // if user trying to add task 
-            return generateAddCommandForTask(detailsAndTagsMatcher, taskDetailsMatcher);
+            return generateAddCommandForTask(detailsAndTagsMatcher, taskDetailsMatcher, otherDetailsAndPriorityMatcher);
         } else if (eventDetailsMatcher.matches()) { // if user trying to add event
-            return generateAddCommandForEvent(detailsAndTagsMatcher, eventDetailsMatcher);
+            return generateAddCommandForEvent(detailsAndTagsMatcher, eventDetailsMatcher, otherDetailsAndPriorityMatcher);
         }
         
         /* default return IncorrectCommand */
@@ -183,7 +188,7 @@ public class JimiParser {
      * 
      * @return an AddCommand if raw args is valid, else IncorrectCommand
      */
-    private Command generateAddCommandForEvent(final Matcher detailsAndTagsMatcher, final Matcher eventDetailsMatcher) {
+    private Command generateAddCommandForEvent(final Matcher detailsAndTagsMatcher, final Matcher eventDetailsMatcher, final Matcher otherDetailsAndPriorityMatcher) {
         try {
             List<Date> startDates = parseStringToDate(eventDetailsMatcher.group("startDateTime"));
             List<Date> endDates = parseStringToDate(eventDetailsMatcher.group("endDateTime"));
@@ -191,7 +196,8 @@ public class JimiParser {
                     eventDetailsMatcher.group("taskDetails"),
                     startDates,
                     endDates,
-                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
+                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
+                    getPriorityFromArgs(otherDetailsAndPriorityMatcher.group("priorityArguments"))
             );
         } catch (DateNotParsableException e) {
             return new IncorrectCommand(e.getMessage());
@@ -205,13 +211,14 @@ public class JimiParser {
      * 
      * @return an AddCommand if raw args is valid, else IncorrectCommand
      */
-    private Command generateAddCommandForTask(final Matcher detailsAndTagsMatcher, final Matcher taskDetailsMatcher) {
+    private Command generateAddCommandForTask(final Matcher detailsAndTagsMatcher, final Matcher taskDetailsMatcher, final Matcher otherDetailsAndPriorityMatcher) {
         try {
             List<Date> dates = parseStringToDate(taskDetailsMatcher.group("dateTime"));
             return new AddCommand(
                     taskDetailsMatcher.group("taskDetails"),
                     dates,
-                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
+                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
+                    getPriorityFromArgs(otherDetailsAndPriorityMatcher.group("priorityArguments"))
             );
         } catch (DateNotParsableException e) {
             return new IncorrectCommand(e.getMessage());
@@ -242,9 +249,10 @@ public class JimiParser {
      * @return the prepared edit command
      */
     private Command prepareEdit(String args) {
-        final Matcher detailsAndTagsMatcher = TAGGABLE_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher otherDetailsAndPriorityMatcher = PRIORITY_DATA_ARGS_FORMAT.matcher(args.trim());
+        final Matcher detailsAndTagsMatcher = TAGGABLE_DATA_ARGS_FORMAT.matcher(otherDetailsAndPriorityMatcher.group("ArgsDetails").trim());
         // Validate full raw args string format
-        if (!detailsAndTagsMatcher.matches()) {
+        if (!detailsAndTagsMatcher.matches() || !otherDetailsAndPriorityMatcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
         
@@ -268,7 +276,7 @@ public class JimiParser {
         }
         
         try {
-            return generateEditCommand(detailsAndTagsMatcher, editArgsMatcher, editDetailsMatcher);
+            return generateEditCommand(detailsAndTagsMatcher, editArgsMatcher, editDetailsMatcher, otherDetailsAndPriorityMatcher);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -276,7 +284,7 @@ public class JimiParser {
     
     /** Generates an edit command */
     private Command generateEditCommand(Matcher detailsAndTagsMatcher, Matcher editArgsMatcher,
-            Matcher editDetailsMatcher) throws IllegalValueException {
+            Matcher editDetailsMatcher, Matcher otherDetailsAndPriorityMatcher) throws IllegalValueException {
         
         List<Date> deadline = parseStringToDate(editDetailsMatcher.group("deadline"));
         List<Date> eventStart = parseStringToDate(editDetailsMatcher.group("startDateTime"));
@@ -294,7 +302,8 @@ public class JimiParser {
                 deadline,
                 eventStart,
                 eventEnd,
-                editArgsMatcher.group("targetIndex")
+                editArgsMatcher.group("targetIndex"),
+                otherDetailsAndPriorityMatcher.group("priorityArguments")
         );
     }
     
@@ -310,6 +319,20 @@ public class JimiParser {
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
+    }
+    
+    /**
+     * Extracts the new task's tags from the add command's tag arguments string.
+     * Merges duplicate tag strings.
+     */
+    private static String getPriorityFromArgs(String priorityArguments) throws IllegalValueException {
+        // no tags
+        if (priorityArguments.isEmpty()) {
+            return "MED";
+        }
+        // replace first delimiter prefix, then split
+        final String priorityStrings = priorityArguments.replaceFirst(" p/", "");
+        return priorityStrings;
     }
 
     /**
