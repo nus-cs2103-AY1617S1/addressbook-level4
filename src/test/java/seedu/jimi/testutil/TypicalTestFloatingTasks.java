@@ -13,17 +13,17 @@ public class TypicalTestFloatingTasks {
 
     public TypicalTestFloatingTasks() {
         try {
-            water =  new TaskBuilder().withName("add water").withTags("noturgent").build();
-            ideas = new TaskBuilder().withName("brainstorm ideas").withTags("project").build();
-            car = new TaskBuilder().withName("catch a car").build();
-            airport = new TaskBuilder().withName("drive to airport").build();
-            lunch = new TaskBuilder().withName("eat lunch").build();
-            flight = new TaskBuilder().withName("fly to spain").build();
-            beach = new TaskBuilder().withName("go to the beach").build();
+            water =  new TaskBuilder().withName("add water").withTags("noturgent").withPriority("LOW").build();
+            ideas = new TaskBuilder().withName("brainstorm ideas").withTags("project").withPriority("LOW").build();
+            car = new TaskBuilder().withName("catch a car").withPriority("LOW").build();
+            airport = new TaskBuilder().withName("drive to airport").withPriority("MED").build();
+            lunch = new TaskBuilder().withName("eat lunch").withPriority("LOW").build();
+            flight = new TaskBuilder().withName("fly to spain").withPriority("LOW").build();
+            beach = new TaskBuilder().withName("go to the beach").withPriority("LOW").build();
 
             //Manually added
-            night = new TaskBuilder().withName("have a nice night").build();
-            dream = new TaskBuilder().withName("into a dream").build();
+            night = new TaskBuilder().withName("have a nice night").withPriority("HIGH").build();
+            dream = new TaskBuilder().withName("into a dream").withPriority("MED").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";

@@ -11,6 +11,7 @@ import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.event.Event;
+import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.DeadlineTask;
@@ -55,6 +56,7 @@ public class EditCommand extends Command implements TaskBookEditor {
     private final String taskIndex; //index of task/event to be edited
     private UniqueTagList newTagList;
     private Name newName;
+    private Priority newPriority;
     
     private DateTime deadline;
     private DateTime eventStart;
@@ -64,7 +66,8 @@ public class EditCommand extends Command implements TaskBookEditor {
         REMOVE_DATES,
         ONLY_NAME,
         TO_EVENT,
-        TO_DEADLINE
+        TO_DEADLINE,
+        ONLY_PRIORITY
     }
     
     private EditType editType;
@@ -81,7 +84,7 @@ public class EditCommand extends Command implements TaskBookEditor {
     }
     
     public EditCommand(String name, Set<String> tags, List<Date> deadline, List<Date> eventStart, List<Date> eventEnd,
-            String taskIndex) throws IllegalValueException {
+            String taskIndex, String priority) throws IllegalValueException {
         
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -96,6 +99,10 @@ public class EditCommand extends Command implements TaskBookEditor {
         
         if (!tagSet.isEmpty()) {
             this.newTagList = new UniqueTagList(tagSet);
+        }
+        
+        if (priority != null)   {
+            this.newPriority = new Priority(priority);
         }
         
         this.deadline = (deadline.size() != 0) ? new DateTime(deadline.get(0)) : null;
@@ -148,10 +155,12 @@ public class EditCommand extends Command implements TaskBookEditor {
     
     /** Determines the type of edit based on user input. */
     private void determineEditType() {
-        if (newName == null && deadline == null && eventStart == null && eventEnd == null && newTagList == null) {
+        if (newName == null && deadline == null && eventStart == null && eventEnd == null && newTagList == null && newPriority == null) {
             this.editType = EditType.REMOVE_DATES;
-        } else if (newName != null && deadline == null && eventStart == null && eventEnd == null) {
+        } else if (newName != null && deadline == null && eventStart == null && eventEnd == null && newPriority == null) {
             this.editType = EditType.ONLY_NAME;
+        } else if (newPriority != null && deadline == null && eventStart == null && eventEnd == null)   {
+            this.editType = EditType.ONLY_PRIORITY;
         } else if (eventStart == null && eventEnd == null && deadline != null) {
             this.editType = EditType.TO_DEADLINE;
         } else if (deadline == null && (eventStart != null || eventEnd != null)) {
@@ -165,6 +174,8 @@ public class EditCommand extends Command implements TaskBookEditor {
         case REMOVE_DATES :
             return Optional.of(toFloatingTypeWithChanges(oldTask));
         case ONLY_NAME :
+            return Optional.of(toSameTaskTypeWithChanges(oldTask));
+        case ONLY_PRIORITY :
             return Optional.of(toSameTaskTypeWithChanges(oldTask));
         case TO_EVENT :
             return Optional.of(toEventTypeWithChanges(oldTask));
@@ -180,7 +191,8 @@ public class EditCommand extends Command implements TaskBookEditor {
         return new FloatingTask(
                 newName == null ? t.getName() : newName, 
                 newTagList == null ? t.getTags() : newTagList, 
-                t.isCompleted());
+                t.isCompleted(),
+                newPriority == null ? t.getPriority() : newPriority);
     }
 
     /** Generates a deadline task with changes. */
@@ -189,7 +201,7 @@ public class EditCommand extends Command implements TaskBookEditor {
                 newName == null ? t.getName() : newName, 
                 t instanceof DeadlineTask && deadline == null ? ((DeadlineTask) t).getDeadline() : deadline, 
                 newTagList == null ? t.getTags() : newTagList, 
-                t.isCompleted());
+                newPriority == null ? t.getPriority() : newPriority);
     }
 
     /** Generates an Event with changes. */
@@ -199,7 +211,8 @@ public class EditCommand extends Command implements TaskBookEditor {
                 t instanceof Event && eventStart == null ? ((Event) t).getStart() : eventStart, 
                 t instanceof Event && eventEnd == null ? ((Event) t).getEnd() : eventEnd,
                 newTagList == null ? t.getTags() : newTagList, 
-                t.isCompleted());
+                t.isCompleted(),
+                newPriority == null ? t.getPriority() : newPriority);
     }
 
     /** Generates a task with changes while maintaining it's task type. */
@@ -210,18 +223,21 @@ public class EditCommand extends Command implements TaskBookEditor {
                     eventStart == null ? ((Event) t).getStart() : eventStart, 
                     eventEnd == null ? ((Event) t).getEnd() : eventEnd,
                     newTagList == null ? t.getTags() : newTagList, 
-                    t.isCompleted());
+                    t.isCompleted(), 
+                    newPriority == null ? t.getPriority() : newPriority);
         } else if (t instanceof DeadlineTask) {
             return new DeadlineTask(
                     newName == null ? t.getName() : newName, 
                     deadline == null ? ((DeadlineTask) t).getDeadline() : deadline, 
                     newTagList == null ? t.getTags() : newTagList, 
-                    t.isCompleted());
+                    t.isCompleted(),
+                    newPriority == null ? t.getPriority() : newPriority);
         } else { // floating task
             return new FloatingTask( 
                     newName == null ? t.getName() : newName, 
                     newTagList == null ? t.getTags() : newTagList, 
-                    t.isCompleted());
+                    t.isCompleted(),
+                    newPriority == null ? t.getPriority() : newPriority);
         }
     }
 }

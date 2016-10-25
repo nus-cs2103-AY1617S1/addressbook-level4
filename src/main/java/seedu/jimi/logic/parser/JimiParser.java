@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.lang.String;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
@@ -56,7 +57,7 @@ public class JimiParser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     private static final Pattern TAGGABLE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)"); // zero or one tag only
+            Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)(?<priorityArguments>(?: p/[^/]+)?)"); // zero or one tag only, zero or one priority    
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
             Pattern.compile("(?<targetIndex>[^\\s]+) (?<editDetails>.+)");
@@ -191,11 +192,17 @@ public class JimiParser {
         try {
             List<Date> startDates = parseStringToDate(eventDetailsMatcher.group("startDateTime"));
             List<Date> endDates = parseStringToDate(eventDetailsMatcher.group("endDateTime"));
+            
+            String priority = getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"));
+            if (priority == null)
+                priority = "MED";
+            
             return new AddCommand(
                     eventDetailsMatcher.group("taskDetails"),
                     startDates,
                     endDates,
-                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
+                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
+                    priority
             );
         } catch (DateNotParsableException e) {
             return new IncorrectCommand(e.getMessage());
@@ -212,10 +219,16 @@ public class JimiParser {
     private Command generateAddCommandForTask(final Matcher detailsAndTagsMatcher, final Matcher taskDetailsMatcher) {
         try {
             List<Date> dates = parseStringToDate(taskDetailsMatcher.group("dateTime"));
+            
+            String priority = getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"));
+            if (priority == null)
+                priority = "MED";
+            
             return new AddCommand(
                     taskDetailsMatcher.group("taskDetails"),
                     dates,
-                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
+                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
+                    priority
             );
         } catch (DateNotParsableException e) {
             return new IncorrectCommand(e.getMessage());
@@ -298,7 +311,8 @@ public class JimiParser {
                 deadline,
                 eventStart,
                 eventEnd,
-                editArgsMatcher.group("targetIndex")
+                editArgsMatcher.group("targetIndex"),
+                getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"))
         );
     }
     
@@ -314,6 +328,20 @@ public class JimiParser {
         // replace first delimiter prefix, then split
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
+    }
+    
+    /**
+     * Extracts the new task's tags from the add command's tag arguments string.
+     * Merges duplicate tag strings.
+     */
+    private static String getPriorityFromArgs(String priorityArguments) throws IllegalValueException {
+        // no tags
+        if (priorityArguments.isEmpty()) {
+            return null;   
+        }
+        // replace first delimiter prefix, then split
+        final String priorityString = priorityArguments.replaceFirst(" p/", "");
+        return priorityString;
     }
 
     /**
