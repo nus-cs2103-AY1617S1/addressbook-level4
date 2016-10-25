@@ -344,7 +344,8 @@ public class ToDoListParser {
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_FT)) {
                     return new SearchCommand(matcher.group("fromDateTime") + "@" + matcher.group("tillDateTime"), 3);
                 } else if (p.equals(ParserFormats.KEYWORDS_ARGS_FORMAT) && tempArgs.indexOf("tag") != 0
-                        && tempArgs.indexOf("done") != 0 && tempArgs.indexOf("undone") != 0) {
+                        && tempArgs.indexOf("done") != 0 && tempArgs.indexOf("undone") != 0 
+                        && tempArgs.indexOf("priority") != 0) {
                     return new SearchCommand(matcher.group("keywords"), 4);
                 } else if (p.equals(ParserFormats.SEARCH_TASK_ARGS_FORMAT_PRIORITY)) {
                 	return new SearchCommand(matcher.group("priority"), 8);

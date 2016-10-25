@@ -102,7 +102,7 @@ public class SearchCommand extends Command {
 
         case 8 : //priority search
             try {
-            	String priority = data.split("priority")[1].trim();                   
+            	String priority = data.trim();                   
                 model.updateFilteredTaskListByPriority(new Priority(priority));
                 return new CommandResult(getMessageForTaskListShownSummary(model.getUnmodifiableFilteredTaskList().size()));
                     
