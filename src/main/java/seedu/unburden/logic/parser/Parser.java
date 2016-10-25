@@ -108,6 +108,10 @@ public class Parser {
 	private static final String tomorrow = "tomorrow";
 
 	private static final String nextWeek = "next week";
+	
+	private static final String done = "done";
+	
+	private static final String undone = "undone";
 
 	private static final DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -354,7 +358,7 @@ public class Parser {
 		}
 		if (matcherDate.matches()) {
 			try {
-				return new ListCommand(args);
+				return new ListCommand(args, "date");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -365,12 +369,16 @@ public class Parser {
 				calendar.setTime(calendar.getTime());
 				calendar.add(Calendar.DAY_OF_YEAR, 1);
 				final String tomorrowKeyword = dateFormatter.format(calendar.getTime());
-				return new ListCommand(tomorrowKeyword);
+				return new ListCommand(tomorrowKeyword, "date");
 			case nextWeek:
 				calendar.setTime(calendar.getTime());
 				calendar.add(Calendar.WEEK_OF_YEAR, 1);
 				final String nextWeekKeyword = dateFormatter.format(calendar.getTime());
-				return new ListCommand(nextWeekKeyword);
+				return new ListCommand(nextWeekKeyword, "date");
+			case done:
+				return new ListCommand(done);
+			case undone:
+				return new ListCommand(undone);
 			}
 		}
 		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));

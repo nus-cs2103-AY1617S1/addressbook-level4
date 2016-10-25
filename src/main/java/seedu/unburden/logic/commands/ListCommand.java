@@ -28,8 +28,13 @@ public class ListCommand extends Command {
     	this.date = null;
     	this.mode = "all";
     }
+    
+    public ListCommand(String done){
+    	this.date = null;
+    	this.mode = done;
+    }
 
-    public ListCommand(String args) throws ParseException {
+    public ListCommand(String args, String mode) throws ParseException {
 		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		this.date = df.parse(args);
 		this.mode = "date";
@@ -44,14 +49,34 @@ public class ListCommand extends Command {
 			}
 		};
     }
+    
+    public java.util.function.Predicate<? super Task> getAllDone(){
+    	return t -> {
+    		return t.getDone();
+    	};
+    }
+    
+    public java.util.function.Predicate<? super Task> getAllUndone(){
+    	return t -> {
+    		return !t.getDone();
+    	};
+    }
+    
+    
 
 	@Override
     public CommandResult execute() {
 		if(mode.equals("all")){
 			 model.updateFilteredListToShowAll();
 		}
+		else if(mode.equals("done")){
+			model.updateFilteredListToShow(getAllDone());
+		}
+		else if(mode.equals("undone")){
+			model.updateFilteredListToShow(getAllUndone());
+		}
 		else{
-			model.updateFilteredListToShowAllDatesBefore(getAllDatesBefore(date));
+			model.updateFilteredListToShow(getAllDatesBefore(date));
 		}
         return new CommandResult(MESSAGE_SUCCESS);
     }

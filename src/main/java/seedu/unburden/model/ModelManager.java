@@ -116,10 +116,9 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskListForDate(Set<String> keywords){
     	updateFilteredPersonList(new PredicateExpression(new DateQualifier(keywords)));
     }
-    
-
+	
 	@Override
-    public void updateFilteredListToShowAllDatesBefore(java.util.function.Predicate<? super Task> predicate){
+	public void updateFilteredListToShow(java.util.function.Predicate<? super Task> predicate){
     	filteredTasks.setPredicate(predicate);
     }
 
