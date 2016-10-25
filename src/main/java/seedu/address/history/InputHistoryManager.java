@@ -2,6 +2,7 @@ package seedu.address.history;
 
 import java.util.Stack;
 
+//@@author A0093960X
 /**
  * Stores the history of user inputs for navigating previous and next user inputs using up and down arrow keys.
  */
@@ -11,8 +12,8 @@ public class InputHistoryManager implements InputHistory{
     
     // command inputs
     private Stack<String> prevCommands;
-    private String currentStoredCommandShown;
     private Stack<String> nextCommands;
+    private String currentStoredCommandShown;
     
     // Private constructor for Singleton Pattern
     private InputHistoryManager(){
@@ -82,6 +83,8 @@ public class InputHistoryManager implements InputHistory{
         pushPrevInput(currentStoredCommandShown);
         return popNextInput();
     }
+    
+    // private helper methods below
     
     private String popPrevInput() {
         assert prevCommands != null;

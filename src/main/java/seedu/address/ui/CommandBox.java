@@ -33,6 +33,8 @@ public class CommandBox extends UiPart {
     private static final String BACKSPACE_UNICODE = "\u0008";
     private static final String SPACE_UNICODE = "\u0020";
     private static final String CARRIAGE_RETURN = "\r";
+    private static final String NEW_LINE = "\n";
+
 
     @FXML
     private TextField commandTextField;
@@ -82,7 +84,7 @@ public class CommandBox extends UiPart {
     private void handleKeyInput(KeyEvent event) {       
         String keyInputAsString = event.getCharacter();
         
-        boolean keyIsEnter = keyInputAsString.equals(CARRIAGE_RETURN);
+        boolean keyIsEnter = checkIfEnterPressed(keyInputAsString);
         
         if (keyIsEnter) {
             return;
@@ -94,6 +96,11 @@ public class CommandBox extends UiPart {
         String userInput = getUserInputAfterKeyPressed(keyInputAsString);
         updateTooltipForUser(userInput);        
 
+    }
+
+    private boolean checkIfEnterPressed(String keyInputAsString) {
+        // Enter is \r\n on windows, \n on unix
+        return keyInputAsString.equals(CARRIAGE_RETURN) || keyInputAsString.equals(NEW_LINE);
     }
     
     @FXML
@@ -129,7 +136,8 @@ public class CommandBox extends UiPart {
                 
         switch (keyAsString) {
             case BACKSPACE_UNICODE:
-                return applyBackspaceOnInputEnd(userInput);
+                // backspace action occurs before event triggers, just return the user input
+                return userInput;
             case SPACE_UNICODE:
                 return applySpaceOnInputEnd(userInput);
             default:
@@ -186,22 +194,6 @@ public class CommandBox extends UiPart {
     }
 
     /**
-     * Returns a string that is the result of applying a backspace on the user input string given.
-     * If the string is already empty, an empty string is returned.
-     * Otherwise, returns a string of the original input with the last character removed.
-     * @param userInput
-     * @return
-     */
-    private String applyBackspaceOnInputEnd(String userInput) {
-        if (userInput.isEmpty()) {
-            return "";
-        }
-        else {
-            return userInput.substring(0, userInput.length()-1);
-        }
-    }
-
-    /**
      * Handles the event where the user is trying to navigate the input history.
      * keyCode must either be up or down arrow key.
      * 
@@ -249,8 +241,9 @@ public class CommandBox extends UiPart {
      */
     private void updateCaretPosition() {
         String currentInputShown = commandTextField.getText();
-        // positions the caret at the end of the string for easy edit
-        commandTextField.positionCaret(currentInputShown.length());
+        int positionAtEndOfString = currentInputShown.length();
+        
+        commandTextField.positionCaret(positionAtEndOfString);
     }
 
     /**

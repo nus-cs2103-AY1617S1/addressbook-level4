@@ -1,5 +1,6 @@
 package seedu.address.history;
 
+//@@author A0093960X
 public interface InputHistory {
     
     /** Updates the user input history and resets the current state to be the latest input with the given userInput String **/
