@@ -287,6 +287,7 @@ public class MainParser {
 
     	try {
     		logger.info(detailToAdd + " Initial");
+    		logger.info(datesAndTimes.toString());
     	// Determine if edit command is input correctly
     	Optional<Integer> checkForIndex = parseLooseIndex(args);
     	
@@ -299,7 +300,7 @@ public class MainParser {
         if (args.lastIndexOf("'") == args.indexOf("'"))
         	detailToAdd = "";
         
-        logger.info(detailToAdd + "Empty ''");
+       // logger.info(detailToAdd + "Empty ''");
         	
         // Determine if the edit command is used correctly
     	String[] splittedArgs = getCleanString(args).split(" ");
@@ -322,13 +323,15 @@ public class MainParser {
         //used flag to check if want to remove priority
         boolean removePriority = false;
         // Parse date and time
+        logger.info(args);
         reducedArgs = extractDueByDateAndTime(args);
+        logger.info(datesAndTimes.toString());
         //if keyword float is entered, it becomes a floating task (no date no time)
         if(reducedArgs.toLowerCase().contains("floating")){
         	floating = true;
         }
-        //if keyword // is entered, priority is removed
-        if(reducedArgs.toLowerCase().contains("remove priority")){
+        //if keyword rp or remove priority is entered, priority is removed
+        if(reducedArgs.toLowerCase().contains("remove priority")||reducedArgs.toLowerCase().contains("rp")){
         	removePriority = true;
         }
         	
@@ -344,7 +347,6 @@ public class MainParser {
     	LocalDateTime dtStart = LocalDateTime.MIN;
     	LocalDateTime dtEnd = LocalDateTime.MIN;
     	
-     
     	if (datesAndTimes.size() == 1) {
     		dt = datesAndTimes.get(0);
     		dataNo = 1;
@@ -360,13 +362,9 @@ public class MainParser {
     	// For testing purposes
         datesAndTimes.clear();
         String detailToEdit = detailToAdd;
-        logger.info(detailToAdd);
+        //logger.info(detailToAdd);
         
-        if (datesAndTimes.size() != 0)
-        	dt = datesAndTimes.get(0);
-        else
-        	dt = LocalDateTime.of(LocalDate.parse(NO_DATE_DEFAULT, DateTimeFormatter.ISO_LOCAL_DATE), 
-        			LocalTime.MAX);
+
         // For testing purposes
         datesAndTimes.clear();
         detailToAdd = null;

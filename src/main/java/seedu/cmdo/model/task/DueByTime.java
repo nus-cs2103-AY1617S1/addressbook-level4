@@ -18,8 +18,8 @@ public class DueByTime {
     public static final String MESSAGE_DUEBYTIME_CONSTRAINTS = "Due at what time? You should type in a time in format HHMM";
 //    public static final String DUEBYTIME_VALIDATION_REGEX = ".*";
 
-    public final LocalTime start;
-    public final LocalTime end;
+    public LocalTime start;
+    public LocalTime end;
     public final Boolean isRange;
     
     /**
