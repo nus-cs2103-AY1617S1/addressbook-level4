@@ -146,11 +146,6 @@ public class ModelManager extends ComponentManager implements Model {
         indicateConfigChanged(destination, config);
         indicateWhatNowChanged();
     }
-    
-    @Override
-    public void changeLocation(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException {
-
-    }
 
 	@Override
 	public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
