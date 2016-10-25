@@ -120,7 +120,7 @@ Each of the four components:
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-Figure 2: The Logic component.<br>
+Figure 2: The Logic component.
 
 </p>
 
@@ -129,9 +129,7 @@ Figure 2 shows an example of how a component (the `Logic` component) defines its
 <p align="center">
 
 <img src="images\SDforDeleteTask.png" width="800"><br>
-
-Figure 3: Interaction of components for the `delete todo 1` command
-
+Figure 3: Interaction of components for the LogicManager.java command
 </p>
 
 Figure 3 shows how the components interact for the scenario where the user issues the delete todo 1 command.
@@ -142,7 +140,7 @@ Figure 3 shows how the components interact for the scenario where the user issue
 
 <img src="images\SDforDeleteTaskEventHandling.png" width="800"> <br>
 
-Figure 4: Interaction of `EventsCentre` with `UI` and `Storage` when a `WhatNowChangedEvent` is posted
+Figure 4: Interaction of EventsCentre with UI and Storage when a WhatNowChangedEvent is posted
 
 </p>
 
@@ -158,7 +156,7 @@ The sections below gives more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-Figure 5: The `UI` component.
+Figure 5: The UI component.
 
 </p>
 
@@ -196,7 +194,7 @@ Logic uses the `Parser` class to parse the user command. This results in a `Comm
 
 <img src="images/AddTaskSdForLogic.png" width="800"><br>
 
-Figure 8:  Sequence Diagram of interaction within the Logic component for execute(“add "buy milk" ")
+Figure 7:  Sequence Diagram of interaction within the Logic component for execute(“add "buy milk" ")
 
 </p>
 
@@ -214,7 +212,7 @@ Figure 8:  Sequence Diagram of interaction within the Logic component for execut
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-Figure 8: The Model component.
+Figure 9: The Model component.
 
 </p>
 
@@ -234,7 +232,7 @@ Figure 8: The Model component.
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-Figure 9: The `Storage` component.
+Figure 10: The Storage component.
 
 </p>
 
