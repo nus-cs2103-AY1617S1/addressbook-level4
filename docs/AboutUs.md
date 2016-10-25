@@ -16,14 +16,19 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: [Logic](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
 * Aspects/tools in charge of: Testing, Code quality
 * Features implemented:
-   * [Mark](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#listing-all-persons--list)
-   * [Unmark](https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md#deleting-a-person--delete)
-   * 
-* Code written: [[functional code](A123456.md)][[test code](A123456.md)][[docs](A123456.md)]
+   * [List](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#listing-all-tasks-of-a-category-list)
+   * [Mark](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#completing-tasks--mark)
+   * [Unmark](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#unmarks-tasks--unmark)
+   * [Previous](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#repeating-a-previous-command-)
+   * [Upcoming](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#show-upcoming-tasks--upcoming)
+   * allow adding of recurring task in [Add](https://github.com/CS2103AUG2016-W11-C3/main/blob/master/docs/UserGuide.md#adds-a-recurring-deadline)
+   
+* Code written: [[functional code](A0124797.md)][[test code](A0124797.md)][[docs](A0124797.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to ToDoList
   * Set up Travis and Coveralls 
-
+  * Class Diagrams  
+  
 -----
 
 #### [Wong Kang Fei](https://github.com/kfwong)
