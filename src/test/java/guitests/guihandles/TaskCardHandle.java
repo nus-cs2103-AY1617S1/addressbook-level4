@@ -10,9 +10,9 @@ import seedu.todo.model.task.ReadOnlyTask;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String DETAIL_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String DETAIL_FIELD_ID = "#details";
+    private static final String ON_DATE_FIELD_ID = "#onDate";
+    private static final String BY_DATE_FIELD_ID = "#byDate";
 
     private Node node;
 
@@ -34,11 +34,11 @@ public class TaskCardHandle extends GuiHandle {
     }
 
     public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
+        return getTextFromLabel(ON_DATE_FIELD_ID);
     }
 
     public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
+        return getTextFromLabel(BY_DATE_FIELD_ID);
     }
 
     public boolean isSamePerson(ReadOnlyTask person){

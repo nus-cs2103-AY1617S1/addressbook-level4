@@ -2,15 +2,19 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.todo.testutil.TestTask;
+import seedu.todo.testutil.TestUtil;
+import seedu.todo.testutil.TypicalTestTasks;
+
 import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends ToDoListGuiTest {
-    /*
+    
     @Test
     public void clear() {
 
         //verify a non-empty list can be cleared
-        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
+        commandBox.runCommand(TypicalTestTasks.buyMilk.getAddCommand());
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
@@ -27,5 +31,5 @@ public class ClearCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("clear");
         assertListSize(0);
     }
-    */
+    
 }

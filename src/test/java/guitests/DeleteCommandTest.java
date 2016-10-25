@@ -12,10 +12,13 @@ public class DeleteCommandTest extends ToDoListGuiTest {
 
     @Test
     public void delete() {
-        /*
+        
         
         //delete the first in the list
         TestTask[] currentList = td.getTypicalTasks();
+        for (TestTask t : currentList) {
+            commandBox.runCommand(t.getAddCommand());
+        }
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -40,8 +43,8 @@ public class DeleteCommandTest extends ToDoListGuiTest {
      * @param targetIndexOneIndexed e.g. to delete the first person in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of persons (before deletion).
      */
-    /*private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
-        TestTask personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
+        TestTask personToDelete = currentList[targetIndexOneIndexed - 1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
@@ -50,7 +53,7 @@ public class DeleteCommandTest extends ToDoListGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
-    */
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete.getName()));
+    
     }
 }
