@@ -9,6 +9,7 @@ import seedu.menion.logic.commands.EditCommand;
 import seedu.menion.logic.commands.UnCompleteCommand;
 import seedu.menion.model.activity.*;
 
+//@@author A0139164A
 /**
  * A mutable Activity object. For testing only.
  */
@@ -225,7 +226,6 @@ public class TestActivity implements ReadOnlyActivity {
         return build.toString();
     }
     
-    //@@author A0139164A
     /**
      * @param index of the Activity to complete
      * @return complete command for the given Activity.
