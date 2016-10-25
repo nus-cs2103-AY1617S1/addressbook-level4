@@ -56,11 +56,7 @@ Examples: <br>
 * `add Homework`<br>
 * `add Homework tag/CS1231`
 
-<<<<<<< HEAD
-#### Adding a task with deadline: “add”
-=======
 #### Adding a task with deadline: `add`
->>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 Format: `add TASK_NAME by DATE TIME [RECURRING_TYPE] [t/TAG]...`
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
@@ -74,13 +70,8 @@ Examples:
 * `add Homework by 24 sep 8pm tag/CS1231`
 * `add Homework by 24 sep 6pm daily tag/CS1231`
 
-<<<<<<< HEAD
-#### Adding a task with start time and end time: “add”
-Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [tag/TAG]`
-=======
 #### Adding a task with start time and end time: `add`
 Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
->>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
 > items with `...` after them can have multiple instances. Order of parameters are fixed. 
@@ -93,11 +84,7 @@ Examples:
 * `add Homework from 24 sep 8pm to 25 sep 9pm tag/CS1231`
 * `add Homework start/24 sep 9pm end/25 sep 7pm daily tag/CS1231`
 
-<<<<<<< HEAD
-#### View floating task of the day : “view”
-=======
 #### View floating task of the day : `view`
->>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 Format: view /OPTION
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
@@ -106,11 +93,7 @@ Format: view /OPTION
 Examples: 
 * `view /f`
 
-<<<<<<< HEAD
-#### View non-floating task of the day : “view”
-=======
 #### View non-floating task of the day : `view`
->>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 Format: view date/DATE
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
@@ -141,11 +124,7 @@ Examples:
 * `edit 1 from today 4pm to today 5pm daily`
 	<img src="images/edit_command_5.png" width="600">
 
-<<<<<<< HEAD
-#### Delete tasks : “delete”
-=======
 #### Delete tasks : `delete`
->>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 Format: delete TASK_ID
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
@@ -153,11 +132,7 @@ Format: delete TASK_ID
 Examples:
 * `Delete 212`
 
-<<<<<<< HEAD
-#### Archive completed tasks : “done”
-=======
 #### Archive completed tasks : `done`
->>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 Format: done TASK_ID
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
@@ -170,11 +145,7 @@ Examples:
    <img src="images/ugdone_2.png" width="600">
    >Completed tasks can be viewed from navigation bar on the side.
 
-<<<<<<< HEAD
-#### Block out timeslot : “block”
-=======
 #### Block out timeslot : `block`
->>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 Format: block from [START_DATE] START_TIME to [START_DATE] START_TIME [t/TAG]
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
@@ -185,11 +156,7 @@ Examples:
  > <img src="images/ugblock_0.png" width="600">
  > <img src="images/ugblock_1.png" width="600">
 
-<<<<<<< HEAD
-#### Undo tasks : “undo”
-=======
 #### Undo tasks : `undo`
->>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 Format: u
 
 > Maximum 3 undo
@@ -201,11 +168,7 @@ Examples:
    <img src="images/ugundo_1.png" width="600">
    <img src="images/ugundo_2.png" width="600">
 
-<<<<<<< HEAD
-#### Redo tasks : “redo”
-=======
 #### Redo tasks : `redo`
->>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 Format: r
 
 > Maximum 3 redo
@@ -236,11 +199,7 @@ Examples: <br>
 * `find cs2103 tag/lolo`
 	<img src="images/find_command_4.png" width="600">
 	
-<<<<<<< HEAD
-#### Undo tasks : “clear”
-=======
 #### Undo tasks : `clear`
->>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 Format: clear
 
 > clears all the tasks
@@ -248,11 +207,7 @@ Format: clear
 Examples: 
 * `clear`
 
-<<<<<<< HEAD
-#### Change directory: “Change directory”
-=======
 #### Change directory: `cd`
->>>>>>> 0c59181a2dbd91c468c733feaeadad2873ae129c
 Format: cd FILE_PATH
 
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,

@@ -103,6 +103,24 @@ The _Sequence Diagram_ below show how recurring tasks have dates appended to the
 
 > Note that repeatingTasks is a reference to the UniqueTaskList from the TaskMaster. Any changes made to repeatingTasks in RecurringTaskManager will affect TaskMaster's version of UniqueTaskList.
 
+The _Sequence Diagram_ below shows how Happy Jim Task Master handles undo request from user.
+
+<img src="images/UndoSequenceDiagram.jpg" width="800"><br>
+
+> Note that the context is a class that stores previous task master in the previous model before the target command executes.
+
+The _Class Diagram_ below shows the structure of how Happy Jim Task Master implements undo and redo operations.
+
+<img src="images/URManager.jpg" width="800"><br>
+
+> Note that LogicManager maintains an URManager. UR manager contains two ArrayDeque, one for undo and the other for redo,  
+> to store the command and its context, specifically, the model before the command executes. 
+> To undo/redo a command, it is just to  restore the previous model (specifically, the data, which is TaskMaster). 
+> As a result, as the task master grows, the consumption of memory to store the context grows. 
+> To maintain a good performance regarding to memory consumption, we restrict maximum undo/redo number to 3.
+> (Noted that it is possible to reach unlimited undo/redo by simply wiping off the limit number.)
+
+
 The sections below give more details of each component.
 
 ### UI component
@@ -215,7 +233,7 @@ We have two types of tests:
 1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
    These are in the `guitests` package.
    
-   Currently, _Systems Tests_ have covered the basic functionalities of Happy Jim Task Master v0.1. 
+   Currently, _Systems Tests_ have covered the basic functionalities of Happy Jim Task Master v0.4. 
    Following form shows the some of the essential commands and corresponding testcases.
    
    1. _AddCommandTest_ 
@@ -272,25 +290,34 @@ We have two types of tests:
    
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. This includes, <br>
-      1. `seedu.taskmaster.commons.AppUtilTest`
-      2. `seedu.taskmaster.commons.ConfigUtilTest`
-      3. `seedu.taskmaster.commons.FileUtilTest`
-      4. `seedu.taskmaster.commons.JsonUtilTest`
-      5. `seedu.taskmaster.commons.StringUtilTest`
-      6. `seedu.taskmaster.commons.UrlUtilTest`
-      7. `seedu.taskmaster.commons.XmlUtilTest`
-      8. `seedu.taskmaster.model.UnmodifiableObservableListTest`
-      9. `seedu.taskmaster.commons.core.ConfigTest`
-      10. `seedu.taskmaster.commons.core.VersionTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
-     (those code units are assumed to be working). This includes, <br>
-      1.  `seedu.taskmaster.storage.StorageManagerTest`
-      2. `seedu.taskmaster.storage.XmlTaskListStorageTest`
-      3. `seedu.taskmaster.storage.JsonUserPrefStorageTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how the are connected together.<br>
-      e.g. `seedu.taskmaster.logic.LogicManagerTest`
+   _Unit tests_ targeting the lowest level methods/classes. Below are some snippets, <br>
+   
+   _Task.java_<br>
+   <img src="images/test_snippet_Task.PNG" width="800"><br>
+   
+   _RecurringTaskManager.java_<br>
+   <img src="images/test_snippet_RecurringTaskManager.PNG" width="800"><br>
+   
+   _Integration tests_ that are checking the integration of multiple code units 
+     (those code units are assumed to be working). Below are some snippets, <br>
+
+   _XmlTaskListStorage.java_<br>
+   <img src="images/test_snipper_XmlTaskListStorage.PNG" width="800"><br>
+   
+   Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+      how the are connected together. Below are some snippets,<br>
+      e.g. `seedu.taskmaster.logic.LogicManagerTest`<br>
+      In the `LogicManagerTest`, Happy Jim Task Master tests the logic it uses.<br>
+      Typically, Happy Jim Task Master focuses on some boundary tests.<br>
+    
+	_LogicManagerTest.java_
+	<img src="images/test_snippet_LogicManagerTest.PNG" width="800"><br>
+      e.g. To `find` a task, for instance, `Test Task 1 by 20 oct 11am `,<br>
+      try execute <br>
+      *`find by 20 oct 11am` --> exact boundary, task found;<br>
+      *`find by 20 oct 10.59am` --> smaller boundary, lists nothing;<br>
+      *`find by 20 oct 11.01am` --> lax boundary, task found.<br>
+      > Note that this is a test not merely for `logic`, but also `parser` and `model`.<br>
       
   
 **Headless GUI Testing** :
@@ -665,39 +692,9 @@ Use case ends
 ## Appendix E : Product Survey
 Product Name | Strengths | Weaknesses
 ---|---|---
-**Remember the Milk**|<li>Clean interface</li><li>Simple usage</li><li>Project hierachy</li><li>Handles multiple date/time formats</li> | <li>1 page of tasks: No scrolling</li><li>Heavily relies on mouse usage: not many keyboard shortcuts</li><li>No calendar display</li>
-**Wunderlist**|<li>Interface is elegant</li><li>Display updates in real time</li><li>Sound feedback</li><li>Manages recurring tasks</li><li>Sort by due date</li><li>Filter by date range</li>|	<li>Misleading icons and buttons</li><li>No clendar display</li><li>Does not open on startup</li><li>Deadline notification through email, not the app</li>
-**Google Calendar Quick Add**|	<li>Intuitive shortcuts and commands</li><li>Different command formats are acceptable</li><li>Clean interface</li><li>Task dependency cycles are detected when cyclic inputs are used</li>|	<li>No view/edit/delete/search</li><li>Rigid settings</li>
-**Todo.txt**|	<li>Search function works for phrases, case-insensitive flag like in google search to filter certain texts</li><li>Command history</li>| 	<li>Difficult setup</li><li>-h does not provide full list of commands</li><li>Tasks marked done are deleted permanently</li><li>Command formats are rigid</li><li>No undo of previous actions.</li><li>Too minimalistic, such as no time/date support</li>
-**Trello**|	<li>Cross-platform usage</li><li>Integrates with other calendars</li><li>Collaboration support</li><li>Hierachy of tasks</li>|<li>A lot of fields to fill in</li><li>Recurring tasks have to be manually added</li><li>One rigid view, no option for summary/overview/timeline views</li><li>Many features, which are not immediately apparent</li>
-**Apple Calendar**|	<li>Cross-platform support</li><li>Color-coding for tasks</li><li>Day, month and year view</li>|	<li>No collaboration</li><li>Rigid fields for adding</li>
-**S Planner**|	<li>Syncs to many calendar platforms</li><li>Google map support for locations</li><li>Supports recurring events</li><li>Collaboration support</li>|	<li>Mobile-only</li><li>Floating tasks only available in Agenda view</li><li>Many clicks required to add tasks</li>
-**Any.do**|	<li>Interface is clean and intuitive</li>	<li>Syncs between mobile devices and PC</li>	<li>Descriptions can be added to tasks</li>	<li>Support for recurring tasks</li>|	<li>Internet connection is required to access tasks</li><li>Fields need to be filled in to add tasks</li><li>Time/date is not easy to change</li><li>No alarm support</li>
-Remember the Milk | * Allows for recurring tasks | see usage instructions
-Strengths:<br>
-* Generally suitable for his requirements regarding scheduling events.<br>
-* And probably a database.<br>
-Weakness:<br>
-* The problem is this Google calendar prefer users to use mouse rather than keyboard.<br>
-* Also it requires online connection.<br>
-Any.do:<br>
-Strengths:<br>
-* Can sync across platforms.<br> 
-* Provide convenience service for scheduling.<br> 
-Weaknesses:<br>
-* Also prefers mouse.<br> 
-* Need an account.<br> 
-* Requires Internet connection.<br>
-
-Calendar<br>
-Strengths:<br>
-* Separate tasks and calendar in one app<br>
-* Able to add task and tag them<br>
-* Able to add recurring tasks<br>
-* Able to add in tasks to calendar in one line using auto detect<br>
-* Able to view completed tasks<br>
-Weaknesses:<br>
-* Prefers touch input<br>
-
+**Remember the Milk**|<li>Allows for recurring tasks</li><li>Allows floating tasks</li><li>Allows for location</li><li>Allows for estimate</li><li>Allows priority</li> | <li>Requires an accounr</li><li>Not really command line input friendly</li><li>Requires internet connection</li>
+**Google Calendar**|<li>Generally suitable for target audience's requirements</li><li>Has a database to store tasks that can be synced</li>|	<li>Not command line input friendly</li><li>Requires internet connection</li>
+**Any.do**|	<li>Can sync across platforms</li><li>Provide convenience service for scheduling</li>|	<li>Not command line input friendly</li><li>Requires an account</li><li>Requires internet connection`</li>
+**Calendar Iphone App**|	<li>Separates tasks and calendar into one app</li><li>Able to add task and tag them</li><li>Able to add recurring task</li><li>Able to add in tasks to calendar in one line using auto detect</li><li>Able to view completed tasks</li>| 	<li>Not really command line input friendly, use touch input heavily</li>
 
 
