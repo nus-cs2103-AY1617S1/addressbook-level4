@@ -119,14 +119,8 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Task List Accessors ===============================================================
     //@@author: A0138848M
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks.sorted());
-    }
-    
-    //@@author:
-    @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+        return new UnmodifiableObservableList<>(filteredTasks.sorted());
     }
 
     @Override

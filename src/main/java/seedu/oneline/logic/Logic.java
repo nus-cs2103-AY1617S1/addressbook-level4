@@ -17,8 +17,4 @@ public interface Logic {
 
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
-    
-    //@@author: A0138848M
-    /** Returns the sorted filtered list of tasks */
-    ObservableList<ReadOnlyTask> getSortedFilteredTaskList();
 }
