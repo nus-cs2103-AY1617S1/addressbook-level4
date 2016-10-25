@@ -1,3 +1,5 @@
+//@@author A0140156R
+
 package seedu.oneline.logic.commands;
 
 import java.util.Map;
@@ -22,13 +24,9 @@ public class EditTaskCommand extends EditCommand {
     
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task to the task book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+    public static final String MESSAGE_USAGE = EditCommand.MESSAGE_USAGE;
 
     public static final String MESSAGE_SUCCESS = "Task updated: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
 
 
     public EditTaskCommand(int targetIndex, Map<TaskField, String> fields) throws IllegalValueException, IllegalCmdArgsException {

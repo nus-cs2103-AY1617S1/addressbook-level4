@@ -97,6 +97,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskBookChanged();
     }
 
+  //@@author A0140156R
     @Override
     public synchronized void replaceTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException, DuplicateTaskException {
 //        assert taskBook.getUniqueTaskList().contains(newTask);
@@ -105,6 +106,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
+  //@@author
 
     //=========== Filtered Task List Accessors ===============================================================
 

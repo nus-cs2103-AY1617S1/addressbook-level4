@@ -36,15 +36,18 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
+  //@@author A0140156R
     private static final Pattern EDIT_COMMAND_ARGS_FORMAT =
             Pattern.compile("(?<index>-?[\\d]+)" // index
                     + " (?<args>.+)"); // the other arguments
     
     private static final Pattern TAG_ARGS_FORMAT =
             Pattern.compile("\\#(?<tag>\\p{Alnum}+)"); // #<tag>
+  //@@author
     
     public Parser() {}
 
+  //@@author A0140156R
     private static final Map<String, Class<? extends Command>> COMMAND_CLASSES = initCommandClasses();
     
     private static Map<String, Class<? extends Command>> initCommandClasses() {
@@ -218,6 +221,8 @@ public class Parser {
         return index.get();
     }
     
+  //@@author
+    
     /**
      * Parses arguments to get search keywords
      *
@@ -236,6 +241,7 @@ public class Parser {
         return keywordSet;
     }
     
+  //@@author A0140156R
     /**
      * Parses a tag field to return the tag
      *
@@ -249,6 +255,7 @@ public class Parser {
         }
         return matcher.group("tag");
     }
+  //@@author
     
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
@@ -268,6 +275,7 @@ public class Parser {
 
     }
     
+  //@@author A0140156R
     public static Entry<Integer, Map<TaskField, String>> getIndexAndTaskFieldsFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
         final Matcher matcher = EDIT_COMMAND_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -277,5 +285,6 @@ public class Parser {
         Map<TaskField, String> fields = Parser.getTaskFieldsFromArgs(matcher.group("args"));
         return new SimpleEntry<Integer, Map<TaskField, String>>(index, fields);
     }
+  //@@author
 
 }

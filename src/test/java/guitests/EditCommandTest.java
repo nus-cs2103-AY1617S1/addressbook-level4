@@ -8,6 +8,7 @@ import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.commands.AddCommand;
 import seedu.oneline.logic.commands.CommandConstants;
 import seedu.oneline.logic.commands.EditCommand;
+import seedu.oneline.logic.commands.EditTaskCommand;
 import seedu.oneline.logic.parser.Parser;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
@@ -123,7 +124,7 @@ public class EditCommandTest extends TaskBookGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(EditCommand.MESSAGE_SUCCESS, newTask.toString()));
+        assertResultMessage(String.format(EditTaskCommand.MESSAGE_SUCCESS, newTask.toString()));
     }
 
 }

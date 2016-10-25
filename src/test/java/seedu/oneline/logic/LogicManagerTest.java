@@ -153,7 +153,7 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] .from A .to B .due C .every D", TaskName.MESSAGE_TASK_NAME_CONSTRAINTS);
+                "add []\\[;] .from Monday .to Tuesday .due Wednesday .every week", TaskName.MESSAGE_TASK_NAME_CONSTRAINTS);
         // TODO: ADD PROPER CONSTRAINTS
         //assertCommandBehavior(
         //        "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);

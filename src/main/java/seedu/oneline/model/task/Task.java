@@ -74,7 +74,7 @@ public class Task implements ReadOnlyTask {
     public Tag getTag() {
         return tag;
     }
-
+    
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */

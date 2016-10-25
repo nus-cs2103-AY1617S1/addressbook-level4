@@ -1,3 +1,5 @@
+//@@author A0140156R
+
 package seedu.oneline.logic.commands;
 
 import java.util.Map;
@@ -19,14 +21,16 @@ public abstract class EditCommand extends Command {
     
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task to the task book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task or category in the task book. \n"
+            + " === Edit Task === \n"
+            + "Parameters: INDEX (must be a positive integer), [taskName] [.from <start> .to <end>] [.due <deadline>] [.every <period>] [#<cat>] \n"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
-
-    public static final String MESSAGE_SUCCESS = "Task updated: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
-
+            + " 1 Acad meeting .from 2pm .to 4pm #acad"
+            + " === Edit Category === \n"
+            + "Parameters: #cat [#newCatName] \n"
+            + "Example: " + COMMAND_WORD
+            + " #acad #meeting";
+    
     public static EditCommand createFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
         args = args.trim();
         if (args.startsWith("#")) {

@@ -1,3 +1,5 @@
+//@@author A0140156R
+
 package seedu.oneline.logic.commands;
 
 import static seedu.oneline.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
@@ -30,13 +32,11 @@ public class EditTagCommand extends EditCommand {
     
     public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task to the task book. "
-            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
-
-    public static final String MESSAGE_SUCCESS = "Task updated: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task book";
+    public static final String MESSAGE_USAGE = EditCommand.MESSAGE_USAGE;
+    
+    public static final String MESSAGE_SUCCESS = "Category updated: %1$s";
+    public static final String MESSAGE_INVALID_TAG = "The tag %1$s is invalid";
+    public static final String MESSAGE_DUPLICATE_TAG = "The tag %1$s already exists in the task book";
 
 
     private static final Pattern EDIT_TAGS_ARGS_FORMAT =
@@ -59,7 +59,7 @@ public class EditTagCommand extends EditCommand {
     public static EditTagCommand createFromArgs(String args) throws IllegalCmdArgsException {
         final Matcher matcher = EDIT_TAGS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
-           throw new IllegalCmdArgsException("Format: edit #oldtag #newtag");
+           throw new IllegalCmdArgsException(MESSAGE_USAGE);
         }
         String oldName = matcher.group("oldName");
         String newName = matcher.group("newName");
@@ -76,7 +76,7 @@ public class EditTagCommand extends EditCommand {
         } catch (IllegalValueException e) {
         }
         if (model.getTaskBook().getTagList().contains(newTag)) {
-            return new CommandResult("Tag " + newName + " already exists.");
+            return new CommandResult(String.format(MESSAGE_DUPLICATE_TAG, newName));
         }
         List<ReadOnlyTask> taskList = new ArrayList<ReadOnlyTask>(model.getTaskBook().getTaskList());
         Map<TaskField, String> fields = new HashMap<TaskField, String>();
