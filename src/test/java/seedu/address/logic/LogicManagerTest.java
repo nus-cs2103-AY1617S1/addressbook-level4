@@ -184,17 +184,22 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
     	//TODO
         
-//    	// setup expectations
-//        TestDataHelper helper = new TestDataHelper();
-//        Task toBeAdded = helper.homework();
-//        TaskManager expectedAB = new TaskManager();
-//        expectedAB.addTask(toBeAdded);
-//
-//        // execute command and verify result
-//        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-//                String.format(AddCommand.MESSAGE_SUCCESS_MANY_TASKS, toBeAdded.getInterval(), toBeAdded.getTitle()),
-//                expectedAB,
-//                expectedAB.getTaskList());
+   	// setup expectations
+       TestDataHelper helper = new TestDataHelper();
+       Task toBeAdded = helper.homework();
+        TaskManager expectedAB = new TaskManager();
+        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS,
+        		toBeAdded.getTitle() + " Description: " + toBeAdded.getDescription()
+				+ " Start Date: " + toBeAdded.getStartDate() + " Due Date: "
+				+ toBeAdded.getDueDate() + " Status: " + toBeAdded.getStatus());
+       expectedAB.addTask(toBeAdded);
+       
+
+        // execute command and verify result
+       assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+    		   expectedMessage,
+               expectedAB,
+                expectedAB.getTaskList());
                 
 
     }
@@ -414,8 +419,8 @@ public class LogicManagerTest {
         	Description description= new Description("Database Tutorials.");
         	StartDate startDate= new StartDate("11-01-2012");
         	DueDate dueDate= new DueDate("11-01-2012");
-        	Interval interval= new Interval("7");
-        	TimeInterval timeInterval = new TimeInterval("4");
+        	Interval interval= new Interval("1");
+        	TimeInterval timeInterval = new TimeInterval("7");
         	Status status = new Status("ONGOING");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
