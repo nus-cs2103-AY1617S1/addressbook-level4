@@ -91,4 +91,33 @@ public class TestTask implements ReadOnlyTask {
         }
         return sb.toString();
     }
+    
+    public String getEditCommand(int index) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("edit " + index + " " + this.getName().fullName + " ");
+        
+        //append interval
+        Interval interval = getInterval();
+        if (interval.isDeadlineWithTime()) {
+            sb.append("by " + interval.getEndDate() + " " + interval.getEndTime() + " ");
+        }
+        else if (interval.isDeadlineWithoutTime()) {
+            sb.append("by " + interval.getEndDate() + " ");
+        }
+        else {
+            sb.append("from " + this.getInterval().getStartDate() + " " + this.getInterval().getStartTime() 
+                    + " to " + this.getInterval().getEndDate()+ " " + this.getInterval().getEndTime() + " ");
+        }
+        
+        //append location
+        if (this.getLocation() != null) {
+            sb.append("at " + this.getLocation() + " ");
+        }
+        
+        //append remarks
+        if (this.getRemarks() != null) {
+            sb.append("remarks " + this.getRemarks());
+        }
+        return sb.toString();
+    }
 }
