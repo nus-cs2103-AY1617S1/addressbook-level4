@@ -103,7 +103,8 @@ public class MainWindow extends UiPart {
 
     @Subscribe
     private void handleTickEvent(TickEvent tickEvent){
-        dateTimeLabel.setText(new Date().toString());
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMMMMMMMM, yyyy | h:mm a");
+        dateTimeLabel.setText(dateFormatter.format(new Date()));
     }
     
     private void configure(String appTitle, String taskListName, Config config, UserPrefs prefs,
@@ -225,6 +226,7 @@ public class MainWindow extends UiPart {
 
     public void setLabelText() {
         assert dateTimeLabel != null;
-        dateTimeLabel.setText(new Date().toString());
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd MMMMMMMMM, yyyy | h:mm a");
+        dateTimeLabel.setText(dateFormatter.format(new Date()));
     }
 }
