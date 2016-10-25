@@ -31,7 +31,7 @@ public class DeleteCommand extends Command {
     
     public DeleteCommand(String targetType, int targetIndex) {
         this.targetIndex = targetIndex;
-        this.targetType = targetType;
+        this.targetType = targetType.trim();
     }
 
 
@@ -42,14 +42,13 @@ public class DeleteCommand extends Command {
     	storePreviousState();
     	
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
-
-        if (targetType.equals(" task")) {
+        if (targetType.equals(Activity.TASK_TYPE)) {
             lastShownList = model.getFilteredTaskList();
         }
-        else if (targetType.equals(" floating")) {
+        else if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
             lastShownList = model.getFilteredFloatingTaskList();
         }
-        else if (targetType.equals(" event")) {
+        else if (targetType.equals(Activity.EVENT_TYPE)) {
             lastShownList = model.getFilteredEventList();
         }
         else {
@@ -66,10 +65,10 @@ public class DeleteCommand extends Command {
         toBeDeleted = (Activity)activityToDelete;
     	
         try {
-            if (targetType.equals(" task")){
+            if (targetType.equals(Activity.TASK_TYPE)){
                 model.deleteTask(activityToDelete);
             }
-            else if (targetType.equals(" event")){
+            else if (targetType.equals(Activity.EVENT_TYPE)){
                 model.deleteEvent(activityToDelete);
             }
             else {

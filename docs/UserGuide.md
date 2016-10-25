@@ -209,14 +209,18 @@ There is no need to save manually.<br>
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK_NAME d/DEADLINE_TASK r/TASK_REMINDER p/PRIORITY n/NOTES...`
+Add | `add FLOATING_TASK_NAME n:NOTES...`<br>`add TASK_NAME by TASK_DEADLINE_DATE TASK_DEADLINE_TIME n:NOTES...`<br>`add EVENT_NAME from EVENT_START_DATE EVENT_START_TIME to EVENT_END_DATE EVENT_END_TIME n:NOTES...`
 Clear | `clear`
-Delete | `delete INDEX`
+Complete | `complete ACTIVITY_TYPE INDEX`
+Delete | `delete ACTIVITY_TYPE INDEX`
+Edit | `edit ACTIVITY_TYPE ACTIVITY_INDEX ACTIVITY_PARAMETER_TO_CHANGE ACTIVITY_PARAMETER_CHANGES`
 Exit | `exit`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
 Help | `help`
-Modify Storage Path | `modify storage path STORAGE_LOCATION`
+List | `list`
+Modify Storage Path | `modify STORAGE_LOCATION`
+Undo| `undo`
+Redo | `redo`
+
 
 
 ## GLOSSARY
