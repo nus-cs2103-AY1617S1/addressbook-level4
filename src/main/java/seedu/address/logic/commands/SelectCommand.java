@@ -41,13 +41,9 @@ public class SelectCommand extends Command {
 
     }
 
-	@Override
-	public boolean isMutating() {
-		return false;
-	}
-
-	@Override
-	public void executeIfIsMutating() {
-	}
+    @Override
+    public boolean isMutating() {
+        return false;
+    }
 
 }

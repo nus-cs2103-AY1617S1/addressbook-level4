@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addressbook/>
+<addressbook>
+    <datedTasks>
+        <name>event</name>
+        <description></description>
+        <datetime>26-Oct-2016 15:00</datetime>
+        <status>NONE</status>
+    </datedTasks>
+</addressbook>

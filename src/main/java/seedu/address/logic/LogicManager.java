@@ -31,9 +31,6 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         command.setData(model);
-        if (command.isMutating()){
-        	command.executeIfIsMutating();
-        }
         return command.execute();
     }
 

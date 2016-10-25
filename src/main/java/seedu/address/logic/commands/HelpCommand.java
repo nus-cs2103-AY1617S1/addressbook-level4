@@ -24,13 +24,9 @@ public class HelpCommand extends Command {
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
 
-	@Override
-	public boolean isMutating() {
-		return false;
-	}
-
-	@Override
-	public void executeIfIsMutating() {
-	}
+    @Override
+    public boolean isMutating() {
+        return false;
+    }
 
 }

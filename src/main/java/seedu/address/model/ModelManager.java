@@ -15,6 +15,8 @@ import seedu.address.model.task.Status;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.undo.UndoList;
+import seedu.address.model.undo.UndoTask;
 
 /**
  * Represents the in-memory model of the task book data.
@@ -26,7 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskBook taskBook;
     private final FilteredList<Task> filteredDatedTasks;
     private final FilteredList<Task> filteredUndatedTasks;
-    private UndoList undoTasks;
+    private UndoList undoableTasks;
 
     /**
      * Initializes a ModelManager with the given TaskBook
@@ -42,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook = new TaskBook(src);
         filteredDatedTasks = new FilteredList<>(taskBook.getDatedTasks());
         filteredUndatedTasks = new FilteredList<>(taskBook.getUndatedTasks());
-        undoTasks = new UndoList();
+        undoableTasks = new UndoList();
     }
 
     public ModelManager() {
@@ -53,11 +55,13 @@ public class ModelManager extends ComponentManager implements Model {
         taskBook = new TaskBook(initialData);
         filteredDatedTasks = new FilteredList<>(taskBook.getDatedTasks());
         filteredUndatedTasks = new FilteredList<>(taskBook.getUndatedTasks());
+        undoableTasks = new UndoList();
     }
 
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
+        undoableTasks = new UndoList(); 
         indicateTaskBookChanged();
     }
 
@@ -74,14 +78,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         taskBook.removeTask(target);
-        undoTasks.addToList("Delete");
         indicateTaskBookChanged();
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        taskBook.addTask(task);
-        undoTasks.addToList("Ådd");
+    public synchronized void addTask(Task target) throws UniqueTaskList.DuplicateTaskException {
+        taskBook.addTask(target);
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
@@ -89,14 +91,13 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void completeTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
         taskBook.completeTask(target);
-        undoTasks.addToList("Done");
         updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
     
     @Override
-    public synchronized void undoTask() {
-        
+    public synchronized UndoTask undoTask() {
+        return undoableTasks.removeLast();
     }
 
     @Override
@@ -107,11 +108,15 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-  	public void addUndo(String command, Task toUndo) {
-  		// TODO Auto-generated method stub
-  		
-  	}
+    public void addUndo(String command, ReadOnlyTask toUndo) {
+        undoableTasks.addToList(command, toUndo, null);
+    }
     
+    @Override
+    public void addUndo(String command, ReadOnlyTask initData, ReadOnlyTask finalData) {
+        undoableTasks.addToList(command, initData, finalData);
+    }
+
     //=========== Filtered Task List Accessors =============================================================== 
 
 	@Override

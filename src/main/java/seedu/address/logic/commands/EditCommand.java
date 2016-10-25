@@ -33,7 +33,7 @@ public class EditCommand extends Command {
 
     private ReadOnlyTask toEdit;
     private Task toAdd;
-    
+
     private int targetIndex;
     private Name name;
     private Description description;
@@ -46,26 +46,26 @@ public class EditCommand extends Command {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }    
-        
+
         populateNonNullFields(targetIndex, name, description, datetime, tagSet);
     }
 
-	private void populateNonNullFields(int targetIndex, String name, String description, String datetime,
-			final Set<Tag> tagSet) throws IllegalValueException {
-		if (name != null){
+    private void populateNonNullFields(int targetIndex, String name, String description, String datetime,
+            final Set<Tag> tagSet) throws IllegalValueException {
+        if (name != null){
             this.name = new Name(name);       
         }
         if (description != null){
             this.description = new Description(description);
         }
-        
+
         if (datetime != null){
-        	this.datetime = new Datetime(datetime);
+            this.datetime = new Datetime(datetime);
         }
-        
+
         this.tags = new UniqueTagList(tagSet);
         this.targetIndex = targetIndex;
-	}  
+    }  
 
     @Override
     public CommandResult execute() {
@@ -78,22 +78,25 @@ public class EditCommand extends Command {
             toEdit = lastUndatedTaskList.get(targetIndex - 1);
         }
         else if (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET 
-                   && lastShownList.size() >= targetIndex - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET){
+                && lastShownList.size() >= targetIndex - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET){
             toEdit = lastShownList.get(targetIndex - 1 - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
         }
         else {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        
+
         populateEditedTaskFields();
-                
+
         assert model != null;
         try {
             model.deleteTask(toEdit);
-            model.addTask(toAdd);           
+            model.addTask(toAdd);
+            if (isMutating()){
+                model.addUndo(COMMAND_WORD, toEdit, toAdd);
+            }
         } catch (UniqueTaskList.DuplicateTaskException e) {
-                return new CommandResult(AddCommand.MESSAGE_DUPLICATE_PERSON);     
+            return new CommandResult(AddCommand.MESSAGE_DUPLICATE_PERSON);     
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
@@ -105,8 +108,8 @@ public class EditCommand extends Command {
     private void populateEditedTaskFields() {
 
         toAdd  = new Task (toEdit.getName(), toEdit.getDescription(), toEdit.getDatetime(), 
-        		toEdit.getStatus(), toEdit.getTags());
-        
+                toEdit.getStatus(), toEdit.getTags());
+
         if (name != null){
             toAdd.setName(name);     
         }
@@ -116,19 +119,13 @@ public class EditCommand extends Command {
         if (datetime != null){
             toAdd.setDatetime(datetime);
         }
-        
+
         toAdd.setTags(tags);
     }
 
-	@Override
-	public boolean isMutating() {
-		return true;
-	}
-
-	@Override
-	public void executeIfIsMutating() {
-		// TODO Auto-generated method stub
-		
-	}    
+    @Override
+    public boolean isMutating() {
+        return true;
+    }   
 
 }
