@@ -13,6 +13,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Code written: [[functional code](../collated/main/A0135782Y.md)][[testcode](../collated/test/A0135782Y.md)][[docs](../collated/docs/A0135782Y.md)]
 * Other major contributions:
     * Set up Travis and EclEmma
+    
 -----
 
 #### [Duan Yi Chen](http://github.com/Yichen-D)
@@ -35,6 +36,7 @@ Role: Developer <br>
 * Aspects/tools in charge of: Documentation
 * Features implemented:
 * Code written: [[functional code](../collated/main/A0135784W.md)][[docs](../collated/docs/A0135784W.md)]
+
 -----
 
 #### [Yang Zhuo Han](http://github.com/m133225)
