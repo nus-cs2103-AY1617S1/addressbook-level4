@@ -11,18 +11,14 @@ import seedu.oneline.logic.commands.Command;
 import seedu.oneline.logic.commands.CommandResult;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
-import seedu.oneline.model.task.TaskName;
-import seedu.oneline.model.task.UniqueTaskList;
 import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
-import java.util.Comparator;
 import java.util.Set;
 import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import edu.emory.mathcs.backport.java.util.Collections;
 
 /**
  * Represents the in-memory model of the address book data.
