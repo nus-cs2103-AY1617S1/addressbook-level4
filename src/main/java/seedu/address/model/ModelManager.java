@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
@@ -15,6 +16,8 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayDeque;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.NoSuchElementException;
 import java.util.Set;

@@ -455,10 +455,10 @@ public class LogicManagerTest {
         List<Task> threeTasks = helper.generateTaskList(3);
         
         TaskManager expectedAB = helper.generateTaskManager(threeTasks);
-        expectedAB.editTaskStartTime(threeTasks.get(1), "from 3pm tomorrow");
+        expectedAB.editTaskStartTime(threeTasks.get(1), "from 1/1/17 5pm");
         helper.addToModel(model, threeTasks);
         
-        assertCommandBehavior("edit 2 from 3pm tomorrow",
+        assertCommandBehavior("edit 2 from 1/1/17 5pm",
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -470,10 +470,10 @@ public class LogicManagerTest {
         List<Task> threeTasks = helper.generateTaskList(3);
         
         TaskManager expectedAB = helper.generateTaskManager(threeTasks);
-        expectedAB.editTaskEndTime(threeTasks.get(1), "by 3pm tomorrow");
+        expectedAB.editTaskEndTime(threeTasks.get(0), "by 3pm tomorrow");
         helper.addToModel(model, threeTasks);
         
-        assertCommandBehavior("edit 2 by 3pm tomorrow",
+        assertCommandBehavior("edit 2 by 2/1/17 5am",
                 String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
