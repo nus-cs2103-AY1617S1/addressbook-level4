@@ -115,12 +115,7 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public void setDone() {
         done = true;
-    }
-
-    @Override
-    public void setUnDone() {
-        done = false;
-        undo = true;
+        setNotOverdue();
     }
 
     @Override
@@ -136,6 +131,17 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public boolean isOverdue() {
         return overdue;
+    }
+
+    @Override
+    public void setNotOverdue() {
+        overdue = false;
+    }
+
+    @Override
+    public void setUndone() {
+        done = false;
+        
     }
 
 }

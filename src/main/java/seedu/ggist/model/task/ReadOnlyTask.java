@@ -60,6 +60,7 @@ public interface ReadOnlyTask {
         return builder.toString();
     }
     void setDone();
-    void setUnDone();
+    void setUndone();
+    void setNotOverdue();
 
 }

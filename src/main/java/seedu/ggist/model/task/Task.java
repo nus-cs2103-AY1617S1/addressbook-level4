@@ -62,11 +62,18 @@ public class Task implements ReadOnlyTask{
     }
     public void setDone() {
         done = true;
-        overdue = false;
+        setNotOverdue();
     }
     
-    public void setUnDone() {
+    public void setUndone() {
         done = false;
+        if (end.before(new Date())) {
+            overdue = true;
+        }
+    }
+    
+    public void setNotOverdue() {
+        overdue = false;
     }
       
     public Date constructDateTime(TaskDate date, TaskTime time) throws IllegalValueException {
@@ -155,6 +162,7 @@ public class Task implements ReadOnlyTask{
     public boolean isOverdue() {
         return overdue;
     }
+
 
 
 }
