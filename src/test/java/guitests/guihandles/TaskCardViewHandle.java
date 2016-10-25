@@ -133,26 +133,16 @@ public class TaskCardViewHandle extends GuiHandle {
      * TODO: Maybe we do not need this at all.
      */
     public boolean isDisplayedCorrectly(int displayedIndex, ImmutableTask task) {
-        boolean isCorrectTitle = isTitleCorrect(displayedIndex, task);
-        boolean isCorrectDescription = isDescriptionCorrect(task);
-        boolean isCorrectDateText = isDateTextCorrect(task);
-        boolean isCorrectLocation = isLocationCorrect(task);
-        boolean isCorrectType = isTypeDisplayCorrect(task);
-        boolean isCorrectPinDisplay = isPinDisplayCorrect(task);
-        boolean isCorrectCompleteDisplay = isCompletedDisplayCorrect(task);
-        boolean isCorrectOverdueDisplay = isOverdueDisplayCorrect(task);
-        boolean isCorrectCollapsedState = isTaskCardCollapsedStateCorrect();
-
         //JUnit Assertion Test: To know which test are failing in detail
-        assertTrue(isCorrectTitle);
-        assertTrue(isCorrectDescription);
-        assertTrue(isCorrectCollapsedState);
-        assertTrue(isCorrectCompleteDisplay);
-        assertTrue(isCorrectDateText);
-        assertTrue(isCorrectLocation);
-        assertTrue(isCorrectType);
-        assertTrue(isCorrectPinDisplay);
-        assertTrue(isCorrectOverdueDisplay);
+        assertTrue(isTitleCorrect(displayedIndex, task));
+        assertTrue(isDescriptionCorrect(task));
+        assertTrue(isTaskCardCollapsedStateCorrect());
+        assertTrue(isCompletedDisplayCorrect(task));
+        assertTrue(isDateTextCorrect(task));
+        assertTrue(isLocationCorrect(task));
+        assertTrue(isTypeDisplayCorrect(task));
+        assertTrue(isPinDisplayCorrect(task));
+        assertTrue(isOverdueDisplayCorrect(task));
         return true;
     }
 
@@ -236,7 +226,7 @@ public class TaskCardViewHandle extends GuiHandle {
         boolean actual = isOverdueStyleApplied();
         boolean expected;
 
-        if (endTime.isPresent()) {
+        if (endTime.isPresent() && !task.isEvent()) {
             expected = seedu.todo.testutil.TimeUtil.isOverdue(endTime.get());
         } else {
             expected = false;
