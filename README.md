@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-W09-C2/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-W09-C2/main?branch=master)
 # HappyJimTaskManager
 
-<img src="docs/images/Ui.JPG" width="600"><br>
+<img src="docs/images/UI.png" width="800"><br>
 
 * This is a desktop task manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
@@ -20,5 +20,8 @@
 * Some parts of this sample application were inspired by the excellent 
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*. 
 * The sample project created by SE-EDU initiative at https://github.com/se-edu/
+* Natrual Date Parser [Natty](http://natty.joestelmach.com/)
+* [JFXtras](http://jfxtras.org/) Agenda controls
+* AutoCompleteTextField reference from [here](https://gist.github.com/floralvikings/10290131)
 
 #### Licence : [MIT](LICENSE)
