@@ -29,6 +29,9 @@ public interface Model {
     
     /** Marks a given task as done */
     void doneTask(int index) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Marks a given task as not done */
+    void undoneTask(int index) throws UniqueTaskList.TaskNotFoundException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
@@ -44,6 +47,8 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+
+
 
 
 
