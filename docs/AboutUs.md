@@ -20,8 +20,16 @@ We are from [School of Computing, National University of Singapore](http://www.c
 <img src="https://avatars0.githubusercontent.com/u/11135802?v=3&s=400" width="150"><br>
 **Role:** Developer<br>
 **Responsibilities:** Deliverables (Scheduling & Deadlines Adherences)<br>
-**Component-In-Charge:** Logic
-
+**Component-In-Charge:** Logic<br>
+**Features Implemented:**<br>
+ * [Add](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#adding-a-new-taskevent-add)
+ * [Find](https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#finding-tasksevents-which-match-keywords-find)
+ * [Collapse] (https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-the-view-of-the-task-list-panel-collapse-and-expand) and [Expand] (https://github.com/CS2103AUG2016-W11-C4/main/blob/master/docs/UserGuide.md#changing-the-view-of-the-task-list-panel-collapse-and-expand) 
+ 
+**Other major contributions:**
+ * Implemented some CommandHelper class methods
+ * Implemented KeywordParser class
+ 
 #### [Wu Zefeng](https://github.com/DesperadoFlames)
 <img src="https://avatars3.githubusercontent.com/u/16379229?v=3&s=400" width="150"><br>
 **Role:** Developer<br>
