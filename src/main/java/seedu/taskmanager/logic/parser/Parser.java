@@ -45,6 +45,8 @@ import java.text.ParseException;
  * Parses user input.
  */
 public class Parser {
+    public static final String MESSAGE_DATETIME_PARSE_FAILURE = "Invalid datetime.";
+    
     private static final Logger logger = LogsCenter.getLogger(EditCommand.class);
 
     /**
@@ -58,20 +60,21 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT = Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     //@@author A0140060A
-    public static final String MESSAGE_DATETIME_PARSE_FAILURE = "Invalid datetime.";
+    /*
+     * Used to separate parameters from their delimiters
+     */
+    private static final Prefix namePrefix = new Prefix("n/");
+    private static final Prefix startDatePrefix = new Prefix("sd/");
+    private static final Prefix startTimePrefix = new Prefix("st/");
+    private static final Prefix startDateTimePrefix = new Prefix("sdt/");
+    private static final Prefix endDatePrefix = new Prefix("ed/");
+    private static final Prefix endTimePrefix = new Prefix("et/");
+    private static final Prefix endDateTimePrefix = new Prefix("edt/");
+    private static final Prefix tagsPrefix = new Prefix("#");
+    private static final String removeTagPrefixString = "-";
     
-    public static final Prefix namePrefix = new Prefix("n/");
-    public static final Prefix startDatePrefix = new Prefix("sd/");
-    public static final Prefix startTimePrefix = new Prefix("st/");
-    public static final Prefix startDateTimePrefix = new Prefix("sdt/");
-    public static final Prefix endDatePrefix = new Prefix("ed/");
-    public static final Prefix endTimePrefix = new Prefix("et/");
-    public static final Prefix endDateTimePrefix = new Prefix("edt/");
-    public static final Prefix tagsPrefix = new Prefix("#");
-    public static final String removeTagPrefixString = "-";
-    
-    public static final int PARSEDATETIME_ARRAY_DATE_INDEX = 0;
-    public static final int PARSEDATETIME_ARRAY_TIME_INDEX = 1;
+    private static final int PARSEDATETIME_ARRAY_DATE_INDEX = 0;
+    private static final int PARSEDATETIME_ARRAY_TIME_INDEX = 1;
     
     //@@author A0140060A-unused
     //Used in earlier version, functionality replaced by ArgumentTokenizer
