@@ -18,7 +18,7 @@ import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.util.logging.Logger;
 
-//@@author A0315805H
+//@@author A0135805H
 /**
  * A view class that handles the Input text box directly.
  */

@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-//@@author A0315805H
+//@@author A0135805H
 /**
  * Utility methods that deals with time.
  */
