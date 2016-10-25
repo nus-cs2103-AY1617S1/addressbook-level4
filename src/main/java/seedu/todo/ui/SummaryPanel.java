@@ -16,7 +16,6 @@ import seedu.todo.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.todo.model.task.ReadOnlyTask;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 /**

@@ -4,7 +4,6 @@ import javafx.collections.ObservableList;
 import seedu.todo.commons.core.ComponentManager;
 import seedu.todo.commons.core.Config;
 import seedu.todo.commons.core.LogsCenter;
-import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.logic.commands.Command;
 import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.logic.parser.ToDoListParser;
@@ -12,7 +11,6 @@ import seedu.todo.model.Model;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.storage.Storage;
 
-import java.time.LocalDateTime;
 import java.util.logging.Logger;
 
 /**
