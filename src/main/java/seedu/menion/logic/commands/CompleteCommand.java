@@ -37,26 +37,25 @@ public class CompleteCommand extends Command {
     public CommandResult execute() {
     	
     	storePreviousState();
-    	
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
+        
         try {
             if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
                 lastShownList = model.getFilteredFloatingTaskList();
                 activityToComplete = lastShownList.get(targetIndex);
-            } else if (targetType.equals(Activity.TASK_TYPE)) {
+            } else {
                 lastShownList = model.getFilteredTaskList();
                 activityToComplete = lastShownList.get(targetIndex);
-            } else {
-                lastShownList = model.getFilteredEventList();
-                         activityToComplete = lastShownList.get(targetIndex);
             }
         } catch (IndexOutOfBoundsException e) {
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
+        
         if (lastShownList.size() <= targetIndex || targetIndex < 0) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
         }
+        
         if (activityToComplete.getActivityStatus().status) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_ALREADY_COMPLETED);
@@ -74,24 +73,11 @@ public class CompleteCommand extends Command {
 
         if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
             model.completeFloatingTask(targetIndex);
-        } else if (targetType.equals(Activity.TASK_TYPE)) {
+        } else {
             model.completeTask(targetIndex);
-        } else {
-            model.completeEvent(targetIndex);
         }
     }
-
-    private void callUnCompleteActivity(String targetType) {
-
-        if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
-            model.UncompleteFloatingTask(targetIndex);
-        } else if (targetType.equals(Activity.TASK_TYPE)) {
-            model.UncompleteTask(targetIndex);
-        } else {
-            model.UncompleteEvent(targetIndex);
-        }
-    }
-
+    
     // @@author A0139515A
     /**
      * Complete command will store previous activity manager to support undo
@@ -104,5 +90,4 @@ public class CompleteCommand extends Command {
         ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
         model.addStateToUndoStack(beforeState);
     }
-    // @@author
 }

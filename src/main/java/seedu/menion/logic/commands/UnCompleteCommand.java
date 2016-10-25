@@ -44,12 +44,8 @@ public class UnCompleteCommand extends Command {
                 lastShownList = model.getFilteredFloatingTaskList();
                 activityToUncomplete = lastShownList.get(targetIndex);
             }
-            else if (targetType.equals(Activity.TASK_TYPE)) {
-                lastShownList = model.getFilteredTaskList();
-                activityToUncomplete = lastShownList.get(targetIndex);
-            }
             else {
-                lastShownList = model.getFilteredEventList();
+                lastShownList = model.getFilteredTaskList();
                 activityToUncomplete = lastShownList.get(targetIndex);
             }
         } catch (IndexOutOfBoundsException e) {
@@ -64,6 +60,7 @@ public class UnCompleteCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_ALREADY_UNCOMPLETED);
         }
+        
         callUnCompleteActivity(targetType); // Calls the correct method depending on type of activity.
         activityToUncomplete = lastShownList.get(targetIndex);
         
@@ -75,22 +72,8 @@ public class UnCompleteCommand extends Command {
         if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
             model.UncompleteFloatingTask(targetIndex);
         }
-        else if (targetType.equals(Activity.TASK_TYPE)) {
-            model.UncompleteTask(targetIndex);
-        }
         else {
-            model.UncompleteEvent(targetIndex);
-        }
-    }
-
-    private void callCompleteActivity(String targetType) {
-
-        if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
-            model.completeFloatingTask(targetIndex);
-        } else if (targetType.equals(Activity.TASK_TYPE)) {
-            model.completeTask(targetIndex);
-        } else {
-            model.completeEvent(targetIndex);
+            model.UncompleteTask(targetIndex);
         }
     }
     
