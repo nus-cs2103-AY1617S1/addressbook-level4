@@ -70,7 +70,7 @@ public class UniqueTagCollectionUtil {
         if (!tagNamesNotFound.isEmpty()) {
             String tagsNotFoundText = StringUtil.convertListToString(tagNamesNotFound.toArray(new String[0]));
             ErrorBag bag = new ErrorBag();
-            bag.put(tagsNotFoundText + ERROR_TAGS_DUPLICATED);
+            bag.put(tagsNotFoundText + ERROR_TAGS_NOT_FOUND_IN_TASK);
             throw new ValidationException("", bag);
         }
     }
