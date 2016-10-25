@@ -15,7 +15,7 @@ import seedu.taskmanager.model.item.ItemType;
 import seedu.taskmanager.storage.StorageManager;
 
 /**
- * Saves the program data file at the specified location
+ * Saves the program data file at the specified location in a .xml file.
  */
 public class SaveCommand extends Command {
     public static final String COMMAND_WORD = "save";
