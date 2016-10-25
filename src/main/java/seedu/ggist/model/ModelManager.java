@@ -300,6 +300,10 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public boolean run(ReadOnlyTask task) {
+            
+            if (taskDateKeyWords == null) {
+                return true;
+            }
             return ((taskDateKeyWords.equalsIgnoreCase(task.getStartDate().toString()) || 
                    taskDateKeyWords.equalsIgnoreCase(task.getEndDate().toString())) && !task.isDone()) ||
                    (task.getStartDate().value.equals(Messages.MESSAGE_NO_START_DATE_SPECIFIED) && 

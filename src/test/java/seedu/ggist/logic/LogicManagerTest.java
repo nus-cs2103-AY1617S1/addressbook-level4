@@ -151,26 +151,15 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
 
-
-    @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add", expectedMessage);
-  /*      assertCommandBehavior(
-                "add Valid TaskName, dec 12", expectedMessage);
-        assertCommandBehavior(
-                "add Valid TaskName, 12 dec, 0000-1234, abcd", expectedMessage); */
-    }
-
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add Valid TaskName, abcd, 1800", TaskDate.MESSAGE_DATE_CONSTRAINTS);
+                "add Valid TaskName, 12dec", Messages.MESSAGE_INVALID_DATE_TIME_VALUE);
         assertCommandBehavior(
-                "add Valid TaskName, 12 dec, 5555", TaskTime.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid TaskName, 12 dec 12pm -medium", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
     }
 
+/*
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
@@ -181,13 +170,13 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS,"floating", toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, "event", toBeAdded.getTaskName().toString()),
                 expectedAB,
                 expectedAB.getTaskList());
 
     }
 
-/*    @Test
+    @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -205,8 +194,8 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
                 
-    } */
-
+    }
+*/
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
@@ -287,7 +276,7 @@ public class LogicManagerTest {
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("delete \1", expectedMessage);
     }
 
     @Test
@@ -305,7 +294,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
+                String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1).getTaskName().taskName),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -382,10 +371,10 @@ public class LogicManagerTest {
 
         Task bungee() throws Exception {
             TaskName taskName = new TaskName("go bungee jumping");
-            TaskDate startDate = new TaskDate("Sun, 16 Dec 16");
-            TaskTime startTime = new TaskTime("18:00 pm");
-            TaskDate endDate = new TaskDate("Tue, 18 Dec 16");
-            TaskTime endTime = new TaskTime("20:00 pm");
+            TaskDate startDate = new TaskDate("16 Dec");
+            TaskTime startTime = new TaskTime("6 pm");
+            TaskDate endDate = new TaskDate("18 Dec");
+            TaskTime endTime = new TaskTime("8 pm");
             Priority priority = new Priority("high");
             return new Task(taskName, startDate, startTime, endDate, endTime, priority);
         }
@@ -400,9 +389,9 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new TaskName("Task " + seed),
-                    new TaskDate("Wed, 16 Nov 2" + Math.abs(seed)),
+                    new TaskDate("16 Nov 2" + Math.abs(seed)),
                     new TaskTime("12:3"+seed + " pm"),
-                    new TaskDate("Thu, 20 Nov 2" + Math.abs(seed)),
+                    new TaskDate("20 Nov 2" + Math.abs(seed)),
                     new TaskTime("21:3" + seed +" pm"),
                     new Priority("high")
             );
@@ -411,15 +400,14 @@ public class LogicManagerTest {
         /** Generates the correct add command based on the task given */
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
-
+            
             cmd.append("add ");
-
-            cmd.append(p.getTaskName().toString());
-            cmd.append(",").append(p.getStartDate());
-            cmd.append(" ").append(p.getStartTime());
-            cmd.append(",").append(p.getEndDate());
-            cmd.append(" ").append(p.getEndTime());
-            cmd.append(",").append(p.getPriority().toString());
+            cmd.append(p.getTaskName().taskName);
+            cmd.append(",").append(p.getStartDate().value);
+            cmd.append(" ").append(p.getStartTime().value);
+            cmd.append(",").append(p.getEndDate().value);
+            cmd.append(" ").append(p.getEndTime().value);
+            cmd.append(" -").append(p.getPriority().value);
             return cmd.toString();
         }
 

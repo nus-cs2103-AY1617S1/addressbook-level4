@@ -2,6 +2,7 @@ package seedu.ggist.logic.parser;
 
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
+import seedu.ggist.commons.core.Messages;
 import seedu.ggist.commons.exceptions.IllegalValueException;
 import seedu.ggist.model.task.TaskTime;
 
@@ -18,7 +19,7 @@ public class DateTimeParser {
     public DateTimeParser(String raw) throws IllegalValueException {
         List<Date> dateTimeData = new PrettyTimeParser().parse(raw);
         if (dateTimeData.size() == 0) {
-            throw new IllegalValueException("Invalid date or time format");
+            throw new IllegalValueException(Messages.MESSAGE_INVALID_DATE_TIME_VALUE);
         }
         dateTime = dateTimeData.get(0);
     }
