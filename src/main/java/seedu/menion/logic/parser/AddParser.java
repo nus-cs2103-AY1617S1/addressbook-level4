@@ -24,7 +24,7 @@ public class AddParser {
 	
 	private static final String REGULAR_TASK = "task";
 	private static final String EVENTS = "event";
-	private static final String FLOATING_TASK = "floatingTask";
+	private static final String FLOATING_TASK = "floating";
 	private static final String DATE_FORMAT = "dd-MM-yyyy";
 
 	

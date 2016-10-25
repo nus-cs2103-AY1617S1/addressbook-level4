@@ -44,19 +44,19 @@ public class XmlAdaptedActivity {
      */
     public XmlAdaptedActivity(ReadOnlyActivity source) {
         
-        if (source.getActivityType() == Activity.FLOATING_TASK_TYPE) {
+        if (source.getActivityType().equals(Activity.FLOATING_TASK_TYPE)) {
             activityType = source.getActivityType().toString();
             name = source.getActivityName().fullName;
             note = source.getNote().toString();
             status = source.getActivityStatus().toString();
-        } else if (source.getActivityType() == Activity.TASK_TYPE) {
+        } else if (source.getActivityType().equals(Activity.TASK_TYPE)) {
             activityType = source.getActivityType().toString();
             name = source.getActivityName().fullName;
             note = source.getNote().toString();
             startDate = source.getActivityStartDate().toString();
             startTime = source.getActivityStartTime().toString();
             status = source.getActivityStatus().toString();
-        } else if (source.getActivityType() == Activity.EVENT_TYPE) {
+        } else if (source.getActivityType().equals(Activity.EVENT_TYPE)) {
             activityType = source.getActivityType().toString();
             name = source.getActivityName().fullName;
             note = source.getNote().toString();

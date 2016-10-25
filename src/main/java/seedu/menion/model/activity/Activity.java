@@ -242,13 +242,13 @@ public class Activity implements ReadOnlyActivity {
 
     @Override
     public void setActivityDetails() {
-        if (activityType == FLOATING_TASK_TYPE) {
+        if (activityType.equals(FLOATING_TASK_TYPE)) {
             activityDetails = new ArrayList<String>(FLOATING_TASK_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
             activityDetails.add(note.toString());
             activityDetails.add(status.toString());
-        } else if (activityType == TASK_TYPE) {
+        } else if (activityType.equals(TASK_TYPE)) {
             activityDetails = new ArrayList<String>(TASK_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
@@ -256,7 +256,7 @@ public class Activity implements ReadOnlyActivity {
             activityDetails.add(startDate.toString());
             activityDetails.add(startTime.toString());
             activityDetails.add(status.toString());
-        } else if (activityType == EVENT_TYPE) {
+        } else if (activityType.equals(EVENT_TYPE)) {
             activityDetails = new ArrayList<String>(EVENT_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
@@ -287,8 +287,9 @@ public class Activity implements ReadOnlyActivity {
     public boolean equals(Object o){
     	return o == this || 
     			(o instanceof ReadOnlyActivity &&
-    					(this.isTaskSameStateAs((ReadOnlyActivity) o))
-    					|| this.isEventSameStateAs((ReadOnlyActivity) o));
+    					(this.isFloatingTaskSameStateAs((ReadOnlyActivity) o)
+    					|| this.isTaskSameStateAs((ReadOnlyActivity) o)
+    					|| this.isEventSameStateAs((ReadOnlyActivity) o)));
     }
     
 }

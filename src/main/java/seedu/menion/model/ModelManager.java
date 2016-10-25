@@ -17,8 +17,6 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
 
-import edu.emory.mathcs.backport.java.util.Collections;
-
 /**
  * Represents the in-memory model of the activity manager data. All changes to
  * any model should be synchronized.

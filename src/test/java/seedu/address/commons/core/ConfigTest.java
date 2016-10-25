@@ -19,7 +19,6 @@ public class ConfigTest {
         String defaultConfigAsString = "App title : Menion\n" +
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
-                "Local data file location : data/menion.xml\n" +
                 "Activity Manager name : Menion";
 
         assertEquals(defaultConfigAsString, new Config().toString());
