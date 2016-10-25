@@ -98,7 +98,12 @@ public class TaskCard extends UiPart{
             endTime.textFillProperty().bind(overdue.valueProperty());
             startDate.textFillProperty().bind(overdue.valueProperty());
             endDate.textFillProperty().bind(overdue.valueProperty());
-        } 
+        } else {
+            startTime.textFillProperty().bind(none.valueProperty());
+            endTime.textFillProperty().bind(none.valueProperty());
+            startDate.textFillProperty().bind(none.valueProperty());
+            endDate.textFillProperty().bind(none.valueProperty());
+        }
     }
 
     public HBox getLayout() {

@@ -162,7 +162,7 @@
 
 .cell_name_label {
 	-fx-font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	-fx-font-size: 25px;
+	-fx-font-size: 24px;
 	-fx-font-weight: bold;
 	-fx-text-fill: #663220;
 }
@@ -334,7 +334,7 @@
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(#663220, 50%);
     -fx-background-insets: 3;
 }
 
@@ -345,6 +345,10 @@
 
 .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
     -fx-shape: " ";
+}
+
+.scroll-bar:vertical .track, .scroll-bar:horizontal .track {
+    -fx-background-color: #fff2ed;
 }
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {

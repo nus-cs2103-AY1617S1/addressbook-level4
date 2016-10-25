@@ -15,6 +15,9 @@ public class Priority {
 
     public static final String MESSAGE_PRIORITY_CONSTRAINTS = "Task priority must be prefixed with -\n "
             + "Valid priority level are -low , -med , -high";
+    
+    public static final String MESSAGE_EDIT_PRIORITY_CONSTRAINTS = "Editing a task priority must be in the following format:/n" 
+            + "edit [INDEX] priority [LEVEL], where LEVEL = low, med, or high";
 
     public static final String PRIORITY_VALIDATION_REGEX = "low|med|high|"+ Messages.MESSAGE_NO_PRIORITY_VALUE;
 
@@ -45,7 +48,7 @@ public class Priority {
         assert newPriority!= null;
         newPriority = newPriority.trim();
         if (!isValidPriority(newPriority)) {
-            throw new IllegalValueException(MESSAGE_PRIORITY_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_EDIT_PRIORITY_CONSTRAINTS);
         }
         this.value = newPriority;
     }
