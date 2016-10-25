@@ -15,8 +15,6 @@ import seedu.whatnow.model.task.Task;
 import seedu.whatnow.storage.XmlWhatNowStorage;
 
 import java.io.IOException;
-import java.util.Iterator;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 

@@ -26,6 +26,7 @@ import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class UpdateCommand extends UndoAndRedo {
 
+
 	public static final String COMMAND_WORD = "update";
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD 
@@ -85,16 +86,12 @@ public class UpdateCommand extends UndoAndRedo {
 			newName = arg;
 		}
 
-		try {
-			toUpdate = new Task(new Name(newName), new TaskDate(date), null, null, null, null, null, new UniqueTagList(tagSet), null, null);
-			//toUpdate = (date == null) ? new Task(new Name(newName), new UniqueTagList(tagSet), null) : new Task(new Name(newName), new TaskDate(date), new UniqueTagList(tagSet), null);
-			if (date == null)
-				toUpdate.setTaskType(TASK_TYPE_FLOATING);
-			else
-				toUpdate.setTaskType(TASK_TYPE_NOT_FLOATING);
-		} catch (ParseException e) {
-			System.out.println("ParseException in UpdateCommand.java line 71");
-		}
+		toUpdate = new Task(new Name(newName), date, null, null, null, null, null, new UniqueTagList(tagSet), null, null);
+		//toUpdate = (date == null) ? new Task(new Name(newName), new UniqueTagList(tagSet), null) : new Task(new Name(newName), new TaskDate(date), new UniqueTagList(tagSet), null);
+		if (date == null)
+			toUpdate.setTaskType(TASK_TYPE_FLOATING);
+		else
+			toUpdate.setTaskType(TASK_TYPE_NOT_FLOATING);
 	}
 
 	/**
@@ -159,7 +156,7 @@ public class UpdateCommand extends UndoAndRedo {
 		model.getUndoStack().push(this);
 		return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, "\nFrom: " + taskToUpdate + " \nTo: " + toUpdate));
 	}
-	
+
 	//@@author A0139128A
 	@Override
 	public CommandResult undo() throws TaskNotFoundException {
@@ -180,7 +177,7 @@ public class UpdateCommand extends UndoAndRedo {
 			return new CommandResult(UndoCommand.MESSAGE_SUCCESS); 
 		}
 	}
-	
+
 	//@@author A0139128A
 	@Override
 	public CommandResult redo() throws TaskNotFoundException {

@@ -12,6 +12,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * This class checks for the validity of the user input date by checking with currentDate, and checking if the date range is valid
+ * Throws its respective message if the input is invalid
+ * @author A0139128A
+ *
+ */
 //@author A0139128A
 public class TaskDate {
 	public static final String MESSAGE_NAME_CONSTRAINTS = "Task Date should be represented as one of the followings:"
@@ -106,6 +112,8 @@ public class TaskDate {
 		ListOfDateFormat.add(DATE_NUM_SLASH_WITHOUT_YEAR_FORMAT);
 		ListOfDateFormat.add(DATE_AlPHA_WHITESPACE_WITH_YEAR_FORMAT);
 		ListOfDateFormat.add(DATE_ALPHA_WHITESPACE_WITHOUT_YEAR_FORMAT);
+		
+		System.out.println("Entered here");
 		
 		if(taskDate == null && startDate != null &&  endDate != null) {
 			if(!isValidDateRange(startDate, endDate)) {
@@ -351,7 +359,6 @@ public class TaskDate {
 			fullDate = test;
 			return true;
 		}
-
 	}
 	@Override
 	public String toString() {

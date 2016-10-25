@@ -6,12 +6,15 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.LogsCenter;
+import seedu.whatnow.commons.events.model.ConfigChangedEvent;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.util.FxViewUtil;
 
 import org.controlsfx.control.StatusBar;
 
+import java.nio.file.Path;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -68,6 +71,10 @@ public class StatusBarFooter extends UiPart {
     private void setSyncStatus(String status) {
         this.syncStatus.setText(status);
     }
+    
+    private void setSaveLocationStatus(Path destination) {
+        this.saveLocationStatus.setText(destination.toString());
+    }
 
     private void addSyncStatus() {
         this.syncStatus = new StatusBar();
@@ -96,4 +103,10 @@ public class StatusBarFooter extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
+    
+    @Subscribe
+    public void handleFileLocationChangedEvent(ConfigChangedEvent event) {
+        setSaveLocationStatus(event.destination);
+    }
+    
 }

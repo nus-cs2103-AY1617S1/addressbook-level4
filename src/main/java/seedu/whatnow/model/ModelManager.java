@@ -2,8 +2,10 @@ package seedu.whatnow.model;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.whatnow.commons.core.ComponentManager;
+import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.LogsCenter;
 import seedu.whatnow.commons.core.UnmodifiableObservableList;
+import seedu.whatnow.commons.events.model.ConfigChangedEvent;
 import seedu.whatnow.commons.events.model.WhatNowChangedEvent;
 import seedu.whatnow.commons.exceptions.DataConversionException;
 import seedu.whatnow.commons.util.StringUtil;
@@ -12,22 +14,22 @@ import seedu.whatnow.model.task.ReadOnlyTask;
 import seedu.whatnow.model.task.Task;
 import seedu.whatnow.model.task.UniqueTaskList;
 import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.whatnow.model.task.UniqueTaskList.NoPrevCommandException;
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 /**
  * Represents the in-memory model of the WhatNow data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
+
 	private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 	private static final String TASK_TYPE_FLOATING = "floating";
 	private static final String TASK_TYPE_NOT_FLOATING = "not_floating";
@@ -47,7 +49,9 @@ public class ModelManager extends ComponentManager implements Model {
 	private final Stack<ReadOnlyTask> stackOfDeletedTasksAdd; //
 	private final Stack<ReadOnlyTask> stackOfDeletedTasksAddRedo; //
 	private final Stack<ReadOnlyTask> stackOfMarkDone; //
+	private final Stack<ReadOnlyTask> stackOfMarkUndone;
 	private final Stack<String> stackOfMarkDoneTaskTypes; //
+	private final Stack<String> stackOfMarkUndoneTaskTypes;
 	private final Stack<String> stackOfListTypes;	//
 	private final Stack<String> stackOfListTypesRedo;	//
 	/**
@@ -62,6 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
 		logger.fine("Initializing with WhatNow: " + src + " and user prefs " + userPrefs);
 
 		whatNow = new WhatNow(src);
+		new Config();
 		filteredTasks = new FilteredList<>(whatNow.getTasks());
 		filteredSchedules = new FilteredList<>(whatNow.getTasks());
 		stackOfUndo = new Stack<>();
@@ -74,7 +79,9 @@ public class ModelManager extends ComponentManager implements Model {
 		stackOfDeletedTasksAdd = new Stack<>();
 		stackOfDeletedTasksAddRedo = new Stack<>();
 		stackOfMarkDone= new Stack<>();
+		stackOfMarkUndone = new Stack<>();
 		stackOfMarkDoneTaskTypes = new Stack<>();
+		stackOfMarkUndoneTaskTypes = new Stack<>();
 		stackOfListTypes = new Stack<>();
 		stackOfListTypesRedo = new Stack<>();
 	}
@@ -85,6 +92,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	public ModelManager(ReadOnlyWhatNow initialData, UserPrefs userPrefs) {
 		whatNow = new WhatNow(initialData);
+		new Config();
 		filteredTasks = new FilteredList<>(whatNow.getTasks());
 		filteredSchedules = new FilteredList<>(whatNow.getTasks());
 		stackOfUndo =  new Stack<>();
@@ -97,10 +105,13 @@ public class ModelManager extends ComponentManager implements Model {
 		stackOfDeletedTasksAdd = new Stack<>();
 		stackOfDeletedTasksAddRedo = new Stack<>();
 		stackOfMarkDone = new Stack<>();
+		stackOfMarkUndone = new Stack<>();
 		stackOfMarkDoneTaskTypes = new Stack<>();
+		stackOfMarkUndoneTaskTypes = new Stack<>();
 		stackOfListTypes = new Stack<>();
 		stackOfListTypesRedo = new Stack<>();
 	}
+
 	@Override
 	public void resetData(ReadOnlyWhatNow newData) {
 		stackOfWhatNow.push(new WhatNow(whatNow));
@@ -113,7 +124,7 @@ public class ModelManager extends ComponentManager implements Model {
 		whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());
 		indicateWhatNowChanged();
 	}
-	
+
 	@Override
 	public ReadOnlyWhatNow getWhatNow() {
 		return whatNow;
@@ -124,11 +135,6 @@ public class ModelManager extends ComponentManager implements Model {
 		raise(new WhatNowChangedEvent(whatNow));
 	}
 
-	@Override
-	public synchronized void changeTask(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException {
-		whatNow.changeTask(target);
-		indicateWhatNowChanged();
-	}
 	@Override
 	public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
 		whatNow.removeTask(target);
@@ -143,11 +149,11 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
-		
+
 		whatNow.updateTask(old, toUpdate);
 		indicateWhatNowChanged();
 	}
-	
+
 	@Override
 	public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
 		whatNow.markTask(target);
@@ -201,8 +207,15 @@ public class ModelManager extends ComponentManager implements Model {
 		return stackOfMarkDone;
 	}
 	@Override
+	public Stack<ReadOnlyTask> getStackOfMarkUndoneTask() {
+		return stackOfMarkUndone;
+	}
+	@Override
 	public Stack<String> getStackOfMarkDoneTaskTaskType() {
 		return stackOfMarkDoneTaskTypes;
+	}
+	public Stack<String> getStackOfMarkUndoneTaskTaskType() {
+		return stackOfMarkUndoneTaskTypes;
 	}
 	@Override
 	public Stack<String> getStackOfListTypes() {
@@ -214,6 +227,20 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 	//=========== Filtered Task List Accessors ===============================================================
 
+	/** Raises an event to indicate the config has changed */
+	private void indicateConfigChanged(Path destination, Config config) {
+		raise(new ConfigChangedEvent(destination, config));
+	}
+
+	@Override
+	public synchronized void changeLocation(Path destination, Config config) throws DataConversionException, IOException, TaskNotFoundException {
+		indicateConfigChanged(destination, config);
+		indicateWhatNowChanged();
+	}
+	@Override
+	public void changeLocation(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException {
+
+	}
 	@Override
 	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
 		updateFilteredListToShowAllIncomplete();
@@ -266,22 +293,17 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void updateFilteredTaskList(Set<String> keywords){
-        filteredTasks.setPredicate(p -> {
-            if ((keywords.stream()
-                    .filter(key -> StringUtil.containsIgnoreCase(p.getName().fullName, key))
-                    .findAny()
-                    .isPresent()) && p.getTaskType().equals(TASK_TYPE_FLOATING))  {
-                return true;
-            } else {
-                return false;
-            }
-        });
+		filteredTasks.setPredicate(p -> {
+			if ((keywords.stream()
+					.filter(key -> StringUtil.containsIgnoreCase(p.getName().fullName, key))
+					.findAny()
+					.isPresent()) && p.getTaskType().equals(TASK_TYPE_FLOATING))  {
+				return true;
+			} else {
+				return false;
+			}
+		});
 	}
-
-	private void updateFilteredTaskList(Expression expression) {
-		filteredTasks.setPredicate(expression::satisfies);
-	}
-
 	//=========== Filtered Schedule List Accessors ===============================================================
 
 	@Override 
@@ -318,6 +340,9 @@ public class ModelManager extends ComponentManager implements Model {
 			}}
 				);
 	}
+	private void updateFilteredTaskList(Expression expression) {
+		filteredTasks.setPredicate(expression::satisfies);
+	}
 
 	@Override
 	public void updateFilteredScheduleListToShowAllCompleted() {
@@ -337,16 +362,16 @@ public class ModelManager extends ComponentManager implements Model {
 
 	@Override
 	public void updateFilteredScheduleList(Set<String> keywords){
-        filteredSchedules.setPredicate(p -> {
-            if ((keywords.stream()
-                    .filter(key -> StringUtil.containsIgnoreCase(p.getName().fullName, key))
-                    .findAny()
-                    .isPresent()) && p.getTaskType().equals(TASK_TYPE_NOT_FLOATING))  {
-                return true;
-            } else {
-                return false;
-            }
-        });
+		filteredSchedules.setPredicate(p -> {
+			if ((keywords.stream()
+					.filter(key -> StringUtil.containsIgnoreCase(p.getName().fullName, key))
+					.findAny()
+					.isPresent()) && p.getTaskType().equals(TASK_TYPE_NOT_FLOATING))  {
+				return true;
+			} else {
+				return false;
+			}
+		});
 	}
 
 	private void updateFilteredScheduleList(Expression expression) {
