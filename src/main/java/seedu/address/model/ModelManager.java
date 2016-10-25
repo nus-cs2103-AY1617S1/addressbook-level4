@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -57,7 +59,24 @@ public class ModelManager extends ComponentManager implements Model {
         filteredUndatedTasks = new FilteredList<>(taskBook.getUndatedTasks());
         undoableTasks = new UndoList();
     }
-
+    
+    public void checkIfOverdue(){
+        UniqueTaskList tasks = taskBook.getUniqueDatedTaskList();
+        LocalDateTime currentTime = LocalDateTime.now();
+        
+        for (Task target : tasks) {
+            if(target.getDatetime().getEnd() == null){
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm");
+                LocalDateTime dateTime = LocalDateTime.parse(target.getDatetime().toString(), formatter);
+                if(dateTime.isBefore(currentTime)){
+                   try {
+                       taskBook.overdueTask(target);
+                    } catch (TaskNotFoundException e) {}                
+                }
+            }
+        }         
+    }
+    
     @Override
     public void resetData(ReadOnlyTaskBook newData) {
         taskBook.resetData(newData);
@@ -72,6 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /** Raises an event to indicate the model has changed */
     private void indicateTaskBookChanged() {
+        checkIfOverdue();
         raise(new TaskBookChangedEvent(taskBook));
     }
 
