@@ -49,13 +49,21 @@ public class ListCommand extends Command {
         case "done":
             model.updateFilteredListToShowAllDone();
             break;
+        case "today":
+            model.updateFilteredListToShowToday();
+            break;
+        case "week":
+            model.updateFilteredListToShowWeek();
+            break;
+        case "float":
+            model.updateFilteredListToShowFloat();
+            break;
         default:
             return new CommandResult(MESSAGE_INVALID);
         }
 
         return new CommandResult(MESSAGE_SUCCESS);
     }
-    
     @Override
     public boolean canUndo() {
         return true;
