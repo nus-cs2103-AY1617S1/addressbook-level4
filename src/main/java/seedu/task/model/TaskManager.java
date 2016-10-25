@@ -180,8 +180,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
-                && this.tasks.equals(((TaskManager) other).tasks)
-                && this.tags.equals(((TaskManager) other).tags));
+                && this.tasks.equals(((TaskManager) other).tasks));
     }
 
     @Override

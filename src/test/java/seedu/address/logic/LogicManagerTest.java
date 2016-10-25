@@ -164,17 +164,6 @@ public class LogicManagerTest {
         assertCommandBehavior("add event d/without due date sd/12-12-2016", expectedMessage);
     }
     
-//    @Test
-//    public void execute_add_withoutOptionalInput() throws Exception {
-//        String expectedTask = "floating task "
-//                + "Description: without optional input "
-//                + "Start Date: Not Set "
-//                + "Due Date: Not Set "
-//                + "Status: Ongoing";
-//        String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, expectedTask);
-//        assertCommandBehavior("add floating task d/without optional input", expectedMessage);
-//    }
-        
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         //TODO
@@ -197,32 +186,132 @@ public class LogicManagerTest {
 				expectedAB.getTaskList());
 	}
 
-    @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
-    	//TODO
-    }
 
+	@Test
+	public void execute_undo_add_successful() throws Exception {
+		// setup expectations
+		TestDataHelper helper = new TestDataHelper();
+		TaskManager expectedManager = new TaskManager();
+		
+		//Add task to manager
+		Task toBeAdded = helper.homework();
+		String commadForAdd = helper.generateAddCommand(toBeAdded);
+        logic.execute(commadForAdd);
 
-    @Test
-    public void execute_list_showsAllTasks() throws Exception {
-    	//TODO
-        /*
-    	// prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        TaskManager expectedAB = helper.generateTaskManager(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
+		// execute undo command and verify result
+		assertCommandBehavior(helper.generateUndoCommand(), AddCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
+				expectedManager.getTaskList());
+	}
+	
+	@Test
+	public void execute_undo_manyAdds_successful() throws Exception {
+		// setup expectations
+		TestDataHelper helper = new TestDataHelper();
+		TaskManager expectedManager = new TaskManager();
+		
+		//Add task to manager
+		List<Task> toBeAdded = helper.generateTaskList(3);
+		for(Task toAdd : toBeAdded){
+			String commadForAdd = helper.generateAddCommand(toAdd);
+	        logic.execute(commadForAdd);
+	        expectedManager.addTask(toAdd);
+		}
 
-        // prepare address book state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
-        */
-    }
-
-
+		for(int i =1; i<=toBeAdded.size(); i++){
+			//remove last added Task for comparison
+			Task taskToRemove= toBeAdded.get(toBeAdded.size()-i);
+			expectedManager.removeTask(taskToRemove);
+			
+			// execute undo command and verify result
+			assertCommandBehavior(helper.generateUndoCommand(), AddCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
+					expectedManager.getTaskList());
+		}
+	}
+	
+	@Test
+	public void execute_undo_edit_successful() throws Exception {
+		// setup expectations
+		TestDataHelper helper = new TestDataHelper();
+		TaskManager expectedManager = new TaskManager();
+		
+		//Add task to manager
+		Task toBeEdited = helper.homework();
+		String commadForAdd = helper.generateAddCommand(toBeEdited);
+		logic.execute(commadForAdd);
+		expectedManager.addTask(toBeEdited);
+		
+		//Change task
+		String commadForEdit = "edit 1 t/ChangedTitle";
+        logic.execute(commadForEdit);
+        
+		// execute undo command and verify result
+		assertCommandBehavior(helper.generateUndoCommand(), EditCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
+				expectedManager.getTaskList());
+	}
+	
+	@Test
+	public void execute_undo_clear_successful() throws Exception {
+		// setup expectations
+		TestDataHelper helper = new TestDataHelper();
+		TaskManager expectedManager = new TaskManager();
+		
+		//Add task to manager
+		Task task = helper.homework();
+		String commadForAdd = helper.generateAddCommand(task);
+		logic.execute(commadForAdd);
+		expectedManager.addTask(task);
+		
+		//Change task
+		String commadForClear = "clear";
+        logic.execute(commadForClear);
+        
+		// execute undo command and verify result
+		assertCommandBehavior(helper.generateUndoCommand(), ClearCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
+				expectedManager.getTaskList());
+	}
+	
+	@Test
+	public void execute_undo_delete_successful() throws Exception {
+		// setup expectations
+		TestDataHelper helper = new TestDataHelper();
+		TaskManager expectedManager = new TaskManager();
+		
+		//Add task to manager
+		Task toBeDeleted = helper.homework();
+		String commadForAdd = helper.generateAddCommand(toBeDeleted);
+		logic.execute(commadForAdd);
+		expectedManager.addTask(toBeDeleted);
+		
+		//Change task
+		String commadForDelete = "delete 1";
+        logic.execute(commadForDelete);
+        
+		// execute undo command and verify result
+		assertCommandBehavior(helper.generateUndoCommand(), DeleteCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
+				expectedManager.getTaskList());
+	}
+	
+	@Test
+	public void execute_undo_find_successful() throws Exception {
+		// setup expectations
+		TestDataHelper helper = new TestDataHelper();
+		TaskManager expectedManager = new TaskManager();
+		
+		//Add task to manager
+		Task task = helper.homework();
+		String commadForAdd = helper.generateAddCommand(task);
+		logic.execute(commadForAdd);
+		expectedManager.addTask(task);
+		
+		//Change task
+		String commadForFind = "find Homework";
+        logic.execute(commadForFind);
+        
+		// execute undo command and verify result
+		assertCommandBehavior(helper.generateUndoCommand(), FindCommand.MESSAGE_SUCCESS_UNDO, expectedManager,
+				expectedManager.getTaskList());
+	}
+	
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single task in the shown list, using visible index.
@@ -434,7 +523,7 @@ public class LogicManagerTest {
                     new Description("Description " + seed),
                     new StartDate("01-01-2016"),
                     new DueDate("01-01-2016"),
-                    new Interval(""+seed),
+                    new Interval("1"),
                     new TimeInterval(""+seed),
                     new Status("ONGOING"),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
@@ -460,6 +549,14 @@ public class LogicManagerTest {
 
             return cmd.toString();
         }
+        
+        /** Generates the correct undo command*/
+        String generateUndoCommand() {
+            StringBuffer cmd = new StringBuffer();
+            cmd.append("undo ");
+            return cmd.toString();
+        }
+        
 
         /**
          * Generates an TaskManager with auto-generated tasks.
