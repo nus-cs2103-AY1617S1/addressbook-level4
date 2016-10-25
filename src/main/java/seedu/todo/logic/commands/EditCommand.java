@@ -1,6 +1,9 @@
 package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
+
+import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.*;
@@ -83,7 +86,10 @@ public class EditCommand extends BaseCommand {
                 task.setEndTime(date.getValue().getEndTime());
             }
         });
-        
+        eventBus.post(new HighlightTaskEvent(editedTask)); 
+        if (description.hasBoundValue()) {
+            eventBus.post(new ExpandCollapseTaskEvent(editedTask));
+        }
         return taskSuccessfulResult(editedTask.getTitle(), EditCommand.VERB);
     }
 

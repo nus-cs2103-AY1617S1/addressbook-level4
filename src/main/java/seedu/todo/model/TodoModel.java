@@ -157,6 +157,7 @@ public class TodoModel implements Model {
         return todoList.update(getTaskIndex(index), update);
     }
 
+    //@@author A0092382A
     @Override
     public void updateAll(Consumer<MutableTask> update) throws ValidationException {
         saveUndoState();
@@ -171,6 +172,7 @@ public class TodoModel implements Model {
         todoList.updateAll(indexes, update);
     }
 
+    //@@author A0135817B
     @Override
     public void view(TaskViewFilter view) {
         viewFilteredTasks.setPredicate(view.filter);

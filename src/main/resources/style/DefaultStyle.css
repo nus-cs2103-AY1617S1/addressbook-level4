@@ -151,7 +151,7 @@
 .searchStatus .searchCount {
     -fx-text-alignment: right;
 }
-
+/*@@author*/
 
 
 /*@@author A0135805H */
@@ -282,7 +282,6 @@
 .ongoing .locationImage {
     -fx-image: url("../images/location_white.png");
 }
-
 
 /* @@author A0135805H */
 /*Selected*/

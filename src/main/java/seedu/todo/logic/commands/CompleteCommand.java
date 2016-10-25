@@ -2,6 +2,7 @@ package seedu.todo.logic.commands;
 
 import com.google.common.collect.ImmutableList;
 
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.Argument;
 import seedu.todo.logic.arguments.IntArgument;
@@ -48,6 +49,7 @@ public class CompleteCommand extends BaseCommand {
     public CommandResult execute() throws ValidationException {
         if (index.hasBoundValue()) {
             ImmutableTask task = this.model.update(index.getValue(), t -> t.setCompleted(!t.isCompleted()));
+            eventBus.post(new HighlightTaskEvent(task));
             String feedback = task.isCompleted() ? CompleteCommand.VERB_COMPLETE : CompleteCommand.VERB_INCOMPLETE;
             return taskSuccessfulResult(task.getTitle(), feedback);
         } else {

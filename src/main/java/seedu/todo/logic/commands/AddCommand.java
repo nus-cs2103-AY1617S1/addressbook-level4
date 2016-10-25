@@ -4,6 +4,8 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 
 import seedu.todo.commons.core.TaskViewFilter;
+import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.*;
 import seedu.todo.model.task.ImmutableTask;
@@ -61,6 +63,8 @@ public class AddCommand extends BaseCommand {
         if(!model.getObservableList().contains(addedTask)) {
             model.view(TaskViewFilter.DEFAULT);
         }
+        eventBus.post(new HighlightTaskEvent(addedTask));
+        eventBus.post(new ExpandCollapseTaskEvent(addedTask));
         return taskSuccessfulResult(title.getValue(), AddCommand.VERB);
     }
 

@@ -1,12 +1,16 @@
 package seedu.todo.logic.commands;
 
+import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.todo.commons.events.ui.ExpandCollapseTaskEvent;
+import seedu.todo.commons.events.ui.HighlightTaskEvent;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.model.task.ImmutableTask;
+import seedu.todo.testutil.EventsCollector;
 import seedu.todo.testutil.TimeUtil;
 
 import java.time.LocalDate;
@@ -59,6 +63,7 @@ public class EditCommandTest extends CommandTest {
     public void testEditPinned() throws Exception {
         setParameter("1");
         setParameter("p", null);
+        EventsCollector eventsCollector = new EventsCollector();
         execute(true);
 
         ImmutableTask task = getTaskAt(1);
@@ -66,6 +71,8 @@ public class EditCommandTest extends CommandTest {
         assertTrue(task.isPinned());
         assertEquals("NUS", task.getLocation().get());
         assertFalse(task.getDescription().isPresent());
+        assertThat(eventsCollector.get(0), instanceOf(HighlightTaskEvent.class));
+        assertEquals(eventsCollector.size(), 1);
     }
     
     @Test
@@ -85,6 +92,7 @@ public class EditCommandTest extends CommandTest {
     public void testEditDescription() throws Exception {
         setParameter("2");
         setParameter("m", "Some other description");
+        EventsCollector eventsCollector = new EventsCollector();
         execute(true);
 
         ImmutableTask toEditDesc = getTaskAt(2);
@@ -92,6 +100,8 @@ public class EditCommandTest extends CommandTest {
         assertFalse(toEditDesc.isPinned());
         assertFalse(toEditDesc.getLocation().isPresent());
         assertEquals("Some other description", toEditDesc.getDescription().get());
+        assertThat(eventsCollector.get(0), instanceOf(HighlightTaskEvent.class));
+        assertThat(eventsCollector.get(1), instanceOf(ExpandCollapseTaskEvent.class));
     }
     
     @Test

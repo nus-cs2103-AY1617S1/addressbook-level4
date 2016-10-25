@@ -127,7 +127,8 @@ public class TodoList implements TodoListModel {
         return task;
     }
     //@@author
-    
+
+    //@@author A0092382A
     @Override
     public void updateAll(List<Integer> indexes, Consumer<MutableTask> update) throws ValidationException {
         for (Integer x: indexes) {
@@ -144,8 +145,9 @@ public class TodoList implements TodoListModel {
         
         saveTodoList();
         
-    }
+    } 
 
+    //@@author A0135817B
     @Override
     public void save(String location) throws ValidationException {
         try {

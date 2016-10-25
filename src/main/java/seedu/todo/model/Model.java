@@ -66,7 +66,14 @@ public interface Model {
     /**
      * Carries out the specified update in the fields of all visible tasks. Mutation of all {@link Task}
      * objects should only be done in the <code>update</code> lambda. The lambda takes in a single parameter,
-     * a {@link MutableTask}, and does not expect any return value, as per the {@link update} command. 
+     * a {@link MutableTask}, and does not expect any return value, as per the {@link update} command. Since
+     * this represents the observable layer, the changes required to be done to the underlying layer TodoList
+     * is set via getting a list of their indices in the underlying layer using a UUID map.  
+     * 
+     * <pre><code>todo.updateAll (t -> {
+     *     t.setEndTime(t.getEndTime.get().plusHours(2)); // Push deadline of all Observable tasks back by 2h
+     *     t.setPin(true); // Pin all tasks in Observable view
+     * });</code></pre>
      * 
      * @throws ValidationException if any updates on any of the task objects are considered invalid
      */
