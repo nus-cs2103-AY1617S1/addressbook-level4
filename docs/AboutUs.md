@@ -7,7 +7,7 @@ We are a group of Computer Science students from the School of Computing, Nation
 #### [Jia Wern](https://github.com/l0g1cal)<br>
 
 <img src="images/JiaWern.png" width="150"><br>
-* Component in charge of: Model
+* Component in charge of: [Model] (https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/DeveloperGuide.md#model-component)
 * Aspects/tools in charge of: Overall development, Git<br>
 * Features implemented:
    * [Edit task](https://github.com/CS2103AUG2016-W14-C4/main/blob/master/docs/UserGuide.md#edit-task-details-edit)
