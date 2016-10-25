@@ -3,10 +3,10 @@
 }
 
 .label {
-    -fx-font-size: 8pt;
-    -fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-    /*-fx-text-fill: #555555;*/
-    -fx-opacity: 0.9;
+    fx-font-size: 35pt;
+	-fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    -fx-text-fill: #008080;
+    -fx-opacity: 1;
 }
 
 .label-bright {

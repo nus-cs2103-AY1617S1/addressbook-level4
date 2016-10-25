@@ -2,10 +2,19 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="listHeader" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.60" fx:controller="seedu.ggist.ui.ListingHeader">
+<VBox xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.ggist.ui.ListingHeader">
    <children>
-      <Label fx:id="listing" styleClass="column-header" stylesheets="@DarkTheme.css" text="Label" />
+      <AnchorPane fx:id="listHeader">
+         <children>
+            <Label fx:id="listing" alignment="CENTER_RIGHT" contentDisplay="TEXT_ONLY" layoutX="-56.0" layoutY="5.0" prefHeight="24.0" prefWidth="241.0" stylesheets="@DarkTheme.css" text="Label" textAlignment="RIGHT" textFill="#6088b5" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="-56.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+               <font>
+                  <Font name="Helvetica Neue Condensed Black" size="63.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</VBox>

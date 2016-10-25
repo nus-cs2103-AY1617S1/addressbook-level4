@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.ggist.commons.core.LogsCenter;
 import seedu.ggist.commons.events.ui.ChangeListingEvent;
@@ -14,9 +15,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import org.controlsfx.control.StatusBar;
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 public class ListingHeader extends UiPart {
     
@@ -25,7 +30,7 @@ public class ListingHeader extends UiPart {
     private static final String FXML = "ListingHeader.fxml";
     
 
-    private AnchorPane mainPane;
+    private VBox mainPane;
     
     private AnchorPane placeHolder;
     @FXML
@@ -58,7 +63,17 @@ public class ListingHeader extends UiPart {
     }
     
     public void setListing(String listing) {
-        this.listing.setText(listing);
+        if (listing.equals("all")) {
+            this.listing.setText("ALL TASKS");
+        } else if (listing.equals("done")) {
+            this.listing.setText("ALL COMPLETED TASKS");
+        } else if (listing.equals("")) {
+            this.listing.setText("TASKS NOT COMPLETED");
+        } else {
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMMM yyyy");
+            this.listing.setText(sdf.format(new PrettyTimeParser().parse(listing).get(0)).toString());
+        }
+       
     }
    
     private void addListing() {
@@ -79,15 +94,14 @@ public class ListingHeader extends UiPart {
     
     @Override
     public void setNode(Node node) {
-        mainPane = (AnchorPane)node;
+        mainPane = (VBox)node;
     }
 
     
     @Subscribe
     public void handleChangeListingEvent(ChangeListingEvent abce) {
-        this.lastListing = abce.listing;
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last listing status to " + lastListing));
-        setListing(lastListing);
+        setListing(abce.listing);
     }
 
 
