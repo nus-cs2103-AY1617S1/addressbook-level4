@@ -66,7 +66,8 @@ public class EditCommand extends Command {
         REMOVE_DATES,
         ONLY_NAME,
         TO_EVENT,
-        TO_DEADLINE
+        TO_DEADLINE,
+        ONLY_PRIORITY
     }
     
     private EditType editType;
@@ -154,10 +155,12 @@ public class EditCommand extends Command {
     
     /** Determines the type of edit based on user input. */
     private void determineEditType() {
-        if (newName == null && deadline == null && eventStart == null && eventEnd == null && newTagList == null) {
+        if (newName == null && deadline == null && eventStart == null && eventEnd == null && newTagList == null && newPriority == null) {
             this.editType = EditType.REMOVE_DATES;
-        } else if (newName != null && deadline == null && eventStart == null && eventEnd == null) {
+        } else if (newName != null && deadline == null && eventStart == null && eventEnd == null && newPriority == null) {
             this.editType = EditType.ONLY_NAME;
+        } else if (newPriority != null && deadline == null && eventStart == null && eventEnd == null)   {
+            this.editType = EditType.ONLY_PRIORITY;
         } else if (eventStart == null && eventEnd == null && deadline != null) {
             this.editType = EditType.TO_DEADLINE;
         } else if (deadline == null && (eventStart != null || eventEnd != null)) {
@@ -171,6 +174,8 @@ public class EditCommand extends Command {
         case REMOVE_DATES :
             return Optional.of(toFloatingTypeWithChanges(oldTask));
         case ONLY_NAME :
+            return Optional.of(toSameTaskTypeWithChanges(oldTask));
+        case ONLY_PRIORITY :
             return Optional.of(toSameTaskTypeWithChanges(oldTask));
         case TO_EVENT :
             return Optional.of(toEventTypeWithChanges(oldTask));
