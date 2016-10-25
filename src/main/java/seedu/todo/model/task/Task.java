@@ -55,6 +55,7 @@ public class Task implements MutableTask {
         this.setPinned(task.isPinned());
         this.setCreatedAt(task.getCreatedAt());
         this.uuid = task.getUUID();
+        this.setTags(task.getTags());
     }
 
     @Override
