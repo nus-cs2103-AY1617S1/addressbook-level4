@@ -25,7 +25,7 @@ public class SwitchlistCommand extends Command {
     private final String filename;
 
     /**
-     * Relocate Command for changing storage path to new directory.
+     * Switchlist command for switching the current list to a new one.
      */
     public SwitchlistCommand(String filename) {
         this.filename = filename;
