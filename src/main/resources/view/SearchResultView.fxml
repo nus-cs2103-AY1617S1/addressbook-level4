@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+
+<HBox alignment="CENTER_LEFT" styleClass="searchResult" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.view.SearchResultView">
+    <padding>
+        <Insets left="4.0" right="4.0" top="-8.0" />
+    </padding>
+    <Text fx:id="searchTerm" />
+</HBox>

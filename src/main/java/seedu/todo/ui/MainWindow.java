@@ -53,6 +53,7 @@ public class MainWindow extends UiPart {
     @FXML private AnchorPane todoListViewPlaceholder;
     @FXML private AnchorPane helpViewPlaceholder;
     @FXML private AnchorPane filterBarViewPlaceholder;
+    @FXML private AnchorPane searchResultViewPlaceholder;
 
     /**
      * Loads an instance of the {@link MainWindow} together with the associated view elements.
