@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0148031R
 public class HelpWindowTest extends ToDoListGuiTest {
 
     @Test

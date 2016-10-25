@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import seedu.agendum.model.task.ReadOnlyTask;
 import seedu.agendum.commons.core.LogsCenter;
 
+//@@author A0148031R
 /**
  * Panel contains the list of completed tasks
  */

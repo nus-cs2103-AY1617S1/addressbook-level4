@@ -1,11 +1,13 @@
 package seedu.agendum.ui;
 
 import javafx.fxml.FXML;
+
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.agendum.model.task.ReadOnlyTask;
 
+//@@author A0148031R
 public class CompletedTaskCard extends UiPart {
     
     private static final String FXML = "CompletedTaskCard.fxml";

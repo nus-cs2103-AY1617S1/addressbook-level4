@@ -95,6 +95,7 @@ public class StatusBarFooter extends UiPart {
         syncStatusBarPane.getChildren().add(syncStatus);
     }
     
+    //@@author A0148031R
     private void addTimeStatus() {
         this.timeStatus = new DigitalClock();
         FxViewUtil.applyAnchorBoundaryParameters(timeStatus, 0.0, 0.0, 0.0, 0.0);
@@ -132,6 +133,7 @@ public class StatusBarFooter extends UiPart {
     }
 }
 
+//@@author A0148031R
 class DigitalClock extends Label {
     public DigitalClock() {
       bindToTime();
