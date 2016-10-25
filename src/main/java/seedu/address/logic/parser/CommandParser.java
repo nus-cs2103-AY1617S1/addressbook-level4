@@ -76,6 +76,9 @@ public class CommandParser {
         case ListCommand.COMMAND_WORD:
             return prepareList(arguments);
 
+        case StoreCommand.COMMAND_WORD:
+            return prepareStore(arguments);
+            
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -95,6 +98,7 @@ public class CommandParser {
             return prepareAdd(commandWord + arguments);
         }
     }
+
 
     //@@author A0139655U
 	/**
@@ -320,6 +324,17 @@ public class CommandParser {
 
     }
 
+    /**
+     * Parses arguments in the context of the change storage location command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareStore(String args) {  
+        return new StoreCommand(args.trim());
+    }
+    
+    //@@author
     /**
      * Parses arguments in the context of the find person command.
      *
