@@ -13,5 +13,6 @@ public class Messages {
     public static final String MESSAGE_TASKS_LISTED_OVERVIEW = "%1$d tasks listed!";
     public static final String MESSAGE_INVALID_START_AND_END_TIME = "Start time cannot be after End Time";
     public static final String MESSAGE_INVALID_TIME = "Time has to be after current time";
+    public static final String MESSAGE_INVALID_END_TIME = "End time cannot be before Start Time";
 
 }

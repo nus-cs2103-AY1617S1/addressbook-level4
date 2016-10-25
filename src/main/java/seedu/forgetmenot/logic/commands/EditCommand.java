@@ -7,6 +7,7 @@ import seedu.forgetmenot.commons.core.UnmodifiableObservableList;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
 import seedu.forgetmenot.model.task.Task;
+import seedu.forgetmenot.model.task.Time;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -49,7 +50,21 @@ public class EditCommand extends Command {
         }
 
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+
         try {
+            
+            // checks that new start time must be before end
+            if (newStart != null && !Time.checkOrderOfDates(newStart, taskToEdit.getEndTime().appearOnUIFormat()))
+                return new CommandResult(Messages.MESSAGE_INVALID_START_AND_END_TIME);
+            
+            // checks that the new end time must be after start
+            if (newEnd != null && Time.checkOrderOfDates(newEnd, taskToEdit.getStartTime().appearOnUIFormat()))
+                return new CommandResult(Messages.MESSAGE_INVALID_END_TIME);
+            
+            // checks that the new start and end time are valid
+            if (newEnd != null && newStart != null && !Time.checkOrderOfDates(newStart, newEnd))
+                return new CommandResult(Messages.MESSAGE_INVALID_START_AND_END_TIME);
+            
             model.saveToHistory();
             model.editTask(taskToEdit, newName, newStart, newEnd, newRecur);
             model.updateFilteredTaskListToShow(isNotDone());
