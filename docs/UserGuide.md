@@ -29,7 +29,7 @@ SmartyDo is a **to-do-list** application. With SmartyDo, forgetting upcoming dea
 ## 2. Quick Start
 **Launch SmartyDo**: Simply double-click on the `SmartyDo.jar` file to start SmartyDo. You will be greeted with a simple interface that has three components: a **Visual Panel**, a **Message Box** and a **Command Bar**.
 
-<img src="images/mainScreen.png"><br>Figure 1. Welcome Screen<br>
+<img src="images/mainScreen.png" width="250"><br>Figure 1. Welcome Screen<br>
 
 **Command Bar** is where you enter short commands to tell SmartyDo what to do.<br>
 **Visual Panel** is where you can see a comprehensive list of your tasks.<br>
@@ -53,7 +53,7 @@ Keyboard Shortcut: 'F1`
 **Example:**<br>
 If you wish to get help on using SmartyDo, you may enter `help` into the Command Bar.
 
-<img src="images/help.png" align="middle"><br>Figure 2. SmartyDo's help Command<br>
+<img src="images/help.png" width="250" align="middle"><br>Figure 2. SmartyDo's help Command<br>
 
 After entering the command, a new window will appear showing you the user guide.
 
@@ -88,7 +88,7 @@ Format : `add TASK_NAME [t; DATE START_TIME] [a;LOCATION] [t/TAG] [d;`
 **Example:**<br>
 Let's say you want to add task named "Presentation" which is scheduled for 18 July 2016, 9:00AM. All you need to do is enter the following as shown below.
 
-<img src="images/addCommand.png" align="middle"><br>Figure 3. Example of add command<br>
+<img src="images/addCommand.png" width="250" align="middle"><br>Figure 3. Example of add command<br>
 
 After entering the command, MessageBox will show you task is successfully added into SmartyDo and you will see the updated list of task in the VisualBox.
 
@@ -105,7 +105,7 @@ If the task you want to edit is not shown in the Visual Panel, you can use `view
 **Example:**<br>
 Let's say you want to add deadline time for task named "CS2103T revision". Then, you must first check the INDEX of that task. In this case, the INDEX of the task is 1. So to add deadline for this task, enter `edit 1 t; DEADLINE`. This will update the deadline of the task. A demonstration of this functionality shown below.
 
-<img src="images/editCommand.png" align="middle"><br>Figure 4. Before(left) and after(right) of an edit command<br>
+<img src="images/addeditCommand.png" width="500" align="middle"><br>Figure 4. Before(left) and after(right) of an edit command<br>
 
 ### 3.4. **Deleting Tasks**
 
@@ -118,7 +118,7 @@ Similar to `edit` command, `delete` command also uses INDEX. INDEX can be found 
 **Example:**<br>
 If you want to delete specfic task, find the INDEX of that task. Let's say the INDEX is 1. Then, enter `delete 1` in the command bar.
 
-<img src="images/deleteCommand.png" align="middle"><br>Figure 5. Example of delete command<br>
+<img src="images/adddeleteCommand.png" width="500" align="middle"><br>Figure 5. Example of delete command<br>
 
 After entering `delete` command, SmartyDo will delete the task specified by the INDEX and will show the updated list in the Visual Panel. In the screenshot above, you can see that the "Presentation" task has been deleted from SmartyDo.
 
@@ -133,7 +133,7 @@ Similar to `delete` command and `edit` command, INDEX is used in `done` command.
 **Example:**<br>
 You have now completed the task named "Presentation" and now you want to mark this task as complete. To do this, you will need to check the INDEX of this task. In this case, INDEX of this task is 1. So, entering `done 1` will mark "User Guide" task as complete.
 
-<img src="images/doneCommand.png" align="middle"><br>Figure 6. Example of done command<br>
+<img src="images/doneCommand.png" width="250" align="middle"><br>Figure 6. Example of done command<br>
 
 After entering the `done` command, you are now able to identify the completed task easily from the list.
 
@@ -144,7 +144,7 @@ With `undo`, you are allowed to reverse your previous changes sequentially while
 - `undo` command requires the application to have executed atleast one undoable command after launching.
 - `redo` command requires the application to have executed atleast one succussful `undo` command after launching.
 
-Undoable Commands:`add`, `delete`, `edit`, `mark`
+Undoable Commands:`add`, `delete`, `edit`, `done`
 
 > SmartyDo **does not store** history of actions in your computer.
 > Your history of actions resets when SmartyDo is launched.
@@ -161,7 +161,7 @@ By entering `undo` command, SmartyDo updates your list of tasks to how it was be
 
 However, you realized that your friend was wrong and you want to change the date back again. In this case, you do not need to use edit command again. Instead you can simply use `redo` command, as shown below.
 
-<img src="images/undoredoCommand.png" align="middle"><br>Figure 7.2. Before(left) and after(right) of an undo command<br>
+<img src="images/undoredoCommand.png" width="500" align="middle"><br>Figure 7.2. Before(left) and after(right) of an undo command<br>
 
 By using `redo` command, SmartyDo updates your list of tasks to how it was before you executed `undo` command. From the screenshot above, you can see that the "Presentation" task has been restored to its previous state.
 
@@ -174,7 +174,7 @@ Format: `view PARAM`
 **Example:**<br>
 Let's say you want to know detailed information about the third task in the Visual Panel. All you need to do is enter `view 3` into command bar, just as shown below.
 
-<img src="images/view3Command.png" align="middle"><br>Figure 8. Example of view command<br>
+<img src="images/view3Command.png" width="250" align="middle"><br>Figure 8. Example of view command<br>
 
 After entering the command, Browser Panel will show a detailed description about task 3.
 
@@ -184,7 +184,7 @@ If you want to find tasks that contain specific keyword in their name, you can u
 
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-<img src="images/findCommand.png" align="middle"><br>Figure 9. Example of find command<br>
+<img src="images/findCommand.png" width="250" align="middle"><br>Figure 9. Example of find command<br>
 
 > Beware that keywords are case sensitive and only the task's name is searched. However, the order of the keywords does not matter. e.g. `find cs2103 project` is same as `find project cs2103`
 
@@ -196,7 +196,7 @@ Format: `list KEYWORD` where KEYWORD in this case are any of the following: ALL/
 
 For example, after finding specific tasks, to return the Visual Panel back to where it lists all the tasks, simply input `list ALL` just as shown below.
 
-<img src="images/listAllCommand.png" align="middle"><br>Figure 10. Example of list command<br>
+<img src="images/listAllCommand.png" width="250" align="middle"><br>Figure 10. Example of list command<br>
 
 ### 3.10. **Exiting SmartyDo**
 
