@@ -15,7 +15,7 @@ import seedu.address.commons.core.LogsCenter;
 //@@author A0139708W
 public class HelpPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(HelpPanel.class);
-    private static final String FXML = "helpListPanel.fxml";
+    private static final String FXML = "HelpListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
     
