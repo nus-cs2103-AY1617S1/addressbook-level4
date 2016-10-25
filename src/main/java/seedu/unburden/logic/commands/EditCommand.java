@@ -12,9 +12,9 @@ public class EditCommand extends Command {
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer) d/DATE s/STARTTIME e/ENDTIME"
+            + "Parameters: INDEX (must be a positive integer) TASKNAME i/TASKDESCRIPTION d/DATE s/STARTTIME e/ENDTIME"
             + "Example: " + COMMAND_WORD 
-            + " 1 d/23-04-2003 s/1200 e/1300" ;
+            + " 1 meeting with boss i/project presentation d/23-12-2016 s/1200 e/1300" ;
     
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Updated Task: %1$s\n";
     
@@ -41,8 +41,6 @@ public class EditCommand extends Command {
         
         try {
             model.editTask(taskToEdit, args);
-            assert false : "The task cannot be missing in the list";
-            assert false : "The list cannot be empty";
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
         } catch (TaskNotFoundException | IllegalValueException ee) {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
