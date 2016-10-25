@@ -51,7 +51,7 @@ public class Parser {
             Pattern.compile("^((?!-)[a-zA-Z0-9-]+(?<!-)|(..))(/((?!-)[a-zA-Z0-9-]+(?<!-)|(..)))*$");
 
     private static final Pattern FILE_NAME_ONLY_FORMAT = Pattern.compile("^[\\w,\\s-]+$");
-    
+
     public Parser() {}
 
     /**
@@ -102,7 +102,7 @@ public class Parser {
 
         case UndoCommand.COMMAND_WORD:
             return prepareUndo(arguments);
-            
+
         case RedoCommand.COMMAND_WORD:
             return prepareRedo(arguments);
 
@@ -114,13 +114,13 @@ public class Parser {
 
         case RelocateCommand.COMMAND_WORD:
             return prepareRelocate(arguments);
-            
+
         case SwitchlistCommand.COMMAND_WORD:
             return prepareSwitchlist(arguments);
 
         case CalendarCommand.COMMAND_WORD:
             return prepareCalendar(arguments);
-            
+
         case CollapseCommand.COMMAND_WORD:
             return new CollapseCommand();
 
@@ -132,6 +132,7 @@ public class Parser {
         }
     }
 
+    //@@author A0127014W
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -172,7 +173,7 @@ public class Parser {
     /**
      * Parses arguments in the context of the switch list command.
      *
-     * @param args the file name of list that user wish to switch to. 
+     * @param args the file name of list that user wish to switch to.
      * @return the prepared command
      */
     public Command prepareSwitchlist(String args) {

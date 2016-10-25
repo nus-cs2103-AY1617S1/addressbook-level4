@@ -72,9 +72,9 @@ public class ModelManager extends ComponentManager implements Model {
         return taskList;
     }
 
-    /** 
+    /**
      * Raises an event to indicate the model has changed.
-     * Also saves a history state of the task list. 
+     * Also saves a history state of the task list.
      */
     private void indicateTaskListChanged() {
         raise(new TaskListChangedEvent(taskList));
@@ -85,11 +85,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void saveTaskListHistory() {
         taskListHistory.push(taskList);
     }
-    
+
     @Override
     public int undoTaskListHistory(int numToUndo) {
         assert numToUndo > 0;
-        
+
         int numUndone = 0;
         TaskList historyTaskList = null;
         try {
@@ -101,7 +101,7 @@ public class ModelManager extends ComponentManager implements Model {
         } catch (OutOfHistoryException e) {
             logger.fine(e.getMessage());
         }
-        
+
         if (historyTaskList != null) {
             resetData(historyTaskList);
         }
@@ -112,7 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public int redoTaskListHistory(int numToRedo) {
         assert numToRedo > 0;
-        
+
         int numRedone = 0;
         TaskList historyTaskList = null;
         try {
@@ -124,19 +124,20 @@ public class ModelManager extends ComponentManager implements Model {
         } catch (OutOfHistoryException e) {
             logger.fine(e.getMessage());
         }
-        
+
         if (historyTaskList != null) {
             resetData(historyTaskList);
         }
         return numRedone;
     }
-    
+
     @Override
     public void clearRedoTaskListHistory() {
         redoTaskListHistory = new HistoryStack<TaskList>();
     }
-  //@@author
+    //@@author
     
+
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
@@ -337,7 +338,7 @@ public class ModelManager extends ComponentManager implements Model {
         NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
         }
-
+        //@@author A0127014W
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
@@ -345,7 +346,7 @@ public class ModelManager extends ComponentManager implements Model {
                     .findAny()
                     .isPresent();
         }
-
+        //@@author A0127014W
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
@@ -517,7 +518,7 @@ public class ModelManager extends ComponentManager implements Model {
             return timeA - timeB;
         }
     }
-    
+
     private class LatestFirstComparator implements Comparator<ReadOnlyTask> {
         @Override
         public int compare(ReadOnlyTask a, ReadOnlyTask b) {
@@ -536,7 +537,7 @@ public class ModelManager extends ComponentManager implements Model {
             return timeB - timeA;
         }
     }
-   
+
     private class AToZComparator implements Comparator<ReadOnlyTask> {
 
         @Override

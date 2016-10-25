@@ -25,6 +25,7 @@
 	- [Viewing help : `help`](#viewing-help-help)
 - [Other Features](#other-features)
 	- [Calendar](#calendar)
+	- [Changing the view of the task list panel: `collapse` and `expand`](#changing-the-view-of-the-task-list-panel-collapse-and-expand)
 	- [Autocomplete and suggestions](#autocomplete-and-suggestions)
 	- [Saving the Data](#saving-the-data)
 	- [Multiple Storage Files](#multiple-storage-files)
@@ -452,6 +453,24 @@ In general, you may use this format to relocate your data to different location.
 `relocate PATH`
 <br>
 
+### Changing the view of the task list panel: `collapse` and `expand`
+
+You might find that each task takes up too much in the task list panel, requiring you to scroll a lot to see all the tasks you have.
+Or perhaps you prefer to see an overview of many tasks at one glance at the task list panel, compared to all the details of a just few tasks. In such cases, you can collapse the task list panel view by typing:
+
+`collapse`
+
+This will change the view from something like this: <br>
+//TODO Attach screenshot
+
+To this:<br>
+//Todo Attach screenshot
+
+If you want to see all the details of your tasks agains, type:
+
+`expand`
+
+
 ### Viewing help: `help`
 
 There are so many commands in TaSc, but you don't have to memorise them.
@@ -506,4 +525,6 @@ Switch List | `switchlist FILENAME`
 Rename List | `renamelist FILENAME`
 Relocate | `relocate PATH`
 Calendar | `calendar day|week`
+Collapse | `collapse`
+Expand | `expand`
 Help | `help`

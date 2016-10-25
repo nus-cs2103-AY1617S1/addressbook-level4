@@ -16,33 +16,34 @@ public class CommandHelperTest {
     
     //@@author A0148096W
     /*
-     * Equivalence partitions for date strings: 
+     * Equivalence partitions for date strings:
      *  - null
      *  - empty string
      *  - invalid date string
      *  - valid date string
      */
+
     @Test
     public void tryConvertStringToDateOrReturnNull_inputNull_returnsNull() {
         String string = null;
         Date date = CommandHelper.tryConvertStringToDateOrReturnNull(string);
         assertTrue(date == null);
     }
-    
+
     @Test
     public void tryConvertStringToDateOrReturnNull_inputEmptyString_returnsNull() {
         String string = "";
         Date date = CommandHelper.tryConvertStringToDateOrReturnNull(string);
         assertTrue(date == null);
     }
-    
+
     @Test
     public void tryConvertStringToDateOrReturnNull_inputInvalidDateString_returnsNull() {
         String string = "invaliddatestring";
         Date date = CommandHelper.tryConvertStringToDateOrReturnNull(string);
         assertTrue(date == null);
     }
-    
+
     @Test
     public void tryConvertStringToDateOrReturnNull_inputValidDateString_returnsDate() {
         String string = "13 sep 2013";
@@ -52,7 +53,7 @@ public class CommandHelperTest {
         assertTrue(date.getYear() == 2013 - 1900);
     }
 
-    //@@author
+    //@@author A0127014W
     @Test
     public void convertStringToMultipleDates_shortName_correct_date_month_year() {
         String date = "13 sep 2013";
@@ -191,13 +192,14 @@ public class CommandHelperTest {
         }
     }
     
+    //@@author A0140011L
     @Test
     public void convertDateToPrettyTimeParserFriendlyString_validInput() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2016, 0, 1, 0, 0, 0);
         Date input = calendar.getTime();
         String expectedOutput = "Jan 01 2016 00:00:00";
-        
+
         assertEquals(expectedOutput,
                 CommandHelper.convertDateToPrettyTimeParserFriendlyString(input));
     }

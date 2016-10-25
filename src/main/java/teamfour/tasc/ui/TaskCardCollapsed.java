@@ -1,3 +1,4 @@
+//@@author A0127014W
 package teamfour.tasc.ui;
 
 import java.sql.Date;
@@ -11,6 +12,11 @@ import javafx.scene.layout.HBox;
 import teamfour.tasc.model.task.Complete;
 import teamfour.tasc.model.task.ReadOnlyTask;
 
+/**
+ * Like TaskCard, but used for the collapsed view
+ * Shorter than the default TaskCard
+ * Only shows the name of the task and its index
+ */
 public class TaskCardCollapsed extends UiPart{
 
     private static final String FXML = "TaskListCardCollapsed.fxml";

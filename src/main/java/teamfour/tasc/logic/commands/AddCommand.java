@@ -24,6 +24,7 @@ import java.util.Set;
 /**
  * Adds a task to the task list.
  */
+//@@author A0127014
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = AddCommandKeyword.keyword;
@@ -49,6 +50,7 @@ public class AddCommand extends Command {
             tagSet.add(new Tag(tagName));
         }
         // TODO ensure that we input the correct details!
+        // TODO refactor this - extract methods
         //Input validation
         Deadline deadline = new Deadline();
         if(by != null){
