@@ -446,23 +446,31 @@ public class ModelManager extends ComponentManager implements Model {
     	
     	@Override
         public boolean run(ReadOnlyTask person) {
-    		if (task.getEndTime().toCardString().equals("-")) {
-    			return !task.equals(person)
-            		&& !task.getStartTime().toCardString().equals("-")
-            		//&& !task.getEndTime().toCardString().equals("-")
-    				&& !person.getStartTime().toCardString().equals("-")
-    				&& !person.getEndTime().toCardString().equals("-")
-    				&& !task.getStartTime().getAsCalendar().after(person.getEndTime().getAsCalendar())
-    				&& !task.getStartTime().getAsCalendar().before(person.getStartTime().getAsCalendar());
+
+    		// Overlapping task is task w/start only and compared task is an event
+    		if (task.getEndTime().toCardString().equals("-") && !person.getEndTime().toCardString().equals("-")) {
+    			return !task.getStartTime().toCardString().equals("-")
+    					&& !person.getStartTime().toCardString().equals("-")
+    					&& !task.getStartTime().getAsCalendar().after(person.getEndTime().getAsCalendar())
+    					&& !person.getStartTime().getAsCalendar().after(task.getStartTime().getAsCalendar());
     		}
     		
-    		return !task.equals(person)
-            		&& !task.getStartTime().toCardString().equals("-")
-            		//&& !task.getEndTime().toCardString().equals("-")
-    				&& !person.getStartTime().toCardString().equals("-")
-    				&& !person.getEndTime().toCardString().equals("-")
-    				&& !task.getStartTime().getAsCalendar().after(person.getEndTime().getAsCalendar())
-    				&& !person.getStartTime().getAsCalendar().after(task.getEndTime().getAsCalendar());
+    		// Overlapping task is an event and compared task is task w/start only DONE
+    		else if (!task.getEndTime().toCardString().equals("-") && person.getEndTime().toCardString().equals("-")) {
+    			return !person.getStartTime().toCardString().equals("-")
+    					&& !task.getStartTime().getAsCalendar().after(person.getStartTime().getAsCalendar())
+    					&& !task.getEndTime().getAsCalendar().before(person.getStartTime().getAsCalendar());
+    		}
+    		
+    		// Compare 2 events DONE
+    		else if (!task.getEndTime().toCardString().equals("-") && !person.getEndTime().toCardString().equals("-")) {
+    			return !person.getStartTime().toCardString().equals("-")
+    					&& !task.getStartTime().getAsCalendar().after(person.getStartTime().getAsCalendar())
+    					&& !person.getStartTime().getAsCalendar().after(task.getEndTime().getAsCalendar());
+    		}
+    		
+    		// Compare 2 tasks w/start only DONE
+    		return task.getStartTime().getAsCalendar().equals(person.getStartTime().getAsCalendar());
         }
     }
 

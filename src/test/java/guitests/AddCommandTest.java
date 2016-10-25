@@ -33,6 +33,7 @@ public class AddCommandTest extends TaskListGuiTest {
         currentList = TestUtil.addTasksToList(currentList, personToAdd);
         TestTask[] overlappingList = new TestTask[0];
         overlappingList = TestUtil.addTasksToList(overlappingList, personToAdd);
+        overlappingList = TestUtil.addTasksToList(overlappingList, personToAdd);
         assertTrue(taskListPanel.isListMatching(overlappingList));
 
         //add to empty list
