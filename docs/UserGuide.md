@@ -14,12 +14,12 @@
 1. Download the latest `happyjimtaskmanager.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Address Book.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.JPG" width="600">
+   > <img src="images/UI.png" width="800">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`view`** : View floating task of the day
+   * **`list`** : Lists all active tasks.
    * **`add`**` Homework by 24 sep 6pm : 
      adds a task named `Homework` to the Task Master .
    * **`delete`**` 212` : deletes the task with ID 212 shown in the current list
@@ -134,26 +134,22 @@ Examples:
 #### Archive completed tasks : `done`
 Format: done TASK_ID
 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-
 Examples:
 * `done 1`
 
-   <img src="images/ugdone_0.png" width="600">
-   <img src="images/ugdone_1.png" width="600">
-   <img src="images/ugdone_2.png" width="600">
+   <img src="images/beforedone.png" width="600">
+   <img src="images/afterdone1.png" width="600">
+   <img src="images/afterdone2.png" width="600">
    >Completed tasks can be viewed from navigation bar on the side.
 
 #### Block out timeslot : `block`
-Format: block from [START_DATE] START_TIME to [START_DATE] START_TIME [t/TAG]
-
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
+Format: block from [START_DATE] START_TIME to [START_DATE] START_TIME [t/TAG] 
 
 Examples:
 * `block from today 8pm to today 9pm`
 
- > <img src="images/ugblock_0.png" width="600">
- > <img src="images/ugblock_1.png" width="600">
+ > <img src="images/beforeblock.png" width="600">
+ > <img src="images/afterblock.png" width="600">
 
 #### Undo tasks : `undo`
 Format: u
@@ -163,9 +159,8 @@ Format: u
 Examples: 
 * `u`
 
-   <img src="images/ugundo_0.png" width="600">
-   <img src="images/ugundo_1.png" width="600">
-   <img src="images/ugundo_2.png" width="600">
+   <img src="images/beforeundo.png" width="600">
+   <img src="images/afterundo.png" width="600">
 
 #### Redo tasks : `redo`
 Format: r
@@ -175,8 +170,18 @@ Format: r
 Examples: 
 * `r`
 
-   <img src="images/ugredo_0.png" width="600">
-   <img src="images/ugredo_2.png" width="600">
+   <img src="images/beforeredo.png" width="600">
+   <img src="images/afterredo.png" width="600">
+
+#### View agenda of a day: `view`
+Format: view DATE [TIME]
+
+Examples:
+* `view next monday`
+
+   <img src="images/beforeview.png" width="600">
+   <img src="images/afterview1.png" width="600">
+   <img src="images/afterview2.png" width="600">
 
 #### Find tasks : `find`
 Format: `find [KEY_WORD] [from DATE_TIME to DATE_TIME | by DATE_TIME] [t/TAG]...`
@@ -209,13 +214,12 @@ Examples:
 #### Change directory: `cd`
 Format: cd FILE_PATH
 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional,
-
 Examples: 
 * `cd data\newlist.xml`
 
-   <img src="images/ugcd_0.png" width="600">
-   <img src="images/ugcd_1.png" width="600">
+   <img src="images/beforecd.png" width="600">
+   <img src="images/aftercd1.png" width="600">
+   <img src="images/aftercd2.png" width="600">
 
 #### Exiting the program : `exit`
 Exits the program.<br>
@@ -244,6 +248,7 @@ Block | `block TASK_NAME from [START_DATE] START_TIME to [START_DATE] START_TIME
 Redo | `r`
 Undo | `u`
 Find | `find [KEY_WORD] [from DATE_TIME to DATE_TIME | by DATE_TIME] [t/TAG]...`
+View | `view DATE [TIME]`
 Clear | `clear`
 Change directory | `cd FILE_PATH`
 Exit | `exit`
