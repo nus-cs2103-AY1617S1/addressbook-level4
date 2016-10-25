@@ -28,6 +28,7 @@ import harmony.mastermind.logic.commands.CommandResult;
 import harmony.mastermind.logic.commands.ListCommand;
 import harmony.mastermind.logic.commands.UpcomingCommand;
 import harmony.mastermind.model.UserPrefs;
+import harmony.mastermind.model.tag.Tag;
 import harmony.mastermind.model.task.ReadOnlyTask;
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyStringWrapper;
@@ -37,6 +38,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -50,10 +52,13 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -480,10 +485,40 @@ public class MainWindow extends UiPart {
                 
                 if(!isEmpty()){
                     
+                    VBox vBox = new VBox(3);                   
+                    
                     Text taskName = generateStyledText(readOnlyTask, readOnlyTask.getName());
                     taskName.getStyleClass().add("task-name-column");
+                    vBox.getChildren().add(taskName);
                     
-                    this.setGraphic(taskName);
+                    HBox hBox = new HBox(5);
+                    
+                    Button status = new Button();
+                    if(readOnlyTask.isHappening()){
+                        status.setText("HAPPENING");
+                        status.getStyleClass().add("tag-happening");
+                        hBox.getChildren().add(status);
+                    }else if(readOnlyTask.isDue()){
+                        status.setText("DUE");
+                        status.getStyleClass().add("tag-overdue");
+                        hBox.getChildren().add(status);
+                    }
+                    
+                    if(readOnlyTask.isEvent()){
+                        Button eventDuration = new Button();
+                        eventDuration.setText(readOnlyTask.getEventDuration().toDays()+" DAY(S) EVENT");
+                        eventDuration.getStyleClass().add("tag-event-duration");
+                        hBox.getChildren().add(eventDuration);
+                    }else if(readOnlyTask.isDeadline() && !readOnlyTask.isDue()){
+                        Button dueDuration = new Button();
+                        dueDuration.setText("DUE IN "+readOnlyTask.getDueDuration().toDays()+" DAY(S)");
+                        dueDuration.getStyleClass().add("tag-due-duration");
+                        hBox.getChildren().add(dueDuration);
+                    }
+                    
+                    vBox.getChildren().add(hBox);
+                    
+                    this.setGraphic(vBox);
                     this.setPrefHeight(50);
                     
                 }else{
@@ -615,8 +650,14 @@ public class MainWindow extends UiPart {
                 super.updateItem(readOnlyTask, isEmpty);
                 if(!isEmpty() && readOnlyTask.getTags()!=null){
                     
-                    Text tags = generateStyledText(readOnlyTask, readOnlyTask.getTags().toString().replace(',', ' '));
-                    tags.getStyleClass().add("tags");
+                    HBox tags = new HBox(5);
+                    
+                    for(Tag tag : readOnlyTask.getTags()){
+                        Button tagBubble = new Button();
+                        tagBubble.setText(tag.tagName);
+                        tagBubble.getStyleClass().add("tag");
+                        tags.getChildren().add(tagBubble);
+                    }
                     
                     this.setGraphic(tags);
                 }else{
@@ -635,7 +676,6 @@ public class MainWindow extends UiPart {
     private void initRecur(TableColumn<ReadOnlyTask, Boolean> recurColumn) {
         recurColumn.prefWidthProperty().bind(taskTableHome.widthProperty().multiply(WIDTH_MULTIPLIER_RECUR));
         recurColumn.setCellValueFactory(task -> new SimpleBooleanProperty(task.getValue().isRecur()));
-        
         recurColumn.setCellFactory( col -> new TableCell<ReadOnlyTask, Boolean>(){
             
             @Override
