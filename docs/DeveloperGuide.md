@@ -12,12 +12,14 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
 
+<!-- @@author A0130853L -->
 ## Introduction
 
 TasKitty is an easy-to-use task manager designed specially for the average computer or laptop user who wants to keep track of their busy schedules. It is a Java desktop application that is perfect for keyboard lovers, as it implements a command-line interface in its GUI.
 
 This guide describes the design and implementation of TasKitty. It will help you understand how TasKitty works and how you can further contribute to its development. We have organised this guide into the 4 major components that make up the core functionality of TasKitty, so that you can have an overview of how these essential components are linked before reading further into the parts that make up each component respectively.
 
+<!-- @@author -->
 ## Setting up
 
 ### Prerequisites
@@ -305,6 +307,7 @@ is better than <br>
 * including those libraries in the repo (this bloats the repo size)<br>
 * requiring developers to download those libraries manually (this creates extra work for developers)<br>
 
+<!-- @@author A0130853L -->
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -332,7 +335,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | view instructions as I type | remember less commands
 `*` | user | use keyboard shortcuts | use the task manager more quickly
 
-
+<!-- @@author -->
 ## Appendix B : Use Cases
 
 (For all use cases below, the **Program** is the `Task Manager`, unless specified otherwise)
@@ -414,6 +417,7 @@ Use case ends
   Use case resumes at step 1
 
 <br></br>
+<!-- @@author A0130853L -->
 ### Use case: View all upcoming tasks
 
 **MSS**
@@ -724,7 +728,7 @@ Use case ends
 * Has no undo function.
 * Has limited functionalities(eg. Limited number of tasks and limited file sizes) for free versions, requires subscription fee to unlock all functionalities.
 
-
+<!-- @@author A0130853L -->
 #### Rachel: `Todo.txt`
 
 **Pros**
