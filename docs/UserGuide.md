@@ -52,13 +52,13 @@ TAG | Alphanumeric
 INDEX | Integers
 
 <br>
-#### View help : `help`
+### View help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
 <br>
-#### Add a task: `add`
+### Add a task: `add`
 Adds a task to the task manager.<br>
 Format: `add DESCRIPTION [pr/PRIORITY] [start/STARTTIME] [end/ENDTIME] [t/TAG]...`
 
@@ -77,7 +77,7 @@ Examples:
 * `add get eggs pr/low t/family`
 * `add organize room`
 <br>
-#### List
+### List
 ##### List all tasks: `list`
 Shows a list of all tasks in the task manager.<br>
 Format: `list [-pr] [-st] [-ed] [-t/TAGS]...`
@@ -105,7 +105,7 @@ Lists all the tags used in the task manager.<br>
 Format: `list tags`
 
 <br>
-#### Delete a task: `delete`
+### Delete a task: `delete`
 Deletes the specified task from the task manager.<br>
 Format: `delete INDEX`
 
@@ -115,7 +115,7 @@ Examples:
   Deletes the 2nd task in the task manager.
 
 <br>
-#### Find
+### Find
 ##### Find all tasks with keyword: `find`
 Finds tasks whose description contains any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -156,7 +156,7 @@ Find tasks that have any of the specified tags.<br>
 Format: `find t/TAG [MORE_TAGS]`
 
 <br>
-#### Edit: 
+### Edit: 
 ##### Edit a task: `update`
 Update a detail of a task with the specific index in the list.<br>
 Format: `update INDEX PROPERTY INPUT`
@@ -189,7 +189,7 @@ Example:
   Removes the tag `NTU` from the task with the index 3
 
 <br>
-#### Complete a task: `complete`
+### Complete a task: `complete`
 Marks the task with the specified index as 'Completed' and removes it from the calendar.<br>
 Format: `complete INDEX`
 
@@ -199,22 +199,22 @@ Examples:
   Marks the second task as 'Completed' and removes it from the calendar.<br>
 
 <br>
-#### Undo action: `undo`
+### Undo action: `undo`
 Undoes the most recent change from the task manager.<br>
 Format: `undo`
 
 <br>
-#### Clear entries: `clear`
+### Clear entries: `clear`
 Clears all entries from the task manager.<br>
 Format: `clear`
 
 <br>
-#### Exit the program: `exit`
+### Exit the program: `exit`
 Exits the program.<br>
 Format: `exit`
 
 <br>
-#### Save data
+### Save data
 Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
