@@ -104,4 +104,17 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
         return sb.toString();
     }
+
+    //@@author A0138848M
+    public boolean isFloating() {
+        return !startTime.isValid() && !endTime.isValid() && !deadline.isValid();
+    }
+    
+    public boolean isEvent() {
+        return startTime.isValid() && endTime.isValid();
+    }
+
+    public boolean hasDeadline() {
+        return deadline.isValid();
+    }
 }

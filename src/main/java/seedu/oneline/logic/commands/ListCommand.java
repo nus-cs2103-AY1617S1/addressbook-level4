@@ -19,4 +19,9 @@ public class ListCommand extends Command {
         model.updateFilteredListToShowAllNotDone();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+    
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
 }

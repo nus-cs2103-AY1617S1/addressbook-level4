@@ -30,12 +30,18 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
-        command.setData(model);
-        return command.execute();
+        return model.executeCommand(command);
     }
 
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
     }
+    
+    //@@author: A0138848M
+    @Override
+    public ObservableList<ReadOnlyTask> getSortedFilteredTaskList() {
+        return model.getFilteredTaskList();
+    }
+    
 }

@@ -3,6 +3,9 @@ package seedu.oneline.model;
 import java.util.Set;
 
 import seedu.oneline.commons.core.UnmodifiableObservableList;
+import seedu.oneline.commons.exceptions.StateNonExistentException;
+import seedu.oneline.logic.commands.Command;
+import seedu.oneline.logic.commands.CommandResult;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.TaskName;
@@ -33,6 +36,9 @@ public interface Model {
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
+    /** Returns the sorted filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
+    
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
     
@@ -41,6 +47,15 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
+    
+    /** Executes the command on the current model, and returns the result*/
+    CommandResult executeCommand(Command command);
+    
+    /** Reverts to the previous model state*/
+    void undo() throws StateNonExistentException;
+    
+    /** Reverts to the state before the last undone*/
+    void redo() throws StateNonExistentException;
 
 
 
