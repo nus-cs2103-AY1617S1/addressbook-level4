@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.Objects;
 
 /**
+ * @@author A0138993L
  * Represents a Task in the end book.
  * Guarantees: details are present and not null, field values are validated.
  */
@@ -27,6 +28,7 @@ public class Task implements ReadOnlyTask, ModifyTask {
     private UniqueTagList tags;
 
     /**
+     *@@author A0138993L
      * Every field must be present and not null.
      */
     public Task(Name name, Date date, Start start, End end, int taskCategory, int overdue, UniqueTagList tags) {
@@ -45,6 +47,7 @@ public class Task implements ReadOnlyTask, ModifyTask {
     }
 
   	/**
+  	 * @@author A0138993L
      * Copy constructor for deadline.
      */    
     public Task(Name name, Date date, End end, int taskCategory, int overdue, UniqueTagList tags) {
@@ -62,6 +65,7 @@ public class Task implements ReadOnlyTask, ModifyTask {
     }
 
     /**
+     * @@author A0138993L
      * Copy constructor for todo.
      */    
     public Task(Name name, int taskCategory, UniqueTagList tags) {
@@ -76,12 +80,13 @@ public class Task implements ReadOnlyTask, ModifyTask {
     }
     
     /**
+     * @@author A0138993L
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getDate(), source.getStart(), source.getEnd(), source.getTaskCategory(), source.getOverdue(), source.getTags());
     }
-    
+    //@@author A0138993L
     public boolean isOverdue(Date checkDate, End checkEnd) {
     	if (checkDate.isAfterCurrentDate(checkDate.toString()) == 0){
     		return true;

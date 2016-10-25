@@ -4,6 +4,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
 /**
+ * @@author A0138993L
  * A mutable person object. For testing only.
  */
 public class TestPerson implements ReadOnlyTask {

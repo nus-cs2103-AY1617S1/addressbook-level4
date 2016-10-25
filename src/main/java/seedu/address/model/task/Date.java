@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
+ * @@author A0138993L
  * Represents a Task date in Simply.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
@@ -27,7 +28,7 @@ public class Date {
 
     /**
      * Validates given date.
-     *
+     * @@author A0138993L
      * @throws IllegalValueException if given date string is invalid.
      */
     public Date(String date) throws IllegalValueException {
@@ -49,7 +50,7 @@ public class Date {
         	beforeCurrentDate =0; //past date
       	this.value = date;
     }
-
+    //@@author A0138993L
 	public int isAfterCurrentDate(String date) {
     	if (date.contains("-")) {
 			String[] date_cat = date.split("-");
@@ -66,7 +67,7 @@ public class Date {
     	else//accounting for no date
     		return 1;
 	}
-
+	//@@author A0138993L
 	private String standardFormatDate(String date) {
     	if (date.equals("default"))
     		return local_date();
@@ -82,7 +83,7 @@ public class Date {
 			return date.substring(0, 2) + "-" + date.substring(2, 4) + "-" + date.substring(4, 6);
 		}
 	}
-
+	//@@author A0138993L
 	public String local_date(){
     	/*LocalDate current_date = LocalDate.now();
     	System.out.println(current_date);

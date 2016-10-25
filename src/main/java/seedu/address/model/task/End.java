@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
+ * @@author A0138993L
  * Represents a task's end time in Simply
  * Guarantees: immutable; is valid as declared in {@link #isValidEnd(String)}
  */
@@ -24,8 +25,9 @@ public class End {
     private int pastEndTime =0;
 
     /**
-     * Validates given end time.
      *
+     * Validates given end time.
+     * @@author A0138993L
      * @throws IllegalValueException if given address string is invalid.
      */
     public End(String end) throws IllegalValueException {
@@ -46,7 +48,7 @@ public class End {
              }
         }
     }
-    
+    //@@author A0138993L
     public boolean isPastEndTime(String end) {
     	String localTime = new String("");
     	String new_min = new String(LocalTime.now().getMinute() + "");
@@ -63,7 +65,7 @@ public class End {
 		else
 			return false;
 	}
-
+    //@@author A0138993L
 	private String changeTo24HourFormat(String end) {
 		if (Character.isDigit(end.charAt(end.length()-1)))
 			return end;

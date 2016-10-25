@@ -13,6 +13,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * Parses user input.
+ * @@author A0138993L
  */
 public class Parser {
 
@@ -191,7 +192,7 @@ public class Parser {
 
     /**
      * Parses arguments in the context of the add todo command.
-     *
+     * @@author A0138993L
      * @param args full command args string
      * @return the prepared command
      */
@@ -213,7 +214,7 @@ public class Parser {
 
 	/**
      * Parses arguments in the context of the add task command.
-     *
+     * @@author A0138993L
      * @param args full command args string
      * @return the prepared command
      */
@@ -238,7 +239,7 @@ public class Parser {
     
 	/**
      * Parses arguments in the context of the add task command.
-     *
+     * @@author A0138993L
      * @param args full command args string
      * @return the prepared command
      */

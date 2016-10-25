@@ -21,6 +21,7 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
+ * @@author A0138993L
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */
