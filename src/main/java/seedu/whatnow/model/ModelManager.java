@@ -37,23 +37,24 @@ public class ModelManager extends ComponentManager implements Model {
 	private static final String TASK_STATUS_INCOMPLETE = "incomplete";
 
 	private final WhatNow whatNow;
-	private final FilteredList<Task> filteredTasks; //
-	private final FilteredList<Task> filteredSchedules; //
-	private final Stack<Command> stackOfUndo; //
-	private final Stack<Command> stackOfRedo; //
-	private final Stack<ReadOnlyTask> stackOfOldTask; //
-	private final Stack<ReadOnlyTask> stackOfNewTask; //
-	private final Stack<ReadOnlyWhatNow> stackOfWhatNow; //
-	private final Stack<ReadOnlyTask> stackOfDeletedTasks; //
-	private final Stack<ReadOnlyTask> stackOfDeletedTasksRedo; //
-	private final Stack<ReadOnlyTask> stackOfDeletedTasksAdd; //
-	private final Stack<ReadOnlyTask> stackOfDeletedTasksAddRedo; //
-	private final Stack<ReadOnlyTask> stackOfMarkDone; //
+	private final FilteredList<Task> filteredTasks;
+	private final FilteredList<Task> filteredSchedules;
+	private final Stack<Command> stackOfUndo;
+	private final Stack<Command> stackOfRedo;
+	private final Stack<ReadOnlyTask> stackOfOldTask;
+	private final Stack<ReadOnlyTask> stackOfNewTask;
+	private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
+	private final Stack<ReadOnlyTask> stackOfDeletedTasks;
+	private final Stack<ReadOnlyTask> stackOfDeletedTasksRedo;
+	private final Stack<ReadOnlyTask> stackOfDeletedTasksAdd;
+	private final Stack<ReadOnlyTask> stackOfDeletedTasksAddRedo;
+	private final Stack<ReadOnlyTask> stackOfMarkDone;
 	private final Stack<ReadOnlyTask> stackOfMarkUndone;
-	private final Stack<String> stackOfMarkDoneTaskTypes; //
+	private final Stack<String> stackOfMarkDoneTaskTypes;
 	private final Stack<String> stackOfMarkUndoneTaskTypes;
-	private final Stack<String> stackOfListTypes;	//
-	private final Stack<String> stackOfListTypesRedo;	//
+	private final Stack<String> stackOfListTypes;
+	private final Stack<String> stackOfListTypesRedo;
+	
 	/**
 	 * Initializes a ModelManager with the given WhatNow
 	 * WhatNow and its variables should not be null
@@ -134,12 +135,24 @@ public class ModelManager extends ComponentManager implements Model {
 	private void indicateWhatNowChanged() {
 		raise(new WhatNowChangedEvent(whatNow));
 	}
+	
+	/** Raises an event to indicate the config has changed */
+    private void indicateConfigChanged(Path destination, Config config) {
+        raise(new ConfigChangedEvent(destination, config));
+    }
+    
+    @Override
+    public synchronized void changeLocation(Path destination, Config config) throws DataConversionException, IOException, TaskNotFoundException {
+        indicateConfigChanged(destination, config);
+        indicateWhatNowChanged();
+    }
 
 	@Override
 	public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
 		whatNow.removeTask(target);
 		indicateWhatNowChanged();
 	}
+	
 	@Override
 	public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
 		whatNow.addTask(task);
@@ -165,87 +178,90 @@ public class ModelManager extends ComponentManager implements Model {
 		whatNow.unMarkTask(target);
 		indicateWhatNowChanged();
 	}
+	
 	@Override
 	public Stack<Command> getUndoStack() {
 		return stackOfUndo;
 	}
+	
 	@Override
 	public Stack<Command> getRedoStack() {
 		return stackOfRedo;
 	}
+	
 	@Override
 	public Stack<ReadOnlyTask> getOldTask() {
 		return stackOfOldTask;
 	}
+	
 	@Override
 	public Stack<ReadOnlyTask> getNewTask() {
 		return stackOfNewTask;
 	}
+	
 	@Override
 	public UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList() {
 		filteredTasks.setPredicate(null);
 		return new UnmodifiableObservableList<>(filteredTasks);
 	}
+	
 	@Override
 	public Stack<ReadOnlyTask> getDeletedStackOfTasks() {
 		return stackOfDeletedTasks;
 	}
+	
 	@Override
 	public Stack<ReadOnlyTask> getDeletedStackOfTasksRedo() {
 		return stackOfDeletedTasksRedo;
 	}
+	
 	@Override
 	public Stack<ReadOnlyTask> getDeletedStackOfTasksAdd() {
 		return stackOfDeletedTasksAdd;
 	}
+	
 	@Override
 	public Stack<ReadOnlyTask> getDeletedStackOfTasksAddRedo() {
 		return stackOfDeletedTasksAddRedo;
 	}
+	
 	@Override
 	public Stack<ReadOnlyTask> getStackOfMarkDoneTask() {
 		return stackOfMarkDone;
 	}
+	
 	@Override
 	public Stack<ReadOnlyTask> getStackOfMarkUndoneTask() {
 		return stackOfMarkUndone;
 	}
+	
 	@Override
 	public Stack<String> getStackOfMarkDoneTaskTaskType() {
 		return stackOfMarkDoneTaskTypes;
 	}
+	
 	public Stack<String> getStackOfMarkUndoneTaskTaskType() {
 		return stackOfMarkUndoneTaskTypes;
 	}
+	
 	@Override
 	public Stack<String> getStackOfListTypes() {
 		return stackOfListTypes;
 	}
+	
 	@Override 
 	public Stack<String> getStackOfListTypesRedo() {
 		return stackOfListTypesRedo;
 	}
+	
 	//=========== Filtered Task List Accessors ===============================================================
-
-	/** Raises an event to indicate the config has changed */
-	private void indicateConfigChanged(Path destination, Config config) {
-		raise(new ConfigChangedEvent(destination, config));
-	}
-
-	@Override
-	public synchronized void changeLocation(Path destination, Config config) throws DataConversionException, IOException, TaskNotFoundException {
-		indicateConfigChanged(destination, config);
-		indicateWhatNowChanged();
-	}
-	@Override
-	public void changeLocation(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException {
-
-	}
+	
 	@Override
 	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
 		updateFilteredListToShowAllIncomplete();
 		return new UnmodifiableObservableList<>(filteredTasks);
 	}
+	
 	@Override
 	public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredTaskList() {
 		return new UnmodifiableObservableList<>(filteredTasks);
@@ -304,6 +320,11 @@ public class ModelManager extends ComponentManager implements Model {
 			}
 		});
 	}
+
+	private void updateFilteredTaskList(Expression expression) {
+	    filteredTasks.setPredicate(expression::satisfies);
+	}
+	
 	//=========== Filtered Schedule List Accessors ===============================================================
 
 	@Override 
@@ -339,9 +360,6 @@ public class ModelManager extends ComponentManager implements Model {
 				return false;
 			}}
 				);
-	}
-	private void updateFilteredTaskList(Expression expression) {
-		filteredTasks.setPredicate(expression::satisfies);
 	}
 
 	@Override

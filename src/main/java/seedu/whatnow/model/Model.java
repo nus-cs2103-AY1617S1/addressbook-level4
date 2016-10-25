@@ -35,9 +35,6 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws DuplicateTaskException;
 
-    /** Changes the file data storage location */
-    void changeLocation(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException;
-
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredTaskList();
     
@@ -140,6 +137,5 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList();
 
     void changeLocation(Path destination, Config config) throws DataConversionException, IOException, TaskNotFoundException;
-
 	
 }
