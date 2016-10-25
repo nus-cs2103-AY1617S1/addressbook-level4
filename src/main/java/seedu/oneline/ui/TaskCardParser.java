@@ -1,13 +1,13 @@
 package seedu.oneline.ui;
 
 import seedu.oneline.model.task.ReadOnlyTask;
-import seedu.oneline.model.task.Task;
 
 public class TaskCardParser {
 
     ReadOnlyTask task;
     
     public TaskCardParser(ReadOnlyTask task) {
+        assert task != null; 
         this.task = task;
     }
     
@@ -15,20 +15,25 @@ public class TaskCardParser {
         return task.getName().toString();
     }
     
-    public String getLine1() {
-        return task.getStartTime().toString() + " - " + task.getEndTime().toString();
+    public String getTime() {
+        String deadline = task.getDeadline().toString(); 
+        String startTime = task.getStartTime().toString(); 
+        
+        if (deadline.equals("") && startTime.equals("")) { 
+            return null; 
+        } else if (!deadline.equals("") && startTime.equals("")) { 
+            return "Due " + deadline; 
+        } else {
+            return "From " + task.getStartTime().toString() + " to " + task.getEndTime().toString();
+        }
     }
     
-    public String getLine2() {
-        return task.getDeadline().toString();
-    }
-    
-    public String getLine3() {
-        return task.getRecurrence().toString();
-    }
-    
-    public String getTag() {
-        return task.getTag().toString();
+    public String getRecurrence() {
+        String recurrence = task.getRecurrence().toString(); 
+        if (recurrence.equals("")) { 
+            return null; 
+        } 
+        return "every " + task.getRecurrence().toString();
     }
     
 }

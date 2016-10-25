@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="tagCardPane" styleClass="tag-card" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -17,7 +17,7 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="120.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="80.0" prefHeight="80.0" prefWidth="101.0" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="60.0" prefHeight="60.0" prefWidth="101.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DefaultTheme.css" />
                         <URL value="@Extensions.css" />
@@ -27,11 +27,11 @@
                     </padding>
 
                     <children>
-                           <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
-                        <HBox alignment="CENTER_LEFT" spacing="5">
+                           <Label fx:id="name" styleClass="card-title" stylesheets="@DefaultTheme.css" text="\$first" />
+                        <HBox alignment="CENTER_LEFT" spacing="5" stylesheets="@DefaultTheme.css">
                      <children>
-                        <Label fx:id="duetoday" styleClass="cell_small_label" text="\$today" />
-                              <Label fx:id="line1" styleClass="cell_small_label" text="due today" />
+                        <Label fx:id="duetoday" styleClass="card-text" text="\$today" />
+                              <Label fx:id="line1" styleClass="card-text" text="due today" />
                      </children>
                         </HBox>
                     </children>

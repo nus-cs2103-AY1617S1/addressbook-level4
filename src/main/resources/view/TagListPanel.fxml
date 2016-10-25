@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox minHeight="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.oneline.ui.TagListPanel">
     <stylesheets>
@@ -13,9 +14,12 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-      <AnchorPane prefHeight="0.0" prefWidth="280.0" style="-fx-background-color: #fff; -fx-border-color: #fff;" VBox.vgrow="NEVER">
+      <AnchorPane prefHeight="0.0" prefWidth="280.0" style="-fx-background-color: #fff;" VBox.vgrow="NEVER">
          <children>
-            <Label style="-fx-background-color: #fff;" text="Categories" />
+            <Label text="  Categories">
+               <font>
+                  <Font size="14.0" />
+               </font></Label>
          </children>
          <VBox.margin>
             <Insets />

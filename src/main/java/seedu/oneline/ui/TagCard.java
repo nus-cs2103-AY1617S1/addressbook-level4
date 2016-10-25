@@ -11,7 +11,7 @@ public class TagCard extends UiPart{
     private static final String FXML = "TagListCard.fxml";
 
     @FXML
-    private HBox cardPane;
+    private HBox tagCardPane;
     @FXML
     private Label name;    
     @FXML 
@@ -33,16 +33,16 @@ public class TagCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText("#" + tag.tagName);
-        cardPane.setStyle("-fx-background-color: " + colour);
+        tagCardPane.setStyle("-fx-background-color: " + colour);
     }
 
     public HBox getLayout() {
-        return cardPane;
+        return tagCardPane;
     }
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        tagCardPane = (HBox)node;
     }
 
     @Override

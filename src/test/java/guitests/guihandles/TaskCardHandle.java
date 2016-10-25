@@ -45,7 +45,7 @@ public class TaskCardHandle extends GuiHandle {
     public boolean isSameTask(ReadOnlyTask task){
         TaskCardParser parser = new TaskCardParser(task);
         return getName().equals(parser.getName()) &&
-                getLine1().equals(parser.getLine1()) &&
+                getLine1().equals(parser.getTime()) &&
                 getLine2().equals(parser.getLine2()) &&
                 getLine3().equals(parser.getLine3());
     }

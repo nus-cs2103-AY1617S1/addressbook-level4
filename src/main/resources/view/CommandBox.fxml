@@ -2,7 +2,11 @@
 
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane styleClass="anchor-pane" stylesheets="@DefaultTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.oneline.ui.CommandBox">
-   <TextField fx:id="commandTextField" onAction="#handleCommandInputChanged" promptText="Enter command here" />
+<AnchorPane styleClass="anchorpane" stylesheets="@DefaultTheme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.oneline.ui.CommandBox">
+   <TextField fx:id="commandTextField" onAction="#handleCommandInputChanged" prefHeight="28.0" prefWidth="157.0" promptText="Enter command here" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <font>
+         <Font size="16.0" />
+      </font></TextField>
 </AnchorPane>
