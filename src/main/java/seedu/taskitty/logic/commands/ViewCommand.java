@@ -6,7 +6,7 @@ import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.model.task.TaskDate;
 //@@author A0130853L
 /**
- * This command has 3 types of functionalities, depending on the following keyword that is entered.
+ * This command has 4 types of functionalities, depending on the following keyword that is entered.
  * Type 1: view DATE/today
  * Lists all events for the specified date, deadlines up to the specified date, and all todo tasks.
  * Type 2: view done
