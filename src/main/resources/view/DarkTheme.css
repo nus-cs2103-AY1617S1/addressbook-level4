@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: derive(#fcd744, 20%);
+    -fx-background-color: derive(#fff2ed, 50%);
 }
 
 .label {
@@ -17,15 +17,65 @@
 }
 
 .label-header {
-    -fx-font-size: 20pt;
+    -fx-font-size: 16pt;
     -fx-font-family: "Lucida Console", Monaco, monospace;
-    -fx-text-fill: #fcd744;
+    -fx-text-fill: #663220;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 14pt;
-    -fx-font-family: Arial, Helvetica, sans-serif;
+    -fx-font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    -fx-text-box-border: derive(#ff7f50, 50%);
+    -fx-focus-color: derive(#ff7f50, 50%);
+}
+
+.text-field:focused {
+    -fx-focus-color: #ffa584;
+    -fx-faint-focus-color: #d3524422;
+
+    -fx-highlight-fill: -fx-accent;
+    -fx-highlight-text-fill: white;
+    -fx-background-color:
+        -fx-focus-color,
+        -fx-control-inner-background,
+        -fx-faint-focus-color,
+        linear-gradient(from 0px 0px to 10px 10px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-insets: -0.2, 1, -1.4, 3;
+    -fx-background-radius: 3, 2, 4, 0;
+    -fx-prompt-text-fill: transparent;
+}
+
+.text-field:hover {
+	-fx-focus-color: #ffe5dc;
+    -fx-faint-focus-color: #d3524422;
+
+    -fx-highlight-fill: -fx-accent;
+    -fx-highlight-text-fill: white;
+    -fx-background-color:
+        -fx-focus-color,
+        -fx-control-inner-background,
+        -fx-faint-focus-color,
+        linear-gradient(from 0px 0px to 10px 10px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-insets: -0.2, 1, -1.4, 3;
+    -fx-background-radius: 3, 2, 4, 0;
+    -fx-prompt-text-fill: transparent;
+}
+
+.text-field:focused:hover {
+    -fx-focus-color: #ffa584;
+    -fx-faint-focus-color: #d3524422;
+
+    -fx-highlight-fill: -fx-accent;
+    -fx-highlight-text-fill: white;
+    -fx-background-color:
+        -fx-focus-color,
+        -fx-control-inner-background,
+        -fx-faint-focus-color,
+        linear-gradient(from 0px 0px to 10px 10px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-insets: -0.2, 1, -1.4, 3;
+    -fx-background-radius: 3, 2, 4, 0;
+    -fx-prompt-text-fill: transparent;
 }
 
 .tab-pane {
@@ -39,22 +89,22 @@
 }
 
 .table-view {
-    -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-base: #fff2ed;
+    -fx-control-inner-background: #fff2ed;
+    -fx-background-color: #fff2ed;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
 }
 
 .table-view .column-header-background {
-    -fx-background-color: transparent;
+    -fx-background-color: #ffbfa7;
 }
 
 .table-view .column-header, .table-view .filler {
     -fx-size: 35;
     -fx-border-width: 0 0 1 0;
-    -fx-background-color: transparent;
+    -fx-background-color: #ffbfa7;
     -fx-border-color:
         transparent
         transparent
@@ -76,14 +126,14 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+    -fx-border-color: transparent #fff2ed transparent #fff2ed;
+    -fx-background-color: transparent, derive(#fff2ed, 10%);
 }
 
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: #fff2ed;
 }
 
 .list-cell {
@@ -93,65 +143,67 @@
 }
 
 .list-cell .label {
-    -fx-text-fill: #010504;
-    	-fx-border-color:white;
- -fx-border-width:0 0 0 0;
+    -fx-text-fill: #663220;
+    -fx-border-color: white;
+    -fx-border-width:0 0 0 0;
 
 }
 
 .list-view .list-cell:even {
-	-fx-background-color: white;
-	-fx-text-fill: black;
+	-fx-background-color: derive(#fff2ed, 10%);
+	-fx-text-fill: #663220;
 }
 
 .list-view .list-cell:odd {
 	-fx-background-color: white;
-	-fx-text-fill: black;
+	-fx-text-fill: #663220;
 
 }
 
 .cell_name_label {
-	-fx-font-family: Arial, Helvetica, sans-serif;
-	-fx-font-size: 30px;
-	-fx-text-fill: #010504;
+	-fx-font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	-fx-font-size: 25px;
+	-fx-font-weight: bold;
+	-fx-text-fill: #663220;
 }
 
 .cell_big_label {
-	-fx-font-family: Arial, Helvetica, sans-serif;
-    -fx-font-size: 25px;
-    -fx-text-fill: #010504;
+	-fx-font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #663220;
 }
 
 .cell_id_label {
-	-fx-font-family: Arial, Helvetica, sans-serif;
-    -fx-font-size: 15px;
+	-fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    -fx-font-size: 18px;
+    -fx-text-fill: #663220;
     -fx-font-weight: bold;
 }
 
 .cell_small_label {
-	-fx-font-family: Arial, Helvetica, sans-serif;
-    -fx-font-size: 20px;
-    -fx-text-fill: #383f77;
+	-fx-font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    -fx-font-size: 21px;
+    -fx-text-fill: #663220;
 }
 
 .anchor-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: derive(#fff2ed, 20%);
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-background-color: derive(#fff2ed, 20%);
+     -fx-border-color: derive(#fff2ed, 10%);
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#fff2ed, 20%);
     -fx-text-fill: black;
 }
 
 .result-display {
 	-fx-font-family: "Courier New", Courier, monospace;
-    -fx-background-color: #ffffff;
+    -fx-background-color: #ffd8ca;
 }
 
 .result-display .label {
@@ -159,14 +211,14 @@
 }
 
 .status-bar .label {
-	-fx-font-family: Arial, Helvetica, sans-serif;
-	-fx-font-size: 15px;
-    -fx-text-fill: #fcd744;
+	-fx-font-family: "Lucida Console", Monaco, monospace;
+	-fx-font-size: 11px;
+    -fx-text-fill: #663220;
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-background-color: derive(#fff2ed, 30%);
+    -fx-border-color: derive(#fff2ed, 25%);
     -fx-border-width: 1px;
 }
 
@@ -175,17 +227,17 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#fff2ed, 30%);
+    -fx-border-color: derive(#fff2ed, 30%);
     -fx-border-width: 0px;
 }
 
 .grid-pane .anchor-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-background-color: derive(#fff2ed, 30%);
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-color: derive(#fff2ed, 50%);
 }
 
 .context-menu .label {
@@ -193,13 +245,13 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#fff2ed, 20%);
 }
 
 .menu-bar .label {
-    -fx-font-family: Arial, Helvetica, sans-serif;
-	-fx-font-size: 15px;
-    -fx-text-fill: #fcd744;
+    -fx-font-family: "Lucida Console", Monaco, monospace;
+	-fx-font-size: 13px;
+    -fx-text-fill: #663220;
     -fx-opacity: 0.9;
 }
 
@@ -304,9 +356,33 @@
 }
 
 #cardPane {
-    -fx-background-color: derive(#fcd744, 85%);
-    -fx-border-color: derive(#fcd744, 85%);
-    -fx-border-width: 1 1 1 1;
+    -fx-focus-color: derive(#ff9872, 60%);
+    -fx-faint-focus-color: transparent;
+    -fx-highlight-fill: -fx-accent;
+    -fx-highlight-text-fill: transparent;
+    -fx-background-color:
+        -fx-focus-color,
+        -fx-control-inner-background,
+        -fx-faint-focus-color,
+        linear-gradient(from 0px 0px to 10px 10px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-insets: -0.2, 1, -1.4, 3;
+    -fx-background-radius: 3, 2, 4, 0;
+    -fx-prompt-text-fill: transparent;
+}
+
+#cardPane:hover {
+    -fx-focus-color: derive(#b25838, 60%);
+    -fx-faint-focus-color: transparent;
+    -fx-highlight-fill: -fx-accent;
+    -fx-highlight-text-fill: transparent;
+    -fx-background-color:
+        -fx-focus-color,
+        -fx-control-inner-background,
+        -fx-faint-focus-color,
+        linear-gradient(from 0px 0px to 10px 10px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-insets: -0.2, 1, -1.4, 3;
+    -fx-background-radius: 3, 2, 4, 0;
+    -fx-prompt-text-fill: transparent;
 }
 
 #commandTypeLabel {
