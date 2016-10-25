@@ -238,7 +238,7 @@ Examples: <br>
 
    <img src="images/find_command_4.png" width="600">
 	
-#### Undo tasks : `clear`
+#### Clear the task master : `clear`
 Format: clear
 
 > clears all the tasks
