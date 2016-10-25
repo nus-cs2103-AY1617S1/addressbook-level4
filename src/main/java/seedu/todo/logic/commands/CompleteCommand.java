@@ -35,7 +35,7 @@ public class CompleteCommand extends BaseCommand {
         if (updateAllFlag.hasBoundValue() && index.hasBoundValue()) {
             errors.put("You must either specify an index or an /all flag, not both!");
         } else if (!index.hasBoundValue() && !updateAllFlag.hasBoundValue()) {
-            errors.put(" You must specify an index or a /all flag. You have specified none! ");
+            errors.put("You must specify an index or a /all flag. You have specified none!");
         }
     }
 
@@ -52,8 +52,7 @@ public class CompleteCommand extends BaseCommand {
             return taskSuccessfulResult(task.getTitle(), feedback);
         } else {
             this.model.updateAll(t -> t.setCompleted(true));
-            String feedback = "Complete all exceuted!";
-            return new CommandResult(feedback);
+            return new CommandResult("All tasks marked as completed");
         }
     }
 
