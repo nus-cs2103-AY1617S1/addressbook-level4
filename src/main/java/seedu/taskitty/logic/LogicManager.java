@@ -34,7 +34,7 @@ public class LogicManager extends ComponentManager implements Logic {
         command.saveStateIfNeeded(commandText);
         return command.execute();
     }
-
+    
     //@@author A0139930B
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
