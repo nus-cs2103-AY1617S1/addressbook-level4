@@ -11,7 +11,7 @@ import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.events.ui.CommandInputEnterEvent;
 import seedu.todo.ui.util.FxViewUtil;
-import seedu.todo.ui.util.TextAreaResizerUtil;
+import seedu.todo.ui.controller.TextAreaResizer;
 import seedu.todo.ui.UiPart;
 import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
@@ -100,7 +100,7 @@ public class CommandInputView extends UiPart {
      * Allow {@link #commandTextField} to adjust automatically with the height of the content of the text area itself.
      */
     private void setCommandInputHeightAutoResizeable() {
-        new TextAreaResizerUtil().setResizable(commandTextField);
+        new TextAreaResizer(commandTextField);
     }
 
     /**
