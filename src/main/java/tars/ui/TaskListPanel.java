@@ -25,11 +25,12 @@ import java.util.logging.Logger;
 public class TaskListPanel extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String FXML = "TaskListPanel.fxml";
-    private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
+    @FXML
+    private VBox panel;
 
     public TaskListPanel() {
         super();

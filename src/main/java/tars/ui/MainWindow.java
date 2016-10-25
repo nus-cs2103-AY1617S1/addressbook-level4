@@ -1,15 +1,16 @@
 package tars.ui;
 
+import javafx.scene.input.KeyEvent;
+
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.input.KeyCombination;
+import javafx.scene.control.TabPane;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tars.commons.core.Config;
@@ -40,6 +41,8 @@ public class MainWindow extends UiPart {
     private RsvTaskListPanel rsvTaskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
+    private HelpPanel helpPanel;
+    private OverviewPanel overviewPanel;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
@@ -52,27 +55,34 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
-    
     @FXML
     private AnchorPane infoHeaderPlaceholder;
-
     @FXML
     private AnchorPane taskListPanelPlaceholder;
-    
     @FXML
     private AnchorPane rsvTaskListPanelPlaceholder;
-
     @FXML
     private AnchorPane resultDisplayPlaceholder;
-
     @FXML
     private AnchorPane statusbarPlaceholder;
+    @FXML
+    private AnchorPane overviewPanelPlaceholder;
+    @FXML
+    private AnchorPane helpPanelPlaceholder;
     
     @FXML
     private Label taskListLabel;
-    
     @FXML
     private Label rsvTaskListLabel;
+    
+    @FXML
+    private TabPane tabPane;
+    @FXML
+    private AnchorPane overviewTabAnchorPane;
+    @FXML
+    private AnchorPane rsvTabAnchorPane;
+    @FXML
+    private AnchorPane helpTabAnchorPane;   
 
 
     public MainWindow() {
@@ -111,6 +121,15 @@ public class MainWindow extends UiPart {
         setWindowMinSize();
         setWindowDefaultSize(prefs);
         
+        addMouseEventHandler();
+        addTabPaneHandler();
+                        
+        scene = new Scene(rootLayout);
+        primaryStage.setScene(scene);
+        
+    }
+
+    private void addMouseEventHandler() {
         rootLayout.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -125,20 +144,34 @@ public class MainWindow extends UiPart {
                 primaryStage.setY(event.getScreenY() - yOffset);
             }
         });
-        
-        scene = new Scene(rootLayout);
-        primaryStage.setScene(scene);
-        
+    }
+
+
+    private void addTabPaneHandler() {
+        rootLayout.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.RIGHT) {
+                    tabPane.getSelectionModel().selectNext();
+                    event.consume();
+                } else if (event.getCode() == KeyCode.LEFT) {
+                    tabPane.getSelectionModel().selectPrevious();
+                    event.consume();
+                }
+            }
+        });
     }
 
 
     void fillInnerParts() {
-        infoHeader = InformationHeader.load(primaryStage, infoHeaderPlaceholder, logic.getFilteredTaskList());
+        infoHeader = InformationHeader.load(primaryStage, infoHeaderPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         rsvTaskListPanel = RsvTaskListPanel.load(primaryStage, getRsvTaskListPlaceholder(), logic.getFilteredRsvTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTarsFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        helpPanel = HelpPanel.load(primaryStage, getHelpPanelPlaceholder());
+        overviewPanel = OverviewPanel.load(primaryStage, getOverviewPanelPlaceholder(), logic.getFilteredTaskList());
     }
     
     /* @@author A0124333U
@@ -166,6 +199,14 @@ public class MainWindow extends UiPart {
     
     public AnchorPane getRsvTaskListPlaceholder() {
         return rsvTaskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getHelpPanelPlaceholder() {
+        return helpPanelPlaceholder;
+    }
+    
+    public AnchorPane getOverviewPanelPlaceholder() {
+        return overviewPanelPlaceholder;
     }
 
     public void hide() {

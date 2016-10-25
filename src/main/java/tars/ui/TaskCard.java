@@ -113,7 +113,7 @@ public class TaskCard extends UiPart{
             }
             statusTick.setStyle("-fx-text-fill: " + tickColor);
         } else {
-            statusTick.setStyle("-fx-text-fill: white");
+            statusTick.setStyle("-fx-text-fill: #F5F5F5");
         }
         status.setText(task.getStatus().toString());
         status.setVisible(false);

@@ -33,11 +33,13 @@ public class ConfirmCommand extends UndoableCommand {
             + "Example: " + COMMAND_WORD + " 1 3 /p h /t tag1";
     
     public static final String MESSAGE_CONFIRM_SUCCESS = "Task Confirmation Success! New task added: %1$s";
+    private String conflictingTaskList = ""; 
     
     private final int taskIndex;
     private final int dateTimeIndex;
     private final String priority;
     private final Set<Tag> tagSet = new HashSet<>();
+    private Task toConfirm;
     
     public ConfirmCommand(int taskIndex, int dateTimeIndex, String priority, Set<String> tags) throws IllegalValueException {
         this.taskIndex = taskIndex;
@@ -79,7 +81,7 @@ public class ConfirmCommand extends UndoableCommand {
         }
         
         
-        Task toConfirm;
+
         
         try {
             toConfirm = new Task(rsvTask.getName(), rsvTask.getDateTimeList().get((dateTimeIndex - 1)), new Priority(priority), new Status(), 
@@ -89,19 +91,31 @@ public class ConfirmCommand extends UndoableCommand {
         };
         
         try {
-            model.addTask(toConfirm);
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
-        }
-        
-        try {
             model.deleteRsvTask(rsvTask);
         } catch (RsvTaskNotFoundException rtnfe) {
             return new CommandResult(Messages.MESSAGE_RSV_TASK_CANNOT_BE_FOUND);
         }
         
-        return new CommandResult(String.format(MESSAGE_CONFIRM_SUCCESS, toConfirm));
+        try {
+            conflictingTaskList += model.getTaskConflictingDateTimeWarningMessage(toConfirm.getDateTime());
+            model.addTask(toConfirm); 
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(Messages.MESSAGE_DUPLICATE_TASK);
+        }
         
+  
+        return new CommandResult(getSuccessMessageSummary());
+        
+    }
+    
+    private String getSuccessMessageSummary() {
+        String summary = String.format(MESSAGE_CONFIRM_SUCCESS, toConfirm.toString());
+        
+        if (!conflictingTaskList.isEmpty()) {
+            summary += "\n" +   Messages.MESSAGE_CONFLICTING_TASKS_WARNING + conflictingTaskList;
+        }
+        
+        return summary;
     }
 
 }

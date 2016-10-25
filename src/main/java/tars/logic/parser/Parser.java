@@ -299,7 +299,7 @@ public class Parser {
         try {
             String indexArgs = argsTokenizer.getPreamble().get();
             String[] indexStringArray = StringUtil.indexString(indexArgs).split(EMPTY_SPACE_ONE);
-            if (indexStringArray.length > 2) {
+            if (indexStringArray.length != 2) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                         ConfirmCommand.MESSAGE_USAGE));
             } else {

@@ -50,6 +50,8 @@ public class AddCommand extends UndoableCommand {
 
     private Task toAdd;
     private ArrayList<Task> toAddArray;
+    
+    private String conflictingTaskList = ""; 
 
     /**
      * Convenience constructor using raw values.
@@ -114,6 +116,7 @@ public class AddCommand extends UndoableCommand {
         assert model != null;
         try {
             for(Task toAdd: toAddArray) {
+                conflictingTaskList += model.getTaskConflictingDateTimeWarningMessage(toAdd.getDateTime());
                 model.addTask(toAdd);
             }
             model.getUndoableCmdHist().push(this);
@@ -157,6 +160,10 @@ public class AddCommand extends UndoableCommand {
         
         for(Task toAdd: toAddArray) {
             summary += String.format(MESSAGE_SUCCESS, toAdd + ADDTASK_STRING_NEWLINE);
+        }
+               
+        if (!conflictingTaskList.isEmpty()) {
+            summary +="\n" +   Messages.MESSAGE_CONFLICTING_TASKS_WARNING + conflictingTaskList;
         }
         return summary;
     }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="panel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tars.ui.OverviewPanel">
+    <stylesheets>
+        <URL value="@TarsTheme.css" />
+        <URL value="@Extensions.css" />
+    </stylesheets>
+   <children>
+      <GridPane VBox.vgrow="ALWAYS">
+         <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="315.0" minWidth="315.0" prefWidth="315.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="43.0" minHeight="43.0" prefHeight="43.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="43.0" minHeight="43.0" prefHeight="43.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="43.0" minHeight="43.0" prefHeight="43.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="43.0" minHeight="43.0" prefHeight="43.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="43.0" minHeight="43.0" prefHeight="43.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="43.0" minHeight="43.0" prefHeight="43.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="43.0" minHeight="43.0" prefHeight="43.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="10.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" vgrow="NEVER" />
+            <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" vgrow="NEVER" />
+         </rowConstraints>
+         <children>
+            <HBox alignment="CENTER_LEFT" prefWidth="434.0" GridPane.rowIndex="5" GridPane.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="numUpcoming" contentDisplay="CENTER" styleClass="overview-panel-label" text="\$n">
+                     <padding>
+                        <Insets left="54.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets right="3.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label contentDisplay="CENTER" styleClass="overview-panel-label" text="Upcoming" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6">
+               <children>
+                  <Label fx:id="numOverdue" alignment="CENTER" contentDisplay="CENTER" styleClass="overview-panel-label" text="\$n">
+                     <padding>
+                        <Insets left="54.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets right="3.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" styleClass="overview-panel-label" text="Overdue" />
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+   </children>
+</VBox>
