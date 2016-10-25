@@ -1,11 +1,9 @@
-package guitests;
+package guitests.guihandles;
 
-import guitests.guihandles.GuiHandle;
-import javafx.scene.control.Label;
+import guitests.GuiRobot;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.todo.TestApp;
-import seedu.todo.testutil.UiTestUtil;
 
 /**
  * Created by Kai on 26/10/2016.
@@ -35,6 +33,6 @@ public class CommandPreviewViewHandle extends GuiHandle {
      * Get the number of rows that is displayed on this {@link #getPreviewGrid()} object.
      */
     public int getRowsDisplayed() {
-        return getPreviewGrid().getChildren().size();
+        return getPreviewGrid().getChildren().size() / 2;
     }
 }

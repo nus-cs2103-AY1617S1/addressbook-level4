@@ -1,6 +1,5 @@
 package seedu.todo.ui.view;
 
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
@@ -17,7 +16,6 @@ import seedu.todo.ui.UiPart;
 import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
-import javax.swing.*;
 import java.util.logging.Logger;
 
 //@@author A0315805H
@@ -158,7 +156,7 @@ public class CommandInputView extends UiPart {
 
     /*Interface Declarations*/
     /**
-     * Defines an interface for controller class to receive a command from this view class, and process it.
+     * Defines an interface for controller class to receive a key stroke from this view class, and process it.
      */
     public interface KeyStrokeCallback {
         void onKeyStroke(KeyCode keyCode, String text);

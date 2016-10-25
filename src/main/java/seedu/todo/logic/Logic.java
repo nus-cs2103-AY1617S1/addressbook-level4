@@ -14,7 +14,7 @@ public interface Logic {
     CommandResult execute(String input);
 
     /**
-     * Receives the intermediate product of the command and sends back a CommandPreview.
+     * Receives the intermediate product of the command and sends a ShowPreviewEvent.
      * @param input The intermediate input as entered by the user.
      */
     void preview(String input);
