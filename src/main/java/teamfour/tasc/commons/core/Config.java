@@ -3,8 +3,6 @@ package teamfour.tasc.commons.core;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -25,8 +23,10 @@ public class Config {
     private String appTitle = "TaSc";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String taskListFilePath = "data/tasklist.xml";
+    private String taskListFilePath = "data";
+    private String taskListFileName = "tasklist.xml";
     private String taskListName = "MyTaskList";
+    private String taskListFileNames = "tasklist";
 
     public Config() {
     }
@@ -55,36 +55,89 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
+    public String getTaskListFilePathAndName() {
+        return taskListFilePath + "/" + taskListFileName;
+    }
+    
     public String getTaskListFilePath() {
         return taskListFilePath;
     }
+    
+    public void setTaskListFilePath(String taskListFilePath) {
+        this.taskListFilePath = taskListFilePath;
+    }
 
-    public void setTaskListFilePath(String newTaskListFilePath) {
-        this.taskListFilePath = newTaskListFilePath;
+    public void setTaskListFilePathAndName(String newTaskListFilePathAndName) {
+        String[] pathName = newTaskListFilePathAndName.split("/");
+        this.taskListFilePath = "";
+        for (int i=0; i<pathName.length-2; i++) {
+            this.taskListFilePath += pathName[i] + "/";
+        }
+        this.taskListFilePath += pathName[pathName.length-2];
+        this.taskListFileName = pathName[pathName.length-1];
     }
     
     public void changeTaskListFilePath(String newTaskListFilePath) throws IOException, JAXBException {
-        File oldFile = new File(taskListFilePath);
+        for(String file : this.getTaskListNames()) {
+            moveFile(newTaskListFilePath, file + ".xml");
+        }
+        this.taskListFilePath = newTaskListFilePath;
+        String newConfig = JsonUtil.toJsonString(this);
+        PrintWriter newConfigFileWriter = new PrintWriter(DEFAULT_CONFIG_FILE);
+        newConfigFileWriter.write(newConfig);
+        newConfigFileWriter.close();
+    }
+    
+    public void moveFile(String newTaskListFilePath, String fileName) throws IOException, JAXBException {
+        File oldFile = new File(taskListFilePath + "/" + fileName);
         XmlSerializableTaskList data = XmlUtil.getDataFromFile(oldFile, XmlSerializableTaskList.class);
         oldFile.delete();
         File newFilePath = new File(newTaskListFilePath);
         newFilePath.mkdirs();
-        File newFile = new File(newTaskListFilePath + "/tasklist.xml");
+        File newFile = new File(newTaskListFilePath + "/" + fileName);
         newFile.createNewFile();
         XmlUtil.saveDataToFile(newFile, data);
-        this.taskListFilePath = newTaskListFilePath + "/tasklist.xml";
+    }
+    
+    private void checkNameInTasklists(String tasklistFileName) {
+        for (String file : this.getTaskListNames()) {
+            if (file.equals(tasklistFileName)) {
+                return;
+            }
+        }
+        this.taskListFileNames += ", " + tasklistFileName;
+    }
+    
+    public void switchToNewTaskList(String tasklistFileName) throws IOException {
+        checkNameInTasklists(tasklistFileName);
+        this.taskListFileName = tasklistFileName + ".xml";
         String newConfig = JsonUtil.toJsonString(this);
         PrintWriter newConfigFileWriter = new PrintWriter(DEFAULT_CONFIG_FILE);
         newConfigFileWriter.write(newConfig);
         newConfigFileWriter.close();
     }
 
+    /**
+     * return the current tasklist's file name.
+     * */
     public String getTaskListName() {
         return taskListName;
     }
 
     public void setTaskListName(String taskListName) {
         this.taskListName = taskListName;
+    }
+    
+    public void setTaskListFileName(String taskListFileName) {
+        this.taskListFileName = taskListFileName;
+    }
+    
+    public void setTaskListFileNames(String taskListFileNames) {
+        this.taskListFileNames = taskListFileNames;
+    }
+    
+    public String[] getTaskListNames() {
+        return this.taskListFileNames.split(", ");
     }
 
 
@@ -103,12 +156,13 @@ public class Config {
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
                 && Objects.equals(taskListFilePath, o.taskListFilePath)
+                && Objects.equals(taskListFileName, o.taskListFileName)
                 && Objects.equals(taskListName, o.taskListName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskListFilePath, taskListName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, taskListFilePath, taskListFileName, taskListName);
     }
 
     @Override
@@ -117,7 +171,7 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + taskListFilePath);
+        sb.append("\nLocal data file location : " + taskListFilePath + "/" + taskListFileName);
         sb.append("\nTaskList name : " + taskListName);
         return sb.toString();
     }

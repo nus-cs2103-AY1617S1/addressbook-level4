@@ -2,6 +2,8 @@
   "appTitle" : "Typical App Title",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
-  "taskListFilePath" : "tasklist.xml",
-  "taskListName" : "TypicalTaskListName"
+  "taskListFilePath" : "",
+  "taskListFileName" : "tasklist.xml",
+  "taskListName" : "TypicalTaskListName",
+  "taskListFileNames" : "tasklist"
 }

@@ -5,11 +5,12 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import teamfour.tasc.model.*;
 import teamfour.tasc.commons.core.Config;
 import teamfour.tasc.commons.core.EventsCenter;
 import teamfour.tasc.commons.core.LogsCenter;
 import teamfour.tasc.commons.core.Version;
+import teamfour.tasc.commons.events.storage.FileRelocateEvent;
+import teamfour.tasc.commons.events.storage.RequestTaskListSwitchEvent;
 import teamfour.tasc.commons.events.ui.ExitAppRequestEvent;
 import teamfour.tasc.commons.exceptions.DataConversionException;
 import teamfour.tasc.commons.util.ConfigUtil;
@@ -46,7 +47,7 @@ public class MainApp extends Application {
     protected Logic logic;
     protected Model model;
     protected UserPrefs userPrefs;
-    protected static Config config;
+    protected Config config;
     protected Storage storage;
     private static String newTaskListFilePath;
 
@@ -58,9 +59,8 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        newTaskListFilePath = config.getTaskListFilePath().split("/tasklist.xml")[0];
-        storage = new StorageManager(config.getTaskListFilePath(), config.getUserPrefsFilePath());
-
+        newTaskListFilePath = config.getTaskListFilePath();
+        storage = new StorageManager(config.getTaskListFilePathAndName(), config.getUserPrefsFilePath());
         userPrefs = initPrefs(config);
 
         initLogging(config);
@@ -73,21 +73,13 @@ public class MainApp extends Application {
 
         initEventsCenter();
     }
-    
-    public static void setDataStorageFilePath(String newPath) throws IOException, JAXBException {
-        newTaskListFilePath = newPath;
-    }
-    
-    public static String getDataStorageFilePath() {
-        return newTaskListFilePath;
-    }
 
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();
         return applicationParameters.get(parameterName);
     }
 
-    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
+    private static Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyTaskList> taskListOptional;
         ReadOnlyTaskList initialData;
         try {
@@ -187,11 +179,8 @@ public class MainApp extends Application {
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
-            config.changeTaskListFilePath(newTaskListFilePath);
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
-        } catch (JAXBException e) {
-            logger.severe("Failed to transfer data to new destination " + StringUtil.getDetails(e));
         }
         Platform.exit();
         System.exit(0);
@@ -201,6 +190,37 @@ public class MainApp extends Application {
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
+    }
+    
+    public void setDataStorageFilePath(String newPath) throws IOException, JAXBException, DataConversionException {
+        newTaskListFilePath = newPath;
+        config.changeTaskListFilePath(newTaskListFilePath);
+        storage.changeTaskListStorage(config.getTaskListFilePathAndName());
+    }
+    
+    public static String getDataStorageFilePath() {
+        return newTaskListFilePath;
+    }
+    
+    @Subscribe
+    public void handleFileRelocateEvent(FileRelocateEvent event) 
+            throws IOException, JAXBException, DataConversionException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        setDataStorageFilePath(event.getDestination());
+    }
+    
+    public void switchList() {
+//        TODO: implement switchList()
+//        use config.getTaskListName() to get the tasklist file name to be switched to.
+        this.stop();
+    }
+    
+    @Subscribe
+    public void handleRequestTaskListSwitchEvent(RequestTaskListSwitchEvent event) throws IOException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        config.switchToNewTaskList(event.getFilename());
+        // After this line, config is updated.
+        switchList();
     }
 
     public static void main(String[] args) {

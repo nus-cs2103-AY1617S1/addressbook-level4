@@ -441,7 +441,11 @@ are stored, to another location. For example, you want to move your task list in
 your Dropbox folder so that you can access it on another computer. Presuming your Dropbox
 folder is at `/dropbox/`, you may do so by typing:
 
-`relocate /dropbox/tasklist/`
+`relocate dropbox/tasklist`
+
+> **Tip:**<br>
+> enter `relocate` without designated path and the app will relocate the
+> file to the original path.
 
 <br>
 In general, you may use this format to relocate your data to different location.
