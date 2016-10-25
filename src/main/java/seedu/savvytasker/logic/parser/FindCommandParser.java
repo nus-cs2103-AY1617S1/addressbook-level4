@@ -6,7 +6,6 @@ import java.util.regex.Pattern;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.FindCommand;
-import seedu.savvytasker.logic.commands.models.FindCommandModel;
 import seedu.savvytasker.model.task.FindType;
 
 public class FindCommandParser implements CommandParser<FindCommand> {
@@ -41,7 +40,7 @@ public class FindCommandParser implements CommandParser<FindCommand> {
             String[] keywords = parseKeywords(matcher.group(REGEX_REF_KEYWORDS_BEFORE_TYPE),
                     matcher.group(REGEX_REF_KEYWORDS_AFTER_TYPE));
             
-            return new FindCommand(new FindCommandModel(findType, keywords));
+            return new FindCommand(findType, keywords);
         }
         
         throw new ParseException(commandText, String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, getRequiredFormat()));

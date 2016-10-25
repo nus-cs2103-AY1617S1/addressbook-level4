@@ -1,7 +1,6 @@
 package seedu.savvytasker.logic.commands;
 
 import seedu.savvytasker.logic.Logic;
-import seedu.savvytasker.logic.commands.models.AliasCommandModel;
 import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.alias.DuplicateSymbolKeywordException;
 import seedu.savvytasker.model.alias.SymbolKeywordNotFoundException;
@@ -22,22 +21,24 @@ public class AliasCommand extends ModelRequiringCommand {
     public static final String MESSAGE_DUPLICATE_ALIAS = "This alias is already in use";
     public static final String MESSAGE_INVALID_KEYWORD = "Unable to use a command name as a keyword!";
 
-    private AliasCommandModel commandModel;
     private Logic logic;
+    private final String keyword;
+    private final String representingText;
     /**
      * Creates an alias command
      */
-    public AliasCommand(AliasCommandModel commandModel) {
-        assert commandModel != null;
-        this.commandModel = commandModel;
+    public AliasCommand(String keyword, String representingText) {
+        assert keyword != null;
+        assert representingText != null;
+        this.keyword = keyword;
+        this.representingText = representingText;
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
 
-        AliasSymbol toAdd = new AliasSymbol(commandModel.getKeyword(),
-                commandModel.getRepresentingText());
+        AliasSymbol toAdd = new AliasSymbol(keyword, representingText);
         
         if (logic.canParseHeader(toAdd.getKeyword())) {
             return new CommandResult(MESSAGE_INVALID_KEYWORD);
@@ -90,7 +91,7 @@ public class AliasCommand extends ModelRequiringCommand {
         
         AliasSymbol toRemove = null;
         for(AliasSymbol symbol : model.getSavvyTasker().getReadOnlyListOfAliasSymbols()) {
-            if (symbol.getKeyword().equals(this.commandModel.getKeyword())) {
+            if (symbol.getKeyword().equals(this.keyword)) {
                 toRemove = symbol;
                 break;
             }

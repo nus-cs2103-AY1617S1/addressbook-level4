@@ -1,7 +1,6 @@
 package seedu.savvytasker.logic.commands;
 
 import seedu.savvytasker.commons.exceptions.IllegalValueException;
-import seedu.savvytasker.logic.commands.models.UnaliasCommandModel;
 import seedu.savvytasker.model.alias.AliasSymbol;
 import seedu.savvytasker.model.alias.DuplicateSymbolKeywordException;
 import seedu.savvytasker.model.alias.SymbolKeywordNotFoundException;
@@ -21,7 +20,7 @@ public class UnaliasCommand extends ModelRequiringCommand {
     public static final String MESSAGE_SUCCESS = "Alias removed: %1$s";
     public static final String MESSAGE_UNREGOGNIZED_ALIAS = "This alias is not in use";
 
-    private UnaliasCommandModel commandModel;
+    private final String keyword;
     private AliasSymbol toUndo;
     
     /**
@@ -29,9 +28,8 @@ public class UnaliasCommand extends ModelRequiringCommand {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public UnaliasCommand(UnaliasCommandModel commandModel) {
-        assert commandModel != null;
-        this.commandModel = commandModel;
+    public UnaliasCommand(String keyword) {
+        this.keyword = keyword;
         this.toUndo = null;
     }
 
@@ -41,7 +39,7 @@ public class UnaliasCommand extends ModelRequiringCommand {
         
         AliasSymbol toRemove = null;
         for(AliasSymbol symbol : model.getSavvyTasker().getReadOnlyListOfAliasSymbols()) {
-            if (symbol.getKeyword().equals(this.commandModel.getKeyword())) {
+            if (symbol.getKeyword().equals(this.keyword)) {
                 toRemove = symbol;
                 break;
             }

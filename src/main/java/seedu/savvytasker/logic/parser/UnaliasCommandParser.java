@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.UnaliasCommand;
-import seedu.savvytasker.logic.commands.models.UnaliasCommandModel;
 
 public class UnaliasCommandParser implements CommandParser<UnaliasCommand> {
     private static final String HEADER = "unalias";
@@ -37,7 +36,7 @@ public class UnaliasCommandParser implements CommandParser<UnaliasCommand> {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
             String keyword = parseKeyword(matcher.group(REGEX_REF_KEYWORD));
-            return new UnaliasCommand(new UnaliasCommandModel(keyword));
+            return new UnaliasCommand(keyword);
         }
 
         throw new ParseException(commandText, String.format(

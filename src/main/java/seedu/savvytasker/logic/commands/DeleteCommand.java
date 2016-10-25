@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
-import seedu.savvytasker.logic.commands.models.DeleteCommandModel;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
 import seedu.savvytasker.model.SavvyTasker;
 import seedu.savvytasker.model.task.ReadOnlyTask;
@@ -27,15 +26,13 @@ public class DeleteCommand extends ModelRequiringCommand {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s\n";
 
-    public final DeleteCommandModel commandModel;
     //private LinkedList<Task> tasksToUndo = new LinkedList<Task>();
     private ReadOnlySavvyTasker original;
+    private final int[] targetIndices;
     
-    public DeleteCommand(DeleteCommandModel commandModel) {
-        assert (commandModel != null);
-        this.commandModel = commandModel;
+    public DeleteCommand(int[] targetIndices) {
+        this.targetIndices = targetIndices;
     }
-
 
     @Override
     public CommandResult execute() {
@@ -43,7 +40,7 @@ public class DeleteCommand extends ModelRequiringCommand {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         LinkedList<ReadOnlyTask> tasksToDelete = new LinkedList<ReadOnlyTask>();
-        for(int targetIndex : commandModel.getTargetIndex()) {
+        for(int targetIndex : this.targetIndices) {
             if (lastShownList.size() < targetIndex || targetIndex <= 0) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);

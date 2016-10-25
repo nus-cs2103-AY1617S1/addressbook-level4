@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.DeleteCommand;
-import seedu.savvytasker.logic.commands.models.DeleteCommandModel;
 
 public class DeleteCommandParser implements CommandParser<DeleteCommand> {
     private static final String HEADER = "delete";
@@ -33,8 +32,7 @@ public class DeleteCommandParser implements CommandParser<DeleteCommand> {
         Matcher matcher = REGEX_PATTERN.matcher(commandText);
         if (matcher.matches()) {
             int[] indices = parseIndices(matcher.group(REGEX_REF_INDICES));
-            
-            return new DeleteCommand(new DeleteCommandModel(indices));
+            return new DeleteCommand(indices);
         }
 
         throw new ParseException(commandText, String.format(

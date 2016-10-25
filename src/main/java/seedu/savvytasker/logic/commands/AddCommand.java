@@ -1,8 +1,12 @@
 package seedu.savvytasker.logic.commands;
 
+import java.util.Date;
+
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
-import seedu.savvytasker.logic.commands.models.AddCommandModel;
+import seedu.savvytasker.logic.parser.DateParser.InferredDate;
+import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.ReadOnlyTask;
+import seedu.savvytasker.model.task.RecurrenceType;
 import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
@@ -23,19 +27,47 @@ public class AddCommand extends ModelRequiringCommand {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the task list";
 
-    private final Task toAdd;
+    private final String taskName;
+    private final InferredDate startDateTime;
+    private Date inferredStart;
+    private final InferredDate endDateTime;
+    private Date inferredEnd;
+    private final String location;
+    private final PriorityLevel priority;
+    private final RecurrenceType recurringType;
+    private final Integer numberOfRecurrence;
+    private final String category;
+    private final String description;
+    
+    private Task toAdd;
 
     /**
      * Creates an add command.
      */
-    public AddCommand(AddCommandModel commandModel) {
+    public AddCommand(String taskName, InferredDate startDateTime, InferredDate endDateTime,
+            String location, PriorityLevel priority, RecurrenceType recurringType, 
+            Integer numberOfRecurrence, String category, String description) {
+        this.taskName = taskName;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.location = location;
+        this.priority = priority;
+        this.recurringType = recurringType;
+        this.numberOfRecurrence = numberOfRecurrence;
+        this.category = category;
+        this.description = description;
+        
+        createTask();
+    }
+    
+    private void createTask() {
         final boolean isArchived = false;   // all tasks are first added as active tasks
         final int taskId = 0;               // taskId to be assigned by ModelManager, leave as 0
-        this.toAdd = new Task(taskId, commandModel.getTaskName(),
-                commandModel.getStartDateTime(), commandModel.getEndDateTime(),
-                commandModel.getLocation(), commandModel.getPriority(),
-                commandModel.getRecurringType(), commandModel.getNumberOfRecurrence(),
-                commandModel.getCategory(), commandModel.getDescription(), isArchived);
+        
+        //TODO: Smart defaults for date
+        this.toAdd = new Task(taskId, taskName, inferredStart, inferredEnd,
+                location, priority, recurringType, numberOfRecurrence,
+                category, description, isArchived);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package seedu.savvytasker.logic.commands;
 
-import seedu.savvytasker.logic.commands.models.ListCommandModel;
 import seedu.savvytasker.model.task.ListType;
 
 /**
@@ -17,26 +16,25 @@ public class ListCommand extends ModelRequiringCommand {
     
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
-    private final ListCommandModel commandModel;
+    private final ListType listType;
     
     /**
      * Creates the List command to list the specified tasks
      * @author A0139915W
      * @param commandModel Arguments for the List command, must not be null
      */
-    public ListCommand(ListCommandModel commandModel) {
-        assert commandModel != null;
-        this.commandModel = commandModel;
+    public ListCommand(ListType listType) {
+        this.listType = listType;
     }
 
     @Override
     public CommandResult execute() {
-        ListType listType = commandModel.getListType();
+        ListType _listType = listType;
         if (listType == null) {
             // use default, sort by due date
-            listType = ListType.DueDate;
+            _listType = ListType.DueDate;
         }
-        switch (listType)
+        switch (_listType)
         {
         case DueDate:
             model.updateFilteredListToShowActiveSortedByDueDate();

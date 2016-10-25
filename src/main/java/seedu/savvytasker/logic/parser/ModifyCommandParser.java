@@ -5,7 +5,6 @@ import java.util.regex.Pattern;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.logic.commands.ModifyCommand;
-import seedu.savvytasker.logic.commands.models.ModifyCommandModel;
 import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.RecurrenceType;
@@ -69,11 +68,10 @@ public class ModifyCommandParser implements CommandParser<ModifyCommand> {
             String category = TASK_PARSER.parseCategory(matcher.group(REGEX_REF_CATEGORY));
             String description = TASK_PARSER.parseDescription(matcher.group(REGEX_REF_DESCRIPTION));
             
-            return new ModifyCommand(
-                    new ModifyCommandModel(index, taskName, startDate, 
+            return new ModifyCommand(index, taskName, startDate, 
                             endDate, location, priority, 
                             recurrence, nrOfRecurrence, 
-                            category, description));
+                            category, description);
         }
         
         throw new ParseException(commandText, String.format(

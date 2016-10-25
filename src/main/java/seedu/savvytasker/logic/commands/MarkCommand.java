@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
-import seedu.savvytasker.logic.commands.models.MarkCommandModel;
 import seedu.savvytasker.model.ReadOnlySavvyTasker;
 import seedu.savvytasker.model.SavvyTasker;
 import seedu.savvytasker.model.task.ReadOnlyTask;
@@ -25,12 +24,11 @@ public class MarkCommand extends ModelRequiringCommand {
     public static final String MESSAGE_MARK_TASK_SUCCESS = "Marked Task: %1$s\n";
     public static final String MESSAGE_MARK_TASK_FAIL = "Task is already marked!\n";
     
-    public final MarkCommandModel commandModel;
+    public final int[] targetIndices;
     private ReadOnlySavvyTasker original;
     
-    public MarkCommand(MarkCommandModel commandModel) {
-        assert (commandModel != null);
-        this.commandModel = commandModel;
+    public MarkCommand(int[] targetIndices) {
+        this.targetIndices = targetIndices;
     }
 
     @Override
@@ -39,7 +37,7 @@ public class MarkCommand extends ModelRequiringCommand {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         LinkedList<Task> tasksToMark = new LinkedList<Task>();
-        for(int targetIndex : commandModel.getTargetIndex()) {
+        for(int targetIndex : targetIndices) {
             if (lastShownList.size() < targetIndex || targetIndex <= 0) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
