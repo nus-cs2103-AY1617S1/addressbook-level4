@@ -14,7 +14,7 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists specified type of task to Malitio\n" +
             "Parameters: [events|deadlines|tasks] [DATETIME]\n" +
-            "Example: " + COMMAND_WORD + " deadlines " + "22102016 0000";
+            "Example: " + COMMAND_WORD + " deadlines " + "sunday midnight";
 
     public static final String ALL_MESSAGE_SUCCESS = "Listed all tasks";
     public static final String TASK_MESSAGE_SUCCESS = "Listed floating tasks";
