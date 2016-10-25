@@ -70,7 +70,7 @@ public class Parser {
     private static final Prefix endDatePrefix = new Prefix("ed/");
     private static final Prefix endTimePrefix = new Prefix("et/");
     private static final Prefix endDateTimePrefix = new Prefix("edt/");
-    private static final Prefix tagsPrefix = new Prefix("#");
+    private static final Prefix tagPrefix = new Prefix("#");
     private static final String removeTagPrefixString = "-";
     
     private static final int PARSEDATETIME_ARRAY_DATE_INDEX = 0;
@@ -398,76 +398,22 @@ public class Parser {
                 String editCommandArgs = matcher.group("editCommandArguments");
                 ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, startDatePrefix, startTimePrefix, 
                                                                         startDateTimePrefix, endDatePrefix, endTimePrefix,
-                                                                        endDateTimePrefix, tagsPrefix);
+                                                                        endDateTimePrefix, tagPrefix);
                 logger.fine("In prepareEdit, before tokenize");
                 argsTokenizer.tokenize(editCommandArgs);
                 
-                String name = null;
-                String startDate = null;
-                String startTime = null;
-                String endDate = null;
-                String endTime = null;
-                String startDateTime = null;
-                String endDateTime = null;
-                List<String> tagsToAdd = null;
-                List<String> tagsToRemove = null;
                 
                 //Capture argument values into their respective variables if available
-                try {
-                    name = argsTokenizer.getValue(namePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    startDate = argsTokenizer.getValue(startDatePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    startTime = argsTokenizer.getValue(startTimePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    endDate = argsTokenizer.getValue(endDatePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    endTime = argsTokenizer.getValue(endTimePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    startDateTime = argsTokenizer.getValue(startDateTimePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    endDateTime = argsTokenizer.getValue(endDateTimePrefix).get();
-                } catch (NoSuchElementException nsee) {
-                }
-                try {
-                    List<String> tags = argsTokenizer.getAllValues(tagsPrefix).orElse(null);
-                    
-                    logger.info("Before remove tags check");
-                    if (tags != null) {
-                        for (String tag : tags) {
-                            if (tag.length() > 0) {
-                                if (isATagToBeRemoved(tag)) {
-                                    if (tagsToRemove == null) {
-                                        tagsToRemove = new ArrayList<String>();
-                                    }
-                                    
-                                    assert tagsToRemove instanceof ArrayList<?>;
-                                    tagsToRemove.add(processTagToBeRemoved(tag));
-                                } else {
-                                    if (tagsToAdd == null) {
-                                        tagsToAdd = new ArrayList<String>();
-                                    }
-                                    
-                                    assert tagsToAdd instanceof ArrayList<?>;
-                                    tagsToAdd.add(tag);
-                                }
-                            }
-                        }
-                    }
-                } catch (NoSuchElementException nsee) {
-                }
+                String name = getParsedArgumentFromArgumentTokenizer(argsTokenizer, namePrefix);
+                String startDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDatePrefix);
+                String startTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startTimePrefix);
+                String endDate = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDatePrefix);
+                String endTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endTimePrefix);
+                String startDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, startDateTimePrefix);
+                String endDateTime = getParsedArgumentFromArgumentTokenizer(argsTokenizer, endDateTimePrefix);
+                List<String> tagsToAdd = getParsedTagsToAddFromArgumentTokenizer(argsTokenizer, tagPrefix);
+                List<String> tagsToRemove = getParsedTagsToRemoveFromArgumentTokenizer(argsTokenizer, tagPrefix);
+                
                 
                 try {
                     
@@ -498,33 +444,66 @@ public class Parser {
         return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
-    //@@author
-    
     /**
-     * Parses argument in the context of the saveAs specified file command.
-     * @param arguments full argument args string
-     * @return the prepared command
+     * @param argsTokenizer
+     * @param argumentPrefix
+     * @return parsed argument value
      */
-    private Command prepareSave(String args) {
-        args = args.trim();
-        if(parseSaveCommandFormat(args)) {
-            return new SaveCommand(args);
-        }
-        
-        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
+    private String getParsedArgumentFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix argumentPrefix) {
+        try {
+            return argsTokenizer.getValue(argumentPrefix).get();
+        } catch (NoSuchElementException nsee) { 
+            return null;
+        } 
     }
 
     /**
-     * Checks valid file path is given as argument for SaveCommand.
-     * @param args parameter input by user for save command
-     * @return true if parameter is valid
+     * @param argsTokenizer
+     * @param tagPrefix
+     * @return list of parsed tags
      */
-    private boolean parseSaveCommandFormat(String args) {
-        return !args.equals("") && args.endsWith(".xml");
+    private List<String> getParsedTagsToRemoveFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix tagPrefix) {
+        try {
+            List<String> tags = argsTokenizer.getAllValues(tagPrefix).orElse(null);
+            List<String> tagsToRemove = new ArrayList<String>();
+            
+            logger.fine("Before remove tags check");
+            if (tags != null) {
+                for (String tag : tags) {
+                    if (tag.length() > 0 && isATagToBeRemoved(tag)) {                            
+                        tagsToRemove.add(processTagToBeRemoved(tag));
+                    }
+                }
+            }
+            return tagsToRemove;
+        } catch (NoSuchElementException nsee) {
+            return null;
+        }
     }
     
+    /**
+     * @param argsTokenizer
+     * @param tagPrefix
+     * @return list of parsed tags
+     */
+    private List<String> getParsedTagsToAddFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix tagPrefix) {
+        try {
+            List<String> tags = argsTokenizer.getAllValues(tagPrefix).orElse(null);
+            List<String> tagsToAdd = new ArrayList<String>();
+            
+            if (tags != null) {
+                for (String tag : tags) {
+                    if (tag.length() > 0 && !isATagToBeRemoved(tag)) {                            
+                        tagsToAdd.add(tag);
+                    }
+                }
+            }
+            return tagsToAdd;
+        } catch (NoSuchElementException nsee) {
+            return null;
+        }
+    }
     
-    //@@author A0140060A
     /**
      * @param tag
      * @return tag without tag removal prefix
@@ -613,7 +592,30 @@ public class Parser {
         return argument;
     }
     //@@author
+    
+    /**
+     * Parses argument in the context of the saveAs specified file command.
+     * @param arguments full argument args string
+     * @return the prepared command
+     */
+    private Command prepareSave(String args) {
+        args = args.trim();
+        if(parseSaveCommandFormat(args)) {
+            return new SaveCommand(args);
+        }
+        
+        return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SaveCommand.MESSAGE_USAGE));
+    }
 
+    /**
+     * Checks valid file path is given as argument for SaveCommand.
+     * @param args parameter input by user for save command
+     * @return true if parameter is valid
+     */
+    private boolean parseSaveCommandFormat(String args) {
+        return !args.equals("") && args.endsWith(".xml");
+    }
+    
     /**
      * Extracts the new item's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
