@@ -59,6 +59,10 @@ public class Config {
         return taskListFilePath + "/" + taskListFileName;
     }
     
+    public String getTaskListFilePath() {
+        return taskListFilePath;
+    }
+    
     public void setTaskListFilePath(String taskListFilePath) {
         this.taskListFilePath = taskListFilePath;
     }
