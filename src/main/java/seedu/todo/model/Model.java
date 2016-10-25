@@ -5,7 +5,6 @@ import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.exceptions.ValidationException;
-import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.MutableTask;
 import seedu.todo.model.task.Task;
@@ -114,34 +113,20 @@ public interface Model {
 
     //@@author A0135805H
     /**
-     * Constructs a new tag with the given name.
-     * For more details, see
-     * {@link seedu.todo.model.tag.UniqueTagCollectionModel#registerTagWithTask(ImmutableTask, String)}
+     * Adds the supplied list of tags (as tag names) to the specified task.
      *
-     * @param task Task that is associated with this tag.
-     * @param tagName The name of the tag.
-     * @return A tag object.
+     * @param index The task displayed index.
+     * @param tagNames The list of tag names to be added.
+     * @throws ValidationException when the given index is invalid, or the given tagNames contain illegal characters.
      */
-    Tag constructTagWithName(ImmutableTask task, String tagName) throws ValidationException;
+    void addTagsToTask(int index, String[] tagNames) throws ValidationException;
 
     /**
-     * Notifies the {@link seedu.todo.model.tag.UniqueTagCollectionModel} that the tag is deleted from the given task.
-     * For more details, see
+     * Deletes a list of tags from the specified task.
      *
-     * @param task
-     * @param tagName
-     * @return
-     * @throws ValidationException
+     * @param index The task displayed index.
+     * @param tagNames The list of tag names to be deleted.
+     * @throws ValidationException when the given index is invalid, or when there is duplicates.
      */
-    Tag deleteTaskWithName(ImmutableTask task, String tagName) throws ValidationException;
-
-    /**
-     * Checks if the supplied tag name exists.
-     */
-    boolean doesTagExist(String tagName);
-
-    /**
-     * Returns an {@link ImmutableTask} with the given {@code displayedIndex}.
-     */
-    ImmutableTask getTask(int displayedIndex) throws ValidationException;
+    void deleteTagsFromTask(int index, String[] tagNames) throws ValidationException;
 }
