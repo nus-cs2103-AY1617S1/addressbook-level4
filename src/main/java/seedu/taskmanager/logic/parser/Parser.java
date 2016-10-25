@@ -507,7 +507,7 @@ public class Parser {
             return null;
         }
     }
-    
+
     /**
      * @param tag
      * @return tag without tag removal prefix

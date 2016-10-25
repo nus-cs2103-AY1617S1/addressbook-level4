@@ -48,6 +48,12 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         targetIndexes[1] = targetIndexes[0] + 1;
         assertDeleteSuccess(targetIndexes, currentList);
         
+        // delete invalid indexes
+        currentList = TestUtil.removeItemsFromList(currentList, targetIndexes);
+        targetIndexes[0] = currentList.length + 1;
+        targetIndexes[1] = targetIndexes[0] + 1;
+        commandBox.runCommand("delete " + targetIndexes[0] + " " + targetIndexes[1]);
+        assertResultMessage(MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
 
         //invalid index
         commandBox.runCommand("delete " + (currentList.length + 1));
