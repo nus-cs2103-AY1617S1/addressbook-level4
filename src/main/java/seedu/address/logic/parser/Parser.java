@@ -256,6 +256,11 @@ public class Parser {
 					endDateTime = DateParser.parse(date + " " + endTime);
 					
 					System.out.println("startDateTime: " + startDateTime.toString());
+					
+					if(startDateTime.isAfter(endDateTime)){
+						return new IncorrectCommand(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+					}
+					
 				} catch (ParseException e) {
 					// TODO better command
 					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -286,6 +291,11 @@ public class Parser {
 				try {
 					startDateTime = DateParser.parse(startDayAndTime);
 					endDateTime = DateParser.parse(endDayAndTime);
+					
+					if(startDateTime.isAfter(endDateTime)){
+						return new IncorrectCommand(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+					}
+					
 				} catch (ParseException e) {
 					// TODO better command
 					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
@@ -547,6 +557,11 @@ public class Parser {
 			}
 		}
 		
+		if(startDateTime!=null && endDateTime!=null){
+			if(startDateTime.isAfter(endDateTime)){
+				return new IncorrectCommand(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+			}
+		}
 
 		try {
 			return new EditCommand(Integer.parseInt(index), newName, startDateTime, endDateTime);

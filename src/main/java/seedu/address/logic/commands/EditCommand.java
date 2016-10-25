@@ -25,7 +25,9 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 'chill for the day'";
  
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "Edit will result in duplicate tasks in task manager";
+    public static final String MESSAGE_DUPLICATE_TASK = "Edit will result in duplicate tasks in task manager";   
+    public static final String MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME = 
+    		"Start of event is scheduled after end of event. Please re-enter correct start and end dates/times.\n";
 
 
     public final int targetIndex;
@@ -72,7 +74,25 @@ public class EditCommand extends Command {
             if(newName.isPresent()) {
         	    postEdit.setName(newName.get());
             }
-        	
+            
+            if(newStartDateTime.isPresent() && !newEndDateTime.isPresent()){
+            	LocalDateTime startDateTime = newStartDateTime.get();
+            	LocalDateTime endDateTime = taskToEdit.getEndDate().get();
+            	
+            	if(startDateTime.isAfter(endDateTime)){
+            		return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+            	}            	
+            }
+            
+            if(!newStartDateTime.isPresent() && newEndDateTime.isPresent()){
+            	LocalDateTime startDateTime = taskToEdit.getStartDate().get();
+            	LocalDateTime endDateTime = newEndDateTime.get();
+            	
+            	if(startDateTime.isAfter(endDateTime)){
+            		return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+            	}      
+            }
+                        
             if(newStartDateTime.isPresent()) {
                 postEdit.setStartDate(newStartDateTime.get());
             }
@@ -80,6 +100,8 @@ public class EditCommand extends Command {
             if(newEndDateTime.isPresent()) {
                 postEdit.setEndDate(newEndDateTime.get());
             }
+            
+
         	
             if(lastShownList.contains(postEdit)) {
                 model.loadPreviousState();
