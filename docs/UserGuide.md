@@ -130,6 +130,7 @@ Adds a new task to the todo or deadlines list, or a new event to the event calen
 
 > Depending on the input format, the task will be saved into 1 of 3 categories: `todo`, `deadline` or `event`.
 
+<!-- @@author A0130853L -->
 Examples:
 
 * `add study for test`<br>
@@ -143,8 +144,7 @@ Examples:
 * `add walk dog 5 Nov 2016 17:00 to 18:00`<br>
   Adds an `event` task with NAME as `walk dog`, DATE as `5 Nov 2016`, START\_TIME as `17:00`, END\_TIME as `18:00`.<br>
   <img src="images/UIevent.png" width="900">
-
-<!-- @@author A0130853L -->
+  
 
 <br>
 #### Find tasks: `find`
@@ -265,22 +265,22 @@ Example:
 <br>
 <!-- @@author -->
 <!-- @@author A0130853L -->
-#### Clearing all entries : `clear`
+#### Clear all entries : `clear`
 Clears all tasks from the task manager.<br>
 Format: `clear`  
 <img src="images/UIclear.png" width="900">
 
 <br>
-<!-- @@author -->
-#### Exiting the program : `exit`
+#### Exit the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
 <br>
-#### Saving the data 
+#### Save task manager data 
 Task manager data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
+<!-- @@author -->
 <br>
 ## FAQ
 
