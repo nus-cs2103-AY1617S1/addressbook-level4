@@ -95,6 +95,9 @@ public class Parser {
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
+        case UndoCommand.COMMAND_WORD:
+            return new UndoCommand();
+            
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 

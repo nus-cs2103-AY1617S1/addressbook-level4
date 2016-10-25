@@ -2,6 +2,8 @@ package seedu.flexitrack.logic.commands;
 
 import static seedu.flexitrack.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Stack;
+
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.commons.core.UnmodifiableObservableList;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
@@ -30,6 +32,8 @@ public class EditCommand extends Command {
     public final int targetIndex;
     public final String[] arguments;
 
+    private static Stack<ReadOnlyTask> storeDataChanged = new Stack<ReadOnlyTask>(); 
+    
     public EditCommand(int targetIndex, String[] arguments) {
         this.targetIndex = targetIndex;
         this.arguments = arguments;
@@ -53,9 +57,16 @@ public class EditCommand extends Command {
         } catch (IllegalValueException ive) {
             assert false : "Illegal value entered";
         }
+        
+//        storeDataChanged.add();
+        recordCommand("unmark"); 
 
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, lastShownList.get(targetIndex - 1).getName())
                 + "\n" + duration);
     }
-
+    
+    @Override
+    //TODO: to be implemented
+    public void executeUndo() {
+    }
 }

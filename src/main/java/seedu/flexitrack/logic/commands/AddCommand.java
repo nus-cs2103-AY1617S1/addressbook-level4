@@ -8,6 +8,7 @@ import seedu.flexitrack.model.task.UniqueTaskList.DuplicateTaskException;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * Adds a task to the FlexiTrack.
@@ -15,9 +16,7 @@ import java.util.Set;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-    
     public static final String COMMAND_SHORTCUT = "a";
-    
 
     public static final String MESSAGE_USAGE = COMMAND_WORD  + ", Shortcut [" + COMMAND_SHORTCUT + "]" + ": Adds a task to the FlexiTrack.\n"
             + "1. Add Floating Task - Parameters to add an Floating Task: [task title]\n" + "\tExample: " + COMMAND_WORD
@@ -29,6 +28,8 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the FlexiTrack";
+    
+    static Stack<ReadOnlyTask> storeDataChanged = new Stack<ReadOnlyTask>(); 
 
     private final Task toAdd;
 
@@ -53,6 +54,8 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
+            storeDataChanged.add(toAdd);
+            recordCommand("add"); 
             if (toAdd.getIsEvent()) {
                 return new CommandResult((String.format(MESSAGE_SUCCESS, toAdd)) + "\n" + DateTimeInfo
                         .durationOfTheEvent(toAdd.getStartTime().toString(), toAdd.getEndTime().toString()));
@@ -63,6 +66,11 @@ public class AddCommand extends Command {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
+    }
+
+    @Override
+    //TODO: to be implemented 
+    public void executeUndo() {
     }
 
 }
