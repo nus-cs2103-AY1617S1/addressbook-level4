@@ -13,7 +13,9 @@ public class UndoCommand extends Command {
     
     public UndoCommand() {}
 
-    public UndoCommand(String args) {}
+    public static UndoCommand createFromArgs(String args) {
+        return new UndoCommand();
+    }
     
     @Override
     public CommandResult execute() {

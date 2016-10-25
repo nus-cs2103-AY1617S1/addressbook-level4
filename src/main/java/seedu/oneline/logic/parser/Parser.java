@@ -5,6 +5,7 @@ import static seedu.oneline.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
@@ -81,14 +82,17 @@ public class Parser {
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
         Class<? extends Command> cmdClass = COMMAND_CLASSES.get(commandWord);
+        Method method = null;
         try {
-            Constructor<? extends Command> constructor = cmdClass.getConstructor(String.class);
-            Command cmd = constructor.newInstance(arguments);
-            return cmd;
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                | NoSuchMethodException | SecurityException e) {
-            e.printStackTrace();
-            assert false : "Every command constructor should have a Class(String args) constructor";
+            method = cmdClass.getMethod("createFromArgs", String.class);
+        } catch (NoSuchMethodException | SecurityException e1) {
+            assert false : "Command class should implement \"createFromArgs(String)\".";
+        }
+        try {
+            return (Command) method.invoke(null, arguments);
+        } catch (IllegalAccessException | IllegalArgumentException e) {
+            assert false : e.getClass().toString() + " : " + e.getMessage();
+            assert false : "Command class should implement \"createFromArgs(String)\".";
         } catch (InvocationTargetException e) {
             return new IncorrectCommand(e.getCause().getMessage());
         }

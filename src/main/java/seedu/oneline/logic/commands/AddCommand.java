@@ -29,7 +29,29 @@ public class AddCommand extends Command {
 
     private final Task toAdd;
 
-    public AddCommand(String args) throws IllegalValueException, IllegalCmdArgsException {
+    public AddCommand(Task toAdd) {
+        this.toAdd = toAdd;
+    }
+    
+    /**
+     * Convenience constructor using raw values.
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name, String startTime, String endTime, String deadline, String recurrence, String tag)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        this.toAdd = new Task(
+                new TaskName(name),
+                new TaskTime(startTime),
+                new TaskTime(endTime),
+                new TaskTime(deadline),
+                new TaskRecurrence(recurrence),
+                new Tag(tag)
+        );
+    }
+    
+    public static AddCommand createFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
         Map<TaskField, String> fields = null;
         try {
             fields = Parser.getTaskFieldsFromArgs(args);
@@ -51,34 +73,8 @@ public class AddCommand extends Command {
                                         TaskRecurrence.getDefault();
         Tag newTag = fields.containsKey(TaskField.TAG) ?
                                     new Tag(fields.get(TaskField.TAG)) :
-                                    Tag.getDefault();          
-        
-        this.toAdd = new Task(
-                newName,
-                newStartTime,
-                newEndTime,
-                newDeadline,
-                newRecurrence,
-                newTag
-        );
-    }
-    
-    /**
-     * Convenience constructor using raw values.
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    public AddCommand(String name, String startTime, String endTime, String deadline, String recurrence, String tag)
-            throws IllegalValueException {
-        final Set<Tag> tagSet = new HashSet<>();
-        this.toAdd = new Task(
-                new TaskName(name),
-                new TaskTime(startTime),
-                new TaskTime(endTime),
-                new TaskTime(deadline),
-                new TaskRecurrence(recurrence),
-                new Tag(tag)
-        );
+                                    Tag.getDefault();       
+        return new AddCommand(new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag));
     }
 
     @Override

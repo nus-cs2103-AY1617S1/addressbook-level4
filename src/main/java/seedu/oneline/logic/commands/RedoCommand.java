@@ -11,7 +11,9 @@ public class RedoCommand extends Command {
     
     public RedoCommand() {}
 
-    public RedoCommand(String args) {}
+    public static RedoCommand createFromArgs(String args) {
+        return new RedoCommand();
+    }
     
     @Override
     public CommandResult execute() {

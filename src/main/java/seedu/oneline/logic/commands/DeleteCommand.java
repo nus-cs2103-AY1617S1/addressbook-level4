@@ -24,7 +24,11 @@ public class DeleteCommand extends Command {
 
     public final int targetIndex;
 
-    public DeleteCommand(String args) throws IllegalCmdArgsException {
+    public DeleteCommand(int targetIndex) {
+        this.targetIndex = targetIndex;
+    }
+
+    public static DeleteCommand createFromArgs(String args) throws IllegalCmdArgsException {
         Integer index = null;
         try {
             index = Parser.getIndexFromArgs(args);
@@ -34,13 +38,8 @@ public class DeleteCommand extends Command {
         if (index == null) {
             throw new IllegalCmdArgsException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
-        this.targetIndex = index;
+        return new DeleteCommand(index);
     }
-
-    public DeleteCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
-    }
-
 
     @Override
     public CommandResult execute() {

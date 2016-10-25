@@ -31,13 +31,19 @@ public class EditCommand extends Command {
 
     private final Map<TaskField, String> fields;
 
-    public EditCommand(String args) throws IllegalValueException, IllegalCmdArgsException {
-        Entry<Integer, Map<TaskField, String>> info = Parser.getIndexAndTaskFieldsFromArgs(args);
-        assert info.getValue().containsKey(TaskField.NAME);
-        targetIndex = info.getKey();
-        fields = info.getValue();
+    public EditCommand(int targetIndex, Map<TaskField, String> fields) throws IllegalValueException, IllegalCmdArgsException {
+        this.targetIndex = targetIndex;
+        this.fields = fields;
     }
 
+    public static EditCommand createFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
+        Entry<Integer, Map<TaskField, String>> info = Parser.getIndexAndTaskFieldsFromArgs(args);
+        assert info.getValue().containsKey(TaskField.NAME);
+        int targetIndex = info.getKey();
+        Map<TaskField, String> fields = info.getValue();
+        return new EditCommand(targetIndex, fields);
+    }
+    
     @Override
     public CommandResult execute() {
         assert model != null;

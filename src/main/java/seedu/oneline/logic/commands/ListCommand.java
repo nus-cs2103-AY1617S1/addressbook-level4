@@ -11,9 +11,11 @@ public class ListCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
     public ListCommand() {}
-    
-    public ListCommand(String args) {}
 
+    public static ListCommand createFromArgs(String args) {
+        return new ListCommand();
+    }
+    
     @Override
     public CommandResult execute() {
         model.updateFilteredListToShowAll();

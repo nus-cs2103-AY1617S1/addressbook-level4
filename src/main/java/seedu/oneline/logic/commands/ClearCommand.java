@@ -1,5 +1,7 @@
 package seedu.oneline.logic.commands;
 
+import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
+import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.model.TaskBook;
 
 /**
@@ -12,8 +14,10 @@ public class ClearCommand extends Command {
 
     public ClearCommand() {}
 
-    public ClearCommand(String args) {}
-
+    public static ClearCommand createFromArgs(String args) {
+        return new ClearCommand();
+    }
+    
     @Override
     public CommandResult execute() {
         assert model != null;

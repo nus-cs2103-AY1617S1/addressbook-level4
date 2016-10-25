@@ -24,8 +24,12 @@ public class SelectCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SELECT_TASK_SUCCESS = "Selected Task: %1$s";
+    
+    public SelectCommand(int targetIndex) {
+        this.targetIndex = targetIndex;
+    }
 
-    public SelectCommand(String args) throws IllegalValueException {
+    public static SelectCommand createFromArgs(String args) throws IllegalValueException {
         Integer index = null;
         try {
             index = Parser.getIndexFromArgs(args);
@@ -35,13 +39,9 @@ public class SelectCommand extends Command {
         if (index == null) {
             throw new IllegalValueException(Messages.getInvalidCommandFormatMessage(MESSAGE_USAGE));
         }
-        this.targetIndex = index;
+        return new SelectCommand(index);
     }
     
-    public SelectCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
-    }
-
     @Override
     public CommandResult execute() {
 

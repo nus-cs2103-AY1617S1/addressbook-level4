@@ -18,8 +18,10 @@ public class HelpCommand extends Command {
 
     public HelpCommand() {}
     
-    public HelpCommand(String args) {}
-
+    public static HelpCommand createFromArgs(String args) {
+        return new HelpCommand();
+    }
+    
     @Override
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ShowHelpRequestEvent());
