@@ -97,13 +97,13 @@ public class ToDoListParser {
      */
     private Command prepareAdd(String args) {
         
-        Pattern[] dataPatterns = {  ParserFormats.ADD_TASK_ARGS_PRIORITY_FORMAT_BY, 
+        Pattern[] dataPatterns = {ParserFormats.ADD_TASK_ARGS_PRIORITY_FORMAT_BY, ParserFormats.ADD_TASK_ARGS_PRIORITY_FORMAT_FLOAT,
                 ParserFormats.ADD_TASK_ARGS_PRIORITY_FORMAT_FT, ParserFormats.ADD_TASK_ARGS_PRIORITY_FORMAT_ON,
                 ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_FT, ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_BY, 
                 ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_ON, ParserFormats.ADD_TASK_ARGS_FORMAT_FT, 
                 ParserFormats.ADD_TASK_ARGS_FORMAT_BY, ParserFormats.ADD_TASK_ARGS_FORMAT_ON, 
                 ParserFormats.ADD_TASK_ARGS_FORMAT_FLOAT};
-
+        
         Matcher matcher;
         try {
             for (Pattern p : dataPatterns) {
