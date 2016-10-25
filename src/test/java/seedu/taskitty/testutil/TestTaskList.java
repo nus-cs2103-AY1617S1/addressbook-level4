@@ -64,6 +64,7 @@ public class TestTaskList {
         return getCategoryList(category).get(index);  
     }
     
+    //@@author A0139052L
     public void editTaskFromList(int index, char category, TestTask task) {
         removeTaskFromList(index, category);
         addTaskToList(task);
@@ -108,6 +109,7 @@ public class TestTaskList {
         }
     }
     
+    //@@author
     public void clear() {
         todoList = new ArrayList<TestTask>();
         deadlineList = new ArrayList<TestTask>();
