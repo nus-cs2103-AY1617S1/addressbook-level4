@@ -17,14 +17,15 @@ Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree 
 * Aspects/tools in charge of: Team Lead, Scheduling & Tracking, Deliverables & Deadlines, SourceTree
 * Features implemented:
 	* Edit task / deadline / event (end-to-end)
+	* List uncompleted tasks / deadlines / events
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/main/A0140060A.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/test/A0140060A.md)][docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/collated/docs/A0140060A.md)]
 * Other major contributions:
 	* Initial and follow up refactoring of AddressBook to TaskManager/IvoryTasks (including test data)
-	* Set up Travis and Coveralls
+	* Set up Travis, Coveralls and Codacy
 	* Maintain Issue Tracker and work distribution
 	* Documentation of
-		* Logic Component
-		* User Stories
+		* [Logic Component](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
+		* [User Stories](https://github.com/CS2103AUG2016-T14-C3/main/blob/master/docs/DeveloperGuide.md#logic-component)
 		* Use cases for find/edit commands
 		* Initial morphing of documentation
 

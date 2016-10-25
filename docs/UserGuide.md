@@ -95,7 +95,7 @@
 
 1. Type `f[ind] KEYWORD` where `KEYWORD` is part of the item's name and press `Enter`.
 
-2. App will display a list of items with names containing the keyword in the bottom left pane Console displays the number of items that are listed.
+2. App will display a list of items with names containing the keyword in the bottom left panel.
 
 	>  Example Command: `find CS2105` <br>
 
@@ -183,9 +183,9 @@ For events, you can edit the name and both start and end dates and times.
 
 ### When you need to view the details of your deadlines, tasks and events
 
-1. Type `s[elect] INDEX` and press `Enter`. Alternatively, click on the item in the list in the bottom left pane.
+1. Type `s[elect] INDEX` and press `Enter`. Alternatively, click on the item in the list in the bottom left panel.
 
-2. App will display the item's details in the pane on the right.
+2. App will display the item's details in the panel on the right.
 
 	> Example Command: `select 1`
 	> <div style="text-align:center"><img src="images/appResponses/select_command_response.png" width="300"><br>
@@ -200,6 +200,18 @@ For events, you can edit the name and both start and end dates and times.
 1. Type `l[ist]`. Press `Enter`.
 
 2. Console refreshes with all deadlines, tasks, and events displayed.
+
+[comment]: # (@@author A0140060A)
+
+#### View all uncompleted deadlines, tasks and events
+
+1. Type `l[ist]n[ot]d[one]`. Press `Enter`.
+
+2. App will display all uncompleted items in the bottom left panel.
+
+	> Example Command: `listnotdone`
+
+[comment]: # (@@author )
 
 #### View all tasks
 
@@ -270,6 +282,8 @@ For events, you can edit the name and both start and end dates and times.
 
 # FAQ
 
+[comment]: # (@@author A0140060A)
+
 # Command Summary
 
 Command | Format  | Example
@@ -289,6 +303,7 @@ List all items | `l[ist]` | `list`
 List Tasks | `l[ist]t[ask]` |`lt`
 List Deadlines | `l[ist]d[eadline]` | `ld`
 List Events | `l[ist]e[vent]` | `le`
+List all uncompleted items | `l[ist]n[ot]d[one]` | `lnd`
 Notdone | `n[ot]d[one] INDEX` | `nd 1`
 Redo | `r[edo]` | `redo`
 Select | `s[elect] INDEX` | `select 1`
@@ -297,5 +312,6 @@ Undo | `u[ndo]` | `undo`
 # Credits
 
 This application makes use of the [addressbook-level4](https://github.com/se-edu/addressbook-level4) code provided by the NUS SoC CS2103 Teaching Team.
+
 Libraries used: <br>
 [prettytime](https://github.com/ocpsoft/prettytime)

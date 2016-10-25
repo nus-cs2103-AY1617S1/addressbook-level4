@@ -336,6 +336,10 @@ Use case ends.
 >3b1 TaskManager shows an error message. <br>
 >Use case resumes at step 2.
 
+#### Use case: List all uncompleted tasks / deadlines / events
+1.User requests to list all uncompleted tasks / deadlines / events
+2.TaskManager shows a list of uncompleted tasks / deadlines / events
+
 [comment]: # (@@author )
 
 #### Use case: List all tasks
