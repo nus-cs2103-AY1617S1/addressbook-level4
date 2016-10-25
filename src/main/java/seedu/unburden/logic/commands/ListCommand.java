@@ -31,7 +31,7 @@ public class ListCommand extends Command {
     
     public ListCommand(String done){
     	this.date = null;
-    	this.mode = "done";
+    	this.mode = done;
     }
 
     public ListCommand(String args, String mode) throws ParseException {
@@ -55,6 +55,14 @@ public class ListCommand extends Command {
     		return t.getDone();
     	};
     }
+    
+    public java.util.function.Predicate<? super Task> getAllUndone(){
+    	return t -> {
+    		return !t.getDone();
+    	};
+    }
+    
+    
 
 	@Override
     public CommandResult execute() {
@@ -62,10 +70,13 @@ public class ListCommand extends Command {
 			 model.updateFilteredListToShowAll();
 		}
 		else if(mode.equals("done")){
-			model.updateFilteredListToShowAllDone(getAllDone());
+			model.updateFilteredListToShow(getAllDone());
+		}
+		else if(mode.equals("undone")){
+			model.updateFilteredListToShow(getAllUndone());
 		}
 		else{
-			model.updateFilteredListToShowAllDatesBefore(getAllDatesBefore(date));
+			model.updateFilteredListToShow(getAllDatesBefore(date));
 		}
         return new CommandResult(MESSAGE_SUCCESS);
     }

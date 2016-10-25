@@ -29,7 +29,7 @@ public abstract class ComponentManager {
         eventsCenter.post(event);
     }
 
-	public void updateFilteredListToShowAllDatesBefore(Predicate<? super Task> predicate) {
+	public void updateFilteredListToShow(Predicate<? super Task> predicate) {
 		// TODO Auto-generated method stub
 		
 	}
