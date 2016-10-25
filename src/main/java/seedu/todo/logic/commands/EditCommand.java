@@ -87,7 +87,7 @@ public class EditCommand extends BaseCommand {
             }
         });
         eventBus.post(new HighlightTaskEvent(editedTask)); 
-        if (description.hasBoundValue()){
+        if (description.hasBoundValue()) {
             eventBus.post(new ExpandCollapseTaskEvent(editedTask));
         }
         return taskSuccessfulResult(editedTask.getTitle(), EditCommand.VERB);
