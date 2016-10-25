@@ -32,7 +32,7 @@
                   <RowConstraints maxHeight="121.0" minHeight="30.0" prefHeight="75.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label stylesheets="@CategoryPanel.css" prefHeight="36.0" prefWidth="146.0" text="Overdue">
+                  <Label prefHeight="36.0" prefWidth="146.0" stylesheets="@CategoryPanel.css" text="Overdue">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -46,7 +46,7 @@
                         <Insets left="38.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label stylesheets="@CategoryPanel.css" fx:id="overdueNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1">
+                  <Label fx:id="overdueNo" prefHeight="30.0" prefWidth="74.0" stylesheets="@CategoryPanel.css" text="0" GridPane.columnIndex="1">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -120,7 +120,7 @@
                         <Insets left="40.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label id="upcoming_events_label" stylesheets="@CategoryPanel.css" fx:id="upcomingNo" prefHeight="30.0" prefWidth="74.0" text="0" textFill="#1a00ff" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  <Label id="upcoming_events_label" fx:id="upcomingNo" prefHeight="30.0" prefWidth="74.0" stylesheets="@CategoryPanel.css" text="0" textFill="#1a00ff" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -128,7 +128,7 @@
                         <Insets left="15.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label id="total_tasks_label" stylesheets="@CategoryPanel.css" fx:id="totalNo" prefHeight="30.0" prefWidth="74.0" text="0" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <Label id="total_tasks_label" fx:id="totalNo" prefHeight="30.0" prefWidth="74.0" stylesheets="@CategoryPanel.css" text="0" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -136,7 +136,7 @@
                         <Insets left="15.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label stylesheets="@CategoryPanel.css" fx:id="otherNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Label fx:id="otherNo" prefHeight="30.0" prefWidth="74.0" stylesheets="@CategoryPanel.css" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -144,7 +144,7 @@
                         <Insets left="15.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label stylesheets="@CategoryPanel.css" fx:id="floatingNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <Label fx:id="floatingNo" prefHeight="30.0" prefWidth="74.0" stylesheets="@CategoryPanel.css" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -152,7 +152,7 @@
                         <Insets left="15.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label stylesheets="@CategoryPanel.css" fx:id="tomorrowNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Label fx:id="tomorrowNo" prefHeight="30.0" prefWidth="74.0" stylesheets="@CategoryPanel.css" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -160,7 +160,7 @@
                         <Insets left="15.0" />
                      </GridPane.margin>
                   </Label>
-                  <Label stylesheets="@CategoryPanel.css" fx:id="todayNo" prefHeight="30.0" prefWidth="74.0" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <Label fx:id="todayNo" prefHeight="30.0" prefWidth="74.0" stylesheets="@CategoryPanel.css" text="0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="25.0" />
                      </font>
@@ -213,12 +213,12 @@
                         <Insets left="10.0" />
                      </GridPane.margin>
                   </ImageView>
-                  <ImageView fitHeight="49.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="7">
+                  <ImageView fitHeight="41.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="7">
                      <image>
                         <Image url="@../images/upcomingevent.png" />
                      </image>
                      <GridPane.margin>
-                        <Insets left="5.0" />
+                        <Insets left="10.0" />
                      </GridPane.margin>
                   </ImageView>
                   <Line endX="250.0" startX="-100.0" stroke="#80b0ff" GridPane.rowIndex="6" />
