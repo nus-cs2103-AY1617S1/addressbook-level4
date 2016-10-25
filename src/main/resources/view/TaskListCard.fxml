@@ -86,7 +86,7 @@
             </Circle>
             <Label fx:id="statusTick" prefHeight="15.0" prefWidth="18.0" text="✔" textAlignment="CENTER" textFill="#8d9194" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                <font>
-                  <Font size="12.0" />
+                  <Font size="10.0" />
                </font>
                <GridPane.margin>
                   <Insets right="13.0" top="2.0" />

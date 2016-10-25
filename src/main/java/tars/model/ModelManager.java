@@ -6,6 +6,7 @@ import tars.commons.core.ComponentManager;
 import tars.commons.core.LogsCenter;
 import tars.commons.core.UnmodifiableObservableList;
 import tars.commons.events.model.TarsChangedEvent;
+import tars.commons.events.ui.TaskAddedEvent;
 import tars.commons.exceptions.DuplicateTaskException;
 import tars.commons.exceptions.IllegalValueException;
 import tars.commons.util.DateTimeUtil;
@@ -160,6 +161,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         tars.addTask(task);
+        raise(new TaskAddedEvent(tars.getTaskList().size(), task));
         updateFilteredListToShowAll();
         indicateTarsChanged();
     }

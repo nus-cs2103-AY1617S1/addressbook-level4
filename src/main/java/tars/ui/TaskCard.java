@@ -1,7 +1,5 @@
 package tars.ui;
 
-import java.util.logging.Logger;
-
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
@@ -10,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import tars.commons.core.LogsCenter;
 import tars.commons.events.model.TarsChangedEvent;
 import tars.model.task.ReadOnlyTask;
 
@@ -21,8 +18,6 @@ public class TaskCard extends UiPart{
     private static final String PRIORITY_MEDIUM = "medium";
     private static final String PRIORITY_LOW = "low";
     private static final String STATUS_UNDONE = "Undone";
-    
-    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
     @FXML
     private HBox cardPane;
@@ -48,6 +43,7 @@ public class TaskCard extends UiPart{
     private ReadOnlyTask task;
     private int displayedIndex;
 
+
     public TaskCard(){
 
     }
@@ -68,16 +64,17 @@ public class TaskCard extends UiPart{
         setPriority();
         setStatus();
         setTags();
+        setTextFill();
     }
-    
+
     private void setName() {
         name.setText(task.getName().taskName);
     }   
-    
+
     private void setIndex() {
         id.setText(displayedIndex + ". ");
     }
-    
+
     private void setDate() {
         String startDateString = task.getDateTime().startDateString;
         String endDateString = task.getDateTime().endDateString;
@@ -94,7 +91,7 @@ public class TaskCard extends UiPart{
             endDate.setText(endDateString);
         }      
     }
-    
+
     /**
      * Sets tick color based on task's status
      */
@@ -122,10 +119,27 @@ public class TaskCard extends UiPart{
         status.setVisible(false);
         status.setManaged(false);
     }
-    
+
+    /**
+     * Set text to different color based on status of task
+     */
+    private void setTextFill() {
+        if (task.getStatus().toString().equals(STATUS_UNDONE)) {
+            id.setStyle("-fx-text-fill: black");
+            name.setStyle("-fx-text-fill: black");
+            startDate.setStyle("-fx-text-fill: black");
+            endDate.setStyle("-fx-text-fill: black");
+        } else {
+            id.setStyle("-fx-text-fill: lightgrey");
+            name.setStyle("-fx-text-fill: lightgrey");
+            startDate.setStyle("-fx-text-fill: lightgrey");
+            endDate.setStyle("-fx-text-fill: lightgrey");
+        }
+    }
+
     @Subscribe
     private void handleTarsChangeEvent(TarsChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Setting status tick"));
+        setTextFill();
         setStatus();
     }
 
@@ -152,7 +166,7 @@ public class TaskCard extends UiPart{
         priority.setVisible(false);
         priority.setManaged(false);
     }
-    
+
     private void setTags() {
         tags.setText(task.tagsString());        
     }
@@ -170,4 +184,5 @@ public class TaskCard extends UiPart{
     public String getFxmlPath() {
         return FXML;
     }
+
 }

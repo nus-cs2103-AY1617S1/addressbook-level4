@@ -1,5 +1,7 @@
 package tars.ui;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,15 +10,20 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import tars.commons.core.LogsCenter;
+import tars.commons.events.ui.TaskAddedEvent;
 import tars.model.task.ReadOnlyTask;
 
+import java.util.logging.Logger;
 
 /**
  * Panel containing the list of tasks.
  */
 public class TaskListPanel extends UiPart {
+    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String FXML = "TaskListPanel.fxml";
     private AnchorPane placeHolderPane;
 
@@ -70,13 +77,15 @@ public class TaskListPanel extends UiPart {
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
+
     class TaskListViewCell extends ListCell<ReadOnlyTask> {
+        private ReadOnlyTask newlyAddedTask;
 
         public TaskListViewCell() {
+            registerAsAnEventHandler(this);
         }
 
         @Override
@@ -87,8 +96,22 @@ public class TaskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                TaskCard card = TaskCard.load(task, getIndex() + 1);
+                HBox layout = card.getLayout();
+                if (this.newlyAddedTask != null && this.newlyAddedTask.isSameStateAs(task)) {
+                    layout.setStyle("-fx-border-color: #607D8B");
+                } else {
+                    layout.setStyle("-fx-border-color: #9E9E9E");
+                } 
+                setGraphic(layout);
             }
+        }
+
+        @Subscribe
+        private void handleTaskAddedEvent(TaskAddedEvent event) {
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, 
+                    "Updating layout for " + event.task.toString()));
+            this.newlyAddedTask = event.task;
         }
     }
 
