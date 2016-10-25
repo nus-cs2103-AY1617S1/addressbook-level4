@@ -36,24 +36,20 @@ public class Parser {
 	// @@author A0141019U
 	private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-	// Different regex for different permutations of arguments
+	// Different regexps for different permutations of arguments
 	private static final Pattern ADD_COMMAND_FORMAT_1 = Pattern
 			.compile("(?i)(?<taskType>event|ev|deadline|dl|someday|sd)(?<addTaskArgs>.*)");
 	private static final Pattern ADD_COMMAND_FORMAT_2 = Pattern
-			.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|deadline|someday)");
+			.compile("(?i)(?<addTaskArgs>.*)(?<taskType>event|ev|deadline|dl|someday|sd)");
 
-	// Start and end on same day
+	
 	private static final Pattern EVENT_ARGS_FORMAT_1 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+(on\\s+)*(?<date>\\S+)\\s+from\\s+(?<startTime>.+\\s?(am|pm)*)\\s+to\\s+(?<endTime>.+\\s?(am|pm)*)");
+			"(?i)'(?<taskName>.*\\S+.*)'((\\s+on\\s+)(?<date>\\S+))?\\s+from\\s+(?<startTime>[^o]+)\\s+to\\s+(?<endTime>[^o]+)");
 	private static final Pattern EVENT_ARGS_FORMAT_2 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>.+\\s?(am|pm)*)\\s+to\\s+(?<endTime>.+\\s?(am|pm)*)\\s+(on\\s+)*(?<date>\\S+)");
+			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>[^o]+)\\s+to\\s+(?<endTime>[^o]+)((\\s+on\\s+)(?<date>\\S+))?");
 	private static final Pattern EVENT_ARGS_FORMAT_3 = Pattern.compile(
-			"(?i)from\\s+(?<startTime>.+\\s?(am|pm)*)\\s+to\\s+(?<endTime>.+\\s?(am|pm)*)\\s+(on\\s+)*(?<date>\\S+)\\s+'(?<taskName>.*\\S+.*)'");
-	// Start and end on different days
-	private static final Pattern EVENT_ARGS_FORMAT_4 = Pattern.compile(
-			"(?i)'(?<taskName>.*\\S+.*)'\\s+from\\s+(?<startTime>.+\\s?(am|pm)*)\\s+to\\s+(?<endTime>.+\\s?(am|pm)*)");
-	private static final Pattern EVENT_ARGS_FORMAT_5 = Pattern.compile(
-			"(?i)from\\s+(?<startTime>.+\\s?(am|pm)*)\\s+to\\s+(?<endTime>.+\\s?(am|pm)*)\\s+'(?<taskName>.*\\S+.*)'");
+			"(?i)from\\s+(?<startTime>.[^o]+)\\s+to\\s+(?<endTime>[^o]+)((\\s+on\\s+)(?<date>\\S+))?\\s+'(?<taskName>.*\\S+.*)'");
+	
 
 	private static final Pattern DEADLINE_ARGS_FORMAT_1 = Pattern
 			.compile("(?i)'(?<taskName>.*\\S+.*)'\\s+by\\s+(?<dateTime>.+)");
@@ -217,8 +213,7 @@ public class Parser {
 		matchers.add(EVENT_ARGS_FORMAT_1.matcher(arguments));
 		matchers.add(EVENT_ARGS_FORMAT_2.matcher(arguments));
 		matchers.add(EVENT_ARGS_FORMAT_3.matcher(arguments));
-		matchers.add(EVENT_ARGS_FORMAT_4.matcher(arguments));
-		matchers.add(EVENT_ARGS_FORMAT_5.matcher(arguments));
+
 
 		// Null values will always be overwritten if the matcher matches.
 		String taskName = null;
@@ -232,16 +227,12 @@ public class Parser {
 				isAnyMatch = true;
 
 				taskName = matcher.group("taskName").trim();
-				
-				String date;
-				try {
-					date = matcher.group("date").trim();
-				} catch (IllegalArgumentException e) {
-					date = "";
-				}
-				
+			
 				String startTime = matcher.group("startTime").trim();
 				String endTime = matcher.group("endTime").trim();
+				
+				Optional<String> dateOpt = Optional.ofNullable(matcher.group("date"));
+				String date = dateOpt.orElse("");
 				
 				try {
 					System.out.println("start: " + date + " " + startTime);
@@ -292,6 +283,7 @@ public class Parser {
 				taskName = matcher.group("taskName").trim();
 				String dateTimeString = matcher.group("dateTime").trim();
 				System.out.println("dateTimeString: " + dateTimeString);
+				
 				try {
 					dateTime = DateParser.parse(dateTimeString);
 				} catch (ParseException e) {
@@ -389,7 +381,7 @@ public class Parser {
 		return new ListCommand(taskType, done);
 	}
 	
-	//@@author
+	//@@author A0141019U
 	/**
 	 * Parses arguments in the context of the delete task command.
 	 *

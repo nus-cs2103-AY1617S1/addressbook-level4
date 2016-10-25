@@ -25,28 +25,30 @@ public class DateParser {
 	};
 
 	private static final Pattern[] NATURAL_LANGUAGE = new Pattern[] {
-			Pattern.compile("(?<day>today|tomorrow|next week)?\\s(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?"), // tomorrow 2:30 pm
-			Pattern.compile("(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?\\s(?<day>today|tomorrow|next week)?") // 2pm tomorrow 
+			Pattern.compile("(?<day>today|tomorrow|next week)?\\s*(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?"), // tomorrow 2:30 pm
+			Pattern.compile("(?<hour>\\d{1,2}):*(?<minute>\\d{2})?\\s*(?<meridiem>am|pm)?\\s*(?<day>today|tomorrow|next week)?") // 2pm tomorrow
 	};
 
 	
 	/**
-	 * @return LocalDateTime if valid date format, null if unable to parse
+	 * @return LocalDateTime if valid date format
+	 * @throws ParseException if unable to parse
 	 */
 	public static LocalDateTime parse(String dateString) throws ParseException {
 		dateString = dateString.trim();
 
 		LocalDateTime dateTime = parseNaturalLanguage(dateString);
-		
 		if (dateTime == null) {
 			dateTime = parseStandardFormat(dateString);
 		}
+		
 		if (dateTime == null) {
 			throw new ParseException("Failed to parse date and time.", -1);
 		}
-		
-		System.out.println("date parser result: " + dateTime);
-		return dateTime;
+		else {
+			System.out.println("date parser result: " + dateTime);
+			return dateTime;
+		}
 	}
 
 	private static LocalDateTime parseNaturalLanguage(String dateString) throws ParseException {
