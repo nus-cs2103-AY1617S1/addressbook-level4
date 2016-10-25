@@ -176,6 +176,7 @@ public class TodoModel implements Model {
         }
         
         List<ImmutableTask> tasks = undoStack.removeFirst();
+        uniqueTagCollection.initialise(todoList.getObservableList());
         saveState(redoStack);
         todoList.setTasks(tasks);
     }
@@ -188,6 +189,7 @@ public class TodoModel implements Model {
         }
 
         List<ImmutableTask> tasks = redoStack.removeFirst();
+        uniqueTagCollection.initialise(todoList.getObservableList());
         saveState(undoStack);
         todoList.setTasks(tasks);
     }
@@ -221,35 +223,47 @@ public class TodoModel implements Model {
     //@@author A0135805H
     @Override
     public void addTagsToTask(int index, String[] tagNames) throws ValidationException {
-        ImmutableTask task = getObservableList().get(getTaskIndex(index));
+        saveUndoState();
+
+        for (ImmutableTask task : getObservableList()) {
+            System.out.println("\n" + task.getTitle() + " --> ");
+            System.out.print(task.getTags());
+        }
 
         //Data validation
         UniqueTagCollectionUtil.checkForIllegalCharInTagNames(tagNames);
         UniqueTagCollectionUtil.checkForDuplicatedTagNames(tagNames);
 
         //Perform adding
-        Set<Tag> tagsFromTask = new HashSet<>(task.getTags());
-        for (String tagName : tagNames) {
-            Tag newTag = uniqueTagCollection.registerTagWithTask(task, tagName);
-            tagsFromTask.add(newTag);
-        }
-        update(index, mutableTask -> mutableTask.setTags(tagsFromTask));
+        Consumer<MutableTask> consumer = mutableTask -> {
+            Set<Tag> tagsFromTask = new HashSet<>(mutableTask.getTags());
+            for (String tagName : tagNames) {
+                Tag newTag = uniqueTagCollection.registerTagWithTask(mutableTask, tagName);
+                tagsFromTask.add(newTag);
+            }
+            mutableTask.setTags(tagsFromTask);
+        };
+        update(index, consumer);
     }
 
     @Override
     public void deleteTagsFromTask(int index, String[] tagNames) throws ValidationException {
-        ImmutableTask task = getObservableList().get(getTaskIndex(index));
+        saveUndoState();
 
-        //Data validation
-        UniqueTagCollectionUtil.checkForTagNamesNotExisted(task, tagNames);
+        //Data Validation:
+        //TODO: Task may not be referenced to the correct one. So, the methods are disabled.
+        //ImmutableTask task = getObservableList().get(getTaskIndex(index));
+        //UniqueTagCollectionUtil.checkForTagNamesNotExisted(task, tagNames);
         UniqueTagCollectionUtil.checkForDuplicatedTagNames(tagNames);
 
-        //Perform deleting
-        Set<Tag> tagsFromTask = new HashSet<>(task.getTags());
-        for (String tagName : tagNames) {
-            Tag deletedTag = uniqueTagCollection.unregisterTagWithTask(task, tagName);
-            tagsFromTask.remove(deletedTag);
-        }
-        update(index, mutableTask -> mutableTask.setTags(tagsFromTask));
+        Consumer<MutableTask> consumer = mutableTask -> {
+            Set<Tag> tagsFromTask = new HashSet<>(mutableTask.getTags());
+            for (String tagName : tagNames) {
+                Tag deletedTag = uniqueTagCollection.unregisterTagWithTask(mutableTask, tagName);
+                tagsFromTask.remove(deletedTag);
+            }
+            mutableTask.setTags(tagsFromTask);
+        };
+        update(index, consumer);
     }
 }
