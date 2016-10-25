@@ -134,7 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void markTasksAsDone(List<ReadOnlyTask> taskList) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
         for (ReadOnlyTask targetTask: taskList) {
-            taskManager.doneTask(targetTask);
+            taskManager.markTaskAsDoneTask(targetTask);
         }
     	updateFilteredListToShowAll();
     	indicateTaskManagerChanged();
