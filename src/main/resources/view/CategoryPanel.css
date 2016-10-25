@@ -1,7 +1,13 @@
 #total_tasks_label {
-    -fx-fill: red;
+    -fx-text-fill: red;
 }
 
 #upcoming_events_label {
-    -fx-fill: blue;
+    -fx-text-fill: blue;
+}
+
+.label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-opacity: 0.9;
 }
