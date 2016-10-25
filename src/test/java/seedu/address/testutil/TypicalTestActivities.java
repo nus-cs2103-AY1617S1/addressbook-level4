@@ -19,7 +19,7 @@ public class TypicalTestActivities {
     public TypicalTestActivities() {
         try {
         	//to test loading saved activity, tasks and events
-            findAlice =  new ActivityBuilder().withName("find Alice").withReminder("30-12-2017 1200").withTags("bringgift").build();
+            findAlice =  new ActivityBuilder().withName("find Alice").withReminder("Sat, Dec 30, 2017 12:00 PM").withTags("bringgift").build();
             findBenson = new TaskBuilder().withName("find Benson").withDueDate("31-12-2017 1400").withTags("bringgift").build();
             findCarl = new TaskBuilder().withName("find Carl").withDueDate("31-12-2017 1200").build();
             findDaniel = new TaskBuilder().withName("find Daniel").withDueDate("31-12-2017 1200").withReminder("30-12-2017 1200").withTags("bringgifts").build();
@@ -28,7 +28,7 @@ public class TypicalTestActivities {
             findGeorge = new EventBuilder().withName("find George").withStartTime("31-12-2017 1200").withEndTime("31-12-2017 1800").withTags("bringgifts").build();
 
             //To test adding of activity, task and event.
-            findHoon = new ActivityBuilder().withName("find Hoon").withReminder("30-12-2017 1200").withTags("bringgift").build();
+            findHoon = new ActivityBuilder().withName("find Hoon").withReminder("Sat, Dec 30, 2017 12:00 PM").withTags("bringgift").build();
             findIda = new TaskBuilder().withName("find Ida").withDueDate("31-12-2017 1200").withReminder("30-12-2017 1200").withTags("bringgifts").build();
             findJodie = new EventBuilder().withName("find Jodie").withStartTime("31-12-2017 1200").withEndTime("31-12-2017 1800").withReminder("30-12-2017 1200").withTags("bringgifts").build();
         } catch (IllegalValueException e) {
