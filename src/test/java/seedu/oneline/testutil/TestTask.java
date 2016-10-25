@@ -15,6 +15,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     private TaskTime deadline;
     private TaskRecurrence recurrence;
     private Tag tag;
+    private boolean isCompleted; 
 
     public TestTask() {
     }
@@ -26,6 +27,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         this.deadline = task.getDeadline();
         this.recurrence = task.getRecurrence();
         this.tag = task.getTag();
+        this.isCompleted = task.isCompleted();
     }
     
     public void setName(TaskName name) {
@@ -50,6 +52,10 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     
     public void setTag(Tag tag) {
         this.tag = tag;
+    }
+    
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted; 
     }
 
     @Override
@@ -80,6 +86,11 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     @Override
     public Tag getTag() {
         return tag;
+    }
+    
+    @Override
+    public boolean isCompleted() {
+        return isCompleted; 
     }
 
     @Override
@@ -122,4 +133,5 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
             return deadline.compareTo(o.deadline);
         }
     }
+    
 }

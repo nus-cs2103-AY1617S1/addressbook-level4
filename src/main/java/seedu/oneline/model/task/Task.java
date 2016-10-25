@@ -159,4 +159,9 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             return deadline.compareTo(o.deadline);
         }
     }
+
+    @Override
+    public boolean isCompleted() {
+        return isCompleted; 
+    }
 }

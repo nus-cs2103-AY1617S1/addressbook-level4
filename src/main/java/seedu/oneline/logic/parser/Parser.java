@@ -18,7 +18,6 @@ import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.commons.util.StringUtil;
 import seedu.oneline.logic.commands.*;
 import seedu.oneline.model.task.TaskField;
-import seedu.oneline.ui.BrowserPanel;
 
 /**
  * Parses user input.
@@ -53,6 +52,7 @@ public class Parser {
         commands.put(EditCommand.COMMAND_WORD.toLowerCase(), EditCommand.class);
         commands.put(DeleteCommand.COMMAND_WORD.toLowerCase(), DeleteCommand.class);
         commands.put(ClearCommand.COMMAND_WORD.toLowerCase(), ClearCommand.class);
+        commands.put(DoneCommand.COMMAND_WORD.toLowerCase(), DoneCommand.class);
         commands.put(FindCommand.COMMAND_WORD.toLowerCase(), FindCommand.class);
         commands.put(ListCommand.COMMAND_WORD.toLowerCase(), ListCommand.class);
         commands.put(ExitCommand.COMMAND_WORD.toLowerCase(), ExitCommand.class);

@@ -15,7 +15,7 @@ public class Tag {
 
     public static final Tag EMPTY_TAG = new Tag();
     
-    public String tagName = null;
+    public String tagName = "uncategorised";
 
     public Tag() {
     }
