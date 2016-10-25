@@ -2,8 +2,11 @@ package seedu.todo.logic.commands;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
+
+import seedu.todo.commons.core.TaskViewFilter;
 import seedu.todo.commons.exceptions.ValidationException;
 import seedu.todo.logic.arguments.*;
+import seedu.todo.model.task.ImmutableTask;
 
 import java.util.List;
 
@@ -48,14 +51,17 @@ public class AddCommand extends BaseCommand {
 
     @Override
     public CommandResult execute() throws ValidationException {
-        this.model.add(title.getValue(), task -> {
+        TaskViewFilter currentView = model.getViewFilter().get();
+        ImmutableTask addedTask = this.model.add(title.getValue(), task -> {
             task.setDescription(description.getValue());
             task.setPinned(pin.getValue());
             task.setLocation(location.getValue());
             task.setStartTime(date.getValue().getStartTime());
             task.setEndTime(date.getValue().getEndTime());
         });
-        
+        if(!currentView.filter.test(addedTask)){
+            model.view(TaskViewFilter.DEFAULT);
+        }
         return taskSuccessfulResult(title.getValue(), AddCommand.VERB);
     }
 
