@@ -75,9 +75,14 @@ public class HelpPopup extends UiPart {
     
     //@@author A0143378Y
     public void properties() { 
-        content.setPrefHeight(700);
-        content.setPrefWidth(700);
+        //Setting up the width and height
+        content.setPrefHeight(800);
+        content.setPrefWidth(1000);
+        
+        //Setting up wrapping of text in the content box 
         content.setWrapText(true);
+        
+        //Setting up the background, font and borders
         content.setStyle("-fx-background-color: #00BFFF;-fx-padding:10px;"
                 + "-fx-text-fill: #000080;"+ "-fx-font-family: Consolas;"
                 + "-fx-alignment: center"
