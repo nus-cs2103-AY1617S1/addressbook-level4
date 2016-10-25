@@ -2,6 +2,8 @@ package guitests;
 
 import org.junit.Test;
 
+import seedu.task.testutil.TestTaskList;
+
 import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends AddressBookGuiTest {
@@ -10,7 +12,8 @@ public class ClearCommandTest extends AddressBookGuiTest {
     public void clear() {
 
         //verify a non-empty list can be cleared
-        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
+        TestTaskList currentList = new TestTaskList(td.getTypicalTasks());
+        assertTrue(taskListPanel.isListMatching(currentList.getIncompleteList()));
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
