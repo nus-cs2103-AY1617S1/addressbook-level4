@@ -77,12 +77,15 @@ Format: `add TASK_NAME from DATE TIME to DATE TIME [RECURRING_TYPE] [t/TAG]...`
 Examples:
 * `add Homework from 24 sep 8pm to 25 sep 9pm tag/CS1231`
 * `add Homework from today 8.03pm to today 8.15pm t/CS1231`
-	<img src="images/ug_add_fromto_date_before.PNG" width="600">
-	<img src="images/ug_add_fromto_date_after.PNG" width="600">
+
+   <img src="images/ug_add_fromto_date_before.PNG" width="600">
+   <img src="images/ug_add_fromto_date_after.PNG" width="600">
 * `add Homework from 26 oct 10am to 26 oct 11am daily`
-	<img src="images/ug_add_fromto_date_recurring_before.png" width="600">
-	<img src="images/ug_add_fromto_date_recurring_after.PNG" width="600"> <br>
+
+   <img src="images/ug_add_fromto_date_recurring_before.png" width="600">
+   <img src="images/ug_add_fromto_date_recurring_after.PNG" width="600"> <br>
 <!-- @@author -->
+
 #### Lists all active tasks : `list`
 Format: list
 
@@ -116,6 +119,8 @@ Format: delete TASK_ID
 
 Examples:
 * `delete 2`
+
+<!--@@author A0147967J-->
 
 #### Archive completed tasks : `done`
 Format: done TASK_ID
@@ -168,6 +173,8 @@ Examples:
    <img src="images/beforeview.png" width="600">
    <img src="images/afterview1.png" width="600">
    <img src="images/afterview2.png" width="600">
+   
+<!--@@author-->
 
 #### Find tasks : `find`
 Format: `find [KEY_WORD] [from DATE_TIME to DATE_TIME | by DATE_TIME] [t/TAG]...`
@@ -204,6 +211,8 @@ Format: clear
 Examples: 
 * `clear`
 
+<!--@@author A0147967J-->
+
 #### Change directory: `cd`
 Format: cd FILE_PATH
 
@@ -213,6 +222,8 @@ Examples:
    <img src="images/beforecd.png" width="600">
    <img src="images/aftercd1.png" width="600">
    <img src="images/aftercd2.png" width="600">
+   
+<!--@@author-->
 
 #### Exiting the program : `exit`
 Exits the program.<br>
