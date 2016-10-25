@@ -290,27 +290,27 @@ We have two types of tests:
    
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. Below are some snippets, <br>
+   _Unit tests_ targeting the lowest level methods/classes. Below are some snippets, <br>
    
-   _Task_<br>
+   _Task.java_<br>
    <img src="images/test_snippet_Task.PNG" width="800"><br>
    
-   _RecurringTaskManager_<br>
+   _RecurringTaskManager.java_<br>
    <img src="images/test_snippet_RecurringTaskManager.PNG" width="800"><br>
    
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working). Below are some snippets, <br>
 
-   _XmlTaskListStorage_<br>
+   _XmlTaskListStorage.java_<br>
    <img src="images/test_snipper_XmlTaskListStorage.PNG" width="800"><br>
    
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+   Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together. Below are some snippets,<br>
       e.g. `seedu.taskmaster.logic.LogicManagerTest`<br>
       In the `LogicManagerTest`, Happy Jim Task Master tests the logic it uses.<br>
       Typically, Happy Jim Task Master focuses on some boundary tests.<br>
     
-	_LogicManagerTest_
+	_LogicManagerTest.java_
 	<img src="images/test_snippet_LogicManagerTest.PNG" width="800"><br>
       e.g. To `find` a task, for instance, `Test Task 1 by 20 oct 11am `,<br>
       try execute <br>
