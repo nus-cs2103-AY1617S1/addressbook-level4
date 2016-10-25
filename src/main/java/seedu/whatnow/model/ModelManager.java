@@ -116,9 +116,10 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
 	public synchronized void revertData() {
-    	whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());
+		whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());
 		indicateWhatNowChanged();
 	}
+
     @Override
     public synchronized void revertDataUpdate() {
     	stackOfWhatNowRedoUpdate.push(stackOfWhatNowUndoUpdate.peek());
@@ -194,6 +195,7 @@ public class ModelManager extends ComponentManager implements Model {
     public Stack<Command> getUndoStack() {
     	return stackOfUndo;
     }
+    
 	@Override
 	public Stack<Command> getRedoStack() {
 		return stackOfRedo;
@@ -206,161 +208,179 @@ public class ModelManager extends ComponentManager implements Model {
 	public Stack<ReadOnlyTask> getNewTask() {
 		return stackOfNewTask;
 	}
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList() {
-        filteredTasks.setPredicate(null);
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
-    @Override
-    public Stack<ReadOnlyTask> getDeletedStackOfTask() {
-    	return stackOfDeletedTasks;
-    }
-    @Override
-    public Stack<String> getDeletedStackOfTaskType() {
-    	return stackOfDeletedTaskTypes;
-    }
-    @Override
-    public Stack<ReadOnlyTask> getStackOfMarkDoneTask() {
-    	return stackOfMarkDone;
-    }
-    @Override
-    public Stack<String> getStackOfMarkDoneTaskTaskType() {
-    	return stackOfMarkDoneTaskTypes;
-    }
-    @Override
-    public Stack<ReadOnlyWhatNow> getStackOfWhatNowUpdate() {
-    	return stackOfWhatNowUndoUpdate;
-    }
-    @Override
-    public Stack<ReadOnlyWhatNow> getStackOfWhatNowRedoUpdate() {
-    	return stackOfWhatNowRedoUpdate;
-    }
-    //=========== Filtered Task List Accessors ===============================================================
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList() {
+		filteredTasks.setPredicate(null);
+		return new UnmodifiableObservableList<>(filteredTasks);
+	}
+	@Override
+	public Stack<ReadOnlyTask> getDeletedStackOfTask() {
+		return stackOfDeletedTasks;
+	}
+	@Override
+	public Stack<String> getDeletedStackOfTaskType() {
+		return stackOfDeletedTaskTypes;
+	}
+	@Override
+	public Stack<ReadOnlyTask> getStackOfMarkDoneTask() {
+		return stackOfMarkDone;
+	}
+	@Override
+	public Stack<String> getStackOfMarkDoneTaskTaskType() {
+		return stackOfMarkDoneTaskTypes;
+	}
+	@Override
+	public Stack<ReadOnlyWhatNow> getStackOfWhatNowUpdate() {
+		return stackOfWhatNowUndoUpdate;
+	}
+	@Override
+	public Stack<ReadOnlyWhatNow> getStackOfWhatNowRedoUpdate() {
+		return stackOfWhatNowRedoUpdate;
+	}
+	//=========== Filtered Task List Accessors ===============================================================
 
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        updateFilteredListToShowAllIncomplete();
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredTaskList()  {
-    	return new UnmodifiableObservableList<>(backUpFilteredTasks);
-    }
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
-    
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(Set<String> keyword) {
-        updateFilteredTaskList(keyword);
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
-    
-    @Override
-    public void updateFilteredListToShowAll() {
-        String[] taskType = {TASK_TYPE_FLOATING};
-        Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
-        updateFilteredTaskList(new PredicateExpression(new TaskTypeQualifier(keyword)));
-    }
-    
-    @Override
-    public void updateFilteredListToShowAllIncomplete() {
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+		updateFilteredListToShowAllIncomplete();
+		return new UnmodifiableObservableList<>(filteredTasks);
+	}
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredTaskList()  {
+		return new UnmodifiableObservableList<>(backUpFilteredTasks);
+	}
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredTaskList() {
+		return new UnmodifiableObservableList<>(filteredTasks);
+	}
+
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(Set<String> keyword) {
+		updateFilteredTaskList(keyword);
+		return new UnmodifiableObservableList<>(filteredTasks);
+	}
+
+	@Override
+	public void updateFilteredListToShowAll() {
+		String[] taskType = {TASK_TYPE_FLOATING};
+		Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
+		updateFilteredTaskList(new PredicateExpression(new TaskTypeQualifier(keyword)));
+	}
+
+	@Override
+	public void updateFilteredListToShowAllIncomplete() {
+		filteredTasks.setPredicate(p -> {
+			if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
+				return true;
+			} else {
+				return false;
+			}}
+				);
+	}
+
+	@Override
+	public void updateFilteredListToShowAllCompleted() {
+		filteredTasks.setPredicate(p -> {
+			if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
+				return true;
+			} else {
+				return false;
+			}}
+				);
+	}
+
+	@Override
+	public void updateFilteredListToShowAllByStatus(Set<String> keyword) {
+		updateFilteredTaskList(new PredicateExpression(new TaskStatusQualifier(keyword)));
+	}
+
+	@Override
+	public void updateFilteredTaskList(Set<String> keywords){
         filteredTasks.setPredicate(p -> {
-            if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
+            if ((keywords.stream()
+                    .filter(key -> StringUtil.containsIgnoreCase(p.getName().fullName, key))
+                    .findAny()
+                    .isPresent()) && p.getTaskType().equals(TASK_TYPE_FLOATING))  {
                 return true;
             } else {
                 return false;
-            }}
-        );
-    }
-    
-    @Override
-    public void updateFilteredListToShowAllCompleted() {
-        filteredTasks.setPredicate(p -> {
-            if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
-                return true;
-            } else {
-                return false;
-            }}
-        );
-    }
-    
-    @Override
-    public void updateFilteredListToShowAllByStatus(Set<String> keyword) {
-        updateFilteredTaskList(new PredicateExpression(new TaskStatusQualifier(keyword)));
-    }
+            }
+        });
+	}
 
-    @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
-    }
+	private void updateFilteredTaskList(Expression expression) {
+		filteredTasks.setPredicate(expression::satisfies);
+	}
 
-    private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
-    }
-    
-    //=========== Filtered Schedule List Accessors ===============================================================
-    
-    @Override 
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList() {
-        updateFilteredScheduleListToShowAllIncomplete();
-        return new UnmodifiableObservableList<>(filteredSchedules);
-    }
-    
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList() {
-    	return new UnmodifiableObservableList<>(filteredSchedules);
-    }
-    
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredScheduleList() {
-    	return new UnmodifiableObservableList<>(backUpFilteredSchedules);
-    }
-    
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(Set<String> keyword) {
-        updateFilteredScheduleList(keyword);
-        return new UnmodifiableObservableList<>(filteredSchedules);
-    }
-    
-    @Override
-    public void updateFilteredScheduleListToShowAll() {
-        String[] taskType = {TASK_TYPE_NOT_FLOATING};
-        Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
-        updateFilteredScheduleList(new PredicateExpression(new TaskTypeQualifier(keyword)));
-    }
-    
-    @Override
-    public void updateFilteredScheduleListToShowAllIncomplete() {
+	//=========== Filtered Schedule List Accessors ===============================================================
+
+	@Override 
+	public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList() {
+		updateFilteredScheduleListToShowAllIncomplete();
+		return new UnmodifiableObservableList<>(filteredSchedules);
+	}
+
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList() {
+		return new UnmodifiableObservableList<>(filteredSchedules);
+	}
+
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredScheduleList() {
+		return new UnmodifiableObservableList<>(backUpFilteredSchedules);
+	}
+
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(Set<String> keyword) {
+		updateFilteredScheduleList(keyword);
+		return new UnmodifiableObservableList<>(filteredSchedules);
+	}
+
+	@Override
+	public void updateFilteredScheduleListToShowAll() {
+		String[] taskType = {TASK_TYPE_NOT_FLOATING};
+		Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
+		updateFilteredScheduleList(new PredicateExpression(new TaskTypeQualifier(keyword)));
+	}
+
+	@Override
+	public void updateFilteredScheduleListToShowAllIncomplete() {
+		filteredSchedules.setPredicate(p -> {
+			if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
+				return true;
+			} else {
+				return false;
+			}}
+				);
+	}
+
+	@Override
+	public void updateFilteredScheduleListToShowAllCompleted() {
+		filteredSchedules.setPredicate(p -> {
+			if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
+				return true;
+			} else {
+				return false;
+			}}
+				);
+	}
+
+	@Override
+	public void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword) {
+		updateFilteredScheduleList(new PredicateExpression(new TaskStatusQualifier(keyword)));
+	}
+
+	@Override
+	public void updateFilteredScheduleList(Set<String> keywords){
         filteredSchedules.setPredicate(p -> {
-            if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
+            if ((keywords.stream()
+                    .filter(key -> StringUtil.containsIgnoreCase(p.getName().fullName, key))
+                    .findAny()
+                    .isPresent()) && p.getTaskType().equals(TASK_TYPE_NOT_FLOATING))  {
                 return true;
             } else {
                 return false;
             }}
         );
-    }
-    
-    @Override
-    public void updateFilteredScheduleListToShowAllCompleted() {
-        filteredSchedules.setPredicate(p -> {
-            if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
-                return true;
-            } else {
-                return false;
-            }}
-        );
-    }
-    
-    @Override
-    public void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword) {
-        updateFilteredScheduleList(new PredicateExpression(new TaskStatusQualifier(keyword)));
-    }
-
-    @Override
-    public void updateFilteredScheduleList(Set<String> keywords){
-        updateFilteredScheduleList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
     private void updateFilteredScheduleList(Expression expression) {
