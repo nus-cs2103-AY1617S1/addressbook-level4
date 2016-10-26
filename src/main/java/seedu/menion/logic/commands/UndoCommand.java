@@ -2,39 +2,44 @@ package seedu.menion.logic.commands;
 
 import seedu.menion.model.ActivityManager;
 
+//@@author A0139515A
 /**
- * Undo the previous command.
- * Only applies to add, delete and clear
+ * Revert to previous activity manager state.
+ *
  */
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
-    public static final String MESSAGE_SUCCESS = "Undo-ed previous changes";
-    public static final String MESSAGE_FAILURE = "Previous changes cannot be undo";
-    private final Command previousCommand;
+    public static final String MESSAGE_SUCCESS = "Menion successfully undo your previous changes";
+    public static final String MESSAGE_FAILURE = "Menion is unable to undo to your previous changes";
 
-    public UndoCommand(Command previousCommand) {
-    		this.previousCommand = previousCommand;
-    }
+    public UndoCommand() {}
 
 
     @Override
     public CommandResult execute() {
         assert model != null;
-        boolean ableToUndo = previousCommand.undo();
+        boolean ableToUndo = undo();
         if (ableToUndo) {
         	return new CommandResult(MESSAGE_SUCCESS);
         }
-        else {
-        	return new CommandResult(MESSAGE_FAILURE);
-        }
+        
+        return new CommandResult(MESSAGE_FAILURE);
     }
 
-    /*
-     * undo command does not support undo
+    /**
+     * Return true if able revert to previous activity manager, otherwise return false.
      */
-	@Override
 	public boolean undo() {
-		return false;
+		assert model != null;
+		
+		if (model.checkStatesInUndoStack()) {
+			return false;
+		}
+		
+		model.addStateToRedoStack(new ActivityManager(model.getActivityManager()));
+		model.resetData(model.retrievePreviousStateFromUndoStack());
+		
+		return true;
 	}
 }

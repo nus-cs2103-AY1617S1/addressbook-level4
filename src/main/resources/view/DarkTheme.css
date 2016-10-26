@@ -1,41 +1,41 @@
 .background {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: derive(#1d1d1d, 20.0%);
 }
 
 .label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 11.0pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
-    -fx-font-size: 11pt;
+    -fx-font-size: 11.0pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
-    -fx-opacity: 1;
+    -fx-opacity: 1.0;
 }
 
 .label-header {
-    -fx-font-size: 32pt;
+    -fx-font-size: 32.0pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
-    -fx-opacity: 1;
+    -fx-opacity: 1.0;
 }
 
 .text-field {
-    -fx-font-size: 12pt;
+    -fx-font-size: 12.0pt;
     -fx-font-family: "Segoe UI Semibold";
 }
 
 .tab-pane {
-    -fx-padding: 0 0 0 1;
+    -fx-padding: 0.0 0.0 0.0 1.0;
 }
 
 .tab-pane .tab-header-area {
-    -fx-padding: 0 0 0 0;
-    -fx-min-height: 0;
-    -fx-max-height: 0;
+    -fx-padding: 0.0 0.0 0.0 0.0;
+    -fx-min-height: 0.0;
+    -fx-max-height: 0.0;
 }
 
 .table-view {
@@ -44,7 +44,7 @@
     -fx-background-color: #1d1d1d;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
-    -fx-padding: 5;
+    -fx-padding: 5.0;
 }
 
 .table-view .column-header-background {
@@ -52,23 +52,23 @@
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 35;
-    -fx-border-width: 0 0 1 0;
+    -fx-size: 35.0;
+    -fx-border-width: 0.0 0.0 1.0 0.0;
     -fx-background-color: transparent;
     -fx-border-color:
         transparent
         transparent
-        derive(-fx-base, 80%)
+        derive(-fx-base, 80.0%)
         transparent;
-    -fx-border-insets: 0 10 1 0;
+    -fx-border-insets: 0.0 10.0 1.0 0.0;
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
+    -fx-font-size: 20.0pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
-    -fx-opacity: 1;
+    -fx-opacity: 1.0;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
@@ -83,45 +83,13 @@
 }
 
 .split-pane {
-    -fx-background-color: gray;
-}
-
-.list-cell {
-	-fx-background-color: white;
-    -fx-label-padding: 0 0 0 0;
-    -fx-graphic-text-gap : 0;
-    -fx-padding: 0 0 0 0;
-}
-
-
-.list-cell .label {
-    -fx-text-fill: #010504;
-}
-
-.cell_big_label {
-    -fx-font-size: 16px;
-    -fx-text-fill: #010504;
-}
-
-.cell_small_label {
-    -fx-font-size: 11px;
-    -fx-text-fill: #010504;
+    -fx-background-color: lightgrey;
 }
 
 .anchor-pane {
-     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-background-color: lightgrey;
 }
 
-.anchor-pane-with-border {
-     -fx-background-color: derive(#1d1d1d, 20%);
-     -fx-border-color: derive(#1d1d1d, 10%);
-     -fx-border-top-width: 1px;
-}
-
-.status-bar {
-    -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-text-fill: black;
-}
 
 .result-display {
     -fx-background-color: white;
@@ -136,31 +104,22 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 25%);
-    -fx-border-width: 1px;
+    -fx-background-color: lightgrey;
+    -fx-border-color: lightgrey;
+    -fx-border-width: 1.0px;
 }
 
 .status-bar-with-border .label {
     -fx-text-fill: white;
 }
 
-.grid-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-    -fx-border-color: derive(#1d1d1d, 30%);
-    -fx-border-width: 1px;
-}
-
-.grid-pane .anchor-pane {
-    -fx-background-color: derive(#1d1d1d, 30%);
-}
 
 .context-menu {
     -fx-background-color: white;
 }
 
 .context-menu .label {
-    -fx-text-fill: derive(#1d1d1d, 20%);
+    -fx-text-fill: derive(#1d1d1d, 20.0%);
 }
 
 .menu-bar {
@@ -168,9 +127,9 @@
 }
 
 .menu-bar .label {
-    -fx-font-size: 14pt;
+    -fx-font-size: 14.0pt;
     -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: derive(#1d1d1d, 20%);
+    -fx-text-fill: derive(#1d1d1d, 20.0%);
     -fx-opacity: 0.9;
 }
 
@@ -184,15 +143,15 @@
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
  */
 .button {
-    -fx-padding: 5 22 5 22;
+    -fx-padding: 5.0 22.0 5.0 22.0;
     -fx-border-color: #e2e2e2;
-    -fx-border-width: 2;
-    -fx-background-radius: 0;
+    -fx-border-width: 2.0;
+    -fx-background-radius: 0.0;
     -fx-background-color: #1d1d1d;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-    -fx-font-size: 11pt;
+    -fx-font-size: 11.0pt;
     -fx-text-fill: #d8d8d8;
-    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-background-insets: 0.0 0.0 0.0 0.0, 0.0, 1.0, 2.0;
 }
 
 .button:hover {
@@ -206,10 +165,10 @@
 
 .button:focused {
     -fx-border-color: white, white;
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
+    -fx-border-width: 1.0, 1.0;
+    -fx-border-style: solid, segments(1.0, 1.0);
+    -fx-border-radius: 0.0, 0.0;
+    -fx-border-insets: 1.0 1.0 1.0 1.0, 0.0;
 }
 
 .button:disabled, .button:default:disabled {
@@ -224,7 +183,7 @@
 }
 
 .button:default:hover {
-    -fx-background-color: derive(-fx-focus-color, 30%);
+    -fx-background-color: derive(-fx-focus-color, 30.0%);
 }
 
 .dialog-pane {
@@ -236,17 +195,17 @@
 }
 
 .dialog-pane > *.label.content {
-    -fx-font-size: 14px;
+    -fx-font-size: 14.0px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
 
 .dialog-pane:header *.header-panel {
-    -fx-background-color: derive(#1d1d1d, 25%);
+    -fx-background-color: derive(#1d1d1d, 25.0%);
 }
 
 .dialog-pane:header *.header-panel *.label {
-    -fx-font-size: 18px;
+    -fx-font-size: 18.0px;
     -fx-font-style: italic;
     -fx-fill: white;
     -fx-text-fill: white;
@@ -254,12 +213,12 @@
 
 .scroll-bar .thumb {
     -fx-background-color: white;
-    -fx-background-insets: 3;
+    -fx-background-insets: 3.0;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
     -fx-background-color: transparent;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 0.0 0.0 0.0 0.0;
 }
 
 .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
@@ -268,43 +227,111 @@
 
 .scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
 	-fx-background-color: white;
-    -fx-padding: 1 8 1 8;
+    -fx-padding: 1.0 8.0 1.0 8.0;
 }
 
 .scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
 	-fx-background-color: white;
-    -fx-padding: 8 1 8 1;
-}
-
-#eventCardPane {
-    -fx-background-color: #ffa07a;
-    -fx-border-color: #ffa07a;
-    -fx-border-width: 1 1 1 1;
-}
-
-#taskCardPane {
-    -fx-background-color: #87cefa;
-    -fx-border-color: #87cefa;
-    -fx-border-width: 1 1 1 1;
-}
-
-#floatingTaskCardPane {
-    -fx-background-color: #fafad2;
-    -fx-border-color: #fafad2;
-    -fx-border-width: 1 1 1 1;
+    -fx-padding: 8.0 1.0 8.0 1.0;
 }
 
 
 #commandTypeLabel {
-    -fx-font-size: 11px;
+    -fx-font-size: 11.0px;
     -fx-text-fill: #F70D1A;
 }
 
 #filterField, #personWebpage {
-    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+    -fx-effect: innershadow(gaussian, black, 10.0, 0.0, 0.0, 0.0);
 
 }
 
-#taskList {
+/* @@author A0139515A */
+#eventCardPane {
+    -fx-background-color: transparent;
+    -fx-border-color: #ffa07a;
+    -fx-border-width: 1.0 1.0 1.0 1.0;
+}
+
+#taskCardPane {
+    -fx-background-color: transparent;
+    -fx-border-color: #87cefa;
+    -fx-border-width: 1.0 1.0 1.0 1.0;
+}
+
+#floatingTaskCardPane {
+    -fx-background-color: transparent;
+    -fx-border-color: #fafad2;
+    -fx-border-width: 1.0 1.0 1.0 1.0;
+}
+
+#activityList {
      -fx-background-color: white;
 }
+
+.cell_big_label {
+	-fx-font-family: Times new roman;
+    -fx-font-size: 18.0px;
+    -fx-font-style: italic;
+    -fx-text-fill: #010504;
+}
+
+.cell_small_label {
+	-fx-font-family: Times new roman;
+    -fx-font-size: 14.0px;
+    -fx-text-fill: #010504;
+}
+
+.cell_note_label {
+	-fx-font-family: Times new roman;
+    -fx-font-size: 12.0px;
+    -fx-text-fill: #010504;
+}
+
+.list-view-event .list-cell {
+	-fx-background-color: #ffa07a;
+    -fx-label-padding: 0.0 0.0 0.0 0.0;
+    -fx-graphic-text-gap : 0.0;
+    -fx-padding: 0.0 0.0 0.0 0.0;
+}
+
+.list-view-task .list-cell {
+	-fx-background-color: #87cefa;
+    -fx-label-padding: 0.0 0.0 0.0 0.0;
+    -fx-graphic-text-gap : 0.0;
+    -fx-padding: 0.0 0.0 0.0 0.0;
+}
+
+.list-view-floating .list-cell {
+	-fx-background-color: #fafad2;
+    -fx-label-padding: 0.0 0.0 0.0 0.0;
+    -fx-graphic-text-gap : 0.0;
+    -fx-padding: 0.0 0.0 0.0 0.0;
+}
+
+.list-cell .label {
+    -fx-text-fill: #010504;
+}
+
+.status-bar {
+    -fx-background-color: darkgrey;
+    -fx-text-fill: derive(#1d1d1d, 20.0%);
+    -fx-border-color: darkgrey;
+}
+
+.anchor-pane-with-border {
+     -fx-background-color: darkgrey;
+     -fx-border-color: darkgrey;
+     -fx-border-top-width: 1.0px;
+}
+
+.grid-pane {
+    -fx-background-color: darkgrey;
+    -fx-border-color: darkgrey;
+    -fx-border-width: 1.0px;
+}
+
+.grid-pane .anchor-pane {
+    -fx-background-color: darkgrey;
+}
+/* @@author */

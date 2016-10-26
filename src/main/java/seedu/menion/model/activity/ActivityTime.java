@@ -1,7 +1,9 @@
+//@@author A0139164A
 package seedu.menion.model.activity;
 
 
 import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.commons.util.DateChecker;
 
 /**
  * Represents a Person's phone number in the address book.
@@ -13,7 +15,6 @@ public class ActivityTime {
     public static final String ACTIVITY_TIME_VALIDATION_REGEX = "^[0-2][0-9][0-6][0-9]$";
     
     public final String value;
-
     /**
      * Validates given time date.
      *
@@ -22,22 +23,25 @@ public class ActivityTime {
     public ActivityTime(String time) throws IllegalValueException {
         assert time != null;
         time = time.trim();
-        if (!isValidTime(time)) {
-            throw new IllegalValueException(ACTIVITY_TIME_CONSTRAINTS);
-        }
+        isValidTime(time);
         this.value = time;
     }
 
     /**
      * Returns if a given string is a valid activity time.
      */
-    public static boolean isValidTime(String test) {
-        boolean result = false;
+    public static void isValidTime(String test) throws IllegalValueException  {
         
-        if (test.matches(ACTIVITY_TIME_VALIDATION_REGEX)) {
-            result = true;
+        DateChecker timeCheck = new DateChecker();
+        
+        // Checks that time has no illegal arguments
+        if (!test.matches(ACTIVITY_TIME_VALIDATION_REGEX)) {
+            throw new IllegalValueException(ACTIVITY_TIME_CONSTRAINTS);
         }
-        return result;
+        // Checks time is between 0000 and 2400
+        timeCheck.validTime(test);
+        
+        return;
     }
 
     @Override

@@ -4,9 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
 
+//@@author A0139515A
 public class EventCard extends UiPart{
 
     private static final String FXML = "EventCard.fxml";
@@ -27,8 +27,6 @@ public class EventCard extends UiPart{
     private Label endDate;
     @FXML
     private Label endTime;
-    @FXML
-    private Label status;
     
     private ReadOnlyActivity event;
     
@@ -53,10 +51,9 @@ public class EventCard extends UiPart{
         startTime.setText(event.getActivityStartTime().toString()); 
         endDate.setText(event.getActivityEndDate().toString());
         endTime.setText(event.getActivityEndTime().toString());
-        status.setText(event.getActivityStatus().toString());
         id.setText(displayedIndex + ". ");    
     }
-
+    
     public HBox getLayout() {
         return eventCardPane;
     }

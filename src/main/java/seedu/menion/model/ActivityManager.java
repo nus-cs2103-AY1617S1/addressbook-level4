@@ -2,10 +2,11 @@ package seedu.menion.model;
 
 import javafx.collections.ObservableList;
 import seedu.menion.model.activity.ReadOnlyActivity;
+import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.logic.commands.EditCommand;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
-import seedu.menion.model.tag.Tag;
-import seedu.menion.model.tag.UniqueTagList;
+
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,16 +15,15 @@ import java.util.stream.Collectors;
  * Wraps all data at the task manager level
  * Duplicates are not allowed (by .equals comparison)
  */
+//@@author A0146752B
 public class ActivityManager implements ReadOnlyActivityManager {
 
     private final UniqueActivityList tasks;
-    private final UniqueTagList tags;
     private final UniqueActivityList floatingTasks;
     private final UniqueActivityList events;
 
     {
         tasks = new UniqueActivityList();
-        tags = new UniqueTagList();
         floatingTasks = new UniqueActivityList();
         events = new UniqueActivityList();
     }
@@ -110,6 +110,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public void addTask(Activity t) throws UniqueActivityList.DuplicateTaskException {
         //syncTagsWithMasterList(t);
         tasks.add(t);
+        Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
     
     /**
@@ -123,6 +124,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public void addFloatingTask(Activity t) throws UniqueActivityList.DuplicateTaskException {
         //syncTagsWithMasterList(t);
         floatingTasks.add(t);
+        Collections.sort(floatingTasks.getInternalList(), new FloatingTaskComparator());
     }
     
     
@@ -137,10 +139,13 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public void addEvent(Activity t) throws UniqueActivityList.DuplicateTaskException {
         //syncTagsWithMasterList(t);
         events.add(t);
+        Collections.sort(events.getInternalList(), new EventComparator());
     }
+    //@@author A0146752B
     
+    //@@author A0139164A
     /**
-     * Completes an activity in the activity manager.
+     * Methods, Completes an activity in the activity manager.
      * Passes in the index of the list to complete
      * 
      * @param index
@@ -149,73 +154,178 @@ public class ActivityManager implements ReadOnlyActivityManager {
         Activity dub;
         dub = tasks.getInternalList().get(index);
         dub.setCompleted();
-        tasks.getInternalList().set(index, dub);        
-    }
-    
-    public void completeEvent(int index) {
-        Activity dub;
-        dub = events.getInternalList().get(index);
-        dub.setCompleted();
-        events.getInternalList().set(index, dub);     
+        tasks.getInternalList().set(index, dub);  
+        Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
 
     public void completeFloatingTask(int index) {
         Activity dub;
         dub = floatingTasks.getInternalList().get(index);
         dub.setCompleted();
-        floatingTasks.getInternalList().set(index, dub);    
+        floatingTasks.getInternalList().set(index, dub);  
+        Collections.sort(floatingTasks.getInternalList(), new FloatingTaskComparator());
     }
     
     /**
-     * UnCompletes an activity in the activity manager.
+     * Methods, UnCompletes an activity in the activity manager.
      * Passes in the index of the list to complete
-     * 
      * @param index
      */
     public void unCompleteFloatingTask(int index) {
         Activity dub;
         dub = floatingTasks.getInternalList().get(index);
         dub.setUncompleted();
-        floatingTasks.getInternalList().set(index, dub);    
+        floatingTasks.getInternalList().set(index, dub);
+        Collections.sort(floatingTasks.getInternalList(), new FloatingTaskComparator());
     }
     
     public void unCompleteTask(int index) {
         Activity dub;
         dub = tasks.getInternalList().get(index);
         dub.setUncompleted();
-        tasks.getInternalList().set(index, dub);        
+        tasks.getInternalList().set(index, dub); 
+        Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
     
-    public void unCompleteEvent(int index) {
+    /**
+     * Methods, edits an activity's NAME in the activity manager.
+     * Passes in the index of the list to complete, and changes to make
+     * @param index
+     * @throws IllegalValueException 
+     */
+    public void editFloatingTaskName(int index, String changes) throws IllegalValueException {
+        Activity dub;
+        dub = floatingTasks.getInternalList().get(index);
+        dub.setActivityName(changes);
+        floatingTasks.getInternalList().set(index, dub);
+        Collections.sort(floatingTasks.getInternalList(), new FloatingTaskComparator());
+    }
+    
+    public void editTaskName(int index, String changes) throws IllegalValueException {
+        Activity dub;
+        dub = tasks.getInternalList().get(index);
+        dub.setActivityName(changes);
+        tasks.getInternalList().set(index, dub); 
+        Collections.sort(tasks.getInternalList(), new TaskComparator());
+    }
+    
+    public void editEventName(int index, String changes) throws IllegalValueException {
         Activity dub;
         dub = events.getInternalList().get(index);
-        dub.setUncompleted();
-        events.getInternalList().set(index, dub);        
+        dub.setActivityName(changes);
+        events.getInternalList().set(index, dub);   
+        Collections.sort(events.getInternalList(), new EventComparator());
+    }
+    
+    /**
+     * Methods, edits an activity's NOTE in the activity manager.
+     * Passes in the index of the list to complete, and changes to make
+     * @param index
+     * @throws IllegalValueException 
+     */
+    public void editFloatingTaskNote(int index, String changes) throws IllegalValueException {
+        Activity dub;
+        dub = floatingTasks.getInternalList().get(index);
+        dub.setActivityNote(changes);
+        floatingTasks.getInternalList().set(index, dub);   
+    }
+    
+    public void editTaskNote(int index, String changes) throws IllegalValueException {
+        Activity dub;
+        dub = tasks.getInternalList().get(index);
+        dub.setActivityNote(changes);
+        tasks.getInternalList().set(index, dub);   
+    }
+    
+    public void editEventNote(int index, String changes) throws IllegalValueException {
+        Activity dub;
+        dub = events.getInternalList().get(index);
+        dub.setActivityNote(changes);
+        events.getInternalList().set(index, dub);   
+    }
+    
+    /**
+     * Methods, edits a Task/Event's starting Date & Time in the activity manager.
+     * Passes in the index of the list to complete, and changes to make
+     * @param index
+     * @throws IllegalValueException 
+     */
+    public void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException {
+        Activity dub;
+        dub = tasks.getInternalList().get(index);
+        String currentTime = dub.getActivityStartTime().toString();
+        String currentDate = dub.getActivityStartDate().toString();
+        
+        if (newDate.equals(EditCommand.NOT_TO_EDIT)) {
+            newDate = currentDate;
+        }
+        if (newTime.equals(EditCommand.NOT_TO_EDIT)) {
+            newTime = currentTime;
+        }
+        
+        dub.setActivityStartDateTime(newDate, newTime);
+        tasks.getInternalList().set(index, dub);
+        Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
 
-    public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    public void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException {
+        Activity dub;
+        dub = events.getInternalList().get(index);
+        String currentTime = dub.getActivityStartTime().toString();
+        String currentDate = dub.getActivityStartDate().toString();
+
+        if (newDate.equals(EditCommand.NOT_TO_EDIT)) {
+            newDate = currentDate;
+        }
+        if (newTime.equals(EditCommand.NOT_TO_EDIT)) {
+            newTime = currentTime;
+        }
+        
+        dub.setActivityStartDateTime(newDate, newTime);
+        events.getInternalList().set(index, dub);
+        Collections.sort(events.getInternalList(), new EventComparator());
+    }
+    
+    public void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException {    
+        Activity dub;
+        dub = events.getInternalList().get(index);
+        String currentEndTime = dub.getActivityEndTime().toString();
+        String currentEndDate = dub.getActivityEndDate().toString();
+        
+        if (newDate.equals(EditCommand.NOT_TO_EDIT)) {
+            newDate = currentEndDate;
+        }
+        if (newTime.equals(EditCommand.NOT_TO_EDIT)) {
+            newTime = currentEndTime;
+        }
+        dub.setActivityEndDateTime(newDate, newTime);
+        events.getInternalList().set(index, dub);
+    }
+    
+    //@@author A0146752B
+    public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.ActivityNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueActivityList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
     
     
-    public boolean removeFloatingTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    public boolean removeFloatingTask(ReadOnlyActivity key) throws UniqueActivityList.ActivityNotFoundException {
         if (floatingTasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueActivityList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
     
     
-    public boolean removeEvent(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    public boolean removeEvent(ReadOnlyActivity key) throws UniqueActivityList.ActivityNotFoundException {
         if (events.remove(key)) {
             return true;
         } else {
-            throw new UniqueActivityList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
     
@@ -269,15 +379,14 @@ public class ActivityManager implements ReadOnlyActivityManager {
         return other == this // short circuit if same object
                 || (other instanceof ActivityManager // instanceof handles nulls
                 && this.tasks.equals(((ActivityManager) other).tasks)
-                && this.tags.equals(((ActivityManager) other).tags));
-                //&& this.floatingTasks.equals(((ActivityManager) other).floatingTasks)
-                //&& this.events.equals(((ActivityManager) other).events);
+                && this.floatingTasks.equals(((ActivityManager) other).floatingTasks)
+                && this.events.equals(((ActivityManager) other).events));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks);
-        //return Objects.hash(tasks, tags, floatingTasks, events);
+        //return Objects.hash(tasks);
+        return Objects.hash(tasks, floatingTasks, events);
     }
 }

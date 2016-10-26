@@ -1,12 +1,15 @@
 package seedu.menion.logic.commands;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.commons.util.DateChecker;
+import seedu.menion.model.ActivityManager;
+import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.*;
-import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 
 import java.util.ArrayList;
 
-
+//@@author A0139515A
 /**
  * Adds a task to the task manager.
  */
@@ -20,10 +23,9 @@ public class AddCommand extends Command {
     		+ "Adding a Event: "+ COMMAND_WORD + " project meeting from: 10-10-2016 1400 to: 10-10-2016 1800 n: celebrate\n";
 
     public static final String MESSAGE_SUCCESS = "New activity added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This activity already exists in the Menion";
+    public static final String MESSAGE_DUPLICATE_TASK = "Oh no! This activity already exists in the Menion";
 
     private final Activity toAdd;
-    public final EventStub eventStub = null;
 
     private ActivityName name;
     private ActivityDate startDate;
@@ -33,7 +35,8 @@ public class AddCommand extends Command {
     private Note note;
     private String activityType;
     private Completed status = new Completed(false);
-
+    private DateChecker datecheck = new DateChecker();
+    
     /**
      * Convenience constructor using raw values.
      *
@@ -61,51 +64,44 @@ public class AddCommand extends Command {
             startTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_STARTTIME));
             endDate = new ActivityDate(activityDetails.get(Activity.INDEX_ACTIVITY_ENDDATE));
             endTime = new ActivityTime(activityDetails.get(Activity.INDEX_ACTIVITY_ENDTIME));
+            datecheck.validEventDate(startDate, startTime, endDate, endTime); // Throws error if invalid date.
             this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime, status);
         }
-      //  this.eventStub = new EventStub(activityDetails);
     }
-
+    
+    //@@author A0146752B
     @Override
     public CommandResult execute() {
     	assert model != null;
+    	
+    	storePreviousState();
+    	
         try {
-            if (toAdd.getActivityType().equals("task")){
+            if (toAdd.getActivityType().equals(Activity.TASK_TYPE)){
                 model.addTask(toAdd);
             }
-            else if (toAdd.getActivityType().equals("event")){
+            else if (toAdd.getActivityType().equals(Activity.EVENT_TYPE)){
                 model.addEvent(toAdd);
             }
             else {
                 model.addFloatingTask(toAdd);
             }
+
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueActivityList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
     }
-
-    /*
-     * undo delete the added activity previously
+    
+    //@@author A0139515A
+    /**
+     * Add command will store previous activity manager to support undo command
+     * 
      */
-	@Override
-	public boolean undo() {
-		assert model != null;
-		 try {
-	            if (toAdd.getActivityType().equals("task")){
-	                model.deleteTask(toAdd);
-	            }
-	            else if (toAdd.getActivityType().equals("event")){
-	                model.deleteEvent(toAdd);
-	            }
-	            else {
-	                model.deleteFloatingTask(toAdd);
-	            }
-	            return true;
-	     } 
-		 catch (TaskNotFoundException pnfe) {
-	            // there will not be a task not found exception here
-	        	return false;
-	     }
-	}
+    public void storePreviousState() {
+        assert model != null;
+
+        ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
+    	model.addStateToUndoStack(beforeState);
+    }
 }

@@ -21,15 +21,14 @@ import seedu.menion.model.activity.ReadOnlyActivity;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/Menion.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
-    public static final int MIN_WIDTH = 450;
+    public static final int MIN_WIDTH = 1225;
 
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private ActivityListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -111,7 +110,6 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        //browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = ActivityListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredFloatingTaskList(), logic.getFilteredTaskList(), logic.getFilteredEventList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getActivityManagerFilePath());
@@ -187,13 +185,5 @@ public class MainWindow extends UiPart {
 
     public ActivityListPanel getTaskListPanel() {
         return this.taskListPanel;
-    }
-
-    /*public void loadTaskPage(ReadOnlyActivity task) {
-        browserPanel.loadActivityPage(task);
-    }*/
-
-    public void releaseResources() {
-        browserPanel.freeResources();
     }
 }

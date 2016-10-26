@@ -1,8 +1,9 @@
+//@@author A0139164A
 package seedu.menion.model.activity;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.commons.util.CollectionUtil;
-import seedu.menion.model.tag.UniqueTagList;
+import seedu.menion.commons.util.DateChecker;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -14,7 +15,7 @@ import java.util.Objects;
 public class Activity implements ReadOnlyActivity {
 
     // Types of Activity
-    public static final String FLOATING_TASK_TYPE = "floatingTask";
+    public static final String FLOATING_TASK_TYPE = "floating";
     public static final String TASK_TYPE = "task";
     public static final String EVENT_TYPE = "event";
 
@@ -44,11 +45,10 @@ public class Activity implements ReadOnlyActivity {
     private Note note;
     private String activityType;
     private Completed status;
- 
+    
     // Every Activity Object will have an array list of it's details for ease of
     // accessibility
     private ArrayList<String> activityDetails;
-    private UniqueTagList tags;
 
     /**
      * For floatingTask
@@ -146,7 +146,56 @@ public class Activity implements ReadOnlyActivity {
     public ActivityName getActivityName() {
         return this.name;
     }
+    
+    /**
+     * @throws IllegalValueException 
+     * List of methods to set Activity's param : Name, Note, startDate, startTime
+     * Exception handling to be editted ----------> ALERT! (Assumes User to pass in correct parameters)
+     */
+    @Override
+    public void setActivityName(String newName) throws IllegalValueException {
+        assert (newName != null);
+            this.name = new ActivityName(newName);
+    }
 
+    @Override
+    public void setActivityNote(String newNote) throws IllegalValueException {
+        assert (newNote != null);
+        this.note = new Note(newNote);
+
+    }
+    
+    // Only can be called by Task & Events
+    @Override
+    public void setActivityStartDateTime(String newDate, String newTime) throws IllegalValueException {
+
+        boolean isTask = this.activityType.equals(Activity.TASK_TYPE);
+        boolean isEvent = this.activityType.equals(Activity.EVENT_TYPE);
+        assert (isTask || isEvent);
+        
+        ActivityDate newDateObject = new ActivityDate(newDate);
+        ActivityTime newTimeObject = new ActivityTime(newTime);
+        if (isEvent) {
+            DateChecker check = new DateChecker();
+            check.validEventDate(newDateObject, newTimeObject, this.endDate, this.endTime);
+        }
+        this.startDate = newDateObject;
+        this.startTime = newTimeObject;
+
+    }
+    
+    @Override
+    public void setActivityEndDateTime(String newDate, String newTime) throws IllegalValueException {
+        boolean isEvent = this.activityType.equals(Activity.EVENT_TYPE);
+        DateChecker check = new DateChecker();
+        assert (isEvent);
+        ActivityDate newDateObject = new ActivityDate(newDate);
+        ActivityTime newTimeObject = new ActivityTime(newTime);
+        check.validEventDate(this.startDate, this.startTime, newDateObject, newTimeObject);
+        this.endDate = newDateObject;
+        this.endTime = newTimeObject;
+    }
+    
     @Override
     public Note getNote() {
         return this.note;
@@ -185,18 +234,6 @@ public class Activity implements ReadOnlyActivity {
         return activityDetails;
     }
 
-    // USELESS?
-    
-    @Override
-    public UniqueTagList getTags() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    public void setTags(UniqueTagList uniqueTagList) {
-        // TODO Auto-generated method stub
-        
-    }
 
     @Override
     public Activity get() {
@@ -205,13 +242,13 @@ public class Activity implements ReadOnlyActivity {
 
     @Override
     public void setActivityDetails() {
-        if (activityType == FLOATING_TASK_TYPE) {
+        if (activityType.equals(FLOATING_TASK_TYPE)) {
             activityDetails = new ArrayList<String>(FLOATING_TASK_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
             activityDetails.add(note.toString());
             activityDetails.add(status.toString());
-        } else if (activityType == TASK_TYPE) {
+        } else if (activityType.equals(TASK_TYPE)) {
             activityDetails = new ArrayList<String>(TASK_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
@@ -219,7 +256,7 @@ public class Activity implements ReadOnlyActivity {
             activityDetails.add(startDate.toString());
             activityDetails.add(startTime.toString());
             activityDetails.add(status.toString());
-        } else if (activityType == EVENT_TYPE) {
+        } else if (activityType.equals(EVENT_TYPE)) {
             activityDetails = new ArrayList<String>(EVENT_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
@@ -232,7 +269,6 @@ public class Activity implements ReadOnlyActivity {
         }
     }
 
-    
     @Override
     public String toString() {
         switch(this.activityType){
@@ -245,4 +281,15 @@ public class Activity implements ReadOnlyActivity {
         }
         return null;
     }
+    
+   //@@author A0139277U
+    @Override
+    public boolean equals(Object o){
+    	return o == this || 
+    			(o instanceof ReadOnlyActivity &&
+    					(this.isFloatingTaskSameStateAs((ReadOnlyActivity) o)
+    					|| this.isTaskSameStateAs((ReadOnlyActivity) o)
+    					|| this.isEventSameStateAs((ReadOnlyActivity) o)));
+    }
+    
 }

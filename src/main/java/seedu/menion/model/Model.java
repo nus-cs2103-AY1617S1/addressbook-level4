@@ -1,11 +1,13 @@
 package seedu.menion.model;
 
 import seedu.menion.commons.core.UnmodifiableObservableList;
+import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
 
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * The API of the Model component.
@@ -18,37 +20,83 @@ public interface Model {
     ReadOnlyActivityManager getActivityManager();
 
     /** Deletes the given task */
-    void deleteTask(ReadOnlyActivity target) throws UniqueActivityList.TaskNotFoundException;
+    void deleteTask(ReadOnlyActivity target) throws UniqueActivityList.ActivityNotFoundException;
     
-    /** Completes the given floatingTask index. */
+    //@@author A0139164A
+    /** Completes the given Activity, given it's index. */
     void completeFloatingTask(int index);
-    
-    /** Completes the given Task index. */  
     void completeTask(int index);
     
-    /** Completes the given Event index. */
-    void completeEvent(int index);
-    
-    /** UnCompletes the given floatingTask index. */
+    /** Uncompletes the given Activity, given it's index. */
     void UncompleteFloatingTask(int index);
-    
-    /** UnCompletes the given Task index. */  
     void UncompleteTask(int index);
+ 
+    /** 
+     * Edits the name of the given Activity, given it's index. 
+     * @throws IllegalValueException 
+     */
+    void editFloatingTaskName(int index, String changes) throws IllegalValueException;
+    void editTaskName(int index, String changes) throws IllegalValueException;
+    void editEventName(int index, String changes) throws IllegalValueException;
     
-    /** UnCompletes the given Event index. */
-    void UncompleteEvent(int index);
+    /**
+     * Edits the note of the given Activity, given it's index. 
+     * @throws IllegalValueException 
+     */
+    void editFloatingTaskNote(int index, String changes) throws IllegalValueException;
+    void editTaskNote(int index, String changes) throws IllegalValueException;
+    void editEventNote(int index, String changes) throws IllegalValueException;
     
+    /**
+     * Edits the Start Date & Time of the given Task/Event, given it's index. 
+     * @throws IllegalValueException 
+     */
+    void editTaskDateTime(int index, String newDate, String newTime) throws IllegalValueException;
+    void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException;
+    void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException;
+    
+    //@@author A0139515A
+    /**
+     * Methods for undo 
+     * 
+     */
+    
+    /** add an activity manager state into undo stack */
+    void addStateToUndoStack(ReadOnlyActivityManager activityManager);
+    
+    /** retrieve previous activity manager from undo stack */
+    ReadOnlyActivityManager retrievePreviousStateFromUndoStack();
+    
+    /** check if there is any previous activity manager in undo stack */
+    boolean checkStatesInUndoStack();
+    
+    /**
+     * Methods for redo
+     * 
+     */
+    
+
+    /** add an activity manager state into redo stack */
+    void addStateToRedoStack(ReadOnlyActivityManager activityManager);
+    
+    /** retrieve previous activity manager from redo stack */
+    ReadOnlyActivityManager retrievePreviousStateFromRedoStack();
+  
+    /** check if there is any previous activity manager in redo stack */
+    boolean checkStatesInRedoStack();
+
+    //@@author A0146752B
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
     
     /** Deletes the given floating task */
-    void deleteFloatingTask(ReadOnlyActivity target) throws UniqueActivityList.TaskNotFoundException;
+    void deleteFloatingTask(ReadOnlyActivity target) throws UniqueActivityList.ActivityNotFoundException;
 
     /** Adds the given floating task */
     void addFloatingTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
     
     /** Deletes the given event */
-    void deleteEvent(ReadOnlyActivity target) throws UniqueActivityList.TaskNotFoundException;
+    void deleteEvent(ReadOnlyActivity target) throws UniqueActivityList.ActivityNotFoundException;
 
     /** Adds the given event */
     void addEvent(Activity task) throws UniqueActivityList.DuplicateTaskException;
@@ -73,7 +121,6 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredEventList(Set<String> keywords);
-
 
 
 }

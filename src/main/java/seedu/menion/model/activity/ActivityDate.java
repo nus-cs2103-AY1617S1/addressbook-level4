@@ -1,3 +1,4 @@
+//@@author A0139164A
 package seedu.menion.model.activity;
 
 import java.util.Calendar;
@@ -7,6 +8,7 @@ import java.util.regex.Pattern;
 import java.text.DateFormatSymbols;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.commons.util.DateChecker;
 
 /**
  * Represents a Activity's date date in the task manager.
@@ -15,11 +17,14 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 public class ActivityDate {
 
 
-    public static final String MESSAGE_ACTIVITYDATE_CONSTRAINTS = "Activity date should be in mm-dd-yy or mm-dd-yyyy format";
+    public static final String MESSAGE_ACTIVITYDATE_CONSTRAINTS = "Activity date should be in dd-mm-yyyy format";
+
+    public static final String MESSAGE_ACTIVITYDATE_INVALID = "Oh no! Menion has detected an invalid date! Please ensure that day-month-year is valid";
 
     public static final String ACTIVITYDATE_VALIDATION_REGEX = "(0?[0-3][0-9]-[0-1][0-9]-[0-2][0-9][0-9][0-9])";
 
     public final String value;
+    private String month;
 
     /**
      * Validates given date.
@@ -29,32 +34,44 @@ public class ActivityDate {
     public ActivityDate(String date) throws IllegalValueException {
         assert date != null;
         date = date.trim();
-        if (!isValidDate(date)) {
-            throw new IllegalValueException(MESSAGE_ACTIVITYDATE_CONSTRAINTS);
-        }
+
+        isValidDate(date);
+         
+        extractMonth(date);
         this.value = date;
     }
 
-    /**
-     * Returns true if a given string is a valid task date.
-     */
-    public static boolean isValidDate(String test) {
-        boolean result = false;
-        
-        if (test.matches(ACTIVITYDATE_VALIDATION_REGEX)) {
-            result = true;
-        }
-        return result;
+    //@@author A0139277U
+    private void extractMonth(String date){
+    	String [] parts = date.split("-");
+    	String month = parts[1];
+    	month = new DateFormatSymbols().getMonths()[Integer.parseInt(month) - 1];
+    	this.month = month;
     }
 
+    
+    //@@author A0139164A
+    /**
+     * Returns true if a given string is a valid activity date.
+     * @throws IllegalValueException 
+     */
+    public static void isValidDate(String test) throws IllegalValueException {
+        DateChecker dateCheck = new DateChecker();
+        
+        if (!test.matches(ACTIVITYDATE_VALIDATION_REGEX)) {
+            throw new IllegalValueException(MESSAGE_ACTIVITYDATE_INVALID);
+        }
+        dateCheck.validDate(test);
+        return;
+    }
+   
+    //@@author A0139277U
     private static String formatNiceDate(String dateToFormat){
-    	Pattern p = Pattern.compile("(.+)-(.+)-(.+)");
-    	Matcher m = p.matcher(dateToFormat);
-    	
-    	String day = m.group(0);
-    	String month = m.group(1);
-    	String year = m.group(2);
-    	
+    	String [] parts = dateToFormat.split("-");
+    	String day = parts[0];
+    	String month = parts[1];
+    	String year = parts[2];
+
     	Integer monthInt = Integer.parseInt(month);
     	month = new DateFormatSymbols().getMonths()[monthInt - 1];
     	
@@ -64,6 +81,9 @@ public class ActivityDate {
     	
     }
     
+    public String getMonth(){
+    	return this.month;
+    }
     
     @Override
     public String toString() {

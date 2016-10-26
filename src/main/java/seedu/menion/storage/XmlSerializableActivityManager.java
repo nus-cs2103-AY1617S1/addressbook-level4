@@ -1,11 +1,10 @@
+//@@author A0146752B
 package seedu.menion.storage;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.UniqueActivityList;
-import seedu.menion.model.tag.Tag;
-import seedu.menion.model.tag.UniqueTagList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,8 +21,8 @@ public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
-    @XmlElement
-    private List<Tag> tags;
+
+
     
     @XmlElement
     private List<XmlAdaptedFloatingTask> floatingTasks;
@@ -33,7 +32,6 @@ public class XmlSerializableActivityManager implements ReadOnlyActivityManager {
 
     {
         tasks = new ArrayList<>();
-        tags = new ArrayList<>();
         floatingTasks = new ArrayList<>();
         events = new ArrayList<>();
     }

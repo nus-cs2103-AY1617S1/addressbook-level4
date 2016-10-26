@@ -8,44 +8,44 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.menion.ui.MainWindow">
-   <stylesheets>
-      <URL value="@DarkTheme.css" />
-      <URL value="@Extensions.css" />
-   </stylesheets>
-   <children>
-      <MenuBar VBox.vgrow="NEVER">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-      <VBox fx:id="taskList" minWidth="340" prefWidth="340">
-          <padding>
-              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-          </padding>
-         <children>
-            <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-         </children>
-      </VBox>
-       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="110" minHeight="110" prefHeight="110" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
-           <padding>
-               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-           </padding>
-       </AnchorPane>
-      <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
-         <padding>
-            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-         </padding>
-      </AnchorPane>
-      <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
-   </children>
+<VBox maxHeight="Infinity" maxWidth="1225.0" minHeight="-Infinity" minWidth="1225.0" prefWidth="1225.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.menion.ui.MainWindow">
+	<stylesheets>
+		<URL value="@DarkTheme.css" />
+		<URL value="@Extensions.css" />
+	</stylesheets>
+	<children>
+		<MenuBar VBox.vgrow="NEVER">
+			<menus>
+				<Menu mnemonicParsing="false" text="File">
+					<items>
+						<MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+					</items>
+				</Menu>
+				<Menu mnemonicParsing="false" text="Help">
+					<items>
+						<MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+					</items>
+				</Menu>
+			</menus>
+		</MenuBar>
+		<VBox fx:id="activityList" maxWidth="1225.0" minWidth="1225.0" prefWidth="1225.0">
+			<padding>
+				<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+			</padding>
+			<children>
+				<AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+			</children>
+		</VBox>
+		<AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="110" minHeight="110" prefHeight="110" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+			<padding>
+				<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+			</padding>
+		</AnchorPane>
+		<AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
+			<padding>
+				<Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+			</padding>
+		</AnchorPane>
+		<AnchorPane fx:id="statusbarPlaceholder" style="-fx-border-color: gray;" VBox.vgrow="NEVER" />
+	</children>
 </VBox>

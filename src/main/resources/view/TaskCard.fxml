@@ -3,6 +3,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -10,12 +11,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<HBox id="taskCardPane" fx:id="taskCardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<!-- @@author A0139515A -->
+
+<HBox id="taskCardPane" fx:id="taskCardPane" maxWidth="710.0" minWidth="710.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
 	<children>
-		<GridPane prefHeight="50.0" HBox.hgrow="ALWAYS">
+		<GridPane maxWidth="750.0" minWidth="750.0" prefHeight="50.0" prefWidth="750.0" HBox.hgrow="ALWAYS">
 			<columnConstraints>
-				<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-				<ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+				<ColumnConstraints hgrow="SOMETIMES" maxWidth="750.0" minWidth="750.0" prefWidth="750.0" />
 			</columnConstraints>
 			<children>
 				<VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="70.0" prefHeight="115.0" prefWidth="70.0" GridPane.columnIndex="0">
@@ -25,33 +27,45 @@
 					</stylesheets>
 
 					<children>
-						<HBox alignment="CENTER_LEFT" spacing="5">
+						<GridPane>
+							<columnConstraints>
+								<ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="280.0" prefWidth="280.0" />
+								<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+								<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+								<ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" />
+							</columnConstraints>
+							<rowConstraints>
+								<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+							</rowConstraints>
 							<children>
 								<HBox>
-									<Label fx:id="id" styleClass="cell_big_label" />
-									<Label fx:id="name" styleClass="cell_big_label" text="\$first" />
+									<Label fx:id="id" styleClass="cell_small_label" />
+									<Label fx:id="name" styleClass="cell_small_label" text="\$first" />
 								</HBox>
-      						<HBox alignment="CENTER_LEFT">
-      							<children>
-      								<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_small_label" text="Deadline: " />
-      								<Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
-      								<Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
-      								<Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
-      							</children>
-      						</HBox>
+								<HBox GridPane.columnIndex="2">
+									<children>
+										<Label fx:id="startDate" styleClass="cell_small_label" text="\$startDate" />
+										<Text strokeType="OUTSIDE" strokeWidth="0.0" text=" " />
+										<Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
+									</children>
+								</HBox>
+								<HBox alignment="TOP_CENTER" maxWidth="75.0" prefHeight="100.0" prefWidth="75.0" GridPane.columnIndex="3">
+									<children>
+                              <ImageView fx:id="completionStatus" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true" />
+									</children>
+								</HBox>
 							</children>
-						</HBox>
-						<HBox>
+						</GridPane>
+						<HBox alignment="BASELINE_LEFT">
 							<children>
-								<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_small_label" text="Note: " />
-								<Label fx:id="note" styleClass="cell_small_label" text="\$note" />
+								<Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="cell_note_label" text="Note: " />
+								<Label fx:id="note" contentDisplay="CENTER" styleClass="cell_note_label" text="\$note" />
 							</children>
 						</HBox>
-						<Label fx:id="status" styleClass="cell_small_label" text="\$status" />
 					</children>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
+					<padding>
+						<Insets left="5.0" />
+					</padding>
 				</VBox>
 			</children>
 			<rowConstraints>
