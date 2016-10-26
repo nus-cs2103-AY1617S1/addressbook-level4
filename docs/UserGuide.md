@@ -52,7 +52,7 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-<!-- @@author -->
+<!-- @@author A0144727B -->
  
 #### Adding a task: `add`
 Adds a task to GGist<br>
