@@ -1,11 +1,11 @@
 package seedu.whatnow.commons.core;
-
+//@@author A0139772U-reused
 import java.awt.*;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A Serializable class that contains the GUI settings.
+ * A Serializable class that contains the GUI settings
  */
 public class GuiSettings implements Serializable {
 

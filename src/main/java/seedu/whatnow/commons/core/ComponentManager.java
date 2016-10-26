@@ -1,5 +1,5 @@
 package seedu.whatnow.commons.core;
-
+//@@author A0139772U-reused
 import seedu.whatnow.commons.events.BaseEvent;
 
 /**

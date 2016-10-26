@@ -1,8 +1,7 @@
 package seedu.whatnow.logic.commands;
-
+//@@author A0139128A
 import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 
-//@author A0139128A
 public class RedoCommand extends Command{
 
 	public static final String COMMAND_WORD = "redo";

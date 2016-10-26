@@ -1,5 +1,6 @@
-package seedu.whatnow.commons.util;
-//@@author A0139128A-reused
+# A0139128Areused
+###### \src\main\java\seedu\whatnow\commons\util\UrlUtil.java
+``` java
 import java.net.URL;
 
 /**
@@ -22,3 +23,19 @@ public class UrlUtil {
     }
 
 }
+```
+###### \src\main\java\seedu\whatnow\model\ModelManager.java
+``` java
+    @Override
+    public ReadOnlyWhatNow getWhatNow() {
+        return whatNow;
+    }
+```
+###### \src\main\java\seedu\whatnow\model\ModelManager.java
+``` java
+    @Override
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        whatNow.removeTask(target);
+        indicateWhatNowChanged();
+    }
+```
