@@ -87,10 +87,27 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void undo() throws CannotUndoException {
     	try {
-    		System.out.println(undoer.peekUndoList().getTaskList().get(0).checkDone().toString());
-    		toDoList.resetData(undoer.undo());
+    		ToDoList currentState = new ToDoList(toDoList);
+    		toDoList.resetData(undoer.undo(currentState));
     	} catch (EmptyStackException ese) {
     		throw new CannotUndoException("Nothing to undo.");
+    	}
+    	indicateToDoListChanged();
+    	updateFilteredListToShowAll();
+    }
+    
+    /**
+     * Redo functionality
+     * 
+     * @@author A0141006B
+     */
+    @Override
+    public synchronized void redo() throws CannotUndoException {
+    	try {
+    		ToDoList currentState = new ToDoList(toDoList);
+    		toDoList.resetData(undoer.redo(currentState));
+    	} catch (EmptyStackException ese) {
+    		throw new CannotUndoException("Nothing to redo.");
     	}
     	indicateToDoListChanged();
     	updateFilteredListToShowAll();

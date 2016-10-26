@@ -62,16 +62,22 @@ public class Undoer {
 	}
 	
 	//@@ author A0139661Y
-	public ReadOnlyToDoList undo() throws EmptyStackException {
+	public ReadOnlyToDoList undo(ToDoList currentState) throws EmptyStackException {
 		if (undoList.size() <= 1 )
 			throw new EmptyStackException();
-//		redoList.push(undoList.pop());
-		System.out.println(undoList.peek().toString() + " " + undoList.size());
-		return undoList.pop();	
+		ReadOnlyToDoList topmost = undoList.pop();
+		redoList.push(currentState);
+		System.out.println(topmost.toString());
+		return topmost;	
 	}
 	
-	public ReadOnlyToDoList redo() {
-		undoList.push(redoList.pop());
-		return redoList.peek();
+	//@@author A0141006B
+	public ReadOnlyToDoList redo(ToDoList currentState) throws EmptyStackException {
+		if (redoList.size() <= 0)
+			throw new EmptyStackException();
+		ReadOnlyToDoList topmost = redoList.pop();
+		undoList.push(currentState);
+		System.out.println(topmost.toString());
+		return topmost;
 	}
 }

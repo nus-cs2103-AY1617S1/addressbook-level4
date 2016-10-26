@@ -52,4 +52,6 @@ public interface Model {
 
 	void undo() throws CannotUndoException;
 
+	void redo() throws CannotUndoException;
+
 }

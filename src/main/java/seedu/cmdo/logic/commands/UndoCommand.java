@@ -2,6 +2,11 @@ package seedu.cmdo.logic.commands;
 
 import seedu.cmdo.commons.exceptions.CannotUndoException;
 
+/**
+ * Represents an undo command.
+ * 
+ * @@author A0141006B
+ */
 public class UndoCommand extends Command {
 	
 	public static final String COMMAND_WORD = "undo";
@@ -16,13 +21,6 @@ public class UndoCommand extends Command {
 
 	@Override
 	public CommandResult execute() {
-
-//    	  try {
-//    		  model.undoOne(); 
-//    	  } catch (CannotUndoException cue) {
-//    		  return new CommandResult(cue.getMessage());
-//    	  }
-		
 		try {
 			model.undo();
 		} catch (CannotUndoException cue) {
