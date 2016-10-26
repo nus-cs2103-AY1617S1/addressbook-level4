@@ -1,6 +1,14 @@
 package seedu.agendum.storage;
 
 
+import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.NoSuchElementException;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -9,19 +17,18 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.agendum.commons.core.Config;
 import seedu.agendum.commons.events.model.ChangeSaveLocationRequestEvent;
+import seedu.agendum.commons.events.model.LoadDataRequestEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
+import seedu.agendum.commons.events.storage.DataLoadingExceptionEvent;
 import seedu.agendum.commons.events.storage.DataSavingExceptionEvent;
-import seedu.agendum.model.ToDoList;
+import seedu.agendum.commons.exceptions.DataConversionException;
+import seedu.agendum.commons.exceptions.FileDeletionException;
+import seedu.agendum.commons.util.FileUtil;
 import seedu.agendum.model.ReadOnlyToDoList;
+import seedu.agendum.model.ToDoList;
 import seedu.agendum.model.UserPrefs;
-import seedu.agendum.testutil.TypicalTestTasks;
 import seedu.agendum.testutil.EventsCollector;
-
-import java.io.IOException;
-
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import seedu.agendum.testutil.TypicalTestTasks;
 
 public class StorageManagerTest {
 
@@ -81,12 +88,32 @@ public class StorageManagerTest {
         storage.handleToDoListChangedEvent(new ToDoListChangedEvent(new ToDoList()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
-    
+
+    //@@author A0148095X
     @Test
     public void handleSaveLocationChangedEvent_validFilePath() {
         String validPath = "data/test.xml";
         storageManager.handleChangeSaveLocationRequestEvent(new ChangeSaveLocationRequestEvent(validPath));
         assertEquals(storageManager.getToDoListFilePath(), validPath);
+    }
+    
+    @Test
+    public void handleLoadDataRequestEvent_validPathToFile_invalidFile() throws IOException, FileDeletionException {
+        EventsCollector eventCollector = new EventsCollector();
+        String validPath = "data/testLoad.xml";
+        assert !FileUtil.isFileExists(validPath);
+        
+        // File does not exist
+        storageManager.handleLoadDataRequestEvent(new LoadDataRequestEvent(validPath));
+        DataLoadingExceptionEvent dlee = (DataLoadingExceptionEvent)eventCollector.get(0);
+        assertTrue(dlee.exception instanceof NoSuchElementException);
+
+        // File in wrong format
+        FileUtil.createFile(new File(validPath));
+        storageManager.handleLoadDataRequestEvent(new LoadDataRequestEvent(validPath));
+        dlee = (DataLoadingExceptionEvent)eventCollector.get(1);
+        assertTrue(dlee.exception instanceof DataConversionException);
+        FileUtil.deleteFile(validPath);
     }
     
     public void setToDoListFilePath() {
@@ -107,7 +134,7 @@ public class StorageManagerTest {
         storageManager.setToDoListFilePath(validPath);
         assertEquals(validPath, storageManager.getToDoListFilePath());
     }
-
+    //@@author
 
     /**
      * A Stub class to throw an exception when the save method is called

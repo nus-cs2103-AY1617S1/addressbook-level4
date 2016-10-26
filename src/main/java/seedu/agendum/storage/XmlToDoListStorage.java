@@ -34,17 +34,17 @@ public class XmlToDoListStorage implements ToDoListStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyToDoList> readToDoList(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyToDoList> readToDoList(String filePath) throws DataConversionException {
         assert filePath != null;
-
         File toDoListFile = new File(filePath);
 
-        if (!toDoListFile.exists()) {
+        ReadOnlyToDoList toDoListOptional;
+        try {
+            toDoListOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        } catch (FileNotFoundException e) {
             logger.info("ToDoList file "  + toDoListFile + " not found");
             return Optional.empty();
         }
-
-        ReadOnlyToDoList toDoListOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
         return Optional.of(toDoListOptional);
     }
@@ -74,7 +74,7 @@ public class XmlToDoListStorage implements ToDoListStorage {
 
     @Override
     public void setToDoListFilePath(String filePath) {
-        assert StringUtil.isValidPathToFile(filePath);        
+        assert StringUtil.isValidPathToFile(filePath);
         this.filePath = filePath;
     }
 }

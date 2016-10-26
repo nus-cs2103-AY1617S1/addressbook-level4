@@ -99,6 +99,9 @@ public class Parser {
             
         case StoreCommand.COMMAND_WORD:
             return new StoreCommand(arguments);
+            
+        case LoadCommand.COMMAND_WORD:
+            return new LoadCommand(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);

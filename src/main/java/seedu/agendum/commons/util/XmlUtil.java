@@ -4,6 +4,9 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+
+import seedu.agendum.storage.XmlSerializableToDoList;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -12,6 +15,18 @@ import java.io.FileNotFoundException;
  */
 public class XmlUtil {
 
+    //@@author A0148095X
+    public static boolean isFileCorrectFormat(String filePath) {
+        File file = new File(filePath);
+        try {
+            getDataFromFile(file, XmlSerializableToDoList.class);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+    
+    //@@author
     /**
      * Returns the xml data in the file as an object of the specified type.
      *

@@ -29,7 +29,7 @@ public interface ToDoListStorage {
     /**
      * @see #getToDoListFilePath()
      */
-    Optional<ReadOnlyToDoList> readToDoList(String filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyToDoList> readToDoList(String filePath) throws DataConversionException;
 
     /**
      * Saves the given {@link ReadOnlyToDoList} to the storage.

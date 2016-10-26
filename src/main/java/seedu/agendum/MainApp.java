@@ -20,7 +20,6 @@ import seedu.agendum.storage.StorageManager;
 import seedu.agendum.ui.Ui;
 import seedu.agendum.ui.UiManager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
@@ -86,7 +85,7 @@ public class MainApp extends Application {
             initialData = new ToDoList();
         }
 
-        return new ModelManager(initialData, userPrefs, config);
+        return new ModelManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {

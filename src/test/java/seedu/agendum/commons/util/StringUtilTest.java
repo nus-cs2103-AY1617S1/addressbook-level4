@@ -47,11 +47,12 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
     
+    //@@author A0148095X
     /*
      * Valid equivalence partitions for path to file:
-     *   - file path has spaces only between words
-     *   - one alphabet for drive letters for windows absolute path
-     *   - filename must be file.type
+     *   - file path is valid
+     *   - file name is valid
+     *   - file type is valid
      *
      * Possible scenarios returning true:
      *   - valid relative path to a file
@@ -61,55 +62,39 @@ public class StringUtilTest {
      * Possible scenarios returning false:
      *   - file name missing
      *   - file type missing
-     *   - absolute path has more than one alphabet for drive letter
-     *   - absolute path has number for drive letter
      *   - null path
      *   - empty path
+     *   - file path not in the right format
      *
      * The test method below tries to verify all above with a reasonably low number of test cases.
      */
-    
     @Test
     public void isValidPathToFile(){
-        // null of empty file paths
-        assertFalse(StringUtil.isValidPathToFile(null));
-        assertFalse(StringUtil.isValidPathToFile(""));
+        // null and empty file paths
+        assertFalse(StringUtil.isValidPathToFile(null)); // null path
+        assertFalse(StringUtil.isValidPathToFile("")); // empty path
         
         // relative file paths
         assertFalse(StringUtil.isValidPathToFile("a")); // missing file type
-        assertFalse(StringUtil.isValidPathToFile("data/.xml")); // missing file name
-        assertFalse(StringUtil.isValidPathToFile("data/ .xml")); // invalid file name
-        assertFalse(StringUtil.isValidPathToFile("data /valid.xml")); // invalid folder name with spaces after
-        assertFalse(StringUtil.isValidPathToFile(" data/valid.xml")); // invalid folder name with spaces before
+        assertFalse(StringUtil.isValidPathToFile("data/.xml")); // invalid file name
+        assertFalse(StringUtil.isValidPathToFile("data /valid.xml")); // invalid file path with spaces after
         
-        assertTrue(StringUtil.isValidPathToFile("Program Files/data.xml")); // valid folder and file name with spaces
-        assertTrue(StringUtil.isValidPathToFile("folder/some-other-folder/data.dat")); // valid folder and file name
+        assertTrue(StringUtil.isValidPathToFile("Program Files/data.xml")); // valid path to file with acceptable spaces in file path
         
         // absolute file paths for windows
-        assertFalse(StringUtil.isValidPathToFile("CCCC:/valid.xml")); // invalid drive
         assertFalse(StringUtil.isValidPathToFile("1:/data.xml")); // invalid drive
-        assertFalse(StringUtil.isValidPathToFile("C:/Program Files")); // missing file name and file type
-        assertFalse(StringUtil.isValidPathToFile("C:/data/a")); // missing file type
-        assertFalse(StringUtil.isValidPathToFile("C:/data/.xml")); // missing file name
-        assertFalse(StringUtil.isValidPathToFile("C:/data/ .xml")); // invalid file name
-        assertFalse(StringUtil.isValidPathToFile("C:/data /valid.xml")); // invalid folder name with spaces after
-        assertFalse(StringUtil.isValidPathToFile("C:/ data/valid.xml")); // invalid folder name with spaces before
+        assertFalse(StringUtil.isValidPathToFile("C:/data/a")); // invalid file type
+        assertFalse(StringUtil.isValidPathToFile("C:/data/.xml")); // invalid file name
+        assertFalse(StringUtil.isValidPathToFile("C:/ data/valid.xml")); // invalid file path with spaces before
 
-        assertTrue(StringUtil.isValidPathToFile("C:/a/a.xml")); // valid drive, folder and file name
-        assertTrue(StringUtil.isValidPathToFile("C:/Program Files/data.xml")); // valid folder and file name with spaces
-        assertTrue(StringUtil.isValidPathToFile("Z:/folder/some-other-folder/data.dat")); // valid drive, folder and file name
-        assertTrue(StringUtil.isValidPathToFile("a:/folder/some-other-folder/data.dat")); // valid drive, folder and file name
+        assertTrue(StringUtil.isValidPathToFile("Z:/Program Files/some-other-folder/data.dat")); // valid drive, folder and file name
         
         // absolute file path for unix/MacOX
-        assertFalse(StringUtil.isValidPathToFile("/usr/")); // missing file name and type
-        assertFalse(StringUtil.isValidPathToFile("/usr/data")); // missing file type
-        assertFalse(StringUtil.isValidPathToFile("/usr/.xml")); // missing file name
-        assertFalse(StringUtil.isValidPathToFile("/usr/ .xml")); // invalid file name
-        assertFalse(StringUtil.isValidPathToFile("/ usr/data.xml")); // invalid folder with spaces before
-        assertFalse(StringUtil.isValidPathToFile("/usr /data.xml")); // invalid folder with spaces after
+        assertFalse(StringUtil.isValidPathToFile("/usr/data")); // invalid file type
+        assertFalse(StringUtil.isValidPathToFile("/usr/.xml")); // invalid file name
+        assertFalse(StringUtil.isValidPathToFile("/ usr/data.xml")); // invalid file path with spaces before
         
         assertTrue(StringUtil.isValidPathToFile("/usr/bin/my folder/data.xml")); // valid folder and file name with spaces
-        assertTrue(StringUtil.isValidPathToFile("/home/data.xml"));// valid folder and file name
     }
     
 }

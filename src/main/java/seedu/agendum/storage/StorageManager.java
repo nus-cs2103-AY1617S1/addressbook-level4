@@ -1,6 +1,7 @@
 package seedu.agendum.storage;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -9,9 +10,12 @@ import com.google.common.eventbus.Subscribe;
 import seedu.agendum.commons.core.ComponentManager;
 import seedu.agendum.commons.core.Config;
 import seedu.agendum.commons.core.LogsCenter;
+import seedu.agendum.commons.events.model.LoadDataRequestEvent;
 import seedu.agendum.commons.events.model.ChangeSaveLocationRequestEvent;
 import seedu.agendum.commons.events.model.ToDoListChangedEvent;
+import seedu.agendum.commons.events.storage.DataLoadingExceptionEvent;
 import seedu.agendum.commons.events.storage.DataSavingExceptionEvent;
+import seedu.agendum.commons.events.storage.LoadDataCompleteEvent;
 import seedu.agendum.commons.exceptions.DataConversionException;
 import seedu.agendum.commons.util.ConfigUtil;
 import seedu.agendum.commons.util.StringUtil;
@@ -59,12 +63,12 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyToDoList> readToDoList() throws DataConversionException, IOException {
+    public Optional<ReadOnlyToDoList> readToDoList() throws DataConversionException {
         return readToDoList(toDoListStorage.getToDoListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyToDoList> readToDoList(String filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyToDoList> readToDoList(String filePath) throws DataConversionException {
         logger.fine("Attempting to read data from file: " + filePath);
         return toDoListStorage.readToDoList(filePath);
     }
@@ -79,11 +83,13 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         toDoListStorage.saveToDoList(toDoList, filePath);
     }
-
+    
+    //@@author A0148095X
     @Override
     public void setToDoListFilePath(String filePath){
         assert StringUtil.isValidPathToFile(filePath);
         toDoListStorage.setToDoListFilePath(filePath);
+        logger.info("Setting todo list file path to: " + filePath);
     }
     
     private void saveConfigFile() {
@@ -94,6 +100,7 @@ public class StorageManager extends ComponentManager implements Storage {
         }        
     }
 
+    //@@author
     @Override
     @Subscribe
     public void handleToDoListChangedEvent(ToDoListChangedEvent event) {
@@ -104,7 +111,8 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-
+    
+    //@@author A0148095X
     @Override
     @Subscribe
     public void handleChangeSaveLocationRequestEvent(ChangeSaveLocationRequestEvent event) {
@@ -115,5 +123,26 @@ public class StorageManager extends ComponentManager implements Storage {
         saveConfigFile();
         
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    }    
+
+    @Override
+    @Subscribe
+    public void handleLoadDataRequestEvent(LoadDataRequestEvent event) {        
+        setToDoListFilePath(event.loadLocation);
+        
+        Optional<ReadOnlyToDoList> toDoListOptional;
+        ReadOnlyToDoList loadedData = null;
+        try {
+            toDoListOptional = readToDoList();
+            loadedData = toDoListOptional.get();
+            logger.info("Loading successful - " + LogsCenter.getEventHandlingLogMessage(event));
+            raise(new LoadDataCompleteEvent(loadedData));
+        } catch (DataConversionException dce) {
+            logger.warning("Loading unsuccessful - Data file not in the correct format. ");
+            raise(new DataLoadingExceptionEvent(dce));
+        } catch (NoSuchElementException nse) {
+            logger.warning("Loading unsuccessful - File does not exist.");
+            raise(new DataLoadingExceptionEvent(nse));            
+        }
     }
 }

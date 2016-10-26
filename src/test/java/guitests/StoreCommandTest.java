@@ -10,6 +10,7 @@ import seedu.agendum.commons.exceptions.FileDeletionException;
 import seedu.agendum.commons.util.FileUtil;
 import seedu.agendum.logic.commands.StoreCommand;
 
+//@@author A0148095X
 public class StoreCommandTest extends ToDoListGuiTest {
 
     @Test

@@ -22,6 +22,7 @@ import seedu.agendum.model.ModelManager;
 import seedu.agendum.model.ReadOnlyToDoList;
 import seedu.agendum.model.task.*;
 import seedu.agendum.storage.StorageManager;
+import seedu.agendum.storage.XmlToDoListStorage;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -423,7 +424,7 @@ public class LogicManagerTest {
     }
     //@author
 
-
+    //@@author A0148095X
     @Test
     public void execute_store_successful() throws Exception {
         // setup expectations
@@ -460,7 +461,7 @@ public class LogicManagerTest {
         // delete file
         FileUtil.deleteFile(location);
     }
-
+    //@@author
 
     //@@author A0133367E
     @Test
@@ -832,7 +833,30 @@ public class LogicManagerTest {
     }
     //@@author
 
+    //@@author A0148095X
+    @Test
+    public void execute_load_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeAdded = helper.generateTask(999);
+        ToDoList expectedTDL = new ToDoList();
+        expectedTDL.addTask(toBeAdded);
 
+        // setup storage file
+        String filePath = "data/test/load.xml";
+        XmlToDoListStorage xmltdls = new XmlToDoListStorage(filePath);
+        xmltdls.saveToDoList(expectedTDL);
+
+        // execute command and verify result
+        assertCommandBehavior("load " + filePath,
+                String.format(LoadCommand.MESSAGE_SUCCESS, filePath),
+                expectedTDL,
+                expectedTDL.getTaskList());
+        
+        FileUtil.deleteFile(filePath);
+    }
+    
+    //@@author
     /**
      * A utility class to generate test data.
      */

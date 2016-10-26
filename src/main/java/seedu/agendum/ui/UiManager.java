@@ -10,6 +10,7 @@ import seedu.agendum.MainApp;
 import seedu.agendum.commons.core.ComponentManager;
 import seedu.agendum.commons.core.Config;
 import seedu.agendum.commons.core.LogsCenter;
+import seedu.agendum.commons.events.storage.DataLoadingExceptionEvent;
 import seedu.agendum.commons.events.storage.DataSavingExceptionEvent;
 import seedu.agendum.commons.events.ui.JumpToListRequestEvent;
 import seedu.agendum.commons.events.ui.ShowHelpRequestEvent;
@@ -97,6 +98,14 @@ public class UiManager extends ComponentManager implements Ui {
 
     //==================== Event Handling Code =================================================================
 
+    //@@author A0148095X
+    @Subscribe
+    private void handleDataLoadingExceptionEvent(DataLoadingExceptionEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        showFileOperationAlertAndWait("Could not load data", "Could not load data from file", event.exception);
+    }    
+
+    //@@author
     @Subscribe
     private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

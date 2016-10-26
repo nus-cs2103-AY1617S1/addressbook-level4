@@ -4,14 +4,13 @@ import seedu.agendum.commons.core.Config;
 import seedu.agendum.commons.util.FileUtil;
 import seedu.agendum.commons.util.StringUtil;
 
-/**
- * Allow the user to specify a folder as the data storage location
- */
+//@@author A0148095X
+/** Allow the user to specify a folder as the data storage location **/
 public class StoreCommand extends Command {
     
     public static final String COMMAND_WORD = "store";
-	public static final String COMMAND_FORMAT = "store <location>";
-	public static final String COMMAND_DESCRIPTION = "stores task list at specified location";
+    public static final String COMMAND_FORMAT = "store <location>";
+    public static final String COMMAND_DESCRIPTION = "stores task list at specified location";
 	
     public static final String MESSAGE_SUCCESS = "New save location: %1$s";
     public static final String MESSAGE_LOCATION_DEFAULT = "Save location set to default: %1$s";
@@ -39,7 +38,7 @@ public class StoreCommand extends Command {
             model.changeSaveLocation(defaultLocation);
             return new CommandResult(String.format(MESSAGE_LOCATION_DEFAULT, defaultLocation));
         }
-        
+
         if(isFileExists()) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_FILE_EXISTS);
