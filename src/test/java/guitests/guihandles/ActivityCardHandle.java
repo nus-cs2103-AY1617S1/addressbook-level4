@@ -55,26 +55,26 @@ public class ActivityCardHandle extends GuiHandle {
     }
 
     public boolean isSameActivity(ReadOnlyActivity person){
+
     	boolean isSameName = getFullName().equals(person.getName().fullName);
-    	boolean isSameReminder = getReminder().equals(person.getReminder().value);
-    	
+    	boolean isSameReminder = getReminder().replace("Reminder:\t", "").equals(person.getReminder().toString());
     	return (isSameName && isSameReminder);
     }
     
     public boolean isSameTask(ReadOnlyTask person){
     	boolean isSameName = getFullName().equals(person.getName().fullName);
-    	boolean isSameReminder = getReminder().equals(person.getReminder().getCalendarValue());
-    	boolean isSameDueDate = getDueDate().equals(person.getDueDate().getCalendarValue());
-    	boolean isSamePriority = getPriority().equals(person.getPriority().value);
+    	boolean isSameReminder = getReminder().replace("Reminder:\t", "").equals(person.getReminder().getCalendarValue());
+    	boolean isSameDueDate = getDueDate().replace("DueDate:\t", "").equals(person.getDueDate().getCalendarValue());
+    	boolean isSamePriority = getPriority().replace("Priority:\t", "").equals(person.getPriority().value);
     	
     	return (isSameName && isSameReminder && isSameDueDate && isSamePriority);
     }
     
     public boolean isSameEvent(ReadOnlyEvent person){
     	boolean isSameName = getFullName().equals(person.getName().fullName);
-    	boolean isSameReminder = getReminder().equals(person.getReminder().value);
-    	boolean isSameStartTime = getStartTime().equals(person.getStartTime().getCalendarValue());
-    	boolean isSameEndTime = getEndTime().equals(person.getEndTime().getCalendarValue());
+    	boolean isSameReminder = getReminder().replace("Reminder:\t", "").equals(person.getReminder().value);
+    	boolean isSameStartTime = getStartTime().replace("Start:\t", "").equals(person.getStartTime().getCalendarValue());
+    	boolean isSameEndTime = getEndTime().replace("End:\t", "").equals(person.getEndTime().getCalendarValue());
 
     	return (isSameName && isSameReminder && isSameStartTime && isSameEndTime);
     }

@@ -101,7 +101,7 @@ public class TestActivity implements ReadOnlyActivity {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         DateUtil dUtil = new DateUtil();
-        String dateFormat = "dd.MM.yyyy HHmm";
+        String dateFormat = "EEE, MMM d, yyyy h:mm a";
         
         sb.append("add " + this.getName().fullName + " ");
         
