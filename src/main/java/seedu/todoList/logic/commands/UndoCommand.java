@@ -18,7 +18,7 @@ public class UndoCommand extends Command {
     		+ ": Undo the latest command. If there is no previous command, nothing will happen.\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_UNDO_SUCCESS = "Sucessfully undone the latest task";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undone the latest task";
 
     public UndoCommand() {}
 
