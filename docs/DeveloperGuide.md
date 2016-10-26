@@ -138,6 +138,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
+<!--- @@author A0129595N --->
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
@@ -147,8 +148,10 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
 * stores the malitio data.
+* stores the history and future of data-changing commands in stacks of InputHistory.
 * exposes a `UnmodifiableObservableList<ReadOnlyFloatingTask>`, `UnmodifiableObservableList<ReadOnlyDeadline>`, `UnmodifiableObservableList<ReadOnlyEvent>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in any of the list change.
+* exposes the two stacks of InputHistory (history and future) for access by UndoCommand and RedoCommand.
 * does not depend on any of the other three components.
 
 ### Storage component
