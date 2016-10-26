@@ -302,6 +302,8 @@ For events, you can edit the name and both start and end dates and times.
 1. Type `save VALID_FILE_PATH`.
 2. Press `Enter`.
 
+[comment]: # (@@author)
+
 # FAQ
 
 [comment]: # (@@author A0140060A)
