@@ -40,6 +40,8 @@ public class Parser {
                     + "(?<name>(?:[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
     
+    private static final Pattern COMPLETE_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[d|f|D|F]\\d+)");
+    
     private static final Set<String> TYPES_OF_TASKS = new HashSet<String>(Arrays.asList("f", "d", "e" ));
 
     public Parser() {}
@@ -68,6 +70,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case CompleteCommand.COMMAND_WORD:
+            return prepareComplete(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -223,6 +228,32 @@ public class Parser {
                     name,
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
+    /**
+     * Parses arguments in the context of the delete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareComplete(String args) {
+    	final Matcher matcher = COMPLETE_INDEX_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+        }
+        try {
+            String index = parseIndex(matcher.group("targetIndex"));
+            if (index.isEmpty()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+            }
+            char taskType = index.charAt(0);
+            int taskNum = Integer.parseInt(index.substring(1));
+            
+            return new CompleteCommand(taskType,taskNum);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

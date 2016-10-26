@@ -12,6 +12,8 @@ import seedu.malitio.model.tag.UniqueTagList;
 public interface ReadOnlyFloatingTask {
 
     Name getName();
+    boolean getCompleted();
+    void setCompleted();
 
 
     /**

@@ -9,6 +9,7 @@ import seedu.malitio.model.task.*;
 public class TestFloatingTask implements ReadOnlyFloatingTask {
 
     private Name name;
+    private boolean completed = false;
     private UniqueTagList tags;
 
     public TestFloatingTask() {
@@ -50,5 +51,15 @@ public class TestFloatingTask implements ReadOnlyFloatingTask {
     public String getAsText() {
         return ReadOnlyFloatingTask.super.getAsText();
     }
+
+	@Override
+	public boolean getCompleted() {
+		return completed;
+	}
+
+	@Override
+	public void setCompleted() {
+		this.completed = true;
+	}
 
 }

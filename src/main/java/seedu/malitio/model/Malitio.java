@@ -15,9 +15,11 @@ import seedu.malitio.model.task.UniqueEventList;
 import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 import java.util.*;
@@ -249,6 +251,15 @@ public class Malitio implements ReadOnlyMalitio {
         events.edit(edited, beforeEdit);
         sortEvent();
     }
+    
+	public void completeTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
+        tasks.complete(taskToComplete);
+	}
+	
+	public void completeDeadline(ReadOnlyDeadline deadlineToEdit) throws DeadlineCompletedException, DeadlineNotFoundException {
+		deadlines.complete(deadlineToEdit);
+		
+	}
 
     public boolean removeEvent(ReadOnlyEvent key) throws EventNotFoundException {
         if (events.remove(key)) {
@@ -339,6 +350,5 @@ public class Malitio implements ReadOnlyMalitio {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(tasks, deadlines, events, tags);
     }
-
 
 }

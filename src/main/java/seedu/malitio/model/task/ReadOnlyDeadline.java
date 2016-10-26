@@ -11,6 +11,8 @@ public interface ReadOnlyDeadline {
 
         Name getName();
         DateTime getDue();
+        boolean getCompleted();
+        void setCompleted();
         
         /**
          * The returned TagList is a deep copy of the internal TagList,
