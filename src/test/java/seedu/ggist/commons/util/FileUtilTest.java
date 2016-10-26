@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 
+//@@author A0147994J
 public class FileUtilTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
 

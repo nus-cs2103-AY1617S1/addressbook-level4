@@ -24,6 +24,7 @@ import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+//@@author A0147994J
 public class StorageManagerTest {
 
     private StorageManager storageManager;

@@ -8,6 +8,7 @@ import seedu.ggist.model.task.ReadOnlyTask;
 /**
  * Provides a handle to a task card in the task list panel.
  */
+//@@author A0147994J
 public class TaskCardHandle extends GuiHandle {
     private static final String TASKNAME_FIELD_ID = "#taskName";
     private static final String STARTDATE_FIELD_ID = "#startDate";
