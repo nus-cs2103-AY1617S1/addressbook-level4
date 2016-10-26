@@ -89,6 +89,7 @@ public class ModelManager extends ComponentManager implements Model {
     	try {
     		ToDoList currentState = new ToDoList(toDoList);
     		toDoList.resetData(undoer.undo(currentState));
+    		logger.info("Undo operation called.");
     	} catch (EmptyStackException ese) {
     		throw new CannotUndoException("Nothing to undo.");
     	}
@@ -106,6 +107,7 @@ public class ModelManager extends ComponentManager implements Model {
     	try {
     		ToDoList currentState = new ToDoList(toDoList);
     		toDoList.resetData(undoer.redo(currentState));
+    		logger.info("Redo operation called.");
     	} catch (EmptyStackException ese) {
     		throw new CannotUndoException("Nothing to redo.");
     	}

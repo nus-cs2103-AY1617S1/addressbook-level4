@@ -29,7 +29,6 @@ public class LogicManager extends ComponentManager implements Logic {
         this.model = model;
         this.parser = MainParser.getInstance();
         this.undoer = Undoer.getInstance(model.getToDoList());
-        System.out.println(model.getToDoList().toString());
     }
     
     @Override	

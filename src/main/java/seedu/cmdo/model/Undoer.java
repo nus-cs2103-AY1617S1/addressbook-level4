@@ -2,16 +2,13 @@ package seedu.cmdo.model;
 
 import java.util.EmptyStackException;
 import java.util.Stack;
-import java.util.logging.Logger;
 
 import seedu.cmdo.commons.core.EventsCenter;
-import seedu.cmdo.commons.core.LogsCenter;
 
 public class Undoer {
 	private static Undoer undoer;
 	private Stack<ReadOnlyToDoList> undoList;
 	private Stack<ReadOnlyToDoList> redoList;
-	private Logger logger;
 	private EventsCenter ec;
 
     private Undoer(ReadOnlyToDoList initialTdl) {
@@ -39,8 +36,6 @@ public class Undoer {
 		undoList = new Stack<ReadOnlyToDoList>();
 		undoList.push(initialTdl);
 		redoList = new Stack<ReadOnlyToDoList>();
-		logger = LogsCenter.getLogger(Undoer.class);
-		logger.info("" + undoList.size() + "/" + undoList.peek().toString());
 		ec = EventsCenter.getInstance();
 		ec.registerHandler(this);
     }
@@ -58,7 +53,6 @@ public class Undoer {
 	 */
 	public void snapshot(ReadOnlyToDoList tdl) {
 		undoList.push(tdl);
-		System.out.println("Inside Undoer " + undoList.toString());
 	}
 	
 	//@@ author A0139661Y
@@ -67,7 +61,6 @@ public class Undoer {
 			throw new EmptyStackException();
 		ReadOnlyToDoList topmost = undoList.pop();
 		redoList.push(currentState);
-		System.out.println(topmost.toString());
 		return topmost;	
 	}
 	
@@ -77,7 +70,6 @@ public class Undoer {
 			throw new EmptyStackException();
 		ReadOnlyToDoList topmost = redoList.pop();
 		undoList.push(currentState);
-		System.out.println(topmost.toString());
 		return topmost;
 	}
 }
