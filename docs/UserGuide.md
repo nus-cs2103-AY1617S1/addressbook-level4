@@ -4,16 +4,16 @@
 
 # Table of Contents
 
-* [Introduction](#Introduction)
+* [Introduction](#introduction)
 * [Quick Start](#quick-start)
 * [Features](#features)
   * [Add Activity](#adding-an-activity)
   * [Delete Activities](#deleting-an-activity)
-  * [Edit Activities](#editting-an-activity)
+  * [Edit Activities](#editing-an-activity)
   * [List Activities](#listing-all-activities)
   * [Find Activities](#finding-all-activities-containing-any-keyword-in-their-name)
-  * [Undo Command](#undo-command)
-  * [Redo Command](#redo-command)
+  * [Undo Command](#undo)
+  * [Redo Command](#redo)
   * [Mark Completed Activities](#complete-an-activity)
   * [Modify Storage Path](#modifying-the-storage-path)
   * [Help](#viewing-help)
@@ -23,7 +23,6 @@
 
 ## Introduction
 Ever felt overwhelmed from the multitude of tasks you have to complete and have no idea where to start? Are you looking for an easy to work with application to help you track all your activities? Well look no further! Your very own Menion is here to assist you!
-</>
 
 Menion is your personal assistant that tracks all your activities and displays them in a simple to read display. It saves you the hassle of remembering what needs to be done and is able to help you prioritise your tasks.
 
@@ -60,14 +59,12 @@ Unlike other complicated task managers, Menion is simple and intuitive. It relie
 > The order of parameters is fixed.
 
 
-> <br>
 > **Important** (change to diagram) <br> 
 > Menion supports 3 types of Activities. Tasks, Events and Floating Tasks. 
 > <li style="padding-top:1px">Task has a deadline.
 > <li>Event has a starting date/time and an ending date/time.
 > <li> Floating Task does not have any dates attached to it.
 
-<br><br>
 #### Adding an activity
 Adds an activity to Menion<br>
 
@@ -113,7 +110,8 @@ Examples :
 * `edit task 1 name Hello World`
 
 
-[//]: <> (@@author A0139515A)
+[//]: # (@@author A0139515A)
+
 #### Undo
 Undo the most previous command.
 
@@ -181,7 +179,8 @@ Clear all entries from Menion.<br>
 
 Format : `clear`
 
-[//]: <> (@@author A0139515A)
+[//]: # (@@author A0139515A)
+
 #### Modifying the storage path
 Modify the storage path that stores all the data.<br>
 
@@ -216,14 +215,15 @@ There is no need to save manually.<br>
 
 Command | Format  
 -------- | :-------- 
-Add | `add FLOATING_TASK_NAME n:NOTES...`<br>`add TASK_NAME by TASK_DEADLINE_DATE TASK_DEADLINE_TIME n:NOTES...`<br>`add EVENT_NAME from EVENT_START_DATE EVENT_START_TIME to EVENT_END_DATE EVENT_END_TIME n:NOTES...`
+Add | `add FLOATING_TASK_NAME n:NOTES...`<br>`add TASK_NAME by: TASK_DEADLINE_DATE TASK_DEADLINE_TIME n:NOTES...`<br>`add EVENT_NAME from: EVENT_START_DATE EVENT_START_TIME to: EVENT_END_DATE EVENT_END_TIME n:NOTES...`
 Clear | `clear`
 Complete | `complete ACTIVITY_TYPE INDEX`
+Uncomplete | `uncomplete ACTIVITY_TYPE INDEX`
 Delete | `delete ACTIVITY_TYPE INDEX`
 Edit | `edit ACTIVITY_TYPE ACTIVITY_INDEX ACTIVITY_PARAMETER_TO_CHANGE ACTIVITY_PARAMETER_CHANGES`
 Exit | `exit`
 Help | `help`
-List | `list`
+List | `list` <br> `list DATE` <br> `list MONTH`
 Modify Storage Path | `modify STORAGE_LOCATION`
 Undo| `undo`
 Redo | `redo`
