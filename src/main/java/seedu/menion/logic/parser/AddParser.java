@@ -3,6 +3,7 @@ package seedu.menion.logic.parser;
 import com.joestelmach.natty.*;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
+import seedu.menion.logic.commands.AddCommand;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -76,7 +77,7 @@ public class AddParser {
 			inputFloatingTaskArguments();
 		}
 		else {
-			throw new IllegalValueException(MESSAGE_WRONG_ADD_FORMAT);
+			throw new IllegalValueException(AddCommand.MESSAGE_USAGE);
 		}
 		
 

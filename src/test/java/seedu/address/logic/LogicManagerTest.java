@@ -256,61 +256,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
 
-
-    
-    @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Activity pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Activity pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Activity p1 = helper.generateTaskWithName("KE Y");
-        Activity p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
-        List<Activity> fourPersons = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        ActivityManager expectedAB = helper.generateTaskManager(fourPersons);
-        List<Activity> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-        helper.addToModel(model, fourPersons);
-        assertCommandBehavior("find KEY",
-                Command.getMessageForActivityListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
 	
-    
-    @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Activity p1 = helper.generateTaskWithName("bla bla KEY bla");
-        Activity p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
-        Activity p3 = helper.generateTaskWithName("key key");
-        Activity p4 = helper.generateTaskWithName("KEy sduauo");
-        List<Activity> fourPersons = helper.generateTaskList(p3, p1, p4, p2);
-        ActivityManager expectedAB = helper.generateTaskManager(fourPersons);
-        List<Activity> expectedList = fourPersons;
-        helper.addToModel(model, fourPersons);
-        assertCommandBehavior("find KEY",
-                Command.getMessageForActivityListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-    
-
-    @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Activity pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
-        Activity pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
-        Activity pTarget3 = helper.generateTaskWithName("key key");
-        Activity p1 = helper.generateTaskWithName("sduauo");
-        List<Activity> fourPersons = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        ActivityManager expectedAB = helper.generateTaskManager(fourPersons);
-        List<Activity> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
-        helper.addToModel(model, fourPersons);
-        assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForActivityListShownSummary(expectedList.size()),
-                expectedAB,
-                expectedList);
-    }
-
 
     /**
      * A utility class to generate test data.
