@@ -72,6 +72,7 @@ public class MainApp extends Application {
         initEventsCenter();
     }
     
+  //@@author A0146107M
     private void initThread(){
     	updateThread = new Thread(){
     		public void run(){
@@ -91,6 +92,7 @@ public class MainApp extends Application {
     	};
     	updateThread.start();
     }
+  //@@author
 
     private String getApplicationParameter(String parameterName){
         Map<String, String> applicationParameters = getParameters().getNamed();

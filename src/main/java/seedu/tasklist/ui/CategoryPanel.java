@@ -13,7 +13,7 @@ import seedu.tasklist.model.TaskCounter;
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
-
+//@@author A0146107M
 /**
  * Panel containing the list of persons.
  */

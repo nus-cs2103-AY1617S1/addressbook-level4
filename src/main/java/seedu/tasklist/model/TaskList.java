@@ -180,7 +180,7 @@ public class TaskList implements ReadOnlyTaskList{
 		// use this method for custom fields hashing instead of implementing your own
 		return Objects.hash(tasks, tags);
 	}
-
+	//@@author A0146107M
     public void updateTask(Task taskToUpdate, TaskDetails taskDetails, String startTime, String endTime,
             Priority priority, String recurringFrequency) throws IllegalValueException {
         if (taskDetails != null) 
@@ -194,7 +194,7 @@ public class TaskList implements ReadOnlyTaskList{
         if (recurringFrequency != null)
             taskToUpdate.setRecurringFrequency(recurringFrequency);
     }
-    
+    //@@author
     public void updateTask(Task taskToUpdate, TaskDetails taskDetails, StartTime startTime, EndTime endTime,
             Priority priority, String recurringFrequency) throws IllegalValueException {
         if (taskDetails != null) 
