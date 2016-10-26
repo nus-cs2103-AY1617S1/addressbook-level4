@@ -38,7 +38,7 @@ Format: `help`
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 <br>
-<@@author A0139749L>
+[](@@author A0139749L)
 #### Adding a task: `add`
 Adds a task to the Emeraldo <br>
 Format: `add "TASK_DESCRIPTION" [on DATE] [by DEADLINE_DATE_AND_TIME] [from [START_DATE] START_TIME] [to [END_DATE] AND_TIME] [#TAGS]...`
@@ -66,7 +66,7 @@ First, type a command.
 Command will be added.
 
 <br>
-<@@author A0139342H>
+[](@@author A0139342H)
 #### Listing all tasks: `list`
 Shows a list of all tasks in the Emeraldo.<br>
 Format: `list`
@@ -92,7 +92,7 @@ Examples:
 * `list USER-DEFINED TAGS`
 
 <br>
-<@@author A0139196U>
+[](@@author A0139196U)
 #### Finding all tasks containing any keyword in their title: `find`
 Finds tasks whose titles contain any of the given keywords.
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -113,7 +113,7 @@ Examples:
   Returns any task having names `dinner`, `meeting`, or `project`
 
 <br>
-<@@author A0142290N>
+[](@@author A0142290N)
 #### Editing a task: `edit`
 Edits the specified task from Emeraldo.<br>
 Format: `edit INDEX ["TASK_DESCRIPTION"] [on DATE] [by DEADLINE_DATE_AND_TIME] [from [START_DATE] START_TIME] [to [END_DATE] AND_TIME] [#TAGS]...`
@@ -130,7 +130,7 @@ Examples:
   Edits task dateline with index 1 in the list
 
 <br>
-<@@author A0139749L>
+[](@@author A0139749L)
 #### Deleting a task: `delete`
 Deletes the specified task from Emeraldo.<br>
 Format: `delete INDEX`
@@ -146,7 +146,7 @@ Examples:
   Delete task with index 459 in the list
 
 <br>
-<@@author A0139342H>
+[](@@author A0139342H)
 #### Undo a command: `undo`
 Undo the previous action
 Format: `undo`
@@ -162,7 +162,7 @@ Examples:
   Deletes task of "add do housework"
 
 <br>
-<@@author A0139196U>
+[](@@author A0139196U)
 #### Mark task as complete: `completed`
 Marks a task as completed as a normal tag
 Format: `completed INDEX`
@@ -170,7 +170,7 @@ Format: `completed INDEX`
 > Emeraldo will mark task as completed with a predefined tag "completed" 
 
 <br>
-<@@author A0142290N>
+[](@@author A0142290N)
 #### Clearing all entries: `clear`
 Clears all entries from the Emeraldo in the save data.<br>
 Format: `clear`  
@@ -180,7 +180,7 @@ Format: `clear`
 Exits the program.<br>
 Format: `exit`
 <>
-<@@author>
+[](@@author)
 
 <br>
 #### Saving the data 
@@ -199,7 +199,7 @@ There is no need to save manually.
        the file that contains the data of your previous Task Manager folder.
 
 <br>
-<@@author A0139196U>      
+[](@@author A0139196U)      
 ## Command Summary (listed in alphabetical order)
 
 Command | Format  

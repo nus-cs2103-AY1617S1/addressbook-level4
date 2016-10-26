@@ -9,12 +9,12 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: Storage
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
-..* List persons
-..* Delete person
+	* List persons
+	* Delete person
 * Code written: [functional code][test code][docs]
 * Other major contributions:
-..* Did the initial refactoring from AddressBook to ToDoList [#133 ]
-..* Set up Travis and Coveralls
+	* Did the initial refactoring from AddressBook to ToDoList [#133 ]
+	* Set up Travis and Coveralls
 
 -----
 
@@ -24,12 +24,12 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: Storage
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
-..* List persons
-..* Delete person
+	* List persons
+	* Delete person
 * Code written: [functional code][test code][docs]
 * Other major contributions:
-..* Did the initial refactoring from AddressBook to ToDoList [#133 ]
-..* Set up Travis and Coveralls
+	* Did the initial refactoring from AddressBook to ToDoList [#133 ]
+	* Set up Travis and Coveralls
 
 -----
 
@@ -39,12 +39,12 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: Storage
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
-..* List persons
-..* Delete person
+	* List persons
+	* Delete person
 * Code written: [functional code][test code][docs]
 * Other major contributions:
-..* Did the initial refactoring from AddressBook to ToDoList [#133 ]
-..* Set up Travis and Coveralls
+	* Did the initial refactoring from AddressBook to ToDoList [#133 ]
+	* Set up Travis and Coveralls
 
 -----
 
@@ -54,12 +54,12 @@ We are a team based in the [School of Computing, National University of Singapor
 * Components in charge of: Storage
 * Aspects/tools in charge of: Testing, Git
 * Features implemented:
-..* List persons
-..* Delete person
+	* List persons
+	* Delete person
 * Code written: [functional code][test code][docs]
 * Other major contributions:
-..* Did the initial refactoring from AddressBook to ToDoList [#133 ]
-..* Set up Travis and Coveralls
+	* Did the initial refactoring from AddressBook to ToDoList [#133 ]
+	* Set up Travis and Coveralls
 
 -----
 
