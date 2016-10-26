@@ -201,7 +201,8 @@ public class Parser {
         final Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
         try {
@@ -281,21 +282,22 @@ public class Parser {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ListCommand.MESSAGE_USAGE));
+                    ListCommand.MESSAGE_LIST_USAGE));
         }
 
         final String[] keywords = matcher.group("keywords").split("\\s+");
         
         if (keywords.length > 1) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ListCommand.MESSAGE_USAGE));
+                    ListCommand.MESSAGE_LIST_USAGE));
         }
         
         try {
             return new ListCommand(keywords[0]);
                 
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ive.getMessage()));
         }
     }
     

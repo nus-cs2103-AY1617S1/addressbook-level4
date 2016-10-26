@@ -33,6 +33,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -274,7 +275,7 @@ public class LogicManagerTest {
         assertCommandBehavior(commandWord + " 15", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
         assertCommandBehavior(commandWord + " 21", expectedMessage, model.getTaskBook(), datedTaskList, undatedTaskList);
     }
-
+    
     //@Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
@@ -338,17 +339,22 @@ public class LogicManagerTest {
                 expectedAB.getUndatedTaskList());
     }
 
+    //@@author A0139145E
     @Test 
     public void execute_done_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
     }
-
+    //@@author
+    
+    //@@author A0139145E
     @Test 
     public void execute_done_invalidIndexData() throws Exception {
         assertIndexNotFoundBehaviorForCommand("done");
     }
+    //@@author
 
+    //@@author A0139145E
     @Test 
     public void execute_done_successful() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -379,7 +385,72 @@ public class LogicManagerTest {
                 expectedAB, expectedDatedTasks,
                 expectedUndatedTasks);
     }
+    //@@author
     
+    //@@author A0139145E
+    @Test
+    public void execute_list_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_LIST_USAGE);
+        assertCommandBehavior("list", expectedMessage);
+        assertCommandBehavior("list none", expectedMessage);
+        assertCommandBehavior("list all all", expectedMessage);
+        assertCommandBehavior("list oddoneall", expectedMessage);
+    }
+    //@@author
+    
+    //@@author A0139145E
+    @Test
+    public void execute_list_all_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
+        List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
+        TaskBook expectedAB = helper.generateAddressBook(expectedDatedTasks, expectedUndatedTasks);
+        
+        helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
+        helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
+        
+        assertCommandBehavior("list all",
+                String.format(ListCommand.MESSAGE_SUCCESS, "all"),
+                expectedAB, expectedAB.getDatedTaskList(),
+                expectedAB.getUndatedTaskList());
+        
+        Task completeUndated = expectedUndatedTasks.get(0);
+        expectedAB.completeTask(completeUndated);
+        model.completeTask(completeUndated);
+        assertCommandBehavior("list all", String.format(ListCommand.MESSAGE_SUCCESS, "all"), 
+                expectedAB, expectedDatedTasks, Collections.emptyList());
+        
+    }
+    //@@author
+    
+    //@@author A0139145E
+    @Test
+    public void execute_list_done_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Task> expectedDatedTasks = helper.generateTaskList(helper.deadlineA(), helper.eventA());
+        List<Task> expectedUndatedTasks = helper.generateTaskList(helper.floatTaskA());
+        TaskBook expectedAB = helper.generateAddressBook(expectedDatedTasks, expectedUndatedTasks);
+        
+        helper.addToModel(model, helper.generateTaskList(helper.deadlineA(), helper.eventA()));
+        helper.addToModel(model, helper.generateTaskList(helper.floatTaskA()));
+        
+        assertCommandBehavior("list done", String.format(ListCommand.MESSAGE_SUCCESS, "completed"),
+                expectedAB, Collections.emptyList(), Collections.emptyList());
+        
+        Task completeDated = expectedDatedTasks.get(1);
+        Task completeUndated = expectedUndatedTasks.get(0);
+        expectedAB.completeTask(completeDated);
+        expectedAB.completeTask(completeUndated);
+        model.completeTask(completeDated);
+        model.completeTask(completeUndated);
+        
+        assertCommandBehavior("list done",
+                String.format(ListCommand.MESSAGE_SUCCESS, "completed"),
+                expectedAB, Arrays.asList(completeDated),
+                Arrays.asList(completeUndated));
+    }
+    //@@author
+        
     @Test
     public void execute_edit_name_successful() throws Exception {
         // setup expectations
@@ -418,9 +489,7 @@ public class LogicManagerTest {
 
         List<Task> twoDated = helper.generateTaskList(p1, pTarget1);
         List<Task> twoUndated = helper.generateTaskList(p2, pTarget2);
-        TaskBook expectedAB = new TaskBook();
-        helper.addToAddressBook(expectedAB, twoUndated);
-        helper.addToAddressBook(expectedAB, twoDated);
+        TaskBook expectedAB = helper.generateAddressBook(twoDated, twoUndated);
         List<Task> expectedDatedTaskList = helper.generateTaskList(pTarget1);
         List<Task> expectedUndatedTaskList = helper.generateTaskList(pTarget2);
         helper.addToModel(model, twoUndated);
@@ -681,6 +750,17 @@ public class LogicManagerTest {
             return addressBook;
         }
 
+        /**
+         * Generates an TaskBook based on the lists of datedTasks and undatedTasks.
+         * @param datedTasks list of dated tasks
+         *        undatedTasks list of undated Tasks
+         */
+        TaskBook generateAddressBook(List<Task> datedTasks, List<Task> undatedTasks) throws Exception{
+            TaskBook addressBook = new TaskBook();
+            addToAddressBook(addressBook, datedTasks);
+            addToAddressBook(addressBook, undatedTasks);
+            return addressBook;
+        }
         /**
          * Adds auto-generated Person objects to the given TaskBook
          * @param addressBook The TaskBook to which the Persons will be added
