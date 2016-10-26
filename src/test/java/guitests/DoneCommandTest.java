@@ -21,16 +21,17 @@ public class DoneCommandTest extends ToDoListGuiTest {
         TestTask[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         assertdoneSuccess(targetIndex, currentList);
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
 
         //done a task that is the last in the list
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length;
         assertdoneSuccess(targetIndex, currentList);
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
 
         //done task from the middle of the list
-        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
         assertdoneSuccess(targetIndex, currentList);
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
 
         //invalid index
         commandBox.runCommand("done " + currentList.length + 1);
@@ -51,11 +52,9 @@ public class DoneCommandTest extends ToDoListGuiTest {
 
         //confirm the list now contains all previous tasks except the done task
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
-        
-        //need to write test for listing after done to show it wont be shown
 
-//        //confirm the result message is correct
-//        assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
+        //confirm the result message is correct
+        assertResultMessage(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
     }
 
 }

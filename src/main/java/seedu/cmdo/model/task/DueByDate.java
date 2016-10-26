@@ -17,7 +17,7 @@ public class DueByDate {
     private final LocalDate NO_DATE = LocalDate.MIN;
 
     public final LocalDate start;
-    public final LocalDate end;
+    public LocalDate end;
     public final Boolean isRange;
     private Boolean isFloating = false; // Floating date is found in task with no date.
 
@@ -91,6 +91,19 @@ public class DueByDate {
 								+ " - " 
 								+ end.format(DATE_FORMAT))
 								.toString();
+	}
+	
+	//@@author A0141128R
+	//setter to set it a floating for edit command purpose
+	public void setFloating(){
+		end = LocalDate.MIN;
+	}
+	//to check if date was entered
+	public boolean dateNotEntered(){
+		if (end.equals(LocalDate.MIN) & start.equals(LocalDate.MIN))
+			return true;
+		else
+			return false;
 	}
 	
 	// Operates on the premise that the start date is always specified.

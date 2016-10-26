@@ -18,8 +18,8 @@ public class DueByTime {
     private final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HHmm");
     private final LocalTime NO_TIME = LocalTime.MAX;
     
-    public final LocalTime start;
-    public final LocalTime end;
+    public LocalTime start;
+    public LocalTime end;
     public final Boolean isRange;
     private Boolean isFloating = false; // Floating time is found in tasks with no time. 
     
@@ -77,6 +77,24 @@ public class DueByTime {
         return other == this // short circuit if same object
                 || (other instanceof DueByTime // instanceof handles nulls
                 && this.equals((DueByTime) other)); 
+    }
+    
+    //@@author A0141128R
+    //to set it to a floating task for edit command purpose
+    public void setFloating(){
+    	this.start = LocalTime.MAX;
+    	this.end = start;
+    }
+    //check if single time
+    public boolean isSingleTime(){
+    	return isFloating;
+    }
+    //check if time is entered
+    public boolean timeNotEntered(){
+    	if (end.equals(LocalTime.MAX) & start.equals(LocalTime.MAX))
+    		return true;
+    	else
+    		return false;
     }
 
     @Override

@@ -76,8 +76,9 @@ public class UniqueTaskList implements Iterable<Task> {
     	if (index == -1) {
     		throw new TaskNotFoundException();
     	}
-    	internalList.remove(toEdit);
-    	internalList.add(toEditWith);
+    	internalList.set(index, toEditWith);
+//    	internalList.remove(toEdit);
+//    	internalList.add(toEditWith);
     }
     
     /**
