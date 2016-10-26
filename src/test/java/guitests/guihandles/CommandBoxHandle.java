@@ -32,10 +32,10 @@ public class CommandBoxHandle extends GuiHandle{
         guiRobot.sleep(200); //Give time for the command to take effect
     }
 
-    public HelpWindowHandle runHelpCommand() {
+    public HelpPanelHandle runHelpCommand() {
         enterCommand("help");
         pressEnter();
-        return new HelpWindowHandle(guiRobot, primaryStage);
+        return new HelpPanelHandle(guiRobot, primaryStage);
     }
     
     public void pressUpKey() {

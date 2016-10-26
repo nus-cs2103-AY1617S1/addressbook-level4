@@ -40,7 +40,6 @@ public abstract class TarsGuiTest {
      *   for easy access from child classes.
      */
     protected MainGuiHandle mainGui;
-    protected MainMenuHandle mainMenu;
     protected TaskListPanelHandle taskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected RsvTaskListPanelHandle rsvTaskListPanel;
@@ -61,7 +60,6 @@ public abstract class TarsGuiTest {
     public void setup() throws Exception {
         FxToolkit.setupStage((stage) -> {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
-            mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getTaskListPanel();
             resultDisplay = mainGui.getResultDisplay();
             rsvTaskListPanel = mainGui.getRsvTaskListPanel();
