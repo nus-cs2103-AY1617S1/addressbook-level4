@@ -24,7 +24,9 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
-    /** Adds the given task */
+    /** Adds the given task 
+     * @@author A0147619W
+     * */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
  
     /** Adds the given recurring task again with the correct date and time*/
@@ -65,7 +67,8 @@ public interface Model {
     /** Clears all the done tasks in the list
      * @throws TaskNotFoundException */
     void clearDone() throws TaskNotFoundException;
-
+    
+    //@@author A0147619W
     void sortTasks();
 
 }

@@ -586,11 +586,18 @@ Day:
 6. Requires an account to start using.<br>
 7. Not keyboard friendly. Requires substantial mouse usage.<br>
 
-4. **Reminders**
+### Reminders
+##### Strengths
 
-4a. It has CRUD features. <br>
-4b. It has a search function. <br>
-4c. It has different tabs for today, tomorrow and date-wise events. <br>
-4d. It allows to set priorities for different tasks. <br>
-4e. It allows to repeat reminders on a periodic basis. <br>
-4f. It can show all previous events which are marked ‘done’. <br>
+1. It has CRUD features. <br>
+2. It has a search function. <br>
+3. It has different tabs for today, tomorrow and date-wise events. <br>
+4. It allows to set priorities for different tasks. <br>
+5. It allows to repeat reminders on a periodic basis. <br>
+6. It can show all previous events which are marked ‘done’. <br>
+7. It has great syncing facilities. <br>
+
+##### Weaknesses
+
+1. It is not cross-platform.<br>
+2. No auto clear of done tasks or the option to auto clear done tasks after a certain period.<br>

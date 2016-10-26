@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 /**
  * Parses user input.
+ * //@@author A0147619W
  */
 public class Parser {
 
@@ -162,7 +163,7 @@ public class Parser {
     	else
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
     }
-    
+    //@@author A0147619W
     private Command prepareSetStorage(String args) {
     	if(args != null) {
     		args = args.trim();
@@ -172,6 +173,7 @@ public class Parser {
     		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetStorageCommand.MESSAGE_USAGE));
     }
     
+    //@@author A0139671X
     private Command prepareEdit(String args) {
         final Matcher matcher = TASK_EDIT_ARGS_FORMAT.matcher(args.trim());
         String name, startTime, endTime, recur;
@@ -194,6 +196,7 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
+     * @@author A0147619W
      */
     private Command prepareAdd(String args){
     	final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());

@@ -9,6 +9,7 @@ import java.util.Objects;
 /**
  * Represents a Task in ForgetMeNot.
  * Guarantees: details are present and not null, field values are validated.
+ * @@author A0147619W
  */
 public class Task implements ReadOnlyTask {
 
@@ -103,6 +104,7 @@ public class Task implements ReadOnlyTask {
     /**
      * @return true if the tasks is past the current time
      * @throws IllegalValueException
+     * @@author A0139671X
      */
     public boolean checkOverdue() {
         if (start.isMissing() && !end.isMissing())

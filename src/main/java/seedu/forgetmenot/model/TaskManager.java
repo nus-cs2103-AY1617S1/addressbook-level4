@@ -76,6 +76,7 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Adds a task to the task manager.
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
+     * @@author A0147619W
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
         tasks.add(p);
@@ -91,6 +92,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
     
+    //@@author A0147619W
     public void sortTasksList() {
         tasks.sortList();
     }
@@ -114,22 +116,26 @@ public class TaskManager implements ReadOnlyTaskManager {
     	tasks.undone(task);
     	counter();
     }
-
+    
+    //@@author A0139671X
     public void editTaskName(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.editTaskName(task, new Name(newInfo));
 		counter();
     }
     
+    //@@author A0139671X
     public void editTaskStartTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.editStartTime(task, new Time(newInfo));
 		counter();
     }
     
+    //@@author A0139671X
     public void editTaskEndTime(ReadOnlyTask task, String newInfo) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         tasks.editEndTime(task, new Time(newInfo));
 		counter();
     }
     
+    //@@author A0139671X
     public void editTaskRecurFreq(ReadOnlyTask task, String newRecur) throws TaskNotFoundException {
         tasks.editRecurFreq(task, new Recurrence(newRecur));
     }

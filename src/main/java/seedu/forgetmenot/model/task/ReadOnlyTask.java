@@ -15,6 +15,7 @@ public interface ReadOnlyTask {
     
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
+     * @@author A0147619W
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object

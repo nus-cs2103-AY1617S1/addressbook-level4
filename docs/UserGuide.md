@@ -191,6 +191,7 @@ Example:
 ForgetMeNot data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
+//@@author A0147619W
 ## Command Summary
 
 Following is the list of all commands:

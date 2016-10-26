@@ -13,6 +13,7 @@ import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Edits a task identified using it's last displayed index from the task
  * manager.
+ * @@author A0139671X
  */
 public class EditCommand extends Command {
 
