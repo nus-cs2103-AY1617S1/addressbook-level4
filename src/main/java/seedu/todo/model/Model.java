@@ -144,16 +144,17 @@ public interface Model {
 
     //@@author A0135805H
     /**
-     * Adds the supplied list of tags (as tag names) to the specified task.
+     * Adds the supplied list of tags (using tag names) to the specified task.
      *
      * @param index The task displayed index.
      * @param tagNames The list of tag names to be added.
-     * @throws ValidationException when the given index is invalid, or the given tagNames contain illegal characters.
+     * @throws ValidationException when the given index is invalid, or the given {@code tagNames} contain
+     *                             illegal characters.
      */
     void addTagsToTask(int index, String[] tagNames) throws ValidationException;
 
     /**
-     * Deletes a list of tags from the specified task.
+     * Deletes a list of tags (using tag names) from the specified task.
      *
      * @param index The task displayed index.
      * @param tagNames The list of tag names to be deleted.

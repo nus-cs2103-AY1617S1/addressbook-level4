@@ -17,7 +17,9 @@ public class Tag {
 
     /**
      * Constructs a new tag with the given tag name.
-     * This class is intentional to be package private, so only {@link UniqueTagCollection} can construct new tags.
+     *
+     * This class is intentional to be package private, so only {@link UniqueTagCollection}
+     * can construct new tags.
      */
     public Tag(String name) {
         this.tagName = name;
@@ -28,7 +30,9 @@ public class Tag {
     //Feature to be implemented in V0.5
     /**
      * Renames the tag with a {@code newName}.
-     * This class is intentional to be package private, so only {@link UniqueTagCollection} can rename tags.
+     *
+     * This class is intentional to be package private, so only {@link UniqueTagCollection}
+     * can rename tags.
      */
     void rename(String newName) {
         this.tagName = newName;

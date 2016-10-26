@@ -205,7 +205,7 @@ public class TodoModel implements Model {
         }
         
         List<ImmutableTask> tasks = undoStack.removeFirst();
-        uniqueTagCollection.initialise(todoList.getObservableList());
+        uniqueTagCollection.update(todoList.getObservableList());
         saveState(redoStack);
         todoList.setTasks(tasks);
     }
@@ -218,7 +218,7 @@ public class TodoModel implements Model {
         }
 
         List<ImmutableTask> tasks = redoStack.removeFirst();
-        uniqueTagCollection.initialise(todoList.getObservableList());
+        uniqueTagCollection.update(todoList.getObservableList());
         saveState(undoStack);
         todoList.setTasks(tasks);
     }
@@ -231,7 +231,7 @@ public class TodoModel implements Model {
     @Override
     public void load(String location) throws ValidationException {
         todoList.load(location);
-        uniqueTagCollection.initialise(todoList.getObservableList());
+        uniqueTagCollection.update(todoList.getObservableList());
     }
 
     @Override

@@ -14,20 +14,12 @@ public interface UniqueTagCollectionModel {
 
     /* Model Interfacing Methods*/
     /**
-     * Instantiate the {@link UniqueTagCollectionModel} by extracting all the {@link Tag}s
-     * from the global to-do list {@code globalTaskList}.
+     * Update the {@link UniqueTagCollectionModel} with the main to-do list {@code globalTaskList}
+     * stored in {@link seedu.todo.model.TodoModel}, for a new set of {@link Tag}
+     *
      * @param globalTaskList To extract the unique list of {@link Tag}s from.
      */
-    void initialise(ObservableList<ImmutableTask> globalTaskList);
-
-    /**
-     * Registers the given {@code task} to a {@link Tag} in the {@link UniqueTagCollectionModel}.
-     *
-     * @param task The task to be attached under the {@link Tag}.
-     * @param tagName The name of the {@link Tag}.
-     * @return Returns a {@link Tag} object with the {@code tagName} so that this tag can be added to the {@code task}.
-     */
-    Tag registerTagWithTask(ImmutableTask task, String tagName);
+    void update(ObservableList<ImmutableTask> globalTaskList);
 
     /**
      * Notifies the {@link UniqueTagCollectionModel} that the given {@code task} is deleted,
@@ -37,12 +29,22 @@ public interface UniqueTagCollectionModel {
 
     /* Tag Command Interfacing Methods */
     /**
+     * Registers the given {@code task} to a {@link Tag} in the {@link UniqueTagCollectionModel}.
+     *
+     * @param task The task to be attached under the {@link Tag}.
+     * @param tagName The name of the {@link Tag}.
+     * @return Returns the corresponding {@link Tag} object with {@code tagName}
+     *         so this tag can be added to the {@code task}.
+     */
+    Tag registerTagWithTask(ImmutableTask task, String tagName);
+
+    /**
      * Unregistere the given {@code task} from the {@link Tag} in the {@link UniqueTagCollectionModel}.
-     * TODO: Tags not found may throw an exception. This will be implemented next time.
      *
      * @param task The task to be detached from the {@link Tag}.
      * @param tagName The name of the {@link Tag}.
-     * @return Returns a {@link Tag} object with the {@code tagName} so that this tag can be removed from the {@code task}.
+     * @return Returns the corresponding {@link Tag} object with {@code tagName}
+     *         so this tag can be removed from the {@code task}.
      */
     Tag unregisterTagWithTask(ImmutableTask task, String tagName);
 

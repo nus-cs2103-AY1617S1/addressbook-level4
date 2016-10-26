@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
-import java.util.logging.Logger;
 import java.util.Set;
 
 //@@author A0135805H
@@ -22,12 +21,6 @@ import java.util.Set;
  * maintain uniqueness of the tag names.
  */
 public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionModel {
-    /* Constants */
-    private static final String ERROR_DATA_INTEGRITY = "Data Integrity Issue: A tag is missing from the collection.";
-
-    /* Variables */
-    private final Logger logger = Logger.getLogger(UniqueTagCollection.class.getName());
-
     /*
         Stores a list of tags with unique tag names.
         TODO: ImmutableTask does not have consistent hashing.
@@ -35,30 +28,11 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
      */
     private final Map<Tag, Set<ImmutableTask>> uniqueTagsToTasksMap = new HashMap<>();
 
-    /**
-     * Constructs empty TagList.
-     */
-    public UniqueTagCollection() {}
-
     /* Interfacing Methods */
     @Override
-    public void initialise(ObservableList<ImmutableTask> globalTaskList) {
+    public void update(ObservableList<ImmutableTask> globalTaskList) {
         uniqueTagsToTasksMap.clear();
         globalTaskList.forEach(task -> task.getTags().forEach(tag -> associateTaskToTag(task, tag)));
-    }
-
-    @Override
-    public Tag registerTagWithTask(ImmutableTask task, String tagName) {
-        Tag tag = getTagWithName(tagName, false);
-        associateTaskToTag(task, tag);
-        return tag;
-    }
-
-    @Override
-    public Tag unregisterTagWithTask(ImmutableTask task, String tagName) {
-        Tag tag = getTagWithName(tagName, true);
-        dissociateTaskFromTag(task, tag);
-        return tag;
     }
 
     @Override
@@ -67,8 +41,23 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     }
 
     @Override
+    public Tag registerTagWithTask(ImmutableTask task, String tagName) {
+        Tag tag = getTagWithName(tagName);
+        associateTaskToTag(task, tag);
+        return tag;
+    }
+
+    @Override
+    public Tag unregisterTagWithTask(ImmutableTask task, String tagName) {
+        //TODO: Throw an error if the tag is not found.
+        Tag tag = getTagWithName(tagName);
+        dissociateTaskFromTag(task, tag);
+        return tag;
+    }
+
+    @Override
     public void renameTag(String originalName, String newName) {
-        Tag tag = getTagWithName(originalName, true);
+        Tag tag = getTagWithName(originalName);
         Set<ImmutableTask> setOfTasks = uniqueTagsToTasksMap.remove(tag);
         tag.rename(newName);
         uniqueTagsToTasksMap.put(tag, setOfTasks);
@@ -102,23 +91,15 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
      * Obtains an instance of {@link Tag} with the supplied {@code tagName} from the
      * {@link #uniqueTagsToTasksMap}.
      *
-     * Note: If such an instance is not found, a new {@link Tag} instance will \be added to the
+     * Note: If such an instance is not found, a new {@link Tag} instance will be added to the
      *       {@link #uniqueTagsToTasksMap}.
-     * Note: If {@code expectAvailable} is true, logger will log an error when when we can't find the
-     *       tag with the tag name.
      *
      * @param tagName The name of the {@link Tag}.
-     * @param expectAvailable True implies that the {@link Tag} object must be found.
      * @return A {@link Tag} object that has the name {@code tagName}.
-     * TODO: Allow this method to have less responsibility.
      */
-    private Tag getTagWithName(String tagName, boolean expectAvailable) {
+    private Tag getTagWithName(String tagName) {
         Optional<Tag> possibleTag = uniqueTagsToTasksMap.keySet().stream()
                 .filter(tag -> tag.getTagName().equals(tagName)).findAny();
-
-        if (!possibleTag.isPresent() && expectAvailable) {
-            logger.warning(ERROR_DATA_INTEGRITY);
-        }
 
         Tag targetTag;
         if (possibleTag.isPresent()) {
@@ -131,7 +112,7 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
     }
 
     /**
-     * Simply finds a tag with the tag name.
+     * Simply finds a tag with the {@code tagName}.
      */
     private Optional<Tag> findTagWithName(String tagName) {
         return uniqueTagsToTasksMap.keySet().stream()
@@ -155,6 +136,7 @@ public class UniqueTagCollection implements Iterable<Tag>, UniqueTagCollectionMo
         }
     }
 
+    //@@author A0135805H-reuse
     /* Other Override Methods */
     @Override
     public Iterator<Tag> iterator() {

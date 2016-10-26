@@ -22,12 +22,18 @@ import java.util.regex.Pattern;
  */
 public class TagCommand extends BaseCommand {
     /* Constants */
-    private static final String ERROR_INCOMPLETE_PARAMETERS = "You have not supplied sufficient parameters to run a Tag command.";
-    private static final String ERROR_INPUT_INDEX_REQUIRED = "A task index is required.";
-    private static final String ERROR_INPUT_ADD_TAGS_REQUIRED = "A list of tags \"tag1, tag2, ...\" to add is required.";
-    private static final String ERROR_INPUT_DELETE_TAGS_REQUIRED = "A list of tags \"tag1, tag2, ...\" to delete is required.";
-    private static final String ERROR_TAGS_DUPLICATED = "You might have keyed in duplicated tag names.";
-    private static final String ERROR_TAGS_ILLEGAL_CHAR = "Tags may only include alphanumeric characters, including dashes and underscores.";
+    private static final String ERROR_INCOMPLETE_PARAMETERS
+            = "You have not supplied sufficient parameters to run a Tag command.";
+    private static final String ERROR_INPUT_INDEX_REQUIRED
+            = "A task index is required.";
+    private static final String ERROR_INPUT_ADD_TAGS_REQUIRED
+            = "A list of tags \"tag1, tag2, ...\" to add is required.";
+    private static final String ERROR_INPUT_DELETE_TAGS_REQUIRED
+            = "A list of tags \"tag1, tag2, ...\" to delete is required.";
+    private static final String ERROR_TAGS_DUPLICATED
+            = "You might have keyed in duplicated tag names.";
+    private static final String ERROR_TAGS_ILLEGAL_CHAR
+            = "Tags may only include alphanumeric characters, including dashes and underscores.";
 
     private static final String SUCCESS_ADD_TAGS = "tagged ";
     private static final String SUCCESS_DELETE_TAGS = "removed ";
@@ -154,7 +160,8 @@ public class TagCommand extends BaseCommand {
      * This method do not check validity of each input.
      */
     private boolean isInputParametersAvailable() {
-        return BooleanUtils.xor(isAddTagsToTask(), isDeleteTagsFromTask(), isDeleteTagsFromAllTasks());
+        return BooleanUtils.xor(
+                new boolean[] {isAddTagsToTask(), isDeleteTagsFromTask(), isDeleteTagsFromAllTasks()});
     }
 
     /**
