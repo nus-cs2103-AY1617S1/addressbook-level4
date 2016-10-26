@@ -2,9 +2,6 @@ package seedu.task.logic.commands;
 
 import java.util.ArrayList;
 
-import seedu.task.commons.core.UnmodifiableObservableList;
-import seedu.task.model.Model;
-import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.TaskManager;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;

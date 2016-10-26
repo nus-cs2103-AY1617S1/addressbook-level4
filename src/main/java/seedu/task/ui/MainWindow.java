@@ -32,10 +32,10 @@ public class MainWindow extends UiPart {
     private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
+    private StatusBarFooter statusBarFooter; 
     private CommandBox commandBox;
     private Config config;
-    private UserPrefs userPrefs;
+    private UserPrefs userPrefs; 
 
     // Handles to elements of this Ui container
     private VBox rootLayout;

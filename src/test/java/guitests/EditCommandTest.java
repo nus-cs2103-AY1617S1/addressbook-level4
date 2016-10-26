@@ -1,14 +1,13 @@
 package guitests;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import seedu.address.testutil.TestTask;
-import seedu.address.testutil.TestUtil;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.task.Description;
 import seedu.task.model.task.Title;
-
-import static org.junit.Assert.assertTrue;
 
 public class EditCommandTest extends TaskManagerGuiTest {
 	private TestTask[] backup;

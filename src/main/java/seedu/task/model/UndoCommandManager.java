@@ -5,8 +5,6 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 
 import seedu.task.logic.commands.Command;
-import seedu.task.logic.commands.CommandResult;
-import seedu.task.model.task.Task;
 
 
 public class UndoCommandManager {
@@ -25,6 +23,7 @@ public class UndoCommandManager {
 		return executedCommands.pop();
 	}
 }
+ 
 
 
 

@@ -3,9 +3,14 @@ package seedu.address.testutil;
 import java.text.ParseException;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.task.*;
 import seedu.task.model.tag.Tag;
-import seedu.task.model.tag.UniqueTagList;
+import seedu.task.model.task.Description;
+import seedu.task.model.task.DueDate;
+import seedu.task.model.task.Interval;
+import seedu.task.model.task.StartDate;
+import seedu.task.model.task.Status;
+import seedu.task.model.task.TimeInterval;
+import seedu.task.model.task.Title; 
 
 /**
  *

@@ -5,7 +5,6 @@ import java.io.IOException;
 import seedu.task.commons.core.Config;
 import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.StringUtil;
-import seedu.task.model.task.Task;
 import seedu.task.storage.StorageManager;
 //import seedu.task.storage.XmlTaskManagerStorage;
 
