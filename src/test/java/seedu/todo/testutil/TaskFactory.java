@@ -30,7 +30,8 @@ public class TaskFactory {
         "MA1521", "CS2104", "GET1025", "CS1231", "CS2100");
     
     private static final List<String> tags = ImmutableList.of(
-        
+        "urgent", "homework", "assignment", "tea_time", "pokemon_go", "to-do-12",
+        "sports", "dinner", "CS2103T", "physics", "chemistry", "econs", "math"
     );
     
     private static final List<String> events = ImmutableList.of(

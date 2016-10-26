@@ -1,9 +1,9 @@
 package seedu.todo.storage;
 
-import javax.xml.bind.annotation.XmlValue;
-
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
+
+import javax.xml.bind.annotation.XmlValue;
 
 /**
  * JAXB-friendly adapted version of the Tag.
@@ -24,7 +24,7 @@ public class XmlAdaptedTag {
      * @param source future changes to this will not affect the created
      */
     public XmlAdaptedTag(Tag source) {
-        tagName = source.tagName;
+        tagName = source.getTagName();
     }
 
     /**

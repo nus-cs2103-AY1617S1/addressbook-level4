@@ -1,7 +1,8 @@
 package seedu.todo.testutil;
 
 import seedu.todo.model.person.*;
-import seedu.todo.model.tag.UniqueTagList;
+import seedu.todo.model.tag.UniqueTagCollection;
+//import seedu.todo.model.tag.UniqueTagList;
 
 /**
  * A mutable person object. For testing only.
@@ -12,10 +13,10 @@ public class TestPerson implements ReadOnlyPerson {
     private Address address;
     private Email email;
     private Phone phone;
-    private UniqueTagList tags;
+//    private UniqueTagList tags;
 
     public TestPerson() {
-        tags = new UniqueTagList();
+//        tags = new UniqueTagList();
     }
 
     public void setName(Name name) {
@@ -55,9 +56,14 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return tags;
+    public UniqueTagCollection getTags() {
+        return null;
     }
+
+//    @Override
+//    public UniqueTagList getTags() {
+//        return tags;
+//    }
 
     @Override
     public String toString() {
@@ -70,7 +76,7 @@ public class TestPerson implements ReadOnlyPerson {
         sb.append("p/" + this.getPhone().value + " ");
         sb.append("e/" + this.getEmail().value + " ");
         sb.append("a/" + this.getAddress().value + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+//        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.getTagName() + " "));
         return sb.toString();
     }
 }

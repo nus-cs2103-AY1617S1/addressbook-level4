@@ -1,6 +1,6 @@
 package seedu.todo.model.person;
 
-import seedu.todo.model.tag.UniqueTagList;
+import seedu.todo.model.tag.UniqueTagCollection;
 
 /**
  * A read-only immutable interface for a Person in the addressbook.
@@ -17,7 +17,7 @@ public interface ReadOnlyPerson {
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the person's internal tags.
      */
-    UniqueTagList getTags();
+    UniqueTagCollection getTags();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

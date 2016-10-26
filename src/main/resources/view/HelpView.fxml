@@ -33,7 +33,7 @@
             <Insets />
          </VBox.margin>
       </GridPane>
-      <Label alignment="CENTER_RIGHT" contentDisplay="TEXT_ONLY" styleClass="text4" text="Press [ENTER] in the command to dismiss." />
+      <Label alignment="CENTER_RIGHT" contentDisplay="TEXT_ONLY" styleClass="text4" text="Start typing in the command to dismiss." />
    </children>
    <padding>
       <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />

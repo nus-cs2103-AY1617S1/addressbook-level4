@@ -123,15 +123,14 @@
 </li>
 </ul>
 </div>
-<div class="no-page-break"><h2 id="introduction"><span>1 </span>Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2><p>Welcome to the project! This guide will get you up to speed with how to set up your development environment, 
-the basic architecture of the application, how to perform some common development tasks as well as 
-who to contact when you're lost.</p></div>
+<div class="no-page-break"><h2 id="introduction"><span>1 </span>Introduction<a class="headerlink" href="#introduction" title="Permanent link">#</a></h2><p>Welcome to the Uncle Jim's Discount To-do App!</p></div>
 
+<p>This guide will teach you how to set up your development environment, explain the basic architecture of the application, teach you how to perform some common development tasks, as well as provide contact information for the times when you require additional help.</p>
 <div class="no-page-break"><h3 id="tooling"><span>1.1 </span>Tooling<a class="headerlink" href="#tooling" title="Permanent link">#</a></h3><p>This project uses </p></div>
 
 <ul>
-<li><strong>git</strong> - Version control </li>
-<li><strong><a href="https://eclipse.org/downloads/">Eclipse</a></strong> - IDE </li>
+<li><strong>Git</strong> - Version control </li>
+<li><strong><a href="https://eclipse.org/downloads/">Eclipse</a></strong> - <abbr title="Integrated Development Environment">IDE</abbr> </li>
 <li><strong>Gradle</strong> - Build automation </li>
 <li><strong><a href="https://travis-ci.org/CS2103AUG2016-W10-C4/main">Travis</a>, <a href="https://coveralls.io/github/CS2103AUG2016-W10-C4/main">Coveralls</a> and <a href="https://www.codacy.com/app/Logical-Reminding-Apartment/main/dashboard">Codacy</a></strong> - Continuous integration and quality control</li>
 <li><strong><a href="https://github.com/CS2103AUG2016-W10-C4/main/">GitHub</a></strong> - Source code hosting and issue tracking  </li>
@@ -139,62 +138,69 @@ who to contact when you're lost.</p></div>
 <div class="no-page-break"><h2 id="setting-up"><span>2 </span>Setting up<a class="headerlink" href="#setting-up" title="Permanent link">#</a></h2><h3 id="prerequisites"><span>2.1 </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">#</a></h3></div>
 
 <ol>
-<li><strong>A git client</strong>. If you're on Linux you should already have one installed on your command line. For Windows 
-and OS X you can use <a href="https://www.sourcetreeapp.com/">SourceTree</a> if you are more comfortable with using <abbr title="Graphical User Interface">GUI</abbr></li>
-<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html"><strong>JDK 1.8.0_60</strong></a>  or later. Please use Oracle's because it comes with JavaFX, which is needed for 
-developing the application's <abbr title="User interface">UI</abbr>.</li>
-<li><strong>Eclipse</strong> IDE</li>
-<li><strong>e(fx)clipse</strong> plugin for Eclipse (Do the steps 2 onwards given in
-   <a href="http://www.eclipse.org/efxclipse/install.html#for-the-ambitious">this page</a>)</li>
-<li><strong>Buildship Gradle Integration</strong> plugin from the Eclipse Marketplace</li>
+<li><strong>Git client</strong>
+    If you are using Linux, you should already have one installed on your command line. If you are using Windows or OS X you can use <a href="https://www.sourcetreeapp.com/">SourceTree</a> if you are more comfortable with using a <abbr title="Graphical User Interface">GUI</abbr>.</li>
+<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html"><strong>JDK 1.8.0_60</strong></a> or later
+    Please use Oracle's jdk because it comes with JavaFX, which is needed for developing the application's <abbr title="User interface">UI</abbr>.</li>
+<li><strong>Eclipse</strong> <abbr title="Integrated Development Environment">IDE</abbr></li>
+<li><strong>e(fx)clipse</strong> plugin for Eclipse
+    Perform steps 2 onwards as listed in <a class="print-url" href="http://www.eclipse.org/efxclipse/install.html#for-the-ambitious">this page</a> to install the plugin.</li>
+<li><strong>Buildship Gradle Integration</strong> plugin from the Eclipse Marketplace
+    You can find Eclipse Marketplace from Eclipse's <code>Help</code> toolbar.</li>
 </ol>
-<div class="no-page-break"><h4 id="importing-the-project-into-eclipse"><span>2.1.1 </span>Importing the project into Eclipse<a class="headerlink" href="#importing-the-project-into-eclipse" title="Permanent link">#</a></h4><ol>
-<li>Fork this repo, and clone the fork to your computer</li>
-<li>Open Eclipse (Note: Ensure you have installed the <strong>e(fx)clipse</strong> and <strong>buildship</strong> plugins as given
-   in the prerequisites above)</li>
+<div class="no-page-break"><h4 id="importing-the-project-into-eclipse"><span>2.1.1 </span>Importing the project into Eclipse<a class="headerlink" href="#importing-the-project-into-eclipse" title="Permanent link">#</a></h4><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ensure that you have installed the <strong>e(fx)clipse</strong> and <strong>buildship</strong> plugins as listed in the prerequisites above.</p>
+</div></div>
+
+<ol>
 <li>Click <code>File</code> &gt; <code>Import</code></li>
 <li>Click <code>Gradle</code> &gt; <code>Gradle Project</code> &gt; <code>Next</code> &gt; <code>Next</code></li>
 <li>Click <code>Browse</code>, then locate the project's directory</li>
 <li>Click <code>Finish</code></li>
-</ol></div>
-
+</ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
 <li>If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.</li>
-<li>Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+<li>Depending on your connection speed and server load, this step may take up to 30 minutes to finish
   (This is because Gradle downloads library files from servers during the project set up process)</li>
-<li>If Eclipse auto-changed any settings files during the import process, you can discard those changes.</li>
+<li>If Eclipse has changed any settings files during the import process, you can discard those changes.</li>
 </ul>
 </div>
-<div class="no-page-break"><h3 id="contributing"><span>2.2 </span>Contributing<a class="headerlink" href="#contributing" title="Permanent link">#</a></h3><p>We use the <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow/">feature branch git workflow</a>. When working on a task please remember to assign the relevant issue to yourself <a href="https://github.com/CS2103AUG2016-W10-C4/main/issues">on the issue tracker</a> and branch off from <code>master</code>. When the task is complete remember to push the branch to GitHub and <a href="https://github.com/CS2103AUG2016-W10-C4/main/compare">create a new pull request</a> so that the integrator can review the code. For large features that impact multiple parts of the code it is best to open a new issue on issue tracker so that the design of the code can be discussed first. </p></div>
+<div class="no-page-break"><h3 id="contributing"><span>2.2 </span>Contributing<a class="headerlink" href="#contributing" title="Permanent link">#</a></h3><p>We use the <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow/">feature branch git workflow</a>. Thus when you are working on a task, please remember to assign the relevant issue to yourself <a href="https://github.com/CS2103AUG2016-W10-C4/main/issues">on the issue tracker</a> and branch off from <code>master</code>. When the task is completed, do remember to push the branch to GitHub and <a href="https://github.com/CS2103AUG2016-W10-C4/main/compare">create a new pull request</a> so that the integrator can review the code. For large features that impact multiple parts of the code it is best to open a new issue on the issue tracker so that the design of the code can be discussed first.</p></div>
 
-<p><a href="https://en.wikipedia.org/wiki/Test-driven_development">Test driven development</a> is encouraged but not required. All incoming code should have 100% accompanying tests if possible - Coveralls will fail any incoming pull request which causes coverage to fall.</p>
+<p><a href="https://en.wikipedia.org/wiki/Test-driven_development">Test driven development</a> is encouraged but not required. If possible, all of your incoming code should have 100% accompanying tests - Coveralls will fail any incoming pull request which causes coverage to fall.</p>
 <div class="no-page-break"><h3 id="coding-style"><span>2.3 </span>Coding Style<a class="headerlink" href="#coding-style" title="Permanent link">#</a></h3><p>We use the Java coding standard found at <a href="https://oss-generic.github.io/process/codingstandards/coding-standards-java.html">https://oss-generic.github.io/process/codingstandards/coding-standards-java.html</a>.</p></div>
 
 <div class="no-page-break"><h2 id="design"><span>3 </span>Design<a class="headerlink" href="#design" title="Permanent link">#</a></h2><h3 id="architecture"><span>3.1 </span>Architecture<a class="headerlink" href="#architecture" title="Permanent link">#</a></h3></div>
 
+<p>Now let us explore the architecture of Uncle Jim's Discount To-do App to help you understand how it works.</p>
 <figure><img src="diagrams/Architecture Diagram.png"/><figcaption><strong>Figure 1. </strong>Simplistic overview of the application</figcaption></figure>
 
-<p>The Architecture Diagram above explains the high-level design of the App. Here is a quick overview of each component.</p>
-<p><code>Main</code> has only one class called <a href="../src/main/java/seedu/todo/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
+<p>The architecture diagram above explains the high-level design of the application. Here is a quick overview of each component:</p>
 <ul>
-<li>At app launch: Bootstrapping the application by initializing the components in the correct sequence and injecting the dependencies needed for each component. </li>
-<li>At shut down: Shuts down the components and invoke cleanup method where necessary.</li>
+<li>
+<p><code>Main</code> has only one class called <a href="../src/main/java/seedu/todo/MainApp.java"><code>MainApp</code></a>. It is responsible for:</p>
+<ul>
+<li>Bootstrapping the application at app launch by initializing the components in the correct sequence and injecting the dependencies needed for each component.</li>
+<li>Shutting down the components and invoke cleanup method where necessary during shut down.</li>
 </ul>
+</li>
+<li>
 <p><a href="#common-modules"><strong><code>Commons</code></strong></a> represents a collection of modules used by multiple other components.</p>
-<ul>
+</li>
 <li><a href="#ui-component"><strong><code>UI</code></strong></a>: The user facing elements of tha App, representing the view layer. </li>
 <li><a href="#logic-component"><strong><code>Logic</code></strong></a>: The parser and command executer, representing the controller </li>
 <li><a href="#model-component"><strong><code>Model</code></strong></a>: Data manipulation and storage, representing the model and data layer </li>
 </ul>
-<p>Each of the three components defines its API in an <code>interface</code> with the same name and are bootstrapped at launch by <code>MainApp</code>.</p>
-<p>For example, the <code>Logic</code> component (see the class diagram given below) defines it's API in the <code>Logic.java</code> interface and exposes its functionality using the <code>TodoLogic.java</code> class.</p>
+<p>The <abbr title="User interface">UI</abbr>, Logic and Model components each define their API in an <code>interface</code> with the same name and is bootstrapped at launch by <code>MainApp</code>.</p>
+<p>For example, the <code>Logic</code> component (see the class diagram given below) defines its API in the <code>Logic.java</code> interface and exposes its functionality using the <code>TodoLogic.java</code> class.</p>
 <figure><img src="diagrams/Logic Component.png"/><figcaption><strong>Figure 2. </strong>Example of a Logic class diagram exposing its API to other components</figcaption></figure>
 
-<p>The Sequence Diagram below shows how the components interact when the user issues a generic command.</p>
 <figure><img src="diagrams/Sequence Diagram.png"/><figcaption><strong>Figure 3. </strong>The interaction of major components in the application through a sequence diagram</figcaption></figure>
 
+<p>The sequence diagram above shows how the components interact with each other when the user issues a generic command.</p>
 <p>The diagram below shows how the <code>EventsCenter</code> reacts to a <code>help</code> command event, where the <abbr title="User interface">UI</abbr> does not know or contain any business side logic.</p>
 <figure><img src="diagrams/Events Center Diagram.png"/><figcaption><strong>Figure 4. </strong>A sequence diagram showing how EventsCenter work</figcaption></figure>
 
@@ -204,7 +210,7 @@ developing the application's <abbr title="User interface">UI</abbr>.</li>
 to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
 coupling between components.</p>
 </div>
-<p>The sections below give more details of each component.</p>
+<p>The sections below will provide you with more details for each component.</p>
 <div class="no-page-break"><h3 id="ui-component"><span>3.2 </span><abbr title="User interface">UI</abbr> component<a class="headerlink" href="#ui-component" title="Permanent link">#</a></h3><figure><img src="diagrams/Ui Component.png"/><figcaption><strong>Figure 5. </strong>The relation between the UI subcomponents</figcaption></figure></div>
 
 

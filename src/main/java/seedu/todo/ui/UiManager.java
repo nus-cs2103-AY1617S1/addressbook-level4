@@ -104,10 +104,19 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getTodoListView().toggleExpandCollapsed(event.task);
     }
 
+    //@@author A0139021U
     @Subscribe
     private void handleShowHelpEvent(ShowHelpEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getHelpView().displayCommandSummaries(event.getCommandSummaries());
+    }
+    //@@author
+
+    @Subscribe
+    private void handleShowPreviewEvent(ShowPreviewEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.getHelpView().hideHelpPanel();
+        mainWindow.getCommandPreviewView().displayCommandSummaries(event.getPreviewInfo());
     }
 
     @Subscribe

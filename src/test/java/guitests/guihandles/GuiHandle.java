@@ -14,6 +14,9 @@ import java.util.logging.Logger;
  * Base class for all GUI Handles used in testing.
  */
 public class GuiHandle {
+    protected static final int GUI_SLEEP_DURATION = 200;
+    protected static final int GUI_ENTER_SLEEP_DURATION = 200;
+
     protected final GuiRobot guiRobot;
     protected final Stage primaryStage;
     protected final String stageTitle;
@@ -49,8 +52,12 @@ public class GuiHandle {
                                   : null;
     }
 
+    public void pressSpace() {
+        guiRobot.type(KeyCode.SPACE).sleep(GUI_ENTER_SLEEP_DURATION);
+    }
+
     public void pressEnter() {
-        guiRobot.type(KeyCode.ENTER).sleep(500);
+        guiRobot.type(KeyCode.ENTER).sleep(GUI_ENTER_SLEEP_DURATION);
     }
 
     public void focusOnSelf() {

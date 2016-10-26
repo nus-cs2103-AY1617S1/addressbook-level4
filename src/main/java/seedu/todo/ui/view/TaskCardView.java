@@ -12,14 +12,19 @@ import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.ui.UiPart;
-import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.FxViewUtil;
+import seedu.todo.ui.util.UiPartLoaderUtil;
 import seedu.todo.ui.util.ViewGeneratorUtil;
 import seedu.todo.ui.util.ViewStyleUtil;
 
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
+//@@author A0135805H
 /**
  * This class links up with TaskCardView.fxml layout to display details of a given ReadOnlyTask to users via the TaskListPanel.fxml.
  */
@@ -31,8 +36,10 @@ public class TaskCardView extends UiPart {
     private static final String EVENT_TYPE = "Event";
 
     /*Static Field*/
-    //Provides a global reference between an ImmutableTask to the wrapper TaskCardView class,
-    //since we have no direct access of TaskCardView from the ListView object.
+    /*
+        Provides a global reference between an ImmutableTask to the wrapper TaskCardView class,
+        since we have no direct access of TaskCardView from the ListView object.
+     */
     private static final Map<ImmutableTask, TaskCardView> taskCardMap = new HashMap<>();
     
     /*Layout Declarations*/
@@ -104,13 +111,12 @@ public class TaskCardView extends UiPart {
      */
     private void displayTags(){
         List<Tag> tagList = new ArrayList<>(task.getTags());
-        
-        if (!tagList.isEmpty()) {
+        if (tagList.isEmpty()) {
             FxViewUtil.setCollapsed(tagsBox, true);
         } else {
             tagList.sort((o1, o2) -> o1.toString().compareToIgnoreCase(o2.toString()));
             for (Tag tag : tagList) {
-                Label tagLabel = ViewGeneratorUtil.constructRoundedText(tag.tagName);
+                Label tagLabel = ViewGeneratorUtil.constructRoundedText(tag.getTagName());
                 tagsBox.getChildren().add(tagLabel);
             }
         }
@@ -141,6 +147,7 @@ public class TaskCardView extends UiPart {
     private void initialiseCollapsibleView() {
         ViewStyleUtil.addRemoveClassStyles(true, taskCard, ViewStyleUtil.STYLE_COLLAPSED);
         FxViewUtil.setCollapsed(moreInfoLabel, !isTaskCollapsible());
+        FxViewUtil.setCollapsed(tagsBox, isTaskCollapsible());
     }
     
     /**
@@ -184,6 +191,7 @@ public class TaskCardView extends UiPart {
             //Sets both the collapsed style of the card, and mark the visibility of the "more" label.
             boolean isCollapsing = ViewStyleUtil.toggleClassStyle(taskCard, ViewStyleUtil.STYLE_COLLAPSED);
             FxViewUtil.setCollapsed(moreInfoLabel, !isCollapsing);
+            FxViewUtil.setCollapsed(tagsBox, isCollapsing);
         }
     }
 

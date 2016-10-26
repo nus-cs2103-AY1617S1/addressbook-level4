@@ -24,7 +24,8 @@ public class CommandMap {
         LoadCommand.class,
         ShowCommand.class,
         FindCommand.class,
-        ViewCommand.class
+        ViewCommand.class,
+        TagCommand.class
     );
     
     private static Map<String, Class<? extends BaseCommand>> commandMap;

@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 import seedu.todo.commons.util.TimeUtil;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.UiTestUtil;
+import seedu.todo.ui.view.TaskCardView;
+import seedu.todo.ui.view.TodoListView;
 
 import java.time.LocalDateTime;
 
@@ -15,8 +17,8 @@ import static org.junit.Assert.assertTrue;
 
 //@@author A0135805H
 /**
- * Provides a handle to a {@link seedu.todo.ui.view.TaskCardView}
- * that exists in {@link seedu.todo.ui.view.TodoListView}
+ * Provides a handle to a {@link TaskCardView}
+ * that exists in {@link TodoListView}
  */
 public class TaskCardViewHandle extends GuiHandle {
 
@@ -39,7 +41,7 @@ public class TaskCardViewHandle extends GuiHandle {
     private Node rootNode;
 
     /**
-     * Constructs a handle for {@link seedu.todo.ui.view.TaskCardView}.
+     * Constructs a handle for {@link TaskCardView}.
      *
      * @param guiRobot The GUI test robot.
      * @param primaryStage The main stage that is executed from the application's UI.

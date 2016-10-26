@@ -1,5 +1,9 @@
 package seedu.todo.testutil;
 
+import seedu.todo.commons.exceptions.ValidationException;
+import seedu.todo.model.tag.Tag;
+import seedu.todo.model.task.Task;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -72,7 +76,7 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder tagged(String ... tags) throws IllegalValueException {
+    public TaskBuilder tagged(String ... tags) throws ValidationException {
         Set<Tag> setOfTags = new HashSet<>();
         for (String tag: tags) {
             setOfTags.add(new Tag(tag));

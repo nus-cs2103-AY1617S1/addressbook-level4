@@ -5,10 +5,11 @@ import javafx.application.Platform;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import seedu.todo.TestApp;
+import seedu.todo.ui.view.CommandInputView;
 
 //@@author A0135805H
 /**
- * A handle to the {@link seedu.todo.ui.view.CommandInputView}'s
+ * A handle to the {@link CommandInputView}'s
  * command text box in the GUI.
  */
 public class CommandInputViewHandle extends GuiHandle {
@@ -16,7 +17,7 @@ public class CommandInputViewHandle extends GuiHandle {
     private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
     /**
-     * Constructs a handle to the {@link seedu.todo.ui.view.CommandInputView}
+     * Constructs a handle to the {@link CommandInputView}
      *
      * @param guiRobot {@link GuiRobot} for the current GUI test.
      * @param primaryStage The stage where the views for this handle is located.
@@ -27,7 +28,7 @@ public class CommandInputViewHandle extends GuiHandle {
 
     /* Interfacing Methods */
     /**
-     * Types in the supplied command into the text box in {@link seedu.todo.ui.view.CommandInputView}.
+     * Types in the supplied command into the text box in {@link CommandInputView}.
      *      Note: any existing text in the text box will be replaced.
      *      Note: this method will not execute the command. See {@link #runCommand(String)}.
      * @param command Command text to be supplied into the text box.
@@ -37,7 +38,7 @@ public class CommandInputViewHandle extends GuiHandle {
     }
 
     /**
-     * Gets the command text that is inside the text box in {@link seedu.todo.ui.view.CommandInputView}.
+     * Gets the command text that is inside the text box in {@link CommandInputView}.
      * @return A command text.
      */
     public String getCommandInput() {
@@ -51,7 +52,7 @@ public class CommandInputViewHandle extends GuiHandle {
     public void runCommand(String command) {
         enterCommand(command);
         pressEnter();
-        guiRobot.sleep(200); //Give time for the command to take effect
+        guiRobot.sleep(GUI_SLEEP_DURATION); //Give time for the command to take effect
     }
 
     /* Text View Helper Methods */
@@ -75,6 +76,6 @@ public class CommandInputViewHandle extends GuiHandle {
         guiRobot.clickOn(textFieldId);
         TextArea textArea = (TextArea)guiRobot.lookup(textFieldId).tryQuery().get();
         Platform.runLater(() -> textArea.setText(newText));
-        guiRobot.sleep(200); // so that the texts stays visible on the GUI for a short period
+        guiRobot.sleep(GUI_SLEEP_DURATION); // so that the texts stays visible on the GUI for a short period
     }
 }

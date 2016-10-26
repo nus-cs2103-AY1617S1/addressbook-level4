@@ -12,13 +12,16 @@ import seedu.todo.TestApp;
 import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.testutil.TestUtil;
 import seedu.todo.testutil.UiTestUtil;
+import seedu.todo.ui.view.TodoListView;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
+//@@author A0135805H
 /**
- * Provides a handle for the {@link seedu.todo.ui.view.TodoListView}
+ * Provides a handle for the {@link TodoListView}
  * containing a list of tasks.
  */
 public class TodoListViewHandle extends GuiHandle {
@@ -29,7 +32,7 @@ public class TodoListViewHandle extends GuiHandle {
     private static final String TODO_LIST_VIEW_ID = "#todoListView";
 
     /**
-     * Constructs a handle for {@link seedu.todo.ui.view.TodoListView}.
+     * Constructs a handle for {@link TodoListView}.
      *
      * @param guiRobot The GUI test robot.
      * @param primaryStage The main stage that is executed from the application's UI.
@@ -40,7 +43,7 @@ public class TodoListViewHandle extends GuiHandle {
 
     /* View Element Helper Methods */
     /**
-     * Gets an instance of {@link ListView} of {@link seedu.todo.ui.view.TodoListView}
+     * Gets an instance of {@link ListView} of {@link TodoListView}
      */
     public ListView<ImmutableTask> getTodoListView() {
         return (ListView<ImmutableTask>) getNode(TODO_LIST_VIEW_ID);
@@ -156,7 +159,7 @@ public class TodoListViewHandle extends GuiHandle {
 
     /**
      * Given a list of tasks, check if all the tasks in the list are displayed correctly in the
-     * {@link seedu.todo.ui.view.TodoListView}.
+     * {@link TodoListView}.
      * Note: this does not check the sorted-ness of the list.
      *
      * @return True if all the tasks in the {@code tasks} are displayed correctly.
@@ -205,7 +208,7 @@ public class TodoListViewHandle extends GuiHandle {
     }
 
     /**
-     * Navigates the {@link seedu.todo.ui.view.TodoListView} to display and select the task.
+     * Navigates the {@link TodoListView} to display and select the task.
      * @param listIndex Index of the list that the list view should navigate to.
      * @return Handle of the selected task.
      */
