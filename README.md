@@ -21,7 +21,7 @@ Well, you're right... you don't. **NOT UNLESS YOU'RE SOMEONE LIKE** [**JIM.**](h
 #### Site Map
 * [User Guide](docs/UserGuide.md) - Essentially a user manual, includes details of all the **wonderful features** Jimi provides.
 * [Developer Guide](docs/DeveloperGuide.md) - A guide for developers.. obviously. Includes nerdy diagrams and stuff for programmers.
-* [About Us](docs/AboutUs.md) - The geniuses behind Jimi.
+* [About Us](docs/AboutUs.md) - The *geniuses* behind Jimi.
 * [Contact Us](docs/ContactUs.md) - Do not contact us please. Unless, of course, you wish to contribute/report bugs.
 
 
