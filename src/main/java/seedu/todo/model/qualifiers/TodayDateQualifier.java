@@ -15,23 +15,25 @@ public class TodayDateQualifier implements Qualifier{
 
     @Override
     public boolean run(ReadOnlyTask task) {
-        if (task.getOnDate().getDate() != null || task.getByDate().getDate() != null) {
-            LocalDateTime onDateTime = datetime;
-            LocalDateTime byDateTime = datetime;
-            try{
-                onDateTime = DateTimeUtil.combineLocalDateAndTime(task.getOnDate().getDate(), 
+        if (task.getOnDate().getDate() != null && task.getByDate().getDate() != null) {
+            LocalDateTime onDateTime = DateTimeUtil.combineLocalDateAndTime(task.getOnDate().getDate(), 
                         task.getOnDate().getTime());
-            } catch(Exception e){}
-            try{
-                byDateTime = DateTimeUtil.combineLocalDateAndTime(task.getByDate().getDate(),
+            LocalDateTime byDateTime = DateTimeUtil.combineLocalDateAndTime(task.getByDate().getDate(),
                         task.getByDate().getTime());
-            } catch(Exception e){}
             boolean byTodayCheck = true;
-            byTodayCheck = onDateTime.toLocalDate().equals(datetime.toLocalDate()) || onDateTime.toLocalDate().isBefore(datetime.toLocalDate());
             boolean onTodayCheck = true;
-            onTodayCheck = byDateTime.toLocalDate().equals(datetime.toLocalDate()) || onDateTime.toLocalDate().isAfter(datetime.toLocalDate());
+            onTodayCheck = onDateTime.toLocalDate().equals(datetime.toLocalDate()) || onDateTime.toLocalDate().isBefore(datetime.toLocalDate());          
+            byTodayCheck = byDateTime.toLocalDate().equals(datetime.toLocalDate()) || byDateTime.toLocalDate().isAfter(datetime.toLocalDate());
             
             return byTodayCheck || onTodayCheck;
+        } else if (task.getByDate().getDate() != null) {
+            LocalDateTime byDateTime = DateTimeUtil.combineLocalDateAndTime(task.getByDate().getDate(),
+                    task.getByDate().getTime());
+            return byDateTime.toLocalDate().equals(datetime.toLocalDate()) || byDateTime.toLocalDate().isAfter(datetime.toLocalDate());
+        } else if (task.getOnDate().getDate() != null) {
+            LocalDateTime onDateTime = DateTimeUtil.combineLocalDateAndTime(task.getOnDate().getDate(),
+                    task.getOnDate().getTime());
+            return onDateTime.toLocalDate().equals(datetime.toLocalDate()) || onDateTime.toLocalDate().isBefore(datetime.toLocalDate());
         } else {
             return false;
         }
