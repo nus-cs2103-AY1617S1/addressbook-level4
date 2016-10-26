@@ -7,7 +7,6 @@ At this point, we know you are just as excited as we are [about Jimi](https://gi
 ## Guide Map
 
 * [Quick Start](#quick-start)
-* 
 * [Command Summary](#command-summary)
 * [Features](#features)
 * [FAQ](#faq)
@@ -38,8 +37,8 @@ At this point, we know you are just as excited as we are [about Jimi](https://gi
 <br>
 <br>
 
-/* @@author A0148040R */
-## Commands Summary
+<!--- @@author A0148040R -->
+## Command Summary
 Command | Format  
 -------- | :-------- 
 [Help](#help) | `help`
@@ -87,7 +86,7 @@ Command | Format
 <br>
 <br>
 
-/* @@author A0143471L */
+<!---  @@author A0143471L -->
 ## Features
 
 
