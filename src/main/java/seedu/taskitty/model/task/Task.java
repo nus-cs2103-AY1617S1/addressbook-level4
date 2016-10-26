@@ -27,8 +27,6 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public static final int EVENT_COMPONENT_INDEX_END_TIME = 4;
     public static final int EVENT_COMPONENT_COUNT = 5;
     
-    
-    public static final String CATEGORY_CHARS = "t|d|e";
     public static final char TODO_CATEGORY_CHAR = 't';
     public static final char DEADLINE_CATEGORY_CHAR = 'd';
     public static final char EVENT_CATEGORY_CHAR = 'e';

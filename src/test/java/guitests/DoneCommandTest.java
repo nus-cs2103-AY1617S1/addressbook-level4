@@ -5,13 +5,12 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 import seedu.taskitty.commons.core.Messages;
 import seedu.taskitty.commons.util.TaskUtil;
-import seedu.taskitty.model.task.Task;
+import seedu.taskitty.logic.commands.DoneCommand;
 import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
 
 //@@author A0130853L
 import static org.junit.Assert.assertTrue;
-import static seedu.taskitty.logic.commands.DoneCommand.MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER;
 
 public class DoneCommandTest extends TaskManagerGuiTest {
 
@@ -31,7 +30,15 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         
         //invalid index
         commandBox.runCommand("done t" + (currentList.size('t') + 1));
-        assertResultMessage("The task index provided is invalid");
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": t2 ");
+        
+        //duplicate index provided
+        commandBox.runCommand("delete e1 e1");
+        assertResultMessage(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": e1 ");
+        
+        //duplicate mark as done
+        commandBox.runCommand("done d1");
+        assertResultMessage(DoneCommand.MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER + "d1 ");
         
         //invalid command
         commandBox.runCommand("donee e" + (currentList.size('e')));
@@ -60,6 +67,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
     private void assertMarkAsDoneSuccess(int targetIndexOneIndexed, char category, final TestTaskList currentList) {
         commandBox.runViewAllCommand();
         
+        StringBuilder resultMessage = new StringBuilder(String.format(DoneCommand.MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER, 1));
         TestTask taskToMark = currentList.getTaskFromList(targetIndexOneIndexed - 1, category); //-1 because array uses zero indexing
         
         currentList.markTaskAsDoneInList(targetIndexOneIndexed - 1, category, taskToMark);
@@ -77,7 +85,9 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertMarkAsDone(markedCard);
         
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER, Task.CATEGORIES[categoryIndex], taskToMark));
+        resultMessage.append(category);
+        resultMessage.append(targetIndexOneIndexed + " ");
+        assertResultMessage(resultMessage.toString());
     }
     
     //@@author A0139052L
@@ -89,9 +99,10 @@ public class DoneCommandTest extends TaskManagerGuiTest {
      * @param currentList A copy of the current list of tasks (before being marked as done).     
      */
     private void assertMarkAsDoneSuccess(int[] targetIndexes, char[] categories, final TestTaskList currentList) {
-               
+        commandBox.runViewAllCommand();
+        
         StringBuilder commandText = new StringBuilder("done ");
-        StringBuilder resultMessage = new StringBuilder();
+        StringBuilder resultMessage = new StringBuilder(String.format(DoneCommand.MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER, targetIndexes.length));
         TestTask[] markedTasks = new TestTask[targetIndexes.length];
         
         for (int i = 0; i < targetIndexes.length; i++) {
@@ -101,16 +112,15 @@ public class DoneCommandTest extends TaskManagerGuiTest {
                         
             commandText.append(categories[i]);
             commandText.append(targetIndexes[i] + " ");
-            
-            int categoryIndex = TaskUtil.getCategoryIndex(categories[i]);
-            resultMessage.append(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER, Task.CATEGORIES[categoryIndex], taskToMark));
+
+            resultMessage.append(categories[i]);
+            resultMessage.append(targetIndexes[i] + " ");
             
             markedTasks[i] = taskToMark;
         }
         
         commandBox.runCommand(commandText.toString());
-        
-        
+                
         //confirm the list now contains the original list + the task marked as done
         assertTrue(currentList.isListMatching(taskListPanel));
         

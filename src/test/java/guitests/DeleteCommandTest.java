@@ -3,13 +3,10 @@ package guitests;
 import org.junit.Test;
 
 import seedu.taskitty.commons.core.Messages;
-import seedu.taskitty.commons.util.TaskUtil;
-import seedu.taskitty.model.task.Task;
-import seedu.taskitty.testutil.TestTask;
+import seedu.taskitty.logic.commands.DeleteCommand;
 import seedu.taskitty.testutil.TestTaskList;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.taskitty.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS_HEADER;
 
 //@@author A0139052L
 public class DeleteCommandTest extends TaskManagerGuiTest {
@@ -33,7 +30,11 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         
         //invalid index
         commandBox.runCommand("delete t" + (currentList.size('t') + 1));
-        assertResultMessage("The task index provided is invalid");
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": t1 ");
+        
+        //duplicate index provided
+        commandBox.runCommand("delete e1 e1");
+        assertResultMessage(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": e1 ");
         
         //invalid command
         commandBox.runCommand("deletes e" + (currentList.size('e')));
@@ -60,17 +61,20 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
      * @param currentList A copy of the current list of tasks (before deletion).     
      */
     private void assertDeleteSuccess(int targetIndexOneIndexed, char category, final TestTaskList currentList) {
-        TestTask taskToDelete = currentList.getTaskFromList(targetIndexOneIndexed - 1, category); //-1 because array uses zero indexing
+        commandBox.runViewAllCommand();
+        
+        StringBuilder resultMessage = new StringBuilder(String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS_HEADER, 1));
         
         currentList.removeTaskFromList(targetIndexOneIndexed - 1, category);
         commandBox.runCommand("delete " + category + targetIndexOneIndexed);
-        
-        int categoryIndex = TaskUtil.getCategoryIndex(category);
+
         //confirm the list now contains all previous persons except the deleted person
         assertTrue(currentList.isListMatching(taskListPanel));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS_HEADER, Task.CATEGORIES[categoryIndex], taskToDelete));
+        resultMessage.append(category);
+        resultMessage.append(targetIndexOneIndexed + " ");
+        assertResultMessage(resultMessage.toString());
     }
     
     /**
@@ -81,20 +85,20 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
      * @param currentList A copy of the current list of tasks (before deletion).     
      */
     private void assertDeleteSuccess(int[] targetIndexes, char[] categories, final TestTaskList currentList) {
+        commandBox.runViewAllCommand();
         
         StringBuilder commandText = new StringBuilder("delete ");
-        StringBuilder resultMessage = new StringBuilder();
+        StringBuilder resultMessage = new StringBuilder(String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS_HEADER, targetIndexes.length));
         
         for (int i = 0; i < targetIndexes.length; i++) {
             
-            TestTask taskToDelete = currentList.getTaskFromList(targetIndexes[i] - 1, categories[i]); //-1 because array uses zero indexing
             currentList.removeTaskFromList(targetIndexes[i] - 1, categories[i]);
             
             commandText.append(categories[i]);
             commandText.append(targetIndexes[i] + " ");
             
-            int categoryIndex = TaskUtil.getCategoryIndex(categories[i]);
-            resultMessage.append(String.format(MESSAGE_DELETE_TASK_SUCCESS_HEADER, Task.CATEGORIES[categoryIndex], taskToDelete));
+            resultMessage.append(categories[i]);
+            resultMessage.append(targetIndexes[i] + " ");
         }
         
         commandBox.runCommand(commandText.toString());

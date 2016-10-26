@@ -72,6 +72,7 @@ public class DoneCommand extends Command {
             }
             
             ReadOnlyTask taskToBeMarkedDone = lastShownList.get(targetIndex - 1);
+            
             if (taskToBeMarkedDone.getIsDone()) {
                 hasDuplicateMarkAsDoneTask = true;
                 duplicateMarkAsDoneMessageBuilder.append(currentTaskIndex);
