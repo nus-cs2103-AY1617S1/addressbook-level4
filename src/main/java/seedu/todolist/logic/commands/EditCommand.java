@@ -19,111 +19,93 @@ import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
  */
 
 public class EditCommand extends Command {
-	
+
 	public static final String COMMAND_WORD = "edit";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the list displayed. "
-            + "Parameters: [index] NAME [from DATETIME] [to DATETIME] [at LOCATION] [remarks REMARKS] \n"
-            + "Example: " + COMMAND_WORD
-            + " 1 dinner with mom from 13 oct 2016 7pm to 13 oct 2016 8pm at home remarks buy fruits";
+	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the list displayed. "
+			+ "Parameters: [index] NAME [from DATETIME] [to DATETIME] [at LOCATION] [remarks REMARKS] \n"
+			+ "Example: " + COMMAND_WORD
+			+ " 1 dinner with mom from 13 oct 2016 7pm to 13 oct 2016 8pm at home remarks buy fruits";
 
-    public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
+	public static final String MESSAGE_SUCCESS = "Task edited: %1$s";
 
-    private final int targetIndex;
-    
-    //private final Task replacement;
-    private String name;
-    private String startDate;
-    private String startTime;
-    private String endDate;
-    private String endTime;
-    private String location;
-    private String remarks;
-    
-    public EditCommand(int targetIndex, String name, String startDate, String startTime, String endDate, String endTime,
-            String location, String remarks) throws IllegalValueException {
-        this.targetIndex = targetIndex;
-        
-//        UnmodifiableObservableList<ReadOnlyTask> lastShownList = super.model.getFilteredAllTaskList();
-        
-//        if(name==null) name = lastShownList.get(targetIndex).getName().toString();
-//        if(startDate==null) startDate = lastShownList.get(targetIndex).getInterval().getStartDate().toString();
-//        if(startTime==null) startTime = lastShownList.get(targetIndex).getInterval().getStartTime().toString();
-//        if(endDate==null) endDate = lastShownList.get(targetIndex).getInterval().getEndDate().toString();
-//        if(endTime==null) endTime = lastShownList.get(targetIndex).getInterval().getEndTime().toString();
-//        if(location==null) location = lastShownList.get(targetIndex).getLocation().toString();
-//        if(remarks==null) remarks = lastShownList.get(targetIndex).getRemarks().toString();
-//        
-//        this.replacement = new Task(
-//                new Name(name),
-//                new Interval(startDate, startTime, endDate, endTime),
-//                new Location(location),
-//                new Remarks(remarks),
-//                new Status(false)
-//        );
-        this.name = name;
-        this.startDate = startDate;
-        this.startTime = startTime;
-        this.endDate = endDate;
-        this.endTime = endTime;
-        this.location = location;
-        this.remarks = remarks;
-    }
-    
-    @Override
-    public CommandResult execute() {
+	private final int targetIndex;
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredAllTaskList();
+	private String name;
+	private String startDate;
+	private String startTime;
+	private String endDate;
+	private String endTime;
+	private String location;
+	private String remarks;
 
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
+	public EditCommand(int targetIndex, String name, String startDate, String startTime, String endDate, String endTime,
+			String location, String remarks) throws IllegalValueException {
+		this.targetIndex = targetIndex;
 
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-        
-        if(name==null) name = taskToEdit.getName().toString();
-        
-        Interval originalInterval = taskToEdit.getInterval();
-        
-        if (originalInterval != null) {
-        	TaskDate originalStartDate = originalInterval.getStartDate();
-        	if(originalStartDate!=null && startDate==null) startDate = originalStartDate.toString();
-        	TaskTime originalStartTime = originalInterval.getStartTime();
-        	if(originalStartTime!=null && startTime==null) startTime = originalStartTime.toString();
-        	TaskDate originalEndDate = originalInterval.getEndDate();
-        	if(originalEndDate!=null && endDate==null) endDate = originalEndDate.toString();
-        	TaskTime originalEndTime = originalInterval.getEndTime();
-        	if(originalEndTime!=null && endTime==null) endTime = originalEndTime.toString();
-        }
-        
-      Location originalLocation = taskToEdit.getLocation();
-      if(originalLocation != null && location==null) location = originalLocation.toString();
-      
-      Remarks originalRemarks = taskToEdit.getRemarks();
-      if(originalRemarks != null && remarks==null) remarks = originalRemarks.toString();
-      
-      Status originalStatus = taskToEdit.getStatus();
-      
-      Task replacement;
-      try {
-    	  replacement = new Task(
-			  new Name(name),
-			  new Interval(startDate, startTime, endDate, endTime),
-			  new Location(location),
-			  new Remarks(remarks),
-			  new Status(originalStatus.toString())
-			  );
-      } catch (IllegalValueException ive) {
-    	  return new CommandResult(String.format(ive.getMessage()));
-      }
+		this.name = name;
+		this.startDate = startDate;
+		this.startTime = startTime;
+		this.endDate = endDate;
+		this.endTime = endTime;
+		this.location = location;
+		this.remarks = remarks;
+	}
 
-        try {
-            model.editTask(taskToEdit, replacement);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        }
+	@Override
+	public CommandResult execute() {
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS, replacement));
-    }
+		UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredAllTaskList();
+
+		if (lastShownList.size() < targetIndex) {
+			indicateAttemptToExecuteIncorrectCommand();
+			return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+		}
+
+		ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+
+		if(name==null) name = taskToEdit.getName().toString();
+
+		Interval originalInterval = taskToEdit.getInterval();
+
+		if (originalInterval != null) {
+			TaskDate originalStartDate = originalInterval.getStartDate();
+			if(originalStartDate!=null && startDate==null) startDate = originalStartDate.toString();
+			TaskTime originalStartTime = originalInterval.getStartTime();
+			if(originalStartTime!=null && startTime==null) startTime = originalStartTime.toString();
+			TaskDate originalEndDate = originalInterval.getEndDate();
+			if(originalEndDate!=null && endDate==null) endDate = originalEndDate.toString();
+			TaskTime originalEndTime = originalInterval.getEndTime();
+			if(originalEndTime!=null && endTime==null) endTime = originalEndTime.toString();
+		}
+
+		Location originalLocation = taskToEdit.getLocation();
+		if(originalLocation != null && location==null) location = originalLocation.toString();
+
+		Remarks originalRemarks = taskToEdit.getRemarks();
+		if(originalRemarks != null && remarks==null) remarks = originalRemarks.toString();
+
+		Status originalStatus = taskToEdit.getStatus();
+
+		Task replacement;
+		try {
+			replacement = new Task(
+					new Name(name),
+					new Interval(startDate, startTime, endDate, endTime),
+					new Location(location),
+					new Remarks(remarks),
+					new Status(originalStatus.toString())
+					);
+		} catch (IllegalValueException ive) {
+			return new CommandResult(String.format(ive.getMessage()));
+		}
+
+		try {
+			model.editTask(taskToEdit, replacement);
+		} catch (TaskNotFoundException pnfe) {
+			assert false : "The target task cannot be missing";
+		}
+
+		return new CommandResult(String.format(MESSAGE_SUCCESS, replacement));
+	}
 }
