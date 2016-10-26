@@ -32,7 +32,7 @@ public class Undoer {
 	}
 	
 	public void prepareUndoDone(String dataType, int index) {
-		undoStack.push(new DoneCommand(dataType,index));
+		undoStack.push(new UndoneCommand(dataType,index));
 	}
 	
 	public void executeUndo() {

@@ -51,7 +51,7 @@ public interface Model {
     void editTask(ReadOnlyTask target, String dataType, Task task) throws IllegalValueException, UniqueTaskList.TaskNotFoundException;
 
     /** Mark the given task as done */
-    void doneTask(ReadOnlyTask target, String dataType) throws UniqueTaskList.TaskNotFoundException;
+    void doneTask(ReadOnlyTask target, String dataType, int undoTarget) throws UniqueTaskList.TaskNotFoundException;
     
     /** Undo the latest command */
     void undoLatestCommand() throws EmptyStackException;
