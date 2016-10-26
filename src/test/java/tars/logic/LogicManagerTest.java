@@ -389,6 +389,187 @@ public class LogicManagerTest {
                 expectedTars, expectedTars.getTaskList());
     }
 
+    @Test
+    public void execute_undo_and_redo_rsv_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        RsvTask taskToRsv = helper.generateReservedTaskWithOneDateTimeOnly("Reserved Task");
+        Tars expectedTars = new Tars();
+        expectedTars.addRsvTask(taskToRsv);
+
+        String inputCommand = "rsv Reserved Task /dt 05/09/2016 1400 to 06/09/2016 2200";
+
+        // execute command
+        assertCommandBehavior(inputCommand, String.format(RsvCommand.MESSAGE_SUCCESS, taskToRsv), expectedTars,
+                expectedTars.getTaskList());
+
+        expectedTars.removeRsvTask(taskToRsv);
+
+        assertCommandBehavior("undo",
+                String.format(UndoCommand.MESSAGE_SUCCESS, String.format(RsvCommand.MESSAGE_UNDO_ADD, taskToRsv)),
+                expectedTars, expectedTars.getTaskList());
+
+        expectedTars.addRsvTask(taskToRsv);
+
+        assertCommandBehavior("redo",
+                String.format(RedoCommand.MESSAGE_SUCCESS, String.format(RsvCommand.MESSAGE_REDO_ADD, taskToRsv)),
+                expectedTars, expectedTars.getTaskList());
+
+    }
+
+    @Test
+    public void execute_undo_and_redo_rsv_unsuccessful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        RsvTask taskToRsv = helper.generateReservedTaskWithOneDateTimeOnly("Reserved Task");
+        Tars expectedTars = new Tars();
+        expectedTars.addRsvTask(taskToRsv);
+
+        String inputCommand = "rsv Reserved Task /dt 05/09/2016 1400 to 06/09/2016 2200";
+
+        // execute command
+        assertCommandBehavior(inputCommand, String.format(RsvCommand.MESSAGE_SUCCESS, taskToRsv), expectedTars,
+                expectedTars.getTaskList());
+
+        model.deleteRsvTask(taskToRsv);
+        expectedTars.removeRsvTask(taskToRsv);
+
+        assertCommandBehavior("undo",
+                String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_RSV_TASK_CANNOT_BE_FOUND), expectedTars,
+                expectedTars.getTaskList());
+
+        model.addRsvTask(taskToRsv);
+        expectedTars.addRsvTask(taskToRsv);
+
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK),
+                expectedTars, expectedTars.getTaskList());
+    }
+
+    @Test
+    public void execute_undo_and_redo_rsv_del_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        RsvTask taskToRsv = helper.generateReservedTaskWithOneDateTimeOnly("Reserved Task");
+        Tars expectedTars = new Tars();
+
+        // setup model
+        model.addRsvTask(taskToRsv);
+
+        String inputCommand = "rsv /del 1";
+
+        // execute command
+        assertCommandBehavior(inputCommand, String.format(RsvCommand.MESSAGE_SUCCESS_DEL, taskToRsv), expectedTars,
+                expectedTars.getTaskList());
+
+        expectedTars.addRsvTask(taskToRsv);
+
+        assertCommandBehavior("undo",
+                String.format(UndoCommand.MESSAGE_SUCCESS, String.format(RsvCommand.MESSAGE_UNDO_DELETE, taskToRsv)),
+                expectedTars, expectedTars.getTaskList());
+
+        expectedTars.removeRsvTask(taskToRsv);
+
+        assertCommandBehavior("redo",
+                String.format(RedoCommand.MESSAGE_SUCCESS, String.format(RsvCommand.MESSAGE_REDO_DELETE, taskToRsv)),
+                expectedTars, expectedTars.getTaskList());
+    }
+
+    @Test
+    public void execute_undo_and_redo_rsv_del_unsuccessful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        RsvTask taskToRsv = helper.generateReservedTaskWithOneDateTimeOnly("Reserved Task");
+        Tars expectedTars = new Tars();
+
+        // setup model
+        model.addRsvTask(taskToRsv);
+
+        String inputCommand = "rsv /del 1";
+
+        // execute command
+        assertCommandBehavior(inputCommand, String.format(RsvCommand.MESSAGE_SUCCESS_DEL, taskToRsv), expectedTars,
+                expectedTars.getTaskList());
+
+        model.addRsvTask(taskToRsv);
+        expectedTars.addRsvTask(taskToRsv);
+
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK),
+                expectedTars, expectedTars.getTaskList());
+
+        model.deleteRsvTask(taskToRsv);
+        expectedTars.removeRsvTask(taskToRsv);
+
+        assertCommandBehavior("redo",
+                String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_RSV_TASK_CANNOT_BE_FOUND), expectedTars,
+                expectedTars.getTaskList());
+
+    }
+
+    @Test
+    public void execute_undo_and_redo_confirm_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        RsvTask taskToRsv = helper.generateReservedTaskWithOneDateTimeOnly("Reserved Task");
+        Task taskToConfirm = helper.generateTaskWithName("Reserved Task");
+        Tars expectedTars = new Tars();
+        expectedTars.addTask(taskToConfirm);
+
+        // setup model
+        model.addRsvTask(taskToRsv);
+
+        String inputCommand = "confirm 1 1 /p h /t tag";
+
+        // execute command
+        assertCommandBehavior(inputCommand, String.format(ConfirmCommand.MESSAGE_CONFIRM_SUCCESS, taskToConfirm),
+                expectedTars, expectedTars.getTaskList());
+
+        expectedTars.removeTask(taskToConfirm);
+        expectedTars.addRsvTask(taskToRsv);
+
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_SUCCESS, ""), expectedTars,
+                expectedTars.getTaskList());
+
+        expectedTars.addTask(taskToConfirm);
+        expectedTars.removeRsvTask(taskToRsv);
+
+        assertCommandBehavior("redo", String.format(RedoCommand.MESSAGE_SUCCESS, ""), expectedTars,
+                expectedTars.getTaskList());
+
+    }
+
+    @Test
+    public void execute_undo_and_redo_confirm_unsuccessful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        RsvTask taskToRsv = helper.generateReservedTaskWithOneDateTimeOnly("Reserved Task");
+        Task taskToConfirm = helper.generateTaskWithName("Reserved Task");
+        Tars expectedTars = new Tars();
+        expectedTars.addTask(taskToConfirm);
+
+        // setup model
+        model.addRsvTask(taskToRsv);
+
+        String inputCommand = "confirm 1 1 /p h /t tag";
+
+        // execute command
+        assertCommandBehavior(inputCommand, String.format(ConfirmCommand.MESSAGE_CONFIRM_SUCCESS, taskToConfirm),
+                expectedTars, expectedTars.getTaskList());
+
+        model.addRsvTask(taskToRsv);
+        expectedTars.addRsvTask(taskToRsv);
+
+        assertCommandBehavior("undo", String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK),
+                expectedTars, expectedTars.getTaskList());
+
+        model.deleteRsvTask(taskToRsv);
+        expectedTars.removeRsvTask(taskToRsv);
+
+        assertCommandBehavior("redo",
+                String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_RSV_TASK_CANNOT_BE_FOUND), expectedTars,
+                expectedTars.getTaskList());
+
+    }
+
     // ---------------- Tests for add command
     // --------------------------------------
 
@@ -465,10 +646,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_invalid_tag_prefix() throws Exception {
-        assertCommandBehavior("tag /gg",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        assertCommandBehavior("tag /gg", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
-    
+
     @Test
     public void execute_tag_unsuccessful() throws Exception {
         // setup expectations
@@ -493,11 +673,11 @@ public class LogicManagerTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
 
         assertCommandBehavior("tag /del -1", MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
-        
+
         // EP: zero
         assertCommandBehavior("tag /e 0 VALIDTASKNAME", MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
         assertCommandBehavior("tag /del 0", MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
-        
+
         // EP: signed number
         assertCommandBehavior("tag /e +1 VALIDTASKNAME",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
@@ -505,12 +685,10 @@ public class LogicManagerTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
         assertCommandBehavior("tag /del +1", MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
         assertCommandBehavior("tag /del -1", MESSAGE_INVALID_TAG_DISPLAYED_INDEX);
-        
+
         // EP: invalid number
-        assertCommandBehavior("tag /del aaa",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
-        assertCommandBehavior("tag /del bbb",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        assertCommandBehavior("tag /del aaa", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
+        assertCommandBehavior("tag /del bbb", String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -606,7 +784,7 @@ public class LogicManagerTest {
         assertCommandBehavior("tag /e 4 VALIDTAGNAME", String.format(MESSAGE_INVALID_TAG_DISPLAYED_INDEX), expectedAB,
                 expectedAB.getTaskList());
     }
-    
+
     @Test
     public void execute_tag_del_successful() throws Exception {
         // setup expectations
@@ -623,11 +801,10 @@ public class LogicManagerTest {
         expectedAB.deleteTag(toBeDeleted);
 
         // execute command and verify result
-        assertCommandBehavior("tag /del 1",
-                String.format(TagCommand.MESSAGE_DELETE_TAG_SUCCESS, toBeDeleted), expectedAB,
-                expectedAB.getTaskList());
+        assertCommandBehavior("tag /del 1", String.format(TagCommand.MESSAGE_DELETE_TAG_SUCCESS, toBeDeleted),
+                expectedAB, expectedAB.getTaskList());
     }
-    
+
     @Test
     public void execute_tag_del_invalidIndex() throws Exception {
         // setup expectations
@@ -639,11 +816,11 @@ public class LogicManagerTest {
         model.addTask(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior("tag /del 3", String.format(MESSAGE_INVALID_TAG_DISPLAYED_INDEX),
-                expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior("tag /del 3", String.format(MESSAGE_INVALID_TAG_DISPLAYED_INDEX), expectedAB,
+                expectedAB.getTaskList());
 
-        assertCommandBehavior("tag /del 4", String.format(MESSAGE_INVALID_TAG_DISPLAYED_INDEX),
-                expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior("tag /del 4", String.format(MESSAGE_INVALID_TAG_DISPLAYED_INDEX), expectedAB,
+                expectedAB.getTaskList());
     }
 
     /**
