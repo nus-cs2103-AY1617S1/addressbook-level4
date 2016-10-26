@@ -13,7 +13,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 * Aspects/tools incharge of: JavaFX, Scene Builder 
 * Features implemented:
   *  
-* Code written: [[functional code](A0144919W.md)][[test code](A0144919W.md)][[docs](A0144919W.md)]
+* Code written: [[functional code](collated/main/A0144919W.md)][[test code](collated/test/A0144919W.md)][[docs](collated/docs/A0144919W.md)]
 * Other major contributions:
   *  
   *  
