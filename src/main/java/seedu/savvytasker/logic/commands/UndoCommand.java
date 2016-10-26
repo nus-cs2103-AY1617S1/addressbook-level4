@@ -5,6 +5,7 @@ package seedu.savvytasker.logic.commands;
  */
 public class UndoCommand extends Command {
 
+    //@@author A0097627N
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_UNDO_ACKNOWLEDGEMENT = "Last command undone";
@@ -62,4 +63,5 @@ public class UndoCommand extends Command {
     public boolean isRedo(){
         return false;
     }
+    //@@author
 }

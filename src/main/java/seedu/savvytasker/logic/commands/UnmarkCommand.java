@@ -13,7 +13,8 @@ import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 public class UnmarkCommand extends ModelRequiringCommand {
-
+    
+    //@@author A0097627N
     public static final String COMMAND_WORD = "unmark";
     public static final String COMMAND_FORMAT = "unmark INDEX [MORE_INDEX]";
     
@@ -118,4 +119,5 @@ public class UnmarkCommand extends ModelRequiringCommand {
     public boolean isRedo(){
         return false;
     }
+    //@@author
 }

@@ -66,6 +66,7 @@ public class DeleteCommand extends ModelRequiringCommand {
     }
     //@@author
     
+    //@@author A0097627N
     /**
      * Checks if a command can perform undo operations
      * @return true if the command supports undo, false otherwise
@@ -144,4 +145,5 @@ public class DeleteCommand extends ModelRequiringCommand {
     public boolean isRedo(){
         return false;
     }
+    //@@author
 }

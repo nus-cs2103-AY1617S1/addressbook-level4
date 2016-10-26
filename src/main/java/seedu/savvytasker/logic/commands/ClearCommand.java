@@ -24,6 +24,7 @@ public class ClearCommand extends ModelRequiringCommand {
         return new CommandResult(MESSAGE_SUCCESS);
     }
     
+    //@@author A0097627N
     /**
      * Checks if a command can perform undo operations
      * @return true if the command supports undo, false otherwise
@@ -71,4 +72,5 @@ public class ClearCommand extends ModelRequiringCommand {
     public boolean isRedo(){
         return false;
     }
+    //@@author
 }

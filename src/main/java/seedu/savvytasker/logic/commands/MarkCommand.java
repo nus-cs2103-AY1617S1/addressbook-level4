@@ -14,6 +14,7 @@ import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 public class MarkCommand extends ModelRequiringCommand {
 
+    //@@author A0097627N
     public static final String COMMAND_WORD = "mark";
     public static final String COMMAND_FORMAT = "mark INDEX [MORE_INDEX]";
     
@@ -117,4 +118,5 @@ public class MarkCommand extends ModelRequiringCommand {
     public boolean isRedo(){
         return false;
     }
+    //@@author
 }

@@ -24,6 +24,7 @@ public class HelpCommand extends Command {
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
     
+    //@@author A0097627N
     /**
      * Checks if a command can perform undo operations
      * @return true if the command supports undo, false otherwise
@@ -70,4 +71,5 @@ public class HelpCommand extends Command {
     public boolean isRedo(){
         return false;
     }
+    //@@author
 }
