@@ -40,6 +40,7 @@ import seedu.jimi.logic.commands.SaveAsCommand;
 import seedu.jimi.logic.commands.SelectCommand;
 import seedu.jimi.logic.commands.ShowCommand;
 import seedu.jimi.logic.commands.UndoCommand;
+import seedu.jimi.model.tag.Priority;
 
 /**
  * Parses user input.
@@ -137,14 +138,14 @@ public class JimiParser {
                     return prepareEdit(arguments);
                 } else if (command instanceof CompleteCommand) {
                     return prepareComplete(arguments);
+                } else if (command instanceof ShowCommand) {
+                    return prepareShow(arguments);
                 } else if (command instanceof SelectCommand) {
                     return prepareSelect(arguments);
                 } else if (command instanceof DeleteCommand) {
                     return prepareDelete(arguments);
                 } else if (command instanceof FindCommand) {
                     return prepareFind(arguments);
-                } else if (command instanceof ShowCommand) {
-                    return prepareShow(arguments);
                 } else if (command instanceof SaveAsCommand) {
                     return prepareSaveAs(arguments);
                 } else { // commands that do not require arguments e.g. exit
@@ -196,8 +197,9 @@ public class JimiParser {
             
             String priority = getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"));
             if (priority == null) {
-                priority = "NULL";
+                priority = Priority.PRIO_NONE;
             }
+            
             return new AddCommand(
                     eventDetailsMatcher.group("taskDetails"),
                     startDates,
@@ -222,8 +224,9 @@ public class JimiParser {
             List<Date> dates = parseStringToDate(taskDetailsMatcher.group("dateTime"));
             
             String priority = getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"));
-            if (priority == null)
-                priority = "NULL";
+            if (priority == null) {
+                priority = Priority.PRIO_NONE;
+            }
             
             return new AddCommand(
                     taskDetailsMatcher.group("taskDetails"),
