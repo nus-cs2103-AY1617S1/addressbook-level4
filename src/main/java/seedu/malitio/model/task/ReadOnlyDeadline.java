@@ -11,6 +11,8 @@ public interface ReadOnlyDeadline {
 
         Name getName();
         DateTime getDue();
+        boolean getCompleted();
+        void setCompleted();
         
         /**
          * The returned TagList is a deep copy of the internal TagList,
@@ -18,7 +20,6 @@ public interface ReadOnlyDeadline {
          */
         UniqueTagList getTags();
 
-        //@@author A0129595N
         /**
          * Returns true if both have the same state. (interfaces cannot override .equals)
          */
@@ -35,8 +36,10 @@ public interface ReadOnlyDeadline {
          */
         default String getAsText() {
             final StringBuilder builder = new StringBuilder();
-            builder.append(getName())
-                    .append(" Due: " + getDue())
+            builder.append("Deadline: ")
+                    .append(getName())
+                    .append(" Due: ")
+                    .append(getDue())
                     .append(" Tags: ");
             getTags().forEach(builder::append);
             return builder.toString();

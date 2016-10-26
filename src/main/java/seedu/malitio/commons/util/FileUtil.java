@@ -3,6 +3,8 @@ package seedu.malitio.commons.util;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Writes and reads file
@@ -91,5 +93,11 @@ public class FileUtil {
     public static <T> T deserializeObjectFromJsonFile(File jsonFile, Class<T> classOfObjectToDeserialize)
             throws IOException {
         return JsonUtil.fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
+    }
+    
+    //@@author a0126633j
+    public static void deleteFile(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
+        Files.deleteIfExists(path);
     }
 }

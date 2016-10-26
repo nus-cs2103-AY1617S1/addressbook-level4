@@ -12,6 +12,8 @@ import seedu.malitio.model.tag.UniqueTagList;
 public interface ReadOnlyFloatingTask {
 
     Name getName();
+    boolean getCompleted();
+    void setCompleted();
 
 
     /**
@@ -20,7 +22,6 @@ public interface ReadOnlyFloatingTask {
      */
     UniqueTagList getTags();
 
-    //@@author A0129595N
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
@@ -37,8 +38,9 @@ public interface ReadOnlyFloatingTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Tags: ");
+        builder.append("Task: ")
+               .append(getName())
+               .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

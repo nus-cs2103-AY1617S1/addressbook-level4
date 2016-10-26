@@ -45,8 +45,7 @@ public class AddCommandTest extends MalitioGuiTest {
         commandBox.runCommand("adds run");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
-    
-    //@@author A0129595N
+
     @Test
     public void addDeadline() {
 
@@ -71,7 +70,6 @@ public class AddCommandTest extends MalitioGuiTest {
         assertAddSuccess(td.deadline1);
        }
     
-    //@@author A0129595N
     @Test
     public void addEvent() throws IllegalArgumentException, IllegalValueException {
 

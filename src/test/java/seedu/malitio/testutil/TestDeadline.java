@@ -10,6 +10,7 @@ public class TestDeadline implements ReadOnlyDeadline {
 
     private Name name;
     private DateTime due;
+    private boolean completed = false;
     private UniqueTagList tags;
 
     public TestDeadline() {
@@ -38,7 +39,7 @@ public class TestDeadline implements ReadOnlyDeadline {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " " + "by " + this.getDue().toString());
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        this.getTags().getInternalList().stream().forEach(s -> sb.append(" t/" + s.tagName + " "));
         return sb.toString();
     }
 
@@ -61,5 +62,15 @@ public class TestDeadline implements ReadOnlyDeadline {
     public String getAsText() {
         return ReadOnlyDeadline.super.getAsText();
     }
+
+	@Override
+	public boolean getCompleted() {
+		return completed;
+	}
+
+	@Override
+	public void setCompleted() {
+		this.completed = true;
+	}
 
 }

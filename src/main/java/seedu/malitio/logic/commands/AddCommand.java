@@ -7,7 +7,7 @@ import seedu.malitio.model.task.*;
 
 import java.util.HashSet;
 import java.util.Set;
-
+//@@author A0129595N
 /**
  * Adds a task to Malitio.
  */
@@ -15,10 +15,10 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to Malitio.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds a task to Malitio. Task name cannot contain \'/\'. \n"
             + "Parameters: NAME [by DEADLINE] [start STARTTIME end ENDTIME] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Pay John $100 by 10112016 2359 t/oweMoney";
+            + " Pay John $100 by Oct 11 2359 t/oweMoney";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This floating task already exists in Malitio";
@@ -27,8 +27,7 @@ public class AddCommand extends Command {
     private FloatingTask toAddFloatingTask;
     private Deadline toAddDeadline;
     private Event toAddEvent;
-    
-    //@@author A0129595N
+
     /**
      * Convenience constructor for floating tasks using raw values.
      *
@@ -84,12 +83,17 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
+    
+    /**
+     * Executes the command. It will clear the future stack so that no redo can be done.
+     */
     @Override
     public CommandResult execute() {
         assert model != null;
         if (toAddFloatingTask!=null){
             try {
                 model.addFloatingTask(toAddFloatingTask);
+                model.getFuture().clear();
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAddFloatingTask));
             } catch (UniqueFloatingTaskList.DuplicateFloatingTaskException e) {
                 return new CommandResult(MESSAGE_DUPLICATE_TASK);
@@ -98,6 +102,7 @@ public class AddCommand extends Command {
         else if (toAddDeadline != null){
             try {
                 model.addDeadline(toAddDeadline);
+                model.getFuture().clear();
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAddDeadline));
             } catch (UniqueDeadlineList.DuplicateDeadlineException e) {
                 return new CommandResult(MESSAGE_DUPLICATE_DEADLINE);
@@ -106,6 +111,7 @@ public class AddCommand extends Command {
         else {
             try {
                 model.addEvent(toAddEvent);
+                model.getFuture().clear();
                 return new CommandResult(String.format(MESSAGE_SUCCESS, toAddEvent));
             } catch (UniqueEventList.DuplicateEventException e) {
                 return new CommandResult(MESSAGE_DUPLICATE_EVENT);

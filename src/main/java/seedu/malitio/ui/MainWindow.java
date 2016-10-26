@@ -13,6 +13,8 @@ import seedu.malitio.commons.core.GuiSettings;
 import seedu.malitio.commons.events.ui.ExitAppRequestEvent;
 import seedu.malitio.logic.Logic;
 import seedu.malitio.model.UserPrefs;
+import seedu.malitio.model.task.ReadOnlyDeadline;
+import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 
 /**
@@ -27,7 +29,7 @@ public class MainWindow extends UiPart {
     public static final int MIN_WIDTH = 450;
 
     private Logic logic;
-    //@@author A0129595N
+    
     // Independent Ui parts residing in this Ui container
     private FloatingTaskListPanel taskListPanel;
     private DeadlineListPanel deadlineListPanel;
@@ -201,6 +203,22 @@ public class MainWindow extends UiPart {
     
     public DeadlineListPanel getDeadlineListPanel() {
         return this.deadlineListPanel;
+    }
+    
+    public EventListPanel getEventListPanel() {
+        return this.eventListPanel;
+    }
+    
+    public void loadTaskDetail(ReadOnlyFloatingTask task) {
+        resultDisplay.postMessage(task.toString());
+    }
+    
+    public void loadTaskDetail(ReadOnlyDeadline deadline) {
+        resultDisplay.postMessage(deadline.toString());
+    }
+    
+    public void loadTaskDetail(ReadOnlyEvent event) {
+        resultDisplay.postMessage(event.toString());
     }
 
 }

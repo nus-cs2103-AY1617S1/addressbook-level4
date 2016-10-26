@@ -6,20 +6,31 @@ import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.commons.events.model.MalitioChangedEvent;
 import seedu.malitio.commons.util.StringUtil;
+
+import seedu.malitio.model.task.DateTime;
 import seedu.malitio.model.task.Deadline;
 import seedu.malitio.model.task.Event;
 import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.ReadOnlyDeadline;
 import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
+import seedu.malitio.model.history.InputAddHistory;
+import seedu.malitio.model.history.InputClearHistory;
+import seedu.malitio.model.history.InputDeleteHistory;
+import seedu.malitio.model.history.InputEditHistory;
+import seedu.malitio.model.history.InputHistory;
 
+import java.util.LinkedList;
 import java.util.Set;
+import java.util.Stack;
 import java.util.logging.Logger;
 
 /**
@@ -33,6 +44,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<FloatingTask> filteredFloatingTasks;
     private final FilteredList<Deadline> filteredDeadlines;
     private final FilteredList<Event> filteredEvents;
+    private Stack<InputHistory> history;
+    private Stack<InputHistory> future;
 
     /**
      * Initializes a ModelManager with the given Malitio
@@ -49,6 +62,8 @@ public class ModelManager extends ComponentManager implements Model {
         filteredFloatingTasks = new FilteredList<>(malitio.getFloatingTasks());
         filteredDeadlines = new FilteredList<>(malitio.getDeadlines());
         filteredEvents = new FilteredList<>(malitio.getEvents());
+        history = new Stack<InputHistory>();
+        future = new Stack<InputHistory>();
     }
 
     public ModelManager() {
@@ -60,13 +75,20 @@ public class ModelManager extends ComponentManager implements Model {
         filteredFloatingTasks = new FilteredList<>(malitio.getFloatingTasks());
         filteredDeadlines = new FilteredList<>(malitio.getDeadlines());
         filteredEvents = new FilteredList<>(malitio.getEvents());
+        history = new Stack<InputHistory>();
+        future = new Stack<InputHistory>();
     }
 
     @Override
     public void resetData(ReadOnlyMalitio newData) {
+        history.add(new InputClearHistory(malitio.getUniqueFloatingTaskList(), 
+                malitio.getUniqueDeadlineList(), 
+                malitio.getUniqueEventList(), 
+                malitio.getUniqueTagList()));
         malitio.resetData(newData);
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
+    
 
     @Override
     public ReadOnlyMalitio getMalitio() {
@@ -74,54 +96,116 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicatemalitioChanged() {
+    private void indicateMalitioChanged() {
         raise(new MalitioChangedEvent(malitio));
     }
+
+    @Override
+    public synchronized void deleteTask(ReadOnlyFloatingTask target) throws FloatingTaskNotFoundException {
+        history.add(new InputDeleteHistory(target, malitio.getUniqueFloatingTaskList().getInternalList()));
+        malitio.removeTask(target);
+        indicateMalitioChanged();        
+    }
+
+    @Override
+    public void deleteTask(ReadOnlyDeadline target) throws DeadlineNotFoundException {
+        malitio.removeDeadline(target);
+        history.add(new InputDeleteHistory(target));
+        indicateMalitioChanged();        
+    }
+
+    @Override
+    public void deleteTask(ReadOnlyEvent target) throws EventNotFoundException {
+        malitio.removeEvent(target);
+        history.add(new InputDeleteHistory(target));
+        indicateMalitioChanged();        
+    }
+
 
     //@@author A0129595N
     @Override
     public void addFloatingTask(FloatingTask task) throws DuplicateFloatingTaskException {
         malitio.addFloatingTask(task);
+        history.add(new InputAddHistory(task));
         updateFilteredTaskListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
+    }
+    
+    @Override
+    public void addFloatingTaskAtSpecificPlace(FloatingTask task, int index) throws DuplicateFloatingTaskException {
+        malitio.addFloatingTask(task, index);
+        history.add(new InputAddHistory(task));
+        updateFilteredTaskListToShowAll();
+        indicateMalitioChanged();
     }
 
     @Override
     public void addDeadline(Deadline deadline) throws DuplicateDeadlineException {
         malitio.addDeadline(deadline);
+        history.add(new InputAddHistory(deadline));
         updateFilteredDeadlineListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
     
     @Override
     public void addEvent(Event event) throws DuplicateEventException {
         malitio.addEvent(event);
+        history.add(new InputAddHistory(event));
         updateFilteredDeadlineListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
     
     @Override
     public void editFloatingTask(FloatingTask edited, ReadOnlyFloatingTask beforeEdit) throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
         malitio.editFloatingTask(edited, beforeEdit);
+        history.add(new InputEditHistory(edited, beforeEdit));
         updateFilteredTaskListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
     
     @Override
     public void editDeadline(Deadline edited, ReadOnlyDeadline beforeEdit) throws DuplicateDeadlineException, DeadlineNotFoundException {
         malitio.editDeadline(edited, beforeEdit);
+        history.add(new InputEditHistory(edited, beforeEdit));
         updateFilteredDeadlineListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
     
     @Override
     public void editEvent(Event edited, ReadOnlyEvent beforeEdit) throws DuplicateEventException, EventNotFoundException {
         malitio.editEvent(edited, beforeEdit);
+        history.add(new InputEditHistory(edited, beforeEdit));
         updateFilteredEventListToShowAll();
-        indicatemalitioChanged();
+        indicateMalitioChanged();
     }
+    
+	@Override
+	public void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
+		malitio.completeTask(taskToComplete);
+		updateFilteredTaskListToShowAll();
+        indicateMalitioChanged();
+	}
+	
 
-
+	@Override
+	public void completeDeadline(ReadOnlyDeadline deadlineToEdit) throws DeadlineCompletedException, DeadlineNotFoundException {
+		malitio.completeDeadline(deadlineToEdit);
+		updateFilteredDeadlineListToShowAll();
+        indicateMalitioChanged();
+		
+	}
+    
+    @Override
+    public Stack<InputHistory> getHistory() {
+        return history;
+    }
+    
+    @Override
+    public Stack<InputHistory> getFuture() {
+        return future;
+    }
+    
+    //@@author
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -167,6 +251,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredDeadlineList(Set<String> keywords){
     	updateFilteredDeadlines(new PredicateExpression(new NameQualifier(keywords)));
     }
+    
+    @Override
+    public void updateFilteredDeadlineList(DateTime keyword) {
+        updateFilteredDeadlines(new PredicateExpression(new TimeQualifier(keyword)));
+    }
 
     private void updateFilteredDeadlines(Expression expression) {
         filteredDeadlines.setPredicate(expression::satisfies);
@@ -175,6 +264,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredEventList(Set<String> keywords){
         updateFilteredEvents(new PredicateExpression(new NameQualifier(keywords)));
+    }
+    
+    @Override
+    public void updateFilteredEventList(DateTime keyword) {
+        updateFilteredEvents(new PredicateExpression(new TimeQualifier(keyword)));
     }
 
     private void updateFilteredEvents(Expression expression) {
@@ -268,23 +362,40 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    
+    private class TimeQualifier implements Qualifier {
+        private DateTime timeKeyWord;
 
-    @Override
-    public void deleteTask(ReadOnlyDeadline target) throws DeadlineNotFoundException {
-        malitio.removeDeadline(target);
-        indicatemalitioChanged();        
+        TimeQualifier(DateTime timeKeyWord) {
+            this.timeKeyWord = timeKeyWord;
+        }
+
+        @Override
+        public boolean run(ReadOnlyFloatingTask task) {
+            return false;
+        }
+        
+        @Override
+        public boolean run(ReadOnlyDeadline deadline) {
+            if (timeKeyWord.compareTo(deadline.getDue()) <= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        @Override
+        public boolean run(ReadOnlyEvent event) {
+            if (timeKeyWord.compareTo(event.getStart()) <= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        
+        @Override
+        public String toString() {
+            return timeKeyWord.toString();
+        }
     }
-
-    @Override
-    public void deleteTask(ReadOnlyEvent target) throws EventNotFoundException {
-        malitio.removeEvent(target);
-        indicatemalitioChanged();        
-    }
-
-    @Override
-    public void deleteTask(ReadOnlyFloatingTask target) throws FloatingTaskNotFoundException {
-        malitio.removeTask(target);
-        indicatemalitioChanged(); 
-    }
-
 }

@@ -70,17 +70,20 @@ public class DeleteCommand extends Command {
         case FLOATING_TASK_KEYWORD:
             ReadOnlyFloatingTask taskToDelete = model.getFilteredFloatingTaskList().get(targetIndex - 1);
             executeDelete(taskToDelete);
+            model.getFuture().clear();
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
 
         case DEADLINE_KEYWORD:
             ReadOnlyDeadline deadlineToDelete = model.getFilteredDeadlineList().get(targetIndex - 1);
             executeDelete(deadlineToDelete);
+            model.getFuture().clear();
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deadlineToDelete));
 
         default:
             assert(taskType.equals(EVENT_KEYWORD));
             ReadOnlyEvent eventToDelete = model.getFilteredEventList().get(targetIndex - 1);
             executeDelete(eventToDelete);
+            model.getFuture().clear();
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, eventToDelete));
         }
     }

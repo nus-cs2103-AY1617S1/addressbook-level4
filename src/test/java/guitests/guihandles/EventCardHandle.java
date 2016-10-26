@@ -10,7 +10,7 @@ import seedu.malitio.model.task.ReadOnlyFloatingTask;
  * Provides a handle to a Event card in the task list panel.
  */
 public class EventCardHandle extends GuiHandle {
-    //@@author A0129595N
+
     private static final String NAME_FIELD_ID = "#name";
     private static final String START_FIELD_ID = "#start";
     private static final String END_FIELD_ID = "#end";

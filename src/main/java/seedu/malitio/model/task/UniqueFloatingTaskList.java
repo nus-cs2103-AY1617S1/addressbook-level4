@@ -18,7 +18,6 @@ import java.util.*;
 
 public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
 
-    //@@author A0129595N
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -33,6 +32,8 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
      * there is no such matching task in the list.
      */
     public static class FloatingTaskNotFoundException extends Exception {}
+    
+    public static class FloatingTaskCompletedException extends Exception {}
 
     private final ObservableList<FloatingTask> internalList = FXCollections.observableArrayList();
 
@@ -48,9 +49,23 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
+    //@@author A0129595N    
+    /**
+     * Returns true if the list contains an equivalent task as the given argument as well as identical tag(s).
+     */
+    public boolean containsWithTags(ReadOnlyFloatingTask toCheck) {
+        assert toCheck!=null;
+        if (!internalList.contains(toCheck)) {
+            return false;
+        }
+        else {
+            int index = internalList.indexOf(toCheck);
+            return internalList.get(index).getTags().getInternalList().containsAll(toCheck.getTags().getInternalList());
+        }
+    }
 
     /**
-     * Adds a task to the list.
+     * Adds a floating task to the list.
      *
      * @throws DuplicateFloatingTaskException if the task to add is a duplicate of an existing task in the list.
      */
@@ -62,10 +77,27 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         internalList.add(toAdd);
     }
     
+    
+    /**
+     * Adds a floating task to the list at the given index
+     * 
+     * @param toAdd
+     * @param index
+     * @throws DuplicateFloatingTaskException if the task to add is a duplicate of an existing task in the list.
+     */
+    public void add(FloatingTask toAdd, int index) throws DuplicateFloatingTaskException{
+        assert toAdd != null;
+        assert index>=0;
+        if (contains(toAdd)) {
+            throw new DuplicateFloatingTaskException();
+        }
+        internalList.add(index, toAdd);        
+    }
+    
     public void edit(FloatingTask edited, ReadOnlyFloatingTask beforeEdit) throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
         assert edited!=null;
         assert beforeEdit!=null;
-        if (contains(edited)) {
+        if (containsWithTags(edited)) {
             throw new DuplicateFloatingTaskException();
         }
         
@@ -74,10 +106,29 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         }
         
         int indexToReplace = internalList.indexOf(beforeEdit);
-        internalList.add(indexToReplace, edited);
         internalList.remove(beforeEdit);
+        internalList.add(indexToReplace, edited);
+    }
+    
+    public void complete(ReadOnlyFloatingTask toComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
+        assert toComplete != null;
+        if (toComplete.getCompleted()) {
+            throw new FloatingTaskCompletedException();
+        }
+        
+        if (!contains(toComplete)) {
+            throw new FloatingTaskNotFoundException();
+        }
+        toComplete.setCompleted();
+        updateFloatingTaskList(toComplete);
     }
 
+	private void updateFloatingTaskList(ReadOnlyFloatingTask toComplete) {
+		int indexToReplace = internalList.indexOf(toComplete);
+        internalList.remove(toComplete);
+        internalList.add(indexToReplace, (FloatingTask) toComplete);
+	}
+	
     /**
      * Removes the equivalent task from the list.
      *
@@ -113,4 +164,5 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
 }

@@ -11,8 +11,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.malitio.commons.core.LogsCenter;
-import seedu.malitio.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.malitio.commons.events.ui.DeadlinePanelSelectionChangedEvent;
 import seedu.malitio.model.task.ReadOnlyDeadline;
+import seedu.malitio.model.task.ReadOnlyEvent;
+
 import java.util.logging.Logger;
 
 /**
@@ -28,7 +30,6 @@ public class DeadlineListPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyDeadline> deadlineListView;
 
-    //@@author A0129595N
     public DeadlineListPanel() {
         super();
     }
@@ -76,16 +77,20 @@ public class DeadlineListPanel extends UiPart {
         deadlineListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
+                raise(new DeadlinePanelSelectionChangedEvent(newValue));
             }
         });
     }
-
+        
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             deadlineListView.scrollTo(index);
             deadlineListView.getSelectionModel().clearAndSelect(index);
         });
+    }
+    
+    public ListView<ReadOnlyDeadline> getDeadlineListView() {
+        return deadlineListView;
     }
 
     class DeadlineListViewCell extends ListCell<ReadOnlyDeadline> {

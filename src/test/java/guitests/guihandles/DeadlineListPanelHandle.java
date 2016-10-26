@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
  * Provides a handle for the panel containing the deadline list.
  */
 public class DeadlineListPanelHandle extends GuiHandle {
-    //@@author A0129595N
+
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane2";
 
@@ -68,7 +68,9 @@ public class DeadlineListPanelHandle extends GuiHandle {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            if (!tasksInList.get(startPosition + i).getName().fullName.equals(tasks[i].getName().fullName)){
+            if (!tasksInList.get(startPosition + i).getName().fullName.equals(tasks[i].getName().fullName) 
+                    || !tasksInList.get(startPosition + i).getDue().toString().equals(tasks[i].getDue().toString())
+                    || !tasksInList.get(startPosition + i).getTags().toSet().equals(tasks[i].getTags().toSet())) {                
                 return false;
             }
         }

@@ -8,32 +8,16 @@ import seedu.malitio.commons.exceptions.IllegalValueException;
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should not inculde forward slash ('/')";
-    public static final String NAME_VALIDATION_REGEX = ".+";
-
     public final String fullName;
 
     /**
      * Validates given name.
-     *
-     * @throws IllegalValueException if given name string is invalid.
      */
-    public Name(String name) throws IllegalValueException {
+    public Name(String name) {
         assert name != null;
-        name = name.trim();
-        if (!isValidName(name)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
-        }
+        name = name.trim();       
         this.fullName = name;
     }
-
-    /**
-     * Returns true if a given string is a valid task name.
-     */
-    public static boolean isValidName(String test) {
-        return test.matches(NAME_VALIDATION_REGEX);
-    }
-
 
     @Override
     public String toString() {

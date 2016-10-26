@@ -22,7 +22,6 @@ import java.util.*;
 
 public class UniqueEventList implements Iterable<Event> {
 
-    //@@author A0129595N
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -52,7 +51,21 @@ public class UniqueEventList implements Iterable<Event> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
-
+    //@@author A0129595N
+    /**
+     * Returns true if the list contains an equivalent event as the given argument as well as identical tag(s).
+     */
+    public boolean containsWithTags(ReadOnlyEvent toCheck) {
+        assert toCheck!=null;
+        if (!internalList.contains(toCheck)) {
+            return false;
+        }
+        else {
+            int index = internalList.indexOf(toCheck);
+            return internalList.get(index).getTags().getInternalList().containsAll(toCheck.getTags().getInternalList());
+        }
+    }
+    
     /**
      * Adds a task to the list.
      *
@@ -69,7 +82,7 @@ public class UniqueEventList implements Iterable<Event> {
     public void edit(Event edited, ReadOnlyEvent beforeEdit) throws DuplicateEventException, EventNotFoundException {
         assert edited!=null;
         assert beforeEdit!=null;
-        if (contains(edited)) {
+        if (containsWithTags(edited)) {
             throw new DuplicateEventException();
         }
         
@@ -77,11 +90,10 @@ public class UniqueEventList implements Iterable<Event> {
             throw new EventNotFoundException();
         }
         
-        int indexToReplace = internalList.indexOf(beforeEdit);
-        internalList.add(indexToReplace, edited);
         internalList.remove(beforeEdit);
+        internalList.add(edited);
     }
-
+    //@@author
     /**
      * Removes the equivalent schedule from the list.
      *
@@ -111,7 +123,6 @@ public class UniqueEventList implements Iterable<Event> {
       	});
     }
 
-    //@@author A0129595N
     @Override
     public Iterator<Event> iterator() {
         return internalList.iterator();

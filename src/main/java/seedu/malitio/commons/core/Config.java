@@ -9,13 +9,14 @@ import java.util.logging.Level;
 public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
-    public static final String DEFAULT_FILE_PATH = "data/malitio.xml";
+    public static final String DEFAULT_FILE_NAME = "malitio.xml";
+    public static final String DEFAULT_FILE_PATH = "data/";
 
     // Config values customizable through config file
     private String appTitle = "Malitio";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String malitioFilePath = DEFAULT_FILE_PATH;
+    private String malitioFilePath = DEFAULT_FILE_PATH + DEFAULT_FILE_NAME;
     private String malitioName = "MyMalitio";
 
 

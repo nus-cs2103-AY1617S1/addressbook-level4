@@ -20,7 +20,6 @@ public interface ReadOnlyEvent {
          */
         UniqueTagList getTags();
 
-      //@@author A0129595N
         /**
          * Returns true if both have the same state. (interfaces cannot override .equals)
          */
@@ -38,9 +37,13 @@ public interface ReadOnlyEvent {
          */
         default String getAsText() {
             final StringBuilder builder = new StringBuilder();
-            builder.append(getName())
-                    .append(" start: " + getStart())
-                    .append(" end: " + getEnd())
+
+            builder.append("Event: ")
+                    .append(getName())
+                    .append(" Start: ")
+                    .append(getStart())
+                    .append(" End: ")
+                    .append(getEnd())
                     .append(" Tags: ");
             getTags().forEach(builder::append);
             return builder.toString();
