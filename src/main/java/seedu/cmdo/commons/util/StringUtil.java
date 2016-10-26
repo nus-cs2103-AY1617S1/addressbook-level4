@@ -2,19 +2,19 @@ package seedu.cmdo.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import seedu.cmdo.model.tag.Tag;
+import seedu.cmdo.model.tag.UniqueTagList;
 
 /**
  * Helper functions for handling strings.
  */
 public class StringUtil {
-    public static boolean containsIgnoreCase(String source, String query) {
-        String[] split = source.toLowerCase().split("\\s+");
-        List<String> strings = Arrays.asList(split);
-        return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
-    }
-
+	
     /**
      * Returns a detailed message of the t, including the stack trace.
      */

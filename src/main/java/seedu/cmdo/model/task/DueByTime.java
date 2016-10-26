@@ -89,6 +89,10 @@ public class DueByTime {
 		return isRange;
 	}
     
+    public boolean isFloating() {
+    	return isFloating;
+    }
+    
     /*
      * Produces a friendly string of values in the format HH:MM
      * 
