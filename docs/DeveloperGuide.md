@@ -50,7 +50,7 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/oneline/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -75,16 +75,16 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `del 1`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images/SDforDeleteTask.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskBookChangedEvent` when the Task Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+<img src="images/SDforDeleteTaskEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -96,15 +96,15 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/oneline/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/oneline/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
@@ -116,27 +116,27 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/java/seedu/oneline/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("del 1")`
  API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/DeleteTaskSdForLogic.png" width="800"><br>
 
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/oneline/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* stores the Task Book data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -144,15 +144,15 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/oneline/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Task Book data in xml format and read it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.oneline.commons` package.
 
 ## Implementation
 
@@ -204,13 +204,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `seedu.oneline.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `seedu.oneline.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `seedu.oneline.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -236,49 +236,58 @@ Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, OneLine depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+//@@author A0142605N
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
 
-| Priority | As a... | I want...                          | So that I...  |
-|----------|---------|------------------------------------|---------------|
-| `* * *`  | user    | to Create/View/Update/Delete tasks | -             |
-| `* * *`  | user    | to mark tasks as done              | can keep track of my progress |
-| `* * *`  | user    | to search for tasks I have entered | - |
-| `* * *`  | user    | to block off time slots for events | will not accidentally enter into clashing events | 
-| `* *`    | user    | different views for tasks          | can get a better overview of which tasks I should focus on |
-| `* *`    | user    | to categorise my tasks             | can group similar tasks together |
-| `* *`    | user    | to change storage location         | can store tasks in a portable device |
-| `* *`    | user    | intuitive commands                 | don't have to remember commands |
-| `*`      | user    | to undo any mistakes I have made   | - |
-| `*`      | user    | to keep track of recurring tasks   | - |
+| Priority | As a... | I want...                            | So that I...  |
+|----------|---------|--------------------------------------|---------------|
+| `* * *`  | user    | to create tasks without a deadline   | -             |
+| `* * *`  | user    | to create tasks with a deadline      | -             |
+| `* * *`  | user    | to create events with a timeslot     | -             |
+| `* * *`  | user    | to create recurring tasks            | -             |
+| `* * *`  | user    | to update tasks / events             | -             |
+| `* * *`  | user    | to delete tasks                      | -             |
+| `* * *`  | user    | to delete task fields                | -             |
+| `* * *`  | user    | to view all my undone tasks          | -             |
+| `* * *`  | user    | to mark tasks as done                | can keep track of my progress |
+| `* * *`  | user    | to search for tasks I have entered   | - |
+| `* * *`  | user    | to block off time slots for events   | will not accidentally plan clashing events | 
+| `* * *`  | user    | to undo my pervious command          | can recover from mistakes in previous command |
+| `* * *`  | user    | to view a list of all commands       | can see all commands if I forget them |
+| `* * *`  | user    | to change storage location           | can store tasks in a portable device |
+| `* *`    | user    | to see tasks grouped by deadline     | can get a better overview of which tasks I should focus on |
+| `* *`    | user    | to categorise my tasks               | can group similar tasks together |
+| `* *`    | user    | to view my tasks by their categories | - |
+| `* *`    | user    | short and intuitive commands         | don't have to remember commands |
+| `*`      | user    | to keep track of recurring tasks     | don't need to enter the repetitive tasks time and again |
 | `*`      | user    | to be reminded of the tasks I need to complete | - |
-| `*`      | user    | my commands to be auto-completed   | - |  
+| `*`      | user    | my commands to be auto-completed     | - |
+| `*`      | user    | to view my tasks on a calendar       | can have a good overview of my workflow |
 
+//@@author A0138848M
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is `OneLine` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Add task
+#### Use case: Add floating task
 
 **MSS**
 
-<<<<<<< HEAD
-1. User adds task
-=======
 1. User adds floating task
 2. OneLine creates the task <br>
 Use case ends
@@ -286,7 +295,7 @@ Use case ends
 **Extensions**
 
 1a. OneLine detects an error in the data entered
->   1a1. OneLine requests for the correct data <br>
+>   1a1. OneLine requests for the correct data
 >   1a2. User enters new data <br>
     Steps 1b1-1b2 are repeated until data contains no errors
     Use case resumes from step 2.
@@ -303,7 +312,7 @@ Use case ends
 **Extensions**
 
 1a. OneLine detects an error in the data entered
->   1a1. OneLine requests for the correct data <br>
+>   1a1. OneLine requests for the correct data
 >   1a2. User enters new data <br>
     Steps 1b1-1b2 are repeated until data contains no errors
     Use case resumes from step 2.
@@ -318,12 +327,12 @@ Use case ends
 **Extensions**
 
 1a. OneLine detects a time clash in task entered
->   1a1. OneLine creates the task <br>
+>   1a1. OneLine creates the task
 >   1a2. OneLine reports a time clash in affected tasks.<br>
     Use case ends
 
 1b. OneLine detects an error in the data entered
->   1b1. OneLine requests for the correct data <br>
+>   1b1. OneLine requests for the correct data
 >   1b2. User enters new data <br>
     Steps 1b1-1b2 are repeated until data contains no errors
     Use case resumes from step 2.
@@ -338,12 +347,12 @@ Use case ends
 **Extensions**
 
 1a. OneLine detects a time clash in task entered
->   1a1. OneLine creates the task <br>
+>   1a1. OneLine creates the task
 >   1a2. OneLine reports a time clash in affected tasks.<br>
     Use case ends
 
 1b. OneLine detects an error in the data entered
->   1b1. OneLine requests for the correct data<br>
+>   1b1. OneLine requests for the correct data
 >   1b2. User enters new data <br>
     Steps 1b1-1b2 are repeated until data contains no errors
     Use case resumes from step 2.
@@ -352,7 +361,6 @@ Use case ends
 **MSS**
 
 1. User adds task with category
->>>>>>> master
 2. OneLine creates the task <br>
 Use case ends
 
@@ -363,15 +371,10 @@ Use case ends
     Use case resumes from step 2.
 
 1b. OneLine detects an error in the data entered
->   1b1. OneLine requests for the correct data<br>
+>   1b1. OneLine requests for the correct data
 >   1b2. User enters new data <br>
     Steps 1b1-1b2 are repeated until data contains no errors
     Use case resumes from step 2.
-
-1c. OneLine detects a time clash in task entered
->   1c1. OneLine creates the task
-    1c2. OneLine marks the task in task pane to show time clash.<br>
-    Use case ends
 
 #### Use case: Delete task
 
@@ -421,7 +424,7 @@ Use case ends.
     Use case resumes from step 4.
 
 3c. OneLine detects an error in the data entered
->   3c1. OneLine requests for the correct data<br>
+>   3c1. OneLine requests for the correct data
 >   3c2. User enters new data <br>
     Steps 3c1-3c2 are repeated until data contains no errors
     Use case resumes from step 4.
@@ -493,7 +496,7 @@ Use case ends
  Use case ends.
 
 1b. OneLine detects an error in the data entered
-> 1b1. OneLine requests for the correct data<br>
+> 1b1. OneLine requests for the correct data
 > 1b2. User enters new data <br>
  Steps 1b1-1b2 are repeated until data contains no errors<br>
  Use case resumes from step 2.
@@ -512,18 +515,28 @@ Use case ends
 2a. List is empty 
 > Use case ends. 
 
-
+//@@author A0142605N
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 tasks.
-3. Should come with automated unit tests and open source code.
-4. Should minimise keystrokes on commands.
-5. Should be able to handle all invalid inputs. 
-6. Should have an initial load time of less than 2000ms 
-7. Should be easy for a user with no command line experience to use 
-8. Should be written in clear, well-documented code which is easy to understand, reusable and maintainable  
+2. Should work without any Internet connection.
+3. Should be able to hold up to 1000 tasks.
+4. Should come with automated unit tests and open source code.
+5. Should minimise keystrokes on commands.
+6. Should be able to handle all invalid inputs. 
+7. Should have an initial load time of less than 2000ms 
+8. Should be easy for a user with no command line experience to use. 
+9. Should be written in clear, well-documented code which is easy to understand, reusable and maintainable.
+10. Should have command line as the primary mode of input.
+11. Should work stand-alone.
+12. Should not use relational databasees.
+13. Should be stored locally.
+14. Should be stored in a human-editable text file.
+15. Should not require an installer.
 
+Some other project requirements can be seen [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints). 
+
+//@@author A0138848M
 ## Appendix D : Glossary
 
 ##### Mainstream OS
@@ -542,96 +555,16 @@ Use case ends
 
 > User-defined tags used to categorise tasks
 
+//@@author A0140156R
 ## Appendix E : Product Survey
 
-**Todoist**
-- Strengths
-    - Clean interface  
-    - Simple usage
-    - Project hierachy
-    - Handles multiple date/time formats
-- Weaknesses
-    - 1 page of tasks: No scrolling
-    - Heavily relies on mouse usage: not many keyboard shortcuts
-    - No calendar display
-
-**Wunderlist**
-- Strengths
-    - Interface is elegant
-    - Display updates in real time
-    - Sound feedback
-    - Manages recurring tasks
-    - Sort by due date
-    - Filter by date range
-- Weaknesses
-    - Misleading icons and buttons
-    - No clendar display
-    - Does not open on startup
-    - Deadline notification through email, not the app
-
-**Google Calendar Quick Add**
-- Strengths
-    - Intuitive shortcuts and commands
-    - Different command formats are acceptable
-    - Clean interface
-    - Task dependency cycles are detected when cyclic inputs are used
-- Weaknesses
-    - No view/edit/delete/search
-    - Rigid settings
-
-**Todo.txt**
-- Strengths
-    - Search function works for phrases, case-insensitive
-    - - flag like in google search to filter certain texts
-    - Command history
-- Weaknesses
-    - Difficult setup
-    - -h does not provide full list of commands
-    - Tasks marked done are deleted permanently
-    - Command formats are rigid
-    - No undo of previous actions.
-    - Too minimalistic, such as no time/date support
-
-**Trello**
-- Strengths
-    - Cross-platform usage
-    - Integrates with other calendars
-    - Collaboration support
-    - Hierachy of tasks
-- Weaknesses
-    - A lot of fields to fill in
-    - Recurring tasks have to be manually added
-    - One rigid view, no option for summary/overview/timeline views
-    - Many features, which are not immediately apparent
-
-**Apple Calendar**
-- Strengths
-    - Cross-platform support
-    - Color-coding for tasks
-    - Day, month and year view
-- Weaknesses
-    - No collaboration
-    - Rigid fields for adding
-
-**S Planner**
-- Strengths
-    - Syncs to many calendar platforms
-    - Google map support for locations
-    - Supports recurring events
-    - Collaboration support
-- Weaknesses
-    - Mobile-only
-    - Floating tasks only available in Agenda view
-    - Many clicks required to add tasks
-
-**Any.do**
-- Strengths
-    - Interface is clean and intuitive
-    - Syncs between mobile devices and PC
-    - Descriptions can be added to tasks
-    - Support for recurring tasks
-- Weaknesses
-    - Internet connection is required to access tasks
-    - Fields need to be filled in to add tasks
-    - Time/date is not easy to change
-    - No alarm support
+Product Name | Strengths | Weaknesses
+---|---|---
+**Todoist**|<li>Clean interface</li><li>Simple usage</li><li>Project hierachy</li><li>Handles multiple date/time formats</li> | <li>1 page of tasks: No scrolling</li><li>Heavily relies on mouse usage: not many keyboard shortcuts</li><li>No calendar display</li>
+**Wunderlist**|<li>Interface is elegant</li><li>Display updates in real time</li><li>Sound feedback</li><li>Manages recurring tasks</li><li>Sort by due date</li><li>Filter by date range</li>| <li>Misleading icons and buttons</li><li>No clendar display</li><li>Does not open on startup</li><li>Deadline notification through email, not the app</li>
+**Google Calendar Quick Add**|  <li>Intuitive shortcuts and commands</li><li>Different command formats are acceptable</li><li>Clean interface</li><li>Task dependency cycles are detected when cyclic inputs are used</li>| <li>No view/edit/delete/search</li><li>Rigid settings</li>
+**Todo.txt**|   <li>Search function works for phrases, case-insensitive flag like in google search to filter certain texts</li><li>Command history</li>|    <li>Difficult setup</li><li>-h does not provide full list of commands</li><li>Tasks marked done are deleted permanently</li><li>Command formats are rigid</li><li>No undo of previous actions.</li><li>Too minimalistic, such as no time/date support</li>
+**Trello**| <li>Cross-platform usage</li><li>Integrates with other calendars</li><li>Collaboration support</li><li>Hierachy of tasks</li>|<li>A lot of fields to fill in</li><li>Recurring tasks have to be manually added</li><li>One rigid view, no option for summary/overview/timeline views</li><li>Many features, which are not immediately apparent</li>
+**Apple Calendar**| <li>Cross-platform support</li><li>Color-coding for tasks</li><li>Day, month and year view</li>|    <li>No collaboration</li><li>Rigid fields for adding</li>
+**S Planner**|  <li>Syncs to many calendar platforms</li><li>Google map support for locations</li><li>Supports recurring events</li><li>Collaboration support</li>| <li>Mobile-only</li><li>Floating tasks only available in Agenda view</li><li>Many clicks required to add tasks</li>
+**Any.do**| <li>Interface is clean and intuitive</li>   <li>Syncs between mobile devices and PC</li>    <li>Descriptions can be added to tasks</li> <li>Support for recurring tasks</li>|   <li>Internet connection is required to access tasks</li><li>Fields need to be filled in to add tasks</li><li>Time/date is not easy to change</li><li>No alarm support</li>
