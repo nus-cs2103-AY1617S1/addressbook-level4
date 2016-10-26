@@ -11,11 +11,13 @@ import javafx.util.Duration;
 
 import java.util.Optional;
 
+//@@author A0135805H
 /**
  * Contains generic utility methods for JavaFX views
  */
 public class FxViewUtil {
 
+    //@@author reused
     public static void applyAnchorBoundaryParameters(Node node, double left, double right, double top, double bottom) {
         AnchorPane.setBottomAnchor(node, bottom);
         AnchorPane.setLeftAnchor(node, left);
@@ -35,7 +37,8 @@ public class FxViewUtil {
     /**
      * Set the text to UI element when available, collapse the UI element when not.
      */
-    public static void displayTextWhenAvailable(Label labelToDisplay, Node nodeToHide, Optional<String> optionalString) {
+    public static void displayTextWhenAvailable(Label labelToDisplay, Node nodeToHide,
+                                                Optional<String> optionalString) {
         if (optionalString.isPresent()) {
             labelToDisplay.setText(optionalString.get());
         } else {

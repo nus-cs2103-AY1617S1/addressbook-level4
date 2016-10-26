@@ -61,9 +61,9 @@ public class ViewStyleUtil {
 
     /**
      * Toggles one style class to the node:
-     *      If supplied style class is available, remove it.
-     *      Else, add one instance of it.
-     *  @return true if toggled from OFF -> ON
+     * If supplied style class is available, remove it. Else, add one instance of it.
+     *
+     * @return true if toggled from OFF -> ON
      */
     public static boolean toggleClassStyle(Node node, String classStyle) {
         boolean wasPreviouslyOff = !node.getStyleClass().contains(classStyle);

@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 import seedu.todo.commons.core.EventsCenter;
 import seedu.todo.commons.events.BaseEvent;
 import seedu.todo.commons.util.AppUtil;
-
+//@@author reused
 /**
  * Base class for UI parts.
  * A 'UI part' represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.

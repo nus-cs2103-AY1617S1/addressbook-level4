@@ -19,6 +19,7 @@ import seedu.todo.model.UserPrefs;
 
 import java.util.logging.Logger;
 
+//@@author reused
 /**
  * The manager of the UI component.
  */
@@ -98,6 +99,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     //==================== Event Handling Code =================================================================
+    //@@author A0135805H
     @Subscribe
     private void handleExpandCollapseTaskEvent(ExpandCollapseTaskEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -110,8 +112,8 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getHelpView().displayCommandSummaries(event.getCommandSummaries());
     }
-    //@@author
 
+    //@@author A0135805H
     @Subscribe
     private void handleShowPreviewEvent(ShowPreviewEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
@@ -132,6 +134,7 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.getTodoListView().scrollAndSelect(event.getTask());
     }
 
+    //@@author reused
     @Subscribe
     private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

@@ -2,6 +2,7 @@ package seedu.todo.ui;
 
 import javafx.stage.Stage;
 
+//@@author reused
 /**
  * API of UI component
  */
