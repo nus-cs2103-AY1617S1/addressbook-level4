@@ -41,6 +41,11 @@ public class TaskBuilder {
         this.task.setEndTime(new EndTime(endTime));
         return this;
     }
+    
+    public TaskBuilder withStatus(boolean isDone, boolean isOverdue, boolean isNewlyAdded) throws IllegalValueException {
+        this.task.setStatus(new Status(isDone, isOverdue, isNewlyAdded));
+        return this;
+    }
 
     public TestTask build() {
         return this.task;

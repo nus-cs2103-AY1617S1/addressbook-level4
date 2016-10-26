@@ -1,7 +1,6 @@
 package seedu.task.logic.commands;
 
 import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.logic.HistoryList;
 import seedu.task.logic.RollBackCommand;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
@@ -12,6 +11,7 @@ import java.util.Set;
 
 /**
  * Adds a task to the task manager.
+ * @@author A0147335E-reused
  */
 public class AddCommand extends Command {
 
@@ -32,39 +32,28 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String startTime, String endTime, String deadline, Set<String> tags)
-            throws IllegalValueException {
+    public AddCommand(String name, String startTime, String endTime, String deadline, Set<String> tags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        this.toAdd = new Task(
-                new Name(name),
-                new StartTime(startTime),
-                new EndTime(endTime),
-                new Deadline(deadline),
-                new UniqueTagList(tagSet)
-        );
-        //
+        this.toAdd = new Task(new Name(name), new StartTime(startTime), new EndTime(endTime), new Deadline(deadline), new UniqueTagList(tagSet), new Status(false, false, true));
     }
 
     @Override
     public CommandResult execute(boolean isUndo) {
-        
         assert model != null;
         try {
             model.addTask(toAdd);
             if(isUndo == false){
-                HistoryList.getUndoList().add(new RollBackCommand("add" , this.toAdd, null, 1));
+                history.getUndoList().add(new RollBackCommand(COMMAND_WORD, toAdd, null));
             }
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
-
     }
-    
-    
+
     public CommandResult execute(int index) {
         assert model != null;
         try {

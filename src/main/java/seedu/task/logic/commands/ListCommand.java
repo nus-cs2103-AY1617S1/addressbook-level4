@@ -3,6 +3,7 @@ package seedu.task.logic.commands;
 
 /**
  * Lists all tasks in the task manager to the user.
+ * @@author generated
  */
 public class ListCommand extends Command {
 
