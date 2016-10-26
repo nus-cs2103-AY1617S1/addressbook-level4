@@ -67,7 +67,7 @@ public class TestUtil {
             return new Task[]{
                     new Task(new Name("Event1"), new Date("121216"), new Start("1212"), new End("1234"), 0, 0, new UniqueTagList()),
                     new Task(new Name("Event2"), new Date("12.12.16"), new Start("0001"), new End("1111"), 0, 0, new UniqueTagList()),
-                    new Task(new Name("Event3"), new Date("10-2-16"), new Start("1242"), new End("2345"), 0, 0, new UniqueTagList()),
+                    new Task(new Name("Event3"), new Date("10-02-16"), new Start("1242"), new End("2345"), 0, 0, new UniqueTagList()),
                     new Task(new Name("Event4"), new Date("300516"), new Start("1922"), new End("2021"), 0, 0, new UniqueTagList()),
                     new Task(new Name("Event5"), new Date("12/12/16"), new Start("1030"), new End("1242"), 0, 0, new UniqueTagList()),
                     new Task(new Name("Event6"), new Date("12/12/16"), new Start("12.35am"), new End("2234"), 0, 0, new UniqueTagList()),
