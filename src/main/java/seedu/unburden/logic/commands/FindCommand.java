@@ -20,10 +20,19 @@ public class FindCommand extends Command {
 			+ "Parameters: KEYWORD [MORE_KEYWORDS]...\n" + "Example: " + COMMAND_WORD + " alice bob charlie";
 
 	private final Set<String> keywords;
+	private final String date;
 	private final String modeOfSearch;
 
 	public FindCommand(Set<String> keywords, String modeOfSearch) {
 		this.keywords = keywords;
+		this.date = null;
+		this.modeOfSearch = modeOfSearch;
+		
+	}
+	
+	public FindCommand(String date, String modeOfSearch){
+		this.keywords = null;
+		this.date = date;
 		this.modeOfSearch = modeOfSearch;
 	}
 
@@ -37,10 +46,10 @@ public class FindCommand extends Command {
 		};
 	}
 	
-	public java.util.function.Predicate<? super Task> getDates(Set<String> args){
+	public java.util.function.Predicate<? super Task> getDates(String date){
     	return t -> {
 			try {
-				return t.getDate().toDate().equals(args);
+				return t.getDate().toDate().equals(date);
 			} catch (ParseException e) {
 				return false;
 			}
@@ -51,7 +60,7 @@ public class FindCommand extends Command {
 	public CommandResult execute() {
 		switch (modeOfSearch) {
 		case "date":
-			model.updateFilteredTaskList(getDates(keywords));
+			model.updateFilteredTaskList(getDates(date));
 			break;
 		case "name":
 			model.updateFilteredTaskList(getTasksWithSameNameOrTags(keywords));

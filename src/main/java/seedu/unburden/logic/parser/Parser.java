@@ -485,21 +485,18 @@ public class Parser {
 
 		if (matcherDate.matches()) {
 			final String keywords = matcherDate.group("dates");
-			final Set<String> dateKeyword = new HashSet<>(Arrays.asList(keywords));
-			return new FindCommand(dateKeyword, "date");
+			return new FindCommand(keywords, "date");
 		} else { // keywords delimited by whitespace
 			Calendar calendar = Calendar.getInstance();
 			switch (matcherName.group("keywords").toLowerCase()) {
 			case today:
 				final String todayKeyword = dateFormatter.format(calendar.getTime());
-				final Set<String> todayKeywords = new HashSet<>(Arrays.asList(todayKeyword));
-				return new FindCommand(todayKeywords, "date");
+				return new FindCommand(todayKeyword, "date");
 			case tomorrow:
 				calendar.setTime(calendar.getTime());
 				calendar.add(Calendar.DAY_OF_YEAR, 1);
 				final String tomorrowKeyword = dateFormatter.format(calendar.getTime());
-				final Set<String> tomorrowKeywords = new HashSet<>(Arrays.asList(tomorrowKeyword));
-				return new FindCommand(tomorrowKeywords, "date");
+				return new FindCommand(tomorrowKeyword, "date");
 			}
 			final String[] nameKeywords = matcherName.group("keywords").split("\\s+");
 			final Set<String> nameKeyword = new HashSet<>(Arrays.asList(nameKeywords));

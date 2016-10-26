@@ -70,13 +70,13 @@ public class ListCommand extends Command {
 			 model.updateFilteredListToShowAll();
 		}
 		else if(mode.equals("done")){
-			model.updateFilteredListToShow(getAllDone());
+			model.updateFilteredTaskList(getAllDone());
 		}
 		else if(mode.equals("undone")){
-			model.updateFilteredListToShow(getAllUndone());
+			model.updateFilteredTaskList(getAllUndone());
 		}
 		else{
-			model.updateFilteredListToShow(getAllDatesBefore(date));
+			model.updateFilteredTaskList(getAllDatesBefore(date));
 		}
         return new CommandResult(MESSAGE_SUCCESS);
     }
