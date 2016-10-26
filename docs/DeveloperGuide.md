@@ -1,5 +1,7 @@
 # Developer Guide
- 
+
+<!-- @@author A0138420N --> 
+
 * [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -11,6 +13,8 @@
 * [Appendix C : Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D : Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
+
+
 
 ## Introduction
 Welcome talented programmers, we are glad that you are willing to be part of the team and help us in the development and improvement of GGist. To get you started, we have created this developer guide to aid new members like you to get familiar with overall coding design of GGist and clarify your doubts if any.
@@ -442,4 +446,6 @@ Use case ends.
 
 *Difficult to read if too many appointments 
 *Must use with internet
+
+<!-- @@author --> 
 
