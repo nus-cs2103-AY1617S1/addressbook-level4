@@ -26,11 +26,7 @@ public class Status implements Comparable<Status> {
 	
 	public StatusType value;
 	
-	public Status(StatusType status) {
-		value = status;
-	}
 
-	
 	public Status(String string) {
 		switch (string.trim().toLowerCase()) {
 		case "done":
@@ -41,9 +37,22 @@ public class Status implements Comparable<Status> {
 			break;
 		case "overdue":
 			value = StatusType.OVERDUE;
+			break;
 		default:
 			throw new IllegalArgumentException("Invalid string input");
 		}
+	}
+	
+	public boolean isDone() {
+		return value.equals(StatusType.DONE);
+	}
+	
+	public boolean isNotDone() {
+		return value.equals(StatusType.NOT_DONE);
+	}
+	
+	public boolean isOverdue() {
+		return value.equals(StatusType.OVERDUE);
 	}
 	
     @Override

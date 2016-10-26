@@ -10,9 +10,11 @@ import seedu.address.model.task.Task;
 import seedu.address.model.task.TaskFilter;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.ReadOnlyTaskFilter;
+import seedu.address.model.task.Status;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Set;
@@ -127,6 +129,18 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
 	}
     
+    //@@author A0141019U
+    @Override
+    public synchronized void checkForOverdueTasks() {
+    	LocalDateTime now = LocalDateTime.now();
+    	
+    	for (Task task : taskManager.getUniqueTaskList().getInternalList()) {
+    		if (!task.getStatus().isDone() && task.getEndDate().orElse(LocalDateTime.MAX).isBefore(now)) {
+    			task.setStatus(new Status("overdue"));
+    		}
+    	}
+    }
+    //@@author
 
     //=========== Filtered Task List Accessors ===============================================================
 
@@ -174,7 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
 	//@@author
     @Override
     public void updateFilteredListToShowAll() {
-       filteredTasks.setPredicate(null);;
+       filteredTasks.setPredicate(null);
     }
     
     //@@author A0139339W
