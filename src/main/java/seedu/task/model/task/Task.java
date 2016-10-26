@@ -1,3 +1,4 @@
+//@author A0144939R
 package seedu.task.model.task;
 
 import java.time.Instant;
@@ -21,7 +22,6 @@ public class Task implements ReadOnlyTask {
 
     private UniqueTagList tags;
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Please ensure that your start and end time combination is valid.";
-
     /**
      * Assigns instance variables
      * @throws IllegalValueException if DateTime pair is invalid
@@ -59,7 +59,6 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) throws IllegalValueException {
         this(source.getName(), source.getOpenTime(), source.getCloseTime(), source.getImportance(), source.getComplete(), source.getTags());
     }
-
     @Override
     public Name getName() {
         return name;
@@ -74,7 +73,7 @@ public class Task implements ReadOnlyTask {
     public DateTime getCloseTime() {
         return closeTime;
     }
-    
+    //@author
     @Override
     public boolean getImportance() {
         return isImportant;
@@ -119,7 +118,6 @@ public class Task implements ReadOnlyTask {
     public void setIsCompleted(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
-    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

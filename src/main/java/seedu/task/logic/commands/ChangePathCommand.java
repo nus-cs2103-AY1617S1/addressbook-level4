@@ -19,7 +19,6 @@ public class ChangePathCommand extends Command{
             + "taskmanager.xml";
     
     public static final String MESSAGE_PATH_CHANGE_SUCCESS = "Success! New File path: %1$s";
-    public static final String MESSAGE_PATH_CHANGE_ROLLBACK_SUCCESS = "Path change reverted.";
     public static final String MESSAGE_PATH_CHANGE_FAIL = "Error, cannot change path to: %1$s";
     
     private final String newFilePath;
@@ -48,6 +47,9 @@ public class ChangePathCommand extends Command{
      */
     private boolean isValidFilePath(String newFilePath) {
         File file = new File(newFilePath);
+        System.out.println(file.getParentFile() != null);
+        System.out.println(file.canWrite());
+        System.out.println(newFilePath.endsWith(".xml"));
         return (file.getParentFile() != null && file.canWrite() && newFilePath.endsWith(".xml"));         
     }
 }

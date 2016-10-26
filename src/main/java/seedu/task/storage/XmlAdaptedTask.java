@@ -1,3 +1,4 @@
+//@@author A0144939R
 package seedu.task.storage;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -77,3 +78,4 @@ public class XmlAdaptedTask {
         return new Task(name, openTime, closeTime, isImportant, isComplete, tags); 
     }
 }
+//@@author

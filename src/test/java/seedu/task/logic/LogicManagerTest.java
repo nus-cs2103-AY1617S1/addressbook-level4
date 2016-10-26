@@ -143,7 +143,7 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
 
-
+    //@@author A0144939R
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
@@ -167,7 +167,6 @@ public class LogicManagerTest {
 
 
     }
-
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
@@ -183,7 +182,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-
+    //@@author
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
@@ -202,16 +201,6 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
 
-    }
-
-    @Test 
-    public void execute_change_path_successful() {
-        
-    }
-    
-    @Test
-    public void change_path_unsuccessful() {
-        
     }
     
     @Test
