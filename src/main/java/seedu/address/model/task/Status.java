@@ -72,9 +72,18 @@ public class Status implements Comparable<Status> {
         return value.hashCode();
     }
 
-
+    //@@author A0141019U
+    // overdue < not done < done
 	@Override
 	public int compareTo(Status other) {
-		return 0;
+		if (this.value.equals(other.value)) {
+			return 0;
+		}
+		else if (this.isOverdue() || other.isDone()) {
+			return -1;
+		}
+		else {
+			return 1;
+		}
 	}
 }

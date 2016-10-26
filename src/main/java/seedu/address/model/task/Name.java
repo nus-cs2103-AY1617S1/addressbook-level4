@@ -6,7 +6,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Represents a Task's name in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
-public class Name {
+public class Name implements Comparable<Name> {
 
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should contain at least one non-whitespace character";
     public static final String NAME_VALIDATION_REGEX = ".*\\S+.*";
@@ -51,5 +51,11 @@ public class Name {
     public int hashCode() {
         return value.hashCode();
     }
+    
+    //@@author A0141019U
+	@Override
+	public int compareTo(Name other) {
+		return this.value.compareTo(other.value);
+	}
 
 }
