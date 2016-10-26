@@ -291,9 +291,10 @@ Example:
 #### <a id="clear"></a>Clearing all entries : `clear`
 Clears all entries from Jimi.<br>
 Format: `clear`  
-> If you want to undo your clear, use the [`undo`](#undo) command.
 
 > <img src="images/Clear.png" width="600">
+
+> If you want to undo your clear, use the [`undo`](#undo) command.
 
 <br><br>
 
