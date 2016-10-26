@@ -11,7 +11,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Features implemented: <br>
    * [Parser](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/DeveloperGuide.md#logic-component) <br>
    * [Add task](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#adding-a-task-add) <br>
-* Code written: [functional code][test code][docs] <br>
+* Code written: [[functional code](../collated/main/A0139655U.md)][[test code](../collated/test/A0139655U.md)][docs] <br>
 
 -----
 
@@ -25,7 +25,7 @@ We are a team based in the [School of Computing, National University of Singapor
   * Tooltip
   * Input history navigation with Arrow Keys
   * Switch view buttons
-* Code written: [functional code][test code][docs]
+* Code written: [[functional code](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/collated/main/A0093960X.md)][[test code](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/collated/test/A0093960X.md)][docs]
 
 -----
 
@@ -46,10 +46,11 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [Hee Han Xiang](https://github.com/fisherhx)
 <img src="images/HHX.png" width="150"><br>
-*Responsibilities: Documentaion <br>
+* Responsibilities: Documentaion <br>
 * Components in charge of: [Storage](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/DeveloperGuide.md#storage-component) <br>
+* Features implemented: <br>
    * [Edit task](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#editing-a-task-edit) <br>
-* Code written: [functional code][test code][docs] <br>
+* Code written: [[functional code](../collated/main/A0139552B.md)][[test code](../collated/test/A0139552B.md)][docs] <br>
 
 -----
 

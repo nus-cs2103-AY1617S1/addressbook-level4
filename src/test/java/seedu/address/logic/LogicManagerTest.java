@@ -220,6 +220,7 @@ public class LogicManagerTest {
                 expectedAB.getUndoneTaskList());
 
     }
+    
     //@@author A0139655U
     @Test
     public void execute_edit_successful() throws Exception {
@@ -229,26 +230,58 @@ public class LogicManagerTest {
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeEdited);
         
-        // execute command and verify result
+        // execute add command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeEdited),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeEdited),
                 expectedAB,
                 expectedAB.getUndoneTaskList());
-
+        
+        //assign parameters for expectations
         Name name = new Name("Do stuff later");
         Date startDate = DateTime.convertStringToDate("10am");
         Date endDate = DateTime.convertStringToDate("12pm");
-        Priority priority = Priority.LOW;
-        RecurrenceRate recurrenceRate = null;
+        Priority priority = Priority.HIGH;
+        RecurrenceRate recurrenceRate = new RecurrenceRate("1","day");
         expectedAB.editFloatingTask(toBeEdited, name, startDate, endDate, priority, recurrenceRate);
 
+        // execute edit command and verify result
         assertCommandBehavior(helper.generateEditCommand(toBeEdited),
                 String.format(EditCommand.MESSAGE_SUCCESS, toBeEdited),
                 expectedAB,
                 expectedAB.getUndoneTaskList());
 
     }
+    
+    @Test
+    public void execute_edit_remove_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task toBeEdited = helper.read();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeEdited);
+        
+        // execute add command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeEdited),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeEdited),
+                expectedAB,
+                expectedAB.getUndoneTaskList());
+        
+        //assign parameters for expectations
+        Name name = new Name("Read a book");
+        Date startDate = null;
+        Date endDate = null;
+        Priority priority = Priority.MEDIUM;
+        RecurrenceRate recurrenceRate = null;
+        expectedAB.editFloatingTask(toBeEdited, name, startDate, endDate, priority, recurrenceRate);
 
+        // execute edit command and verify result
+        assertCommandBehavior(helper.generateEditCommandRemove(toBeEdited),
+                String.format(EditCommand.MESSAGE_SUCCESS, toBeEdited),
+                expectedAB,
+                expectedAB.getUndoneTaskList());
+
+    }
+    //@@author
 
     /* Duplicate is allowed?
     @Test
@@ -659,10 +692,41 @@ public class LogicManagerTest {
             cmd.append("Do stuff later ");            
             cmd.append("from 10am ");
             cmd.append("to 12pm ");
-            cmd.append(" -").append(p.getPriorityValue().toString().toLowerCase());
+            cmd.append("repeat every day ");
+            cmd.append(" -").append("high");
             
             return cmd.toString();
+        } 
+        //TODO fix the add test to include additional parameters first
+        Task read() throws Exception {
+            Name name = new Name("Read a lot of books");
+//            Date startDate = DateTime.convertStringToDate("11am");
+//            Date endDate = DateTime.convertStringToDate("3pm");
+            Priority priority = Priority.HIGH;
+//            RecurrenceRate recurrenceRate = new RecurrenceRate("2","days");
+//            return new Task(name, startDate, endDate, recurrenceRate, priority);
+            return new Task(name, priority);
         }
+        
+        /** Generates the correct edit command for removal */
+        String generateEditCommandRemove(Task p) {
+            StringBuffer cmd = new StringBuffer();
+
+            cmd.append("edit 1 ");
+            
+            cmd.append("Read a book ");     
+            cmd.append("from 11am ");
+            cmd.append("to 12pm ");
+            cmd.append("repeat every day ");
+            cmd.append(" -").append("med ");
+            cmd.append("-reset ");
+            cmd.append("start ");
+            cmd.append("repeat ");
+            cmd.append("end");
+            
+            return cmd.toString();
+        }       
+        //@@author
         
         /**
          * Generates an TaskManager with auto-generated persons.
