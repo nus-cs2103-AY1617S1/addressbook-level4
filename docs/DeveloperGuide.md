@@ -21,7 +21,6 @@ This guide will bring you through the design and implementation of Menion. It's 
 * [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E : Product Survey](#appendix-e-product-survey)
 
-<br>
 
 ## Setting up
 
@@ -93,7 +92,6 @@ Each of the four components
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.
-<br><br>
 
 
 <img src="images\SDforDeletePerson.png" width="800"><br>
@@ -134,7 +132,6 @@ The `UI` component
 * binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * responds to events raised from various parts of the App and updates the UI accordingly.
 
-<br>
 
 ### Storage component
 
@@ -147,7 +144,7 @@ The `Storage` component
 
 * saves `UserPref` objects in json format and feeds it back.
 * saves the Activity Manager data in xml format and feeds it back.
-<br>
+
 
 ### Logic component
 
@@ -158,7 +155,6 @@ API : [`Logic.java`](../src/main/java/seedu/menion/logic/Logic.java)
 
  [`Logic`](../src/main/java/seedu/menion/logic/Logic.java) uses the `ActivityParser` class to parse the user's command.For example, `ActivityParser` uses `AddParser` to parse argument for `AddCommand`. This results in a `Command` object, which is executed by the `LogicManager`.<br>
 The command execution can affect the `Model` (e.g. adding an Activity) and/or raise events. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
-<br><br>
 
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 > Diagram 8: Sequence Diagram<br>
@@ -173,7 +169,6 @@ Given above is the Sequence Diagram for interactions within the `Logic` componen
 
 > The model class is not coupled to the other three components.
 
-<br><br><br><br><br>
 
 The `Model` component
 
@@ -209,7 +204,7 @@ and logging destinations.
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
 (default: `config.json`)
-<br><br><br><br><br>
+
 ## Testing
 
 Tests can be found in the `./src/test/java` folder. There are two available options for tesing.
@@ -310,7 +305,6 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `Menion` and the **Actor** is the `user`, unless specified otherwise)
 
-<br>
 
 #### Use Case : Add Activity
 **MSS**
@@ -330,7 +324,6 @@ Use case ends.
 > Repeat 1a1 - 1a2 until user inputs the correct format.<br>
 > Use case resumes at step 2.
 
-<br>
 
 
 #### Use Case : Delete Activity
