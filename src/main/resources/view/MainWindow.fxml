@@ -34,9 +34,9 @@
                <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
            </padding>
        </AnchorPane>
-      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+      <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="500" VBox.vgrow="ALWAYS">
          <items>
-            <VBox fx:id="taskList" minWidth="340" prefWidth="340">
+            <VBox fx:id="taskList" minWidth="450" prefWidth="800">
                 <padding>
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                 </padding>
@@ -44,9 +44,9 @@
                   <AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </children>
             </VBox>
-            <AnchorPane fx:id="browserPlaceholder" prefWidth="340" >
+            <AnchorPane fx:id="sortedTaskListPanelPlaceholder" prefWidth="0" >
                 <padding>
-                    <Insets top="10" bottom="10" left="10" right="10"/>
+                    <Insets top="0" bottom="0" left="0" right="0"/>
                 </padding>
             </AnchorPane>
          </items>

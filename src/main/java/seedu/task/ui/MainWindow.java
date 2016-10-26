@@ -21,7 +21,7 @@ import seedu.task.model.task.ReadOnlyTask;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/tasks-512.png";
+    private static final String ICON = "/images/tasks_icon.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -29,8 +29,9 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
+//    private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
+    private TaskListPanel sortedTaskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -43,8 +44,8 @@ public class MainWindow extends UiPart {
 
     private String taskManagerName;
 
-    @FXML
-    private AnchorPane browserPlaceholder;
+//    @FXML
+//    private AnchorPane browserPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -55,6 +56,9 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane taskListPanelPlaceholder;
 
+    @FXML
+    private AnchorPane sortedTaskListPanelPlaceholder;
+    
     @FXML
     private AnchorPane resultDisplayPlaceholder;
 
@@ -107,7 +111,8 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+//      browserPanel = BrowserPanel.load(browserPlaceholder);
+    	sortedTaskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(),
@@ -129,6 +134,10 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getSortedTaskListPanelPlaceholder() {
+        return sortedTaskListPanelPlaceholder;
     }
 
     public void hide() {
@@ -186,11 +195,11 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
+//    public void loadTaskPage(ReadOnlyTask task) {
+//        browserPanel.loadTaskPage(task);
+//    }
+//
+//    public void releaseResources() {
+//        browserPanel.freeResources();
+//    }
 }
