@@ -135,8 +135,8 @@ public class ModelManager extends ComponentManager implements Model {
     	LocalDateTime now = LocalDateTime.now();
     	
     	for (Task task : taskManager.getUniqueTaskList().getInternalList()) {
-    		if (task.getEndDate().orElse(LocalDateTime.MAX).isBefore(now)) {
-    			task.setStatus(new Status(Status.DoneStatus.OVERDUE));
+    		if (!task.getStatus().isDone() && task.getEndDate().orElse(LocalDateTime.MAX).isBefore(now)) {
+    			task.setStatus(new Status("overdue"));
     		}
     	}
     }

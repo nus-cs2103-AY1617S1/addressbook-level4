@@ -49,11 +49,11 @@ public class ReadOnlyTaskFilter {
 	}
 	
 	public static Predicate<ReadOnlyTask> isNotDone() {
-		return p -> p.getStatus().value.equals(Status.DoneStatus.DONE);
+		return p -> p.getStatus().value.equals(Status.DoneStatus.NOT_DONE);
 	}
 	
 	public static Predicate<ReadOnlyTask> isOverdue() {
-		return p -> p.getStatus().value.equals(Status.DoneStatus.DONE);
+		return p -> p.getStatus().value.equals(Status.DoneStatus.OVERDUE);
 	}
 
 	public static Predicate<ReadOnlyTask> isDeadlineTask() {

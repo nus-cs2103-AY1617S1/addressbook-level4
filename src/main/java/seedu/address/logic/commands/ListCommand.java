@@ -36,8 +36,6 @@ public class ListCommand extends Command {
     	Predicate <ReadOnlyTask> taskTypePredicate = null;
     	Predicate <ReadOnlyTask> donePredicate = null;
     	
-    	model.checkForOverdueTasks();
-    	
     	if(taskType.isPresent()) {
     		assert taskType.get().equals("someday") || taskType.get().equals("sd") ||
     				taskType.get().equals("deadline") || taskType.get().equals("dl") ||
@@ -45,15 +43,15 @@ public class ListCommand extends Command {
     		switch(taskType.get()) {
     		case "someday":
     		case "sd":
-    			taskTypePredicate = (ReadOnlyTaskFilter.isSomedayTask());
+    			taskTypePredicate = ReadOnlyTaskFilter.isSomedayTask();
     			break;
     		case "deadline":
     		case "dl":
-    			taskTypePredicate = (ReadOnlyTaskFilter.isDeadlineTask());
+    			taskTypePredicate = ReadOnlyTaskFilter.isDeadlineTask();
     			break;
     		case "event":
     		case "ev":
-    			taskTypePredicate = (ReadOnlyTaskFilter.isEventTask());
+    			taskTypePredicate = ReadOnlyTaskFilter.isEventTask();
     			break;
     		}
     	}
@@ -79,6 +77,9 @@ public class ListCommand extends Command {
     	} else if(!doneStatus.isPresent() && !taskType.isPresent()) {
     		model.updateFilteredListToShowAll();
     	}
+    	
+    	model.checkForOverdueTasks();
+    	
         return new CommandResult(MESSAGE_SUCCESS);
     }
     //@@author
