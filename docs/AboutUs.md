@@ -4,7 +4,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-####[Annabel Eng Jing Wen](http://github.com/annabeleng)  <br>
+####Annabel Eng Jing Wen [@annabeleng](http://github.com/annabeleng)  <br>
 <img src="images/AnnabelEng.jpg" width="150"><br>
 **Role**: Team Leader <br>
 * Aspects/tools in charge of: Documentation <br>
@@ -15,7 +15,7 @@ We are a team based in the [School of Computing, National University of Singapor
 * Code written: [[functional code]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/main/A0129595N.md) [[test code]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/docs/A0129595N.md) [[docs]](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/collated/test/A0129595N.md) <br>
 * Other major contributions: <br>
    * Did the initial refactoring from AddressBook to Malitio (code only/ testing done by Desmond) [[#3]](https://github.com/CS2103AUG2016-* * T13-C3/main/pull/3) <br>
-   * Created the functional model/structure for our current project [[#20]](https://github.com/CS2103AUG2016-T13-C3/main/pull/20)
+   * Created the functional model/structure for Malitio [[#20]](https://github.com/CS2103AUG2016-T13-C3/main/pull/20)
 
 -----
 
