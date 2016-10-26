@@ -11,45 +11,39 @@ import java.util.concurrent.TimeUnit;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 public class DateUtil {
-    private static List<SimpleDateFormat> DATE_FORMATS;
-    private static List<SimpleDateFormat> DATE_FORMATS1;
-    private static List<SimpleDateFormat> DATE_FORMATS2;
+    private static List<SimpleDateFormat> DATE_FORMATS; //validate date format if both time and date are present
+    private static List<SimpleDateFormat> DATE_FORMATS1; //validate date format if only date is present
+    private static List<SimpleDateFormat> DATE_FORMATS2;  //convert DATE_FORMATS1 date to date and time 
     public static final String INVALID_FORMAT = "Invalid Format";
 
     public DateUtil() {
         DATE_FORMATS = new ArrayList<>();
         DATE_FORMATS1 = new ArrayList<>();
         DATE_FORMATS2 = new ArrayList<>();
-        DATE_FORMATS.add(new SimpleDateFormat("d-MM-yyyy h:mm a"));
-        DATE_FORMATS.add(new SimpleDateFormat("d/MM/yyyy h:mm a"));
-        DATE_FORMATS.add(new SimpleDateFormat("d-MM-yyyy h.mm a"));
-        DATE_FORMATS.add(new SimpleDateFormat("d/MM/yyyy h.mm a"));
-        DATE_FORMATS.add(new SimpleDateFormat("d-MM-yyyy HHmm"));
-        DATE_FORMATS.add(new SimpleDateFormat("d/MM/yyyy HHmm"));
-        DATE_FORMATS.add(new SimpleDateFormat("d-MM-yyyy HH:mm"));
-        DATE_FORMATS.add(new SimpleDateFormat("d/MM/yyyy HH:mm"));
-        DATE_FORMATS.add(new SimpleDateFormat("d-MM-yyyy HH.mm"));
-        DATE_FORMATS.add(new SimpleDateFormat("d/MM/yyyy HH.mm"));
-        DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
-        DATE_FORMATS1.add(new SimpleDateFormat("d/MM/yyyy"));
-        DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
-        DATE_FORMATS1.add(new SimpleDateFormat("d/MM/yyyy"));
-        DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
-        DATE_FORMATS1.add(new SimpleDateFormat("d/MM/yyyy"));
-        DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
-        DATE_FORMATS1.add(new SimpleDateFormat("d/MM/yyyy"));
-        DATE_FORMATS1.add(new SimpleDateFormat("d-MM-yyyy"));
-        DATE_FORMATS1.add(new SimpleDateFormat("d/MM/yyyy"));
-        DATE_FORMATS2.add(new SimpleDateFormat("d-MM-yyyy HH:mm"));
-        DATE_FORMATS2.add(new SimpleDateFormat("d/MM/yyyy HH:mm"));
-        DATE_FORMATS2.add(new SimpleDateFormat("d-MM-yyyy HH:mm"));
-        DATE_FORMATS2.add(new SimpleDateFormat("d/MM/yyyy HH:mm"));
-        DATE_FORMATS2.add(new SimpleDateFormat("d-MM-yyyy HH:mm"));
-        DATE_FORMATS2.add(new SimpleDateFormat("d/MM/yyyy HH:mm"));
-        DATE_FORMATS2.add(new SimpleDateFormat("d-MM-yyyy HH:mm"));
-        DATE_FORMATS2.add(new SimpleDateFormat("d/MM/yyyy HH:mm"));
-        DATE_FORMATS2.add(new SimpleDateFormat("d-MM-yyyy HH:mm"));
-        DATE_FORMATS2.add(new SimpleDateFormat("d/MM/yyyy HH:mm"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy hh:mm aa"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy hh:mm aa"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy hh.mm aa"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy hh.mm aa"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy HHmm"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy HHmm"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy HH:mm"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy HH:mm"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd-MM-yyyy HH.mm"));
+        DATE_FORMATS.add(new SimpleDateFormat("dd.MM.yyyy HH.mm"));
+        DATE_FORMATS.add(new SimpleDateFormat("EEE, MMM d, yyyy h:mm a"));
+        DATE_FORMATS1.add(new SimpleDateFormat("dd-MM-yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("dd.MM.yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("dd-MM-yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("dd.MM.yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("dd-MM-yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("dd.MM.yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("dd-MM-yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("dd.MM.yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("dd-MM-yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("dd.MM.yyyy"));
+        DATE_FORMATS1.add(new SimpleDateFormat("EEE, MMM d, yyyy"));
+        DATE_FORMATS2.add(new SimpleDateFormat("dd-MM-yyyy HH:mm"));
+        DATE_FORMATS2.add(new SimpleDateFormat("dd.MM.yyyy HH:mm"));
     }
 
     /**
@@ -103,7 +97,7 @@ public class DateUtil {
                 if (date.equals(sdf.format(validDate))) {
                     dateform = sdf.format(validDate);
                     dateform = dateform.concat(" 23:59");
-                    validDate = DATE_FORMATS2.get(DATE_FORMATS1.indexOf(sdf)).parse(dateform);
+                    validDate = DATE_FORMATS2.get(1).parse(dateform);
                     return validDate;
                 }
             } catch (ParseException e) {
@@ -124,6 +118,44 @@ public class DateUtil {
         throw new IllegalValueException(INVALID_FORMAT);
     }
 
+    /**
+     * Convert valid reminder date input into date format Optional to contain
+     * time of the day in hour and mins
+     * 
+     * @param date
+     * @return the date in valid date format
+     * @throws IllegalValueException 
+     */
+    public static Date parseReminder(String date) throws IllegalValueException {
+        Date validDate;
+        String dateform;
+        for (SimpleDateFormat sdf : DATE_FORMATS1) {
+            try {
+                validDate = sdf.parse(date);
+                if (date.equals(sdf.format(validDate))) {
+                    dateform = sdf.format(validDate);
+                    dateform = dateform.concat(" 20:00");
+                    validDate = DATE_FORMATS2.get(DATE_FORMATS1.indexOf(sdf)).parse(dateform);
+                    return validDate;
+                }
+            } catch (ParseException e) {
+                continue;
+            }
+        }
+
+        for (SimpleDateFormat sdf : DATE_FORMATS) {
+            try {
+                validDate = sdf.parse(date);
+                if (date.equals(sdf.format(validDate))) {
+                    return validDate;
+                }
+            } catch (ParseException e) {
+                continue;
+            }
+        }
+
+        throw new IllegalValueException(INVALID_FORMAT);
+    }
 
     /**
      * Convert valid date input into date format for event Must contain time of
@@ -183,10 +215,13 @@ public class DateUtil {
         String strDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         if (timeparts.length != 1) {
             String part2 = timeparts[1];
+            if(timeparts.length== 3){
+                String part3 = timeparts [2];
+                part2 = part2.concat(" " + part3);}
             if (part1.contains("today"))
                 return strDate.concat(" " + part2);
             else
-                return strDate.concat(" " + part1);
+                throw new IllegalValueException(INVALID_FORMAT);
         } else
             try {
                 todaydate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(strDate.concat(" 23:59"));
@@ -213,10 +248,13 @@ public class DateUtil {
         String strDate = new SimpleDateFormat("dd-MM-yyyy").format(today.getTime() + TimeUnit.DAYS.toMillis(1));
         if (timeparts.length != 1) {
             String part2 = timeparts[1];
-            if (part1.contains("today"))
+            if(timeparts.length== 3){
+                String part3 = timeparts [2];
+                part2 = part2.concat(" " + part3);}
+            if (part1.contains("tomorrow"))
                 return strDate.concat(" " + part2);
             else
-                return strDate.concat(" " + part1);
+                throw new IllegalValueException(INVALID_FORMAT);
         } else
             try {
                 todaydate = new SimpleDateFormat("dd-MM-yyyy HH:mm").parse(strDate.concat(" 23:59"));
@@ -240,10 +278,14 @@ public class DateUtil {
         String strDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         if (timeparts.length != 1) {
             String part2 = timeparts[1];
+            if(timeparts.length== 3){
+                String part3 = timeparts [2];
+                part2 = part2.concat(" " + part3);
+            }
             if (part1.contains("today"))
                 return strDate.concat(" " + part2);
             else
-                return strDate.concat(" " + part1);
+                throw new IllegalValueException(INVALID_FORMAT);
         } else
             throw new IllegalValueException(INVALID_FORMAT);
     }
@@ -265,10 +307,14 @@ public class DateUtil {
         String strDate = new SimpleDateFormat("dd-MM-yyyy").format(today.getTime() + TimeUnit.DAYS.toMillis(1));
         if (timeparts.length != 1) {
             String part2 = timeparts[1];
+            if(timeparts.length== 3){
+                String part3 = timeparts [2];
+                part2 = part2.concat(" " + part3);
+            }
             if (part1.contains("tomorrow"))
                 return strDate.concat(" " + part2);
             else
-                return strDate.concat(" " + part1);
+                throw new IllegalValueException(INVALID_FORMAT);
         } else
             throw new IllegalValueException(INVALID_FORMAT);
     }
@@ -289,7 +335,7 @@ public class DateUtil {
         } else if (date.contains("tomorrow")) { // allow user to key in "tomorrow" instead of tomorrow's/ date
             date = FixedTimeTomorrow(date);
         }
-        Date taskDate = parseEvent(date);
+        Date taskDate = parseReminder(date);
         return taskDate;
     }
 
@@ -304,7 +350,6 @@ public class DateUtil {
     }
     
     public static Date EndDateTime(Date date) throws IllegalValueException {
-        String strDate = new SimpleDateFormat("dd-MM-yyyy HH:mm").format(date.getTime() + TimeUnit.MILLISECONDS.toHours(1)); 
         Date dateformat = null;
 
         Calendar cal = Calendar.getInstance();
@@ -316,4 +361,37 @@ public class DateUtil {
         return dateformat;
 
     }
+    
+    //these following methods used only for testing purposes only.
+       
+    /**
+     * Convert a given calendar object into a string format
+     * 
+     * @param string
+     *            ""
+     * @return tomorrow in valid date format
+     */
+    
+    public String outputDateTimeAsString (Calendar dateTime, String format) {
+    	assert (isValidFormat(format));
+    	
+    	SimpleDateFormat formatter = new SimpleDateFormat(format);
+    	return formatter.format(dateTime.getTime());
+    }
+    
+    /**
+     * Checks whether the format entered will be accepted by LifeKeeper
+     * @param format
+     * @return boolean indicating whether format is accepted.
+     */
+    
+    public boolean isValidFormat (String format) {
+    	SimpleDateFormat formatter = new SimpleDateFormat(format);
+    	for (SimpleDateFormat a : DATE_FORMATS) {
+    		if (a.equals(formatter)) {
+    			return true;
+    		} 
+    	} return false;
+    }
+ 
 }

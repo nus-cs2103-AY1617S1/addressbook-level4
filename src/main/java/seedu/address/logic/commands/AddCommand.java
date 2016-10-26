@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.Name;
 import seedu.address.model.activity.Reminder;
-import seedu.address.model.activity.UniqueTaskList;
+import seedu.address.model.activity.UniqueActivityList;
 import seedu.address.model.activity.event.*;
 import seedu.address.model.activity.task.*;
 import seedu.address.model.tag.Tag;
@@ -77,7 +77,7 @@ public class AddCommand extends Command {
             PreviousCommandsStack.push(addCommand);
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
+        } catch (UniqueActivityList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 

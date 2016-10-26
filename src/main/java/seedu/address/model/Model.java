@@ -3,9 +3,9 @@ package seedu.address.model;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ReadOnlyActivity;
-import seedu.address.model.activity.UniqueTaskList;
-import seedu.address.model.activity.UniqueTaskList.DuplicateTaskException;
-import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.activity.UniqueActivityList;
+import seedu.address.model.activity.UniqueActivityList.DuplicateTaskException;
+import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
 import seedu.address.model.activity.task.Task;
 
 import java.util.Set;
@@ -21,10 +21,10 @@ public interface Model {
     ReadOnlyLifeKeeper getLifekeeper();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyActivity target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(ReadOnlyActivity target) throws UniqueActivityList.TaskNotFoundException;
 
     /** Adds the given task */
-    void addTask(Activity person) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Activity person) throws UniqueActivityList.DuplicateTaskException;
     
     /** Undo delete of the given task at the specific index
      * @throws DuplicateTaskException */
@@ -54,6 +54,14 @@ public interface Model {
 
     /** Marks task as completed **/
 	void markTask(Activity unmarkedTask, boolean isComplete) throws TaskNotFoundException;
+
+    void updateFilteredEventListToShowAll();
+
+    void updateFilteredActivityListToShowAll();
+
+    void updateFilteredTaskListToShowAll();
+
+    void updateFilteredByTagListToShowAll(String tag);
 
 
 

@@ -6,10 +6,12 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.activity.Activity;
 import seedu.address.model.activity.ReadOnlyActivity;
-import seedu.address.model.activity.UniqueTaskList;
-import seedu.address.model.activity.UniqueTaskList.DuplicateTaskException;
-import seedu.address.model.activity.UniqueTaskList.TaskNotFoundException;
+import seedu.address.model.activity.UniqueActivityList;
+import seedu.address.model.activity.UniqueActivityList.DuplicateTaskException;
+import seedu.address.model.activity.UniqueActivityList.TaskNotFoundException;
 import seedu.address.model.activity.task.Task;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 
@@ -25,6 +27,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Activity> filteredPersons;
+    private final FilteredList<Tag> filteredTags;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -38,7 +41,8 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         addressBook = new AddressBook(src);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredPersons = new FilteredList<>(addressBook.getAllEntries());
+        filteredTags = new FilteredList<>(addressBook.getTag());
     }
 
     public ModelManager() {
@@ -47,7 +51,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyLifeKeeper initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        filteredPersons = new FilteredList<>(addressBook.getAllEntries());
+        filteredTags = new FilteredList<>(addressBook.getTag());
     }
 
     @Override
@@ -73,14 +78,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addTask(Activity person) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Activity person) throws UniqueActivityList.DuplicateTaskException {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }       
 
 	@Override
-	public void undoDelete(int index, Activity taskToAdd) throws UniqueTaskList.DuplicateTaskException {
+	public void undoDelete(int index, Activity taskToAdd) throws UniqueActivityList.DuplicateTaskException {
 		addressBook.addPerson(index, taskToAdd);
 		updateFilteredListToShowAll();
 		indicateAddressBookChanged();
@@ -127,6 +132,30 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredListToShowAll() {
         filteredPersons.setPredicate(null);
+    }
+    
+    @Override
+    public void updateFilteredByTagListToShowAll(String tag) {
+        filteredPersons.setPredicate(p->
+        p.getTags().contains1(tag));
+    }
+    
+    @Override
+    public void updateFilteredTaskListToShowAll() {
+        filteredPersons.setPredicate(p->
+        p.getClass().getSimpleName().equalsIgnoreCase("Task"));
+    }
+    
+    @Override
+    public void updateFilteredActivityListToShowAll() {
+        filteredPersons.setPredicate(p->
+        p.getClass().getSimpleName().equalsIgnoreCase("Activity"));
+    }
+    
+    @Override
+    public void updateFilteredEventListToShowAll() {
+        filteredPersons.setPredicate(p->
+        p.getClass().getSimpleName().equalsIgnoreCase("Event"));
     }
 
     @Override

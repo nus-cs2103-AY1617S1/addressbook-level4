@@ -5,7 +5,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.ReadOnlyLifeKeeper;
 import seedu.address.model.activity.ReadOnlyActivity;
-import seedu.address.model.activity.UniqueTaskList;
+import seedu.address.model.activity.UniqueActivityList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -55,8 +55,8 @@ public class XmlSerializableAddressBook implements ReadOnlyLifeKeeper {
     }
 
     @Override
-    public UniqueTaskList getUniquePersonList() {
-        UniqueTaskList lists = new UniqueTaskList();
+    public UniqueActivityList getUniquePersonList() {
+        UniqueActivityList lists = new UniqueActivityList();
         for (XmlAdaptedActivity p : activities) {
             try {
                 lists.add(p.toModelType());
