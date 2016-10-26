@@ -79,9 +79,17 @@ public interface Model{
     /** Updates the filter of the filtered events list to filter by the given dates */
     void updateFilteredAgendaEventList(DateTime toDate, DateTime fromDate);
     
+    /** Updates the filter of the filtered tasks list to filer by the given keywords and dates */
+    void updateFilteredAgendaTaskList(Set<String> keywords, DateTime toDate, DateTime fromDate);
+
+    /** Updates the filter of the filtered events list to filer by the given keywords and dates */
+    void updateFilteredAgendaEventList(Set<String> keywords, DateTime toDate, DateTime fromDate);
+    
     UserPrefs getUserPrefs();
     
     Model clone();
+
+
 
 
 }

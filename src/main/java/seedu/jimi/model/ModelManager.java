@@ -162,6 +162,16 @@ public class ModelManager extends ComponentManager implements Model {
         this.filteredListManager.updateFilteredList(ListId.EVENTS_AGENDA, toDate, fromDate);
     }
     
+    @Override
+    public void updateFilteredAgendaTaskList(Set<String> keywords, DateTime toDate, DateTime fromDate) {
+        this.filteredListManager.updateFilteredList(ListId.TASKS_AGENDA, keywords, toDate, fromDate);
+    }
+
+    @Override
+    public void updateFilteredAgendaEventList(Set<String> keywords, DateTime toDate, DateTime fromDate) {
+        this.filteredListManager.updateFilteredList(ListId.EVENTS_AGENDA, keywords, toDate, fromDate);
+    }
+    
     /*
      * ==================================================================
      *                  Accessing Filtered Lists 
