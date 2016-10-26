@@ -121,11 +121,11 @@ Figure 4: A deadline task with date, time and priority specified added under Sch
 
 
 #### Adds an event to WhatNow
-Format: `add "DESCRIPTION" [every] DAY from TIME to TIME [t/TAG]�`
+Format: `add "DESCRIPTION" [every] DAY from TIME to TIME [t/TAG]...`
 
-Format: `add "DESCRIPTION" on [every] DATE/TIME/DATE-TIME [t/TAG]�`
+Format: `add "DESCRIPTION" on [every] DATE/TIME/DATE-TIME [t/TAG]...`
 
-Format: `add "DESCRIPTION" from DATE/TIME/DATE-TIME to DATE/TIME/DATE-TIME [t/TAG]�`
+Format: `add "DESCRIPTION" from DATE/TIME/DATE-TIME to DATE/TIME/DATE-TIME [t/TAG]...`
 > * The format for date must be day month year where year is optional. If no year is specified, it is assumed to be the current year.
 Eg: 10 Oct, 4 november, 11 August 2017, 12/12/2016.
 * If no date is specified, it is assumed to be today.
@@ -134,11 +134,11 @@ Eg: 10am, 6PM, 7.30pm, 7:30pm.
 * Tasks with date and time specified will be added to WhatNow as a deadline task and will be displayed under the header "Schedule".
 
 Examples:
-* `add �CS2016 Tutorial� every Tuesday from 12pm to 2.30pm t/medium`
+* `add "CS2016 Tutorial" every Tuesday from 12pm to 2.30pm t/medium`
 Adds a Schedule task "CS2106 Tutorial" of medium priority on every Tuesday from 12pm to 2.30pm.
-* `add �Drashti�s Birthday� every 30 Aug t/high`
-Adds a Schedule task "Drashti�s Birthday" of high priority every 30 Aug.
-* `add �Java Workshop� from 12/12/2016 8am to 15/12/2016 5pm t/high`
+* `add "Drashti's Birthday" every 30 Aug t/high`
+Adds a Schedule task "Drashti's Birthday" of high priority every 30 Aug.
+* `add "Java Workshop" from 12/12/2016 8am to 15/12/2016 5pm t/high`
 Adds a Schedule task "Java Workshop" of high priority from 12 December 2016 8am to 15 December 2016 5pm.
 
 <p align="center">
@@ -371,7 +371,7 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 ## Command Summary
 Command | Format
 -------- | :--------
-Add | `add "DESCRIPTION" [t/TAG]` <br> `add "DESCRIPTION" by TODAY/TOMORROW/DAY/DATE/TIME/DATE-TIME [every] [t/TAG]` <br> `add "DESCRIPTION" [every] DAY from TIME to TIME [t/TAG]�` <br> `add "DESCRIPTION" on [every] DATE/TIME/DATE-TIME [t/TAG]�` <br> `add "DESCRIPTION" from DATE/TIME/DATE-TIME to DATE/TIME/DATE-TIME [t/TAG]�`
+Add | `add "DESCRIPTION" [t/TAG]` <br> `add "DESCRIPTION" by TODAY/TOMORROW/DAY/DATE/TIME/DATE-TIME [every] [t/TAG]` <br> `add "DESCRIPTION" [every] DAY from TIME to TIME [t/TAG]...` <br> `add "DESCRIPTION" on [every] DATE/TIME/DATE-TIME [t/TAG]...` <br> `add "DESCRIPTION" from DATE/TIME/DATE-TIME to DATE/TIME/DATE-TIME [t/TAG]...`
 Change | `change location to PATH`
 Clear | `clear`
 Delete | `delete todo/schedule INDEX`
