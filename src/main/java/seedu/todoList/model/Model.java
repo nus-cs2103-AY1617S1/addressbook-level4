@@ -1,5 +1,6 @@
 package seedu.todoList.model;
 
+import java.util.EmptyStackException;
 import java.util.Set;
 
 import seedu.todoList.commons.core.UnmodifiableObservableList;
@@ -25,6 +26,13 @@ public interface Model {
     void resetEventListData();
     /** Clears existing backing model. */
     void resetDeadlineListData();
+    
+    /** Restores backup toodListData. */
+    void restoreTodoListData();
+    /** Restores backup eventListData. */
+    void restoreEventListData();
+    /** Restores backup deadlineListData. */
+    void restoreDeadlineListData();
 
     /** Returns the TodoList */
     ReadOnlyTaskList getTodoList();
@@ -46,7 +54,7 @@ public interface Model {
     void doneTask(ReadOnlyTask target, String dataType) throws UniqueTaskList.TaskNotFoundException;
     
     /** Undo the latest command */
-    void undoLatestCommand() throws Exception;
+    void undoLatestCommand() throws EmptyStackException;
 
     /** Mark the given task as undone */
     void undoneTask(ReadOnlyTask target, String dataType) throws UniqueTaskList.TaskNotFoundException;

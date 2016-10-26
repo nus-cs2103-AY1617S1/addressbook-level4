@@ -1,11 +1,6 @@
 package seedu.todoList.logic.commands;
 
-import seedu.todoList.commons.core.EventsCenter;
-import seedu.todoList.commons.core.Messages;
-import seedu.todoList.commons.core.UnmodifiableObservableList;
-import seedu.todoList.commons.events.ui.JumpToListRequestEvent;
-import seedu.todoList.model.task.ReadOnlyTask;
-import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
+import java.util.EmptyStackException;
 
 /**
  * Selects a task identified using it's last displayed index from the TodoList.
@@ -26,7 +21,7 @@ public class UndoCommand extends Command {
     public CommandResult execute() {
         try {
             model.undoLatestCommand();
-        } catch (Exception e) {
+        } catch (EmptyStackException e) {
             assert false : "There was no undoable command made before";
         }
 
