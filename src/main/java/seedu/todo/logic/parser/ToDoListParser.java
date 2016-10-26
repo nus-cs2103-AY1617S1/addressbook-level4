@@ -362,14 +362,14 @@ public class ToDoListParser {
         if (tempArgs.length() < 1) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
-        String indexString = tempArgs.substring(0, 1);
+        String indexString = tempArgs.split(" ")[0];
 
         Optional<Integer> index = parseIndex(indexString);
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
 
-        tempArgs = tempArgs.substring(1).trim();
+        tempArgs = tempArgs.substring(indexString.length()).trim();
 
         Matcher matcher;
         matcher = ParserFormats.UPDATE_TASK_ARGS_FORMAT.matcher(tempArgs.trim());
@@ -401,7 +401,7 @@ public class ToDoListParser {
             ParserFormats.SEARCH_PRIORITY };
         
         String tempArgs = args.trim(); 
-        
+       
         Matcher matcher;        
         for (Pattern p : dataPatterns) {
             matcher = p.matcher(tempArgs);
