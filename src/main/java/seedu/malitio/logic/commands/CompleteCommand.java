@@ -28,6 +28,7 @@ import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundExcep
  * strikeout the completed floating task/ deadline
  * 
  */
+//@@author A0122460W
 public class CompleteCommand extends Command{
 
     public static final String COMMAND_WORD = "complete";

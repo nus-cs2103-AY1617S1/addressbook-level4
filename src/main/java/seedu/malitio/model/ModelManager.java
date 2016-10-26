@@ -178,7 +178,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredEventListToShowAll();
         indicateMalitioChanged();
     }
-    
+    //@@author A0122460W
 	@Override
 	public void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
 		malitio.completeTask(taskToComplete);
