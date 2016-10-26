@@ -89,7 +89,7 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
 
-        if(end.isEndBeforeStart(start))
+        if(end.isBefore(start))
         	return new CommandResult(MESSAGE_ILLEGAL_START_END_TIME);
 
         try {
@@ -120,7 +120,7 @@ public class AddCommand extends Command {
     public CommandResult insert() {
         assert model != null;
 
-        if(end!=null && start!=null && end.isEndBeforeStart(start))
+        if(end!=null && start!=null && end.isBefore(start))
         	return new CommandResult(MESSAGE_ILLEGAL_START_END_TIME);
 
         try {
