@@ -14,32 +14,36 @@ import seedu.jimi.logic.commands.TaskBookEditor;
  * This is a singleton class
  */
 public final class History {
-
+    
     private static History instance = null;
     private final Stack<Context> undoStack = new Stack<>();
     private final Stack<Command> redoStack = new Stack<>();
     
+    private static final String MESSAGE_REACHED_UNDO_LIMIT = "No more commands to undo!";
+    private static final String MESSAGE_REACHED_REDO_LIMIT = "No more commands to redo!";
+    
+    private History() {}
     
     public CommandResult undo() {
         assert undoStack.peek().cmd instanceof TaskBookEditor;
-        if(!undoStack.isEmpty()) {
+        if (!undoStack.isEmpty()) {
             Context previous = undoStack.pop();
             previous.cmd.undo();
-            redoStack.push(previous.cmd);
+            redoStack.push(previous.cmd);   
             return previous.result;
-        } 
-        return new CommandResult("Already earlist operation!");
+        }
+        return new CommandResult(MESSAGE_REACHED_UNDO_LIMIT);
     }
     
     public CommandResult redo() {
         assert redoStack.peek() instanceof TaskBookEditor;
-        if(!redoStack.isEmpty()) {
+        if (!redoStack.isEmpty()) {
             Command cmd = redoStack.pop();
             CommandResult result = cmd.execute();
             undoStack.push(new Context(cmd, result));
             return result;
         }
-        return new CommandResult("Already most recent operation!");
+        return new CommandResult(MESSAGE_REACHED_REDO_LIMIT);
     }
     
     public void execute(final Command cmd, final CommandResult result) {
@@ -50,21 +54,17 @@ public final class History {
     }
     
     public static History getInstance() {
-        if(History.instance == null) {
-            History.instance = new History();
-        }
-        return History.instance;
+        return History.instance == null ? new History() : instance;
     }
-
-    public History() { };
     
     private class Context {
         private Command cmd;
         private CommandResult result;
+        
         private Context(final Command cmd, final CommandResult result) {
             this.cmd = cmd;
             this.result = result;
         }
     }
-
+    
 }
