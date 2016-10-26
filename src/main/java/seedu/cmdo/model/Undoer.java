@@ -49,18 +49,6 @@ public class Undoer {
 		return undoList.peek();
 	}
 	
-//	/**
-//	 * Saves a ToDoList in a stack memory.
-//	 * 
-//	 * @param tdl ToDoList to be saved
-//	 * 
-//	 * @@author A0139661Y
-//	 */
-//	public void save(ReadOnlyToDoList tdl) {
-//		undoList.push(tdl);
-//		logger.info("saveLast called. " + undoList.size() + ". UndoList + has at top" + undoList.peek().toString());
-//	}
-	
 	/**
 	 * Creates a snapshot of the ToDoList and saves it to the stack.
 	 * 
@@ -72,19 +60,6 @@ public class Undoer {
 		undoList.push(tdl);
 		System.out.println("Inside Undoer " + undoList.toString());
 	}
-	
-//	//@@ author A0139661Y
-//	public ReadOnlyToDoList undo() throws EmptyStackException {
-//		if (undoList.size() <=1 )
-//			throw new EmptyStackException();
-//		logger.info("undo called. UndoList has " + undoList.size());
-//		ReadOnlyToDoList temp = undoList.pop();
-//		logger.info(undoList.peek().getTaskList().get(0).checkDone().toString());
-//		redoList.push(temp);
-//		logger.info("undoList " + undoList.peek().toString() +" popped. UndoList has" + undoList.size());
-//		logger.info("redoList is " + redoList.isEmpty());
-//		return undoList.peek();	
-//	}
 	
 	//@@ author A0139661Y
 	public ReadOnlyToDoList undo() throws EmptyStackException {
@@ -99,21 +74,4 @@ public class Undoer {
 		undoList.push(redoList.pop());
 		return redoList.peek();
 	}
-	
-//	/**
-//	 * Saves the new toDoList to the stack upon changed event.
-//	 * It also saves an extra time upon undo, however, so we check if the existing tdl is not the same.
-//	 *  
-//	 * @param tdlce
-//	 * 
-//	 * @@author A0139661Y
-//	 */
-//	@Subscribe
-//	public void handleToDoListChangedEvent(ToDoListChangedEvent tdlce) {
-//        if (!tdlce.calling.equals(this.getClass())) {
-//        	logger.info(LogsCenter.getEventHandlingLogMessage(tdlce, "Saving modified tdl"));
-//			ReadOnlyToDoList modifiedTdl = tdlce.data;
-//			save(modifiedTdl);
-//        }
-//	}
 }
