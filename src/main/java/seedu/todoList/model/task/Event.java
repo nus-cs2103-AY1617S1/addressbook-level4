@@ -18,12 +18,11 @@ public class Event extends Task implements ReadOnlyTask {
 	private EndDate endDate;
     private StartTime startTime;
     private EndTime endTime;
-    private Done isDone;
 
     /**
      * Every field must be present and not null.
      */
-    public Event(Name name, StartDate startDate, EndDate endDate, StartTime startTime, EndTime endTime, Done isDone) {
+    public Event(Name name, StartDate startDate, EndDate endDate, StartTime startTime, EndTime endTime, String isDone) {
         assert !CollectionUtil.isAnyNull(name, startDate, endDate, startTime, endTime);
         super.name = name;
         this.startDate = startDate;
@@ -43,10 +42,6 @@ public class Event extends Task implements ReadOnlyTask {
     public Event(ReadOnlyTask source) {
     	this((Event) source);
     };
-
-    public Done getDone(){
-    	return isDone;
-    }
     
     public StartDate getStartDate() {
         return startDate;

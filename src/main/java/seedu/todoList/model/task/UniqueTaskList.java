@@ -87,11 +87,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
-    /**
-     * Marks the equivalent task as done.
-     *
-     * @throws TaskNotFoundException if no such task could be found in the list.
-     */
+    
     public boolean done(ReadOnlyTask toDone) throws TaskNotFoundException {
         assert toDone != null;
         //final boolean taskFoundAndCompleted = ((UniqueTaskList) internalList).done(toDone);
@@ -122,5 +118,22 @@ public class UniqueTaskList implements Iterable<Task> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+    
+    /**
+     * Marks the equivalent task as done.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean doneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    	assert key != null;
+    	final boolean taskUpdated = internalList.contains(key);
+        if (taskUpdated) {
+        	internalList.get(internalList.indexOf(key)).setDone("true");
+        	internalList.set(internalList.indexOf(key), internalList.get(internalList.indexOf(key)));
+            return taskUpdated;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
     }
 }
