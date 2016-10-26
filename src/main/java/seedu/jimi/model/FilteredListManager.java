@@ -175,12 +175,11 @@ public class FilteredListManager {
         String toString();
     }
     
+    // @@author A0140133B
     /**
      * Represents a predicate expression that allows for multiple {@code Qualifier} instances.
      * 
      * For this PredicateExpression to satisfy, all qualifiers must pass.
-     * 
-     * @@author A0140133B
      */
     private class PredicateExpression implements Expression {
         
@@ -392,4 +391,5 @@ public class FilteredListManager {
             return isMatchingForTask == task instanceof FloatingTask;
         }
     }
+    // @@author
 }

@@ -43,10 +43,10 @@ import seedu.jimi.model.tag.Priority;
 
 /**
  * Parses user input.
- * @@author A0140133B
  */
 public class JimiParser {
     
+    // @@author A0140133B
     /**
      * Used for initial separation of command word and args.
      */
@@ -239,6 +239,7 @@ public class JimiParser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+    // @@author
     
     // @@author A0148040R
     private static List<Date> parseStringToDate(final String str) throws DateNotParsableException {
@@ -257,6 +258,7 @@ public class JimiParser {
     }
     // @@author
 
+    // @@author A0140133B
     /**
      * Parses arguments in context of the edit task command.
      * 
@@ -320,6 +322,7 @@ public class JimiParser {
                 getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"))
         );
     }
+    // @@author
     
     /**
      * Extracts the new task's tags from the add command's tag arguments string.
@@ -460,6 +463,7 @@ public class JimiParser {
         return new FindCommand(keywordSet);
     }
     
+    // @@author A0140133B
     /**
      * Parses arguments in the context of the save as command.
      * 
@@ -483,5 +487,6 @@ public class JimiParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ive.getMessage()));
         }
     }
+    // @@author
 
 }
