@@ -103,7 +103,7 @@ public class AddCommand extends Command {
 
     @Override
 	 public CommandResult undo(){
-    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+    	UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getSortedFilteredTaskList();
 
         ReadOnlyTask taskToDelete = lastShownList.get(lastShownList.size() - 1);
 

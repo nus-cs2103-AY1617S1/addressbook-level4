@@ -24,8 +24,8 @@ public interface Model {
     /** Adds the given task. */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
-    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+    /** Returns the sorted and filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getSortedFilteredTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
@@ -35,5 +35,9 @@ public interface Model {
 
     /** Adds the given task to a specific position*/
     void insertTask(int index, Task toAdd) throws UniqueTaskList.DuplicateTaskException;
+    
+    /** Sorts the filtered task list according to the modifier*/
+    void sortFilteredTaskList(String modifier);
+
 
 }
