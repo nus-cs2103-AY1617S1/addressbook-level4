@@ -38,8 +38,9 @@ public interface ReadOnlyFloatingTask {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
-                .append(" Tags: ");
+        builder.append("Task: ")
+               .append(getName())
+               .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }
