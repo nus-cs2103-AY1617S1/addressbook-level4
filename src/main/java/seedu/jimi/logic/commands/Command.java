@@ -38,13 +38,15 @@ public abstract class Command {
      */
     public abstract CommandResult execute();
     
-    /**
+    // @@author A0140133B
+    /** 
      * Checks if a given string is a command word of this command.
      * Critical commands like "Exit" and "Clear" should have the user type the full command word for it to be valid.
      * 
      * @return true if given string is a valid command word of this command.
      */
     public abstract boolean isValidCommandWord(String commandWord);
+    // @@author
     
     /**
      * Provides any needed dependencies to the command.
@@ -68,8 +70,8 @@ public abstract class Command {
         EventsCenter.getInstance().post(new StoragePathChangedEvent(oldPath, newPath));
     }
     
-    /** Determines the list type according to the index prefix. 
-     *  @@author A0140133B */
+    // @@author A0140133B
+    /** Determines the list type according to the index prefix. */
     protected Optional<UnmodifiableObservableList<ReadOnlyTask>> determineListFromIndexPrefix(String idx) {
         if (idx.trim().startsWith(INDEX_TASK_LIST_PREFIX)) {
             return Optional.of(model.getFilteredAgendaTaskList());

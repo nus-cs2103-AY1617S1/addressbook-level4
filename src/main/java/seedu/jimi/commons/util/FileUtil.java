@@ -75,7 +75,8 @@ public class FileUtil {
         Files.write(file.toPath(), content.getBytes(CHARSET));
     }
     
-    /**
+    //@@author A0140133B
+    /** 
      * Checks if a given string {@code path} is a valid file path
      */
     public static boolean isValidPath(String path) {
@@ -87,6 +88,7 @@ public class FileUtil {
         
         return true;
     }
+    //@@author
     
     /**
      * Converts a string to a platform-specific file path

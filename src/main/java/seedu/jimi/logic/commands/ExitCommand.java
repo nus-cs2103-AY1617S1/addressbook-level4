@@ -20,8 +20,10 @@ public class ExitCommand extends Command {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
+    // @@author A0140133B
     @Override
     public boolean isValidCommandWord(String commandWord) {
         return commandWord.equals(COMMAND_WORD);
     }
+    // @@author
 }

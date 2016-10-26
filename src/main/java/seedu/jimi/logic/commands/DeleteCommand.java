@@ -9,8 +9,6 @@ import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from Jimi.
- * 
- *  @@author A0140133B
  */
 public class DeleteCommand extends Command implements TaskBookEditor {
 
@@ -35,6 +33,7 @@ public class DeleteCommand extends Command implements TaskBookEditor {
         this.targetIndex = targetIndex;
     }
 
+    // @@author A0140133B
     @Override 
     public CommandResult execute() {
         
@@ -70,4 +69,5 @@ public class DeleteCommand extends Command implements TaskBookEditor {
         }
         return false;
     }
+    // @@author
 }

@@ -112,6 +112,7 @@ public class ShowCommand extends Command {
         return sectionToShow;
     }
     
+    // @@author A0140133B
     @Override
     public boolean isValidCommandWord(String commandWord) {
         for (int i = 1; i <= COMMAND_WORD.length(); i++) {
@@ -121,5 +122,5 @@ public class ShowCommand extends Command {
         }
         return false;
     }
-
+    // @@author
 }

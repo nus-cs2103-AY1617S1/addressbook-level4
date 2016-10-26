@@ -19,8 +19,10 @@ public class ClearCommand extends Command implements TaskBookEditor{
         return new CommandResult(MESSAGE_SUCCESS);
     }
     
+    // @@author A0140133B
     @Override
     public boolean isValidCommandWord(String commandWord) {
         return commandWord.equals(COMMAND_WORD);
     }
+    // @@author
 }

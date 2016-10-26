@@ -16,10 +16,9 @@ import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.Name;
 import seedu.jimi.model.task.ReadOnlyTask;
 
+// @@author A0140133B
 /**
  * JAXB-friendly version of the FloatingTask.
- * 
- * @@author A0140133B
  */
 public class XmlAdaptedTask {
 
