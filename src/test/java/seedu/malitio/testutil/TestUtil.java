@@ -70,23 +70,16 @@ public class TestUtil {
     public static final Event[] sampleEventData = getSampleEventData();
     
     private static FloatingTask[] getSampleTaskData() {
-        try {
-            return new FloatingTask[]{
-                    new FloatingTask(new Name("adjust meter"), new UniqueTagList()),
-                    new FloatingTask(new Name("bring along notes"), new UniqueTagList()),
-                    new FloatingTask(new Name("copy answer"), new UniqueTagList()),
-                    new FloatingTask(new Name("do some sit-up"), new UniqueTagList()),
-                    new FloatingTask(new Name("eat with mom"), new UniqueTagList()),
-                    new FloatingTask(new Name("forgive and forget"), new UniqueTagList()),
-                    new FloatingTask(new Name("go shopping"), new UniqueTagList()),
-                    new FloatingTask(new Name("hopping"), new UniqueTagList()),
-                    new FloatingTask(new Name("Ida Mueller"), new UniqueTagList())
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            //not possible
-            return null;
-        }
+        return new FloatingTask[] { new FloatingTask(new Name("adjust meter"), new UniqueTagList()),
+                new FloatingTask(new Name("bring along notes"), new UniqueTagList()),
+                new FloatingTask(new Name("copy answer"), new UniqueTagList()),
+                new FloatingTask(new Name("do some sit-up"), new UniqueTagList()),
+                new FloatingTask(new Name("eat with mom"), new UniqueTagList()),
+                new FloatingTask(new Name("forgive and forget"), new UniqueTagList()),
+                new FloatingTask(new Name("go shopping"), new UniqueTagList()),
+                new FloatingTask(new Name("hopping"), new UniqueTagList()),
+                new FloatingTask(new Name("Ida Mueller"), new UniqueTagList()) };
+
     }
 
     private static Event[] getSampleEventData() {

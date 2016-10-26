@@ -1,5 +1,6 @@
 package seedu.malitio.logic.commands;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,12 +23,10 @@ import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
-
+//@@author A0129595N
 /**
  * Edits a floating task/ deadline/ event identified using it's last displayed index from Malitio.
- * Only the attribute(s) that require changes is(are) entered.
- * @author Annabel Eng A0129595N
- * 
+ * Only the attribute(s) that require changes is(are) entered. 
  */
 public class EditCommand extends Command{
 
@@ -126,13 +125,16 @@ public class EditCommand extends Command{
      * @throws IllegalValueException
      */
     private UniqueTagList processTags(Set<String> newTags) throws IllegalValueException {
-        if (!newTags.isEmpty()){
+        if (!newTags.isEmpty() && newTags.toArray()[0].equals("null") && newTags.size()==1) {
+            return new UniqueTagList();
+        } 
+        else if (!newTags.isEmpty()){
             final Set<Tag> tagSet = new HashSet<>();
             for (String tagName : newTags) {
             tagSet.add(new Tag(tagName));
             }
             return new UniqueTagList(tagSet);
-        }
+        }       
         else {
             return null;
         }

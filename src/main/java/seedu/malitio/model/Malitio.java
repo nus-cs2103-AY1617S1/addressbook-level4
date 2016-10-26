@@ -46,7 +46,6 @@ public class Malitio implements ReadOnlyMalitio {
     /**
      * Tasks, Schedules and Tags are copied into this Malitio
      */
-    //@@author A0129595N
     public Malitio(ReadOnlyMalitio toBeCopied) {
         this(toBeCopied.getUniqueFloatingTaskList(), toBeCopied.getUniqueDeadlineList(), toBeCopied.getUniqueEventList(), toBeCopied.getUniqueTagList());
     }
@@ -57,7 +56,7 @@ public class Malitio implements ReadOnlyMalitio {
     public Malitio(UniqueFloatingTaskList tasks, UniqueDeadlineList deadlines, UniqueEventList event, UniqueTagList tags) {
         resetData(tasks.getInternalList(), deadlines.getInternalList(), event.getInternalList(), tags.getInternalList());
     }
-
+    
     public static ReadOnlyMalitio getEmptymalitio() {
         return new Malitio();
     }
@@ -94,7 +93,6 @@ public class Malitio implements ReadOnlyMalitio {
         this.tags.getInternalList().setAll(tags);
     }
 
-    //@@author
     public void resetData(Collection<? extends ReadOnlyFloatingTask> newTasks, Collection<? extends ReadOnlyDeadline> newDeadlines,Collection<? extends ReadOnlyEvent> newEvents, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(FloatingTask::new).collect(Collectors.toList()));
         setDeadlines(newDeadlines.stream().map(Deadline::new).collect(Collectors.toList()));
@@ -109,7 +107,6 @@ public class Malitio implements ReadOnlyMalitio {
         setTags(newTags);
     }
 
-    //@@author A0129595N
     public void resetData(ReadOnlyMalitio newData) {
         resetData(newData.getFloatingTaskList(), newData.getDeadlineList(), newData.getEventList(), newData.getTagList());
     }
@@ -318,7 +315,6 @@ public class Malitio implements ReadOnlyMalitio {
     /**
      * sort events by start date
      */
-    //@@author
     private void sortEvent() {
     	events.sort();
     }
@@ -329,7 +325,6 @@ public class Malitio implements ReadOnlyMalitio {
 
 
     @Override
-    //@@author A0129595N
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Malitio // instanceof handles nulls

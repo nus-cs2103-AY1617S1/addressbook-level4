@@ -7,7 +7,7 @@ import seedu.malitio.model.task.*;
 
 import java.util.HashSet;
 import java.util.Set;
-
+//@@author A0129595N
 /**
  * Adds a task to Malitio.
  */
@@ -15,7 +15,7 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to Malitio.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds a task to Malitio. Task name cannot contain \'/\'. \n"
             + "Parameters: NAME [by DEADLINE] [start STARTTIME end ENDTIME] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " Pay John $100 by 10112016 2359 t/oweMoney";
@@ -27,8 +27,7 @@ public class AddCommand extends Command {
     private FloatingTask toAddFloatingTask;
     private Deadline toAddDeadline;
     private Event toAddEvent;
-    
-    //@@author A0129595N
+
     /**
      * Convenience constructor for floating tasks using raw values.
      *
@@ -84,6 +83,10 @@ public class AddCommand extends Command {
                 new UniqueTagList(tagSet)
         );
     }
+    
+    /**
+     * Executes the command. It will clear the future stack so that no redo can be done.
+     */
     @Override
     public CommandResult execute() {
         assert model != null;

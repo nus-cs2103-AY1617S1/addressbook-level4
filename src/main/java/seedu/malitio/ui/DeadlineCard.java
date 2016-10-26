@@ -27,7 +27,6 @@ public class DeadlineCard extends UiPart{
     private ReadOnlyDeadline deadline;
     private int displayedIndex;
 
-    //@@author A0129595N
     public DeadlineCard(){
 
     }

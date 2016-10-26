@@ -17,14 +17,11 @@ public class XmlAdaptedDeadline {
 
     @XmlElement(required = true)
     private String name;
-
-
     @XmlElement(required = true)
     private String due; 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
-    //@@author A0129595N
     /**
      * No-arg constructor for JAXB use.
      */

@@ -6,7 +6,7 @@ import seedu.malitio.model.task.FloatingTask;
 import seedu.malitio.model.task.ReadOnlyDeadline;
 import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
-
+//@@author A0129595N
 public class InputAddHistory extends InputHistory {
     
     private ReadOnlyFloatingTask floatingTask;

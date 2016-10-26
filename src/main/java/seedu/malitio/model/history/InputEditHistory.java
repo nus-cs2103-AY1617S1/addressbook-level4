@@ -11,6 +11,7 @@ import seedu.malitio.model.task.ReadOnlyDeadline;
 import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 
+//@@author A0129595N
 public class InputEditHistory extends InputHistory {
 
     private ReadOnlyFloatingTask taskToEdit;
@@ -27,12 +28,9 @@ public class InputEditHistory extends InputHistory {
         this.taskToEdit = editedTask;
         String name = taskToEdit.getName().fullName;
         UniqueTagList tags = taskToEdit.getTags();
-        try {
-            this.editedTask = new FloatingTask(new Name(name), tags);
-        } catch (IllegalValueException e) {
-            assert false: "not possible";
-        }
+        this.editedTask = new FloatingTask(new Name(name), tags);
     }
+        
     
     public InputEditHistory(Deadline editedDeadline, ReadOnlyDeadline deadlineToEdit) {
         this.type = "deadline";

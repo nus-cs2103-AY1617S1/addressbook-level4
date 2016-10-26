@@ -22,7 +22,6 @@ import java.util.*;
 
 public class UniqueEventList implements Iterable<Event> {
 
-    //@@author A0129595N
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -52,7 +51,7 @@ public class UniqueEventList implements Iterable<Event> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
-
+    //@@author A0129595N
     /**
      * Returns true if the list contains an equivalent event as the given argument as well as identical tag(s).
      */
@@ -94,7 +93,7 @@ public class UniqueEventList implements Iterable<Event> {
         internalList.remove(beforeEdit);
         internalList.add(edited);
     }
-
+    //@@author
     /**
      * Removes the equivalent schedule from the list.
      *
@@ -124,7 +123,6 @@ public class UniqueEventList implements Iterable<Event> {
       	});
     }
 
-    //@@author A0129595N
     @Override
     public Iterator<Event> iterator() {
         return internalList.iterator();

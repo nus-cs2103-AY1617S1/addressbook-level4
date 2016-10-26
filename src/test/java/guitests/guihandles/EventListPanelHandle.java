@@ -74,7 +74,7 @@ public class EventListPanelHandle extends GuiHandle {
             if (!tasksInList.get(startPosition + i).getName().fullName.equals(tasks[i].getName().fullName) 
                     || !tasksInList.get(startPosition + i).getStart().toString().equals(tasks[i].getStart().toString())
                     || !tasksInList.get(startPosition + i).getEnd().toString().equals(tasks[i].getEnd().toString())
-                    || !tasksInList.get(startPosition + i).getTags().equals(tasks[i].getTags())) {
+                    || !tasksInList.get(startPosition + i).getTags().toSet().equals(tasks[i].getTags().toSet())) {
                 return false;
             }
         }
