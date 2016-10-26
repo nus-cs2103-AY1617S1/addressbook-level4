@@ -5,9 +5,11 @@ import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.cmdo.commons.core.LogsCenter;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.core.UnmodifiableObservableList;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
+import seedu.cmdo.model.ModelManager;
 import seedu.cmdo.model.tag.Tag;
 import seedu.cmdo.model.tag.UniqueTagList;
 import seedu.cmdo.model.task.Detail;
@@ -24,7 +26,6 @@ import seedu.cmdo.model.task.UniqueTaskList.TaskNotFoundException;
  * @author A0139661Y and A0141128R
  */
 public class EditCommand extends Command {
-
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the task residing at index input. \n"
@@ -38,6 +39,7 @@ public class EditCommand extends Command {
     private final Task toEditWith;
     private final boolean floating;
     private final boolean removePriority;
+    private boolean tagIsEmpty = false;
     
     
     public EditCommand(	boolean removePriority,
@@ -49,6 +51,9 @@ public class EditCommand extends Command {
     					String newPriority,
     					Set<String> newTags) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
+        if(newTags.isEmpty())
+        	tagIsEmpty = true;
+        //System.out.println(tagIsEmpty);
         for (String tagName : newTags) {
             tagSet.add(new Tag(tagName));
         }
@@ -149,6 +154,9 @@ public class EditCommand extends Command {
         //remove priority
         if(removePriority)
         	toEditWith.getPriority().setPriority("");
+//        //append tags
+        if(tagIsEmpty)
+        	toEditWith.setTags(taskToEdit.getTags());
         
         try {
             model.editTask(taskToEdit, toEditWith);

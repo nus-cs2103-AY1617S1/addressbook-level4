@@ -282,11 +282,11 @@ public class MainParser {
      * may have error as use the same array variable as add
      */
     private Command prepareEdit(String args){
-        java.util.logging.Logger logger = LogsCenter.getLogger(ModelManager.class);
+        //java.util.logging.Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     	try {
-    		logger.info(detailToAdd + " Initial");
-    		logger.info(datesAndTimes.toString());
+    		//logger.info(detailToAdd + " Initial");
+    		//logger.info(datesAndTimes.toString());
     	// Determine if edit command is input correctly
     	Optional<Integer> checkForIndex = parseLooseIndex(args);
     	
@@ -322,9 +322,9 @@ public class MainParser {
         //used flag to check if want to remove priority
         boolean removePriority = false;
         // Parse date and time
-        logger.info(args);
+        //logger.info(args);
         reducedArgs = extractDueByDateAndTime(args);
-        logger.info(datesAndTimes.toString());
+        //logger.info(datesAndTimes.toString());
         //if keyword float is entered, it becomes a floating task (no date no time)
         if(reducedArgs.toLowerCase().contains("floating")){
         	floating = true;
@@ -354,8 +354,7 @@ public class MainParser {
     		dtEnd = datesAndTimes.get(1);
     		dataNo = 2;
     	} else{
-    		dt = LocalDateTime.of(LocalDate.parse(NO_DATE_DEFAULT, DateTimeFormatter.ISO_LOCAL_DATE), 
-					LocalTime.MAX);
+    		dt = LocalDateTime.of(NO_DATE_DEFAULT, LocalTime.MAX);
         			dataNo = 0;
     	}
     	// For testing purposes
