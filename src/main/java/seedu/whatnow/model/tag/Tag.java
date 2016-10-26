@@ -1,5 +1,5 @@
-package seedu.whatnow.model.tag;
 //@@author A0139772U-reused
+package seedu.whatnow.model.tag;
 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
 

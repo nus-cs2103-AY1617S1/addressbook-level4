@@ -1,6 +1,8 @@
 # A0141021Hreused
-###### \src\main\java\seedu\whatnow\commons\core\Config.java
+###### \java\seedu\whatnow\commons\core\Config.java
 ``` java
+package seedu.whatnow.commons.core;
+
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -99,71 +101,191 @@ public class Config {
 
 }
 ```
-###### \src\main\java\seedu\whatnow\commons\core\Messages.java
+###### \java\seedu\whatnow\commons\events\ui\ShowHelpRequestEvent.java
 ``` java
-/**
- * Container for user visible messages.
- */
-public class Messages {
+package seedu.whatnow.commons.events.ui;
 
-    public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
-    public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
-    public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
-    public static final String MESSAGE_TASK_LISTED_OVERVIEW = "%1$d tasks listed!";
-    public static final String MESSAGE_INVALID_PATH = "Invalid Path!"; 
+import seedu.whatnow.commons.events.BaseEvent;
+
+/**
+ * An event requesting to view the help page.
+ */
+public class ShowHelpRequestEvent extends BaseEvent {
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
 
 }
 ```
-###### \src\main\java\seedu\whatnow\commons\util\CollectionUtil.java
+###### \java\seedu\whatnow\commons\util\ConfigUtil.java
 ``` java
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+package seedu.whatnow.commons.util;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.Logger;
+
+import seedu.whatnow.commons.core.Config;
+import seedu.whatnow.commons.core.LogsCenter;
+import seedu.whatnow.commons.exceptions.DataConversionException;
 
 /**
- * Utility methods related to Collections
+ * A class for accessing the Config File.
  */
-public class CollectionUtil {
+public class ConfigUtil {
+
+    private static final Logger logger = LogsCenter.getLogger(ConfigUtil.class);
 
     /**
-     * Returns true if any of the given items are null.
+     * Returns the Config object from the given file or {@code Optional.empty()} object if the file is not found.
+     *   If any values are missing from the file, default values will be used, as long as the file is a valid json file.
+     * @param configFilePath cannot be null.
+     * @throws DataConversionException if the file format is not as expected.
      */
-    public static boolean isAnyNull(Object... items) {
-        for (Object item : items) {
-            if (item == null) {
-                return true;
-            }
+    public static Optional<Config> readConfig(String configFilePath) throws DataConversionException {
+
+        assert configFilePath != null;
+
+        File configFile = new File(configFilePath);
+
+        if (!configFile.exists()) {
+            logger.info("Config file "  + configFile + " not found");
+            return Optional.empty();
         }
-        return false;
+
+        Config config;
+
+        try {
+            config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
+        } catch (IOException e) {
+            logger.warning("Error reading from config file " + configFile + ": " + e);
+            throw new DataConversionException(e);
+        }
+
+        return Optional.of(config);
     }
 
-
-
     /**
-     * Throws an assertion error if the collection or any item in it is null.
+     * Saves the Config object to the specified file.
+     *   Overwrites existing file if it exists, creates a new file if it doesn't.
+     * @param config cannot be null
+     * @param configFilePath cannot be null
+     * @throws IOException if there was an error during writing to the file
      */
-    public static void assertNoNullElements(Collection<?> items) {
-        assert items != null;
-        assert !isAnyNull(items);
+    public static void saveConfig(Config config, String configFilePath) throws IOException {
+        assert config != null;
+        assert configFilePath != null;
+
+        FileUtil.serializeObjectToJsonFile(new File(configFilePath), config);
+    }
+
+}
+```
+###### \java\seedu\whatnow\commons\util\FileUtil.java
+``` java
+package seedu.whatnow.commons.util;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
+/**
+ * Writes and reads file
+ */
+public class FileUtil {
+    private static final String CHARSET = "UTF-8";
+
+    public static boolean isFileExists(File file) {
+        return file.exists() && file.isFile();
+    }
+
+    public static void createIfMissing(File file) throws IOException {
+        if (!isFileExists(file)) {
+            createFile(file);
+        }
     }
 
     /**
-     * Returns true if every element in a collection are unique by {@link Object#equals(Object)}.
+     * Creates a file if it does not exist along with its missing parent directories
+     *
+     * @return true if file is created, false if file already exists
      */
-    public static boolean elementsAreUnique(Collection<?> items) {
-        final Set<Object> testSet = new HashSet<>();
-        for (Object item : items) {
-            final boolean itemAlreadyExists = !testSet.add(item); // see Set documentation
-            if (itemAlreadyExists) {
-                return false;
-            }
+    public static boolean createFile(File file) throws IOException {
+        if (file.exists()) {
+            return false;
         }
-        return true;
+
+        createParentDirsOfFile(file);
+
+        return file.createNewFile();
+    }
+
+    /**
+     * Creates the given directory along with its parent directories
+     *
+     * @param dir the directory to be created; assumed not null
+     * @throws IOException if the directory or a parent directory cannot be created
+     */
+    public static void createDirs(File dir) throws IOException {
+        if (!dir.exists() && !dir.mkdirs()) {
+            throw new IOException("Failed to make directories of " + dir.getName());
+        }
+    }
+
+    /**
+     * Creates parent directories of file if it has a parent directory
+     */
+    public static void createParentDirsOfFile(File file) throws IOException {
+        File parentDir = file.getParentFile();
+
+        if (parentDir != null) {
+            createDirs(parentDir);
+        }
+    }
+
+    /**
+     * Assumes file exists
+     */
+    public static String readFromFile(File file) throws IOException {
+        return new String(Files.readAllBytes(file.toPath()), CHARSET);
+    }
+
+    /**
+     * Writes given string to a file.
+     * Will create the file if it does not exist yet.
+     */
+    public static void writeToFile(File file, String content) throws IOException {
+        Files.write(file.toPath(), content.getBytes(CHARSET));
+    }
+
+    /**
+     * Converts a string to a platform-specific file path
+     * @param pathWithForwardSlash A String representing a file path but using '/' as the separator
+     * @return {@code pathWithForwardSlash} but '/' replaced with {@code File.separator}
+     */
+    public static String getPath(String pathWithForwardSlash) {
+        assert pathWithForwardSlash != null;
+        assert pathWithForwardSlash.contains("/");
+        return pathWithForwardSlash.replace("/", File.separator);
+    }
+
+    public static <T> void serializeObjectToJsonFile(File jsonFile, T objectToSerialize) throws IOException {
+        FileUtil.writeToFile(jsonFile, JsonUtil.toJsonString(objectToSerialize));
+    }
+
+    public static <T> T deserializeObjectFromJsonFile(File jsonFile, Class<T> classOfObjectToDeserialize)
+            throws IOException {
+        return JsonUtil.fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
     }
 }
 ```
-###### \src\main\java\seedu\whatnow\commons\util\JsonUtil.java
+###### \java\seedu\whatnow\commons\util\JsonUtil.java
 ``` java
+package seedu.whatnow.commons.util;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -241,21 +363,27 @@ public class JsonUtil {
 
 }
 ```
-###### \src\main\java\seedu\whatnow\model\ModelManager.java
+###### \java\seedu\whatnow\model\ModelManager.java
+``` java
+    public ModelManager() {
+        this(new WhatNow(), new UserPrefs());
+    }
+```
+###### \java\seedu\whatnow\model\ModelManager.java
 ``` java
     /** Raises an event to indicate that a task was added */
     private void indicateAddTask(Task task) {
         raise (new AddTaskEvent(task));
     }
 ```
-###### \src\main\java\seedu\whatnow\model\ModelManager.java
+###### \java\seedu\whatnow\model\ModelManager.java
 ``` java
     /** Raises an event to indicate that a task was updated */
     private void indicateUpdateTask(Task task) {
         raise (new UpdateTaskEvent(task));
     }
 ```
-###### \src\main\java\seedu\whatnow\storage\Storage.java
+###### \java\seedu\whatnow\storage\Storage.java
 ``` java
 import java.io.IOException;
 import java.nio.file.Path;

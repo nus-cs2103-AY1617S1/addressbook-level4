@@ -1,5 +1,6 @@
-package seedu.whatnow.logic.commands;
 //@@author A0126240W
+package seedu.whatnow.logic.commands;
+
 import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Collection;
@@ -211,6 +212,7 @@ public class UpdateCommand extends UndoAndRedo {
         }
     }
     
+    //@@author A0139772U
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList;
@@ -262,8 +264,7 @@ public class UpdateCommand extends UndoAndRedo {
 			return new CommandResult(UndoCommand.MESSAGE_SUCCESS); 
 		}
 	}
-
-	//@@author A0139128A
+	
 	@Override
 	public CommandResult redo() throws TaskNotFoundException {
 		assert model != null;

@@ -1,5 +1,6 @@
+//@@author A0139772U
 package seedu.whatnow.model.task;
-//@@author A0141021H
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.whatnow.commons.exceptions.DuplicateDataException;
@@ -84,6 +85,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
+    //@@author A0126240W
     /**
      * Updates the equivalent task from the list.
      *
@@ -102,6 +104,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndUpdated;
     }
     
+    //@@author A0139772U
     /**
      * Mark the equivalent task from the list as completed.
      */
@@ -116,6 +119,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndMarked;
     }
     
+    //@@author A0141021H
     /**
      * 
      * Mark the equivalent task from the list as uncompleted.

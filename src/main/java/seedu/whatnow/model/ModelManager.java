@@ -1,3 +1,4 @@
+//@@author A0139772U
 package seedu.whatnow.model;
 
 import javafx.collections.FXCollections;
@@ -58,6 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<String> stackOfMarkUndoneTaskTypes;
     private final Stack<String> stackOfListTypes;
     private final Stack<String> stackOfListTypesRedo;
+    
     //@@author A0139128A
     /**
      * Initializes a ModelManager with the given WhatNow
@@ -90,7 +92,7 @@ public class ModelManager extends ComponentManager implements Model {
         stackOfListTypes = new Stack<>();
         stackOfListTypesRedo = new Stack<>();
     }
-    //@@author A0141021H
+    //@@author A0141021H-reused
     public ModelManager() {
         this(new WhatNow(), new UserPrefs());
     }
@@ -123,7 +125,7 @@ public class ModelManager extends ComponentManager implements Model {
         whatNow.resetData(newData);
         indicateWhatNowChanged();
     }
-    //@@author A0139128A
+    
     @Override
     public synchronized void revertData() {
         whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());

@@ -1,5 +1,6 @@
+//@@author A0139772U-reused
 package seedu.whatnow.commons.events.model;
-//@@author A0139772U
+
 import seedu.whatnow.commons.events.BaseEvent;
 import seedu.whatnow.model.task.Task;
 

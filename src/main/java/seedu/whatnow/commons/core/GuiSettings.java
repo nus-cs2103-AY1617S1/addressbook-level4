@@ -1,5 +1,6 @@
-package seedu.whatnow.commons.core;
 //@@author A0139772U-reused
+package seedu.whatnow.commons.core;
+
 import java.awt.*;
 import java.io.Serializable;
 import java.util.Objects;

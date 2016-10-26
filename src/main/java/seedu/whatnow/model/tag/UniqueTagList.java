@@ -1,5 +1,6 @@
+//@@author A0139772U-reused
 package seedu.whatnow.model.tag;
-//@@author A0139772U
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.whatnow.commons.exceptions.DuplicateDataException;
