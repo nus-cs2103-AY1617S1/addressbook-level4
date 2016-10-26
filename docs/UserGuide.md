@@ -84,7 +84,7 @@ Example:
 
 |Input|Interpreted Command| Intepreted Parameters | Result|
 |---|---|---|---|
-|`help my mum to buy cooking ingredients`| `help`|`my mum to buy cooking ingredients`| Invalid `help` command|
+|`help my mum to buy cooking ingredients`| `help`|`my mum to buy cooking ingredients`| Execute `help` command|
 |`add help my mum to buy cooking ingredients`| `add`| `help my mum to buy cooking ingredients`| `add` a task with name `help my mum to buy cooking ingredients`|
 
 **_Adding a task_**
