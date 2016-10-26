@@ -125,11 +125,10 @@ public class ToDoListParser {
         
         Pattern[] dataPatterns = {ParserFormats.ADD_PRIORITY_FT,  
                 ParserFormats.ADD_PRIORITY_ON, ParserFormats.ADD_PRIORITY_BY,
-                ParserFormats.ADD_PRIORITY_FL,
-                ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_FT, ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_BY, 
-                ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_ON, ParserFormats.ADD_TASK_ARGS_FORMAT_FT, 
-                ParserFormats.ADD_TASK_ARGS_FORMAT_BY, ParserFormats.ADD_TASK_ARGS_FORMAT_ON, 
-                ParserFormats.ADD_TASK_ARGS_FORMAT_FLOAT};
+                ParserFormats.ADD_PRIORITY_FL, ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_FT, 
+                ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_BY, ParserFormats.ADD_TASK_ARGS_RECUR_FORMAT_ON, 
+                ParserFormats.ADD_TASK_ARGS_FORMAT_FT, ParserFormats.ADD_TASK_ARGS_FORMAT_BY, 
+                ParserFormats.ADD_TASK_ARGS_FORMAT_ON, ParserFormats.ADD_TASK_ARGS_FORMAT_FLOAT};
         //add buy chicken on friday by wednesday priority high every year ; chicken kfc
         Matcher matcher;
         try {
@@ -333,8 +332,10 @@ public class ToDoListParser {
         Matcher matcher;
         matcher = ParserFormats.UPDATE_TASK_ARGS_FORMAT.matcher(tempArgs.trim());
         if (matcher.matches()) {
-            return new UpdateCommand(index.get(), matchNameResult(matcher).trim(), matchOnDateTimeResult(matcher), 
-                    matchByDateTimeResult(matcher), matchPriorityResult(matcher), matchDetailResult(matcher), matchRecurrenceResult(matcher));
+            return new UpdateCommand(index.get(), matchNameResult(matcher).trim(), 
+                    matchOnDateTimeResult(matcher), matchByDateTimeResult(matcher), 
+                    matchDetailResult(matcher), matchPriorityResult(matcher), 
+                    matchRecurrenceResult(matcher));
         } else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }  
