@@ -34,7 +34,7 @@ public class ValidationTask extends BaseTask implements MutableTask {
     private LocalDateTime endTime;
 
     private Set<Tag> tags = new HashSet<>();
-    private LocalDateTime lastUpdated;
+    private LocalDateTime createdAt;
 
     public ValidationTask(String title) {
         this.setTitle(title);
@@ -52,7 +52,8 @@ public class ValidationTask extends BaseTask implements MutableTask {
         this.setEndTime(task.getEndTime().orElse(null));
         this.setCompleted(task.isCompleted());
         this.setPinned(task.isPinned());
-        this.setCreatedAt();
+        
+        this.createdAt = task.getCreatedAt();
         this.uuid = task.getUUID();
     }
 
@@ -137,7 +138,7 @@ public class ValidationTask extends BaseTask implements MutableTask {
         return Collections.unmodifiableSet(tags);
     }
 
-    public LocalDateTime getCreatedAt() { return lastUpdated; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
 
     @Override
     public UUID getUUID() {
@@ -184,5 +185,5 @@ public class ValidationTask extends BaseTask implements MutableTask {
         this.tags = tags;
     }
 
-    public void setCreatedAt() { this.lastUpdated = LocalDateTime.now(); }
+    public void setCreatedAt() { this.createdAt = LocalDateTime.now(); }
 }

@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
  * generates the same hashCode as each other when their copy constructor is used. 
  */
 public class ImmutableTaskTest {
-    private ImmutableTask reference = new Task(TaskFactory.taskTitle());
+    private ImmutableTask reference = TaskFactory.fullEvent();
     
     private List<ImmutableTask> tasks = ImmutableList.of(
         new ValidationTask(reference), 
@@ -47,5 +47,19 @@ public class ImmutableTaskTest {
     @Test
     public void testHashing() {
         permuteTasks(Object::hashCode);
+    }
+    
+    @Test
+    public void testProperties() {
+        permuteTasks(ImmutableTask::getTitle);
+        permuteTasks(ImmutableTask::getTags);
+        permuteTasks(ImmutableTask::getDescription);
+        permuteTasks(ImmutableTask::getStartTime);
+        permuteTasks(ImmutableTask::getEndTime);
+        permuteTasks(ImmutableTask::getLocation);
+        permuteTasks(ImmutableTask::isCompleted);
+        permuteTasks(ImmutableTask::isEvent);
+        permuteTasks(ImmutableTask::isPinned);
+        permuteTasks(ImmutableTask::getCreatedAt);
     }
 }
