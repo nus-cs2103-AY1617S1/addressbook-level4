@@ -1,3 +1,4 @@
+/* @@author A0135805H */
 .main {
     -fx-background-color: #2D2D2D;
     -fx-border-color: #00A4FF;
@@ -150,8 +151,6 @@
 .searchStatus .searchCount {
     -fx-text-alignment: right;
 }
-
-
 
 /*@@author A0135805H */
 /***TaskCardView Styles Start***/
@@ -319,7 +318,7 @@
 
 /***TaskCardView Styles End***/
 
-/*@@author -reused*/
+/*@@author reused*/
 /**Modern UI***/
 /*
  * Metro style Push Button
