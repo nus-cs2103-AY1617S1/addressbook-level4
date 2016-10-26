@@ -20,7 +20,7 @@ import seedu.todo.model.tag.Tag;
 /**
  * Represents a single task
  */
-public class Task implements MutableTask {
+public class Task extends BaseTask implements MutableTask {
     private StringProperty title = new SimpleStringProperty();
     private StringProperty description = new SimpleStringProperty();
     private StringProperty location = new SimpleStringProperty();
@@ -33,14 +33,12 @@ public class Task implements MutableTask {
 
     private ObjectProperty<Set<Tag>> tags = new SimpleObjectProperty<>(new HashSet<Tag>());
     private LocalDateTime createdAt = LocalDateTime.now();
-    private UUID uuid;
 
     /**
      * Creates a new task
      */
     public Task(String title) {
         this.setTitle(title);
-        this.uuid = UUID.randomUUID();
     }
 
     /**
@@ -154,33 +152,5 @@ public class Task implements MutableTask {
         return new Observable[] {
             title, description, location, startTime, endTime, tags, completed, pinned,
         };
-    }
-
-    @Override
-    public UUID getUUID() {
-        return uuid;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (!(o instanceof ImmutableTask)) {
-            return false;
-        }
-
-        return uuid.equals(((ImmutableTask) o).getUUID());
-    }
-
-    @Override
-    public int hashCode() {
-        return uuid.hashCode();
-    }
-    
-    @Override
-    public String toString() {
-        return title.get();
     }
 }
