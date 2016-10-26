@@ -97,7 +97,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
+  //@@author A0144727B
     public void doneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.contains(key)) {
             key.setDone();
@@ -113,7 +113,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
+  //@@author
 
     //// util methods
 

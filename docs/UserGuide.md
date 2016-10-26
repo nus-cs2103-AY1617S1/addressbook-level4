@@ -52,7 +52,7 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-<!-- @@author -->
+<!-- @@author A0144727B -->
  
 #### Adding a task: `add`
 Adds a task to GGist<br>
@@ -137,7 +137,7 @@ Examples:
   Lists all tasks that have the date `oct 1`.
 * `search milk`<br>
   Lists the all the tasks with names containing the word `milk` if any can be found.
-
+<!-- @@author -->
 #### Deleting a task : `delete`
 Deletes the specified task from the list. Irreversible.<br>
 Format: `delete INDEX...`

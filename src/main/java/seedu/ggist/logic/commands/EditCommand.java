@@ -36,7 +36,7 @@ public class EditCommand extends Command {
         this.value = value;
 
     }
-
+  
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();

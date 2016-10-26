@@ -2,9 +2,9 @@ package seedu.ggist.commons.events.ui;
 
 import seedu.ggist.commons.events.BaseEvent;
 import java.util.Date;
-
+//@@author A0144727B
 public class ChangeListingEvent extends BaseEvent {
-    
+
     public final String listing;
     
     public ChangeListingEvent(String listing) {

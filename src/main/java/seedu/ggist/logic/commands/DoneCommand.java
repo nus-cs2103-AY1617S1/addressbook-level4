@@ -12,6 +12,7 @@ import seedu.ggist.model.task.UniqueTaskList.TaskNotFoundException;
  * Marks a task as done identified using it's last displayed index from the
  * task list.
  */
+//@@author A0144727B
 public class DoneCommand extends Command {
 
     public static final String COMMAND_WORD = "done";

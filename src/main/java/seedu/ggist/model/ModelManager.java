@@ -99,7 +99,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
-    
+  //@@author A0144727B
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.doneTask(target);
@@ -112,7 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateListing();
     	indicateTaskManagerChanged();
     }
-
+  //@@author
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskManager.addTask(task);
@@ -171,8 +171,7 @@ public class ModelManager extends ComponentManager implements Model {
         };
         return new UnmodifiableObservableList<>(new SortedList(filteredTasks, compareDateTime));
     }
-  //@@author
-
+  //@@author A0144727B
     @Override
     public void updateFilteredListToShowAll() {
         updateFilteredListToShowAll(new PredicateExpression(new AllQualifier()));
@@ -207,7 +206,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredListToShowDate(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-  //@@author
+  //@@author A0144727B
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
