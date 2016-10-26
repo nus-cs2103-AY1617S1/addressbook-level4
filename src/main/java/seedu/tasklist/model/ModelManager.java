@@ -63,6 +63,7 @@ public class ModelManager extends ComponentManager implements Model {
   //@@author
     private final TaskList taskList;
     private final FilteredList<Task> filteredTasks;
+  //@@author A0146107M
     private final TaskCounter taskCounter;
 
     /**
@@ -103,7 +104,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
         clearRedoStack();
     }
-    //@@author
+    //@@author A0146107M
     @Subscribe
     private void tickEvent(TickEvent te) {
     	indicateTaskListChanged();
@@ -125,6 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
         return taskList;
     }
     //@@author
+    //@@author A0146107M
     @Override
     public TaskCounter getTaskCounter(){
     	return taskCounter;
@@ -141,7 +143,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowIncomplete();
         indicateTaskListChanged();
     }
-
+    //@@author
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
@@ -472,7 +474,7 @@ public class ModelManager extends ComponentManager implements Model {
     		return task.getStartTime().getAsCalendar().equals(person.getStartTime().getAsCalendar());
         }
     }
-
+    //@@author A0146107M
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
         private Pattern NAME_QUERY;
@@ -503,7 +505,7 @@ public class ModelManager extends ComponentManager implements Model {
             Matcher matcher = NAME_QUERY.matcher(person.getTaskDetails().taskDetails);
             return matcher.matches();
         }
-
+        //@@author
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);

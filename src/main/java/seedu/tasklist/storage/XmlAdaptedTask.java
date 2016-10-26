@@ -42,6 +42,7 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
+    //@@author A0146107M
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getTaskDetails().taskDetails;
         startTime = Long.toString(source.getStartTime().time.getTimeInMillis());
