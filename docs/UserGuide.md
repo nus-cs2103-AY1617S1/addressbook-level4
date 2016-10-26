@@ -146,7 +146,7 @@ Format: `mark ID`
 
 Examples:
 
-* **`search`**` tomorrow`<br>
+* **`search`**` `<br>
   **`mark`**` 2`<br>
   Mark the task with `ID #2` in the Do-Do Bird as completed.
 
@@ -159,9 +159,28 @@ Format: `unmark ID`
 
 Examples:
 
-* **`search`**` tomorrow`<br>
+* **`search`**` HeLlO`<br>
 **`unmark`**` 2`<br>
 Mark the task with `ID #2` in the Do-Do Bird as uncompleted.
+
+Demo:
+
+Type the `search` command
+
+![SEARCH](./images/SEARCH.png)
+
+Display search result
+
+![SEARCH_Result](./images/SEARCH_Result.png)
+
+Type the `mark` command
+
+![MARK](./images/MARK.png)
+
+Display mark result
+
+![MARK_Result](./images/MARK_Result.png)
+
 
 ## Updating a task: `update`
 Update an existing task inside Do-Do Bird.<br>
