@@ -164,6 +164,7 @@ public class LogicManagerTest {
                 "add Valid Name p/12345 e/valid@endTime.butNoStartTimePrefix valid, startTime", expectedMessage);
     }
 
+    //@@author A0139860X
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
@@ -182,6 +183,7 @@ public class LogicManagerTest {
                 "add Valid Name pr/ start/mon end/11:11 t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
+    //@@author 
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
@@ -399,6 +401,7 @@ public class LogicManagerTest {
         
         // The following Tasks are to individually debug the respective task property fields
 
+        //@@author A0139860X
         Task adam() throws Exception {
             Description description = new Description("Adam Brown");
             Time timeStart = new Time(LocalDateTime.now().with(TemporalAdjusters.next(DayOfWeek.THURSDAY)).getDayOfWeek().toString() + " 15:30");
@@ -473,6 +476,7 @@ public class LogicManagerTest {
             );
         }
 
+        //@@author 
         /** Generates the correct add command based on the task given */
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
