@@ -2,7 +2,6 @@ package seedu.address.model.task;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -14,32 +13,28 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Recurrence rec;
     private Done done;
     private Time start;
     private Time end;
     private Recurrence recurrence;
-    
-    private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Done done, Time start, Time end, Recurrence recurrence, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, done, start, end, tags);
+    public Task(Name name, Done done, Time start, Time end, Recurrence recurrence) {
+        assert !CollectionUtil.isAnyNull(name, done, start, end);
         this.name = name;
         this.done = done;
         this.start = start;
         this.end = end;
         this.recurrence = recurrence;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getDone(), source.getStartTime(), source.getEndTime(), source.getRecurrence(), source.getTags());
+        this(source.getName(), source.getDone(), source.getStartTime(), source.getEndTime(), source.getRecurrence());
     }
 
     @Override
@@ -67,11 +62,6 @@ public class Task implements ReadOnlyTask {
     	return recurrence;
     }
 
-    @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
-
     public void setName(Name name) {
         this.name = name;
     }
@@ -91,13 +81,6 @@ public class Task implements ReadOnlyTask {
     public void setRecurrence(Recurrence recurrence) {
     	this.recurrence = recurrence;
     }
-    
-    /**
-     * Replaces this task's tags with the tags in the argument tag list.
-     */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
-    }
 
     @Override
     public boolean equals(Object other) {
@@ -109,7 +92,7 @@ public class Task implements ReadOnlyTask {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, done, start, end, tags);
+        return Objects.hash(name, done, start, end);
     }
 
     @Override

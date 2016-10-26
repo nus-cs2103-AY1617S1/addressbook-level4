@@ -18,8 +18,6 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.TaskManager;
 import seedu.address.model.task.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.XmlSerializableTaskManager;
 
 import java.io.File;
@@ -65,35 +63,20 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Done(false), new Time("5:00pm"), new Time("2:00am"), new Recurrence(""), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Done(false), new Time("6:00pm"), new Time("3:00am"), new Recurrence(""), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Done(false), new Time("7:00pm"), new Time("4:00am"), new Recurrence(""), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Done(false), new Time("8:00pm"), new Time("5:00am"), new Recurrence(""), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Done(false), new Time("9:00pm"), new Time("6:00am"), new Recurrence(""), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Done(false), new Time("10:00pm"), new Time("7:00am"), new Recurrence(""), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Done(false), new Time("11:00pm"), new Time("8:00am"), new Recurrence(""), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Done(false), new Time("12:00pm"), new Time("9:00am"), new Recurrence(""), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Done(false), new Time("1:00am"), new Time("10:00am"), new Recurrence(""), new UniqueTagList())
+                    new Task(new Name("Ali Muster"), new Done(false), new Time("5:00pm"), new Time("2:00am"), new Recurrence("")),
+                    new Task(new Name("Boris Mueller"), new Done(false), new Time("6:00pm"), new Time("3:00am"), new Recurrence("")),
+                    new Task(new Name("Carl Kurz"), new Done(false), new Time("7:00pm"), new Time("4:00am"), new Recurrence("")),
+                    new Task(new Name("Daniel Meier"), new Done(false), new Time("8:00pm"), new Time("5:00am"), new Recurrence("")),
+                    new Task(new Name("Elle Meyer"), new Done(false), new Time("9:00pm"), new Time("6:00am"), new Recurrence("")),
+                    new Task(new Name("Fiona Kunz"), new Done(false), new Time("10:00pm"), new Time("7:00am"), new Recurrence("")),
+                    new Task(new Name("George Best"), new Done(false), new Time("11:00pm"), new Time("8:00am"), new Recurrence("")),
+                    new Task(new Name("Hoon Meier"), new Done(false), new Time("12:00pm"), new Time("9:00am"), new Recurrence("")),
+                    new Task(new Name("Ida Mueller"), new Done(false), new Time("1:00am"), new Time("10:00am"), new Recurrence(""))
             };
         } catch (IllegalValueException e) {
             assert false;
             //not possible
             return null;
-        }
-    }
-
-    public static final Tag[] sampleTagData = getSampleTagData();
-
-    private static Tag[] getSampleTagData() {
-        try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            return null;
-            //not possible
         }
     }
 
@@ -135,7 +118,7 @@ public class TestUtil {
     }
 
     public static TaskManager generateEmptyTaskManager() {
-        return new TaskManager(new UniqueTaskList(), new UniqueTagList());
+        return new TaskManager(new UniqueTaskList());
     }
 
     public static XmlSerializableTaskManager generateSampleStorageTaskManager() {
@@ -328,27 +311,6 @@ public class TestUtil {
 
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
-    }
-
-    public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
-            return new Tag[]{};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                //not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
     }
 
 }

@@ -32,14 +32,12 @@ public class Parser {
             "(?<name>([^;](?<! (at|from|to|by) ))*)" + "((?: (at|from) )(?<start>(([^;](?<! (to|by|every) ))|(\\[^/]))+))?"
                     + "((?: (to|by) )(?<end>(([^;](?<! every ))|(\\[^/]))+))?"
             		+ "((?: every )(?<recurring>(([^;](?<! p/))|(\\[^/]))+))?"
-                    + "(?<tagArguments>(?: t/[^;]+)*)"
                     );
     
     private static final Pattern TASK_EDIT_ARGS_FORMAT = Pattern.compile( "(?<index>\\d+)"
     		+ "((?: )(?<name>([^/](?<! (at|from|to|by) ))*))?" + "((?: (at|from) )(?<start>(([^;](?<! (to|by) ))|(\\[^/]))+))?"
             + "((?: (to|by) )(?<end>(([^;](?<! (every) ))|(\\[^/]))+))?"
     		+ "((?: (every) )(?<recurring>(([^;](?<! p/))|(\\[^/]))+))?"
-            + "(?<tagArguments>(?: t/[^;]+)*)"
             );
     private static final Pattern DATE_ARGS_FORMAT = Pattern.compile("(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/(\\d\\d)");
 
@@ -217,26 +215,11 @@ public class Parser {
 	                    "false",
 	                    startTime,
 	                    endTime,
-	                    recurFreq,
-	                    getTagsFromArgs(matcher.group("tagArguments"))
+	                    recurFreq
 	            );       
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-    }
-
-	/**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
     }
 
     /**

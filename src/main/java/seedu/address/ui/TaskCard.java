@@ -14,13 +14,16 @@ public class TaskCard extends UiPart{
     ImageView tickmark = new ImageView("/images/tick.png");
     ImageView recurringIcon = new ImageView("/images/recurring.png");
     ImageView floatingIcon = new ImageView("/images/floatingicon.png");
-    
+    ImageView crossicon = new ImageView("/images/cross.png");
+    ImageView overdueicon = new ImageView("/images/overdue.png");
     @FXML
     private ImageView floating;
     @FXML
     private ImageView recurring;
     @FXML
-    private ImageView tickicon;
+    private ImageView stateicon;
+    @FXML
+    private ImageView overdue;
     @FXML
     private GridPane gridpane;
     @FXML
@@ -33,7 +36,6 @@ public class TaskCard extends UiPart{
     private Label address;
     @FXML
     private Label start;
-
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -57,7 +59,7 @@ public class TaskCard extends UiPart{
         address.setText("End Time: " + task.getEndTime().appearOnUIFormat());
         start.setText("Start Time: " + task.getStartTime().appearOnUIFormat());
         if (task.getDone().getDoneValue() == true) {
-        	tickicon.setImage(tickmark.getImage());
+        	stateicon.setImage(tickmark.getImage());
             cardPane.setStyle("-fx-background-color : #c1f0c1;");   
         }
         if (task.getRecurrence().getValue() == true) {
@@ -67,8 +69,12 @@ public class TaskCard extends UiPart{
 				 && task.getEndTime().isMissing()) {
         	floating.setImage(floatingIcon.getImage());
         }
-        
-				 	
+        if (task.checkOverdue() == true && task.getDone().getDoneValue() == false) {
+        	overdue.setImage(overdueicon.getImage());
+        	cardPane.setStyle("-fx-background-color : #ff7f7f");
+        }
+       
+
     }
 
     public HBox getLayout() {

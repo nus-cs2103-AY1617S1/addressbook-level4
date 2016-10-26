@@ -63,6 +63,7 @@ public interface Model {
     /** Clears all the done tasks in the list
      * @throws TaskNotFoundException */
     void clearDone() throws TaskNotFoundException;
+
     
     /** Updates the filter of the filtered task list to show done tasks */
 	void updateFilteredTaskListToShowDone();
@@ -72,4 +73,9 @@ public interface Model {
 
 	/** Updates the filter of the filtered task list to show undone tasks */
 	void updateFilteredTaskListToShowNotDone();
+
+
+    void sortTasks();
+
+
 }

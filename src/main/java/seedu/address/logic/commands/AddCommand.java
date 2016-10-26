@@ -7,8 +7,6 @@ import seedu.address.logic.LogicManager;
 import seedu.address.model.task.*;
 import seedu.address.storage.Storage;
 import seedu.address.ui.TaskListPanel;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_START_AND_END_TIME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_TIME;
@@ -42,19 +40,11 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String date, String start, String end, String recur, Set<String> tags)
+    public AddCommand(String name, String date, String start, String end, String recur)
             throws IllegalValueException {
-    	System.out.println("start");
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
-        }
         
         Time startTime = new Time(start);
         Time endTime = new Time(end);
-        
-        System.out.println(startTime.toString());
-        System.out.println(endTime.toString());
         
         if(!Time.checkOrderOfDates(start, end)) {
         	throw new IllegalValueException(MESSAGE_INVALID_START_AND_END_TIME);
@@ -69,11 +59,8 @@ public class AddCommand extends Command {
                 new Done(false),
                 startTime,
                 endTime,
-                new Recurrence(recur),
-                new UniqueTagList(tagSet)
+                new Recurrence(recur)
         );
-        
-        System.out.println("end");
     }
 
 	@Override
@@ -86,6 +73,7 @@ public class AddCommand extends Command {
 //            System.out.println("Size: " + new LogicManager(model, storage).getFilteredTaskList().size());
 //            TaskListPanel panel = new TaskListPanel();
 //            panel.scrollTo(new LogicManager(model, storage).getFilteredTaskList().size());
+
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

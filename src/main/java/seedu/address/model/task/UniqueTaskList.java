@@ -53,7 +53,90 @@ public class UniqueTaskList implements Iterable<Task> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
+    
+    /**
+     * Sorts a list according to timing
+     */
+    public void sortList() {
+        if (internalList.size() <= 1)
+            return;
+        
+        Collections.sort(internalList, new Comparator<Task>() {
+        	@Override
+        	public int compare(Task task1, Task task2) {
 
+    			Time start1 = task1.getStartTime();
+    			Time end1 = task1.getEndTime();
+    			Time start2 = task2.getStartTime();
+    			Time end2 = task2.getEndTime();
+    			boolean start1IsMissing = start1.isMissing();
+    			boolean end1IsMissing = end1.isMissing();
+    			boolean start2IsMissing = start2.isMissing();
+    			boolean end2IsMissing = end2.isMissing();
+    			
+    			if((start1IsMissing && end1IsMissing && (!start2IsMissing || !end2IsMissing)))
+    				return 1;
+    			
+    			if (start2IsMissing && end2IsMissing && (!start1IsMissing || !end1IsMissing))
+    				return -1;
+    			
+    			if(!start1IsMissing && !end1IsMissing) {
+    				if(!start2IsMissing && !end2IsMissing) {
+    					System.out.println("2");
+    					return start1.time.compareTo(start2.time) == 0?
+    							end1.time.compareTo(end2.time):
+    							start1.time.compareTo(start2.time);
+    				}
+    							
+    				if(!start2IsMissing) {
+    					System.out.println("3");
+    					return start1.time.compareTo(start2.time) == 0?
+    							-1: start1.time.compareTo(start2.time);
+    				}
+    				else {
+    					System.out.println("4");
+    					return start1.time.compareTo(end2.time) == 0?
+    							1: start1.time.compareTo(end2.time);
+    				}
+    			}
+    			else if(!start1IsMissing) {
+    				if(!start2IsMissing && !end2IsMissing) {
+    					System.out.println("5");
+    					return start1.time.compareTo(start2.time) == 0?
+    							1: start1.time.compareTo(start2.time);
+    				}
+    				
+    				if(!start2IsMissing) {
+    					System.out.println("6");
+    					return start1.time.compareTo(start2.time);
+    				}
+    				else {
+    					System.out.println("7");
+    					return start1.time.compareTo(end2.time);
+    				}
+    			}
+    			else if(!end1IsMissing) {
+    				if(!start2IsMissing && !end2IsMissing) {
+    					System.out.println("8");
+    					return end1.time.compareTo(start2.time) == 0?
+    							-1: end1.time.compareTo(start2.time);
+    				}
+    				
+    				if(!end1IsMissing) {
+    					System.out.println("9");
+    					return end1.time.compareTo(start2.time);
+    				}
+    				else {
+    					System.out.println("10");
+    					return end1.time.compareTo(end2.time);
+    				}
+    			}	
+    			System.out.println("11");
+    			return 0;
+    	    }
+		});
+	}
+    
     /**
      * Adds a task to the list.
      *

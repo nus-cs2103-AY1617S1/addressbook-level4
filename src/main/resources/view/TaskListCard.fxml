@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" prefHeight="133.0" prefWidth="713.0" style="-fx-background-color: #e5f2fb;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" prefHeight="133.0" prefWidth="713.0" style="-fx-background-color: #ccbadc;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane fx:id="gridpane" HBox.hgrow="ALWAYS">
             <columnConstraints>
@@ -43,8 +43,8 @@
                 </VBox>
             <AnchorPane prefHeight="115.0" prefWidth="146.0" GridPane.columnIndex="1">
                <children>
-                  <ImageView fx:id="tickicon" fitHeight="64.0" fitWidth="92.0" layoutX="436.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" />
-                  <ImageView fx:id="overdue" fitHeight="64.0" fitWidth="128.0" layoutX="14.0" layoutY="38.0" pickOnBounds="true" translateY="5.0" />
+                  <ImageView fx:id="stateicon" fitHeight="64.0" fitWidth="92.0" layoutX="436.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" />
+                  <ImageView fx:id="overdue" fitHeight="64.0" fitWidth="128.0" layoutX="14.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" />
                   <ImageView fx:id="recurring" fitHeight="64.0" fitWidth="128.0" layoutX="152.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" />
                   <ImageView fx:id="floating" fitHeight="64.0" fitWidth="128.0" layoutX="287.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" translateY="5.0" />
                </children>

@@ -2,8 +2,6 @@ package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
@@ -25,9 +23,6 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String recurrence;
 
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
-
     /**
      * No-arg constructor for JAXB use.
      */
@@ -45,10 +40,6 @@ public class XmlAdaptedTask {
         start = source.getStartTime().toString();
         end = source.getEndTime().toString();
         recurrence = source.getRecurrence().days;
-        tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
     }
 
     /**
@@ -57,16 +48,11 @@ public class XmlAdaptedTask {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> taskTags = new ArrayList<>();
-        for (XmlAdaptedTag tag : tagged) {
-            taskTags.add(tag.toModelType());
-        }
         final Name name = new Name(this.name);
         final Done done = new Done(this.done);
         final Time start = new Time(this.start);
         final Time end = new Time(this.end);
         final Recurrence recurrence = new Recurrence(this.recurrence);
-        final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, done, start, end, recurrence, tags);
+        return new Task(name, done, start, end, recurrence);
     }
 }

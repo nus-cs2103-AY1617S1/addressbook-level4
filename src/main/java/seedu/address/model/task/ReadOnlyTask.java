@@ -1,6 +1,5 @@
 package seedu.address.model.task;
 
-import seedu.address.model.tag.UniqueTagList;
 
 /**
  * A read-only immutable interface for a Task in the taskmanager.
@@ -8,18 +7,13 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
 
-    Name getName();
+	Name getName();
     Time getStartTime();
     Time getEndTime();
     Recurrence getRecurrence();
     Done getDone();
+    boolean checkOverdue();
     
-    /**
-     * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the task's internal tags.
-     */
-    UniqueTagList getTags();
-
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
@@ -46,24 +40,8 @@ public interface ReadOnlyTask {
                 .append(" EndTime: ")
                 .append(getEndTime())
                 .append("Recurrence: ")
-                .append(getRecurrence())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(getRecurrence());
         return builder.toString();
-    }
-
-    /**
-     * Returns a string representation of this Task's tags
-     */
-    default String tagsString() {
-        final StringBuffer buffer = new StringBuffer();
-        final String separator = ", ";
-        getTags().forEach(tag -> buffer.append(tag).append(separator));
-        if (buffer.length() == 0) {
-            return "";
-        } else {
-            return buffer.substring(0, buffer.length() - separator.length());
-        }
     }
 
 }

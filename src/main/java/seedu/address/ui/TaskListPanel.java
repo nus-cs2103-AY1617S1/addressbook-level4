@@ -52,12 +52,14 @@ public class TaskListPanel extends UiPart {
         TaskListPanel taskListPanel =
                 UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
         taskListPanel.configure(taskList);
+        
         return taskListPanel;
     }
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {
         setConnections(taskList);
         addToPlaceholder();
+        panel.prefHeightProperty().bind(placeHolderPane.heightProperty());
     }
 
     private void setConnections(ObservableList<ReadOnlyTask> taskList) {

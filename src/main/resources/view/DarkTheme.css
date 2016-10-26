@@ -3,7 +3,7 @@
 }
 
 .contentbox .label {
-	-fx-font-size: 300%;
+	-fx-font-size: 200%;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #2da4d2;
     -fx-opacity: 0.9;	

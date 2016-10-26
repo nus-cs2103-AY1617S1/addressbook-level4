@@ -5,8 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 
-
-<HBox fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="cardPane" style="-fx-background-color: #deeff5;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label fx:id="floatname" alignment="CENTER" contentDisplay="CENTER" style="-fx-text-fill: black; -fx-font-size: 200%;" text="asdasdas" HBox.hgrow="ALWAYS">
          <padding>

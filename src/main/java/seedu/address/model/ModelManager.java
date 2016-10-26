@@ -1,13 +1,12 @@
 package seedu.address.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.ShowDoneCommand;
-import seedu.address.logic.parser.Parser;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
@@ -20,6 +19,8 @@ import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayDeque;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Deque;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -95,7 +96,6 @@ public class ModelManager extends ComponentManager implements Model {
         TaskManager oldManager = taskManagerHistory.pop();
         undoHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());
-        taskManager.setTags(oldManager.getTagList());
         taskManager.counter();
         indicateTaskManagerChanged();
     }
@@ -105,7 +105,6 @@ public class ModelManager extends ComponentManager implements Model {
         TaskManager oldManager = undoHistory.pop();
         taskManagerHistory.push(new TaskManager(taskManager));
         taskManager.setTasks(oldManager.getTasks());
-        taskManager.setTags(oldManager.getTagList());
         taskManager.counter();
         indicateTaskManagerChanged();
     }
@@ -119,6 +118,11 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void sortTasks() {
+        taskManager.sortTasksList();
     }
     
     @Override
@@ -155,8 +159,7 @@ public class ModelManager extends ComponentManager implements Model {
                     new Done(false),
                     new Time(""),
                     new Time(days + " after " + task.getEndTime().appearOnUIFormat()),
-                    task.getRecurrence(),
-                    task.getTags() 
+                    task.getRecurrence()
                     ));
         }
         //Recurring task with only start time.
@@ -167,8 +170,7 @@ public class ModelManager extends ComponentManager implements Model {
                     new Done(false),
                     new Time(days + " after " + task.getStartTime().appearOnUIFormat()),
                     new Time(""),
-                    task.getRecurrence(),
-                    task.getTags() 
+                    task.getRecurrence()
                     ));
         }
         //Recurring task wth both start and end times  
@@ -179,8 +181,7 @@ public class ModelManager extends ComponentManager implements Model {
                     new Done(false),
                     new Time(days + " after " + task.getStartTime().appearOnUIFormat()),
                     new Time(days + " after " + task.getEndTime().appearOnUIFormat()),
-                    task.getRecurrence(),
-                    task.getTags() 
+                    task.getRecurrence()
                     ));
         }
         
@@ -218,15 +219,18 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredListToShowAll() {
+    	sortTasks();
         filteredTasks.setPredicate(null);
     }
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
+    	sortTasks();
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
     private void updateFilteredTaskList(Expression expression) {
+    	sortTasks();
         filteredTasks.setPredicate(expression::satisfies);
     }
     

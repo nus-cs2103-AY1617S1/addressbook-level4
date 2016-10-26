@@ -33,7 +33,6 @@ public class ContentBox extends UiPart {
     private static final String FXML = "ContentBox.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
-    private static ObservableList<ReadOnlyTask> list;
 
     
     @FXML
@@ -90,6 +89,9 @@ public class ContentBox extends UiPart {
     @FXML
     private Label dummy5;
     
+    @FXML
+    private Label floatheader;
+    
 
     public ContentBox() {
         super();
@@ -112,7 +114,6 @@ public class ContentBox extends UiPart {
 
     public static ContentBox load(Stage primaryStage, AnchorPane ContentBoxPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
-    	list = taskList;
     	ContentBox contentbox =
                 UiPartLoader.loadUiPart(primaryStage, ContentBoxPlaceholder, new ContentBox());
         contentbox.configure(taskList);
@@ -122,7 +123,7 @@ public class ContentBox extends UiPart {
     
     @Subscribe
     private void modelChangedEvent(TaskManagerChangedEvent change) {
-    	dummy1.setText("X");
+    	dummy1.setText(Integer.toString(TaskManager.overdueCounter));
      	dummy2.setText(Integer.toString(TaskManager.todayCounter));
     	dummy3.setText(Integer.toString(TaskManager.tomorrowCounter));
     	dummy4.setText(Integer.toString(TaskManager.upcomingCounter));
@@ -134,13 +135,12 @@ public class ContentBox extends UiPart {
     private void configure(ObservableList<ReadOnlyTask> taskList) {
 //        setConnections(taskList);
         addToPlaceholder();
-    
-        
+        panel.prefHeightProperty().bind(placeHolderPane.heightProperty());       
     }
     
     @FXML
     public void initialize() {
-       	dummy1.setText("X");
+       	dummy1.setText(Integer.toString(TaskManager.overdueCounter));
     	dummy2.setText(Integer.toString(TaskManager.todayCounter));
     	dummy3.setText(Integer.toString(TaskManager.tomorrowCounter));
     	dummy4.setText(Integer.toString(TaskManager.upcomingCounter));

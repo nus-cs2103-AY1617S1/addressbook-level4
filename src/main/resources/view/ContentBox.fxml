@@ -13,7 +13,7 @@
 
 <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.ContentBox">
    <children>
-      <GridPane prefHeight="508.0" prefWidth="378.0" style="-fx-background-color: #ededed;" styleClass="contentbox" VBox.vgrow="ALWAYS">
+      <GridPane prefWidth="378.0" style="-fx-background-color: white;" styleClass="contentbox" VBox.vgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="ALWAYS" />
           <ColumnConstraints hgrow="ALWAYS" />
@@ -27,11 +27,11 @@
             <RowConstraints vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <Label fx:id="overdue" style="-fx-text-fill: red;" text="Overdue" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Label fx:id="today" text="Today" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Label fx:id="tomorrow" text="Tomorrow" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Label fx:id="someday" text="Upcoming" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Label fx:id="upcoming" text="Floating" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+            <Label fx:id="overdue" style="-fx-text-fill: red;" text="Overdue" textAlignment="CENTER" GridPane.columnIndex="1" />
+            <Label fx:id="today" text="Today" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="tomorrow" text="Tomorrow" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="someday" text="Upcoming" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="upcoming" text="Floating" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label fx:id="dummy1" style="-fx-text-fill: red;" text="\$dummy1" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
             <Label fx:id="dummy2" text="2" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label fx:id="dummy3" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
@@ -47,7 +47,7 @@
                   <Image url="@../images/tomorrow.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="upcomingicon" fitHeight="50.0" fitWidth="50.0" preserveRatio="true" translateX="18.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
+            <ImageView fx:id="upcomingicon" fitHeight="70.0" fitWidth="70.0" preserveRatio="true" translateX="7.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                <image>
                   <Image url="@../images/upcoming.png" />
                </image>
