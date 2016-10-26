@@ -31,17 +31,19 @@ public class ShowCommandTest extends TaskListGuiTest {
         commandBox.runCommand("done 2");
         assertShowResult("show incomplete", TypicalTestTasks.task1, TypicalTestTasks.task3, TypicalTestTasks.task4, TypicalTestTasks.task5, TypicalTestTasks.task6, TypicalTestTasks.task7, TypicalTestTasks.task10, TypicalTestTasks.task11);        
     }
-*/    
+*/
+/*
     @Test
     public void show_datedList() {
-    	assertShowResult("show 14 nov", TypicalTestTasks.task11);        
-    }
-/*  
-    @Test
-    public void show_priorityList() {
-        assertShowResult("show p/high", TypicalTestTasks.task1, TypicalTestTasks.task2, TypicalTestTasks.task3, TypicalTestTasks.task6, TypicalTestTasks.task11);
+    	assertShowResult("show 25 dec", TypicalTestTasks.task7);        
     }
 */
+ 
+    @Test
+    public void show_priorityList() {
+        assertShowResult("show p/high");
+    }
+
     @Test
     public void show_emptyList(){
         commandBox.runCommand("clear");
@@ -56,14 +58,14 @@ public class ShowCommandTest extends TaskListGuiTest {
     
     @Test
     public void show_Floating() {
-    	 assertShowResult("show floating", TypicalTestTasks.task1);
+    	 assertShowResult("show floating", TypicalTestTasks.task1, TypicalTestTasks.task2);
     }
-/*    
+    
     @Test
     public void show_OverDue() {
-    	 assertShowResult("show overdue", TypicalTestTasks.task5);
+    	 assertShowResult("show overdue");
     }
-*/
+
     private void assertShowResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);

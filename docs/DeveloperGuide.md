@@ -401,6 +401,46 @@ Guarantees:
 3. System will process the file path and will create a copy of the file in the new directory.
 4. File in the old directory will be removed. 
 
+/* @@author A0146107M */
+#### Use case UC07 - Autocomplete command feature
+
+**MSS**
+
+Precondition: The text entered by the user so far has to be the prefix of one command.
+
+Guarantees:  
+* The command that matches the entered text will be autofilled.
+
+1. The user enters the first few letters of a command.
+2. The user presses the TAB key.
+3. The system finds the command matching the entered text.
+4. The matching command will be autofilled.
+
+**Extensions**
+2a. No commands match the input text
+> Use case ends
+
+3a. More than one command matches the input text
+> Use case ends
+
+#### Use case UC08 - Command history feature
+
+**MSS**
+
+Precondition: At least one command has been entered by the user before.
+
+Guarantees:  
+* The previously entered command will be displayed.
+
+1. The user presses the UP key.
+2. System retrieves the previously entered command.
+3. The previously entered command will be displayed.
+
+**Extensions**
+2a. No commands were entered before the use case
+> Use case ends
+
+/* @@author */
 
 ##Appendix C: Non Functional Requirements
 
@@ -480,19 +520,20 @@ Weaknesses:
 
 Strengths:
 
-1. Simple (CLI)
-2. UNIX-style input, for those used to UNIX
-3. Syncing between computer program and mobile application
-4. Open-source: allows user-written extensions to be integrated
-5. Ability to mark a task as a priority
-6. Allows a series of tasks in a project to be listed out
-7. Able to set tags ("contexts") for easy reference
+1. Simple command line interface (CLI) as opposed to traditional graphical user interface (GUI).
+2. UNIX-style input, for those used to UNIX.
+3. Minimal keystrokes and taps required to speed up the process of command input
+4. Syncing between computer program and mobile application, for easy access to the task list for users on-the-go.
+5. Open-source: allows user-written extensions to be integrated. Allows powerful features to be integrated by the user.
+6. Ability to mark a task as a priority.
+7. Allows a series of tasks in a project to be listed out, for a smooth flow of work within a certain project.
+8. Able to set tags ("contexts") for easy reference and grouping of similar tasks together.
 
 Weaknesses:
 
-1. No GUI
-2. Fixed format for entering dates
-3. No feature to search for free slots
+1. CLI, which, compared to a GUI, might be more daunting to less tech-savvy users.
+2. Fixed format for entering dates, thus users have to remember a specific format each time they enter a date.
+3. No feature to search for free slots, thus users have to manually look for an empty slot before adding a task in.
 
 /* @@author */
 #### Fantastical (studied by Fionna Tong)
