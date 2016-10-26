@@ -67,7 +67,7 @@ public class EditCommand extends Command {
             
             model.saveToHistory();
             model.editTask(taskToEdit, newName, newStart, newEnd, newRecur);
-            model.updateFilteredTaskListToShow(isNotDone());
+            model.updateFilteredTaskListToShowNotDone();
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (IllegalValueException e) {

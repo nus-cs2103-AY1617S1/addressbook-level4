@@ -56,14 +56,10 @@ public class AddCommand extends Command {
         try {
             model.saveToHistory();
             model.addTask(toAdd);
-            model.updateFilteredTaskListToShow(isNotDone());
+            model.updateFilteredTaskListToShowNotDone();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
-    }
-
-    public static Predicate<Task> isNotDone() {
-        return t -> t.getDone().value == false;
     }
 }

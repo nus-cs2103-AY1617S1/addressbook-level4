@@ -126,7 +126,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	taskManager.doneTask(target);
-    	updateFilteredTaskListToShow(ShowCommand.isNotDone());
+    	updateFilteredTaskListToShowNotDone();
     	indicateTaskManagerChanged();
     	
     }
@@ -134,7 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void undoneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	taskManager.undoneTask(target);
-    	updateFilteredTaskListToShow(ShowDoneCommand.isDone());
+    	updateFilteredTaskListToShowDone();
     	indicateTaskManagerChanged();
     	
     }
@@ -180,7 +180,7 @@ public class ModelManager extends ComponentManager implements Model {
                     ));
         }
         
-        updateFilteredTaskListToShow(ShowCommand.isNotDone());
+        updateFilteredTaskListToShowNotDone();
         indicateTaskManagerChanged();
     }
     
@@ -230,10 +230,29 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredTaskListToShow(Predicate<Task> predicate) {
+    public void updateFilteredTaskListToShowDone() {
     	sortTasks();
-    	filteredTasks.setPredicate(predicate);
+    	filteredTasks.setPredicate(isDone());
     }
+    
+    @Override
+    public void updateFilteredTaskListToShowNotDone() {
+    	sortTasks();
+    	filteredTasks.setPredicate(isNotDone());
+    }
+    
+    @Override
+    public void updateFilteredTaskListToShowDate(String date) {
+    	sortTasks();
+    	filteredTasks.setPredicate(filterByDate(date));
+    }
+    
+    @Override
+    public void updateFilteredTaskListToShowOverdue() {
+        filteredTasks.setPredicate(isOverdue());
+        taskManager.counter();
+    }
+
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -287,4 +306,20 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    public static Predicate<Task> isDone() {
+    	return t -> t.getDone().value == true;
+    }
+    
+    public static Predicate<Task> filterByDate(String date) {
+    	return t -> (t.getStartTime().appearOnUIFormatForDate().equals(date)
+    			|| t.getEndTime().appearOnUIFormatForDate().equals(date));
+    }
+    
+    public static Predicate<Task> isNotDone() {
+    	return t -> t.getDone().value == false;
+    }
+    
+    public static Predicate<Task> isOverdue() {
+        return t -> t.checkOverdue() == true;
+    }
 }

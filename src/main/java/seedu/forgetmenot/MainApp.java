@@ -65,7 +65,7 @@ public class MainApp extends Application {
 
         initEventsCenter();
         
-        model.updateFilteredTaskListToShow(isNotDone());
+        model.updateFilteredTaskListToShowNotDone();
     }
 
 

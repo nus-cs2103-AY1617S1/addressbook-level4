@@ -143,6 +143,10 @@ public class Parser {
     		return new ShowCommand();
     	}
     	
+        else if (args.equals("overdue")) {
+            return new ShowOverdueCommand();
+        }
+    	
     	else if (args.equals("today") || args.equals("tdy") ) {
     		Calendar cal = Calendar.getInstance();
     		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");

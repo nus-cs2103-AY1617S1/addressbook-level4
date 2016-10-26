@@ -166,7 +166,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
 
-	private void counter() {
+	public void counter() {
 		int floating = 0;
 		int today = 0;
 		int tomorrow = 0;
