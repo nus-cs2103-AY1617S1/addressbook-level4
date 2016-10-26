@@ -17,7 +17,6 @@
 			<arguments/>
 		</buildCommand>
 	</buildSpec>
-<<<<<<< HEAD
 	<natures>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
@@ -42,7 +41,6 @@
 			</matcher>
 		</filter>
 	</filteredResources>
-=======
 	<linkedResources/>
 >>>>>>> origin/priority-tasks
 </projectDescription>
