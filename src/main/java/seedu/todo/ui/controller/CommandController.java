@@ -61,7 +61,6 @@ public class CommandController {
      * @param userInput text as shown in input view
      */
     private void handleInput(KeyCode keyCode, String userInput) {
-        System.out.println("USER TYPED: " + userInput);
         switch (keyCode) {
         case ENTER :    // Submitting command
             //Note: Do not execute an empty command. TODO: This check should be done in the parser class.

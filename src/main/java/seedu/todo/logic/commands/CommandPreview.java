@@ -15,7 +15,7 @@ import seedu.todo.commons.util.StringUtil;
  */
 public class CommandPreview {
     private static final int COMMAND_INDEX = 0;
-    private static final double CLOSENESS_THRESHOLD = 50d;
+    private static final double CLOSENESS_THRESHOLD = 30d;
     private List<CommandSummary> commandSummaries;
 
     public CommandPreview(String userInput) {
