@@ -1,5 +1,9 @@
 # User Guide
 
+   > <img src="UserGuideImages/UI_MainPage.JPG" width="400">
+   <br><br><br>
+
+
 * [About](#about)
 * [Getting Started](#getting-started)
 * [Features](#features)
