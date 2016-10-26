@@ -1,20 +1,22 @@
 package tars.logic.commands;
 
-import tars.commons.core.EventsCenter;
-import tars.commons.core.Messages;
-import tars.commons.events.ui.TaskAddedEvent;
-import tars.commons.exceptions.DuplicateTaskException;
-import tars.commons.exceptions.IllegalValueException;
-import tars.commons.util.DateTimeUtil;
-import tars.model.task.*;
-import tars.model.task.UniqueTaskList.TaskNotFoundException;
-import tars.model.tag.Tag;
-import tars.model.tag.UniqueTagList;
-
 import java.time.DateTimeException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+
+import tars.commons.core.Messages;
+import tars.commons.exceptions.DuplicateTaskException;
+import tars.commons.exceptions.IllegalValueException;
+import tars.commons.util.DateTimeUtil;
+import tars.model.tag.Tag;
+import tars.model.tag.UniqueTagList;
+import tars.model.task.DateTime;
+import tars.model.task.Name;
+import tars.model.task.Priority;
+import tars.model.task.Status;
+import tars.model.task.Task;
+import tars.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Adds a task to tars.
@@ -121,7 +123,6 @@ public class AddCommand extends UndoableCommand {
                 
                 if (toAddArray.size() == 1 && toAdd.getDateTime().getStartDate() == null
                         && toAdd.getDateTime().getEndDate() != null) {
-                    System.out.println("run");
                     model.updateFilteredTaskListUsingDate(toAdd.getDateTime());
                 }
                 
@@ -138,13 +139,14 @@ public class AddCommand extends UndoableCommand {
     public CommandResult undo() {
         assert model != null;
         try {
-            for(Task toAdd: toAddArray) {
+            for (Task toAdd : toAddArray) {
                 model.deleteTask(toAdd);
             }
-            return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_UNDO, toAdd)));
-        } catch (TaskNotFoundException e) {
             return new CommandResult(
-                    String.format(UndoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
+                    String.format(UndoCommand.MESSAGE_SUCCESS, String.format(MESSAGE_UNDO, toAdd)));
+        } catch (TaskNotFoundException e) {
+            return new CommandResult(String.format(UndoCommand.MESSAGE_UNSUCCESS,
+                    Messages.MESSAGE_TASK_CANNOT_BE_FOUND));
         }
     }
 
@@ -152,12 +154,13 @@ public class AddCommand extends UndoableCommand {
     public CommandResult redo() {
         assert model != null;
         try {
-            for(Task toAdd: toAddArray) {
+            for (Task toAdd : toAddArray) {
                 model.addTask(toAdd);
             }
             return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS, messageSummary()));
         } catch (DuplicateTaskException e) {
-            return new CommandResult(String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
+            return new CommandResult(
+                    String.format(RedoCommand.MESSAGE_UNSUCCESS, Messages.MESSAGE_DUPLICATE_TASK));
         }
     }
     
