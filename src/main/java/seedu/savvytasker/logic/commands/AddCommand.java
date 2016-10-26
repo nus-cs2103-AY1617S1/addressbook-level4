@@ -1,7 +1,6 @@
 package seedu.savvytasker.logic.commands;
 
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
-import seedu.savvytasker.commons.util.SmartDefaultDates;
 import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.ReadOnlyTask;
@@ -62,8 +61,7 @@ public class AddCommand extends ModelRequiringCommand {
         final boolean isArchived = false;   // all tasks are first added as active tasks
         final int taskId = 0;               // taskId to be assigned by ModelManager, leave as 0
         
-        SmartDefaultDates sdd = new SmartDefaultDates(startDateTime, endDateTime);
-        this.toAdd = new Task(taskId, taskName, sdd.getStartDate(), sdd.getEndDate(),
+        this.toAdd = new Task(taskId, taskName, startDateTime, endDateTime,
                 location, priority, recurringType, numberOfRecurrence,
                 category, description, isArchived);
     }

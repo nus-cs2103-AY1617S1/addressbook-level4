@@ -89,7 +89,7 @@ public class ModifyCommandParser implements CommandParser<ModifyCommand> {
     }
     
     private InferredDate parseDate(String dateText) throws ParseException {
-        if (dateText.trim().isEmpty()) {
+        if (dateText != null && dateText.trim().isEmpty()) {
             return TASK_PARSER.dateParser.new InferredDate(new Date(), true, true);
         }
         
