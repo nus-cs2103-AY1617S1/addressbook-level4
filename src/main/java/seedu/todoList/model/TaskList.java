@@ -110,6 +110,13 @@ public class TaskList implements ReadOnlyTaskList {
     	}
     }
     
+    public boolean undoneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+        if(tasks.undoneTask(target)){
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
 //// util methods
 
     @Override

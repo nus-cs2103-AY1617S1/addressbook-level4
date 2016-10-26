@@ -115,7 +115,10 @@ public class Parser {
             
         case DoneCommand.COMMAND_WORD:
         	return prepareDone(arguments);
-
+        	
+        case UndoneCommand.COMMAND_WORD:
+            return prepareUndone(arguments);
+            
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand(arguments);
 
@@ -228,6 +231,24 @@ public class Parser {
         }
 
         return new DoneCommand(dataType.get(), index.get());
+    }
+    
+    /**
+     * Parses arguments in the context of the done task command.
+     *
+     * @param args
+     *            full command args string
+     * @return the prepared command
+     */
+    private Command prepareUndone(String args) {
+        Optional<String> dataType = parseDataType(args);
+        Optional<Integer> index = parseIndex(args);
+        if (!dataType.isPresent() || !((dataType.get().equals("todo")) || (dataType.get().equals("event"))
+                || (dataType.get().equals("deadline"))) || !index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UndoneCommand.MESSAGE_USAGE));
+        }
+
+        return new UndoneCommand(dataType.get(), index.get());
     }
 
     /**
