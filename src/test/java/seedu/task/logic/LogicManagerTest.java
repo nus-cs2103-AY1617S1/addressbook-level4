@@ -6,6 +6,7 @@ import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.ui.JumpToListRequestEvent;
 import seedu.task.commons.events.ui.ShowHelpRequestEvent;
+import seedu.task.commons.events.ui.SwitchCommandBoxFunctionEvent;
 import seedu.task.logic.Logic;
 import seedu.task.logic.LogicManager;
 import seedu.task.logic.commands.*;
@@ -48,6 +49,7 @@ public class LogicManagerTest {
     private ReadOnlyTaskManager latestSavedTaskManager;
     private boolean helpShown;
     private int targetedJumpIndex;
+    private boolean hasSwitchedToSearch;
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
@@ -63,6 +65,11 @@ public class LogicManagerTest {
     private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
         targetedJumpIndex = je.targetIndex;
     }
+    
+    @Subscribe
+    private void handleSwitchCommandBoxFunctionEvent(SwitchCommandBoxFunctionEvent evt) {
+        hasSwitchedToSearch = true;
+    }
 
     @Before
     public void setup() {
@@ -74,6 +81,7 @@ public class LogicManagerTest {
 
         latestSavedTaskManager = new TaskManager(model.getTaskManager()); // last saved assumed to be up to date before.
         helpShown = false;
+        hasSwitchedToSearch = false;
         targetedJumpIndex = -1; // non yet
     }
 
@@ -369,6 +377,12 @@ public class LogicManagerTest {
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
+    }
+    
+    @Test
+    public void execute_find_swithCommandBoxInitiated() throws Exception {
+        assertCommandBehavior("searchbox", SearchCommand.MESSAGE_SEARCH_SUCCESS);
+        assertTrue(hasSwitchedToSearch);
     }
 
 
