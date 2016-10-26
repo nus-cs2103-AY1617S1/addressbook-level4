@@ -59,9 +59,12 @@ public class Parser {
     private static final Pattern TODAY_OR_TOMORROW = Pattern.compile("^(today|tomorrow)$");
     private static final Pattern DAYS_IN_FULL = Pattern.compile("^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)$");
     private static final Pattern DAYS_IN_SHORT = Pattern.compile("^(mon|tue|tues|wed|thu|thur|fri|sat|sun)$");
+    private static final Pattern RECURRING_PERIOD = Pattern.compile("^(day|week|month|year)$");
 
     private static final Pattern KEYWORD_FOR_DATE = Pattern.compile("^((on)|(by)|(from)|(to))$");
     private static final Pattern KEYWORD_FOR_TIME = Pattern.compile("^((at)|(by)|(from)|(to)|(till))$");
+    private static final Pattern KEYWORD_FOR_RECURRING = Pattern.compile("^(every)$");
+    private static final Pattern KEYWORD_FOR_END_OF_RECURRING = Pattern.compile("^(until|till)$");
     
     /**
      * Integer Constants
@@ -319,6 +322,8 @@ public class Parser {
         boolean validArgument = true;
         boolean hasDate = false;
         boolean hasTime = false;
+        boolean hasRecurring = false;
+        boolean hasRecurringEndDate = false;
         int numOfDate = 0;
         int numOfTime = 0;
         String name = null;
@@ -372,12 +377,18 @@ public class Parser {
             if (KEYWORD_FOR_DATE.matcher(additionalArgs[i].toLowerCase()).find()) {
                 hasDate = true;
                 continue;
-            }	        
-            else if (KEYWORD_FOR_TIME.matcher(additionalArgs[i].toLowerCase()).find()) {
+            } else if (KEYWORD_FOR_TIME.matcher(additionalArgs[i].toLowerCase()).find()) {
                 hasTime = true;
+                if (KEYWORD_FOR_END_OF_RECURRING.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    hasDate = true;
+                    hasRecurringEndDate = true;
+                    continue;
+                } 
                 continue;
-            }
-            else if (TAG_FORMAT.matcher(additionalArgs[i]).find()) {
+            } else if (KEYWORD_FOR_RECURRING.matcher(additionalArgs[i].toLowerCase()).find()) {
+                hasRecurring = true;
+                continue;
+            } else if (TAG_FORMAT.matcher(additionalArgs[i]).find()) {
                 String[] splitTag = additionalArgs[i].trim().split(DELIMITER_FORWARD_SLASH);
                 tags.add(splitTag[ADD_COMMAND_TAG_INDEX]);
                 continue;
@@ -406,10 +417,10 @@ public class Parser {
                     endTime = additionalArgs[i].toLowerCase();
                 }
                 continue;
-            } else if (!hasDate && !hasTime) {
+            } else if (!hasDate && !hasTime && !hasRecurring) {
                 validArgument = false;
             }
-
+            
             if (hasDate) {
                 if (DATE_WITH_SLASH_FORMAT.matcher(additionalArgs[i]).find()) {
                     numOfDate++;
@@ -489,13 +500,16 @@ public class Parser {
                         endDate += additionalArgs[i].toLowerCase();
                     } 
                     hasDate = false;
+                } else if (hasTime) {
+                    hasDate = false;
+                    hasRecurringEndDate = false;
                 } else {
                     hasDate = false;
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 }
             }
 
-            if (hasTime) {
+            if (hasTime && !hasRecurringEndDate) {
                 if (TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
                     numOfTime++;
                     if (numOfTime == ONE) {
@@ -515,6 +529,20 @@ public class Parser {
                 }
 
                 hasTime = false;
+            }
+            
+            if (hasRecurring) {
+                if (DAYS_IN_FULL.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    System.out.println(additionalArgs[i]);
+                } else if (DAYS_IN_FULL.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    System.out.println(additionalArgs[i]);
+                } else if (RECURRING_PERIOD.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    System.out.println(additionalArgs[i]);
+                } else {
+                    return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+                }
+                
+                hasRecurring = false;
             }
 
             if (!validArgument) {
