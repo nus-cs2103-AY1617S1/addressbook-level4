@@ -9,7 +9,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import seedu.address.commons.core.Config;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.model.task.Task;
 
 public class SaveCommand extends Command {
@@ -51,22 +53,39 @@ public class SaveCommand extends Command {
 		if (!f.isDirectory())
 			return new CommandResult(MESSAGE_PATH_IS_NOT_A_DIRECTORY);
 		
-		copyDataFilesToNewPath(dirPath);
+		try {
+			copyDataFilesToNewPath(dirPath);
+		} catch (DataConversionException e) {
+			e.printStackTrace();
+		}
 		changeConfigPaths(dirPath);
 		return new CommandResult(MESSAGE_SUCCESS);
 	}
 
 	
 	
-	private void copyDataFilesToNewPath(String arguments) {
-		Config config = new Config();
+	private void copyDataFilesToNewPath(String arguments) throws DataConversionException {
+
+        File configFile = new File(Config.DEFAULT_CONFIG_FILE);
+        
+		Config config;
+
+        try {
+            config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
+        } catch (IOException e) {
+            throw new DataConversionException(e);
+        }
 
 		File oldDataPath = new File(config.getAddressBookFilePath());
-		File oldUserPrefPath = new File(config.getUserPrefsFilePath());
+		//File oldUserPrefPath = new File(config.getUserPrefsFilePath());
 		File newDataPath = new File(arguments+"task.xml");
-		File newUserPrefPath = new File(arguments+"preferences.json");
-		oldDataPath.renameTo(newDataPath);
-		oldUserPrefPath.renameTo(newUserPrefPath);
+		//File newUserPrefPath = new File(arguments+"preferences.json");
+		if(oldDataPath.renameTo(newDataPath))
+			System.out.print("changed");
+		//oldUserPrefPath.renameTo(newUserPrefPath);
+		System.out.print(oldDataPath);
+		System.out.print(newDataPath);
+		
 	}
 	
 	/**
@@ -87,9 +106,10 @@ public class SaveCommand extends Command {
     	try {
     		BufferedReader br = new BufferedReader(configFileReader);
     		while ((currLine = br.readLine()) != null) {
-    			if (currLine.contains("userPrefsFilePath")) {
-        			currLine = currLine.replaceAll(currLine.substring(25, currLine.length()-2), (arguments + "preferences.json"));
-    			} else if (currLine.contains("taskBookFilePath")) {
+//    			if (currLine.contains("userPrefsFilePath")) {
+//        			currLine = currLine.replaceAll(currLine.substring(25, currLine.length()-2), (arguments + "preferences.json"));
+//    			} else 
+				if (currLine.contains("taskBookFilePath")) {
         			currLine = currLine.replaceAll(currLine.substring(24, currLine.length()-2), (arguments + "task.xml"));
     			}
     			if (!currLine.contains("}")) {
