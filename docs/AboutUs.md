@@ -4,7 +4,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 
 ## Project Team
 
-#### [Pankaj Bhootra](https://github.com/PankajB1997)
+#### Pankaj Bhootra [@PankajB1997](https://github.com/PankajB1997)
 
 <img src="images/PankajBhootra.JPG" width="150">
 
@@ -15,7 +15,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 
 -----
 
-#### [R Dheeraj](https://github.com/dheerajaraj)
+#### R Dheeraj [@dheerajaraj](https://github.com/dheerajaraj)
 
 <img src="images/RDheeraj.jpg" width="150">
 
@@ -25,7 +25,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 
 -----
 
-#### [Fionna Tong](https://github.com/fionnatong)
+#### Fionna Tong [@fionnatong](https://github.com/fionnatong)
 
 <img src="images/FionnaTong.jpeg" width="150">
 
@@ -35,7 +35,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 
 -----
 
-#### [Lester Tan](https://github.com/lestertj)
+#### Lester Tan [@lestertj](https://github.com/lestertj)
 
 <img src="images/LesterTan.jpg" width="150">
 
@@ -46,7 +46,7 @@ We are a group of highly motivated and hardworking students working on our CS210
  
 ## Project Mentor
  
-#### [Nirandika Wanigasekara](https://github.com/nirandiw)
+#### Nirandika Wanigasekara [@nirandiw](https://github.com/nirandiw)
 
 <img src="images/ProjectMentor.JPG" width="150">
 

@@ -261,16 +261,11 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | search events or tasks by keywords | view details of the event easily
 `* * *` | user | edit event details | keep my task list updated
 `* * *` | user | delete tasks | discard tasks that cannot be done
-`* * *` | user | sort the event by name, date or priority | easily view events that requires immediate attention
+`* * *` | user | sort the event by date or priority | easily view events that requires immediate attention
 `* *` | busy user | mark tasks as priority | display them at the top of my tasks
 `* *` | user | set my storage file to some other folder/directory (e.g dropbox) | store a back up of my tasks in dropbox or google drive
-`* *` | busy user | search for empty slots | add tasks easily
-`* *` | user | block multiple slots for tasks | reserve multiple time slots where the exact timing of the task is not certain and release the extra slots when the time is finalized
 `* *` | user | undo and redo the changes made to my tasklist | Keep my tasklist in order
-`* *` | IT-savvy user | sync my tasks to my google calendar | have changes reflected in my various timekeeping applications
-`* *` | busy user | tag tasks | easily narrow down to a certain set of tasks
 `*` | user | Have recurring events | save the trouble of having to add a new task periodically. 
-`*` | user | look for empty slots | check my available time slots before adding a new task
 `*` | user | have auto-fill search | quickly search for relevant tasks 
 
 ##Appendix B: Use Cases
