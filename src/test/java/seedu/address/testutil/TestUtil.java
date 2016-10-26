@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new Task(new Name("Event1"), new Date("121212"), new Start("1212"), new End("1234"), 0, 0, new UniqueTagList()),
-                    new Task(new Name("Event2"), new Date("12.12.16"), new Start("2312"), new End("1111"), 0, 0, new UniqueTagList()),
-                    new Task(new Name("Event3"), new Date("31-2-15"), new Start("1242"), new End("2345"), 0, 0, new UniqueTagList()),
-                    new Task(new Name("Event4"), new Date("300512"), new Start("2222"), new End("2021"), 0, 0, new UniqueTagList()),
-                    new Task(new Name("Event5"), new Date("12/12/12"), new Start("2354"), new End("1242"), 0, 0, new UniqueTagList()),
-                    new Task(new Name("Event6"), new Date("12/12/12"), new Start("1212"), new End("1234"), 0, 0, new UniqueTagList()),
-                    new Task(new Name("Event7"), new Date("300111"), new Start("1235"), new End("1234"), 0, 0, new UniqueTagList()),
-                    new Task(new Name("Event8"), new Date("13-12-15"), new Start("1245"), new End("0212"), 0, 0, new UniqueTagList()),
-                    new Task(new Name("Event9"), new Date("120109"), new Start("0000"), new End("1212"), 0, 0, new UniqueTagList())
+                    new Task(new Name("Event1"), new Date("121216"), new Start("1212"), new End("1234"), 0, 0, new UniqueTagList()),
+                    new Task(new Name("Event2"), new Date("12.12.16"), new Start("0001"), new End("1111"), 0, 0, new UniqueTagList()),
+                    new Task(new Name("Event3"), new Date("10-2-16"), new Start("1242"), new End("2345"), 0, 0, new UniqueTagList()),
+                    new Task(new Name("Event4"), new Date("300516"), new Start("1922"), new End("2021"), 0, 0, new UniqueTagList()),
+                    new Task(new Name("Event5"), new Date("12/12/16"), new Start("1030"), new End("1242"), 0, 0, new UniqueTagList()),
+                    new Task(new Name("Event6"), new Date("12/12/16"), new Start("12.35am"), new End("2234"), 0, 0, new UniqueTagList()),
+                    new Task(new Name("Event7"), new Date("300116"), new Start("1235"), new End("1634"), 0, 0, new UniqueTagList()),
+                    new Task(new Name("Event8"), new Date("13-12-16"), new Start("1245"), new End("1612"), 0, 0, new UniqueTagList()),
+                    new Task(new Name("Event9"), new Date("120126"), new Start("0000"), new End("1212"), 0, 0, new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
