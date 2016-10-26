@@ -159,12 +159,34 @@ Format: `redo`
 > * Allows redo to up to unlimited consecutive undo operations done
 > * Does not work if the undo command was not used just before this command
 
-/* @@author */
+/* @@author A0146107M*/
+
+#### Autocomplete feature: TAB button
+Autocomplete the command that has been entered halfway in the command box.
+Format: NIL
+
+> * If 2 or more commands match the current text, nothing will happen
+
+Examples:
+* Pressing TAB after entering `de` will complete `delete`
+* Pressing TAB after entering `u` will do nothing, as both `undo` and `update` match `u`
+* Pressing TAB after entering `un` will complete `undo`
+
+#### Command History: UP and DOWN arrows
+Traverse through previously entered commands.
+Format: NIL
+
+> UP displays the next older command.
+> DOWN displays the next newer command.
+> The currently entered text will remain available in the command history.
 
 #### Viewing help : `help`
+Displays the help page.
 Format: `help`
 
-> * Help is also shown if you enter an incorrect command e.g. `abcd`.
+> The help page will open in a new window.
+
+/* @@author */
 
 #### Clear all tasks : `clear`
 Clears all tasks from the to-do list.<br>
