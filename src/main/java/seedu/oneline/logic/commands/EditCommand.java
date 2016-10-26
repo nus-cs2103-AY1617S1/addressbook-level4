@@ -33,7 +33,7 @@ public abstract class EditCommand extends Command {
     
     public static EditCommand createFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
         args = args.trim();
-        if (args.startsWith("#")) {
+        if (args.startsWith(CommandConstants.TAG_PREFIX)) {
             return EditTagCommand.createFromArgs(args);
         } else {
             return EditTaskCommand.createFromArgs(args);

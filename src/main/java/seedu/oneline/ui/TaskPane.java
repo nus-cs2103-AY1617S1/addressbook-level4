@@ -2,6 +2,7 @@ package seedu.oneline.ui;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
@@ -9,26 +10,31 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.oneline.commons.core.LogsCenter;
 import seedu.oneline.commons.events.ui.TaskPanelSelectionChangedEvent;
+import seedu.oneline.commons.util.FxViewUtil;
 import seedu.oneline.model.task.ReadOnlyTask;
+import seedu.oneline.ui.TagListPanel.TagListViewCell;
 
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of tasks.
+ * The Task Pane of the App.
  */
-public class TaskListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "TaskListPanel.fxml";
-    private VBox panel;
-    private AnchorPane placeHolderPane;
+public class TaskPane extends UiPart{
 
+    private static Logger logger = LogsCenter.getLogger(TaskPane.class);
+    private String FXML = "TaskPane.fxml";
+    
     @FXML
     private ListView<ReadOnlyTask> taskListView;
 
-    public TaskListPanel() {
+    private VBox panel;
+    private AnchorPane placeHolderPane;
+
+    public TaskPane() {
         super();
     }
 
@@ -47,12 +53,12 @@ public class TaskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
+    public static TaskPane load(Stage primaryStage, AnchorPane taskPanePlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
-        TaskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
-        taskListPanel.configure(taskList);
-        return taskListPanel;
+        TaskPane taskPane =
+                UiPartLoader.loadUiPart(primaryStage, taskPanePlaceholder, new TaskPane());
+        taskPane.configure(taskList);
+        return taskPane;
     }
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {
@@ -104,5 +110,4 @@ public class TaskListPanel extends UiPart {
             }
         }
     }
-
 }

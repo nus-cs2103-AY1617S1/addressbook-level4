@@ -11,6 +11,7 @@ import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.testutil.TestUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -20,14 +21,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * Provides a handle for the panel containing the task list.
  */
-public class TaskListPanelHandle extends GuiHandle {
+public class TaskPaneHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String TASK_LIST_VIEW_ID = "#taskListView";
 
-    public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
+    public TaskPaneHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
@@ -76,29 +77,89 @@ public class TaskListPanelHandle extends GuiHandle {
 
         return true;
     }
+    
+    //@@author A0140156R
+    /**
+     * Returns true if the {@code tasks} appear as the sub list (in any order) at position {@code startPosition}.
+     */
+    public boolean contains(int startPosition, ReadOnlyTask... tasks) {
+        List<ReadOnlyTask> tasksInList = getListView().getItems();
+        if (startPosition + tasks.length > tasksInList.size()){
+            assert false;
+            return false;
+        }
+        List<ReadOnlyTask> tasksToCheck = new ArrayList<ReadOnlyTask>();
+        for (int i = 0; i < tasks.length; i++) {
+            tasksToCheck.add(tasks[i]);
+        }
+        for (int i = startPosition; i < tasksInList.size(); i++) {
+            ReadOnlyTask taskToFind = tasksInList.get(i);
+            boolean found = false;
+            for (int j = 0; j < tasksToCheck.size(); j++) {
+                ReadOnlyTask taskToCheck = tasksToCheck.get(j);
+                if (taskToCheck.getName().toString().equals(taskToFind.getName().toString())) {
+                    tasksToCheck.remove(j);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                assert false;
+                return false;
+            }
+        }
+        if (!tasksToCheck.isEmpty()) {
+            assert false;
+            return false;
+        }
+        return true;
+    }
 
+    /**
+     * Returns true if the list is showing the task details correctly and in correct order.
+     * @param checkOrder True if checking tasks in specified order, else if tasks in any order
+     * @param tasks A list of task in the correct order.
+     */
+    public boolean isListMatching(boolean checkOrder, ReadOnlyTask... tasks) throws IllegalArgumentException {
+        return isListMatching(0, checkOrder, tasks);
+    }
+    
     /**
      * Returns true if the list is showing the task details correctly and in correct order.
      * @param startPosition The starting position of the sub list.
      * @param tasks A list of task in the correct order.
      */
     public boolean isListMatching(int startPosition, ReadOnlyTask... tasks) throws IllegalArgumentException {
+        return isListMatching(startPosition, true, tasks);
+    }
+
+    /**
+     * Returns true if the list is showing the task details correctly and in specified order
+     * @param startPosition The starting position of the sub list.
+     * @param checkOrder True if checking tasks in specified order, else if tasks in any order
+     * @param tasks A list of task in the correct order.
+     */
+    public boolean isListMatching(int startPosition, boolean checkOrder, ReadOnlyTask... tasks) throws IllegalArgumentException {
         if (tasks.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getListView().getItems().size() - 1) + " tasks");
         }
-        assertTrue(this.containsInOrder(startPosition, tasks));
-        for (int i = 0; i < tasks.length; i++) {
-            final int scrollTo = i + startPosition;
-            guiRobot.interact(() -> getListView().scrollTo(scrollTo));
-            guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks[i])) {
-                return false;
+        if (checkOrder) {
+            assertTrue(this.containsInOrder(startPosition, tasks));
+            for (int i = 0; i < tasks.length; i++) {
+                final int scrollTo = i + startPosition;
+                guiRobot.interact(() -> getListView().scrollTo(scrollTo));
+                guiRobot.sleep(200);
+                if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks[i])) {
+                    return false;
+                }
             }
+        } else {
+            assertTrue(this.contains(startPosition, tasks));
         }
         return true;
     }
-
+    
 
     public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated

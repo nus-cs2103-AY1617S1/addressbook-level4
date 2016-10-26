@@ -15,7 +15,6 @@ import seedu.oneline.model.ModelManager;
 import seedu.oneline.model.ReadOnlyTaskBook;
 import seedu.oneline.model.TaskBook;
 import seedu.oneline.model.tag.Tag;
-import seedu.oneline.model.tag.UniqueTagList;
 import seedu.oneline.model.task.*;
 import seedu.oneline.storage.StorageManager;
 
@@ -33,6 +32,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.oneline.commons.core.Messages.*;
+import seedu.oneline.testutil.TestDataHelper;
 
 public class LogicManagerTest {
 
@@ -115,6 +115,9 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
+        if (!expectedShownList.equals(model.getFilteredTaskList())) {
+            assert false : "\nExpected: " + Arrays.toString(expectedShownList.toArray()) + "\nShown: " + Arrays.toString(model.getFilteredTaskList().toArray());
+        }
         assertEquals(expectedShownList, model.getFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
@@ -166,8 +169,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_successful() throws Exception {
-        // setup expectations
         TestDataHelper helper = new TestDataHelper();
+        // setup expectations
         Task toBeAdded = helper.myTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
@@ -182,8 +185,8 @@ public class LogicManagerTest {
 
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
-        // setup expectations
         TestDataHelper helper = new TestDataHelper();
+        // setup expectations
         Task toBeAdded = helper.myTask();
         TaskBook expectedAB = new TaskBook();
         expectedAB.addTask(toBeAdded);
@@ -203,7 +206,6 @@ public class LogicManagerTest {
 
     @Test
     public void execute_list_showsAllTasks() throws Exception {
-        // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         TaskBook expectedTB = helper.generateTaskBook(2);
         List<? extends ReadOnlyTask> expectedList = expectedTB.getTaskList();
@@ -237,8 +239,8 @@ public class LogicManagerTest {
      * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
-        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
+        String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         List<Task> taskList = helper.generateTaskList(2);
 
         // set Task book state to 2 tasks
@@ -281,12 +283,12 @@ public class LogicManagerTest {
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = Messages.getInvalidCommandFormatMessage(DeleteCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("del", expectedMessage);
     }
 
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("delete");
+        assertIndexNotFoundBehaviorForCommand("del");
     }
 
     @Test
@@ -298,7 +300,7 @@ public class LogicManagerTest {
         expectedAB.removeTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
 
-        assertCommandBehavior("delete 2",
+        assertCommandBehavior("del 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS, threeTasks.get(1)),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -322,6 +324,7 @@ public class LogicManagerTest {
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
         TaskBook expectedAB = helper.generateTaskBook(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
+        Collections.sort(expectedList);
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
@@ -339,6 +342,7 @@ public class LogicManagerTest {
         Task p4 = helper.generateTaskWithName("KEy sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
+        Collections.sort(fourTasks);
         TaskBook expectedAB = helper.generateTaskBook(fourTasks);
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
@@ -367,7 +371,25 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-
+    
+    //---------------- Tests for doneCommand --------------------------------------
+    /*
+     * Invalid equivalence partitions for index: null, signed integer, non-numeric characters
+     * Invalid equivalence partitions for index: index larger than no. of tasks in taskBook
+     * The two test cases below test invalid input above one by one.
+     */
+    
+    @Test
+    public void execute_doneInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = Messages.getInvalidCommandFormatMessage(DoneCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("done", expectedMessage);
+    }
+    
+    @Test
+    public void execute_doneIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("done");
+    }
+    
     @Test
     public void execute_undo_redo() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -380,24 +402,24 @@ public class LogicManagerTest {
         logic.execute(helper.generateAddCommand(task2));
         TaskBook expectedTaskBook3 = new TaskBook(model.getTaskBook());
         logic.execute(helper.generateAddCommand(task3));
-        
+
         // Undo command
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_SUCCESS, expectedTaskBook3, Arrays.asList(task1, task2));
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_SUCCESS, expectedTaskBook3, Arrays.asList(task2, task1));
         assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_SUCCESS, expectedTaskBook2, Arrays.asList(task1));
         assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_SUCCESS, expectedTaskBook1, Collections.emptyList());
         assertCommandBehavior("undo", UndoCommand.MESSAGE_NO_PREVIOUS_STATE, expectedTaskBook1, Collections.emptyList());
         
         // Redo command
         assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_SUCCESS, expectedTaskBook2, Arrays.asList(task1));
-        assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_SUCCESS, expectedTaskBook3, Arrays.asList(task1, task2));
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_REDO_SUCCESS, expectedTaskBook3, Arrays.asList(task2, task1));
         Task task4 = helper.generateTaskWithName("Crazy task");
         logic.execute(helper.generateAddCommand(task4));
         TaskBook expectedTaskBook4 = new TaskBook(model.getTaskBook());
-        assertCommandBehavior("redo", RedoCommand.MESSAGE_NO_NEXT_STATE, expectedTaskBook4, Arrays.asList(task1, task2, task4));
+        assertCommandBehavior("redo", RedoCommand.MESSAGE_NO_NEXT_STATE, expectedTaskBook4, Arrays.asList(task4, task2, task1));
         
         // Undo find command
         assertCommandBehavior(FindCommand.COMMAND_WORD + " harder", FindCommand.getMessageForTaskListShownSummary(1), expectedTaskBook4, Arrays.asList(task2));
-        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_SUCCESS, expectedTaskBook4, Arrays.asList(task1, task2, task4));
+        assertCommandBehavior("undo", UndoCommand.MESSAGE_UNDO_SUCCESS, expectedTaskBook4, Arrays.asList(task4, task2, task1));
         assertCommandBehavior(RedoCommand.COMMAND_WORD, RedoCommand.MESSAGE_REDO_SUCCESS, expectedTaskBook4, Arrays.asList(task2));
         
         
@@ -407,7 +429,7 @@ public class LogicManagerTest {
     /**
      * A utility class to generate test data.
      */
-    class TestDataHelper{
+    class TestDataHelper {
 
         Task myTask() throws Exception {
             TaskName name = new TaskName("Adam Brown");

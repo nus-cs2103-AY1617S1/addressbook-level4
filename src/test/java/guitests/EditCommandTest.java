@@ -3,6 +3,7 @@ package guitests;
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.logic.commands.AddCommand;
@@ -49,11 +50,30 @@ public class EditCommandTest extends TaskBookGuiTest {
 
         //edit with invalid fields
         fields = new HashMap<TaskField, String>();
-        fields.put(TaskField.START_TIME, "X");
+        fields.put(TaskField.START_TIME, "Not a real time");
         assertEditFailed(2, fields, TaskTime.MESSAGE_TASK_TIME_CONSTRAINTS, currentList);
+
+//        //add another task
+//        taskToAdd = TypicalTestTasks.todoExtra;
+//        assertEditSuccess(taskToAdd, currentList);
+//        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+
+//        //add duplicate task
+//        commandBox.runCommand(TypicalTestTasks.eventExtra.getAddCommand());
+//        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
+//        assertTrue(taskListPanel.isListMatching(currentList));
+
+//        //add to empty list
+//        commandBox.runCommand("clear");
+//        assertEditSuccess(TypicalTestTasks.event1);
+
+        //invalid command
+        commandBox.runCommand("edits Task");
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertEditSuccess(int index, Map<TaskField, String> fields, TestTask... currentList) {
+        Arrays.sort(currentList);
         TestTask[] expectedRemainder = currentList.clone();
         assert 0 <= index && index < expectedRemainder.length;
         StringBuilder cmd = new StringBuilder();
@@ -113,8 +133,9 @@ public class EditCommandTest extends TaskBookGuiTest {
         }
         expectedRemainder[index - 1] = newTask;
         commandBox.runCommand(cmd.toString());
+        Arrays.sort(expectedRemainder);
 
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        assertTrue(taskPane.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
         assertResultMessage(String.format(EditTaskCommand.MESSAGE_SUCCESS, newTask.toString()));
@@ -169,7 +190,7 @@ public class EditCommandTest extends TaskBookGuiTest {
         }
         commandBox.runCommand(cmd.toString());
 
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        assertTrue(taskPane.isListMatching(false, expectedRemainder));
 
         //confirm the result message is correct
         assertResultMessage(message);

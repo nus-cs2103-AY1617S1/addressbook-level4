@@ -17,7 +17,10 @@ public interface ReadOnlyTask {
     public TaskTime getEndTime();
     public TaskTime getDeadline();
     public TaskRecurrence getRecurrence();
-
+    public boolean isCompleted();
+    public boolean isFloating();
+    public boolean isEvent();
+    public boolean hasDeadline();
 
     /**
      * Returns the tag of the current task
@@ -55,7 +58,7 @@ public interface ReadOnlyTask {
                 .append(getTag());
         return builder.toString();
     }
-    
+
     Task update(Map<TaskField, String> fields) throws IllegalValueException;
 
 }

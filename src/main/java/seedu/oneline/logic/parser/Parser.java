@@ -19,7 +19,6 @@ import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.commons.util.StringUtil;
 import seedu.oneline.logic.commands.*;
 import seedu.oneline.model.task.TaskField;
-import seedu.oneline.ui.BrowserPanel;
 
 /**
  * Parses user input.
@@ -57,10 +56,13 @@ public class Parser {
         commands.put(EditCommand.COMMAND_WORD.toLowerCase(), EditCommand.class);
         commands.put(DeleteCommand.COMMAND_WORD.toLowerCase(), DeleteCommand.class);
         commands.put(ClearCommand.COMMAND_WORD.toLowerCase(), ClearCommand.class);
+        commands.put(DoneCommand.COMMAND_WORD.toLowerCase(), DoneCommand.class);
         commands.put(FindCommand.COMMAND_WORD.toLowerCase(), FindCommand.class);
         commands.put(ListCommand.COMMAND_WORD.toLowerCase(), ListCommand.class);
         commands.put(ExitCommand.COMMAND_WORD.toLowerCase(), ExitCommand.class);
         commands.put(HelpCommand.COMMAND_WORD.toLowerCase(), HelpCommand.class);
+        commands.put(SaveCommand.COMMAND_WORD.toLowerCase(), SaveCommand.class);
+        commands.put(UndoneCommand.COMMAND_WORD.toLowerCase(), UndoneCommand.class);
         commands.put(UndoCommand.COMMAND_WORD.toLowerCase(), UndoCommand.class);
         commands.put(RedoCommand.COMMAND_WORD.toLowerCase(), RedoCommand.class);
         return commands;
@@ -256,7 +258,7 @@ public class Parser {
         return matcher.group("tag");
     }
   //@@author
-    
+
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.

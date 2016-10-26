@@ -17,7 +17,7 @@ public class FindCommandTest extends TaskBookGuiTest {
         assertFindResult("find Consolidate", TypicalTestTasks.todo2, TypicalTestTasks.float1); //multiple results
 
         //find after deleting one result
-        commandBox.runCommand("delete 1");
+        commandBox.runCommand("del 1");
         assertFindResult("find Consolidate", TypicalTestTasks.float1);
     }
 
@@ -37,6 +37,6 @@ public class FindCommandTest extends TaskBookGuiTest {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(Command.getMessageForTaskListShownSummary(expectedHits.length));
-        assertTrue(taskListPanel.isListMatching(expectedHits));
+        assertTrue(taskPane.isListMatching(expectedHits));
     }
 }

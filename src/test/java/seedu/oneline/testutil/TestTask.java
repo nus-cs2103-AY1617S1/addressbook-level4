@@ -12,15 +12,15 @@ import seedu.oneline.model.task.*;
 /**
  * A mutable task object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 
     private TaskName name;
     private TaskTime startTime;
     private TaskTime endTime;
     private TaskTime deadline;
     private TaskRecurrence recurrence;
-    
     private Tag tag;
+    private boolean isCompleted; 
 
     public TestTask() {
     }
@@ -32,6 +32,7 @@ public class TestTask implements ReadOnlyTask {
         this.deadline = task.getDeadline();
         this.recurrence = task.getRecurrence();
         this.tag = task.getTag();
+        this.isCompleted = task.isCompleted();
     }
     
     public void setName(TaskName name) {
@@ -56,6 +57,10 @@ public class TestTask implements ReadOnlyTask {
     
     public void setTag(Tag tag) {
         this.tag = tag;
+    }
+    
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted; 
     }
 
     @Override
@@ -86,6 +91,11 @@ public class TestTask implements ReadOnlyTask {
     @Override
     public Tag getTag() {
         return tag;
+    }
+    
+    @Override
+    public boolean isCompleted() {
+        return isCompleted; 
     }
 
     @Override
@@ -138,5 +148,30 @@ public class TestTask implements ReadOnlyTask {
         }
         Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag);
         return newTask;
+    }
+
+    //@@author A0138848M
+    public boolean isFloating() {
+        return !startTime.isValid() && !endTime.isValid() && !deadline.isValid();
+    }
+    
+    public boolean isEvent() {
+        return startTime.isValid() && endTime.isValid();
+    }
+
+    public boolean hasDeadline() {
+        return deadline.isValid();
+    }
+    
+    /**
+     * Compares by deadline, then compares by name
+     */
+    @Override
+    public int compareTo(TestTask o) {
+        if (deadline.compareTo(o.deadline) == 0){
+            return name.compareTo(o.name);
+        } else {
+            return deadline.compareTo(o.deadline);
+        }
     }
 }

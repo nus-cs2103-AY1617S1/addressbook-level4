@@ -3,6 +3,8 @@ package guitests;
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
+import edu.emory.mathcs.backport.java.util.Collections;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.logic.commands.AddCommand;
 import seedu.oneline.testutil.TestTask;
@@ -18,6 +20,7 @@ public class AddCommandTest extends TaskBookGuiTest {
     public void add() {
         //add one task
         TestTask[] currentList = td.getTypicalTasks();
+        Arrays.sort(currentList);
         TestTask taskToAdd = TypicalTestTasks.eventExtra;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
@@ -26,11 +29,12 @@ public class AddCommandTest extends TaskBookGuiTest {
         taskToAdd = TypicalTestTasks.todoExtra;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
+        Arrays.sort(currentList);
+        
         //add duplicate task
         commandBox.runCommand(TypicalTestTasks.eventExtra.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        assertTrue(taskPane.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -45,12 +49,14 @@ public class AddCommandTest extends TaskBookGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().toString());
+        TaskCardHandle addedCard = taskPane.navigateToTask(taskToAdd.getName().toString());
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
         TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
-        assertTrue(taskListPanel.isListMatching(expectedList));
+        Arrays.sort(expectedList);
+        
+        assertTrue(taskPane.isListMatching(expectedList));
     }
 
 }

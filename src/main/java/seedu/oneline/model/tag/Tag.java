@@ -25,7 +25,8 @@ public class Tag {
     
     private Tag() {
     }
-
+    
+    //@@author A0142605N
     /**
      * Validates given tag name.
      *
