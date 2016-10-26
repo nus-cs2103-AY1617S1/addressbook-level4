@@ -535,16 +535,26 @@ Day:
 
 ## Appendix E: Product Survey
 
-1. **Fantastical**
+## Fantastical
+#### Strengths
 
-1a. It has a good and clean UI, really simple to use. <br>
-1b. It has integration with all iOS products, i.e. mac, iphone, ipad etc. <br>
-1c. Includes all CRUD features. <br>
-1d. It has a reminder function. <br>
-1e. Has a list of all upcoming tasks for the week at the left hand side. <br>
-1f. Has natural language processing, can add events using Siri. <br>
-1g. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
-1h. Automatically syncs with apple calendar, updates and syncs on the go. <br>
+1. It has a good and clean UI, really simple to use. <br>
+2. It has integration with all iOS products, i.e. mac, iphone, ipad etc. <br>
+3. Includes all CRUD features. <br>
+4. It has a reminder function. <br>
+5. Has a list of all upcoming tasks for the week at the left hand side. <br>
+6. Has natural language processing, can add events using Siri. <br>
+7. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
+8. Automatically syncs with apple calendar, updates and syncs on the go. <br>
+
+#### Weakness
+
+1. Limited features for free users. <br>
+2. Hard to categorise tasks. <br> 
+3. Can be difficult to use for first time users <br>
+4. No support for ipad.
+5. No alert when event is starting
+
 
 ## Google Cal
 #### Strengths
