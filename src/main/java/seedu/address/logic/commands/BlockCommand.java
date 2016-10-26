@@ -3,6 +3,8 @@ package seedu.address.logic.commands;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -64,7 +66,10 @@ public class BlockCommand extends Command {
         assert model != null;
         try {
             model.addTask(toBlock);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toBlock));
+            CommandResult result = new CommandResult(String.format(MESSAGE_SUCCESS, toBlock));
+            int targetIndex = model.getFilteredTaskComponentList().size();
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+            return result;
         } catch (TimeslotOverlapException e) {
         	indicateAttemptToExecuteFailedCommand();
         	urManager.popFromUndoQueue();

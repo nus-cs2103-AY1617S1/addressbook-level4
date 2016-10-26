@@ -329,8 +329,8 @@ public class ModelManager extends ComponentManager implements Model {
 			Date startDate = timeArray[START_DATE_INDEX];
 			Date endDate = timeArray[END_DATE_INDEX];
 			
-			if((startDate.after(this.startTime)||startDate.equals(this.startTime))
-					&& (endDate.before(this.endTime)||endDate.equals(this.endTime)))
+			if(!startDate.before(this.startTime)
+					&& !endDate.after(this.endTime))
 				return true;
 			return false;	
 		}

@@ -5,8 +5,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -91,6 +93,9 @@ public class EditCommand extends Command {
 		Task targetTask = (Task) taskToEdit.getTaskReference();
 		try {
 			model.editTask(targetTask, taskName, tags, startDate, endDate, recurringType);
+			CommandResult result = new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, targetTask));
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+            return result;
 		} catch (TaskNotFoundException e) {
 			assert false : "The target task cannot be missing";
 		} catch (TimeslotOverlapException e) {
