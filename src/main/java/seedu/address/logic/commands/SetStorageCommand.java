@@ -4,6 +4,9 @@ package seedu.address.logic.commands;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import javafx.util.Pair;
+
 import java.nio.file.InvalidPathException;
 import java.io.IOException;
 
@@ -56,28 +59,11 @@ public class SetStorageCommand extends Command {
         model.saveState();
         
         try{
-        	Path newStorageFolderFilePath = Paths.get(userSpecifiedStorageFolder);  //Throws InvalidPathException
+        	Pair<Path, Path> filePaths = model.validateSetStorage(userSpecifiedStorageFolder, userSpecifiedStorageFileName);
         	
-        	//
-        	if(Files.notExists(newStorageFolderFilePath)){  //Throws SecurityException
-        		return new CommandResult(String.format(MESSAGE_FOLDER_DOES_NOT_EXIST, userSpecifiedStorageFolder)); 
-        	}
+        	Path newStorageFileFilePath = filePaths.getKey();
         	
-        	if(!Files.isDirectory(newStorageFolderFilePath)){  //Throws SecurityException
-        		return new CommandResult(String.format(MESSAGE_FOLDER_NOT_DIRECTORY, userSpecifiedStorageFolder)); 
-        	}        	        	        	
-        	
-        	Path newStorageFileFilePath = newStorageFolderFilePath.resolve(userSpecifiedStorageFileName +".xml");  //Throws InvalidPathException
-        	
-        	Path oldStorageFileFilePath = Paths.get(model.getTaskManagerStorageFilePath());  //Throws InvalidPathException
-        	
-        	if(newStorageFileFilePath.equals(oldStorageFileFilePath)){
-        		return new CommandResult(String.format(MESSAGE_STORAGE_PREVIOUSLY_SET, oldStorageFileFilePath.toString())); 
-        	}
-        	
-        	if(Files.exists(newStorageFileFilePath)){  //Throws SecurityException
-        		return new CommandResult(String.format(MESSAGE_FILE_WITH_IDENTICAL_NAME_EXISTS, userSpecifiedStorageFileName + ".xml", userSpecifiedStorageFolder));
-        	}
+        	Path oldStorageFileFilePath = filePaths.getValue();
         	
         	model.setStorage(newStorageFileFilePath.toFile(), oldStorageFileFilePath.toFile());
         	
@@ -92,6 +78,9 @@ public class SetStorageCommand extends Command {
         } catch (SecurityException ex){
         	model.loadPreviousState();
         	return new CommandResult(MESSAGE_SECURITY_EXCEPTION);
+        } catch (//IllegalArgumentException ex){
+        	model.loadPreviousState();
+        	return new CommandResult(ex.getMessage());
         }
     }
 }

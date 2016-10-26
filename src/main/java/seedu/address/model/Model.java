@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import javafx.util.Pair;
+
 /**
  * The API of the Model component.
  */
@@ -43,8 +45,12 @@ public interface Model {
     /** Updates the given task */
     void editTask(int index, Task task) throws UniqueTaskList.TaskNotFoundException;
     
-    /** Sets task manager data storage location */
+    /** Validates arguments passed to SetStorageCommand.
+     * 	Returns newStorageFileFilePath (Path) and oldStorageFileFilePath (Path) if arguments are valid.
+     */
+    Pair<Path, Path> validateSetStorage(String userSpecifiedStorageFolder, String userSpecifiedStorageFileName);
     
+    /** Sets task manager data storage location */    
     void setStorage(File newStorageFileFilePath, File oldStorageFileFilePath) throws IOException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */

@@ -1,10 +1,13 @@
 package seedu.address.model;
 
 import javafx.collections.transformation.FilteredList;
+import javafx.util.Pair;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.SetStorageCommand;
 import seedu.address.commons.events.model.TaskManagerChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
@@ -16,6 +19,8 @@ import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Set;
@@ -23,6 +28,7 @@ import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 import com.google.common.io.Files;
+import java.nio.file.InvalidPathException;
 
 /**
  * Represents the in-memory model of the task manager data.
@@ -137,6 +143,34 @@ public class ModelManager extends ComponentManager implements Model {
     
 
     //@@author A0143756Y
+    @Override
+    public synchronized Pair<Path, Path> validateSetStorage(String userSpecifiedStorageFolder, String userSpecifiedStorageFileName){	
+    	Path newStorageFolderFilePath = Paths.get(userSpecifiedStorageFolder);  //Throws InvalidPathException
+    	
+    	if(java.nio.file.Files.notExists(newStorageFolderFilePath)){  //Throws SecurityException
+    		throw new //IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_DOES_NOT_EXIST, userSpecifiedStorageFolder)); 
+    	}
+    	
+    	if(!java.nio.file.Files.isDirectory(newStorageFolderFilePath)){  //Throws SecurityException
+    		throw new //IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FOLDER_NOT_DIRECTORY, userSpecifiedStorageFolder)); 
+    	}        	        	        	
+    	
+    	Path newStorageFileFilePath = newStorageFolderFilePath.resolve(userSpecifiedStorageFileName +".xml");  //Throws InvalidPathException
+    	
+    	Path oldStorageFileFilePath = Paths.get(getTaskManagerStorageFilePath());  //Throws InvalidPathException
+    	
+    	if(newStorageFileFilePath.equals(oldStorageFileFilePath)){
+    		throw new //IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_STORAGE_PREVIOUSLY_SET, oldStorageFileFilePath.toString())); 
+    	}
+    	
+    	if(java.nio.file.Files.exists(newStorageFileFilePath)){  //Throws SecurityException
+    		throw new //IllegalArgumentException(String.format(SetStorageCommand.MESSAGE_FILE_WITH_IDENTICAL_NAME_EXISTS, userSpecifiedStorageFileName 
+    				+ ".xml", userSpecifiedStorageFolder));
+    	}
+    	
+    	return new Pair<Path, Path>(newStorageFolderFilePath, oldStorageFileFilePath);
+    }
+    
     @Override
     public synchronized void setStorage(File newStorageFile, File oldStorageFile) throws IOException{
     	assert newStorageFile!= null;
