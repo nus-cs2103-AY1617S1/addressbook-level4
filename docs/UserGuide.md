@@ -111,7 +111,7 @@ Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 > `end` denotes a deadline. 
 
 `DATE_TIME` is flexible!<br>
-If no `DATE` is specified, `DATE` will be assumed to be the current date<br>
+If no `DATE` is specified, `DATE` will be assumed to be today<br>
 If no `TIME` is specified, `TIME` will be assumed to be 11:59pm
 
 <br>
