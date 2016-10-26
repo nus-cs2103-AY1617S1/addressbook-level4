@@ -1,7 +1,7 @@
 package seedu.todoList.model.task;
 
 import seedu.todoList.model.task.attributes.Name;
-
+import seedu.todoList.model.task.attributes.Done;
 
 /**
  * Represents a task in the TaskList.
@@ -10,8 +10,17 @@ import seedu.todoList.model.task.attributes.Name;
 public abstract class Task implements ReadOnlyTask {
 
     protected Name name;
+    protected String isDone;
     
     public Name getName() {
     	return this.name;
+    }
+    
+    public String getDone() {
+    	return this.isDone;
+    }
+    
+    public void setDone(String isDone) {
+    	this.isDone = isDone;
     }
 }

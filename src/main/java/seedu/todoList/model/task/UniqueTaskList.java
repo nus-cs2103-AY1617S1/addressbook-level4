@@ -93,21 +93,6 @@ public class UniqueTaskList implements Iterable<Task> {
     public void removeAll() {
        internalList.remove(0, internalList.size());
     }
-    
-    /**
-     * Marks the equivalent task as done.
-     *
-     * @throws TaskNotFoundException if no such task could be found in the list.
-     */
-    public boolean done(ReadOnlyTask toDone) throws TaskNotFoundException {
-        assert toDone != null;
-        //final boolean taskFoundAndCompleted = ((UniqueTaskList) internalList).done(toDone);
-        //if (!taskFoundAndCompleted) {
-            //throw new TaskNotFoundException();
-        //}
-        //return taskFoundAndCompleted;
-        return true;
-    }
 
     public ObservableList<Task> getInternalList() {
         return internalList;
@@ -129,5 +114,39 @@ public class UniqueTaskList implements Iterable<Task> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+    
+    /**
+     * Marks the equivalent task as done.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean doneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    	assert key != null;
+    	final boolean taskUpdated = internalList.contains(key);
+        if (taskUpdated) {
+        	internalList.get(internalList.indexOf(key)).setDone("true");
+        	internalList.set(internalList.indexOf(key), internalList.get(internalList.indexOf(key)));
+            return taskUpdated;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+    
+    /**
+     * Marks the equivalent task as undone.
+     *
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     */
+    public boolean undoneTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        assert key != null;
+        final boolean taskUpdated = internalList.contains(key);
+        if (taskUpdated) {
+            internalList.get(internalList.indexOf(key)).setDone("false");
+            internalList.set(internalList.indexOf(key), internalList.get(internalList.indexOf(key)));
+            return taskUpdated;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
     }
 }
