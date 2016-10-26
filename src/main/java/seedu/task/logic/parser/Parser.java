@@ -24,13 +24,13 @@ public class Parser {
     private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("^((?<operand>(start|end|pr|t)/)\\s*)?(?<keywords>\\S+(?:\\s+\\S+)*)$"); // one or more keywords separated by whitespace
+            Pattern.compile("^((?<operand>(st|ed|pr|t)/)\\s*)?(?<keywords>\\S+(?:\\s+\\S+)*)$"); // one or more keywords separated by whitespace
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<description>[^/]+)"
                     + "( pr/)?(?<priority>([^/]+)?)"
-                    + "( start/)?(?<timeStart>([^/]+)?)"
-                    + "( end/)?(?<timeEnd>([^/]+)?)"
+                    + "( st/)?(?<timeStart>([^/]+)?)"
+                    + "( ed/)?(?<timeEnd>([^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern TAG_ADD_ARGS_FORMAT =
@@ -40,9 +40,11 @@ public class Parser {
     		Pattern.compile("(?<targetIndex>.+)" + "(?<tag>.*)");
 
     private static final Pattern TASK_UPDATE_ARGS_FORMAT =
-    		Pattern.compile("(?<targetIndex>.+)"
-    				+ "(?<arguments>.*)"
-                    + "(?<info>.*)");
+    		Pattern.compile("(?<targetIndex>[^/]+)"
+    				+ ("( des/)?(?<description>([^/]+)?)"
+    	            + "( pr/)?(?<priority>([^/]+)?)"
+    	            + "( st/)?(?<timeStart>([^/]+)?)"
+    	            + "( ed/)?(?<timeEnd>([^/]+)?)"));
 
     public Parser() {}
 
@@ -293,19 +295,19 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
         }
 
-        String[] command = args.trim().split(" ",3);
-        Optional<Integer> index = parseIndex(command[0]);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
-        }
-
-
         try {
-            	return new UpdateCommand(Integer.parseInt(command[0]),command[1],command[2]);
-        } catch (ArrayIndexOutOfBoundsException ive) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
+            return new UpdateCommand(
+            		matcher.group("targetIndex"),
+            		matcher.group("description"),
+                    matcher.group("priority"),
+                    matcher.group("timeStart"),
+                    matcher.group("timeEnd")
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
         }
     }
+
+
 
 }

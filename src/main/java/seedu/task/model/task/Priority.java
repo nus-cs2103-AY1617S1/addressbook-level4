@@ -36,7 +36,8 @@ public class Priority {
     public static boolean isValidPriority(String test) {
         return test.equals("high")
                || test.equals("low")
-               || test.equals("normal");
+               || test.equals("normal")
+               || test.equals("NOUPDATE");
     }
 
     @Override

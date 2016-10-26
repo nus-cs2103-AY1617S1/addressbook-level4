@@ -15,7 +15,7 @@ import seedu.task.model.task.*;
  */
 public class AddTagCommand extends Command{
 
-    public static final String COMMAND_WORD = "addTag";
+    public static final String COMMAND_WORD = "addtag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
     		+ ": add a tag to the task identified by the index number used in the last task listing.\n"

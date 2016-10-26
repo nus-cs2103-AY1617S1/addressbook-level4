@@ -65,6 +65,10 @@ public class Task implements ReadOnlyTask {
 		return completeStatus;
     }
 
+    public void setCompleteStatus(boolean complete){
+    	this.completeStatus = complete;
+    }
+
     @Override
     public Time getTimeStart() {
         return timeStart;
