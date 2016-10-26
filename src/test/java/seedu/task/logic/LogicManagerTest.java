@@ -81,6 +81,7 @@ public class LogicManagerTest {
     public void teardown() {
         EventsCenter.clearSubscribers();
     }
+
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'task list' and the 'last shown list' are expected to be empty.

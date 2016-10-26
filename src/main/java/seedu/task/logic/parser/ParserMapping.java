@@ -26,7 +26,7 @@ public class ParserMapping {
      */
     private void populateMappings() {
         mappingTable.put("add", AddParser.class);
-        //mappingTable.put("clear", ClearParser.class);
+        mappingTable.put("clear", ClearParser.class);
         mappingTable.put("complete", CompleteParser.class);
         mappingTable.put("delete", DeleteParser.class);
         mappingTable.put("exit", ExitParser.class);
