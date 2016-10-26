@@ -21,6 +21,13 @@ import seedu.emeraldo.model.task.Task;
 import seedu.emeraldo.model.task.UniqueTaskList;
 import seedu.emeraldo.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.EmptyStackException;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.logging.Logger;
+
+import java.util.Stack;
+
 /**
  * Represents the in-memory model of the Emeraldo data.
  * All changes to any model should be synchronized.
