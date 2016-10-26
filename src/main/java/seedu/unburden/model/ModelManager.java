@@ -95,6 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
     }
     
+    //@@Gauri Joshi A0143095H
     @Override 
     public synchronized void doneTask(ReadOnlyTask taskToDone, boolean isDone){
     	listOfTask.doneTask(taskToDone,isDone);
@@ -115,7 +116,6 @@ public class ModelManager extends ComponentManager implements Model {
     	undoHistory.clear();
     }
     
-    @Override
     public synchronized void saveToUndoHistory() {
     	if (undoHistory.size() == 0) 
     		undoHistory.push(new ListOfTask(listOfTask));
@@ -138,7 +138,7 @@ public class ModelManager extends ComponentManager implements Model {
     	listOfTask.setTasks(oldCopy.getTasks());
     	indicateTaskListChanged();
     }
-    
+    //@@Gauri Joshi
     
 
     //=========== Filtered Task List Accessors ===============================================================

@@ -93,13 +93,15 @@ public class StatusBarFooter extends UiPart {
     public String getFxmlPath() {
         return FXML;
     }
-
+    
+    //@@Gary Goh A0139714B
     @Subscribe
     public void handleListOfTaskChangedEvent(ListOfTaskChangedEvent abce) {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
+    //@@Gary Goh 
     
     @Subscribe
     public void handleStoragePathChangeEvent(StoragePathChangedEvent event) {

@@ -6,7 +6,7 @@ import seedu.unburden.commons.core.Config;
 import seedu.unburden.commons.exceptions.DataConversionException;
 import seedu.unburden.commons.util.ConfigUtil;
 import seedu.unburden.commons.util.FileUtil;
-
+//@@Gary Goh A0139714B
 public class SetDirectoryCommand extends Command{
 	
 	public static final String COMMAND_WORD = "setdir";
