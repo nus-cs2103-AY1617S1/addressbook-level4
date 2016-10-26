@@ -2,7 +2,6 @@ package seedu.task.logic.commands;
 
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
-import seedu.task.logic.HistoryManager;
 import seedu.task.logic.RollBackCommand;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.Task;
