@@ -3,9 +3,12 @@ package guitests;
 import guitests.guihandles.DeadlineCardHandle;
 import guitests.guihandles.EventCardHandle;
 import guitests.guihandles.TaskCardHandle;
+import guitests.guihandles.TaskListPanelHandle;
+import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.commons.core.Messages;
 import seedu.todoList.logic.commands.*;
 import seedu.todoList.testutil.TestUtil;
+import seedu.todoList.testutil.TypicalTestTask;
 import seedu.todoList.testutil.TestDeadline;
 import seedu.todoList.testutil.TestEvent;
 import seedu.todoList.testutil.TestTask;
@@ -21,7 +24,9 @@ public class AddCommandTest extends ListGuiTest {
     public void add() {
         //add one task
         TestTask[] currentList = td.getTypicaltasks();
-        TestTask taskToAdd = td.a6;
+        TestTask taskToAdd = TypicalTestTask.a1;
+        //LogsCenter.getLogger(AddCommandTest.class).info("taskToAdd: " + taskToAdd.getName().toString());
+        //LogsCenter.getLogger(AddCommandTest.class).info("taskToAddList: " + currentList.toString());
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
         
@@ -78,10 +83,14 @@ public class AddCommandTest extends ListGuiTest {
     }
 
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
+        //LogsCenter.getLogger(AddCommandTest.class).info("task.length add command: " + taskToAdd.getName().name.toString());
+
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateTotask(taskToAdd.getName().name);
+        LogsCenter.getLogger(AddCommandTest.class).info("XXX: " + taskToAdd.getName().name.toString());
+
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task

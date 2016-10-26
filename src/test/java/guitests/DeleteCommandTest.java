@@ -43,7 +43,7 @@ public class DeleteCommandTest extends ListGuiTest {
         TestTask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removetaskFromList(currentList, targetIndexOneIndexed);
 
-        commandBox.runCommand("delete " + targetIndexOneIndexed);
+        commandBox.runCommand("delete todo " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous tasks except the deleted task
         assertTrue(taskListPanel.isListMatching(expectedRemainder));

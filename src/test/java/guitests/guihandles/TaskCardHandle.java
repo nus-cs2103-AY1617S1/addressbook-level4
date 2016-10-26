@@ -11,9 +11,11 @@ import seedu.todoList.model.task.Todo;
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String DATE_FIELD_ID = "#date";
+    private static final String DATE_FIELD_ID = "#startDate";
     private static final String PRIORITY_FIELD_ID = "#priority";
-    //private static final String ENDTIME_FIELD_ID = "#EndTime";
+    private static final String ENDDATE_FIELD_ID = "#endDate";
+    private static final String DONE_FIELD_ID = "#isDone";
+
 
     private Node node;
 
@@ -37,6 +39,12 @@ public class TaskCardHandle extends GuiHandle {
     public String getDate() {
         return getTextFromLabel(DATE_FIELD_ID);
     }
+    public String getEndDate() {
+        return getTextFromLabel(ENDDATE_FIELD_ID);
+    }
+    public String getDone() {
+        return getTextFromLabel(DONE_FIELD_ID);
+    }
 
 
     public boolean isSametask(ReadOnlyTask task){
@@ -50,7 +58,9 @@ public class TaskCardHandle extends GuiHandle {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getName().equals(handle.getName())
                     && getDate().equals(handle.getDate())
-                    && getPriority().equals(handle.getPriority());
+                    && getEndDate().equals(handle.getEndDate())
+                    && getPriority().equals(handle.getPriority())
+                    && getDone().equals(handle.getDone());
         }
         return super.equals(obj);
     }

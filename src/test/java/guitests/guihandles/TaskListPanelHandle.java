@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.todoList.TestApp;
+import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.Task;
 import seedu.todoList.model.task.Todo;
@@ -101,10 +102,14 @@ public class TaskListPanelHandle extends GuiHandle {
         return true;
     }
 
-
+    //@@ Author A0132157M
     public TaskCardHandle navigateTotask(String readOnlyTask) {
+        LogsCenter.getLogger(TaskListPanelHandle.class).info("task.length add command: " + readOnlyTask.toString());
+
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().name.equals(readOnlyTask)).findAny();
+        LogsCenter.getLogger(TaskListPanelHandle.class).info("task: " + task.toString());
+
         if (!task.isPresent()) {
             throw new IllegalStateException("Task not found: " + readOnlyTask);
         }

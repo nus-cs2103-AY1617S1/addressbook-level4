@@ -329,6 +329,7 @@ public class LogicManagerTest {
     }
 
     @Test
+    //@@ Author A0132157M
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generatetaskWithToDo("bla bla KEY bla");
@@ -394,8 +395,8 @@ public class LogicManagerTest {
 
         Todo a111() throws Exception {
             Name name = new Name("Assignment 111");
-            StartDate sdate = new StartDate("4 01 2017");
-            EndDate edate = new EndDate("5 January 2019");
+            StartDate sdate = new StartDate("04-11-2017");
+            EndDate edate = new EndDate("02-12-2017");
             Priority priority = new Priority("111");
             Done done = new Done("done");
             
@@ -419,7 +420,7 @@ public class LogicManagerTest {
                     new Name("task " + seed),
                     new StartDate("4th October 2018"),
                     new EndDate("4th October 2019"),
-                    new Priority(seed + "10"),
+                    new Priority( "priority " + seed),
                     new Done("done")
                     //new EndTime("EndTime " + seed)
                     //new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
