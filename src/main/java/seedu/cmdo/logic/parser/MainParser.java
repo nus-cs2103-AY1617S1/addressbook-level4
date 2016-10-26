@@ -12,16 +12,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import com.joestelmach.natty.*;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seedu.cmdo.commons.core.Messages;
 import seedu.cmdo.commons.exceptions.IllegalValueException;
 import seedu.cmdo.commons.util.StringUtil;
-import seedu.cmdo.logic.LogicManager;
 import seedu.cmdo.logic.commands.*;
-import seedu.cmdo.model.StatusSaver;
 import seedu.cmdo.model.task.Priority;
-import seedu.cmdo.model.task.Task;
 
 /**
  * Parses user input.

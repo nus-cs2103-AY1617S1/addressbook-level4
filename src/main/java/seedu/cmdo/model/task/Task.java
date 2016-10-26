@@ -142,21 +142,6 @@ public class Task implements ReadOnlyTask {
     	return dueByTime.getFriendlyString();
     }
     
-    /**
-     * Copy related methods
-     * @author A0141128R
-     */
-    @Override
-    public Task makeCopy() {
-        Task taskObject = null;
-        try {
-            taskObject = (Task) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        taskObject.updateObjectID();
-        return taskObject;
-    }
     /*
      * @@author A0141128R
      * To set task to blocked time slot

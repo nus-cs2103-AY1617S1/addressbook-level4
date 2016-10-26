@@ -77,9 +77,4 @@ public interface ReadOnlyTask extends Cloneable {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-    /*@@author A0141128R
-     * To clone task
-     */
-    public Task makeCopy();
-
 }
