@@ -26,17 +26,17 @@ public class ParserMapping {
      */
     private void populateMappings() {
         mappingTable.put("add", AddParser.class);
-        //mappingTable.put("clear", ClearParser.class);
-        //mappingTable.put("complete", CompleteParser.class);
-        //mappingTable.put("delete", DeleteParser.class);
-        //mappingTable.put("exit", ExitParser.class);
-        //mappingTable.put("find", FindParser.class);
-        //mappingTable.put("help", HelpParser.class);
-        //mappingTable.put("list", ListParser.class);
+        mappingTable.put("clear", ClearParser.class);
+        mappingTable.put("complete", CompleteParser.class);
+        mappingTable.put("delete", DeleteParser.class);
+        mappingTable.put("exit", ExitParser.class);
+        mappingTable.put("find", FindParser.class);
+        mappingTable.put("help", HelpParser.class);
+        mappingTable.put("list", ListParser.class);
         mappingTable.put("pin", PinParser.class);
-        //mappingTable.put("select", SelectParser.class);
-        //mappingTable.put("undo", UndoParser.class);
-        //mappingTable.put("update", UpdateParser.class);
+        mappingTable.put("select", SelectParser.class);
+        mappingTable.put("undo", UndoParser.class);
+        mappingTable.put("update", UpdateParser.class);
         mappingTable.put("unpin", UnpinParser.class);
     }
 
