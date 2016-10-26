@@ -14,32 +14,42 @@ import seedu.unburden.model.task.UniqueTaskList;
  * The API of the Model component.
  */
 
-//@@Nathanael Chan A0139678J
 public interface Model {
-    /** Clears existing backing model and replaces with the provided new data. */
-    void resetData(ReadOnlyListOfTask newData);
+	/**
+	 * Clears existing backing model and replaces with the provided new data.
+	 */
+	void resetData(ReadOnlyListOfTask newData);
 
-    /** Returns the ListOfTask */
-    ReadOnlyListOfTask getListOfTask();
+	/** Returns the ListOfTask */
+	ReadOnlyListOfTask getListOfTask();
 
-    /** Deletes the given person. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+	/** Deletes the given person. */
+	void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
-    /** Adds the given person */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
-    
-    void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
+	/** Adds the given person */
+	void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
-    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
+	void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
 
-    /** Updates the filter of the filtered task list to show all tasks */
-    void updateFilteredListToShowAll();
+	/**
+	 * Returns the filtered person list as an
+	 * {@code UnmodifiableObservableList<ReadOnlyTask>}
+	 */
+	UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(java.util.function.Predicate<? super Task> predicate);
-		
+	// @@Nathanael Chan A0139678J
+	/** Updates the filter of the filtered task list to show all tasks */
+	void updateFilteredListToShowAll();
+
+	/**
+	 * Updates the filter of the filtered task list to filter by the given
+	 * keywords
+	 */
+	void updateFilteredTaskList(java.util.function.Predicate<? super Task> predicate);
+	// @@Nathanael Chan
+
+	// @@Gauri Joshi A0143095H
 	/** Marks a task as done when it is completed. */
 	void doneTask(ReadOnlyTask taskToDone, boolean isDone);
-
+	// @@Gauri Joshi
 }

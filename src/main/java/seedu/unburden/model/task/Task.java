@@ -140,6 +140,8 @@ public class Task implements ReadOnlyTask {
 	/**
      * Copy constructor.
      */
+	
+	//@@Gauri Joshi A0143095H
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTaskDescription(), source.getDate(), source.getStartTime(), source.getEndTime(), source.getTags());
     }
@@ -189,7 +191,7 @@ public class Task implements ReadOnlyTask {
 		}
 		return getDoneString;
 	}
-    //@@Gauri Joshi
+    //@@Gauri Joshi A0143095H
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */
@@ -233,13 +235,13 @@ public class Task implements ReadOnlyTask {
     }
 
     
-    //@@Gauri Joshi A0143095H
-    @Override
+        @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name,taskD,date,startTime,endTime, tags);
     }
-    //@@Gauri Joshi
+    //@@Gauri Joshi 
+
 
     @Override
     public String toString() {

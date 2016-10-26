@@ -45,6 +45,7 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
+    //@@Gary Goh A0139714B
     protected void indicateStoragePathChange(String oldPath, String newPath) {
     	EventsCenter.getInstance().post(new StoragePathChangedEvent(oldPath, newPath));
     }
