@@ -13,7 +13,7 @@ public class SetDirectoryCommand extends Command{
 
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": changes the save directory to the user-designated directory. \n"
 			+ "Parameters: FILEPATH/FILENAME.xml or FILEPATH\\FILENAME.xml \n"
-			+ "Example: " + COMMAND_WORD + "C:/Users/jim/Desktop \n"
+			+ "Example: " + COMMAND_WORD + " C:/Users/jim/Desktop \n"
 			+ "To reset the directory to the default directory, type \"setdir reset\" ";
 	
 	public static final String COMMAND_RESET = "reset";

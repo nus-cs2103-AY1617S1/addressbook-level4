@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.unburden.commons.core.Config;
 import seedu.unburden.commons.exceptions.IllegalValueException;
 import seedu.unburden.commons.util.StringUtil;
 import seedu.unburden.logic.commands.*;
@@ -94,6 +95,10 @@ public class Parser {
 
 	private static final Pattern EDIT_FORMAT = Pattern.compile("(?<index>[^/]+)(?!$)" + "((?<name>[^/]+))?" + "(i/(?<taskDescriptions>[^/]+))?"
 			+ "(d/(?<date>[^/]+))?" + "(s/(?<startTimeArguments>[^/]+))?" + "(e/(?<endTimeArguments>[^/]+))?");
+	
+	private static final Pattern SET_DIR_FORMAT = Pattern.compile("(?<filename>.+).xml");
+	
+	private static final Pattern SET_DIR_FORMAT_RESET = Pattern.compile(SetDirectoryCommand.COMMAND_RESET);
 
 	private static final String byToday = "by today";
 
@@ -147,6 +152,9 @@ public class Parser {
 
 		case DeleteCommand.COMMAND_WORD:
 			return prepareDelete(arguments);
+			
+		case SetDirectoryCommand.COMMAND_WORD:
+			return prepareSetDir(arguments);
 
 		case ClearCommand.COMMAND_WORD:
 			return new ClearCommand();
@@ -383,10 +391,17 @@ public class Parser {
 		}
 		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 	}
-
+	
+	/**
+	 * Parses arguments in the context of the edit task command.
+	 *
+	 * @param args
+	 *            full command args string
+	 * @return the prepared command
+	 */
 	private Command prepareEdit(String args) {
 
-		final Matcher matcher = EDIT_FORMAT.matcher(args);
+		final Matcher matcher = EDIT_FORMAT.matcher(args.trim());
 		if (!matcher.matches())
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
@@ -402,6 +417,26 @@ public class Parser {
 		}
 
 		return new EditCommand(index.get(), newArgs[1].trim());
+	}
+	
+	/**
+	 * Parses arguments in the context of the set directory command.
+	 *
+	 * @param args
+	 *            full command args string
+	 * @return the prepared command
+	 */
+	private Command prepareSetDir(String args) {
+		final Matcher resetMatcher = SET_DIR_FORMAT_RESET.matcher(args.trim());
+		final Matcher pathMatcher = SET_DIR_FORMAT.matcher(args.trim());
+		
+		if (!resetMatcher.matches() && !pathMatcher.matches())
+			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SetDirectoryCommand.MESSAGE_USAGE));
+		
+		if (resetMatcher.matches())
+			return new SetDirectoryCommand(Config.ORIGINAL_TASK_PATH);
+		
+		return new SetDirectoryCommand(pathMatcher.group("filename") + ".xml");
 	}
 
 	/**

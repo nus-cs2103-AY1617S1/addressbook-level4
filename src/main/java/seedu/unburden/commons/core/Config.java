@@ -9,6 +9,7 @@ import java.util.logging.Level;
 public class Config {
 
     public static final String DEFAULT_CONFIG_FILE = "config.json";
+    public static final String ORIGINAL_TASK_PATH = "data/tasklist.xml"; 
 
     // Config values customizable through config file
     private String appTitle = "Unburden";
