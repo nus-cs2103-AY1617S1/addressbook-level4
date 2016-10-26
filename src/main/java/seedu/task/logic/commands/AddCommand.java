@@ -22,21 +22,6 @@ import seedu.task.model.task.Title;
 import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
-import seedu.task.commons.core.EventsCenter;
-import seedu.task.commons.events.ui.JumpToListRequestEvent;
-import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.model.tag.Tag;
-import seedu.task.model.tag.UniqueTagList;
-import seedu.task.model.task.Description;
-import seedu.task.model.task.DueDate;
-import seedu.task.model.task.Interval;
-import seedu.task.model.task.StartDate;
-import seedu.task.model.task.Status;
-import seedu.task.model.task.Task;
-import seedu.task.model.task.TimeInterval;
-import seedu.task.model.task.Title;
-import seedu.task.model.task.UniqueTaskList;
-import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Adds a task to the address book.
@@ -79,6 +64,11 @@ public class AddCommand extends Command {
 		addTasksToList(mainTask);
 	}
 
+	//@@author A0153411W
+	/**
+	 * Add tasks to list based on main task, time and time interval.
+	 * @param mainTask
+	 */
 	private void addTasksToList(Task mainTask) {
 		int timeInterval = mainTask.getTimeInterval().value;
 		tasksToAdd = new ArrayList<Task>();
@@ -89,12 +79,13 @@ public class AddCommand extends Command {
 					mainTask.getDueDateWithInterval(timeInterval * i), mainTask.getInterval(),
 					mainTask.getTimeInterval(), new Status("ONGOING"), mainTask.getTags()));
 		}
-	}
-
+	} 
+	
 	@Override
 	public CommandResult execute() {
 		assert model != null;
 		try {
+			//For every task from list, add task to manager
 			for (Task task : tasksToAdd) {
 				model.addTask(task);
 			}
@@ -110,10 +101,10 @@ public class AddCommand extends Command {
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
-
 	}
+	//@@author 
 
-    //@@author A0153411W
+	//@@author A0153411W
 	/**
 	 * Execute undo method for add command - Delete added tasks to restore 
 	 * task manager to state before method was executed
