@@ -7,15 +7,15 @@ import seedu.jimi.logic.History;
  * @@author A0148040R
  * Represents the redo command
  */
-public class RedoCommand extends Command{
+public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
     public static final String SHORT_COMMAND_WORD = "r";
-    public static final String MESSAGE_USAGE = COMMAND_WORD 
-            + ": Redoes the previous task.\n" + "To redo a task, type redo\n"
+    public static final String MESSAGE_USAGE = 
+            COMMAND_WORD + ": Redoes the previous task.\n" + "To redo a task, type redo\n"
             + "> Tip: Typing 'r' instead of 'redo' works too.\n";
 
-    public RedoCommand() { }
+    public RedoCommand() {}
 
     @Override
     public CommandResult execute() {
@@ -27,12 +27,7 @@ public class RedoCommand extends Command{
     @Override
     public boolean isValidCommandWord(String commandWord) {
         String lowerStr = commandWord.toLowerCase();
-        if(lowerStr.equals(COMMAND_WORD.toLowerCase()) 
-                || lowerStr.equals(SHORT_COMMAND_WORD.toLowerCase())) {
-            return true;
-        }
-        
-        return false;
-    };
-
+        return lowerStr.equals(COMMAND_WORD.toLowerCase()) 
+                || lowerStr.equals(SHORT_COMMAND_WORD.toLowerCase());
+    }
 }
