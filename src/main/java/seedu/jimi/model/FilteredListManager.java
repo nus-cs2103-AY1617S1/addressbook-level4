@@ -211,7 +211,7 @@ public class FilteredListManager {
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
         
-        NameQualifier(Set<String> nameKeyWords) {
+        public NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
         }
         
@@ -228,6 +228,54 @@ public class FilteredListManager {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
+    
+    /**
+     * Checks for tasks/events that fall within a specific date or a range of dates.
+     * @author zexuan
+     *
+     */
+    //@@author A0138915X
+    private class DateQualifier implements Qualifier {
+
+        DateTime startDate;
+        DateTime endDate;
+        
+        public DateQualifier(DateTime specificDate) {
+            this.startDate = specificDate;
+        }
+        
+        public DateQualifier(DateTime fromDate, DateTime toDate) {
+            this.startDate = fromDate;
+            this.endDate = toDate;
+        }
+        
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            if(endDate == null && startDate != null) { //if searching for a specific date
+                if(task instanceof Event) {
+                    return ((Event) task).getStart().getDifferenceInDays(startDate) <= 0
+                            && ((Event) task).getEnd().getDifferenceInDays(startDate) >= 0;
+                } else if(task instanceof DeadlineTask) {
+                    return ((DeadlineTask) task).getDeadline().getDifferenceInDays(startDate) == 0;
+                }
+            } else if(endDate != null) {
+                if(task instanceof Event) {
+                    return (((Event) task).getStart().getDifferenceInDays(startDate) <= 0
+                            && ((Event) task).getEnd().getDifferenceInDays(startDate) >= 0)
+                            || (((Event) task).getStart().getDifferenceInDays(endDate) <= 0
+                               && ((Event) task).getEnd().getDifferenceInDays(endDate) >= 0);
+                            
+                } else if(task instanceof DeadlineTask) {
+                    return ((DeadlineTask) task).getDeadline().getDifferenceInDays(startDate) >= 0
+                            && ((DeadlineTask) task).getDeadline().getDifferenceInDays(endDate) <= 0;
+                }
+            }
+            
+            return false; //if floating task
+        }
+        
+    }
+    //@@author
     
     private class WeekQualifier implements Qualifier {
         private final ListId id;
