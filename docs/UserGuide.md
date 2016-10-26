@@ -237,7 +237,7 @@ For events, you can edit the name and both start and end dates and times.
 
 1. Type `del[ete] INDEX`. Press `Enter`.
 
-2. Console displays deleted item in second box and refershes list of items.
+2. Console displays deleted item in second box and refreshes list of items.
 
 #### Delete 2 deadlines, tasks or events
 
