@@ -13,9 +13,11 @@ import seedu.todo.model.task.ImmutableTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.storage.MovableStorage;
 import seedu.todo.testutil.TaskBuilder;
+import seedu.todo.testutil.TaskFactory;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.*;
@@ -121,6 +123,19 @@ public class TodoTest {
         assertEquals(TITLE, getTask(0).getTitle());
         assertEquals(DESCRIPTION, getTask(0).getDescription().get());
         verify(storage, times(2)).save(todo);
+    }
+    
+    @Test
+    public void testUpdateUUID() throws Exception {
+        ImmutableTask task = todo.add(TaskFactory.taskTitle());
+        UUID taskUUID = task.getUUID();
+        int hashCode = task.hashCode();
+        
+        todo.update(0, mutableTask -> {
+            assertEquals(taskUUID, mutableTask.getUUID());
+            assertEquals(hashCode, mutableTask.hashCode());
+            assertEquals(mutableTask, task);
+        });
     }
 
     @Test
