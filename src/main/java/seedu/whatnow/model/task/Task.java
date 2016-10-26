@@ -25,6 +25,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     
     private static final String FLOATING = "floating";
     private static final String NOT_FLOATING = "not_floating";
+    private static final int COMPARE_TO_IS_EQUAL = 0;
     
     public Task() {
         
@@ -177,10 +178,10 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
 
     public int compareTo(Task task) {
         if (isBothFloating(task)) {
-            return 0;
+            return COMPARE_TO_IS_EQUAL;
         } else if (isBothDeadline(task)) {
             if (this.taskDate.equals(task.taskDate)) {
-                return 0;
+                return COMPARE_TO_IS_EQUAL;
                 //@zac : check for time later
             } else {
                 return this.taskDate.compareToIgnoreCase(task.taskDate);
@@ -188,14 +189,14 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             }
         } else if (isBothEvent(task)) {
             if (this.startDate.equals(task.startDate)) {
-                return 0;
+                return COMPARE_TO_IS_EQUAL;
                 //@zac : check for time later
             } else {
                 return this.startDate.compareToIgnoreCase(task.startDate);
                 //@zac : check for time later
             }
         } else {
-            return 0;
+            return COMPARE_TO_IS_EQUAL;
         }
     }
     
