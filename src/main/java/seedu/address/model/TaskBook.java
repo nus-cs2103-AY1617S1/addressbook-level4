@@ -18,6 +18,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -151,7 +152,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
         task.setTags(new UniqueTagList(commonTagReferences));
     }
-
+  //@@author A0139430L JingRui
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         int taskCategory = key.getTaskCategory();
         if(taskCategory == 1){
@@ -231,7 +232,7 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }*/
-    
+  //@@author A0139430L JingRui
     public boolean changeTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
         // TODO Auto-generated method stub
         //System.out.println("dummy");
@@ -258,7 +259,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         }
         return false;
     }
-
+  //@@author A0139430L JingRui
     public boolean changeDeadline(ReadOnlyTask target, String args) throws TaskNotFoundException, IllegalValueException {
         // TODO Auto-generated method stub
         //System.out.println("dummy");
@@ -278,8 +279,50 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueTaskList.TaskNotFoundException();
         }        
     }
+  //@@author A0139430L JingRui
+    public void changeTaskCategory() throws TaskNotFoundException, DuplicateTaskException {
+        for (Task task: events) {
+            System.out.println("events:" + task.toString());
+            if(task.getTaskCategory()!=1){
+                events.remove(task);
+                System.out.println("events:" + task.toString());
+                if(task.getTaskCategory()==2){
+                    deadlines.add(task);
+                }
+                else if(task.getTaskCategory()==3){
+                    todo.add(task);
+                }    
+            }           
+            System.out.println("events:" + task.toString());
+        }
+        for (Task task: deadlines) {
+            if(task.getTaskCategory()!=2){
+                deadlines.remove(task);
+                if(task.getTaskCategory()==1){
+                    events.add(task);
+                }
+                else if(task.getTaskCategory()==3){
+                    todo.add(task);
+                }    
+            }   
+            System.out.println("events:" + task.toString());
+        }
+        for (Task task: todo) {
+            if(task.getTaskCategory()!=3){
+                todo.remove(task);
+                if(task.getTaskCategory()==1){
+                    events.add(task);
+                }
+                else if(task.getTaskCategory()==2){
+                    deadlines.add(task);
+                }    
+            }    
+            System.out.println("events:" + task.toString());
+        }
+    }
+    
 //// tag-level operations
-
+  //@@author A0139430L JingRui
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
