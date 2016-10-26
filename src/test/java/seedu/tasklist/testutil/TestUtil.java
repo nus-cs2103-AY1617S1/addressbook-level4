@@ -1,5 +1,8 @@
 package seedu.tasklist.testutil;
+import seedu.tasklist.commons.core.Config;
+import seedu.tasklist.commons.core.ConfigTest;
 
+import static org.junit.Assert.assertTrue;
 import com.google.common.io.Files;
 
 import edu.emory.mathcs.backport.java.util.Collections;
@@ -16,6 +19,7 @@ import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
 
 import seedu.tasklist.TestApp;
+import seedu.tasklist.commons.core.ConfigTest;
 import seedu.tasklist.commons.exceptions.IllegalValueException;
 import seedu.tasklist.commons.util.FileUtil;
 import seedu.tasklist.commons.util.XmlUtil;
@@ -292,6 +296,16 @@ public class TestUtil {
         List<TestTask> listOfPersons = asList(persons);
         listOfPersons.get(targetIndexInOneIndexedFormat).markAsComplete();
         return listOfPersons.toArray(new TestTask[listOfPersons.size()]);
+    }
+    
+    /**
+     * checks if the file path specified by user is valid.
+     */
+    public static boolean setFilePath(String filePath){
+    	File targetListFile = new File(filePath);
+         ConfigTest configFile = new ConfigTest();
+         configFile.setFilePath(filePath);
+         return targetListFile.exists()||targetListFile.isDirectory();
     }
 
 

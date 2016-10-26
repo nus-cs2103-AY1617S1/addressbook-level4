@@ -11,17 +11,17 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ConfigTest {
+	private String defaultConfigAsString = "App title : Smart Scheduler\n" +
+            "Current log level : INFO\n" +
+            "Preference file Location : preferences.json\n" +
+            "Local data file location : data/tasklist.xml\n" +
+            "TaskList name : MyTaskList";
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void toString_defaultObject_stringReturned() {
-        String defaultConfigAsString = "App title : Smart Scheduler\n" +
-                "Current log level : INFO\n" +
-                "Preference file Location : preferences.json\n" +
-                "Local data file location : data/tasklist.xml\n" +
-                "TaskList name : MyTaskList";
-
+        
         assertEquals(defaultConfigAsString, new Config().toString());
     }
 
@@ -32,5 +32,14 @@ public class ConfigTest {
         assertTrue(defaultConfig.equals(defaultConfig));
     }
 
+    public void setFilePath(String newFilePath){
+    	String[] str = defaultConfigAsString.split(":");
+    	str[0]=newFilePath;
+    	String finalString="";
+    	for(String appendstr:str){
+    	    finalString = finalString.concat(appendstr);
+    	}
+    	defaultConfigAsString = finalString;
+    }
 
 }
