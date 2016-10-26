@@ -1,3 +1,5 @@
+//@@author A0147890U
+
 # About Us
 
 We are a team of four computer engineering students based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
