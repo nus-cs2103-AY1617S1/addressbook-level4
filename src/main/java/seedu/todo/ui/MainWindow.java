@@ -118,11 +118,10 @@ public class MainWindow extends UiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
+    //@@author A0142421X
     public void fillInnerParts() {
-        //@@author A0138967J
         summaryPanel = SummaryPanel.load(primaryStage, getSummaryPlaceholder(), logic.getUnmodifiableTodayTaskList());
         tagListPanel = TagListPanel.load(primaryStage, getTagListPanelPlaceholder(), logic.getUnmodifiableTagList());
-        //@@author
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getUnmodifiableFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoListFilePath());
@@ -132,7 +131,7 @@ public class MainWindow extends UiPart {
     private AnchorPane getSummaryPlaceholder(){
         return summaryPlaceholder;
     }
-    
+    //@@author A0142421X
     private AnchorPane getTagListPanelPlaceholder() {
     	return tagListPanelPlaceholder;
     }
