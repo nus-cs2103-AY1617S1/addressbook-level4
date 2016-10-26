@@ -33,4 +33,8 @@ public class DateTimeParser {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
         return Optional.ofNullable(localDateTime);
     }
+
+    public static boolean containsTime(String input) {
+        return parseString(input).isPresent();
+    }
 }

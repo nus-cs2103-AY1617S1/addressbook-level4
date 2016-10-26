@@ -10,7 +10,7 @@ public class ClearCommand extends Command {
     // COMMAND_WORD, COMMAND_FORMAT, COMMAND_DESCRIPTION are for display in help window
     public static final String COMMAND_WORD = "clear";
     public static String COMMAND_FORMAT = "clear";
-    public static String COMMAND_DESCRIPTION = "clear all tasks in Agemdum";
+    public static String COMMAND_DESCRIPTION = "clear all tasks in Agendum";
     public static final String MESSAGE_SUCCESS = "Your tasks have been cleared!";
 
     public ClearCommand() {}

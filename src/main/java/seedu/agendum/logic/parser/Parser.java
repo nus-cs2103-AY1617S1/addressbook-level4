@@ -31,17 +31,19 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern RENAME_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)\\s+(?<name>[^/]+)");
+    private static final Pattern RENAME_ARGS_FORMAT = Pattern.compile("(?<targetIndex>\\d+)\\s+(?<name>.+)");
 
-	//@@author A0003878Y
+    //@@author A0003878Y
     private static final Pattern ADD_ARGS_FORMAT = Pattern.compile("(?:.+?(?=(?:(?:by|from|to)\\s|$)))+?");
 
-    private static final String ADD_ARGS_FROM = "from";
-    private static final String ADD_ARGS_BY = "by";
-    private static final String ADD_ARGS_TO = "to";
-	
-	//@@author
+    private static final Pattern SCHEDULE_ARGS_FORMAT = Pattern.compile("(?:.+?(?=(?:(?:by|from|to)\\s|$)))+?");
 
+    private static final String ARGS_FROM = "from";
+    private static final String ARGS_BY = "by";
+    private static final String ARGS_TO = "to";
+    private static final String[] TIME_TOKENS = new String[] { ARGS_FROM, ARGS_TO, ARGS_BY };
+	
+    //@@author
     public Parser() {}
 
     /**
@@ -56,7 +58,7 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
-        final String commandWord = matcher.group("commandWord");
+        final String commandWord = matcher.group("commandWord").toLowerCase();
         final String arguments = matcher.group("arguments");
 
         switch (commandWord) {
@@ -85,6 +87,9 @@ public class Parser {
         case MarkCommand.COMMAND_WORD:
             return prepareMark(arguments);
 
+        case ScheduleCommand.COMMAND_WORD:
+            return prepareSchedule(arguments);
+
         case UnmarkCommand.COMMAND_WORD:
             return prepareUnmark(arguments);
 
@@ -108,66 +113,107 @@ public class Parser {
         }
     }
 
-	//@@author A0003878Y
+    //@@author A0003878Y
     /**
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
+    private Command prepareAdd(String args) {
         Matcher matcher = ADD_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
         try {
-            matcher = ADD_ARGS_FORMAT.matcher(args.trim());
-
-            String taskTitle = null;
+            matcher.reset();
+            matcher.find();
+            String taskTitle = matcher.group(0);
             HashMap<String, Optional<LocalDateTime>> dateTimeMap = new HashMap<>();
-            final String[] tokens = new String[]{ADD_ARGS_FROM, ADD_ARGS_TO, ADD_ARGS_BY};
 
             while (matcher.find()) {
-                boolean matchedWithPrefix = false;
-
-                for (String token:tokens) {
+                for (String token : TIME_TOKENS) {
                     String s = matcher.group(0).toLowerCase();
                     if (s.startsWith(token)) {
-                        s = s.substring(token.length(), s.length());
-                        dateTimeMap.put(token, DateTimeParser.parseString(s));
-                        matchedWithPrefix = true;
+                        String time = s.substring(token.length(), s.length());
+                        if (DateTimeParser.containsTime(time)) {
+                            dateTimeMap.put(token, DateTimeParser.parseString(time));
+                        } else {
+                            taskTitle = taskTitle + s;
+                        }
                     }
-                }
-                if (!matchedWithPrefix) {
-                    taskTitle = matcher.group(0);
                 }
             }
 
-            if (dateTimeMap.containsKey(ADD_ARGS_BY)) {
-                return new AddCommand(
-                        taskTitle,
-                        dateTimeMap.get(ADD_ARGS_BY)
-                );
-            } else if (dateTimeMap.containsKey(ADD_ARGS_FROM) && dateTimeMap.containsKey(ADD_ARGS_TO)) {
-                return new AddCommand(
-                        taskTitle,
-                        dateTimeMap.get(ADD_ARGS_FROM),
-                        dateTimeMap.get(ADD_ARGS_TO)
-                );
-            } else if (!dateTimeMap.containsKey(ADD_ARGS_FROM) && !dateTimeMap.containsKey(ADD_ARGS_TO) && !dateTimeMap.containsKey(ADD_ARGS_BY)) {
-                return new AddCommand(
-                        taskTitle
-                );
-            }
-            else {
-                return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            if (dateTimeMap.containsKey(ARGS_BY)) {
+                return new AddCommand(taskTitle, dateTimeMap.get(ARGS_BY));
+            } else if (dateTimeMap.containsKey(ARGS_FROM) && dateTimeMap.containsKey(ARGS_TO)) {
+                return new AddCommand(taskTitle, dateTimeMap.get(ARGS_FROM), dateTimeMap.get(ARGS_TO));
+            } else if (!dateTimeMap.containsKey(ARGS_FROM) && !dateTimeMap.containsKey(ARGS_TO)
+                    && !dateTimeMap.containsKey(ARGS_BY)) {
+                return new AddCommand(taskTitle);
+            } else {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                        AddCommand.MESSAGE_USAGE));
             }
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
+
+
+    /**
+     * Parses arguments in the context of the schedule task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareSchedule(String args) {
+        Matcher matcher = ADD_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ScheduleCommand.MESSAGE_USAGE));
+        }
+
+        matcher.reset();
+        matcher.find();
+        Optional<Integer> taskIndex = parseIndex(matcher.group(0));
+        int index = 0;
+        if (taskIndex.isPresent()) {
+            index = taskIndex.get();
+        } else {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ScheduleCommand.MESSAGE_USAGE));
+        }
+        
+        HashMap<String, Optional<LocalDateTime>> dateTimeMap = new HashMap<>();
+
+        while (matcher.find()) {
+            for (String token : TIME_TOKENS) {
+                String s = matcher.group(0).toLowerCase();
+                if (s.startsWith(token)) {
+                    String time = s.substring(token.length(), s.length());
+                    if (DateTimeParser.containsTime(time)) {
+                        dateTimeMap.put(token, DateTimeParser.parseString(time));
+                    }
+                }
+            }
+        }
+
+        if (dateTimeMap.containsKey(ARGS_BY)) {
+            return new ScheduleCommand(index, Optional.empty(), dateTimeMap.get(ARGS_BY));
+        } else if (dateTimeMap.containsKey(ARGS_FROM) && dateTimeMap.containsKey(ARGS_TO)) {
+            return new ScheduleCommand(index, dateTimeMap.get(ARGS_FROM), dateTimeMap.get(ARGS_TO));
+        } else if (!dateTimeMap.containsKey(ARGS_FROM) && !dateTimeMap.containsKey(ARGS_TO)
+                && !dateTimeMap.containsKey(ARGS_BY)) {
+            return  new ScheduleCommand(index, Optional.empty(), Optional.empty());
+        } else {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleCommand.MESSAGE_USAGE));
+        }
+    }
+	
 
     //@@author A0133367E
     /**

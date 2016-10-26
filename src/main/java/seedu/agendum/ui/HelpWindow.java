@@ -26,6 +26,7 @@ import seedu.agendum.logic.commands.HelpCommand;
 import seedu.agendum.logic.commands.ListCommand;
 import seedu.agendum.logic.commands.MarkCommand;
 import seedu.agendum.logic.commands.RenameCommand;
+import seedu.agendum.logic.commands.ScheduleCommand;
 import seedu.agendum.logic.commands.UnmarkCommand;
 import seedu.agendum.commons.core.LogsCenter;
 
@@ -138,6 +139,7 @@ public class HelpWindow extends UiPart {
     private void loadHelpList() {
        commandList.add(new AddCommand());
        commandList.add(new RenameCommand());
+       commandList.add(new ScheduleCommand());
        commandList.add(new MarkCommand());
        commandList.add(new UnmarkCommand());
        commandList.add(new DeleteCommand());
