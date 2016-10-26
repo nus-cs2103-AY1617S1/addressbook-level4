@@ -49,7 +49,7 @@ Words within the square brackets "[" and "]" are optional fields. You can choose
 1. Help: `help`  
 If you are ever lost, you can bring up the help menu to display all possible commands.
 > Displays list of available commmands and their descriptions 
-//@@author A01424605N 
+//@@author A0142605N 
 2. Add a Task / Event: `add`  
 <img src="images/add.png" width="600">  
 
