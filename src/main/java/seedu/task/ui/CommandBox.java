@@ -2,6 +2,8 @@ package seedu.task.ui;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -36,7 +38,7 @@ public class CommandBox extends UiPart {
     @FXML
     private TextField commandTextField;
     private CommandResult mostRecentResult;
-    private EventHandler<KeyEvent> liveSearchHandler;
+    private ChangeListener<String> liveSearchHandler;
     private boolean isSearchMode;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
@@ -50,10 +52,10 @@ public class CommandBox extends UiPart {
     public void configure(ResultDisplay resultDisplay, Logic logic) {
         this.resultDisplay = resultDisplay;
         this.logic = logic;
-        this.liveSearchHandler = new EventHandler<KeyEvent>() {
+        this.liveSearchHandler = new ChangeListener<String>(){
             @Override
-            public void handle(KeyEvent event) {
-                logic.updateTaskListFilter(commandTextField.getText());
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                logic.updateTaskListFilter(newValue);
             }
         };
         this.isSearchMode = false;
@@ -131,13 +133,13 @@ public class CommandBox extends UiPart {
     private void setToLiveSearch() {
         commandTextField.setPromptText(TEXT_LIVE_SEARCH);
         this.isSearchMode = true;
-        commandTextField.addEventHandler(KeyEvent.KEY_TYPED, this.liveSearchHandler);
+        commandTextField.textProperty().addListener(liveSearchHandler);
     }
     
     private void setToCommandBox() {
         commandTextField.setPromptText(TEXT_COMMAND_BOX);
         this.isSearchMode = false;
-        commandTextField.removeEventHandler(KeyEvent.KEY_TYPED, this.liveSearchHandler);
+        commandTextField.textProperty().removeListener(liveSearchHandler);
     }
 
     //@@author
