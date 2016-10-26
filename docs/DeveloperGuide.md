@@ -46,7 +46,7 @@
 
 ### Architecture
 
-<img src="images/Architecture.png" width="600"><br>
+<img src="images/Architecture Diagram.png"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -55,73 +55,140 @@ Given below is a quick overview of each component.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.
-* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
+Three of those classes play important roles at the architecture level.
+
+* `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `EphemeralDB` : Used by the UI as well as the Controller, so that the Controller is able to refer to items in the UI level. One example would be for the controller to get the index each item was listed, since the ordering of items is only determined at the UI level.
 
-The rest of the App consists four components.
+The rest of the App consists of the following.
+
 * [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
+* [**`InputHandler`**](#inputhandler-component) : The command receiver.
+* [**`Controller`**](#controller-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
-Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
-
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
-
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
-
-<img src="images\SDforDeletePerson.png" width="800">
-
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
- instead of asking the `Storage` to save the updates to the hard disk.
-
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
-
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
-  coupling between components.
+Each of the components defines an _API_ in an `interface` with the same name as the component.
 
 The sections below give more details of each component.
 
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+<img src="images/UiArchitecture.png"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/java/seedu/todo/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+The `UI` uses the JavaFX UI framework. The UI consists of a `MainWindow`, which contains the application shell components such as the `Header` and the `Console`, and a currently displayed `View`, denoted by `currentView`. Each `View` will define the layout and subcomponents that will be rendered within the `View`.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
- [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
+#### Components
 
-The `UI` component,
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+The `UI` is predicated on the concept of a **Component**. A Component is a single sub-unit of the UI, and should preferably only be responsible for a single item or functionality in the UI. For example, a task item in the UI is a single Component, as it is responsible for purely displaying the task information. A task list is also a Component, as it contains multiple task items, and it is responsible just for rendering each task item.
 
-### Logic component
+Hence, a Component has the following properties:
+
+- Associated with FXML files
+- Loaded with `load`
+- Able to accept **props**
+- Rendered in placeholder panes
+- Can load sub-Components
+
+*Note: The concept of Components and their associated behaviours came from [React](https://facebook.github.io/react/), a modern JavaScript library for the web.*
+
+##### Associated with FXML files
+
+Each Component is associated with a matching `.fxml` file in the `src/main/resources/ui` folder. For example, the layout of the [`TaskList`](../src/main/java/seedu/todo/ui/components/TaskList.java) Component is specified in [`TaskList.fxml`](../src/main/resources/ui/components/TaskList.fxml).
+
+To learn more about FXML, check out this [tutorial](http://docs.oracle.com/javafx/2/get_started/fxml_tutorial.htm).
+
+##### Loaded with `load`
+
+To load a Component from FXML, use the `load` method found on Component, which calls `UiPartLoader` to read the FXML file, loads a JavaFX Node onto the Stage, and returns the Component which can control the Node on the Stage.
+
+Example usage:
+
+``` java
+TaskList taskList = load(primaryStage, placeholderPane, TaskList.class);
+```
+
+##### Able to accept props
+
+Components should define a set of public fields or **props** so that dynamic values can be passed into the Component and displayed. These props can be displayed in the UI at the `componentDidMount` phase, which will be explained more below.
+
+For example, to pass in tasks to a TaskList component, simply set the value of `taskList.tasks`, or however it is defined in `TaskList`.
+
+##### Rendered in placeholder panes
+
+After props have been passed, the loaded node can be rendered into a placeholder `Pane`. Typically, these panes are `AnchorPane`s defined in the layout in the FXML file.
+
+##### Can load sub-Components
+
+Every Component has a method called `componentDidMount`, which is run after `render` is called. Hence, there are a few uses of `componentDidMount`:
+
+- Control UI-specific properties which cannot be done in FXML
+- Set UI component values (e.g. using `setText` on an FXML `Text` object)
+- Load sub-Components and propogate the chain
+
+Hence, a Component can contain further sub-Components, where each Component is not aware of its parent and only renders what it is told to (via props).
+
+Example usage:
+
+``` java
+public void componentDidMount() {
+    // Set Text field value
+    textField.setText(textProp);
+
+    // Load and render sub-components
+    SubComponent sub = load(primaryStage, placeholderPane, SubComponent.class);
+    sub.value = subTextValue;
+    sub.render();
+}
+```
+
+#### Views
+
+A `View` is essentially a special type of Component, with no implementation differences at the moment. However, a `View` is the grouping of Components to form the whole UI experience. In the case of this app, the `View` corresponds with the portion between the Header and the Console. Different `View`s can be loaded depending on the context.
+
+#### MultiComponents
+
+A `MultiComponent` is also a special type of Component, except that the `render` method behaves differently. Successive calls to `render()` would cause the node to the rendered to the placeholder multiple times, instead of replacing the old node. This is especially useful for rendering lists of variable items, using a loop.
+
+To clear the placeholder of previously rendered items, use `MultiComponent.reset(placeholder)`.
+
+Example usage:
+
+``` java
+public void componentDidMount() {
+    // Reset items
+    TaskItem.reset(placeholder);
+
+    // Load multiple components
+    for (Task task : tasks) {
+        TaskItem item = load(primaryStage, placeholder, TaskItem.class);
+        item.value = task.value;
+        item.render();
+    }
+}
+```
+
+### InputHandler component
+
+**API** : [`InputHandler.java`](../src/main/java/seedu/todo/ui/components/InputHandler.java)
+
+1. The console input field will pass the user commands to the relevant controller, and according to the `Controller` 
+   method `inputConfidence()`, a `Controller` will be best selected and returned based on the input.
+2. The `Controller` selected will process the commands accordingly.
+
+### Controller component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Controller.java`](../src/main/java/seedu/todo/logic/Logic.java)
 
-1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+1. `Controller`s have a `process()` method which processes the command passed in by `InputHandler`.
+2. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. After invoking `process()`, a new `View` will be created and loaded to `MainWindow` whether it was successful or an exception occured.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
@@ -131,7 +198,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/java/seedu/todo/model/Model.java)
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
@@ -144,7 +211,7 @@ The `Model`,
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/java/seedu/todo/storage/Storage.java)
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
@@ -255,22 +322,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new task |
-`* * *` | user | delete a task | remove tasks that I no longer need
-`* * *` | user | edit a task | edit task that I enter wrongly
-`* * *` | user | list all tasks | list all the tasks that are created
-`* * *` | user | find a task by name or tag | locate details of the tasks without having to go through the entire list
-`* * *` | user | complete a task | complete the task and stored in the completed list in the application
-`* * *` | user | undo | undo the previous command
+`* * *` | user | add a new task/event |
+`* * *` | user | delete an item | remove tasks/events that I no longer need
+`* * *` | user | edit an item | edit tasks/events that need to be updated
+`* * *` | user | list all items | list all the tasks/events that are created
+`* * *` | user | find items by name | search for tasks/events without looking through the entire list
 `* * *` | user | exit | save and quit the application
-`* * *` | advanced user | add alias to command | enter the command quickly
-`* * ` | user | view a task | view the complete details of the task
-`* * ` | user | remove a tag | remove a tag on an exisiting task
-`* * ` | user | uncomplete a task | uncomplete the task that was previously completed
-`* * ` | user | redo | redo a undo command
-`* * ` | user | remove alias | remove alias that is tagged to the command
-`*` | user with many tasks in the application | sort task by name/start date/end date/deadline | locate a task easily
-`*` | user | change theme of the application | change to the user's favourite theme
+`* * ` | user | mark a task as complete | keep track of what I have already completed
+`* * ` | user | mark a task as incomplete | reset marking of task as complete
+`* * ` | user | add tag to item | organise my tasks/events
+`* * ` | user | untag from item | organise my tasks/events
+`* * ` | user | delete a tag | organise my tasks/events
+`* * ` | user | undo | undo the previous command
+`* * ` | user | redo | redo the previous undo
+`* * ` | user | clear the list | quickly clear all my items
+`* ` | advanced user | add alias | enter commands more quickly
+`* ` | advanced user | unalias | remove aliases associated with commands
+`* ` | advanced user | view aliases | view all aliases currently set
+`* ` | advanced user | use keyboard arrows to scroll through command history | perform previous commands without re-typing the entire command
 
 ## Appendix B : Use Cases
 

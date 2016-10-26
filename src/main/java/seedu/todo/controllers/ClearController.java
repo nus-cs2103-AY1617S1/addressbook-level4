@@ -54,7 +54,7 @@ public class ClearController implements Controller {
         tokenDefinitions.put("eventType", new String[] { "event", "events", "task", "tasks" });
         tokenDefinitions.put("time", new String[] { "at", "by", "on", "before", "time" });
         tokenDefinitions.put("timeFrom", new String[] { "from" });
-        tokenDefinitions.put("timeTo", new String[] { "to" });
+        tokenDefinitions.put("timeTo", new String[] { "to", "until" });
         return tokenDefinitions;
     }
     
@@ -86,15 +86,18 @@ public class ClearController implements Controller {
             destroyAll(db);
             return;
         } else {
-            if (deleteAll) { //no item type provided
-                displayErrorMessage(input, parsedDates);
+            if (deleteAll && !parseExactClearCommand(parsedResult) && parsedDates == null) { //no item type and date provided
+                LocalDateTime date = parseDateWithNoKeyword(parsedResult);
+                if (date == null) {
+                    displayErrorMessage(input, parsedDates, deleteAll, isTask);
+                    return;
+                } 
             }
         }
         
-        LocalDateTime dateOn = null;
+        LocalDateTime dateOn = parseDateWithNoKeyword(parsedResult);
         LocalDateTime dateFrom = null;
         LocalDateTime dateTo = null;
-        
         if (parsedDates != null) {
             String naturalOn = parsedDates[0];
             String naturalFrom = parsedDates[1];
@@ -102,7 +105,7 @@ public class ClearController implements Controller {
             // if all are null = no date provided
             
             // Parse natural date using Natty.
-            dateOn = naturalOn == null ? null : parseNatural(naturalOn); 
+            dateOn = naturalOn == null ? null : parseNatural(naturalOn);
             dateFrom = naturalFrom == null ? null : parseNatural(naturalFrom); 
             dateTo = naturalTo == null ? null : parseNatural(naturalTo);
         }
@@ -124,17 +127,29 @@ public class ClearController implements Controller {
      *            null if parsing failed or End date for Event
      */
     private void destroyByDate(TodoListDB db, String[] parsedDate, LocalDateTime dateOn, 
-            LocalDateTime dateFrom, LocalDateTime dateTo, boolean deleteAll, boolean isTask, String input) {
-        if (dateOn != null) {
+            LocalDateTime dateFrom, LocalDateTime dateTo, boolean deleteAll,
+            boolean isTask, String input) {
+        if (dateOn == null && dateFrom == null && dateTo == null && deleteAll) {
+            displayErrorMessage(input, parsedDate, deleteAll, isTask);
+        }
+        else if (dateOn != null) {
             destroyBySelectedDate(db, dateOn, deleteAll, isTask);
             return;
-        } else if (dateFrom != null || dateTo != null || !deleteAll) {
-            destroyByRange(db, dateFrom, dateTo, deleteAll, isTask);
-            return;
+        } else {
+            if (!deleteAll && parsedDate != null && dateFrom == null && dateTo == null && dateOn == null) { //date provided is invalid
+                displayErrorMessage(input, parsedDate, deleteAll, isTask);
+                return;
+            } else {
+                if (parsedDate != null) {
+                    if (parsedDate[1] != null && parsedDate[2] != null && (dateFrom == null || dateTo == null)) {
+                        displayErrorMessage(input, parsedDate, deleteAll, isTask);
+                        return;
+                    }
+                }
+                destroyByRange(db, dateFrom, dateTo, deleteAll, isTask);
+                return;
+            }
         } 
-        else { //natty deem all dates as invalid
-            displayErrorMessage(input, parsedDate);
-        }
     }
 
     /**
@@ -167,9 +182,17 @@ public class ClearController implements Controller {
             db.destroyAllEventByRange(dateFrom, dateTo);
             db.destroyAllTaskByRange(dateFrom, dateTo);
         } else if (isTask) {
+            if (numTasks == 0) {
+                Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
+                return;
+            }
             db.destroyAllTaskByRange(dateFrom, dateTo);
             numEvents = 0;
         } else {
+            if (numEvents == 0) {
+                Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
+                return;
+            }
             db.destroyAllEventByRange(dateFrom, dateTo);
             numTasks = 0;
         }
@@ -203,19 +226,26 @@ public class ClearController implements Controller {
      * @param parsedDate            
      *            the date entered by the user      
      */
-    private void displayErrorMessage(String input, String[] parsedDate) {
+    private void displayErrorMessage(String input, String[] parsedDate, boolean deleteAll, boolean isTask) {
         String consoleDisplayMessage = String.format("You have entered : %s.",input);
-        String commandLineMessage;
-        if (parsedDate == null) {
-            commandLineMessage = COMMAND_WORD;
-        } else if (parsedDate[0] != null) {
-            commandLineMessage = String.format("%s by <date>", COMMAND_WORD);
-        } else if (parsedDate[1] != null && parsedDate[2] != null) {
-            commandLineMessage = String.format("%s from <date> to <date>", COMMAND_WORD);
-        } else if (parsedDate[1] != null) {
-            commandLineMessage = String.format("%s from <date>", COMMAND_WORD);
-        } else {
-            commandLineMessage = String.format("%s to <date>", COMMAND_WORD);
+        String commandLineMessage = COMMAND_WORD;
+        if (!deleteAll) {
+            if (isTask) {
+                commandLineMessage = String.format("%s %s", commandLineMessage, "task");
+            } else {
+                commandLineMessage = String.format("%s %s", commandLineMessage, "event");
+            }
+        }
+        if (parsedDate != null) {
+            if (parsedDate[0] != null) {
+                commandLineMessage = String.format("%s by <date>", commandLineMessage);
+            } else if (parsedDate[1] != null && parsedDate[2] != null) {
+                commandLineMessage = String.format("%s from <date> to <date>", commandLineMessage);
+            } else if (parsedDate[1] != null) {
+                commandLineMessage = String.format("%s from <date>", commandLineMessage);
+            } else {
+                commandLineMessage = String.format("%s to <date>", commandLineMessage);
+            }
         }
         Renderer.renderDisambiguation(commandLineMessage, consoleDisplayMessage);
     }
@@ -239,9 +269,19 @@ public class ClearController implements Controller {
             db.destroyAllEventByDate(givenDate);
             db.destroyAllTaskByDate(givenDate);
         } else if (isTask) {
+            if (numTasks == 0) {
+                Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
+                return;
+            }
             db.destroyAllTaskByDate(givenDate);
+            numEvents = 0;
         } else {
+            if (numEvents == 0) {
+                Renderer.renderIndex(db, MESSAGE_CLEAR_NO_ITEM_FOUND);
+                return;
+            }
             db.destroyAllEventByDate(givenDate);
+            numTasks = 0;
         }
         db.save();
         Renderer.renderIndex(db, String.format(MESSAGE_CLEAR_SUCCESS, displaySuccessMessage(numTasks, numEvents)));
@@ -262,6 +302,18 @@ public class ClearController implements Controller {
     
     private boolean parseExactClearCommand(Map<String, String[]> parsedResult) {
         return parsedResult.get("default")[1] == null;
+    }
+    
+    private LocalDateTime parseDateWithNoKeyword(Map<String, String[]> parsedResult) {
+        if (parsedResult.get("default").length == 2) { // user enter more than 1 date with no keyword
+            if (parsedResult.get("default")[1] != null) {
+                return parseNatural(parsedResult.get("default")[1]);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
     
     /**

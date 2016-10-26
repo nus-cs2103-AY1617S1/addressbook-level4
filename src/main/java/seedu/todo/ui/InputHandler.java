@@ -1,10 +1,80 @@
 package seedu.todo.ui;
 
+import java.util.LinkedList;
+import java.util.ListIterator;
+
 import seedu.todo.controllers.*;
 
 public class InputHandler {
+    
+    private static InputHandler instance;
+    
+    private static final int MAX_HISTORY_SIZE = 20;
+    private static LinkedList<String> commandHistory = new LinkedList<String>();
+    private static ListIterator<String> commandHistoryIterator = commandHistory.listIterator();
 
-    Controller handlingController = null;
+    private Controller handlingController = null;
+    
+    protected InputHandler() {
+        // Prevent instantiation.
+    }
+    
+    /**
+     * Gets the current input handler instance.
+     */
+    public static InputHandler getInstance() {
+        if (instance == null) {
+            instance = new InputHandler();
+        }
+        
+        return instance;
+    }
+    
+    /**
+     * Pushes a command to the end of a LinkedList.
+     * Commands are stored like a queue, where the oldest items 
+     * are at the start of the List and will be popped off first.
+     * 
+     * @param command   Command string
+     */
+    private void pushCommand(String command) {
+        // Adds to the end of the LinkedList.
+        commandHistory.addLast(command);
+        
+        // Truncates the list when it gets too big.
+        if (commandHistory.size() > MAX_HISTORY_SIZE) {
+            commandHistory.removeFirst();
+        }
+        
+        // Create a new iterator, initialize position to point right at the end.
+        commandHistoryIterator = commandHistory.listIterator(commandHistory.size());
+    }
+    
+    /**
+     * Gets the previous command from the command history. Successive calls will return commands earlier in history.
+     * 
+     * @return  The input command earlier than what was previously retrieved
+     */
+    public String getPreviousCommandFromHistory() {
+        if (!commandHistoryIterator.hasPrevious()) {
+            return "";
+        }
+        
+        return commandHistoryIterator.previous();
+    }
+    
+    /**
+     * Gets the next command from the command history. Successive calls will return commands later in history.
+     * 
+     * @return  The input command later than what was previously retrieved
+     */
+    public String getNextCommandFromHistory() {
+        if (!commandHistoryIterator.hasNext()) {
+            return "";
+        }
+        
+        return commandHistoryIterator.next();
+    }
 
     public boolean processInput(String input) {
         if (this.handlingController != null) {
@@ -41,6 +111,9 @@ public class InputHandler {
             maxController.process(input);
 
         }
+        
+        // Since command is not invalid, we push it to history
+        pushCommand(input);
 
         return true;
     }

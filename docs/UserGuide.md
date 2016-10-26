@@ -17,7 +17,7 @@ Please refer to the [Setting up](DeveloperGuide.md#setting-up) section to learn 
 3. Click `Run As` > `Java Application` and choose the `Main` class.
 4. The GUI should appear in a few seconds.
 
-<img src="images/GetShitDone-Ui.png">
+<img src="images/GetShitDone-Ui.png" width="600">
 
 ## Features
 
@@ -28,82 +28,121 @@ Please refer to the [Setting up](DeveloperGuide.md#setting-up) section to learn 
 > * The order of optional parameters are flexible.
 
 #### Viewing help : `help`
-Shows a list of all commands in GetShitDone.  
+
+Shows a list of all commands in GetShitDone.
+
 Format: `help`
 
 Examples:
 
 * `help`  
   Shows all available commands and examples 
-  <img src="images/UserGuide/help.png">
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a task/event: `add`
-Adds a task/event to GetShitDone  
-Format: `add [event] NAME [by/on deadline] [t/TAG]...` 
+#### Adding a task: `add` or `add task`
 
-> *Note:* An **event** is a special kind of **task**. It does not have any deadlines, but instead it has start and end dates.
- 
-> * Tasks/events can either have a start (and optional end date), OR a deadline, OR neither, but not both.
->   * If start date is included without an end date, the end date will default to the start date.
->   * If both start/end date and deadline are provided, the application will display an error.
+Adds a task to GetShitDone
+
+Format: `add [task] NAME [(by|on|at) DEADLINE] [t/TAG]...` 
+
+> * Tasks can have a deadline, or can do without one as well.
+>   * Tasks added without specifying a deadline will be displayed under "No Deadline".
 >   * Date formats can be flexible. The application is able to parse commonly-used human-readable date formats.
->     * e.g. `1 Oct`, `Monday`, `next wed`, `tomorrow`, etc.
+>     * e.g. `1 Oct`, `Monday`, `next wed`, `tomorrow`, `5 days ago`, etc.
 > * Dates can include time as well.
->   * If only time is specified, it will default to today's date, or if a start date is provided, it will default to that of the start date. 
+>   * If only time is specified, it will default to today's date.
 >   * If time is not specified, it will default to 00:00 of the particular date.
 >   * Time formats are flexible as well. The application supports 24 hour format and AM/PM format.
 >     * e.g. `Monday 3pm`, `today 1930`, `5:30pm`, `10.00 am`
 > * Tasks can have any number of tags (including 0).
 >   * To add multiple tags, use `t/TAG` successively. e.g. `t/Tag 1 t/Tag 2`
+> * Using the `add` command without specifying `task` will interpret the command as `add task`.
 
 Examples: 
 
  * `add CS2103 Project`
- * `add event CS2103 Workshop on Wednesday`  
- <img src="images/UserGuide/beforeEvent.png">
- <img src="images/UserGuide/afterEvent.png">
-
  * `add CS2103 V0.3 by next Friday`
- <img src="images/UserGuide/beforeAdd.png">
- <img src="images/UserGuide/afterAdd.png">
+ * `add task Buy milk by tmr`
+ 
+#### Adding an event: `add event`
 
-#### Listing all tasks : `list`
+Adds an event to GetShitDone
+
+Format: `add event NAME from STARTDATETIME to ENDDATETIME [t/TAG]...` 
+
+> * Events must have both start and end date/time specified.
+>   * If there is no start or end date, you have to recitify your command, since it wasn't clear what should be added.
+>   * If only time is given, the date is interpreted as today's date.
+>   * If only date is given, the start time defaults to 00:00 and end time defaults to 23:59.
+>   * If only one date is given amongst start and end date/times, the start date and end date are treated as the same. 
+>   * Conversely, if only one time is given amongst start and end date/times, the start time and end time are treated as the same.
+
+Examples: 
+
+ * `add event Orientation Camp from Monday 8am to Friday 9pm`
+ * `add event CS2103 Workshop from Sat 10am to 4pm`
+
+#### Listing all tasks and events : `list`
+
 Shows a list of all tasks in GetShitDone. Able to filter by type of task (task/event), or based on completed or not.  
+
 Format: `list [TYPE]`
 
 > Valid parameters: 
-> * `events` / `event` (has start/end date)
-> * `tasks` / `task` (has optional deadline)
+> * `events` / `event`
+> * `tasks` / `task`
 > * `complete` / `completed`
-> * `incomplete`
+> * `incomplete` / `incompleted` / `uncomplete`
+> * `by DATE`
+> * `from STARTDATE to ENDDATE`
 
 Examples:
 
 * `list`  
- >  Lists all tasks and events.
-  <img src="images/UserGuide/list.png">
+ Lists all tasks and events.
   
 * `list events`  
->   Lists all events.
+ Lists all events.
 
-*  `list complete task`
-   > List all completed tasks
+* `list completed tasks`
+ Lists all completed tasks
 
+* `list by today`  
+ Lists all tasks due by today + events today
+
+* `list from monday to friday`  
+ Lists all tasks due within Monday-Friday + events occuring within the time period
 
 #### Finding all tasks containing any keyword in their name & tag: `find`
 
 Finds tasks whose name and tags contain any of the given keywords.  
-Format: `find KEYWORD [MORE_KEYWORDS]...`
 
-> The search is not case sensitive, the order of the keywords does not matter, only the task name is searched,  and tasks matching at least one keyword will be returned (i.e. `OR` search). <br />
-> Wildcards can be used, e.g. `a*` will return the tasks `Assignment 1` and `Dinner and Dance`.
+Format: `find [type] KEYWORD [MORE_KEYWORDS]...`
+
+> Valid parameters: 
+> * `name`
+> * `tag`
+> * `events` / `event`
+> * `tasks` / `task`
+> * `complete` / `completed`
+> * `incomplete` / `incompleted` / `uncomplete`
+> * `by DATE`
+> * `from STARTDATE to ENDDATE`
+
+> The search is not case sensitive, the order of the keywords does not matter, only the item name is searched, and tasks/events matching at least one keyword will be returned (i.e. `OR` search).
+> Searching follows wildcard search, i.e. a search term of `pr` will return both `Print notes` and `Make PR to GitHub`.
 
 Examples: 
 
-* `find assignment2`  
-Returns `Assignment2` & `assignment2`
+* `find assignment2 task` 
+Returns all task having the name or tag containing `Assignment2` & `assignment2`
+
+* `find task name assignment2`
+Returns all task with the name containing `Assignment2` & `assignment2`
+
+* `find task tag assignment2`
+Returns all task with the tag containing `Assignment2` & `assignment2`
   
 * `find assginment2 project`  
 Returns any tasks having names or tag containing `assignment2`, `Assignment2`,  `project`, `Project`
@@ -111,20 +150,20 @@ Returns any tasks having names or tag containing `assignment2`, `Assignment2`,  
 #### Editing a task : `update`
 
 Edits the specified task from GetShitDone.
-Format: `update INDEX [NAME] [s/START_DATE] [e/END_DATE] [d/DEADLINE] [t/TAG]..`
+
+Format: `update INDEX [NAME] ([(by|on|at) DATE] | [from STARTDATE to ENDDATE])` (*TBC*)
 
 > Edits the task at the specified `INDEX`. The index refers to the index number shown in the most recent listing.
 
 Examples: 
 
 * `update 1 CS2107 Project by saturday`  
-  Update the 1<sup>st</sup> task's name to CS2107 Project and change the deadline to Saturday   
-  <img src="images/UserGuide/beforeUpdate.png">
-  <img src="images/UserGuide/afterUpdate.png">
+  Update the 1<sup>st</sup> task's name to CS2107 Project and change the deadline to Saturday
 
 #### Deleting a task : `delete`
 
-Deletes the specified task from GetShitDone. Requires confirmation from the user to prevent unintentional deletes.
+Deletes the specified task from GetShitDone.
+
 Format: `delete INDEX`
 
 > Deletes the task at the specified `INDEX`. 
@@ -134,8 +173,6 @@ Examples:
 
 * `delete 3`
   Deletes the 3<sup>rd</sup> task in GetShitDone.
-<img src="images/UserGuide/beforeDelete.png">
-<img src="images/UserGuide/afterDelete.png">
 
 * `find assignment2`  
   `delete 1`  
@@ -143,7 +180,8 @@ Examples:
 
 #### Clearing the Database : `clear`
 
-Clear tasks/events by specific instruction from GetShitDone. Requires confirmation from the user to prevent unintentional deletes.
+Clear tasks/events by specific instruction from GetShitDone.
+
 Format: `clear [event/task] [date]`
 
 > Clear the task or events at the specified `date`. 
@@ -156,9 +194,19 @@ Examples:
 * `clear event to yesterday`  
   Clear all events up to yesterday [inclusive].
 
-#### Removing a tag : `untag`
+#### Tagging an item : `tag`
+
+Adds a tag to the task.
+
+Format: `tag INDEX TAG_NAME`
+
+> Adds the tag for the task at the specified `INDEX`.  
+  The index refers to the index number shown in the most recent listing.
+
+#### Untagging an item : `untag`
 
 Removes the specified tag of the task. 
+
 Format: `untag INDEX TAG_NAME`
 
 > Removes the tag for the task at the specified `INDEX`. 
@@ -166,31 +214,16 @@ Format: `untag INDEX TAG_NAME`
 
 Examples: 
 
-* `list`  
-  `untag 2 CS2103`  
+* `untag 2 CS2103`  
   Untag the tag of `CS2103` of the 2nd task in GetShitDone.
 
-* `find assignment2`  
-  `untag 1 CS2103`  
-  Untag the tag of `CS2103` of the 1st task in the results of the `find` command.
-
-#### Remove Tag : `removeTag`  
-
-Removes the specified tag of the task. 
-Format: `removetag TAG_NAME`
-
-> Removes all the tasks that is tagged with `TAG_NAME`.
-
-Examples: 
-
-* `removeTag CS2103`    
-  Deletes all the tasks that are tagged with `CS2103` **the application**.
+* `untag 1 CS2103`  
+  Untag the tag of `CS2103` of the 1st task in GetShitDone.
 
 #### Completing a task : `complete`
 
-> **Depend on how we implement this command. We could have a hidden tag from user that it is completed, so we could implement list command to display those without the tag. (TBC)**
-
 Completes the specified task from GetShitDone.
+
 Format: `complete INDEX`
 
 > completes the task at the specified `INDEX`. 
@@ -198,19 +231,16 @@ Format: `complete INDEX`
 
 Examples: 
 
-* `list `  
-  `complete 2`  
+* `complete 2`  
   Completes the 2nd task in GetShitDone.
 
-* `find assignment2`  
-  `complete 1`  
-  Completes the 1st task in the results of the `find` command.
+* `complete 1`  
+  Completes the 1st task in GetShitDone.
 
 #### Uncompleting a task : `uncomplete`
 
-> **Depend on how we implement this command. We could have a hidden tag from user that it is completed, so we could implement list command to display those without the tag. (TBC)**
-
 Uncompletes the specified task from GetShitDone.
+
 Format: `uncomplete INDEX`
 
 > uncompletes the task at the specified `INDEX`. 
@@ -218,26 +248,22 @@ Format: `uncomplete INDEX`
 
 Examples: 
 
-* `list`  
-  `uncomplete 2`  
-  Uncompletes the 2nd task in GetShitDone.
+* `uncomplete 2`  
+  Uncomplete the 2nd task in GetShitDone.
 
-* `find assignment2`  
-  `uncomplete 1`  
-  Uncompletes the 1st task in the results of the `find` command.
-
-#### Sorting : `sort`
-
-Sorts tasks based on start date, end date, deadline
-
-**To be filled**
+* `uncomplete 1`  
+  Uncomplete the 1st task in GetShitDone.
 
 #### Aliasing: `alias`
 
 Adds aliases for existing commands. *For advanced users.*  
-Format: `alias [EXISTING_COMMAND] [NEW_ALIAS]`
+
+Format: `alias [EXISTING_COMMAND NEW_ALIAS]`
 
 Examples:
+* `alias`  
+  Lists all current aliases.
+
 * `alias find f`  
   `f Irvin`
   Aliases `find` to `f`, and subsequently `f` can be used to `find` tasks.
@@ -245,84 +271,52 @@ Examples:
 #### Unaliasing: `unalias`
 
 Removes existing aliases. *For advanced users.*  
-Format: `unalias [ALIAS]`
+
+Format: `unalias ALIAS`
 
 Examples:
 * `unalias f`
   Removes the alias for `f`.
 
-#### View **non-private** details of a task : `view`
-Displays the **non-private** details of the specified task.  
-Format: `view INDEX`
-
-> Views the task at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.
-
-Examples: 
-
-* `list`  
-  `view 2`  
-Views the 2nd task in the the application  
-  
-* `find Betsy`  
-  `view 1`
-  Views the 1st task in the results of the `find` command.
-
 #### Undo tasks : `undo`
-Undo commands in **the application**.  
+
+Undo commands in GetShitDone.  
+
 Format: `undo [COUNT]`
 
-> Performs undo repeatedly based on the specified `COUNT`. 
+> Performs undo repeatedly based on the specified `COUNT`. If COUNT is not specified, it defaults to 1.
   
 Examples: 
 
 * `undo`  
-  Undo to the previous state of **the application**.
+  Performs undo.
   
 * `undo 2`  
-  Undo twice to the state of **the application**.
+  Performs undo twice.
 
 #### Redo tasks : `redo`
-Redo commands in **the application**.  
+Redo commands in GetShitDone.  
+
 Format: `redo [COUNT]`
 
-> Performs redos based on the specified `COUNT`. 
+> Performs redos based on the specified `COUNT`. If COUNT is not specified, it defaults to 1.
   
 Examples: 
 
-* `undo`  
-  Undo to the previous state of **the application**.
+* `redo`  
+  Performs redo.
   
-* `undo 2`  
-  Undo twice to the state of **the application**.
-
-#### View themes : `theme`
-
-View all themes supported by the application. 
-Format: `theme`  
-
-#### Changing a theme : `changetheme`
-
-Change the theme of GetShitDone.  
-Format: `changetheme INDEX`
-
-> Change the theme at the specified `INDEX`. 
-  The index refers to the index number shown in the theme command.
-
-Examples: 
-
-* `theme`  
-`changetheme 2`  
-Changes to the 2nd theme provided in GetShitDone.
-
+* `redo 2`  
+  Performs redo twice.
 
 #### Exiting the program : `exit`
-Exits the program.  
+
+Exits the program.
+
 Format: `exit`  
 
 #### Saving of data
-The application data are saved in the hard disk automatically after any command that changes the data.  
-There is no need to save manually.
+The application data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 #### Changing the save location (TBU)
 The application data are saved in a file called `addressbook.json` in the project root folder.
@@ -335,7 +329,7 @@ You can change the location by specifying the file path as a program argument.<b
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?<br>
-**A**: Install the app in the other computer, and replace `saved_tasks.json` from the root of the application directory.
+**A**: Install the app in the other computer, and replace `database.json` from the root of the application directory.
 
 ## Command Summary
 
@@ -361,7 +355,8 @@ Command | Format
 -------- | :-------- 
 Update | `update INDEX [s/START_DATE] [e/END_DATE] [d/DEADLINE] [t/TAG]...`
 Delete | `delete INDEX`
-Remove Tag | `removetag INDEX TAG_NAME`
+Add Tag | `tag INDEX TAG_NAME`
+Untag | `untag INDEX TAG_NAME`
 Undo | `undo [COUNT]`
 Redo | `redo [COUNT]`
 
@@ -369,7 +364,5 @@ Redo | `redo [COUNT]`
 
 Command | Format  
 -------- | :-------- 
-Show themes | `theme`
-Change theme | `changetheme`
 Add alias | `alias`
 Remove alias | `unalias`

@@ -10,9 +10,9 @@ import javafx.stage.Stage;
 import seedu.todo.models.TodoListDB;
 import seedu.todo.ui.UiPartLoader;
 
-public class TagList extends Component {
+public class Sidebar extends Component {
 
-    private static final String FXML_PATH = "components/TagList.fxml";
+    private static final String FXML_PATH = "components/Sidebar.fxml";
 
     // Links
     private static final String TASKS_LABEL = "Tasks";
@@ -31,12 +31,12 @@ public class TagList extends Component {
     @FXML
     private Text titleText;
     @FXML
-    private VBox tagListLinksPlaceholder;
+    private VBox sidebarCountersPlaceholder;
     @FXML
-    private VBox tagListTagsPlaceholder;
+    private VBox sidebarTagsPlaceholder;
 
-    public static TagList load(Stage primaryStage, Pane placeholderPane) {
-        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new TagList());
+    public static Sidebar load(Stage primaryStage, Pane placeholderPane) {
+        return UiPartLoader.loadUiPart(primaryStage, placeholderPane, new Sidebar());
     }
 
     @Override
@@ -48,10 +48,10 @@ public class TagList extends Component {
     public void componentDidMount() {
         titleText.setText(formatTagSize(tags.size()));
 
-        // Load TagListLinks
-        loadLinks();
+        // Load Counters
+        loadCounters();
 
-        // Load TagListItems
+        // Load Tags
         loadTags();
     }
     
@@ -59,10 +59,11 @@ public class TagList extends Component {
         return String.format("%s (%s)",TAG_LABEL, size);
     }
     
-    private void loadLinks() {
+    private void loadCounters() {
         TodoListDB db = TodoListDB.getInstance();
         
-        TagListLink.reset(tagListLinksPlaceholder);
+        // Clear items.
+        SidebarCounter.reset(sidebarCountersPlaceholder);
 
         String[] linkLabels = { formatLink(TASKS_LABEL, db.countIncompleteTasks()), 
                                 formatLink(OVERDUE_LABEL, db.countOverdueTasks()), 
@@ -70,18 +71,18 @@ public class TagList extends Component {
         String[] linkIconPaths = { TASKS_ICON_PATH, OVERDUE_ICON_PATH, EVENTS_ICON_PATH };
 
         for (int i = 0; i < linkLabels.length; i++) {
-            TagListLink link = TagListLink.load(primaryStage, tagListLinksPlaceholder);
-            link.linkLabel = linkLabels[i];
-            link.iconPath = linkIconPaths[i];
-            link.render();
+            SidebarCounter counter = SidebarCounter.load(primaryStage, sidebarCountersPlaceholder);
+            counter.label = linkLabels[i];
+            counter.iconPath = linkIconPaths[i];
+            counter.render();
         }
     }
 
     private void loadTags() {
-        TagListItem.reset(tagListTagsPlaceholder);
+        TagListItem.reset(sidebarTagsPlaceholder);
 
         for (String tag : tags) {
-            TagListItem item = TagListItem.load(primaryStage, tagListTagsPlaceholder);
+            TagListItem item = TagListItem.load(primaryStage, sidebarTagsPlaceholder);
             item.tag = tag;
             item.render();
         }

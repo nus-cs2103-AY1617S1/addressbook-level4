@@ -10,7 +10,7 @@ import seedu.todo.commons.util.FxViewUtil;
 import seedu.todo.models.Event;
 import seedu.todo.models.Task;
 import seedu.todo.ui.UiPartLoader;
-import seedu.todo.ui.components.TagList;
+import seedu.todo.ui.components.Sidebar;
 import seedu.todo.ui.components.TaskList;
 
 public class IndexView extends View {
@@ -49,7 +49,7 @@ public class IndexView extends View {
 
     private void loadComponents() {
         // Render TagList
-        TagList tagList = TagList.load(primaryStage, tagsPane);
+        Sidebar tagList = Sidebar.load(primaryStage, tagsPane);
         tagList.tags = tags;
         tagList.render();
 
