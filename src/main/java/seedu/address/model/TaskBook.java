@@ -250,4 +250,13 @@ public class TaskBook implements ReadOnlyTaskBook {
         return Objects.hash(datedTasks, undatedTasks, tags);
     }
 
+    public boolean postponed(Task target) throws UniqueTaskList.TaskNotFoundException {
+        if(datedTasks.contains(target)){
+            datedTasks.postponed(target);
+            return true;
+        }
+        else{
+            throw new UniqueTaskList.TaskNotFoundException();   
+        }        
+    }
 }
