@@ -33,7 +33,6 @@ We are a team based in the [School of Computing, National University of Singapor
     * Tag List Panel
     * Tag Command
 * Code Written: [[functional code]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/main/A0142421X.md)
-[[test code]](https://github.com/KnewYouWereTrouble)
 [[docs]](https://github.com/CS2103AUG2016-W13-C1/main/blob/master/collated/docs/A0142421X.md)
 
 * Other major contributions
