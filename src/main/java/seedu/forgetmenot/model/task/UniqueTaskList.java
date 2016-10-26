@@ -196,6 +196,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
+     * @@author A0139198N
      * Mark a task as done from the list.
      * @return 
      */
@@ -213,6 +214,7 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
+     * @@author A0139198N
      * Mark a task as undone from the list.
      * @return 
      */

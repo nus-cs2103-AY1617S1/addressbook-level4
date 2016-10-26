@@ -3,7 +3,8 @@ package seedu.forgetmenot.logic.commands;
 import seedu.forgetmenot.model.TaskManager;
 import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
-public class ClearDoneCommand extends Command{
+// @@author A0139198N
+public class ClearDoneCommand extends Command {
     public static final String COMMAND_WORD = "cleardone";
     public static final String MESSAGE_SUCCESS = "Done tasks has been cleared!";
     public static final String NO_DONE_TASK = "No done task in the list.";

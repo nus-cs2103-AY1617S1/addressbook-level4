@@ -52,10 +52,24 @@ public class EditCommand extends Command {
         }
         
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-       try{ 
-           model.saveToHistory();
-           model.editTask(taskToEdit, newName, newStart, newEnd, newRecur);
-           model.updateFilteredTaskListToShowNotDone();
+
+        try {
+            
+            // checks that new start time must be before end
+            if (newStart != null && !Time.checkOrderOfDates(newStart, taskToEdit.getEndTime().appearOnUIFormat()))
+                return new CommandResult(Messages.MESSAGE_INVALID_START_AND_END_TIME);
+            
+            // checks that the new end time must be after start
+            if (newEnd != null && Time.checkOrderOfDates(newEnd, taskToEdit.getStartTime().appearOnUIFormat()))
+                return new CommandResult(Messages.MESSAGE_INVALID_END_TIME);
+            
+            // checks that the new start and end time are valid
+            if (newEnd != null && newStart != null && !Time.checkOrderOfDates(newStart, newEnd))
+                return new CommandResult(Messages.MESSAGE_INVALID_START_AND_END_TIME);
+            
+            model.saveToHistory();
+            model.editTask(taskToEdit, newName, newStart, newEnd, newRecur);
+            model.updateFilteredTaskListToShowNotDone();
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         } catch (IllegalValueException e) {

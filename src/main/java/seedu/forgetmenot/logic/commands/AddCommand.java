@@ -72,18 +72,9 @@ public class AddCommand extends Command {
             model.saveToHistory();
             model.addTask(toAdd);
             model.updateFilteredTaskListToShowNotDone();
-//            System.out.println("Size: " + new LogicManager(model, storage).getFilteredTaskList().size());
-//            TaskListPanel panel = new TaskListPanel();
-//            panel.scrollTo(new LogicManager(model, storage).getFilteredTaskList().size());
-
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
-	}
-    
-    
-    public static Predicate<Task> isNotDone() {
-    	return t -> t.getDone().value == false;
     }
 }

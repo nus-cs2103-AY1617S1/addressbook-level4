@@ -3,6 +3,7 @@ package seedu.forgetmenot.model.task;
 import seedu.forgetmenot.commons.exceptions.IllegalValueException;
 
 /**
+ * @@author A0139198N
  * Represents a task's done status in the task manager.
  */
 public class Done {
@@ -10,6 +11,7 @@ public class Done {
     public Boolean value;
 
     /**
+     * 
      * Validates given done status
      *
      * @throws IllegalValueException if given done status is invalid. i.e not true or not false

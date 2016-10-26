@@ -68,6 +68,18 @@ public interface Model {
     
     //@@author A0147619W
     void sortTasks();
+    
+    /** Updates the filter of the filtered task list to show done tasks */
+	void updateFilteredTaskListToShowDone();
+
+	/** Updates the filter of the filtered task list to show task by date */
+	void updateFilteredTaskListToShowDate(String date);
+	
+	/** Updates the filter of the filtered task list to show undone tasks */
+	void updateFilteredTaskListToShowNotDone();
+	
+	/** Updates the filter of the filtered task list to show overdue tasks */
+	void updateFilteredTaskListToShowOverdue();
 
 
 }

@@ -6,6 +6,7 @@ import seedu.forgetmenot.model.task.Task;
 
 /**
  * Shows all tasks in the task manager to the user.
+ * @@author A0139198N
  */
 public class ShowDateCommand extends Command {
 
@@ -22,7 +23,6 @@ public class ShowDateCommand extends Command {
     	this.date = date;
     }
 
-    
     @Override
     public CommandResult execute() {
     	model.updateFilteredListToShowAll();
