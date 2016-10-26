@@ -56,12 +56,39 @@ Command | Format
 [Clear](#clear) | `clear`
 [Exit](#exit) | `exit`
 
+<br>
 
-**Command Format**
+**General Information About Command Format**
 * Commands have to follow a certain format as shown in the table above.
 * Replace words in `UPPER_CASE` with your input.
 * Items in `[]` are optional.
 * The order of your input text is fixed. For instance, `add [DATE_TIME] due [TASK_DETAILS]` is invalid. 
+* Some commands allow shorter command words for advanced users. Some commands, due to their critical nature e.g. `exit` or `clear`, you are required to type the full command word.
+* Command words are also all case-insensitive i.e. `add` works as well as `ADD`.
+* Below is a table of accepted command words of all commands.
+
+Command | Default Command Word | Shortcuts  
+-------- | :-------- | :--------
+Help | `help` | `h`, `he`, `hel`
+Add | `add` | `a`, `ad`
+Compete | `complete` | `c`, `co`, `com`, ... , `complet`
+Delete | `delete` | `d`, `de`, `del`, ... , `delet`
+Edit | `edit` | `e`, `ed`, `edi`
+Show | `show` | `s`, `sh`, `sho`
+Undo | `undo` | `u`
+Redo | `redo` | `r`
+Find | `find` | `f`, `fi`, `fin`
+SaveAs | `saveas` | None
+Clear | `clear` | None
+Exit | `exit` | None
+
+<br>
+
+**Input of Task/Event Name**
+* You have to always surround task/event names with double quotation marks, `"`.
+* Other than that, you can type anything within those double quotes.
+
+<br>
 
 **Input of Date and Time in Commands**
 * The input of date and time is flexible.
@@ -74,6 +101,9 @@ Command | Format
     * If no date is given, the current date will be used instead.
 * However, you cannot input none of them.
 * The start-date & time of the events cannot be earlier prior to the end-date & time.
+
+<br>
+
 **Input of Index**
 * In order to differentiate the indexes of the tasks and events in the command inputs:
     * The index of tasks should be preceded by the letter 't'.
@@ -90,6 +120,7 @@ Command | Format
 
 
 #### <a id="help"></a> Viewing help : `help`
+Teaches you how to use Jimi. <br>
 Format: `help`
 
 The user guide will open in another window.
@@ -99,7 +130,6 @@ The user guide will open in another window.
 <br><br>
 
 #### <a id="add"></a> Adding a task: `add`
-> Remember to always surround your `TASK_DETAILS` or `EVENT_DETAILS` with quotation marks! <br>
 
 Adding a floating task to Jimi.<br>
 Format: `add "TASK_DETAILS" [t/TAG] [p/PRIORITY]` 
@@ -188,9 +218,9 @@ Floating Task | float | edit e1 float
 Deadline Task | ["NEW_TASK_DETAILS"] due NEW_DATETIME [t/TAG] [p/PRIORITY] | edit e3 due tomorrow [p/HIGH]
 Event | ["NEW_TASK_DETAILS"] on NEW_START_DATETIME [to NEW_END_DATETIME] [t/TAG] [p/PRIORITY] | edit t1 "skip CS2103 lecture" on 29 oct [t/IMPT]
 
-> If you want to undo your edit, use the [`undo`](#undo) command.
-
 > <img src="images/Edit.png" width="600">
+
+> * If you want to undo your edit, use the [`undo`](#undo) command.
 
 <!--- @@author -->
 <br><br>
