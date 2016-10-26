@@ -43,12 +43,19 @@ public class ControllerConcernsTests {
     
     @Test
     public void tokenizer_empty_match() throws Exception {
-        String input = "token11 token21";
+        String input = "alamak token11 token21";
         Map<String, String[]> output = Tokenizer.tokenize(getTokenDefinitions(), input);
         assertEquals(output.get("tokenType1")[0], "token11");
         assertEquals(output.get("tokenType1")[1], null);
         assertEquals(output.get("tokenType2")[0], "token21");
         assertEquals(output.get("tokenType2")[1], null);
+    }
+    
+    @Test
+    public void tokenizer_match_quotes() throws Exception {
+        String input = "\"token11\" answer";
+        Map<String, String[]> output = Tokenizer.tokenize(getTokenDefinitions(), input);
+        assertTrue(output.isEmpty());
     }
     
     @Test(expected=UnmatchedQuotesException.class)
