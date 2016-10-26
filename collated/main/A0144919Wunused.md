@@ -1,5 +1,5 @@
 # A0144919Wunused
-###### \java\seedu\tasklist\model\ModelManager.java
+###### /java/seedu/tasklist/model/ModelManager.java
 ``` java
     //unused as now, the task list is sorted without using these comparators
     private static class Comparators {
