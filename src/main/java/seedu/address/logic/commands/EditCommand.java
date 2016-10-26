@@ -221,7 +221,8 @@ public class EditCommand extends UndoableCommand {
         updateHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
 	}
-    //@@author
+
+    //@@author A0093960X
     @Override
     public CommandResult undo() {
         // edit all the fields back to the state before the edit took place
@@ -261,4 +262,6 @@ public class EditCommand extends UndoableCommand {
         model.editTask(toUndo, previousTaskName, undoStartDate, undoEndDate, previousPriority, undoRecurrenceRate);      
         return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS, toUndoForPrint, toUndo));
     }
+    //@@author
+
 }
