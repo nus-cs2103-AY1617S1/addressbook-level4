@@ -63,18 +63,19 @@ public class ActivityCardHandle extends GuiHandle {
     
     public boolean isSameTask(ReadOnlyTask person){
     	boolean isSameName = getFullName().equals(person.getName().fullName);
-    	boolean isSameReminder = getReminder().replace("Reminder:\t", "").equals(person.getReminder().getCalendarValue());
-    	boolean isSameDueDate = getDueDate().replace("DueDate:\t", "").equals(person.getDueDate().getCalendarValue());
-    	boolean isSamePriority = getPriority().replace("Priority:\t", "").equals(person.getPriority().value);
+    	boolean isSameReminder = getReminder().replace("Reminder:\t", "").equals(person.getReminder().toString());
+    	String due=person.getDueDate().toString();
+    	boolean isSameDueDate = getDueDate().toString().replace("Due:\t\t\t", "").equals(person.getDueDate().toString());
+    	boolean isSamePriority = getPriority().replace("Priority:\t\t", "").equals(person.getPriority().toString());
     	
     	return (isSameName && isSameReminder && isSameDueDate && isSamePriority);
     }
     
     public boolean isSameEvent(ReadOnlyEvent person){
     	boolean isSameName = getFullName().equals(person.getName().fullName);
-    	boolean isSameReminder = getReminder().replace("Reminder:\t", "").equals(person.getReminder().value);
-    	boolean isSameStartTime = getStartTime().replace("Start:\t", "").equals(person.getStartTime().getCalendarValue());
-    	boolean isSameEndTime = getEndTime().replace("End:\t", "").equals(person.getEndTime().getCalendarValue());
+    	boolean isSameReminder = getReminder().replace("Reminder:\t", "").equals(person.getReminder().toString());
+    	boolean isSameStartTime = getStartTime().replace("Start:\t\t", "").equals(person.getStartTime().toString());
+    	boolean isSameEndTime = getEndTime().replace("End:\t\t", "").equals(person.getEndTime().toString());
 
     	return (isSameName && isSameReminder && isSameStartTime && isSameEndTime);
     }

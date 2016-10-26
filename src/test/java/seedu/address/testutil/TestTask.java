@@ -63,7 +63,7 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         DateUtil dUtil = new DateUtil();
-        String dateFormat = "dd.MM.yyyy HHmm";
+        String dateFormat = "EEE, MMM d, yyyy h:mm a";
         
         sb.append("add " + this.getName().fullName + " ");
         
@@ -71,13 +71,15 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
         sb.append("d/" + dUtil.outputDateTimeAsString(this.getDueDate().getCalendarValue(), dateFormat) + " ");     
         }
         
+        
+        if (getPriority() != null) {
+        sb.append("p/" + this.getPriority().value + " ");   
+        }
+        
         if (getReminder().value != null) {
         sb.append("r/" + dUtil.outputDateTimeAsString(this.getReminder().getCalendarValue(), dateFormat) + " ");
         }
-        
-        if (getPriority() != null) {
-       	sb.append("p/" + this.getPriority().value + " ");	
-        }
+
         
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString().trim();
