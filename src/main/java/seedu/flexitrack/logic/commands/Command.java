@@ -32,6 +32,14 @@ public abstract class Command {
     public abstract CommandResult execute();
 
     /**
+     * Executes the reverse command to undo and returns the result message.
+     *
+     * @return feedback message of the operation result for display
+     */
+    public void executeUndo(){ 
+    }
+
+    /**
      * Provides any needed dependencies to the command. Commands making use of
      * any of these should override this method to gain access to the
      * dependencies.
@@ -45,5 +53,9 @@ public abstract class Command {
      */
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
+    }
+    
+    public void recordCommand(String command){
+        UndoCommand.commandRecord.add(command); 
     }
 }
