@@ -1,6 +1,7 @@
 package seedu.taskmanager.logic.commands;
 
 import java.util.ArrayList;
+import java.util.ListIterator;
 
 import seedu.taskmanager.commons.core.Messages;
 import seedu.taskmanager.commons.core.UnmodifiableObservableList;
@@ -74,25 +75,38 @@ public class DeleteCommand extends Command {
         }
 
         else {
-            int numDeleted = 1;
-            for(int indexToDelete : targetIndexes) {
-                UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredItemList();
-                if (lastShownList.size() < (indexToDelete - numDeleted + 1)) {
-                    indicateAttemptToExecuteIncorrectCommand();
-                    return new CommandResult(Messages.MESSAGE_INVALID_ITEM_DISPLAYED_INDEX);
+            UnmodifiableObservableList<ReadOnlyItem> lastShownList = model.getFilteredItemList();
+            ListIterator<ReadOnlyItem> lslIterator = lastShownList.listIterator();
+            int numItemsDeleted = 0;
+            
+            for(int index : targetIndexes) {
+                // reset iterator to point to first object when reach the end of list
+                if(lslIterator.nextIndex() >= lastShownList.size()) {
+                    lslIterator = lastShownList.listIterator();
                 }
 
-            ReadOnlyItem personToDelete = lastShownList.get(indexToDelete - numDeleted);
-            numDeleted += 1;
-            deletedItems.add(personToDelete);
+                while(lslIterator.nextIndex() != (index - numItemsDeleted - 1)) {
+                    if(lslIterator.nextIndex() > index) {
+                        lslIterator.previous();
+                    } else if(lslIterator.nextIndex() < (index - numItemsDeleted - 1)) {
+                        lslIterator.next();
+                    }
+                }
+
+                ReadOnlyItem personToDelete = lastShownList.get(lslIterator.nextIndex());
+                    
+                try {
+                    model.deleteItem(personToDelete, String.format(MESSAGE_DELETE_ITEM_SUCCESS, personToDelete));
+                } catch (ItemNotFoundException pnfe) {
+                    assert false : "The target item cannot be missing";
+                }
+                
+                numItemsDeleted += 1;
+                deletedItems.add(personToDelete);
+
+            }
             
-            try {
-                model.deleteItem(personToDelete, String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
-            } catch (ItemNotFoundException pnfe) {
-                assert false : "The target item cannot be missing";
-            }
-            }
-        return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
+            return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
         }
     }
 }

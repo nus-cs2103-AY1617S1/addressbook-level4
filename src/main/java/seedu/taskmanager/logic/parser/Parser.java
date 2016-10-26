@@ -662,10 +662,14 @@ public class Parser {
 
         else if(itemIndexesMatcher.matches()) {
             // separate into the different indexes
-            ArrayList<String> indexList = new ArrayList<String>(Arrays.asList(args.trim().split("[^0-9]*")));
-            for(String indexString : indexList) {
+            args = args.trim();
+            ArrayList<String> indexList = new ArrayList<String>(Arrays.asList(args.split("[^0-9]*")));
+            
+            // remove empty strings from split
+            for(Iterator<String> itr = indexList.iterator(); itr.hasNext(); ) {
+                String indexString = itr.next();
                 if(indexString.equals("")) {
-                    indexList.remove(indexString);
+                    itr.remove();
                 }
             }
             ArrayList<Integer> indexesToDelete = new ArrayList<Integer>();
