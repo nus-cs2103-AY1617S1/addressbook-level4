@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 import seedu.address.model.item.RecurrenceRate;
-
+//@@author A0093960X
 public class XmlAdaptedRecurrenceRate {
 
     @XmlElement(required = true)

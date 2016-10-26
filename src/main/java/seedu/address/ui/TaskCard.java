@@ -17,6 +17,8 @@ import seedu.address.model.item.TimePeriod;
 public class TaskCard extends UiPart{
 
     private static final String FXML = "TaskListCard.fxml";
+    private static SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy, h:mm a");
+
 
     @FXML
     private HBox cardPane;
@@ -37,7 +39,6 @@ public class TaskCard extends UiPart{
     
     private ReadOnlyTask task;
     private int displayedIndex;
-    private SimpleDateFormat dateFormatter = new SimpleDateFormat("EEE, d MMM yyyy, h:mm a");
 
     public TaskCard() {
         
