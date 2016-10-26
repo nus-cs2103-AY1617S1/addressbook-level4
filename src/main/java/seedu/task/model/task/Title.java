@@ -6,6 +6,7 @@ import seedu.task.commons.exceptions.IllegalValueException;
  * Represents a Task's title in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidTitle(String)}
  */
+//@@author A0153411W
 public class Title {
 
     public static final String MESSAGE_TITLE_CONSTRAINTS = "Task titles should be spaces or alphanumeric characters";

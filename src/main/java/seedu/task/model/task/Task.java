@@ -1,16 +1,17 @@
 package seedu.task.model.task;
 
-import seedu.task.commons.util.CollectionUtil;
-import seedu.task.model.tag.UniqueTagList;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+
+import seedu.task.commons.util.CollectionUtil;
+import seedu.task.model.tag.UniqueTagList;
 
 /**
  * Represents a Task in the address book. Guarantees: details are present and
  * not null, field values are validated.
  */
+//@@author A0153411W
 public class Task implements ReadOnlyTask {
 
 
@@ -23,9 +24,6 @@ public class Task implements ReadOnlyTask {
 	private Status status;
 	private UniqueTagList tags;
 	
-	/**
-	 * Every field must be present and not null.
-	 */
 	public Task(Title title, Description description, StartDate startDate, DueDate dueDate, Interval interval,
 			TimeInterval timeInterval, Status status, UniqueTagList tags) {
 		assert !CollectionUtil.isAnyNull(title, description, startDate, dueDate, interval, timeInterval, tags);
@@ -109,8 +107,6 @@ public class Task implements ReadOnlyTask {
 
 	@Override
 	public int hashCode() {
-		// use this method for custom fields hashing instead of implementing
-		// your own
 		return Objects.hash(title, description, startDate, dueDate, interval, timeInterval, tags);
 	}
 
@@ -127,6 +123,10 @@ public class Task implements ReadOnlyTask {
 		return new DueDate(addDays(this.getDueDate().dueDate, days));
 	}
 
+	/**
+	 * Add days to given date.
+	 * 
+	 */
 	private static Date addDays(Date date, int days) {
 		if(date == null)
 			return null;
