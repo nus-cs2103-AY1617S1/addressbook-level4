@@ -278,7 +278,7 @@ Priority | As a ... | I want to ... | So that I can...
 `*` | user | list done/undone tasks | Keep track of which items are done and which are yet to be done
 `*` | user | have auto-fill | easily key in commands without remembering the formats
 
-// @@author A0147944U
+[//]: # "@@author A0147944U"
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `TaskManager` and the **Actor** is the `user`, unless specified otherwise)
@@ -303,7 +303,8 @@ Use case ends
 > 1b1. Task Manager shows an error message <br>
   Use case ends
 
-  #### Use case: Clear tasks
+
+#### Use case: Clear tasks
 
 **MSS**
 
@@ -330,6 +331,7 @@ Use case ends
 > 1b1. Task Manager shows an error message stating provided index is invalid <br>
   Use case ends
 
+
 #### Use case: Find Task(s)
 
 **MSS**
@@ -337,6 +339,7 @@ Use case ends
 1. User requests to list tasks containing a KEYWORD
 2. Task Manager shows tasks containing the KEYWORD <br>
 Use case ends
+
 
 #### Use case: Backup Data
 
@@ -359,6 +362,7 @@ Use case ends
  > 2a1. Task Manager shows an error message <br>
   Use case ends
 
+
 #### Use case: Access Another Data File
 
 **MSS**
@@ -380,6 +384,7 @@ Use case ends
  > 2a1. Task Manager shows an error message <br>
   Use case ends
 
+
 #### Use case: Mark task as done
 
 **MSS**
@@ -399,6 +404,7 @@ Use case ends
 
 > 1b1. Task Manager shows an error message stating provided index is invalid <br>
   Use case ends
+
 
 #### Use case: Mark task as not done
 
@@ -420,6 +426,7 @@ Use case ends
 > 1b1. Task Manager shows an error message stating provided index is invalid <br>
   Use case ends
 
+
 #### Use case: Edit task
 
 **MSS**
@@ -440,6 +447,7 @@ Use case ends
 > 1b1. Task Manager shows an error message <br>
   Use case ends
 
+
 #### Use case: Exit TaskManager
 
 **MSS**
@@ -448,6 +456,7 @@ Use case ends
 2. Task Manager shuts down <br>
 Use case ends
 
+
 #### Use case: Show help page
 
 **MSS**
@@ -455,6 +464,7 @@ Use case ends
 1. User requests to view help page (via help command, <kbd>F1</kbd> key, or menu option) 
 2. Task Manager opens help page <br>
 Use case ends
+
 
 #### Use case: Undo last command
 
@@ -479,7 +489,7 @@ Use case ends
 3. Should come with automated unit tests and open source code.
 4. Should function fully offline.
 5. Should process a command within 3 seconds.
-// @@author
+[//]: # "@@author"
 
 ## Appendix D : Glossary
 
