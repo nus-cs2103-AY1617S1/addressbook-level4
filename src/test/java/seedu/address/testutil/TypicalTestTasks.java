@@ -28,6 +28,7 @@ public class TypicalTestTasks {
             deadlineIn30Days = new TaskBuilder().withName("lab 5").withStatus("not done").withTaskType("deadline").withEndDate(LocalDateTime.now().plusDays(17)).build();
             event1 =  new TaskBuilder().withName("hw 4").withStatus("done").withTaskType("event").withStartDate(LocalDateTime.of(2013, 2, 2, 4, 6)).withEndDate(LocalDateTime.of(2013, 2, 3, 4, 6)).build();
             event2 =  new TaskBuilder().withName("hw 5").withStatus("overdue").withTaskType("event").withStartDate(LocalDateTime.of(2014, 2, 2, 4, 6)).withEndDate(LocalDateTime.of(2014, 2, 3, 4, 6)).build();
+            eventToday = new TaskBuilder().withName("attend meeting").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().withHour(23)).withEndDate(LocalDateTime.now().plusDays(1)).build();
             eventIn7Days =  new TaskBuilder().withName("lab 6").withStatus("done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(5)).withEndDate(LocalDateTime.now().plusDays(6)).build();
             eventTomorrow =  new TaskBuilder().withName("lab 7").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(1)).withEndDate(LocalDateTime.now().plusDays(2)).build();
             eventIn7Days =  new TaskBuilder().withName("lab 6").withStatus("not done").withTaskType("event").withStartDate(LocalDateTime.now().plusDays(4)).withEndDate(LocalDateTime.now().plusDays(6)).build();
@@ -79,7 +80,7 @@ public class TypicalTestTasks {
     
     //@@author A0141019U
     public TestTask[] getSortedTypicalTasks() {
-    	return new TestTask[]{event1, deadline2, event2, eventToday, deadlineTomorrow, eventTomorrow, eventIn7Days, deadlineIn7Days, deadlineIn30Days, eventIn30Days, someday2, deadline1, deadlineToday, someday1};
+    	return new TestTask[]{deadline2, event2, eventToday, deadlineTomorrow, eventTomorrow, eventIn7Days, deadlineIn7Days, deadlineIn30Days, eventIn30Days, someday2, deadline1, event1, deadlineToday, someday1};
     }
     
     //@@author

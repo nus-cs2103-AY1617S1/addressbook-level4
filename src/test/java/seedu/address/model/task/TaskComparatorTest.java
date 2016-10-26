@@ -30,8 +30,8 @@ public class TaskComparatorTest {
 	public void testComparator() {
 		assertFalse(unsorted.equals(sorted));
 		
-		
 		Collections.sort(unsorted, comparator);	
+		
 		for (ReadOnlyTask t : sorted) {
 			System.out.println("status: " + t.getStatus());
 			System.out.println("start date: " + t.getStartDate().orElse(LocalDateTime.MAX));

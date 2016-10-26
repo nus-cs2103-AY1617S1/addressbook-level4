@@ -27,7 +27,7 @@ public class Task implements ReadOnlyTask {
     public Task(Name name, TaskType taskType, Status status, Optional<LocalDateTime> startDate, 
     		Optional<LocalDateTime> endDate, UniqueTagList tags) throws IllegalArgumentException {
     	
-    	assert !CollectionUtil.isAnyNull(name, status, tags);
+    	assert !CollectionUtil.isAnyNull(name, taskType, status, startDate, endDate, tags);
     	
     	if (startDate.isPresent() && taskType.value != TaskType.Type.EVENT) {
     		throw new IllegalArgumentException("Only events can have start dates");

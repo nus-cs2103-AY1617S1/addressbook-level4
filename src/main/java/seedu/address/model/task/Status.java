@@ -28,6 +28,8 @@ public class Status implements Comparable<Status> {
 	
 
 	public Status(String string) {
+		assert string != null;
+		
 		switch (string.trim().toLowerCase()) {
 		case "done":
 			value = StatusType.DONE;
@@ -76,7 +78,7 @@ public class Status implements Comparable<Status> {
     // overdue < not done < done
 	@Override
 	public int compareTo(Status other) {
-		if (this.value.equals(other.value)) {
+		if (this.equals(other)) {
 			return 0;
 		}
 		else if (this.isOverdue() || other.isDone()) {
