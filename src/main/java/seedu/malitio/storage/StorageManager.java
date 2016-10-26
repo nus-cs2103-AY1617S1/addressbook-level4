@@ -101,6 +101,10 @@ public class StorageManager extends ComponentManager implements Storage {
         String oldDataFilePath = malitioStorage.getMalitioFilePath();
         malitioStorage = new XmlMalitioStorage(event.dataFilePath);
         
+        if(oldDataFilePath != this.malitioStorage.getMalitioFilePath()) {
+            return;
+        }
+        
         try {
             saveMalitio(readMalitio(oldDataFilePath).get(), this.malitioStorage.getMalitioFilePath()); 
         } catch (IOException e) {
@@ -109,9 +113,7 @@ public class StorageManager extends ComponentManager implements Storage {
         
         try {
             logger.info(LogsCenter.getEventHandlingLogMessage(event, "Old data file is being deleted."));
-            if(oldDataFilePath != this.malitioStorage.getMalitioFilePath()) {
-                FileUtil.deleteFile(oldDataFilePath);
-            }
+            FileUtil.deleteFile(oldDataFilePath);
         } catch (IOException e) {
             logger.info(LogsCenter.getEventHandlingLogMessage(event, "Failed to delete old data file."));
         }
