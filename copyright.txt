@@ -7,3 +7,5 @@ Copyright by Susumu Yoshida - http://www.mcdodesign.com/
 Copyright by Jan Jan Kovařík - http://glyphicons.com/
 - calendar.png
 - edit.png
+
+Copyright (c) 2010 Joseph Stelmach
