@@ -514,5 +514,49 @@ Use Case end.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+Product 1: Google Keep
+
+Pros
+<ul>
+<li>Simple to use</li>
+<li>available in Web and Andriod</li>
+<li>Consistently sync  if any changes make to the notepad</li>
+</ul>
+
+Cons
+<ul>
+<li>No Calender View</li>
+<li>Does not support recurring task or sub task</li>
+</ul>
+
+Product 2: Wunderlist
+
+Pros
+<ul>
+<li>Able to sort by due date</li>
+<li>Can fliter by date range</li>
+<li>Interface is elegant</li>
+</ul>
+
+Cons
+<ul>
+<li>Does not notified by the software but through email</li>
+<li>No options for subtasks or subcontexts</li>
+<li>No start date or repeat options for tasks</li>
+</ul>
+
+Product 3: Any.do
+
+Pros
+<ul>
+<li>Support recurring task</li>
+<li>Clean interface and intuitive</li>
+<li>Able to sync between web and mobile</li>
+</ul>
+
+Cons
+<ul>
+<li>no alarm supported</li>
+<li>Internet is required</li>
+</ul>
 
