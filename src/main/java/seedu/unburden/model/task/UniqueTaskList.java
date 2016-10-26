@@ -4,7 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.unburden.commons.exceptions.*;
 import seedu.unburden.commons.util.CollectionUtil;
-import seedu.unburden.logic.History;
+
 
 import java.util.*;
 
