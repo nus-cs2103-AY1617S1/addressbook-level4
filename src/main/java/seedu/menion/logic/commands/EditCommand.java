@@ -249,5 +249,4 @@ public class EditCommand extends Command {
         ReadOnlyActivityManager beforeState = new ActivityManager(model.getActivityManager());
     	model.addStateToUndoStack(beforeState);
     }
-    //@@author
 }

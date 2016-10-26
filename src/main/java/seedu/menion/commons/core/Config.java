@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "Menion";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String activityManagerFilePath = "data/menion.xml";
+    private String activityManagerFilePath;
     private String activityManagerName = "Menion";
 
 
@@ -91,7 +91,6 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + activityManagerFilePath);
         sb.append("\nActivity Manager name : " + activityManagerName);
         return sb.toString();
     }

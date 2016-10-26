@@ -4,7 +4,7 @@ import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.model.activity.ActivityDate;
 import seedu.menion.model.activity.ActivityTime;
 
-//@@author: A0139164A
+//@@author A0139164A
 public class DateChecker {
     
     public static final String END_DATE_BEFORE_START_DATE_ERROR = "Oh no! Menion has detected that the end date/time of your event is before the " +
@@ -59,7 +59,16 @@ public class DateChecker {
         boolean sameDate = false;
         
         // Compare date
-        if (fromYear > toYear || fromMonth > toMonth || fromDay > toDay ) {
+        if (fromYear > toYear) {
+            throw new IllegalValueException(END_DATE_BEFORE_START_DATE_ERROR);
+        }
+        if (fromYear == toYear && fromMonth > toMonth) {
+            throw new IllegalValueException(END_DATE_BEFORE_START_DATE_ERROR);
+        }
+        if (fromYear == toYear && fromMonth == toMonth && fromDay > toDay) {
+            throw new IllegalValueException(END_DATE_BEFORE_START_DATE_ERROR);
+        }
+        if (fromYear == toYear && fromMonth == toMonth && fromDay == toDay && fromTime > toTime) {
             throw new IllegalValueException(END_DATE_BEFORE_START_DATE_ERROR);
         }
         

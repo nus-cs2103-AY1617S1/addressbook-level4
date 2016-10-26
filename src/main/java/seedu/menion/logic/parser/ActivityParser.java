@@ -50,8 +50,7 @@ public class ActivityParser {
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
+
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
@@ -81,6 +80,9 @@ public class ActivityParser {
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
             
+        case ModifyStoragePathCommand.COMMAND_WORD:
+        	return new ModifyStoragePathCommand(arguments);
+            
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
 
@@ -92,7 +94,7 @@ public class ActivityParser {
         }
     }
     
-   //@@author: A0139277U
+   //@@author A0139277U
     private Command prepareList(String args){
     	
     	args = args.trim();
@@ -101,7 +103,7 @@ public class ActivityParser {
     
     }
     
-    //@@author: A0139164A
+    //@@author A0139164A
     private Command prepareComplete(String args) {
 
         String[] splited = args.split("\\s+");
@@ -231,22 +233,6 @@ public class ActivityParser {
         return new DeleteCommand(activityType.get(0), index);
     }
     
-
-    /**
-     * Parses arguments in the context of the select activity command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
-    }
 
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.

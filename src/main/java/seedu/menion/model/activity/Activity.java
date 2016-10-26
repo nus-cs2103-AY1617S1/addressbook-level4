@@ -1,3 +1,4 @@
+//@@author A0139164A
 package seedu.menion.model.activity;
 
 import seedu.menion.commons.exceptions.IllegalValueException;
@@ -14,7 +15,7 @@ import java.util.Objects;
 public class Activity implements ReadOnlyActivity {
 
     // Types of Activity
-    public static final String FLOATING_TASK_TYPE = "floatingTask";
+    public static final String FLOATING_TASK_TYPE = "floating";
     public static final String TASK_TYPE = "task";
     public static final String EVENT_TYPE = "event";
 
@@ -146,7 +147,6 @@ public class Activity implements ReadOnlyActivity {
         return this.name;
     }
     
-    //@@author: A0139164A
     /**
      * @throws IllegalValueException 
      * List of methods to set Activity's param : Name, Note, startDate, startTime
@@ -242,13 +242,13 @@ public class Activity implements ReadOnlyActivity {
 
     @Override
     public void setActivityDetails() {
-        if (activityType == FLOATING_TASK_TYPE) {
+        if (activityType.equals(FLOATING_TASK_TYPE)) {
             activityDetails = new ArrayList<String>(FLOATING_TASK_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
             activityDetails.add(note.toString());
             activityDetails.add(status.toString());
-        } else if (activityType == TASK_TYPE) {
+        } else if (activityType.equals(TASK_TYPE)) {
             activityDetails = new ArrayList<String>(TASK_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
@@ -256,7 +256,7 @@ public class Activity implements ReadOnlyActivity {
             activityDetails.add(startDate.toString());
             activityDetails.add(startTime.toString());
             activityDetails.add(status.toString());
-        } else if (activityType == EVENT_TYPE) {
+        } else if (activityType.equals(EVENT_TYPE)) {
             activityDetails = new ArrayList<String>(EVENT_LENGTH);
             activityDetails.add(activityType);
             activityDetails.add(name.toString());
@@ -281,4 +281,15 @@ public class Activity implements ReadOnlyActivity {
         }
         return null;
     }
+    
+   //@@author A0139277U
+    @Override
+    public boolean equals(Object o){
+    	return o == this || 
+    			(o instanceof ReadOnlyActivity &&
+    					(this.isFloatingTaskSameStateAs((ReadOnlyActivity) o)
+    					|| this.isTaskSameStateAs((ReadOnlyActivity) o)
+    					|| this.isEventSameStateAs((ReadOnlyActivity) o)));
+    }
+    
 }

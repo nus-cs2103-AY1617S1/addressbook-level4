@@ -1,12 +1,18 @@
 package guitests;
 
+import static seedu.menion.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.menion.logic.commands.CompleteCommand.MESSAGE_COMPLETED_ACTIVITY_SUCCESS;
 import org.junit.Test;
-import guitests.guihandles.ActivityCardHandle;
-import seedu.address.testutil.TestActivity;
 
-// @author Marx Low (A0139164A)
-public class CompleteCommandTest extends AddressBookGuiTest {
+import guitests.guihandles.FloatingTaskCardHandle;
+import guitests.guihandles.TaskCardHandle;
+import seedu.menion.commons.core.Messages;
+import seedu.menion.logic.commands.CompleteCommand;
+import seedu.menion.model.activity.Activity;
+import seedu.menion.testutil.TestActivity;
+
+//@@author A0139164A
+public class CompleteCommandTest extends ActivityManagerGuiTest {
     
     @Test
     public void complete() {
@@ -18,30 +24,26 @@ public class CompleteCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(activityToComplete.getAddCommand());
         assertCompleteSuccess(activityToComplete, 1);
         
-        // Runs complete command on an event.
-        activityToComplete = td.event;
-        commandBox.runCommand(activityToComplete.getAddCommand());
-        assertCompleteSuccess(activityToComplete, 1);
-        
         // Runs complete command on a floatingTask
         activityToComplete = td.floatingTask;
         commandBox.runCommand(activityToComplete.getAddCommand());
         assertCompleteSuccess(activityToComplete, 1);
         
-        // Runs complete command on positive invalid index
+        // Runs complete command on positive/negative/0 invalid indexes
         commandBox.runCommand("clear");
         commandBox.runCommand(activityToComplete.getAddCommand());
-        assertCompleteSuccess(activityToComplete, 2);
-        
-        // Runs complete command on negative index
-        commandBox.runCommand(activityToComplete.getAddCommand());
-        assertCompleteSuccess(activityToComplete, -1);
-        
+        assertInvalidIndex(activityToComplete, 2); // Only 1 activity in the list.
+        assertInvalidIndex(activityToComplete, 0);
+        assertInvalidIndex(activityToComplete, -1);
+
         // Runs complete command on empty list
         commandBox.runCommand("clear");
-        assertCompleteSuccess(activityToComplete, 1);
+        assertInvalidIndex(activityToComplete, 1);
+        
+        //Runs complete command without index
+        assertMissingIndex();
     }
-    
+
     /**
      * checks whether a complete command correctly updates the UI
      * @author Marx Low (A0139164A)
@@ -51,13 +53,38 @@ public class CompleteCommandTest extends AddressBookGuiTest {
     private void assertCompleteSuccess(TestActivity activityToComplete, int index) {
         
         commandBox.runCommand(activityToComplete.getCompleteCommand(index));
+        boolean isTask = false;
+        boolean isFloating = false;
         
         //Confirms new Activity card has correct Completed status.
-        ActivityCardHandle completedCard = activityListPanel.navigateToPerson(activityToComplete);
-        assertMatching(activityToComplete, completedCard);
+        if (activityToComplete.getActivityType().equals(Activity.TASK_TYPE)) {
+            isTask = true;
+            TaskCardHandle completedCard = activityListPanel.navigateToTask(activityToComplete);
+            assertTaskMatching(activityToComplete, completedCard);
+        }
+        else if (activityToComplete.getActivityType().equals(Activity.FLOATING_TASK_TYPE)) {
+            isFloating = true;
+            FloatingTaskCardHandle completedCard = activityListPanel.navigateToFloatingTask(activityToComplete);
+            assertFloatingTaskMatching(activityToComplete, completedCard);
+        }
         
+        if (isTask) {
+            activityToComplete = activityListPanel.returnsUpdatedTask(activityToComplete.getActivityName().fullName);
+        }
+        else if (isFloating) {
+            activityToComplete = activityListPanel.returnsUpdatedFloatingTask(activityToComplete.getActivityName().fullName);
+        }
         // Confirms the result message is correct
-        // Debug System.out.println(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
-        // assertResultMessage(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
+        assertResultMessage(String.format(MESSAGE_COMPLETED_ACTIVITY_SUCCESS, activityToComplete));
+    }
+    
+    private void assertInvalidIndex(TestActivity activityToComplete, int index) {
+        commandBox.runCommand(activityToComplete.getCompleteCommand(index));
+        assertResultMessage(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+    }
+    
+    private void assertMissingIndex() {
+        commandBox.runCommand("complete task");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.INDEX_MISSING_MESSAGE));
     }
 }

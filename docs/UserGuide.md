@@ -13,6 +13,7 @@
   * [List Activities](#listing-all-activities)
   * [Find Activities](#finding-all-activities-containing-any-keyword-in-their-name)
   * [Undo Command](#undo-command)
+  * [Redo Command](#redo-command)
   * [Mark Completed Activities](#complete-an-activity)
   * [Modify Storage Path](#modifying-the-storage-path)
   * [Help](#viewing-help)
@@ -101,21 +102,28 @@ Examples:
 Updates a specified activity from Menion.
 
 Format : `edit ACTIVITY_TYPE INDEX PARAMETERS`
-> Edits the task at the specified `INDEX`. The index refers to the index number shown beside the task. <br>
+> Edits the activity at the specified `INDEX`. The index refers to the index number shown beside the activity. <br>
 > The input field is the same as Add command. <br>
 > The index must be a positive integer 1,2,3, ...
 
 Examples :
 
-* `edit event 3 by: 08-19-2016 1900` 
-* `edit task 4 n: buy extra stuff` 
+* `edit event 3 by 08-19-2016 1900`
+* `edit task 4 note buy extra stuff`
+* `edit task 1 name Hello World`
 
+
+[//]: <> (@@author A0139515A)
 #### Undo
 Undo the most previous command.
 
 Format : `undo`
 
-<br>
+#### Redo
+Redo the most previous command.
+
+Format : `redo`
+
 
 #### Complete an activity
 Marks an activity as completed.
@@ -149,7 +157,6 @@ Examples:
 * `list JANUARY`
 * `list 12/3/2016`
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 #### Finding all activities containing any keyword in their name
 Finds any activities whose names contain any of the given keywords.<br>
@@ -174,10 +181,11 @@ Clear all entries from Menion.<br>
 
 Format : `clear`
 
+[//]: <> (@@author A0139515A)
 #### Modifying the storage path
 Modify the storage path that stores all the data.<br>
 
-Format : `modify storage path STORAGE_LOCATION`
+Format : `modify STORAGE_LOCATION`
 
 Examples:
 
@@ -208,14 +216,18 @@ There is no need to save manually.<br>
 
 Command | Format  
 -------- | :-------- 
-Add | `add TASK_NAME d/DEADLINE_TASK r/TASK_REMINDER p/PRIORITY n/NOTES...`
+Add | `add FLOATING_TASK_NAME n:NOTES...`<br>`add TASK_NAME by TASK_DEADLINE_DATE TASK_DEADLINE_TIME n:NOTES...`<br>`add EVENT_NAME from EVENT_START_DATE EVENT_START_TIME to EVENT_END_DATE EVENT_END_TIME n:NOTES...`
 Clear | `clear`
-Delete | `delete INDEX`
+Complete | `complete ACTIVITY_TYPE INDEX`
+Delete | `delete ACTIVITY_TYPE INDEX`
+Edit | `edit ACTIVITY_TYPE ACTIVITY_INDEX ACTIVITY_PARAMETER_TO_CHANGE ACTIVITY_PARAMETER_CHANGES`
 Exit | `exit`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
 Help | `help`
-Modify Storage Path | `modify storage path STORAGE_LOCATION`
+List | `list`
+Modify Storage Path | `modify STORAGE_LOCATION`
+Undo| `undo`
+Redo | `redo`
+
 
 
 ## GLOSSARY

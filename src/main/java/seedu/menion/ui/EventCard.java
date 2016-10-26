@@ -27,8 +27,6 @@ public class EventCard extends UiPart{
     private Label endDate;
     @FXML
     private Label endTime;
-    @FXML
-    private Label status;
     
     private ReadOnlyActivity event;
     
@@ -53,10 +51,8 @@ public class EventCard extends UiPart{
         startTime.setText(event.getActivityStartTime().toString()); 
         endDate.setText(event.getActivityEndDate().toString());
         endTime.setText(event.getActivityEndTime().toString());
-        status.setText(event.getActivityStatus().toString());
         id.setText(displayedIndex + ". ");    
     }
-    //@@author
     
     public HBox getLayout() {
         return eventCardPane;
