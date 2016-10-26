@@ -4,6 +4,7 @@ import java.util.Set;
 
 import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.model.FilteredListManager.ListId;
+import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
@@ -72,7 +73,15 @@ public interface Model{
     /** Updates the filter of the filtered event list to copy the filter of the list identified by {@code other} */
     void updateFilteredAgendaEventList(ListId other);
     
+    /** Updates the filter of the filtered tasks list to filter by the given dates */
+    void updateFilteredAgendaTaskList(DateTime toDate, DateTime fromDate);
+
+    /** Updates the filter of the filtered events list to filter by the given dates */
+    void updateFilteredAgendaEventList(DateTime toDate, DateTime fromDate);
+    
     UserPrefs getUserPrefs();
     
     Model clone();
+
+
 }
