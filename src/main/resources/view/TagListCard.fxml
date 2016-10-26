@@ -11,15 +11,15 @@
 
 <!-- @@author A0142605N -->
 
-<HBox id="cardPane" fx:id="taskCardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="tagCardPane" styleClass="tag-card" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="120.0" />
             </columnConstraints>
             <children>
-                <VBox alignment="CENTER_LEFT" maxHeight="70.0" prefHeight="70.0" styleClass="taskCard" GridPane.columnIndex="0">
+                <VBox alignment="CENTER_LEFT" maxHeight="60.0" prefHeight="60.0" prefWidth="101.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DefaultTheme.css" />
                         <URL value="@Extensions.css" />
@@ -29,16 +29,13 @@
                     </padding>
 
                     <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5">
-                            <children>
-                                <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label" />
-                                    <Label fx:id="name" styleClass="card-title" text="\$first" />
-                                </HBox>
-                                <Label fx:id="recurrence" styleClass="card-text" text="\$recurrence" />
-                            </children>
+                           <Label fx:id="name" styleClass="card-title" stylesheets="@DefaultTheme.css" text="\$first" />
+                        <HBox alignment="CENTER_LEFT" spacing="5" stylesheets="@DefaultTheme.css">
+                     <children>
+                        <Label fx:id="duetoday" styleClass="card-text" text="\$today" />
+                              <Label fx:id="line1" styleClass="card-text" text="due today" />
+                     </children>
                         </HBox>
-                        <Label fx:id="line1" styleClass="card-text" text="\$line1" />
                     </children>
                 </VBox>
             </children>

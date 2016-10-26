@@ -9,22 +9,24 @@ import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Deletes a task identified using it's last displayed index from the task book.
+ * Marks a task identified using it's last displayed index from the task book as done.
  */
-public class DeleteCommand extends Command {
+public class UndoneCommand extends Command {
 
-    public static final String COMMAND_WORD = "del";
+    public static final String COMMAND_WORD = "undone";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last task listing.\n"
+            + ": Marks the task identified by the index number used in the last task listing as not done.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted task: %1$s";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Marked task as not done: %1$s";
+
+    public static final String MESSAGE_TASK_ALR_NOT_DONE = "Task is currently marked not done.";
 
     public final int targetIndex;
 
-    public DeleteCommand(String args) throws IllegalCmdArgsException {
+    public UndoneCommand(String args) throws IllegalCmdArgsException {
         Integer index = null;
         try {
             index = Parser.getIndexFromArgs(args);
@@ -37,7 +39,7 @@ public class DeleteCommand extends Command {
         this.targetIndex = index;
     }
 
-    public DeleteCommand(int targetIndex) {
+    public UndoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -52,20 +54,19 @@ public class DeleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToUndone = lastShownList.get(targetIndex - 1);
 
-        try {
-            model.deleteTask(taskToDelete);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
+        if(!taskToUndone.isCompleted()) {
+            return new CommandResult(String.format(MESSAGE_TASK_ALR_NOT_DONE, taskToUndone));
+        } else {
+            try {
+                model.undoneTask(targetIndex - 1);
+            } catch (TaskNotFoundException pnfe) {
+                assert false : "The target task cannot be missing";
+            }
+
+            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToUndone));
         }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
-    }
-    
-    @Override
-    public boolean canUndo() {
-        return true;
     }
 
 }

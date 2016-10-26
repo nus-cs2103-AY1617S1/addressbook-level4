@@ -1,5 +1,6 @@
 package seedu.oneline.model.task;
 
+import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 
 /**
@@ -14,12 +15,14 @@ public interface ReadOnlyTask {
     public TaskTime getDeadline();
     public TaskRecurrence getRecurrence();
     public boolean isCompleted();
+    public boolean isFloating();
+    public boolean isEvent();
+    public boolean hasDeadline();
 
     /**
-     * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the task's internal tags.
+     * Returns the tag of the current task
      */
-    UniqueTagList getTags();
+    Tag getTag();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
@@ -31,8 +34,7 @@ public interface ReadOnlyTask {
                 && other.getStartTime().equals(this.getStartTime())
                 && other.getEndTime().equals(this.getEndTime())
                 && other.getDeadline().equals(this.getDeadline())
-                && other.getRecurrence().equals(this.getRecurrence())
-                && other.isCompleted() == this.isCompleted());
+                && other.getRecurrence().equals(this.getRecurrence()));
     }
 
     /**
@@ -49,23 +51,9 @@ public interface ReadOnlyTask {
                 .append(getDeadline())
                 .append(" Recurrence: ")
                 .append(getRecurrence())
-                .append(" Tags: ");
-        getTags().forEach(builder::append);
+                .append(" Tag: ")
+                .append(getTag());
         return builder.toString();
-    }
-
-    /**
-     * Returns a string representation of this Task's tags
-     */
-    default String tagsString() {
-        final StringBuffer buffer = new StringBuffer();
-        final String separator = ", ";
-        getTags().forEach(tag -> buffer.append(tag).append(separator));
-        if (buffer.length() == 0) {
-            return "";
-        } else {
-            return buffer.substring(0, buffer.length() - separator.length());
-        }
     }
 
 }

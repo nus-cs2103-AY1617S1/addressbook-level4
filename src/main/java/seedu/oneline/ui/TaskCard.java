@@ -11,7 +11,7 @@ public class TaskCard extends UiPart{
     private static final String FXML = "TaskListCard.fxml";
 
     @FXML
-    private HBox cardPane;
+    private HBox taskCardPane;
     @FXML
     private Label name;
     @FXML
@@ -19,11 +19,7 @@ public class TaskCard extends UiPart{
     @FXML
     private Label line1;
     @FXML
-    private Label line2;
-    @FXML
-    private Label line3;
-    @FXML
-    private Label tags;
+    private Label recurrence;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -44,19 +40,17 @@ public class TaskCard extends UiPart{
         TaskCardParser parser = new TaskCardParser(task);
         name.setText(parser.getName());
         id.setText(displayedIndex + ". ");
-        line1.setText(parser.getLine1());
-        line2.setText(parser.getLine2());
-        line3.setText(parser.getLine3());
-        tags.setText(parser.getTags());
+        line1.setText(parser.getTime());
+        recurrence.setText(parser.getRecurrence());
     }
 
     public HBox getLayout() {
-        return cardPane;
+        return taskCardPane;
     }
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        taskCardPane = (HBox)node;
     }
 
     @Override

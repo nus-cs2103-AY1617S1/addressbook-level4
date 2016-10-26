@@ -2,6 +2,7 @@ package guitests;
 
 import org.junit.Test;
 
+import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.oneline.commons.core.Messages;
 import seedu.oneline.testutil.TestTask;
 import seedu.oneline.testutil.TestUtil;
@@ -30,7 +31,7 @@ public class DeleteCommandTest extends TaskBookGuiTest {
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index
-        commandBox.runCommand("delete " + currentList.length + 1);
+        commandBox.runCommand("del " + currentList.length + 1);
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 
     }
@@ -41,13 +42,14 @@ public class DeleteCommandTest extends TaskBookGuiTest {
      * @param currentList A copy of the current list of tasks (before deletion).
      */
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
+        Arrays.sort(currentList);
         TestTask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 
-        commandBox.runCommand("delete " + targetIndexOneIndexed);
+        commandBox.runCommand("del " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous tasks except the deleted task
-        assertTrue(taskListPanel.isListMatching(expectedRemainder));
+        assertTrue(taskPane.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));

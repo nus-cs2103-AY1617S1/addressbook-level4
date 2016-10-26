@@ -22,6 +22,8 @@ public class DoneCommand extends Command {
 
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Marked task as done: %1$s";
 
+    public static final String MESSAGE_TASK_ALR_DONE = "Task is already marked as done.";
+
     public final int targetIndex;
 
     public DoneCommand(String args) throws IllegalCmdArgsException {
@@ -54,13 +56,17 @@ public class DoneCommand extends Command {
 
         ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
 
-        try {
-            model.doneTask(targetIndex);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        }
+        if(taskToDone.isCompleted()) {
+            return new CommandResult(String.format(MESSAGE_TASK_ALR_DONE, taskToDone));
+        } else {
+            try {
+                model.doneTask(targetIndex - 1);
+            } catch (TaskNotFoundException pnfe) {
+                assert false : "The target task cannot be missing";
+            }
 
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
+            return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToDone));
+        }
     }
 
 }

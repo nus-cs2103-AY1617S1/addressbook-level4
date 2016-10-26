@@ -3,11 +3,11 @@ package seedu.oneline.model;
 import javafx.collections.ObservableList;
 import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
+import seedu.oneline.model.tag.UniqueTagList.DuplicateTagException;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
 import seedu.oneline.model.task.TaskName;
 import seedu.oneline.model.task.UniqueTaskList;
-import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -48,6 +48,9 @@ public class TaskBook implements ReadOnlyTaskBook {
 
 //// list overwrite operations
 
+    public ObservableList<Tag> getTags() {
+        return tags.getInternalList();
+    }
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
@@ -89,21 +92,13 @@ public class TaskBook implements ReadOnlyTaskBook {
      *  - points to a Tag object in the master list
      */
     private void syncTagsWithMasterList(Task task) {
-        final UniqueTagList taskTags = task.getTags();
-        tags.mergeFrom(taskTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
+        if (!this.getUniqueTagList().contains(task.getTag())) {
+            try {
+                this.getUniqueTagList().add(task.getTag());
+            } catch (DuplicateTagException e) {
+                assert false;
+            }
         }
-
-        // Rebuild the list of person tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : taskTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        task.setTags(new UniqueTagList(commonTagReferences));
     }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
@@ -113,11 +108,6 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-    
-    public void doneTask(int index) throws UniqueTaskList.TaskNotFoundException {
-        tasks.done(index);
-    }
-    
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

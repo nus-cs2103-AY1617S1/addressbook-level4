@@ -40,10 +40,8 @@ public class TaskBuilder {
         return this;
     }
 
-    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
-        for (String tag: tags) {
-            task.getTags().add(new Tag(tag));
-        }
+    public TaskBuilder withTag(String tag) throws IllegalValueException {
+        this.task.setTag(new Tag(tag));
         return this;
     }
     

@@ -29,10 +29,9 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private TaskListPanel taskListPanel;
+    private TaskPane taskPane;
+    private TagListPanel tagListPanel;
     private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
@@ -44,22 +43,16 @@ public class MainWindow extends UiPart {
     private String taskBookName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
+    private AnchorPane taskPanePlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
-    private AnchorPane taskListPanelPlaceholder;
+    private AnchorPane tagListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
-
-    @FXML
-    private AnchorPane statusbarPlaceholder;
 
 
     public MainWindow() {
@@ -99,19 +92,12 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-
-        setAccelerators();
-    }
-
-    private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
+        taskPane = TaskPane.load(primaryStage, taskPanePlaceholder, logic.getFilteredTaskList());
+        tagListPanel = TagListPanel.load(primaryStage, getTagListPlaceholder(), logic.getTagList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskBookFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
@@ -119,16 +105,12 @@ public class MainWindow extends UiPart {
         return commandBoxPlaceholder;
     }
 
-    private AnchorPane getStatusbarPlaceholder() {
-        return statusbarPlaceholder;
-    }
-
     private AnchorPane getResultDisplayPlaceholder() {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getTaskListPlaceholder() {
-        return taskListPanelPlaceholder;
+    public AnchorPane getTagListPlaceholder() {
+        return tagListPanelPlaceholder;
     }
 
     public void hide() {
@@ -181,16 +163,13 @@ public class MainWindow extends UiPart {
     private void handleExit() {
         raise(new ExitAppRequestEvent());
     }
-
-    public TaskListPanel getTaskListPanel() {
-        return this.taskListPanel;
+    
+    public TaskPane getTaskPane() {
+        return this.taskPane; 
     }
 
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
+    public TagListPanel getTagListPanel() {
+        return this.tagListPanel;
     }
 
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
 }

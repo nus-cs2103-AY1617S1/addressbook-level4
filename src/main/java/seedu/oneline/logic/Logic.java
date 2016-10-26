@@ -3,6 +3,7 @@ package seedu.oneline.logic;
 import javafx.collections.ObservableList;
 import seedu.oneline.logic.commands.CommandResult;
 import seedu.oneline.model.task.ReadOnlyTask;
+import seedu.oneline.model.tag.Tag; 
 
 /**
  * API of the Logic component
@@ -18,4 +19,6 @@ public interface Logic {
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
+    /** Returns list of all tags */ 
+    ObservableList<Tag> getTagList(); 
 }

@@ -16,11 +16,11 @@ public class ParserTest {
     @Test
     public void parseStandardArguments() {
         String testName = "Test name";
-        String testStartTime = "Time 1";
-        String testEndTime = "Time 2";
-        String testDeadline = "OMG DEADLINE";
+        String testStartTime = "Sun Oct 16 21:35:45";
+        String testEndTime = "Sun Oct 16 21:35:45";
+        String testDeadline = "Sun Oct 16 21:35:45";
         String testRecurrence = "Tuesday";
-        String testTags = "#Tag1 #Tag2";
+        String testTag = "Tag1";
         String args;
         
         // All arguments specified
@@ -29,7 +29,7 @@ public class ParserTest {
                 CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_END_TIME + " " + testEndTime + " " +
                 CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_DEADLINE + " " + testDeadline + " " +
                 CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_RECURRENCE + " " + testRecurrence + " " +
-                testTags;
+                CommandConstants.TAG_PREFIX + testTag;
         Map<TaskField, String> fields = null;
         try {
             fields = Parser.getTaskFieldsFromArgs(args);
@@ -43,13 +43,13 @@ public class ParserTest {
         assertEquals(testEndTime, fields.get(TaskField.END_TIME));
         assertEquals(testDeadline, fields.get(TaskField.DEADLINE));
         assertEquals(testRecurrence, fields.get(TaskField.RECURRENCE));
-        assertEquals(testTags, fields.get(TaskField.TAG_ARGUMENTS));
+        assertEquals(testTag, fields.get(TaskField.TAG));
         
         // Optional arguments 1
         args = testName + " " +
                 CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_END_TIME + " " + testEndTime + " " +
                 CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_DEADLINE + " " + testDeadline + " " +
-                testTags;
+                CommandConstants.TAG_PREFIX + testTag;
         try {
             fields = Parser.getTaskFieldsFromArgs(args);
         } catch (IllegalCmdArgsException e) {
@@ -60,7 +60,7 @@ public class ParserTest {
         assertEquals(testName, fields.get(TaskField.NAME));
         assertEquals(testEndTime, fields.get(TaskField.END_TIME));
         assertEquals(testDeadline, fields.get(TaskField.DEADLINE));
-        assertEquals(testTags, fields.get(TaskField.TAG_ARGUMENTS));
+        assertEquals(testTag, fields.get(TaskField.TAG));
         
         // Optional arguments 2
         args = CommandConstants.KEYWORD_PREFIX + CommandConstants.KEYWORD_START_TIME + " " + testStartTime + " " +

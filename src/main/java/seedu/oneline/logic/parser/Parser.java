@@ -8,9 +8,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
+import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.oneline.commons.core.LogsCenter;
 import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.commons.util.StringUtil;
@@ -36,6 +38,9 @@ public class Parser {
             Pattern.compile("(?<index>-?[\\d]+)" // index
                     + " (?<args>.+)"); // the other arguments
     
+    private static final Pattern TAG_ARGS_FORMAT =
+            Pattern.compile("\\#(?<tag>\\p{Alnum}+)"); // #<tag>
+    
     public Parser() {}
 
     private static final Map<String, Class<? extends Command>> COMMAND_CLASSES = initCommandClasses();
@@ -46,12 +51,14 @@ public class Parser {
         commands.put(SelectCommand.COMMAND_WORD.toLowerCase(), SelectCommand.class);
         commands.put(EditCommand.COMMAND_WORD.toLowerCase(), EditCommand.class);
         commands.put(DeleteCommand.COMMAND_WORD.toLowerCase(), DeleteCommand.class);
-        commands.put(DoneCommand.COMMAND_WORD.toLowerCase(), DoneCommand.class);
         commands.put(ClearCommand.COMMAND_WORD.toLowerCase(), ClearCommand.class);
+        commands.put(DoneCommand.COMMAND_WORD.toLowerCase(), DoneCommand.class);
         commands.put(FindCommand.COMMAND_WORD.toLowerCase(), FindCommand.class);
         commands.put(ListCommand.COMMAND_WORD.toLowerCase(), ListCommand.class);
         commands.put(ExitCommand.COMMAND_WORD.toLowerCase(), ExitCommand.class);
         commands.put(HelpCommand.COMMAND_WORD.toLowerCase(), HelpCommand.class);
+        commands.put(SaveCommand.COMMAND_WORD.toLowerCase(), SaveCommand.class);
+        commands.put(UndoneCommand.COMMAND_WORD.toLowerCase(), UndoneCommand.class);
         commands.put(UndoCommand.COMMAND_WORD.toLowerCase(), UndoCommand.class);
         commands.put(RedoCommand.COMMAND_WORD.toLowerCase(), RedoCommand.class);
         return commands;
@@ -95,15 +102,6 @@ public class Parser {
      *
      * @param args full command args string
      * @return the fields specified in the args
-     * 
-     * Example:
-     * Command entered: add name .from X which is some date .to Y which is some other date .due someday
-     * Returns the following K,V pairs:
-     *      TaskField.NAME: "name"
-     *      TaskField.START_TIME: "X which is some date"
-     *      TaskField.END_TIME: "Y which is some other date"
-     *      TaskField.DEADLINE: "someday"
-     * 
      */
     public static Map<TaskField, String> getTaskFieldsFromArgs(String args) throws IllegalCmdArgsException {
         // Clear extra whitespace characters
@@ -129,7 +127,7 @@ public class Parser {
                         throw new IllegalCmdArgsException("Hashtags should be the last fields in command.");
                     }
                 }
-                fieldIndexes.add(new SimpleEntry<TaskField, Integer>(TaskField.TAG_ARGUMENTS, i));
+                fieldIndexes.add(new SimpleEntry<TaskField, Integer>(TaskField.TAG, i));
                 break;
             }
         }
@@ -154,15 +152,20 @@ public class Parser {
             result.put(TaskField.NAME, String.join(" ", subArr));
         }
         for (int i = 0; i < fieldIndexes.size(); i++) {
-            if (fieldIndexes.get(i).getKey() == TaskField.TAG_ARGUMENTS && i != fieldIndexes.size() - 1) {
+            if (fieldIndexes.get(i).getKey() == TaskField.TAG && i != fieldIndexes.size() - 1) {
                 throw new IllegalCmdArgsException("Hashtags should be the last fields in command.");
             }
             String[] subArr = Arrays.copyOfRange(splitted,
-                                (fieldIndexes.get(i).getKey() == TaskField.TAG_ARGUMENTS) ?
+                                (fieldIndexes.get(i).getKey() == TaskField.TAG) ?
                                     fieldIndexes.get(i).getValue() :
                                     fieldIndexes.get(i).getValue() + 1,
                                 (i == fieldIndexes.size() - 1) ?
                                     splitted.length : fieldIndexes.get(i + 1).getValue());
+            if (fieldIndexes.get(i).getKey() == TaskField.TAG) {
+                for (int j = 0; j < subArr.length; j++) {
+                    subArr[j] = getTagFromArgs(subArr[j]);
+                }
+            }
             result.put(fieldIndexes.get(i).getKey(), String.join(" ", subArr));
         }
         return result;
@@ -192,20 +195,6 @@ public class Parser {
         }
         // We allow multiple interpretations of the command if no clear keywords are used
         return indexes.get(0);
-    }
-
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    public static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.trim().replaceFirst(CommandConstants.TAG_PREFIX, "").split(" " + CommandConstants.TAG_PREFIX));
-        return new HashSet<>(tagStrings);
     }
 
     /**
@@ -239,6 +228,20 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return keywordSet;
+    }
+    
+    /**
+     * Parses a tag field to return the tag
+     *
+     * @param args full command args string
+     * @return the tag
+     */
+    public static String getTagFromArgs(String args) {
+        final Matcher matcher = TAG_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            return null; // TODO: THROW ERROR
+        }
+        return matcher.group("tag");
     }
     
     /**

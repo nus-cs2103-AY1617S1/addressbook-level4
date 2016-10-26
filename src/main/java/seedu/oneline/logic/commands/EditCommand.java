@@ -33,6 +33,7 @@ public class EditCommand extends Command {
 
     public EditCommand(String args) throws IllegalValueException, IllegalCmdArgsException {
         Entry<Integer, Map<TaskField, String>> info = Parser.getIndexAndTaskFieldsFromArgs(args);
+        assert info.getValue().containsKey(TaskField.NAME);
         targetIndex = info.getKey();
         fields = info.getValue();
     }
@@ -55,7 +56,8 @@ public class EditCommand extends Command {
         TaskTime newEndTime = oldTask.getEndTime();
         TaskTime newDeadline = oldTask.getDeadline();
         TaskRecurrence newRecurrence = oldTask.getRecurrence();
-        UniqueTagList newTags = oldTask.getTags();
+        boolean isCompleted = oldTask.isCompleted();
+        Tag newTag = oldTask.getTag();
 
         try {
             for (Entry<TaskField, String> entry : fields.entrySet()) {
@@ -75,12 +77,8 @@ public class EditCommand extends Command {
                 case RECURRENCE:
                     newRecurrence = new TaskRecurrence(entry.getValue());
                     break;
-                case TAG_ARGUMENTS:
-                    Set<String> tagsToAdd = Parser.getTagsFromArgs(entry.getValue());
-                    newTags = new UniqueTagList();
-                    for (String tag : tagsToAdd) {
-                        newTags.add(new Tag(tag));
-                    }
+                case TAG:
+                    newTag = new Tag(Parser.getTagFromArgs(entry.getValue()));
                     break;
                 }
             }
@@ -88,7 +86,7 @@ public class EditCommand extends Command {
             return new CommandResult(e.getMessage());
         }
         
-        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTags);
+        Task newTask = new Task(newName, newStartTime, newEndTime, newDeadline, newRecurrence, newTag, isCompleted);
         
         if (model.getTaskBook().getTaskList().contains(newTask)) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);

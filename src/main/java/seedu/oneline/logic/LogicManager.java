@@ -8,6 +8,7 @@ import seedu.oneline.logic.commands.CommandResult;
 import seedu.oneline.logic.parser.Parser;
 import seedu.oneline.model.Model;
 import seedu.oneline.model.task.ReadOnlyTask;
+import seedu.oneline.model.tag.Tag; 
 import seedu.oneline.storage.Storage;
 
 import java.util.logging.Logger;
@@ -36,5 +37,10 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<ReadOnlyTask> getFilteredTaskList() {
         return model.getFilteredTaskList();
+    }
+    
+    @Override
+    public ObservableList<Tag> getTagList() {
+        return model.getTagList(); 
     }
 }

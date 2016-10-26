@@ -11,15 +11,21 @@ import seedu.oneline.logic.commands.Command;
 import seedu.oneline.logic.commands.CommandResult;
 import seedu.oneline.model.task.ReadOnlyTask;
 import seedu.oneline.model.task.Task;
-import seedu.oneline.model.task.TaskName;
-import seedu.oneline.model.task.UniqueTaskList;
 import seedu.oneline.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.oneline.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.oneline.model.tag.Tag; 
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Set;
 import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
+import org.apache.commons.lang.time.DateUtils;
+
 
 /**
  * Represents the in-memory model of the address book data.
@@ -48,6 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskBook = new TaskBook(src);
         filteredTasks = new FilteredList<>(taskBook.getTasks());
+        filteredTasks.setPredicate(getNotDonePredicate());
     }
 
     public ModelManager() {
@@ -57,6 +64,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskBook initialData, UserPrefs userPrefs) {
         taskBook = new TaskBook(initialData);
         filteredTasks = new FilteredList<>(taskBook.getTasks());
+        filteredTasks.setPredicate(getNotDonePredicate());
     }
 
     @Override
@@ -93,14 +101,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) throws DuplicateTaskException {
         taskBook.addTask(task);
-        updateFilteredListToShowAllNotDone();
+        updateFilteredListToShowAll();
         indicateTaskBookChanged();
     }
 
     @Override
     public synchronized void replaceTask(ReadOnlyTask oldTask, Task newTask) throws TaskNotFoundException, DuplicateTaskException {
-//        assert taskBook.getUniqueTaskList().contains(newTask);
-//        assert !taskBook.getUniqueTaskList().contains(newTask);
         taskBook.getUniqueTaskList().replaceTask(oldTask, newTask);
         updateFilteredListToShowAllNotDone();
         indicateTaskBookChanged();
@@ -108,18 +114,36 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void doneTask(int index) throws TaskNotFoundException {
-        taskBook.doneTask(index);
+        Task done = filteredTasks.get(index);
+        assert done != null;
+        done.setCompleted(true);
         updateFilteredListToShowAllNotDone();
+        indicateTaskBookChanged();
+    }
+    
+    @Override
+    public synchronized void undoneTask(int index) throws TaskNotFoundException {
+        Task undone = filteredTasks.get(index);
+        assert undone != null;
+        undone.setCompleted(false);
+        updateFilteredListToShowAllDone();
         indicateTaskBookChanged();
     }
 
     //=========== Filtered Task List Accessors ===============================================================
-
+    
+    @Override
+    public UnmodifiableObservableList<Tag> getTagList() {
+        return new UnmodifiableObservableList<>(new FilteredList<>(taskBook.getTags()));
+    }
+    
+    //=========== Filtered Task List Accessors ===============================================================
+    //@@author: A0138848M
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
+        return new UnmodifiableObservableList<>(filteredTasks.sorted());
     }
-
+    //@@author:
     @Override
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
@@ -127,11 +151,61 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public void updateFilteredListToShowAllNotDone() {
+        filteredTasks.setPredicate(null);
         filteredTasks.setPredicate(getNotDonePredicate());
     }
     
+    @Override
+    public void updateFilteredListToShowAllDone() {
+        filteredTasks.setPredicate(null);
+        filteredTasks.setPredicate(getDonePredicate());
+    }
+    
+    //@@author: A0138848M
+    @Override
+    public void updateFilteredListToShowToday() {
+        Date now = new Date();
+        updateFilteredListToShowAllNotDone();
+        Predicate<Task> eventSameDay = t -> t.isEvent() 
+                && DateUtils.isSameDay(t.getEndTime().getDate(), now);
+        Predicate<Task> deadlineSameDay = t -> t.hasDeadline() 
+                && DateUtils.isSameDay(t.getDeadline().getDate(), now);
+        filteredTasks.setPredicate(eventSameDay.or(deadlineSameDay));
+    }
+    
+    @Override
+    public void updateFilteredListToShowWeek() {
+        LocalDateTime today = LocalDate.now(ZoneId.systemDefault()).atStartOfDay();
+        LocalDateTime weekLater = today.plusWeeks(1);
+        updateFilteredListToShowAllNotDone();
+        Predicate<Task> isEvent = t -> t.isEvent();
+        Predicate<Task> eventSameWeek = t -> 
+        (t.getEndTime().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                .isBefore(weekLater)
+                && t.getEndTime().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                .isAfter(today));
+        Predicate<Task> hasDeadline = t -> t.hasDeadline();
+        Predicate<Task> deadlineSameWeek = t ->
+        (t.getDeadline().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                .isBefore(weekLater)
+                && t.getDeadline().getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime()
+                .isAfter(today));
+        filteredTasks.setPredicate((isEvent.and(eventSameWeek)).or(hasDeadline.and(deadlineSameWeek)));
+    }
+    
+    @Override
+    public void updateFilteredListToShowFloat() {
+        updateFilteredListToShowAllNotDone();
+        filteredTasks.setPredicate(t -> t.isFloating());
+    }
+    
+    //@@author
     private Predicate<Task> getNotDonePredicate() {
         return task -> !task.isCompleted();
+    }
+    
+    private Predicate<Task> getDonePredicate() {
+        return task -> task.isCompleted();
     }
 
     @Override
@@ -194,7 +268,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-    
+  //@@author
   //========== Inner functions and classes used for undo/redo ==================================================
     
     public void undo() throws StateNonExistentException {

@@ -2,6 +2,7 @@ package seedu.oneline.model.tag;
 
 
 import seedu.oneline.commons.exceptions.IllegalValueException;
+import seedu.oneline.model.task.TaskRecurrence;
 
 /**
  * Represents a Tag in the address book.
@@ -12,11 +13,14 @@ public class Tag {
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public String tagName;
+    public static final Tag EMPTY_TAG = new Tag();
+    
+    public String tagName = "uncategorised";
 
     public Tag() {
     }
-
+    
+    //@@author A0142605N
     /**
      * Validates given tag name.
      *
@@ -38,6 +42,13 @@ public class Tag {
         return test.matches(TAG_VALIDATION_REGEX);
     }
 
+    /**
+     * Returns the default tag value
+     */
+    public static Tag getDefault() {
+        return EMPTY_TAG;
+    }
+    
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

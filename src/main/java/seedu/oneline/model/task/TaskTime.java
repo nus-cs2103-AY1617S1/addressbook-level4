@@ -5,11 +5,10 @@ import seedu.oneline.commons.exceptions.IllegalValueException;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.lang.time.DateUtils;
 
-import com.joestelmach.natty.*;
+import seedu.oneline.logic.parser.DateParser;
 
 public class TaskTime implements Comparable<TaskTime> {
 
@@ -35,50 +34,8 @@ public class TaskTime implements Comparable<TaskTime> {
             // represent an empty tasktime with a null value field
             value = null;
         } else {        
-            value = getDate(time);
+            value = DateParser.parseDate(time);
         }
-    }
-    
-    /**
-     * Returns the date represented by input time string
-     * 
-     * @param time the user given time string
-     * @return the date represented by the time string
-     * @throws IllegalValueException if given time string is invalid
-     * 
-     */
-    @SuppressWarnings("deprecation")
-    private Date getDate(String time) throws IllegalValueException{
-        Parser parser = new Parser(); // use the natty parser
-        List<DateGroup> dates = parser.parse(time);
-
-        if (!isValidTaskTime(dates)) {
-            throw new IllegalValueException(MESSAGE_TASK_TIME_CONSTRAINTS);
-        }
-        
-        Date date = dates.get(0).getDates().get(0);
-        
-        // if time was not explicitly declared, set the time to 2359
-        if (dates.get(0).isTimeInferred()){
-            date.setHours(23);
-            date.setMinutes(59);
-            date.setSeconds(59);
-        }
-        
-        return date;
-    }
-
-    /**
-     * Returns true if the time supplied is valid by checking the result of parser.parse
-     * 
-     * @param test the list of dategroups under test
-     * @return true if list contains a valid date
-     * 
-     * Pre-condition: test is the return value of applying natty's Parser.parse(time) 
-     * where time is the time in question
-     */
-    private static boolean isValidTaskTime(List<DateGroup> test) {
-        return !(test.isEmpty() || test.get(0).getDates().isEmpty());
     }
 
     /**
@@ -155,4 +112,12 @@ public class TaskTime implements Comparable<TaskTime> {
         }
     }
     
+    /**
+     * Returns true if task time is valid
+     * 
+     * @return true if value is null, false otherwise
+     */
+    public boolean isValid(){
+        return value != null;
+    }
 }

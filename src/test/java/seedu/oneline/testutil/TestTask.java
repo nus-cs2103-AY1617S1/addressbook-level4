@@ -1,24 +1,23 @@
 package seedu.oneline.testutil;
 
+import seedu.oneline.model.tag.Tag;
 import seedu.oneline.model.tag.UniqueTagList;
 import seedu.oneline.model.task.*;
 
 /**
  * A mutable task object. For testing only.
  */
-public class TestTask implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
 
     private TaskName name;
     private TaskTime startTime;
     private TaskTime endTime;
     private TaskTime deadline;
     private TaskRecurrence recurrence;
-    
-    private UniqueTagList tags;
-    private boolean isCompleted;
+    private Tag tag;
+    private boolean isCompleted; 
 
     public TestTask() {
-        tags = new UniqueTagList();
     }
     
     public TestTask(ReadOnlyTask task) {
@@ -27,7 +26,8 @@ public class TestTask implements ReadOnlyTask {
         this.endTime = task.getEndTime();
         this.deadline = task.getDeadline();
         this.recurrence = task.getRecurrence();
-        this.tags = new UniqueTagList(task.getTags());
+        this.tag = task.getTag();
+        this.isCompleted = task.isCompleted();
     }
     
     public void setName(TaskName name) {
@@ -49,11 +49,15 @@ public class TestTask implements ReadOnlyTask {
     public void setRecurrence(TaskRecurrence recurrence) {
         this.recurrence = recurrence;
     }
-
-    public void setCompleted(boolean isCompleted) {
-        this.isCompleted = isCompleted;
+    
+    public void setTag(Tag tag) {
+        this.tag = tag;
     }
     
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted; 
+    }
+
     @Override
     public TaskName getName() {
         return name;
@@ -80,13 +84,13 @@ public class TestTask implements ReadOnlyTask {
     }
     
     @Override
-    public UniqueTagList getTags() {
-        return tags;
+    public Tag getTag() {
+        return tag;
     }
     
     @Override
     public boolean isCompleted() {
-        return isCompleted;
+        return isCompleted; 
     }
 
     @Override
@@ -101,7 +105,33 @@ public class TestTask implements ReadOnlyTask {
         sb.append(".to " + this.getEndTime().toString() + " ");
         sb.append(".due " + this.getDeadline().toString() + " ");
         sb.append(".every " + this.getRecurrence().toString() + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("#" + s.tagName + " "));
+        sb.append("#" + this.getTag().tagName);
         return sb.toString();
     }
+
+    //@@author A0138848M
+    public boolean isFloating() {
+        return !startTime.isValid() && !endTime.isValid() && !deadline.isValid();
+    }
+    
+    public boolean isEvent() {
+        return startTime.isValid() && endTime.isValid();
+    }
+
+    public boolean hasDeadline() {
+        return deadline.isValid();
+    }
+    
+    /**
+     * Compares by deadline, then compares by name
+     */
+    @Override
+    public int compareTo(TestTask o) {
+        if (deadline.compareTo(o.deadline) == 0){
+            return name.compareTo(o.name);
+        } else {
+            return deadline.compareTo(o.deadline);
+        }
+    }
+    
 }
