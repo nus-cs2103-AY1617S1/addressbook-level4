@@ -1,6 +1,8 @@
 package seedu.whatnow.model;
 
+import javafx.collections.FXCollections;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.whatnow.commons.core.ComponentManager;
 import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.LogsCenter;
@@ -38,7 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
 
 	private final WhatNow whatNow;
 	private final FilteredList<Task> filteredTasks;
-	private final FilteredList<Task> filteredSchedules;
+	private FilteredList<Task> filteredSchedules;
 	private final Stack<Command> stackOfUndo;
 	private final Stack<Command> stackOfRedo;
 	private final Stack<ReadOnlyTask> stackOfOldTask;
@@ -156,13 +158,12 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
 		whatNow.addTask(task);
-		updateFilteredListToShowAll();
+		updateFilteredListToShowAllIncomplete();
 		indicateWhatNowChanged();
 	}
 
 	@Override
 	public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
-
 		whatNow.updateTask(old, toUpdate);
 		indicateWhatNowChanged();
 	}
@@ -277,29 +278,32 @@ public class ModelManager extends ComponentManager implements Model {
 	public void updateFilteredListToShowAll() {
 		String[] taskType = {TASK_TYPE_FLOATING};
 		Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
+        FXCollections.sort(filteredTasks.getSource());
 		updateFilteredTaskList(new PredicateExpression(new TaskTypeQualifier(keyword)));
 	}
 
 	@Override
 	public void updateFilteredListToShowAllIncomplete() {
+	    FXCollections.sort(filteredTasks.getSource());
 		filteredTasks.setPredicate(p -> {
 			if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
 				return true;
 			} else {
 				return false;
-			}}
-				);
+			}
+		});
 	}
 
 	@Override
 	public void updateFilteredListToShowAllCompleted() {
+	    FXCollections.sort(filteredTasks.getSource());
 		filteredTasks.setPredicate(p -> {
 			if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
 				return true;
 			} else {
 				return false;
-			}}
-				);
+			}
+		});
 	}
 
 	@Override
@@ -348,29 +352,32 @@ public class ModelManager extends ComponentManager implements Model {
 	public void updateFilteredScheduleListToShowAll() {
 		String[] taskType = {TASK_TYPE_NOT_FLOATING};
 		Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
+	    FXCollections.sort(filteredSchedules.getSource());
 		updateFilteredScheduleList(new PredicateExpression(new TaskTypeQualifier(keyword)));
 	}
 
 	@Override
 	public void updateFilteredScheduleListToShowAllIncomplete() {
-		filteredSchedules.setPredicate(p -> {
-			if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
-				return true;
-			} else {
-				return false;
-			}}
-				);
+	    FXCollections.sort(filteredSchedules.getSource());
+	    filteredSchedules.setPredicate(p -> {
+	        if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
+	            return true;
+	        } else {
+	            return false;
+	        }
+	    });
 	}
 
 	@Override
 	public void updateFilteredScheduleListToShowAllCompleted() {
+	    FXCollections.sort(filteredSchedules.getSource());
 		filteredSchedules.setPredicate(p -> {
 			if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
 				return true;
 			} else {
 				return false;
-			}}
-				);
+			}
+		});
 	}
 
 	@Override

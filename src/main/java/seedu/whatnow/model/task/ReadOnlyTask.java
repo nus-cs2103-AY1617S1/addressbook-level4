@@ -26,19 +26,45 @@ public interface ReadOnlyTask {
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyTask other) {
-        if (other.getTaskDate() == null && this.getTaskDate() == null) {
+        if (isBothFloating(other)) {
             return other == this // short circuit if same object
                     || (other != null // this is first to avoid NPE below
                     && other.getName().equals(this.getName())
                     && other.getTags().equals(this.getTags())
                     );
+        } else if (isBothDeadline(other)) {
+            return other == this // short circuit if same object
+                    || (other != null // this is first to avoid NPE below
+                    && other.getName().equals(this.getName())
+                    && other.getTaskDate().equals(this.getTaskDate())
+                    && other.getTags().equals(this.getTags())
+                            );
+        } else if (isBothEvent(other)) {
+            return other == this // short circuit if same object
+                    || (other != null // this is first to avoid NPE below
+                    && other.getName().equals(this.getName())
+                    && other.getStartDate().equals(this.getStartDate())
+                    && other.getEndDate().equals(this.getEndDate())
+                    && other.getTags().equals(this.getTags())
+                            );
+        } else {
+            return false;
         }
-        return other == this // short circuit if same object
-                || (other != null // this is first to avoid NPE below
-                && other.getName().equals(this.getName())
-                && other.getTaskDate().equals(this.getTaskDate())
-                && other.getTags().equals(this.getTags())
-                );
+    }
+    
+    default boolean isBothFloating(ReadOnlyTask task) {
+        return this.getTaskDate() == null && task.getTaskDate() == null
+                && this.getStartDate() == null && task.getStartDate() == null;
+    }
+    
+    default boolean isBothDeadline(ReadOnlyTask task) {
+        return this.getTaskDate() != null && task.getTaskDate() != null
+                && this.getStartDate() == null && task.getStartDate() == null;
+    }
+    
+    default boolean isBothEvent(ReadOnlyTask task) {
+        return this.getTaskDate() == null && task.getTaskDate() == null
+                && this.getStartDate() != null && task.getStartDate() != null;
     }
     
     /**
