@@ -1,6 +1,5 @@
 package seedu.task.model.task;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

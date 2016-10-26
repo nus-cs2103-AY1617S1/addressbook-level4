@@ -3,8 +3,7 @@ package seedu.task.logic.commands;
 import seedu.task.commons.core.EventsCenter;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.events.ui.IncorrectCommandAttemptedEvent;
-import seedu.task.model.Model;
-import seedu.task.model.task.Task;
+import seedu.task.model.Model; 
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

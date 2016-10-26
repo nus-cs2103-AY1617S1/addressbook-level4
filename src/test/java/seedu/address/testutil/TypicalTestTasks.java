@@ -1,10 +1,8 @@
 package seedu.address.testutil;
 
-import java.text.ParseException;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.TaskManager;
-import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.*;
 
 /**

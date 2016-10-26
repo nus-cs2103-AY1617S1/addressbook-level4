@@ -1,15 +1,12 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
+import guitests.guihandles.TaskCardHandle;
 import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestTasks;
-import seedu.task.commons.core.Messages;
-import seedu.task.logic.commands.AddCommand;
-
-import static org.junit.Assert.assertTrue;
 
 public class AddCommandTest extends TaskManagerGuiTest {
 
@@ -17,7 +14,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     public void add() {
     	//TODO
     	/*
-        //add one task
+        //add one task 
         TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToAdd = TypicalTestTasks.task1;
 

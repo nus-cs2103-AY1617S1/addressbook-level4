@@ -27,6 +27,7 @@ public class DeleteCommand extends Command {
     public final int targetIndex;
     private Task savedTaskForUndo;
     //@@author 
+    
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }

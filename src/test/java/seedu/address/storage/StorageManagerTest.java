@@ -1,28 +1,27 @@
 package seedu.address.storage;
 
 
+import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.testutil.TypicalTestTasks;
+import seedu.address.testutil.EventsCollector;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.events.storage.DataSavingExceptionEvent;
-import seedu.task.model.TaskManager;
 import seedu.task.model.ReadOnlyTaskManager;
+import seedu.task.model.TaskManager;
 import seedu.task.model.UserPrefs;
 import seedu.task.storage.JsonUserPrefsStorage;
 import seedu.task.storage.Storage;
 import seedu.task.storage.StorageManager;
 import seedu.task.storage.XmlTaskManagerStorage;
-import seedu.address.testutil.EventsCollector;
-
-import java.io.IOException;
-
-import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class StorageManagerTest {
 

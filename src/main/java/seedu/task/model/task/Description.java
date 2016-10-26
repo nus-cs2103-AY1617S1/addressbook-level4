@@ -1,6 +1,5 @@
 package seedu.task.model.task;
 
-import java.text.ParseException;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 
