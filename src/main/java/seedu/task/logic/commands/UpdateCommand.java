@@ -5,7 +5,11 @@ import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.logic.LogicManager;
 import seedu.task.model.tag.UniqueTagList;
-import seedu.task.model.task.*;
+import seedu.task.model.task.Description;
+import seedu.task.model.task.Time;
+import seedu.task.model.task.Priority;
+import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.Task;
 
 /**
  * update the details of a task.
@@ -21,12 +25,7 @@ public class UpdateCommand extends Command{
 
     public static final String MESSAGE_EDIT_SUCCESS = "Edit successfully: %1$s";
     public static final String MESSAGE_EDIT_FAIL = "Editing failed";
-    public static final String MESSAGE_TIME_CONSTRAINTS =
-            "Time should either be in 24H format or given as a Day of the Week\n"
-          + "Eg. 9:11, 09:11, thursday, Thursday, THURSDAY, thu, Thur, THURS";
-    public static final String MESSAGE_PRIORITY_CONSTRAINTS =
-            "Priority should be high, normal or low";
-
+    
     public final int targetIndex;
     public final String property;
     public final String info;
@@ -38,8 +37,8 @@ public class UpdateCommand extends Command{
     }
 
 	@Override
-    public CommandResult execute() throws IllegalValueException {
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+    public CommandResult execute() {
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getSortedFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -60,7 +59,13 @@ public class UpdateCommand extends Command{
 
 			switch(property){
 				case "description":
-					description = new Description(info);
+                    try {
+                        description = new Description(info);
+                    } catch (IllegalValueException e2) {
+                        LogicManager.tasks.pop();
+                        LogicManager.indexes.pop();
+                        return new CommandResult(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
+                    }
 					timeStart = taskToUpdate.getTimeStart();
 					timeEnd = taskToUpdate.getTimeEnd();
 					priority = taskToUpdate.getPriority();
@@ -74,7 +79,7 @@ public class UpdateCommand extends Command{
 					} catch (IllegalValueException e1) {
 						LogicManager.tasks.pop();
 				        LogicManager.indexes.pop();
-						return new CommandResult(MESSAGE_TIME_CONSTRAINTS);
+						return new CommandResult(Time.MESSAGE_TIME_CONSTRAINTS);
 					}
 					description = taskToUpdate.getDescription();
 					timeEnd = taskToUpdate.getTimeEnd();
@@ -82,7 +87,7 @@ public class UpdateCommand extends Command{
 					tags =taskToUpdate.getTags();
 					completeStatus = taskToUpdate.getCompleteStatus();
 
-					if(timeEnd.isEndBeforeStart(timeStart)){
+					if(timeEnd.isBefore(timeStart)){
 						LogicManager.tasks.pop();
 			        	LogicManager.indexes.pop();
 						return new CommandResult(MESSAGE_EDIT_FAIL + ": End is before start.");
@@ -95,7 +100,7 @@ public class UpdateCommand extends Command{
 					} catch (IllegalValueException e1) {
 						LogicManager.tasks.pop();
 				        LogicManager.indexes.pop();
-						return new CommandResult(MESSAGE_PRIORITY_CONSTRAINTS);
+						return new CommandResult(Priority.MESSAGE_PRIORITY_CONSTRAINTS);
 					}
 					description = taskToUpdate.getDescription();
 					timeEnd = taskToUpdate.getTimeEnd();
@@ -110,7 +115,7 @@ public class UpdateCommand extends Command{
 					} catch (IllegalValueException e1) {
 						LogicManager.tasks.pop();
 				        LogicManager.indexes.pop();
-						return new CommandResult(MESSAGE_TIME_CONSTRAINTS);
+						return new CommandResult(Time.MESSAGE_TIME_CONSTRAINTS);
 					}
 
 					description = taskToUpdate.getDescription();
@@ -118,7 +123,7 @@ public class UpdateCommand extends Command{
 					timeStart = taskToUpdate.getTimeStart();
 					tags =taskToUpdate.getTags();
 					completeStatus = taskToUpdate.getCompleteStatus();
-					if(timeEnd.isEndBeforeStart(timeStart)){
+					if(timeEnd.isBefore(timeStart)){
 						LogicManager.tasks.pop();
 				        LogicManager.indexes.pop();
 						return new CommandResult(MESSAGE_EDIT_FAIL + ": End is before start.");

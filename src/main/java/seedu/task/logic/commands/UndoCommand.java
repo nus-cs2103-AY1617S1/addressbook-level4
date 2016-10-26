@@ -19,7 +19,11 @@ public class UndoCommand extends Command {
     public UndoCommand() {}
 
     @Override
-    public CommandResult execute() throws IllegalValueException {
-    	return LogicManager.undo();
+    public CommandResult execute() {
+    	try {
+            return LogicManager.undo();
+        } catch (IllegalValueException e) {
+            return new CommandResult(e.getMessage());
+        }
     }
 }
