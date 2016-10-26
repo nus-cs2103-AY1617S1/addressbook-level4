@@ -29,7 +29,7 @@
                         <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" ellipsisString="" minWidth="-Infinity" prefWidth="20.0" styleClass="cell_id_label" text="index">
+                                    <Label fx:id="id" ellipsisString="" minWidth="-Infinity" prefHeight="23.0" prefWidth="35.0" styleClass="cell_id_label" text="index">
                               <HBox.margin>
                                  <Insets right="5.0" top="2.0" />
                               </HBox.margin></Label>
