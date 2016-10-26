@@ -39,7 +39,6 @@ public class ModelManager extends ComponentManager implements Model {
     
     private final Stack<ReadOnlyTaskManager> historyTaskManagers;
     private final Stack<String> historyCommands;
-
     private final Stack<Predicate> historyPredicates;
 
     /**
@@ -276,6 +275,41 @@ public class ModelManager extends ComponentManager implements Model {
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
         }
+    }
+    
+    private class TaskManagerState {
+        
+        private final ReadOnlyTaskManager taskManager;
+        private final String commandText;
+        private final Predicate predicate;
+        
+        TaskManagerState(ReadOnlyTaskManager taskManager, String commandText, Predicate predicate) {
+            this.taskManager = taskManager;
+            this.commandText = commandText;
+            this.predicate = predicate;
+        }
+        
+        /**
+         *  returns the Task Manager from the previous state
+         */
+        private ReadOnlyTaskManager getTaskManager() {
+            return taskManager;
+        }
+        
+        /**
+         * returns the Predicate from the previous state
+         */
+        private Predicate getPredicate() {
+            return predicate;
+        }
+        
+        /**
+         * returns the previous valid command input by the user
+         */
+        private String getCommandText() {
+            return commandText;
+        }
+        
     }
     
     //========== Private methods used within ModelManager ==================================================
