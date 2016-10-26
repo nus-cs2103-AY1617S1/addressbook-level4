@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.FloatingPanel">
    <children>
-      <Label fx:id="floatheader" alignment="CENTER" style="-fx-background-color: #bddfeb; -fx-font-size: 300%; -fx-text-fill: black;" text="Floating Tasks" VBox.vgrow="ALWAYS" />
+      <Label fx:id="floatheader" alignment="CENTER" style="-fx-background-color: #bddfeb; -fx-font-size: 300%; -fx-text-fill: black;" text="Floating Tasks" VBox.vgrow="ALWAYS">
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding></Label>
       <ListView fx:id="floatingListView" VBox.vgrow="ALWAYS" />
    </children>
    <stylesheets>
