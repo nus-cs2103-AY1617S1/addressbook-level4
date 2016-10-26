@@ -46,7 +46,6 @@ public class Parser {
      */
 	private static final Pattern UPDATE_FORMAT = Pattern.compile("^((todo|schedule)\\s(\\d+)\\s(description|date|time|start|end|tag)($|\\s))");
 
-    private static final Pattern DATE_SUFFIX = Pattern.compile("(st|nd|rd|th)$");
     private static final Pattern DATE = Pattern.compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))$");
     private static final Pattern DATE_WITH_SUFFIX = Pattern.compile("^((([3][0-1])|([1-2][0-9])|([0]??[1-9]))(st|nd|rd|th))$");
     private static final Pattern MONTH_IN_FULL = Pattern.compile("^(january|february|march|april|may|june|july|august|september|october|november|december)$");
@@ -67,6 +66,7 @@ public class Parser {
     /**
      * Integer Constants
      */
+    private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
 
@@ -107,6 +107,7 @@ public class Parser {
     private static final String EMPTY_STRING = "";
     
     private static final String DATE_SUFFIX_STRING = "(st|nd|rd|th)$";
+    private static final String SINGLE_DIGIT = ("^(\\d)$");
 
     private static final String TIME_COLON = ":";
     private static final String TIME_DOT = ".";
@@ -214,9 +215,28 @@ public class Parser {
 
         return count;
     }
+    
+    /**
+     * Formats the input date to the DD/MM/YYYY format
+     * @param date The date to be formatted
+     * @return the formatted date
+     */
+    public static String formatDate(String date) {
+        String[] splitDate = date.split(FORWARD_SLASH);
+        date = EMPTY_STRING;
+        
+        for (int i = 0; i < splitDate.length; i++) {
+            date += splitDate[i].replaceAll(SINGLE_DIGIT, ZERO + splitDate[i]);
+            if (i < splitDate.length - 1) {
+                date += FORWARD_SLASH;
+            }
+        }
+        
+        return date;
+    }
 
     /**
-     * Formats the time to the colon format E.g. 12:30am, 4:20pm etc
+     * Formats the input time to the colon format E.g. 12:30am, 4:20pm etc
      * @param time The time to be formatted
      * @param period The time period
      * @return the formatted time
@@ -288,7 +308,7 @@ public class Parser {
         months.put("dec", 12);
         return months;
     }
-
+    
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -317,12 +337,6 @@ public class Parser {
         shortMonths = storeShortMonths(shortMonths);    
 
         args = args.trim();
-        
-        //final Matcher matcher = TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args.trim());
-        // Validate the format of the arguments
-        /*if (!TASK_DATA_ARGS_FORMAT.matcher(args).find() && !TASK_MODIFIED_WITH_DATE_ARGS_FORMAT.matcher(args).find()){
-			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-		}*/
 
         // Check whether there are two quotation marks ""
         if (countOccurence(args, DELIMITER_DOUBLE_QUOTATION_MARK) != NUM_OF_QUOTATION_MARKS) {
@@ -451,7 +465,7 @@ public class Parser {
                     } else if (numOfDate == TWO) {
                         startDate = date;
                         date = null;
-                        endDate = additionalArgs[i].toLowerCase();
+                        endDate = additionalArgs[i].toLowerCase().replaceAll(DATE_SUFFIX_STRING, EMPTY_STRING);
                         endDate += FORWARD_SLASH;
                     } 
                 } else if (MONTH_IN_FULL.matcher(additionalArgs[i].toLowerCase()).find()) {     
@@ -506,6 +520,13 @@ public class Parser {
             if (!validArgument) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
             }
+        }
+        
+        if (date != null) {
+            date = formatDate(date);
+        } else if (startDate != null) {
+            startDate = formatDate(startDate);
+            endDate = formatDate(endDate);
         }
 
         if (time != null) {
