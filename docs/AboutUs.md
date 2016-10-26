@@ -9,6 +9,8 @@ We are a team based in the [School of Computing, National University of Singapor
 Role: Developer <br>  
 Responsibilities: Team Leader, Testing <br>
 In-Charge: Logic
+Features Implemented: Add Command, Save Command, Parser <br>
+Other major contributions: Did initial code refactoring from AddressBook to GGist, contributed to UI development, contri Set up Travis and Coverall
 
 -----
 
