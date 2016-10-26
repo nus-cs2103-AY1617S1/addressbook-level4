@@ -26,10 +26,6 @@ public class DoneCommand extends Command {
 
     public static final String MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER = "%1$s" + " Tasks marked as done: ";
     public static final String MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER = "These tasks has already been marked as done: ";
-
-    private int categoryIndex;
-    
-    private int targetIndex;
     
     private boolean hasInvalidIndex;
     
@@ -50,6 +46,8 @@ public class DoneCommand extends Command {
     @Override
     public CommandResult execute() {
         
+        int categoryIndex;
+        int targetIndex;
         ArrayList<ReadOnlyTask> listOfTaskToMarkDone = new ArrayList<ReadOnlyTask>();
         StringBuilder invalidIndexMessageBuilder = new StringBuilder(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": ");
         StringBuilder duplicateMarkAsDoneMessageBuilder = new StringBuilder(MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER);

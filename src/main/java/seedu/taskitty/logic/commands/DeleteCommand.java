@@ -25,10 +25,6 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS_HEADER = " %1$s Tasks Deleted: ";
     
-    private int categoryIndex;
-    
-    private int targetIndex;
-    
     private boolean hasInvalidIndex;
     
     private boolean hasDuplicateIndexesProvided;
@@ -45,6 +41,8 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
         
+        int categoryIndex;
+        int targetIndex;
         ArrayList<ReadOnlyTask> listOfTaskToDelete = new ArrayList<ReadOnlyTask>();
         StringBuilder invalidIndexMessageBuilder = new StringBuilder(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": ");
         StringBuilder resultMessageBuilder = new StringBuilder(String.format(MESSAGE_DELETE_TASK_SUCCESS_HEADER, listOfIndexes.size()));
