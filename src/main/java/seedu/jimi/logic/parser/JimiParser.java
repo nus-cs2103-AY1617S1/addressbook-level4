@@ -13,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,6 +21,7 @@ import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
 import seedu.jimi.commons.core.Config;
+import seedu.jimi.commons.core.LogsCenter;
 import seedu.jimi.commons.exceptions.DateNotParsableException;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.commons.util.StringUtil;
@@ -39,6 +41,7 @@ import seedu.jimi.logic.commands.SaveAsCommand;
 import seedu.jimi.logic.commands.SelectCommand;
 import seedu.jimi.logic.commands.ShowCommand;
 import seedu.jimi.logic.commands.UndoCommand;
+import seedu.jimi.model.FilteredListManager;
 import seedu.jimi.model.tag.Priority;
 
 /**
@@ -46,6 +49,8 @@ import seedu.jimi.model.tag.Priority;
  */
 public class JimiParser {
     
+    private static final Logger logger = LogsCenter.getLogger(JimiParser.class);
+
     // @@author A0140133B
     /**
      * Used for initial separation of command word and args.
@@ -55,7 +60,10 @@ public class JimiParser {
     private static final Pattern TASK_INDEX_ARGS_FORMAT = Pattern.compile("[te](?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+            Pattern.compile("(\"(?<keywords>\\S+(?:\\s+\\S+)*)\")"); // one or more keywords separated by whitespace
+    
+    private static final Pattern KEYWORDS_WITH_DATES_ARGS_FORMAT =
+            Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\"?)?((on (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");
     
     private static final Pattern TAGGABLE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)(?<priorityArguments>(?: p/[^/]+)?)"); // zero or one tag only, zero or one priority    
@@ -451,16 +459,41 @@ public class JimiParser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = KEYWORDS_WITH_DATES_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-
+        
+        Optional<String> optKeywords = Optional.ofNullable(matcher.group("keywords"));
+        Set<String> keywordSet = null;
         // keywords delimited by whitespace
-        final String[] keywords = matcher.group("keywords").split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        if(optKeywords.isPresent()) {
+            final String[] keywords = optKeywords.get().split("\\s+");
+            keywordSet = new HashSet<>(Arrays.asList(keywords));
+        }
+        
+        List<Date> startDates = null;
+        List<Date> endDates = null;
+        List<Date> specificDates = null;
+        try {
+            specificDates = parseStringToDate(matcher.group("specificDateTime"));
+            startDates = parseStringToDate(matcher.group("startDateTime"));
+            endDates = parseStringToDate(matcher.group("endDateTime"));
+        } catch (DateNotParsableException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        logger.info(startDates.toString() + endDates + specificDates);
+        
+        if(!specificDates.isEmpty()) {
+            startDates = specificDates;
+        }
+        Optional<List<Date>> optEndDate = Optional.ofNullable(endDates);
+        Optional<List<Date>> optSpecDate = Optional.ofNullable(specificDates);
+        
+        return new FindCommand(keywordSet, startDates, optEndDate.orElse(null));
     }
     
     // @@author A0140133B

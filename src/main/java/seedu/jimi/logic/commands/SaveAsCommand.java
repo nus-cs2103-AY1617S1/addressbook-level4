@@ -87,6 +87,6 @@ public class SaveAsCommand extends Command {
     
     @Override
     public boolean isValidCommandWord(String commandWord) {
-        return commandWord.equals(COMMAND_WORD);
+        return commandWord.toLowerCase().equals(COMMAND_WORD);
     }
 }

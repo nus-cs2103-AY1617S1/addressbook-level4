@@ -9,6 +9,7 @@ import seedu.jimi.commons.core.UnmodifiableObservableList;
 import seedu.jimi.commons.events.model.TaskBookChangedEvent;
 import seedu.jimi.commons.events.ui.ShowTaskPanelSectionEvent;
 import seedu.jimi.model.FilteredListManager.ListId;
+import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
@@ -144,12 +145,31 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updateFilteredAgendaTaskList(ListId other) {
         this.filteredListManager.updateFilteredList(ListId.TASKS_AGENDA, other);
-        
     }
 
     @Override
     public void updateFilteredAgendaEventList(ListId other) {
         this.filteredListManager.updateFilteredList(ListId.EVENTS_AGENDA, other);
+    }
+    
+    @Override
+    public void updateFilteredAgendaTaskList(DateTime toDate, DateTime fromDate) {
+        this.filteredListManager.updateFilteredList(ListId.TASKS_AGENDA, toDate, fromDate);
+    }
+
+    @Override
+    public void updateFilteredAgendaEventList(DateTime toDate, DateTime fromDate) {
+        this.filteredListManager.updateFilteredList(ListId.EVENTS_AGENDA, toDate, fromDate);
+    }
+    
+    @Override
+    public void updateFilteredAgendaTaskList(Set<String> keywords, DateTime toDate, DateTime fromDate) {
+        this.filteredListManager.updateFilteredList(ListId.TASKS_AGENDA, keywords, toDate, fromDate);
+    }
+
+    @Override
+    public void updateFilteredAgendaEventList(Set<String> keywords, DateTime toDate, DateTime fromDate) {
+        this.filteredListManager.updateFilteredList(ListId.EVENTS_AGENDA, keywords, toDate, fromDate);
     }
     
     /*

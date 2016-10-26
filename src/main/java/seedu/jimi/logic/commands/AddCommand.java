@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.event.Event;
@@ -80,13 +81,13 @@ public class AddCommand extends Command implements TaskBookEditor {
         // events do not always have an end date 
         DateTime endDateTimeToAdd = endDateTime.isEmpty() ? null : new DateTime(endDateTime.get(0));
                 
-        this.toAdd = new Event(
-                new Name(name), 
-                new DateTime(startDateTime.get(0)), 
-                endDateTimeToAdd,
-                new UniqueTagList(tagSet),
-                new Priority(priority)
-        );
+        if (endDateTime != null
+                && startDateTime.get(0).compareTo(endDateTime.get(0)) <= 0) {
+            this.toAdd = new Event(new Name(name), new DateTime(startDateTime.get(0)), endDateTimeToAdd,
+                    new UniqueTagList(tagSet), new Priority(priority));
+        } else {
+            throw new IllegalValueException(Messages.MESSAGE_START_END_CONSTRAINT);
+        }
     }
     
     @Override
@@ -104,7 +105,7 @@ public class AddCommand extends Command implements TaskBookEditor {
     @Override
     public boolean isValidCommandWord(String commandWord) {
         for (int i = 1; i <= COMMAND_WORD.length(); i++) {
-            if (commandWord.equals(COMMAND_WORD.substring(0, i))) {
+            if (commandWord.toLowerCase().equals(COMMAND_WORD.substring(0, i))) {
                 return true;
             }
         }
