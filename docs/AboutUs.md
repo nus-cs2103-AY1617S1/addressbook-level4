@@ -20,6 +20,8 @@ We are a group of highly motivated and hardworking students working on our CS210
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/main/A0144919W.md)][[test code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/test/A0144919W.md)][[docs](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/docs/A0144919W.md)]
 * Other major contributions:
   *  Wrote JUnit test cases for Find, Update, Undo and Redo commands
+  *  Restyled the UI
+  *  General bug fixes
   *  Contributed to the initial refactoring from AddressBook to SmartScheduler ([#51](https://github.com/CS2103AUG2016-T11-C1/main/pull/51))
   *  Set up Coveralls
 
