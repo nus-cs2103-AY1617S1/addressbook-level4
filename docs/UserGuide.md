@@ -29,7 +29,7 @@ Welcome to WhatNow!
 
 <p align="center">
 
-<img src="images/ui_actual/Startup.png" width="600">
+<img src="images/UI_Actual/Startup.PNG" width="600">
 
 Figure 1: GUI layout
 
@@ -65,7 +65,7 @@ Changes the data file storage location to C:\Users\user\Desktop
 
 <p align="center">
 
-<img src="images/ui_actual/change.png" width="600">
+<img src="images/UI_Actual/change.PNG" width="600">
 
 Figure 2: The storage location is changed
 
