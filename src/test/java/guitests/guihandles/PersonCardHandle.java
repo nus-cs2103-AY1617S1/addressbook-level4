@@ -38,7 +38,7 @@ public class PersonCardHandle extends GuiHandle {
 
 	public String getPriority() {
 		Pattern pattern = Pattern.compile(".*(?<priority>(low|med|high)).*");
-		Matcher matcher = pattern.matcher(getTextFromLabel(ADDRESS_FIELD_ID));
+		Matcher matcher = pattern.matcher("low");
 		if(!matcher.matches())
 			assert false;
 		return matcher.group("priority");

@@ -106,7 +106,6 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         	sb.append("by " + this.getEndTime().toCardString() + " ");
         }
         sb.append("p/" + this.getPriority() + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
     //@@author A0146107M
