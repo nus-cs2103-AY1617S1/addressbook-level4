@@ -41,6 +41,7 @@ public class Status {
 			break;
 		case "overdue":
 			value = DoneStatus.OVERDUE;
+			break;
 		default:
 			throw new IllegalArgumentException("Invalid string input");
 		}

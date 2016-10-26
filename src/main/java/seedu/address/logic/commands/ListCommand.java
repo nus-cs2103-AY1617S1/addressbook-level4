@@ -58,13 +58,15 @@ public class ListCommand extends Command {
     		}
     	}
     	if(doneStatus.isPresent()) {
-    		assert doneStatus.get().equals("done") || doneStatus.get().equals("not-done");
     		switch(doneStatus.get()) {
     		case "done":
     			donePredicate = ReadOnlyTaskFilter.isDone();
     			break;
     		case "not-done":
-    			donePredicate = ReadOnlyTaskFilter.isDone().negate();
+    			donePredicate = ReadOnlyTaskFilter.isNotDone();
+    			break;
+    		case "overdue":
+    			donePredicate = ReadOnlyTaskFilter.isOverdue();
     		}
     	}
     	
