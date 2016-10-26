@@ -48,7 +48,7 @@ public class TaskCard extends UiPart{
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
-
+  
     @FXML
     public void initialize() {
         taskName.setText(task.getTaskName().taskName);
