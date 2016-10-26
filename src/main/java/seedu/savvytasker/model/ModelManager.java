@@ -176,6 +176,9 @@ public class ModelManager extends ComponentManager implements Model {
         case Exact:
             qualifier = new TaskNameExactMatchQualifier(keywords);
             break;
+        case Category:
+            qualifier = new CategoryPartialMatchQualifier(keywords);
+            break;
         default:
             assert false; // should never get here.
         }
@@ -238,6 +241,31 @@ public class ModelManager extends ComponentManager implements Model {
      * Qualifier matching a partial word from the set of keywords
      * @author A0139915W
      */
+    private class CategoryPartialMatchQualifier implements Qualifier {
+        private Set<String> keyWordsToMatch;
+
+        CategoryPartialMatchQualifier(String[] keyWordsToMatch) {
+            this.keyWordsToMatch = createSet(keyWordsToMatch);
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+            return keyWordsToMatch.stream()
+                    .filter(keyword -> StringUtil.containsPartialIgnoreCase(task.getCategory(), keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "category(PartialMatch)=" + String.join(", ", keyWordsToMatch);
+        }
+    }
+
+    /**
+     * Qualifier matching a partial word from the set of keywords
+     * @author A0139915W
+     */
     private class TaskNamePartialMatchQualifier implements Qualifier {
         private Set<String> keyWordsToMatch;
 
@@ -255,7 +283,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public String toString() {
-            return "taskName(FullMatch)=" + String.join(", ", keyWordsToMatch);
+            return "taskName(PartialMatch)=" + String.join(", ", keyWordsToMatch);
         }
     }
 
@@ -324,7 +352,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         @Override
         public String toString() {
-            return "taskName(FullMatch)=" + String.join(", ", keyWordsToMatch);
+            return "taskName(ExactMatch)=" + String.join(", ", keyWordsToMatch);
         }
     }
 

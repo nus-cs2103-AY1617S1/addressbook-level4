@@ -7,19 +7,28 @@ package seedu.savvytasker.model.task;
 public enum FindType {
     /**
      * Specifies partial matching of a single keyword.
+     * Searches by Task's name.
      * E.g. 'ap' matches 'happy'
      */
     Partial,
     /**
      * Specifies full matching of a single keyword.
+     * Searches by Task's name.
      * E.g. 'ap' does not match 'happy', 'happy' matches 'very happy'
      */
     Full,
     /**
      * Specifies full matching of all keywords in a set of keywords.
+     * Searches by Task's name.
      * E.g. 'happy' does not match 'very happy', 'very happy' matches 'very happy'
      */
-    Exact;
+    Exact,
+    /**
+     * Specifies partial matching of all keywords in a set of keywords.
+     * Searches by Task's category.
+     * E.g. 'happy' does not match 'very happy', 'very happy' matches 'very happy'
+     */
+    Category;
     
     /**
      * Gets a FindType enum object from its enum name, ignoring cases.
