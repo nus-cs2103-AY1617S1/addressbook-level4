@@ -18,17 +18,14 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
     
-    /** Add the previous AddressBook into the stack */
-    void addAddressBookHistory(ReadOnlyAddressBook previousAddressBook);
-    
     /** Reverts the previous state of the AddressBook */
     void undoAddressBook() throws EmptyStackException;
     
-    /** Marks the given task as done. */
-    void markTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    /** Marks the given task(s) as done. */
+    void markTask(ReadOnlyTask... tasks) throws UniqueTaskList.TaskNotFoundException;
 
-    /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask... target) throws UniqueTaskList.TaskNotFoundException;
+    /** Deletes the given task(s). */
+    void deleteTask(ReadOnlyTask... tasks) throws UniqueTaskList.TaskNotFoundException;
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;

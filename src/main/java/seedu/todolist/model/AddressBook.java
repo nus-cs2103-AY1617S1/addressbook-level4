@@ -95,8 +95,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
     
-    public boolean markTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
-        if (tasks.mark(key)) {
+    public boolean markTask(ReadOnlyTask... keys) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.mark(keys)) {
             return true;
         } else {
             throw new UniqueTaskList.TaskNotFoundException();
