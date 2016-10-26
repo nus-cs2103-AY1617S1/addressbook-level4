@@ -100,7 +100,7 @@ public class EditCommand extends Command{
 
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex, editArgs));
         }
-        else{
+        else if(category == 'T'){
             if (lastShownTodoList.size() < targetIndex) {
                 indicateAttemptToExecuteIncorrectCommand();
                 return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
@@ -122,6 +122,7 @@ public class EditCommand extends Command{
             }
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, category, targetIndex, editArgs));
         }
+        return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
 }
