@@ -60,7 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
         undoableTasks = new UndoList();
     }
     
-    public void checkIfOverdue(){
+    public void checkStatus(){
         UniqueTaskList tasks = taskBook.getUniqueDatedTaskList();
         LocalDateTime currentTime = LocalDateTime.now();
         
@@ -72,6 +72,11 @@ public class ModelManager extends ComponentManager implements Model {
                    try {
                        taskBook.overdueTask(target);
                     } catch (TaskNotFoundException e) {}                
+                }
+                else if(dateTime.isAfter(currentTime) && target.getStatus().toString() == "OVERDUE"){
+                    try{
+                        taskBook.postponed(target);
+                    }catch(TaskNotFoundException e) {}
                 }
             }
         }         
@@ -91,7 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /** Raises an event to indicate the model has changed */
     private void indicateTaskBookChanged() {
-        checkIfOverdue();
+        checkStatus();
         raise(new TaskBookChangedEvent(taskBook));
     }
 
