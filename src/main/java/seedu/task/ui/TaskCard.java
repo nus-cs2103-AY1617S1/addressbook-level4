@@ -1,17 +1,12 @@
 package seedu.task.ui;
 
-import java.util.concurrent.TimeUnit;
-
-import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
-import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import seedu.task.model.task.ReadOnlyTask;
 
@@ -43,7 +38,7 @@ public class TaskCard extends UiPart{
 
     public static TaskCard load(ReadOnlyTask task, int displayedIndex){
         TaskCard card = new TaskCard();
-        card.task = task;
+        TaskCard.task = task;
         card.displayedIndex = displayedIndex;
         
         return UiPartLoader.loadUiPart(card);
