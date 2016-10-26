@@ -1,11 +1,9 @@
 package seedu.task.logic;
 
 import static seedu.taskcommons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.taskcommons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import seedu.task.logic.commands.AddCommand;
@@ -17,6 +15,13 @@ import seedu.task.logic.commands.FindCommand;
 import seedu.task.logic.commands.HelpCommand;
 import seedu.task.logic.commands.ListCommand;
 import seedu.task.logic.commands.MarkCommand;
+import seedu.task.logic.commands.UndoCommand;
+
+/**
+ * Responsible for testing the execution of HelpCommand
+ * 
+ * @author Yee Heng
+ */
 
 public class HelpCommandTest extends CommandTest {
 	/******************************
@@ -36,96 +41,48 @@ public class HelpCommandTest extends CommandTest {
 	 * Test cases
 	 *****************************/
 
+	// ------------------------Tests for invalid arguments----------------
 	/*
-	 * Tests for executing help command
+	 * Command input: "help" , "help [KEY_WORD]"
+	 * 
+	 * Valid arguments [KEY_WORD]: "null", "add", "delete", "edit", "list",
+	 * "mark", "find", "undo", "clear", "exit"
+	 * 
+	 * 
+	 * Invalid arguments to test: [KEY_WORD]: "4", "-r", "$", "adds"
+	 * 
+	 * 
 	 */
 
-	/*
-	 * 1) Invalid help parameters 
-	 * - Null 
-	 * - Unknown [KEY_WORD]
-	 */
-	
-	
-	@Ignore @Test
-	public void Help() throws Exception {
-		
-		assertHelpCommandBehavior("help", HelpCommand.MESSAGE_USAGE);
+	@Test
+	public void executeHelpInvalidArgsFormat() throws Exception {
+		String expectedMessage = String.format(HelpCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior("help  4 ", expectedMessage);
+		assertHelpCommandBehavior("help  -r ", expectedMessage);
+		assertHelpCommandBehavior("help - r ", expectedMessage);
+		assertHelpCommandBehavior("help $ ", expectedMessage);
+		assertHelpCommandBehavior("help adds", expectedMessage);
+
 	}
 
-	
-	@Ignore @Test
-	public void Null_Help_Parameters() throws Exception {
-		String invalidCommand = "       ";
-		assertHelpCommandBehavior(invalidCommand, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+	// ------------------------Tests for valid inputs----------------
+	/*
+	 * 1) valid help [KEY_WORD] - add - delete - list - find - edit - mark -
+	 * clear - exit
+	 */
+
+	@Test
+	public void executeHelpValidArgsFormat() throws Exception {
+		assertHelpCommandBehavior("help add", AddCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior("help delete", DeleteCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior("help list", ListCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior("help find", FindCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior("help edit", EditCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior("help mark", MarkCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior("help undo", UndoCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior("help clear", ClearCommand.MESSAGE_USAGE);
+		assertHelpCommandBehavior("help exit", ExitCommand.MESSAGE_USAGE);
+
 	}
 
-	
-	@Ignore @Test
-	public void execute_unknownCommandWord() throws Exception {
-		String unknownCommand = "uicfhmowqewca";
-		assertHelpCommandBehavior(unknownCommand,String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
-	}
-	
-	
-	/*
-	 * 1) valid help parameters 
-	 * - add
-	 * - delete
-	 * - list 
-	 * - find 
-	 * - edit 
-	 * - mark 
-	 * - clear 
-	 * - exit 
-	 */
-	
-	@Ignore @Test
-	public void execute_addCommand() throws Exception {
-		String addCommand = "add";
-		assertHelpCommandBehavior(addCommand, AddCommand.MESSAGE_USAGE);
-	}
-	
-	@Ignore @Test
-	public void execute_deleteCommand() throws Exception {
-		String deleteCommand = "delete";
-		assertHelpCommandBehavior(deleteCommand, DeleteCommand.MESSAGE_USAGE);
-	}
-	
-	@Ignore @Test
-	public void execute_listCommand() throws Exception {
-		String listCommand = "list";
-		assertHelpCommandBehavior(listCommand, ListCommand.MESSAGE_USAGE);
-	}
-	
-	@Ignore @Test
-	public void execute_findCommand() throws Exception {
-		String findCommand = "find";
-		assertHelpCommandBehavior(findCommand, FindCommand.MESSAGE_USAGE);
-	}
-	
-	@Ignore @Test
-	public void execute_editCommand() throws Exception {
-		String editCommand = "edit";
-		assertHelpCommandBehavior(editCommand, EditCommand.MESSAGE_USAGE);
-	}
-	
-	@Ignore @Test
-	public void execute_markCommand() throws Exception {
-		String markCommand = "mark";
-		assertHelpCommandBehavior(markCommand, MarkCommand.MESSAGE_USAGE);
-	}
-	
-	@Ignore @Test
-	public void execute_clearCommand() throws Exception {
-		String clearCommand = "clear";
-		assertHelpCommandBehavior(clearCommand, ClearCommand.MESSAGE_USAGE);
-	}
-	
-	@Ignore @Test
-	public void execute_exitCommand() throws Exception {
-		String exitCommand = "exit";
-		assertHelpCommandBehavior(exitCommand, ExitCommand.MESSAGE_USAGE);
-	}
-	
 }
