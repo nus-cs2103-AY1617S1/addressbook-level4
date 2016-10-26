@@ -86,6 +86,7 @@ public class CommandBox extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
     
+    //@@author A0141019U
     /**
      * Show previous command string input in history entered commands
      */
@@ -102,7 +103,7 @@ public class CommandBox extends UiPart {
     	commandHistoryManager.getNextCommand();
     }
 
-
+    //@@author
     /**
      * Sets the command box style to indicate a correct command.
      */

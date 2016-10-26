@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.Stack;
 
+//@@author A0141019U
 public class CommandHistoryManager {
 	
 	private Stack<String> previousCommands = new Stack<>();;
