@@ -2,6 +2,7 @@ package seedu.todo.model.task;
 
 import java.util.Objects;
 
+import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.CollectionUtil;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
@@ -47,6 +48,18 @@ public class Task implements ReadOnlyTask {
         this.completion = completion;
         this.recurrence = recurrence;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+    
+    public Task(Name name, Detail detail, TaskDate fromDate, TaskDate tillDate, Recurrence recurrence) throws IllegalValueException {
+        assert !CollectionUtil.isAnyNull(name, detail, fromDate, tillDate, recurrence);
+        this.name = name;
+        this.detail = detail;
+        this.onDate = fromDate;
+        this.byDate = tillDate;
+        this.priority = new Priority(Priority.DEFAULT_PRIORITY);
+        this.recurrence = recurrence;
+        this.completion = new Completion(false);
+        this.tags = new UniqueTagList(); // protect internal tags from changes in the arg list
     }
 
     /**
