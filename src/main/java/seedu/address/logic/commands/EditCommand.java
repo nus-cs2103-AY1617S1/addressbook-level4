@@ -98,13 +98,12 @@ public class EditCommand extends Command {
             return result;
 		} catch (TaskNotFoundException e) {
 			assert false : "The target task cannot be missing";
+			return null;
 		} catch (TimeslotOverlapException e) {
 			indicateAttemptToExecuteFailedCommand();
 			urManager.popFromUndoQueue();
 			return new CommandResult(MESSAGE_TIMESLOT_OCCUPIED);
 		}
-		return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, targetTask));
 	}
-
 }
 //@@author
