@@ -40,7 +40,11 @@ public class Tag {
         }
         this.tagName = name;
     }
+<<<<<<< Updated upstream
 
+=======
+    
+>>>>>>> Stashed changes
     public static Tag getTag(String name) throws IllegalValueException {
         assert name != null;
         if (allTags.containsKey(name)) {

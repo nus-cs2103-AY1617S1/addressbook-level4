@@ -27,7 +27,7 @@ public abstract class EditCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " 1 Acad meeting .from 2pm .to 4pm #acad"
             + " === Edit Category === \n"
-            + "Parameters: #cat [#newCatName] \n"
+            + "Parameters: #cat [#newCatName] [color]\n"
             + "Example: " + COMMAND_WORD
             + " #acad #meeting";
     

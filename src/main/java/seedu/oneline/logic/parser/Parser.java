@@ -18,6 +18,7 @@ import seedu.oneline.commons.exceptions.IllegalCmdArgsException;
 import seedu.oneline.commons.exceptions.IllegalValueException;
 import seedu.oneline.commons.util.StringUtil;
 import seedu.oneline.logic.commands.*;
+import seedu.oneline.model.tag.TagField;
 import seedu.oneline.model.task.TaskField;
 
 /**
@@ -36,12 +37,16 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
   //@@author A0140156R
-    private static final Pattern EDIT_COMMAND_ARGS_FORMAT =
+    private static final Pattern EDIT_TASK_COMMAND_ARGS_FORMAT =
             Pattern.compile("(?<index>-?[\\d]+)" // index
                     + " (?<args>.+)"); // the other arguments
     
     private static final Pattern TAG_ARGS_FORMAT =
             Pattern.compile("\\#(?<tag>\\p{Alnum}+)"); // #<tag>
+    
+    private static final Pattern EDIT_TAG_COMMAND_ARGS_FORMAT = 
+            Pattern.compile("\\#(?<tag>\\p{Alnum}+)" // tag name
+                    + " (?<args>.+)"); // the other arguments
   //@@author
     
     public Parser() {}
@@ -97,7 +102,7 @@ public class Parser {
             return (Command) method.invoke(null, arguments);
         } catch (IllegalAccessException | IllegalArgumentException e) {
             assert false : e.getClass().toString() + " : " + e.getMessage();
-            assert false : "Command class should implement \"createFromArgs(String)\".";
+            assert false : "Command class " + e.getClass().toString() + " should implement \"createFromArgs(String)\".";
         } catch (InvocationTargetException e) {
             if (e.getCause().getMessage() == null) {
                 e.printStackTrace();
@@ -183,6 +188,35 @@ public class Parser {
     }
     
     /**
+     * Parses arguments in the context of CRUD commands for tags
+     *
+     * @param args full command args string
+     * @return the fields specified in the args
+     * @throws IllegalCmdArgsException 
+     */
+    public static Map<TagField, String> getTagFieldsFromArgs(String args) throws IllegalCmdArgsException {
+        Map<TagField, String> fields = new HashMap<TagField, String>();
+        String[] splitted = args.split(" ");
+        for (int i = 0; i < splitted.length; i++) {
+            TagField fieldType = null;
+            String field = null;
+            if (splitted[i].startsWith(CommandConstants.TAG_PREFIX)) {
+                fieldType = TagField.NAME;
+                field = getTagFromArgs(splitted[i]);
+            } else {
+                fieldType = TagField.COLOR;
+                field = splitted[i];
+            }
+            if (fields.containsKey(fieldType)) {
+                throw new IllegalCmdArgsException("There are more than 1 instances of " +
+                        fieldType.toString() + " in the command.");
+            }
+            fields.put(fieldType, field);
+        }
+        return fields;
+    }
+    
+    /**
      * Finds the location of the specified keyword in the array of args
      *
      * @param args fields to be checked
@@ -222,7 +256,42 @@ public class Parser {
         }
         return index.get();
     }
+
+    /**
+     * Parses a tag field [#<tag>] to return the tag [<tag>]
+     *
+     * @param args full command args string
+     * @return the tag
+     */
+    public static String getTagFromArgs(String args) {
+        final Matcher matcher = TAG_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            assert false;
+        }
+        return matcher.group("tag");
+    }
     
+    public static Entry<Integer, Map<TaskField, String>> getIndexAndTaskFieldsFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
+        final Matcher matcher = EDIT_TASK_COMMAND_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new IllegalCmdArgsException("Args not in format <index> <arguments>");
+        }
+        Integer index = Parser.getIndexFromArgs(matcher.group("index"));
+        Map<TaskField, String> fields = Parser.getTaskFieldsFromArgs(matcher.group("args"));
+        return new SimpleEntry<Integer, Map<TaskField, String>>(index, fields);
+    }
+    
+    public static Entry<String, Map<TagField, String>> getTagAndTagFieldsFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
+        final Matcher matcher = EDIT_TAG_COMMAND_ARGS_FORMAT.matcher(args.trim());
+        if (!matcher.matches()) {
+            throw new IllegalCmdArgsException("Args not in format #<category> <arguments>");
+        }
+        String tag = matcher.group("tag");
+        Map<TagField, String> fields = Parser.getTagFieldsFromArgs(matcher.group("args"));
+        return new SimpleEntry<String, Map<TagField, String>>(tag, fields);
+    }
+    
+
   //@@author
     
     /**
@@ -243,22 +312,6 @@ public class Parser {
         return keywordSet;
     }
     
-  //@@author A0140156R
-    /**
-     * Parses a tag field to return the tag
-     *
-     * @param args full command args string
-     * @return the tag
-     */
-    public static String getTagFromArgs(String args) {
-        final Matcher matcher = TAG_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            assert false;
-        }
-        return matcher.group("tag");
-    }
-  //@@author
-
     /**
      * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
      *   Returns an {@code Optional.empty()} otherwise.
@@ -277,16 +330,4 @@ public class Parser {
 
     }
     
-  //@@author A0140156R
-    public static Entry<Integer, Map<TaskField, String>> getIndexAndTaskFieldsFromArgs(String args) throws IllegalValueException, IllegalCmdArgsException {
-        final Matcher matcher = EDIT_COMMAND_ARGS_FORMAT.matcher(args.trim());
-        if (!matcher.matches()) {
-            throw new IllegalCmdArgsException("Args not in format <index> <arguments>");
-        }
-        Integer index = Parser.getIndexFromArgs(matcher.group("index"));
-        Map<TaskField, String> fields = Parser.getTaskFieldsFromArgs(matcher.group("args"));
-        return new SimpleEntry<Integer, Map<TaskField, String>>(index, fields);
-    }
-  //@@author
-
 }
