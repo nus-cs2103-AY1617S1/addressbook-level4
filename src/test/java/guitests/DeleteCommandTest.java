@@ -41,8 +41,14 @@ public class DeleteCommandTest extends WhatNowGuiTest {
         TestTask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         TestTask[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
         
+        for (int i = 0; i < expectedRemainder.length; i++) {
+            System.out.println("i: " + i + " " + expectedRemainder[i]);
+            System.out.println("i: " + i + " " + taskListPanel.getTask(i).toString());
+            System.out.println();
+        }
+        
         commandBox.runCommand("delete " + "schedule " + targetIndexOneIndexed);
-
+        
         //confirm the list now contains all previous tasks except the deleted task
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 

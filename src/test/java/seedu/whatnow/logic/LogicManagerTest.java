@@ -269,8 +269,8 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.todo("Buy milk", "23/2/2017", "lowPriority", "inProgress");
         WhatNow expectedAB = new WhatNow();
-        expectedAB.addTask(toBeAdded);
         expectedAB.addTask(helper.adam());
+        expectedAB.addTask(toBeAdded);    
         List<Task> taskList = helper.generateTaskList(toBeAdded, helper.adam());
         helper.addToModel(model, taskList);
         
@@ -294,10 +294,10 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
         
         taskToUpdate = toUpdate;
-        toUpdate = helper.todo("Buy chocolate milk", "12/4/2017", "highPriority", "Completed");
+        toUpdate = helper.todo("Buy chocolate milk", "12/04/2017", "highPriority", "Completed");
         expectedAB.updateTask(taskToUpdate, toUpdate);
         
-        assertCommandBehavior(helper.generateUpdateCommand("date", "12/4/2017"),
+        assertCommandBehavior(helper.generateUpdateCommand("date", "12/04/2017"),
                 String.format(UpdateCommand.MESSAGE_UPDATE_TASK_SUCCESS, "\nFrom: " + taskToUpdate + " \nTo: " + toUpdate),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -464,7 +464,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_changeLocation_movesToCorrectPath() throws Exception {
-        String egPath = "./data/testlocation";
+        String egPath = "./docs";
         assertCommandBehavior("change location to " + egPath,
                 String.format(ChangeCommand.MESSAGE_SUCCESS, egPath + "/whatnow.xml", null, null));
         
@@ -627,7 +627,7 @@ public class LogicManagerTest {
         String generateUpdateCommand(String type, String value) {
             StringBuffer cmd = new StringBuffer();
             
-            cmd.append("update schedule 1 ");
+            cmd.append("update schedule 2 ");
             
             if (type.equals("description")) {
                 cmd.append(type + " ");
@@ -734,7 +734,7 @@ public class LogicManagerTest {
                     null,
                     null,
                     new UniqueTagList(new Tag("tag")),
-                    null,
+                    "incomplete",
                     null
             );
         }

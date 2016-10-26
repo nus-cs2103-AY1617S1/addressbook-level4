@@ -15,8 +15,8 @@ public class FindCommandTest extends WhatNowGuiTest {
         assertFindResult("find Party", td.k, td.p); //multiple results
 
         //find after deleting one result
-        commandBox.runCommand("delete schedule 4");
-        assertFindResult("find Buy",td.p);
+        commandBox.runCommand("delete schedule 1");
+        assertFindResult("find Party", td.p);
     }
 
     @Test
