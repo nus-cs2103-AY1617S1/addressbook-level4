@@ -11,20 +11,24 @@ import seedu.savvytasker.model.task.TaskList;
  * Unmodifiable view of a task list
  */
 public interface ReadOnlySavvyTasker {
+    //@@author A0139915W
     /**
      * Returns a defensively copied task list.
      */
     TaskList getTaskList();
+    //@@author A0139915W
 
     /**
      * Returns a defensively copied alias symbol list.
      */
     
     AliasSymbolList getAliasSymbolList();
+    //@@author A0139915W
     /**
      * Returns an unmodifiable view of task list
      */
     List<ReadOnlyTask> getReadOnlyListOfTasks();
+    //@@author A0139915W
 
     /**
      * Returns unmodifiable view of symbols list

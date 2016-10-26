@@ -17,7 +17,8 @@ public class ListCommand extends ModelRequiringCommand {
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
 
     private final ListType listType;
-    
+
+    //@@author A0139915W
     /**
      * Creates the List command to list the specified tasks
      * @author A0139915W
@@ -50,6 +51,7 @@ public class ListCommand extends ModelRequiringCommand {
         }
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
+    //@@author A0139915W
     
     /**
      * Checks if a command can perform undo operations

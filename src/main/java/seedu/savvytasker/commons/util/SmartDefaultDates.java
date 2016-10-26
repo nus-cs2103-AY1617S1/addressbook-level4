@@ -5,6 +5,7 @@ import java.util.Date;
 
 import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 
+//@@author A0139915W
 /**
  * Helper functions for handling dates.
  * @author A0139915W
@@ -127,7 +128,12 @@ public class SmartDefaultDates {
         calendar.set(Calendar.SECOND, 59);
         this.endDateTime = calendar.getTime();
     }
-    
+
+    /**
+     * Sets the starting and ending date/time based on defaults for providing both
+     * start and end times
+     * @param startDateTime start time supplied
+     */
     private void parseStartAndEnd(InferredDate startDateTime, InferredDate endDateTime) {
         assert endDateTime.getInferredDateTime() != null;
         assert startDateTime.getInferredDateTime() != null;
@@ -150,3 +156,4 @@ public class SmartDefaultDates {
         return endDateTime;
     }
 }
+//@@author A0139915W

@@ -33,10 +33,13 @@ import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    //@@author A0139915W
     private final SavvyTasker savvyTasker;
     private final FilteredList<Task> filteredTasks;
     private final SortedList<Task> sortedAndFilteredTasks;
+    //@@author A0139915W
 
+    //@@author A0139915W
     /**
      * Initializes a ModelManager with the given SavvyTasker
      * and its variables should not be null
@@ -79,6 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateSavvyTaskerChanged() {
         raise(new SavvyTaskerChangedEvent(savvyTasker));
     }
+    //@@author A0139915W
 
     private void indicateAliasSymbolAdded(AliasSymbol symbol) {
         raise(new AliasSymbolChangedEvent(symbol, AliasSymbolChangedEvent.Action.Added));
@@ -89,6 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
 
+    //@@author A0139915W
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         savvyTasker.removeTask(target);
@@ -108,6 +113,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowActive();
         indicateSavvyTaskerChanged();
     }
+    //@@author A0139915W
 
     @Override
     public synchronized void addAliasSymbol(AliasSymbol symbol) throws DuplicateSymbolKeywordException {
@@ -125,6 +131,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //=========== Filtered/Sorted Task List Accessors ===============================================================
 
+    //@@author A0139915W
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<ReadOnlyTask>(sortedAndFilteredTasks);
@@ -144,12 +151,11 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowActiveSortedByPriorityLevel() {
         updateFilteredListToShowActive(new TaskSortedByPriorityLevel());
     }
-
+    
     @Override
     public void updateFilteredListToShowActive() {
         updateFilteredTaskList(new PredicateExpression(new TaskIsActiveQualifier()));
     }
-    
     private void updateFilteredListToShowActive(Comparator<Task> comparator) {
         updateFilteredTaskList(
                 new PredicateExpression(new TaskIsActiveQualifier()),
@@ -160,7 +166,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowArchived() {
         updateFilteredTaskList(new PredicateExpression(new TaskIsArchivedQualifier()));
     }
-
+    
     @Override
     public void updateFilteredTaskList(FindType findType, String[] keywords) {
         assert findType != null;
@@ -193,6 +199,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
         sortedAndFilteredTasks.setComparator(comparator);
     }
+    //@@author A0139915W
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -237,6 +244,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    //@@author A0139915W
     /**
      * Qualifier matching a partial word from the set of keywords
      * @author A0139915W
@@ -470,5 +478,6 @@ public class ModelManager extends ComponentManager implements Model {
         }
         
     }
+    //@@author A0139915W
 
 }

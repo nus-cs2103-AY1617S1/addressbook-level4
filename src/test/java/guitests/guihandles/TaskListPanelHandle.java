@@ -17,6 +17,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0139915W
 /**
  * Provides a handle for the panel containing the person list.
  */
@@ -172,3 +173,4 @@ public class TaskListPanelHandle extends GuiHandle {
         return getListView().getItems().size();
     }
 }
+//@@author A0139915W

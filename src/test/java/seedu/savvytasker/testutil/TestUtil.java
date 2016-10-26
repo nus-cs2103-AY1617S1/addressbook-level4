@@ -61,6 +61,7 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
+    //@@author A0139915W
     public static final Task[] sampleTaskData = getSampleTaskData();
 
     private static Task[] getSampleTaskData() {
@@ -71,6 +72,7 @@ public class TestUtil {
                 new Task("Sample Task Ah")
         };
     }
+    //@@author A0139915W
     
     public static List<Task> generateSampleTaskData() {
         return Arrays.asList(sampleTaskData);
@@ -248,11 +250,12 @@ public class TestUtil {
         return list.get(list.size() - 1);
     }
 
+    //@@author A0139915W
     /**
-     * Removes a subset from the list of persons.
-     * @param persons The list of persons
-     * @param personsToRemove The subset of persons.
-     * @return The modified persons after removal of the subset from persons.
+     * Removes a subset from the list of tasks.
+     * @param tasks The list of tasks
+     * @param tasksToRemove The subset of tasjs.
+     * @return The modified tasks after removal of the subset from tasks.
      */
     public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
         List<TestTask> listOfTasks = asList(tasks);
@@ -262,7 +265,7 @@ public class TestUtil {
 
 
     /**
-     * Returns a copy of the list with the person at specified index removed.
+     * Returns a copy of the list with the task at specified index removed.
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
@@ -293,6 +296,7 @@ public class TestUtil {
         listOfTasks.addAll(asList(tasksToAdd));
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
+    //@@author A0139915W
 
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
@@ -302,8 +306,10 @@ public class TestUtil {
         return list;
     }
 
+    //@@author A0139915W
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
     }
+    //@@author A0139915W
 
 }

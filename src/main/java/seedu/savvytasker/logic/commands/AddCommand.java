@@ -40,6 +40,7 @@ public class AddCommand extends ModelRequiringCommand {
     
     private Task toAdd;
 
+    //@@author A0139915W
     /**
      * Creates an add command.
      */
@@ -61,7 +62,6 @@ public class AddCommand extends ModelRequiringCommand {
         final boolean isArchived = false;   // all tasks are first added as active tasks
         final int taskId = 0;               // taskId to be assigned by ModelManager, leave as 0
         
-        //TODO: Smart defaults for date
         SmartDefaultDates sdd = new SmartDefaultDates(startDateTime, endDateTime);
         this.toAdd = new Task(taskId, taskName, sdd.getStartDate(), sdd.getEndDate(),
                 location, priority, recurringType, numberOfRecurrence,
@@ -83,6 +83,7 @@ public class AddCommand extends ModelRequiringCommand {
         }
 
     }
+    //@@author A0139915W
     
     /**
      * Checks if a command can perform undo operations

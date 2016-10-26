@@ -10,8 +10,9 @@ import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
 import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 
+//@@author A0139915W
 /**
- *
+ *  Test tasks used to test cases
  */
 public class TypicalTestTasks {
 
@@ -85,3 +86,4 @@ public class TypicalTestTasks {
         return null;
     }
 }
+//@@author A0139915W

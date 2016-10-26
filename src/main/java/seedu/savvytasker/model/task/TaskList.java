@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import seedu.savvytasker.commons.exceptions.DuplicateDataException;
 import seedu.savvytasker.commons.exceptions.IllegalValueException;
 
+//@@author A0139915W
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
  *
@@ -184,3 +185,4 @@ public class TaskList implements Iterable<Task> {
         return internalList.hashCode();
     }
 }
+//@@author A0139915W

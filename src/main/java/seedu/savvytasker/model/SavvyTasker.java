@@ -24,9 +24,12 @@ import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
  */
 public class SavvyTasker implements ReadOnlySavvyTasker {
 
+    //@@author A0139915W
     private final TaskList tasks;
+    //@@author A0139915W
     private final AliasSymbolList symbols;
 
+    //@@author A0139915W
     public SavvyTasker() {
         this.tasks = new TaskList();
         this.symbols = new AliasSymbolList();
@@ -63,9 +66,11 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
     public void resetData(ReadOnlySavvyTasker newData) {
         resetData(newData.getReadOnlyListOfTasks());
     }
+    //@@author A0139915W
 
 //// symbol/task-level operations
-    
+
+    //@@author A0139915W
     /**
      * Returns the next available id for use to uniquely identify a task.
      * @author A0139915W
@@ -90,11 +95,7 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
      * @throws TaskNotFoundException if the task to be removed does not exist
      */
     public boolean removeTask(ReadOnlyTask key) throws TaskNotFoundException {
-        if (tasks.remove(key)) {
-            return true;
-        } else {
-            throw new TaskList.TaskNotFoundException();
-        }
+        return tasks.remove(key);
     }
     
     /**
@@ -104,12 +105,9 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
      * @throws TaskNotFoundException if the task to be removed does not exist
      */
     public boolean replaceTask(ReadOnlyTask key, Task replacement) throws TaskNotFoundException, InvalidDateException {
-        if (tasks.contains(key)) {
-            return tasks.replace(key, replacement);
-        } else {
-            throw new TaskList.TaskNotFoundException();
-        }
+        return tasks.replace(key, replacement);
     }
+    //@@author A0139915W
     
     /**
      * Adds an alias symbol to savvy tasker.

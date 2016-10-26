@@ -29,7 +29,8 @@ public class DeleteCommand extends ModelRequiringCommand {
     //private LinkedList<Task> tasksToUndo = new LinkedList<Task>();
     private ReadOnlySavvyTasker original;
     private final int[] targetIndices;
-    
+
+    //@@author A0139915W
     public DeleteCommand(int[] targetIndices) {
         this.targetIndices = targetIndices;
     }
@@ -63,6 +64,7 @@ public class DeleteCommand extends ModelRequiringCommand {
 
         return new CommandResult(resultSb.toString());
     }
+    //@@author A0139915W
     
     /**
      * Checks if a command can perform undo operations
