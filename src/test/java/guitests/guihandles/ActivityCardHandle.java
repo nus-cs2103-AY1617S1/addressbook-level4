@@ -13,10 +13,10 @@ import seedu.address.model.activity.task.ReadOnlyTask;
 public class ActivityCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String REMINDER_FIELD_ID = "#reminder";
-    private static final String DUEDATE_FIELD_ID = "#due date";
-    private static final String PRIORITY_FIELD_ID = "#priority";
-    private static final String STARTTIME_FIELD_ID = "#start time";
-    private static final String ENDTIME_FIELD_ID = "#end time";
+    private static final String DUEDATE_FIELD_ID = "#line1";
+    private static final String PRIORITY_FIELD_ID = "#line2";
+    private static final String STARTTIME_FIELD_ID = "#line1";
+    private static final String ENDTIME_FIELD_ID = "#line2";
     
 
     private Node node;
@@ -64,7 +64,6 @@ public class ActivityCardHandle extends GuiHandle {
     public boolean isSameTask(ReadOnlyTask person){
     	boolean isSameName = getFullName().equals(person.getName().fullName);
     	boolean isSameReminder = getReminder().replace("Reminder:\t", "").equals(person.getReminder().toString());
-    	String due=person.getDueDate().toString();
     	boolean isSameDueDate = getDueDate().toString().replace("Due:\t\t\t", "").equals(person.getDueDate().toString());
     	boolean isSamePriority = getPriority().replace("Priority:\t\t", "").equals(person.getPriority().toString());
     	
