@@ -79,7 +79,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         return taskFoundAndDeleted;
     }
-    
+
     public void edit(ReadOnlyTask toEdit, String field, String value) throws IllegalValueException {
         assert toEdit != null;
         switch (field) {

@@ -10,12 +10,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+//@@author A0138411N
 public class DateTimeParser {
 
     private Date dateTime;
     private String date;
     private String time;
     
+    /**
+     * Parse the data and time input to a Date object
+     * @param String
+     * @throws IllegalValueException 
+     */
     public DateTimeParser(String raw) throws IllegalValueException {
         List<Date> dateTimeData = new PrettyTimeParser().parse(raw);
         if (dateTimeData.size() == 0) {
@@ -24,6 +30,11 @@ public class DateTimeParser {
         dateTime = dateTimeData.get(0);
     }
     
+    /**
+     * Extracts time from Date object and convert to String
+     * @param Date
+     * @throws IllegalValueException
+     */
     private void parseTime(Date dateTime) throws IllegalValueException {
         SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
         time = sdf.format(dateTime).toString();
@@ -32,7 +43,11 @@ public class DateTimeParser {
             time = "";
         }
     }
-    
+    /**
+     * Extracts date from Date object and convert to String
+     * @param Date
+     * @throws IllegalValueException
+     */
     private void parseDate(Date dateTime) {
         SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM yy");
         date = sdf.format(dateTime).toString();

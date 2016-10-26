@@ -18,7 +18,7 @@ public class TaskTime {
             + "Example: 2359 or 11.59pm\n";
     public static final String TIME_VALIDATION_REGEX = ".+";
     public String value;
-
+  //@@author A0138411N
     /**
      * Validates given time.
      *
@@ -33,7 +33,7 @@ public class TaskTime {
         }
         this.value = time;
     }
-    
+  //@@author  
     /**
      * Changes the value attribute
      * @param String
