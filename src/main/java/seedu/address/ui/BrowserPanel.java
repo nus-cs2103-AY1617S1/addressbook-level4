@@ -94,8 +94,5 @@ public class BrowserPanel extends UiPart{
     	agenda.addAllToAgenda(taskList);    		
     }
     
-    public MyAgenda getAgenda(){
-    	return agenda;
-    }
     
 }

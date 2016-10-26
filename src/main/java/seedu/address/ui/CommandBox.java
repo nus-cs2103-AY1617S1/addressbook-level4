@@ -102,8 +102,8 @@ public class CommandBox extends UiPart {
      * Sets the command box style to indicate a correct command.
      */
     private void setStyleToIndicateCorrectCommand() {
-        commandTextField.getStyleClass().remove("error");
-        commandTextField.getStyleClass().remove("fail");
+        getStyleClass().remove("error");
+        getStyleClass().remove("fail");
         commandTextField.setText("");
     }
 
@@ -133,7 +133,7 @@ public class CommandBox extends UiPart {
      * Sets the command box style to indicate an error
      */
     private void setStyleToIndicateIncorrectCommand() {
-        commandTextField.getStyleClass().add("error");
+        getStyleClass().add("error");
     }
     
     //@@author A0147967J
@@ -141,7 +141,7 @@ public class CommandBox extends UiPart {
      * Sets the command box style to indicate a failed attempt
      */
     private void setStyleToIndicateFailedCommand() {
-        commandTextField.getStyleClass().add("fail");
+        getStyleClass().add("fail");
     }
     //@@author
     /**

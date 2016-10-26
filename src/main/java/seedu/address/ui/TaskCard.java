@@ -106,7 +106,7 @@ public class TaskCard extends UiPart{
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        //cardPane = (HBox)node;
     }
 
     @Override

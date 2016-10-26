@@ -33,11 +33,6 @@ public class NavbarPanelHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public List<String> getSelectedNavigation() {
-        ListView<String> navigationList = getListView();
-        return navigationList.getSelectionModel().getSelectedItems();
-    }
-
     @SuppressWarnings("unchecked")
 	public ListView<String> getListView() {
         return (ListView<String>) getNode(TASK_LIST_VIEW_ID);

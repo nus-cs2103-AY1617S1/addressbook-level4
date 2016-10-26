@@ -94,12 +94,6 @@ public class NavbarPanel extends UiPart {
         });
     }
     //@@author
-    public void scrollTo(int index) {
-        Platform.runLater(() -> {
-        	navbarView.scrollTo(index);
-        	navbarView.getSelectionModel().clearAndSelect(index);
-        });
-    }
     
     //@@author A0147967J
     public String getNavigationCommand(String navigation){

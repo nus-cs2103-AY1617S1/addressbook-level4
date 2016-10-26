@@ -663,6 +663,13 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskComponentList());
     	
+    	//CD is irreversible
+        assertCommandBehavior(
+    			"u",
+    			UndoCommand.MESSAGE_FAIL,
+                expectedAB,
+                expectedAB.getTaskComponentList());
+    	
     	//Ensure model writes to this file
     	expectedAB.addTask(helper.adam());
     	logic.execute(helper.generateAddCommand(helper.adam()));
@@ -670,6 +677,7 @@ public class LogicManagerTest {
         		                                        saveFolder.getRoot().getPath() + "TempPreferences.json").readTaskList().get();
         assertEquals(expectedAB, new TaskMaster(retrieved));
         assertEquals(model.getTaskMaster(), new TaskMaster(retrieved));
+        
         
     }
     //@@author
