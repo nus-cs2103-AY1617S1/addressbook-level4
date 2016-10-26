@@ -34,11 +34,11 @@ public interface MalitioStorage {
      * @param malitio cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void savemalitio(ReadOnlyMalitio malitio) throws IOException;
+    void saveMalitio(ReadOnlyMalitio malitio) throws IOException;
 
     /**
-     * @see #savemalitio(ReadOnlyMalitio)
+     * @see #saveMalitio(ReadOnlyMalitio)
      */
-    void savemalitio(ReadOnlyMalitio malitio, String filePath) throws IOException;
+    void saveMalitio(ReadOnlyMalitio malitio, String filePath) throws IOException;
 
 }

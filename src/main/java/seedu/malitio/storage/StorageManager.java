@@ -6,11 +6,12 @@ import seedu.malitio.commons.core.ComponentManager;
 import seedu.malitio.commons.core.LogsCenter;
 import seedu.malitio.commons.events.model.MalitioChangedEvent;
 import seedu.malitio.commons.events.storage.DataSavingExceptionEvent;
+import seedu.malitio.commons.events.storage.DataStorageFileChangedEvent;
 import seedu.malitio.commons.exceptions.DataConversionException;
+import seedu.malitio.commons.util.FileUtil;
 import seedu.malitio.model.ReadOnlyMalitio;
 import seedu.malitio.model.UserPrefs;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -23,7 +24,6 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private MalitioStorage malitioStorage;
     private UserPrefsStorage userPrefsStorage;
-
 
     public StorageManager(MalitioStorage malitioStorage, UserPrefsStorage userPrefsStorage) {
         super();
@@ -48,7 +48,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
 
-    // ================ malitio methods ==============================
+    // ================ Malitio methods ==============================
 
     @Override
     public String getMalitioFilePath() {
@@ -67,26 +67,53 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void savemalitio(ReadOnlyMalitio malitio) throws IOException {
-        savemalitio(malitio, malitioStorage.getMalitioFilePath());
+    public void saveMalitio(ReadOnlyMalitio malitio) throws IOException {
+        saveMalitio(malitio, malitioStorage.getMalitioFilePath());
     }
 
     @Override
-    public void savemalitio(ReadOnlyMalitio malitio, String filePath) throws IOException {
+    public void saveMalitio(ReadOnlyMalitio malitio, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        malitioStorage.savemalitio(malitio, filePath);
+        malitioStorage.saveMalitio(malitio, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handlemalitioChangedEvent(MalitioChangedEvent event) {
+    public void handleMalitioChangedEvent(MalitioChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            savemalitio(event.data);
+            saveMalitio(event.data, malitioStorage.getMalitioFilePath());
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-
+    
+    /**
+     * Stores the current data file in the new directory and deletes the old data file.
+     * @param event
+     * @throws DataConversionException
+     */
+    //@@author a0126633j
+    @Subscribe
+    public void handleDataStorageFileChangedEvent(DataStorageFileChangedEvent event) throws DataConversionException {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Data storage file path changed, updating.."));
+        String oldDataFilePath = malitioStorage.getMalitioFilePath();
+        malitioStorage = new XmlMalitioStorage(event.dataFilePath);
+        
+        try {
+            saveMalitio(readMalitio(oldDataFilePath).get(), this.malitioStorage.getMalitioFilePath()); 
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+        
+        try {
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, "Old data file is being deleted."));
+            if(oldDataFilePath != this.malitioStorage.getMalitioFilePath()) {
+                FileUtil.deleteFile(oldDataFilePath);
+            }
+        } catch (IOException e) {
+            logger.info(LogsCenter.getEventHandlingLogMessage(event, "Failed to delete old data file."));
+        }
+    }
 }
