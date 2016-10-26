@@ -82,6 +82,13 @@ command `delete 3`.
 >Note how the `Model` simply raises a `ToDoListChangedEvent` when the To Do List data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
+ The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+ command `add buy milk `.
+
+<img src="images\SDforAddTask.png" width="800">
+
+>Note how both sequence diagrams are very similar. This is because of good separation of concerns between the different components.
+
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
@@ -256,7 +263,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new task with or without starting date, end date, tags, priority level or details | store different tasks in the to-do list 
+`* * *` | user | add a new task with or without starting date, end date, tags, priority level or details | store different tasks in the to-do list
 `* * *` | user | delete a task | remove a task that I no longer need to do
 `* * *` | user | search tasks by name, details, starting date, end date, tags or priority level | locate details of tasks without having to go through the entire list
 `* * *` | user | update the name, details, starting date, end date, tags or priority level of a task | account for the possibility of change
@@ -266,7 +273,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *` | user | mark tasks as "finished" | view all completed tasks
 `* * *` | user | unmark finsihed tasks | change status of tasks
 `* *` | user | group tasks into similar categories | organise tasks well
-`* *` | user | view tasks by categories | have clearer views of similar tasks 
+`* *` | user | view tasks by categories | have clearer views of similar tasks
 `* *` | user | have a daily summary of tasks | manage my time well for the day
 `* *` | user | have a weekily summary of tasks | manage my time well for the week
 `*` | user with many tasks in the to-do list | sort tasks by name | locate a task easily
@@ -346,7 +353,7 @@ Use case ends.
 ## Appendix E : Product Survey
 
 Google Keep : SWOT
-> Google Keep is an easy to use note taking application. It allows users to create different kinds of notes for different purposes. It also has some sort of a checklist which mimics the basic function of a to-do application. The user can also set reminders for a list but not for a specific task. 
+> Google Keep is an easy to use note taking application. It allows users to create different kinds of notes for different purposes. It also has some sort of a checklist which mimics the basic function of a to-do application. The user can also set reminders for a list but not for a specific task.
 
 > A noticeable point about Google Keep is that there is no other way than a list to view the to-dos. Probably this is because Google has other forms of to-dos tracking application and Keep is just meant to be a lightweight option for users who do not need that much functionality.
 

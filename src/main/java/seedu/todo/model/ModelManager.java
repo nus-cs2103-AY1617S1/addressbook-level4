@@ -26,7 +26,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final ToDoList toDoList;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> todayTasks;
-
+    
+    //@@author A0138967J
     /**
      * Initializes a ModelManager with the given ToDoList
      * ToDoList and its variables should not be null
@@ -40,16 +41,17 @@ public class ModelManager extends ComponentManager implements Model {
 
         toDoList = new ToDoList(src);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
-        //@@author A0138967J
         todayTasks = new FilteredList<>(toDoList.getTasks());
         updateTodayListToShowAll();
-        //@@author 
+ 
     }
-
+    //@@author
+    
     public ModelManager() {
         this(new ToDoList(), new UserPrefs());
     }
-
+    
+    //@@author A0093896H
     public ModelManager(ReadOnlyToDoList initialData, UserPrefs userPrefs) {
         toDoList = new ToDoList(initialData);
         filteredTasks = new FilteredList<>(toDoList.getTasks());
@@ -94,6 +96,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateToDoListChanged();
     }
     
+    //@@author A0093896H
     @Override
     public synchronized Task getTask(ReadOnlyTask target) throws TaskNotFoundException {
         int index = toDoList.getTasks().indexOf(target);
@@ -110,7 +113,7 @@ public class ModelManager extends ComponentManager implements Model {
         toDoList.updateTask(oldTask, newTask);
         indicateToDoListChanged();
     }
-
+    
     @Override
     public synchronized void updateTaskTags(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws TaskNotFoundException {
         int index = toDoList.getTasks().indexOf(oldTask);
@@ -122,9 +125,11 @@ public class ModelManager extends ComponentManager implements Model {
             indicateToDoListChanged();
         }
     }
+    //@@author
     
     //=========== Filtered Task List Accessors ===============================================================
-
+    
+    //@@author A0093896H
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getUnmodifiableFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
@@ -137,8 +142,8 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateTodayListToShowAll() {
         todayTasks.setPredicate((new PredicateExpression(new TodayDateQualifier(LocalDateTime.now())))::satisfies);
     }
-    //@@author
 
+    //@@author A0093896H
     @Override
     public void updateFilteredListToShowAll() {
         updateFilteredTaskList(new PredicateExpression(new CompletedQualifier(true))); //force change
@@ -189,7 +194,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskListByPriority(Priority priority) {
         updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));   
     }
-    
+
     //@@author A0138967J-unused
     @Override
     public void updateFilteredTaskListTodayDate(LocalDateTime datetime){

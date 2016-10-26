@@ -7,8 +7,10 @@ import java.util.logging.Level;
  * Config values used by the app
  */
 public class Config {
-
+    
+    //@@author A0093896H
     public static final String DEFAULT_CONFIG_FILE = "defaultConfig.json";
+    //@@author
     public static final String USER_CONFIG_FILE = "config.json";
     
     // Config values customizable through config file

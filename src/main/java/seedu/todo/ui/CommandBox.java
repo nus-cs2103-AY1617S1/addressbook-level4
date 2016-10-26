@@ -21,8 +21,10 @@ public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
     
+    //@@author A0093896H
     private Stack<String> commandHistory = new Stack<>();
     private Stack<String> commandFuture = new Stack<>();
+    //@@author
     
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
@@ -87,6 +89,7 @@ public class CommandBox extends UiPart {
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
     
+    //@@author A0093896H
     @FXML
     private void handleKeyPressed(KeyEvent e) {
         if (e.getCode().toString().equals("UP") && !commandHistory.isEmpty()) {
@@ -100,7 +103,7 @@ public class CommandBox extends UiPart {
             commandTextField.setText(c);
         }
     }
-
+    //@@author
 
     /**
      * Sets the command box style to indicate a correct command.
