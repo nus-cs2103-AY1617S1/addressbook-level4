@@ -167,7 +167,7 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public void completeFloatingTask(ReadOnlyFloatingTask taskToComplete) throws FloatingTaskCompletedException, FloatingTaskNotFoundException {
 		malitio.completeTask(taskToComplete);
-        updateFilteredEventListToShowAll();
+		updateFilteredTaskListToShowAll();
         indicatemalitioChanged();
 	}
 	
@@ -175,7 +175,7 @@ public class ModelManager extends ComponentManager implements Model {
 	@Override
 	public void completeDeadline(ReadOnlyDeadline deadlineToEdit) throws DeadlineCompletedException, DeadlineNotFoundException {
 		malitio.completeDeadline(deadlineToEdit);
-        updateFilteredEventListToShowAll();
+		updateFilteredDeadlineListToShowAll();
         indicatemalitioChanged();
 		
 	}

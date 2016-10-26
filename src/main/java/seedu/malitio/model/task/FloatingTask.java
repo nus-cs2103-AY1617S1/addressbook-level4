@@ -8,7 +8,7 @@ import seedu.malitio.model.tag.UniqueTagList;
 public class FloatingTask implements ReadOnlyFloatingTask {
 
     private Name name;
-    private Boolean completed;
+    private boolean completed;
     
     private UniqueTagList tags;
     
@@ -23,7 +23,7 @@ public class FloatingTask implements ReadOnlyFloatingTask {
         this.completed = false;
     }
     
-    public FloatingTask(Name name, Boolean completed, UniqueTagList tags) {
+    public FloatingTask(Name name, boolean completed, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.completed = completed;
