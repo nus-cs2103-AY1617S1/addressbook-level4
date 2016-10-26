@@ -112,6 +112,9 @@ public class EditCommand extends Command {
         	
             model.editTask(index, postEdit);
             
+        } catch (UnsupportedOperationException uoe) {
+            model.loadPreviousState();
+            return new CommandResult(uoe.getMessage());
         } catch (TaskNotFoundException tnfe) {
             model.loadPreviousState();
             assert false : "The target task cannot be missing";
