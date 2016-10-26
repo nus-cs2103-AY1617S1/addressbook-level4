@@ -15,6 +15,7 @@ public class StringUtil {
     }
     
     public static boolean containsPartialIgnoreCase(String source, String query) {
+        if (source == null) return false;
         String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
         return strings.stream().filter(s -> s.contains(query.toLowerCase())).count() > 0;
