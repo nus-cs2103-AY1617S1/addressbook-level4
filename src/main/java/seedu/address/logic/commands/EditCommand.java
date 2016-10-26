@@ -30,6 +30,8 @@ public class EditCommand extends Command {
     //@@author A0143756Y
     public static final String MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME = 
     		"Start of event is scheduled after end of event. Please re-enter correct start and end dates/times.\n";
+    public static final String MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME =
+    		"Start of event equals end of event. Please re-enter correct start and end dates/times.\n";
     //@@author A0139339W
 
     public final int targetIndex;
@@ -89,7 +91,7 @@ public class EditCommand extends Command {
             	LocalDateTime startDateTime = taskToEdit.getStartDate().get();
             	LocalDateTime endDateTime = newEndDateTime.get();
             	
-            	if(startDateTime.isAfter(endDateTime)){
+            	if(!endDateTime.isAfter(startDateTime)){
             		return new CommandResult(MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
             	}      
             }     

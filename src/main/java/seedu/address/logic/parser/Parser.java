@@ -241,10 +241,14 @@ public class Parser {
 					startDateTime = DateParser.parse(date + " " + startTime);
 					endDateTime = DateParser.parse(date + " " + endTime);
 					
-					System.out.println("startDateTime: " + startDateTime.toString());
-					
-					if(startDateTime.isAfter(endDateTime)){
-						return new IncorrectCommand(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+					if(!endDateTime.isAfter(startDateTime)){
+						if(startDateTime.isAfter(endDateTime)){
+							return new IncorrectCommand(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+						}
+						
+						else{
+							return new IncorrectCommand(AddCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
+						}							
 					}
 					
 				} catch (ParseException e) {
@@ -258,40 +262,6 @@ public class Parser {
 				}
 			}
 		}
-
-		ArrayList<Matcher> diffDayMatchers = new ArrayList<>();
-		diffDayMatchers.add(EVENT_ARGS_FORMAT_7.matcher(arguments));
-		diffDayMatchers.add(EVENT_ARGS_FORMAT_8.matcher(arguments));
-		
-		for (Matcher matcher : diffDayMatchers) {
-			if (matcher.matches()) {
-				isAnyMatch = true;
-				
-
-				taskName = matcher.group("taskName").trim();
-				String startDayAndTime = matcher.group("startDateTime").trim();
-				String endDayAndTime = matcher.group("endDateTime").trim();
-				
-				try {
-					startDateTime = DateParser.parse(startDayAndTime);
-					endDateTime = DateParser.parse(endDayAndTime);
-					
-					if(startDateTime.isAfter(endDateTime)){
-						return new IncorrectCommand(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
-					}
-					
-				} catch (ParseException e) {
-					// TODO better command
-					return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-				}				
-
-				break;
-			}
-		}
-
-		//System.out.println("task name: " + taskName);
-		//System.out.println("start date: " + startDateTime.toString());
-		//System.out.println("end date: " + endDateTime.toString());
 		
 		if (!isAnyMatch) {
 			System.out.println("no match");
@@ -399,7 +369,7 @@ public class Parser {
 		String[] args = arguments.split(" ");
 
 		String taskType = null;
-		String status = null;
+		String done = null;
 		for (int i = 0; i < args.length; i++) {
 			switch (args[i].trim()) {
 			case "event":
@@ -413,14 +383,14 @@ public class Parser {
 			case "done":
 			case "not-done":
 			case "overdue":
-				status = args[i];
+				done = args[i];
 				break;
 			default:
 				return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
 			}
 		}
 
-		return new ListCommand(taskType, status);
+		return new ListCommand(taskType, done);
 	}
 	
 	//@@author A0141019U
@@ -541,9 +511,13 @@ public class Parser {
 			}
 		}
 		
-		if(startDateTime!=null && endDateTime!=null){
+		if(startDateTime!=null && endDateTime!=null && !endDateTime.isAfter(startDateTime)){
 			if(startDateTime.isAfter(endDateTime)){
-				return new IncorrectCommand(AddCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+				return new IncorrectCommand(EditCommand.MESSAGE_START_DATE_TIME_AFTER_END_DATE_TIME);
+			}
+			
+			else{
+				return new IncorrectCommand(EditCommand.MESSAGE_START_DATE_TIME_EQUALS_END_DATE_TIME);
 			}
 		}
 		
