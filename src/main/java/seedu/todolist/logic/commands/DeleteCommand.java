@@ -2,6 +2,7 @@ package seedu.todolist.logic.commands;
 
 import seedu.todolist.commons.core.Messages;
 import seedu.todolist.commons.core.UnmodifiableObservableList;
+import seedu.todolist.model.AddressBook;
 import seedu.todolist.model.task.ReadOnlyTask;
 import seedu.todolist.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todolist.ui.MainWindow;
@@ -44,6 +45,8 @@ public class DeleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
         
+        AddressBook previousAddressBook = new AddressBook(model.getAddressBook());
+        
         for (int i = 0; i < targetIndexes.length; i++) {
             ReadOnlyTask taskToDelete = lastShownList.get(targetIndexes[i] - (i + MULTIPLE_DELETE_OFFSET));
             
@@ -55,6 +58,7 @@ public class DeleteCommand extends Command {
             
         }
 
+        model.addAddressBookHistory(previousAddressBook);
         return new CommandResult(MESSAGE_DELETE_TASK_SUCCESS);
     }
     //@@author

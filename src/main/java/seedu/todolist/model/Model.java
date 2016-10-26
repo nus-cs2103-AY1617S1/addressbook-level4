@@ -18,6 +18,9 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
     
+    /** Add the previous AddressBook into the stack */
+    void addAddressBookHistory(ReadOnlyAddressBook previousAddressBook);
+    
     /** Reverts the previous state of the AddressBook */
     void undoAddressBook() throws EmptyStackException;
     
