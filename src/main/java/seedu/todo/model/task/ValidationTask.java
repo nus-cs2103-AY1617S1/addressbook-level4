@@ -188,4 +188,21 @@ public class ValidationTask implements MutableTask {
 
     public void setCreatedAt() { this.lastUpdated = LocalDateTime.now(); }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof ImmutableTask)) {
+            return false;
+        }
+
+        return uuid.equals(((ImmutableTask) o).getUUID());
+    }
+
+    @Override
+    public int hashCode() {
+        return uuid.hashCode();
+    }
 }
