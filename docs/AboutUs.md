@@ -24,12 +24,21 @@ Features implemented:
 - Categories
 Code written: [functional code][test code]
 Other major contributions:
-- Initial refactoring from AddressBook to OneLine
+- Final refactoring from AddressBook to OneLine
 
 ### [Ka-Shing](https://github.com/ongks)
 <img src="https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/Ong%20Ka-Shing.jpg" width="166" height="213" />
-- Storage 
-- 
+* Components in charge of: Storage
+* Aspects/tools in charge of: Testing, Git
+* Features implemented:
+   * [List](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#4.1-list-all-tasks)
+   * [List done](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#4.5-list-done)
+   * [Done task](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#deleting-a-person--delete)
+   * [Undone task](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#listing-all-persons--list)
+   * [Save saveLocation](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#listing-all-persons--list)
+* Code written: [[functional code](A0121657H.md)][[test code](A0121657H.md)][[docs](A0121657H.md)]
+* Other major contributions:
+  * Did the initial refactoring from AddressBook to ToDoList 
 
 ### Damith Rajapakse
 ![Damith](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/images/DamithRajapakse.jpg)
