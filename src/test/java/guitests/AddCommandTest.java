@@ -22,12 +22,12 @@ public class AddCommandTest extends AddressBookGuiTest {
 
         assertAddSuccess(activityToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
-/*
-        //add a task
-        personToAdd = td.findIda;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
+        //add a task
+        activityToAdd = td.findIda;
+        assertAddSuccess(activityToAdd, currentList);
+        currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
+        /*
         //add an event
         personToAdd = td.findJodie;
         assertAddSuccess(personToAdd, currentList);
@@ -71,7 +71,6 @@ public class AddCommandTest extends AddressBookGuiTest {
     	commandBox.runCommand(activityToAdd.getAddCommand());
         //confirm the new card contains the right data
         ActivityCardHandle addedCard = personListPanel.navigateToActivity(activityToAdd.getName().fullName);
-    	System.out.println(addedCard.toString());
         assertMatching(activityToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
