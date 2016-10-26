@@ -4,55 +4,40 @@ import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.cmdo.commons.core.Messages;
-import seedu.cmdo.model.ReadOnlyToDoList;
-import seedu.cmdo.model.StatusSaver;
-import seedu.cmdo.model.ToDoList;
-import seedu.cmdo.model.tag.UniqueTagList;
-import seedu.cmdo.model.task.Task;
-import seedu.cmdo.model.task.UniqueTaskList;
-import seedu.cmdo.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.cmdo.commons.exceptions.CannotUndoException;
+import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.storage.StorageManager;
 
 public class UndoCommand extends Command {
 	
 	public static final String COMMAND_WORD = "undo";
-//	public StatusSaver statusSaver;
-	private ArrayList<Task> taskMasterList;
+	private ArrayList<ReadOnlyTask> taskMasterList;
 	private StorageManager taskOrganiser;
-    private ObservableList<Task> taskObservableList = FXCollections.observableArrayList();
+    private ObservableList<ReadOnlyTask> taskObservableList = FXCollections.observableArrayList();
 	
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + "undos previous action\n"
             + "Example: " + COMMAND_WORD;
 
-    public static final String MESSAGE_UNDO_SUCCESS = "Selected Task: %1$s";
+    public static final String MESSAGE_UNDO_SUCCESS = "Undone!";
 	
-	public UndoCommand(){
-		assert statusSaver != null;
-//		this.statusSaver = statusSaver;
-	}
+	public UndoCommand() {}
 
-       @Override
+	@Override
 	public CommandResult execute() {
-    	   if (statusSaver.isUndoMasterStackEmpty()) {
-	           return new CommandResult(Messages.MESSAGE_UNDO_LIMIT);
-	        }
-	     	statusSaver.retrieveLastStatus();
-	        taskMasterList = statusSaver.getLastTaskMasterList();
-	        taskObservableList = statusSaver.getLastTaskObservableList();
-	        	        	        
-	        UniqueTaskList tl = new UniqueTaskList();
-	        UniqueTagList tags = new UniqueTagList();
-	        for (Task t : taskMasterList) {
-	        	try {
-	        		tl.add(t);
-	        	} catch (DuplicateTaskException dte) {
 
-	        	}
-	        }
-	        ToDoList tdl = new ToDoList(tl, tags);
-	        model.resetData(tdl);
-	        return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS));
+//    	  try {
+//    		  model.undoOne(); 
+//    	  } catch (CannotUndoException cue) {
+//    		  return new CommandResult(cue.getMessage());
+//    	  }
+		
+		try {
+			model.undo();
+		} catch (CannotUndoException cue) {
+			return new CommandResult(cue.getMessage());
+		}
+    	 
+		return new CommandResult(String.format(MESSAGE_UNDO_SUCCESS));
 	}
 }

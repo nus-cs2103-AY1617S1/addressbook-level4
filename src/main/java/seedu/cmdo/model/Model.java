@@ -3,6 +3,7 @@ package seedu.cmdo.model;
 import java.util.Set;
 
 import seedu.cmdo.commons.core.UnmodifiableObservableList;
+import seedu.cmdo.commons.exceptions.CannotUndoException;
 import seedu.cmdo.model.task.ReadOnlyTask;
 import seedu.cmdo.model.task.Task;
 import seedu.cmdo.model.task.UniqueTaskList;
@@ -48,5 +49,10 @@ public interface Model {
 	void editTask(ReadOnlyTask taskToEdit, Task toEditWith) throws TaskNotFoundException;
 
 	void changeStorageFilePath(String filePath);
+
+	//@@author A0139661Y
+	void undoOne() throws CannotUndoException;
+
+	void undo() throws CannotUndoException;
 
 }
