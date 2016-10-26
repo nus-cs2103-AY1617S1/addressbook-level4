@@ -58,7 +58,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager() {
         this(new TaskManager(), new UserPrefs());
     }
-
+  //@@author A0138411N
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
@@ -77,7 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void setLastListing(String listing) {
         lastListing = listing;
     }
-    
+  //@@author   
     @Override
     public void resetData(ReadOnlyTaskManager newData) {
         taskManager.resetData(newData);
@@ -121,7 +121,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     //=========== Filtered Task List Accessors ===============================================================
-
+  //@@author A0138411N
     /**
      * Updates filtered list to show based on last shown listing choice
      */
@@ -171,7 +171,7 @@ public class ModelManager extends ComponentManager implements Model {
         };
         return new UnmodifiableObservableList<>(new SortedList(filteredTasks, compareDateTime));
     }
-    
+  //@@author
 
     @Override
     public void updateFilteredListToShowAll() {
@@ -198,7 +198,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredListToShowAllUndone(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-    
+  //@@author A0138411N
     @Override
     public void updateFilteredListToShowDate(String keywords){
         updateFilteredTaskList(new PredicateExpression(new DateQualifier(keywords)));
@@ -207,7 +207,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredListToShowDate(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-
+  //@@author
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
@@ -300,7 +300,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", taskNameKeyWords);
         }
     }
-    
+  //@@author A0138411N
     private class DateQualifier implements Qualifier {
         private String taskDateKeyWords;
 
@@ -321,7 +321,7 @@ public class ModelManager extends ComponentManager implements Model {
                    (task.getEndTime().value.equals(Messages.MESSAGE_NO_END_TIME_SET)) && !task.isDone())) ||
                    (task.isOverdue() && !task.isDone())));
         }
-
+      //@@author
         @Override
         public String toString() {
             return "name=" + String.join(", ", taskDateKeyWords);

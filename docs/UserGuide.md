@@ -89,7 +89,7 @@ Format: `add TASK, DATE, START TIME, END TIME [PRIORITY]`
 Examples: 
 * `add tennis, 21 nov, 1pm-3pm -high`
 * `add lunch with parents on friday from 12pm to 1pm`
-
+<!--- @@author A0138411N --->
 > * The comma after `[TASK]` can be replaced with `on`.<br>
 > * The comma after `[DATE]` can be replaced with a space. <br>
 > * The comma after `[START TIME]` can be replaced with `to`.<br>
@@ -116,7 +116,7 @@ Format: `list [PARAMETERS]`
 > * `list all` shows all tasks
 > * `list done` shows all completed tasks
 > * `list [DATE]` shows remaining tasks starting or ending on a particular date
-
+<!--- @@author --->
 #### Searching tasks by keywords: `search`
 Searches and lists all tasks that contain the specified keyword, inclusive of `DAY`, `DATE`, `TIME`, `PRIORITY` and `FREQUENCY`.<br>
 Format: `search KEYWORD`<br>
@@ -157,7 +157,7 @@ Example:<br>
 #### Undo : `undo`
 Reverts the most recent action.<br>
 Format: `undo`
-
+<!--- @@author A0138411N --->
 #### Redo : `redo`
 Reverts the most recent undo action.<br>
 Format: `redo`
@@ -167,7 +167,7 @@ Edits task on the display list.<br>
 Format: `edit INDEX PARAMETER NEW_INFORMATION`
 
 > More than 1 parameter can be edited at the same input, simply separate them with a comma.
-
+<!--- @@author --->
 Examples: 
 * `edit 1 date oct 11, time 1800-2000`
 * `list dec 30`<br>
@@ -200,7 +200,7 @@ Example:<br>
 #### Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
-
+<!--- @@author A0138411N -->
 #### Saving the data to a specified location : `save` 
 All GGist data is saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually. The save file is `./data` by default.<br>
@@ -216,7 +216,7 @@ You can change the file name to your preference too.<br>
 Format: `save FILE_NAME.xml`
 
 > The file format has to be .xml
-       
+<!--- @@author --->
 ## Command Cheatsheet
 
 Command | Format  

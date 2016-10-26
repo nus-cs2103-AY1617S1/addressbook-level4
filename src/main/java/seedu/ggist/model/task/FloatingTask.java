@@ -11,7 +11,7 @@ import seedu.ggist.model.tag.UniqueTagList;
  * Guarantees: details are present and not null, field values are validated.
  */
 public class FloatingTask extends Task implements ReadOnlyTask {
-
+  //@@author A0138411N
     /**
      * Every field must be present and not null.
      * @throws IllegalValueException 

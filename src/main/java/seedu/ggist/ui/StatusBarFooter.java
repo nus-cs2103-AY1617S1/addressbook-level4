@@ -97,7 +97,7 @@ public class StatusBarFooter extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
-    
+  //@@author A0138411N
     @Subscribe
     public void handleChangeFileLocationEvent(ChangeFileLocationEvent event) {
         String newLocation = event.path;
