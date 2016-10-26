@@ -53,7 +53,7 @@ public class ActivityCardHandle extends GuiHandle {
     public String getEndTime() {
     	return getTextFromLabel(ENDTIME_FIELD_ID);
     }
-
+  //@@author A0131813R
     public boolean isSameActivity(ReadOnlyActivity person){
 
     	boolean isSameName = getFullName().equals(person.getName().fullName);
@@ -65,8 +65,6 @@ public class ActivityCardHandle extends GuiHandle {
     	boolean isSameName = getFullName().equals(person.getName().fullName);
     	boolean isSameReminder = getReminder().equals(person.getReminder().forDisplay());
     	boolean isSameDueDate = getDueDate().toString().equals(person.getDueDate().forDisplay());
-    	String name = getPriority();
-String fromperson = person.getPriority().toString();
     	boolean isSamePriority = getPriority().equals(person.getPriority().forDisplay());
     	
     	return (isSameName && isSameReminder && isSameDueDate && isSamePriority);
@@ -80,7 +78,7 @@ String fromperson = person.getPriority().toString();
 
     	return (isSameName && isSameReminder && isSameStartTime && isSameEndTime);
     }
-
+  //@@author 
     @Override
     public boolean equals(Object obj) {
         if(obj instanceof ActivityCardHandle) {

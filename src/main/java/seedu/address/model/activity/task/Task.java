@@ -9,7 +9,7 @@ import seedu.address.model.activity.Name;
 import seedu.address.model.activity.ReadOnlyActivity;
 import seedu.address.model.activity.Reminder;
 import seedu.address.model.tag.UniqueTagList;
-
+//@@author A0131813R
 public class Task extends Activity implements ReadOnlyTask {
 
     private DueDate duedate;

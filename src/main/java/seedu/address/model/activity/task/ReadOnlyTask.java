@@ -1,7 +1,7 @@
 package seedu.address.model.activity.task;
 
 import seedu.address.model.activity.ReadOnlyActivity;
-
+//@@author A0131813R
 public interface ReadOnlyTask extends ReadOnlyActivity {
 
     DueDate getDueDate();

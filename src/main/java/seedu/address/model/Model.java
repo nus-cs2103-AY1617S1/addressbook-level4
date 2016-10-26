@@ -54,7 +54,7 @@ public interface Model {
 
     /** Marks task as completed **/
 	void markTask(Activity unmarkedTask, boolean isComplete) throws TaskNotFoundException;
-
+	//@@author A0131813R
     void updateFilteredEventListToShowAll();
 
     void updateFilteredActivityListToShowAll();

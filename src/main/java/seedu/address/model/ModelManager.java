@@ -128,7 +128,7 @@ public class ModelManager extends ComponentManager implements Model {
     public UnmodifiableObservableList<Activity> getFilteredTaskListForEditing() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
-
+  //@@author A0131813R
     @Override
     public void updateFilteredListToShowAll() {
         filteredPersons.setPredicate(null);
@@ -166,7 +166,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredPersonList(Expression expression) {
         filteredPersons.setPredicate(expression::satisfies);
     }
-
+  //@@author
     //========== Inner classes/interfaces used for filtering ==================================================
 
     interface Expression {
