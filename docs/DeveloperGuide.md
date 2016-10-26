@@ -74,17 +74,26 @@ For example, the `Logic` component (see the class diagram given below) defines i
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
+[comment]: # (@@author A0140060A)
+
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `edit 1 n/Survive`.
 
 <img src="images\SDforEditItem.png" width="800">
+
+[comment]: # (@@author )
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+
+[comment]: # (@@author A0140060A)
+
 <img src="images\SDforEditItemEventHandling.png" width="800">
+
+[comment]: # (@@author )
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
@@ -305,6 +314,7 @@ Use case ends.
 
 #### Use case: Find an item
 **MSS**
+
 1. User requests to find an item by searching for a keyword
 2. TaskManager lists the items containing the keyword. <br>
 Use case ends.
@@ -335,6 +345,7 @@ Use case ends.
 
 #### Use case: List all uncompleted tasks / deadlines / events
 **MSS**
+
 1. User requests to list all uncompleted tasks / deadlines / events
 2. TaskManager shows a list of uncompleted tasks / deadlines / events
 

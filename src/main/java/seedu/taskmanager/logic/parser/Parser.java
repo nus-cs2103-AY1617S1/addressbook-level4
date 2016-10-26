@@ -457,7 +457,7 @@ public class Parser {
     /**
      * @param argsTokenizer
      * @param tagPrefix
-     * @return list of parsed tags
+     * @return list of parsed tags to be removed
      */
     private List<String> getParsedTagsToRemoveFromArgumentTokenizer(ArgumentTokenizer argsTokenizer, Prefix tagPrefix) {
         try {
@@ -520,7 +520,7 @@ public class Parser {
 
     /**
      * @param tag
-     * @return true if tag is to be removed from the item's tag list.
+     * @return true if tag is to be removed from the item's current tag list.
      */
     private boolean isATagToBeRemoved(String tag) {
         return tag.substring(0, removeTagPrefixString.length()).equals(removeTagPrefixString);

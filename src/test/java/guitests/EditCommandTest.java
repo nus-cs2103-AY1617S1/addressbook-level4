@@ -1,4 +1,3 @@
-//@@author A0140060A
 package guitests;
 
 import org.junit.Before;
@@ -33,6 +32,7 @@ import static seedu.taskmanager.logic.commands.Command.MESSAGE_END_DATE_TIME_BEF
 import java.util.Set;
 import java.util.logging.Logger;
 
+//@@author A0140060A
 public class EditCommandTest extends TaskManagerGuiTest {
     private static final Logger logger = LogsCenter.getLogger(EditCommandTest.class);
     

@@ -554,6 +554,7 @@ public class LogicManagerTest {
             }
         }
 
+        //@@author A0140060A
         /**
          * Adds auto-generated Item objects to the given model
          * @param model The model to which the Items will be added
@@ -570,7 +571,8 @@ public class LogicManagerTest {
                 model.addItem(p, String.format(AddCommand.MESSAGE_SUCCESS, p));
             }
         }
-
+        
+        //@@author A0140060A-reused
         /**
          * Generates a list of Items based on the flags.
          */

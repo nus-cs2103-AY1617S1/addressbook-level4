@@ -13,7 +13,6 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <children>
-                <!-- @@author A0140060A -->
                 <VBox alignment="TOP_LEFT" minHeight="105.0" GridPane.columnIndex="0">
                     <stylesheets>
                         <URL value="@DarkTheme.css" />
@@ -27,6 +26,7 @@
                         <HBox spacing="5" alignment="CENTER_LEFT">
                             <children>
                                 <HBox>
+                                	<!-- @@author A0140060A -->
                                     <TextFlow>
                                    		<Text fx:id="name" text="\$first" styleClass="cell_big_label"/>
                                     </TextFlow>

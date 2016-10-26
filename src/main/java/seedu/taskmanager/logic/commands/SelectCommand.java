@@ -18,7 +18,6 @@ public class SelectCommand extends Command {
     
     //@@author A0140060A
     public static final String SHORT_COMMAND_WORD = "s";
-    //@@author 
     
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Selects the item identified by the index number used in the last item listing.\n"
@@ -26,7 +25,8 @@ public class SelectCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_SELECT_ITEM_SUCCESS = "Selected %1$s";
-
+    //@@author 
+    
     public SelectCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }

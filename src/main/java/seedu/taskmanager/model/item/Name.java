@@ -1,8 +1,8 @@
-//@@author A0140060A-reused
 package seedu.taskmanager.model.item;
 
 import seedu.taskmanager.commons.exceptions.IllegalValueException;
 
+//@@author A0140060A-reused
 /**
  * Represents a Item's name in the task manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
@@ -35,6 +35,8 @@ public class Name {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
+    //@@author 
+    
     @Override
     public String toString() {
         return value;
