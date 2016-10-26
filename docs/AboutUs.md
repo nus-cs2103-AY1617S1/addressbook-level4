@@ -29,7 +29,8 @@ We are the team in charge of developing Jimi, a command-line based task manager 
     * Set up FilteredListManager
     * Morph Model and ModelManager
     * Update EditCommand parsing of updated commands
-    * Implement Natty
+    * Update indexed commands to work with new indices
+    * Refactoring/Morphing AddressBook -> Jimi
 
 
 -----
@@ -40,7 +41,7 @@ src="images/ChongZeXuan.jpg" width="150"><br>
 * Components in charge of : [UI](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/DeveloperGuide.md#ui-component)
 * Aspects/tools in charge of: Scheduling and Tracking, Deliverables and Deadlines, Git
 * Features implemented:
-    * [Edit tasks/ events](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#edit)
+    * [Edit tasks/events](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#edit)
     * [Show complete/incomplete tasks/events](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#show)
     * [Show tasks/events on a certain day](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#show)
     * [Complete a task/event](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#com)
@@ -50,6 +51,8 @@ src="images/ChongZeXuan.jpg" width="150"><br>
     * Set up the fixing of tasks
     * Implement AgendaListPanel and TaskListPanel for GUI
     * Create MainWindow layout
+    * Update indexed commands to work with new indices
+    * Set up FilteredListManager
     
     
 -----
@@ -59,11 +62,12 @@ src="images/ChongZeXuan.jpg" width="150"><br>
 * Components in charge of : [Storage](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/DeveloperGuide.md#storage-component)
 * Aspects/tools in charge of: Documentation
 * Features implemented:
-    * [Delete tasks/ events](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#del)
+    * [Delete tasks/events](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#del)
     * [Set new save directory](https://github.com/CS2103AUG2016-T09-C2/main/blob/master/docs/UserGuide.md#saveas)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/main/A0143471L.md)][[test code](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/test/A0143471L.md)][[docs](https://github.com/CS2103AUG2016-T09-C2/main/blob/re-collate/collated/docs/A0143471L.md)] 
 * Other major contributions:
     * Set tasks with priority
+    * Updating of documents
     
 -----
 
