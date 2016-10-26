@@ -8,6 +8,7 @@ import seedu.savvytasker.model.task.FindType;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 /**
@@ -24,12 +25,12 @@ public interface Model {
     void deleteTask(ReadOnlyTask target) throws TaskNotFoundException;
 
     /** Modifies the given Task. */
-    void modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException;
+    void modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException, InvalidDateException;
 
     /** Adds the given Task. 
      * @throws {@link DuplicateTaskException} if a duplicate is found
      * */
-    void addTask(Task task) throws DuplicateTaskException;
+    void addTask(Task task) throws DuplicateTaskException, InvalidDateException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

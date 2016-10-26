@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.savvytasker.commons.exceptions.DuplicateDataException;
+import seedu.savvytasker.commons.exceptions.IllegalValueException;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -15,6 +16,21 @@ import seedu.savvytasker.commons.exceptions.DuplicateDataException;
  * @see Task#equals(Object)
  */
 public class TaskList implements Iterable<Task> {
+
+    /**
+     * Signals that an operation would have violated the 'end time earlier than start time' property of the list.
+     */
+    public static class InvalidDateException extends IllegalValueException {
+        
+        /**
+         * Generated serial ID
+         */
+        private static final long serialVersionUID = 8933810750762846403L;
+
+        protected InvalidDateException() {
+            super("Operation would result in invalid start/end dates");
+        }
+    }
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -86,14 +102,29 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
+     * Returns true if the end time is not earlier than the start time.
+     */
+    public boolean isValidStartEnd(ReadOnlyTask toCheck) {
+        assert toCheck != null;
+        if (toCheck.getStartDateTime() != null && toCheck.getEndDateTime() != null &&
+                toCheck.getStartDateTime().compareTo(toCheck.getEndDateTime()) >= 0) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Adds a task to the list.
      *
      * @throws DuplicateTaskException if the person to add is a duplicate of an existing task in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(Task toAdd) throws DuplicateTaskException, InvalidDateException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
+        }
+        if (!isValidStartEnd(toAdd)) {
+            throw new InvalidDateException();
         }
         internalList.add(toAdd);
     }
@@ -117,10 +148,13 @@ public class TaskList implements Iterable<Task> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean replace(ReadOnlyTask toReplace, Task replacement) throws TaskNotFoundException {
+    public boolean replace(ReadOnlyTask toReplace, Task replacement) throws TaskNotFoundException, InvalidDateException {
         assert toReplace != null;
         assert replacement != null;
         if (internalList.contains(toReplace)) {
+            if (!isValidStartEnd(replacement)) {
+                throw new InvalidDateException();
+            }
             internalList.set(internalList.indexOf(toReplace), replacement);
             return true;
         }

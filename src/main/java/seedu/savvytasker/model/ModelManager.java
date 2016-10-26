@@ -23,6 +23,7 @@ import seedu.savvytasker.model.task.FindType;
 import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.Task;
 import seedu.savvytasker.model.task.TaskList.DuplicateTaskException;
+import seedu.savvytasker.model.task.TaskList.InvalidDateException;
 import seedu.savvytasker.model.task.TaskList.TaskNotFoundException;
 
 /**
@@ -95,13 +96,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException {
+    public void modifyTask(ReadOnlyTask target, Task replacement) throws TaskNotFoundException, InvalidDateException {
         savvyTasker.replaceTask(target, replacement);
         indicateSavvyTaskerChanged();
     }
 
     @Override
-    public synchronized void addTask(Task t) throws DuplicateTaskException {
+    public synchronized void addTask(Task t) throws DuplicateTaskException, InvalidDateException {
         t.setId(savvyTasker.getNextTaskId());
         savvyTasker.addTask(t);
         updateFilteredListToShowActive();
