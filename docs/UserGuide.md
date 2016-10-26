@@ -219,17 +219,17 @@ There is no need to save manually.
        
 ## Command Summary
 
-Command | Format  
--------- | :--------
-add | `add TASKNAME [at/from START_TIMEDATE] [to/by END_TIMEDATE] [r/RECURRING] [p/PRIORITY]`
-show | `show TYPE`
-find | `find SEARCHSTRING`
-delete | `delete INDEX/TASKNAME`
-update | `update INDEX [TASKNAME] [at/from [START_TIMEDATE]] [to/by [END_TIMEDATE]] [r/RECURRING] [p/PRIORITY]`
-done | `done INDEX/TASKNAME`
-setstorage | `setstorage FILEPATH`
-undo | `undo`
-redo | `redo`
-help | `help`
-clear | `clear`
-exit | `exit`
+Command | Format | Example
+-------- | :-------- | :--------
+add | `add TASKNAME [at/from START_TIMEDATE] [to/by END_TIMEDATE] [r/RECURRING] [p/PRIORITY]` | `add Buy eggs at 5pm 13/09/2016 r/weekly p/high`
+show | `show TYPE` | `show 31/01/2017`
+find | `find SEARCHSTRING` | `find b*y*`
+delete | `delete INDEX/TASKNAME` | `delete Study for midterms`
+update | `update INDEX [TASKNAME] [at/from [START_TIMEDATE]] [to/by [END_TIMEDATE]] [r/RECURRING] [p/PRIORITY]` | `update 5 at 6pm`
+done | `done INDEX/TASKNAME` | `done 3`
+setstorage | `setstorage FILEPATH` | `setstorage C:\Users\USER\Google Drive`
+undo | `undo` | 
+redo | `redo` | 
+help | `help` | 
+clear | `clear` | 
+exit | `exit` | 
