@@ -480,28 +480,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateDatedTaskWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateUndatedTaskWithName("bla KEY bla bceofeia");
-        Task p1 = helper.generateDatedTaskWithName("KE Y");
-        Task p2 = helper.generateUndatedTaskWithName("KEYKEYKEY sduauo");
-
-        List<Task> twoDated = helper.generateTaskList(p1, pTarget1);
-        List<Task> twoUndated = helper.generateTaskList(p2, pTarget2);
-        TaskBook expectedAB = helper.generateAddressBook(twoDated, twoUndated);
-        List<Task> expectedDatedTaskList = helper.generateTaskList(pTarget1);
-        List<Task> expectedUndatedTaskList = helper.generateTaskList(pTarget2);
-        helper.addToModel(model, twoUndated);
-        helper.addToModel(model, twoDated);
-
-        assertCommandBehavior("find KEY",
-                (Command.getMessageForPersonListShownSummary(
-                        expectedDatedTaskList.size()+expectedUndatedTaskList.size())),
-                expectedAB, expectedDatedTaskList, expectedUndatedTaskList);
-    }
-
-    @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1a = helper.generateDatedTaskWithName("bla bla KEY bla");
@@ -509,10 +487,9 @@ public class LogicManagerTest {
         Task pTarget2a = helper.generateUndatedTaskWithName("bla KEY bla bceofeia");
         Task pTarget2b = helper.generateUndatedTaskWithName("bla key bceofeia");
         Task p1 = helper.generateDatedTaskWithName("KE Y");
-        Task p2 = helper.generateUndatedTaskWithName("KEYKEYKEY sduauo");
 
         List<Task> threeDated = helper.generateTaskList(p1, pTarget1a, pTarget1b);
-        List<Task> threeUndated = helper.generateTaskList(p2, pTarget2a, pTarget2b);
+        List<Task> threeUndated = helper.generateTaskList(pTarget2a, pTarget2b);
         TaskBook expectedAB = new TaskBook();
         helper.addToAddressBook(expectedAB, threeUndated);
         helper.addToAddressBook(expectedAB, threeDated);
@@ -537,10 +514,10 @@ public class LogicManagerTest {
         Task pTarget2b = helper.generateUndatedTaskWithName("bla rAnDoM bla bceofeia");
         Task pTarget2c = helper.generateUndatedTaskWithName("key key");
         Task p1 = helper.generateDatedTaskWithName("KE Y");
-        Task p2 = helper.generateUndatedTaskWithName("KEYKEYKEY sduauo");
+        
 
         List<Task> fourDated = helper.generateTaskList(p1, pTarget1a, pTarget1b, pTarget1c);
-        List<Task> fourUndated = helper.generateTaskList(p2, pTarget2a, pTarget2b, pTarget2c);
+        List<Task> fourUndated = helper.generateTaskList(pTarget2a, pTarget2b, pTarget2c);
         TaskBook expectedAB = new TaskBook();
         helper.addToAddressBook(expectedAB, fourUndated);
         helper.addToAddressBook(expectedAB, fourDated);

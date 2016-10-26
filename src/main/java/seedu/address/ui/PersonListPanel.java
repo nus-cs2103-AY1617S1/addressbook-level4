@@ -1,20 +1,24 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.TaskBookChangedEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of persons.
@@ -28,6 +32,9 @@ public class PersonListPanel extends UiPart {
     private AnchorPane placeHolderPane;
     private int indexOffset;
 
+    @FXML
+    private Label label_count;
+    
     @FXML
     private ListView<ReadOnlyTask> personListView;
 
@@ -62,9 +69,16 @@ public class PersonListPanel extends UiPart {
         this.indexOffset = indexStart;
         setConnections(personList);
         addToPlaceholder();
+        registerAsAnEventHandler(this);
+        initializeLabelCount(personList);
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> personList) {
+    private void initializeLabelCount(ObservableList<ReadOnlyTask> personList) {
+    	String label = "Events / Deadlines : ";
+    	label_count.setText(label + personList.size());
+	}
+
+	private void setConnections(ObservableList<ReadOnlyTask> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
@@ -107,6 +121,13 @@ public class PersonListPanel extends UiPart {
                 setGraphic(PersonCard.load(person, getIndex() + 1 + indexOffset).getLayout());
             }
         }
+    }
+    
+    @Subscribe 
+    private void updateLabelCount(TaskBookChangedEvent e){
+    	int listSize = e.data.getDatedTaskList().size();
+    	String label = "Events / Deadlines : ";
+    	label_count.setText(label + listSize);
     }
 
 }
