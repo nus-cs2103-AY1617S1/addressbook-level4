@@ -274,7 +274,7 @@ public class FilteredListManager {
         
         @Override
         public boolean run(ReadOnlyTask task) {
-            logger.info(this.startDate.toString() + this.endDate.toString());
+            logger.info(this.startDate.toString());
             
             if(endDate == null && startDate != null) { //if searching for a specific date
                 if(task instanceof Event) {
