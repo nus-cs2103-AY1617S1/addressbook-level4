@@ -69,6 +69,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@author A0139198N
     @Override
     public void clearDone() throws TaskNotFoundException {
     	taskManager.clearDone();
@@ -123,6 +124,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.sortTasksList();
     }
     
+    //@@author A0139198N
     @Override
     public synchronized void doneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	taskManager.doneTask(target);
@@ -131,6 +133,7 @@ public class ModelManager extends ComponentManager implements Model {
     	
     }
     
+    //@@author A0139198N
     @Override
     public synchronized void undoneTask(ReadOnlyTask target) throws TaskNotFoundException {
     	taskManager.undoneTask(target);
@@ -229,30 +232,33 @@ public class ModelManager extends ComponentManager implements Model {
         filteredTasks.setPredicate(expression::satisfies);
     }
     
+    //@@author A0139198N
     @Override
     public void updateFilteredTaskListToShowDone() {
     	sortTasks();
     	filteredTasks.setPredicate(isDone());
     }
     
+    //@@author A0139198N
     @Override
     public void updateFilteredTaskListToShowNotDone() {
     	sortTasks();
     	filteredTasks.setPredicate(isNotDone());
     }
     
+    //@@author A0139198N
     @Override
     public void updateFilteredTaskListToShowDate(String date) {
     	sortTasks();
     	filteredTasks.setPredicate(filterByDate(date));
     }
     
+    //@@author A0139198N
     @Override
     public void updateFilteredTaskListToShowOverdue() {
         filteredTasks.setPredicate(isOverdue());
         taskManager.counter();
     }
-
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -306,19 +312,23 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    //@@author A0139198N
     public static Predicate<Task> isDone() {
     	return t -> t.getDone().value == true;
     }
     
+    //@@author A0139198N
     public static Predicate<Task> filterByDate(String date) {
     	return t -> (t.getStartTime().appearOnUIFormatForDate().equals(date)
     			|| t.getEndTime().appearOnUIFormatForDate().equals(date));
     }
     
+    //@@author A0139198N
     public static Predicate<Task> isNotDone() {
     	return t -> t.getDone().value == false;
     }
     
+    //@@author A0139198N
     public static Predicate<Task> isOverdue() {
         return t -> t.checkOverdue() == true;
     }

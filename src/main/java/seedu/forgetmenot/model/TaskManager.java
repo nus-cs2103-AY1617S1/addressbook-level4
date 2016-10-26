@@ -95,11 +95,13 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.sortList();
     }
     
+    //@@author A0139198N
     public void doneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
     	tasks.done(task);
     	counter();
     }
 	
+    //@@author A0139198N
     public void clearDone() throws UniqueTaskList.TaskNotFoundException{
 	   	for (int i = 0; i < tasks.getInternalList().size(); i++ ) {
 			if (tasks.getInternalList().get(i).getDone().getDoneValue() == true) {
@@ -110,6 +112,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 	   	counter();
 	}
     
+    //@@author A0139198N
     public void undoneTask(ReadOnlyTask task) throws UniqueTaskList.TaskNotFoundException {
     	tasks.undone(task);
     	counter();
@@ -165,7 +168,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         return Objects.hash(tasks);
     }
 
-
+    //@@author A0139198N
 	public void counter() {
 		int floating = 0;
 		int today = 0;

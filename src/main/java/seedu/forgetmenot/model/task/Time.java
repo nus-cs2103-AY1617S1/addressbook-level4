@@ -80,6 +80,7 @@ public class Time {
     	}
     }
     
+    //@@author A0139198N
     public String appearOnUIFormatForDate() {
     	if(time.getTime().equals(new Date(0))) {
     		return "-";
