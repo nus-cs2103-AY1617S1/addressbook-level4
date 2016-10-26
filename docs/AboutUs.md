@@ -57,10 +57,10 @@ Responsibilities: Model
 Role: Code Quality / Eclipse Expert <br>
 * Components in charge of: [Storage]
 * Aspects/tools in charge of: Code Quality, Eclipse
-* Features implemented: [functional code][test code][docs]
-	* Delete by two indexes at a time (extension)
+* Features implemented:
+	* Delete by multiple indexes (extension)
 	* Save to a specified location (end-to-end)
-* Code written:
+* Code written: [[functional code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/main/A0143641M.md)][[test code](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/test/A0143641M.md)][[docs](https://github.com/CS2103AUG2016-T14-C3/main/blob/develop/collated/docs/A0143641M.md)]
 * Other major contributions:
 	* Maintaining consistent format of code in Developer Guide and User Guide
 	* Documentation of
