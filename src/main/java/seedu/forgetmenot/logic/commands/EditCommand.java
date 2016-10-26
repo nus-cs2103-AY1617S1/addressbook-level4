@@ -1,4 +1,3 @@
-//@@Teh Chee Yeo A0139671X
 package seedu.forgetmenot.logic.commands;
 
 import java.util.function.Predicate;
