@@ -3,6 +3,7 @@ package seedu.savvytasker.logic.parser;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import com.joestelmach.natty.DateGroup;
 
@@ -65,6 +66,13 @@ public class DateParser {
      */
     public InferredDate parseSingle(String input) throws ParseException {
         assert input != null;
+        
+        // Temporary workaround for natty's failure at adapting to locales dd-mm-yyyy, until
+        // their issue is closed.
+        if (!Locale.getDefault().equals(Locale.US)) {
+            input = input.replaceAll("(\\d{1,2})-(\\d{1,2})-((?:\\d\\d){1,2})", "$2-$1-$3");
+        }
+        
         List<DateGroup> dateGroups = this.nattyParser.parse(input);
         int totalDates = countDates(dateGroups);
         
@@ -75,6 +83,9 @@ public class DateParser {
             throw new ParseException(input, "Too many dates entered.");
         
         DateGroup group = dateGroups.get(0);
+        
+        
+        
         return new InferredDate(
                 group.getDates().get(0),
                 group.isDateInferred(),
