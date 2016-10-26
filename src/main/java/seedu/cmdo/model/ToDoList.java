@@ -82,7 +82,7 @@ public class ToDoList implements ReadOnlyToDoList {
      *
      * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task t) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task t) {
         syncTagsWithMasterList(t);
         tasks.add(t);
     }

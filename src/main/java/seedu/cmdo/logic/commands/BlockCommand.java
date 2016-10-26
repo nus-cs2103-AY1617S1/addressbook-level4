@@ -82,8 +82,6 @@ public class BlockCommand extends Command {
     		blocker.checkBlocked(toBlock, model.getBlockedList());
             model.addTask(toBlock);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toBlock));
-        } catch (UniqueTaskList.DuplicateTaskException dpe) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskBlockedException tbe) {
         	return new CommandResult (tbe.getMessage());
         }

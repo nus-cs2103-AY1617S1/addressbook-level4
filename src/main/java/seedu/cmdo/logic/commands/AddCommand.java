@@ -112,8 +112,6 @@ public class AddCommand extends Command {
     		blocker.checkBlocked(toAdd, model.getBlockedList());
         	model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicateTaskException dpe) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskBlockedException tbe) {
     		return new CommandResult(tbe.getMessage());
         }

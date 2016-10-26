@@ -19,7 +19,7 @@ public class ToDoListBuilder {
         this.toDoList = toDoList;
     }
 
-    public ToDoListBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public ToDoListBuilder withTask(Task task) {
         toDoList.addTask(task);
         return this;
     }
