@@ -33,9 +33,9 @@ Other major contributions:
 * Features implemented:
    * [List](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#4.1-list-all-tasks)
    * [List done](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#4.5-list-done)
-   * [Done task](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#deleting-a-person--delete)
-   * [Undone task](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#listing-all-persons--list)
-   * [Save saveLocation](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md#listing-all-persons--list)
+   * [Done task](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md)
+   * [Undone task](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide.md)
+   * [Save saveLocation](https://github.com/CS2103AUG2016-W09-C1/main/blob/master/docs/UserGuide)
 * Code written: [[functional code](A0121657H.md)][[test code](A0121657H.md)][[docs](A0121657H.md)]
 * Other major contributions:
   * Did the initial refactoring from AddressBook to ToDoList 
