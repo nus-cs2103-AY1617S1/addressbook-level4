@@ -23,9 +23,12 @@ public class EditCommand extends UndoableCommand {
 
     private static final String STRING_CONSTANT_ONE = "1";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit an item in the To-Do List. ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit an item in the To-Do List. "
+            + "Parameters: edit [NAME] [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset PARAMETER]\n"
+            + "Example: " + COMMAND_WORD
+            + "edit 1 play with cat by 3pm repeat every day -medium";
               
-    public static final String TOOL_TIP = "edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset parameter]";
+    public static final String TOOL_TIP = "edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset PARAMETER]";
 
     public static final String MESSAGE_SUCCESS = "Item edited: %1$s";
     
@@ -85,7 +88,7 @@ public class EditCommand extends UndoableCommand {
     		taskName = new Name(taskNameString.get());
         }
     }
-    //@@author A0139655U
+
     private void assignStartDateIfPresent(Optional<String> startDateString) {
         if (startDateString.isPresent()) {
             startDate = DateTime.convertStringToDate(startDateString.get());
@@ -117,7 +120,7 @@ public class EditCommand extends UndoableCommand {
             throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
         }
     }
-    //@@author A0139552B
+
     /*
      * Assign priority depending on the level stated
      * Otherwise leave it as null
@@ -201,8 +204,8 @@ public class EditCommand extends UndoableCommand {
         	recurrenceRate = toEdit.getRecurrenceRate().get();
         } else if (recurrenceRate != null && !beforeEdit.getStartDate().isPresent() && !beforeEdit.getEndDate().isPresent()
                 && startDate == null && endDate == null){
-            return new CommandResult(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
-            //recurrenceRate = null;
+            //return new CommandResult(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
+            recurrenceRate = null;
         }
         
         //remove recurrence if start and end date are removed
@@ -214,7 +217,7 @@ public class EditCommand extends UndoableCommand {
         updateHistory();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toEdit));      
 	}
-    
+    //@@author
     @Override
     public CommandResult undo() {
         // edit all the fields back to the state before the edit took place
