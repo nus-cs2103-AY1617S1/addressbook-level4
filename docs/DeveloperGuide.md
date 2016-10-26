@@ -88,10 +88,10 @@ being saved to the hard disk and the status bar of the UI being updated to refle
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
  
-#### Edit Command 
+#### Replace Command 
  
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `edit 1 do homework by today`.
+command `replace 1 do homework by today`.
   
 <img src="images\SDforEditTask.png" width="800">
 
