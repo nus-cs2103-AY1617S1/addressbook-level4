@@ -1,3 +1,5 @@
+[comment]: # (@@author A0135792X)
+
 # User Guide
 
 * [Quick Start](#quick-start)
@@ -31,7 +33,6 @@
 
 7. Refer to the [Features](#features) section below for details of each command.<br>
 
-
 ## Features
 
 > **Command Format**
@@ -58,6 +59,8 @@
 2. The list of commands, their format and their function will be shown.
 
 ### When you have a new deadline, task or event
+
+[comment]: # (@@author )
 
 #### Add a deadline
 
