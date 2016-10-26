@@ -113,9 +113,9 @@ public abstract class MalitioGuiTest {
     }
     
     /**
-     * Asserts the size of the task list is equal to the given number.
+     * Asserts the size of the total list is equal to the given number.
      */
-    protected void assertListSize(int size) {
+    protected void assertTotalListSize(int size) {
         int numberOfTasks = 
                 floatingTaskListPanel.getNumberOfTasks() 
                 + deadlineListPanel.getNumberOfTasks()
@@ -123,6 +123,18 @@ public abstract class MalitioGuiTest {
         assertEquals(size, numberOfTasks);
     }
 
+    protected void assertFloatingTaskListSize(int size) {
+        int numberOfTasks = floatingTaskListPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
+    protected void assertDeadlineListSize(int size) {
+        int numberOfTasks = deadlineListPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
+    protected void assertEventListSize(int size) {
+        int numberOfTasks = eventListPanel.getNumberOfTasks();
+        assertEquals(size, numberOfTasks);
+    }
     /**
      * Asserts the message shown in the Result Display area is same as the given string.
      */

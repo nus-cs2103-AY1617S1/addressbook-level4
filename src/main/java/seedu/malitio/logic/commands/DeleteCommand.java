@@ -1,9 +1,6 @@
 package seedu.malitio.logic.commands;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.malitio.commons.core.Messages;
 import seedu.malitio.commons.core.UnmodifiableObservableList;
 import seedu.malitio.model.task.ReadOnlyDeadline;
@@ -15,23 +12,27 @@ import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundExcep
 
 /**
  * Deletes a task identified using it's last displayed index from Malitio.
+ * 
  */
 public class DeleteCommand extends Command {
-
+  //@@author a0126633j
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the task identified by the index number used in the last task listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n" + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the task identified by the index used in the last task listing.\n"
+            + "Parameters: INDEX \n" + "Example: " + COMMAND_WORD + " D1";
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted Task: %1$s";
 
-//    private static final Set<String> TYPES_OF_TASKS = new HashSet<String>(Arrays.asList("f", "d", "e"));
-
+   private static final String[] TYPES_OF_TASKS = {"f","d", "e"}; 
+   private static final String FLOATING_TASK_KEYWORD = "f";
+   private static final String DEADLINE_KEYWORD = "d";
+   private static final String EVENT_KEYWORD = "e";
+   
     private final int targetIndex;
-    private final char taskType;
+    private final String taskType;
 
-    public DeleteCommand(char taskType, int targetIndex) {
+    public DeleteCommand(String taskType, int targetIndex) {
         this.taskType = taskType;
         this.targetIndex = targetIndex;
     }
@@ -39,54 +40,58 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        if (!(taskType == 'f' || taskType == 'd' ||taskType == 'e')) {
+        if(!Arrays.asList(TYPES_OF_TASKS).contains(taskType)) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         int sizeOfList = 0;
-
+        
         switch (taskType) {
-        case 'f':
-            UnmodifiableObservableList<ReadOnlyFloatingTask> lastShownFloatingTaskList = model
-                    .getFilteredFloatingTaskList();
+        case FLOATING_TASK_KEYWORD:
+            UnmodifiableObservableList<ReadOnlyFloatingTask> lastShownFloatingTaskList = model.getFilteredFloatingTaskList();
             sizeOfList = lastShownFloatingTaskList.size();
             break;
-        case 'd':
+        case DEADLINE_KEYWORD:
             UnmodifiableObservableList<ReadOnlyDeadline> lastShownDeadlineList = model.getFilteredDeadlineList();
             sizeOfList = lastShownDeadlineList.size();
             break;
-        default:
+        case EVENT_KEYWORD:
             UnmodifiableObservableList<ReadOnlyEvent> lastShownEventList = model.getFilteredEventList();
             sizeOfList = lastShownEventList.size();
         }
 
-        if (sizeOfList < targetIndex) {
+        if (sizeOfList < targetIndex || targetIndex < 1) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
         switch (taskType) {
-        case 'f':
+        case FLOATING_TASK_KEYWORD:
             ReadOnlyFloatingTask taskToDelete = model.getFilteredFloatingTaskList().get(targetIndex - 1);
             executeDelete(taskToDelete);
             model.getFuture().clear();
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
 
-        case 'd':
+        case DEADLINE_KEYWORD:
             ReadOnlyDeadline deadlineToDelete = model.getFilteredDeadlineList().get(targetIndex - 1);
             executeDelete(deadlineToDelete);
             model.getFuture().clear();
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, deadlineToDelete));
 
         default:
+            assert(taskType.equals(EVENT_KEYWORD));
             ReadOnlyEvent eventToDelete = model.getFilteredEventList().get(targetIndex - 1);
             executeDelete(eventToDelete);
             model.getFuture().clear();
             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, eventToDelete));
         }
     }
-
+    
+    /**
+     * overloading executeDelete function for different tasks
+     * 
+     */
     private void executeDelete(ReadOnlyFloatingTask taskToDelete) {
         try {
             model.deleteTask(taskToDelete);
