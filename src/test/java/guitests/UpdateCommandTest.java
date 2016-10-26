@@ -51,10 +51,10 @@ public class UpdateCommandTest extends TaskManagerGuiTest {
         assertMatching(expectedTask, updatedCard);
         
         // modify close time
-        commandBox.runCommand("update " + targetIndex + " c/tomorrow");
+        commandBox.runCommand("update " + targetIndex + " c/the day after tomorrow");
         updatedCard = taskListPanel.navigateToTask(targetIndex-1);
         expectedTask = currentList[targetIndex - 1];
-        expectedTask.setCloseTime(new DateTime("tomorrow"));
+        expectedTask.setCloseTime(new DateTime("the day after tomorrow"));
         assertMatching(expectedTask, updatedCard);
         
         // update with no changes
