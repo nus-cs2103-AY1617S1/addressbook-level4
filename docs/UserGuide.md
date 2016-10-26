@@ -1,7 +1,8 @@
 # User Guide
 
-<img src="images/UI_MainPage.JPG" width="600"><br>
-   <br><br><br>
+<br><br>
+<img src="images/UI_MainPage.JPG" width="700"><br>
+   <br><br>
 
 
 * [About](#about)
