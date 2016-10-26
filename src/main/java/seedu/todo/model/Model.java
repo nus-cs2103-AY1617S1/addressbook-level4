@@ -45,8 +45,10 @@ public interface Model {
     /** Returns the filtered tasks list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getUnmodifiableTodayTaskList();
     
+    //@@author A0142421X
     /**Returns the filtered tag list as an {@code UnmodifiableObservableList<Tag>} */
     UnmodifiableObservableList<Tag> getUnmodifiableTagList();
+    //@@author
     
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
@@ -77,7 +79,7 @@ public interface Model {
     
     /** Updates the filter of the filtered task list to filter for today's date only */
     void updateFilteredTaskListTodayDate(LocalDateTime datetime);
-  //@@author A0121643R
+    //@@author A0121643R
     /** updates the filter of the filtered task list to filter by the given priority level*/
 	void updateFilteredTaskListByPriority(Priority priority);
 	//@@author A0121643R 

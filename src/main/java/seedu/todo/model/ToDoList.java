@@ -230,7 +230,8 @@ public class ToDoList implements ReadOnlyToDoList {
     public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasksHistory.peek().getInternalList());
     }
-
+    
+    //@@author A0142421X
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tagsHistory.peek().getInternalList());
@@ -273,6 +274,7 @@ public class ToDoList implements ReadOnlyToDoList {
         return newList;
     }
     
+ 
     private UniqueTagList copyTagList(Collection<Tag> old) {
         UniqueTagList newList = new UniqueTagList();
         

@@ -141,10 +141,12 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     
+    //@@author A0138967J
     public UnmodifiableObservableList<ReadOnlyTask> getUnmodifiableTodayTaskList() {
         return new UnmodifiableObservableList<>(todayTasks);
     } 
     
+    //@@author A0142421X
     public UnmodifiableObservableList<Tag> getUnmodifiableTagList() {
     	return new UnmodifiableObservableList<>(tagList);
     }

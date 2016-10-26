@@ -56,11 +56,13 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0">
                <children>
+               <!-- @@author A0138967J -->
                   <AnchorPane fx:id="summaryPlaceholder" minHeight="250.0" prefWidth="340.0">
                       <padding>
                           <Insets bottom="10" left="10" right="10" top="10" />
                       </padding>
                   </AnchorPane>
+                  <!-- @@author A0142421X -->
                   <AnchorPane fx:id="tagListPanelPlaceholder" prefWidth="200.0" />
                </children>
             </VBox>

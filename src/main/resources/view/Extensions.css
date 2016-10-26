@@ -15,6 +15,7 @@
     -fx-text-fill: white;
 }
 
+/*@@author A0142421X */
 .split-pane > .split-pane-divider {  
     -fx-padding: 0 0 0 0;  
 } 
