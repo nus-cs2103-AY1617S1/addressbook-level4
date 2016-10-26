@@ -20,14 +20,16 @@ import javafx.stage.Stage;
 import tars.commons.core.Config;
 import tars.commons.core.GuiSettings;
 import tars.commons.core.LogsCenter;
+import tars.commons.events.ui.CommandBoxTextFieldValueChangedEvent;
 import tars.commons.events.ui.ExitAppRequestEvent;
 import tars.commons.events.ui.KeyCombinationPressedEvent;
 import tars.logic.Logic;
+import tars.logic.commands.RsvCommand;
 import tars.model.UserPrefs;
 
 /**
- * The Main Window. Provides the basic application layout containing
- * a menu bar and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing a menu bar
+ * and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart {
 
@@ -36,7 +38,7 @@ public class MainWindow extends UiPart {
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
-    
+
     private double xOffset = 0;
     private double yOffset = 0;
 
@@ -59,8 +61,9 @@ public class MainWindow extends UiPart {
     private Scene scene;
 
     private String tarsName;
-    
+
     public static final int overviewPanelTabPaneIndex = 0;
+    public static final int rsvTaskListPanelTabPaneIndex = 1;
     public static final int helpPanelTabPaneIndex = 2;
 
     @FXML
@@ -79,12 +82,12 @@ public class MainWindow extends UiPart {
     private AnchorPane overviewPanelPlaceholder;
     @FXML
     private AnchorPane helpPanelPlaceholder;
-    
+
     @FXML
     private Label taskListLabel;
     @FXML
     private Label rsvTaskListLabel;
-    
+
     @FXML
     private TabPane tabPane;
     @FXML
@@ -92,8 +95,7 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane rsvTabAnchorPane;
     @FXML
-    private AnchorPane helpTabAnchorPane;   
-
+    private AnchorPane helpTabAnchorPane;
 
     public MainWindow() {
         super();
@@ -116,29 +118,28 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String tarsName, Config config, UserPrefs prefs,
-            Logic logic) {
+    private void configure(String appTitle, String tarsName, Config config, UserPrefs prefs, Logic logic) {
 
-        //Set dependencies
+        // Set dependencies
         this.logic = logic;
         this.tarsName = tarsName;
         this.config = config;
         this.userPrefs = prefs;
 
-        //Configure the UI
+        // Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
-        
+
         addMouseEventHandler();
         addTabPaneHandler();
-        
+
         registerAsAnEventHandler(this);
-                        
+
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-        
+
     }
 
     private void addMouseEventHandler() {
@@ -158,7 +159,6 @@ public class MainWindow extends UiPart {
         });
     }
 
-
     private void addTabPaneHandler() {
         rootLayout.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -173,17 +173,7 @@ public class MainWindow extends UiPart {
             }
         });
     }
-    
-    @Subscribe
-    private void KeyCombinationPressedEventHandler(KeyCombinationPressedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, event.getKeyCombination().getDisplayText()));
-        if (event.getKeyCombination() == CommandBox.KEY_COMB_CTRL_RIGHT_ARROW) {
-            cycleTabPaneRight();
-        } else if (event.getKeyCombination() == CommandBox.KEY_COMB_CTRL_LEFT_ARROW) {
-            cycleTabPaneLeft();
-        }
-    }
-    
+
     private void cycleTabPaneRight() {
         if (tabPane.getSelectionModel().isSelected(helpPanelTabPaneIndex)) {
             tabPane.getSelectionModel().selectFirst();
@@ -191,7 +181,7 @@ public class MainWindow extends UiPart {
             tabPane.getSelectionModel().selectNext();
         }
     }
-    
+
     private void cycleTabPaneLeft() {
         if (tabPane.getSelectionModel().isSelected(overviewPanelTabPaneIndex)) {
             tabPane.getSelectionModel().selectLast();
@@ -200,20 +190,20 @@ public class MainWindow extends UiPart {
         }
     }
 
-
     void fillInnerParts() {
         infoHeader = InformationHeader.load(primaryStage, infoHeaderPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
-        rsvTaskListPanel = RsvTaskListPanel.load(primaryStage, getRsvTaskListPlaceholder(), logic.getFilteredRsvTaskList());
+        rsvTaskListPanel = RsvTaskListPanel.load(primaryStage, getRsvTaskListPlaceholder(),
+                logic.getFilteredRsvTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTarsFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
         helpPanel = HelpPanel.load(primaryStage, getHelpPanelPlaceholder());
         overviewPanel = OverviewPanel.load(primaryStage, getOverviewPanelPlaceholder(), logic.getFilteredTaskList());
     }
-    
-    /* @@author A0124333U
-     * A method to reload the status bar footer
+
+    /*
+     * @@author A0124333U A method to reload the status bar footer
      */
     public void reloadStatusBarFooter(String newTarsFilePath) {
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), newTarsFilePath);
@@ -234,15 +224,15 @@ public class MainWindow extends UiPart {
     public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
     }
-    
+
     public AnchorPane getRsvTaskListPlaceholder() {
         return rsvTaskListPanelPlaceholder;
     }
-    
+
     public AnchorPane getHelpPanelPlaceholder() {
         return helpPanelPlaceholder;
     }
-    
+
     public AnchorPane getOverviewPanelPlaceholder() {
         return overviewPanelPlaceholder;
     }
@@ -276,8 +266,8 @@ public class MainWindow extends UiPart {
      * Returns the current size and the position of the main Window.
      */
     public GuiSettings getCurrentGuiSetting() {
-        return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+        return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(), (int) primaryStage.getX(),
+                (int) primaryStage.getY());
     }
 
     @FXML
@@ -300,9 +290,30 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-    
+
     public RsvTaskListPanel getRsvTaskListPanel() {
         return this.rsvTaskListPanel;
     }
+
+    // ==================== Event Handling Code =================================================================
+    
+    @Subscribe
+    private void KeyCombinationPressedEventHandler(KeyCombinationPressedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, event.getKeyCombination().getDisplayText()));
+        if (event.getKeyCombination() == CommandBox.KEY_COMB_CTRL_RIGHT_ARROW) {
+            cycleTabPaneRight();
+        } else if (event.getKeyCombination() == CommandBox.KEY_COMB_CTRL_LEFT_ARROW) {
+            cycleTabPaneLeft();
+        }
+    }
+    
+    @Subscribe
+    private void CommandBoxTextFieldValueChangedEventHandler(CommandBoxTextFieldValueChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, event.getTextFieldValue() + " command detected."));
+        if (event.getTextFieldValue().equals(RsvCommand.COMMAND_WORD)) {
+            tabPane.getSelectionModel().select(rsvTaskListPanelTabPaneIndex);
+        }
+    }
+    
 
 }

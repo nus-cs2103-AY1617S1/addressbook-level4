@@ -2,6 +2,7 @@ package tars.ui;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -14,11 +15,13 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import tars.commons.core.LogsCenter;
+import tars.commons.events.ui.CommandBoxTextFieldValueChangedEvent;
 import tars.commons.events.ui.IncorrectCommandAttemptedEvent;
 import tars.commons.events.ui.KeyCombinationPressedEvent;
 import tars.commons.util.FxViewUtil;
 import tars.logic.Logic;
 import tars.logic.commands.CommandResult;
+import tars.logic.commands.RsvCommand;
 
 import java.util.Stack;
 import java.util.logging.Logger;
@@ -53,6 +56,7 @@ public class CommandBox extends UiPart {
         commandBox.configure(resultDisplay, logic);
         commandBox.addToPlaceholder();
         commandBox.setTextFieldKeyPressedHandler();
+        commandBox.setTextFieldValueHandler();
         return commandBox;
     }
 
@@ -69,7 +73,8 @@ public class CommandBox extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
-
+    
+    //@@author A0124333U
     private void setTextFieldKeyPressedHandler() {
         commandTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             // To allow users to cycle through the command text history
@@ -89,7 +94,17 @@ public class CommandBox extends UiPart {
         });
 
     }
-
+    
+    private void setTextFieldValueHandler() {
+        commandTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals(RsvCommand.COMMAND_WORD)) {
+                raise(new CommandBoxTextFieldValueChangedEvent(newValue));
+            }
+        });
+        
+    }
+    
+    //@@author
     @Override
     public void setNode(Node node) {
         commandPane = (AnchorPane) node;
