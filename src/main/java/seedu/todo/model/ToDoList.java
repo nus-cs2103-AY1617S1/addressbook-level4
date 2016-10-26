@@ -6,6 +6,7 @@ import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList;
+import seedu.todo.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -143,6 +144,29 @@ public class ToDoList implements ReadOnlyToDoList {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
+    
+    public boolean updateTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws TaskNotFoundException {
+        UniqueTaskList topList = this.tasksHistory.pop();
+        UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
+        this.tasksHistory.push(oldList);
+        this.tasksHistory.push(topList);
+        
+        int index = getTasks().indexOf(oldTask);
+        if (index < 0) {
+            throw new TaskNotFoundException();
+        } else {
+            getTasks().get(index).setName(newTask.getName());
+            getTasks().get(index).setDetail(newTask.getDetail());
+            getTasks().get(index).setOnDate(newTask.getOnDate());
+            getTasks().get(index).setByDate(newTask.getByDate());
+            getTasks().get(index).setPriority(newTask.getPriority());
+            getTasks().get(index).setRecurrence(newTask.getRecurrence());
+            syncTagsWithMasterList(getTasks().get(index));
+            return true;
+        }
+    }
+    
+    
     
     /**
      * Pop the top most UniqueTaskList.

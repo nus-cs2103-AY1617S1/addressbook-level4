@@ -2,20 +2,22 @@
 <projectDescription>
 	<name>main</name>
 	<comment>Project main created by Buildship.</comment>
-	<projects>
-	</projects>
+	<projects/>
+	<natures>
+		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
 	<buildSpec>
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
-			<arguments>
-			</arguments>
+			<arguments/>
 		</buildCommand>
 		<buildCommand>
 			<name>org.eclipse.buildship.core.gradleprojectbuilder</name>
-			<arguments>
-			</arguments>
+			<arguments/>
 		</buildCommand>
 	</buildSpec>
+<<<<<<< HEAD
 	<natures>
 		<nature>org.eclipse.buildship.core.gradleprojectnature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
@@ -40,4 +42,7 @@
 			</matcher>
 		</filter>
 	</filteredResources>
+=======
+	<linkedResources/>
+>>>>>>> origin/priority-tasks
 </projectDescription>

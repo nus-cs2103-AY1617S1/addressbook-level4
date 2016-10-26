@@ -6,6 +6,7 @@ import seedu.todo.commons.core.LogsCenter;
 import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.events.model.ToDoListChangedEvent;
 import seedu.todo.model.qualifiers.*;
+import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList;
@@ -106,19 +107,8 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void updateTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws TaskNotFoundException {
-        int index = toDoList.getTasks().indexOf(oldTask);
-        
-        if (index < 0) {
-            throw new TaskNotFoundException();
-        } else {
-            toDoList.getTasks().get(index).setName(newTask.getName());
-            toDoList.getTasks().get(index).setDetail(newTask.getDetail());
-            toDoList.getTasks().get(index).setOnDate(newTask.getOnDate());
-            toDoList.getTasks().get(index).setByDate(newTask.getByDate());
-            toDoList.getTasks().get(index).setRecurrence(newTask.getRecurrence());
-            toDoList.syncTagsWithMasterList(toDoList.getTasks().get(index));
-            indicateToDoListChanged();
-        }
+        toDoList.updateTask(oldTask, newTask);
+        indicateToDoListChanged();
     }
 
     @Override
@@ -194,6 +184,12 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredTaskListFromTillDate(LocalDateTime fromDateTime, LocalDateTime tillDateTime){
         updateFilteredTaskList(new PredicateExpression(new FromTillDateQualifier(fromDateTime, tillDateTime)));
     }
+
+    @Override
+    public void updateFilteredTaskListByPriority(Priority priority) {
+        updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));   
+    }
+    
     //@@author A0138967J-unused
     @Override
     public void updateFilteredTaskListTodayDate(LocalDateTime datetime){
@@ -230,5 +226,6 @@ public class ModelManager extends ComponentManager implements Model {
             return qualifier.toString();
         }
     }
+
     
 }

@@ -5,6 +5,7 @@ import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.task.Detail;
 import seedu.todo.model.task.Name;
+import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Recurrence;
 import seedu.todo.model.task.Recurrence.Frequency;
@@ -33,15 +34,17 @@ public class UpdateCommand extends Command{
     private final String detail;
     private final String onDateTime;
     private final String byDateTime;
+    private final String priority;
     private final String recurrence;
     
     public UpdateCommand(int targetIndex, String name, String onDateTime, 
-            String byDateTime, String detail, String recurrence) {
+            String byDateTime, String detail, String priority, String recurrence) {
         this.targetIndex = targetIndex;
         this.name = name;
         this.detail = detail;
         this.onDateTime = onDateTime;
         this.byDateTime = byDateTime;
+        this.priority = priority;
         this.recurrence = recurrence;
     }
     
@@ -59,39 +62,16 @@ public class UpdateCommand extends Command{
         ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
         
         try {            
-            Name newName = this.name.equals("") ? taskToUpdate.getName() : new Name(this.name); 
-
-            Detail newDetail;
-            TaskDate newByDate;
-            TaskDate newOnDate;
-            Recurrence newRecurrence;
-            
-            if (this.detail == null) {
-                newDetail = taskToUpdate.getDetail();
-            } else {
-                newDetail = this.detail.trim().equals("-") ?  new Detail(null) : new Detail(this.detail);
-            }
-            
-            if (this.byDateTime == null) {
-                newByDate = taskToUpdate.getByDate();
-            } else {
-                newByDate = this.byDateTime.trim().equals("-") ?  new TaskDate("", TaskDate.TASK_DATE_BY) : new TaskDate(this.byDateTime, TaskDate.TASK_DATE_BY);
-            }
-            
-            if (this.onDateTime == null) {
-                newOnDate = taskToUpdate.getOnDate();
-            } else {
-                newOnDate = this.onDateTime.trim().equals("-") ?  new TaskDate("", TaskDate.TASK_DATE_ON) : new TaskDate(this.onDateTime, TaskDate.TASK_DATE_ON);
-            }
-            
-            if (this.recurrence == null) {
-                newRecurrence = taskToUpdate.getRecurrence();
-            } else {
-                newRecurrence = this.recurrence.trim().equals("-") ?  new Recurrence(Frequency.NONE) : new Recurrence(Frequency.valueOf(this.recurrence.toUpperCase().trim()));
-            }
+            Name newName = this.makeNewName(taskToUpdate);
+            Detail newDetail = this.makeNewDetail(taskToUpdate);
+            TaskDate newByDate = this.makeNewByDate(taskToUpdate);
+            TaskDate newOnDate = this.makeNewOnDate(taskToUpdate);
+            Priority newPriority = this.makeNewPriority(taskToUpdate);
+            Recurrence newRecurrence = this.makeNewRecurrence(taskToUpdate);
             
             Task newTask = new Task(newName, newDetail, taskToUpdate.getCompletion(), 
-                    newOnDate, newByDate, newRecurrence, taskToUpdate.getTags());
+                    newOnDate, newByDate, newPriority, newRecurrence, taskToUpdate.getTags());
+            
             model.updateTask(taskToUpdate, newTask);
             model.updateFilteredListToShowAll();
             
@@ -106,6 +86,68 @@ public class UpdateCommand extends Command{
         
     }
     
+    private Name makeNewName(ReadOnlyTask taskToUpdate) throws IllegalValueException {
+        return this.name.equals("") ? taskToUpdate.getName() : new Name(this.name);
+    }
     
+    private Detail makeNewDetail(ReadOnlyTask taskToUpdate) {
+        Detail newDetail;
+        if (this.detail == null) {
+            newDetail = taskToUpdate.getDetail();
+        } else {
+            newDetail = this.detail.trim().equals("-") 
+                    ?  new Detail(null) 
+                    : new Detail(this.detail);
+        }
+        return newDetail;
+    }
+    
+    private TaskDate makeNewByDate(ReadOnlyTask taskToUpdate) throws IllegalValueException {
+        TaskDate newByDate;
+        if (this.byDateTime == null) {
+            newByDate = taskToUpdate.getByDate();
+        } else {
+            newByDate = this.byDateTime.trim().equals("-") 
+                    ?  new TaskDate("", TaskDate.TASK_DATE_BY) 
+                    : new TaskDate(this.byDateTime, TaskDate.TASK_DATE_BY);
+        }
+        return newByDate;
+    }
+    
+    private TaskDate makeNewOnDate(ReadOnlyTask taskToUpdate) throws IllegalValueException {
+        TaskDate newOnDate;
+        if (this.onDateTime == null) {
+            newOnDate = taskToUpdate.getOnDate();
+        } else {
+            newOnDate = this.onDateTime.trim().equals("-") 
+                    ?  new TaskDate("", TaskDate.TASK_DATE_ON) 
+                    : new TaskDate(this.onDateTime, TaskDate.TASK_DATE_ON);
+        }
+        return newOnDate;
+    }
+    
+    private Priority makeNewPriority(ReadOnlyTask taskToUpdate) throws IllegalValueException {
+        Priority newPriority;
+        if (this.priority == null) {
+            newPriority = taskToUpdate.getPriority();
+        } else {
+            newPriority = this.priority.trim().equals("-") 
+                    ? new Priority(Priority.DEFAULT_PRIORITY) 
+                    : new Priority(this.priority);
+        }
+        return newPriority;
+    }
+    
+    private Recurrence makeNewRecurrence(ReadOnlyTask taskToUpdate) throws IllegalValueException {
+        Recurrence newRecurrence;
+        if (this.recurrence == null) {
+            newRecurrence = taskToUpdate.getRecurrence();
+        } else {
+            newRecurrence = this.recurrence.trim().equals("-") 
+                    ?  new Recurrence(Frequency.NONE) 
+                    : new Recurrence(Frequency.valueOf(this.recurrence.toUpperCase().trim()));
+        }
+        return newRecurrence;
+    }
     
 }

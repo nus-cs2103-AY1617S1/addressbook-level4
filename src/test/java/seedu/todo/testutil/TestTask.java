@@ -13,6 +13,7 @@ public class TestTask implements ReadOnlyTask {
     private TaskDate fromDate;
     private TaskDate tillDate;
     private UniqueTagList tags;
+    private Priority priority;
     private Completion completion;
     private Recurrence recurrence;
 
@@ -42,6 +43,10 @@ public class TestTask implements ReadOnlyTask {
     
     public void setRecurrence(Recurrence recurrence) {
         this.recurrence = recurrence;
+    }
+    
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     @Override
@@ -78,7 +83,11 @@ public class TestTask implements ReadOnlyTask {
     public boolean isRecurring() {
         return this.recurrence.isRecurring();
     }
-    
+
+    @Override
+    public Priority getPriority() {
+        return this.priority;
+    }
     @Override
     public UniqueTagList getTags() {
         return tags;

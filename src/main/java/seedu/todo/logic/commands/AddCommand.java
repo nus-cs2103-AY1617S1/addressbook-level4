@@ -29,7 +29,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String detail, String onDateString, String byDateString, Frequency freq)
+    public AddCommand(String name, String detail, String onDateString, String byDateString, String priority, Frequency freq)
             throws IllegalValueException {
         
         TaskDate onDate = new TaskDate(onDateString, TaskDate.TASK_DATE_ON);
@@ -44,6 +44,7 @@ public class AddCommand extends Command {
                 new Detail(detail),
                 onDate,
                 byDate,
+                new Priority(priority),
                 new Recurrence(freq)
         );
     }

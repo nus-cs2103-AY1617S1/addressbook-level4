@@ -8,6 +8,7 @@ import seedu.todo.model.Model;
 import seedu.todo.model.ToDoList;
 import seedu.todo.model.task.Detail;
 import seedu.todo.model.task.Name;
+import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.Recurrence;
 import seedu.todo.model.task.Recurrence.Frequency;
 import seedu.todo.model.task.Task;
@@ -31,6 +32,7 @@ public class TestDataHelper{
                 new Detail("House of " + seed),
                 new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_ON),
                 new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_BY),
+                new Priority("low"),
                 new Recurrence(Frequency.NONE)
         );
     }
@@ -48,6 +50,7 @@ public class TestDataHelper{
                 new Detail("House of " + seed),
                 new TaskDate("", TaskDate.TASK_DATE_ON),
                 new TaskDate("", TaskDate.TASK_DATE_BY),
+                new Priority("low"),
                 new Recurrence(Frequency.NONE)
         );
     }
@@ -65,6 +68,7 @@ public class TestDataHelper{
                 new Detail("House of " + seed),
                 new TaskDate("", TaskDate.TASK_DATE_ON),
                 new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_BY),
+                new Priority("low"),
                 new Recurrence(Frequency.NONE)
         );
     }
@@ -162,6 +166,7 @@ public class TestDataHelper{
                 new Detail("1"),
                 new TaskDate("5/3/2017 12:44 pm", TaskDate.TASK_DATE_ON),
                 new TaskDate("5/3/2017 12:44 pm", TaskDate.TASK_DATE_BY),
+                new Priority("low"),
                 new Recurrence(Frequency.NONE)
         );
     }
@@ -175,7 +180,18 @@ public class TestDataHelper{
                 new Detail("1"),
                 new TaskDate(onDateString, TaskDate.TASK_DATE_ON),
                 new TaskDate(byDateString, TaskDate.TASK_DATE_BY),
+                new Priority("low"),
                 new Recurrence(Frequency.NONE)
         );
     }
+
+	public Task generateNoPriorityTask(int i) throws Exception {
+		return new Task(
+                new Name("Task number " + i),
+                new Detail("Index number " + i),
+                new TaskDate("", TaskDate.TASK_DATE_ON),
+                new TaskDate("2/3/2017 12:34 pm", TaskDate.TASK_DATE_BY),
+                new Recurrence(Frequency.NONE)
+        );
+	}
 }
