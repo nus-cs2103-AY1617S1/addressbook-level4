@@ -34,7 +34,6 @@
 .text4 {
     -fx-text-fill: #f3f3f3;
     -fx-fill: #f3f3f3;
-    -fx-font-family: "Roboto";
     -fx-font-size: 12pt;
 }
 
@@ -82,7 +81,6 @@
 
 .commandFeedback{
     -fx-text-fill: #f3f3f3;
-    -fx-font-family: "Roboto";
     -fx-font-size: 12pt;
 }
 
@@ -113,18 +111,18 @@
     -fx-text-fill: #f3f3f3;
     -fx-background-color: #2D2D2D;
     -fx-font-size: 10pt;
-    -fx-font-family: "Roboto";
 }
 
 /***View Filter Styles Start***/
 .viewFilter .label {
-    -fx-font-family: "Roboto";
+    -fx-font-family: "Roboto Bold";
     -fx-font-size: 14pt;
+    -fx-font-smoothing-type: gray;
     -fx-text-fill: #ddd;
 }
 
 .viewFilter .selected {
-    -fx-background-color: #ddd;
+    -fx-background-color: #f3f3f3;
     -fx-background-radius: 100;
     -fx-padding: 0 16 2;
 }
@@ -154,13 +152,23 @@
     -fx-text-alignment: right;
 }
 
-
-
 /*@@author A0315805H */
 /***TaskCardView Styles Start***/
 /*Default and Base*/
+.taskCard {
+    primary-color: #f3f3f3;
+    primary-color-alt: derive(primary-color, -3%);
+    font-color: #444;
+    
+    -fx-background-color: primary-color;
+}
+
+:odd .taskCard {
+    -fx-background-color: primary-color-alt;
+}
+
 .taskCard .label {
-    -fx-text-fill: #444;
+    -fx-text-fill: font-color;
     -fx-font-smoothing-type: lcd;
 }
 
@@ -171,12 +179,10 @@
 
 .taskCard .descriptionLabel {
     -fx-font-size: 12pt;
-    -fx-font-family: "Roboto";
 }
 
 .taskCard .footnoteLabel {
     -fx-font-size: 10pt;
-    -fx-font-family: "Roboto";
     -fx-font-style: italic;
     -fx-padding: 0 0 2 2;
 }
@@ -212,8 +218,8 @@
 }
 
 /*Completed*/
-.completed .label{
-    -fx-text-fill: #7F7F7F;
+.completed {
+    font-color: #7F7F7F;
 }
 
 .completed .titleLabel .text {
@@ -237,86 +243,53 @@
     -fx-image: url("../images/location_grey.png");
 }
 
-/*Overdue*/
-.overdue {
-    -fx-background-color: #FF6464;
-}
-
-.overdue .label {
-    -fx-text-fill: rgba(255, 255, 255, .92);
-}
-
-.overdue .roundLabel {
-    -fx-background-color: rgba(255, 255, 255, .92);
-    -fx-text-fill: #FF6464;
-}
-
-.overdue .pinImage {
-    -fx-image: url("../images/star_white.png");
-}
-
-.overdue .dateImage {
-    -fx-image: url("../images/clock_white.png");
-}
-
-.overdue .locationImage {
-    -fx-image: url("../images/location_white.png");
-}
-
-
-/*@@author A0092382A */
-/*Ongoing*/
-.ongoing {
-    -fx-background-color: #388E3C;
-}
-
-.ongoing .label {
-    -fx-text-fill: #fff;
-}
-
-.ongoing .roundLabel {
-    -fx-background-color: #fff;
-    -fx-text-fill: #388E3C;
-}
-
-.ongoing .pinImage {
-    -fx-image: url("../images/star_white.png");
-}
-
-.ongoing .dateImage {
-    -fx-image: url("../images/clock_white.png");
-}
-
-.ongoing .locationImage {
-    -fx-image: url("../images/location_white.png");
-}
-
-
-/* @@author A0315805H */
-/*Selected*/
-.selected {
-    -fx-background-color: #00A4FF;
-}
-
-.selected .label {
-    -fx-text-fill: #fff;
-}
-
+/* Overdue and ongoing inverts their .roundlabel coloring and use 
+   white color images */
+.overdue .roundLabel, 
+.ongoing .roundLabel, 
 .selected .roundLabel {
-    -fx-background-color: #fff;
-    -fx-text-fill: #00A4FF;
+    -fx-background-color: font-color;
+    -fx-text-fill: primary-color;
 }
 
+.overdue .pinImage, 
+.ongoing .pinImage, 
 .selected .pinImage {
     -fx-image: url("../images/star_white.png");
 }
 
+.overdue .dateImage, 
+.ongoing .dateImage, 
 .selected .dateImage {
     -fx-image: url("../images/clock_white.png");
 }
 
+.overdue .locationImage,
+.ongoing .locationImage,
 .selected .locationImage {
     -fx-image: url("../images/location_white.png");
+}
+
+/*Overdue*/
+.overdue {
+    primary-color: #FF6464;
+    primary-color-alt: derive(primary-color, -10%);
+    font-color: rgba(255, 255, 255, .92);
+}
+
+/*@@author A0092382A */
+/*Ongoing*/
+.ongoing {
+    primary-color: #388E3C;
+    primary-color-alt: derive(primary-color, -10%);
+    font-color: rgba(255, 255, 255, .9);
+}
+/* @@author A0315805H */
+/*Selected*/
+.selected {   
+    primary-color: #00A4FF;
+    primary-color-alt: derive(primary-color, -10%);
+    font-color: rgba(255, 255, 255, 0.9);
 }
 
 /*Collapse*/
