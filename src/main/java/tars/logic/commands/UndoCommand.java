@@ -6,6 +6,7 @@ package tars.logic.commands;
  * @@author A0139924W
  */
 public class UndoCommand extends Command {
+    
     public static final String COMMAND_WORD = "undo";
 
     public static final String MESSAGE_SUCCESS = "Undo successfully.";
