@@ -17,10 +17,12 @@ import java.util.stream.Collectors;
  * Duplicates are not allowed (by .equals comparison)
  */
 public class ToDoList implements ReadOnlyToDoList {
-
+    
+    //@@author A0093896H
     private final Stack<UniqueTaskList> tasksHistory;
     private final Stack<UniqueTagList> tagsHistory;
-
+    //@@author
+    
     public ToDoList() {
         this(new UniqueTaskList(), new UniqueTagList());
     }
@@ -51,7 +53,7 @@ public class ToDoList implements ReadOnlyToDoList {
         return tasksHistory.peek().getInternalList();
     }
 
-    
+    //@@author A0093896H
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
@@ -64,12 +66,13 @@ public class ToDoList implements ReadOnlyToDoList {
             }
         }
     }
+    //@@author
 
     public void resetData(ReadOnlyToDoList newData) {
         resetData(newData.getTaskList(), newData.getTagList());
     }
     
-
+    //@@author A0093896H
     public void setTasks(List<Task> tasks) {
         if (this.tasksHistory.isEmpty()) {
             UniqueTaskList topList = this.createNewTaskList(tasks);
@@ -84,6 +87,7 @@ public class ToDoList implements ReadOnlyToDoList {
         }
         
     }
+    //@@author
 
     public void setTags(Collection<Tag> tags) {
         UniqueTagList newList = this.createNewTagList(tags);
@@ -92,9 +96,10 @@ public class ToDoList implements ReadOnlyToDoList {
 
 
 //// task-level operations
-
+    
+    //@@author A0093896H
     /**
-     * Adds a task to the address book.
+     * Adds a task to the to do list.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
@@ -108,6 +113,7 @@ public class ToDoList implements ReadOnlyToDoList {
         topList.add(p);
         
     }
+    //@@author
 
     /**
      * Ensures that every tag in this task:
@@ -132,7 +138,8 @@ public class ToDoList implements ReadOnlyToDoList {
         }
         task.setTags(new UniqueTagList(commonTagReferences));
     }
-
+    
+    //@@author A0093896H
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         UniqueTaskList topList = this.tasksHistory.pop();
         UniqueTaskList oldList = this.createNewTaskList(topList.getInternalList());
@@ -190,16 +197,19 @@ public class ToDoList implements ReadOnlyToDoList {
         newList.add(t);
         this.tagsHistory.push(newList);
     }
+    //@@author
 
 //// util methods
-
+    
+    //@@author A0093896H
     @Override
     public String toString() {
         return tasksHistory.peek().getInternalList().size() + " tasks, " 
                 + tagsHistory.peek().getInternalList().size() +  " tags";
         // TODO: refine later
     }
-
+   //@@author
+    
     @Override
     public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasksHistory.peek().getInternalList());
@@ -209,7 +219,8 @@ public class ToDoList implements ReadOnlyToDoList {
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tagsHistory.peek().getInternalList());
     }
-
+    
+    //@@author A0093896H
     @Override
     public UniqueTaskList getUniqueTaskList() {
         return this.tasksHistory.peek();
@@ -228,7 +239,7 @@ public class ToDoList implements ReadOnlyToDoList {
                 && this.tasksHistory.peek().equals(((ToDoList) other).tasksHistory.peek())
                 && this.tagsHistory.peek().equals(((ToDoList) other).tagsHistory.peek()));
     }
-
+    
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

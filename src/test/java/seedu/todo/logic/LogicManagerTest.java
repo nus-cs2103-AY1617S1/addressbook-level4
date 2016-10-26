@@ -105,7 +105,8 @@ public class LogicManagerTest {
     public void execute_exit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
-
+    
+    //@@author A0093896H
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -516,6 +517,7 @@ public class LogicManagerTest {
                 expectedList);
     }
     
+    //@@author
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.

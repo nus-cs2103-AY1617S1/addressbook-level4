@@ -11,6 +11,7 @@ import seedu.todo.testutil.TypicalTestTasks;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0093896H
 public class AddCommandTest extends ToDoListGuiTest {
     
     @Test
@@ -39,7 +40,7 @@ public class AddCommandTest extends ToDoListGuiTest {
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
-
+//@@author
     private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
         commandBox.runCommand(taskToAdd.getAddCommand());
 

@@ -1,9 +1,7 @@
+//@@author A0093896H
 package seedu.todo.model.task;
 
-
 import seedu.todo.commons.exceptions.IllegalValueException;
-
-
 
 public class Recurrence {
     

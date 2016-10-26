@@ -7,7 +7,7 @@ import seedu.todo.model.tag.UniqueTagList;
  * Implementations should guarantee: |name is not null, field values are validated.
  */
 public interface ReadOnlyTask {
-
+    
     Name getName();
     Detail getDetail();
     TaskDate getOnDate();
@@ -26,6 +26,7 @@ public interface ReadOnlyTask {
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
+    //@@author A0093896H
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || ((other != null) // this is first to avoid NPE below
