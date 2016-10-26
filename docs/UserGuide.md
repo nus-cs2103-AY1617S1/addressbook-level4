@@ -46,13 +46,13 @@ Add | `add TASKNAME d/<DEADLINE> p/<PRIORITY>` | add CS2103 Project d/231217 p/4
 Edit | `edit INDEX <TASKNAME> d/<DEADLINE> p/<PRIORITY>` | edit CS2103 Project d/071116 p/5
 Delete | `delete INDEX` | delete 2
 Find | `find KEYWORD <MORE_KEYWORDS>` | find CS2101 Report 
-List | `list` | N.A
-Listall | `listall` | N.A
+List | `list`  
+Listall | `listall`
 Complete | 'complete INDEX' | complete 1
-Help | `help` | N.A
+Help | `help` 
 Select | `select INDEX` | select 4
 View | `view TASKNAME` | view Reservist
-Clear | `clear` | N.A
+Clear | `clear`
 
 <div style="page-break-after: always;"></div>
 
