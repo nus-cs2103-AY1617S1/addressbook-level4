@@ -68,6 +68,10 @@ Each of the four components
 * Defines its _API_ an interface with the same name as the Component. `Logic.java`
 * Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
 
+### Sequence Diagram
+
+#### Delete Command
+
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
@@ -76,38 +80,6 @@ command `delete 1`.
 >Note how the `Model` simply raises a `ModelChangedEvent` when the model is changed,
  instead of asking the `Storage` to save the updates to the hard disk.
  
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `edit 1 do homework by today`.
-  
-<img src="images\SDforEditTask.png" width="800">
-
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `undo`.
-
-<img src="images\SDforUndoTask.png" width="800">
-
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `mark 1`.
-
-<img src="images\SDforMarkTask.png" width="800">
-
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `setpath filename`.
-
-<img src="images\SDforSetpath.png" width="800">
-<img src="images\SDforFilePathChangedEventHandling.png" width="800">
-
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `exit`.
-
-<img src="images\SDforExit.png" width="800">
-<img src="images\SDforExitAppRequestHandling.png" width="800">
-
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `recur 1 every 3 days until next week`.
-
-<img src="images\SDforRecurTask.png" width="800">
-
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images\SDforDeleteTaskEventHandling.png" width="800">
@@ -115,6 +87,48 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
+ 
+#### Edit Command 
+ 
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `edit 1 do homework by today`.
+  
+<img src="images\SDforEditTask.png" width="800">
+
+#### Undo Command
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `undo`.
+
+<img src="images\SDforUndoTask.png" width="800">
+
+#### Mark Command
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `mark 1`.
+
+<img src="images\SDforMarkTask.png" width="800">
+
+#### Setpath Command
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `setpath filename`.
+
+<img src="images\SDforSetpath.png" width="800">
+
+#### Exit Command
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `exit`.
+
+<img src="images\SDforExit.png" width="800">
+
+#### Recur Command
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `recur 1 every 3 days until next week`.
+
+<img src="images\SDforRecurTask.png" width="800">
 
 The sections below give more details of each component.
 
@@ -533,6 +547,40 @@ Use case ends
 
 > 3b1. MustDoList shows an error message <br>
   Use case resumes at step 3
+  
+#### Use case 14: Redo task
+
+**MSS**
+
+1. User requests to redo task
+2. MustDoList redo the task <br>
+Use case ends.
+
+**Extensions**
+
+2a. The task list is at initial stage
+> 2a1. MustDoList shows an error message <br>
+  Use case ends.
+  
+#### Use case 15: Unmark task
+
+**MSS**
+
+1. User requests to list task
+2. MustDoList shows a list of tasks
+3. User requests to unmark a specific task as completed in the list by the task's index
+4. MustDoList unmarks the task as completed <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+Use case ends
+
+3a. The given index is invalid
+
+> 3a1. MustDoList shows an error message <br>
+  Use case resumes at step 2
 
 ## Appendix C : Non Functional Requirements
 
