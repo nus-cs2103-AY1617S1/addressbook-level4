@@ -29,6 +29,7 @@ Amethyst is a command-line task manager targeted at power users who would like t
     3.16. [Exit Amethyst](#316-exit-amethyst-exit)   
 4. [Command Summary](#4-command-summary)
 
+<!-- @@author A0143756Y -->
 <br>
 ## 1. Quick Start
 
@@ -52,7 +53,7 @@ Type `help` and press `Enter` to view a list of all commands and their correspon
 
 <br>
 ## 2. Guidelines
-
+<!-- @@author A0141019U -->
 ### Conventions
 
 <br>
@@ -105,6 +106,7 @@ For `add (deadline | dl)`, `add (someday |sd)` and `list` commands, which would 
 <br>
 ## 3. Features
 
+<!-- @@author A0139339W -->
 <br>
 ### 3.1. View help : `help`
 New to Amethyst? Simply type `help` and press `Enter` to view a list of all commands and their corresponding command formats. 
@@ -167,6 +169,7 @@ Lists all `someday` tasks that have not been completed.
 - `list deadline 16-11-16` <br>
 Lists all `deadline` tasks that are due on 16 November 2016.
 
+<!-- @@author A0143756Y -->
 <br>
 ### 3.4. Find tasks containing particular keyword(s) in task name: `find`
 Search for a task by name by specifying the keywords/ keyphrases used in the task name. This command finds all tasks containing any of the specified keywords/keyphrases and displays the identified tasks in a numbered list.
@@ -227,6 +230,8 @@ Examples:
   `done 2`<br>
   Deletes the second task found by `find report`.
 
+
+<!-- @@author A0141019U -->
 <br>
 ### 3.7. Edit a task: `edit`
 Accidentally entered wrong task information? Fret not! Use the `edit` command to change details of a task previously stored in the task manager.
@@ -266,6 +271,7 @@ Format: `redo`
 > Redo can be called several times in a row to reverse a chain of undo commands.
 
 
+<!-- @@author A0143756Y -->
 <br>
 ### 3.10. Clear all entries: `clear`
 Looking for a fresh start? Clear all entries from the task manager by entering `clear`. <br>
@@ -330,6 +336,7 @@ Exit the program by keying in `exit`. <br>
 
 Format: `exit`
 
+<!-- @@author A0141019U -->
 <br>
 ## 4. Command Summary
 
@@ -337,7 +344,6 @@ Format: `exit`
 For easy reference, the table below lists all commands and their corresponding default command formats.
 
 <br>
-
 |Command|Format            |
 |:------|:-----------------|
 |help|`help`|
