@@ -40,6 +40,7 @@ public class DoneCommand extends Command {
 
         ReadOnlyTask taskToDone = lastShownList.get(targetIndex - 1);
 
+        model.saveToPrevLists();
         model.doneTask(taskToDone, true);
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDone));

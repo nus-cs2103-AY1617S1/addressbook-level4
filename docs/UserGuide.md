@@ -8,9 +8,13 @@
     * [Delete Command](#3-delete-command--delete)
     * [List Command](#4-list-command)
     * [Find Command](#5-find-command)
-    * [Clear Command](#6-clear-command)
-    * [Edit Command](#7-edit-command)
-    * [Exit Command](#8-exitting-the-program--exit)
+    * [Done Command](#6-done-command)
+    * [Undone Command](#7-find-command)
+    * [Undo Command](#8-undo-command)
+    * [Redo Command](#9-redo-command)
+    * [Clear Command](#10-clear-command)
+    * [Edit Command](#11-edit-command)
+    * [Exit Command](#12-exitting-the-program--exit)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
@@ -41,22 +45,6 @@ Need to unburden? Let’s get started!
    > <img src="UserGuideImages/UG_1.JPG" width="500">
    
 6. Refer to the [Features](#features) section below for details of each command.<br>
-
-
-## Features
-
-### Command Summary
-
-Command | Format  
--------- | :-------- 
-Help | `help <command word>`
-Add | `add <Task description> <Date if applicable> <Start time if applicable> <End Time if applicable>`
-Delete | `delete <task name>`
-List | `list`
-Find | `find <Task Name if applicable> or find <Date> or find <Tags>`
-clear| `clear`
-Edit | `edit <Task Index> <Date if applicable> <Start Time if applicable> <End Time if applicable>`
-Exit | `exit`
 
 
 
@@ -176,7 +164,55 @@ For example, i keyed in “find workout” in the command line and the task with
 You can then see all of the tasks with that date in the application’s display window.   
 <br><br>
 
-## 6. Clear Command
+
+## 6. Done Command
+
+If you wish to enter certain tasks as done, you may key them in the format as shown below. <br>
+#### Format: ` done <INDEX> `
+   
+   Examples : <br>
+   done 1 <br>
+   done 2 <br>
+				
+You can then view the color change in the task that you have marked as done.
+<br><br>
+
+## 7. Done Command
+
+If you wish to enter certain tasks as undone, you may key them in the format as shown below. <br>
+#### Format: ` undone <INDEX> `
+   
+   Examples : <br>
+   undone 1 <br>
+   undone 2 <br>
+				
+You can then view the color change in the task that you have marked as undone.
+<br><br>
+
+
+## 8. Undo Command
+
+If you happen to have entered a command wrongly or wish to undo your previous action, you can make use of the "undo" command. <br>
+#### Format: ` undo  `
+   
+   Examples : <br>
+   undo <br>
+				
+The task manager would then 'undo' its previous action and revert back to original.
+<br><br>
+   
+## 9. Redo Command
+
+If you happen to have keyed in the "undo" command but you wish to "redo" the action, you can make use of the "redo" command. <br>
+#### Format: ` redo  `
+   
+   Examples : <br>
+   redo <br>
+				
+The task manager would then 'redo' its previous action and revert back to original.
+<br><br>
+
+## 10. Clear Command
 
 If you wish to clear all the tasks in the task manager in one go, without having to delete each one by one, you can make use of the “clear” command. 
 <br>
@@ -188,9 +224,9 @@ Simple type the command “clear” as shown above and all tasks will be automat
 <br>
 <br>
 
-## 7. Edit Command
+## 11. Edit Command
 
-### 7.1 If you wish to edit the deadline, start time and end time of certain tasks
+### 11.1 If you wish to edit the deadline, start time and end time of certain tasks
 <br>
 #### Format: `edit <Task Index> d/<Deadline> s/<start Time> e/<End Time>`
    
@@ -203,7 +239,7 @@ By doing so, the date, start time and end time will be updated and the updated l
    
 <br>
 
-### 7.2 If you wish to edit the deadline certain tasks
+### 11.2 If you wish to edit the deadline certain tasks
 <br>
 #### Format: `edit <Task Index> d/<Deadline>`
    
@@ -216,7 +252,7 @@ By doing so, the date, start time and end time will be updated and the updated l
 
 <br>
 
-### 7.3 If you wish to edit the start time and end time of certain tasks
+### 11.3 If you wish to edit the start time and end time of certain tasks
 <br>
 #### Format: `edit <Task Index> s/<Start Time> e/<End time>`
    
@@ -230,7 +266,7 @@ By doing so, the date, start time and end time will be updated and the updated l
 <br>
 <br>
 
-## 8. Exiting the program : `exit`
+## 12. Exiting the program : `exit`
 Exits the program.<br>
 #### Format: `exit`
 Simply type `exit` in the command line as shown below
@@ -260,6 +296,10 @@ Add | `add <Task description> <Date if applicable> <Start time if applicable> <E
 Delete | `delete <task name>`
 List | `list`
 Find | `find <Task Name if applicable> or find <Date> or find <Tags>`
+Done | `done <Task Index>`
+undone | `undone <Task index> `
+undo | `undo`
+redo | `redo`
 clear| `clear`
 Edit | `edit <Task Index> <Date if applicable> <Start Time if applicable> <End Time if applicable>`
 Exit | `exit`

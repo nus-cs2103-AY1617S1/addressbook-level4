@@ -12,6 +12,9 @@ import seedu.unburden.model.task.Task;
 import seedu.unburden.model.task.UniqueTaskList;
 import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -28,6 +31,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final ListOfTask listOfTask;
     private final FilteredList<Task> filteredTasks;
+    private ArrayDeque<ListOfTask> prevLists = new ArrayDeque<ListOfTask>();
+    private ArrayDeque<ListOfTask> undoHistory = new ArrayDeque<ListOfTask>();
 
     /**
      * Initializes a ModelManager with the given ListOfTask
@@ -55,8 +60,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyListOfTask newData) {
+    	prevLists.push(listOfTask);
         listOfTask.resetData(newData);
-        indicateAddressBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
@@ -65,27 +71,28 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateAddressBookChanged() {
+    private void indicateTaskListChanged() {
         raise(new ListOfTaskChangedEvent(listOfTask));
     }
 
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         listOfTask.removeTask(target);
-        indicateAddressBookChanged();
+        indicateTaskListChanged();
     }
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         listOfTask.addTask(task);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskListChanged();
     }
     
+    @Override
     public synchronized void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException {
         listOfTask.editTask(target, args);
         updateFilteredListToShowAll();
-        indicateAddressBookChanged();
+        indicateTaskListChanged();
     }
     
     //@@Gauri Joshi A0143095H
@@ -93,7 +100,43 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void doneTask(ReadOnlyTask taskToDone, boolean isDone){
     	listOfTask.doneTask(taskToDone,isDone);
     	updateFilteredListToShowAll();
-    	indicateAddressBookChanged();
+    	indicateTaskListChanged();
+    }
+    
+    @Override 
+    public synchronized void undoneTask(ReadOnlyTask taskToDone, boolean isunDone){
+    	listOfTask.doneTask(taskToDone,isunDone);
+    	updateFilteredListToShowAll();
+    	indicateTaskListChanged();
+    }
+    
+    @Override
+    public synchronized void saveToPrevLists() {
+    	prevLists.push(new ListOfTask(listOfTask));
+    	undoHistory.clear();
+    }
+    
+    public synchronized void saveToUndoHistory() {
+    	if (undoHistory.size() == 0) 
+    		undoHistory.push(new ListOfTask(listOfTask));
+    }
+    
+    @Override
+    public synchronized void loadFromPrevLists() throws NoSuchElementException {
+    	ListOfTask oldCopy = prevLists.pop();
+    	System.out.println(oldCopy.getTasks());
+    	undoHistory.push(new ListOfTask(listOfTask));
+    	listOfTask.setTasks(oldCopy.getTasks());
+    	indicateTaskListChanged();
+    }
+    
+    @Override
+    public synchronized void loadFromUndoHistory() throws NoSuchElementException {
+    	ListOfTask oldCopy = undoHistory.pop();
+    	System.out.println(oldCopy.getTasks());
+    	prevLists.push(new ListOfTask(listOfTask));
+    	listOfTask.setTasks(oldCopy.getTasks());
+    	indicateTaskListChanged();
     }
     //@@Gauri Joshi
     

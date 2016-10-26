@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import seedu.unburden.commons.exceptions.*;
 import seedu.unburden.commons.util.CollectionUtil;
 
+
 import java.util.*;
 
 /**
@@ -155,6 +156,7 @@ public class UniqueTaskList implements Iterable<Task> {
          
     	return newArgs;
     }
+    
 
     public ObservableList<Task> getInternalList() {
         
@@ -182,6 +184,14 @@ public class UniqueTaskList implements Iterable<Task> {
     
     //@@ Gauri Joshi A0139714B
 	public void done(ReadOnlyTask key, boolean isDone) {
+		assert key != null;
+		int taskIndex = internalList.indexOf(key);
+        Task newTask = internalList.get(taskIndex);
+        newTask.setDone(isDone);
+        internalList.set(taskIndex, newTask);
+	}
+	
+	public void undone(ReadOnlyTask key, boolean isDone) {
 		assert key != null;
 		int taskIndex = internalList.indexOf(key);
         Task newTask = internalList.get(taskIndex);

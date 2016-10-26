@@ -25,9 +25,15 @@ public interface Model {
 
 	/** Deletes the given person. */
 	void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
-
-	/** Adds the given person */
-	void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+	
+    /** Adds the given person */
+    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    
+    void saveToPrevLists();
+    
+    void loadFromPrevLists();
+    
+    void loadFromUndoHistory();
 
 	void editTask(ReadOnlyTask target, String args) throws UniqueTaskList.TaskNotFoundException, IllegalValueException;
 
@@ -51,5 +57,10 @@ public interface Model {
 	// @@Gauri Joshi A0143095H
 	/** Marks a task as done when it is completed. */
 	void doneTask(ReadOnlyTask taskToDone, boolean isDone);
+
 	// @@Gauri Joshi
+	
+	/** Marks a task as undone when it is not completed. */
+	void undoneTask(ReadOnlyTask taskToDone, boolean isUnDone);
+
 }

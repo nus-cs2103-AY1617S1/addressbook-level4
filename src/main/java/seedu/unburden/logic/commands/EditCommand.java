@@ -41,6 +41,7 @@ public class EditCommand extends Command {
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         
         try {
+        	model.saveToPrevLists();
             model.editTask(taskToEdit, args);
             return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit));
         } catch (TaskNotFoundException | IllegalValueException ee) {
