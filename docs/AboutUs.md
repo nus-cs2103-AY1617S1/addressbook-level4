@@ -5,6 +5,7 @@ We are a team based in the [School of Computing, National University of Singapor
 ## Project Team
 
 #### [Gary Goh](https://github.com/garygjy)
+<img src="images/Gary_Goh.jpg" width="150"><br>
  Role: Developer <br>
  Responsibilities: Data
 
@@ -17,6 +18,7 @@ We are a team based in the [School of Computing, National University of Singapor
 -----
 
 #### [Gauri Joshi](https://github.com/gaurzzz)
+<img src="images/Gauri_Joshi.jpg" width="150"><br>
  Role: Developer <br>
  Responsibility: Storage
  
