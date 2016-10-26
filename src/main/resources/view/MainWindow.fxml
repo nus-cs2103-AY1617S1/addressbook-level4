@@ -3,9 +3,6 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,24 +10,24 @@
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.MainWindow">
    <children>
-      <MenuBar VBox.vgrow="NEVER">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="taskList" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="273.0" prefWidth="273.0" SplitPane.resizableWithParent="false">
                <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="currentDateLabel" styleClass="label-bigdate" text="\$DATE_NOW">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="currentYearLabel" alignment="BOTTOM_LEFT" styleClass="label-smalldate" text="\$YEAR_NOW">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
                   <AnchorPane fx:id="taskListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="273.0" />
                </children>
                <padding>
@@ -39,24 +36,7 @@
             </VBox>
             <VBox maxWidth="-Infinity" minWidth="300.0" prefHeight="200.0" prefWidth="1000.0">
                <children>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                     <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                              <Label fx:id="currentDateLabel" styleClass="label-bigdate" text="\$DATE_NOW">
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label fx:id="currentYearLabel" alignment="BOTTOM_LEFT" styleClass="label-smalldate" text="\$YEAR_NOW">
-                                 <padding>
-                                    <Insets left="10.0" />
-                                 </padding>
-                              </Label>
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
                   <AnchorPane fx:id="statusbarPlaceholder" />
                   <AnchorPane fx:id="agendaPlaceholder" stylesheets="@DarkTheme.css">
                      <padding>

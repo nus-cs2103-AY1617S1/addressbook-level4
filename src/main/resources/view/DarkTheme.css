@@ -164,16 +164,19 @@
 }
 
 .status-bar .label {
+    -fx-font-size : 10px;
     -fx-text-fill: white;
 }
 
 .status-bar-with-border {
+    -fx-font-size : 10px;
     -fx-background-color: derive(#1d1d1d, 30%);
     -fx-border-color: derive(#1d1d1d, 25%);
     -fx-border-width: 1px;
 }
 
 .status-bar-with-border .label {
+    -fx-font-size : 10px;
     -fx-text-fill: white;
 }
 

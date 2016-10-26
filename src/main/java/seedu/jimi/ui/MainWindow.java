@@ -59,9 +59,6 @@ public class MainWindow extends UiPart {
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
-    private MenuItem helpMenuItem;
-
-    @FXML
     private AnchorPane taskListPanelPlaceholder;
 
     @FXML
@@ -128,7 +125,7 @@ public class MainWindow extends UiPart {
      * @@author generated
      */
     private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        //helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
     void fillInnerParts() {
