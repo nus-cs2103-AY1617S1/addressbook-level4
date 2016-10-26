@@ -23,12 +23,16 @@ public class Undoer {
 		undoStack.push(new AddCommand(restoredTask));
 	}
 	
-public void prepareUndoEdit(ReadOnlyTask original, String dataType, ReadOnlyTask toEdit) {
+	public void prepareUndoEdit(ReadOnlyTask original, String dataType, ReadOnlyTask toEdit) {
 		undoStack.push(new EditCommand(toEdit, dataType, original));
 	}
 	
 	public void prepareUndoClear(String dataType) {
 		undoStack.push(new RestoreListCommand(dataType));
+	}
+	
+	public void prepareUndoDone(String dataType, int index) {
+		undoStack.push(new DoneCommand(dataType,index));
 	}
 	
 	public void executeUndo() {

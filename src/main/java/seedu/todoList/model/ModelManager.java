@@ -213,12 +213,15 @@ public class ModelManager extends ComponentManager implements Model {
     		case "todo":
     			todoList.doneTask(target);
     			indicateTodoListChanged();
+    			//undoer.prepareUndoDone(target, "todo");
     		case "event":
     			eventList.doneTask(target);
     			indicateEventListChanged();
+    			//undoer.prepareUndoDone(target, "event");
     		case "deadline":
     			deadlineList.doneTask(target);
     			indicateDeadlineListChanged();
+    			//undoer.prepareUndoDone(target, "deadline");
     	}
     }
     
