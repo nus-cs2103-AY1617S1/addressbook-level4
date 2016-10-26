@@ -6,8 +6,12 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import seedu.unburden.commons.core.Config;
+import seedu.unburden.commons.exceptions.DataConversionException;
+import seedu.unburden.commons.util.ConfigUtil;
 import seedu.unburden.commons.core.LogsCenter;
 import seedu.unburden.commons.events.model.ListOfTaskChangedEvent;
+import seedu.unburden.commons.events.storage.StoragePathChangedEvent;
 import seedu.unburden.commons.util.FxViewUtil;
 
 import org.controlsfx.control.StatusBar;
@@ -95,5 +99,19 @@ public class StatusBarFooter extends UiPart {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
+    }
+    
+    @Subscribe
+    public void handleStoragePathChangeEvent(StoragePathChangedEvent event) {
+    	try {
+	    	String configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+	        Config config = ConfigUtil.readConfig(configFilePathUsed).orElse(new Config());
+	        setSaveLocation(config.getTaskListFilePath());
+	    } catch (DataConversionException e) {
+	        logger.warning("Error retrieving data from " + Config.DEFAULT_CONFIG_FILE + ". "
+	                + "Using default config properties");
+	        Config config = new Config();
+	        setSaveLocation(config.getTaskListFilePath());
+	    }
     }
 }
