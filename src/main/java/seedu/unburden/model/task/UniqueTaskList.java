@@ -156,12 +156,6 @@ public class UniqueTaskList implements Iterable<Task> {
     	return newArgs;
     }
     
-    public void undo() {
-    	String toDo = History.toUndo.pop();
-    	
-    	
-    	
-    }
 
     public ObservableList<Task> getInternalList() {
         
