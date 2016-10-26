@@ -136,7 +136,8 @@ Examples:
 * `search oct 1`<br>
   Lists all tasks that have the date `oct 1`.
 * `search milk`<br>
-  Lists the all the tasks with names containing the word `milk` if any can be found.
+  Lists the all the tasks with names containing the word `milk` if any can be found. 
+ <!-- @@author --> 
 
 #### Deleting a task : `delete`
 Deletes the specified task from the list. Irreversible.<br>
@@ -158,9 +159,7 @@ Examples:
 Example:<br>
 * `delete 1, 2, 3`
 * `search oct 1`
-  `done 2, 3`
-  
-<!-- @@author --> 
+  `done 2, 3` 
 
 <!-- @@author A0138420N -->    
 #### Undo : `undo`
@@ -180,7 +179,7 @@ Format: `edit INDEX PARAMETER NEW_INFORMATION`
 > More than 1 parameter can be edited at the same input, simply separate them with a comma.
 <!--- @@author --->
 
-<!-- @@author A0138420N -->
+
 Examples: 
 * `edit 1 date oct 11, time 1800-2000`
 * `list dec 30`<br>
@@ -192,6 +191,7 @@ Format: `edit INDEX PARAMETER clear`
 Example: 
 * `edit 3 time clear`
 
+<!-- @@author A0138420N -->
 #### Marking a task as complete : `done`
 Marks task on display list as complete. Does not remove completely from GGist.<br>
 Format: `done INDEX`
