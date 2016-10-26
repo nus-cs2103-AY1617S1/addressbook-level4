@@ -78,10 +78,11 @@ We are a group of highly motivated and hardworking students working on our CS210
   *  Contributed to the initial refactoring from AddressBook to SmartScheduler ([#41](https://github.com/CS2103AUG2016-T11-C1/main/pull/41))
   *  General bug fixes
   *  Integration of different pull requests
-  *  Rearranged UI
+  *  Major changes to UI to fit the UI mock-up
   *  Implemented once a minute clock and tasklist updates
   *  Set up Travis
   *  Wrote the argument parser
+  *  Implemented storage for start and end times, as well as completion statuses.
 
 
 ## Project Mentor
