@@ -365,14 +365,16 @@ Use case ends.
 >Use case ends.
 
 
->3a. The given index is invalid.
->3a1. TaskManager shows an error message. <br>
->Use case resumes at step 2.
+> 3a. The given index is invalid.
+> 3a1. TaskManager shows an error message. <br>
+> Use case resumes at step 2.
 
 
 >3b. User requests to delete two TDEs.
 >3b1. TaskManager deletes the TDEs. <br>
 >Use case ends.
+
+[comment]: # (@@author A0143641M)
 
 #### Use case: Save data to a specific location
 
@@ -404,7 +406,6 @@ Use case ends.
 More non functional requirements and project constraints can be found [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints).
 
 
-
 ## Appendix D : Glossary
 
 ##### Deadline
@@ -434,6 +435,8 @@ More non functional requirements and project constraints can be found [here](htt
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
+
+[comment]: # (@@author)
 
 ## Appendix E : Product Survey
 

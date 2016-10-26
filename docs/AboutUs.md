@@ -45,16 +45,19 @@ Responsibilities: Model
 
 -----
 
-#### Yeo Kai Yan [@kaiyanyeo](http://github.com/kaiyanyeo)
+#### [Yeo Kai Yan @kaiyanyeo](http://github.com/kaiyanyeo)
 <img src="images/KaiYan_Pic.jpg" width="150" height="150"><br>
 Role: Code Quality / Eclipse Expert <br>
 * Components in charge of: [Storage]
 * Aspects/tools in charge of: Code Quality, Eclipse
 * Features implemented: [functional code][test code][docs]
-	* Delete Command (extension)
-	* Save Command (end-to-end)
+	* Delete by two indexes at a time (extension)
+	* Save to a specified location (end-to-end)
 * Code written: 
 * Other major contributions:
 	* Maintaining consistent format of code in Developer Guide and User Guide
+	* Documentation of
+		* Non-Functional Requirements (extension)
+		* Glossary
 
 -----

@@ -35,7 +35,6 @@ public class SaveCommand extends Command {
 
     public SaveCommand(String newTaskManagerFilePath) {
         this.newTaskManagerFilePath = newTaskManagerFilePath;
-       
     }
     
     @Override

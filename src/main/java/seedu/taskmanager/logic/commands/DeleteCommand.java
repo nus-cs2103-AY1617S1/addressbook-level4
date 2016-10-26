@@ -47,6 +47,7 @@ public class DeleteCommand extends Command {
         hasMultipleIndexes = true;
     }
 
+    //@@author A0143641M
     /**
      * Deletes events, tasks, or deadlines by a single index or ascending multiple indexes.
      */
@@ -90,8 +91,8 @@ public class DeleteCommand extends Command {
             } catch (ItemNotFoundException pnfe) {
                 assert false : "The target item cannot be missing";
             }
-        }
+            }
         return new CommandResult(String.format(MESSAGE_DELETE_ITEM_SUCCESS, deletedItems));
-    }
+        }
     }
 }
