@@ -251,25 +251,43 @@ For events, you can edit the name and both start and end dates and times.
 
 2. Console refreshes list of items, with updated status for the updated item.
 
+	> Example Command:
+	> 1. `done 1`
+	> <div style="text-align:center"><img src="images/appResponses/done_command_response.png" width="300"><br>
+	> App Response for `done 1`
+
 ### When you are not done with a deadline, task or event
 
 1. Type `n[ot]d[one] INDEX`. Press `Enter`.
 
 2. Console refreshes list of items, with updated status for the updated item.
 
+	> Example Command:
+	> 1. `notdone 1`
+	> <div style="text-align:center"><img src="images/appResponses/notdone_command_response.png" width="300"><br>
+	> App Response for `notdone 1`
+
 ### When you want to undo your last action that caused a changed in your todo list
 
 1. Type `u[ndo]`. Press `Enter`.
 
-3. Bottom left panel displays items as per previous state.
+2. Bottom left panel displays items as per previous state.
 
-[comment]: # (@@author A0140060A)
+	> Example Command:
+	> 1. `undo`
+	> <div style="text-align:center"><img src="images/appResponses/undo_command_response.png" width="300"><br>
+	> App Response for `undo`
 
 ### When you want to redo your last undone action
 
 1. Type `r[edo]`. Press `Enter`.
 
-3. App's bottom left panel reverts items to before the latest undo action.
+2. App's bottom left panel reverts items to before the latest undo action.
+
+	> Example Command:
+	> 1. `redo`
+	> <div style="text-align:center"><img src="images/appResponses/redo_command_response.png" width="300"><br>
+	> App Response for `redo`
 
 [comment]: # (@@author )
 
