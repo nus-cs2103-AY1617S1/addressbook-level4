@@ -1,7 +1,5 @@
 package seedu.todoList.testutil;
 
-//import seedu.todoList.model.tag.Tag;
-import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.TaskList;
 import seedu.todoList.model.task.Task;
 import seedu.todoList.model.task.UniqueTaskList;

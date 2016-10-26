@@ -4,7 +4,6 @@ import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.todoList.model.task.ReadOnlyTask;
-import seedu.todoList.model.task.Todo;
 
 /**
  * Provides a handle to a task card in the task list panel.

@@ -5,9 +5,7 @@ import java.util.Set;
 import seedu.todoList.commons.core.UnmodifiableObservableList;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.Task;
-import seedu.todoList.model.task.Event;
 import seedu.todoList.model.task.UniqueTaskList;
-import seedu.todoList.model.task.UniqueTaskList.DuplicatetaskException;
 import seedu.todoList.commons.exceptions.*;
 
 /**

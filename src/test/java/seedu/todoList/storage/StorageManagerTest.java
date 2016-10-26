@@ -13,7 +13,6 @@ import seedu.todoList.model.ReadOnlyTaskList;
 //import seedu.todoList.model.ReadOnlyTodoList;
 import seedu.todoList.model.TaskList;
 import seedu.todoList.model.UserPrefs;
-import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.storage.JsonUserPrefsStorage;
 import seedu.todoList.storage.Storage;
 import seedu.todoList.storage.StorageManager;

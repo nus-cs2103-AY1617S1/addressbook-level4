@@ -12,7 +12,6 @@ import javafx.stage.Stage;
 import seedu.todoList.commons.events.ui.ExitAppRequestEvent;
 import seedu.todoList.logic.Logic;
 import seedu.todoList.model.UserPrefs;
-import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.commons.core.Config;
 import seedu.todoList.commons.core.GuiSettings;
 

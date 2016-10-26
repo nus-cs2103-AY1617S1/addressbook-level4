@@ -13,7 +13,6 @@ import seedu.todoList.model.ReadOnlyTaskList;
 import seedu.todoList.model.UserPrefs;
 import seedu.todoList.commons.core.Config;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
