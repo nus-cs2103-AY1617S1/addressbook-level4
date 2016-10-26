@@ -20,10 +20,9 @@ import seedu.jimi.model.task.Name;
 import seedu.jimi.model.task.ReadOnlyTask;
 
 /**
- * 
- * @author Clarence
- *
  * Edits an existing task/event in Jimi.
+ * 
+ * @@author A0140133B
  */
 public class EditCommand extends Command implements TaskBookEditor {
     

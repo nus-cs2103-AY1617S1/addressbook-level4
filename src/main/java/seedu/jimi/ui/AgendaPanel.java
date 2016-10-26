@@ -1,13 +1,8 @@
 package seedu.jimi.ui;
 
-import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;

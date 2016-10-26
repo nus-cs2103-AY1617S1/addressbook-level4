@@ -19,6 +19,8 @@ import seedu.jimi.model.task.UniqueTaskList;
 
 /**
  * Adds a task to the Jimi.
+ * 
+ * @@author A0140133B
  */
 public class AddCommand extends Command implements TaskBookEditor {
 

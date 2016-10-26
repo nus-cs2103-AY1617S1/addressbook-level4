@@ -121,10 +121,8 @@ public class MainWindow extends UiPart {
         currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy"));
         this.currentYearLabel.setText(currentDate);
     }
+    // @@author 
     
-    /**
-     * @@author generated
-     */
     private void setAccelerators() {
         //helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }

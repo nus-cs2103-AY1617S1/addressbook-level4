@@ -68,7 +68,8 @@ public abstract class Command {
         EventsCenter.getInstance().post(new StoragePathChangedEvent(oldPath, newPath));
     }
     
-    /** Determines the list type according to the index prefix. */
+    /** Determines the list type according to the index prefix. 
+     *  @@author A0140133B */
     protected Optional<UnmodifiableObservableList<ReadOnlyTask>> determineListFromIndexPrefix(String idx) {
         if (idx.trim().startsWith(INDEX_TASK_LIST_PREFIX)) {
             return Optional.of(model.getFilteredAgendaTaskList());
@@ -77,6 +78,7 @@ public abstract class Command {
         }
         return Optional.empty();
     }
+    //@@author
 
     public void undo() {
         model.resetData(origModel.getTaskBook());

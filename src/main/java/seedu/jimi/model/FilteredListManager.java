@@ -25,6 +25,7 @@ import seedu.jimi.model.task.ReadOnlyTask;
 public class FilteredListManager {
     private static final Logger logger = LogsCenter.getLogger(FilteredListManager.class);
     
+    // @@author A0140133B
     public enum ListId {
         DAY_AHEAD_0, 
         DAY_AHEAD_1, 
@@ -44,6 +45,7 @@ public class FilteredListManager {
             new HashMap<ListId, FilteredList<ReadOnlyTask>>();
     
     private final HashMap<ListId, Expression> defaultExpressions = new HashMap<ListId, Expression>();
+    
     
     public FilteredListManager(TaskBook taskBook) {
         initDefaultExpressions();
@@ -69,8 +71,6 @@ public class FilteredListManager {
     
     /**
      * Initializes default expressions used by all the filtered lists in {@code listMap}.
-     * 
-     * @author Clarence
      */
     private void initDefaultExpressions() {
         // Expression matches if it's an incomplete floating task.
@@ -107,6 +107,7 @@ public class FilteredListManager {
         defaultExpressions.put(ListId.EVENTS_AGENDA,
                 new PredicateExpression(new EventQualifier(true)));
     }
+    //@@author
     
     /*
      * ===========================================================
@@ -142,10 +143,10 @@ public class FilteredListManager {
         updateFilteredList(id, defaultExpressions.get(id), new PredicateExpression(new NameQualifier(keywords)));
     }
     
+    // @@author A0140133B
     /** 
      * Updates filtered list identified by {@code id} with the filter in {@code other}, along with the original 
      * default filter of list identified by {@code id}.  
-     * @author Clarence  
      */
     public void updateFilteredList(ListId id, ListId other) {
         updateFilteredList(id, defaultExpressions.get(id), defaultExpressions.get(other));
@@ -153,11 +154,11 @@ public class FilteredListManager {
     
     /** 
      * Updates filtered list identified by {@code id} with a filter that matches all filters in {@code expressions}.
-     * @author Clarence 
      */
     private void updateFilteredList(ListId id, Expression... expressions) {
         listMap.get(id).setPredicate(t -> Arrays.stream(expressions).allMatch(e -> e.satisfies(t)));
     }
+    // @@author
     
     /*
      * ===========================================================
@@ -177,7 +178,7 @@ public class FilteredListManager {
      * 
      * For this PredicateExpression to satisfy, all qualifiers must pass.
      * 
-     * @author Clarence
+     * @@author A0140133B
      */
     private class PredicateExpression implements Expression {
         
@@ -197,6 +198,8 @@ public class FilteredListManager {
             return qualifiers.toString();
         }
     }
+    
+    // @@author
     
     interface Qualifier {
         
@@ -353,7 +356,6 @@ public class FilteredListManager {
     
     /**
      * Predicate for filtering floatingTasks from the internal list.
-     * @@author A0138915X
      * @param isMatchingForFloating If true, matches floating tasks. Else matches anything that's not a floating task.
      */
     private class FloatingTaskQualifier implements Qualifier {
@@ -372,7 +374,6 @@ public class FilteredListManager {
     
     /**
      * Predicate for filtering tasks from the internal list.
-     * @@author A0138915X
      * @param isCheckCompleted If true, matches tasks. Else matches anything that's not a task.
      */
     private class TaskQualifier implements Qualifier {
