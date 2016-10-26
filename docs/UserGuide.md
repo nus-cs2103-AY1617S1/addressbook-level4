@@ -95,16 +95,20 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples: 
 * `find  tennis`<br>
 * `find submit report`<br>
-  Lists any tasks having `practice` or `tennis` in names or locations 
+  Lists any tasks having `practice` or `3pm` in names or time
 
 #### Undo the modification : `undo`
-Undo the modification in the last step.<br>
+Undo the modification in the last step. Only includes add, delete, edit, clear, done and undone commands<br>
 Format: `undo`  
 
-#### Redo the undone modification : `redo`
-Redo the undone modification in the last step.<br>
-Format: `redo`  
+#### Done a specific task : `done`
+Done a task to show that it is completed with a green marker<br>
+Format: `done INDEX` 
 
+#### Undone a specific task : `undone`
+Undone a task. Reverse action of done command. Green marker will disappear.<br>
+Format: `undone INDEX` 
+  
 #### Change working directory : `directory`
 Change data file being accessed, effectively using another TaskManager list.<br>
 A manual restart of the application is required for non-Windows OS, thus TaskManager will close itself.
