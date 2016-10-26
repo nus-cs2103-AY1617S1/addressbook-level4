@@ -11,6 +11,7 @@ import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.ReadOnlyTaskManager;
 import seedu.task.model.tag.Tag;
+import seedu.task.model.tag.UniqueTagList;
 import seedu.task.model.task.Title;
 import seedu.task.model.task.Description;
 import seedu.task.model.task.DueDate;
@@ -35,8 +36,7 @@ public class EditCommand extends Command {
 	public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits a task in the address book. "
             + "Parameters: Index t/newTaskName d/description sd/startDate dd/dueDate ts/tagSet"
             + "\nExample: " + COMMAND_WORD
-            + " 1 t/newTaskName"
-            + "\nNote: Please enter your parameters in order.";
+            + " 1 t/newTaskName";
 	
 	public final String MESSAGE_SUCCESS = "The data has been successfully edited.";
 	public final String MESSAGE_NOT_FOUND = "The task was not found.";
@@ -51,7 +51,7 @@ public class EditCommand extends Command {
 	private String newTitle, description, startDate, dueDate, interval, timeInterval;
 	private Set<String> tags;
 	private UnmodifiableObservableList<ReadOnlyTask> taskList;
-	private int taskIndex;
+	private int taskIndex, realIndex;
 	private ArrayList<Task> tempCopy = new ArrayList<Task>();
 	//Task (before modification) for undo command
 	private Task savedTaskForUndo; 
@@ -82,8 +82,9 @@ public class EditCommand extends Command {
 	 * @throws TaskNotFoundException if the task was not found
 	 */
 	public ReadOnlyTask searchTask(int index) throws TaskNotFoundException {
+		realIndex = taskIndex - 1;
 		assert !taskList.isEmpty();
-		return taskList.get(taskIndex - 1);
+		return taskList.get(realIndex);
 	}
 
 	@Override
@@ -117,17 +118,18 @@ public class EditCommand extends Command {
 	 * @throws DuplicateTaskException
 	 */
 	private void modifyList() throws TaskNotFoundException, DuplicateTaskException {
-		for (int i = taskIndex; i < taskList.size(); i++) {
-			tempCopy.add((Task) taskList.get(i));
-		}
+		realIndex = taskIndex - 1;
+		//for (int i = taskIndex; i < taskList.size(); i++) {
+			//tempCopy.add((Task) taskList.get(i));
+		//}
 		model.deleteTask(selectedTask);
-		for (int i = 0; i < tempCopy.size(); i++) {
-			model.deleteTask(tempCopy.get(i));
-		}
-		model.addTask(editedTask);
-		for (int i = 0; i < tempCopy.size(); i++) {
-			model.addTask((Task) tempCopy.get(i));
-		}
+		//for (int i = 0; i < tempCopy.size(); i++) {
+			//model.deleteTask(tempCopy.get(i));
+		//}
+		model.addTaskWithSpecifiedIndex(editedTask, realIndex);
+		//for (int i = 0; i < tempCopy.size(); i++) {
+			//model.addTask((Task) tempCopy.get(i));
+		//}
 	}
 	
 	/**
@@ -167,9 +169,9 @@ public class EditCommand extends Command {
 		//if (timeInterval != null) {
 			//changeTimeInterval(timeInterval);
 		//}
-		//if (tags != null) {
-			//changeTags(tags);
-		//}
+		if (tags != null && !tags.isEmpty()) {
+			changeTags(tags);
+		}
 	}
 	
 	/**
@@ -232,6 +234,14 @@ public class EditCommand extends Command {
 	public void changeTimeInterval(String timeInterval) throws IllegalValueException {
 		TimeInterval newTimeInterval = new TimeInterval(timeInterval);
 		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), newTimeInterval, copy.getStatus(), copy.getTags());
+	}
+	
+	public void changeTags(Set<String> tags) throws IllegalValueException {
+		Set<Tag> newTags = new HashSet<>();
+		for (String tagName : tags) {
+            newTags.add(new Tag(tagName));
+        }
+		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), new UniqueTagList(newTags));
 	}
 
 	private void saveTaskForUndo(ReadOnlyTask task){
