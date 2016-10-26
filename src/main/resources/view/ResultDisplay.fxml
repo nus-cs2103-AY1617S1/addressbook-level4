@@ -7,5 +7,6 @@
     <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
+        <URL value="@ResultDisplay.css" />
     </stylesheets>
 </AnchorPane>

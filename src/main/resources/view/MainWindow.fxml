@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <!-- @@author A0146107M -->
+
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: #444444;" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.tasklist.ui.MainWindow">
    <children>
       <SplitPane style="-fx-border-color: white;">
@@ -55,7 +56,7 @@
             </VBox>
          </items>
       </SplitPane>
-       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" style="-fx-background-color: white; -fx-border-color: white;" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
+       <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="62.0" prefHeight="62.0" prefWidth="1504.0" style="-fx-background-color: white; -fx-border-color: white;" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER">
            <padding>
                <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
            </padding>
