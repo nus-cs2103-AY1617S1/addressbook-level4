@@ -1,3 +1,4 @@
+/* @@author A0144919W */
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
 }
@@ -8,7 +9,7 @@
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
-
+/* @@author */
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
@@ -19,7 +20,7 @@
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
-    //-fx-text-fill: black;
+    -fx-text-fill: black;
     -fx-opacity: 1;
 }
 
@@ -66,7 +67,7 @@
 .table-view .column-header .label {
     -fx-font-size: 20pt;
     -fx-font-family: "Segoe UI Light";
-    //-fx-text-fill: white;
+    -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
 }
@@ -74,7 +75,7 @@
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: -fx-focus-color;
 }
-
+/* @@author A0144919W */
 .split-pane:horizontal .split-pane-divider {
     -fx-border-color: transparent;
     -fx-background-color: transparent;
@@ -85,7 +86,7 @@
     -fx-max-height: 0px;
     -fx-pref-height: 0px;
 }
-
+/* @@author */
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
@@ -99,17 +100,17 @@
 }
 
 .list-cell .label {
-    //-fx-text-fill: #010504;
+    -fx-text-fill: #010504;
 }
 
 .cell_big_label {
     -fx-font-size: 16px;
-    //-fx-text-fill: #010504;
+    -fx-text-fill: #010504;
 }
 
 .cell_small_label {
     -fx-font-size: 11px;
-    //-fx-text-fill: #010504;
+    -fx-text-fill: #010504;
 }
 
 .anchor-pane {
@@ -164,7 +165,7 @@
 }
 
 .context-menu .label {
-    //-fx-text-fill: white;
+    -fx-text-fill: white;
 }
 
 .menu-bar {

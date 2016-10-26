@@ -101,13 +101,13 @@ public class MainWindow extends UiPart {
         EventsCenter.getInstance().registerHandler(mainWindow);
         return mainWindow;
     }
-
+    //@@author A0144919W
     @Subscribe
     private void handleTickEvent(TickEvent tickEvent){
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd\'"+getDateSuffix(Integer.parseInt(new SimpleDateFormat("dd").format(new Date())))+"\' MMMMMMMMM, yyyy | h:mm a");
         dateTimeLabel.setText(dateFormatter.format(new Date()));
     }
-    
+    //@@author
     private void configure(String appTitle, String taskListName, Config config, UserPrefs prefs,
             Logic logic) {
 
@@ -224,13 +224,12 @@ public class MainWindow extends UiPart {
     public void releaseResources() {
         //        browserPanel.freeResources();
     }
-
+    //@@author A0144919W
     public void setLabelText() {
         assert dateTimeLabel != null;
         SimpleDateFormat dateFormatter = new SimpleDateFormat("dd\'"+getDateSuffix(Integer.parseInt(new SimpleDateFormat("dd").format(new Date())))+"\' MMMMMMMMM, yyyy | h:mm a");
         dateTimeLabel.setText(dateFormatter.format(new Date()));
     }
-
     private String getDateSuffix(int date) {
         checkArgument(date >= 1 && date <= 31, "illegal day of month: " + date);
         if (date >= 11 && date <= 13) {
