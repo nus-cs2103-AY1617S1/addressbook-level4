@@ -36,7 +36,7 @@ public class DeleteCommand extends Command {
     public DeleteCommand(List<Pair<Integer, Integer>> listOfIndexes) {
         assert listOfIndexes != null;
         this.listOfIndexes = listOfIndexes;
-        isInvalidIndex = false;
+        this.isInvalidIndex = false;
     }
 
     @Override
@@ -60,6 +60,7 @@ public class DeleteCommand extends Command {
             }
             
             ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+            
             if (!listOfTaskToDelete.contains(taskToDelete)) {
                 listOfTaskToDelete.add(taskToDelete);
                 resultMessageBuilder.append(Task.CATEGORIES[categoryIndex] + targetIndex + " ");

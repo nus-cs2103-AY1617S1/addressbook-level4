@@ -11,7 +11,7 @@ import seedu.taskitty.testutil.TestTaskList;
 
 //@@author A0130853L
 import static org.junit.Assert.assertTrue;
-import static seedu.taskitty.logic.commands.DoneCommand.MESSAGE_MARK_TASK_AS_DONE_SUCCESS;
+import static seedu.taskitty.logic.commands.DoneCommand.MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER;
 
 public class DoneCommandTest extends TaskManagerGuiTest {
 
@@ -77,7 +77,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
         assertMarkAsDone(markedCard);
         
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS, Task.CATEGORIES[categoryIndex], taskToMark));
+        assertResultMessage(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER, Task.CATEGORIES[categoryIndex], taskToMark));
     }
     
     //@@author A0139052L
@@ -103,7 +103,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
             commandText.append(targetIndexes[i] + " ");
             
             int categoryIndex = TaskUtil.getCategoryIndex(categories[i]);
-            resultMessage.append(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS, Task.CATEGORIES[categoryIndex], taskToMark));
+            resultMessage.append(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER, Task.CATEGORIES[categoryIndex], taskToMark));
             
             markedTasks[i] = taskToMark;
         }
