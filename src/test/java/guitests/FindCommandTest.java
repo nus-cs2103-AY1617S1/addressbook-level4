@@ -12,7 +12,7 @@ public class FindCommandTest extends AddressBookGuiTest {
     @Test
     public void find_nonEmptyList() {
         assertFindResult("find Mark"); //no results
-       commandBox.runCommand("add Daniel");
+       
         assertFindResult("find Daniel",td.findDaniel); 
 
         //find after deleting one result
