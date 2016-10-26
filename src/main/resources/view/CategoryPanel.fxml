@@ -16,7 +16,7 @@
    <children>
       <VBox layoutY="24.0" maxHeight="560.0" prefHeight="536.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <GridPane prefHeight="560.0" prefWidth="370.0" style="-fx-background-color: #FBE5D6;">
+            <GridPane prefHeight="560.0" prefWidth="370.0" style="-fx-background-color: #DCF0EE;">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="276.0" minWidth="250.0" prefWidth="276.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="50.0" prefWidth="94.0" />

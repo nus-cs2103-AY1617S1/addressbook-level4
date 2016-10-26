@@ -11,7 +11,6 @@
 * [Appendix D: Glossary](#appendix-d-glossary)
 * [Appendix E: Product Survey](#appendix-e-product-survey)
 
-
 ## Setting up
 
 #### Prerequisites

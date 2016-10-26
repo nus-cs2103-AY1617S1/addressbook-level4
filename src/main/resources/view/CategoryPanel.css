@@ -1,11 +1,11 @@
 /* @@author A0144919W */
 
 #total_tasks_label {
-    -fx-text-fill: red;
+    -fx-text-fill: black;
 }
 
 #upcoming_events_label {
-    -fx-text-fill: blue;
+    -fx-text-fill: black;
 }
 
 .label {
