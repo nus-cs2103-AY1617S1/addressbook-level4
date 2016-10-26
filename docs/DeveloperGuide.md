@@ -579,6 +579,35 @@ Day:
 5. Steep learning curve
 6. Does not support categaries
 7. Reorganising of task is not user friendly
+1. **Fantastical**
+
+1a. It has a good and clean UI, really simple to use. <br>
+1b. It has integration with all iOS products, i.e. mac, iphone, ipad etc. <br>
+1c. Includes all CRUD features. <br>
+1d. It has a reminder function. <br>
+1e. Has a list of all upcoming tasks for the week at the left hand side. <br>
+1f. Has natural language processing, can add events using Siri. <br>
+1g. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
+1h. Automatically syncs with apple calendar, updates and syncs on the go. <br>
+
+## Google Cal
+##### Strengths
+1. It has CRUD features. <br>
+2. It can link to external applications such as Gmail and Contacts. <br>
+3. It has cross-platform features.<br>
+4. It has a reminder function.<br>
+5. It can support multiple accounts in one device.<br>
+6. It can create Event, Reminder or Goal.<br>
+7. All task created are automatically grouped and colour coded.<br>
+8. Clean and simple UI.<br>
+9. It can be used online or offline.<br>
+10. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
+
+##### Weaknesses
+1. It is not keyboard friendly.<br>
+2. It requires user to have a google account to use it.<br>
+3. It does not have a done function.<br>
+4. It has a steep learning curve.<br>
 
 ### Any.do
 ##### Strengths
@@ -607,11 +636,18 @@ Day:
 6. Requires an account to start using.<br>
 7. Not keyboard friendly. Requires substantial mouse usage.<br>
 
-4. **Reminders**
+### Reminders
+##### Strengths
 
-4a. It has CRUD features. <br>
-4b. It has a search function. <br>
-4c. It has different tabs for today, tomorrow and date-wise events. <br>
-4d. It allows to set priorities for different tasks. <br>
-4e. It allows to repeat reminders on a periodic basis. <br>
-4f. It can show all previous events which are marked ‘done’. <br>
+1. It has CRUD features. <br>
+2. It has a search function. <br>
+3. It has different tabs for today, tomorrow and date-wise events. <br>
+4. It allows to set priorities for different tasks. <br>
+5. It allows to repeat reminders on a periodic basis. <br>
+6. It can show all previous events which are marked ‘done’. <br>
+7. It has great syncing facilities. <br>
+
+##### Weaknesses
+
+1. It is not cross-platform.<br>
+2. No auto clear of done tasks or the option to auto clear done tasks after a certain period.<br>

@@ -2,6 +2,7 @@ package seedu.forgetmenot.model.task;
 
 /**
  * Represents a Task's recurrence in the task manager.
+ * @@author A0139671X
  */
 public class Recurrence {
     

@@ -5,6 +5,7 @@ import java.io.File;
 import seedu.forgetmenot.commons.core.EventsCenter;
 import seedu.forgetmenot.commons.events.storage.StorageLocationChangedEvent;
 
+//@@author A0147619W 
 public class SetStorageCommand extends Command {
 	
 	public static final String COMMAND_WORD = "setstorage";

@@ -56,6 +56,7 @@ public class UniqueTaskList implements Iterable<Task> {
     
     /**
      * Sorts a list according to timing
+     * @@author A0147619W
      */
     public void sortList() {
         if (internalList.size() <= 1)
@@ -150,6 +151,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
 
+    //@@author A0139671X
     public void editTaskName(ReadOnlyTask toEdit, Name newName) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
@@ -160,6 +162,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(taskIndex, taskFound);
     }
     
+    //@@author A0139671X
     public void editStartTime(ReadOnlyTask toEdit, Time newTiming) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
@@ -170,6 +173,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(taskIndex, taskFound);
     }
     
+    //@@author A0139671X
     public void editEndTime(ReadOnlyTask toEdit, Time newTiming) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))
@@ -180,6 +184,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.set(taskIndex, taskFound);
     }
     
+    //@@author A0139671X
     public void editRecurFreq(ReadOnlyTask toEdit, Recurrence newRec) throws TaskNotFoundException {
         assert toEdit != null;
         if(!internalList.contains(toEdit))

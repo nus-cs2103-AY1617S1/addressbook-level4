@@ -119,6 +119,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
+    //@@author A0147619W
     public void handleConfigFilePathChangedEvent(ConfigFilePathChangedEvent event) {
     	logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage location changed, updating status bar"));
     	mainWindow.rerenderStatusBarFooter();

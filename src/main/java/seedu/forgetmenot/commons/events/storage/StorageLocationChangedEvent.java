@@ -3,7 +3,7 @@ import seedu.forgetmenot.commons.events.BaseEvent;
 
 /**
  * indicates that the storage location has changed
- *
+ * @@author A0147619W
  */
 public class StorageLocationChangedEvent extends BaseEvent{
 

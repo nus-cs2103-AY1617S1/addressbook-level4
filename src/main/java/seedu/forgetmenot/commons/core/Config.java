@@ -103,6 +103,7 @@ public class Config extends ComponentManager{
         return sb.toString();
     }
     
+    //@@author A0147619W
     @Subscribe
     public void handleStorageLocationChangedEvent(StorageLocationChangedEvent event) {
     	setTaskManagerFilePath(event.filePath);

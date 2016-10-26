@@ -75,6 +75,7 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskManagerChanged();
     }
     
+    //@@author A0139671X
     public void clearHistory() {
         taskManagerHistory.clear();
         undoHistory.clear();
@@ -85,12 +86,14 @@ public class ModelManager extends ComponentManager implements Model {
         return taskManager;
     }
     
+    //@@author A0139671X
     @Override
     public void saveToHistory() {
         taskManagerHistory.push(new TaskManager(taskManager));
         undoHistory.clear();
     }
     
+    //@@author A0139671X
     @Override
     public void loadFromHistory() throws NoSuchElementException {
         TaskManager oldManager = taskManagerHistory.pop();
@@ -99,7 +102,8 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.counter();
         indicateTaskManagerChanged();
     }
-    
+
+    //@@author A0139671X
     @Override
     public void loadFromUndoHistory() throws NoSuchElementException {
         TaskManager oldManager = undoHistory.pop();
@@ -120,6 +124,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@author A0147619W
     @Override
     public synchronized void sortTasks() {
         taskManager.sortTasksList();
@@ -141,13 +146,14 @@ public class ModelManager extends ComponentManager implements Model {
     	
     }
 
+    //@@author A0147619W
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-    
+    //@@author A0139671X
     @Override
     public synchronized void addRecurringTask(ReadOnlyTask task, String days) throws DuplicateTaskException, IllegalValueException {
         
@@ -189,6 +195,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@author A0139671X
     @Override
     public synchronized void editTask(ReadOnlyTask task, String newName, String newStart, String newEnd, String newRecur) throws TaskNotFoundException, IllegalValueException {
         if (newName != null)
@@ -217,6 +224,7 @@ public class ModelManager extends ComponentManager implements Model {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     
+    //@@author A0147619W
     @Override
     public void updateFilteredListToShowAll() {
     	sortTasks();
