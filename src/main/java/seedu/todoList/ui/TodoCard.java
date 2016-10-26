@@ -46,7 +46,7 @@ public class TodoCard extends UiPart{
         date.setText("Start Date: " + task.getStartDate().date);
         endDate.setText("End Date: " + task.getEndDate().endDate);
         priority.setText("Priority: " + task.getPriority().toString());
-        done.setText("Completed: " + task.getDone().isDone);
+        done.setText("Completed: " + ((task.getDone() == false) ? "Not Done" : "Done"));
     }
 
     public HBox getLayout() {
