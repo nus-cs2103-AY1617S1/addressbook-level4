@@ -57,6 +57,9 @@ public class RedoCommand extends Command {
             result = executeMark((InputMarkHistory)previous);
             return new CommandResult(result);
 
+        case UnmarkCommand.COMMAND_WORD:
+            result = executeMark((InputMarkHistory)previous);
+            return new CommandResult(result);
         }
         return null;
     }

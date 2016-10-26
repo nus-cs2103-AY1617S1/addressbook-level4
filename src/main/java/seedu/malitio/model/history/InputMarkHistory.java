@@ -60,6 +60,10 @@ public class InputMarkHistory extends InputHistory {
         return deadlineToMark;
     }
     
+    public ReadOnlyEvent getEventToMark() {
+        return eventToMark;
+    }
+    
     public boolean getMarkWhat() {
         return markWhat;
     }
