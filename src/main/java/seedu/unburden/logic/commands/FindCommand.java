@@ -27,10 +27,10 @@ public class FindCommand extends Command {
 		this.keywords = keywords;
 		this.date = null;
 		this.modeOfSearch = modeOfSearch;
-		
+
 	}
-	
-	public FindCommand(String date, String modeOfSearch){
+
+	public FindCommand(String date, String modeOfSearch) {
 		this.keywords = null;
 		this.date = date;
 		this.modeOfSearch = modeOfSearch;
@@ -45,16 +45,12 @@ public class FindCommand extends Command {
 			}
 		};
 	}
-	
-	public java.util.function.Predicate<? super Task> getDates(String date){
-    	return t -> {
-			try {
-				return t.getDate().toDate().equals(date);
-			} catch (ParseException e) {
-				return false;
-			}
+
+	public java.util.function.Predicate<? super Task> getDates(String date) {
+		return t -> {
+			return t.getDate().fullDate.equals(date);
 		};
-    }
+	}
 
 	@Override
 	public CommandResult execute() {
