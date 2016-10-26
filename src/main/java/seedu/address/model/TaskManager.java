@@ -2,7 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.task.Task;
-import seedu.address.model.task.TaskDateComparator;
+import seedu.address.model.task.TaskComparator;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.tag.Tag;
@@ -19,7 +19,7 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
-    private final TaskDateComparator comparator = new TaskDateComparator();
+    private final TaskComparator comparator = new TaskComparator();
 
     {
         tasks = new UniqueTaskList();

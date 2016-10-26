@@ -78,7 +78,7 @@ public class TypicalTestTasks {
     
     //@@author A0141019U
     public TestTask[] getSortedTypicalTasks() {
-    	return new TestTask[]{deadline1, event1, deadline2, event2, deadlineToday, eventToday, deadlineTomorrow, eventTomorrow, eventIn7Days, deadlineIn7Days, deadlineIn30Days, eventIn30Days, someday1, someday2};
+    	return new TestTask[]{event1, deadline2, event2, eventToday, deadlineTomorrow, eventTomorrow, eventIn7Days, deadlineIn7Days, deadlineIn30Days, eventIn30Days, someday2, deadline1, deadlineToday, someday1};
     }
     
     //@@author

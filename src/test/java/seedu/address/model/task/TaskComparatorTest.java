@@ -13,12 +13,12 @@ import seedu.address.testutil.TypicalTestTasks;
 
 
 //@@author A0141019U
-public class TaskDateComparatorTest {
+public class TaskComparatorTest {
 	
-	private TaskDateComparator comparator = new TaskDateComparator();
+	private TaskComparator comparator = new TaskComparator();
 	private List<ReadOnlyTask> unsorted, sorted;
 	
-	public TaskDateComparatorTest() throws IllegalArgumentException, IllegalValueException {
+	public TaskComparatorTest() throws IllegalArgumentException, IllegalValueException {
 		TypicalTestTasks td = new TypicalTestTasks();
 		unsorted = Arrays.asList(td.getTypicalTasks());
 		sorted = Arrays.asList(td.getSortedTypicalTasks());
