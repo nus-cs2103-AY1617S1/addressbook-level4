@@ -1,5 +1,7 @@
 package seedu.taskmanager.logic.commands;
 
+//@@author A0135792X
+
 /**
  * Lists all tasks in the task manager to the user.
  */
@@ -11,6 +13,8 @@ public class ListTaskCommand extends Command {
     //@@author A0140060A
     public static final String SHORT_COMMAND_WORD = "lt";
     //@@author 
+    
+  //@@author A0135792X
     
     public static final String MESSAGE_SUCCESS = "Listed all tasks";
     

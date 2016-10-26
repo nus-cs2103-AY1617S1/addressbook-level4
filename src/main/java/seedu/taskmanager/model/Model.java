@@ -43,7 +43,7 @@ public interface Model {
     /** Updates the filter of the filtered person list to show all not done (uncompleted) items */
     void updateFilteredListToShowNotDone();
     
-    //@@author 
+    //@@author A0135792X
     /**Updates the filter of the filtered item list to filter by task */
 	void updateFilteredListToShowTask();
 	
@@ -52,6 +52,8 @@ public interface Model {
 	
 	/**Updates the filter of the filtered item list to filter by event */
 	void updateFilteredListToShowEvent();
+	//@@author 
+	
 	
     /** Sets item as done */
     void setDone(ReadOnlyItem target, String actionTaken) throws UniqueItemList.ItemNotFoundException;
