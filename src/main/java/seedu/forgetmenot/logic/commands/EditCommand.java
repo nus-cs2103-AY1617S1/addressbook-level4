@@ -54,11 +54,11 @@ public class EditCommand extends Command {
         try {
             
             // checks that new start time must be before end
-            if (newStart != null && !Time.checkOrderOfDates(newStart, taskToEdit.getEndTime().appearOnUIFormat()))
+            if (newStart != null && !taskToEdit.getEndTime().isMissing() && !Time.checkOrderOfDates(newStart, taskToEdit.getEndTime().appearOnUIFormat()))
                 return new CommandResult(Messages.MESSAGE_INVALID_START_AND_END_TIME);
             
             // checks that the new end time must be after start
-            if (newEnd != null && Time.checkOrderOfDates(newEnd, taskToEdit.getStartTime().appearOnUIFormat()))
+            if (newEnd != null && !taskToEdit.getStartTime().isMissing() &&Time.checkOrderOfDates(newEnd, taskToEdit.getStartTime().appearOnUIFormat()))
                 return new CommandResult(Messages.MESSAGE_INVALID_END_TIME);
             
             // checks that the new start and end time are valid
