@@ -41,7 +41,7 @@
  
 #### Adding a task or event: `add`
 Adds a task to the to-do list<br>
-Format: `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
+Format: `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG r/NUMBER_OF_WEEKLY_RECURRING_TASK]`
 
 > Date format of START_DATE and CLOSE_DATE includes words like today, tomorrow, 3 days from now, day after tomorrow, noon, 12pm, 6am
 
@@ -49,6 +49,7 @@ Format: `add TASK_NAME [s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG]`
 * If there is no argument, the task will become floating.
 * `START_DATE` refer to the starting date and time of an event. For a task, the timestamp will be automatically saved as start date and time when the task is created. User can input start date and time for events.
 * `TAG` is for users to write tags for different tasks. Mulitple tags are available by typing `t/TAG t/TAG`.
+* `NUMBER_OF_RECURRING TASK` is for users to create weekly recurring task. For example, when NUMBER_OF_WEEKLY_RECURRING_TASK is 1 which    means one more tasks will be created with the openTime and endTime one weekly later.
 
 
 Examples:
@@ -57,6 +58,7 @@ Examples:
 * `add shopping` <br> Adds a floating task named revision test which has not specify the start and end date
 * `add tutorial t/cs2103` <br> Adds a flaoting task named tutorial with a tag CS2013
 * `add quiz t/cs2102 t/easy` <br> Adds a flaoting task named tutorial with a tag CS2012 and easy
+* `add test s/today r/1` <br> Adds a task start today and recur for one more week.
 
 Examples on date time flexibility:
 * `add project c/3 days from now` <br> Adds a project task three days later from the time you input this command
