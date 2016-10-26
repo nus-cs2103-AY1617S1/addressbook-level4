@@ -36,9 +36,6 @@ public class PinCommandTest extends TaskManagerGuiTest {
         newTask = taskListPanel.getTask(targetIndex - 1);
         assertTrue(newTask.getImportance());
         assertResultMessage(String.format(MESSAGE_PIN_TASK_SUCCESS, newTask));
-
-        
-
     }
     @Test
     public void invalid_pin() {
@@ -53,6 +50,4 @@ public class PinCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("pin " + (currentList.length + 1));
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
-
-   
 }

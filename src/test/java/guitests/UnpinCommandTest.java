@@ -56,9 +56,5 @@ public class UnpinCommandTest extends TaskManagerGuiTest {
         // invalid index
         commandBox.runCommand("unpin " + (currentList.length + 1));
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        
-
     }
-     
-    
 }
