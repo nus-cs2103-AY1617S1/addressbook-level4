@@ -12,6 +12,7 @@ import seedu.ggist.model.task.ReadOnlyTask;
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
+  //@@author A0138420N
     protected Model model;
     public static Stack<String> listOfCommands = new Stack<String>();
     public static Stack<ReadOnlyTask> listOfTasks = new Stack<ReadOnlyTask>();
@@ -21,6 +22,7 @@ public abstract class Command {
     public static Stack<String> editTaskValue = new Stack<String>();
     public static Stack<String> redoEditTaskField = new Stack<String>();
     public static Stack<String> redoEditTaskValue = new Stack<String>();
+  //@@author
     
 
     /**

@@ -97,12 +97,16 @@ public class Parser {
         
         case EditCommand.COMMAND_WORD: 
             return prepareEdit(arguments);
+            
+          //@@author A0138420N
                 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
             
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+            
+          //@@author
             
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -233,6 +237,7 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+  //@@author A0138420N
     private Command prepareDelete(String args) {
         String[] parts = args.split(",");
         ArrayList<Integer> indexes = new ArrayList<Integer>();
@@ -254,6 +259,7 @@ public class Parser {
         
         return new DeleteCommand(indexes);
     }
+  //@@author
     
     /**
      * Parses arguments in the context of the done task command.
@@ -261,6 +267,8 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
+    
+  //@@author A0138420N
     private Command prepareDone(String args) {
         String[] parts = args.split(",");
         ArrayList<Integer> indexes = new ArrayList<Integer>();
@@ -276,7 +284,9 @@ public class Parser {
             }
         }
         return new DoneCommand(indexes);
-    }
+    }   
+  //@@author
+    
   //@@author A0138411N
     private Command prepareEdit(String args) {
         Matcher matcher = EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
