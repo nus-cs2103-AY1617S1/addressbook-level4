@@ -21,8 +21,8 @@
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
    * **`list /t`** : lists all tasks that are not done. 
-   * **`add`** `CS2103 Lab 6 /desc finish lab /by 30-12-16` : 
-     adds a task named `CS2103 Lab 6` with a description of `finish lab` by the deadline of `30-12-16`.
+   * **`add`** `CS2103 Lab 6 /desc finish lab /by 12-30-16` : 
+     adds a task named `CS2103 Lab 6` with a description of `finish lab` by the deadline of `12-30-16`.
    * **`mark`**` 3` : marks the 3rd task as complete.
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
@@ -64,39 +64,39 @@ Format: `add EVENT_NAME /from START_DATE_TIME [/to END_DATE_TIME] [/desc DESCRIP
 > If `END_DATE_TIME` is not provided, the start and end dates will be the same, the default timing will be set 1 hour apart.
 
 Examples:
-* `add CS2103 Exam /desc final examination @ MPSH3 /from today 4pm > 6pm` <br>
+* `add CS2103 Exam /desc final examination @ MPSH3 /from today 4pm /to 6pm` <br>
    Adds an event "CS2103 Exam" with description "final examination @ MPSH3" with duration "16:00 1 December 2016 to 18:00 1 December 2016"
-* `add CS2103 Workshop /desc OOP workshop /from 1-12-16 > 7-12-16` <br>
+* `add CS2103 Workshop /desc OOP workshop /from 12-1-16 /to 12-7-16` <br>
    Adds an event "CS2103 Workshop" with description "OOP workshop" with duration "00:00 1 December 2016 to 23:59 7 December 2016"
 
 
 #### Listing tasks
 Shows a list of tasks that are not marked done. <br>
 
-Format: `list -t [-a]`
+Format: `list /t [/a]`
 
 > Tasks that are marked done will not be shown by default.
-> An `-a` optional flag will request dowat to list all tasks, both marked done and not yet marked done. 
+> An `/a` optional flag will request dowat to list all tasks, both marked done and not yet marked done. 
 
 Examples: 
-* `list -t` <br>
+* `list /t` <br>
   Lists tasks that are not marked done.
-* `list -t -a` <br>
+* `list /t /a` <br>
   All tasks will be shown.
 
 
 #### Listing events
 Shows a list of all events that are completed. <br>
 
-Format: `list -e [-a]` <br>
+Format: `list /e [/a]` <br>
 
 > Events that are completed will not be shown by default.
-> An `-a` optional flag will request dowat to list all events, both completed and passed. 
+> An `/a` optional flag will request dowat to list all events, both completed and passed. 
 
 Examples: 
-* `list -e `<br>
+* `list /e `<br>
   Lists events that are not completed yet. 
-* `list -e -a` <br>
+* `list /e /a` <br>
   All events will be shown.
 
 
@@ -149,25 +149,25 @@ Examples:
 #### Deleting a task/event
 Deletes an existing task/event from dowat storage completely.  
 
-Format: `delete -t|-e INDEX`
+Format: `delete /t|/e INDEX`
 
 > Deletes the task/event at the specified `INDEX` in the most recent task/event listing.
-> Deleted tasks/event will not be shown even with `list -e|-t -a` command. 
+> Deleted tasks/event will not be shown even with `list /e|/t /a` command. 
 
 Examples:
-* `delete -t 1`  
+* `delete /t 1`  
   Deletes the 1st task in the most recent listing
 
   
 #### Selecting a task/event
 Selects an existing task/event from the last shown task/event list.  
 
-Format: `select -t|-e INDEX`
+Format: `select /t|/e INDEX`
 
 > Selects the task/event at the specified `INDEX` in the most recent task/event listing.
 
 Examples:
-* `select -t 1`  
+* `select /t 1`  
   Selects the 1st task in the most recent listing
 
   
@@ -201,58 +201,58 @@ Format: `undo`
 #### Finding for events/tasks
 With the find command, you can find for tasks or events which contain some keywords in their name as well as in their descriptions. 
 
-Format: `find [-e|-t] KEYWORD [MORE_KEYWORDS]`
+Format: `find [/e|/t] KEYWORD [MORE_KEYWORDS]`
 
 > `KEYWORDS` are case sensitive. Events/Tasks which contain at least one keyword in their names will be returned. 
 
 Examples:
 * `find CS2103`
   Shows tasks and events which have CS2103 (ignoring cases) in their names or description.
-* `find -e CS2103`
+* `find /e CS2103`
   Returns relevant information of "CS2103 Exam" but not "cs2103 Exam"
-* `find -t CS2106 CS2103`
+* `find /t CS2106 CS2103`
   Returns any tasks or events having "CS2106", "CS2103" in their names. 
 
 
 #### Clearing of tasks
 Clears all completed tasks or clears all tasks. <br>
 
-Format: `clear -t [-a]`
+Format: `clear /t [/a]`
 
-> An `-a` optional flag will request dowat to clear all tasks, both marked done and not yet marked done. 
+> An `/a` optional flag will request dowat to clear all tasks, both marked done and not yet marked done. 
 
 Examples: 
-* `clear -t` <br>
+* `clear /t` <br>
   Clears tasks that are marked done.
-* `clear -t -a` <br>
+* `clear /t /a` <br>
   Clears all tasks.
 
 
 #### Clearing of events
 Clears all completed events or clears all events. <br>
 
-Format: `clear -e [-a]`
+Format: `clear /e [/a]`
 
-> An `-a` optional flag will request dowat to clear all events. 
+> An `/a` optional flag will request dowat to clear all events. 
 
 Examples: 
-* `clear -e` <br>
+* `clear /e` <br>
   Clears events that are marked done.
-* `clear -e -a` <br>
+* `clear /e /a` <br>
   Clears all events.
 
   
 #### Clearing of tasks and events
 Clears all completed tasks and events or clears all tasks and events. <br>
 
-Format: `clear [-a]`
+Format: `clear [/a]`
 
-> An `-a` optional flag will request dowat to clear all tasks and events.
+> An `/a` optional flag will request dowat to clear all tasks and events.
 
 Examples: 
 * `clear` <br>
   Clears all completed tasks and events.
-* `clear -a` <br>
+* `clear /a` <br>
   Clears all tasks and events.
   
   
