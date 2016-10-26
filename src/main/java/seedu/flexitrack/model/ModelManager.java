@@ -237,7 +237,7 @@ public class ModelManager extends ComponentManager implements Model {
                     willBeShown = DateTimeInfo.isInThePast(DateTimeInfo.getCurrentTimeInString(), task.getEndTime());
                 } 
             } else if (keyWords.contains(ListCommand.LIST_LAST_COMMAND) || keyWords.contains(ListCommand.LIST_NEXT_COMMAND)){
-                willBeShown = DateTimeInfo.withInTheDuration(keyWords,task);
+                willBeShown = DateTimeInfo.withInTheDuration(keyWords, task, DateTimeInfo.getCurrentTimeInString().toString());
             } else if (!dateInfo.equals("")){
                 willBeShown = DateTimeInfo.isOnTheDate(keyWords, task);
             }

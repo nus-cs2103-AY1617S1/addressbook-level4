@@ -14,11 +14,13 @@ public interface ReadOnlyTask {
     DateTimeInfo getDueDate();
     DateTimeInfo getStartTime();
     DateTimeInfo getEndTime();
+    DateTimeInfo getStartingTimeOrDueDate();
+    DateTimeInfo getEndingTimeOrDueDate();
 
     boolean getIsTask();
     boolean getIsEvent();
     boolean getIsDone();
-    boolean isNotFloatingTask();
+    boolean getIsNotFloatingTask();
     
     /**
      * The returned TagList is a deep copy of the internal TagList, changes on
@@ -66,6 +68,7 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+
 
 
 }

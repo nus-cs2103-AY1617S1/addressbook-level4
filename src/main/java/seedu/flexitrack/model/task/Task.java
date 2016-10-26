@@ -158,8 +158,24 @@ public class Task implements ReadOnlyTask {
         this.isEvent = bool;
     }
     
-    public boolean isNotFloatingTask(){
+    public boolean getIsNotFloatingTask(){
         return (this.isEvent || this.isTask);
+    }
+    
+    public DateTimeInfo getStartingTimeOrDueDate(){
+        if (this.getIsTask()){
+            return this.getDueDate();
+        } else {
+            return  this.getStartTime();
+        }
+    }
+    
+    public DateTimeInfo getEndingTimeOrDueDate(){
+        if (this.getIsTask()){
+            return this.getDueDate();
+        } else {
+            return  this.getEndTime();
+        }
     }
     
 }

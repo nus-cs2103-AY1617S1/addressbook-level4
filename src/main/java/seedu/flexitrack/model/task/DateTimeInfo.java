@@ -9,6 +9,7 @@ import com.joestelmach.natty.DateGroup;
 import seedu.flexitrack.commons.exceptions.IllegalValueException;
 import seedu.flexitrack.logic.commands.ListCommand;
 
+//@@author A0127686R
 /**
  * Represents a DateTimeInfo class in FlexiTrack
  */
@@ -23,7 +24,7 @@ public class DateTimeInfo {
     
     private String setTime;
 
-    public DateTimeInfo(String givenTime) throws IllegalValueException {
+    public DateTimeInfo(String givenTime) {
         setDateGroupTime(givenTime);
     }
 
@@ -32,13 +33,19 @@ public class DateTimeInfo {
      * 
      * @param givenTime
      */
-    public void setDateGroupTime(String givenTime) throws IllegalValueException {
+    public void setDateGroupTime(String givenTime) {
         assert givenTime != null;
         final Matcher matcher = TIME_TYPE_DATA_ARGS_FORMAT.matcher(givenTime.trim());
         matcher.matches();
-        DateTimeInfoParser parsedTiming = new DateTimeInfoParser(matcher.group("info"));
-        this.setTime = parsedTiming.getParsedTimingInfo();
-        formatTiming(parsedTiming.isInferred());
+        DateTimeInfoParser parsedTiming;
+        try {
+            parsedTiming = new DateTimeInfoParser(matcher.group("info"));
+            this.setTime = parsedTiming.getParsedTimingInfo();
+            formatTiming(parsedTiming.isInferred());
+        } catch (IllegalValueException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -53,6 +60,10 @@ public class DateTimeInfo {
         }
     }
 
+    /**
+     * Extract the month, date and year of a particular date 
+     * @return timing in MMM DD YYYY format 
+     */
     private String getDateMonthYear() {
         return setTime.substring(5, 12) + setTime.substring(25, 29);
     }
@@ -231,7 +242,7 @@ public class DateTimeInfo {
     }
 
     /**
-     * Calculate the day difference between the end and the start
+     * Calculate the year difference between the end and the start
      * 
      * @param startingTime
      * @param endingTime
@@ -291,6 +302,7 @@ public class DateTimeInfo {
     }
 
     /**
+     * Process the task if the task is in the future
      * @param timeNow
      * @param Date
      * @return true if the timing timeNow is after the timing Date
@@ -302,7 +314,7 @@ public class DateTimeInfo {
     }
 
     /**
-     * 
+     * Process the task if the task is in the past
      * @param timeNow
      * @param Date
      * @return true if the timing timeNow is before the timing Date
@@ -312,22 +324,21 @@ public class DateTimeInfo {
     }
     
     /**
-     * Prepare the keyword and proces if the task is within the specified date. 
+     * Prepare the keyword and process if the task is within the specified date. 
      * @param keyWords
      * @param task
      * @return 
      */
     public static boolean isOnTheDate(String keyWords, ReadOnlyTask task) {
         String dateInfo = keyWords.replace(ListCommand.LIST_MARK_COMMAND, "").replace(ListCommand.LIST_UNMARK_COMMAND, "").trim();
-        try {
-            dateInfo = new DateTimeInfo (dateInfo).toString().substring(0,11);
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-        }
+        dateInfo = new DateTimeInfo (dateInfo).toString().substring(0,11);
         return isTaskOnTheSpecifiedDate(task, dateInfo);
     }
 
     /**
+     * Process if the task given has any relation with the dateInfo. 
+     * For a task relation is defined as the due date is the dateInfo date. 
+     * For an event, the event duration (inclusive the starting and the ending date) is within the specified  DateInfo date. 
      * @param task
      * @param dateInfo
      * @return true if the task has anything to do with the day of interest
@@ -339,6 +350,7 @@ public class DateTimeInfo {
     }
 
     /**
+     * Process the data if it the task is a event and it is passing through the date specified.
      * @param task
      * @param dateInfo
      * @return true if a task is an event and the day interest is within the starting date and the ending date 
@@ -346,52 +358,41 @@ public class DateTimeInfo {
     private static boolean isTaskAnEventPassingThisDate(ReadOnlyTask task, String dateInfo) {
         if (!task.getIsEvent()){
             return false; 
-        }
-        DateTimeInfo dateSpecified =null;
-        try {
-            dateSpecified = new DateTimeInfo (dateInfo);
-        } catch (IllegalValueException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         } 
+        DateTimeInfo dateSpecified =null;
+        dateSpecified = new DateTimeInfo (dateInfo);
         return isInTheFuture(task.getEndTime(), dateSpecified) && isInTheFuture(dateSpecified, task.getStartTime()); 
     }
 
-    public static boolean withInTheDuration(String keyWords, ReadOnlyTask task) {
-        
-        String dateNow = getCurrentTimeInString().toString(); 
-        boolean isWithInTime = isTaskWithinTheDurationSpecified(keyWords, task, dateNow);
-        return isWithInTime;
-    }
-
-    /**
+    /** 
+     * Process if the a task specified is with in the duration stated.
      * @param keyWords
      * @param task
-     * @param dateNow
-     * @return if the task is within the specified duration
+     * @return true if the date is within the duration 
      */
-    private static boolean isTaskWithinTheDurationSpecified(String keyWords, ReadOnlyTask task, String dateNow) {
+    public static boolean withInTheDuration(String keyWords, ReadOnlyTask task, String dateNow) {
         boolean isWithInTime = false; 
         if ( keyWords.contains(ListCommand.LIST_LAST_WEEK_COMMAND) ){
-            return isTaskAndWithinTheTime(task, dateNow, -DAYS_IN_A_WEEK);
+            return isNotFloatingTaskAndWithinTheTime(task, dateNow, -DAYS_IN_A_WEEK);
         } else if ( keyWords.contains(ListCommand.LIST_LAST_MONTH_COMMAND) ){
-            return isTaskAndWithinTheTime(task, dateNow, -AVERAGE_DAYS_IN_A_MONTH);
+            return isNotFloatingTaskAndWithinTheTime(task, dateNow, -AVERAGE_DAYS_IN_A_MONTH);
         } else if ( keyWords.contains(ListCommand.LIST_NEXT_MONTH_COMMAND) ){
-            return isTaskAndWithinTheTime(task, dateNow, AVERAGE_DAYS_IN_A_MONTH);
+            return isNotFloatingTaskAndWithinTheTime(task, dateNow, AVERAGE_DAYS_IN_A_MONTH);
         } else if ( keyWords.contains(ListCommand.LIST_NEXT_WEEK_COMMAND) ){
-            return isTaskAndWithinTheTime(task, dateNow, DAYS_IN_A_WEEK);
-        }
+            return isNotFloatingTaskAndWithinTheTime(task, dateNow, DAYS_IN_A_WEEK);
+        }        
         return isWithInTime;
     }
 
     /**
+     * Process if the task given is either a deadline task or an event within the specified timing
      * @param task
      * @param dateNow
      * @param expectedDays 
      * @return true if the task is not a floating task and it is within the specified timing
      */
-    private static boolean isTaskAndWithinTheTime(ReadOnlyTask task, String dateNow, int expectedDays) {
-        if (task.isNotFloatingTask()){
+    private static boolean isNotFloatingTaskAndWithinTheTime(ReadOnlyTask task, String dateNow, int expectedDays) {
+        if (task.getIsNotFloatingTask()){
             return isTaskWithInTheDuration(task, dateNow, expectedDays); 
         } else { 
             return false; 
@@ -399,6 +400,7 @@ public class DateTimeInfo {
     }
 
     /**
+     * Process if a deadline task or an event is within the duration specified.
      * @param task
      * @param dateNow
      * @param expectedDays
@@ -406,29 +408,25 @@ public class DateTimeInfo {
      */
     private static boolean isTaskWithInTheDuration(ReadOnlyTask task, String dateNow, int expectedDays) {
         boolean isTimeWithinExpectedTime=false;
-        if (task.getIsTask()){
-            isTimeWithinExpectedTime = isTimeDifferenceLessThanSpecified(dateNow, task.getDueDate().toString(), expectedDays);
-        } else if (task.getIsEvent()){
-            isTimeWithinExpectedTime = isTimeDifferenceLessThanSpecified(dateNow, task.getEndTime().toString(), expectedDays);
+        if (task.getIsNotFloatingTask()){
+            isTimeWithinExpectedTime = isTimeDifferenceLessThanSpecified(dateNow, 
+                    task.getStartingTimeOrDueDate().toString(), expectedDays);
         }
         return isTimeWithinExpectedTime;
     }
-
+    
     /**
      * Provide an easy access to the current timing in String 
      * @return String of the current time MMM DD YYYY HH:MM format. 
      */
     public static DateTimeInfo getCurrentTimeInString() {
         DateTimeInfo dateNow = null;
-        try {
-            dateNow = new DateTimeInfo ("now");
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-        }
+        dateNow = new DateTimeInfo ("now");
         return dateNow;
     }
 
     /**
+     * Process if the difference of two given time is less than the time duration.
      * @param startTime 
      * @param endTime 
      * @param limitTimeDuration 
