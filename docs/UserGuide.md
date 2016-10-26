@@ -236,8 +236,8 @@ Examples:
 
 * **`search`**` Tutorial`<br>
   **`delete`**` 1`<br>
-  Deletes the task with `ID #1` in the Do-Do Bird.
-<<<<<<< HEAD
+Deletes the task with `ID #1` in the Do-Do Bird.
+
   
 Demo:
 
@@ -257,9 +257,9 @@ Display delete result
 
 ![DELETE_Result](./images/DELETE_Result.png)
 
-=======
+
 <!-- @@author A0142421X -->
->>>>>>> 85e37cd409285222728cb1682c053e5093257a36
+
 ## Tagging a task : `tag`
 Tags the specified task with the specified tag.<br>
 
@@ -269,7 +269,7 @@ Format: `tag ID TAG`
 
 Examples:
 
-* **`see`** <br>
+**`see`** <br>
 **`tag`**` 2 Tutorial`<br>
 Tags the task with `ID #2` with `Homework` tag
 
@@ -282,7 +282,7 @@ Format: `untag ID TAG`
 
 Examples:
 
-* **`see`** <br>
+**`see`** <br>
 **`untag`**` 2 Tutorial`<br>
 Untags the task with `ID #2` from `Homework` tag
 
