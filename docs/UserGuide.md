@@ -1,10 +1,10 @@
-	# User Guide
+# User Guide
 
 * [Quick Start](#quick-start)
 * [Features](#features)
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
-
+<!-- @@author A0093896H -->
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
@@ -14,7 +14,9 @@
 1. Download the latest `Do-Do Bird.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Do-Do Bird application.
 3. Double-click the file to start the app. The GUI should appear in a few seconds.
-   > ![GUI](./images/GUI.png)
+<<<<<<< Updated upstream
+
+   > ![GUI](./images/UI.png)
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
@@ -50,6 +52,7 @@ Shows the help page to user.<br>
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
+
 
 ## Adding a task: `add`
 Adds a task to Do-Do Bird.<br>
@@ -136,7 +139,7 @@ Display result
 
 ![SEARCH_Result](./images/SEARCH_Result.png)
 
-
+<!-- @@author A0121643R -->
 ## Marking tasks as done : `mark`
 Marking a task in Do-Do Bird as completed.<br>
 
@@ -216,7 +219,7 @@ Examples:
 * **`search`**` Tutorial`<br>
   **`delete`**` 1`<br>
   Deletes the task with `ID #1` in the Do-Do Bird.
-
+<!-- @@author A0142421X -->
 ## Tagging a task : `tag`
 Tags the specified task with the specified tag.<br>
 
@@ -243,7 +246,7 @@ Examples:
 **`untag`**` 2 Tutorial`<br>
 Untags the task with `ID #2` from `Homework` tag
 
-
+<!-- @@author A0138967J -->
 ## Storing : `store`
 Change the storage location for the data file.<br>
 
@@ -279,20 +282,20 @@ There is no need to save manually.
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with
        the file that contains the data of your previous Do-Do Bird folder.
-
+<!-- @@author A0121643R -->
 ## Command Summary
 
 Command | Format  
 -------- | :--------
 Add | `add TASKNAME`
 	| Example: add hello
-	| `add TASKNAME priority PRIORITY`	
+	| `add TASKNAME priority PRIORITY`
 	| Example: add hello priority high/mid/low
-	| `add TASKNAME ; DETAILS`	
+	| `add TASKNAME ; DETAILS`
 	| Example: add hello ; first time use
 	| `add TASKNAME on/from DATE`	                                              
 	| Example: add hello on/from today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
-	| `add TASKNAME by/to DATE`	
+	| `add TASKNAME by/to DATE`
 	| Example: add hello by/to today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
 	| `add TASKNAME on/from DATE by/to DATE`
 	| Example: add hello on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat
@@ -301,41 +304,41 @@ Add | `add TASKNAME`
 	| `add TASKNAME on/from DATE by/to DATE priority PRIORITY ; DETAILS`
 	| Example: add hello on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat priority high/mid/low ; first time use
 Clear | `clear`
-Delete | `delete ID`	
+Delete | `delete ID`
 	   | Example: delete 12
 Help | `help`
-Mark | `mark ID`	
+Mark | `mark ID`
 	 | Example: mark 12
-Unmark | `unmark ID`	
+Unmark | `unmark ID`
        | Example: mark 12
 Quitting | `exit`
 Search | `search KEYWORDS` 	
 	   | Example: search hello/project Meeting/PrOjecT MeeTinG
-	   | `search before DATE`	
+	   | `search before DATE`
 	   | Example: search before today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
 	   | `search after DATE`
 	   | Example: search before today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
-	   | `search priority PRIORITY`	
+	   | `search priority PRIORITY`
 	   | Example: search priority high/mid/low
-	   | `search tag TAG`	
+	   | `search tag TAG`
 	   | Example: search tag study   
 See | `see`
-Tag | `tag ID TAG`	
+Tag | `tag ID TAG`
     | Example: tag 12 study
-Untag | `untag ID TAG`	
+Untag | `untag ID TAG`
       | Example: untag 12 study
 Undo | `undo`
-Update | `update ID TASKNAME`	
+Update | `update ID TASKNAME`
        | Example: update 10 hello again
-	   | `update ID on/from DATE`	
+	   | `update ID on/from DATE`
 	   |Example: update 10 on/from tmr 07:00pm/sunday 12:34am/Oct 20/every sat
-	   | `update ID by/to DATE`	
+	   | `update ID by/to DATE`
 	   | Example: update 10 by/to tmr 07:00pm/sunday 12:34am/Oct 20/every sat
-	   | `update ID TASKNAME on/from DATE`	
+	   | `update ID TASKNAME on/from DATE`
 	   | Example: update 10 hello again on/from tmr 07:00pm/sunday 12:34am/Oct 20/every sat
-	   | `update ID TASKNAME by/to DATE`	
+	   | `update ID TASKNAME by/to DATE`
 	   | Example: update 10 hello again by/to tmr 07:00pm/sunday 12:34am/Oct 20/every sat
-	   | `update ID on/from DATE by/to DATE`	
+	   | `update ID on/from DATE by/to DATE`
 	   | Example: update 10 on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat
 	   | `update ID TASKNAME on/from DATE by/to DATE`
 	   | Example: update 10 hello again on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat

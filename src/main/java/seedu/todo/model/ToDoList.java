@@ -57,8 +57,6 @@ public class ToDoList implements ReadOnlyToDoList {
     	return tagsHistory.peek().getInternalList();
     }
     
-    
-
     //@@author A0093896H
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
         setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));

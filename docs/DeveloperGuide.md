@@ -82,12 +82,15 @@ command `delete 3`.
 >Note how the `Model` simply raises a `ToDoListChangedEvent` when the To Do List data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
+<!-- @@author A0093896H -->
  The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
  command `add buy milk `.
 
 <img src="images\SDforAddTask.png" width="800">
 
 >Note how both sequence diagrams are very similar. This is because of good separation of concerns between the different components.
+
+<!-- @@author -->
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
@@ -255,6 +258,7 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+<!-- @@author A0142421X -->
 ## Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
@@ -278,7 +282,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | have a weekily summary of tasks | manage my time well for the week
 `*` | user with many tasks in the to-do list | sort tasks by name | locate a task easily
 
-
+<!-- @@author A0121643R -->
 ## Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `DoDo-Bird` and the **Actor** is the `user`, unless specified otherwise)
@@ -333,7 +337,7 @@ Use case ends.
 2. DoDo-Bird displays a list of tasks which contain those keywords.
 Use case ends.
 
-
+<!-- @@author A0093896H -->
 ## Appendix C : Non Functional Requirements
 
 1. (Availability/Interoperability) Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed.
@@ -343,7 +347,7 @@ Use case ends.
 5. (Security/Data Integrity) Should encrypt data.
 6. (Reliability/Recoverability) Should be able to attempt to recover data for corrupted data files.
 
-
+<!-- @@author A0138967J -->
 ## Appendix D : Glossary
 
 ##### Mainstream OS
