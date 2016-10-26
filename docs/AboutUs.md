@@ -7,6 +7,7 @@ We are a team based in the [School of Computing, National University of Singapor
 ####Annabel Eng Jing Wen [@annabeleng](http://github.com/annabeleng)  <br>
 <img src="images/AnnabelEng.jpg" width="150"><br>
 **Role**: Team Leader <br>
+* Component in charge of: [Model](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/docs/DeveloperGuide.md#model-component) <br>
 * Aspects/tools in charge of: Documentation <br>
 * Features implemented: <br>
    * [Edit Command](https://github.com/CS2103AUG2016-T13-C3/main/blob/master/docs/UserGuide.md#edit-a-task--edit) <br>
