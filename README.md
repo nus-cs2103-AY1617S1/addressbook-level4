@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/CS2103AUG2016-T09-C4/main/badge.svg?branch=master)](https://coveralls.io/github/CS2103AUG2016-T09-C4/main?branch=master)
 # Unburden
 
-<img src="docs/images/Ui.png" width="600"><br>
+<img src="docs/images/UI_MainPage.jpg" width="600"><br>
 
 * This is a desktop Task Manager application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
