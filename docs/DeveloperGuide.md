@@ -1,4 +1,4 @@
-Ôªø# Developer Guide 
+# Developer Guide 
 
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -363,8 +363,10 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 tasks.
+2. Should be able to hold at least to 1000 tasks.
 3. Should come with automated unit tests and open source code.
+4. Should function fully offline.
+5. Should process a command within 3 seconds.
 
 ## Appendix D : Glossary
 
@@ -382,5 +384,5 @@ Use case ends.
 -------- | :-------- | :--------- | :-----------
 `Platforms` | All platforms | iOS, Android, Google Chrome | iPhone, iPad, Android, Windows, Kindle, Web
 `Price` | Free / Premium ($28.99/year) | Free / Premium ($45/year or $5 per month) | Free / Pro ($59.88/year)
-`Pros` | Good user interface<br>Fastest task manager app Works offline<br>Can set priorities by choosing from 1 to 4. <br>Can drag and drop tasks <br>Can create a ‚ÄúProject‚Äù with emojis in its name  Supports text formatting| Minimalistic design Can ‚ÄúStar‚Äù a task to mark it as high priority Runs at high speed Has in-built speech recognition <br>Can drag and drop tasks <br>
-Can swipe a task to the right to mark it as complete<br> Can swipe a completed task to the left to add it again to the list. <br>Can attach files from your Dropbox and Google Drive  | Simple-to-use <br>Can ‚ÄúStar‚Äù a task to set a priority to a task Hashtags feature<br> Can add comments and attachments Supports email reminder Powerful search function Can restore deleted lists. <br>Can manually create backups and import data from your backups.<br> Can attach files from your Dropbox.`Cons` | The key features are all part of premium plan <br>Not compatible with Windows Phone Search function is limited in free plan <br>Doesn‚Äôt have a backup option for free users | Not intuitive to use Doesn‚Äôt hide a task when it‚Äôs marked as complete.<br> Doesn‚Äôt support email reminders Doesn‚Äôt have a Windows app.<br>  Doesn‚Äôt have a backup option. Doesn‚Äôt support emojis in your list names. Doesn‚Äôt support markdown.| Slow to load <br>Doesn‚Äôt show last synced time <br>Doesn‚Äôt support text formatting
+`Pros` | Good user interface<br>Fastest task manager app Works offline<br>Can set priorities by choosing from 1 to 4. <br>Can drag and drop tasks <br>Can create a ìProjectî with emojis in its name  Supports text formatting| Minimalistic design Can ìStarî a task to mark it as high priority Runs at high speed Has in-built speech recognition <br>Can drag and drop tasks <br>
+Can swipe a task to the right to mark it as complete<br> Can swipe a completed task to the left to add it again to the list. <br>Can attach files from your Dropbox and Google Drive  | Simple-to-use <br>Can ìStarî a task to set a priority to a task Hashtags feature<br> Can add comments and attachments Supports email reminder Powerful search function Can restore deleted lists. <br>Can manually create backups and import data from your backups.<br> Can attach files from your Dropbox.`Cons` | The key features are all part of premium plan <br>Not compatible with Windows Phone Search function is limited in free plan <br>Doesnít have a backup option for free users | Not intuitive to use Doesnít hide a task when itís marked as complete.<br> Doesnít support email reminders Doesnít have a Windows app.<br>  Doesnít have a backup option. Doesnít support emojis in your list names. Doesnít support markdown.| Slow to load <br>Doesnít show last synced time <br>Doesnít support text formatting
