@@ -204,13 +204,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.forgetmenot.commons.UrlUtilTest`
+      e.g. `seedu.address.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.forgetmenot.storage.StorageManagerTest`
+      e.g. `seedu.address.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.forgetmenot.logic.LogicManagerTest`
+      e.g. `seedu.address.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -535,6 +535,50 @@ Day:
 
 ## Appendix E: Product Survey
 
+## Fantastical
+#### Strengths
+
+1. It has a good and clean UI, really simple to use. <br>
+2. It has integration with all iOS products, i.e. mac, iphone, ipad etc. <br>
+3. Includes all CRUD features. <br>
+4. It has a reminder function. <br>
+5. Has a list of all upcoming tasks for the week at the left hand side. <br>
+6. Has natural language processing, can add events using Siri. <br>
+7. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
+8. Automatically syncs with apple calendar, updates and syncs on the go. <br>
+
+#### Weakness
+
+1. Limited features for free users. <br>
+2. Hard to categorise tasks. <br> 
+3. Can be difficult to use for first time users <br>
+4. No support for ipad.
+5. No alert when event is starting
+
+
+## Google Cal
+#### Strengths
+
+1. It has CRUD features. <br>
+2. It can link to external applications such as Gmail and Contacts. <br>
+3. It has cross-platform features.<br>
+3. It has a reminder function.<br>
+4. It can support multiple accounts in one device.<br>
+5. It can create Event, Reminder or Goal.<br>
+6. All task created are automatically grouped and colour coded.<br>
+7. Clean and simple UI.<br>
+8. It can be used online or offline.<br>
+9. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
+
+#### Weakness
+
+1. Does not have done function
+2. Not keyboard friendly
+3. Requires a google account
+4. Does not support floating task
+5. Steep learning curve
+6. Does not support categaries
+7. Reorganising of task is not user friendly
 1. **Fantastical**
 
 1a. It has a good and clean UI, really simple to use. <br>

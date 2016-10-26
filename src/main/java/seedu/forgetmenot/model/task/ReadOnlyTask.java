@@ -7,11 +7,12 @@ package seedu.forgetmenot.model.task;
  */
 public interface ReadOnlyTask {
 
-    Name getName();
+	Name getName();
     Time getStartTime();
     Time getEndTime();
     Recurrence getRecurrence();
     Done getDone();
+    boolean checkOverdue();
     
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

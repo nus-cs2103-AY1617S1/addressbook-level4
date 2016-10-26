@@ -65,7 +65,7 @@ public class MainApp extends Application {
 
         initEventsCenter();
         
-        model.updateFilteredTaskListToShow(isNotDone());
+        model.updateFilteredTaskListToShowNotDone();
     }
 
 
@@ -189,9 +189,5 @@ public class MainApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
-    }
-    
-    public static Predicate<Task> isNotDone() {
-    	return t -> t.getDone().value == false;
     }
 }

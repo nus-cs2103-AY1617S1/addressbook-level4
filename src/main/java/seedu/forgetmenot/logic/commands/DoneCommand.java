@@ -9,6 +9,7 @@ import seedu.forgetmenot.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Mark a task as done identified using it's last displayed index from the task manager.
+ * @@author A0139198N
  */
 public class DoneCommand extends Command {
 
@@ -44,8 +45,10 @@ public class DoneCommand extends Command {
             model.saveToHistory();
             model.doneTask(taskToMark);
             if (taskToMark.getRecurrence().getValue()) {
+                System.out.println(taskToMark.getRecurrence().getRecurFreq());
                 model.addRecurringTask(taskToMark, taskToMark.getRecurrence().getRecurFreq());
             }
+            model.updateFilteredTaskListToShowNotDone();
             
             
         } catch (TaskNotFoundException pnfe) {

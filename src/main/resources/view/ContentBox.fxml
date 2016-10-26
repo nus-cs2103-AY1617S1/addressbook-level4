@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -10,63 +11,64 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.forgetmenot.ui.ContentBox">
+<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.forgetmenot.ui.ContentBox">
    <children>
-      <AnchorPane fx:id="summarypane" prefHeight="50.0">
-         <children>
-            <Label fx:id="summary" alignment="CENTER" contentDisplay="CENTER" layoutX="18.0" layoutY="15.0" prefHeight="62.0" prefWidth="167.0" styleClass="label-header" text=" Summary" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0" />
-         </children>
-      </AnchorPane>
-      <GridPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="378.0" style="-fx-background-color: white;" styleClass="contentbox">
+      <GridPane prefWidth="300.0" style="-fx-background-color: white;" styleClass="contentbox" VBox.vgrow="ALWAYS">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="0.0" prefWidth="0.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="400.0" minWidth="10.0" prefWidth="282.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="315.0" minWidth="10.0" prefWidth="106.0" />
+            <ColumnConstraints hgrow="ALWAYS" />
+          <ColumnConstraints hgrow="ALWAYS" />
+          <ColumnConstraints hgrow="ALWAYS" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints vgrow="ALWAYS" />
+          <RowConstraints vgrow="ALWAYS" />
+          <RowConstraints vgrow="ALWAYS" />
+            <RowConstraints vgrow="ALWAYS" />
+            <RowConstraints vgrow="ALWAYS" />
         </rowConstraints>
          <children>
-            <Label fx:id="alltask" prefHeight="26.0" prefWidth="106.0" text="All tasks" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
-            <Label fx:id="today" text="Today" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Label fx:id="tomorrow" text="Tomorrow" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Label fx:id="someday" text="Upcoming" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-            <Label fx:id="upcoming" text="Floating" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <Label fx:id="dummy1" text="\$dummy1" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <Label fx:id="overdue" style="-fx-text-fill: red;" text="Overdue" textAlignment="CENTER" GridPane.columnIndex="1" />
+            <Label fx:id="today" text="Today" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="tomorrow" text="Tomorrow" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="someday" text="Upcoming" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label fx:id="upcoming" text="Floating" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label fx:id="dummy1" style="-fx-text-fill: red;" text="\$dummy1" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
             <Label fx:id="dummy2" text="2" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <Label fx:id="dummy3" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Label fx:id="dummy4" text="4" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <Label fx:id="dummy5" text="5" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-            <ImageView fx:id="todayicon" fitHeight="51.0" fitWidth="51.0" translateX="18.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+            <ImageView fx:id="todayicon" fitHeight="50.0" fitWidth="50.0" preserveRatio="true" translateX="18.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
                <image>
                   <Image url="@../images/today.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="51.0" fitWidth="51.0" translateX="18.0" GridPane.columnIndex="1">
-               <image>
-                  <Image url="@../images/alltask.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="51.0" fitWidth="51.0" translateX="18.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <ImageView fx:id="tmricon" fitHeight="50.0" fitWidth="50.0" preserveRatio="true" translateX="18.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS">
                <image>
                   <Image url="@../images/tomorrow.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="51.0" fitWidth="51.0" translateX="18.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <ImageView fx:id="upcomingicon" fitHeight="70.0" fitWidth="70.0" preserveRatio="true" translateX="7.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" GridPane.vgrow="ALWAYS">
                <image>
                   <Image url="@../images/upcoming.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="51.0" fitWidth="51.0" translateX="18.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <ImageView fx:id="floatingicon" fitHeight="50.0" fitWidth="50.0" preserveRatio="true" translateX="18.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" GridPane.vgrow="ALWAYS">
                <image>
                   <Image url="@../images/floating.png" />
                </image>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </ImageView>
+            <ImageView fx:id="overdueicon" fitHeight="50.0" fitWidth="50.0" translateX="18.0">
+               <image>
+                  <Image url="@../images/overdueicon.png" />
+               </image>
             </ImageView>
          </children>
+         <padding>
+            <Insets right="5.0" />
+         </padding>
       </GridPane>
    </children>
    <stylesheets>

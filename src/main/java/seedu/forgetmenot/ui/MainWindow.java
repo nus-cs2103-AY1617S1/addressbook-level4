@@ -1,5 +1,7 @@
 package seedu.forgetmenot.ui;
 
+import java.util.function.Predicate;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -14,6 +16,7 @@ import seedu.forgetmenot.commons.events.ui.ExitAppRequestEvent;
 import seedu.forgetmenot.logic.Logic;
 import seedu.forgetmenot.model.UserPrefs;
 import seedu.forgetmenot.model.task.ReadOnlyTask;
+import seedu.forgetmenot.model.task.Task;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -21,7 +24,7 @@ import seedu.forgetmenot.model.task.ReadOnlyTask;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/taskmanagericon.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -37,6 +40,7 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    private FloatingPanel floatingPanel;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -45,7 +49,7 @@ public class MainWindow extends UiPart {
     private String taskManagerName;
     
     @FXML
-    private AnchorPane contentBoxPlaceHolder;
+    private AnchorPane contentBoxPlaceholder;
     
 //    @FXML
 //    private AnchorPane browserPlaceholder;
@@ -64,6 +68,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private AnchorPane floatingPanelPlaceholder;
 
 
     public MainWindow() {
@@ -112,17 +119,28 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
+    	// @@author A0139211R
+    	floatingPanel = FloatingPanel.load(primaryStage, getFloatingPanelPlaceholder(), logic.getFilteredTaskList().filtered(isFloating()));
+    	// @@author A0139211R
     	contentBox = ContentBox.load(primaryStage, getContentBoxPlaceholder(), logic.getFilteredTaskList());
-//        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
     
-    private AnchorPane getContentBoxPlaceholder() {
-    	return contentBoxPlaceHolder;
+    /**
+     * 
+     * @@author A0139211R
+     */
+    private AnchorPane getFloatingPanelPlaceholder() {
+    	return floatingPanelPlaceholder;
     }
+    // @@author A0139211R
+    private AnchorPane getContentBoxPlaceholder() {
+    	return contentBoxPlaceholder;
+    }
+    
     
     private AnchorPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
@@ -194,9 +212,16 @@ public class MainWindow extends UiPart {
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
-    
+    /**
+     * 
+     * @@author A0319211R
+     */
     public ContentBox getContentBox() {
     	return this.contentBox;
+    }
+    
+    public FloatingPanel getFloatingPanel() {
+    	return this.floatingPanel;
     }
     
     /**
@@ -206,13 +231,15 @@ public class MainWindow extends UiPart {
     public void rerenderStatusBarFooter() {
     	statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
     }
-
-/*    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
+    /**
+     * 
+     * @@author A0139198N
+     */
+    public Predicate<ReadOnlyTask> isFloating() {
+    	return t -> t.getStartTime().isMissing() && t.getEndTime().isMissing() && t.getDone().getDoneValue() == false;
+    }
+    public Predicate<ReadOnlyTask> isNotFloating() {
+    	return t -> !(t.getStartTime().isMissing() && t.getEndTime().isMissing());
     }
 
-    public void releaseResources() {
-        browserPanel.freeResources();
-    }
-*/
 }
