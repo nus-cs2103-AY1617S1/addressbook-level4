@@ -138,8 +138,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.name = name;
     }
     
-    public void setTaskDate(String taskDate) {
-        this.taskDate = taskDate;
+    public void setTaskDate(String date) {
+        this.taskDate = date;
     }
     
     public void setStartDate(String startDate) {
@@ -150,8 +150,8 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
         this.endDate = endDate;
     }
     
-    public void setTaskTime(String taskTime) {
-        this.taskTime = taskTime;
+    public void setTaskTime(String time) {
+        this.taskTime = time;
     }
 
     public void setStartTime(String startTime) {
@@ -244,7 +244,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, taskDate, tags, status, taskType);
+        return Objects.hash(name, taskDate, startDate, endDate, taskTime, startTime, endTime, tags, status, taskType);
     }
 
     @Override

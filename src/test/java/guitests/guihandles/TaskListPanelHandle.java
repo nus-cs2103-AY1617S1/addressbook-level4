@@ -26,6 +26,8 @@ public class TaskListPanelHandle extends GuiHandle {
     public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String TASK_LIST_VIEW_ID = "#taskListView";
+    
+    private static final String SCHEDULE_LIST_VIEW_ID = "#scheduleListView";
 
     public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
@@ -37,7 +39,7 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     public ListView<ReadOnlyTask> getListView() {
-        return (ListView<ReadOnlyTask>) getNode(TASK_LIST_VIEW_ID);
+        return (ListView<ReadOnlyTask>) getNode(SCHEDULE_LIST_VIEW_ID);
     }
 
     /**

@@ -108,11 +108,7 @@ public class LogicManagerTest {
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyWhatNow expectedWhatNow,
                                        List<? extends ReadOnlyTask> expectedShownList) throws Exception {
-        
         //Execute the command
-       
-        System.out.println("input command: " + inputCommand);
-        
         CommandResult result = logic.execute(inputCommand);
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
