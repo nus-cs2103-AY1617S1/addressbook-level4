@@ -59,7 +59,7 @@ public class ChangeCommand extends Command{
     private boolean isValidPath(String path) {
         try {
             Paths.get(path);
-        } catch (InvalidPathException | NullPointerException e) {
+        } catch (InvalidPathException e) {
             return false;
         }
         return true;

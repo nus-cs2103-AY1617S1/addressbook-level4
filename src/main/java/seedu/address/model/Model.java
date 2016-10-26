@@ -42,7 +42,7 @@ public interface Model {
 	/** Updates the filter of the filtered task list to filter by the given keywords of the given type */
 	void updateFilteredTaskList(String keyword, String type);
 	
-	/** Updates the filter of the filtered task list to filter by the given tags */
+    /** Updates the filter of the filtered task list to filter by the given tags */
     void updateFilteredTaskListByTags(Set<String> keywords);
 
 	/** Update the task manager to the new file path */

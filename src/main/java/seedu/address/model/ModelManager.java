@@ -174,6 +174,7 @@ public class ModelManager extends ComponentManager implements Model {
         case DONE:
         case UNDONE:
             updateFilteredTaskList(new PredicateExpression(new DoneQualifier(type)));
+            break;
         default:
             updateFilteredListToShowAll();
             break;
