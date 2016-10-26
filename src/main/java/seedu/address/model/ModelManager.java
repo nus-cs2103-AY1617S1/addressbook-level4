@@ -15,6 +15,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -132,6 +133,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override 
+    
     public synchronized void editTask(ReadOnlyTask target, String args, char category) throws TaskNotFoundException, IllegalValueException {
         addressBook.changeTask(target, args, category);
         //updateFilteredListToShowAll(); // why was this line commented out?
@@ -163,6 +165,17 @@ public class ModelManager extends ComponentManager implements Model {
     		};
     	};
     	scheduler.scheduleAtFixedRate(overdue, 0, 30, TimeUnit.SECONDS); 
+    }
+    //@@author A0139430L JingRui
+    @Override
+    public synchronized void changeTaskCategory() {
+        try {
+            addressBook.changeTaskCategory();
+        } catch (DuplicateTaskException | TaskNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        indicateAddressBookChanged();
     }
     //=========== Filtered Task List Accessors ===============================================================
 

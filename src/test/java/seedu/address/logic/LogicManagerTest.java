@@ -177,7 +177,7 @@ public class LogicManagerTest {
                 "add deadlines; 121212; 12.30am #..", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
-
+  //@@author A0139430L JingRui
     @Test
     public void execute_add_Event_successful() throws Exception {
         // setup expectations
@@ -195,6 +195,7 @@ public class LogicManagerTest {
                 expectedAB.getTodoList());
 
     }
+  //@@author A0139430L JingRui
     @Test
     public void execute_add_Deadline_successful() throws Exception {
         // setup expectations
@@ -211,6 +212,7 @@ public class LogicManagerTest {
                 expectedAB.getTodoList());
         
     }
+  //@@author A0139430L JingRui
     @Test
     public void execute_add_Todo_successful() throws Exception {
         // setup expectations
@@ -228,7 +230,7 @@ public class LogicManagerTest {
                 expectedAB.getTodoList());
 
     }
-
+  //@@author A0139430L JingRui
     @Test
     public void execute_addDuplicateEvent_notAllowed() throws Exception {
         // setup expectations
@@ -249,7 +251,7 @@ public class LogicManagerTest {
                 Collections.emptyList(),
                 Collections.emptyList());
     }
-    
+  //@@author A0139430L JingRui
     @Test
     public void execute_addDuplicateDeadline_notAllowed() throws Exception {
         // setup expectations
@@ -270,7 +272,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 Collections.emptyList());
     }
-
+  //@@author A0139430L JingRui
     @Test
     public void execute_addDuplicateTodo_notAllowed() throws Exception {
         // setup expectations
@@ -293,7 +295,7 @@ public class LogicManagerTest {
     }
 
 
-
+  //@@author A0139430L JingRui
     @Test
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
@@ -629,7 +631,7 @@ public class LogicManagerTest {
         assertEquals(model.getFilteredEventList().get(1), threePersons.get(1));
     }
 */
-
+  //@@author A0139430L JingRui
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
@@ -642,7 +644,7 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("delete D5");
         assertIndexNotFoundBehaviorForCommand("delete T5");
     }
-
+  //@@author A0139430L JingRui
     @Test
     public void execute_delete_removesCorrectEvent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -662,7 +664,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
-    
+  //@@author A0139430L JingRui
     @Test
     public void execute_delete_removesCorrectDeadline() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -682,7 +684,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
-    
+  //@@author A0139430L JingRui
     @Test
     public void execute_delete_removesCorrectTodo() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -702,7 +704,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
-    
+  //@@author A0139430L JingRui
     @Test
     public void execute_delete_removesCorrectPersonsEventMultiple() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -723,7 +725,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
-    
+  //@@author A0139430L JingRui
     @Test
     public void execute_delete_removesCorrectEventRange() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -744,7 +746,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
-    
+  //@@author A0139430L JingRui
     @Test
     public void execute_delete_removesCorrectDeadlineRange() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -765,6 +767,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+  //@@author A0139430L JingRui
     @Test
     public void execute_delete_removesCorrectDeadlineMultiple() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -785,6 +788,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+  //@@author A0139430L JingRui
     @Test
     public void execute_delete_removesCorrectTodoRange() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -805,6 +809,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+  //@@author A0139430L JingRui
     @Test
     public void execute_delete_removesCorrectTodoMultiple() throws Exception {
         TestDataHelper helper = new TestDataHelper();
@@ -825,13 +830,13 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
-    
+  //@@author A0139430L JingRui
     @Test
     public void execute_editInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("edit", expectedMessage);
     }
-    
+  //@@author A0139430L JingRui
     @Test
     public void execute_editIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("edit E5 des sadas");
@@ -855,7 +860,7 @@ public class LogicManagerTest {
         assertIndexNotFoundBehaviorForCommand("edit T5 tag love");
         assertIndexNotFoundBehaviorForCommand("edit T5 tag love>this");
     }
-    
+  //@@author A0139430L JingRui
     @Test
     public void execute_edit_editCorrectEventName() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
@@ -877,6 +882,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+  //@@author A0139430L JingRui
     @Test
     public void execute_edit_editCorrectEventDate() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
@@ -898,6 +904,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+  //@@author A0139430L JingRui
     @Test
     public void execute_edit_editCorrectEventStart() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
@@ -919,6 +926,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+  //@@author A0139430L JingRui
     @Test
     public void execute_edit_editCorrectEventEnd() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
@@ -940,7 +948,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
-    
+  //@@author A0139430L JingRui
     @Test
     public void execute_edit_editCorrectEventSpecificTag() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
@@ -962,6 +970,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+  //@@author A0139430L JingRui
     @Test
     public void execute_edit_editCorrectEventTag() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
@@ -983,6 +992,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+  //@@author A0139430L JingRui
     @Test
     public void execute_edit_addTagSingle() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
@@ -1004,6 +1014,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+  //@@author A0139430L JingRui
     @Test
     public void execute_edit_addTagMultiple() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
@@ -1025,6 +1036,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+  //@@author A0139430L JingRui
     @Test
     public void execute_edit_editCorrectDeadlineName() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
@@ -1046,6 +1058,7 @@ public class LogicManagerTest {
                 expectedAB.getDeadlineList(),
                 expectedAB.getTodoList());
     }
+  //@@author A0139430L JingRui
     @Test
     public void execute_edit_editCorrectTodoName() throws Exception {      
         TestDataHelper helper = new TestDataHelper();
