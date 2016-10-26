@@ -23,6 +23,7 @@ public class RedoChangeCommand extends Command {
         }
         model.redoUpdateTaskManager(isToClearOld);
         redoable = false;
+        UndoChangeCommand.undoable = true;
         return new CommandResult(MESSAGE_CHANGE_SUCCESS);
     }
     

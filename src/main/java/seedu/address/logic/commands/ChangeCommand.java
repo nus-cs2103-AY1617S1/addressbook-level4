@@ -56,6 +56,7 @@ public class ChangeCommand extends Command{
         }
         model.updateTaskManager(filePath, isToClearOld);
         UndoChangeCommand.undoable = true;
+        RedoChangeCommand.redoable = false;
         RedoChangeCommand.isToClearOld = isToClearOld;
         return new CommandResult(MESSAGE_CHANGE_SUCCESS);
     }
