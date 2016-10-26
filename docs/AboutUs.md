@@ -51,6 +51,7 @@ We are a group of highly motivated and hardworking students working on our CS210
 * Features implemented:
   *  [Adding tasks] (https://github.com/CS2103AUG2016-T11-C1/main/blob/master/docs/UserGuide.md#adding-a-task--add)
   *  [Displaying tasks](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/docs/UserGuide.md#displaying-tasks--show)
+  *  [Clearing tasks](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/docs/UserGuide.md#clear-all-tasks--clear)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/main/A0142102E.md)][[test code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/test/A0142102E.md)][[docs](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/docs/A0142102E.md)]
 * Other major contributions:
   *  
@@ -67,6 +68,8 @@ We are a group of highly motivated and hardworking students working on our CS210
 * Features implemented:
   *  [Adding tasks] (https://github.com/CS2103AUG2016-T11-C1/main/blob/master/docs/UserGuide.md#adding-a-task--add)
   *  [Deleting tasks](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/docs/UserGuide.md#deleting-a-task--delete)
+  *  [Auto-complete feature for commands in the command box] (https://github.com/CS2103AUG2016-T11-C1/main/blob/master/docs/UserGuide.md#autocomplete-feature-tab-button)
+  *  [Checking command history in the command box](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/docs/UserGuide.md#command-history-up-and-down-arrows)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/main/A0146107M.md)][[test code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/test/A0146107M.md)][[docs](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/docs/A0146107M.md)]
 * Other major contributions:
   *  Contributed to the initial refactoring from AddressBook to SmartScheduler ([#41](https://github.com/CS2103AUG2016-T11-C1/main/pull/41))

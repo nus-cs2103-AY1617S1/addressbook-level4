@@ -162,7 +162,7 @@ Format: `redo`
 
 /* @@author A0146107M*/
 
-#### Autocomplete feature: TAB button
+#### Autocomplete feature: `TAB` button
 Autocomplete the command that has been entered halfway in the command box.
 Format: NIL
 
@@ -173,7 +173,7 @@ Examples:
 * Pressing TAB after entering `u` will do nothing, as both `undo` and `update` match `u`
 * Pressing TAB after entering `un` will complete `undo`
 
-#### Command History: UP and DOWN arrows
+#### Command History: `UP` and `DOWN` arrows
 Traverse through previously entered commands.
 Format: NIL
 
