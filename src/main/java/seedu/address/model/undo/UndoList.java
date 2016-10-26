@@ -40,9 +40,11 @@ public class UndoList {
         }
     }
 
-    /*
+    /**
      * Removes a Undo action to the front of the list.
-     */
+     * @return UndoTask, or null if no actions to undo
+     * 
+     **/
     public UndoTask removeFromFront(){
         if (size == 0) {
             return null;
