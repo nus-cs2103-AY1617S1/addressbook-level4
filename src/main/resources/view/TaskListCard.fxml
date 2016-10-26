@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -11,7 +17,7 @@
 <?import javafx.scene.shape.Ellipse?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="cardPane" minHeight="40.0" prefHeight="50.0" prefWidth="630.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<HBox fx:id="cardPane" minHeight="40.0" prefHeight="50.0" prefWidth="630.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <GridPane minHeight="50.0" prefHeight="50.0" translateY="5.0" HBox.hgrow="ALWAYS">
             
@@ -41,16 +47,18 @@
                      </opaqueInsets>
                   </Label>
                           <HBox GridPane.columnIndex="1">
-                              <Label fx:id="name" styleClass="cell_big_label" text="\$first" translateX="10.0">
-                        <font>
-                           <Font name="Cambria" size="16.0" />
-                        </font>
-                     </Label>
-                             <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" translateX="15.0" translateY="4.0">
-                        <graphic>
-                           <Ellipse fill="DODGERBLUE" radiusX="5.0" radiusY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" />
-                        </graphic>
-                     </Label>
+                             <children>
+                                 <Label fx:id="name" styleClass="cell_big_label" text="\$first" translateX="10.0">
+                           <font>
+                              <Font name="Cambria" size="16.0" />
+                           </font>
+                        </Label>
+                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" translateX="15.0" translateY="4.0">
+                           <graphic>
+                              <Ellipse fill="DODGERBLUE" radiusX="5.0" radiusY="5.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" visible="false" />
+                           </graphic>
+                        </Label>
+                             </children>
                           </HBox>
                   <Circle fx:id="priorityLevel" fill="#1fff4d" radius="6.0" scaleX="1.1" scaleY="1.1" scaleZ="1.1" stroke="BLACK" strokeType="INSIDE" translateX="35.0" />
                </children>
@@ -60,9 +68,9 @@
                   <Insets bottom="2.0" left="-20.0" right="2.0" top="2.0" />
                </padding>
                <children>
-                        <Label fx:id="onDate" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="168.0" styleClass="cell_small_label" text="\$onDate" translateY="-18.0" />
-                        <Label fx:id="byDate" prefHeight="17.0" prefWidth="174.0" styleClass="cell_small_label" text="\$byDate" translateY="-18.0" />
-                  <Label fx:id="priority" prefHeight="17.0" prefWidth="174.0" styleClass="cell_small_label" text="\$priority" translateX="-150.0" translateY="-45.0" />
+                        <Label fx:id="onDate" contentDisplay="RIGHT" minWidth="150.0" prefHeight="17.0" prefWidth="168.0" styleClass="cell_small_label" text="\$onDate" translateX="-30.0" translateY="-20.0" />
+                        <Label fx:id="byDate" minWidth="150.0" prefHeight="17.0" prefWidth="150.0" styleClass="cell_small_label" text="\$byDate" translateX="-30.0" translateY="-18.0" />
+                  <Label fx:id="priority" prefHeight="17.0" prefWidth="174.0" styleClass="cell_small_label" text="\$priority" translateX="-140.0" translateY="-45.0" />
                </children>
             </VBox>
             </children>
