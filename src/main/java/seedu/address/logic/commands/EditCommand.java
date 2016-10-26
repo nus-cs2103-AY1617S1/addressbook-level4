@@ -6,6 +6,7 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.CommandUtil;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Datetime;
@@ -29,7 +30,7 @@ public class EditCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) FIELD_TO_EDIT(include delimiter d/, date/, t/ etc)\n"
             + "Example: " + COMMAND_WORD + " 1 do that instead date/13-10-16";
 
-    public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
 
     private ReadOnlyTask toEdit;
     private Task toAdd;
@@ -69,26 +70,26 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute() {
-
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredDatedTaskList();
+        assert model != null;
+        
+        UnmodifiableObservableList<ReadOnlyTask> lastDatedTaskList = model.getFilteredDatedTaskList();
         UnmodifiableObservableList<ReadOnlyTask> lastUndatedTaskList = model.getFilteredUndatedTaskList();
 
-        if (targetIndex <= PersonListPanel.DATED_DISPLAY_INDEX_OFFSET 
-                && lastUndatedTaskList.size() >= targetIndex){
-            toEdit = lastUndatedTaskList.get(targetIndex - 1);
-        }
-        else if (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET 
-                && lastShownList.size() >= targetIndex - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET){
-            toEdit = lastShownList.get(targetIndex - 1 - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
-        }
-        else {
+        if (!CommandUtil.isValidIndex(targetIndex, lastUndatedTaskList.size(), 
+                lastDatedTaskList.size(), PersonListPanel.DATED_DISPLAY_INDEX_OFFSET)){
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+        
+        if (targetIndex > PersonListPanel.DATED_DISPLAY_INDEX_OFFSET) {
+            toEdit = lastDatedTaskList.get(targetIndex - 1 - PersonListPanel.DATED_DISPLAY_INDEX_OFFSET);
+        }
+        else {
+            toEdit = lastUndatedTaskList.get(targetIndex - 1);
         }
 
         populateEditedTaskFields();
 
-        assert model != null;
         try {
             model.deleteTask(toEdit);
             model.addTask(toAdd);
@@ -101,7 +102,7 @@ public class EditCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, toAdd));
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, toAdd));
     }
 
     // use original task as base, insert fields that have been input in edit

@@ -295,7 +295,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB, expectedAB.getDatedTaskList(),
                 expectedAB.getUndatedTaskList());
         assertEquals(1, targetedJumpIndex);
@@ -397,7 +397,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateEditCommand(1, 1, "new name"),
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, toBeEdited),
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, toBeEdited),
                 expectedAB, expectedAB.getDatedTaskList(),
                 expectedAB.getUndatedTaskList());
     }
@@ -534,7 +534,7 @@ public class LogicManagerTest {
     	
         // execute command and verify result
         assertCommandBehavior(editInput,
-                    String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedTask),
+                    String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, editedTask),
                     expectedTB, expectedTB.getDatedTasks(),
                     expectedTB.getUndatedTaskList());
     }
