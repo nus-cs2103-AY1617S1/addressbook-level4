@@ -1,4 +1,4 @@
-# User Guide
+﻿# User Guide
 
 * [Getting Started](#getting-started)
 * [Features](#features)
@@ -16,8 +16,9 @@
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-6. Refer to the [Features](#features) section below for details of each command.<br>5. Some example commands you can try:
-   * **`add do homework from 12.00pm to 01.00pm by 03.00pm #homework`** : adds a task `Practice do homework` for the today from 12pm to 1pm with deadline set at 3pm tagged `homework`
+5. Refer to the [Features](#features) section below for details of each command.<br>
+6. Some example commands you can try:
+   * **`add do homework, from noon to 1pm by 3pm #homework`** : adds a task `do homework` for today from 12pm to 1pm with deadline set at 3pm tagged `homework`
    * **`edit 2 morning class at 08.00am to 10.00am`** :  updates information stored
    * **`list`** : lists all tasks in order of index
    * **`delete`** : deletes the 1st indexed task
@@ -36,10 +37,10 @@ Format: `help`
 
 #### Adding a task: `add`
 Adds a task to the TaskManager<br>
-Format: `add TASKNAME [from START_TIME] [to END_TIME] [by DEADLINE] [#TAG...]` 
+Format: `add TASKNAME, [from START_TIME] [to END_TIME] [by DEADLINE] [#TAG...]` 
 
 > All additional information after `TASK_NAME` are optional
-> Each task can have up to 5 tags
+> Each task can have unlimited number of tags
 
 Examples: 
 * `add project team meeting, from 01.00pm to 03.00pm #CS2103`
@@ -98,19 +99,15 @@ Examples:
 
 #### Undo the modification : `undo`
 Undo the modification in the last step.<br>
-Format: `undo`   
+Format: `undo`  
 
-#### Done a task : `done`
-Change the status of a task to done.<br>
-Format: `done TASK INDEX` 
-
-#### Undone a task : `undone`
-Change the status of a task to undone.<br>
-Format: `undone TASK INDEX` 
+#### Redo the undone modification : `redo`
+Redo the undone modification in the last step.<br>
+Format: `redo`  
 
 #### Change working directory : `directory`
 Change data file being accessed, effectively using another TaskManager list.<br>
-A manual restart of the application is required, thus TaskManager will close itself.
+A manual restart of the application is required for non-Windows OS, thus TaskManager will close itself.
 Format: `directory PATH`  
 Examples: 
 * `directory C:/Documents and Settings/User/Desktop/TaskManager2`
@@ -122,6 +119,9 @@ Format: `backup PATH`
 Examples: 
 * `backup C:/Documents and Settings/User/Desktop/TaskManagerBackup`
 * `backup data/backup/backup1`
+Wrong Examples: 
+* `backup C:/TaskManagerBackup` - TaskManager does not have permission to write in root folder of C drive
+* `backup data/backup/backup<1>` - Invalid characters `<` and `>`
 
 #### Clearing all entries : `clear`
 Clears all entries from the TaskManager.<br>
@@ -154,8 +154,7 @@ Delete | `delete INDEX`
 List | `list [DATA_TYPE]`
 Find | `find KEYWORD`
 Undo | `undo`
-Done | `done INDEX TASKNAME`
-Undone | `undone INDEX TASKNAME`
+Redo | `redo`
 Set Directory | `directory PATH `
 Backup | `backup PATH `
 Clear | `clear`
