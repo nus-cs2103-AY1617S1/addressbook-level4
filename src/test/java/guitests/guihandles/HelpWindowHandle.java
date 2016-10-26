@@ -1,7 +1,9 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
+import tars.ui.MainWindow;
 
 /**
  * Provides a handle to the help window of the app.
@@ -17,12 +19,8 @@ public class HelpWindowHandle extends GuiHandle {
     }
 
     public boolean isWindowOpen() {
-        return getNode(HELP_WINDOW_ROOT_FIELD_ID) != null;
+        return ((TabPane) getNode("#tabPane")).getSelectionModel().isSelected(MainWindow.helpPanelTabPaneIndex);
     }
 
-    public void closeWindow() {
-        super.closeWindow();
-        guiRobot.sleep(500);
-    }
 
 }

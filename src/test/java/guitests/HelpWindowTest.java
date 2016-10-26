@@ -12,12 +12,11 @@ public class HelpWindowTest extends TarsGuiTest {
 
         taskListPanel.clickOnListView();
 
-        assertHelpWindowOpen(commandBox.runHelpCommand());
+        assertHelpPanelSelected(commandBox.runHelpCommand());
 
     }
 
-    private void assertHelpWindowOpen(HelpWindowHandle helpWindowHandle) {
+    private void assertHelpPanelSelected(HelpWindowHandle helpWindowHandle) {
         assertTrue(helpWindowHandle.isWindowOpen());
-        helpWindowHandle.closeWindow();
     }
 }
