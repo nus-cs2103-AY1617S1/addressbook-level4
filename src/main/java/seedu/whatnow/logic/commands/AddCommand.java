@@ -1,11 +1,7 @@
 package seedu.whatnow.logic.commands;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import seedu.whatnow.commons.exceptions.IllegalValueException;
@@ -50,6 +46,12 @@ public class AddCommand extends UndoAndRedo {
 	    
 	    if (date != null || startDate != null || endDate != null) {
 	        validateDate = new TaskDate(date, startDate, endDate);
+	        if (date != null) {
+	            date = validateDate.getDate();
+	        } else if (startDate != null) {
+	            startDate = validateDate.getStartDate();
+	            endDate = validateDate.getEndDate();
+	        }
 	    }
 	    
 	    final Set<Tag> tagSet = new HashSet<>();
@@ -66,31 +68,43 @@ public class AddCommand extends UndoAndRedo {
 		try {
 			model.addTask(toAdd);
 			model.getUndoStack().push(this);
-			return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+			model.getDeletedStackOfTasksAdd().push(toAdd);
 		} catch (UniqueTaskList.DuplicateTaskException e) {
 			return new CommandResult(MESSAGE_DUPLICATE_TASK);
 		}
+		return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
 	}
 
+	//@@author A0139128A
 	@Override
 	public CommandResult undo() {
 		assert model != null;
+		if(model.getDeletedStackOfTasksAdd().isEmpty()) {
+			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
+		}
 		try {
-			model.deleteTask(toAdd);
-			return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
+			ReadOnlyTask reqTask = model.getDeletedStackOfTasksAdd().pop();
+			model.getDeletedStackOfTasksAddRedo().push(reqTask);
+			model.deleteTask(reqTask);
 		} catch (TaskNotFoundException pnfe) {
 			return new CommandResult(String.format(UndoCommand.MESSAGE_FAIL));
 		} 
+		return new CommandResult(String.format(UndoCommand.MESSAGE_SUCCESS));
 	}
-
+	
+	//@@author A0139128A
 	@Override
 	public CommandResult redo() {
 		assert model != null;
+		if(model.getDeletedStackOfTasksAddRedo().isEmpty()) {
+			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));		}
 		try {
-			model.addTask(toAdd);
-			return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
+			ReadOnlyTask reqTask = model.getDeletedStackOfTasksAddRedo().pop();
+			model.getDeletedStackOfTasksAdd().push(reqTask);
+			model.addTask((Task)reqTask);
 		} catch (DuplicateTaskException e) {
 			return new CommandResult(String.format(RedoCommand.MESSAGE_FAIL));
 		}
+		return new CommandResult(String.format(RedoCommand.MESSAGE_SUCCESS));
 	}
 }

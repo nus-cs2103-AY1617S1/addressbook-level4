@@ -29,125 +29,114 @@ import java.util.logging.Logger;
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
-    private static final String TASK_TYPE_FLOATING = "floating";
-    private static final String TASK_TYPE_NOT_FLOATING = "not_floating";
-    private static final String TASK_STATUS_COMPLETED = "completed";
-    private static final String TASK_STATUS_INCOMPLETE = "incomplete";
 
-    private final WhatNow whatNow;
-    private final FilteredList<Task> filteredTasks;
-    private final FilteredList<Task> filteredSchedules;
-    private final FilteredList<Task> backUpFilteredTasks;
-    private final FilteredList<Task> backUpFilteredSchedules;
-    private final Stack<Command> stackOfUndo;
-    private final Stack<Command> stackOfRedo;
-    private final Stack<ReadOnlyTask> stackOfOldTask;
-    private final Stack<ReadOnlyTask> stackOfNewTask;
-    private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
-    private final Stack<ReadOnlyTask> stackOfDeletedTasks;
-    private final Stack<String> stackOfDeletedTaskTypes;
-    private final Stack<ReadOnlyTask> stackOfMarkDone;
-    private final Stack<ReadOnlyTask> stackOfMarkUndone;
-    private final Stack<String> stackOfMarkDoneTaskTypes;
-    private final Stack<String> stackOfMarkUndoneTaskTypes;
-    private final Stack<ReadOnlyWhatNow> stackOfWhatNowUndoUpdate;
-    private final Stack<ReadOnlyWhatNow> stackOfWhatNowRedoUpdate;
+	private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
+	private static final String TASK_TYPE_FLOATING = "floating";
+	private static final String TASK_TYPE_NOT_FLOATING = "not_floating";
+	private static final String TASK_STATUS_COMPLETED = "completed";
+	private static final String TASK_STATUS_INCOMPLETE = "incomplete";
 
-    /**
-     * Initializes a ModelManager with the given WhatNow
-     * WhatNow and its variables should not be null
-     */
-    public ModelManager(WhatNow src, UserPrefs userPrefs) {
-        super();
-        assert src != null;
-        assert userPrefs != null;
+	private final WhatNow whatNow;
+	private final FilteredList<Task> filteredTasks;
+	private final FilteredList<Task> filteredSchedules;
+	private final Stack<Command> stackOfUndo;
+	private final Stack<Command> stackOfRedo;
+	private final Stack<ReadOnlyTask> stackOfOldTask;
+	private final Stack<ReadOnlyTask> stackOfNewTask;
+	private final Stack<ReadOnlyWhatNow> stackOfWhatNow;
+	private final Stack<ReadOnlyTask> stackOfDeletedTasks;
+	private final Stack<ReadOnlyTask> stackOfDeletedTasksRedo;
+	private final Stack<ReadOnlyTask> stackOfDeletedTasksAdd;
+	private final Stack<ReadOnlyTask> stackOfDeletedTasksAddRedo;
+	private final Stack<ReadOnlyTask> stackOfMarkDone;
+	private final Stack<ReadOnlyTask> stackOfMarkUndone;
+	private final Stack<String> stackOfMarkDoneTaskTypes;
+	private final Stack<String> stackOfMarkUndoneTaskTypes;
+	private final Stack<String> stackOfListTypes;
+	private final Stack<String> stackOfListTypesRedo;
+	
+	/**
+	 * Initializes a ModelManager with the given WhatNow
+	 * WhatNow and its variables should not be null
+	 */
+	public ModelManager(WhatNow src, UserPrefs userPrefs) {
+		super();
+		assert src != null;
+		assert userPrefs != null;
 
-        logger.fine("Initializing with WhatNow: " + src + " and user prefs " + userPrefs);
+		logger.fine("Initializing with WhatNow: " + src + " and user prefs " + userPrefs);
 
-        whatNow = new WhatNow(src);
-        new Config();
-        filteredTasks = new FilteredList<>(whatNow.getTasks());
-        filteredSchedules = new FilteredList<>(whatNow.getTasks());
-        stackOfUndo = new Stack<>();
-        stackOfRedo = new Stack<>();
-        backUpFilteredTasks = new FilteredList<>(whatNow.getTasks());
-        backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
-        stackOfOldTask = new Stack<>();
-        stackOfNewTask = new Stack<>();
-        stackOfWhatNow = new Stack<>();
-        stackOfDeletedTasks = new Stack<>();
-        stackOfDeletedTaskTypes = new Stack<>();
-        stackOfMarkDone= new Stack<>();
-        stackOfMarkUndone= new Stack<>();
-        stackOfMarkDoneTaskTypes = new Stack<>();
-        stackOfMarkUndoneTaskTypes = new Stack<>();
-        stackOfWhatNowUndoUpdate = new Stack<>();
-        stackOfWhatNowRedoUpdate = new Stack<>();
-    }
+		whatNow = new WhatNow(src);
+		new Config();
+		filteredTasks = new FilteredList<>(whatNow.getTasks());
+		filteredSchedules = new FilteredList<>(whatNow.getTasks());
+		stackOfUndo = new Stack<>();
+		stackOfRedo = new Stack<>();
+		stackOfOldTask = new Stack<>();
+		stackOfNewTask = new Stack<>();
+		stackOfWhatNow = new Stack<>();
+		stackOfDeletedTasks = new Stack<>();
+		stackOfDeletedTasksRedo = new Stack<>();
+		stackOfDeletedTasksAdd = new Stack<>();
+		stackOfDeletedTasksAddRedo = new Stack<>();
+		stackOfMarkDone= new Stack<>();
+		stackOfMarkUndone = new Stack<>();
+		stackOfMarkDoneTaskTypes = new Stack<>();
+		stackOfMarkUndoneTaskTypes = new Stack<>();
+		stackOfListTypes = new Stack<>();
+		stackOfListTypesRedo = new Stack<>();
+	}
 
-    public ModelManager() {
-        this(new WhatNow(), new UserPrefs());
-    }
+	public ModelManager() {
+		this(new WhatNow(), new UserPrefs());
+	}
 
-    public ModelManager(ReadOnlyWhatNow initialData, UserPrefs userPrefs) {
-        whatNow = new WhatNow(initialData);
-        new Config();
-        filteredTasks = new FilteredList<>(whatNow.getTasks());
-        filteredSchedules = new FilteredList<>(whatNow.getTasks());
-        stackOfUndo =  new Stack<>();
-        stackOfRedo = new Stack<>();
-        backUpFilteredTasks = new FilteredList<>(whatNow.getTasks());
-        backUpFilteredSchedules = new FilteredList<>(whatNow.getTasks());
-        stackOfOldTask = new Stack<>();
-        stackOfNewTask = new Stack<>();
-        stackOfWhatNow = new Stack<>();
-        stackOfDeletedTasks = new Stack<>();
-        stackOfDeletedTaskTypes = new Stack<>();
-        stackOfMarkDone = new Stack<>();
-        stackOfMarkUndone = new Stack<>();
-        stackOfMarkDoneTaskTypes = new Stack<>();
-        stackOfMarkUndoneTaskTypes = new Stack<>();
-        stackOfWhatNowUndoUpdate = new Stack<>();
-        stackOfWhatNowRedoUpdate = new Stack<>();
-    }
+	public ModelManager(ReadOnlyWhatNow initialData, UserPrefs userPrefs) {
+		whatNow = new WhatNow(initialData);
+		new Config();
+		filteredTasks = new FilteredList<>(whatNow.getTasks());
+		filteredSchedules = new FilteredList<>(whatNow.getTasks());
+		stackOfUndo =  new Stack<>();
+		stackOfRedo = new Stack<>();
+		stackOfOldTask = new Stack<>();
+		stackOfNewTask = new Stack<>();
+		stackOfWhatNow = new Stack<>();
+		stackOfDeletedTasks = new Stack<>();
+		stackOfDeletedTasksRedo = new Stack<>();
+		stackOfDeletedTasksAdd = new Stack<>();
+		stackOfDeletedTasksAddRedo = new Stack<>();
+		stackOfMarkDone = new Stack<>();
+		stackOfMarkUndone = new Stack<>();
+		stackOfMarkDoneTaskTypes = new Stack<>();
+		stackOfMarkUndoneTaskTypes = new Stack<>();
+		stackOfListTypes = new Stack<>();
+		stackOfListTypesRedo = new Stack<>();
+	}
 
-    @Override
-    public void resetData(ReadOnlyWhatNow newData) {
-    	stackOfWhatNow.push(new WhatNow(whatNow));
-    	whatNow.resetData(newData);
-        indicateWhatNowChanged();
-    }
-    
-    @Override
+	@Override
+	public void resetData(ReadOnlyWhatNow newData) {
+		stackOfWhatNow.push(new WhatNow(whatNow));
+		whatNow.resetData(newData);
+		indicateWhatNowChanged();
+	}
+
+	@Override
 	public synchronized void revertData() {
 		whatNow.revertEmptyWhatNow(stackOfWhatNow.pop());
 		indicateWhatNowChanged();
 	}
 
-    @Override
-    public synchronized void revertDataUpdate() {
-    	stackOfWhatNowRedoUpdate.push(stackOfWhatNowUndoUpdate.peek());
-    	whatNow.revertEmptyWhatNow(stackOfWhatNowUndoUpdate.pop());
-    	indicateWhatNowChanged();
-    }
-    @Override
-    public synchronized void revertToPrevDataUpdate() {
-    	stackOfWhatNowUndoUpdate.push(stackOfWhatNowRedoUpdate.peek());
-    	whatNow.revertEmptyWhatNow(stackOfWhatNowRedoUpdate.pop());	
-    	indicateWhatNowChanged();
-    }
-    @Override
-    public ReadOnlyWhatNow getWhatNow() {
-        return whatNow;
-    }
+	@Override
+	public ReadOnlyWhatNow getWhatNow() {
+		return whatNow;
+	}
 
-    /** Raises an event to indicate the model has changed */
-    private void indicateWhatNowChanged() {
-        raise(new WhatNowChangedEvent(whatNow));
-    }
-
-    /** Raises an event to indicate the config has changed */
+	/** Raises an event to indicate the model has changed */
+	private void indicateWhatNowChanged() {
+		raise(new WhatNowChangedEvent(whatNow));
+	}
+	
+	/** Raises an event to indicate the config has changed */
     private void indicateConfigChanged(Path destination, Config config) {
         raise(new ConfigChangedEvent(destination, config));
     }
@@ -157,342 +146,347 @@ public class ModelManager extends ComponentManager implements Model {
         indicateConfigChanged(destination, config);
         indicateWhatNowChanged();
     }
-    
-    @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        stackOfDeletedTasks.push(target);
-    	whatNow.removeTask(target);
-        indicateWhatNowChanged();
-    }
-    @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        whatNow.addTask(task);
-        updateFilteredListToShowAll();
-        indicateWhatNowChanged();
-    }
-    @Override
-    public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
-        stackOfWhatNowUndoUpdate.push(new WhatNow(whatNow));
-    	stackOfOldTask.push(old);
-    	whatNow.updateTask(old, toUpdate);
-        indicateWhatNowChanged();
-    }
-    @Override
-    public synchronized void undoUpdateTask(ReadOnlyTask toUpdate, Task old) throws TaskNotFoundException, DuplicateTaskException {
-        stackOfNewTask.push(old);
-    	whatNow.updateTask(old, (Task) toUpdate);
-    	indicateWhatNowChanged();
-    }
-    @Override
-    public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
-        whatNow.markTask(target);
-        indicateWhatNowChanged();
-    }
 
-    @Override
-    public synchronized void unMarkTask(ReadOnlyTask target) throws TaskNotFoundException {
-        whatNow.unMarkTask(target);
-        indicateWhatNowChanged();
-    }
-    @Override
-    public Stack<Command> getUndoStack() {
-        return stackOfUndo;
-    }
-    @Override
-    public Stack<Command> getRedoStack() {
-        return stackOfRedo;
-    }
-    @Override
-    public Stack<ReadOnlyTask> getOldTask() {
-        return stackOfOldTask;
-    }
-    @Override
-    public Stack<ReadOnlyTask> getNewTask() {
-        return stackOfNewTask;
-    }
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList() {
-        filteredTasks.setPredicate(null);
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
-    @Override
-    public Stack<ReadOnlyTask> getDeletedStackOfTask() {
-        return stackOfDeletedTasks;
-    }
-    @Override
-    public Stack<String> getDeletedStackOfTaskType() {
-        return stackOfDeletedTaskTypes;
-    }
-    @Override
-    public Stack<ReadOnlyTask> getStackOfMarkDoneTask() {
-        return stackOfMarkDone;
-    }
+	@Override
+	public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+		whatNow.removeTask(target);
+		indicateWhatNowChanged();
+	}
+	
+	@Override
+	public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+		whatNow.addTask(task);
+		updateFilteredListToShowAll();
+		indicateWhatNowChanged();
+	}
 
-    @Override
-    public Stack<ReadOnlyTask> getStackOfMarkUndoneTask() {
-        return stackOfMarkUndone;
-    }
-    @Override
-    public Stack<String> getStackOfMarkDoneTaskTaskType() {
-        return stackOfMarkDoneTaskTypes;
-    }
-    @Override
-    public Stack<String> getStackOfMarkUndoneTaskTaskType() {
-        return stackOfMarkUndoneTaskTypes;
-    }
-    @Override
-    public Stack<ReadOnlyWhatNow> getStackOfWhatNowUpdate() {
-        return stackOfWhatNowUndoUpdate;
-    }
-    @Override
-    public Stack<ReadOnlyWhatNow> getStackOfWhatNowRedoUpdate() {
-        return stackOfWhatNowRedoUpdate;
-    }
-    //=========== Filtered Task List Accessors ===============================================================
+	@Override
+	public synchronized void updateTask(ReadOnlyTask old, Task toUpdate) throws TaskNotFoundException, DuplicateTaskException {
 
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        updateFilteredListToShowAllIncomplete();
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredTaskList()  {
-        return new UnmodifiableObservableList<>(backUpFilteredTasks);
-    }
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
+		whatNow.updateTask(old, toUpdate);
+		indicateWhatNowChanged();
+	}
 
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(Set<String> keyword) {
-        updateFilteredTaskList(keyword);
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
+	@Override
+	public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
+		whatNow.markTask(target);
+		indicateWhatNowChanged();
+	}
 
-    @Override
-    public void updateFilteredListToShowAll() {
-        String[] taskType = {TASK_TYPE_FLOATING};
-        Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
-        updateFilteredTaskList(new PredicateExpression(new TaskTypeQualifier(keyword)));
-    }
+	@Override
+	public synchronized void unMarkTask(ReadOnlyTask target) throws TaskNotFoundException {
+		whatNow.unMarkTask(target);
+		indicateWhatNowChanged();
+	}
+	
+	@Override
+	public Stack<Command> getUndoStack() {
+		return stackOfUndo;
+	}
+	
+	@Override
+	public Stack<Command> getRedoStack() {
+		return stackOfRedo;
+	}
+	
+	@Override
+	public Stack<ReadOnlyTask> getOldTask() {
+		return stackOfOldTask;
+	}
+	
+	@Override
+	public Stack<ReadOnlyTask> getNewTask() {
+		return stackOfNewTask;
+	}
+	
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getAllTaskTypeList() {
+		filteredTasks.setPredicate(null);
+		return new UnmodifiableObservableList<>(filteredTasks);
+	}
+	
+	@Override
+	public Stack<ReadOnlyTask> getDeletedStackOfTasks() {
+		return stackOfDeletedTasks;
+	}
+	
+	@Override
+	public Stack<ReadOnlyTask> getDeletedStackOfTasksRedo() {
+		return stackOfDeletedTasksRedo;
+	}
+	
+	@Override
+	public Stack<ReadOnlyTask> getDeletedStackOfTasksAdd() {
+		return stackOfDeletedTasksAdd;
+	}
+	
+	@Override
+	public Stack<ReadOnlyTask> getDeletedStackOfTasksAddRedo() {
+		return stackOfDeletedTasksAddRedo;
+	}
+	
+	@Override
+	public Stack<ReadOnlyTask> getStackOfMarkDoneTask() {
+		return stackOfMarkDone;
+	}
+	
+	@Override
+	public Stack<ReadOnlyTask> getStackOfMarkUndoneTask() {
+		return stackOfMarkUndone;
+	}
+	
+	@Override
+	public Stack<String> getStackOfMarkDoneTaskTaskType() {
+		return stackOfMarkDoneTaskTypes;
+	}
+	
+	public Stack<String> getStackOfMarkUndoneTaskTaskType() {
+		return stackOfMarkUndoneTaskTypes;
+	}
+	
+	@Override
+	public Stack<String> getStackOfListTypes() {
+		return stackOfListTypes;
+	}
+	
+	@Override 
+	public Stack<String> getStackOfListTypesRedo() {
+		return stackOfListTypesRedo;
+	}
+	
+	//=========== Filtered Task List Accessors ===============================================================
+	
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
+		updateFilteredListToShowAllIncomplete();
+		return new UnmodifiableObservableList<>(filteredTasks);
+	}
+	
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredTaskList() {
+		return new UnmodifiableObservableList<>(filteredTasks);
+	}
 
-    @Override
-    public void updateFilteredListToShowAllIncomplete() {
-        filteredTasks.setPredicate(p -> {
-            if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
-                return true;
-            } else {
-                return false;
-            }}
-                );
-    }
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList(Set<String> keyword) {
+		updateFilteredTaskList(keyword);
+		return new UnmodifiableObservableList<>(filteredTasks);
+	}
 
-    @Override
-    public void updateFilteredListToShowAllCompleted() {
-        filteredTasks.setPredicate(p -> {
-            if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
-                return true;
-            } else {
-                return false;
-            }}
-                );
-    }
+	@Override
+	public void updateFilteredListToShowAll() {
+		String[] taskType = {TASK_TYPE_FLOATING};
+		Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
+		updateFilteredTaskList(new PredicateExpression(new TaskTypeQualifier(keyword)));
+	}
 
-    @Override
-    public void updateFilteredListToShowAllByStatus(Set<String> keyword) {
-        updateFilteredTaskList(new PredicateExpression(new TaskStatusQualifier(keyword)));
-    }
+	@Override
+	public void updateFilteredListToShowAllIncomplete() {
+		filteredTasks.setPredicate(p -> {
+			if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
+				return true;
+			} else {
+				return false;
+			}}
+				);
+	}
 
-    @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        filteredTasks.setPredicate(p -> {
-            if ((keywords.stream()
-                    .filter(key -> StringUtil.containsIgnoreCase(p.getName().fullName, key))
-                    .findAny()
-                    .isPresent()) && p.getTaskType().equals(TASK_TYPE_FLOATING))  {
-                return true;
-            } else {
-                return false;
-            }
-        });
-    }
-    private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
-    }
+	@Override
+	public void updateFilteredListToShowAllCompleted() {
+		filteredTasks.setPredicate(p -> {
+			if ((p.getTaskType().equals((TASK_TYPE_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
+				return true;
+			} else {
+				return false;
+			}}
+				);
+	}
 
-    //=========== Filtered Schedule List Accessors ===============================================================
+	@Override
+	public void updateFilteredListToShowAllByStatus(Set<String> keyword) {
+		updateFilteredTaskList(new PredicateExpression(new TaskStatusQualifier(keyword)));
+	}
 
-    @Override 
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList() {
-        updateFilteredScheduleListToShowAllIncomplete();
-        return new UnmodifiableObservableList<>(filteredSchedules);
-    }
+	@Override
+	public void updateFilteredTaskList(Set<String> keywords){
+		filteredTasks.setPredicate(p -> {
+			if ((keywords.stream()
+					.filter(key -> StringUtil.containsIgnoreCase(p.getName().fullName, key))
+					.findAny()
+					.isPresent()) && p.getTaskType().equals(TASK_TYPE_FLOATING))  {
+				return true;
+			} else {
+				return false;
+			}
+		});
+	}
 
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList() {
-        return new UnmodifiableObservableList<>(filteredSchedules);
-    }
+	private void updateFilteredTaskList(Expression expression) {
+	    filteredTasks.setPredicate(expression::satisfies);
+	}
+	
+	//=========== Filtered Schedule List Accessors ===============================================================
 
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getBackUpFilteredScheduleList() {
-        return new UnmodifiableObservableList<>(backUpFilteredSchedules);
-    }
+	@Override 
+	public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList() {
+		updateFilteredScheduleListToShowAllIncomplete();
+		return new UnmodifiableObservableList<>(filteredSchedules);
+	}
 
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(Set<String> keyword) {
-        updateFilteredScheduleList(keyword);
-        return new UnmodifiableObservableList<>(filteredSchedules);
-    }
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getCurrentFilteredScheduleList() {
+		return new UnmodifiableObservableList<>(filteredSchedules);
+	}
 
-    @Override
-    public void updateFilteredScheduleListToShowAll() {
-        String[] taskType = {TASK_TYPE_NOT_FLOATING};
-        Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
-        updateFilteredScheduleList(new PredicateExpression(new TaskTypeQualifier(keyword)));
-    }
+	@Override
+	public UnmodifiableObservableList<ReadOnlyTask> getFilteredScheduleList(Set<String> keyword) {
+		updateFilteredScheduleList(keyword);
+		return new UnmodifiableObservableList<>(filteredSchedules);
+	}
 
-    @Override
-    public void updateFilteredScheduleListToShowAllIncomplete() {
-        filteredSchedules.setPredicate(p -> {
-            if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
-                return true;
-            } else {
-                return false;
-            }}
-                );
-    }
+	@Override
+	public void updateFilteredScheduleListToShowAll() {
+		String[] taskType = {TASK_TYPE_NOT_FLOATING};
+		Set<String> keyword = new HashSet<>(Arrays.asList(taskType));
+		updateFilteredScheduleList(new PredicateExpression(new TaskTypeQualifier(keyword)));
+	}
 
-    @Override
-    public void updateFilteredScheduleListToShowAllCompleted() {
-        filteredSchedules.setPredicate(p -> {
-            if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
-                return true;
-            } else {
-                return false;
-            }}
-                );
-    }
+	@Override
+	public void updateFilteredScheduleListToShowAllIncomplete() {
+		filteredSchedules.setPredicate(p -> {
+			if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_INCOMPLETE)))) {
+				return true;
+			} else {
+				return false;
+			}}
+				);
+	}
 
-    @Override
-    public void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword) {
-        updateFilteredScheduleList(new PredicateExpression(new TaskStatusQualifier(keyword)));
-    }
+	@Override
+	public void updateFilteredScheduleListToShowAllCompleted() {
+		filteredSchedules.setPredicate(p -> {
+			if ((p.getTaskType().equals((TASK_TYPE_NOT_FLOATING)) && (p.getStatus().equals(TASK_STATUS_COMPLETED)))) {
+				return true;
+			} else {
+				return false;
+			}}
+				);
+	}
 
-    @Override
-    public void updateFilteredScheduleList(Set<String> keywords){
-        filteredSchedules.setPredicate(p -> {
-            if ((keywords.stream()
-                    .filter(key -> StringUtil.containsIgnoreCase(p.getName().fullName, key))
-                    .findAny()
-                    .isPresent()) && p.getTaskType().equals(TASK_TYPE_NOT_FLOATING))  {
-                return true;
-            } else {
-                return false;
-            }
-        });
-    }
+	@Override
+	public void updateFilteredScheduleListToShowAllByStatus(Set<String> keyword) {
+		updateFilteredScheduleList(new PredicateExpression(new TaskStatusQualifier(keyword)));
+	}
 
-    private void updateFilteredScheduleList(Expression expression) {
-        filteredSchedules.setPredicate(expression::satisfies);
-    }
+	@Override
+	public void updateFilteredScheduleList(Set<String> keywords){
+		filteredSchedules.setPredicate(p -> {
+			if ((keywords.stream()
+					.filter(key -> StringUtil.containsIgnoreCase(p.getName().fullName, key))
+					.findAny()
+					.isPresent()) && p.getTaskType().equals(TASK_TYPE_NOT_FLOATING))  {
+				return true;
+			} else {
+				return false;
+			}
+		});
+	}
 
-    //========== Inner classes/interfaces used for filtering ==================================================
+	private void updateFilteredScheduleList(Expression expression) {
+		filteredSchedules.setPredicate(expression::satisfies);
+	}
 
-    interface Expression {
-        boolean satisfies(ReadOnlyTask task);
-        String toString();
-    }
+	//========== Inner classes/interfaces used for filtering ==================================================
 
-    private class PredicateExpression implements Expression {
+	interface Expression {
+		boolean satisfies(ReadOnlyTask task);
+		String toString();
+	}
 
-        private final Qualifier qualifier;
+	private class PredicateExpression implements Expression {
 
-        PredicateExpression(Qualifier qualifier) {
-            this.qualifier = qualifier;
-        }
+		private final Qualifier qualifier;
 
-        @Override
-        public boolean satisfies(ReadOnlyTask task) {
-            return qualifier.run(task);
-        }
+		PredicateExpression(Qualifier qualifier) {
+			this.qualifier = qualifier;
+		}
 
-        @Override
-        public String toString() {
-            return qualifier.toString();
-        }
-    }
+		@Override
+		public boolean satisfies(ReadOnlyTask task) {
+			return qualifier.run(task);
+		}
 
-    interface Qualifier {
-        boolean run(ReadOnlyTask task);
-        String toString();
-    }
+		@Override
+		public String toString() {
+			return qualifier.toString();
+		}
+	}
 
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
+	interface Qualifier {
+		boolean run(ReadOnlyTask task);
+		String toString();
+	}
 
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-        }
+	private class NameQualifier implements Qualifier {
+		private Set<String> nameKeyWords;
 
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent();
-        }
+		NameQualifier(Set<String> nameKeyWords) {
+			this.nameKeyWords = nameKeyWords;
+		}
 
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
-    }
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			return nameKeyWords.stream()
+					.filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+					.findAny()
+					.isPresent();
+		}
 
-    private class TaskStatusQualifier implements Qualifier {
-        private Set<String> status;
+		@Override
+		public String toString() {
+			return "name=" + String.join(", ", nameKeyWords);
+		}
+	}
 
-        TaskStatusQualifier(Set<String> status) {
-            this.status = status;
-        }
+	private class TaskStatusQualifier implements Qualifier {
+		private Set<String> status;
 
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return status.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getStatus(), keyword))
-                    .findAny()
-                    .isPresent();
-        }
+		TaskStatusQualifier(Set<String> status) {
+			this.status = status;
+		}
 
-        @Override
-        public String toString() {
-            return "Status=" + String.join(", ", status);
-        }
-    }
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			return status.stream()
+					.filter(keyword -> StringUtil.containsIgnoreCase(task.getStatus(), keyword))
+					.findAny()
+					.isPresent();
+		}
 
-    private class TaskTypeQualifier implements Qualifier {
-        private Set<String> taskType;
+		@Override
+		public String toString() {
+			return "Status=" + String.join(", ", status);
+		}
+	}
 
-        TaskTypeQualifier(Set<String> taskType) {
-            this.taskType = taskType;
-        }
+	private class TaskTypeQualifier implements Qualifier {
+		private Set<String> taskType;
 
-        @Override
-        public boolean run(ReadOnlyTask task) {
-            return taskType.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTaskType(), keyword))
-                    .findAny()
-                    .isPresent();
-        }
-        
-        @Override
-        public String toString() {
-            return "TaskType=" + String.join(", ", taskType);
-        }
-    }
+		TaskTypeQualifier(Set<String> taskType) {
+			this.taskType = taskType;
+		}
 
-    @Override
-    public void changeLocation(ReadOnlyTask target) throws DataConversionException, IOException, TaskNotFoundException {
-        
-    }
+		@Override
+		public boolean run(ReadOnlyTask task) {
+			return taskType.stream()
+					.filter(keyword -> StringUtil.containsIgnoreCase(task.getTaskType(), keyword))
+					.findAny()
+					.isPresent();
+		}
+
+		@Override
+		public String toString() {
+			return "TaskType=" + String.join(", ", taskType);
+		}
+	}
 }

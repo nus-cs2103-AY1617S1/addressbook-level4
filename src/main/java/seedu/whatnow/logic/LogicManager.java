@@ -8,6 +8,8 @@ import seedu.whatnow.logic.commands.CommandResult;
 import seedu.whatnow.logic.parser.Parser;
 import seedu.whatnow.model.Model;
 import seedu.whatnow.model.task.ReadOnlyTask;
+import seedu.whatnow.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.whatnow.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.whatnow.storage.Storage;
 
 import java.text.ParseException;
@@ -28,7 +30,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws ParseException {
+    public CommandResult execute(String commandText) throws ParseException, DuplicateTaskException, TaskNotFoundException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
         command.setData(model);

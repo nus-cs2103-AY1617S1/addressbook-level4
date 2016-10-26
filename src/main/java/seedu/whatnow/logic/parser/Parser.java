@@ -45,7 +45,14 @@ public class Parser {
      * Regular Expressions
      */
 	private static final Pattern UPDATE_FORMAT = Pattern.compile("^((todo|schedule)\\s(\\d+)\\s(description|date|time|start|end|tag)($|\\s))");
-	
+
+    private static final Pattern DATE_SUFFIX = Pattern.compile("(st|nd|rd|th)$");
+    private static final Pattern DATE = Pattern.compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))$");
+    private static final Pattern DATE_WITH_SUFFIX = Pattern.compile("^((([3][0-1])|([1-2][0-9])|([0]??[1-9]))(st|nd|rd|th))$");
+    private static final Pattern MONTH_IN_FULL = Pattern.compile("^(january|february|march|april|may|june|july|august|september|october|november|december)$");
+    private static final Pattern MONTH_IN_SHORT = Pattern.compile("^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)$");
+    private static final Pattern YEAR = Pattern.compile("^([0-9]{4})$");
+    
     private static final Pattern DATE_WITH_SLASH_FORMAT = Pattern.compile("^(([3][0-1])|([1-2][0-9])|([0]??[1-9]))[/](([1][0-2])|([0]??[1-9]))[/]([0-9]{4})$");
     private static final Pattern TIME_FORMAT = Pattern.compile("^(([1][0-2])|([0-9]))((:|\\.)([0-5][0-9]))??((am)|(pm))$");
     private static final Pattern TAG_FORMAT = Pattern.compile("^(t/)");
@@ -96,12 +103,18 @@ public class Parser {
     private static final String DELIMITER_FORWARD_SLASH = "/";
 
     private static final String BACK_SLASH = "\\";
+    private static final String FORWARD_SLASH = "/";
+    private static final String EMPTY_STRING = "";
+    
+    private static final String DATE_SUFFIX_STRING = "(st|nd|rd|th)$";
 
     private static final String TIME_COLON = ":";
     private static final String TIME_DOT = ".";
     private static final String TIME_AM = "am";
     private static final String TIME_PM = "pm";
     private static final String TIME_DEFAULT_MINUTES = "00";
+    private static final String DEFAULT_START_TIME = "12:00am";
+    private static final String DEFAULT_END_TIME = "11:59pm";
 
     private static final String TASK_TYPE_FLOATING = "todo";
     private static final String TASK_TYPE_NON_FLOATING = "schedule";
@@ -243,6 +256,38 @@ public class Parser {
 
         return time;
     }
+    
+    public static HashMap<String, Integer> storeFullMonths(HashMap<String, Integer> months) {
+        months.put("january", 1);
+        months.put("february", 2);
+        months.put("march", 3);
+        months.put("april", 4);
+        months.put("may", 5);
+        months.put("june", 6);
+        months.put("july", 7);
+        months.put("august", 8);
+        months.put("september", 9);
+        months.put("october", 10);
+        months.put("november", 11);
+        months.put("december", 12);
+        return months;
+    }
+    
+    public static HashMap<String, Integer> storeShortMonths(HashMap<String, Integer> months) {
+        months.put("jan", 1);
+        months.put("feb", 2);
+        months.put("mar", 3);
+        months.put("apr", 4);
+        months.put("may", 5);
+        months.put("jun", 6);
+        months.put("jul", 7);
+        months.put("aug", 8);
+        months.put("sep", 9);
+        months.put("oct", 10);
+        months.put("nov", 11);
+        months.put("dec", 12);
+        return months;
+    }
 
     /**
      * Parses arguments in the context of the add task command.
@@ -265,6 +310,11 @@ public class Parser {
         String endTime = null;
         Set<String> tags = new HashSet<String>();
         String[] additionalArgs = null;
+        HashMap<String, Integer> fullMonths = new HashMap<String, Integer>();
+        HashMap<String, Integer> shortMonths = new HashMap<String, Integer>();
+        
+        fullMonths = storeFullMonths(fullMonths);
+        shortMonths = storeShortMonths(shortMonths);    
 
         args = args.trim();
         
@@ -334,7 +384,7 @@ public class Parser {
                     if (startDate != null & endDate != null) {
                         endTime = time;
                         time = null;
-                        startTime = "12:00am";
+                        startTime = DEFAULT_START_TIME;
                     }
                 } else if (numOfTime == TWO) {       
                     startTime = time;      
@@ -356,6 +406,7 @@ public class Parser {
                         date = null;
                         endDate = additionalArgs[i];
                     }
+                    hasDate = false;
                 } else if (TODAY_OR_TOMORROW.matcher(additionalArgs[i].toLowerCase()).find()) {
                     numOfDate++;
                     if (numOfDate == ONE) {
@@ -365,6 +416,7 @@ public class Parser {
                         date = null;
                         endDate = additionalArgs[i].toLowerCase();
                     }
+                    hasDate = false;
                 } else if (TIME_FORMAT.matcher(additionalArgs[i].toLowerCase()).find()) {
                     numOfTime++;
                     if (numOfTime == ONE) {
@@ -372,18 +424,61 @@ public class Parser {
                         if (startDate != null & endDate != null) {
                             endTime = time;
                             time = null;
-                            startTime = "12:00am";
+                            startTime = DEFAULT_START_TIME;
                         }
                     } else if (numOfTime == TWO) {
                         startTime = time;                    
                         time = null;
                         endTime = additionalArgs[i].toLowerCase();       
                     }
+                    hasDate = false;
+                } else if (DATE.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    numOfDate++;
+                    if (numOfDate == ONE) {
+                        date = additionalArgs[i].toLowerCase();
+                        date += FORWARD_SLASH;
+                    } else if (numOfDate == TWO) {
+                        startDate = date;
+                        date = null;
+                        endDate = additionalArgs[i].toLowerCase();
+                        endDate += FORWARD_SLASH;
+                    } 
+                } else if (DATE_WITH_SUFFIX.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    numOfDate++;
+                    if (numOfDate == ONE) {
+                        date = additionalArgs[i].toLowerCase().replaceAll(DATE_SUFFIX_STRING, EMPTY_STRING);
+                        date += FORWARD_SLASH;
+                    } else if (numOfDate == TWO) {
+                        startDate = date;
+                        date = null;
+                        endDate = additionalArgs[i].toLowerCase();
+                        endDate += FORWARD_SLASH;
+                    } 
+                } else if (MONTH_IN_FULL.matcher(additionalArgs[i].toLowerCase()).find()) {     
+                    if (numOfDate == ONE) {
+                        date += fullMonths.get(additionalArgs[i].toLowerCase());
+                    } else if (numOfDate == TWO) {
+                        endDate += fullMonths.get(additionalArgs[i].toLowerCase());
+                    }
+                } else if (MONTH_IN_SHORT.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    if (numOfDate == ONE) {
+                        date += shortMonths.get(additionalArgs[i].toLowerCase());               
+                    } else if (numOfDate == TWO) {
+                        endDate += shortMonths.get(additionalArgs[i].toLowerCase());     
+                    } 
+                } else if (YEAR.matcher(additionalArgs[i].toLowerCase()).find()) {
+                    if (numOfDate == ONE) {
+                        date += FORWARD_SLASH;
+                        date += additionalArgs[i].toLowerCase();
+                    } else if (numOfDate == TWO) {
+                        endDate += FORWARD_SLASH;
+                        endDate += additionalArgs[i].toLowerCase();
+                    } 
+                    hasDate = false;
                 } else {
+                    hasDate = false;
                     return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
                 }
-
-                hasDate = false;
             }
 
             if (hasTime) {
@@ -394,7 +489,7 @@ public class Parser {
                         if (startDate != null & endDate != null) {
                             endTime = time;
                             time = null;
-                            startTime = "12:00am";
+                            startTime = DEFAULT_START_TIME;
                         }
                     } else if (numOfTime == TWO) {
                         startTime = time;             
@@ -424,7 +519,7 @@ public class Parser {
             if (time != null) {
                 startTime = time;
                 time = null;
-                endTime = "11:59pm";
+                endTime = DEFAULT_END_TIME;
             }
         }
 
