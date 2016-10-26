@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -7,8 +9,7 @@ import org.junit.rules.ExpectedException;
 import seedu.task.logic.parser.ArgumentTokenizer;
 import seedu.task.logic.parser.ArgumentTokenizer.NoValueForRequiredTagException;
 import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
-import static org.junit.Assert.*;
-
+//@@author A0153411W
 public class ArgumentTokenizerTest {
 
     @Rule

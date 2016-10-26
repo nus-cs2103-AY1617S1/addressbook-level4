@@ -9,12 +9,12 @@ import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.exceptions.IllegalValueException;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
-import seedu.task.model.task.Title;
 import seedu.task.model.task.Description;
 import seedu.task.model.task.DueDate;
 import seedu.task.model.task.ReadOnlyTask;
 import seedu.task.model.task.StartDate;
 import seedu.task.model.task.Task;
+import seedu.task.model.task.Title;
 import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -90,7 +90,9 @@ public class EditCommand extends Command {
         }
 		try {
 			selectedTask = searchTask(taskIndex);
+			//@@author A0153411W
 			saveTaskForUndo(selectedTask);
+			//@@author 
 			edit(selectedTask);
 			modifyList();
 		} catch (TaskNotFoundException e) {
@@ -213,10 +215,23 @@ public class EditCommand extends Command {
 		copy = new Task(copy.getTitle(), copy.getDescription(), copy.getStartDate(), copy.getDueDate(), copy.getInterval(), copy.getTimeInterval(), copy.getStatus(), new UniqueTagList(newTags));
 	}
 
+    //@@author A0153411W
+	/**
+	 * Save task which is edited to restore it for undo command
+	 */
 	private void saveTaskForUndo(ReadOnlyTask task){
 		this.savedTaskForUndo = new Task(task.getTitle(), task.getDescription(), task.getStartDate(), task.getDueDate(), task.getInterval(), task.getTimeInterval(), task.getStatus(), task.getTags()); 
 	}
 	
+	/**
+	 * Execute undo method for edit command - Delete task which was edited 
+	 * and add task before a change at specific place to restore 
+	 * task manager to state before method was executed
+	 * @throws DuplicateTaskException
+	 * 				if task to add is already in manager
+	 * @throws TaskNotFoundException
+	 * 				if task is not found
+	 */
 	@Override
 	public CommandResult executeUndo() {
 		taskList = model.getFilteredTaskList();

@@ -23,9 +23,10 @@ public class DeleteCommand extends Command {
 	public static final String MESSAGE_SUCCESS_UNDO = "Undo of delete command";
 	public final String MESSAGE_DUPLICATE = "The edited task is a duplicate of an existing task.";
 	
+    //@@author A0153411W
     public final int targetIndex;
     private Task savedTaskForUndo;
-    
+    //@@author 
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -42,8 +43,9 @@ public class DeleteCommand extends Command {
         }
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        //@@author A0153411W
         saveTaskForUndo(taskToDelete);
-        
+        //@@author 
         try {
             model.deleteTask(taskToDelete);
         } catch (TaskNotFoundException pnfe) {
@@ -53,11 +55,23 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
-
+    //@@author A0153411W
+    /**
+     * Save task for undo command before it is deleted.
+     */
 	private void saveTaskForUndo(ReadOnlyTask task){
 		this.savedTaskForUndo = new Task(task.getTitle(), task.getDescription(), task.getStartDate(), task.getDueDate(), task.getInterval(), task.getTimeInterval(), task.getStatus(), task.getTags()); 
 	}
 	
+	
+
+	/**
+	 * Execute undo method for delete command - Deleted task is added
+	 * at specific place to restore 
+	 * task manager to state before method was executed
+	 * @throws DuplicateTaskException
+	 * 				if task to add is already in manager
+	 */
 	@Override
 	public CommandResult executeUndo() {
 		try {

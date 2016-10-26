@@ -1,16 +1,22 @@
 package seedu.task.model;
 
+import java.text.ParseException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import javafx.collections.ObservableList;
-import seedu.task.model.task.Task;
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.UniqueTaskList;
-import seedu.task.logic.commands.Command;
 import seedu.task.model.tag.Tag;
 import seedu.task.model.tag.UniqueTagList;
-
-import java.text.ParseException;
-import java.util.*;
-import java.util.stream.Collectors;
+import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.Task;
+import seedu.task.model.task.UniqueTaskList;
 
 /**
  * Wraps all data at the address-book level
@@ -89,8 +95,9 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.add(p);
     }
     
+    //@@author A0153411W
     /**
-     * Adds a task to the address book.
+     * Adds a task to the task manager at specific place.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
@@ -100,7 +107,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         syncTagsWithMasterList(p);
         tasks.addAtSpecificPlace(p, index);
     }
-    
+    //@@author
 
     /**
      * Ensures that every tag in this task:

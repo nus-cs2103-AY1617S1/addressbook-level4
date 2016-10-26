@@ -2,12 +2,6 @@ package seedu.task.logic.commands;
 
 import java.util.EmptyStackException;
 
-import seedu.task.commons.core.Messages;
-import seedu.task.commons.core.UnmodifiableObservableList;
-import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.Task;
-import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
-
 public class UndoCommand extends Command {
 
 	public static final String COMMAND_WORD = "undo";
@@ -28,6 +22,10 @@ public class UndoCommand extends Command {
 		}
 	}
 
+    //@@author A0153411W
+	/**
+	 * Undo Command is not reversible.
+	 */
 	@Override
 	public CommandResult executeUndo() {
 		return null;

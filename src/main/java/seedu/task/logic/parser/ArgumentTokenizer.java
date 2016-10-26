@@ -2,12 +2,18 @@ package seedu.task.logic.parser;
 
 import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
-import seedu.task.commons.core.Messages;
 import seedu.task.logic.commands.AddCommand;
-
+//@@author A0153411W-reused
 /**
+ * Code taken from lecture notes.
  * Tokenizes arguments string of the form:
  * {@code preamble <prefix>value <prefix>value ...}<br>
  * e.g. {@code some preamble text /t 11.00/dToday /t 12.00 /k /m July} where
@@ -27,6 +33,7 @@ public class ArgumentTokenizer {
 	 * /t friend'
 	 */
 	public static class Prefix {
+		//Flag whether prefix is optional or not
 		private boolean isOptional;
 		final String prefix;
 

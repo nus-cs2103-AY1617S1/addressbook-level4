@@ -5,10 +5,11 @@ import java.util.EmptyStackException;
 import java.util.Stack;
 
 import seedu.task.logic.commands.Command;
-import seedu.task.logic.commands.CommandResult;
-import seedu.task.model.task.Task;
 
-
+//@@author A0153411W
+/**
+ * Manager for undo command
+ */
 public class UndoCommandManager {
 	
 	private final Stack<Command> executedCommands;

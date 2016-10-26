@@ -1,5 +1,9 @@
 package seedu.task.model;
 
+import java.text.ParseException;
+import java.util.Set;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
 import seedu.task.commons.core.ComponentManager;
 import seedu.task.commons.core.LogsCenter;
@@ -7,14 +11,10 @@ import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.commons.events.model.TaskManagerChangedEvent;
 import seedu.task.commons.util.StringUtil;
 import seedu.task.logic.commands.Command;
-import seedu.task.model.task.Task;
 import seedu.task.model.task.ReadOnlyTask;
+import seedu.task.model.task.Task;
 import seedu.task.model.task.UniqueTaskList;
 import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
-
-import java.text.ParseException;
-import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -24,7 +24,9 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private TaskManager taskManager;
+    //@@author A0153411W
     private final UndoCommandManager undoManager;
+    //@@author
     private final FilteredList<Task> filteredTasks;
 
     /**
@@ -40,7 +42,9 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         taskManager = new TaskManager(src);
+        //@@author A0153411W
         undoManager = new UndoCommandManager();
+        //@@author
         filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
 
@@ -50,7 +54,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) throws ParseException {
         taskManager = new TaskManager(initialData);
+        //@@author A0153411W
         undoManager = new UndoCommandManager();
+        //@@author 
         filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
 
@@ -89,14 +95,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
+    //@@author A0153411W
     @Override
     public synchronized void addTaskWithSpecifiedIndex(Task task, int index) throws UniqueTaskList.DuplicateTaskException {
-        
     	taskManager.addAtSpecificPlace(task, index);
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
-    
+    //@@author
     
     //=========== Filtered Task List Accessors ===============================================================
 
