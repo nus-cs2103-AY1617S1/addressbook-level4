@@ -23,7 +23,6 @@ import seedu.todoList.storage.StorageManager;
 import seedu.todoList.ui.Ui;
 import seedu.todoList.ui.UiManager;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;

@@ -11,8 +11,6 @@ import seedu.todoList.commons.util.FileUtil;
 import seedu.todoList.model.ReadOnlyTaskList;
 //import seedu.todoList.model.ReadOnlyTodoList;
 import seedu.todoList.model.TaskList;
-import seedu.todoList.model.task.ReadOnlyTask;
-import seedu.todoList.model.task.Task;
 import seedu.todoList.model.task.Todo;
 import seedu.todoList.storage.XmlTodoListStorage;
 

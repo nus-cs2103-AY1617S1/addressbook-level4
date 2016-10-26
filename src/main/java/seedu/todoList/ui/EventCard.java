@@ -49,7 +49,7 @@ public class EventCard extends UiPart{
         endDate.setText("End Date: " + task.getEndDate().endDate);
         startTime.setText("Start Time: " + task.getStartTime().startTime);
         endTime.setText("End Time: " + task.getEndTime().endTime);
-        done.setText("Completed: " + task.getDone().isDone);
+        done.setText("Completed: " + task.getDone().toString());
     }
 
     public HBox getLayout() {

@@ -6,9 +6,7 @@ import java.util.Set;
 import seedu.todoList.commons.core.UnmodifiableObservableList;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.Task;
-import seedu.todoList.model.task.Event;
 import seedu.todoList.model.task.UniqueTaskList;
-import seedu.todoList.model.task.UniqueTaskList.DuplicatetaskException;
 import seedu.todoList.commons.exceptions.*;
 
 /**
@@ -52,11 +50,14 @@ public interface Model {
     /** Edit the given task */
     void editTask(ReadOnlyTask target, String dataType, Task task) throws IllegalValueException, UniqueTaskList.TaskNotFoundException;
 
-    /** Edit the given task */
+    /** Mark the given task as done */
     void doneTask(ReadOnlyTask target, String dataType) throws UniqueTaskList.TaskNotFoundException;
     
     /** Undo the latest command */
     void undoLatestCommand() throws EmptyStackException;
+
+    /** Mark the given task as undone */
+    void undoneTask(ReadOnlyTask target, String dataType) throws UniqueTaskList.TaskNotFoundException;
     
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList();

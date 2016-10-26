@@ -7,7 +7,6 @@ import seedu.todoList.commons.core.UnmodifiableObservableList;
 import seedu.todoList.commons.events.model.*;
 import seedu.todoList.commons.util.StringUtil;
 import seedu.todoList.model.task.*;
-import seedu.todoList.model.task.UniqueTaskList.DuplicatetaskException;
 import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todoList.commons.exceptions.*;
 import seedu.todoList.logic.commands.*;
@@ -221,6 +220,21 @@ public class ModelManager extends ComponentManager implements Model {
     			deadlineList.doneTask(target);
     			indicateDeadlineListChanged();
     	}
+    }
+    
+    @Override
+    public synchronized void undoneTask(ReadOnlyTask target, String dataType) throws TaskNotFoundException {
+        switch(dataType) {
+            case "todo":
+                todoList.undoneTask(target);
+                indicateTodoListChanged();
+            case "event":
+                eventList.undoneTask(target);
+                indicateEventListChanged();
+            case "deadline":
+                deadlineList.undoneTask(target);
+                indicateDeadlineListChanged();
+        }
     }
     
     @Override

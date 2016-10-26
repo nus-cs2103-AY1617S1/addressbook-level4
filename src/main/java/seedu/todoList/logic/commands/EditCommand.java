@@ -38,7 +38,7 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, String endDate, String priority, int targetIndex, String dataType, String done)
+    public EditCommand(String name, String date, String endDate, String priority, int targetIndex, String dataType)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.dataType = dataType;
@@ -47,7 +47,7 @@ public class EditCommand extends Command {
                 new StartDate(date),
                 new EndDate(endDate),
                 new Priority(priority),
-                new Done(done)
+                "false"
         );
     }
     
@@ -56,7 +56,7 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, String endDate, String startTime, String endTime, int targetIndex, String dataType, String done)
+    public EditCommand(String name, String date, String endDate, String startTime, String endTime, int targetIndex, String dataType)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.dataType = dataType;
@@ -66,7 +66,7 @@ public class EditCommand extends Command {
                 new EndDate(endDate),
                 new StartTime(startTime),
                 new EndTime(endTime),
-                new Done(done)
+                "false"
         );
     }
     
@@ -75,7 +75,7 @@ public class EditCommand extends Command {
      * Convenience constructor using raw values.
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(String name, String date, String endTime, int targetIndex, String dataType, String done)
+    public EditCommand(String name, String date, String endTime, int targetIndex, String dataType)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.dataType = dataType;
@@ -83,7 +83,7 @@ public class EditCommand extends Command {
                 new Name(name),
                 new StartDate(date),
                 new EndTime(endTime),
-                new Done(done)
+                "false"
         );
     }
     
