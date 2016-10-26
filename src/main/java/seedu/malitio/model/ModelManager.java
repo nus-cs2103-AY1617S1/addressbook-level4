@@ -15,12 +15,14 @@ import seedu.malitio.model.task.ReadOnlyDeadline;
 import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 import seedu.malitio.model.history.InputAddHistory;
 import seedu.malitio.model.history.InputClearHistory;
@@ -177,8 +179,21 @@ public class ModelManager extends ComponentManager implements Model {
 		malitio.completeDeadline(deadlineToEdit);
         updateFilteredEventListToShowAll();
         indicatemalitioChanged();
-		
 	}
+	
+	@Override
+	public void markFloatingTask(ReadOnlyFloatingTask taskToMark) throws FloatingTaskNotFoundException, FloatingTaskMarkedException {
+	    malitio.markTask(taskToMark);
+	    updateFilteredTaskListToShowAll();
+	    indicatemalitioChanged();
+	}
+	
+	@Override
+    public void markDeadline(ReadOnlyDeadline deadlineToMark) throws DeadlineNotFoundException, DeadlineMarkedException {
+        malitio.markDeadline(deadlineToMark);
+        updateFilteredDeadlineListToShowAll();
+        indicatemalitioChanged();
+    }
     
     @Override
     public Stack<InputHistory> getHistory() {

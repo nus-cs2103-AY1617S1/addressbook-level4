@@ -9,6 +9,7 @@ public class FloatingTask implements ReadOnlyFloatingTask {
 
     private Name name;
     private Boolean completed;
+    private boolean marked;
     
     private UniqueTagList tags;
     
@@ -21,12 +22,14 @@ public class FloatingTask implements ReadOnlyFloatingTask {
         this.name = name;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.completed = false;
+        this.marked = false;
     }
     
-    public FloatingTask(Name name, Boolean completed, UniqueTagList tags) {
+    public FloatingTask(Name name, Boolean completed, boolean marked, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
         this.completed = completed;
+        this.marked = marked;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -36,6 +39,7 @@ public class FloatingTask implements ReadOnlyFloatingTask {
     public FloatingTask(ReadOnlyFloatingTask source) {
         this(source.getName(), source.getTags());
         this.completed = source.getCompleted();
+        this.marked = source.isMarked();
     }
 
     @Override
@@ -50,6 +54,14 @@ public class FloatingTask implements ReadOnlyFloatingTask {
 
 	public void setCompleted() {
 		this.completed = true;
+	}
+	
+	public boolean isMarked() {
+	    return this.marked;
+	}
+	
+	public void setMarked() {
+	    this.marked = true;
 	}
 
 	@Override

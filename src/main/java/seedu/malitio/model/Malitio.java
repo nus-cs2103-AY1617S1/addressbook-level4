@@ -16,10 +16,12 @@ import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
 import java.util.*;
@@ -236,6 +238,14 @@ public class Malitio implements ReadOnlyMalitio {
         }
     }
     
+    public boolean removeEvent(ReadOnlyEvent key) throws EventNotFoundException {
+        if (events.remove(key)) {
+            return true;
+        } else {
+            throw new UniqueEventList.EventNotFoundException();
+        }     
+    }
+    
     public void editFloatingTask(FloatingTask edited, ReadOnlyFloatingTask beforeEdit) throws DuplicateFloatingTaskException, FloatingTaskNotFoundException {
         syncTagsWithMasterList(edited);
         tasks.edit(edited, beforeEdit);
@@ -255,18 +265,19 @@ public class Malitio implements ReadOnlyMalitio {
         tasks.complete(taskToComplete);
 	}
 	
-	public void completeDeadline(ReadOnlyDeadline deadlineToEdit) throws DeadlineCompletedException, DeadlineNotFoundException {
-		deadlines.complete(deadlineToEdit);
+	public void completeDeadline(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
+		deadlines.complete(deadlineToComplete);
 		
 	}
+	
+	public void markTask(ReadOnlyFloatingTask taskToMark) throws FloatingTaskNotFoundException, FloatingTaskMarkedException {
+	    tasks.mark(taskToMark);
+	}
+	
+	public void markDeadline(ReadOnlyDeadline deadlineToMark) throws DeadlineNotFoundException, DeadlineMarkedException {
+	    deadlines.mark(deadlineToMark);
+	}
 
-    public boolean removeEvent(ReadOnlyEvent key) throws EventNotFoundException {
-        if (events.remove(key)) {
-            return true;
-        } else {
-            throw new UniqueEventList.EventNotFoundException();
-        }     
-    }
 
 //// tag-level operations
 

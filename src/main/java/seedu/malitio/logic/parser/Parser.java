@@ -33,15 +33,15 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    
+
     private static final Pattern EDIT_DATA_ARGS_FORMAT =
 
             Pattern.compile("(?<targetIndex>[e|d|f|E|D|F]\\d+)"
                     + "(?<name>(?:[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
-    
+
     private static final Pattern COMPLETE_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[d|f|D|F]\\d+)");
-    
+
     private static final Set<String> TYPES_OF_TASKS = new HashSet<String>(Arrays.asList("f", "d", "e" ));
 
     public Parser() {}
@@ -64,15 +64,18 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
-            
+
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
-            
+
         case CompleteCommand.COMMAND_WORD:
             return prepareComplete(arguments);
+
+        case MarkCommand.COMMAND_WORD:
+            return prepareMark(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -88,10 +91,10 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-            
+
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
-            
+
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
 
@@ -117,24 +120,24 @@ public class Parser {
         }
         try {
             String name = matcher.group("name");
-            
+
             String deadline = getDeadlineFromArgs(name);
             if (!deadline.isEmpty()) {
                 name = name.replaceAll("by " + deadline, "");
             }
-            
+
             String start = getStartFromArgs(name);
             if (!start.isEmpty()) {
                 name = name.replaceAll("start " + start, "");
                 hasStart = true;
             }
-            
+
             String end = getEndFromArgs(name);
             if (!end.isEmpty()) {
                 name = name.replaceAll("end " + end, "");
                 hasEnd = true;
             }
-            
+
             if (!deadline.isEmpty()) {
                 return new AddCommand(
                         name,
@@ -159,8 +162,9 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    
+
     /**
+     * Parses arguments in the context of the edit task command.
      * 
      * @param arguments
      * @return the prepared command
@@ -178,7 +182,7 @@ public class Parser {
             }
             char taskType = index.charAt(0);
             int taskNum = Integer.parseInt(index.substring(1));
-            
+
             String name = matcher.group("name");
             if (name.equals("") && getTagsFromArgs(matcher.group("tagArguments")).isEmpty()) {
                 return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -187,17 +191,17 @@ public class Parser {
             if (!deadline.isEmpty()) {
                 name = name.replaceAll(" by " + deadline, "");
             }
-            
+
             String start = getStartFromArgs(name);
             if (!start.isEmpty()) {
                 name = name.replaceAll(" start " + start, "");
             }
-            
+
             String end = getEndFromArgs(name);
             if (!end.isEmpty()) {
                 name = name.replaceAll(" end " + end, "");
             }
-            
+
             if (!deadline.isEmpty()) {
                 return new EditCommand(
                         taskType,
@@ -221,20 +225,20 @@ public class Parser {
                     taskNum,
                     name,
                     getTagsFromArgs(matcher.group("tagArguments"))
-            );
+                    );
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-    
+
     /**
-     * Parses arguments in the context of the delete task command.
+     * Parses arguments in the context of the complete task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareComplete(String args) {
-    	final Matcher matcher = COMPLETE_INDEX_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = COMPLETE_INDEX_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
@@ -246,7 +250,7 @@ public class Parser {
             }
             char taskType = index.charAt(0);
             int taskNum = Integer.parseInt(index.substring(1));
-            
+
             return new CompleteCommand(taskType,taskNum);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
@@ -271,6 +275,28 @@ public class Parser {
     }
 
     /**
+     * Parses arguments in the context of the mark task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareMark(String args) {
+        final Matcher matcher = COMPLETE_INDEX_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        }
+        String index = parseIndex(args);
+        if (index.isEmpty()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        }
+        char taskType = index.charAt(0);
+        int taskNum = Integer.parseInt(index.substring(1));
+        return new MarkCommand(taskType, taskNum);
+    }
+
+
+    /**
      * Parses arguments in the context of the find task command.
      *
      * @param args full command args string
@@ -283,11 +309,11 @@ public class Parser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));
         }
-                
+
         // keywords delimited by whitespace
         String[] keywords = matcher.group("keywords").split("\\s+");
         String typeOfTask = "";
-        
+
         if(TYPES_OF_TASKS.contains(keywords[0])) {
             typeOfTask = keywords[0];
         }
@@ -307,13 +333,13 @@ public class Parser {
             return new ListCommand();
         }
         try {
-        args = args.trim().toLowerCase();
-        return new ListCommand(args);
+            args = args.trim().toLowerCase();
+            return new ListCommand(args);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ListCommand.MESSAGE_USAGE));
         }
     }
-    
+
     /**
      * Returns the specified index as a String in the {@code command}
      */
@@ -325,7 +351,7 @@ public class Parser {
         String index = command.trim().toLowerCase();
         return index;
     }
-    
+
     /**
      * Extracts the task's deadline from the command's arguments string.
      */

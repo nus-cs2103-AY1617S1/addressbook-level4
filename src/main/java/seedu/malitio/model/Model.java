@@ -16,8 +16,10 @@ import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 
@@ -108,5 +110,10 @@ public interface Model {
 	
 	 /** Complete the deadline.*/
 	void completeDeadline(ReadOnlyDeadline deadlineToEdit) throws DeadlineCompletedException, DeadlineNotFoundException;
+	
+	/** Marks the floating task as prority.*/
+	void markFloatingTask(ReadOnlyFloatingTask taskToMark) throws FloatingTaskNotFoundException, FloatingTaskMarkedException;
     
+	/** Marks the deadline as prority.*/
+    void markDeadline(ReadOnlyDeadline deadlineToMark) throws DeadlineNotFoundException, DeadlineMarkedException;
 }

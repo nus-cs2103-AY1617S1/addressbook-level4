@@ -37,6 +37,8 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
     public static class DeadlineNotFoundException extends Exception {}
     
     public static class DeadlineCompletedException extends Exception {}
+    
+    public static class DeadlineMarkedException extends Exception {}
 
     private final ObservableList<Deadline> internalList = FXCollections.observableArrayList();
 
@@ -98,7 +100,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
 	public void complete(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
         assert deadlineToComplete!=null;
         
-        if(deadlineToComplete.getCompleted()) {
+        if (deadlineToComplete.getCompleted()) {
         	throw new DeadlineCompletedException();
         }
 
@@ -108,6 +110,19 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         
         deadlineToComplete.setCompleted();
         updateDeadlineList(deadlineToComplete);
+	}
+	
+	public void mark(ReadOnlyDeadline deadlineToMark) throws DeadlineNotFoundException, DeadlineMarkedException {
+	    if (deadlineToMark.isMarked()) {
+            throw new DeadlineMarkedException();
+        }
+
+        if (!contains(deadlineToMark)) {
+            throw new DeadlineNotFoundException();
+        }
+        
+        deadlineToMark.setMarked();
+        updateDeadlineList(deadlineToMark);
 	}
 
 	private void updateDeadlineList(ReadOnlyDeadline deadlineToComplete) {

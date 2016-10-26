@@ -35,6 +35,8 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
     public static class FloatingTaskNotFoundException extends Exception {}
     
     public static class FloatingTaskCompletedException extends Exception {}
+    
+    public static class FloatingTaskMarkedException extends Exception{}
 
     private final ObservableList<FloatingTask> internalList = FXCollections.observableArrayList();
 
@@ -115,6 +117,18 @@ public class UniqueFloatingTaskList implements Iterable<FloatingTask> {
         }
         toComplete.setCompleted();
         updateFloatingTaskList(toComplete);
+    }
+    
+    public void mark(ReadOnlyFloatingTask taskToMark) throws FloatingTaskNotFoundException, FloatingTaskMarkedException {
+        if (taskToMark.isMarked()) {
+            throw new FloatingTaskMarkedException();
+        }
+        
+        if (!contains(taskToMark)) {
+            throw new FloatingTaskNotFoundException();
+        }
+        taskToMark.setMarked();
+        updateFloatingTaskList(taskToMark);
     }
 
 	private void updateFloatingTaskList(ReadOnlyFloatingTask toComplete) {
