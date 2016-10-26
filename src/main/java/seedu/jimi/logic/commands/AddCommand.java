@@ -8,6 +8,7 @@ import java.util.Set;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.event.Event;
+import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.DeadlineTask;
@@ -19,7 +20,7 @@ import seedu.jimi.model.task.UniqueTaskList;
 /**
  * Adds a task to the Jimi.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command implements TaskBookEditor {
 
     public static final String COMMAND_WORD = "add";
 
@@ -34,7 +35,7 @@ public class AddCommand extends Command {
             + "Parameters: \"TASK_DETAILS\" on START_DATE_TIME [to END_DATE_TIME] [t/TAG]\n"
             + "Example: " + COMMAND_WORD + " \"linkin park concert\" on sunday 2pm t/fun\n"
             + "\n"
-            + "> Tip: Typing 'a' or 'ad' instead of 'add' works too.";
+            + "> Tip: Typing 'a' or 'ad' instead of 'add' works too.\n";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Jimi";
@@ -50,15 +51,15 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, List<Date> dates, Set<String> tags) throws IllegalValueException {
+    public AddCommand(String name, List<Date> dates, Set<String> tags, String priority) throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
         if (dates.size() == 0) {
-            this.toAdd = new FloatingTask(new Name(name), new UniqueTagList(tagSet));
+            this.toAdd = new FloatingTask(new Name(name), new UniqueTagList(tagSet), new Priority(priority));
         } else {
-            this.toAdd = new DeadlineTask(new Name(name), new DateTime(dates.get(0)), new UniqueTagList(tagSet));
+            this.toAdd = new DeadlineTask(new Name(name), new DateTime(dates.get(0)), new UniqueTagList(tagSet), new Priority(priority));
         }
     }
     
@@ -67,7 +68,7 @@ public class AddCommand extends Command {
      * 
      * @throws IllegalValueException
      */
-    public AddCommand(String name, List<Date> startDateTime, List<Date> endDateTime, Set<String> tags)
+    public AddCommand(String name, List<Date> startDateTime, List<Date> endDateTime, Set<String> tags, String priority)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -81,7 +82,8 @@ public class AddCommand extends Command {
                 new Name(name), 
                 new DateTime(startDateTime.get(0)), 
                 endDateTimeToAdd,
-                new UniqueTagList(tagSet)
+                new UniqueTagList(tagSet),
+                new Priority(priority)
         );
     }
     

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.jimi.model.event.Event;
@@ -19,6 +18,7 @@ import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.FloatingTask;
 import seedu.jimi.model.task.ReadOnlyTask;
 import seedu.jimi.model.task.UniqueTaskList;
+import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -26,7 +26,7 @@ import seedu.jimi.model.task.UniqueTaskList;
  */
 public class TaskBook implements ReadOnlyTaskBook {
 
-    private final UniqueTaskList<ReadOnlyTask> tasks;
+    private final UniqueTaskList tasks;
     private final UniqueTagList tags;
 
     {
@@ -138,7 +138,7 @@ public class TaskBook implements ReadOnlyTaskBook {
         tasks.replace(oldTask, newTask);
     }
 
-    public void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) {
+    public void completeTask(ReadOnlyTask taskToComplete, boolean isComplete) throws TaskNotFoundException {
         tasks.complete(taskToComplete, isComplete);
     }
 //// tag-level operations

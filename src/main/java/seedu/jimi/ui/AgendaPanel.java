@@ -1,47 +1,33 @@
 package seedu.jimi.ui;
 
-import java.util.List;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
-import com.google.common.eventbus.Subscribe;
-
-import javafx.fxml.FXML;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.beans.value.ObservableValueBase;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TreeTableColumn;
-import javafx.scene.control.TreeTableColumn.CellDataFeatures;
-import javafx.scene.control.TreeTableView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import seedu.jimi.commons.core.LogsCenter;
-import seedu.jimi.commons.events.model.TaskBookChangedEvent;
-import seedu.jimi.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.jimi.commons.util.FxViewUtil;
-import seedu.jimi.model.datetime.DateTime;
-import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.event.Event;
-import seedu.jimi.model.task.FloatingTask;
+import seedu.jimi.model.task.DeadlineTask;
 import seedu.jimi.model.task.ReadOnlyTask;
-import seedu.jimi.ui.TaskListPanel.TaskListViewCell;
 
 /**
  * Agenda window of Jimi, displays most relevant tasks and events to the user when first starting up app.
- * @author zexuan
+ * @@author A0138915X
  *
  */
 public class AgendaPanel extends UiPart{
@@ -109,12 +95,12 @@ public class AgendaPanel extends UiPart{
         instantiateObjectLists(taskList, eventList);
         configureTaskColumnsCellFactories();
         configureEventsColumnsCellFactories();
-        setConnections(taskList);
+        setConnections();
         addToPlaceholder();
         registerAsAnEventHandler(this); //to update labels
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
+    private void setConnections() {
         tasksTableView.setItems(this.tasksList);
         eventsTableView.setItems(this.eventsList);
         
@@ -143,44 +129,15 @@ public class AgendaPanel extends UiPart{
      * Formatting of data shown to user is done here.
      */
     private void configureTaskColumnsCellFactories() {
-        tasksTableColumnId.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> p) {  
-                
-                return new SimpleStringProperty("t" + (p.getTableView().getItems().indexOf(p.getValue()) + 1 ) + ".");
-            }
-         });
-        
-        tasksTableColumnTags.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {  
-                ReadOnlyTask a  = cd.getValue();
-
-                return Bindings.createStringBinding(() -> a.tagsString());
-            }
-         });
-        
-        tasksTableColumnDetails.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {
-                ReadOnlyTask a  = cd.getValue();
-
-                return Bindings.createStringBinding(() -> a.getName().toString());
-            }
-        });
-        
-        tasksTableColumnEndDate.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {  
-                if(cd.getValue() instanceof DeadlineTask){
-                    DeadlineTask a = (DeadlineTask) cd.getValue();
-                    return Bindings.createStringBinding(() -> a.getDeadline().toString());
-                }
-               return new SimpleStringProperty();
-            }
-        });
-        
-        
+        tasksTableColumnId.setCellValueFactory(cellData -> new SimpleStringProperty("t" + (cellData.getTableView().getItems().indexOf(cellData.getValue()) + 1) + "."));
+        tasksTableColumnId.setCellFactory(getCustomPriorityCellFactory());
+        tasksTableColumnTags.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tagsString()));
+        tasksTableColumnTags.setCellFactory(getCustomPriorityCellFactory());
+        tasksTableColumnDetails.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName().toString()));
+        tasksTableColumnDetails.setCellFactory(getCustomPriorityCellFactory());
+        tasksTableColumnEndDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue() instanceof DeadlineTask ? 
+                ((DeadlineTask) cellData.getValue()).getDeadline().toString() : null));  
+        tasksTableColumnEndDate.setCellFactory(getCustomPriorityCellFactory());
     }
     
     /**
@@ -188,53 +145,77 @@ public class AgendaPanel extends UiPart{
      * Formatting of data shown to user is done here.
      */
     private void configureEventsColumnsCellFactories() {
-        eventsTableColumnId.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> p) {  
-                
-                return new SimpleStringProperty("e" + (p.getTableView().getItems().indexOf(p.getValue()) + 1 ) + ".");
-            }
-         });
-        
-        eventsTableColumnTags.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {  
-                ReadOnlyTask a  = cd.getValue();
+        eventsTableColumnId.setCellValueFactory(cellData -> new SimpleStringProperty("e" + (cellData.getTableView().getItems().indexOf(cellData.getValue()) + 1) + "."));
+        eventsTableColumnId.setCellFactory(getCustomPriorityCellFactory());
+        eventsTableColumnTags.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().tagsString()));
+        eventsTableColumnTags.setCellFactory(getCustomPriorityCellFactory());
+        eventsTableColumnDetails.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName().toString()));
+        eventsTableColumnDetails.setCellFactory(getCustomPriorityCellFactory());
+        eventsTableColumnStartDate.setCellValueFactory(cellData -> new SimpleStringProperty(((Event) cellData.getValue()).getStart().toString()));
+        eventsTableColumnStartDate.setCellFactory(getCustomPriorityCellFactory());
+        eventsTableColumnEndDate.setCellValueFactory(cellData -> new SimpleStringProperty(((Event) (cellData.getValue())).getEnd() == null ? null : ((Event) cellData.getValue()).getEnd().toString()));
+        eventsTableColumnEndDate.setCellFactory(getCustomPriorityCellFactory());
+    }
+    
+    /**
+     * Sets the font colour of the agenda items accordingly to their priorities.
+     * @return
+     */
+    private Callback<TableColumn<ReadOnlyTask, String>, TableCell<ReadOnlyTask, String>> getCustomPriorityCellFactory() {
+        return new Callback<TableColumn<ReadOnlyTask, String>, TableCell<ReadOnlyTask, String>>() {
 
-                return Bindings.createStringBinding(() -> a.tagsString());
-            }
-         });
-        
-        eventsTableColumnDetails.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
             @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {
-                ReadOnlyTask a  = cd.getValue();
+            public TableCell<ReadOnlyTask, String> call(TableColumn<ReadOnlyTask, String> param) {    
+                TableCell<ReadOnlyTask, String> cell = new TableCell<ReadOnlyTask, String>() {
+                    
+                    @Override
+                    public void updateItem(final String item, boolean empty) {
+                        
+                        // CSS Styles
+                        String no_priority = "no-priority";
+                        String low_priority = "low-priority";
+                        String med_priority = "medium-priority";
+                        String high_priority = "high-priority";
+                        String cssStyle = "";
 
-                return Bindings.createStringBinding(() -> a.getName().toString());
+                        ReadOnlyTask rowTask = null;
+                        if( getTableRow() != null ) {
+                            rowTask = (ReadOnlyTask) getTableRow().getItem();
+                        }
+
+                        //Remove all previously assigned CSS styles from the cell.
+                        getStyleClass().remove(no_priority);
+                        getStyleClass().remove(low_priority);
+                        getStyleClass().remove(med_priority);
+                        getStyleClass().remove(high_priority);
+
+                        super.updateItem((String) item, empty);
+
+                        //Determine how to format the cell based on the status of the container.
+                        if( rowTask == null) {
+                            cssStyle = no_priority;
+                        } else if( rowTask.getPriority().toString().toLowerCase().contains("low") ) {
+                            cssStyle = low_priority;
+                        } else if( rowTask.getPriority().toString().toLowerCase().contains("med") ) {
+                            cssStyle = med_priority;
+                        } else if( rowTask.getPriority().toString().toLowerCase().contains("high") ) {
+                            cssStyle = high_priority;
+                        } else {
+                            cssStyle = no_priority;
+                        }
+
+                        //Set the CSS style on the cell and set the cell's text.
+                        getStyleClass().add(cssStyle);
+                        if( item != null ) {
+                            setText( item.toString()  );
+                        } else {
+                            setText( "" );
+                        }                       
+                    }
+                };
+                return cell;
             }
-        });
-        
-        eventsTableColumnStartDate.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {  
-                if(cd.getValue() instanceof Event){
-                    Event a = (Event) cd.getValue();
-                    return Bindings.createStringBinding(() -> a.getStart().toString());
-                }
-               return new SimpleStringProperty();
-            }
-        });
-        
-        eventsTableColumnEndDate.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ReadOnlyTask, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<ReadOnlyTask, String> cd) {  
-                if(cd.getValue() instanceof Event){
-                    Event a = (Event) cd.getValue();
-                    return Bindings.createStringBinding(() -> a.getEnd().toString());
-                }
-               return new SimpleStringProperty();
-            }
-        });
+        };
     }
 }
    

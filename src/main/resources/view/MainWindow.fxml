@@ -2,37 +2,32 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.MainWindow">
-   <stylesheets>
-      <URL value="@DarkTheme.css" />
-      <URL value="@Extensions.css" />
-   </stylesheets>
    <children>
-      <MenuBar VBox.vgrow="NEVER">
-         <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="taskList" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="273.0" prefWidth="273.0" SplitPane.resizableWithParent="false">
                <children>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label fx:id="currentDateLabel" styleClass="label-bigdate" text="\$DATE_NOW">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="currentYearLabel" alignment="BOTTOM_LEFT" styleClass="label-smalldate" text="\$YEAR_NOW">
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
                   <AnchorPane fx:id="taskListPanelPlaceholder" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="273.0" />
                </children>
                <padding>
@@ -41,29 +36,38 @@
             </VBox>
             <VBox maxWidth="-Infinity" minWidth="300.0" prefHeight="200.0" prefWidth="1000.0">
                <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
                   <AnchorPane fx:id="statusbarPlaceholder" />
-                  <VBox>
+                  <AnchorPane fx:id="agendaPlaceholder" stylesheets="@DarkTheme.css">
+                     <padding>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </padding>
+                  </AnchorPane>
+                  <AnchorPane maxHeight="300.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <AnchorPane fx:id="agendaPlaceholder">
+                         <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="300.0" minHeight="100" styleClass="anchor-pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                             <padding>
+                                 <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                             </padding>
+                         </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane maxHeight="50.0" minHeight="50.0" prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <AnchorPane fx:id="commandBoxPlaceholder" maxHeight="50.0" minHeight="50.0" styleClass="anchor-pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <padding>
                               <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
                            </padding>
                         </AnchorPane>
                      </children>
-                  </VBox>
-                   <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="anchor-pane-with-border">
-                       <padding>
-                           <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                       </padding>
-                   </AnchorPane>
-                  <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
-                     <padding>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                     </padding>
                   </AnchorPane>
                </children>
             </VBox>
          </items>
       </SplitPane>
    </children>
+   <stylesheets>
+      <URL value="@DarkTheme.css" />
+      <URL value="@Extensions.css" />
+   </stylesheets>
 </VBox>

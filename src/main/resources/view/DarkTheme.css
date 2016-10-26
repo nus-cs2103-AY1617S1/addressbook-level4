@@ -3,21 +3,35 @@
 }
 
 .label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 12pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
-    -fx-font-size: 11pt;
+    -fx-font-size: 12pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-bigdate {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-smalldate {
+    -fx-font-size: 14pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .label-header {
-    -fx-font-size: 32pt;
+    -fx-font-size: 26pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-opacity: 1;
@@ -52,7 +66,7 @@
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 35;
+    -fx-size: 20;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
     -fx-border-color:
@@ -60,11 +74,11 @@
         transparent
         derive(-fx-base, 80%)
         transparent;
-    -fx-border-insets: 0 10 1 0;
+    -fx-border-insets: 0 0 1 0;
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
+    -fx-font-size: 15pt;
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
@@ -73,6 +87,26 @@
 
 .table-view:focused .table-row-cell:filled:focused:selected {
     -fx-background-color: -fx-focus-color;
+}
+
+.no-priority {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.low-priority {
+    -fx-font-size: 14px;
+    -fx-text-fill: green;
+}
+
+.medium-priority {
+    -fx-font-size: 14px;
+    -fx-text-fill: yellow;
+}
+
+.high-priority {
+    -fx-font-size: 16px;
+    -fx-text-fill: red;
 }
 
 .split-pane:horizontal .split-pane-divider {
@@ -97,7 +131,7 @@
 }
 
 .cell_big_label {
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
     -fx-text-fill: #010504;
 }
 
@@ -130,16 +164,19 @@
 }
 
 .status-bar .label {
+    -fx-font-size : 10px;
     -fx-text-fill: white;
 }
 
 .status-bar-with-border {
+    -fx-font-size : 10px;
     -fx-background-color: derive(#1d1d1d, 30%);
     -fx-border-color: derive(#1d1d1d, 25%);
     -fx-border-width: 1px;
 }
 
 .status-bar-with-border .label {
+    -fx-font-size : 10px;
     -fx-text-fill: white;
 }
 

@@ -1,8 +1,13 @@
 package seedu.jimi.ui;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
@@ -41,15 +46,18 @@ public class MainWindow extends UiPart {
     private Scene scene;
 
     private String taskBookName;
+    
+    @FXML 
+    private Label currentDateLabel;
+    
+    @FXML 
+    private Label currentYearLabel;
 
     @FXML
     private AnchorPane agendaPlaceholder;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
-
-    @FXML
-    private MenuItem helpMenuItem;
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
@@ -98,12 +106,27 @@ public class MainWindow extends UiPart {
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
+        setCurrentDate();
 
         setAccelerators();
     }
-
+    
+    /**
+     * Sets the label in the mainwindow to the current date.
+     * @@author A0138915X
+     */
+    private void setCurrentDate() {
+        String currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMMM", Locale.ENGLISH));
+        this.currentDateLabel.setText(currentDate);
+        currentDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy"));
+        this.currentYearLabel.setText(currentDate);
+    }
+    
+    /**
+     * @@author generated
+     */
     private void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        //helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
     void fillInnerParts() {

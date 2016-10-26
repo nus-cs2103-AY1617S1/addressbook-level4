@@ -1,5 +1,6 @@
 package seedu.jimi.model.task;
 
+import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.UniqueTagList;
 
 /**
@@ -11,6 +12,7 @@ public interface ReadOnlyTask {
     Name getName();
     boolean isCompleted();
     String getAsText();
+    Priority getPriority();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

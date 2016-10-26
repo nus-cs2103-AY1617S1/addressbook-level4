@@ -4,7 +4,7 @@ import seedu.jimi.commons.events.BaseEvent;
 
 /**
  * Indicates user request to show a section of the taskList panel.
- * @author zexuan
+ * @@author A0138915X
  *
  */
 public class ShowTaskPanelSectionEvent extends BaseEvent{

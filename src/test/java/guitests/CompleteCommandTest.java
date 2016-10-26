@@ -29,7 +29,7 @@ public class CompleteCommandTest extends AddressBookGuiTest {
         assertCompleteSuccess(targetIndex, currentList);
 
         //invalid index
-        commandBox.runCommand("complete " + currentList.length + 1);
+        commandBox.runCommand("complete t" + currentList.length + 1);
         assertResultMessage("The task index provided is invalid");
 
     }
@@ -42,7 +42,7 @@ public class CompleteCommandTest extends AddressBookGuiTest {
     private void assertCompleteSuccess(int targetIndexOneIndexed, final TestFloatingTask[] currentList) {
         TestFloatingTask taskToComplete = currentList[targetIndexOneIndexed - 1]; //-1 because array uses zero indexing
 
-        commandBox.runCommand("complete " + targetIndexOneIndexed);
+        commandBox.runCommand("complete t" + targetIndexOneIndexed);
 
         //confirm the list now contains the task being set to complete
         assertTrue(taskListPanel.getTask(targetIndexOneIndexed).isCompleted());

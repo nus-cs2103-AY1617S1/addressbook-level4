@@ -17,7 +17,7 @@ import seedu.jimi.model.event.Event;
  * @see T#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTaskList<T> implements Iterable<T> {
+public class UniqueTaskList implements Iterable<ReadOnlyTask> {
 
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
@@ -34,7 +34,7 @@ public class UniqueTaskList<T> implements Iterable<T> {
      */
     public static class TaskNotFoundException extends Exception {}
 
-    private final ObservableList<T> internalList = FXCollections.observableArrayList();
+    private final ObservableList<ReadOnlyTask> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TaskList.
@@ -44,7 +44,7 @@ public class UniqueTaskList<T> implements Iterable<T> {
     /**
      * Returns true if the list contains an equivalent task as the given argument.
      */
-    public boolean contains(T toCheck) {
+    public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
@@ -54,7 +54,7 @@ public class UniqueTaskList<T> implements Iterable<T> {
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(T toAdd) throws DuplicateTaskException {
+    public void add(ReadOnlyTask toAdd) throws DuplicateTaskException {
         assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTaskException();
@@ -67,7 +67,7 @@ public class UniqueTaskList<T> implements Iterable<T> {
      *
      * @throws TaskNotFoundException if no such task could be found in the list.
      */
-    public boolean remove(T toRemove) throws TaskNotFoundException {
+    public boolean remove(ReadOnlyTask toRemove) throws TaskNotFoundException {
         assert toRemove != null;
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {
@@ -78,10 +78,16 @@ public class UniqueTaskList<T> implements Iterable<T> {
     
     /**
      * Sets the selected task to be complete/incomplete.
+     * @throws TaskNotFoundException 
      */
-    public void complete(ReadOnlyTask toComplete, boolean isComplete) {
+    public void complete(ReadOnlyTask toComplete, boolean isComplete) throws TaskNotFoundException {
         assert toComplete != null;
         int targetIndex = internalList.indexOf(toComplete);
+        
+        if (targetIndex == -1) {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+        
         if (toComplete instanceof DeadlineTask) {
             ((DeadlineTask) internalList.get(targetIndex)).setCompleted(isComplete);
         } else if (toComplete instanceof Event) {
@@ -94,19 +100,19 @@ public class UniqueTaskList<T> implements Iterable<T> {
     /**
      * Replaces the floating task at the specified index with {@code toEdit}
      */
-    public void replace(T oldTask, T newTask) {
+    public void replace(ReadOnlyTask oldTask, ReadOnlyTask newTask) {
         assert newTask != null;
         int oldIdx = internalList.indexOf(oldTask);
         internalList.set(oldIdx, newTask);
     }
 
-    public ObservableList<T> getInternalList() {
+    public ObservableList<ReadOnlyTask> getInternalList() {
         return internalList;
     }
 
     @Override
-    public Iterator<T> iterator() {
-        Iterator<T> i = internalList.iterator();
+    public Iterator<ReadOnlyTask> iterator() {
+        Iterator<ReadOnlyTask> i = internalList.iterator();
         return i;
     }
 

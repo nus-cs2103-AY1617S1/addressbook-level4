@@ -16,6 +16,8 @@ import seedu.jimi.model.task.ReadOnlyTask;
 public abstract class Command {
     protected Model model;
     
+    protected Model origModel;
+    
     protected static final String INDEX_TASK_LIST_PREFIX = "t";
     protected static final String INDEX_EVENT_LIST_PREFIX = "e";
     
@@ -51,6 +53,7 @@ public abstract class Command {
      */
     public void setData(Model model) {
         this.model = model;
+        origModel = model.clone();
     }
 
     /**
@@ -73,6 +76,10 @@ public abstract class Command {
             return Optional.of(model.getFilteredAgendaEventList());
         }
         return Optional.empty();
+    }
+
+    public void undo() {
+        model.resetData(origModel.getTaskBook());
     }
 
 }

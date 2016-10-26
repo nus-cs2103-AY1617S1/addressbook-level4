@@ -1,6 +1,7 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -54,7 +55,8 @@ public class GuiHandle {
     }
 
     protected void setTextField(String textFieldId, String newText) {
-        guiRobot.clickOn(textFieldId);
+        //guiRobot.clickOn(textFieldId);
+        guiRobot.clickOn(new Point2D(primaryStage.getWidth() * 0.75, primaryStage.getHeight() * 1.4));
         ((TextField)guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
         guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
     }

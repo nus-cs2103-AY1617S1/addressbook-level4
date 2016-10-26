@@ -5,7 +5,7 @@ import seedu.jimi.model.TaskBook;
 /**
  * Clears the address book.
  */
-public class ClearCommand extends Command {
+public class ClearCommand extends Command implements TaskBookEditor{
     
     public static final String COMMAND_WORD = "clear";
     public static final String MESSAGE_SUCCESS = "Jimi has been cleared!";

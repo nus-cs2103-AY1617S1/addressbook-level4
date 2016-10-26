@@ -9,7 +9,7 @@ import seedu.jimi.commons.util.FileUtil;
 
 /**
  *  
- * @author Wei Yin 
+ * @@author A0143471L
  * 
  * Sets save directory for the tasks and events in Jimi.
  */

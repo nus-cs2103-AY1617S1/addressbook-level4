@@ -16,6 +16,7 @@ import seedu.jimi.model.TaskBook;
 import seedu.jimi.model.Model;
 import seedu.jimi.model.ModelManager;
 import seedu.jimi.model.ReadOnlyTaskBook;
+import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.Tag;
 import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.*;
@@ -201,6 +202,8 @@ public class LogicManagerTest {
                 "a \"Valid task\" t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
         assertCommandBehavior(
                 "ad \"Valid task\" t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandBehavior(
+                "add \"Valid task\" t/valid p/invalid", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
     }
 
     @Test
@@ -595,21 +598,24 @@ public class LogicManagerTest {
             Name name = new Name("Adam Brown");
             Tag tag1 = new Tag("tag1");
             UniqueTagList tags = new UniqueTagList(tag1);
-            return new FloatingTask(name, tags);
+            Priority priority = new Priority("HIGH");
+            return new FloatingTask(name, tags, priority);
         }
         
         FloatingTask laundry() throws Exception {
             Name name = new Name("laundry");
             Tag tag1 = new Tag("dothem");
             UniqueTagList tags = new UniqueTagList(tag1);
-            return new FloatingTask(name, tags);
+            Priority priority = new Priority("MED");
+            return new FloatingTask(name, tags, priority);
         }
         
         FloatingTask homework() throws Exception {
             Name name = new Name("homework");
             Tag tag1 = new Tag("impt");
             UniqueTagList tags = new UniqueTagList(tag1);
-            return new FloatingTask(name, tags);
+            Priority priority = new Priority("LOW");
+            return new FloatingTask(name, tags, priority);
         }
 
         /**
@@ -622,7 +628,8 @@ public class LogicManagerTest {
         FloatingTask generateFloatingTask(int seed) throws Exception {
             return new FloatingTask(
                     new Name("FloatingTask " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
+                    new Priority("MED")
             );
         }
 
@@ -637,6 +644,9 @@ public class LogicManagerTest {
             UniqueTagList tags = p.getTags();
             for (Tag t : tags) {
                 cmd.append(" t/").append(t.tagName);
+//            cmd.append(" ");
+            cmd.append(" p/");
+            cmd.append(p.getPriority().tagName);
             }
 
             return cmd.toString();
@@ -652,6 +662,7 @@ public class LogicManagerTest {
             UniqueTagList tags = p.getTags();
             for (Tag t : tags) {
                 cmd.append(" t/").append(t.tagName);
+            cmd.append(" p/").append(p.getPriority().tagName);
             }
 
             return cmd.toString();
@@ -668,6 +679,7 @@ public class LogicManagerTest {
             for (Tag t : tags) {
                 cmd.append(" t/").append(t.tagName);
             }
+            cmd.append(" p/").append(p.getPriority().tagName);
 
             return cmd.toString();
         }
@@ -745,7 +757,8 @@ public class LogicManagerTest {
         FloatingTask generateFloatingTaskWithName(String name) throws Exception {
             return new FloatingTask(
                     new Name(name),
-                    new UniqueTagList(new Tag("tag"))
+                    new UniqueTagList(new Tag("tag")),
+                    new Priority("MED")
             );
         }
         

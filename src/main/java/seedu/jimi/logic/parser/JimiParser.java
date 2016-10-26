@@ -15,6 +15,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.lang.String;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
@@ -34,9 +35,11 @@ import seedu.jimi.logic.commands.FindCommand;
 import seedu.jimi.logic.commands.HelpCommand;
 import seedu.jimi.logic.commands.IncorrectCommand;
 import seedu.jimi.logic.commands.ListCommand;
+import seedu.jimi.logic.commands.RedoCommand;
 import seedu.jimi.logic.commands.SaveAsCommand;
 import seedu.jimi.logic.commands.SelectCommand;
 import seedu.jimi.logic.commands.ShowCommand;
+import seedu.jimi.logic.commands.UndoCommand;
 
 /**
  * Parses user input.
@@ -54,12 +57,12 @@ public class JimiParser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
     
     private static final Pattern TAGGABLE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)"); // zero or one tag only
+            Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)(?<priorityArguments>(?: p/[^/]+)?)"); // zero or one tag only, zero or one priority    
     
     private static final Pattern EDIT_DATA_ARGS_FORMAT = // accepts index at beginning, follows task/event patterns after
             Pattern.compile("(?<targetIndex>[^\\s]+) (?<editDetails>.+)");
     
-    // acccepts in the format of a deadline task or event
+    // accepts in the format of a deadline task or event
     private static final Pattern EDIT_DETAILS_FORMAT = Pattern.compile(
             "(\"(?<taskDetails>.+)\"\\s?)?(((due (?<deadline>.+))?)|((on (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?))");
     
@@ -86,6 +89,8 @@ public class JimiParser {
                     new FindCommand(), 
                     new ListCommand(),
                     new ShowCommand(),
+                    new UndoCommand(),
+                    new RedoCommand(),
                     new ExitCommand(), 
                     new HelpCommand(), 
                     new SaveAsCommand()
@@ -187,11 +192,17 @@ public class JimiParser {
         try {
             List<Date> startDates = parseStringToDate(eventDetailsMatcher.group("startDateTime"));
             List<Date> endDates = parseStringToDate(eventDetailsMatcher.group("endDateTime"));
+            
+            String priority = getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"));
+            if (priority == null) {
+                priority = "NULL";
+            }
             return new AddCommand(
                     eventDetailsMatcher.group("taskDetails"),
                     startDates,
                     endDates,
-                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
+                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
+                    priority
             );
         } catch (DateNotParsableException e) {
             return new IncorrectCommand(e.getMessage());
@@ -208,10 +219,16 @@ public class JimiParser {
     private Command generateAddCommandForTask(final Matcher detailsAndTagsMatcher, final Matcher taskDetailsMatcher) {
         try {
             List<Date> dates = parseStringToDate(taskDetailsMatcher.group("dateTime"));
+            
+            String priority = getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"));
+            if (priority == null)
+                priority = "NULL";
+            
             return new AddCommand(
                     taskDetailsMatcher.group("taskDetails"),
                     dates,
-                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments"))
+                    getTagsFromArgs(detailsAndTagsMatcher.group("tagArguments")),
+                    priority
             );
         } catch (DateNotParsableException e) {
             return new IncorrectCommand(e.getMessage());
@@ -294,7 +311,8 @@ public class JimiParser {
                 deadline,
                 eventStart,
                 eventEnd,
-                editArgsMatcher.group("targetIndex")
+                editArgsMatcher.group("targetIndex"),
+                getPriorityFromArgs(detailsAndTagsMatcher.group("priorityArguments"))
         );
     }
     
@@ -311,6 +329,20 @@ public class JimiParser {
         final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
     }
+    
+    /**
+     * Extracts the new task's tags from the add command's tag arguments string.
+     * Merges duplicate tag strings.
+     */
+    private static String getPriorityFromArgs(String priorityArguments) throws IllegalValueException {
+        // no tags
+        if (priorityArguments.isEmpty()) {
+            return null;   
+        }
+        // replace first delimiter prefix, then split
+        final String priorityString = priorityArguments.replaceFirst(" p/", "");
+        return priorityString;
+    }
 
     /**
      * Parses arguments in the context of the complete task command.
@@ -319,12 +351,12 @@ public class JimiParser {
      * @return the prepared command
      */
     private Command prepareComplete(String args) {
-        Optional<Integer> index = parseIndex(args);
+        Optional<Integer> index = parseIndex(args); 
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
         }
         
-        return new CompleteCommand(index.get());
+        return new CompleteCommand(args.trim());
     }
     
     /**
@@ -368,7 +400,7 @@ public class JimiParser {
         
         //goes through list of keywords to check if user input is valid
         for (String validKey : ShowCommand.VALID_KEYWORDS) {
-            if (validKey.contains(args)) {
+            if (validKey.toLowerCase().equals(args.toLowerCase())) {
                 keywordFound = true;
                 break;
             }
@@ -382,7 +414,7 @@ public class JimiParser {
         // keywords delimited by whitespace
         final String sectionToShow = matcher.group("sectionToShow");
         
-        return new ShowCommand(sectionToShow);
+        return new ShowCommand(sectionToShow.toLowerCase().trim());
     }
 
     
