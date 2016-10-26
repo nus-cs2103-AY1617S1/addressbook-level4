@@ -97,6 +97,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@author A0153467Y
     @Override
     public synchronized void pinTask(ReadOnlyTask originalTask, Task toPin) {
         taskManager.pinTask(originalTask, toPin);
@@ -104,6 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    //@@author A0153467Y
     @Override
     public synchronized void unpinTask(ReadOnlyTask originalTask, Task toUnpin) {
         taskManager.unpinTask(originalTask, toUnpin);

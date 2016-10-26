@@ -62,6 +62,7 @@ Examples:
 Examples on date time flexibility:
 * `add project c/3 days from now` <br> Adds a project task three days later from the time you input this command
 
+//@@author A0153467Y
 #### Deleting a task : `delete`
 Deletes a specific task by task name or index from the to-do list.<br>
 Format: `delete TASK_NAME` or `delete INDEX`
@@ -125,7 +126,7 @@ Examples:
 * `find t/cs2103`<br>
   Returns tasks having tag `cs2103`
 
-
+//@@author
 #### Update entries : `update`
 Update a specific task.<br>
 Format: `update INDEX [TASKNAME s/START_DATE:START_TIME c/CLOSE_DATE:CLOSE_TIME t/TAG rt/TO_REMOVE_TAG]`
@@ -148,6 +149,7 @@ Examples:
 * `update 2 t/family rt/friends` <br>  
    add a tag family to the second task and remove the tag named friends
 
+//@@author A0153467Y
 #### Undo action : `undo`
 Undo the previous action.<br>
 Format: `undo`

@@ -105,6 +105,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         syncTagsWithMasterList(updateTask);
         tasks.update(originalTask, updateTask);
     }
+    
+    //@@author A0153467Y
     /**
      * Pins a specfic task to the task list as important. 
      * 
@@ -112,10 +114,10 @@ public class TaskManager implements ReadOnlyTaskManager {
      * @param toPin Task which is pinned
      */
     public void pinTask(ReadOnlyTask originalTask, Task toPin) {
-        syncTagsWithMasterList(toPin);
         tasks.pin(originalTask, toPin);
     }
-
+    
+    //@@author A0153467Y
     /**
      * Unpins a specfic pinned task to the task list. 
      * 
@@ -123,7 +125,6 @@ public class TaskManager implements ReadOnlyTaskManager {
      * @param toPin Task which is unpinnned
      */
     public void unpinTask(ReadOnlyTask originalTask, Task toUnpin) {
-        syncTagsWithMasterList(toUnpin);
         tasks.unpin(originalTask, toUnpin);
     }
     
