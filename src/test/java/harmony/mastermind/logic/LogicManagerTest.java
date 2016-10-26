@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import org.ocpsoft.prettytime.PrettyTime;
 
 import harmony.mastermind.commons.core.EventsCenter;
 import harmony.mastermind.logic.commands.*;
@@ -22,6 +23,7 @@ import harmony.mastermind.commons.events.model.TaskManagerChangedEvent;
 import harmony.mastermind.commons.events.ui.JumpToListRequestEvent;
 import harmony.mastermind.commons.events.ui.ShowHelpRequestEvent;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -48,7 +50,8 @@ public class LogicManagerTest {
     private boolean helpShown;
     private int targetedJumpIndex;
     private static String TAB_HOME = "Home";
-    final long time = 1469980800000L;
+    final Date startDate = new Date();
+    final Date endDate = new Date(startDate.getTime()+1000);
 
     @Subscribe
     private void handleLocalModelChangedEvent(TaskManagerChangedEvent abce) {
@@ -153,17 +156,6 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
 
-
-    @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_EXAMPLES);
-        assertCommandBehavior("add wrong args wrong args", expectedMessage);
-        assertCommandBehavior("add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-        assertCommandBehavior("add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior("add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address",
-                              expectedMessage);
-    }
-
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
@@ -185,15 +177,16 @@ public class LogicManagerTest {
     public void execute_undoAndRedo_add() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.task();
-        String timeCheck = toBeAdded.parseForConsole(new Date(time));
+        String timeCheckStart = toBeAdded.parseForConsole(startDate);
+        String timeCheckEnd = toBeAdded.parseForConsole(endDate);
         
         logic.execute(helper.generateAddCommand(toBeAdded), TAB_HOME);
         
         assertCommandBehavior("undo", "Undo successfully.\n"
                 + "=====Undo Details=====\n"
                 + "[Undo Add Command] Task deleted: task "
-                + "start:" + timeCheck + " "
-                + "end:" + timeCheck + " "
+                + "start:" + timeCheckStart + " "
+                + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2]\n"
                 + "==================",
                 model.getTaskManager(),
@@ -202,8 +195,8 @@ public class LogicManagerTest {
         assertCommandBehavior("redo", "Redo successfully.\n"
                 + "=====Redo Details=====\n"
                 + "[Redo Add Command] Task added: task "
-                + "start:" + timeCheck + " "
-                + "end:" + timeCheck + " "
+                + "start:" + timeCheckStart + " "
+                + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2]\n"
                 + "==================",
                 model.getTaskManager(),
@@ -215,7 +208,8 @@ public class LogicManagerTest {
     public void execute_undoAndRedo_edit() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.task();
-        String timeCheck = toBeEdited.parseForConsole(new Date(time));
+        String timeCheckStart = toBeEdited.parseForConsole(startDate);
+        String timeCheckEnd = toBeEdited.parseForConsole(endDate);
         List<Task> oneTask = helper.generateTaskList(toBeEdited);
         TaskManager expectedTM = helper.generateTaskManager(oneTask);
         List<Task>expectedList = oneTask;
@@ -228,8 +222,8 @@ public class LogicManagerTest {
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
                 + "[Undo Edit Command] Task reverted: task "
-                + "start:" + timeCheck + " "
-                + "end:" + timeCheck + " "
+                + "start:" + timeCheckStart + " "
+                + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2]\n"
                 + "==================",       
                 expectedTM,
@@ -239,8 +233,8 @@ public class LogicManagerTest {
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
                 + "[Redo Edit Command] Edit the following task: task "
-                + "start:" + timeCheck + " "
-                + "end:" + timeCheck + " "
+                + "start:" + timeCheckStart + " "
+                + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2]\n"
                 + "==================",       
                 expectedTM,
@@ -252,7 +246,8 @@ public class LogicManagerTest {
     public void execute_undo_delete() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.task();
-        String timeCheck = toBeEdited.parseForConsole(new Date(time));
+        String timeCheckStart = toBeEdited.parseForConsole(startDate);
+        String timeCheckEnd = toBeEdited.parseForConsole(endDate);
         List<Task> oneTask = helper.generateTaskList(toBeEdited);
         TaskManager expectedTM = helper.generateTaskManager(oneTask);
         List<Task>expectedList = oneTask;
@@ -265,8 +260,8 @@ public class LogicManagerTest {
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
                 + "[Undo Delete Command] Task added: task "
-                + "start:" + timeCheck + " "
-                + "end:" + timeCheck + " "
+                + "start:" + timeCheckStart + " "
+                + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2]\n"
                 + "==================",       
                 expectedTM,
@@ -276,8 +271,8 @@ public class LogicManagerTest {
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
                 + "[Redo Delete Command] Deleted Task: task "
-                + "start:" + timeCheck + " "
-                + "end:" + timeCheck + " "
+                + "start:" + timeCheckStart + " "
+                + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2]\n"
                 + "==================",
                 model.getTaskManager(),
@@ -289,7 +284,8 @@ public class LogicManagerTest {
     public void execute_undo_mark() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.task();
-        String timeCheck = toBeEdited.parseForConsole(new Date(time));
+        String timeCheckStart = toBeEdited.parseForConsole(startDate);
+        String timeCheckEnd = toBeEdited.parseForConsole(endDate);
         List<Task> oneTask = helper.generateTaskList(toBeEdited);
         TaskManager expectedTM = helper.generateTaskManager(oneTask);
         List<Task>expectedList = oneTask;
@@ -302,8 +298,8 @@ public class LogicManagerTest {
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
                 + "[Undo Mark Command] task "
-                + "start:" + timeCheck + " "
-                + "end:" + timeCheck + " "
+                + "start:" + timeCheckStart + " "
+                + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2] has been unmarked\n"
                 + "==================",       
                 expectedTM,
@@ -313,8 +309,8 @@ public class LogicManagerTest {
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
                 + "[Redo Mark Command] task "
-                + "start:" + timeCheck + " "
-                + "end:" + timeCheck + " "
+                + "start:" + timeCheckStart + " "
+                + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2] has been archived\n"
                 + "==================",       
                 model.getTaskManager(),
@@ -326,7 +322,8 @@ public class LogicManagerTest {
     public void execute_undo_unmark() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task toBeEdited = helper.task();
-        String timeCheck = toBeEdited.parseForConsole(new Date(time));
+        String timeCheckStart = toBeEdited.parseForConsole(startDate);
+        String timeCheckEnd = toBeEdited.parseForConsole(endDate);
         List<Task> oneTask = helper.generateTaskList(toBeEdited);
         TaskManager expectedTM = helper.generateTaskManager(oneTask);
         List<Task>expectedList;
@@ -341,8 +338,8 @@ public class LogicManagerTest {
                 "Undo successfully.\n"
                 + "=====Undo Details=====\n"
                 + "[Undo Mark Command] task "
-                + "start:" + timeCheck + " "
-                + "end:" + timeCheck + " "
+                + "start:" + timeCheckStart + " "
+                + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2] has been unmarked\n"
                 + "==================",       
                 model.getTaskManager(),
@@ -352,8 +349,8 @@ public class LogicManagerTest {
                 "Redo successfully.\n"
                 + "=====Redo Details=====\n"
                 + "[Redo Mark Command] task "
-                + "start:" + timeCheck + " "
-                + "end:" + timeCheck + " "
+                + "start:" + timeCheckStart + " "
+                + "end:" + timeCheckEnd + " "
                 + "Tags: [tag1],[tag2] has been archived\n"
                 + "==================",       
                 model.getTaskManager(),
@@ -620,8 +617,6 @@ public class LogicManagerTest {
 
         Task task() throws Exception {
             String name = "task";
-            Date startDate = new Date(time);
-            Date endDate = new Date(time);
             String recur = null;
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
@@ -641,8 +636,8 @@ public class LogicManagerTest {
             
             return new Task(
                     "task"+seed,
-                    new Date(time),
-                    new Date(time),
+                    startDate,
+                    endDate,
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1))),
                     null
                     );
@@ -651,13 +646,14 @@ public class LogicManagerTest {
         /** Generates the correct add command based on the task given */
         String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
+            SimpleDateFormat sdf = new SimpleDateFormat();
 
             cmd.append("add");
 
-            cmd.append(" '").append(p.getName().toString()+"'");
-            cmd.append(" sd/'").append(p.getStartDate()+"'");
-            cmd.append(" ed/'").append(p.getEndDate()+"'");
-            cmd.append(" t/'");
+            cmd.append(" ").append(p.getName().toString());
+            cmd.append(" from ").append(sdf.format(p.getStartDate()));
+            cmd.append(" to ").append(sdf.format(p.getEndDate()));
+            cmd.append(" #");
 
             UniqueTagList tags = p.getTags();
             for (Tag t: tags) {
@@ -666,7 +662,8 @@ public class LogicManagerTest {
             }
             
             cmd.deleteCharAt(cmd.length()-1);
-            cmd.append("'");
+            
+            System.out.println(cmd.toString());
 
             return cmd.toString();
         }
