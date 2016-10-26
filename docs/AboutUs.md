@@ -39,7 +39,7 @@ In-Charge: DearJim
 
 #### [Hee Han Xiang](https://github.com/fisherhx)
 <img src="images/HHX.png" width="150"><br>
-*Responsibilities: Documentaion <br>
+* Responsibilities: Documentaion <br>
 * Components in charge of: [Storage](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/DeveloperGuide.md#storage-component) <br>
 * Features implemented: <br>
    * [Edit task](https://github.com/CS2103AUG2016-W13-C4/main/blob/master/docs/UserGuide.md#editing-a-task-edit) <br>

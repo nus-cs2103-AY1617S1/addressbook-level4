@@ -172,10 +172,12 @@ public class EditCommand extends UndoableCommand {
         // Copy this task for history usage
         beforeEdit = new Task(taskToEdit);
 
+        //assign previous name to taskName if user never input one
         if (taskName == null) {        
             taskName = toEdit.getName();
         }
         
+        //assign previous start date to startDate if user never input one
         if (startDate == null && toEdit.getStartDate().isPresent()) {
             startDate = toEdit.getStartDate().get();
         }
@@ -184,6 +186,7 @@ public class EditCommand extends UndoableCommand {
         	startDate = null;
         }
 
+        //assign previous end date to endDate if user never input one
         if (endDate == null && toEdit.getEndDate().isPresent()) {
         	endDate = toEdit.getEndDate().get();
         }
@@ -192,12 +195,13 @@ public class EditCommand extends UndoableCommand {
         	endDate = null;
         }
 
+        //assign previous priority to priority if user never input one
         if (priority == null) {
         	priority = toEdit.getPriorityValue();
         }
         
         /*
-         * Set recurrenceRate as the previous one if it exist should the user not key in any
+         * Set recurrenceRate as the previous one if it exist should the user not input any
          * Ensure that start date or end date exist, otherwise set recurrence as null even if user input one
          */
         if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
@@ -208,7 +212,7 @@ public class EditCommand extends UndoableCommand {
             recurrenceRate = null;
         }
         
-        //remove recurrence if start and end date are removed
+        //remove recurrence if the start and end date are removed
         if (removeReccurence || (startDate == null && endDate == null)) {
             recurrenceRate = null;
         }
