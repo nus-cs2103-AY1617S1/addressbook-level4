@@ -26,7 +26,8 @@ import java.util.Optional;
 
 //@@author A0135805H
 /**
- * This class links up with TaskCardView.fxml layout to display details of a given ReadOnlyTask to users via the TaskListPanel.fxml.
+ * This class links up with TaskCardView.fxml layout to display details of a given
+ * ReadOnlyTask to users via the TaskListPanel.fxml.
  */
 public class TaskCardView extends UiPart {
     /*Constants*/
@@ -41,7 +42,8 @@ public class TaskCardView extends UiPart {
         since we have no direct access of TaskCardView from the ListView object.
      */
     private static final Map<ImmutableTask, TaskCardView> taskCardMap = new HashMap<>();
-    
+
+    //@@author A0135805H-reused
     /*Layout Declarations*/
     @FXML
     private VBox taskCard;
@@ -95,6 +97,7 @@ public class TaskCardView extends UiPart {
         initialiseCollapsibleView();
     }
 
+    //@@author A0135805H
     /**
      * Displays all other view elements, including title, type label, pin image, description and location texts.
      */
@@ -127,9 +130,10 @@ public class TaskCardView extends UiPart {
      */
     private void setStyle() {
         boolean isCompleted = task.isCompleted();
-        boolean isOverdue = task.getEndTime().isPresent() && timeUtil.isOverdue(task.getEndTime().get()) && !task.isEvent();
-        boolean isOngoing = task.isEvent() && 
-                            timeUtil.isOngoing(task.getStartTime().get(), task.getEndTime().get());
+        boolean isOverdue = task.getEndTime().isPresent()
+                && timeUtil.isOverdue(task.getEndTime().get()) && !task.isEvent();
+        boolean isOngoing = task.isEvent()
+                && timeUtil.isOngoing(task.getStartTime().get(), task.getEndTime().get());
         
         if (isCompleted) {
             ViewStyleUtil.addClassStyles(taskCard, ViewStyleUtil.STYLE_COMPLETED);
@@ -205,7 +209,8 @@ public class TaskCardView extends UiPart {
 
     /* Helper Methods */
     /**
-     * Returns true if this task card can be collapsed, based on the information given from the {@link ImmutableTask}
+     * Returns true if this task card can be collapsed, based on the information given from the
+     * {@link ImmutableTask}
      */
     private boolean isTaskCollapsible() {
         boolean hasDescription = task.getDescription().isPresent();

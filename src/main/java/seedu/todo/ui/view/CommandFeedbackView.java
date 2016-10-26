@@ -28,6 +28,7 @@ public class CommandFeedbackView extends UiPart {
     @FXML private Label commandFeedbackLabel;
     private AnchorPane textContainer;
 
+    //@@author A0135805H-reused
     /**
      * Loads and initialise the feedback view element to the placeholder.
      *
@@ -36,7 +37,8 @@ public class CommandFeedbackView extends UiPart {
      * @return An instance of this class.
      */
     public static CommandFeedbackView load(Stage primaryStage, AnchorPane placeholder) {
-        CommandFeedbackView feedbackView = UiPartLoaderUtil.loadUiPart(primaryStage, placeholder, new CommandFeedbackView());
+        CommandFeedbackView feedbackView = UiPartLoaderUtil
+                .loadUiPart(primaryStage, placeholder, new CommandFeedbackView());
         feedbackView.configureLayout();
         return feedbackView;
     }
@@ -49,6 +51,7 @@ public class CommandFeedbackView extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(commandFeedbackLabel, 0.0, 0.0, 0.0, 0.0);
     }
 
+    //@@author A0135805H
     /* Interfacing Methods */
     /**
      * Displays a message onto the {@link #commandFeedbackLabel}.

@@ -29,12 +29,12 @@ public class TodoListView extends UiPart {
     /*Variables*/
     private final Logger logger = LogsCenter.getLogger(TodoListView.class);
     private VBox panel;
-    private AnchorPane placeHolderPane;
     
     /*Layout Declarations*/
     @FXML
     private ListView<ImmutableTask> todoListView;
 
+    //@@author A0135805H-reused
     /**
      * Default Constructor for {@link TodoListView}
      */
@@ -52,8 +52,8 @@ public class TodoListView extends UiPart {
     public static TodoListView load(Stage primaryStage, AnchorPane placeHolder,
                                     ObservableList<ImmutableTask> todoList) {
         
-        TodoListView todoListView =
-                UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new TodoListView());
+        TodoListView todoListView = UiPartLoaderUtil
+                .loadUiPart(primaryStage, placeHolder, new TodoListView());
         todoListView.configure(todoList);
         return todoListView;
     }
@@ -77,6 +77,7 @@ public class TodoListView extends UiPart {
         todoListView.setCellFactory(param -> new TodoListViewCell());
     }
 
+    //@@author A0135805H
     /* Ui Methods */
     /**
      * Toggles the expanded/collapsed view of a task card.
@@ -122,11 +123,7 @@ public class TodoListView extends UiPart {
         return FXML;
     }
 
-    @Override
-    public void setPlaceholder(AnchorPane pane) {
-        this.placeHolderPane = pane;
-    }
-
+    //@@author A0135805H-reused
     /**
      * Models a Task Card as a single ListCell of the ListView
      */
@@ -147,13 +144,14 @@ public class TodoListView extends UiPart {
             }
         }
 
+        //@@author A0135805H
         /**
          * Sets the style properties of a cell on the to-do list, that cannot be done in any other places.
          */
         private void setTaskCardStyleProperties(TaskCardView taskCardView) {
             this.setPadding(Insets.EMPTY);
-            this.selectedProperty().addListener((observable, oldValue, newValue) -> taskCardView.markAsSelected(newValue));
+            this.selectedProperty().addListener((observable, oldValue, newValue)
+                    -> taskCardView.markAsSelected(newValue));
         }
     }
-
 }

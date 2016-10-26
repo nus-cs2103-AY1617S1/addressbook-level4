@@ -23,15 +23,17 @@ import java.util.logging.Logger;
  * A view class that handles the Input text box directly.
  */
 public class CommandInputView extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(CommandInputView.class);
+    /* Constants */
     private static final String FXML = "CommandInputView.fxml";
 
-    private AnchorPane placeHolder;
+    /* Variables */
+    private final Logger logger = LogsCenter.getLogger(CommandInputView.class);
+
+    /* Layout Elements */
     private AnchorPane commandInputPane;
+    @FXML private TextArea commandTextField;
 
-    @FXML
-    private TextArea commandTextField;
-
+    //@@author A0135805H-reused
     /**
      * Loads and initialise the input view element to the placeHolder
      * @param primaryStage of the application
@@ -39,7 +41,8 @@ public class CommandInputView extends UiPart {
      * @return an instance of this class
      */
     public static CommandInputView load(Stage primaryStage, AnchorPane placeHolder) {
-        CommandInputView commandInputView = UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new CommandInputView());
+        CommandInputView commandInputView = UiPartLoaderUtil
+                .loadUiPart(primaryStage, placeHolder, new CommandInputView());
         commandInputView.configureLayout();
         commandInputView.configureProperties();
         return commandInputView;
@@ -53,6 +56,7 @@ public class CommandInputView extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
 
+    //@@author A0135805H
     /**
      * Configure the UI properties of {@link CommandInputView}
      */
@@ -82,8 +86,8 @@ public class CommandInputView extends UiPart {
             }
         });
     }
-    //@@author
 
+    //@@author A0135805H
     /**
      * Listens for Enter keystrokes, and raises an event when it happens.
      */
@@ -105,7 +109,8 @@ public class CommandInputView extends UiPart {
     }
 
     /**
-     * Allow {@link #commandTextField} to adjust automatically with the height of the content of the text area itself.
+     * Allow {@link #commandTextField} to adjust automatically with the height of the content of the
+     * text area itself.
      */
     private void setCommandInputHeightAutoResizeable() {
         new TextAreaResizer(commandTextField);
@@ -149,11 +154,6 @@ public class CommandInputView extends UiPart {
     @Override
     public String getFxmlPath() {
         return FXML;
-    }
-
-    @Override
-    public void setPlaceholder(AnchorPane pane) {
-        this.placeHolder = pane;
     }
 
     //@@author A0139021U

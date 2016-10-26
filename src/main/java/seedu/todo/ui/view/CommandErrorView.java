@@ -24,10 +24,13 @@ import java.util.logging.Logger;
  * A view class that displays specific command errors in greater detail.
  */
 public class CommandErrorView extends UiPart {
-
-    private final Logger logger = LogsCenter.getLogger(CommandFeedbackView.class);
+    /* Constants */
     private static final String FXML = "CommandErrorView.fxml";
 
+    /* Variables */
+    private final Logger logger = LogsCenter.getLogger(CommandFeedbackView.class);
+
+    /* Layouts */
     private AnchorPane placeholder;
     private VBox errorViewBox;
     @FXML private VBox nonFieldErrorBox;
@@ -35,6 +38,7 @@ public class CommandErrorView extends UiPart {
     @FXML private GridPane nonFieldErrorGrid;
     @FXML private GridPane fieldErrorGrid;
 
+    //@@author A0135805H-reused
     /**
      * Loads and initialise the feedback view element to the placeHolder
      * @param primaryStage of the application
@@ -42,12 +46,14 @@ public class CommandErrorView extends UiPart {
      * @return an instance of this class
      */
     public static CommandErrorView load(Stage primaryStage, AnchorPane placeHolder) {
-        CommandErrorView errorView = UiPartLoaderUtil.loadUiPart(primaryStage, placeHolder, new CommandErrorView());
+        CommandErrorView errorView = UiPartLoaderUtil
+                .loadUiPart(primaryStage, placeHolder, new CommandErrorView());
         errorView.configureLayout();
         errorView.hideCommandErrorView();
         return errorView;
     }
 
+    //@@author A0135805H
     /**
      * Configure the UI layout of {@link CommandErrorView}
      */

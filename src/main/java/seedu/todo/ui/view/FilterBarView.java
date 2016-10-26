@@ -31,7 +31,6 @@ public class FilterBarView extends UiPart {
     private static final String FXML = "FilterBarView.fxml";
 
     /* Layout Views */
-    private AnchorPane placeholder;
     private FlowPane filterViewPane;
 
     /* Variables */
@@ -44,8 +43,11 @@ public class FilterBarView extends UiPart {
      * @param placeholder where the view element {@link #filterViewPane} should be placed
      * @return an instance of this class
      */
-    public static FilterBarView load(Stage primaryStage, AnchorPane placeholder, ObservableValue<TaskViewFilter> filter) {
-        FilterBarView filterView = UiPartLoaderUtil.loadUiPart(primaryStage, placeholder, new FilterBarView());
+    public static FilterBarView load(Stage primaryStage, AnchorPane placeholder,
+                                     ObservableValue<TaskViewFilter> filter) {
+
+        FilterBarView filterView = UiPartLoaderUtil
+                .loadUiPart(primaryStage, placeholder, new FilterBarView());
         filterView.configureLayout();
         filterView.configureProperties();
         filterView.bindListener(filter);
@@ -96,16 +98,12 @@ public class FilterBarView extends UiPart {
         String filterName = WordUtils.capitalize(filter.name);
         String[] partitionedText = StringUtil.partitionStringAtPosition(filterName, filter.shortcutCharPosition);
 
-        Label leftText = new Label(partitionedText[0]);
-        Label centreText = new Label(partitionedText[1]);
-        Label rightText = new Label(partitionedText[2]);
-        ViewStyleUtil.addClassStyles(centreText, ViewStyleUtil.STYLE_UNDERLINE);
+        Label leftLabel = new Label(partitionedText[0]);
+        Label centreLabel = new Label(partitionedText[1]);
+        Label rightLabel = new Label(partitionedText[2]);
+        ViewStyleUtil.addClassStyles(centreLabel, ViewStyleUtil.STYLE_UNDERLINE);
 
-        HBox textContainer = new HBox();
-        textContainer.getChildren().add(leftText);
-        textContainer.getChildren().add(centreText);
-        textContainer.getChildren().add(rightText);
-        return textContainer;
+        return new HBox(leftLabel, centreLabel, rightLabel);
     }
 
     /**
@@ -145,11 +143,6 @@ public class FilterBarView extends UiPart {
     }
 
     /* Override Methods */
-    @Override
-    public void setPlaceholder(AnchorPane placeholder) {
-        this.placeholder = placeholder;
-    }
-
     @Override
     public void setNode(Node node) {
         this.filterViewPane = (FlowPane) node;

@@ -25,15 +25,16 @@ import java.util.logging.Logger;
  */
 public class HelpView extends UiPart {
 
-    private final Logger logger = LogsCenter.getLogger(HelpView.class);
+    /* Constants */
     private static final String FXML = "HelpView.fxml";
 
+    /* Variables */
+    private final Logger logger = LogsCenter.getLogger(HelpView.class);
+
     /*Layouts*/
-    private AnchorPane placeholder;
     private VBox helpPanelView;
 
-    @FXML
-    private GridPane helpGrid;
+    @FXML private GridPane helpGrid;
 
     /**
      * Loads and initialise the feedback view element to the placeHolder
@@ -74,9 +75,12 @@ public class HelpView extends UiPart {
      * @param commandSummary to be displayed
      */
     private void appendCommandSummary(int rowIndex, CommandSummary commandSummary) {
-        Text commandScenario = ViewGeneratorUtil.constructText(commandSummary.scenario, ViewStyleUtil.STYLE_TEXT_4);
-        Text commandName = ViewGeneratorUtil.constructText(commandSummary.command, ViewStyleUtil.STYLE_TEXT_4);
-        Text commandArgument = ViewGeneratorUtil.constructText(" " + commandSummary.arguments, ViewStyleUtil.STYLE_TEXT_4);
+        Text commandScenario = ViewGeneratorUtil
+                .constructText(commandSummary.scenario, ViewStyleUtil.STYLE_TEXT_4);
+        Text commandName = ViewGeneratorUtil
+                .constructText(commandSummary.command, ViewStyleUtil.STYLE_TEXT_4);
+        Text commandArgument = ViewGeneratorUtil
+                .constructText(" " + commandSummary.arguments, ViewStyleUtil.STYLE_TEXT_4);
 
         ViewStyleUtil.addClassStyles(commandArgument, ViewStyleUtil.STYLE_CODE);
         ViewStyleUtil.addClassStyles(commandName, ViewStyleUtil.STYLE_CODE, ViewStyleUtil.STYLE_BOLDER);
@@ -94,13 +98,7 @@ public class HelpView extends UiPart {
         FxViewUtil.setCollapsed(helpPanelView, false);
     }
 
-
     /* Override Methods */
-    @Override
-    public void setPlaceholder(AnchorPane placeholder) {
-        this.placeholder = placeholder;
-    }
-
     @Override
     public void setNode(Node node) {
         this.helpPanelView = (VBox) node;
