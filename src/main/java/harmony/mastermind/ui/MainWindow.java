@@ -9,6 +9,7 @@ import java.util.Collections;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 import org.ocpsoft.prettytime.PrettyTime;
+import org.ocpsoft.prettytime.shade.org.apache.commons.lang.time.DurationFormatUtils;
 
 import com.google.common.eventbus.Subscribe;
 
@@ -527,12 +528,12 @@ public class MainWindow extends UiPart {
                     
                     if(readOnlyTask.isEvent()){
                         Button eventDuration = new Button();
-                        eventDuration.setText(readOnlyTask.getEventDuration().toDays()+" DAY(S) EVENT");
+                        eventDuration.setText("DURATION: " + DurationFormatUtils.formatDurationWords(readOnlyTask.getEventDuration().toMillis(), true, true).toUpperCase());
                         eventDuration.getStyleClass().add("tag-event-duration");
                         hBox.getChildren().add(eventDuration);
                     }else if(readOnlyTask.isDeadline() && !readOnlyTask.isDue()){
                         Button dueDuration = new Button();
-                        dueDuration.setText("DUE IN "+readOnlyTask.getDueDuration().toDays()+" DAY(S)");
+                        dueDuration.setText("DUE IN "+DurationFormatUtils.formatDurationWords(readOnlyTask.getDueDuration().toMillis(), true, true));
                         dueDuration.getStyleClass().add("tag-due-duration");
                         hBox.getChildren().add(dueDuration);
                     }
