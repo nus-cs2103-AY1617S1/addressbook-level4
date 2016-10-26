@@ -11,6 +11,12 @@ import java.util.Objects;
 import seedu.jimi.commons.core.Messages;
 import seedu.jimi.commons.exceptions.IllegalValueException;
 
+/**
+ * @@author A0148040R
+ * 
+ * Represents a comparable DateTime class which wraps a LocalDateTime object
+ * 
+ **/
 public class DateTime implements Comparable<DateTime> {
     public static final String DATE_FORMAT = "yyyy-MM-dd";
     public static final String TIME_FORMAT = "HH:mm";

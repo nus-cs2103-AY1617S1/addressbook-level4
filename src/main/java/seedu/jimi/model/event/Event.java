@@ -9,6 +9,12 @@ import seedu.jimi.model.tag.UniqueTagList;
 import seedu.jimi.model.task.Name;
 import seedu.jimi.model.task.ReadOnlyTask;
 
+/**
+ * Represents a event with a start date and a end date
+ * 
+ * @@author A0148040R
+ *
+ */
 public class Event implements ReadOnlyTask {
 
     private Name name;

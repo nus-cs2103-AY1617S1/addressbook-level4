@@ -4,6 +4,11 @@ import seedu.jimi.model.datetime.DateTime;
 import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.UniqueTagList;
 
+/**
+ * Represents a task with a deadline which inherits from FloatingTask
+ * @@author A0148040R
+ *
+ */
 public class DeadlineTask extends FloatingTask implements ReadOnlyTask {
 
     private DateTime deadline;

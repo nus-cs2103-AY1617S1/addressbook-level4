@@ -4,6 +4,7 @@ import seedu.jimi.model.tag.Priority;
 import seedu.jimi.model.tag.UniqueTagList;
 
 /**
+ * @@author A0148040R
  * A read-only immutable interface for a FloatingTask in the task manager.
  * Implementations should guarantee: name is present and not null, field values are validated.
  */

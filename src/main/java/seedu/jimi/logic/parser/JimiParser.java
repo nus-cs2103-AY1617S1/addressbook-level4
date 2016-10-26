@@ -238,6 +238,7 @@ public class JimiParser {
         }
     }
     
+    // @@author A0148040R
     private static List<Date> parseStringToDate(final String str) throws DateNotParsableException {
         if (str == null) {
             return new ArrayList<Date>();
@@ -252,6 +253,7 @@ public class JimiParser {
             throw new DateNotParsableException(MESSAGE_INVALID_DATE);
         }
     }
+    // @@author
 
     /**
      * Parses arguments in context of the edit task command.

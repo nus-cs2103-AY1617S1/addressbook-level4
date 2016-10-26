@@ -21,6 +21,7 @@ import seedu.jimi.model.task.UniqueTaskList;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
+ * @@author A0148040R
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
  */

@@ -7,6 +7,7 @@ import seedu.jimi.model.tag.UniqueTagList;
 import java.util.Objects;
 
 /**
+ * @@author A0148040R
  * Represents a task in the task book.
  * Guarantees: details are present and not null, field values are validated.
  */

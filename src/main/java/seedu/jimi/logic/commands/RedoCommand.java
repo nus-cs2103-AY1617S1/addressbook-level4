@@ -2,6 +2,11 @@ package seedu.jimi.logic.commands;
 
 import seedu.jimi.logic.History;
 
+/**
+ * 
+ * @@author A0148040R
+ * Represents the redo command
+ */
 public class RedoCommand extends Command{
 
     public static final String COMMAND_WORD = "redo";

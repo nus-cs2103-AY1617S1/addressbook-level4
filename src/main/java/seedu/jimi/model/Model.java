@@ -9,6 +9,7 @@ import seedu.jimi.model.task.UniqueTaskList;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
+ * @@author A0148040R
  * The API of the Model component.
  */
 public interface Model{

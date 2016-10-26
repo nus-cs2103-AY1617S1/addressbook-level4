@@ -14,6 +14,7 @@ import seedu.jimi.model.task.UniqueTaskList;
 import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
+ * @@author A0148040R
  * Represents the in-memory model of Jimi's data.
  * All changes to any model should be synchronized.
  */

@@ -2,6 +2,11 @@ package seedu.jimi.logic.commands;
 
 import seedu.jimi.logic.History;
 
+/**
+ * 
+ * Represents the undo command
+ * @@author A0148040R
+ */
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
