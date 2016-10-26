@@ -156,19 +156,24 @@
 /***TaskCardView Styles Start***/
 /*Default and Base*/
 .taskCard {
-    primary-color: #f3f3f3;
-    primary-color-alt: derive(primary-color, -3%);
+    primary-color: transparent;
     font-color: #444;
+    selected-color: #00A4FF;
     
+    -fx-border-width: 0 12 0 0;
+    -fx-border-color: primary-color;
+}
+
+.taskCard #dateBox {
     -fx-background-color: primary-color;
 }
 
-:odd .taskCard {
-    -fx-background-color: primary-color-alt;
+.taskCard #dateBox .label {
+    -fx-text-fill: font-color; 
 }
 
 .taskCard .label {
-    -fx-text-fill: font-color;
+    -fx-text-fill: #444;
     -fx-font-smoothing-type: lcd;
 }
 
@@ -197,6 +202,8 @@
 
 .taskCard .roundLabel {
     -fx-text-fill: rgba(255, 255, 255, .9);
+    -fx-padding: 1 8 2;
+    -fx-background-radius: 100;
 }
 
 .taskCard .pinImage {
@@ -219,7 +226,15 @@
 
 /*Completed*/
 .completed {
-    font-color: #7F7F7F;
+    -fx-opacity: 0.6;
+}
+
+.completed.selected {
+    -fx-opacity: 0.85;
+}
+
+.completed .label {
+    -fx-text-fill: font-color;
 }
 
 .completed .titleLabel .text {
@@ -227,7 +242,7 @@
 }
 
 .completed .roundLabel {
-    -fx-background-color: #7F7F7F;
+    -fx-background-color: font-color;
     -fx-text-fill: #fff;
 }
 
@@ -243,17 +258,15 @@
     -fx-image: url("../images/location_grey.png");
 }
 
-/* Overdue and ongoing inverts their .roundlabel coloring and use 
-   white color images */
-.overdue .roundLabel, 
-.ongoing .roundLabel, 
-.selected .roundLabel {
-    -fx-background-color: font-color;
-    -fx-text-fill: primary-color;
+/* Overdue and ongoing inverts their highlights their dateBox, so 
+   we add some padding to allow the */
+ 
+.overdue #dateBox, 
+.ongoing #dateBox {
+    -fx-padding: 3 8;
+    -fx-background-radius: 4;
 }
 
-.overdue .pinImage, 
-.ongoing .pinImage, 
 .selected .pinImage {
     -fx-image: url("../images/star_white.png");
 }
@@ -272,24 +285,32 @@
 
 /*Overdue*/
 .overdue {
-    primary-color: #FF6464;
-    primary-color-alt: derive(primary-color, -10%);
+    primary-color: #e53935;
+    selected-color: #b71c1c;
     font-color: rgba(255, 255, 255, .92);
 }
 
 /*@@author A0092382A */
 /*Ongoing*/
 .ongoing {
-    primary-color: #388E3C;
-    primary-color-alt: derive(primary-color, -10%);
+    primary-color: #689f38;
+    selected-color: #33691e;
     font-color: rgba(255, 255, 255, .9);
 }
 /* @@author A0315805H */
 /*Selected*/
-.selected {   
-    primary-color: #00A4FF;
-    primary-color-alt: derive(primary-color, -10%);
-    font-color: rgba(255, 255, 255, 0.9);
+.selected {
+    font-color: rgba(255, 255, 255, .9);
+    -fx-background-color: selected-color;
+}
+
+.selected .label {
+    -fx-text-fill: font-color;
+}
+
+.selected .roundLabel {
+    -fx-background-color: #fff;
+    -fx-text-fill: selected-color;
 }
 
 /*Collapse*/

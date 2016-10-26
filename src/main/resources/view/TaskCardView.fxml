@@ -78,7 +78,7 @@
             <Insets left="2.0" />
          </padding>
       </HBox>
-      <FlowPane hgap="16.0" styleClass="spacing">
+      <FlowPane hgap="8.0" styleClass="spacing">
          <children>
             <HBox fx:id="dateBox" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" styleClass="spacingSmall">
                <children>
