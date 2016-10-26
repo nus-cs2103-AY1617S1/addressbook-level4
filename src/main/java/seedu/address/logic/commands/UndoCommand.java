@@ -22,7 +22,7 @@ public class UndoCommand extends Command {
         assert model != null;
         UndoTask toUndo = model.undoTask();
         try {
-            switch (toUndo.command){
+            switch (toUndo.getCommand()){
             
             case AddCommand.COMMAND_WORD:
                 model.deleteTask(toUndo.getPostData());
@@ -38,7 +38,7 @@ public class UndoCommand extends Command {
                 break;
                 
             }
-            return new CommandResult(MESSAGE_SUCCESS);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toUndo.getCommand()));
         }
         catch (Exception e){
             return new CommandResult("Failed to Undo");
