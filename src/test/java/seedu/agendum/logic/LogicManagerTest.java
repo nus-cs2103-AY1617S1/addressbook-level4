@@ -431,7 +431,7 @@ public class LogicManagerTest {
     public void execute_store_successful() throws Exception {
         // setup expectations
         ToDoList expectedTDL = new ToDoList();
-        String location = "data/test.xml";
+        String location = "data/test_store_successful.xml";
 
         // execute command and verify result
         assertCommandBehavior("store " + location,
@@ -444,12 +444,14 @@ public class LogicManagerTest {
                 String.format(StoreCommand.MESSAGE_LOCATION_DEFAULT, Config.DEFAULT_SAVE_LOCATION),
                 expectedTDL,
                 expectedTDL.getTaskList());
+        
+        FileUtil.deleteFile(location);
     }
     
     public void execute_store_fail_fileExists() throws Exception {
         // setup expectations
         ToDoList expectedTDL = new ToDoList();
-        String location = "data/test.xml";
+        String location = "data/test_store_fail.xml";
 
         // create file
         FileUtil.createIfMissing(new File(location));

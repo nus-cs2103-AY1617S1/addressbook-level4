@@ -17,6 +17,7 @@ public class StoreCommandTest extends ToDoListGuiTest {
     public void store() throws IOException, FileDeletionException {
         String testLocation = "data/test.xml";
         String badLocation = "test/.xml";
+        String inaccessibleLocation = "C:/windows/system32/agendum/todolist.xml";
         
         //save to a valid directory
         commandBox.runCommand("store " + testLocation);
@@ -28,7 +29,11 @@ public class StoreCommandTest extends ToDoListGuiTest {
                 
         //invalid directory
         commandBox.runCommand("store " + badLocation);
-        assertResultMessage(StoreCommand.MESSAGE_LOCATION_INVALID);
+        assertResultMessage(StoreCommand.MESSAGE_PATH_WRONG_FORMAT);
+        
+        //inaccessible location
+        commandBox.runCommand("store " + inaccessibleLocation);
+        //assertResultMessage(StoreCommand.MESSAGE_LOCATION_INACCESSIBLE);        
         
         //file exists
         FileUtil.createIfMissing(new File(testLocation));
