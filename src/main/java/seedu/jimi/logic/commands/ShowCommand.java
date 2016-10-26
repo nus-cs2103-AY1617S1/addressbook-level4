@@ -12,7 +12,7 @@ import seedu.jimi.model.datetime.DateTime;
 
 /**
  * Shows certain sections of the task panel to the user.
- * @author zexuan
+ * @@author A0138915X
  *
  */
 public class ShowCommand extends Command {

@@ -334,7 +334,7 @@ public class FilteredListManager {
     
     /**
      * Predicate for filtering events from the internal list.
-     * @author zexuan
+     * @@author A0138915X
      * @param isMatchingForEvent If true, matches events. Else matches anything that's not an event.
      */
     private class EventQualifier implements Qualifier {
@@ -353,7 +353,7 @@ public class FilteredListManager {
     
     /**
      * Predicate for filtering floatingTasks from the internal list.
-     * @author zexuan
+     * @@author A0138915X
      * @param isMatchingForFloating If true, matches floating tasks. Else matches anything that's not a floating task.
      */
     private class FloatingTaskQualifier implements Qualifier {
@@ -372,7 +372,7 @@ public class FilteredListManager {
     
     /**
      * Predicate for filtering tasks from the internal list.
-     * @author zexuan
+     * @@author A0138915X
      * @param isCheckCompleted If true, matches tasks. Else matches anything that's not a task.
      */
     private class TaskQualifier implements Qualifier {

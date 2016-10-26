@@ -27,7 +27,7 @@ import seedu.jimi.model.task.ReadOnlyTask;
 
 /**
  * Agenda window of Jimi, displays most relevant tasks and events to the user when first starting up app.
- * @author zexuan
+ * @@author A0138915X
  *
  */
 public class AgendaPanel extends UiPart{

@@ -9,7 +9,7 @@ import seedu.jimi.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Marks an existing task as complete.
- * @author zexuan
+ * @@author A0138915X
  *
  */
 public class CompleteCommand extends Command implements TaskBookEditor{
