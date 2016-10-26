@@ -146,14 +146,17 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
+        System.out.println("yes");
         return new UnmodifiableObservableList<>(filteredEvents);
     }
 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList() {
+        System.out.println("yes1");
         return new UnmodifiableObservableList<>(filteredDeadlines);
     }
 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList() {
+        System.out.println("yes2");
         return new UnmodifiableObservableList<>(filteredTodos);
     }
     
