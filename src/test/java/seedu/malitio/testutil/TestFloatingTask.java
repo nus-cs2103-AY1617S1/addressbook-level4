@@ -69,7 +69,7 @@ public class TestFloatingTask implements ReadOnlyFloatingTask {
     }
 
     @Override
-    public void setMarked() {
-        this.marked = true;
+    public void setMarked(boolean marked) {
+        this.marked = marked;
     }
 }

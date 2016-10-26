@@ -17,6 +17,7 @@ import seedu.malitio.model.task.ReadOnlyFloatingTask;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
@@ -24,6 +25,7 @@ import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskExce
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskUnmarkedException;
 import seedu.malitio.model.history.InputAddHistory;
 import seedu.malitio.model.history.InputClearHistory;
 import seedu.malitio.model.history.InputDeleteHistory;
@@ -182,15 +184,17 @@ public class ModelManager extends ComponentManager implements Model {
 	}
 	
 	@Override
-	public void markFloatingTask(ReadOnlyFloatingTask taskToMark) throws FloatingTaskNotFoundException, FloatingTaskMarkedException {
-	    malitio.markTask(taskToMark);
+	public void markFloatingTask(ReadOnlyFloatingTask taskToMark, boolean marked)
+	        throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException {
+	    malitio.markTask(taskToMark, marked);
 	    updateFilteredTaskListToShowAll();
 	    indicatemalitioChanged();
 	}
 	
 	@Override
-    public void markDeadline(ReadOnlyDeadline deadlineToMark) throws DeadlineNotFoundException, DeadlineMarkedException {
-        malitio.markDeadline(deadlineToMark);
+    public void markDeadline(ReadOnlyDeadline deadlineToMark, boolean marked)
+            throws DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException {
+        malitio.markDeadline(deadlineToMark, marked);
         updateFilteredDeadlineListToShowAll();
         indicatemalitioChanged();
     }

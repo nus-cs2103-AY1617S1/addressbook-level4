@@ -77,6 +77,9 @@ public class Parser {
         case MarkCommand.COMMAND_WORD:
             return prepareMark(arguments);
 
+        case UnmarkCommand.COMMAND_WORD:
+            return prepareUnmark(arguments);
+            
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
@@ -295,7 +298,27 @@ public class Parser {
         return new MarkCommand(taskType, taskNum);
     }
 
-
+    /**
+     * Parses arguments in the context of the unmark task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareUnmark(String args) {
+        final Matcher matcher = COMPLETE_INDEX_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
+        }
+        String index = parseIndex(args);
+        if (index.isEmpty()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnmarkCommand.MESSAGE_USAGE));
+        }
+        char taskType = index.charAt(0);
+        int taskNum = Integer.parseInt(index.substring(1));
+        return new UnmarkCommand(taskType, taskNum);
+    }
+    
     /**
      * Parses arguments in the context of the find task command.
      *

@@ -50,6 +50,8 @@ public class DeadlineCard extends UiPart{
     	
     	if (deadline.isMarked()) {
     	    cardPane2.setStyle("-fx-background-color: yellow;");
+    	} else {
+    	    cardPane2.setStyle("-fx-background-color: white;");
     	}
     	
         id.setText("D" + displayedIndex + ". ");

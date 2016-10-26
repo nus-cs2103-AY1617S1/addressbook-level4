@@ -80,8 +80,8 @@ public class TestDeadline implements ReadOnlyDeadline {
     }
 
     @Override
-    public void setMarked() {
-        this.marked = true;
+    public void setMarked(boolean marked) {
+        this.marked = marked;
     }
 
 }

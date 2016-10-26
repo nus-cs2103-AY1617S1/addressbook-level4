@@ -18,11 +18,13 @@ import seedu.malitio.model.task.UniqueFloatingTaskList;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineCompletedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskCompletedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskUnmarkedException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -270,12 +272,14 @@ public class Malitio implements ReadOnlyMalitio {
 		
 	}
 	
-	public void markTask(ReadOnlyFloatingTask taskToMark) throws FloatingTaskNotFoundException, FloatingTaskMarkedException {
-	    tasks.mark(taskToMark);
+	public void markTask(ReadOnlyFloatingTask taskToMark, boolean marked)
+	        throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException {
+	    tasks.mark(taskToMark, marked);
 	}
 	
-	public void markDeadline(ReadOnlyDeadline deadlineToMark) throws DeadlineNotFoundException, DeadlineMarkedException {
-	    deadlines.mark(deadlineToMark);
+	public void markDeadline(ReadOnlyDeadline deadlineToMark, boolean marked)
+	        throws DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException {
+	    deadlines.mark(deadlineToMark, marked);
 	}
 
 

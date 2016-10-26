@@ -70,8 +70,8 @@ public class Deadline implements ReadOnlyDeadline{
 	    return marked;
 	}
 	
-	public void setMarked() {
-	    this.marked = true;
+	public void setMarked(boolean marked) {
+	    this.marked = marked;
 	}
 	/**
      * Replaces this deadline's tags with the tags in the argument tag list.

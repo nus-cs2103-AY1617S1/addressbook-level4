@@ -60,8 +60,8 @@ public class FloatingTask implements ReadOnlyFloatingTask {
 	    return this.marked;
 	}
 	
-	public void setMarked() {
-	    this.marked = true;
+	public void setMarked(boolean marked) {
+	    this.marked = marked;
 	}
 
 	@Override

@@ -15,7 +15,7 @@ public interface ReadOnlyFloatingTask {
     boolean getCompleted();
     void setCompleted();
     boolean isMarked();
-    void setMarked();
+    void setMarked(boolean marked);
 
 
     /**
