@@ -8,16 +8,14 @@ import java.util.logging.Logger;
 
 import seedu.task.commons.core.Config;
 import seedu.task.commons.core.EventsCenter;
-import seedu.task.commons.exceptions.DataConversionException;
 import seedu.task.commons.util.ConfigUtil;
 import seedu.task.commons.util.FileUtil;
 import seedu.task.commons.core.LogsCenter;
 import seedu.task.commons.events.ui.ExitAppRequestEvent;
-
-//import com.fasterxml.jackson.databind.ObjectMapper;
+import seedu.task.commons.exceptions.DataConversionException;
 
 /**
- * Saves task manager data at specified directory.
+ * Changes working task manager data to data at specified directory.
  */
 public class DirectoryCommand extends Command {
     
@@ -37,13 +35,15 @@ public class DirectoryCommand extends Command {
     //This constant string variable is file extension of the storage file.
     private final String FILE_EXTENSION = ".xml";
     
-    //This is the path of the storage file.
-    private String _newFilePath;
+    //This is the path of the selected storage file.
+    private String _destination;
     
     public DirectoryCommand(String newFilePath) {
+        
         appendExtension(newFilePath);
-        boolean check = new File(_newFilePath).exists();
-        if (check) {
+        //Check if file supplied by user exists
+        if (new File(_destination).exists()) {
+            //Retrieve Config file
             Config config = new Config();
             File configFile = new File("config.json");
             try {
@@ -53,54 +53,66 @@ public class DirectoryCommand extends Command {
                 try {
                     throw new DataConversionException(e);
                 } catch (DataConversionException e1) {
-                    // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
             }
             
-            config.setTaskManagerFilePath(_newFilePath);
-            
+            //Change TaskManager file path
+            config.setTaskManagerFilePath(_destination);
+            //Save new Config
             try {
                 ConfigUtil.saveConfig(config, "config.json");
             } catch (IOException e) {
-                // TODO Auto-generated catch block
+                logger.warning("Error saving to config file : " + e);
                 e.printStackTrace();
             }
-               
         }
     }
     
-    public void appendExtension(String filepath) {
-        if (filepath != null) {
-            _newFilePath = filepath + FILE_EXTENSION;
+    /**
+     * Appends FILE_EXTENSION to given destination
+     * This ensures user will not accidentally override non-.xml files
+     */
+    private void appendExtension(String destination) {
+        if (destination != null) {
+            _destination = destination + FILE_EXTENSION;
         }
     }
+    
+    /**
+     * Locates TaskManager.jar file and silently run it via Windows Command Line
+     */
+    private void restartTaskManagerOnWindows() {
+        logger.info("============================ [ Restarting Task Manager ] =============================");
+        String command = "";
+        String filePath = Paths.get(".").toAbsolutePath().normalize().toString() + "\\";
+        command = "/c cd /d \"" + filePath + "\" & TaskManager.jar & exit";
+        logger.info("DOS command generated:" + command);
+         try {
+            new ProcessBuilder("cmd",command).start();
+        } catch (IOException e) {
+            logger.warning("Error starting process. " + e);
+        }
+
+    }
+    
+    
 
     @Override
     public CommandResult execute(boolean isUndo) {
-        boolean check = new File(_newFilePath).exists();
-        if (!check)
-            return new CommandResult(String.format(MESSAGE_FILE_NOT_FOUND_ERROR, _newFilePath));
+        //Check if file supplied by user exists
+        if (!new File(_destination).exists())
+            return new CommandResult(String.format(MESSAGE_FILE_NOT_FOUND_ERROR, _destination));
+        
         assert model != null;
-        logger.info("============================ [ Restarting Task Manager ] =============================");
-        String command = "";
-         try {
-            String filePath = Paths.get(".").toAbsolutePath().normalize().toString() + "\\";
-            command = "/c cd /d \"" + filePath + "\" & TaskManager.jar & exit";
-            new ProcessBuilder("cmd",command).start();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        logger.info(command);
-
+        restartTaskManagerOnWindows();
+        //Shut down current TaskManager
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
-        return new CommandResult(String.format(MESSAGE_NEW_DIRECTORY_SUCCESS, _newFilePath));
+        return new CommandResult(String.format(MESSAGE_NEW_DIRECTORY_SUCCESS, _destination));
     }
 
     @Override
     public CommandResult execute(int index) {
-        // TODO Auto-generated method stub
         return null;
     }
     
