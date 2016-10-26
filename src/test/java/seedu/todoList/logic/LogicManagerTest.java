@@ -149,7 +149,7 @@ public class LogicManagerTest {
         model.addTask(helper.generatetask(2));
         model.addTask(helper.generatetask(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.TODO_MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
     }
 
 
@@ -394,13 +394,14 @@ public class LogicManagerTest {
         Todo a111() throws Exception {
             Name name = new Name("Assignment 111");
             StartDate date = new StartDate("01-11-2016");
+            EndDate endDate = new EndDate("02-12-2016");
             Priority priority = new Priority("111");
-            
+            String isDone = "false";
             //EndTime endTime = new EndTime("1111");
             //Tag tag1 = new Tag("tag1");
             //Tag tag2 = new Tag("tag2");
             //UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Todo(name, date, priority);
+            return new Todo(name, date, endDate, priority, isDone);
         }
 
         /**
@@ -414,7 +415,9 @@ public class LogicManagerTest {
             return new Todo(
                     new Name("task " + seed),
                     new StartDate("11-12-2016"),
-                    new Priority(seed + "10")
+                    new EndDate("12-12-2016"),
+                    new Priority(seed + "10"),
+                    "false"
                     //new EndTime("EndTime " + seed)
                     //new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -427,9 +430,10 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().name);
-            cmd.append(" d/").append(p.getDate().date);
+            cmd.append(" d/").append(p.getStartDate().date);
+            cmd.append(" e/").append(p.getEndDate().endDate);
             cmd.append(" p/").append(p.getPriority().priority);
-            //cmd.append(" e/").append(p.getEndTime().endTime);
+            
 
             /*UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -513,10 +517,9 @@ public class LogicManagerTest {
             return new Todo(
                     new Name(name),
                     new StartDate("01-11-2016"),
-                    new Priority("1")
-                    
-                    
-                    //new UniqueTagList(new Tag("tag"))
+                    new EndDate("02-12-2016"),
+                    new Priority("1"),
+                    "False"
             );
         }
     }
