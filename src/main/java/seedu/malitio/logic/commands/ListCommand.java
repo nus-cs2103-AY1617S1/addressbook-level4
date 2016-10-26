@@ -27,7 +27,7 @@ public class ListCommand extends Command {
     public ListCommand() {}
 
     public ListCommand(String args) throws IllegalValueException {
-        if (args.matches("(floating)? tasks?")) {
+        if (args.matches("(floating )?tasks?.*")) {
             this.taskType = "tasks";
             return;
         }

@@ -19,10 +19,8 @@ public class TypicalTestTasks {
     
     public TypicalTestTasks() {
         try {
-            floatingTask1 =  new FloatingTaskBuilder().withName("Adjust meter")
-                    .withTags("careful").build();
-            floatingTask2 = new FloatingTaskBuilder().withName("Bring along notes")
-                    .withTags("pen", "cs2103").build();
+            floatingTask1 =  new FloatingTaskBuilder().withName("Adjust meter").withTags("careful").build();
+            floatingTask2 = new FloatingTaskBuilder().withName("Bring along notes").withTags("pen", "cs2103").build();
             floatingTask3 = new FloatingTaskBuilder().withName("Tell your world").build();
             floatingTask4 = new FloatingTaskBuilder().withName("Download Promise Song").build();
             floatingTask5 = new FloatingTaskBuilder().withName("Cendrillion").withTags("vocaloid").build();
