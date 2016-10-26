@@ -23,6 +23,8 @@ public class TestTask extends TestActivity implements ReadOnlyTask{
 	
     public TestTask() throws IllegalValueException {
     	super();
+    	this.duedate = new DueDate("");
+    	this.priority = new Priority("");
     }
     
 	@Override
