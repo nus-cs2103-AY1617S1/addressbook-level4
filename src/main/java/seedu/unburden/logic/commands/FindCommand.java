@@ -1,5 +1,7 @@
 package seedu.unburden.logic.commands;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Set;
 
 import seedu.unburden.commons.exceptions.IllegalValueException;
@@ -18,10 +20,19 @@ public class FindCommand extends Command {
 			+ "Parameters: KEYWORD [MORE_KEYWORDS]...\n" + "Example: " + COMMAND_WORD + " alice bob charlie";
 
 	private final Set<String> keywords;
+	private final String date;
 	private final String modeOfSearch;
 
 	public FindCommand(Set<String> keywords, String modeOfSearch) {
 		this.keywords = keywords;
+		this.date = null;
+		this.modeOfSearch = modeOfSearch;
+
+	}
+
+	public FindCommand(String date, String modeOfSearch) {
+		this.keywords = null;
+		this.date = date;
 		this.modeOfSearch = modeOfSearch;
 	}
 
@@ -35,11 +46,17 @@ public class FindCommand extends Command {
 		};
 	}
 
+	public java.util.function.Predicate<? super Task> getDates(String date) {
+		return t -> {
+			return t.getDate().fullDate.equals(date);
+		};
+	}
+
 	@Override
 	public CommandResult execute() {
 		switch (modeOfSearch) {
 		case "date":
-			model.updateFilteredTaskListForDate(keywords);
+			model.updateFilteredTaskList(getDates(date));
 			break;
 		case "name":
 			model.updateFilteredTaskList(getTasksWithSameNameOrTags(keywords));
