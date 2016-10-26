@@ -20,9 +20,9 @@ public class TypicalTestPersons {
             benson = new PersonBuilder().withName("Benson Meier").withEnd("6pm")
                     .withStart("2am").withDate("1.5.23")
                     .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").withDate("1-2-23").withStart("1000").withEnd("1300").build();
+            carl = new PersonBuilder().withName("Carl Kurz").withDate(null).withStart(null).withEnd(null).build();
             daniel = new PersonBuilder().withName("Daniel Meier").withDate("15.11.23").withStart("7am").withEnd("1100").build();
-            elle = new PersonBuilder().withName("Elle Meyer").withDate("290523").withStart("0000").withEnd("1212").build();
+            elle = new PersonBuilder().withName("Elle Meyer").withDate("290523").withStart(null).withEnd("1212").build();
             fiona = new PersonBuilder().withName("Fiona Kunz").withDate("120223").withStart("1111").withEnd("1212").build();
             george = new PersonBuilder().withName("George Best").withDate("210223").withStart("1111").withEnd("1212").build();
 
