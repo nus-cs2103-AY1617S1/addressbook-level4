@@ -144,7 +144,7 @@ public class ModelManager extends ComponentManager implements Model {
 	public void updateFilteredListToShowIncompleteTask() throws DuplicateTaskException {
 		TaskManager taskmanager = new TaskManager();
 		
-		for (int i = 0; i < filteredPersons.size() - 1; i++){
+		for (int i = 0; i <= filteredPersons.size() - 1; i++){
 			boolean isIncompleted = false;
 			Task task = filteredPersons.get(i);
 			if (!task.getName().toString().contains(" is completed")) isIncompleted = true;
