@@ -85,7 +85,7 @@ public class PersonListPanelHandle extends GuiHandle {
     public boolean isListMatching(int startPosition, ReadOnlyActivity... persons) throws IllegalArgumentException {
         if (persons.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
-                    "Expected " + (getListView().getItems().size() - 1) + " persons");
+                    "Expected " + (getListView().getItems().size()) + " persons");
         }
         if(startPosition!= 0 && persons.length!=0){
         assertTrue(this.containsInOrder(startPosition, persons));
