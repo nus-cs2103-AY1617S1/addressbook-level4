@@ -144,7 +144,7 @@ public class RsvCommand extends UndoableCommand {
     private CommandResult addRsvTask() {
         try {
             for (DateTime dt : toReserve.getDateTimeList()) {
-                if (model.getTaskConflictingDateTimeWarningMessage(dt) != "") {
+                if (!model.getTaskConflictingDateTimeWarningMessage(dt).isEmpty()) {
                     conflictingTaskList += "\nConflicts for " + dt.toString() + ":";
                     conflictingTaskList += model.getTaskConflictingDateTimeWarningMessage(dt);
                 }

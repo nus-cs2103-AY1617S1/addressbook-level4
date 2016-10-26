@@ -16,14 +16,12 @@ public class UndoCommandTest extends TarsGuiTest {
     @Test
     public void undo_add_successful() {
         // setup
-        TestTask[] currentList = td.getTypicalTasks();
         TestTask taskToUndo = td.taskH;
-        currentList = TestUtil.addTasksToList(currentList, taskToUndo);
         commandBox.runCommand(taskToUndo.getAddCommand());
         
         commandBox.runCommand("undo");
-        currentList = td.getTypicalTasks();
-        assertTrue(taskListPanel.isListMatching(currentList));
+        TestTask[] expectedList = {td.taskG};
+        assertTrue(taskListPanel.isListMatching(expectedList));
         assertResultMessage(String.format(UndoCommand.MESSAGE_SUCCESS,
                 String.format(AddCommand.MESSAGE_UNDO, taskToUndo)));
     }

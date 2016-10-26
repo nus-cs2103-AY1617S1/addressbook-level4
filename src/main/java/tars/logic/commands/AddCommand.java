@@ -29,18 +29,18 @@ public class AddCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to tars. "
-            + "Parameters: NAME [/dt DATETIME] [/p PRIORITY] [/t TAG] [/r NUM_TIMES FREQUENCY]...\n " 
-            + "Example: " + COMMAND_WORD
+            + "Parameters: NAME [/dt DATETIME] [/p PRIORITY] [/t TAG] [/r NUM_TIMES FREQUENCY]...\n " + "Example: "
+            + COMMAND_WORD
             + " cs2103 project meeting /dt 05/09/2016 1400 to 06/09/2016 2200 /p h /t project /r 2 every week";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_UNDO = "Removed %1$s";
     public static final String MESSAGE_REDO = "Added %1$s";
-    
+
     private static final int DATETIME_INDEX_OF_ENDDATE = 1;
     private static final int DATETIME_INDEX_OF_STARTDATE = 0;
     private static final int DATETIME_EMPTY_DATE = 0;
-    
+
     private static final int ADDTASK_FIRST_ITERATION = 0;
     private static final int ADDTASK_DEFAULT_NUMTASK = 1;
     private static final String ADDTASK_STRING_EMPTY = "";
@@ -52,14 +52,16 @@ public class AddCommand extends UndoableCommand {
 
     private Task toAdd;
     private ArrayList<Task> toAddArray;
-    
-    private String conflictingTaskList = ""; 
+
+    private String conflictingTaskList = "";
 
     /**
      * Convenience constructor using raw values.
      *
-     * @throws IllegalValueException if any of the raw values are invalid
-     * @throws DateTimeException if given dateTime string is invalid.
+     * @throws IllegalValueException
+     *             if any of the raw values are invalid
+     * @throws DateTimeException
+     *             if given dateTime string is invalid.
      */
     public AddCommand(String name, String[] dateTime, String priority, Set<String> tags, String[] recurringString)
             throws IllegalValueException, DateTimeException {

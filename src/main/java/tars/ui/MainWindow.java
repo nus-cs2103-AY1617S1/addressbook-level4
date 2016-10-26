@@ -52,6 +52,8 @@ public class MainWindow extends UiPart {
     private Scene scene;
 
     private String tarsName;
+    
+    public static final int helpPanelTabPaneIndex = 2;
 
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -244,8 +246,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     public void handleHelp() {
-        HelpWindow helpWindow = HelpWindow.load(primaryStage);
-        helpWindow.show();
+        tabPane.getSelectionModel().select(helpPanelTabPaneIndex);
     }
 
     public void show() {
