@@ -103,6 +103,14 @@ public class TaskList implements ReadOnlyTaskList {
         }
     }
 
+    public boolean doneTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException {
+    	if(tasks.doneTask(target)){
+    		return true;
+    	} else {
+    		throw new UniqueTaskList.TaskNotFoundException();
+    	}
+    }
+    
 //// util methods
 
     @Override

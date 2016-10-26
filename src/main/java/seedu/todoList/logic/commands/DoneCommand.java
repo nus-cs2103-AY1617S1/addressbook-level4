@@ -33,12 +33,10 @@ public class DoneCommand extends Command {
     
     public final String dataType;
     public final int targetIndex;
-    private final Task toDone;
     
     public DoneCommand(String dataType, int targetIndex) {
     	this.dataType = dataType;
         this.targetIndex = targetIndex;
-        this.toDone = new Todo(true,"");
     }
 
     @Override
