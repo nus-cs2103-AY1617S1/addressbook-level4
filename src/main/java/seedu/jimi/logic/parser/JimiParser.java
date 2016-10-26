@@ -63,7 +63,7 @@ public class JimiParser {
             Pattern.compile("(\"(?<keywords>\\S+(?:\\s+\\S+)*)\")"); // one or more keywords separated by whitespace
     
     private static final Pattern KEYWORDS_WITH_DATES_ARGS_FORMAT =
-            Pattern.compile("(\"(?<keywords>\\S+(?:\\s+\\S+)*)\"?)?((on (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?");
+            Pattern.compile("((\"(?<keywords>\\S+(?:\\s+\\S+)*)\"?)?((on (?<specificDateTime>.+))?)|(from (?<startDateTime>((?!to ).)*))?(to (?<endDateTime>.+))?)");
     
     private static final Pattern TAGGABLE_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<ArgsDetails>[^/]+)(?<tagArguments>(?: t/[^/]+)?)(?<priorityArguments>(?: p/[^/]+)?)"); // zero or one tag only, zero or one priority    

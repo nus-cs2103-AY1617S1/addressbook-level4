@@ -465,20 +465,20 @@ public class LogicManagerTest {
         List<FloatingTask> expectedList = helper.generateFloatingTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourFloatingTasks);
 
-        assertCommandBehavior("find KEY",
+        assertCommandBehavior("find \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
-        assertCommandBehavior("fi KEY",
+        assertCommandBehavior("fi \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
 
-        assertCommandBehavior("fin KEY",
+        assertCommandBehavior("fin \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
-        assertCommandBehavior("f KEY",
+        assertCommandBehavior("f \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
@@ -499,20 +499,20 @@ public class LogicManagerTest {
         List<FloatingTask> expectedList = fourFloatingTasks;
         helper.addToModel(model, fourFloatingTasks);
 
-        assertCommandBehavior("find KEY",
+        assertCommandBehavior("find \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
-        assertCommandBehavior("fi KEY",
+        assertCommandBehavior("fi \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
 
-        assertCommandBehavior("fin KEY",
+        assertCommandBehavior("fin \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
-        assertCommandBehavior("f KEY",
+        assertCommandBehavior("f \"KEY\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
@@ -531,19 +531,19 @@ public class LogicManagerTest {
         List<FloatingTask> expectedList = helper.generateFloatingTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourFloatingTasks);
 
-        assertCommandBehavior("find key rAnDoM",
+        assertCommandBehavior("find \"key rAnDoM\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
-        assertCommandBehavior("f key rAnDoM",
+        assertCommandBehavior("f \"key rAnDoM\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
-        assertCommandBehavior("fi key rAnDoM",
+        assertCommandBehavior("fi \"key rAnDoM\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
-        assertCommandBehavior("fin key rAnDoM",
+        assertCommandBehavior("fin \"key rAnDoM\"",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
