@@ -31,8 +31,7 @@ public class Deadline extends Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Deadline(Deadline source) {
-        this(source.getName(), source.getDate(), source.getEndTime(),
-        		source.getDone());
+        this(source.getName(), source.getDate(), source.getEndTime(), source.getDone());
     }
     
     public Deadline(ReadOnlyTask source) {

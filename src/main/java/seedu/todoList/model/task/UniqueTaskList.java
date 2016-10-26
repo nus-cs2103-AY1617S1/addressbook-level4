@@ -88,6 +88,13 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
+     * Removes all task from the list.
+     */
+    public void removeAll() {
+       internalList.remove(0, internalList.size());
+    }
+    
+    /**
      * Marks the equivalent task as done.
      *
      * @throws TaskNotFoundException if no such task could be found in the list.

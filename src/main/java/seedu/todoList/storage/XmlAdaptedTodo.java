@@ -49,7 +49,7 @@ public class XmlAdaptedTodo implements XmlAdaptedTask {
     	this((Todo) source);
     }
 
-    public Task toModelType() throws IllegalValueException {
+    public Todo toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
         final StartDate date = new StartDate(this.startDate);
         final EndDate endDate = new EndDate(this.endDate);
