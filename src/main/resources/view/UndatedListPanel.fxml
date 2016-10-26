@@ -12,7 +12,7 @@
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>
-      <Label alignment="CENTER" styleClass="label-bright" text="Floating" textAlignment="CENTER" />
+      <Label fx:id="label_count" alignment="CENTER" styleClass="label-bright" text="Floating" textAlignment="CENTER" />
         <ListView fx:id="undatedListView" VBox.vgrow="ALWAYS" />
     </children>
 </VBox>
