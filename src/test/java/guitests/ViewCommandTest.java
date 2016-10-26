@@ -32,7 +32,7 @@ public class ViewCommandTest extends TaskManagerGuiTest {
         TestTask[] expectedTodosAfterAddCommand = {td.read, td.todo};
     	TestTask[] expectedDeadlinesAfterAddCommand = {td.spring};
     	TestTask[] expectedEventsAfterAddCommand = {td.shop, td.dinner};
-        assertViewAllResult("view all", expectedTodosAfterAddCommand, 
+        assertViewAllWithAcceleratorResult(expectedTodosAfterAddCommand, 
         		expectedDeadlinesAfterAddCommand, expectedEventsAfterAddCommand);
     }
 
@@ -61,7 +61,7 @@ public class ViewCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand("view all");
     	commandBox.runCommand("done e1");
     	TestTask[] expectedEventsAfterDoneCommand = {td.shop};
-    	assertViewDoneOrDateResult("view done", new TestTask[0], new TestTask[0], expectedEventsAfterDoneCommand);
+    	assertViewDoneWithAcceleratorResult(new TestTask[0], new TestTask[0], expectedEventsAfterDoneCommand);
     }
     
     @Test
@@ -140,7 +140,7 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     	commandBox.runCommand("done t1");
     	TestTask[] expectedDeadlinesAfterDoneCommand = {td.spring};
     	TestTask[] expectedEventsAfterDoneCommand = {td.shop, td.dinner};
-    	assertViewDoneOrDateResult("view", new TestTask[0], 
+    	assertViewWithAcceleratorResult(new TestTask[0], 
     			expectedDeadlinesAfterDoneCommand, expectedEventsAfterDoneCommand);
     }
     
@@ -164,9 +164,8 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     /**
      * Assert result method for `view done` or `view date` or `view`.
      */
-    private void assertViewDoneOrDateResult(String command, TestTask[] expectedTodos,
+    private void assertViewDoneOrDateResult(TestTask[] expectedTodos,
             TestTask[] expectedDeadlines, TestTask[] expectedEvents) {
-        commandBox.runCommand(command);
         assertTodoListSize(expectedTodos.length);
         assertDeadlineListSize(expectedDeadlines.length);
         assertEventListSize(expectedEvents.length);
@@ -178,11 +177,37 @@ public class ViewCommandTest extends TaskManagerGuiTest {
     }
     
     /**
-     * Assert result method for `view all`.
+     * Run view command in command box and assert the result
      */
-    private void assertViewAllResult(String command, TestTask[] expectedTodos,
+    private void assertViewDoneOrDateResult(String command, TestTask[] expectedTodos,
             TestTask[] expectedDeadlines, TestTask[] expectedEvents) {
         commandBox.runCommand(command);
+        assertViewDoneOrDateResult(expectedTodos, expectedDeadlines, expectedEvents);
+    }
+    
+    /**
+     * Run view done command using keyboard shortcuts and assert the result
+     */
+    private void assertViewDoneWithAcceleratorResult(TestTask[] expectedTodos,
+            TestTask[] expectedDeadlines, TestTask[] expectedEvents) {
+        mainMenu.useViewDoneCommandUsingAccelerator();
+        assertViewDoneOrDateResult(expectedTodos, expectedDeadlines, expectedEvents);
+    }
+    
+    /**
+     * Run view command using keyboard shortcuts and assert the result
+     */
+    private void assertViewWithAcceleratorResult(TestTask[] expectedTodos,
+            TestTask[] expectedDeadlines, TestTask[] expectedEvents) {
+        mainMenu.useViewCommandUsingAccelerator();
+        assertViewDoneOrDateResult(expectedTodos, expectedDeadlines, expectedEvents);
+    }
+        
+    /**
+     * Assert result method for `view all`.
+     */
+    private void assertViewAllResult(TestTask[] expectedTodos,
+            TestTask[] expectedDeadlines, TestTask[] expectedEvents) {
         assertTodoListSize(expectedTodos.length);
         assertDeadlineListSize(expectedDeadlines.length);
         assertEventListSize(expectedEvents.length);
@@ -191,6 +216,24 @@ public class ViewCommandTest extends TaskManagerGuiTest {
         assertTrue(taskListPanel.isTodoListMatching(expectedTodos));
         assertTrue(taskListPanel.isDeadlineListMatching(expectedDeadlines));
         assertTrue(taskListPanel.isEventListMatching(expectedEvents));
+    }
+    
+    /**
+     * Run view all command in the command box and assert the result.
+     */
+    private void assertViewAllResult(String command, TestTask[] expectedTodos,
+            TestTask[] expectedDeadlines, TestTask[] expectedEvents) {
+        commandBox.runCommand(command);
+        assertViewAllResult(expectedTodos, expectedDeadlines, expectedEvents);
+    }
+    
+    /**
+     * Run view all command using keyboard shortcuts and assert the result.
+     */
+    private void assertViewAllWithAcceleratorResult(TestTask[] expectedTodos,
+            TestTask[] expectedDeadlines, TestTask[] expectedEvents) {
+        mainMenu.useViewAllCommandUsingAccelerator();
+        assertViewAllResult(expectedTodos, expectedDeadlines, expectedEvents);
     }
     
 }

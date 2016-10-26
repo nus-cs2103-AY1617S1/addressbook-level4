@@ -55,7 +55,13 @@ public class MainWindow extends UiPart {
     private MenuItem undoMenuItem;
     
     @FXML
+    private MenuItem viewMenuItem;
+    
+    @FXML
     private MenuItem viewAllMenuItem;
+    
+    @FXML
+    private MenuItem viewDoneMenuItem;
     
     @FXML
     private MenuItem exitMenuItem;
@@ -63,9 +69,6 @@ public class MainWindow extends UiPart {
     @FXML
     private MenuItem clearMenuItem;
     
-    @FXML
-    private MenuItem viewDoneMenuItem;
-
     //@@author A0130853L
     @FXML
     private AnchorPane taskListPanelPlaceholder;
@@ -130,9 +133,10 @@ public class MainWindow extends UiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
         exitMenuItem.setAccelerator(KeyCombination.valueOf("Esc"));
         undoMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + U"));
+        viewMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + T"));
         viewAllMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + L"));
-        clearMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + C"));
         viewDoneMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + D"));
+        clearMenuItem.setAccelerator(KeyCombination.valueOf("Ctrl + Shift + C"));        
     }
     
     //@@author A0130853L
@@ -223,19 +227,24 @@ public class MainWindow extends UiPart {
     }
     
     @FXML
+    public void handleView() {
+        commandBox.handleCommands("view");
+    }
+    
+    @FXML
     public void handleViewAll() {
         commandBox.handleCommands("view all");
+    }
+            
+    @FXML
+    public void handleViewDone() {
+        commandBox.handleCommands("view done");
     }
     
     @FXML
     public void handleClear() {
         commandBox.handleCommands("clear");
-    }
-    
-    @FXML
-    public void handleViewDone() {
-        commandBox.handleCommands("view done");
-    }
+    }   
     
     //@@author A0130853L
     /**

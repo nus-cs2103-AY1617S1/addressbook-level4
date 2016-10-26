@@ -40,6 +40,20 @@ public class MainMenuHandle extends GuiHandle {
         guiRobot.sleep(500);
     }
     
+    public void useViewCommandUsingAccelerator() {
+        useAccelerator("Ctrl", "Shift", "T");
+        guiRobot.sleep(500);
+    }
+    
+    public void useViewDoneCommandUsingAccelerator() {
+        useAccelerator("Ctrl", "Shift", "D");
+        guiRobot.sleep(500);
+    }
+    
+    public void useViewAllCommandUsingAccelerator() {
+        useAccelerator("Ctrl", "Shift", "L");
+        guiRobot.sleep(500);
+    }
     
     private void useAccelerator(String... buttonsToPress) {
         KeyCode[] buttons = new KeyCode[buttonsToPress.length];
