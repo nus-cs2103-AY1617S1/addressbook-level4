@@ -21,7 +21,7 @@ import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Edits a task from the task manager.
- * @@author A0147335E, (Hanxue)
+ * @@author A0147335E
  */
 public class EditCommand extends Command {
     public static final String COMMAND_WORD = "edit";
