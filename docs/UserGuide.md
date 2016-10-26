@@ -102,7 +102,7 @@ The user guide will open in another window.
 > Remember to always surround your `TASK_DETAILS` or `EVENT_DETAILS` with quotation marks! <br>
 
 Adding a floating task to Jimi.<br>
-Format: `add "TASK_DETAILS" [t/tag] [p/priority]` 
+Format: `add "TASK_DETAILS" [t/TAG] [p/PRIORITY]` 
 
 > * Floating tasks are tasks without any deadlines.
 
@@ -115,7 +115,7 @@ Examples:
 <br>
 
 Adds a task with a deadline to Jimi.<br>
-Format: `add "TASK_DETAILS" due DATE_TIME [t/tag] [p/priority]`
+Format: `add "TASK_DETAILS" due DATE_TIME [t/TAG] [p/PRIORITY]`
 
 Examples:
 * `add "Get a haircut" due Tuesday p/LOW`
@@ -126,7 +126,7 @@ Examples:
 <br>
 
 Adds an event to Jimi.<br>
-Format: `add "EVENT_DETAILS" on START_DATE_TIME [to END_DATE_TIME] [t/tag] [p/priority]` 
+Format: `add "EVENT_DETAILS" on START_DATE_TIME [to END_DATE_TIME] [t/TAG] [p/PRIORITY]` 
 
 > * If the event is more than a day long, you may include the end date_time. <br>
 > * You may define the end time of the event if you wish. If you do not, however, Jimi will assume your event lasts a day long.
@@ -172,32 +172,29 @@ Examples:
 
 <br><br>
 
+<!--- @@author A0140133B -->
 #### <a id="edit"></a>Editing a detail: `edit`
 Edits the specified detail of any task or event. <br>
 Format: `edit INDEX NEW_DETAILS` 
 
-Jimi edits the task/event specified by `INDEX`.<br>
-`NEW_DETAILS` are simply the edits you want to make. <br>
-You can edit everything from the items name to its priority.<br>
-You can leave out fields that you do not wish to edit too.
+* Jimi edits the task/event specified by `INDEX`, `NEW_DETAILS` are simply the edits you want to make. <br>
+* You can edit everything from the items name to its priority. You can leave out fields that you do not wish to edit too. <br>
+* Using edit, you may also convert between item types. That is, you may freely convert between floating tasks, events, and deadline tasks. <br>
+* Below is the format of `NEW_DETAILS` that Jimi recognizes: <br>
 
-The `NEW_DETAILS` can come in the following styles: 
- *  `"TASK_DETAILS/EVENT_DETAILS"` : Edit task or event details
- * `due DATE_TIME` : Edit deadline of deadline tasks
- * `on START_DATE_TIME`: Edit start date-time of event 
- * `to END_DATE_TIME`: Edit end date-time of event <br>
+Converting To | What to Type for `NEW_DETAILS`| Examples
+-------- | :-------- | :--------
+Floating Task | float | edit e1 float
+Deadline Task | ["NEW_TASK_DETAILS"] due NEW_DATETIME [t/TAG] [p/PRIORITY] | edit e3 due tomorrow [p/HIGH]
+Event | ["NEW_TASK_DETAILS"] on NEW_START_DATETIME [to NEW_END_DATETIME] [t/TAG] [p/PRIORITY] | edit t1 "skip CS2103 lecture" on 29 oct [t/IMPT]
 
 > If you want to undo your edit, use the [`undo`](#undo) command.
-> If you want to remove all dates and times from a particular task/event, use `edit INDEX float`
-
-
-Examples:
-* `edit e2 "Have orientation camp"`
-* `edit e1 on 5th July 7pm`
 
 > <img src="images/Edit.png" width="600">
 
+<!--- @@author -->
 <br><br>
+<!---  @@author A0143471L -->
 
 #### <a id="show"></a>Showing section: `show`
 Expands and lists sections from the left summary panel. <br>
@@ -212,7 +209,7 @@ Examples:
 
 > <img src="images/Complete.png" width="600">
 
-<br><br>
+<br><br> 
 
 #### <a id="undo"></a>Undoing previous action: `undo`
 Undoes the previous action done in Jimi. <br>
