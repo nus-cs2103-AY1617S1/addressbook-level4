@@ -56,7 +56,10 @@ public final class History {
     }
     
     public static History getInstance() {
-        return History.instance == null ? new History() : instance;
+        if (instance == null) {
+            instance = new History();
+        }
+        return instance;
     }
     
     private class Context {
