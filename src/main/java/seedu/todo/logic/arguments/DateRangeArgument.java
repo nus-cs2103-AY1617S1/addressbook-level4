@@ -1,9 +1,9 @@
 package seedu.todo.logic.arguments;
 
-import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.commons.util.StringUtil;
 import seedu.todo.commons.util.TimeUtil;
+import seedu.todo.logic.parser.TodoParser;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 //@@author A0135817B
 public class DateRangeArgument extends Argument<DateRange> {
-    private static final PrettyTimeParser parser = new PrettyTimeParser();
     private static final TimeUtil timeUtil = new TimeUtil();
     
     // TODO: Review all error messages to check for user friendliness 
@@ -38,7 +37,7 @@ public class DateRangeArgument extends Argument<DateRange> {
         }
         
         input = TimeUtil.toAmericanDateFormat(input);
-        List<Date> dateGroups = parser.parse(input);
+        List<Date> dateGroups = TodoParser.dateTimeParser.parse(input);
         
         List<LocalDateTime> dates = dateGroups.stream()
             .map(TimeUtil::asLocalDateTime)
