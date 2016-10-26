@@ -9,6 +9,10 @@ import seedu.taskitty.commons.events.model.TaskManagerChangedEvent;
 import seedu.taskitty.commons.exceptions.NoPreviousValidCommandException;
 import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.commons.util.StringUtil;
+import seedu.taskitty.logic.commands.AddCommand;
+import seedu.taskitty.logic.commands.DeleteCommand;
+import seedu.taskitty.logic.commands.DoneCommand;
+import seedu.taskitty.logic.commands.EditCommand;
 import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
@@ -40,6 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final Stack<ReadOnlyTaskManager> historyTaskManagers;
     private final Stack<String> historyCommands;
     private final Stack<Predicate> historyPredicates;
+    private final TaskManagerState taskManagerState;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -60,6 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
         historyTaskManagers = new Stack<ReadOnlyTaskManager>();
         historyCommands = new Stack<String>();
         historyPredicates = new Stack<Predicate>();
+        taskManagerState = new TaskManagerState();
         taskManager.sortList();
     }
 
@@ -76,6 +82,8 @@ public class ModelManager extends ComponentManager implements Model {
         historyTaskManagers = new Stack<ReadOnlyTaskManager>();
         historyCommands = new Stack<String>();
         historyPredicates = new Stack<Predicate>();
+        taskManagerState = new TaskManagerState();
+        taskManager.sortList();
     }
 
     @Override
@@ -96,6 +104,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void deleteTasks(List<ReadOnlyTask> taskList) throws TaskNotFoundException {
+        taskManagerState.storeCommand(DeleteCommand.COMMAND_WORD);
         for (ReadOnlyTask targetTask: taskList) {
             taskManager.removeTask(targetTask);
         }
@@ -104,6 +113,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        taskManagerState.storeCommand(AddCommand.COMMAND_WORD);
         taskManager.addTask(task);
         indicateTaskManagerChanged();
     }
@@ -134,6 +144,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0130853L
     @Override
     public synchronized void markTasksAsDone(List<ReadOnlyTask> taskList) throws UniqueTaskList.TaskNotFoundException, DuplicateMarkAsDoneException{
+        taskManagerState.storeCommand(DoneCommand.COMMAND_WORD);
         for (ReadOnlyTask targetTask: taskList) {
             taskManager.markTaskAsDoneTask(targetTask);
         }
@@ -143,6 +154,7 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0135793W
    	@Override
     public synchronized void editTask(ReadOnlyTask target, Task task) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
+   	 taskManagerState.storeCommand(EditCommand.COMMAND_WORD);
    	    taskManager.addTask(task);
         indicateTaskManagerChanged();
         taskManager.removeTask(target);
@@ -279,37 +291,29 @@ public class ModelManager extends ComponentManager implements Model {
     
     private class TaskManagerState {
         
-        private final ReadOnlyTaskManager taskManager;
-        private final String commandText;
-        private final Predicate predicate;
+        private final Stack<String> commands;
+        private final Stack<String> commandTexts;
+        private final Stack<ReadOnlyTask> addedTasks;
+        private final Stack<ReadOnlyTask> deletedTasks;
+        private final Stack<ReadOnlyTaskManager> taskManagers;
+        private final Stack<Predicate> predicates;
         
-        TaskManagerState(ReadOnlyTaskManager taskManager, String commandText, Predicate predicate) {
-            this.taskManager = taskManager;
-            this.commandText = commandText;
-            this.predicate = predicate;
+        TaskManagerState() {
+            commands = new Stack<String>();
+            commandTexts = new Stack<String>();
+            addedTasks = new Stack<ReadOnlyTask>();
+            deletedTasks = new Stack<ReadOnlyTask>();
+            taskManagers = new Stack<ReadOnlyTaskManager>();
+            predicates = new Stack<Predicate>();
         }
         
-        /**
-         *  returns the Task Manager from the previous state
-         */
-        private ReadOnlyTaskManager getTaskManager() {
-            return taskManager;
+        private String getCommand () {
+            return commands.pop();
         }
         
-        /**
-         * returns the Predicate from the previous state
-         */
-        private Predicate getPredicate() {
-            return predicate;
+        private void storeCommand (String command) {
+            commands.push(command);
         }
-        
-        /**
-         * returns the previous valid command input by the user
-         */
-        private String getCommandText() {
-            return commandText;
-        }
-        
     }
     
     //========== Private methods used within ModelManager ==================================================
