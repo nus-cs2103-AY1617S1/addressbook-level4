@@ -238,7 +238,6 @@ public class UpdateCommand extends UndoAndRedo {
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
-        model.getUndoStack().push(this);
         return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, "\nFrom: " + taskToUpdate + " \nTo: " + toUpdate));
     }
 

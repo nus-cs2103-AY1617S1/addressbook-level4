@@ -26,6 +26,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     private static final String FLOATING = "floating";
     private static final String NOT_FLOATING = "not_floating";
     private static final int COMPARE_TO_IS_EQUAL = 0;
+    private static final int COMPARE_TO_IS_NOT_EQUAL = 0;
     
     public Task() {
         
@@ -181,19 +182,37 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
             return COMPARE_TO_IS_EQUAL;
         } else if (isBothDeadline(task)) {
             if (this.taskDate.equals(task.taskDate)) {
-                return COMPARE_TO_IS_EQUAL;
-                //@zac : check for time later
+                if (this.taskTime == null && task.taskTime == null) {
+                    return COMPARE_TO_IS_EQUAL;
+                } else if (this.taskTime != null && task.taskTime != null) {
+                    if (this.taskTime.equals(task.taskTime)) {
+                        return COMPARE_TO_IS_EQUAL;
+                    } else {
+                        return this.taskTime.compareToIgnoreCase(task.taskTime);
+                    }
+                } else {
+                    return COMPARE_TO_IS_NOT_EQUAL;
+                }
             } else {
                 return this.taskDate.compareToIgnoreCase(task.taskDate);
-                //@zac : check for time later
             }
         } else if (isBothEvent(task)) {
             if (this.startDate.equals(task.startDate)) {
-                return COMPARE_TO_IS_EQUAL;
-                //@zac : check for time later
+                if (this.getStartTime() == null && task.getStartTime() == null) {
+                    return COMPARE_TO_IS_EQUAL;
+                } else if (this.startTime != null && task.startTime != null) {
+                    if (this.startTime.equals(task.startTime) && this.endTime.equals(task.endTime)) {
+                        return COMPARE_TO_IS_EQUAL;
+                    } else if (this.startTime.equals(task.startTime) && !this.endTime.equals(task.endTime)){
+                        return this.endTime.compareToIgnoreCase(task.endDate);
+                    } else {
+                        return this.startTime.compareToIgnoreCase(task.startTime);
+                    }
+                } else {
+                    return COMPARE_TO_IS_NOT_EQUAL;
+                }
             } else {
                 return this.startDate.compareToIgnoreCase(task.startDate);
-                //@zac : check for time later
             }
         } else {
             return COMPARE_TO_IS_EQUAL;

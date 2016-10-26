@@ -30,23 +30,44 @@ public interface ReadOnlyTask {
             return other == this // short circuit if same object
                     || (other != null // this is first to avoid NPE below
                     && other.getName().equals(this.getName())
-                    && other.getTags().equals(this.getTags())
-                    );
+                    && other.getTags().equals(this.getTags()));
         } else if (isBothDeadline(other)) {
-            return other == this // short circuit if same object
-                    || (other != null // this is first to avoid NPE below
-                    && other.getName().equals(this.getName())
-                    && other.getTaskDate().equals(this.getTaskDate())
-                    && other.getTags().equals(this.getTags())
-                            );
+            if (other.getTaskTime() == null && this.getTaskTime() == null) {
+                return other == this // short circuit if same object
+                        || (other != null // this is first to avoid NPE below
+                        && other.getName().equals(this.getName())
+                        && other.getTaskDate().equals(this.getTaskDate())
+                        && other.getTags().equals(this.getTags()));
+            } else if (other.getAsText() != null && this.getTaskTime() != null) {
+                return other == this // short circuit if same object
+                        || (other != null // this is first to avoid NPE below
+                        && other.getName().equals(this.getName())
+                        && other.getTaskDate().equals(this.getTaskDate())
+                        && other.getTags().equals(this.getTags())
+                        && other.getTaskTime().equals(this.getTaskTime()));
+            } else {
+                return false;
+            }
         } else if (isBothEvent(other)) {
-            return other == this // short circuit if same object
-                    || (other != null // this is first to avoid NPE below
-                    && other.getName().equals(this.getName())
-                    && other.getStartDate().equals(this.getStartDate())
-                    && other.getEndDate().equals(this.getEndDate())
-                    && other.getTags().equals(this.getTags())
-                            );
+            if (other.getStartTime() == null && this.getStartTime() == null) {
+                return other == this // short circuit if same object
+                        || (other != null // this is first to avoid NPE below
+                        && other.getName().equals(this.getName())
+                        && other.getStartDate().equals(this.getStartDate())
+                        && other.getEndDate().equals(this.getEndDate())
+                        && other.getTags().equals(this.getTags()));               
+            } else if (other.getStartTime() != null && this.getStartTime() != null) {
+                return other == this // short circuit if same object
+                        || (other != null // this is first to avoid NPE below
+                        && other.getName().equals(this.getName())
+                        && other.getStartDate().equals(this.getStartDate())
+                        && other.getEndDate().equals(this.getEndDate())
+                        && other.getStartTime().equals(this.getStartTime())
+                        && other.getEndTime().equals(this.getEndTime())
+                        && other.getTags().equals(this.getTags()));             
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
