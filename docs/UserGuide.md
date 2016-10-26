@@ -148,22 +148,9 @@ Format: `mark ID`
 
 Examples:
 
-* **`search`**` `<br>
-  **`mark`**` 2`<br>
-  Mark the task with `ID #2` in the Do-Do Bird as completed.
-
-## Unmarking tasks : `unmark`
-Unmark a task in Do-Do Bird to be uncompleted.<br>
-
-Format: `unmark ID`
-
-> The ID must be a positive integer 1, 2, 3, ...
-
-Examples:
-
 * **`search`**` HeLlO`<br>
-**`unmark`**` 2`<br>
-Mark the task with `ID #2` in the Do-Do Bird as uncompleted.
+**`mark`**` 2`<br>
+Mark the task with `ID #2` in the Do-Do Bird as completed.
 
 Demo:
 
@@ -182,6 +169,19 @@ Type the `mark` command
 Display mark result
 
 ![MARK_Result](./images/MARK_Result.png)
+
+## Unmarking tasks : `unmark`
+Unmark a task in Do-Do Bird to be uncompleted.<br>
+
+Format: `unmark ID`
+
+> The ID must be a positive integer 1, 2, 3, ...
+
+Examples:
+
+* **`search`**` HeLlO`<br>
+**`unmark`**` 2`<br>
+Mark the task with `ID #2` in the Do-Do Bird as uncompleted.
 
 
 ## Updating a task: `update`
@@ -237,7 +237,7 @@ Examples:
   **`delete`**` 1`<br>
 Deletes the task with `ID #1` in the Do-Do Bird.
 
-  
+
 Demo:
 
 Type the `search` command
@@ -268,9 +268,28 @@ Format: `tag ID TAG`
 
 Examples:
 
-**`see`** <br>
+* **`see`** <br>
 **`tag`**` 2 Tutorial`<br>
 Tags the task with `ID #2` with `Homework` tag
+
+Demo:
+
+Type the `see` command
+
+![SEE_1](./images/SEE_1.png)
+
+Display see result
+
+![SEE_Result_1](./images/SEE_Result_1.png)
+
+Type the `tag` command
+
+![TAG](./images/TAG.png)
+
+Display tag result
+
+![TAG_Result](./images/TAG_Result.png)
+
 
 ## Untagging a task : `untag`
 Untags the specified task from the specified tag.<br>
@@ -281,9 +300,26 @@ Format: `untag ID TAG`
 
 Examples:
 
-**`see`** <br>
-**`untag`**` 2 Tutorial`<br>
+* **`untag`**` 2 Tutorial`<br>
 Untags the task with `ID #2` from `Homework` tag
+
+Demo:
+
+Type the `see` command
+
+![SEE_2](./images/SEE_2.png)
+
+Display see result
+
+![SEE_Result_2](./images/SEE_Result_2.png)
+
+Type the `untag` command
+
+![UNTAG](./images/UNTAG.png)
+
+Display tag result
+
+![UNTAG_Result](./images/UNTAG_Result.png)
 
 <!-- @@author A0138967J -->
 ## Storing : `store`
