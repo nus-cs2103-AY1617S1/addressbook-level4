@@ -235,7 +235,7 @@ Command | Format
 Add | `add TASKNAME`	Example: add hello
 	| `add TASKNAME priority PRIORITY`	Example: add hello priority high/mid/low
 	| `add TASKNAME ; DETAILS`	Example: add hello ; first time use
-	| `add TASKNAME on/from DATE`	Example: add hello on/from today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
+	| `add TASKNAME on/from DATE`	                                              Example: add hello on/from today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
 	| `add TASKNAME by/to DATE`	
 	  Example: add hello by/to today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
 	| `add TASKNAME on/from DATE by/to DATE`
