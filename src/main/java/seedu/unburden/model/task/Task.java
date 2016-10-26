@@ -178,10 +178,6 @@ public class Task implements ReadOnlyTask {
 		return done;
 	}
 	
-	public boolean getUndone(){
-		return !done;
-	}
-	
 	public String getDoneString(){
 		if(done){
 			getDoneString = "Done!";
