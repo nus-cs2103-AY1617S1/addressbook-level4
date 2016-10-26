@@ -127,6 +127,7 @@ public class LogicManagerTest {
     }
 
 
+    // @@author A0140133B
     @Test
     public void execute_unknownCommandWord() throws Exception {
         String unknownCommand = "uicfhmowqewca";
@@ -205,6 +206,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add \"Valid task\" t/valid p/invalid", Priority.MESSAGE_PRIORITY_CONSTRAINTS);
     }
+    // @@author
 
     @Test
     public void execute_add_successful() throws Exception {
@@ -271,7 +273,7 @@ public class LogicManagerTest {
 
     }
 
-
+    
     @Test
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
@@ -332,7 +334,8 @@ public class LogicManagerTest {
 
         assertCommandBehavior(commandWord + " t3", expectedMessage, model.getTaskBook(), floatingTaskList);
     }
-
+    
+    // @@author A0140133B
     @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
@@ -548,6 +551,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    // @@author 
     
     @Test
     public void execute_saveAs_invalidArgsFormat() throws Exception {
@@ -633,6 +637,7 @@ public class LogicManagerTest {
             );
         }
 
+        // @@author A0140133B
         /** Generates the correct add command based on the person given */
         String generateAddCommand(FloatingTask p) {
             StringBuffer cmd = new StringBuffer();
@@ -644,11 +649,10 @@ public class LogicManagerTest {
             UniqueTagList tags = p.getTags();
             for (Tag t : tags) {
                 cmd.append(" t/").append(t.tagName);
-//            cmd.append(" ");
-            cmd.append(" p/");
-            cmd.append(p.getPriority().tagName);
+                cmd.append(" p/");
+                cmd.append(p.getPriority().tagName);
             }
-
+            
             return cmd.toString();
         }
         
@@ -662,9 +666,9 @@ public class LogicManagerTest {
             UniqueTagList tags = p.getTags();
             for (Tag t : tags) {
                 cmd.append(" t/").append(t.tagName);
-            cmd.append(" p/").append(p.getPriority().tagName);
+                cmd.append(" p/").append(p.getPriority().tagName);
             }
-
+            
             return cmd.toString();
         }
         
@@ -680,9 +684,10 @@ public class LogicManagerTest {
                 cmd.append(" t/").append(t.tagName);
             }
             cmd.append(" p/").append(p.getPriority().tagName);
-
+            
             return cmd.toString();
         }
+        // @@author
 
         /**
          * Generates an TaskBook with auto-generated persons.
