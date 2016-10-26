@@ -126,6 +126,9 @@ public class ListOfTask implements ReadOnlyListOfTask {
     	tasks.done(key,isDone);
     }
     
+    public void undoneTask(ReadOnlyTask key, boolean isDone){
+    	tasks.done(key,isDone);
+    }
     
 //// tag-level operations
 
