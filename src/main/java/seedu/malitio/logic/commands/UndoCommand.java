@@ -16,6 +16,7 @@ import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
 
+//@@author A0129595N
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
@@ -72,7 +73,7 @@ public class UndoCommand extends Command {
         if (previous.getType().equals("floating task")) {
             try {
                 model.editFloatingTask(previous.getEditedTask(), previous.getTaskToEdit());
-                return ("Undo edit successful. Revert edit from" + previous.getTaskToEdit().toString() + " to "+ previous.getEditedTask().toString());
+                return ("Undo edit successful. Revert edit from " + previous.getTaskToEdit().toString() + " to "+ previous.getEditedTask().toString());
             } catch (DuplicateFloatingTaskException e) {
                 assert false : "not possible";
             } catch (FloatingTaskNotFoundException e) {
@@ -83,7 +84,7 @@ public class UndoCommand extends Command {
         else if (previous.getType().equals("deadline")) {
             try {
                 model.editDeadline(previous.getEditedDeadline(), previous.getDeadlineToEdit());
-                return ("Undo edit successful. Revert edit from" + previous.getDeadlineToEdit().toString() + " to "+ previous.getEditedDeadline().toString());
+                return ("Undo edit successful. Revert edit from " + previous.getDeadlineToEdit().toString() + " to "+ previous.getEditedDeadline().toString());
             } catch (DuplicateDeadlineException e) {
                 assert false : "not possible";
             } catch (DeadlineNotFoundException e) {
@@ -93,7 +94,7 @@ public class UndoCommand extends Command {
         else {
             try {
                 model.editEvent(previous.getEditedEvent(), previous.getEventToEdit());
-                return ("Undo edit successful. Revert edit from" + previous.getEventToEdit().toString() + " to "+ previous.getEditedEvent().toString());
+                return ("Undo edit successful. Revert edit from " + previous.getEventToEdit().toString() + " to "+ previous.getEditedEvent().toString());
             } catch (DuplicateEventException e) {
                 assert false : "not possible";
             } catch (EventNotFoundException e) {

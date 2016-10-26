@@ -40,6 +40,8 @@ public class Parser {
                     + "(?<name>(?:[^/]+)?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)");
     
+    private static final Pattern COMPLETE_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>[d|f|D|F]\\d+)");
+    
     private static final Set<String> TYPES_OF_TASKS = new HashSet<String>(Arrays.asList("f", "d", "e" ));
 
     public Parser() {}
@@ -68,6 +70,9 @@ public class Parser {
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
+            
+        case CompleteCommand.COMMAND_WORD:
+            return prepareComplete(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -89,6 +94,9 @@ public class Parser {
             
         case RedoCommand.COMMAND_WORD:
             return new RedoCommand();
+            
+        case SaveCommand.COMMAND_WORD:
+            return new SaveCommand(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -108,29 +116,29 @@ public class Parser {
         boolean hasEnd = false;
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(Name.MESSAGE_NAME_CONSTRAINTS, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
             String name = matcher.group("name");
             
-            String deadline = getDeadlineFromArgs(name);
+            String deadline = getDeadlineFromArgs(StringUtil.removeTagsFromString(name));
             if (!deadline.isEmpty()) {
                 name = name.replaceAll("by " + deadline, "");
             }
             
-            String start = getStartFromArgs(name);
+            String start = getStartFromArgs(StringUtil.removeTagsFromString(name));
             if (!start.isEmpty()) {
                 name = name.replaceAll("start " + start, "");
                 hasStart = true;
             }
             
-            String end = getEndFromArgs(name);
+            String end = getEndFromArgs(StringUtil.removeTagsFromString(name));
             if (!end.isEmpty()) {
                 name = name.replaceAll("end " + end, "");
                 hasEnd = true;
             }
             
-            if (!deadline.isEmpty()) {
+            if (!deadline.isEmpty() && !hasStart && !hasEnd) {
                 return new AddCommand(
                         name,
                         deadline,
@@ -144,7 +152,10 @@ public class Parser {
                         getTagsFromArgs(matcher.group("tagArguments"))
                         );
             } else if (hasStart ^ hasEnd) {
-                return new IncorrectCommand("Expecting start and end times\nExample: start 10032016 1200 end 10032016 1300");
+                return new IncorrectCommand("Expecting start and end times\nExample: start thursday 800 end thursday 900");
+            } else if (!deadline.isEmpty() && hasStart || !deadline.isEmpty() && hasEnd) {
+                return new IncorrectCommand("Expecting either a duedate or start and end time.");
+
             }
             return new AddCommand(
                     name,
@@ -193,7 +204,7 @@ public class Parser {
                 name = name.replaceAll(" end " + end, "");
             }
             
-            if (!deadline.isEmpty()) {
+            if (taskType == 'd') {
                 return new EditCommand(
                         taskType,
                         taskNum,
@@ -201,7 +212,7 @@ public class Parser {
                         deadline,
                         getTagsFromArgs(matcher.group("tagArguments"))
                         );
-            } else if (!start.isEmpty() || !end.isEmpty()) {
+            } else if (taskType == 'e') {
                 return new EditCommand(
                         taskType,
                         taskNum,
@@ -217,6 +228,32 @@ public class Parser {
                     name,
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
+    /**
+     * Parses arguments in the context of the delete task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareComplete(String args) {
+    	final Matcher matcher = COMPLETE_INDEX_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+        }
+        try {
+            String index = parseIndex(matcher.group("targetIndex"));
+            if (index.isEmpty()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+            }
+            char taskType = index.charAt(0);
+            int taskNum = Integer.parseInt(index.substring(1));
+            
+            return new CompleteCommand(taskType,taskNum);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -302,16 +339,7 @@ public class Parser {
         int byIndex = args.lastIndexOf("by");
         String deadline = "";
         if(byIndex > 0 && byIndex < args.length() - 2) {
-            try {
                 deadline = args.substring(byIndex + 3);
-                if (deadline.matches("[^\\d]+")) {
-                    return "";
-                } else if (!deadline.matches("\\d{8} \\d{4}")) {
-                    throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers\nExample: by 03122016 1320");
-                }
-            } catch (IndexOutOfBoundsException iob){
-                throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers\nExample: by 03122016 1320");
-            }
         }
         return deadline;
     }
@@ -321,21 +349,14 @@ public class Parser {
      */
     private static String getStartFromArgs(String args) throws IllegalValueException {
         int startIndex = args.lastIndexOf("start");
-        String start = "";
-        if(startIndex > 0 && startIndex < args.length() - 2) {
-            try {
-                start = args.substring(startIndex + 6, startIndex + 19);
-                if (start.matches("[^\\d]+")) {
-                    return "";
-                }
-                else if (!start.matches("\\d{8} \\d{4}")) {
-                    throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
-                }
-            } catch (IndexOutOfBoundsException iob){
-                throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
-            }
+        int endIndex = args.lastIndexOf("end");
+        if (startIndex > 0 && endIndex > 0) {
+            return args.substring(startIndex + 6, endIndex - 1);
+        } else if (startIndex > 0 && endIndex < 0) {
+            return args.substring(startIndex + 6);
+        } else {
+            return "";
         }
-        return start;
     }
 
     /**
@@ -343,20 +364,11 @@ public class Parser {
      */
     private static String getEndFromArgs(String args) throws IllegalValueException {
         int endIndex = args.lastIndexOf("end");
-        String end = "";
-        if(endIndex > 0 && endIndex < args.length() - 2) {
-            try {
-                end = args.substring(endIndex + 4, endIndex + 17);
-                if (end.matches("[^\\d]+")) {
-                    return "";
-                } else if (!end.matches("\\d{8} \\d{4}")) {
-                    throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
-                }
-            } catch (IndexOutOfBoundsException iob){
-                throw new IllegalValueException("Expecting 8 numbers followed by 4 numbers");
-            }
+        if (endIndex > 0) {
+         return args.substring(endIndex + 4);
+        } else {
+            return ""; 
         }
-        return end;
     }
 
     /**

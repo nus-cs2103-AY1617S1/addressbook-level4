@@ -32,5 +32,7 @@
   
 * Base code by SE-EDU initiative at https://github.com/se-edu/
 
+* Natty is used to parse date time. Copyright (c) 2010 Joseph Stelmach
+
 
 #### License : [MIT](LICENSE)

@@ -28,12 +28,12 @@ public interface Storage extends MalitioStorage, UserPrefsStorage {
     Optional<ReadOnlyMalitio> readMalitio() throws DataConversionException, IOException;
 
     @Override
-    void savemalitio(ReadOnlyMalitio malitio) throws IOException;
+    void saveMalitio(ReadOnlyMalitio malitio) throws IOException;
 
     /**
      * Saves the current version of the malitio to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handlemalitioChangedEvent(MalitioChangedEvent abce);
+    void handleMalitioChangedEvent(MalitioChangedEvent abce);
 }

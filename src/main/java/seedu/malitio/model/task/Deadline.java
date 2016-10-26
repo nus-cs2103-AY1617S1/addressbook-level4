@@ -10,14 +10,22 @@ public class Deadline implements ReadOnlyDeadline{
     private Name name;
     private DateTime due;
     private UniqueTagList tags;
+    private boolean completed;
 
-    //@@author A0129595N
     /**
      * Constructor for deadlines.
      */
 	public Deadline(Name name, DateTime due, UniqueTagList tags) {
 		this.name = name;
 		this.due = due;
+		this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+		this.completed = false;
+	}
+	
+	public Deadline(Name name, DateTime due, boolean completed, UniqueTagList tags) {
+		this.name = name;
+		this.due = due;
+		this.completed = completed;
 		this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
 	}
 	
@@ -26,6 +34,7 @@ public class Deadline implements ReadOnlyDeadline{
      */
     public Deadline(ReadOnlyDeadline source) {
         this(source.getName(), source.getDue(), source.getTags());
+        this.completed = source.getCompleted();
     }
 
 
@@ -44,7 +53,15 @@ public class Deadline implements ReadOnlyDeadline{
         return new UniqueTagList(tags);
     }
 
-    /**
+    public boolean getCompleted() {
+		return completed;
+	}
+
+	public void setCompleted() {
+		this.completed = true;
+	}
+
+	/**
      * Replaces this deadline's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {

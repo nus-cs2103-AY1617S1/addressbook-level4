@@ -1,6 +1,4 @@
 package seedu.malitio.model.history;
-import java.util.List;
-
 import javafx.collections.ObservableList;
 import seedu.malitio.commons.exceptions.IllegalValueException;
 import seedu.malitio.model.tag.UniqueTagList;
@@ -12,8 +10,7 @@ import seedu.malitio.model.task.Name;
 import seedu.malitio.model.task.ReadOnlyDeadline;
 import seedu.malitio.model.task.ReadOnlyEvent;
 import seedu.malitio.model.task.ReadOnlyFloatingTask;
-import seedu.malitio.model.task.UniqueFloatingTaskList;
-
+//@@author A0129595N
 public class InputDeleteHistory extends InputHistory {
     private String name;
     private String due;
@@ -53,12 +50,7 @@ public class InputDeleteHistory extends InputHistory {
     }
     
     public FloatingTask getFloatingTask() {
-        try {
-            return new FloatingTask(new Name(name), new UniqueTagList(tags));
-        } catch (IllegalValueException e) {
-            assert false : "not possible";
-        }
-        return null;
+        return new FloatingTask(new Name(name), new UniqueTagList(tags));
     }
     
     public int getPositionOfFloatingTask() {

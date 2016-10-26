@@ -27,7 +27,6 @@ public class EventCard extends UiPart{
     private ReadOnlyEvent event;
     private int displayedIndex;
 
-    //@@author A0129595N
     public EventCard(){
 
     }

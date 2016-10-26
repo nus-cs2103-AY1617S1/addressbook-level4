@@ -20,7 +20,6 @@ import java.util.*;
 
 public class UniqueDeadlineList implements Iterable<Deadline> {
 
-    //@@author A0129595N
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -35,6 +34,8 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
      * there is no such matching task in the list.
      */
     public static class DeadlineNotFoundException extends Exception {}
+    
+    public static class DeadlineCompletedException extends Exception {}
 
     private final ObservableList<Deadline> internalList = FXCollections.observableArrayList();
 
@@ -50,7 +51,7 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         assert toCheck != null;
         return internalList.contains(toCheck);
     }
-    
+    //@@author A0129595N
     /**
      * Returns true if the list contains an equivalent deadline as the given argument as well as identical tag(s).
      */
@@ -92,6 +93,27 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         internalList.remove(beforeEdit);
         internalList.add(edited);
     }
+    
+	public void complete(ReadOnlyDeadline deadlineToComplete) throws DeadlineCompletedException, DeadlineNotFoundException {
+        assert deadlineToComplete!=null;
+        
+        if(deadlineToComplete.getCompleted()) {
+        	throw new DeadlineCompletedException();
+        }
+
+        if (!contains(deadlineToComplete)) {
+            throw new DeadlineNotFoundException();
+        }
+        
+        deadlineToComplete.setCompleted();
+        updateDeadlineList(deadlineToComplete);
+	}
+
+	private void updateDeadlineList(ReadOnlyDeadline deadlineToComplete) {
+		int indexToReplace = internalList.indexOf(deadlineToComplete);
+        internalList.remove(deadlineToComplete);
+        internalList.add(indexToReplace, (Deadline) deadlineToComplete);
+	}
 
     /**
      * Removes the equivalent schedule from the list.
@@ -122,7 +144,6 @@ public class UniqueDeadlineList implements Iterable<Deadline> {
         	});
 	}
     
-    //@@author A0129595N
     @Override
     public Iterator<Deadline> iterator() {
         return internalList.iterator();

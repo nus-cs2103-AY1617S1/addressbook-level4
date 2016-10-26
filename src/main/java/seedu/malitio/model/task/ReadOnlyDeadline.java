@@ -11,6 +11,8 @@ public interface ReadOnlyDeadline {
 
         Name getName();
         DateTime getDue();
+        boolean getCompleted();
+        void setCompleted();
         
         /**
          * The returned TagList is a deep copy of the internal TagList,
@@ -18,7 +20,6 @@ public interface ReadOnlyDeadline {
          */
         UniqueTagList getTags();
 
-        //@@author A0129595N
         /**
          * Returns true if both have the same state. (interfaces cannot override .equals)
          */

@@ -30,7 +30,6 @@ public class DeadlineListPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyDeadline> deadlineListView;
 
-    //@@author A0129595N
     public DeadlineListPanel() {
         super();
     }

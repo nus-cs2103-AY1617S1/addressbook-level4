@@ -31,7 +31,6 @@ public class EventListPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyEvent> eventListView;
 
-    //@@author A0129595N
     public EventListPanel() {
         super();
     }

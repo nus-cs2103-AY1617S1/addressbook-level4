@@ -12,6 +12,8 @@ import seedu.malitio.model.tag.UniqueTagList;
 public interface ReadOnlyFloatingTask {
 
     Name getName();
+    boolean getCompleted();
+    void setCompleted();
 
 
     /**
@@ -20,7 +22,6 @@ public interface ReadOnlyFloatingTask {
      */
     UniqueTagList getTags();
 
-    //@@author A0129595N
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */

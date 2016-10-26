@@ -35,7 +35,12 @@ public class FloatingTaskCard extends UiPart{
 
     @FXML
     public void initialize() {
-        name.setText(task.getName().fullName);
+    	if (task.getCompleted()){
+    		name.setText(task.getName().fullName);
+    		name.getStylesheets().addAll(getClass().getResource("/view/strikethrough.css").toExternalForm());
+    	} else {
+    		name.setText(task.getName().fullName);
+    	}
         id.setText("F"+displayedIndex + ". ");
         tags.setText(task.tagsString());
     }
