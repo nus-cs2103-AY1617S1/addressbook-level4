@@ -35,8 +35,8 @@ public class TagCommand extends BaseCommand {
     private static final String ERROR_TAGS_ILLEGAL_CHAR
             = "Tags may only include alphanumeric characters, including dashes and underscores.";
 
-    private static final String SUCCESS_ADD_TAGS = "tagged ";
-    private static final String SUCCESS_DELETE_TAGS = "removed ";
+    private static final String SUCCESS_ADD_TAGS = " - tagged successfully";
+    private static final String SUCCESS_DELETE_TAGS = " - removed successfully";
 
     private static final String DESCRIPTION_ADD_TAGS = "Add tags to a task";
     private static final String DESCRIPTION_DELETE_TAGS = "Delete tags from tasks";
@@ -120,11 +120,11 @@ public class TagCommand extends BaseCommand {
         //Performs the actual execution with the data
         if (isAddTagsToTask()) {
             model.addTagsToTask(displayedIndex, tagsToAdd);
-            return new CommandResult(SUCCESS_ADD_TAGS + StringUtil.convertListToString(tagsToAdd));
+            return new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
 
         } else if (isDeleteTagsFromTask()) {
             model.deleteTagsFromTask(displayedIndex, tagsToDelete);
-            return new CommandResult(SUCCESS_DELETE_TAGS + StringUtil.convertListToString(tagsToDelete));
+            return new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
 
         } else {
             //Invalid case, should not happen, as we have checked it validateArguments.
