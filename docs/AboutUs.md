@@ -32,10 +32,16 @@ Role: Team Lead / Scheduling & Tracking / Deliverables & Deadlines / SourceTree 
 
 -----
 [comment]: # (@@author )
-#### [Harsh Gadodia](http://github.com/harshgadodia)
+#### [Harsh Gadodia @harshgadodia](http://github.com/harshgadodia)
 <img src="https://scontent-sin6-1.xx.fbcdn.net/v/t1.0-9/13494763_10154200932218467_8223215693952856578_n.jpg?oh=19d8a20f1163b35c2b8f59908dc96588&oe=58AD397A" width="150"><br>
 Role: Testing / Documentation <br>
 Responsibilities: UI
+* Features implemented:
+	* Find task/deadline/event
+	* List data by task/deadline/event (List commands)
+* Other major contributions
+	* Maintaining and updating documentation
+	* Generating sample data 
 
 -----
 
