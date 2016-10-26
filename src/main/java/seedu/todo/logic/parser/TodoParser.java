@@ -2,6 +2,7 @@ package seedu.todo.logic.parser;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
+import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -17,7 +18,17 @@ import java.util.Map.Entry;
  * optionally many named arguments. 
  */
 public class TodoParser implements Parser {
-    public static String FLAG_TOKEN = "/";
+    // Best practice would dictate this property be inside DateRangeArgument instead
+    // but PrettyTimeParser takes several seconds to warm up, so instead we do it in the 
+    // TodoLogic constructor, which is initialized on app startup. 
+    public static final PrettyTimeParser dateTimeParser = new PrettyTimeParser();
+    
+    public static final String FLAG_TOKEN = "/";
+    
+    public TodoParser() {
+        // Try to warm up the parser a little on a background thread
+        new Thread(() -> dateTimeParser.parse("next Wednesday 2pm to 6pm")).start();
+    }
 
     private List<String> tokenize(String input) {
         input = input.trim();
