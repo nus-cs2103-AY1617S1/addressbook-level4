@@ -77,8 +77,25 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(toAdd);
     }
-    //@@author A0130853L
     
+    
+    /** Marks the given task as done from the list.
+     * 
+     * @throws TaskNotFoundException if no such task could be found in the list.
+     * @throws DuplicateMarkAsDoneException if specified task in list had already been marked as done previously.
+     */
+    public void unmark(ReadOnlyTask toUnmark) throws TaskNotFoundException {
+        assert toUnmark != null && toUnmark.getIsDone();
+        final boolean taskFoundAndUnmarkedAsDone = internalList.remove(toUnmark);
+        if (!taskFoundAndUnmarkedAsDone) {
+            assert false: "Task should not be missing";
+        }
+        Task editableToUnmark = (Task) toUnmark;
+        editableToUnmark.unmarkAsDone();
+        internalList.add(editableToUnmark);
+    }  
+    
+  //@@author A0130853L
     /** Marks the given task as done from the list.
      * 
      * @throws TaskNotFoundException if no such task could be found in the list.

@@ -10,6 +10,7 @@ import seedu.taskitty.commons.exceptions.NoPreviousValidCommandException;
 import seedu.taskitty.commons.util.DateUtil;
 import seedu.taskitty.commons.util.StringUtil;
 import seedu.taskitty.logic.commands.AddCommand;
+import seedu.taskitty.logic.commands.ClearCommand;
 import seedu.taskitty.logic.commands.DeleteCommand;
 import seedu.taskitty.logic.commands.DoneCommand;
 import seedu.taskitty.logic.commands.EditCommand;
@@ -17,9 +18,11 @@ import seedu.taskitty.model.task.ReadOnlyTask;
 import seedu.taskitty.model.task.Task;
 import seedu.taskitty.model.task.UniqueTaskList;
 import seedu.taskitty.model.task.UniqueTaskList.DuplicateMarkAsDoneException;
+import seedu.taskitty.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.taskitty.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
@@ -127,6 +130,32 @@ public class ModelManager extends ComponentManager implements Model {
         resetData(getPreviousTaskManager());   
         updateFilteredTaskList(getPreviousPredicate());
         return getPreviousValidCommand();
+    }
+    
+    public void undos() throws TaskNotFoundException, DuplicateTaskException, DuplicateMarkAsDoneException {
+        String previousCommand = taskManagerState.getCommand();
+        
+        switch(previousCommand) {
+        
+        case AddCommand.COMMAND_WORD:
+            taskManager.removeTask(taskManagerState.getAddedTask());
+            
+        case DeleteCommand.COMMAND_WORD:
+            taskManager.addTask(taskManagerState.getDeletedTask());
+        
+        case EditCommand.COMMAND_WORD:
+            taskManager.addTask(taskManagerState.getDeletedTask());
+            taskManager.removeTask(taskManagerState.getAddedTask());
+       
+        case ClearCommand.COMMAND_WORD:
+            resetData(taskManagerState.getTaskManager());
+        
+        case DoneCommand.COMMAND_WORD:
+            taskManager.unMarkTaskAsDoneTask(taskManagerState.getMarkedTask());
+            
+        default:
+            assert false: "Should not have an invalid previousCommand";
+        }
     }
     
     public synchronized void saveState(String command) {
@@ -293,27 +322,44 @@ public class ModelManager extends ComponentManager implements Model {
         
         private final Stack<String> commands;
         private final Stack<String> commandTexts;
-        private final Stack<ReadOnlyTask> addedTasks;
-        private final Stack<ReadOnlyTask> deletedTasks;
+        private final Stack<Task> addedTasks;
+        private final Stack<Task> markedTasks;
+        private final Stack<Task> deletedTasks;
         private final Stack<ReadOnlyTaskManager> taskManagers;
-        private final Stack<Predicate> predicates;
         
         TaskManagerState() {
             commands = new Stack<String>();
             commandTexts = new Stack<String>();
-            addedTasks = new Stack<ReadOnlyTask>();
-            deletedTasks = new Stack<ReadOnlyTask>();
+            addedTasks = new Stack<Task>();
+            markedTasks = new Stack<Task>();
+            deletedTasks = new Stack<Task>();
             taskManagers = new Stack<ReadOnlyTaskManager>();
-            predicates = new Stack<Predicate>();
         }
         
-        private String getCommand () {
+        private String getCommand() {
             return commands.pop();
         }
         
-        private void storeCommand (String command) {
+        private void storeCommand(String command) {
             commands.push(command);
         }
+        
+        private Task getAddedTask() {
+            return addedTasks.pop();
+        }
+        
+        private Task getMarkedTask() {
+            return markedTasks.pop();
+        }
+        
+        private Task getDeletedTask() {
+            return deletedTasks.pop();
+        }
+        
+        private ReadOnlyTaskManager getTaskManager() {
+            return taskManagers.pop();
+        }
+        
     }
     
     //========== Private methods used within ModelManager ==================================================

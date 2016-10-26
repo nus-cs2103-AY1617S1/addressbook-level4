@@ -101,6 +101,16 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.add(p);
     }
     
+    /**
+     * Marks a task as done in the task manager.
+     * 
+     * @throws UniqueTaskList.TaskNotFoundException if task is not found.
+     * @throws UniqueTaskList.DuplicateMarkAsDoneException if task has already been previously marked as done
+     */
+    public void unMarkTaskAsDoneTask(ReadOnlyTask key) throws UniqueTaskList.DuplicateMarkAsDoneException, UniqueTaskList.TaskNotFoundException {
+        tasks.mark(key);
+    }
+    
     //@@author A0130853L
     /**
      * Marks a task as done in the task manager.
