@@ -57,10 +57,10 @@ import com.joestelmach.natty.Parser;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    
+  //@@author A0144919W    
     public static LinkedList<UndoInfo> undoStack = new LinkedList<UndoInfo>();
     public static LinkedList<UndoInfo> redoStack = new LinkedList<UndoInfo>();
-
+  //@@author
     private final TaskList taskList;
     private final FilteredList<Task> filteredTasks;
     private final TaskCounter taskCounter;
@@ -92,7 +92,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskCounter = new TaskCounter(initialData);
         EventsCenter.getInstance().registerHandler(this);
     }
-
+    //@@author A0144919W
     @Override
     public void resetData(ReadOnlyTaskList newData) {
         if (newData.isEmpty()) { // clear or redo clear was executed
@@ -103,12 +103,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskListChanged();
         clearRedoStack();
     }
-
+    //@@author
     @Subscribe
     private void tickEvent(TickEvent te) {
     	indicateTaskListChanged();
     }
-    
+    //@@author A0144919W
     private void clearRedoStack() {
         redoStack.clear();
     }
@@ -124,7 +124,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ReadOnlyTaskList getTaskList() {
         return taskList;
     }
-    
+    //@@author
     @Override
     public TaskCounter getTaskCounter(){
     	return taskCounter;
@@ -134,7 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateTaskListChanged() {
         raise(new TaskListChangedEvent(taskList));
     }
-
+    //@@author A0144919W
     @Override
     public void deleteTaskUndo(ReadOnlyTask target) throws TaskNotFoundException {
         taskList.removeTask(target);
@@ -159,12 +159,12 @@ public class ModelManager extends ComponentManager implements Model {
         addToUndoStack(UndoCommand.ADD_CMD_ID, null, task);
         clearRedoStack();
     }
-    
+    //@@author
     @Override
     public boolean isOverlapping(Task task) {
     	return taskList.isOverlapping(task);
     }
-
+    //@@author A0144919W
     @Override
     public void addTaskUndo(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskList.addTask(task);
@@ -213,7 +213,7 @@ public class ModelManager extends ComponentManager implements Model {
         UndoInfo undoInfo = new UndoInfo(undoID, filePath, tasks);
         undoStack.push(undoInfo);
     }
-
+    //@@author
     @Override
     public void updateFilteredListToShowPriority(String priority) {
         updateFilteredListToShowAll();
@@ -311,8 +311,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     // ========== Inner classes/interfaces used for filtering
     // ==================================================
-
-    /*
+    //@@author A0144919W-unused
+    //unused as now, the task list is sorted without using these comparators
     private static class Comparators {
         public static Comparator<Task> DATE_TIME = new Comparator<Task>() {
             @Override
@@ -334,8 +334,7 @@ public class ModelManager extends ComponentManager implements Model {
             }
         };
     }
-    */
-
+    //@@author
     interface Expression {
         boolean satisfies(ReadOnlyTask person);
 
@@ -502,7 +501,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
+    //@@author A0144919W
     @Override
     public LinkedList<UndoInfo> getUndoStack() {
         return undoStack;
@@ -512,7 +511,7 @@ public class ModelManager extends ComponentManager implements Model {
     public LinkedList<UndoInfo> getRedoStack() {
         return redoStack;
     }
-
+    //@@author
     @Override
     public void changeFileStorage(String filePath) throws IOException, ParseException, JSONException {
         if (filePath.equals("default")) {
@@ -533,7 +532,7 @@ public class ModelManager extends ComponentManager implements Model {
         addToUndoStack(UndoCommand.STR_CMD_ID, currentFilePath);
         clearRedoStack();
     }
-
+    //@@author A0144919W
     @Override
     public String changeFileStorageUndo(String filePath) throws IOException, ParseException, JSONException {
         if (filePath.equals("default")) {
