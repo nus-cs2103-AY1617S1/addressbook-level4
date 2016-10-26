@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.todo.model.Model;
-import seedu.todo.model.ToDoList;
+import seedu.todo.model.DoDoBird;
 import seedu.todo.model.task.Detail;
 import seedu.todo.model.task.Name;
 import seedu.todo.model.task.Priority;
@@ -93,8 +93,8 @@ public class TestDataHelper{
     /**
      * Generates an ToDoList with auto-generated tasks.
      */
-    public ToDoList generateToDoList(int numGenerated) throws Exception{
-        ToDoList toDoList = new ToDoList();
+    public DoDoBird generateToDoList(int numGenerated) throws Exception{
+        DoDoBird toDoList = new DoDoBird();
         addToToDoList(toDoList, numGenerated);
         return toDoList;
     }
@@ -102,8 +102,8 @@ public class TestDataHelper{
     /**
      * Generates an ToDoList based on the list of Tasks given.
      */
-    public ToDoList generateToDoList(List<Task> tasks) throws Exception{
-        ToDoList toDoList = new ToDoList();
+    public DoDoBird generateToDoList(List<Task> tasks) throws Exception{
+        DoDoBird toDoList = new DoDoBird();
         addToToDoList(toDoList, tasks);
         return toDoList;
     }
@@ -112,14 +112,14 @@ public class TestDataHelper{
      * Adds auto-generated Task objects to the given ToDoList
      * @param toDoList The ToDoList to which the Tasks will be added
      */
-    public void addToToDoList(ToDoList toDoList, int numGenerated) throws Exception{
+    public void addToToDoList(DoDoBird toDoList, int numGenerated) throws Exception{
         addToToDoList(toDoList, generateTaskList(numGenerated));
     }
 
     /**
      * Adds the given list of Tasks to the given ToDoList
      */
-    public void addToToDoList(ToDoList toDoList, List<Task> tasksToAdd) throws Exception{
+    public void addToToDoList(DoDoBird toDoList, List<Task> tasksToAdd) throws Exception{
         for (Task p: tasksToAdd){
             toDoList.addTask(p);
         }

@@ -7,6 +7,7 @@ import seedu.todo.commons.core.UnmodifiableObservableList;
 import seedu.todo.commons.events.model.ToDoListChangedEvent;
 import seedu.todo.model.qualifiers.*;
 import seedu.todo.model.tag.Tag;
+import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.Priority;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.model.task.Task;
@@ -24,7 +25,7 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final ToDoList toDoList;
+    private final DoDoBird dodobird;
     private final FilteredList<Task> filteredTasks;
     private final FilteredList<Task> todayTasks;
     private final FilteredList<Tag> tagList;
@@ -34,44 +35,45 @@ public class ModelManager extends ComponentManager implements Model {
      * Initializes a ModelManager with the given ToDoList
      * ToDoList and its variables should not be null
      */
-    public ModelManager(ToDoList src, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyToDoList src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
         logger.fine("Initializing with to-do app: " + src + " and user prefs " + userPrefs);
 
-        toDoList = new ToDoList(src);
-        filteredTasks = new FilteredList<>(toDoList.getTasks());
-        todayTasks = new FilteredList<>(toDoList.getTasks());
-        tagList = new FilteredList<>(toDoList.getTags());
+        dodobird = new DoDoBird(src);
+        filteredTasks = new FilteredList<>(dodobird.getTasks());
+        todayTasks = new FilteredList<>(dodobird.getTasks());
+        tagList = new FilteredList<>(dodobird.getTags());
         updateTodayListToShowAll();
  
     }
     //@@author
     
     public ModelManager() {
-        this(new ToDoList(), new UserPrefs());
-    }
-    
-    //@@author A0093896H
-    public ModelManager(ReadOnlyToDoList initialData, UserPrefs userPrefs) {
-        toDoList = new ToDoList(initialData);
-        filteredTasks = new FilteredList<>(toDoList.getTasks());
-        todayTasks = new FilteredList<>(toDoList.getTasks());
-        tagList = new FilteredList<>(toDoList.getTags());
-        updateTodayListToShowAll();
-    }
+        this(new DoDoBird(), new UserPrefs());
+    }    
 
     @Override
+    public ReadOnlyToDoList getToDoList() {
+        return dodobird;
+    }
+    
+    @Override
     public void resetData(ReadOnlyToDoList newData) {
-        toDoList.resetData(newData);
+        dodobird.resetData(newData);
         indicateToDoListChanged();
+    }
+    
+    /** Raises an event to indicate the model has changed */
+    public void indicateToDoListChanged() {
+        raise(new ToDoListChangedEvent(dodobird));
     }
     
     @Override
     public boolean undo() {
-        if (toDoList.undo()) {
+        if (dodobird.undo()) {
             indicateToDoListChanged();
             return true;
         }
@@ -79,70 +81,51 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyToDoList getToDoList() {
-        return toDoList;
-    }
-
-    /** Raises an event to indicate the model has changed */
-    public void indicateToDoListChanged() {
-        raise(new ToDoListChangedEvent(toDoList));
-    }
-
-    @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        toDoList.removeTask(target);
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+        dodobird.addTask(task);
         indicateToDoListChanged();
     }
-
+    
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
-        toDoList.addTask(task);
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
+        dodobird.deleteTask(target);
         indicateToDoListChanged();
     }
     
     //@@author A0093896H
     @Override
-    public synchronized Task getTask(ReadOnlyTask target) throws TaskNotFoundException {
-        int index = toDoList.getTasks().indexOf(target);
-        
-        if (index < 0) {
-            throw new TaskNotFoundException();
-        } else {
-            return toDoList.getTasks().get(index);
-        }
+    public synchronized Task getTask(ReadOnlyTask target) {
+        return dodobird.getTask(dodobird.getTaskIndex(target));
     }
     
     @Override
     public synchronized void updateTask(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws TaskNotFoundException {
-        toDoList.updateTask(oldTask, newTask);
+        dodobird.updateTask(oldTask, newTask);
         indicateToDoListChanged();
     }
     
     @Override
-    public synchronized void updateTaskTags(ReadOnlyTask oldTask, ReadOnlyTask newTask) throws TaskNotFoundException {
-        int index = toDoList.getTasks().indexOf(oldTask);
-        
-        if (index < 0) {
-            throw new TaskNotFoundException();
-        } else {
-            toDoList.getTasks().get(index).setTags(newTask.getTags());
-            indicateToDoListChanged();
-        }
-        
-        toDoList.updateTaskTags(oldTask, newTask);
+    public synchronized void addTaskTags(ReadOnlyTask oldTask, UniqueTagList newTagList) throws TaskNotFoundException {
+        dodobird.addTaskTags(oldTask, newTagList);
+        indicateToDoListChanged();
     }
-    //@@author
+    
+    @Override
+    public synchronized void deleteTaskTags(ReadOnlyTask oldTask, UniqueTagList newTagList) throws TaskNotFoundException {
+        dodobird.deleteTaskTags(oldTask, newTagList);
+        indicateToDoListChanged();
+    }
     
     //=========== Filtered Task List Accessors ===============================================================
     
     //@@author A0093896H
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getUnmodifiableFilteredTaskList() {
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
     }
     
     //@@author A0138967J
-    public UnmodifiableObservableList<ReadOnlyTask> getUnmodifiableTodayTaskList() {
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTodayTaskList() {
         return new UnmodifiableObservableList<>(todayTasks);
     } 
     
@@ -203,7 +186,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredTaskList(new PredicateExpression(new FromTillDateQualifier(fromDateTime, tillDateTime)));
     }
 
-  //@@author A0121643R
+    //@@author A0121643R
     @Override
     public void updateFilteredTaskListByPriority(Priority priority) {
         updateFilteredTaskList(new PredicateExpression(new PriorityQualifier(priority)));   

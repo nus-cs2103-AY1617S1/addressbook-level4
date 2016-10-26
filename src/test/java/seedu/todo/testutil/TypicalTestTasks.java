@@ -1,7 +1,7 @@
 package seedu.todo.testutil;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.model.ToDoList;
+import seedu.todo.model.DoDoBird;
 import seedu.todo.model.task.*;
 import seedu.todo.model.task.Recurrence.Frequency;
 
@@ -40,7 +40,7 @@ public class TypicalTestTasks {
         }
     }
 
-    public static void loadToDoListWithSampleData(ToDoList ab) {
+    public static void loadToDoListWithSampleData(DoDoBird ab) {
 
         try {
             ab.addTask(new Task(buyGroceries));
@@ -58,8 +58,8 @@ public class TypicalTestTasks {
         return new TestTask[]{};
     }
 
-    public ToDoList getTypicalToDoList(){
-        ToDoList ab = new ToDoList();
+    public DoDoBird getTypicalToDoList(){
+        DoDoBird ab = new DoDoBird();
         loadToDoListWithSampleData(ab);
         return ab;
     }

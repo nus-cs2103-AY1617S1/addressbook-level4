@@ -11,7 +11,7 @@ import org.testfx.api.FxToolkit;
 
 import seedu.todo.TestApp;
 import seedu.todo.commons.core.EventsCenter;
-import seedu.todo.model.ToDoList;
+import seedu.todo.model.DoDoBird;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.testutil.TestUtil;
 import seedu.todo.testutil.TypicalTestTasks;
@@ -76,8 +76,8 @@ public abstract class ToDoListGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected ToDoList getInitialData() {
-        ToDoList ab = TestUtil.generateEmptyToDoList();
+    protected DoDoBird getInitialData() {
+        DoDoBird ab = TestUtil.generateEmptyToDoList();
         return ab;
     }
 

@@ -3,6 +3,7 @@ package seedu.todo.logic.commands;
 
 import seedu.todo.commons.core.Messages;
 import seedu.todo.commons.core.UnmodifiableObservableList;
+import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.tag.UniqueTagList.DuplicateTagException;
@@ -29,12 +30,12 @@ public class TagCommand extends Command{
     public final int targetIndex;
     public final UniqueTagList tags;
     
-    public TagCommand(int targetIndex, String tagNames) throws Exception {
+    public TagCommand(int targetIndex, String tagNames) throws IllegalValueException {
 
         this.targetIndex = targetIndex;
         
         if (tagNames.isEmpty()) {
-            throw new Exception();
+            throw new IllegalValueException("Tag Names cannot be empty");
         }
         
         tags = new UniqueTagList();
@@ -48,7 +49,7 @@ public class TagCommand extends Command{
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getUnmodifiableFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -58,19 +59,12 @@ public class TagCommand extends Command{
         ReadOnlyTask taskToTag = lastShownList.get(targetIndex - 1);
 
         try {
-            Task toTag = model.getTask(taskToTag);
-            
-            for (Tag tag : tags) {
-                try {
-                    toTag.addTag(tag);
-                } catch (DuplicateTagException e) {}
-            }
-            model.updateTaskTags(taskToTag, toTag);
+            model.addTaskTags(taskToTag, tags);
             model.updateFilteredListToShowAll();
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be found";
+        } catch (TaskNotFoundException e) {
+            assert false : "The target task cannot be missing";
         }
-
+        
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToTag.getName()));
     }
     

@@ -9,7 +9,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.todo.commons.exceptions.DataConversionException;
 import seedu.todo.commons.util.FileUtil;
 import seedu.todo.model.ReadOnlyToDoList;
-import seedu.todo.model.ToDoList;
+import seedu.todo.model.DoDoBird;
 import seedu.todo.model.task.Task;
 import seedu.todo.testutil.TypicalTestTasks;
 
@@ -63,26 +63,26 @@ public class XmlToDoListStorageTest {
     public void readAndSaveToDoList_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempToDoList.xml";
         TypicalTestTasks td = new TypicalTestTasks();
-        ToDoList original = td.getTypicalToDoList();
+        DoDoBird original = td.getTypicalToDoList();
         XmlToDoListStorage xmlToDoListStorage = new XmlToDoListStorage(filePath);
 
         //Save in new file and read back
         xmlToDoListStorage.saveToDoList(original, filePath);
         ReadOnlyToDoList readBack = xmlToDoListStorage.readToDoList(filePath).get();
-        assertEquals(original, new ToDoList(readBack));
+        assertEquals(original, new DoDoBird(readBack));
 
         //Modify data, overwrite exiting file, and read back
         original.addTask(new Task(TypicalTestTasks.buyNoodles));
-        original.removeTask(new Task(TypicalTestTasks.buyNoodles));
+        original.deleteTask(new Task(TypicalTestTasks.buyNoodles));
         xmlToDoListStorage.saveToDoList(original, filePath);
         readBack = xmlToDoListStorage.readToDoList(filePath).get();
-        assertEquals(original, new ToDoList(readBack));
+        assertEquals(original, new DoDoBird(readBack));
 
         //Save and read without specifying file path
         original.addTask(new Task(TypicalTestTasks.buyCheese));
         xmlToDoListStorage.saveToDoList(original); //file path not specified
         readBack = xmlToDoListStorage.readToDoList().get(); //file path not specified
-        assertEquals(original, new ToDoList(readBack));
+        assertEquals(original, new DoDoBird(readBack));
 
     }
 
@@ -99,7 +99,7 @@ public class XmlToDoListStorageTest {
     @Test
     public void saveToDoList_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveToDoList(new ToDoList(), null);
+        saveToDoList(new DoDoBird(), null);
     }
 
 

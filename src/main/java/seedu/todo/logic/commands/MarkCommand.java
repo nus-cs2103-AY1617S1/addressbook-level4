@@ -31,7 +31,7 @@ public class MarkCommand extends Command {
     @Override
     public CommandResult execute() {
         
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getUnmodifiableFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -44,18 +44,13 @@ public class MarkCommand extends Command {
             Task toMark = model.getTask(taskToMark);
             
             toMark.setCompletion(new Completion(true));
-            toMark.addTag(new Tag("done"));
-            
+
             model.updateTask(taskToMark, toMark);
-            model.updateTaskTags(taskToMark, toMark);
             model.updateFilteredListToShowAll();
+            
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";
-        } catch (DuplicateTagException e) {
-            assert false : "The tag is already added";
-        } catch (IllegalValueException e) {
-            assert false : "The tag name is not valid";
-        }
+        } 
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, taskToMark.getName()));
     }

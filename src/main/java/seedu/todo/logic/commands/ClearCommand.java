@@ -1,6 +1,6 @@
 package seedu.todo.logic.commands;
 
-import seedu.todo.model.ToDoList;
+import seedu.todo.model.DoDoBird;
 
 /**
  * Clears the address book.
@@ -13,7 +13,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(ToDoList.getEmptyToDoList());
+        model.resetData(DoDoBird.getEmptyToDoList());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

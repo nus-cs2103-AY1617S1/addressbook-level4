@@ -11,8 +11,9 @@ import seedu.todo.logic.commands.*;
 import seedu.todo.model.Model;
 import seedu.todo.model.ModelManager;
 import seedu.todo.model.ReadOnlyToDoList;
-import seedu.todo.model.ToDoList;
+import seedu.todo.model.DoDoBird;
 import seedu.todo.model.tag.Tag;
+import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.*;
 import seedu.todo.storage.StorageManager;
 
@@ -51,7 +52,7 @@ public class LogicManagerTest {
 
     @Subscribe
     private void handleLocalModelChangedEvent(ToDoListChangedEvent abce) {
-        latestSavedToDoList = new ToDoList(abce.data);
+        latestSavedToDoList = new DoDoBird(abce.data);
     }
 
     @Subscribe
@@ -72,7 +73,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, config, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedToDoList = new ToDoList(model.getToDoList()); // last saved assumed to be up to date before.
+        latestSavedToDoList = new DoDoBird(model.getToDoList()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -114,7 +115,7 @@ public class LogicManagerTest {
         model.addTask(helper.generateFullTask(2));
         model.addTask(helper.generateFullTask(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new ToDoList(), Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new DoDoBird(), Collections.emptyList());
     }
 
     @Test
@@ -133,7 +134,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.generateFullTask(0);
-        ToDoList expectedAB = new ToDoList();
+        DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
@@ -148,7 +149,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.generateFloatingTask(0);
-        ToDoList expectedAB = new ToDoList();
+        DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
@@ -163,7 +164,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.generateDeadlineTask(0);
-        ToDoList expectedAB = new ToDoList();
+        DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
@@ -178,7 +179,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.generateFullTask(0);
-        ToDoList expectedAB = new ToDoList();
+        DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
@@ -198,7 +199,7 @@ public class LogicManagerTest {
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        ToDoList expectedAB = helper.generateToDoList(2);
+        DoDoBird expectedAB = helper.generateToDoList(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
 
         // prepare address book state
@@ -226,8 +227,8 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
-        ToDoList expectedAB = helper.generateToDoList(threeTasks);
-        expectedAB.removeTask(threeTasks.get(1));
+        DoDoBird expectedAB = helper.generateToDoList(threeTasks);
+        expectedAB.deleteTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("delete 2",
@@ -241,7 +242,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeMarked = helper.generateFullTask(0);
-        ToDoList expectedAB = new ToDoList();
+        DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeMarked);
         
         toBeMarked.setCompletion(new Completion(true));
@@ -272,12 +273,11 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeMarked = helper.generateFullTask(0);
-        ToDoList expectedAB = new ToDoList();
+        DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeMarked);
         
         Task toBeMarked2 = helper.generateFullTask(0);
         toBeMarked2.setCompletion(new Completion(true));
-        toBeMarked2.addTag(new Tag("done"));
         model.addTask(toBeMarked2);        
        
         // execute command and verify result
@@ -304,10 +304,14 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeTagged = helper.generateFullTask(0);
-        ToDoList expectedAB = new ToDoList();
+        
+        DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeTagged);
         
-        toBeTagged.addTag(new Tag("yay"));
+        UniqueTagList tags = new UniqueTagList();
+        tags.add(new Tag("yay"));
+        
+        expectedAB.addTaskTags(toBeTagged, tags);
         
         Task toBeTagged2 = helper.generateFullTask(0);
         model.addTask(toBeTagged2);        
@@ -337,7 +341,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeUntagged = helper.generateFullTask(0);
-        ToDoList expectedAB = new ToDoList();
+        DoDoBird expectedAB = new DoDoBird();
         expectedAB.addTask(toBeUntagged);
         
         Task toBeUntagged2 = helper.generateFullTask(0);
@@ -379,7 +383,7 @@ public class LogicManagerTest {
         Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        ToDoList expectedAB = helper.generateToDoList(fourTasks);
+        DoDoBird expectedAB = helper.generateToDoList(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourTasks);
 
@@ -398,7 +402,7 @@ public class LogicManagerTest {
         Task p4 = helper.generateTaskWithName("KEy sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
-        ToDoList expectedAB = helper.generateToDoList(fourTasks);
+        DoDoBird expectedAB = helper.generateToDoList(fourTasks);
         List<Task> expectedList = fourTasks;
         helper.addToModel(model, fourTasks);
 
@@ -417,7 +421,7 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithName("sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
-        ToDoList expectedAB = helper.generateToDoList(fourTasks);
+        DoDoBird expectedAB = helper.generateToDoList(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourTasks);
 
@@ -436,7 +440,7 @@ public class LogicManagerTest {
         t1.addTag(new Tag("school"));
 
         List<Task> twoTasks = helper.generateTaskList(t1, t2);
-        ToDoList expectedAB = helper.generateToDoList(twoTasks);
+        DoDoBird expectedAB = helper.generateToDoList(twoTasks);
         List<Task> expectedList = helper.generateTaskList(t1);
         helper.addToModel(model, twoTasks);
 
@@ -454,7 +458,7 @@ public class LogicManagerTest {
         Task t2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
 
         List<Task> twoTasks = helper.generateTaskList(t1, t2);
-        ToDoList expectedAB = helper.generateToDoList(twoTasks);
+        DoDoBird expectedAB = helper.generateToDoList(twoTasks);
         List<Task> expectedList = helper.generateTaskList(t1, t2);
         helper.addToModel(model, twoTasks);
 
@@ -471,7 +475,7 @@ public class LogicManagerTest {
         Task t2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
 
         List<Task> twoTasks = helper.generateTaskList(t1, t2);
-        ToDoList expectedAB = helper.generateToDoList(twoTasks);
+        DoDoBird expectedAB = helper.generateToDoList(twoTasks);
         List<Task> expectedList = helper.generateTaskList(t1, t2);
         helper.addToModel(model, twoTasks);
 
@@ -488,7 +492,7 @@ public class LogicManagerTest {
         Task t2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
 
         List<Task> twoTasks = helper.generateTaskList(t1, t2);
-        ToDoList expectedAB = helper.generateToDoList(twoTasks);
+        DoDoBird expectedAB = helper.generateToDoList(twoTasks);
         List<Task> expectedList = helper.generateTaskList(t1, t2);
         helper.addToModel(model, twoTasks);
 
@@ -507,7 +511,7 @@ public class LogicManagerTest {
         t1.setCompletion(new Completion(true));
 
         List<Task> twoTasks = helper.generateTaskList(t1, t2);
-        ToDoList expectedAB = helper.generateToDoList(twoTasks);
+        DoDoBird expectedAB = helper.generateToDoList(twoTasks);
         List<Task> expectedList = helper.generateTaskList(t1);
         helper.addToModel(model, twoTasks);
 
@@ -524,7 +528,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(String, String, ReadOnlyToDoList, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new ToDoList(), Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, new DoDoBird(), Collections.emptyList());
     }
 
     /**
@@ -543,7 +547,7 @@ public class LogicManagerTest {
         
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getUnmodifiableFilteredTaskList());
+        assertEquals(expectedShownList, model.getFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedAddressBook, model.getToDoList());
@@ -575,7 +579,7 @@ public class LogicManagerTest {
         List<Task> taskList = helper.generateTaskList(2);
 
         // set AB state to 2 tasks
-        model.resetData(new ToDoList());
+        model.resetData(new DoDoBird());
         for (Task p : taskList) {
             model.addTask(p);
         }

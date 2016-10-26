@@ -3,6 +3,7 @@ package seedu.todo.logic.commands;
 
 import seedu.todo.commons.core.Messages;
 import seedu.todo.commons.core.UnmodifiableObservableList;
+import seedu.todo.commons.exceptions.IllegalValueException;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.tag.UniqueTagList;
 import seedu.todo.model.task.ReadOnlyTask;
@@ -28,12 +29,12 @@ public class UntagCommand extends Command{
     public final int targetIndex;
     public final UniqueTagList tags;
     
-    public UntagCommand(int targetIndex, String tagNames) throws Exception {
+    public UntagCommand(int targetIndex, String tagNames) throws IllegalValueException {
 
         this.targetIndex = targetIndex;
         
         if (tagNames.isEmpty()) {
-            throw new Exception();
+            throw new IllegalValueException("Tag Names cannot be empty");
         }
         
         tags = new UniqueTagList();
@@ -47,7 +48,7 @@ public class UntagCommand extends Command{
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getUnmodifiableFilteredTaskList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -56,15 +57,8 @@ public class UntagCommand extends Command{
 
         ReadOnlyTask taskToUntag = lastShownList.get(targetIndex - 1);
 
-        try {
-            Task toUntag = model.getTask(taskToUntag);
-            
-            for (Tag tag : tags) {
-                try {
-                    toUntag.removeTag(tag);
-                } catch (UniqueTagList.TagNotFoundException e) {}
-            }
-            model.updateTaskTags(taskToUntag, toUntag);
+        try{
+            model.deleteTaskTags(taskToUntag, tags);
             model.updateFilteredListToShowAll();
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be found";

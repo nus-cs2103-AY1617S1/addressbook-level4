@@ -1,7 +1,7 @@
 package seedu.todo.testutil;
 
 import seedu.todo.commons.exceptions.IllegalValueException;
-import seedu.todo.model.ToDoList;
+import seedu.todo.model.DoDoBird;
 import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.Task;
 import seedu.todo.model.task.UniqueTaskList;
@@ -13,9 +13,9 @@ import seedu.todo.model.task.UniqueTaskList;
  */
 public class ToDoListBuilder {
 
-    private ToDoList toDoList;
+    private DoDoBird toDoList;
 
-    public ToDoListBuilder(ToDoList toDoList){
+    public ToDoListBuilder(DoDoBird toDoList){
         this.toDoList = toDoList;
     }
 
@@ -29,7 +29,7 @@ public class ToDoListBuilder {
         return this;
     }
 
-    public ToDoList build(){
+    public DoDoBird build(){
         return toDoList;
     }
 }

@@ -9,7 +9,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.todo.commons.events.model.ToDoListChangedEvent;
 import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todo.model.ReadOnlyToDoList;
-import seedu.todo.model.ToDoList;
+import seedu.todo.model.DoDoBird;
 import seedu.todo.model.UserPrefs;
 import seedu.todo.testutil.EventsCollector;
 import seedu.todo.testutil.TypicalTestTasks;
@@ -56,10 +56,10 @@ public class StorageManagerTest {
 
     @Test
     public void addressBookReadSave() throws Exception {
-        ToDoList original = new TypicalTestTasks().getTypicalToDoList();
+        DoDoBird original = new TypicalTestTasks().getTypicalToDoList();
         storageManager.saveToDoList(original);
         ReadOnlyToDoList retrieved = storageManager.readToDoList().get();
-        assertEquals(original, new ToDoList(retrieved));
+        assertEquals(original, new DoDoBird(retrieved));
         //More extensive testing of ToDoList saving/reading is done in XmlToDoListStorageTest
     }
 
@@ -74,7 +74,7 @@ public class StorageManagerTest {
         Storage storage = new StorageManager(new XmlToDoListStorageExceptionThrowingStub("dummy"), 
                 new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleToDoListChangedEvent(new ToDoListChangedEvent(new ToDoList()));
+        storage.handleToDoListChangedEvent(new ToDoListChangedEvent(new DoDoBird()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
