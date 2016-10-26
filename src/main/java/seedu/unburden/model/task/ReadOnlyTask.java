@@ -6,6 +6,8 @@ import seedu.unburden.model.tag.UniqueTagList;
  * A read-only immutable interface for a Task in the task manager.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
+
+//@@Gauri Joshi A0143095H
 public interface ReadOnlyTask {
 
     Name getName();

@@ -24,7 +24,8 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    
+   
+    //@@Nathanael Chan A0139678J
     // adds event
     public Task(Name name, TaskDescription taskD, Date date, Time startTime, Time endTime, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, taskD, date, startTime, endTime, tags);
@@ -134,7 +135,7 @@ public class Task implements ReadOnlyTask {
 		this.endTime = new Time("NIL");
 		this.tags = tags;
 	}
-	
+	//@@Nathanael Chan
 	
 	/**
      * Copy constructor.
@@ -172,7 +173,8 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-
+    
+    //@@Gauri Joshi A0143095H
 	@Override
 	public boolean getDone() {
 		return done;
@@ -187,7 +189,7 @@ public class Task implements ReadOnlyTask {
 		}
 		return getDoneString;
 	}
-    
+    //@@Gauri Joshi
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */
@@ -230,11 +232,14 @@ public class Task implements ReadOnlyTask {
                 && this.isSameStateAs((ReadOnlyTask) other));
     }
 
+    
+    //@@Gauri Joshi A0143095H
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name,taskD,date,startTime,endTime, tags);
     }
+    //@@Gauri Joshi
 
     @Override
     public String toString() {
