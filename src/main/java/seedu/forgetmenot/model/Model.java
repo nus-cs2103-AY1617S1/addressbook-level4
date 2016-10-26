@@ -82,8 +82,4 @@ public interface Model {
 	void updateFilteredTaskListToShowOverdue();
 
 
-    //@@author A0147619W
-    void sortTasks();
-
-
 }
