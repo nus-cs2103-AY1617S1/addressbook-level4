@@ -74,6 +74,8 @@ Examples:
 
 > * Lists all the tasks scheduled on 30th October, 2016
 
+/* @@author A0144919W */
+
 #### Searching for tasks : `find`
 Lists tasks whose names match the given input.<br>
 Format: `find SEARCHSTRING`
@@ -125,6 +127,8 @@ Examples:
 
 > * The priority of the task at index 1 is updated to high.
 
+/* @@author */
+
 #### Marking a task as complete : `done`
 Marks a task as complete.<br>
 Format: `done INDEX/TASKNAME`
@@ -140,6 +144,8 @@ Examples:
 Sets the data storage location to the specified file path. <br>
 Format: `setstorage FILEPATH`
 
+/* @@author A0144919W */
+
 #### Undo previous action(s): `undo`
 Undo the latest change made to the task list.
 Format: `undo`
@@ -152,6 +158,8 @@ Format: `redo`
 
 > * Allows redo to up to unlimited consecutive undo operations done
 > * Does not work if the undo command was not used just before this command
+
+/* @@author */
 
 #### Viewing help : `help`
 Format: `help`

@@ -306,6 +306,7 @@ Precondition: Task category entered should be valid
 2. System shows list of tasks under the category entered.
 Use case ends.
 
+/* @@author A0144919W */
 
 #### Use case UC03 - Delete task
 
@@ -383,6 +384,8 @@ Guarantees:
 > 3a1. The system shows an error message <br>
   Use case resumes at Step 2
 
+/* @@author */
+
 #### Use case UC06 - Set storage directory
 
 **MSS**
@@ -430,6 +433,8 @@ More NFRs and project constraints listed [here](http://www.comp.nus.edu.sg/~cs21
 
 ##Appendix E: Product Survey
 
+/* @@author A0144919W */
+
 #### Google Calendar (studied by Pankaj Bhootra)
 
 Strengths:
@@ -448,6 +453,7 @@ Weaknesses:
 4. Unavailable in places with no internet connectivity
 5. Does not provide the feature to block multiple slots for unconfirmed tasks
 
+/* @@author */
 
 #### Todoist (studied by R Dheeraj)
 
