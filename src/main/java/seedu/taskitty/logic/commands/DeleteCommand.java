@@ -29,14 +29,17 @@ public class DeleteCommand extends Command {
     
     private int targetIndex;
     
-    private boolean isInvalidIndex;
+    private boolean hasInvalidIndex;
+    
+    private boolean hasDuplicateIndexesProvided;
     
     private final List<Pair<Integer, Integer>> listOfIndexes;
     
     public DeleteCommand(List<Pair<Integer, Integer>> listOfIndexes) {
         assert listOfIndexes != null;
         this.listOfIndexes = listOfIndexes;
-        this.isInvalidIndex = false;
+        this.hasInvalidIndex = false;
+        this.hasDuplicateIndexesProvided = false;
     }
 
     @Override
@@ -45,17 +48,20 @@ public class DeleteCommand extends Command {
         ArrayList<ReadOnlyTask> listOfTaskToDelete = new ArrayList<ReadOnlyTask>();
         StringBuilder invalidIndexMessageBuilder = new StringBuilder(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": ");
         StringBuilder resultMessageBuilder = new StringBuilder(String.format(MESSAGE_DELETE_TASK_SUCCESS_HEADER, listOfIndexes.size()));
+        StringBuilder duplicateIndexesProvidedMessageBuilder = new StringBuilder(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": ");
         
         for (Pair<Integer, Integer> indexPair: listOfIndexes) {
             categoryIndex = indexPair.getKey();
             targetIndex = indexPair.getValue();
             assert categoryIndex >= 0 && categoryIndex < 3;
             
+            String currentTaskIndex = Task.CATEGORIES[categoryIndex] + targetIndex + " ";
+            
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model, categoryIndex); 
             
             if (lastShownList.size() < targetIndex) {
-                isInvalidIndex = true;
-                invalidIndexMessageBuilder.append(Task.CATEGORIES[categoryIndex] + targetIndex + " ");
+                hasInvalidIndex = true;
+                invalidIndexMessageBuilder.append(currentTaskIndex);
                 continue;
             }
             
@@ -63,15 +69,24 @@ public class DeleteCommand extends Command {
             
             if (!listOfTaskToDelete.contains(taskToDelete)) {
                 listOfTaskToDelete.add(taskToDelete);
-                resultMessageBuilder.append(Task.CATEGORIES[categoryIndex] + targetIndex + " ");
-            }                        
+                resultMessageBuilder.append(currentTaskIndex);
+            } else {
+                hasDuplicateIndexesProvided = true;
+                duplicateIndexesProvidedMessageBuilder.append(currentTaskIndex);
+            }                       
         }
         
-        if (isInvalidIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
+        if (hasInvalidIndex) {
             model.removeUnchangedState();
+            indicateAttemptToExecuteIncorrectCommand();            
             return new CommandResult(invalidIndexMessageBuilder.toString());
         }
+        
+        if (hasDuplicateIndexesProvided) {
+            model.removeUnchangedState();
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(duplicateIndexesProvidedMessageBuilder.toString());
+        } 
         
         try {
              model.deleteTasks(listOfTaskToDelete);           
