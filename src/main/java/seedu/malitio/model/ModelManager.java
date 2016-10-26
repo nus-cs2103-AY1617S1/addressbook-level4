@@ -31,6 +31,7 @@ import seedu.malitio.model.history.InputClearHistory;
 import seedu.malitio.model.history.InputDeleteHistory;
 import seedu.malitio.model.history.InputEditHistory;
 import seedu.malitio.model.history.InputHistory;
+import seedu.malitio.model.history.InputMarkHistory;
 
 import java.util.LinkedList;
 import java.util.Set;
@@ -187,6 +188,7 @@ public class ModelManager extends ComponentManager implements Model {
 	public void markFloatingTask(ReadOnlyFloatingTask taskToMark, boolean marked)
 	        throws FloatingTaskNotFoundException, FloatingTaskMarkedException, FloatingTaskUnmarkedException {
 	    malitio.markTask(taskToMark, marked);
+	    history.add(new InputMarkHistory(taskToMark, marked));
 	    updateFilteredTaskListToShowAll();
 	    indicatemalitioChanged();
 	}
@@ -195,6 +197,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void markDeadline(ReadOnlyDeadline deadlineToMark, boolean marked)
             throws DeadlineNotFoundException, DeadlineMarkedException, DeadlineUnmarkedException {
         malitio.markDeadline(deadlineToMark, marked);
+        history.add(new InputMarkHistory(deadlineToMark, marked));
         updateFilteredDeadlineListToShowAll();
         indicatemalitioChanged();
     }

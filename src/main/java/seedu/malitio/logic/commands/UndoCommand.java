@@ -9,12 +9,17 @@ import seedu.malitio.model.history.InputClearHistory;
 import seedu.malitio.model.history.InputDeleteHistory;
 import seedu.malitio.model.history.InputEditHistory;
 import seedu.malitio.model.history.InputHistory;
+import seedu.malitio.model.history.InputMarkHistory;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineMarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DeadlineNotFoundException;
+import seedu.malitio.model.task.UniqueDeadlineList.DeadlineUnmarkedException;
 import seedu.malitio.model.task.UniqueDeadlineList.DuplicateDeadlineException;
 import seedu.malitio.model.task.UniqueEventList.DuplicateEventException;
 import seedu.malitio.model.task.UniqueEventList.EventNotFoundException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.DuplicateFloatingTaskException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskMarkedException;
 import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskNotFoundException;
+import seedu.malitio.model.task.UniqueFloatingTaskList.FloatingTaskUnmarkedException;
 
 public class UndoCommand extends Command {
 
@@ -55,9 +60,35 @@ public class UndoCommand extends Command {
             model.getFuture().push(history.pop());
             showAllPanels();
             return new CommandResult(result);
+            
+        case MarkCommand.COMMAND_WORD:
+            result = executeMark((InputMarkHistory)previous);
+            model.getFuture().push(history.pop());
+            showAllPanels();
+            return new CommandResult(result);
 
         }
         return null;
+    }
+
+    private String executeMark(InputMarkHistory previous) {
+        if (previous.getType().equals("floating task")) {
+            try {
+                model.markFloatingTask(previous.getTaskToMark(), previous.getMarkWhat());
+                return "Undo mark successful";
+            } catch (FloatingTaskNotFoundException | FloatingTaskMarkedException | FloatingTaskUnmarkedException e) {
+                assert false : "not possible";
+            }
+        }
+        else {
+            try {
+                model.markDeadline(previous.getDeadlineToMark(), previous.getMarkWhat());
+                return "Undo mark successful";
+            } catch (DeadlineNotFoundException | DeadlineMarkedException | DeadlineUnmarkedException e) {
+                assert false: "not possible";                    
+            }
+        }
+        return "Undo Failed";
     }
 
     private String executeClear(InputClearHistory previous) {
