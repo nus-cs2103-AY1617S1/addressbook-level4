@@ -19,6 +19,8 @@ import seedu.flexitrack.model.tag.Tag;
 import seedu.flexitrack.model.tag.UniqueTagList;
 import seedu.flexitrack.model.task.*;
 import seedu.flexitrack.storage.StorageManager;
+import seedu.flexitrack.testutil.TestTask;
+import seedu.flexitrack.testutil.TypicalTestTasks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,15 +70,8 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempFlexiTrackerFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedFlexiTracker = new FlexiTrack(model.getFlexiTrack()); // last
-                                                                         // saved
-                                                                         // assumed
-                                                                         // to
-                                                                         // be
-                                                                         // up
-                                                                         // to
-                                                                         // date
-                                                                         // before.
+        latestSavedFlexiTracker = new FlexiTrack(model.getFlexiTrack()); // last saved assumed to be up to date before.
+        
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -295,6 +290,43 @@ public class LogicManagerTest {
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
     }
+    
+    @Test
+    public void sort(){
+        TypicalTestTasks td = new TypicalTestTasks();
+        TestTask[] currentArray = td.getTypicalUnsortedTasks();
+        List<TestTask> currentList = Arrays.asList(currentArray);
+        
+        Arrays.sort(currentArray);
+        Collections.sort(currentList);
+        
+        TestTask[] expectedArray = td.getTypicalSortedTasks();
+        List<TestTask> expectedList = Arrays.asList(expectedArray);
+        
+        // Test Arrays Sort Correctly
+        assertTrue(containsInOrder(currentList, expectedList));
+        
+        // Test Lists Sort Correctly
+        currentList = Arrays.asList(currentArray);
+        assertTrue(containsInOrder(currentList, expectedList));
+    }
+
+    private boolean containsInOrder(List<TestTask> currentList, List<TestTask> expectedList) {
+
+        if (currentList.size() != expectedList.size()) {
+            return false;
+        }
+
+        // Return false if any of the tasks doesn't match
+        for (int i = 0; i < currentList.size(); i++) {
+            if (!currentList.get(i).getName().fullName.equals(expectedList.get(i).getName().fullName)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -311,7 +343,7 @@ public class LogicManagerTest {
     public void execute_delete_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generateTaskList(3);
-
+        Collections.sort(threePersons);
         FlexiTrack expectedAB = helper.generateFlexiTracker(threePersons);
         expectedAB.removeTask(threePersons.get(1));
         helper.addToModel(model, threePersons);
@@ -335,8 +367,10 @@ public class LogicManagerTest {
         Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
         List<Task> fourPersons = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
+        Collections.sort(fourPersons);
         FlexiTrack expectedAB = helper.generateFlexiTracker(fourPersons);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
+        Collections.sort(expectedList);
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find KEY", Command.getMessageForTaskListShownSummary(expectedList.size()), expectedAB,
@@ -352,6 +386,7 @@ public class LogicManagerTest {
         Task p4 = helper.generateTaskWithName("KEy sduauo");
 
         List<Task> fourPersons = helper.generateTaskList(p3, p1, p4, p2);
+        Collections.sort(fourPersons);
         FlexiTrack expectedAB = helper.generateFlexiTracker(fourPersons);
         List<Task> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
@@ -369,6 +404,7 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithName("sduauo");
 
         List<Task> fourPersons = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
+        Collections.sort(fourPersons);
         FlexiTrack expectedAB = helper.generateFlexiTracker(fourPersons);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);

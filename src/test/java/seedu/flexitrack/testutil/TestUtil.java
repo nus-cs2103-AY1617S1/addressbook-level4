@@ -1,6 +1,8 @@
 package seedu.flexitrack.testutil;
 
 import com.google.common.io.Files;
+
+import edu.emory.mathcs.backport.java.util.Collections;
 import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -65,7 +67,7 @@ public class TestUtil {
 
     private static Task[] getSampleTaskData() {
         try {
-            return new Task[] {
+            Task[] sampleTasks = new Task[] {
                     new Task(new Name("Go shopping"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("13 Jan 4pm"),
                             new DateTimeInfo("13 Jan 6pm"), new UniqueTagList()),
                     new Task(new Name("Buy books"), new DateTimeInfo("11 May"), new DateTimeInfo("29 Feb 23.23"),
@@ -84,6 +86,8 @@ public class TestUtil {
                             new DateTimeInfo("14 Nov 12.30"), new UniqueTagList()),
                     new Task(new Name("Movie time"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("today 2pm"),
                             new DateTimeInfo("today 6pm"), new UniqueTagList()) };
+            Arrays.sort(sampleTasks);
+            return sampleTasks;
         } catch (IllegalValueException e) {
             assert false;
             // not possible
@@ -295,6 +299,7 @@ public class TestUtil {
     public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.removeAll(asList(tasksToRemove));
+        Collections.sort(listOfTasks);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
@@ -339,12 +344,14 @@ public class TestUtil {
     public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.addAll(asList(tasksToAdd));
+        Collections.sort(listOfTasks);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
     public static TestTask[] editTasksToList(final TestTask[] tasks, int index, TestTask EditedTask) {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.set(index, EditedTask);
+        Collections.sort(listOfTasks);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
@@ -404,6 +411,8 @@ public class TestUtil {
                 throw new IllegalArgumentException("The task index provided is invalid");
             }
         }
+        
+        Collections.sort(listOfTasks);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
@@ -431,27 +440,32 @@ public class TestUtil {
                 throw new IllegalArgumentException("The task index provided is invalid");
             }
         }
+        Collections.sort(listOfTasks);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
     public static TestTask[] listTasksAccordingToCommand(TestTask[] currentList, String listCommand) {
         TypicalTestTasks tt = new TypicalTestTasks();
+        TestTask[] testTaskArray;
         switch (listCommand) { 
         case "list":
-            return tt.getTypicalTasks(); 
+            testTaskArray = tt.getTypicalSortedTasks(); break;
         case "list future":
-            return tt.getExpectedTypicalFutureTasks(); 
+            testTaskArray = tt.getExpectedTypicalFutureTasks(); break;
         case "list past": 
-            return tt.getExpectedTypicalPastTasks();
+            testTaskArray = tt.getExpectedTypicalPastTasks(); break;
         case "list mark": 
-            return tt.getExpectedTypicalMarkTasks();
+            testTaskArray = tt.getExpectedTypicalMarkTasks(); break;
         case "list unmark": 
-            return tt.getExpectedTypicalUnMarkTasks();
+            testTaskArray = tt.getExpectedTypicalUnMarkTasks(); break;
         case "list future mark":
-            return tt.getExpectedTypicalFutureMarkTasks();
+            testTaskArray = tt.getExpectedTypicalFutureMarkTasks(); break;
         default: 
             return null;
         }
+        
+        Arrays.sort(testTaskArray);
+        return testTaskArray;
     }
 
 }

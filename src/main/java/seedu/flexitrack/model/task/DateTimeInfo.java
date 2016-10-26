@@ -1,5 +1,6 @@
 package seedu.flexitrack.model.task;
 
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,7 +14,7 @@ import seedu.flexitrack.logic.commands.ListCommand;
 /**
  * Represents a DateTimeInfo class in FlexiTrack
  */
-public class DateTimeInfo {
+public class DateTimeInfo implements Comparable<DateTimeInfo>{
     public static final String MESSAGE_DATETIMEINFO_CONSTRAINTS = "Invalid time inputed. Please check your spelling!";
     public static final String MESSAGE_FROM_IS_AFTER_TO = "Please check the timing inputed! The given starting time is after the ending time.";
 
@@ -477,4 +478,22 @@ public class DateTimeInfo {
             return false; 
         }
     }
+
+    @Override
+    public int compareTo(DateTimeInfo dateTimeInfo2) {
+        Date dateObject1 = convertToDateObject(this.setTime);
+        Date dateObject2 = convertToDateObject(dateTimeInfo2.setTime);
+        return dateObject1.compareTo(dateObject2);
+    }
+    
+    private Date convertToDateObject(String dateString){
+        try{
+            DateTimeInfoParser parsedTiming = new DateTimeInfoParser(dateString);
+            return parsedTiming.getParsedTimingObject().get(0);
+        }catch(IllegalValueException ive){
+            return null;
+        }
+        
+    }
+    
 }

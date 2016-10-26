@@ -14,7 +14,7 @@ public class AddCommandTest extends FlexiTrackGuiTest {
     @Test
     public void add() {
         // add an event
-        TestTask[] currentList = td.getTypicalTasks();
+        TestTask[] currentList = td.getTypicalSortedTasks();
         TestTask taskToAdd = td.basketball;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);

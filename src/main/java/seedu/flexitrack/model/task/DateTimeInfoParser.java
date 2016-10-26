@@ -1,5 +1,6 @@
 package seedu.flexitrack.model.task;
 
+import java.util.Date;
 import java.util.List;
 
 import com.joestelmach.natty.DateGroup;
@@ -37,6 +38,10 @@ public class DateTimeInfoParser {
 
     public String getParsedTimingInfo() {
         return timingInfo.getDates().toString();
+    }
+    
+    public List<Date> getParsedTimingObject(){
+        return timingInfo.getDates();
     }
 
     public boolean isInferred() {

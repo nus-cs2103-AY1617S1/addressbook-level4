@@ -7,7 +7,7 @@ import seedu.flexitrack.model.tag.UniqueTagList;
  * should guarantee: details are present and not null, field values are
  * validated.
  */
-public interface ReadOnlyTask {
+public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
 
     Name getName();
 
@@ -66,6 +66,44 @@ public interface ReadOnlyTask {
             return "";
         } else {
             return buffer.substring(0, buffer.length() - separator.length());
+        }
+    }
+    
+    default int compareTo(ReadOnlyTask task) {
+        if(!this.getIsEvent() && !this.getIsTask()){ //floating tasks come first
+            if (!task.getIsEvent() && !task.getIsTask()){
+                return compareByMark(task, "Float");
+            }else{
+                return -1;
+            }
+        }else{
+            return compareByMark(task, "TaskEvent");
+        }
+    }
+
+    default int compareByMark(ReadOnlyTask task, String type) {
+        String name1 = this.getName().fullName;
+        String name2 = task.getName().fullName;
+        
+        if(name1.contains("(Done)") && !name2.contains("(Done)")){
+            return 1;
+        }else if(!name1.contains("(Done)") && name2.contains("(Done)")){
+            return -1;
+        }else{
+            if(type.equals("Float")){
+                return this.getName().fullName.compareTo(task.getName().fullName);    
+            }else if(type.equals("TaskEvent")){
+                DateTimeInfo time1 = (this.getIsEvent()) ? this.getStartTime() : this.getDueDate();
+                DateTimeInfo time2 = (task.getIsEvent()) ? task.getStartTime() : task.getDueDate();
+                int c = time1.compareTo(time2);
+                if (c == 0){
+                    return this.getName().fullName.compareTo(task.getName().fullName);
+                }else{
+                    return c;
+                }
+            }else{
+                return 0;
+            }
         }
     }
 

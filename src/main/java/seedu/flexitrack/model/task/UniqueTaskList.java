@@ -103,6 +103,10 @@ public class UniqueTaskList implements Iterable<Task> {
                 || (other instanceof UniqueTaskList // instanceof handles nulls
                         && this.internalList.equals(((UniqueTaskList) other).internalList));
     }
+    
+    public void sort(){
+    	Collections.sort(internalList);;
+    }
 
     @Override
     public int hashCode() {

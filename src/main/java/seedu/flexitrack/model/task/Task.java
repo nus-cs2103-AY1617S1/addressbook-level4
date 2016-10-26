@@ -10,7 +10,7 @@ import java.util.Objects;
  * Represents a Person in the address book. Guarantees: details are present and
  * not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask{
 
     private Name name;
     private DateTimeInfo dueDate;
@@ -31,11 +31,11 @@ public class Task implements ReadOnlyTask {
         this.dueDate = dueDate;
         this.startTime = startTime;
         this.endTime = endTime;
-        this.tags = new UniqueTagList(tags); // protect internal tags from
-                                             // changes in the arg list
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
         this.isTask = dueDate.isDateNull() ? false : true;
         this.isEvent = startTime.isDateNull() ? false : true;
         this.endTime.isEndTimeInferred();
+        this.isDone = name.fullName.contains("(Done)");
     }
 
     /**
@@ -157,7 +157,7 @@ public class Task implements ReadOnlyTask {
     public void setIsEvent(Boolean bool) {
         this.isEvent = bool;
     }
-    
+
     public boolean getIsNotFloatingTask(){
         return (this.isEvent || this.isTask);
     }

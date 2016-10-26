@@ -2,6 +2,8 @@ package guitests;
 
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
+
+import edu.emory.mathcs.backport.java.util.Arrays;
 import seedu.flexitrack.logic.commands.AddCommand;
 import seedu.flexitrack.commons.core.Messages;
 import seedu.flexitrack.testutil.TestTask;
@@ -12,8 +14,8 @@ import static org.junit.Assert.assertTrue;
 public class ListCommandTest extends FlexiTrackGuiTest {
 
     @Test
-    public void add() {
-        TestTask[] currentList = td.getTypicalTasks();
+    public void list() {
+        TestTask[] currentList = td.getTypicalSortedTasks();
 
        // list all future tasks
         String listCommand = "list future";
@@ -30,11 +32,16 @@ public class ListCommandTest extends FlexiTrackGuiTest {
         assertFindSuccess(listCommand, currentList);
         currentList = TestUtil.listTasksAccordingToCommand(currentList, listCommand);
 
-        commandBox.runCommand("mark 1");
-        commandBox.runCommand("mark 4");
+        currentList = TestUtil.markTasksToList(currentList, 6);
+        currentList = TestUtil.markTasksToList(currentList, 4);
+        currentList = TestUtil.markTasksToList(currentList, 3);
+        currentList = TestUtil.markTasksToList(currentList, 1);
+        
         commandBox.runCommand("mark 6");
-        commandBox.runCommand("mark 8");
-
+        commandBox.runCommand("mark 4");
+        commandBox.runCommand("mark 3");
+        commandBox.runCommand("mark 1");
+        
         // list all marked tasks
         listCommand = "list mark";
         assertFindSuccess(listCommand, currentList);

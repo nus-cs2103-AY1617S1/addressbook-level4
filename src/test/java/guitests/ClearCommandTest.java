@@ -10,7 +10,7 @@ public class ClearCommandTest extends FlexiTrackGuiTest {
     public void clear() {
 
         // verify a non-empty list can be cleared
-        assertTrue(taskListPanel.isListMatching(td.getTypicalTasks()));
+        assertTrue(taskListPanel.isListMatching(td.getTypicalSortedTasks()));
         assertClearCommandSuccess();
 
         // verify other commands can work after a clear command
