@@ -109,7 +109,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
-
+    //@@author A0146107M
     @Override
     public boolean isComplete() {
         return isComplete;
@@ -177,7 +177,7 @@ public class TestTask implements ReadOnlyTask, Comparable<TestTask> {
     	if(!hasEndTime()) return false;
     	return endTime.time.get(Calendar.DAY_OF_YEAR) == Calendar.getInstance().get(Calendar.DAY_OF_YEAR) - 1;
     }
-	
+	//@@author
 	@Override
 	public int compareTo(TestTask o) {
 		// compare floating tasks
