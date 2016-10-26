@@ -92,6 +92,24 @@ public class TodoModelTest {
         model.add("Foo Bar Test");
         model.delete(2);
     }
+    
+    @Test
+    public void testFilteredDelete() throws Exception {
+        model.add("First");
+        model.add("Second");
+        model.find(t -> t.getTitle().equals("Second"));
+        model.delete(1);
+        assertEquals("First", getTask(0).getTitle());
+    }
+
+    @Test
+    public void testFilteredUpdate() throws Exception {
+        model.add("First");
+        model.add("Second");
+        model.find(t -> t.getTitle().equals("Second"));
+        model.update(1, t -> t.setTitle("New Title"));
+        assertEquals("New Title", getTask(1).getTitle());
+    }
 
     @Test
     public void testSorting() throws Exception {

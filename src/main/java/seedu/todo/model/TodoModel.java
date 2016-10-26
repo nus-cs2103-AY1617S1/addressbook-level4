@@ -146,9 +146,10 @@ public class TodoModel implements Model {
     @Override
     public ImmutableTask delete(int index) throws ValidationException {
         saveUndoState();
-        ImmutableTask taskToDelete = getObservableList().get(getTaskIndex(index));
+        int taskIndex = getTaskIndex(index);
+        ImmutableTask taskToDelete = tasks.get(taskIndex);
         uniqueTagCollection.notifyTaskDeleted(taskToDelete);
-        return todoList.delete(getTaskIndex(index));
+        return todoList.delete(taskIndex);
     }
 
     @Override
