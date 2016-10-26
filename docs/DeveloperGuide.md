@@ -75,12 +75,12 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `add Activity1`.
+command 
+`add Activity1`.
 
 <img src="images\SDforAddActivity.png" width="800"> 
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 1`.
+The _Sequence Diagram_ below shows how they interact when the user issues the command `delete 1`.
 
 <img src="images\SDforDeleteTask.png" width="800">
 
