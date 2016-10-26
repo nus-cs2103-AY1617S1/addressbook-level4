@@ -106,6 +106,12 @@ public class DateTime implements Comparable<DateTime>{
 	    }
 	}
     
+    public void setStartDateTime(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
     
+    public void setEndDateTime(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
     
 }
