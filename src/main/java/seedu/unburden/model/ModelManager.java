@@ -100,6 +100,13 @@ public class ModelManager extends ComponentManager implements Model {
     	indicateTaskListChanged();
     }
     
+    @Override 
+    public synchronized void undoneTask(ReadOnlyTask taskToDone, boolean isunDone){
+    	listOfTask.doneTask(taskToDone,isunDone);
+    	updateFilteredListToShowAll();
+    	indicateTaskListChanged();
+    }
+    
     @Override
     public synchronized void saveToPrevLists() {
     	prevLists.push(new ListOfTask(listOfTask));
