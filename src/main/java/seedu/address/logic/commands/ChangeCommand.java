@@ -55,6 +55,8 @@ public class ChangeCommand extends Command{
             return new CommandResult(MESSAGE_INVALID_CLEAR_DATA);
         }
         model.updateTaskManager(filePath, isToClearOld);
+        UndoChangeCommand.undoable = true;
+        RedoChangeCommand.isToClearOld = isToClearOld;
         return new CommandResult(MESSAGE_CHANGE_SUCCESS);
     }
 

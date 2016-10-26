@@ -15,7 +15,9 @@ public class UndoChangeCommand extends Command {
             + " clear";
 
     public static final String MESSAGE_CHANGE_SUCCESS = "Storage location has been changed back!";
+    public static final String MESSAGE_UNDO_FAILED = "No change command to undo.";
     public static final String MESSAGE_INVALID_CLEAR_DATA = "The clear data argument provided is invalid.";
+    public static boolean undoable = false;
     
     private static final String CLEAR = "clear";
     private static final String EMPTY = "";
@@ -35,10 +37,15 @@ public class UndoChangeCommand extends Command {
     public CommandResult execute() {
         assert clear != null;
         
+        if (!undoable) {
+            return new CommandResult(MESSAGE_UNDO_FAILED);
+        }
         if (isToClearNew && !isValidClear()) {
             return new CommandResult(MESSAGE_INVALID_CLEAR_DATA);
         }
         model.changeBackTaskManager(isToClearNew);
+        undoable = false;
+        RedoChangeCommand.redoable = true;
         return new CommandResult(MESSAGE_CHANGE_SUCCESS);
     }
     
