@@ -36,7 +36,7 @@ Figure 1: GUI of DearJim
 > **Command Format**
 > * Format: `<command word> <parameters>`
 > * Words in `UPPER_CASE` are the parameters.
-> * Fields in `SQUARE_BRACKETS` are optional.
+> * Fields in `[]` are optional.
 > * The order of parameters is fixed.
 
 ### Viewing help : `help`
@@ -50,9 +50,26 @@ Format: `help`<br>
 Figure 2: Help Command
 </p>
 
+### Listing tasks : `list`
+**_Listing all undone tasks_**
+
+Switches the task list view to the undone list view, to show all undone tasks in DearJim.<br>
+Format: `list`
+
+Example:
+* `list`
+<br>
+
+**_Listing all done tasks_**
+
+Switches the task list view to the done list view, to show all done tasks in DearJim.<br>
+Format: `list done`
+
+Example:
+* `list done`
 
 
- 
+
 ### Adding a task: `add`
 Adds a task into DearJim.<br>
 Format: `[add] NAME [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
@@ -65,10 +82,10 @@ If you would like to add a task with a name that begins with other command words
 
 Example:
 
-|User Input|Interpreted Action|
-|---|---|
-|`help my mum to buy cooking ingredients`| Command: `help` <br> Arguments: `my mum to buy cooking ingredients` |
-|`add help my mum to buy cooking ingredients`|Command:`add` <br> Task name: `help my mum to buy cooking ingredients`|
+|Input|Interpreted Command| Intepreted Parameters | Result|
+|---|---|---|---|
+|`help my mum to buy cooking ingredients`| `help`|`my mum to buy cooking ingredients`| Invalid `help` command|
+|`add help my mum to buy cooking ingredients`| `add`| `help my mum to buy cooking ingredients`| `add` a task with name `help my mum to buy cooking ingredients`|
 
 **_Adding a task_**
 
@@ -104,15 +121,15 @@ Examples:
 **_Adding a task with deadline_**
 
 Nobody likes deadlines. What is worse, is missing them. <br>
+Add deadlines to your task so you will know when you need to complete them!<br>
 Format: `NAME end DATE_TIME [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
-> `end` denotes a deadline. 
+> `end` denotes a deadline. <br>
+> `end` can also be substituted with `by`.
 
 `DATE_TIME` is flexible!<br>
-If no `DATE` is specified, `DATE` will be assumed to be today<br>
-If no `TIME` is specified, `TIME` will be assumed to be 11:59pm
-
-> Note: `end` can be substituted with `by`.
+* If no `DATE` is specified, `DATE` will be assumed to be today<br>
+* If no `TIME` is specified, `TIME` will be assumed to be 11:59pm 
 
 <br>
 
@@ -144,16 +161,23 @@ Examples:
 * `finish CS2101 assignment by 13th Sep`
 
 > Inputs with numbers may be interpreted as a date. <br>
-"lower word count by 1500" will create a task with name `lower word count` and deadline at 3pm. <br>
-To prevent this, you have to enclose the task name with double inverted commas.
+To prevent this, you can enclose the task name with double inverted commas to denote the task name explicitly.
+
+Example:
+
+|Input|Interpreted Command|Interpreted Task Name| Interpreted Deadline| Result|
+|---|---|---|---|
+|`lower word count by 1500`|`add`|`lower word count`|`by 1500`|`add` a task with name `lower word count` and deadline `1500`|
+|`"add lower word count by 1500"`|`add`|`lower word count by 1500`| NONE| `add` a task with name `lower word count by 1500`|
 
 
 **_Adding a task with time interval_**
 
 Having that company meeting? Planning to have lunch with a friend next week? <br> 
+Add a task with a time interval so you will know the time interval!<br>
 Format:
 `NAME start DATE_TIME [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]` 
-> Note: Use `from` or `at` to indicate the start time and `to` or `by` to indicate the end time.
+> Note: You may use `from` or `at` to indicate the start time, and `to` or `by` to indicate the end time.<br>
 > `end DATE_TIME` can be unspecified.
 
 Example: 
@@ -163,8 +187,9 @@ Example:
 
 **_Specifying repeated tasks_**
 
-Have one of those pesky tasks you need to do every now and then? DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`. Never forget them again!<br>
-Format: `repeat every RECURRING_INTERVAL`
+Have one of those pesky tasks you need to do every now and then?<br>
+DearJim also allows you to specify tasks that need to be repeated at a specific `RECURRING_INTERVAL`. Never forget them again!<br>
+Keyword: `repeat every RECURRING_INTERVAL`
 > Note: You may only specify a `RECCURING_INTERVAL` for tasks that are timed.
 
 `RECURRING_INTERVAL` can be specified in a few formats, with some examples listed below.
@@ -172,7 +197,7 @@ Format: `repeat every RECURRING_INTERVAL`
 Recurring Interval | Format  
 -------- | :-------- 
 Hour | `hour`, `3 hours`
-Day | `day`, `3 days`, `monday`
+Day | `day`, `3 days`, `monday`, `mon`
 Week | `week`, `5 weeks`
 Month | `month`, `2 months`
 Year | `year`, `6 years`
@@ -187,7 +212,7 @@ Just in case you need to change any details, or add in missing ones into your ta
 Format: `edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY]`
 
 > `INDEX` refers to the task number in the current displayed list.<br>
-> Notice that this is similar to the format for `add`!  
+> Note: `edit` has a very similar format to `add` for your convenience!
 
 Examples:
 * `Company meeting tonight at 7pm to 9pm`
@@ -200,22 +225,24 @@ Examples:
 
  You can also remove any sections if they are no longer relevant! <br>
  Format: `edit INDEX [-reset parameter] [repeat] [start] [end] `
-> Use `[-reset repeat]` to remove the recurring time<br>
-> Use `[-reset start]` to remove the start time<br>
-> Use `[-reset end]` to remove the end time 
+
+|`-reset parameter`|Result|
+|---|---|
+|`-reset repeat`| Removes recurring interval from task|
+|`-reset start`| Removes start time from task|
+|`-reset end`| Removes end time from task|
 
 Examples:
 * `Buy coffee for boss, by 8am repeat every day`
 * `edit 1 -reset repeat start`
 * `edit 2 -reset end`
 
->Do note that the reset will override the editing if done on the same line, allowing you to easily remove any parts at the end of the typing instead of continuously pressing the backspace.
-
+>Note: `-reset` will override any `edit` of the same field that comes before it in your input.
 
 ### Deleting a task: `delete`
 Deletes an existing task in DearJim. This will remove them from the storage. <br>
 Format: `delete INDEX`
-> If you need to delete multiple tasks, simply key in the additional indexes.  
+> If you want to `delete` multiple tasks at once, simply key additional indices, separated by a space.  
 
 Example:
 * `delete 2`
@@ -228,9 +255,9 @@ Format: `clear`
 
 
 ### Archiving a task: `done`
-Marks a task as completed and archive it in DearJim.<br>
+Marks a task as done and archives it in DearJim.<br>
 Format: `done INDEX`
-> Multiple done task is also supported.
+> If you want to `done` multiple tasks at once, simply key additional indices, separated by a space.
 
 Example:
 * `done 3`
@@ -259,30 +286,6 @@ Format: `redo`
 Example: 
 * `redo`
 
-### Listing all tasks : `list`
-Shows a list of all tasks in DearJim.<br>
-Format: `list`
-> Displays all `uncompleted` tasks in DearJim.
-
-Example:
-* `list`
-<br>
-
-
-Format: `list done`
-> Displays all `completed` tasks in DearJim.
-
-Example:
-* `list done`
-
- <img src="images/dearjim_list.png" width="650">
-
-
-
-<p align="center">
-Figure 3: List View
-</p>
-
 ### Finding a task : `find`
 Forgot the details about a task you added? Find an existing task by name.<br>
 Format: `find NAME`
@@ -304,8 +307,7 @@ Example:
 
 
 ### Getting hints for command format
-Format: none, just type a command and let DearJim provide you hints on the command format that you might want to use!
->DearJim provides you hints on command formats as you type the command!
+If you do not know what to type, just type any word and DearJim will provide you hints on the command format that you might want to use!
 
 Examples:
 * Typing `add` in the command input generates the format for `add` in the result display
