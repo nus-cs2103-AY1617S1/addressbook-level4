@@ -5,9 +5,10 @@ import com.google.common.eventbus.Subscribe;
 import seedu.unburden.commons.core.ComponentManager;
 import seedu.unburden.commons.core.LogsCenter;
 import seedu.unburden.commons.events.model.ListOfTaskChangedEvent;
-import seedu.unburden.commons.events.storage.DataSavingExceptionEvent;
+import seedu.unburden.commons.events.storage.*;
 import seedu.unburden.commons.exceptions.DataConversionException;
 import seedu.unburden.model.ReadOnlyListOfTask;
+import seedu.unburden.model.ListOfTask;
 import seedu.unburden.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -87,6 +88,19 @@ public class StorageManager extends ComponentManager implements Storage {
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
+    }
+    
+    @Override
+    @Subscribe
+    public void handleStoragePathChangeEvent(StoragePathChangedEvent event) {
+    	logger.info(LogsCenter.getEventHandlingLogMessage(event, "Storage path changed, updating"));
+    	try {
+    		ReadOnlyListOfTask oldTaskList = readTaskList(event.oldStoragePath).orElse(new ListOfTask());
+    		((XmlTaskListStorage)taskListStorage).setTaskListFilePath(event.newStoragePath);
+    		saveTaskList(oldTaskList);
+    	} catch (IOException | DataConversionException ee) {
+    		raise(new DataSavingExceptionEvent(ee));
+    	}
     }
 
 }
