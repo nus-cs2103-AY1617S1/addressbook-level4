@@ -50,6 +50,8 @@ src="images/ChongZeXuan.jpg" width="150"><br>
     * Set up the fixing of tasks
     * Implement AgendaListPanel and TaskListPanel for GUI
     * Create MainWindow layout
+    
+    
 -----
 
 #### <a id="weiyin"></a> Chong Wei Yin [@ShadowLoner17](https://github.com/ShadowLoner17) 
@@ -62,6 +64,7 @@ src="images/ChongZeXuan.jpg" width="150"><br>
 * Code written: [[functional code](A0143471L.md)][[test code](A0143471L.md)][[docs](A0143471L.md)] 
 * Other major contributions:
     * Set tasks with priority
+    
 -----
 
 #### <a id="yunxuan"></a> Zhang Yunxuan [@yunz](https://github.com/yunxz)
