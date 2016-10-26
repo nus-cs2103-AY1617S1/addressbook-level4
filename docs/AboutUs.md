@@ -37,8 +37,9 @@ We are a group of highly motivated and hardworking students working on our CS210
   *  [Help](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/docs/UserGuide.md#viewing-help--help)
 * Code written: [[functional code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/main/A0135769N.md)][[test code](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/test/A0135769N.md)][[docs](https://github.com/CS2103AUG2016-T11-C1/main/blob/master/collated/docs/A0135769N.md)]
 * Other major contributions:
-  *  
-  *  
+  *  Wrote JUnit test cases for AddCommandTest and SetStorageTest.
+  *  Contributed to enhancing functionalities and fixing bugs for start time and end time. 
+  *  Designed priority class
 
 -----
 
