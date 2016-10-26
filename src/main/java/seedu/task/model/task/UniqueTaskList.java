@@ -1,11 +1,12 @@
 package seedu.task.model.task;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.task.commons.exceptions.DuplicateDataException;
 import seedu.task.commons.util.CollectionUtil;
-
-import java.util.*;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -59,10 +60,10 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(toAdd);
     }
-
-    
-    /**
-     * Adds a task to the list.
+	
+    //@@author A0153411W
+    /**	
+     * Adds a task to the list at specific place
      *
      * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
@@ -73,6 +74,7 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         internalList.add(index,toAdd);
     }
+    //@@author
     
     /**
      * Removes the equivalent task from the list.

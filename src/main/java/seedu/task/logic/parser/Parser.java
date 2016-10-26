@@ -1,18 +1,38 @@
 package seedu.task.logic.parser;
 
-import seedu.task.commons.exceptions.IllegalValueException;
-import seedu.task.commons.util.StringUtil;
-import seedu.task.logic.commands.*;
-import seedu.task.logic.parser.ArgumentTokenizer.NoValueForRequiredTagException;
-import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
-
 import static seedu.task.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.task.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.text.ParseException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import seedu.task.commons.exceptions.IllegalValueException;
+import seedu.task.commons.util.StringUtil;
+import seedu.task.logic.commands.AddCommand;
+import seedu.task.logic.commands.ClearCommand;
+import seedu.task.logic.commands.Command;
+import seedu.task.logic.commands.DeleteCommand;
+import seedu.task.logic.commands.DoneCommand;
+import seedu.task.logic.commands.EditCommand;
+import seedu.task.logic.commands.ExitCommand;
+import seedu.task.logic.commands.FindCommand;
+import seedu.task.logic.commands.HelpCommand;
+import seedu.task.logic.commands.IncorrectCommand;
+import seedu.task.logic.commands.ListCommand;
+import seedu.task.logic.commands.SaveCommand;
+import seedu.task.logic.commands.SelectCommand;
+import seedu.task.logic.commands.UndoCommand;
+import seedu.task.logic.parser.ArgumentTokenizer.NoValueForRequiredTagException;
+import seedu.task.logic.parser.ArgumentTokenizer.Prefix;
 
 /**
  * Parses user input.
@@ -29,13 +49,14 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
+    //@@author A0153411W
     public static final Prefix descriptionPrefix = new Prefix(" d/");
     public static final Prefix startDatePrefix = new Prefix(" sd/", true);
     public static final Prefix dueDatePrefix = new Prefix(" dd/", true);
     public static final Prefix intervalPrefix = new Prefix(" i/", true);
     public static final Prefix timeIntervalPrefix = new Prefix(" ti/", true);
     public static final Prefix tagArgumentsPrefix = new Prefix(" t/");   
-
+    
     private static final Pattern TASK_DATA_ARGS_FORMAT_EDIT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[^/]+)"
             		+ "(( t/(?<newTitle>[^/]+))|"
@@ -45,7 +66,7 @@ public class Parser {
                     + "( i/(?<interval>[^/]+))|"
                     + "( ti/(?<timeInterval>[^/]+))|"
                     + "(?<tagArguments>(?: ts/[^/]+)*))+?");
-
+    //@@author 
     
     private static final Pattern SAVE_COMMAND_FORMAT = Pattern.compile("(?<path>[^/]+)");
 
@@ -120,15 +141,19 @@ public class Parser {
      */
 
     private Command prepareAdd(String args) throws ParseException{
+        //@@author A0153411W
+    	//Reset dueDatePrefix for every add command as optional
     	dueDatePrefix.SetIsOptional(true);
 		ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(descriptionPrefix, startDatePrefix, dueDatePrefix,
 				intervalPrefix, timeIntervalPrefix, tagArgumentsPrefix);
 		argsTokenizer.tokenize(args);
+	    //@@author
 		try {
 			//For deadlines - if there is startDate, set dueDatePrefix as required
 			if (argsTokenizer.getValue(startDatePrefix)!=null) {
 				dueDatePrefix.SetIsOptional(false);
 			}
+		    //@@author A0153411W
 			return new AddCommand(argsTokenizer.getPreamble(), 
 					isInputPresent(argsTokenizer.getValue(descriptionPrefix)),
 					isInputPresent(argsTokenizer.getValue(startDatePrefix)), 
@@ -136,6 +161,7 @@ public class Parser {
 					isInputPresent(argsTokenizer.getValue(intervalPrefix)), 
 					isInputPresent(argsTokenizer.getValue(timeIntervalPrefix)),
 					toSet(argsTokenizer.getAllValues(tagArgumentsPrefix)));
+		    //@@author
 		} catch (NoSuchElementException nsee) {
 			return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 		} catch (IllegalValueException ive) {

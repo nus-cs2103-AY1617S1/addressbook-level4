@@ -1,7 +1,7 @@
 package seedu.task.logic.commands;
 
 import java.util.Set;
- 
+
 /**
  * Finds and lists all tasks in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
@@ -29,7 +29,11 @@ public class FindCommand extends Command {
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
 
-	
+    //@@author A0153411W
+	/**
+	 * Execute undo method for find command 
+	 * Update filtered list to show all tasks.
+	 */
 	@Override
 	public CommandResult executeUndo() {
         model.updateFilteredListToShowAll();

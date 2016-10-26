@@ -3,10 +3,10 @@ package seedu.task.logic.commands;
 import seedu.task.commons.core.Messages;
 import seedu.task.commons.core.UnmodifiableObservableList;
 import seedu.task.model.task.ReadOnlyTask;
-import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
-import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.task.model.task.Status;
 import seedu.task.model.task.Task;
+import seedu.task.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.task.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Mark a task as completed which is identified using it's last displayed index from the task manager.
@@ -62,8 +62,17 @@ public class DoneCommand extends Command {
         return new CommandResult(String.format(MESSAGE_COMPLETED_TASK_SUCCESS, taskToComplete));
     }
 
+    //@@author A0153411W
 	/**
-	 * Assume that done task is at the end of list
+	 * Execute undo method for done command - Delete task with done status
+	 * and add again with ongoing status to restore 
+	 * task manager to state before method was executed.
+	 * Assume that done task is at the end of list.
+	 * If task was completed before done command, method is finished.
+	 * @throws DuplicateTaskException
+	 * 				if task to add is already in manager
+	 * @throws TaskNotFoundException
+	 * 				if task was not found
 	 */
 	@Override
 	public CommandResult executeUndo() {

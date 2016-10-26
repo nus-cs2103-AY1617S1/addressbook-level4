@@ -17,6 +17,10 @@ public class IncorrectCommand extends Command {
         return new CommandResult(feedbackToUser);
     }
 
+    //@@author A0153411W
+	/**
+	 * Incorrect command is not reversible.
+	 */
 	@Override
 	public CommandResult executeUndo() {
 		return null;

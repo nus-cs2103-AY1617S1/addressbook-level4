@@ -2,7 +2,8 @@ package seedu.task.logic.commands;
 
 
 import seedu.task.commons.core.EventsCenter;
-import seedu.task.commons.events.ui.ShowHelpRequestEvent; 
+import seedu.task.commons.events.ui.ShowHelpRequestEvent;
+
 
 /**
  * Format full help instructions for every command for display.
@@ -24,6 +25,11 @@ public class HelpCommand extends Command {
         return new CommandResult(SHOWING_HELP_MESSAGE);
     }
 
+    //@@author A0153411W
+	/**
+	 * Execute undo method for help command.
+	 * Call execute method for help command.
+	 */
 	@Override
 	public CommandResult executeUndo() {
 		return this.execute();

@@ -30,7 +30,9 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
+        //@@author A0153411W
         addCommandForUndo(command);
+        //@@author
         command.setData(model);
         return command.execute();
     }
@@ -40,6 +42,8 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredTaskList();
     }
     
+    //@@author A0153411W
+    //Add command (if reversible) to UndoManager
     private void addCommandForUndo(Command command){
     	if(command.isReversible()){
     		model.updateCommandsForUndo(command);

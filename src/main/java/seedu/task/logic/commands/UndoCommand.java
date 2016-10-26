@@ -22,6 +22,10 @@ public class UndoCommand extends Command {
 		}
 	}
 
+    //@@author A0153411W
+	/**
+	 * Undo Command is not reversible.
+	 */
 	@Override
 	public CommandResult executeUndo() {
 		return null;

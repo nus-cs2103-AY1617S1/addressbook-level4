@@ -6,7 +6,10 @@ import java.util.Stack;
 
 import seedu.task.logic.commands.Command;
 
-
+//@@author A0153411W
+/**
+ * Manager for undo command
+ */
 public class UndoCommandManager {
 	
 	private final Stack<Command> executedCommands;

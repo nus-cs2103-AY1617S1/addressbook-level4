@@ -2,6 +2,7 @@ package seedu.task.model.task;
 
 import seedu.task.commons.exceptions.IllegalValueException;
 
+//@@author A0153411W
 /**
  * Represents a Task's interval in the address book.
  */

@@ -11,8 +11,9 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import seedu.task.logic.commands.AddCommand;
-
+//@@author A0153411W-reused
 /**
+ * Code taken from lecture notes.
  * Tokenizes arguments string of the form:
  * {@code preamble <prefix>value <prefix>value ...}<br>
  * e.g. {@code some preamble text /t 11.00/dToday /t 12.00 /k /m July} where
@@ -32,6 +33,7 @@ public class ArgumentTokenizer {
 	 * /t friend'
 	 */
 	public static class Prefix {
+		//Flag whether prefix is optional or not
 		private boolean isOptional;
 		final String prefix;
 

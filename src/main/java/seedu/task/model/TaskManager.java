@@ -95,8 +95,9 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.add(p);
     }
     
+    //@@author A0153411W
     /**
-     * Adds a task to the address book.
+     * Adds a task to the task manager at specific place.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
@@ -106,7 +107,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         syncTagsWithMasterList(p);
         tasks.addAtSpecificPlace(p, index);
     }
-    
+    //@@author
 
     /**
      * Ensures that every tag in this task:
