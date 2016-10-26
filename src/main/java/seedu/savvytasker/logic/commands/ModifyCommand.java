@@ -2,7 +2,6 @@ package seedu.savvytasker.logic.commands;
 
 import seedu.savvytasker.commons.core.Messages;
 import seedu.savvytasker.commons.core.UnmodifiableObservableList;
-import seedu.savvytasker.commons.util.SmartDefaultDates;
 import seedu.savvytasker.logic.parser.DateParser.InferredDate;
 import seedu.savvytasker.model.task.PriorityLevel;
 import seedu.savvytasker.model.task.ReadOnlyTask;
@@ -70,13 +69,10 @@ public class ModifyCommand extends ModelRequiringCommand {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-        
-
-        SmartDefaultDates sdd = new SmartDefaultDates(null, null);
 
         ReadOnlyTask taskToModify = lastShownList.get(index - 1);
-        replacement = new Task(taskToModify, taskName, sdd.getStart(startDateTime), 
-                                    sdd.getEnd(endDateTime), location, priority, 
+        replacement = new Task(taskToModify, taskName, startDateTime, 
+                                    endDateTime, location, priority, 
                                     recurringType, numberOfRecurrence, 
                                     category, description);
 

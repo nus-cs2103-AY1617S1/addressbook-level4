@@ -36,7 +36,7 @@ public class MasterParser {
         String trueHeader = extractHeader(header);
         CommandParser<? extends Command> parser = commandParsers.get(trueHeader);
         if (parser == null)
-            return new IncorrectCommand(header + body, MESSAGE_UNKNOWN_COMMAND);
+            return new IncorrectCommand(header + body, String.format(MESSAGE_UNKNOWN_COMMAND, HelpCommand.MESSAGE_USAGE));
         if (parser.shouldPreprocess())
             body = preprocessBody(body);
         

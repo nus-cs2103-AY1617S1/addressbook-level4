@@ -19,10 +19,10 @@ public class SmartDefaultDates {
     private final Calendar today;
     
     /**
-     * 
+     * Determines the smart defaults for the dates provided. Can set both
+     * start and end dates as null to get a basic smart default.
      * @param startDateTime Starting date time
      * @param endDateTime Ending date time
-     * @throws InvalidDateException If endDateTime is earlier than startDateTime
      */
     public SmartDefaultDates(InferredDate startDateTime, InferredDate endDateTime) {
         calendar = Calendar.getInstance();
@@ -50,7 +50,11 @@ public class SmartDefaultDates {
     public Date getEnd(InferredDate endDateTime) {
         if (endDateTime == null) return null;
         calendar.setTime(endDateTime.getInferredDateTime());
-        if (endDateTime.isDateInferred()) {
+        if (endDateTime.isDateInferred() && endDateTime.isTimeInferred()) {
+            // user didn't specify anything
+            // remove date field
+            return null;
+        } else if (endDateTime.isDateInferred()) {
             // date not supplied
             // defaults to today
             calendar.set(Calendar.DATE, today.get(Calendar.DATE));
@@ -94,7 +98,11 @@ public class SmartDefaultDates {
     public Date getStart(InferredDate startDateTime) {
         if (startDateTime == null) return null;
         calendar.setTime(startDateTime.getInferredDateTime());
-        if (startDateTime.isDateInferred()) {
+        if (startDateTime.isDateInferred() && startDateTime.isTimeInferred()) {
+            // user didn't specify anything
+            // remove date field
+            return null;
+        } else if (startDateTime.isDateInferred()) {
             // date not supplied
             // defaults to today
             calendar.set(Calendar.DATE, today.get(Calendar.DATE));
