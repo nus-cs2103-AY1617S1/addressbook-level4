@@ -232,55 +232,62 @@ There is no need to save manually.
 
 Command | Format  
 -------- | :--------
-Add | `add TASKNAME`	Example: add hello
-	| `add TASKNAME priority PRIORITY`	Example: add hello priority high/mid/low
-	| `add TASKNAME ; DETAILS`	Example: add hello ; first time use
-	| `add TASKNAME on/from DATE`	                                              Example: add hello on/from today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
+Add | `add TASKNAME`
+	| Example: add hello
+	| `add TASKNAME priority PRIORITY`	
+	| Example: add hello priority high/mid/low
+	| `add TASKNAME ; DETAILS`	
+	| Example: add hello ; first time use
+	| `add TASKNAME on/from DATE`	                                              
+	| Example: add hello on/from today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
 	| `add TASKNAME by/to DATE`	
-	  Example: add hello by/to today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
+	| Example: add hello by/to today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
 	| `add TASKNAME on/from DATE by/to DATE`
-	  Example: add hello on/from today/tomorrow/next wed/19:00/05:00pm 
-	  		   by/to sunday 12:34am/Oct 20/every sat
+	| Example: add hello on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat
 	| `add TASKNAME on/from DATE by/to DATE priority PRIORITY`
-	  Example: add hello on/from today/tomorrow/next wed/19:00/05:00pm 
-	  		   by/to sunday 12:34am/Oct 20/every sat priority high/mid/low
+	| Example: add hello on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat priority high/mid/low
 	| `add TASKNAME on/from DATE by/to DATE priority PRIORITY ; DETAILS`
-	  Example: add hello on/from today/tomorrow/next wed/19:00/05:00pm 
-	  		   by/to sunday 12:34am/Oct 20/every sat priority high/mid/low ; first time use
+	| Example: add hello on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat priority high/mid/low ; first time use
 Clear | `clear`
-Delete | `delete ID`	Example: delete 12
+Delete | `delete ID`	
+	   | Example: delete 12
 Help | `help`
-Mark | `mark ID`	Example: mark 12
-Unmark | `unmark ID`	Example: mark 12
+Mark | `mark ID`	
+	 | Example: mark 12
+Unmark | `unmark ID`	
+       | Example: mark 12
 Quitting | `exit`
-Search | `search KEYWORDS` 	Example: search hello/project Meeting/PrOjecT MeeTinG
+Search | `search KEYWORDS` 	
+	   | Example: search hello/project Meeting/PrOjecT MeeTinG
 	   | `search before DATE`	
-	   	 Example: search before today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
+	   | Example: search before today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
 	   | `search after DATE`
-	     Example: search before today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
-	   | `search priority PRIORITY`	Example: search priority high/mid/low
-	   | `search tag TAG`	Example: search tag study   
+	   | Example: search before today/tomorrow/next wed/19:00/05:00pm/sunday 12:34am/Oct 20/every sat
+	   | `search priority PRIORITY`	
+	   | Example: search priority high/mid/low
+	   | `search tag TAG`	
+	   | Example: search tag study   
 See | `see`
-Tag | `tag ID TAG`	Example: tag 12 study
-Untag | `untag ID TAG`	Example: untag 12 study
+Tag | `tag ID TAG`	
+    | Example: tag 12 study
+Untag | `untag ID TAG`	
+      | Example: untag 12 study
 Undo | `undo`
-Update | `update ID TASKNAME`	Example: update 10 hello again
+Update | `update ID TASKNAME`	
+       | Example: update 10 hello again
 	   | `update ID on/from DATE`	
-	   	 Example: update 10 on/from tmr 07:00pm/sunday 12:34am/Oct 20/every sat
-	   | `update ID by/to DATE`	Example: update 10 by/to tmr 07:00pm/sunday 12:34am/Oct 20/every sat
+	   |Example: update 10 on/from tmr 07:00pm/sunday 12:34am/Oct 20/every sat
+	   | `update ID by/to DATE`	
+	   | Example: update 10 by/to tmr 07:00pm/sunday 12:34am/Oct 20/every sat
 	   | `update ID TASKNAME on/from DATE`	
-	     Example: update 10 hello again on/from tmr 07:00pm/sunday 12:34am/Oct 20/every sat
+	   | Example: update 10 hello again on/from tmr 07:00pm/sunday 12:34am/Oct 20/every sat
 	   | `update ID TASKNAME by/to DATE`	
-	     Example: update 10 hello again by/to tmr 07:00pm/sunday 12:34am/Oct 20/every sat
+	   | Example: update 10 hello again by/to tmr 07:00pm/sunday 12:34am/Oct 20/every sat
 	   | `update ID on/from DATE by/to DATE`	
-	     Example: update 10 on/from today/tomorrow/next wed/19:00/05:00pm 
-	     		  by/to sunday 12:34am/Oct 20/every sat
+	   | Example: update 10 on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat
 	   | `update ID TASKNAME on/from DATE by/to DATE`
-	   	 Example: update 10 hello again on/from today/tomorrow/next wed/19:00/05:00pm 
-	   	 		  by/to sunday 12:34am/Oct 20/every sat
+	   | Example: update 10 hello again on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat
 	   | `update ID TASKNAME on/from DATE by/to DATE priority PRIORITY`
-	   	 Example: update 10 hello again on/from today/tomorrow/next wed/19:00/05:00pm 
-	   	 		  by/to sunday 12:34am/Oct 20/every sat priority high/mid/low
+	   | Example: update 10 hello again on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat priority high/mid/low
 	   | `update ID TASKNAME on/from DATE by/to DATE priority PRIORITY ; DETAILS`
-	   	 Example: update 10 hello again on/from today/tomorrow/next wed/19:00/05:00pm by/to 
-	   	 		  sunday 12:34am/Oct 20/every sat priority high/mid/low ; again and again
+	   | Example: update 10 hello again on/from today/tomorrow/next wed/19:00/05:00pm by/to sunday 12:34am/Oct 20/every sat priority high/mid/low ; again and again
