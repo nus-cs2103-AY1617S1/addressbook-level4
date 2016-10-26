@@ -445,8 +445,6 @@ Use case ends.
 
 More non functional requirements and project constraints can be found [here](http://www.comp.nus.edu.sg/~cs2103/AY1617S1/contents/handbook.html#handbook-project-constraints).
 
-[comment]: # (@@author )
-
 ## Appendix D : Glossary
 
 ##### Deadline

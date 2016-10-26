@@ -660,6 +660,7 @@ public class Parser {
             return new DeleteCommand(index.get());
         }
 
+        //@@author A0143641M
         else if(itemIndexesMatcher.matches()) {
             // separate into the different indexes
             args = args.trim();
@@ -685,6 +686,7 @@ public class Parser {
                 }
             }
             return new DeleteCommand(indexesToDelete);
+        //@@author
         }
         else {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
