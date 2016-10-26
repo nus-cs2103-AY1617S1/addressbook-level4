@@ -97,6 +97,14 @@ Format: `save folderpath`
 Example:
 * `save C:\\Users\\<username>\\Desktop\\CS2103 Tutorial`.
 
+#### Undo the last executed command: `undo`
+Restore the task manager to the state before command was executed 
+Format: `undo`
+
+Example:
+* `undo`.
+
+
 #### Add Category: `Assign`
 Assign Task to a category
 Format: `Assign TASKID c/CATEGORY`
@@ -149,6 +157,7 @@ Clear | `clear`
 Delete | `delete TASKID`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
+Undo | `undo` 
 Save | `save`
 Help | `help`
 Color | `color`

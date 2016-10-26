@@ -280,9 +280,11 @@ Priority | As a ... | I want to ... | So that I can...
 `* * *`| user | delete a task | get rid of tasks that I no longer care to track. 
 `* *` | user | edit my task details, if some changes is needed | So that I can update the latest details.
 `* *`| user | add duplicated tasks for specific period of time | see a duplicate appears on regular intervals, e.g. once per week. 
-`* *`| user | specify which folder path to save my file | organize my task manager easily
+`* *`| user | undo the last executed commands | restore the task manager to the state before command was executed 
+
 
 //to do
+`* *`| user | specify which folder path to save my file | organize my task manager easily
 `* * *`| user | keep track my task | check which task have completed or on going
 `* *`| advanced user |  use shorter versions of a command | that can type a command faster.
 `* *`|user | set reminder for my task | can complete the task on time. 
@@ -480,6 +482,22 @@ Use Case end.
     1d. Task has no start date
     >1d1. System shows an error message
     Use case resume at step 1.
+
+#### Use case: UC09 Undo last executed command
+   Actor: User
+
+**MSS**
+
+1. User requests to undo last executed command 
+2. System will restore task manager before command was executed 
+Use Case end.
+
+**Extension**
+
+    1a. Thete is nothing to undo
+    >1a1. System shows an error message
+    Use case finishes.
+
 
 
 {More to be added}
