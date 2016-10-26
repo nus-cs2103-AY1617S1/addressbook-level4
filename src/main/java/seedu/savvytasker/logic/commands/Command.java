@@ -48,6 +48,7 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
     
+    //@@author A0139916U
     /**
      * Checks if a command can perform undo operations
      * @return true if the command supports undo, false otherwise
@@ -65,7 +66,8 @@ public abstract class Command {
      * @return true if the operation completed successfully, false otherwise
      */
     public abstract boolean undo();
-
+    
+    //@@author
     /**
      * Check if command is an undo command
      * @return true if the command is an undo operation, false otherwise

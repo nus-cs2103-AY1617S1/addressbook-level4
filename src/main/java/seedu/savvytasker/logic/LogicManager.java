@@ -85,6 +85,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredTaskList();
     }
     
+    //@@author A0139916U
     private void registerAllDefaultCommandParsers() {
         parser.registerCommandParser(new AddCommandParser());
         parser.registerCommandParser(new DeleteCommandParser());

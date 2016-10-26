@@ -80,7 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateSavvyTaskerChanged() {
         raise(new SavvyTaskerChangedEvent(savvyTasker));
     }
-    //@@author A0139915W
+    //@@author A0139916U
 
     private void indicateAliasSymbolAdded(AliasSymbol symbol) {
         raise(new AliasSymbolChangedEvent(symbol, AliasSymbolChangedEvent.Action.Added));
@@ -111,7 +111,7 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowActive();
         indicateSavvyTaskerChanged();
     }
-    //@@author A0139915W
+    //@@author A0139916U
 
     @Override
     public synchronized void addAliasSymbol(AliasSymbol symbol) throws DuplicateSymbolKeywordException {

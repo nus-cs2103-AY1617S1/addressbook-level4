@@ -26,7 +26,6 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
 
     //@@author A0139915W
     private final TaskList tasks;
-    //@@author A0139915W
     private final AliasSymbolList symbols;
 
     public SavvyTasker() {
@@ -105,7 +104,7 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
     public boolean replaceTask(ReadOnlyTask key, Task replacement) throws TaskNotFoundException, InvalidDateException {
         return tasks.replace(key, replacement);
     }
-    //@@author A0139915W
+    //@@author A0139916U
     
     /**
      * Adds an alias symbol to savvy tasker.
@@ -124,7 +123,7 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
     public void removeAliasSymbol(AliasSymbol symbol) throws SymbolKeywordNotFoundException {
         symbols.removeAliasSymbol(symbol);
     }
-    
+    //@@author A0139915W
 
 //// util methods
 
@@ -146,6 +145,7 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
         return defensiveCopy;
     }
 
+    //@@author A0139916U
     @Override
     public List<AliasSymbol> getReadOnlyListOfAliasSymbols() {
         return symbols.asReadonly();
@@ -156,6 +156,7 @@ public class SavvyTasker implements ReadOnlySavvyTasker {
         return new AliasSymbolList(symbols);
     }
 
+    //@@author A0139915W
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
