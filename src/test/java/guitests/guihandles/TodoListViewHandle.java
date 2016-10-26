@@ -125,14 +125,19 @@ public class TodoListViewHandle extends GuiHandle {
      * @throws NodeFinderException if we can't find the node after finite attempts.
      */
     private Node getTaskCardViewNode(int listIndex) throws NodeFinderException {
+        //Get the references
         int displayedIndex = UiTestUtil.convertToUiIndex(listIndex);
         Optional<Node> possibleNode;
         int attemptCounter = 0;
 
+        //Try to get the node for finite number of times
         do {
+            //Since nodes are not drawn if they are not in view, scroll to that position first.
             Platform.runLater(() -> getTodoListView().scrollTo(listIndex));
-            guiRobot.sleep(50 * attemptCounter++); //Allow the new nodes to be loaded from scrolling.
+            //Allow the new nodes to be loaded from scrolling.
+            guiRobot.sleep(50 * attemptCounter++);
 
+            //Then, attempt to search for the node, breaking from the loop when it is found.
             Set<Node> taskCardNodes = getAllTaskCardNodes();
             possibleNode = taskCardNodes.stream().filter(node -> {
                 TaskCardViewHandle taskCardView = new TaskCardViewHandle(guiRobot, primaryStage, node);
