@@ -16,4 +16,22 @@ public class EphemeralDBTest {
         assertEquals(one, two);
     }
     
+    @Test
+    public void test_calendar_items() {
+        CalendarItem task = new Task();
+        CalendarItem event = new Event();
+        EphemeralDB db = EphemeralDB.getInstance();
+        db.addToDisplayedCalendarItems(task);
+        db.addToDisplayedCalendarItems(event);
+        assertEquals(db.getCalendarItemsByDisplayedId(1), task);
+        assertEquals(db.getCalendarItemsByDisplayedId(2), event);
+    }
+    
+    @Test
+    public void test_missing_calendar_item() {
+        EphemeralDB db = EphemeralDB.getInstance();
+        assertEquals(db.getCalendarItemsByDisplayedId(0), null);
+        assertEquals(db.getCalendarItemsByDisplayedId(3), null);
+    }
+    
 }
