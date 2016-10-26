@@ -121,13 +121,13 @@ public class UniqueTaskList implements Iterable<Task> {
     }
 
 	/**
-	 * @author Ronald @author A0139430L JingRui
+	 * @author Ronald 
 	 * @param key
 	 * @param args
 	 * @return
 	 * @throws IllegalValueException
 	 */
-
+  //@@author A0139430L JingRui
 	public boolean edit(ReadOnlyTask key, String args) throws IllegalValueException {
         // TODO Auto-generated method stub
         String keyword = args.substring(0, args.indexOf(' '));
@@ -165,15 +165,8 @@ public class UniqueTaskList implements Iterable<Task> {
                 toEdit.setStart(new Start(args));
                 toEdit.setTaskCategory(1);
             }
-            else if(toEdit.getTaskCategory()==3){  //todo to Event
-                LocalDate now = LocalDate.now();
-                String date = now.toString();
-                String[] date_cat = date.split("-");
-                String localDate = date_cat[2];
-                localDate = localDate.concat(date_cat[1]);
-                localDate = localDate.concat(date_cat[0].substring(2));
-
-                toEdit.setDate(new Date(localDate));
+            else if(toEdit.getTaskCategory()==3){  //todo to Event              
+                toEdit.setDate(new Date(this.getCurrentDate()));
                 toEdit.setStart(new Start(args));
                 toEdit.setEnd(new End("2359"));
                 toEdit.setTaskCategory(1);
@@ -187,14 +180,7 @@ public class UniqueTaskList implements Iterable<Task> {
                 toEdit.setEnd(new End("2359"));
             }
             else if(toEdit.getTaskCategory()==3 & args.compareTo("no end") != 0){  //todo to Deadline
-                LocalDate now = LocalDate.now();
-                String date = now.toString();
-                String[] date_cat = date.split("-");
-                String localDate = date_cat[2];
-                localDate = localDate.concat(date_cat[1]);
-                localDate = localDate.concat(date_cat[0].substring(2));
-
-                toEdit.setDate(new Date(localDate));
+                toEdit.setDate(new Date(this.getCurrentDate()));
                 toEdit.setStart(new Start("no start"));
                 toEdit.setEnd(new End(args));
                 toEdit.setTaskCategory(2);
@@ -242,5 +228,15 @@ public class UniqueTaskList implements Iterable<Task> {
         toComplete.setCompleted(true);
         internalList.set(completeIndex, toComplete);
         return true;
+    }
+
+    public String getCurrentDate(){
+        LocalDate now = LocalDate.now();
+        String date = now.toString();
+        String[] date_cat = date.split("-");
+        String localDate = date_cat[2];
+        localDate = localDate.concat(date_cat[1]);
+        localDate = localDate.concat(date_cat[0].substring(2));
+        return localDate;
     }
 }
