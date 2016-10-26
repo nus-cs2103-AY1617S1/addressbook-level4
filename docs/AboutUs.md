@@ -18,15 +18,35 @@ We are a team of four computer engineering students based in the [School of Comp
 **Role**: Team Leader <br>
 Responsibilities: Documentation, Deliverables and Deadlines, Scheduling and Tracking
 
-Components: UI
+Components in charge of: UI
 
+*Features Implemented:<br>
+	*Set storage folder<br>
+	*Undo and Redo<br>
+	*List
+
+Code written: [[functional code](A0147890U.md)][[docs](A0147890U.md)]
+
+*Other major contributions:<br>
+	*Implemented the initial edit task command
+	*Set up Travis and Coveralls
+	
 -----
 
 #### Zavier Ong 
 Role: Developer <br>  
 Responsibilities: Code Integration
 
-Components: Logic
+Components in charge of: Logic
+*Features Implemented:<br>
+	*Add task commands
+
+Code written: [[functional code](A0138993L.md)][[test](A0138993L.md)][[docs](A0138993L.md)]
+
+*Other major contributions:<br>
+	*Implemented DateTime support
+	*Implemented Parser
+	*Wrote test cases
 
 -----
 
@@ -34,7 +54,16 @@ Components: Logic
 Role: Developer <br>  
 Responsibilities: Testing
 
-Components: Storage
+Components in charge of: Model
+*Features Implemented:<br>
+	*Find task
+	*Delete task
+	*Edit task
+	
+Code written: [[functional code](A0139430L JingRui.md)][[test](A0139430L JingRui.md)][[docs](A0139430L JingRui.md)]
+
+*Other major contributions:<br>
+	*Wrote test cases
 
 -----
 
@@ -42,6 +71,9 @@ Components: Storage
 Role: Developer <br>  
 Responsibilities: Code Quality, Tool Expert
 
-Components: Model
-
+Components in charge of: Storage
+*Features Implemented:<br>
+	*Done command
+	
+	
 -----
