@@ -103,7 +103,7 @@ public class TestActivity implements ReadOnlyActivity {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         DateUtil dUtil = new DateUtil();
-        String dateFormat = "dd.MM.yyyy HHmm";
+        String dateFormat = "EEE, MMM d, yyyy h:mm a";
         
         sb.append("add " + this.getName().fullName + " ");
         
@@ -115,5 +115,14 @@ public class TestActivity implements ReadOnlyActivity {
         return sb.toString().trim();
     }
 
+    public String getAsText() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Reminder: ")
+                .append(getReminder())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
 
 }

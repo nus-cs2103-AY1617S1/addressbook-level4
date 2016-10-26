@@ -23,13 +23,13 @@ public class TypicalTestActivities {
             findBenson = new TaskBuilder().withName("find Benson").withDueDate("Sat, Dec 30, 2017 12:00 PM").withTags("bringgift").build();
             findCarl = new TaskBuilder().withName("find Carl").withDueDate("Sat, Dec 30, 2017 12:00 PM").build();
             findDaniel = new TaskBuilder().withName("find Daniel").withDueDate("Sat, Dec 30, 2017 12:00 PM").withReminder("Sat, Dec 30, 2017 11:59 AM").withTags("bringgifts").build();
-            findElle = new EventBuilder().withName("find Elle").withStartTime("Sat, Dec 30, 2017 12:00 PM").withReminder("Sat, Dec 30, 2017 11:59 PM").build();
+            findElle = new EventBuilder().withName("find Elle").withStartTime("Sat, Dec 30, 2017 12:00 PM").withEndTime("Sun, Dec 31, 2017 12:00 PM").withReminder("Sat, Dec 30, 2017 11:59 PM").build();
             findFiona = new EventBuilder().withName("find Fiona").withStartTime("Sat, Dec 30, 2017 12:00 PM").withEndTime("Sun, Dec 31, 2017 12:00 PM").withReminder("Fri, Dec 29, 2017 12:00 PM").build();
             findGeorge = new EventBuilder().withName("find George").withStartTime("Sat, Dec 30, 2017 12:00 PM").withEndTime("Sun, Dec 31, 2017 12:00 PM").withTags("bringgifts").build();
 
             //To test adding of activity, task and event.
             findHoon = new ActivityBuilder().withName("find Hoon").withReminder("Sat, Dec 30, 2017 12:00 PM").withTags("bringgift").build();
-            findIda = new TaskBuilder().withName("find Ida").withDueDate("Sat, Dec 30, 2017 12:00 PM").withReminder("Fri, Dec 29, 2017 12:00 PM").withTags("bringgifts").build();
+            findIda = new TaskBuilder().withName("find Ida").withDueDate("Sat, Dec 30, 2017 12:00 PM").withPriority("1").withReminder("Fri, Dec 29, 2017 12:00 PM").withTags("bringgifts").build();
             findJodie = new EventBuilder().withName("find Jodie").withStartTime("Sat, Dec 30, 2017 12:00 PM").withEndTime("Sun, Dec 31, 2017 12:00 PM").withReminder("Fri, Dec 29, 2017 12:00 PM").withTags("bringgifts").build();
         } catch (IllegalValueException e) {
             e.printStackTrace();
@@ -39,7 +39,7 @@ public class TypicalTestActivities {
 
     public static void loadAddressBookWithSampleData(AddressBook ab) {
     	
-/*
+
         try {
             ab.addPerson(new Activity(findAlice));
             ab.addPerson(new Task(findBenson));
@@ -50,7 +50,7 @@ public class TypicalTestActivities {
             ab.addPerson(new Event(findGeorge)); 
         } catch (UniqueActivityList.DuplicateTaskException e) {
             assert false : "not possible";
-        }*/
+        }
         
     }
 

@@ -66,12 +66,12 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         DateUtil dUtil = new DateUtil();
-        String dateFormat = "dd.MM.yyyy HHmm";
+        String dateFormat = "EEE, MMM d, yyyy h:mm a";
         
         sb.append("add " + this.getName().fullName + " ");
         
         if (!getStartTime().value.equals(null)) {
-        sb.append("s/ " + dUtil.outputDateTimeAsString(this.getStartTime().getCalendarValue(), dateFormat) + " ");     
+        sb.append("s/" + dUtil.outputDateTimeAsString(this.getStartTime().getCalendarValue(), dateFormat) + " ");     
         }
         
         if (!getEndTime().value.equals(null)) {
@@ -86,5 +86,20 @@ public class TestEvent extends TestActivity implements ReadOnlyEvent {
         return sb.toString().trim();
     }
     
+    @Override
+    public String getAsText() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Start Time: ")
+                .append(getStartTime())
+                .append(" End Time: ")
+                .append(getEndTime())
+                .append(" Reminder: ")
+                .append(getReminder())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
+    }
 
+    
 }

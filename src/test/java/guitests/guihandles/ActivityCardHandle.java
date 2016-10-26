@@ -13,10 +13,10 @@ import seedu.address.model.activity.task.ReadOnlyTask;
 public class ActivityCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String REMINDER_FIELD_ID = "#reminder";
-    private static final String DUEDATE_FIELD_ID = "#due date";
-    private static final String PRIORITY_FIELD_ID = "#priority";
-    private static final String STARTTIME_FIELD_ID = "#start time";
-    private static final String ENDTIME_FIELD_ID = "#end time";
+    private static final String DUEDATE_FIELD_ID = "#line1";
+    private static final String PRIORITY_FIELD_ID = "#line2";
+    private static final String STARTTIME_FIELD_ID = "#line1";
+    private static final String ENDTIME_FIELD_ID = "#line2";
     
 
     private Node node;
@@ -55,26 +55,28 @@ public class ActivityCardHandle extends GuiHandle {
     }
 
     public boolean isSameActivity(ReadOnlyActivity person){
+
     	boolean isSameName = getFullName().equals(person.getName().fullName);
-    	boolean isSameReminder = getReminder().equals(person.getReminder().value);
-    	
+    	boolean isSameReminder = getReminder().equals(person.getReminder().forDisplay());
     	return (isSameName && isSameReminder);
     }
     
     public boolean isSameTask(ReadOnlyTask person){
     	boolean isSameName = getFullName().equals(person.getName().fullName);
-    	boolean isSameReminder = getReminder().equals(person.getReminder().getCalendarValue());
-    	boolean isSameDueDate = getDueDate().equals(person.getDueDate().getCalendarValue());
-    	boolean isSamePriority = getPriority().equals(person.getPriority().value);
+    	boolean isSameReminder = getReminder().equals(person.getReminder().forDisplay());
+    	boolean isSameDueDate = getDueDate().toString().equals(person.getDueDate().forDisplay());
+    	String name = getPriority();
+String fromperson = person.getPriority().toString();
+    	boolean isSamePriority = getPriority().equals(person.getPriority().forDisplay());
     	
     	return (isSameName && isSameReminder && isSameDueDate && isSamePriority);
     }
     
     public boolean isSameEvent(ReadOnlyEvent person){
     	boolean isSameName = getFullName().equals(person.getName().fullName);
-    	boolean isSameReminder = getReminder().equals(person.getReminder().value);
-    	boolean isSameStartTime = getStartTime().equals(person.getStartTime().getCalendarValue());
-    	boolean isSameEndTime = getEndTime().equals(person.getEndTime().getCalendarValue());
+    	boolean isSameReminder = getReminder().equals(person.getReminder().forDisplay());
+    	boolean isSameStartTime = getStartTime().equals(person.getStartTime().forDisplay());
+    	boolean isSameEndTime = getEndTime().equals(person.getEndTime().forDisplay());
 
     	return (isSameName && isSameReminder && isSameStartTime && isSameEndTime);
     }

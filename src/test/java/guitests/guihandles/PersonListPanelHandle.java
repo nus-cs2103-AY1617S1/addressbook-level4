@@ -83,11 +83,11 @@ public class PersonListPanelHandle extends GuiHandle {
      * @param persons A list of person in the correct order.
      */
     public boolean isListMatching(int startPosition, ReadOnlyActivity... persons) throws IllegalArgumentException {
+        if(startPosition!= 0 && persons.length!=0){
         if (persons.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
-                    "Expected " + (getListView().getItems().size() - 1) + " persons");
+                    "Expected " + (getListView().getItems().size()) + " persons");
         }
-        if(startPosition!= 0 && persons.length!=0){
         assertTrue(this.containsInOrder(startPosition, persons));
         for (int i = 0; i < persons.length; i++) {
             final int scrollTo = i + startPosition;
@@ -108,12 +108,10 @@ public class PersonListPanelHandle extends GuiHandle {
         if (!activity.isPresent()) {
             throw new IllegalStateException("Activity Name not found: " + name);
         }
-        
-        if (activity != null) System.out.println(activity.get().toString());
 
         return navigateToPerson(activity.get());
     }
-
+    
     /**
      * Navigates the listview to display and select the person.
      */
@@ -123,7 +121,7 @@ public class PersonListPanelHandle extends GuiHandle {
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
             guiRobot.sleep(500);
-            getListView().getSelectionModel().select(index); //get stuck here
+            getListView().getSelectionModel().select(index); 
         });
         guiRobot.sleep(100);
         return getPersonCardHandle(person);
@@ -140,6 +138,7 @@ public class PersonListPanelHandle extends GuiHandle {
                 return i;
             }
         }
+
         return NOT_FOUND;
     }
 

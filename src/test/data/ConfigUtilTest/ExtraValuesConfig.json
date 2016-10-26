@@ -1,5 +1,5 @@
 {
-  "appTitle" : "Typical App Title",
+  "appTitle" : "Lifekeeper App",
   "logLevel" : "INFO",
   "userPrefsFilePath" : "C:\\preferences.json",
   "addressBookFilePath" : "addressbook.xml",

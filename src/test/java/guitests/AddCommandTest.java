@@ -20,38 +20,38 @@ public class AddCommandTest extends AddressBookGuiTest {
         TestActivity[] currentList = td.getTypicalPersons();
         TestActivity activityToAdd = td.findHoon;
 
+         assertAddSuccess(activityToAdd, currentList);
+        currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
+
+        //add a task
+        activityToAdd = td.findIda;
         assertAddSuccess(activityToAdd, currentList);
         currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
-/*
-        //add a task
-        personToAdd = td.findIda;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
-
+        assertTrue(personListPanel.isListMatching(currentList));
+ 
         //add an event
-        personToAdd = td.findJodie;
-        assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
-        
+        activityToAdd = td.findJodie;
+        assertAddSuccess(activityToAdd, currentList);
+        currentList = TestUtil.addPersonsToList(currentList, activityToAdd);
+    
         //section 2: test for adding duplicates of activities, tasks and events/
         
         //add duplicate activity
         commandBox.runCommand(td.findHoon.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(personListPanel.isListMatching(currentList));
-        
+
         //add duplicate task
         commandBox.runCommand(td.findIda.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(personListPanel.isListMatching(currentList));
-        
+
         //add duplicate event
         commandBox.runCommand(td.findJodie.getAddCommand());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(personListPanel.isListMatching(currentList));
 
         //section 3:
-        
+ 
         //add to empty list
         commandBox.runCommand("clear");
         assertAddSuccess(td.findAlice);
@@ -62,7 +62,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         
         //testing for date formatting
         commandBox.runCommand("");
-        */
+        
     }
 
     private void assertAddSuccess(TestActivity activityToAdd, TestActivity... currentList) {
@@ -71,7 +71,6 @@ public class AddCommandTest extends AddressBookGuiTest {
     	commandBox.runCommand(activityToAdd.getAddCommand());
         //confirm the new card contains the right data
         ActivityCardHandle addedCard = personListPanel.navigateToActivity(activityToAdd.getName().fullName);
-    	System.out.println(addedCard.toString());
         assertMatching(activityToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
