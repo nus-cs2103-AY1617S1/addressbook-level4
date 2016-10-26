@@ -75,7 +75,7 @@
 
 2. `add` can be replaced by `a`. `task` can be replaced by `t`. Press `Enter`.
 
-3. The task will be added to your to do list and message "Added task" is displayed on console..
+3. The task will be added to your to do list and message "Added task" is displayed on console.
 
 #### Add an event
 
