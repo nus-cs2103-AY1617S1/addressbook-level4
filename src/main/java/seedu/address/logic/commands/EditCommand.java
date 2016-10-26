@@ -23,9 +23,12 @@ public class EditCommand extends UndoableCommand {
 
     private static final String STRING_CONSTANT_ONE = "1";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit an item in the To-Do List. ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edit an item in the To-Do List. "
+            + "Parameters: edit [NAME] [from/at/start DATE_TIME] [to/by/end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset PARAMETER]\n"
+            + "Example: " + COMMAND_WORD
+            + "edit 1 play with cat by 3pm repeat every day -medium";
               
-    public static final String TOOL_TIP = "edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset parameter]";
+    public static final String TOOL_TIP = "edit INDEX [NAME] [start DATE_TIME] [end DATE_TIME] [repeat every RECURRING_INTERVAL] [-PRIORITY] [-reset PARAMETER]";
 
     public static final String MESSAGE_SUCCESS = "Item edited: %1$s";
     
@@ -85,7 +88,7 @@ public class EditCommand extends UndoableCommand {
     		taskName = new Name(taskNameString.get());
         }
     }
-    //@@author A0139655U
+
     private void assignStartDateIfPresent(Optional<String> startDateString) {
         if (startDateString.isPresent()) {
             startDate = DateTime.convertStringToDate(startDateString.get());
@@ -117,7 +120,7 @@ public class EditCommand extends UndoableCommand {
             throw new IllegalValueException(RecurrenceRate.MESSAGE_VALUE_CONSTRAINTS);
         }
     }
-    //@@author A0139552B
+
     /*
      * Assign priority depending on the level stated
      * Otherwise leave it as null
@@ -169,10 +172,12 @@ public class EditCommand extends UndoableCommand {
         // Copy this task for history usage
         beforeEdit = new Task(taskToEdit);
 
+        //assign previous name to taskName if user never input one
         if (taskName == null) {        
             taskName = toEdit.getName();
         }
         
+        //assign previous start date to startDate if user never input one
         if (startDate == null && toEdit.getStartDate().isPresent()) {
             startDate = toEdit.getStartDate().get();
         }
@@ -181,6 +186,7 @@ public class EditCommand extends UndoableCommand {
         	startDate = null;
         }
 
+        //assign previous end date to endDate if user never input one
         if (endDate == null && toEdit.getEndDate().isPresent()) {
         	endDate = toEdit.getEndDate().get();
         }
@@ -189,23 +195,24 @@ public class EditCommand extends UndoableCommand {
         	endDate = null;
         }
 
+        //assign previous priority to priority if user never input one
         if (priority == null) {
         	priority = toEdit.getPriorityValue();
         }
         
         /*
-         * Set recurrenceRate as the previous one if it exist should the user not key in any
+         * Set recurrenceRate as the previous one if it exist should the user not input any
          * Ensure that start date or end date exist, otherwise set recurrence as null even if user input one
          */
         if (recurrenceRate == null && toEdit.getRecurrenceRate().isPresent()) {
         	recurrenceRate = toEdit.getRecurrenceRate().get();
         } else if (recurrenceRate != null && !beforeEdit.getStartDate().isPresent() && !beforeEdit.getEndDate().isPresent()
                 && startDate == null && endDate == null){
-            return new CommandResult(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
-            //recurrenceRate = null;
+            //return new CommandResult(MESSAGE_RECUR_DATE_TIME_CONSTRAINTS);
+            recurrenceRate = null;
         }
         
-        //remove recurrence if start and end date are removed
+        //remove recurrence if the start and end date are removed
         if (removeReccurence || (startDate == null && endDate == null)) {
             recurrenceRate = null;
         }

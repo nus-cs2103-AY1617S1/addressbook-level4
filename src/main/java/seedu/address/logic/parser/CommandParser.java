@@ -101,7 +101,7 @@ public class CommandParser {
 
 
     //@@author A0139655U
-	/**
+    /**
      * Parses arguments in the context of the add task command.
      *
      * @param args full command args string
@@ -152,32 +152,37 @@ public class CommandParser {
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
-		
-    	int index = ZERO;	 
-   	 	
-    	args = args.trim();
-   	 	String[] parts = args.split(" ");
-   	 	String indexNum = parts[ZERO];
-
-   	 	if(parts.length == ONE){
-   	 		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-   	 	}
-   	 
-   	 	index = Integer.parseInt(indexNum);
-   	 	String[] split = args.substring(TWO).split("-reset");
-
-   	 	String argsTrimmed = " " + split[ZERO];        
+        
+        int index = ZERO;     
         String resetField = null;
 
-        logger.finer("Entering CommandParser, prepareEdit()");
+        args = args.trim();
+        String[] indexSplit = args.split(" ");
+        String indexNum = indexSplit[ZERO];
+
+            if(indexSplit.length == ONE){
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            }
+            
+            try{
+                index = Integer.parseInt(indexNum);
+            } catch (NumberFormatException e){
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            }
+           
+            String[] resetSplit = args.substring(TWO).split("-reset");
+
+            String argsTrimmed = " " + resetSplit[ZERO];        
+
+            logger.finer("Entering CommandParser, prepareEdit()");
                        
         try {  
             HashMap<String, Optional<String>> extractedValues = new CommandParserHelper().prepareEdit(argsTrimmed);
             
             logger.finer("Exiting CommandParser, prepareEdit()");
             
-            if(split.length == TWO){
-               	resetField = split[ONE];
+            if(resetSplit.length == TWO){
+                resetField = resetSplit[ONE];
             }
             
             return new EditCommand(index, extractedValues.get("taskName"), extractedValues.get("startDate"), 
