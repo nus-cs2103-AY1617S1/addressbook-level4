@@ -148,6 +148,7 @@ public class Parser {
         return new HashSet<>(tagStrings);
     }
 
+    //@@ author A0147969E
     /**
      * Parses arguments in the context of the complete task command.
      *
@@ -164,6 +165,7 @@ public class Parser {
 
         return new CompleteCommand(index.get());
     }
+    //@@ author
 
     /**
      * Parses arguments in the context of the delete task command.
@@ -236,6 +238,8 @@ public class Parser {
         return new FindCommand(operand, keywordSet);
     }
 
+
+    //@@ author A0147969E
     private Command prepareAddTag(String args){
     	final Matcher matcher = TAG_ADD_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
@@ -288,6 +292,7 @@ public class Parser {
 		}
     }
 
+
     private Command prepareUpdate(String args) throws IllegalValueException{
         final Matcher matcher = TASK_UPDATE_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
@@ -307,7 +312,7 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
     }
-
+    //@@ author
 
 
 }
