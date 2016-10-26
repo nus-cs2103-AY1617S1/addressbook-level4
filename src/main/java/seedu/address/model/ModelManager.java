@@ -80,7 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
     }       
 
 	@Override
-	public void undoDelete(int index, Activity taskToAdd) throws UniqueTaskList.DuplicateTaskException {
+	public void undoDelete(int index, Activity taskToAdd) throws UniqueActivityList.DuplicateTaskException {
 		addressBook.addPerson(index, taskToAdd);
 		updateFilteredListToShowAll();
 		indicateAddressBookChanged();

@@ -88,9 +88,9 @@ public class AddressBook implements ReadOnlyLifeKeeper {
     }
     
 
-	public void addPerson(int index, Activity activity) throws UniqueTaskList.DuplicateTaskException {
+	public void addPerson(int index, Activity activity) throws UniqueActivityList.DuplicateTaskException {
         syncTagsWithMasterList(activity);
-        tasks.addAt(index, activity);
+        activities.addAt(index, activity);
 	}
 
     /**
