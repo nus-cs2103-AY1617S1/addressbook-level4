@@ -259,4 +259,25 @@ public class TaskBook implements ReadOnlyTaskBook {
             throw new UniqueTaskList.TaskNotFoundException();   
         }        
     }
+    
+    public boolean expireTask(Task target) throws UniqueTaskList.TaskNotFoundException {
+        if(datedTasks.contains(target)){
+            datedTasks.expire(target);
+            return true;
+        }
+        else{
+            throw new UniqueTaskList.TaskNotFoundException(); 
+        }
+        
+    }
+
+    public boolean floatingStatusReset(Task undatedTarget) throws UniqueTaskList.TaskNotFoundException {
+        if(undatedTasks.contains(undatedTarget)){
+            undatedTasks.postponed(undatedTarget);
+            return true;
+        }
+        else{
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
 }

@@ -128,6 +128,14 @@ public class UniqueTaskList implements Iterable<Task> {
         }
         Task taskFoundAndSetAsPostponed = internalList.get(internalList.indexOf(target));
         return taskFoundAndSetAsPostponed.setAsNorm();       
+    }
+
+    public boolean expire(Task target) throws TaskNotFoundException {
+        if(!internalList.contains(target)){
+            throw new TaskNotFoundException();
+        }
+        Task taskFoundAndSetAsExpired = internalList.get(internalList.indexOf(target));
+        return taskFoundAndSetAsExpired.setAsExpire();
     }	
 
 }

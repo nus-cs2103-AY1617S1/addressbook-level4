@@ -82,6 +82,9 @@ public class PersonCard extends UiPart{
         else if(status.equals("NONE")){
         	cardPane.setStyle("-fx-background-color: black");
         }
+        else if(status.equals("EXPIRE")){
+            cardPane.setStyle("-fx-background-color: deeppink");
+        }
         
     }   
 }
