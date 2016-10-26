@@ -10,6 +10,7 @@ import seedu.savvytasker.model.task.ReadOnlyTask;
 import seedu.savvytasker.model.task.RecurrenceType;
 import seedu.savvytasker.model.task.Task;
 
+//@@author A0139915W
 /**
  * JAXB-friendly version of the Task.
  */
@@ -84,3 +85,4 @@ public class XmlAdaptedTask {
                 recurringType, numberOfRecurrence, category, description, isArchived);
     }
 }
+//@@author A0139915W

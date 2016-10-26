@@ -1,4 +1,4 @@
-package seedu.savvytasker.logic.commands;
+    package seedu.savvytasker.logic.commands;
 
 import seedu.savvytasker.commons.core.EventsCenter;
 import seedu.savvytasker.commons.core.Messages;

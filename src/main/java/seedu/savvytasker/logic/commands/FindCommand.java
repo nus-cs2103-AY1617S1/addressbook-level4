@@ -20,6 +20,7 @@ public class FindCommand extends ModelRequiringCommand {
     private final FindType findType;
     private final String[] keywords;
 
+    //@@author A0139915W
     public FindCommand(FindType findType, String[] keywords) {
         this.findType = findType;
         this.keywords = keywords;
@@ -35,6 +36,7 @@ public class FindCommand extends ModelRequiringCommand {
         model.updateFilteredTaskList(_findType, keywords);
         return new CommandResult(getMessageForTaskListShownSummary(model.getFilteredTaskList().size()));
     }
+    //@@author A0139915W
     
     /**
      * Checks if a command can perform undo operations

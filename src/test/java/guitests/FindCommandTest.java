@@ -7,6 +7,7 @@ import seedu.savvytasker.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 
+//@@author A0139915W
 public class FindCommandTest extends SavvyTaskerGuiTest {
 
     @Test
@@ -54,3 +55,4 @@ public class FindCommandTest extends SavvyTaskerGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }
+//@@author A0139915W

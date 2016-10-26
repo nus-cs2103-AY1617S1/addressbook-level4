@@ -3,6 +3,7 @@ package seedu.savvytasker.model.task;
 import java.util.Date;
 import java.util.Objects;
 
+//@@author A0139915W
 /**
  * Represents a Task in the task list.
  */
@@ -234,3 +235,4 @@ public class Task implements ReadOnlyTask {
     }
 
 }
+//@@author A0139915W
