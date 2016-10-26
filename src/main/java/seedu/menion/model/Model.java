@@ -20,18 +20,16 @@ public interface Model {
     ReadOnlyActivityManager getActivityManager();
 
     /** Deletes the given task */
-    void deleteTask(ReadOnlyActivity target) throws UniqueActivityList.TaskNotFoundException;
+    void deleteTask(ReadOnlyActivity target) throws UniqueActivityList.ActivityNotFoundException;
     
-    //@@author: A0139164A
+    //@@author A0139164A
     /** Completes the given Activity, given it's index. */
     void completeFloatingTask(int index);
     void completeTask(int index);
-    void completeEvent(int index);
     
     /** Uncompletes the given Activity, given it's index. */
     void UncompleteFloatingTask(int index);
     void UncompleteTask(int index);
-    void UncompleteEvent(int index);
  
     /** 
      * Edits the name of the given Activity, given it's index. 
@@ -86,19 +84,19 @@ public interface Model {
   
     /** check if there is any previous activity manager in redo stack */
     boolean checkStatesInRedoStack();
-    //@@author
 
+    //@@author A0146752B
     /** Adds the given task */
     void addTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
     
     /** Deletes the given floating task */
-    void deleteFloatingTask(ReadOnlyActivity target) throws UniqueActivityList.TaskNotFoundException;
+    void deleteFloatingTask(ReadOnlyActivity target) throws UniqueActivityList.ActivityNotFoundException;
 
     /** Adds the given floating task */
     void addFloatingTask(Activity task) throws UniqueActivityList.DuplicateTaskException;
     
     /** Deletes the given event */
-    void deleteEvent(ReadOnlyActivity target) throws UniqueActivityList.TaskNotFoundException;
+    void deleteEvent(ReadOnlyActivity target) throws UniqueActivityList.ActivityNotFoundException;
 
     /** Adds the given event */
     void addEvent(Activity task) throws UniqueActivityList.DuplicateTaskException;

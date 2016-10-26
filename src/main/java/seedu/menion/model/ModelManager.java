@@ -10,7 +10,8 @@ import seedu.menion.commons.util.StringUtil;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.UniqueActivityList;
-import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
+import seedu.menion.model.TaskComparator;
 
 import java.util.Set;
 import java.util.Stack;
@@ -118,7 +119,7 @@ public class ModelManager extends ComponentManager implements Model {
     	return this.activityManagerRedoStack.isEmpty();
     }
 
-    //@@author: A0139164A
+    //@@author A0139164A
     /**
      * Methods for Completing an activity
      */
@@ -131,13 +132,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void completeTask(int index) {
         activityManager.completeTask(index);
-        updateFilteredListToShowAll();
-        indicateActivityManagerChanged();
-    }
-    
-    @Override
-    public void completeEvent(int index) {
-        activityManager.completeEvent(index);
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
@@ -159,14 +153,8 @@ public class ModelManager extends ComponentManager implements Model {
         indicateActivityManagerChanged();
     }
 
-    @Override
-    public void UncompleteEvent(int index) {
-        activityManager.unCompleteEvent(index);
-        updateFilteredListToShowAll();
-        indicateActivityManagerChanged();
-    }
     
-    //@@author: A0139164A
+    //@@author A0139164A
     /**
      * Methods for editting Activity's name
      * @throws IllegalValueException 
@@ -242,9 +230,10 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateActivityManagerChanged();
     }
-
+    
+    //@@author A0146752B
     @Override
-    public synchronized void deleteTask(ReadOnlyActivity target) throws TaskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyActivity target) throws ActivityNotFoundException {
         activityManager.removeTask(target);
         indicateActivityManagerChanged();
     }
@@ -257,7 +246,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void deleteFloatingTask(ReadOnlyActivity target) throws TaskNotFoundException {
+    public synchronized void deleteFloatingTask(ReadOnlyActivity target) throws ActivityNotFoundException {
         activityManager.removeFloatingTask(target);
         indicateActivityManagerChanged();
     }
@@ -270,7 +259,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void deleteEvent(ReadOnlyActivity target) throws TaskNotFoundException {
+    public synchronized void deleteEvent(ReadOnlyActivity target) throws ActivityNotFoundException {
         activityManager.removeEvent(target);
         indicateActivityManagerChanged();
     }
@@ -375,7 +364,7 @@ public class ModelManager extends ComponentManager implements Model {
             this.nameKeyWords = nameKeyWords;
         }
 
-        //@@author: A0139277U
+        //@@author A0139277U
         @Override
         public boolean run(ReadOnlyActivity activity) {
         	String activityKeyWords;

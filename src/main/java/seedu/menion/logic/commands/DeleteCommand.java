@@ -8,8 +8,9 @@ import seedu.menion.model.activity.Activity;
 import seedu.menion.model.activity.ReadOnlyActivity;
 import seedu.menion.model.activity.UniqueActivityList;
 import seedu.menion.model.activity.UniqueActivityList.DuplicateTaskException;
-import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 
+//@@author A0146752B
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
@@ -19,8 +20,10 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the activity identified by the activity type followed by the index number used in the last activity listing.\n"
-            + "Parameters: ACTIVITY_TYPE(task,event,floatingTask) INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " floating" + " 1";
+            + "Parameters: ACTIVITY_TYPE(task,event,floating) INDEX (must be a positive integer)\n"
+            + "Example: " + COMMAND_WORD + " floating" + " 1"
+            + "Example: " + COMMAND_WORD + " task" + " 2"
+            + "Example: " + COMMAND_WORD + " event" + " 3";
 
     public static final String MESSAGE_DELETE_ACTIVITY_SUCCESS = "Deleted Activity: %1$s";
 
@@ -31,7 +34,7 @@ public class DeleteCommand extends Command {
     
     public DeleteCommand(String targetType, int targetIndex) {
         this.targetIndex = targetIndex;
-        this.targetType = targetType;
+        this.targetType = targetType.trim();
     }
 
 
@@ -42,14 +45,13 @@ public class DeleteCommand extends Command {
     	storePreviousState();
     	
         UnmodifiableObservableList<ReadOnlyActivity> lastShownList;
-
-        if (targetType.equals(" task")) {
+        if (targetType.equals(Activity.TASK_TYPE)) {
             lastShownList = model.getFilteredTaskList();
         }
-        else if (targetType.equals(" floatingTask")) {
+        else if (targetType.equals(Activity.FLOATING_TASK_TYPE)) {
             lastShownList = model.getFilteredFloatingTaskList();
         }
-        else if (targetType.equals(" event")) {
+        else if (targetType.equals(Activity.EVENT_TYPE)) {
             lastShownList = model.getFilteredEventList();
         }
         else {
@@ -66,16 +68,16 @@ public class DeleteCommand extends Command {
         toBeDeleted = (Activity)activityToDelete;
     	
         try {
-            if (targetType.equals(" task")){
+            if (targetType.equals(Activity.TASK_TYPE)){
                 model.deleteTask(activityToDelete);
             }
-            else if (targetType.equals(" event")){
+            else if (targetType.equals(Activity.EVENT_TYPE)){
                 model.deleteEvent(activityToDelete);
             }
             else {
                 model.deleteFloatingTask(activityToDelete);
             }
-        } catch (TaskNotFoundException pnfe) {
+        } catch (ActivityNotFoundException pnfe) {
             assert false : "The target activity cannot be missing";
         }
 

@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-//@@author: A0139277U
+//@@author A0139277U
 public class AddParser {
 
 	public AddParser() {
@@ -29,7 +29,7 @@ public class AddParser {
 	
 	private static final String REGULAR_TASK = "task";
 	private static final String EVENTS = "event";
-	private static final String FLOATING_TASK = "floatingTask";
+	private static final String FLOATING_TASK = "floating";
 	private static final String DATE_FORMAT = "dd-MM-yyyy";
 	private static final String MESSAGE_WRONG_ADD_FORMAT = "You have input the wrong add format.";
 

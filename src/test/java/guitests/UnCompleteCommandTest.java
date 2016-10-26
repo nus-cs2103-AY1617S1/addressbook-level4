@@ -1,13 +1,16 @@
 package guitests;
 
+import static seedu.menion.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.menion.logic.commands.UnCompleteCommand.MESSAGE_UNCOMPLETED_ACTIVITY_SUCCESS;
 import org.junit.Test;
 
 import guitests.guihandles.FloatingTaskCardHandle;
 import guitests.guihandles.TaskCardHandle;
-import seedu.address.testutil.TestActivity;
 import seedu.menion.commons.core.Messages;
+import seedu.menion.logic.commands.CompleteCommand;
+import seedu.menion.logic.commands.UnCompleteCommand;
 import seedu.menion.model.activity.Activity;
+import seedu.menion.testutil.TestActivity;
 
 //@@author A0139164A
 public class UnCompleteCommandTest extends ActivityManagerGuiTest {
@@ -40,6 +43,9 @@ public class UnCompleteCommandTest extends ActivityManagerGuiTest {
         // Runs uncomplete command on empty list
         commandBox.runCommand("clear");
         assertInvalidIndex(activityToUncomplete, 1);
+        
+        // Runs uncomplete without index
+        assertMissingIndex();
     }
     
     /**
@@ -80,5 +86,10 @@ public class UnCompleteCommandTest extends ActivityManagerGuiTest {
     private void assertInvalidIndex(TestActivity activityToUncomplete, int index) {
         commandBox.runCommand(activityToUncomplete.getUncompleteCommand(index));
         assertResultMessage(Messages.MESSAGE_INVALID_ACTIVITY_DISPLAYED_INDEX);
+    }
+    
+    private void assertMissingIndex() {
+        commandBox.runCommand("uncomplete task");
+        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnCompleteCommand.INDEX_MISSING_MESSAGE));
     }
 }

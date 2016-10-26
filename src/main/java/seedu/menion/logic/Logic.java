@@ -14,7 +14,8 @@ public interface Logic {
      * @return the result of the command execution.
      */
     CommandResult execute(String commandText);
-
+    
+    //@@author A0146752B
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyActivity> getFilteredTaskList();
     
@@ -23,5 +24,5 @@ public interface Logic {
     
     /** Returns the filtered list of events */
     ObservableList<ReadOnlyActivity> getFilteredEventList();
-
+    //@@author
 }

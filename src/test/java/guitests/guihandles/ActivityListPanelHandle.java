@@ -6,10 +6,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.testutil.TestActivity;
-import seedu.address.testutil.TestUtil;
 import seedu.menion.model.activity.ReadOnlyActivity;
+import seedu.menion.testutil.TestActivity;
+import seedu.menion.testutil.TestUtil;
+import seedu.menion.TestApp;
 import seedu.menion.model.activity.Activity;
 
 import java.util.List;
@@ -288,7 +288,6 @@ public class ActivityListPanelHandle extends GuiHandle {
      */
     public TaskCardHandle navigateToTask(ReadOnlyActivity task) {
         int index = getTaskIndex(task);
-        System.out.println("index = " + index);
         guiRobot.interact(() -> {
             getTaskListView().scrollTo(index);
             guiRobot.sleep(150);
@@ -304,7 +303,6 @@ public class ActivityListPanelHandle extends GuiHandle {
      */
     public FloatingTaskCardHandle navigateToFloatingTask(ReadOnlyActivity floatingTask) {
         int index = getFloatingTaskIndex(floatingTask);
-        System.out.println("index = " + index);
         guiRobot.interact(() -> {
             getFloatingTaskListView().scrollTo(index);
             guiRobot.sleep(150);
@@ -335,7 +333,6 @@ public class ActivityListPanelHandle extends GuiHandle {
      */
     public int getTaskIndex(ReadOnlyActivity targetTask) {
         List<ReadOnlyActivity> activitiesInList = getTaskListView().getItems();
-        System.out.println("activities in list: " + activitiesInList.get(0).toString());
         for (int i = 0; i < activitiesInList.size(); i++) {
             if(activitiesInList.get(i).getActivityName().equals(targetTask.getActivityName())){
                 return i;
@@ -362,7 +359,6 @@ public class ActivityListPanelHandle extends GuiHandle {
      */
     public int getEventIndex(ReadOnlyActivity targetEvent) {
         List<ReadOnlyActivity> activitiesInList = getEventListView().getItems();
-        System.out.println("activities in list: " + activitiesInList.get(0).toString());
         for (int i = 0; i < activitiesInList.size(); i++) {
             if(activitiesInList.get(i).getActivityName().equals(targetEvent.getActivityName())){
                 return i;

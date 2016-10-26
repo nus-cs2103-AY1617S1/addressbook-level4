@@ -5,11 +5,11 @@ import seedu.menion.commons.util.DateChecker;
 import seedu.menion.model.ActivityManager;
 import seedu.menion.model.ReadOnlyActivityManager;
 import seedu.menion.model.activity.*;
-import seedu.menion.model.activity.UniqueActivityList.TaskNotFoundException;
+import seedu.menion.model.activity.UniqueActivityList.ActivityNotFoundException;
 
 import java.util.ArrayList;
 
-
+//@@author A0139515A
 /**
  * Adds a task to the task manager.
  */
@@ -17,7 +17,6 @@ public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
 
-    //@@author A0139515A
     public static final String MESSAGE_USAGE = "Make sure the date is a valid date. If not the date will be set to today. \n" + 
     		"Adding a Floating Task: "+ COMMAND_WORD + " buy lunch n: hawker food\n"
             + "Adding a Task: "+ COMMAND_WORD + " complete cs2103t by: 10-08-2016 1900 n: must complete urgent\n"
@@ -27,7 +26,6 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "Oh no! This activity already exists in the Menion";
 
     private final Activity toAdd;
-    public final EventStub eventStub = null;
 
     private ActivityName name;
     private ActivityDate startDate;
@@ -70,7 +68,8 @@ public class AddCommand extends Command {
             this.toAdd = new Activity(activityType, name, note, startDate, startTime, endDate, endTime, status);
         }
     }
-
+    
+    //@@author A0146752B
     @Override
     public CommandResult execute() {
     	assert model != null;
@@ -78,10 +77,10 @@ public class AddCommand extends Command {
     	storePreviousState();
     	
         try {
-            if (toAdd.getActivityType().equals("task")){
+            if (toAdd.getActivityType().equals(Activity.TASK_TYPE)){
                 model.addTask(toAdd);
             }
-            else if (toAdd.getActivityType().equals("event")){
+            else if (toAdd.getActivityType().equals(Activity.EVENT_TYPE)){
                 model.addEvent(toAdd);
             }
             else {

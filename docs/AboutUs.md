@@ -14,21 +14,21 @@ Responsibilities: Product Functionality
 #### [Brehmer Chan Xi Quan](https://github.com/BrehmerChan)
 <img src="images/Brehmer.jpg" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Logic
+Responsibilities: Logic/Model
 
 -----
 
 #### [Low Jun Cheng Marx](https://github.com/marxlow)
 <img src="images/Marx.png" width="150"><br>
 Role: Developer <br>  
-Responsibilities: UI / UX
+Responsibilities: Testing/Activity Model
 
 -----
 
 #### [Seow Wei Jie](https://github.com/weijieseow)
 <img src="images/Weijie.png" width="150"><br>
 Role: Developer <br>  
-Responsibilities: Testing
+Responsibilities: UI / UX
 
 -----
 

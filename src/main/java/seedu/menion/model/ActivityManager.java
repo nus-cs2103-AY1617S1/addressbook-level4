@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the task manager level
  * Duplicates are not allowed (by .equals comparison)
  */
+//@@author A0146752B
 public class ActivityManager implements ReadOnlyActivityManager {
 
     private final UniqueActivityList tasks;
@@ -109,6 +110,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public void addTask(Activity t) throws UniqueActivityList.DuplicateTaskException {
         //syncTagsWithMasterList(t);
         tasks.add(t);
+        Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
     
     /**
@@ -122,6 +124,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public void addFloatingTask(Activity t) throws UniqueActivityList.DuplicateTaskException {
         //syncTagsWithMasterList(t);
         floatingTasks.add(t);
+        Collections.sort(floatingTasks.getInternalList(), new FloatingTaskComparator());
     }
     
     
@@ -136,9 +139,11 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public void addEvent(Activity t) throws UniqueActivityList.DuplicateTaskException {
         //syncTagsWithMasterList(t);
         events.add(t);
+        Collections.sort(events.getInternalList(), new EventComparator());
     }
+    //@@author A0146752B
     
-    //@@author: A0139164A
+    //@@author A0139164A
     /**
      * Methods, Completes an activity in the activity manager.
      * Passes in the index of the list to complete
@@ -149,21 +154,16 @@ public class ActivityManager implements ReadOnlyActivityManager {
         Activity dub;
         dub = tasks.getInternalList().get(index);
         dub.setCompleted();
-        tasks.getInternalList().set(index, dub);        
-    }
-    
-    public void completeEvent(int index) {
-        Activity dub;
-        dub = events.getInternalList().get(index);
-        dub.setCompleted();
-        events.getInternalList().set(index, dub);     
+        tasks.getInternalList().set(index, dub);  
+        Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
 
     public void completeFloatingTask(int index) {
         Activity dub;
         dub = floatingTasks.getInternalList().get(index);
         dub.setCompleted();
-        floatingTasks.getInternalList().set(index, dub);    
+        floatingTasks.getInternalList().set(index, dub);  
+        Collections.sort(floatingTasks.getInternalList(), new FloatingTaskComparator());
     }
     
     /**
@@ -175,21 +175,16 @@ public class ActivityManager implements ReadOnlyActivityManager {
         Activity dub;
         dub = floatingTasks.getInternalList().get(index);
         dub.setUncompleted();
-        floatingTasks.getInternalList().set(index, dub);    
+        floatingTasks.getInternalList().set(index, dub);
+        Collections.sort(floatingTasks.getInternalList(), new FloatingTaskComparator());
     }
     
     public void unCompleteTask(int index) {
         Activity dub;
         dub = tasks.getInternalList().get(index);
         dub.setUncompleted();
-        tasks.getInternalList().set(index, dub);        
-    }
-    
-    public void unCompleteEvent(int index) {
-        Activity dub;
-        dub = events.getInternalList().get(index);
-        dub.setUncompleted();
-        events.getInternalList().set(index, dub);        
+        tasks.getInternalList().set(index, dub); 
+        Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
     
     /**
@@ -202,14 +197,16 @@ public class ActivityManager implements ReadOnlyActivityManager {
         Activity dub;
         dub = floatingTasks.getInternalList().get(index);
         dub.setActivityName(changes);
-        floatingTasks.getInternalList().set(index, dub);   
+        floatingTasks.getInternalList().set(index, dub);
+        Collections.sort(floatingTasks.getInternalList(), new FloatingTaskComparator());
     }
     
     public void editTaskName(int index, String changes) throws IllegalValueException {
         Activity dub;
         dub = tasks.getInternalList().get(index);
         dub.setActivityName(changes);
-        tasks.getInternalList().set(index, dub);   
+        tasks.getInternalList().set(index, dub); 
+        Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
     
     public void editEventName(int index, String changes) throws IllegalValueException {
@@ -217,6 +214,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         dub = events.getInternalList().get(index);
         dub.setActivityName(changes);
         events.getInternalList().set(index, dub);   
+        Collections.sort(events.getInternalList(), new EventComparator());
     }
     
     /**
@@ -267,6 +265,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         
         dub.setActivityStartDateTime(newDate, newTime);
         tasks.getInternalList().set(index, dub);
+        Collections.sort(tasks.getInternalList(), new TaskComparator());
     }
 
     public void editEventStartDateTime(int index, String newDate, String newTime) throws IllegalValueException {
@@ -284,6 +283,7 @@ public class ActivityManager implements ReadOnlyActivityManager {
         
         dub.setActivityStartDateTime(newDate, newTime);
         events.getInternalList().set(index, dub);
+        Collections.sort(events.getInternalList(), new EventComparator());
     }
     
     public void editEventEndDateTime(int index, String newDate, String newTime) throws IllegalValueException {    
@@ -301,30 +301,31 @@ public class ActivityManager implements ReadOnlyActivityManager {
         dub.setActivityEndDateTime(newDate, newTime);
         events.getInternalList().set(index, dub);
     }
-
-    public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    
+    //@@author A0146752B
+    public boolean removeTask(ReadOnlyActivity key) throws UniqueActivityList.ActivityNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueActivityList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
     
     
-    public boolean removeFloatingTask(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    public boolean removeFloatingTask(ReadOnlyActivity key) throws UniqueActivityList.ActivityNotFoundException {
         if (floatingTasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueActivityList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
     
     
-    public boolean removeEvent(ReadOnlyActivity key) throws UniqueActivityList.TaskNotFoundException {
+    public boolean removeEvent(ReadOnlyActivity key) throws UniqueActivityList.ActivityNotFoundException {
         if (events.remove(key)) {
             return true;
         } else {
-            throw new UniqueActivityList.TaskNotFoundException();
+            throw new UniqueActivityList.ActivityNotFoundException();
         }
     }
     
@@ -377,15 +378,15 @@ public class ActivityManager implements ReadOnlyActivityManager {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ActivityManager // instanceof handles nulls
-                && this.tasks.equals(((ActivityManager) other).tasks));
-                //&& this.floatingTasks.equals(((ActivityManager) other).floatingTasks)
-                //&& this.events.equals(((ActivityManager) other).events);
+                && this.tasks.equals(((ActivityManager) other).tasks)
+                && this.floatingTasks.equals(((ActivityManager) other).floatingTasks)
+                && this.events.equals(((ActivityManager) other).events));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks);
-        //return Objects.hash(tasks, tags, floatingTasks, events);
+        //return Objects.hash(tasks);
+        return Objects.hash(tasks, floatingTasks, events);
     }
 }

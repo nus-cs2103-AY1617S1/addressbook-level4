@@ -5,11 +5,11 @@ import guitests.guihandles.FloatingTaskCardHandle;
 import guitests.guihandles.TaskCardHandle;
 import org.junit.Test;
 
-import seedu.address.testutil.TestActivity;
-import seedu.address.testutil.TestUtil;
 import seedu.menion.commons.core.Messages;
 import seedu.menion.logic.commands.AddCommand;
 import seedu.menion.model.activity.Activity;
+import seedu.menion.testutil.TestActivity;
+import seedu.menion.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 

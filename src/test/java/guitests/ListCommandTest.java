@@ -4,11 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import seedu.address.testutil.ActivityManagerBuilder;
-import seedu.address.testutil.Activitybuilder;
-import seedu.address.testutil.TestActivity;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestActivities;
 import seedu.menion.commons.exceptions.IllegalValueException;
 import seedu.menion.logic.commands.ListCommand;
 import seedu.menion.model.ActivityManager;
@@ -17,9 +12,14 @@ import seedu.menion.model.activity.ActivityDate;
 import seedu.menion.model.activity.ActivityName;
 import seedu.menion.model.activity.ActivityTime;
 import seedu.menion.model.activity.Note;
+import seedu.menion.testutil.ActivityManagerBuilder;
+import seedu.menion.testutil.Activitybuilder;
+import seedu.menion.testutil.TestActivity;
+import seedu.menion.testutil.TestUtil;
+import seedu.menion.testutil.TypicalTestActivities;
 import seedu.menion.model.activity.*;
 
-//@@author : A0139277U
+//@@author A0139277U
 public class ListCommandTest extends ActivityManagerGuiTest {
 	
 	private TestActivity testTask1, testTask2, testEvent1, testEvent2, testFloating1, testFloating2;
@@ -68,7 +68,7 @@ public class ListCommandTest extends ActivityManagerGuiTest {
 		TestActivity[] expectedTaskListDate1 = new TestActivity[1];
 		expectedTaskListDate1[0] = testTask1;
 		TestActivity[] expectedEventListDate1 = new TestActivity[1];
-		expectedEventListDate1[0] = testEvent2;
+		expectedEventListDate1[0] = testEvent1;
 		assertTrue(activityListPanel.isTaskListMatching(expectedTaskListDate1));
 		assertTrue(activityListPanel.isEventListMatching(expectedEventListDate1));
 		assertTrue(activityListPanel.isFloatingTaskListMatching());
@@ -83,7 +83,7 @@ public class ListCommandTest extends ActivityManagerGuiTest {
 		TestActivity[] expectedTaskListMonth1 = new TestActivity[1];
 		expectedTaskListMonth1[0] = testTask2;
 		TestActivity[] expectedEventListMonth1 = new TestActivity[1];
-		expectedEventListMonth1[0] = testEvent1;
+		expectedEventListMonth1[0] = testEvent2;
 		assertTrue(activityListPanel.isTaskListMatching(expectedTaskListMonth1));
 		assertTrue(activityListPanel.isEventListMatching(expectedEventListMonth1));
 		assertTrue(activityListPanel.isFloatingTaskListMatching());
@@ -109,20 +109,20 @@ public class ListCommandTest extends ActivityManagerGuiTest {
 	private void generateActivitiesForList(ActivityManager testActivityManager) {
 		
 		try {
-			testTask1 = new TestActivity("task", new ActivityName("cs2103t"), new Note("This is difficult"),
+			testTask1 = new TestActivity(Activity.TASK_TYPE, new ActivityName("cs2103t"), new Note("This is difficult"),
 					new ActivityDate("18-08-2016"), new ActivityTime("1900"),
 					new Completed(Completed.UNCOMPLETED_ACTIVITY));
 			
-			testTask2 = new TestActivity("task", new ActivityName("cs2106"), new Note("This is even more difficult"),
+			testTask2 = new TestActivity(Activity.TASK_TYPE, new ActivityName("cs2106"), new Note("This is even more difficult"),
 					new ActivityDate("20-10-2016"), new ActivityTime("1900"),
 					new Completed(Completed.UNCOMPLETED_ACTIVITY));
 			
-			testEvent1 = new TestActivity("event", new ActivityName("meet prof"), new Note("be prepared"),
-					new ActivityDate("20-10-2016"), new ActivityTime("1900"), new ActivityDate("24-10-2016"),
+			testEvent1 = new TestActivity(Activity.EVENT_TYPE, new ActivityName("eat dinner"), new Note("bring money"),
+					new ActivityDate("18-08-2016"), new ActivityTime("1900"), new ActivityDate("18-08-2016"),
 					new ActivityTime("2015"), new Completed(Completed.UNCOMPLETED_ACTIVITY));
 			
-			testEvent2 = new TestActivity("event", new ActivityName("eat dinner"), new Note("bring money"),
-					new ActivityDate("18-08-2016"), new ActivityTime("1900"), new ActivityDate("18-08-2016"),
+			testEvent2 = new TestActivity(Activity.EVENT_TYPE, new ActivityName("meet prof"), new Note("be prepared"),
+					new ActivityDate("20-10-2016"), new ActivityTime("1900"), new ActivityDate("24-10-2016"),
 					new ActivityTime("2015"), new Completed(Completed.UNCOMPLETED_ACTIVITY));
 			
 			testFloating1 = new TestActivity(Activity.FLOATING_TASK_TYPE, new ActivityName("Must do cs2103t"),

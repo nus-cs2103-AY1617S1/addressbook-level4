@@ -39,9 +39,8 @@ public interface ReadOnlyActivity {
     
     void setActivityDetails();
     
-
+    //@@author A0139164A
     /**
-     * @author Marx Low A0139164A
      * Methods to set the Activity's Param 
      * @param the String of the new change to make.
      */
@@ -148,8 +147,4 @@ public interface ReadOnlyActivity {
                 .append(getActivityStatus().toString());
         return builder.toString();
     }
-
-
-
-    
 }

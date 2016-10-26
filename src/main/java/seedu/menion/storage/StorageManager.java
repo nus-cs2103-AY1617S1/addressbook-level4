@@ -59,8 +59,8 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveActivityManager(ReadOnlyActivityManager addressBook) throws IOException {
-        activityManagerStorage.saveActivityManager(addressBook, activityManagerStorage.getActivityManagerFilePath());
+    public void saveActivityManager(ReadOnlyActivityManager activityManager) throws IOException {
+        activityManagerStorage.saveActivityManager(activityManager, activityManagerStorage.getActivityManagerFilePath());
     }
 
 
