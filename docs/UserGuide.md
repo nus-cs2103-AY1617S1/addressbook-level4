@@ -239,6 +239,7 @@ Examples:
 * `find Haircut`
 
 > <img src="images/Find.png" width="600">
+
 <br><br>
 
 #### <a id="saveas"></a>Setting save directory : `saveas`
@@ -252,6 +253,7 @@ Example:
 * `saveas Jimi_tasks.xml`
 
 > <img src="images/SaveAs.png" width="600">
+
 <br><br>
 
 #### <a id="clear"></a>Clearing all entries : `clear`
@@ -260,6 +262,7 @@ Format: `clear`
 > If you want to undo your clear, use the [`undo`](#undo) command.
 
 > <img src="images/Clear.png" width="600">
+
 <br><br>
 
 #### <a id="exit"></a>Exiting the program : `exit`
