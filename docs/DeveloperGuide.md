@@ -546,18 +546,24 @@ Day:
 1g. Locations added when creating events are automatically shown in google/apple map when clicked. <br>
 1h. Automatically syncs with apple calendar, updates and syncs on the go. <br>
 
-2. **Google Cal**
+## Google Cal
+##### Strengths
+1. It has CRUD features. <br>
+2. It can link to external applications such as Gmail and Contacts. <br>
+3. It has cross-platform features.<br>
+4. It has a reminder function.<br>
+5. It can support multiple accounts in one device.<br>
+6. It can create Event, Reminder or Goal.<br>
+7. All task created are automatically grouped and colour coded.<br>
+8. Clean and simple UI.<br>
+9. It can be used online or offline.<br>
+10. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
 
-2a. It has CRUD features. <br>
-2b. It can link to external applications such as Gmail and Contacts. <br>
-2c. It has cross-platform features.<br>
-2d. It has a reminder function.<br>
-2e. It can support multiple accounts in one device.<br>
-2f. It can create Event, Reminder or Goal.<br>
-2g. All task created are automatically grouped and colour coded.<br>
-2h Clean and simple UI.<br>
-3i. It can be used online or offline.<br>
-3j. It has different kind of viewing options such as Day, 3-day, Week and Month.<br>
+##### Weaknesses
+1. It is not keyboard friendly.<br>
+2. It requires user to have a google account to use it.<br>
+3. It does not have a done function.<br>
+4. It has a steep learning curve.<br>
 
 ### Any.do
 ##### Strengths
