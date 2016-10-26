@@ -217,8 +217,8 @@ Format: `edit INDEX NEW_DETAILS`
 Converting To | What to Type for `NEW_DETAILS`| Examples
 -------- | :-------- | :--------
 Floating Task | float | edit e1 float
-Deadline Task | ["NEW_TASK_DETAILS"] due NEW_DATETIME [t/TAG] [p/PRIORITY] | edit e3 due tomorrow [p/HIGH]
-Event | ["NEW_TASK_DETAILS"] on NEW_START_DATETIME [to NEW_END_DATETIME] [t/TAG] [p/PRIORITY] | edit t1 "skip CS2103 lecture" on 29 oct [t/IMPT]
+Deadline Task | ["NEW_TASK_DETAILS"] due NEW_DATETIME [t/NEW_TAG] [p/NEW_PRIORITY] | edit e3 due tomorrow [p/HIGH]
+Event | ["NEW_TASK_DETAILS"] on NEW_START_DATETIME [to NEW_END_DATETIME] [t/NEW_TAG] [p/NEW_PRIORITY] | edit t1 "skip CS2103 lecture" on 29 oct [t/IMPT]
 
 > <img src="images/Edit.png" width="600">
 
