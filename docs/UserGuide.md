@@ -29,7 +29,7 @@ Welcome to WhatNow!
 
 <p align="center">
 
-<img src="images/ui_actual/Startup.png" width="600">
+<img src="images/UI_Actual/Startup.PNG" width="600"><br>
 
 Figure 1: GUI layout
 
@@ -65,7 +65,7 @@ Changes the data file storage location to C:\Users\user\Desktop
 
 <p align="center">
 
-<img src="images/ui_actual/change.png" width="600">
+<img src="images/UI_Actual/change.PNG" width="600"><br>
 
 Figure 2: The storage location is changed
 
@@ -87,7 +87,7 @@ Adds a Todo task "Buy choclate milk".
 
 <p align="center">
 
-<img src="images/ui_actual/addFloating.png" width="600">
+<img src="images/UI_Actual/addFloating.PNG" width="600"><br>
 
 Figure 3: A task without date and time specified added under Todo
 
@@ -113,7 +113,7 @@ Adds a Schedule task "Submit CS2101 User Guide" of medium priority on 12 Decembe
 
 <p align="center">
 
-<img src="images/ui_actual/addDeadline.png" width="600">
+<img src="images/UI_Actual/addDeadline.PNG" width="600"><br>
 
 Figure 4: A deadline task with date, time and priority specified added under Schedule tasks
 
@@ -121,11 +121,11 @@ Figure 4: A deadline task with date, time and priority specified added under Sch
 
 
 #### Adds an event to WhatNow
-Format: `add "DESCRIPTION" [every] DAY from TIME to TIME [t/TAG]�`
+Format: `add "DESCRIPTION" [every] DAY from TIME to TIME [t/TAG]...`
 
-Format: `add "DESCRIPTION" on [every] DATE/TIME/DATE-TIME [t/TAG]�`
+Format: `add "DESCRIPTION" on [every] DATE/TIME/DATE-TIME [t/TAG]...`
 
-Format: `add "DESCRIPTION" from DATE/TIME/DATE-TIME to DATE/TIME/DATE-TIME [t/TAG]�`
+Format: `add "DESCRIPTION" from DATE/TIME/DATE-TIME to DATE/TIME/DATE-TIME [t/TAG]...`
 > * The format for date must be day month year where year is optional. If no year is specified, it is assumed to be the current year.
 Eg: 10 Oct, 4 november, 11 August 2017, 12/12/2016.
 * If no date is specified, it is assumed to be today.
@@ -134,16 +134,16 @@ Eg: 10am, 6PM, 7.30pm, 7:30pm.
 * Tasks with date and time specified will be added to WhatNow as a deadline task and will be displayed under the header "Schedule".
 
 Examples:
-* `add �CS2016 Tutorial� every Tuesday from 12pm to 2.30pm t/medium`
+* `add "CS2016 Tutorial" every Tuesday from 12pm to 2.30pm t/medium`
 Adds a Schedule task "CS2106 Tutorial" of medium priority on every Tuesday from 12pm to 2.30pm.
-* `add �Drashti�s Birthday� every 30 Aug t/high`
-Adds a Schedule task "Drashti�s Birthday" of high priority every 30 Aug.
-* `add �Java Workshop� from 12/12/2016 8am to 15/12/2016 5pm t/high`
+* `add "Drashti's Birthday" every 30 Aug t/high`
+Adds a Schedule task "Drashti's Birthday" of high priority every 30 Aug.
+* `add "Java Workshop" from 12/12/2016 8am to 15/12/2016 5pm t/high`
 Adds a Schedule task "Java Workshop" of high priority from 12 December 2016 8am to 15 December 2016 5pm.
 
 <p align="center">
 
-<img src="images/ui_actual/addEvent.png" width="600">
+<img src="images/UI_Actual/addEvent.PNG" width="600"><br>
 
 Figure 5: An event task with period and priority added under Schedule tasks
 
@@ -167,7 +167,7 @@ Marks the 2nd Schedule task from the displayed list in WhatNow as completed.
 
 <p align="center">
 
-<img src="images/ui_actual/done.png" width="600">
+<img src="images/UI_Actual/done.PNG" width="600"><br>
 
 Figure 6: Display after a task is marked done
 
@@ -191,7 +191,7 @@ Returns the lists of all incomplete tasks.
 
 <p align="center">
 
-<img src="images/ui_actual/incomplete.png" width="600">
+<img src="images/UI_Actual/incomplete.PNG" width="600"><br>
 
 Figure 7: Display with ongoing task listed
 
@@ -203,7 +203,7 @@ Returns the lists of all incomplete and completed tasks.
 
 <p align="center">
 
-<img src="images/ui_actual/all.png" width="600">
+<img src="images/UI_Actual/all.PNG" width="600"><br>
 
 Figure 8: Display with all tasks listed
 
@@ -215,7 +215,7 @@ Returns the lists of all completed tasks.
 
 <p align="center">
 
-<img src="images/ui_actual/done.png" width="600">
+<img src="images/UI_Actual/done.PNG" width="600"><br>
 
 Figure 9: Display with all completed tasks listed
 
@@ -238,7 +238,7 @@ Deletes the 2nd Schedule task from the displayed list in WhatNow.
 
 <p align="center">
 
-<img src="images/ui_actual/delete.png" width="600">
+<img src="images/UI_Actual/delete.PNG" width="600"><br>
 
 Figure 10: Display after delete
 
@@ -263,7 +263,7 @@ Selects the 1st Schedule task from the displayed list and changes the date to 15
 
 <p align="center">
 
-<img src="images/ui_actual/update.png" width="600">
+<img src="images/UI_Actual/update.PNG" width="600"><br>
 
 Figure 11: Display after the update
 
@@ -281,7 +281,7 @@ Undo the previous action.
 
 <p align="center">
 
-<img src="images/ui_actual/undo.png" width="600">
+<img src="images/UI_Actual/undo.PNG" width="600"><br>
 
 Figure 12: Display after an update action is undone
 
@@ -299,7 +299,7 @@ Redo the previous action.
 
 <p align="center">
 
-<img src="images/ui_actual/redo.png" width="600">
+<img src="images/UI_Actual/redo.PNG" width="600"><br>
 
 Figure 13: Display after a redo is called after an undo
 
@@ -326,7 +326,7 @@ Returns any tasks having the description CS2101.
 
 <p align="center">
 
-<img src="images/ui_actual/find.png" width="600">
+<img src="images/UI_Actual/find.PNG" width="600"><br>
 
 Figure 14: Display result after find is executed
 
@@ -350,7 +350,7 @@ Format: `clear`
 
 <p align="center">
 
-<img src="images/ui_actual/clear.png" width="600">
+<img src="images/UI_Actual/clear.PNG" width="600"><br>
 
 Figure 15: Display cleared after command executed
 
@@ -371,7 +371,7 @@ A: Install the app in the other computer and overwrite the empty data file it cr
 ## Command Summary
 Command | Format
 -------- | :--------
-Add | `add "DESCRIPTION" [t/TAG]` <br> `add "DESCRIPTION" by TODAY/TOMORROW/DAY/DATE/TIME/DATE-TIME [every] [t/TAG]` <br> `add "DESCRIPTION" [every] DAY from TIME to TIME [t/TAG]�` <br> `add "DESCRIPTION" on [every] DATE/TIME/DATE-TIME [t/TAG]�` <br> `add "DESCRIPTION" from DATE/TIME/DATE-TIME to DATE/TIME/DATE-TIME [t/TAG]�`
+Add | `add "DESCRIPTION" [t/TAG]` <br> `add "DESCRIPTION" by TODAY/TOMORROW/DAY/DATE/TIME/DATE-TIME [every] [t/TAG]` <br> `add "DESCRIPTION" [every] DAY from TIME to TIME [t/TAG]...` <br> `add "DESCRIPTION" on [every] DATE/TIME/DATE-TIME [t/TAG]...` <br> `add "DESCRIPTION" from DATE/TIME/DATE-TIME to DATE/TIME/DATE-TIME [t/TAG]...`
 Change | `change location to PATH`
 Clear | `clear`
 Delete | `delete todo/schedule INDEX`
