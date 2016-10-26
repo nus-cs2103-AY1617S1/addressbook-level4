@@ -9,7 +9,7 @@ import seedu.savvytasker.model.task.RecurrenceType;
  * This class contains common parsing methods for parsing Task fields.
  */
 public class TaskFieldParser {
-    private DateParser dateParser;
+    protected final DateParser dateParser;
     
     public TaskFieldParser() {
         this.dateParser = new DateParser();

@@ -19,7 +19,7 @@ public class DateParser {
         private final boolean dateInferred;
         private final boolean timeInferred;
         
-        private InferredDate(Date inferredDateTime, boolean dateInferred, boolean timeInferred) {
+        public InferredDate(Date inferredDateTime, boolean dateInferred, boolean timeInferred) {
             this.inferredDateTime = inferredDateTime;
             this.dateInferred = dateInferred;
             this.timeInferred = timeInferred;
