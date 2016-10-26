@@ -195,6 +195,9 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
+    public TaskListPanel getSortedTaskListPanel() {
+        return this.sortedTaskListPanel;
+    }
 //    public void loadTaskPage(ReadOnlyTask task) {
 //        browserPanel.loadTaskPage(task);
 //    }
