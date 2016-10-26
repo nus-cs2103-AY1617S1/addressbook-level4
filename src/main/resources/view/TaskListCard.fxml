@@ -45,7 +45,7 @@
                         </HBox>
                   <Label fx:id="startDate" layoutX="25.0" layoutY="52.0" styleClass="cell_small_label" text="\$startDate">
                      <graphic>
-                        <Label styleClass="cell_medium_label" text="Start:">
+                        <Label fx:id="start" styleClass="cell_medium_label" text="Start:">
                            <padding>
                               <Insets left="5.0" right="5.0" />
                            </padding>
@@ -57,7 +57,7 @@
                   </Label>
                         <Label fx:id="endDate" styleClass="cell_small_label" text="\$endDate">
                      <graphic>
-                        <Label styleClass="cell_medium_label" text="End:">
+                        <Label fx:id="end" styleClass="cell_medium_label" text="End:">
                            <padding>
                               <Insets left="5.0" right="5.0" />
                            </padding>
