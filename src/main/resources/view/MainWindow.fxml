@@ -2,11 +2,13 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.jimi.ui.MainWindow">
@@ -37,16 +39,30 @@
             </VBox>
             <VBox maxWidth="-Infinity" minWidth="300.0" prefHeight="200.0" prefWidth="1000.0">
                <children>
-                  <AnchorPane fx:id="statusbarPlaceholder" />
-                  <VBox>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <AnchorPane fx:id="agendaPlaceholder" stylesheets="@DarkTheme.css">
-                           <padding>
-                              <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
-                           </padding>
-                        </AnchorPane>
+                        <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label fx:id="currentDateLabel" styleClass="label-bigdate" text="\$DATE_NOW">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="currentYearLabel" alignment="BOTTOM_LEFT" styleClass="label-smalldate" text="\$YEAR_NOW">
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </HBox>
                      </children>
-                  </VBox>
+                  </AnchorPane>
+                  <AnchorPane fx:id="statusbarPlaceholder" />
+                  <AnchorPane fx:id="agendaPlaceholder" stylesheets="@DarkTheme.css">
+                     <padding>
+                        <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                     </padding>
+                  </AnchorPane>
                   <AnchorPane maxHeight="300.0" minHeight="100.0" prefHeight="200.0" prefWidth="200.0">
                      <children>
                          <AnchorPane fx:id="resultDisplayPlaceholder" maxHeight="300.0" minHeight="100" styleClass="anchor-pane-with-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
