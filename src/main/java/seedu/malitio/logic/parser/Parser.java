@@ -144,9 +144,10 @@ public class Parser {
                         getTagsFromArgs(matcher.group("tagArguments"))
                         );
             } else if (hasStart ^ hasEnd) {
-                return new IncorrectCommand("Expecting start and end times\nExample: start 10032016 1200 end 10032016 1300");
+                return new IncorrectCommand("Expecting start and end times\nExample: start thursday 800 end thursday 900");
             } else if (!deadline.isEmpty() && hasStart || !deadline.isEmpty() && hasEnd) {
                 return new IncorrectCommand("Expecting either a duedate or start and end time.");
+
             }
             return new AddCommand(
                     name,

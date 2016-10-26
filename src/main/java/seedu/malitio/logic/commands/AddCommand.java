@@ -18,7 +18,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds a task to Malitio. Task name cannot contain \'/\'. \n"
             + "Parameters: NAME [by DEADLINE] [start STARTTIME end ENDTIME] [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Pay John $100 by 10112016 2359 t/oweMoney";
+            + " Pay John $100 by Oct 11 2359 t/oweMoney";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This floating task already exists in Malitio";
