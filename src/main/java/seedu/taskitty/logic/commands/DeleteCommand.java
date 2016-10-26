@@ -23,24 +23,28 @@ public class DeleteCommand extends Command {
     public static final String MESSAGE_USAGE = "This command deletes tasks from TasKitty, Meow!"
             + "\n[index] is the index eg. t1, d1, e1.";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Deleted" + " %1$s: %2$s\n";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS_HEADER = " %1$s" + " Tasks Deleted: ";
     
     private int categoryIndex;
     
     private int targetIndex;
+    
+    private boolean isInvalidIndex;
     
     private final List<Pair<Integer, Integer>> listOfIndexes;
     
     public DeleteCommand(List<Pair<Integer, Integer>> listOfIndexes) {
         assert listOfIndexes != null;
         this.listOfIndexes = listOfIndexes;
+        isInvalidIndex = false;
     }
 
     @Override
     public CommandResult execute() {
         
         ArrayList<ReadOnlyTask> listOfTaskToDelete = new ArrayList<ReadOnlyTask>();
-        StringBuilder resultMessageBuilder = new StringBuilder();
+        StringBuilder invalidIndexMessageBuilder = new StringBuilder(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": ");
+        StringBuilder resultMessageBuilder = new StringBuilder(String.format(MESSAGE_DELETE_TASK_SUCCESS_HEADER, listOfIndexes.size()));
         
         for (Pair<Integer, Integer> indexPair: listOfIndexes) {
             categoryIndex = indexPair.getKey();
@@ -48,18 +52,24 @@ public class DeleteCommand extends Command {
             assert categoryIndex >= 0 && categoryIndex < 3;
             
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model, categoryIndex); 
+            
             if (lastShownList.size() < targetIndex) {
-                indicateAttemptToExecuteIncorrectCommand();
-                model.removeUnchangedState();
-                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                isInvalidIndex = true;
+                invalidIndexMessageBuilder.append(Task.CATEGORIES[categoryIndex] + targetIndex + " ");
+                continue;
             }
             
             ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
             if (!listOfTaskToDelete.contains(taskToDelete)) {
                 listOfTaskToDelete.add(taskToDelete);
-                resultMessageBuilder.append(String.format(MESSAGE_DELETE_TASK_SUCCESS, 
-                        Task.CATEGORIES[categoryIndex], taskToDelete.toString()));
+                resultMessageBuilder.append(Task.CATEGORIES[categoryIndex] + targetIndex + " ");
             }                        
+        }
+        
+        if (isInvalidIndex) {
+            indicateAttemptToExecuteIncorrectCommand();
+            model.removeUnchangedState();
+            return new CommandResult(invalidIndexMessageBuilder.toString());
         }
         
         try {

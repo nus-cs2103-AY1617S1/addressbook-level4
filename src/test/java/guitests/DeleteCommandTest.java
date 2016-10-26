@@ -9,7 +9,7 @@ import seedu.taskitty.testutil.TestTask;
 import seedu.taskitty.testutil.TestTaskList;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.taskitty.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS;
+import static seedu.taskitty.logic.commands.DeleteCommand.MESSAGE_DELETE_TASK_SUCCESS_HEADER;
 
 //@@author A0139052L
 public class DeleteCommandTest extends TaskManagerGuiTest {
@@ -70,7 +70,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
         assertTrue(currentList.isListMatching(taskListPanel));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, Task.CATEGORIES[categoryIndex], taskToDelete));
+        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS_HEADER, Task.CATEGORIES[categoryIndex], taskToDelete));
     }
     
     /**
@@ -94,7 +94,7 @@ public class DeleteCommandTest extends TaskManagerGuiTest {
             commandText.append(targetIndexes[i] + " ");
             
             int categoryIndex = TaskUtil.getCategoryIndex(categories[i]);
-            resultMessage.append(String.format(MESSAGE_DELETE_TASK_SUCCESS, Task.CATEGORIES[categoryIndex], taskToDelete));
+            resultMessage.append(String.format(MESSAGE_DELETE_TASK_SUCCESS_HEADER, Task.CATEGORIES[categoryIndex], taskToDelete));
         }
         
         commandBox.runCommand(commandText.toString());

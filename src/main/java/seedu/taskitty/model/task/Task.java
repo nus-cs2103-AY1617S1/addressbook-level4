@@ -32,7 +32,7 @@ public class Task implements ReadOnlyTask, Comparable<Task> {
     public static final char TODO_CATEGORY_CHAR = 't';
     public static final char DEADLINE_CATEGORY_CHAR = 'd';
     public static final char EVENT_CATEGORY_CHAR = 'e';
-    public static final String[] CATEGORIES = {"Todo", "Deadline", "Event"};
+    public static final String[] CATEGORIES = {"t", "d", "e"};
 
     public static final int DEFAULT_CATEGORY_INDEX = 0;
     public static final int TODO_CATEGORY_INDEX = 0;
