@@ -11,6 +11,7 @@ import jym.manager.model.tag.UniqueTagList;
 import jym.manager.model.task.ReadOnlyTask;
 import jym.manager.model.task.Task;
 import jym.manager.model.task.UniqueTaskList;
+import jym.manager.model.task.UniqueTaskList.DuplicateTaskException;
 
 /**
  * Wraps all data at the task-manager level
@@ -19,10 +20,12 @@ import jym.manager.model.task.UniqueTaskList;
 public class TaskManager implements ReadOnlyTaskManager {
 
     private final UniqueTaskList tasks;
+    private final UniqueTaskList completedTasks;
     private final UniqueTagList tags;
 
     {
         tasks = new UniqueTaskList();
+        completedTasks = new UniqueTaskList();
         tags = new UniqueTagList();
     }
 
@@ -119,6 +122,15 @@ public class TaskManager implements ReadOnlyTaskManager {
     	tasks.update(oldTask, updatedTask);
     }
 
+    public boolean completeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    	if(tasks.remove(key)){
+    		completedTasks.add(new Task(key));
+    		completedTasks.forEach(t -> System.out.println("completed: " + t.getAsText()));
+    		return true;
+    	} else {
+    		throw new UniqueTaskList.TaskNotFoundException();
+    	}
+    }
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

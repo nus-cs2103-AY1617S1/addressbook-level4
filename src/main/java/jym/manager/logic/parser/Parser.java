@@ -43,7 +43,7 @@ public class Parser {
     private static final Pattern PERSON_DATA_ARGS_FORMAT_UPDATE = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<index>[\\d+]\\s)"
             		 + "(?<description>[^/]+)"
-            		 + " (by)?\\s(?<deadline>[^/]+)"
+  //          		 + " (by)?\\s(?<deadline>[^/]+)"
 //            		 + "(?: by\\s (?<deadline>( [^/]+)))?"
 //                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
 //                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
@@ -54,8 +54,7 @@ public class Parser {
     public Parser() {}
 
     public static LocalDateTime parseDate(String date){
-    	//this date parsing needs to be made neater and less all shoved into one method
-    	//TODO : CLEAN DIS SH*T UP
+    	
     	if(date == null || date.equals("no deadline")) return null;
     
     	com.joestelmach.natty.Parser p = new com.joestelmach.natty.Parser();
@@ -130,12 +129,17 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case CompleteCommand.COMMAND_WORD:
+        	return prepareComplete(arguments);
+        	
         default:
             return prepareAdd(commandWord.concat(arguments));
         }
     }
 
-    /**
+
+
+	/**
      * Parses arguments in the context of the add person command.
      *
      * @param args full command args string
@@ -148,15 +152,18 @@ public class Parser {
 //        if (!matcher.matches()) {
 //            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 //        }
-        System.out.println(matcher.groupCount());
-
+//        System.out.println(matcher.groupCount());
+        
         com.joestelmach.natty.Parser p = new com.joestelmach.natty.Parser();
     	List<DateGroup> dg = p.parse(args);
         String[] sections; //split around the time
+        
+        String priority = null;
         String date = null;
         String description = null;
         String location = null;
         LocalDateTime ldt = null;
+        
     	if(!dg.isEmpty() && dg.get(0) != null){
     		ldt = LocalDateTime.ofInstant(dg.get(0).getDates().get(0).toInstant(), ZoneId.systemDefault());
 
@@ -183,7 +190,10 @@ public class Parser {
     			location = sections[1];
     		}
     	}
-        
+        if(args.contains("priority")){
+        	String[] ps = args.split("\\spriority\\s");
+        	priority = ps[1];
+        }
 
         
         
@@ -264,20 +274,71 @@ public class Parser {
 
         return new DeleteCommand(index.get());
     }
-
+    /**
+     * Parse arguments in the context of the complete person command
+     */
+    private Command prepareComplete(String args) {
+    	Optional<Integer> index = parseIndex(args);
+    	if(!index.isPresent()){
+    		return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CompleteCommand.MESSAGE_USAGE));
+    		
+    	}
+    	
+    	return new CompleteCommand(index.get());
+	}
+    
     private Command prepareEdit(String args){
     	final Matcher matcher = PERSON_DATA_ARGS_FORMAT_UPDATE.matcher(args.trim());
     	 if (!matcher.matches()) {
              return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
          }
+    	 args = args.substring(args.indexOf(" ", 1));
+    	 System.out.println(args);
          LocalDateTime ldt = null;
-         if(matcher.group("deadline") != null){
-         	String date = matcher.group("deadline").trim();
-         	date.replaceAll("\\n", "");
-         	System.out.println(date);
-         	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm").withLocale(Locale.ENGLISH);
-         	ldt = LocalDateTime.parse(date, formatter);
+         com.joestelmach.natty.Parser p = new com.joestelmach.natty.Parser();
+     	List<DateGroup> dg = p.parse(args);
+         String[] sections; //split around the time
+         
+         String priority = null;
+         String date = null;
+         String description = null;
+         String location = null;
+         
+     	if(!dg.isEmpty() && dg.get(0) != null){
+     		ldt = LocalDateTime.ofInstant(dg.get(0).getDates().get(0).toInstant(), ZoneId.systemDefault());
+
+     		sections = args.split(dg.get(0).getText());
+     		if(sections.length > 1){
+             	location = sections[1];
+             	description = sections[0];
+             } else {
+             	String[] furtherSects = sections[0].split("\\sat\\s");//for location
+             	location = (furtherSects.length > 1)? furtherSects[1] : null;
+             	description = furtherSects[0];
+             }
+     		
+     		if(location != null && location.contains("at")){
+         		location = location.substring(4);
+         	}
+         	if(description.endsWith("by ")){
+         		description = description.split("\\sby\\s")[0];
+         	}
+     	} else {
+     		sections = args.split("\\sat\\s");
+     		description = sections[0];
+     		if(sections.length > 1){
+     			location = sections[1];
+     		}
+     	}
+         if(args.contains("priority")){
+         	String[] ps = args.split("\\spriority\\s");
+         	priority = ps[1];
          }
+
+         
+         System.out.println("desc:" + description + " " + location + " " + ldt);
+         
+         
          Optional<Integer> index = parseIndex(matcher.group("index"));
          if(!index.isPresent()){
              return new IncorrectCommand(
@@ -286,8 +347,9 @@ public class Parser {
          try {
              return new EditCommand(
                      index.get(),
-                     matcher.group("description"),
-                     ldt
+                     description,
+                     ldt,
+                     location
              );
          } catch (IllegalValueException ive) {
              return new IncorrectCommand(ive.getMessage());

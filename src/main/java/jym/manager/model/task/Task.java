@@ -17,6 +17,8 @@ import jym.manager.model.task.Priority;
  */
 public class Task extends TaskManagerItem implements ReadOnlyTask {
 
+	
+	
 	private Description descr;
 	private Location loc;
 	private Deadline dueDate;
@@ -77,7 +79,18 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
         this(source.getDescription(), source.getLocation(), source.getDate(), source.getPriority(), source.getTags());
     }
    
-
+    public Task update(ReadOnlyTask source){
+    	this.descr = source.getDescription();
+    	if(source.getLocation() != null){
+    		this.loc = source.getLocation();
+    	}
+    	if(source.getDate().hasDeadline()){
+    		this.dueDate = source.getDate();
+    	}
+    	
+    	return this;
+    }
+    
     public Task(Description description, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(description, tags);
         this.descr = description;
@@ -145,7 +158,21 @@ public class Task extends TaskManagerItem implements ReadOnlyTask {
 	public Complete getComplete() {
 		return this.compl;
 	}
-
+	public void setDescr(Description descr) {
+		this.descr = descr;
+	}
+	public void setLoc(Location loc) {
+		this.loc = loc;
+	}
+	public void setDueDate(Deadline dueDate) {
+		this.dueDate = dueDate;
+	}
+	public void setPri(Priority pri) {
+		this.pri = pri;
+	}
+	public void setCompl(Complete compl) {
+		this.compl = compl;
+	}
 
 
 

@@ -44,7 +44,7 @@ public class AddCommand extends Command {
         );
     }
     public AddCommand(String description, Object ... objects) throws IllegalValueException{
-    	if(objects.length > 3){//f**k in this case - this should never happen b/c we control parser.
+    	if(objects.length > 3){//f**k in this case - this should never happen b/c we control parser. max args is deadline, location, priority
     		throw new IllegalArgumentException();
     	}
 //      final Set<Tag> tagSet = new HashSet<>();

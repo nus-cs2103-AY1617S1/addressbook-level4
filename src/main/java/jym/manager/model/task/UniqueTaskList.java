@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 
 import java.util.*;
 
+import javax.swing.event.InternalFrameListener;
+
 import jym.manager.commons.exceptions.DuplicateDataException;
 import jym.manager.commons.util.CollectionUtil;
 
@@ -34,9 +36,9 @@ public class UniqueTaskList implements Iterable<Task> {
     public static class TaskNotFoundException extends Exception {}
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-
+    
     /**
-     * Constructs empty PersonList.
+     * Constructs empty TaskList.
      */
     public UniqueTaskList() {}
 
@@ -45,6 +47,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public boolean contains(ReadOnlyTask toCheck) {
         assert toCheck != null;
+        
         return internalList.contains(toCheck);
     }
 
@@ -53,7 +56,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(Task toAdd) {
         assert toAdd != null;
 //        if (contains(toAdd)) {
 //            throw new DuplicateTaskException();
@@ -84,7 +87,8 @@ public class UniqueTaskList implements Iterable<Task> {
     public void update(ReadOnlyTask toUpdate, Task updatedTask) throws TaskNotFoundException {
     	assert toUpdate != null;
     	int index = internalList.indexOf(toUpdate);
-    	internalList.set(index, updatedTask);
+    	internalList.get(index).update(updatedTask);
+    	internalList.set(index, (Task) toUpdate);
     }
     
     public ObservableList<Task> getInternalList() {

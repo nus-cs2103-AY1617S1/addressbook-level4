@@ -46,7 +46,18 @@ public class EditCommand extends Command {
 				newDeadline,
 				new UniqueTagList());
 		}
-	
+	 public EditCommand(int index, String description, Object ... objects) throws IllegalValueException{
+	    	if(objects.length > 3){//f**k in this case - this should never happen b/c we control parser.
+	    		throw new IllegalArgumentException();
+	    	}
+	    	this.targetIndex = index;
+//	      final Set<Tag> tagSet = new HashSet<>();
+//	      for (String tagName : tags) {
+//	          tagSet.add(new Tag(tagName));
+//	      }
+	   
+	    	this.toUpdate = new Task(new Description(description), objects);
+	    }
 
 	@Override
 	public CommandResult execute() {
@@ -58,15 +69,15 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
+        ReadOnlyTask taskToUpdate = lastShownList.get(targetIndex - 1);
 
         try {
-            model.updateTask(taskToDelete, toUpdate);
+            model.updateTask(taskToUpdate, toUpdate);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_UPDATE_TASK_SUCCESS, taskToUpdate));
 
 	}
 
