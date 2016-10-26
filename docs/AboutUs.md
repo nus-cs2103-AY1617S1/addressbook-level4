@@ -12,6 +12,7 @@ We are a team based in the [School of Computing, National University of Singapor
 -----
 
 #### [Nathanael Chan](https://github.com/nat1994)
+<img src="images/Nathanael.JPEG" width="150"><br>
  Role: Developer <br>
  Responsibility: Logic
  
@@ -25,6 +26,7 @@ We are a team based in the [School of Computing, National University of Singapor
 -----
 
 #### [Lu Hua]
+<img src="images/LuHua.JPEG" width="150"><br>
  Role: Developer <br>
  Responsibility: UI
  
