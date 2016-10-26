@@ -2,7 +2,6 @@ package seedu.todo.logic.parser;
 
 import com.google.common.base.Splitter;
 import com.google.common.collect.Lists;
-import javafx.application.Platform;
 import org.ocpsoft.prettytime.nlp.PrettyTimeParser;
 
 import java.util.*;
