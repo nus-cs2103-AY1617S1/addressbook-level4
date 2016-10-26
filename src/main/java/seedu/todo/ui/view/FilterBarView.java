@@ -103,7 +103,9 @@ public class FilterBarView extends UiPart {
         Label rightLabel = new Label(partitionedText[2]);
         ViewStyleUtil.addClassStyles(centreLabel, ViewStyleUtil.STYLE_UNDERLINE);
 
-        return new HBox(leftLabel, centreLabel, rightLabel);
+        HBox textContainer = new HBox(leftLabel, centreLabel, rightLabel);
+        textContainer.getStyleClass().add("viewFilterItem");
+        return textContainer;
     }
 
     /**

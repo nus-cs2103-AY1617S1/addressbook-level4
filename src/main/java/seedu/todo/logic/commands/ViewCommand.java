@@ -33,7 +33,11 @@ public class ViewCommand extends BaseCommand {
     }
     
     @Override
-    protected void validateArguments(){
+    protected void validateArguments() {
+        if (!view.hasBoundValue()) {
+            return;
+        }
+        
         TaskViewFilter[] viewArray = TaskViewFilter.all();
         String viewSpecified = view.getValue().trim().toLowerCase();
         

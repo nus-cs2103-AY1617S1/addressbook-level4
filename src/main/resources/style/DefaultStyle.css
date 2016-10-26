@@ -1,3 +1,5 @@
+@import "Fonts.css";
+
 /* @@author A0135805H */
 .main {
     -fx-background-color: #2D2D2D;
@@ -5,38 +7,38 @@
     -fx-border-width: 1px;
     -fx-padding: 12;
     -fx-spacing: 4;
+    -fx-font-family: "Roboto";
 }
 
 .text1 {
-    -fx-text-fill: #FFFFFF;
-    -fx-fill: #ffffff;
-    -fx-font-family: "Segoe UI Black";
+    -fx-text-fill: #f3f3f3;
+    -fx-fill: #f3f3f3;
+    -fx-font-family: "Roboto Bold";
     -fx-font-size: 17pt;
 }
 
 .text2 {
-    -fx-text-fill: #FFFFFF;
-    -fx-fill: #ffffff;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #f3f3f3;
+    -fx-fill: #f3f3f3;
+    -fx-font-family: "Roboto Medium";
     -fx-font-size: 15pt;
 }
 
 .text3 {
-    -fx-text-fill: #FFFFFF;
-    -fx-fill: #ffffff;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #f3f3f3;
+    -fx-fill: #f3f3f3;
+    -fx-font-family: "Roboto Medium";
     -fx-font-size: 13pt;
 }
 
 .text4 {
-    -fx-text-fill: #FFFFFF;
-    -fx-fill: #ffffff;
-    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #f3f3f3;
+    -fx-fill: #f3f3f3;
     -fx-font-size: 12pt;
 }
 
 .code {
-    -fx-font-family: "Consolas";
+    -fx-font-family: "Roboto Mono Medium";
 }
 
 .bolder {
@@ -78,8 +80,8 @@
 
 
 .commandFeedback{
-    -fx-text-fill: #FFFFFF;
-    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #f3f3f3;
+    -fx-font-family: "Roboto Medium";
     -fx-font-size: 12pt;
 }
 
@@ -88,7 +90,7 @@
 }
 
 .commandInput {
-    -fx-font-family: "Consolas";
+    -fx-font-family: "Roboto Mono Medium";
     -fx-font-size: 20px;
 }
 
@@ -99,36 +101,42 @@
 }
 
 .commandError {
-    -fx-text-fill: #FFFFFF;
-    -fx-font-family: "Segoe UI";
+    -fx-text-fill: #f3f3f3;
     -fx-font-size: 12pt;
     -fx-wrap-text: true;
 }
 
 .roundLabel {
-    -fx-background-radius: 10;
-    -fx-text-fill: #ffffff;
+    -fx-background-radius: 100;
+    -fx-text-fill: #f3f3f3;
     -fx-background-color: #2D2D2D;
     -fx-font-size: 10pt;
-    -fx-font-family: "Segoe UI Semilight";
 }
 
 /***View Filter Styles Start***/
-.viewFilter .label{
-    -fx-font-family: "Segoe UI";
+.viewFilter {
+    -fx-padding: -12 0 0 0;
+    -fx-hgap: -3;
+}
+
+.viewFilter .label {
+    -fx-font-family: "Roboto Bold";
     -fx-font-size: 14pt;
-    -fx-text-fill: #FFFFFF;
+    -fx-font-smoothing-type: gray;
+    -fx-text-fill: #ddd;
+}
+
+.viewFilter .viewFilterItem {
+    -fx-padding: 0 12 2;
 }
 
 .viewFilter .selected {
-    -fx-background-color: #FFFFFF;
+    -fx-background-color: #f3f3f3;
     -fx-background-radius: 100;
-    -fx-padding: 0 8 0 8;
 }
 
 .viewFilter .selected .label {
     -fx-text-fill: #2D2D2D;
-    -fx-font-family: "Segoe UI Semibold";
 }
 
 /*@@author A0135817B */
@@ -137,8 +145,8 @@
 }
 
 .searchStatus Text {
-    -fx-font-size: 14px;
-    -fx-fill: #fff;
+    -fx-font-size: 16px;
+    -fx-fill: #f3f3f3;
 }
 
 .searchStatus .searchLabel {
@@ -155,24 +163,40 @@
 /*@@author A0135805H */
 /***TaskCardView Styles Start***/
 /*Default and Base*/
+.taskCard {
+    primary-color: transparent;
+    font-color: #444;
+    selected-color: #00A4FF;
+    
+    -fx-border-width: 0 12 0 0;
+    -fx-border-color: primary-color;
+}
+
+.taskCard #dateBox {
+    -fx-background-color: primary-color;
+}
+
+.taskCard #dateBox .label {
+    -fx-text-fill: font-color; 
+}
+
 .taskCard .label {
-    -fx-font-smoothing-type: lcd;
+    -fx-text-fill: #444;
 }
 
 .taskCard .titleLabel {
     -fx-font-size: 16pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Roboto Medium";
 }
 
 .taskCard .descriptionLabel {
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI";
 }
 
 .taskCard .footnoteLabel {
     -fx-font-size: 10pt;
-    -fx-font-family: "Segoe UI Semilight";
     -fx-font-style: italic;
+    -fx-padding: 0 0 2 2;
 }
 
 .taskCard .highlightedBackground {
@@ -181,6 +205,11 @@
 
 .taskCard .lightBackground {
     -fx-background-color: #d2d2d2;
+}
+
+.taskCard .roundLabel {
+    -fx-text-fill: rgba(255, 255, 255, .9);
+    -fx-padding: 1 8 2;
 }
 
 .taskCard .pinImage {
@@ -202,8 +231,16 @@
 }
 
 /*Completed*/
-.completed .label{
-    -fx-text-fill: #7F7F7F;
+.completed {
+    -fx-opacity: 0.6;
+}
+
+.completed.selected {
+    -fx-opacity: 0.85;
+}
+
+.completed .label {
+    -fx-text-fill: font-color;
 }
 
 .completed .titleLabel .text {
@@ -211,8 +248,8 @@
 }
 
 .completed .roundLabel {
-    -fx-background-color: #7F7F7F;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: font-color;
+    -fx-text-fill: #fff;
 }
 
 .completed .pinImage {
@@ -227,86 +264,59 @@
     -fx-image: url("../images/location_grey.png");
 }
 
-/*Overdue*/
-.overdue {
-    -fx-background-color: #FF6464;
+/* Overdue and ongoing inverts their highlights their dateBox, so 
+   we add some padding to allow the */
+.overdue #dateBox, 
+.ongoing #dateBox {
+    -fx-padding: 3 8;
+    -fx-background-radius: 4;
 }
 
-.overdue .label {
-    -fx-text-fill: #FFFFFF;
-}
-
-.overdue .roundLabel {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #FF6464;
-}
-
-.overdue .pinImage {
-    -fx-image: url("../images/star_white.png");
-}
-
-.overdue .dateImage {
-    -fx-image: url("../images/clock_white.png");
-}
-
-.overdue .locationImage {
-    -fx-image: url("../images/location_white.png");
-}
-
-
-/*@@author A0092382A */
-/*Ongoing*/
-.ongoing {
-    -fx-background-color: #388E3C;
-}
-
-.ongoing .label {
-    -fx-text-fill: #FFFFFF;
-}
-
-.ongoing .roundLabel {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #388E3C;
-}
-
-.ongoing .pinImage {
-    -fx-image: url("../images/star_white.png");
-}
-
-.ongoing .dateImage {
-    -fx-image: url("../images/clock_white.png");
-}
-
-.ongoing .locationImage {
-    -fx-image: url("../images/location_white.png");
-}
-
-
-/* @@author A0135805H */
-/*Selected*/
-.selected {
-    -fx-background-color: #00A4FF;
-}
-
-.selected .label {
-    -fx-text-fill: #FFFFFF;
-}
-
-.selected .roundLabel {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #00A4FF;
-}
-
-.selected .pinImage {
-    -fx-image: url("../images/star_white.png");
-}
-
+.overdue .dateImage, 
+.ongoing .dateImage, 
 .selected .dateImage {
     -fx-image: url("../images/clock_white.png");
 }
 
+.overdue .locationImage,
+.ongoing .locationImage,
 .selected .locationImage {
     -fx-image: url("../images/location_white.png");
+}
+
+/*Overdue*/
+.overdue {
+    primary-color: #e53935;
+    selected-color: #b71c1c;
+    font-color: rgba(255, 255, 255, .92);
+}
+
+/*@@author A0092382A */
+/*Ongoing*/
+.ongoing {
+    primary-color: #689f38;
+    selected-color: #33691e;
+    font-color: rgba(255, 255, 255, .9);
+}
+
+/* @@author A0135805H */
+/*Selected*/
+.selected {
+    font-color: rgba(255, 255, 255, .9);
+    -fx-background-color: selected-color;
+}
+
+.selected .label {
+    -fx-text-fill: font-color;
+}
+
+.selected .roundLabel {
+    -fx-background-color: #fff;
+    -fx-text-fill: selected-color;
+}
+
+.selected .pinImage {
+    -fx-image: url("../images/star_white.png");
 }
 
 /*Collapse*/
@@ -331,7 +341,7 @@
     -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-family: "Roboto";
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
@@ -362,7 +372,7 @@
 
 .button:default {
     -fx-background-color: -fx-focus-color;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #fff;
 }
 
 .button:default:hover {

@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <VBox fx:id="taskCard" alignment="CENTER_LEFT" maxHeight="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="2.0" styleClass="taskCard" stylesheets="@../style/DefaultStyle.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -18,14 +17,8 @@
             <HBox alignment="CENTER_LEFT" spacing="8.0" styleClass="spacing">
                <children>
                   <Label fx:id="titleLabel" maxWidth="1.7976931348623157E308" styleClass="titleLabel" text="1. $Tasking Title$">
-                     <font>
-                        <Font name="Segoe UI Semibold" size="20.0" />
-                     </font>
                   </Label>
                   <Label fx:id="typeLabel" text="Event" textFill="WHITE">
-                     <font>
-                        <Font name="Segoe UI Semilight" size="16.0" />
-                     </font>
                      <padding>
                         <Insets left="8.0" right="8.0" />
                      </padding>
@@ -38,9 +31,6 @@
                      </styleClass>
                   </Label>
                   <Label fx:id="moreInfoLabel" text="•••" textFill="WHITE">
-                     <font>
-                        <Font name="Segoe UI Semilight" size="16.0" />
-                     </font>
                      <padding>
                         <Insets left="8.0" right="8.0" />
                      </padding>
@@ -75,9 +65,6 @@
                <HBox.margin>
                   <Insets />
                </HBox.margin>
-               <font>
-                  <Font name="Segoe UI" size="18.0" />
-               </font>
             </Label>
          </children>
          <VBox.margin>
@@ -92,7 +79,7 @@
             <Insets left="2.0" />
          </padding>
       </HBox>
-      <FlowPane hgap="16.0" styleClass="spacing">
+      <FlowPane hgap="8.0" styleClass="spacing">
          <children>
             <HBox fx:id="dateBox" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" styleClass="spacingSmall">
                <children>
@@ -102,9 +89,6 @@
                      </HBox.margin>
                   </ImageView>
                   <Label fx:id="dateLabel" maxHeight="1.7976931348623157E308" styleClass="footnoteLabel" text="from $date missing$">
-                     <font>
-                        <Font name="Segoe UI Italic" size="16.0" />
-                     </font>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>
@@ -122,9 +106,6 @@
                      </HBox.margin>
                   </ImageView>
                   <Label fx:id="locationLabel" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" styleClass="footnoteLabel" text="at $location missing$">
-                     <font>
-                        <Font name="Segoe UI Italic" size="16.0" />
-                     </font>
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

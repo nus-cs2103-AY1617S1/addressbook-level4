@@ -100,6 +100,11 @@ public class ViewCommandTest extends CommandTest {
         execute(false);
     }
     
+    @Test (expected = ValidationException.class)
+    public void testEmptyArgument() throws ValidationException {
+        execute(false);
+    }
+    
     @Test
     public void testViewCompleted() throws ValidationException {
         setParameter("completed");
