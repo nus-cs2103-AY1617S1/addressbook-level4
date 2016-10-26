@@ -95,6 +95,7 @@ public class CommandBox extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandTest));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
+        commandTextField.positionCaret(commandTextField.getText().length());
     }
 
     /**
