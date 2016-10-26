@@ -65,9 +65,24 @@ To add a priority, simply add a ! at the back of the command.***
 
 ####1.4 Add a tag / multiple tags
 
+You can add tag by adding a # at the end of the command for event, deadline or to-do.
+
+Example: Add [Sam's birthday party; 20/12/16; 9pm] #dontbelate  
+Example: Add complete report; 120916; 1900 #prayforuserguide    
+Example: Add go swimming #yolo #summerishere #waterforlife
+
+You can also add tag to an existing task.
+
 >Format: **Add** &lt;index&gt; #tag1 #tag2
 
 Example: Add E1 #win #victor #finally  
+
+####1.5 Add priority
+
+You can add priority by adding a ! at the end of the command for event, deadline or to-do in a similar format as that of adding tags.
+       
+Example: Add go swimming !
+
 
 ###2 Edit a task
 
@@ -149,7 +164,7 @@ Example: Edit T1 pri !
  
 ###3 Find Task by Keyword
 
-The find by partial keyword command enables you to search for any events, deadlines, to-dos that have been added to Simply. If the searched task is not found, an error message will be shown.
+The find by keyword command enables you to search for any events, deadlines, to-dos that have been added to Simply. If the searched task is not found, an error message will be shown.
 
 > Format: **Find** &lt;keyword&gt;
 
@@ -195,13 +210,13 @@ Done T1, T3
 
 The display command will display the completed tasks in their respective categories.
 
-> Format: Display completed
+> Format: list completed
 
 ####5.2 Display all tasks
 
 This is mainly used to return to the default screen showing all tasks.
 
-> Format: Display all
+> Format: list
 
 ###6 Undo the Most Recent Commands
 
