@@ -38,6 +38,7 @@ At this point, we know you are just as excited as we are [about Jimi](https://gi
 <br>
 <br>
 
+/* @@author A0148040R */
 ## Commands Summary
 Command | Format  
 -------- | :-------- 
@@ -86,6 +87,7 @@ Command | Format
 <br>
 <br>
 
+/* @@author A0143471L */
 ## Features
 
 
