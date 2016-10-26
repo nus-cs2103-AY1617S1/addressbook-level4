@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -17,8 +20,6 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-
-import java.util.logging.Logger;
 
 /**
  * The manager of the UI component.
@@ -114,8 +115,12 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
-        mainWindow.getUndatedListPanel().scrollTo(event.targetIndex);
+        if (event.listType == JumpToListRequestEvent.DATED_LIST){
+        	mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
+        }
+        else if (event.listType == JumpToListRequestEvent.UNDATED_LIST) {
+        	mainWindow.getUndatedListPanel().scrollTo(event.targetIndex);
+        }
     }
 
     @Subscribe
