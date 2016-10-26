@@ -1,6 +1,6 @@
 package seedu.unburden.logic.commands;
 
-import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 
 public class UndoCommand extends Command {
 	
@@ -20,7 +20,7 @@ public class UndoCommand extends Command {
 			assert model != null;
 			model.loadFromPrevLists();
 			return new CommandResult(MESSAGE_SUCCESS);
-		} catch (EmptyStackException ee) {
+		} catch (NoSuchElementException ee) {
 			return new CommandResult(MESSAGE_EMPTY_STACK);
 		}
 	}

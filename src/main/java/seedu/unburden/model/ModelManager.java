@@ -14,7 +14,7 @@ import seedu.unburden.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.EmptyStackException;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -107,7 +107,7 @@ public class ModelManager extends ComponentManager implements Model {
     } 
     
     @Override
-    public synchronized void loadFromPrevLists() throws EmptyStackException {
+    public synchronized void loadFromPrevLists() throws NoSuchElementException {
     	ListOfTask oldCopy = prevLists.pop();
     	undoHistory.push(new ListOfTask(oldCopy));
     	listOfTask.setTasks(oldCopy.getTasks());
@@ -115,7 +115,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void loadFromUndoHistory() throws EmptyStackException {
+    public synchronized void loadFromUndoHistory() throws NoSuchElementException {
     	ListOfTask oldCopy = undoHistory.pop();
     	prevLists.push(new ListOfTask(oldCopy));
     	listOfTask.setTasks(oldCopy.getTasks());
