@@ -431,8 +431,6 @@ More NFRs and project constraints listed [here](http://www.comp.nus.edu.sg/~cs21
 
 ##Appendix E: Product Survey
 
-/* @@author A0144919W */
-
 #### Google Calendar (studied by Pankaj Bhootra)
 
 Strengths:
@@ -451,7 +449,6 @@ Weaknesses:
 4. Unavailable in places with no internet connectivity
 5. Does not provide the feature to block multiple slots for unconfirmed tasks
 
-/* @@author */
 
 #### Todoist (studied by R Dheeraj)
 
