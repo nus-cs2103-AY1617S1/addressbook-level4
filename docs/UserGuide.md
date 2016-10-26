@@ -180,6 +180,7 @@ There is no need to save manually. <br>
 Users can specify which directory to save their data file. Only valid directory will be created if it does not exist already. <br>
 The old data file will automatically be deleted.
 Format: `save DIRECTORY`
+* DIRECTORY can be in absolute or relative format
 
 Example: 
 * `save C://Users`<br>
