@@ -168,14 +168,17 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
+        System.out.println("yes");
         return new UnmodifiableObservableList<>(filteredEvents);
     }
 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList() {
+        System.out.println("yes1");
         return new UnmodifiableObservableList<>(filteredDeadlines);
     }
 
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList() {
+        System.out.println("yes2");
         return new UnmodifiableObservableList<>(filteredTodos);
     }
     
@@ -200,14 +203,29 @@ public class ModelManager extends ComponentManager implements Model {
             }
             return false;
         });
+        filteredDeadlines.setPredicate(task -> {
+            if (task.getIsCompleted()) {
+                return true;
+            }
+            return false;
+        });
+        filteredTodos.setPredicate(task -> {
+            if (task.getIsCompleted()) {
+                return true;
+            }
+            return false;
+        });
     }
     
     @Override 
     public void updateFilteredListToShowAllUncompleted() {
+        System.out.println("here");
         filteredEvents.setPredicate(task -> {
             if (!task.getIsCompleted()) {
+                System.out.println("please");
                 return true;
             }
+            System.out.println("no");
             return false;
         });
         filteredDeadlines.setPredicate(task -> {
