@@ -16,25 +16,26 @@ public class MarkCommandTest extends FlexiTrackGuiTest {
     @Test
     public void mark() {
         // mark a task
-        TestTask[] currentList = td.getTypicalTasks();
+        TestTask[] currentList = td.getTypicalSortedTasks();
         assertMarkSuccess(4, currentList);
         currentList = TestUtil.markTasksToList(currentList, 4);
-
+        
+        
         // mark a task
         assertMarkSuccess(1, currentList);
         currentList = TestUtil.markTasksToList(currentList, 1);
 
         // mark a task with invalid number
-        commandBox.runCommand(TestTask.getMarkCommand(10));
+        commandBox.runCommand(TestTask.getMarkCommand(100));
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         //assertTrue(taskListPanel.isListMatching(currentList));
 
         // mark an already marked task
-        assertMarkFail(4, currentList);
+        assertMarkFail(2, currentList);
         currentList = TestUtil.markTasksToList(currentList, 4);
 
         // un-mark a marked test
-        assertUnMarkSuccess(1, currentList);
+        assertUnMarkSuccess(8, currentList);
         currentList = TestUtil.unMarkTasksToList(currentList, 1);
         //assertTrue(taskListPanel.isListMatching(currentList));
 
@@ -44,7 +45,7 @@ public class MarkCommandTest extends FlexiTrackGuiTest {
         //assertTrue(taskListPanel.isListMatching(currentList));
 
         // unmark a task with invalid number
-        commandBox.runCommand(TestTask.getUnMarkCommand(10));
+        commandBox.runCommand(TestTask.getUnMarkCommand(100));
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         //assertTrue(taskListPanel.isListMatching(currentList));
     }

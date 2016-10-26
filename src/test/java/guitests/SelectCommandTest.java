@@ -15,7 +15,7 @@ public class SelectCommandTest extends FlexiTrackGuiTest {
         assertNoPersonSelected();
 
         assertSelectionSuccess(1); // first Task in the list
-        int taskCount = td.getTypicalTasks().length;
+        int taskCount = td.getTypicalSortedTasks().length;
         assertSelectionSuccess(taskCount); // last Task in the list
         int middleIndex = taskCount / 2;
         assertSelectionSuccess(middleIndex); // a Task in the middle of the list

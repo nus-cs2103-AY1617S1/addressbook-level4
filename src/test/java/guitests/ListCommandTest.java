@@ -15,8 +15,7 @@ public class ListCommandTest extends FlexiTrackGuiTest {
 
     @Test
     public void list() {
-        TestTask[] currentList = td.getTypicalTasks();
-        Arrays.sort(currentList);
+        TestTask[] currentList = td.getTypicalSortedTasks();
 
        // list all future tasks
         String listCommand = "list future";
@@ -37,7 +36,11 @@ public class ListCommandTest extends FlexiTrackGuiTest {
         currentList = TestUtil.markTasksToList(currentList, 4);
         currentList = TestUtil.markTasksToList(currentList, 3);
         currentList = TestUtil.markTasksToList(currentList, 1);
-        Arrays.sort(currentList);
+        
+        commandBox.runCommand("mark 6");
+        commandBox.runCommand("mark 4");
+        commandBox.runCommand("mark 3");
+        commandBox.runCommand("mark 1");
         
         // list all marked tasks
         listCommand = "list mark";

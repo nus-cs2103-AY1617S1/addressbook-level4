@@ -67,7 +67,7 @@ public class TestUtil {
 
     private static Task[] getSampleTaskData() {
         try {
-            return new Task[] {
+            Task[] sampleTasks = new Task[] {
                     new Task(new Name("Go shopping"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("13 Jan 4pm"),
                             new DateTimeInfo("13 Jan 6pm"), new UniqueTagList()),
                     new Task(new Name("Buy books"), new DateTimeInfo("11 May"), new DateTimeInfo("29 Feb 23.23"),
@@ -86,6 +86,8 @@ public class TestUtil {
                             new DateTimeInfo("14 Nov 12.30"), new UniqueTagList()),
                     new Task(new Name("Movie time"), new DateTimeInfo("29 Feb 23.23"), new DateTimeInfo("today 2pm"),
                             new DateTimeInfo("today 6pm"), new UniqueTagList()) };
+            Arrays.sort(sampleTasks);
+            return sampleTasks;
         } catch (IllegalValueException e) {
             assert false;
             // not possible
@@ -297,6 +299,7 @@ public class TestUtil {
     public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
         List<TestTask> listOfTasks = asList(tasks);
         listOfTasks.removeAll(asList(tasksToRemove));
+        Collections.sort(listOfTasks);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
@@ -408,6 +411,8 @@ public class TestUtil {
                 throw new IllegalArgumentException("The task index provided is invalid");
             }
         }
+        
+        Collections.sort(listOfTasks);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
@@ -435,6 +440,7 @@ public class TestUtil {
                 throw new IllegalArgumentException("The task index provided is invalid");
             }
         }
+        Collections.sort(listOfTasks);
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
@@ -443,7 +449,7 @@ public class TestUtil {
         TestTask[] testTaskArray;
         switch (listCommand) { 
         case "list":
-            testTaskArray = tt.getTypicalTasks(); break;
+            testTaskArray = tt.getTypicalSortedTasks(); break;
         case "list future":
             testTaskArray = tt.getExpectedTypicalFutureTasks(); break;
         case "list past": 
