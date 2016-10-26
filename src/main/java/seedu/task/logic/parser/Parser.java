@@ -29,8 +29,8 @@ public class Parser {
             Pattern.compile("(?<name>[^/]+)"
                     + "(s/(?<openTime>[^/]+))?"
                     + "(c/(?<closeTime>[^/]+))?"
-                    + "(?<tagArguments>(?: t/[^/]+)*)" // variable number of tags
-                    + "(?<numberOfRecurrentWeek>\\d+)");
+                    + "(?<tagArguments>(?: t/[^/]+)*)"// variable number of tags
+                    + "(r/(?<numberOfRecurrentWeek>\\d+))");
     
     private static final Pattern UPDATE_TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]*)"
@@ -110,8 +110,6 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
-        String numberOfRecurrence=matcher.group("numberOfRecurrentWeek");
-        int recurrentWeek=Integer.parseInt(numberOfRecurrence);
         
         try {
             return new AddCommand(matcher.group("name"),
@@ -119,7 +117,7 @@ public class Parser {
                     matcher.group("openTime"),
                     matcher.group("closeTime"),
                     getTagsFromArgs(matcher.group("tagArguments")),
-                    recurrentWeek);
+                    matcher.group("numberOfRecurrentWeek"));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
