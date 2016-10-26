@@ -30,8 +30,8 @@ public class TaskCard extends UiPart{
     private Label endTime;
     @FXML
     private Label priority;
-    //@FXML
-    //private Label tags;
+    @FXML
+    private Label recurring;
     @FXML
     private ImageView statusButton;
 
@@ -61,6 +61,15 @@ public class TaskCard extends UiPart{
             priority.setGraphic(new ImageView(new Image("/images/two_stars.png")));
         else priority.setGraphic(new ImageView(new Image("/images/one_star.png")));
         priority.setText("");
+        recurring.setText("");
+        if (task.getRecurringFrequency().equals("daily"))
+            recurring.setGraphic(new ImageView(new Image("/images/daily_rec.png")));
+        else if (task.getRecurringFrequency().equals("weekly"))
+            recurring.setGraphic(new ImageView(new Image("/images/weekly_rec.png")));
+        else if (task.getRecurringFrequency().equals("monthly"))
+            recurring.setGraphic(new ImageView(new Image("/images/monthly_rec.png")));
+        else if (task.getRecurringFrequency().equals("yearly"))
+            recurring.setGraphic(new ImageView(new Image("/images/yearly_rec.png")));
         endTime.setText(task.getEndTime().toCardString());
         setColour();
         statusButton.setVisible(true);
