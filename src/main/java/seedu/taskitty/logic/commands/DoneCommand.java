@@ -24,51 +24,85 @@ public class DoneCommand extends Command {
     public static final String MESSAGE_USAGE = "This command marks tasks in TasKitty as done, Meow!"
             + "\n[index] is the index eg. t1, d1, e1.";
 
-    public static final String MESSAGE_MARK_TASK_AS_DONE_SUCCESS = "Task done: %1$s";
-    public static final String MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR = "The task \"%1$s\" has already been marked as done.";
-
-    public int categoryIndex;
+    public static final String MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER = "%1$s" + " Tasks marked as done: ";
+    public static final String MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER = "These tasks has already been marked as done: ";
     
-    public int targetIndex;
+    private boolean hasInvalidIndex;
+    
+    private boolean hasDuplicateMarkAsDoneTask;
+    
+    private boolean hasDuplicateIndexesProvided;
     
     private final List<Pair<Integer, Integer>> listOfIndexes;
     
     public DoneCommand(List<Pair<Integer, Integer>> listOfIndexes) {
         assert listOfIndexes != null;
         this.listOfIndexes = listOfIndexes;
+        this.hasInvalidIndex = false;
+        this.hasDuplicateMarkAsDoneTask = false;
+        this.hasDuplicateIndexesProvided = false;
     }
 
     @Override
     public CommandResult execute() {
         
+        int categoryIndex;
+        int targetIndex;
         ArrayList<ReadOnlyTask> listOfTaskToMarkDone = new ArrayList<ReadOnlyTask>();
-        StringBuilder resultMessageBuilder = new StringBuilder();
+        StringBuilder invalidIndexMessageBuilder = new StringBuilder(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX + ": ");
+        StringBuilder duplicateMarkAsDoneMessageBuilder = new StringBuilder(MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR_HEADER);
+        StringBuilder duplicateIndexesProvidedMessageBuilder = new StringBuilder(Messages.MESSAGE_DUPLICATE_INDEXES_PROVIDED + ": ");
+        StringBuilder resultMessageBuilder = new StringBuilder(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS_HEADER, listOfIndexes.size()));
         
         for (Pair<Integer, Integer> indexPair: listOfIndexes) {
             categoryIndex = indexPair.getKey();
             targetIndex = indexPair.getValue();
             assert categoryIndex >= 0 && categoryIndex < 3;
             
-            UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model, categoryIndex); 
+            String currentTaskIndex = Task.CATEGORIES[categoryIndex] + targetIndex + " ";
+            
+            UnmodifiableObservableList<ReadOnlyTask> lastShownList = AppUtil.getCorrectListBasedOnCategoryIndex(model, categoryIndex);
+            
             if (lastShownList.size() < targetIndex) {
-                indicateAttemptToExecuteIncorrectCommand();
-                model.removeUnchangedState();
-                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                hasInvalidIndex = true;
+                invalidIndexMessageBuilder.append(currentTaskIndex);
+                continue;                                
             }
             
             ReadOnlyTask taskToBeMarkedDone = lastShownList.get(targetIndex - 1);
+            
             if (taskToBeMarkedDone.getIsDone()) {
-                model.removeUnchangedState();
-                return new CommandResult(String.format(MESSAGE_DUPLICATE_MARK_AS_DONE_ERROR, taskToBeMarkedDone.getName()));
+                hasDuplicateMarkAsDoneTask = true;
+                duplicateMarkAsDoneMessageBuilder.append(currentTaskIndex);
+                continue;
             }
             
             if (!listOfTaskToMarkDone.contains(taskToBeMarkedDone)) {
                 listOfTaskToMarkDone.add(taskToBeMarkedDone);
-                resultMessageBuilder.append(String.format(MESSAGE_MARK_TASK_AS_DONE_SUCCESS, 
-                        Task.CATEGORIES[categoryIndex], taskToBeMarkedDone));
-            }                        
+                resultMessageBuilder.append(currentTaskIndex);
+            } else {
+                hasDuplicateIndexesProvided = true;
+                duplicateIndexesProvidedMessageBuilder.append(currentTaskIndex);
+            }
         }
-
+        
+        if (hasInvalidIndex) {
+            model.removeUnchangedState();
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(invalidIndexMessageBuilder.toString());
+        }
+        
+        if (hasDuplicateIndexesProvided) {
+            model.removeUnchangedState();
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(duplicateIndexesProvidedMessageBuilder.toString());
+        }
+        
+        if (hasDuplicateMarkAsDoneTask) {
+            model.removeUnchangedState();
+            return new CommandResult(duplicateMarkAsDoneMessageBuilder.toString());
+        }
+                        
         try {
              model.markTasksAsDone(listOfTaskToMarkDone);            
         } catch (TaskNotFoundException pnfe) {
