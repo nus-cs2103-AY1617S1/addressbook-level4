@@ -22,8 +22,6 @@ import java.util.regex.Pattern;
  */
 public class TagCommand extends BaseCommand {
     /* Constants */
-    private static final String VERB = "tagged";
-
     private static final String ERROR_INCOMPLETE_PARAMETERS = "You have not supplied sufficient parameters to run a Tag command.";
     private static final String ERROR_INPUT_INDEX_REQUIRED = "A task index is required.";
     private static final String ERROR_INPUT_ADD_TAGS_REQUIRED = "A list of tags \"tag1, tag2, ...\" to add is required.";
@@ -31,8 +29,13 @@ public class TagCommand extends BaseCommand {
     private static final String ERROR_TAGS_DUPLICATED = "You might have keyed in duplicated tag names.";
     private static final String ERROR_TAGS_ILLEGAL_CHAR = "Tags may only include alphanumeric characters, including dashes and underscores.";
 
-    private static final String SUCCESS_ADD_TAGS = " tags have been added successfully.";
-    private static final String SUCCESS_DELETE_TAGS = " tags have been removed successfully.";
+    private static final String SUCCESS_ADD_TAGS = "tagged ";
+    private static final String SUCCESS_DELETE_TAGS = "removed ";
+
+    private static final String DESCRIPTION_ADD_TAGS = "Add tags to a task";
+    private static final String DESCRIPTION_DELETE_TAGS = "Delete tags from tasks";
+    private static final String ARGUMENTS_ADD_TAGS = "index /a tag1 [, tag2, ...]";
+    private static final String ARGUMENTS_DELETE_TAGS = "[index] /d tag1 [, tag2, ...]";
 
     private static final Pattern TAG_VALIDATION_REGEX = Pattern.compile("^[\\w\\d_-]+$");
 
@@ -44,12 +47,6 @@ public class TagCommand extends BaseCommand {
 
     private Argument<String> deleteTags = new StringArgument("/d")
             .flag("d");
-
-    /* Constructor */
-    /**
-     * Empty constructor
-     */
-    public TagCommand() {}
 
     @Override
     public Parameter[] getArguments() {
@@ -79,12 +76,9 @@ public class TagCommand extends BaseCommand {
 
     @Override
     public List<CommandSummary> getCommandSummary() {
-        String addNewTagsFromTaskArgument = index.getName() + " /a tag1 [, tag2, ...]";
-        String deleteTagsFromTaskArgument = "[" + index.getName() + "] /d tag1 [, tag2, ...]";
-
         return ImmutableList.of(
-            new CommandSummary("Add tags to a task", getCommandName(), addNewTagsFromTaskArgument),
-            new CommandSummary("Delete tags from tasks", getCommandName(), deleteTagsFromTaskArgument)
+            new CommandSummary(DESCRIPTION_ADD_TAGS, getCommandName(), ARGUMENTS_ADD_TAGS),
+            new CommandSummary(DESCRIPTION_DELETE_TAGS, getCommandName(), ARGUMENTS_DELETE_TAGS)
         );
     }
 
@@ -120,11 +114,11 @@ public class TagCommand extends BaseCommand {
         //Performs the actual execution with the data
         if (isAddTagsToTask()) {
             model.addTagsToTask(displayedIndex, tagsToAdd);
-            return new CommandResult(StringUtil.convertListToString(tagsToAdd) + SUCCESS_ADD_TAGS);
+            return new CommandResult(SUCCESS_ADD_TAGS + StringUtil.convertListToString(tagsToAdd));
 
         } else if (isDeleteTagsFromTask()) {
             model.deleteTagsFromTask(displayedIndex, tagsToDelete);
-            return new CommandResult(StringUtil.convertListToString(tagsToDelete) + SUCCESS_DELETE_TAGS);
+            return new CommandResult(SUCCESS_DELETE_TAGS + StringUtil.convertListToString(tagsToDelete));
 
         } else {
             //Invalid case, should not happen, as we have checked it validateArguments.
@@ -160,19 +154,16 @@ public class TagCommand extends BaseCommand {
      * This method do not check validity of each input.
      */
     private boolean isInputParametersAvailable() {
-        boolean isAddTagsToTask = isAddTagsToTask();
-        boolean isDeleteTagsFromTask = isDeleteTagsFromTask();
-        boolean isDeleteTagsFromAll = isDeleteTagsFromAllTasks();
-        return BooleanUtils.xor(new boolean[]{isAddTagsToTask, isDeleteTagsFromTask, isDeleteTagsFromAll});
+        return BooleanUtils.xor(isAddTagsToTask(), isDeleteTagsFromTask(), isDeleteTagsFromAllTasks());
     }
 
     /**
      * Sets error messages for insufficient input parameters, dependent on input parameters supplied.
      */
     private void handleUnavailableInputParameters() {
-        boolean hasIndex = index.getValue() != null;
-        boolean hasAddTags = addTags.getValue() != null;
-        boolean hasDeleteTags = deleteTags.getValue() != null;
+        boolean hasIndex = index.hasBoundValue();
+        boolean hasAddTags = addTags.hasBoundValue();
+        boolean hasDeleteTags = deleteTags.hasBoundValue();
 
         //Validation for all inputs.
         if (!hasIndex && !hasAddTags && !hasDeleteTags) {
