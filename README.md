@@ -4,7 +4,7 @@
 
 # DoDo-Bird
 
-<img src="docs/images/UpdatedUI_041016.png"> <br>
+![GUI](./docs/images/GUI.png)
 
 * **DoDo-Bird** is a desktop TO-DO application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface). With **DoDo-Bird**, you can focus on what is important in your life.
 
