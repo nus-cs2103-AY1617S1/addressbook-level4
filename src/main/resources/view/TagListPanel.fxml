@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox style="-fx-background-color: #FFFFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todo.ui.TagListPanel">
+    <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tags:" translateX="10.0">
+         <font>
+            <Font name="Arial Bold" size="19.0" />
+         </font>
+      </Text>
+        <ListView fx:id="tagListView" style="-fx-background-color: #FFFFFF;" VBox.vgrow="ALWAYS" />
+    </children>
+</VBox>

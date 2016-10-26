@@ -38,6 +38,7 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
+    private TagListPanel tagListPanel;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -47,6 +48,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane browserPlaceholder;
+    
+    @FXML
+    private AnchorPane tagListPanelPlaceholder;
 
     //@@author A0138967J
     @FXML
@@ -117,6 +121,7 @@ public class MainWindow extends UiPart {
     public void fillInnerParts() {
         //@@author A0138967J
         summaryPanel = SummaryPanel.load(primaryStage, getSummaryPlaceholder(), logic.getUnmodifiableTodayTaskList());
+        tagListPanel = TagListPanel.load(primaryStage, getTagListPanelPlaceholder(), logic.getUnmodifiableTagList());
         //@@author
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getUnmodifiableFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -126,6 +131,10 @@ public class MainWindow extends UiPart {
     //@@author A0138967J
     private AnchorPane getSummaryPlaceholder(){
         return summaryPlaceholder;
+    }
+    
+    private AnchorPane getTagListPanelPlaceholder() {
+    	return tagListPanelPlaceholder;
     }
 
     //@@author

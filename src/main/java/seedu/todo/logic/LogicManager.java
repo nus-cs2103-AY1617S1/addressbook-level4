@@ -8,6 +8,7 @@ import seedu.todo.logic.commands.Command;
 import seedu.todo.logic.commands.CommandResult;
 import seedu.todo.logic.parser.ToDoListParser;
 import seedu.todo.model.Model;
+import seedu.todo.model.tag.Tag;
 import seedu.todo.model.task.ReadOnlyTask;
 import seedu.todo.storage.Storage;
 
@@ -49,5 +50,10 @@ public class LogicManager extends ComponentManager implements Logic {
     
     public ObservableList<ReadOnlyTask> getUnmodifiableTodayTaskList() {
         return model.getUnmodifiableTodayTaskList();
+    }
+    
+    @Override
+    public ObservableList<Tag> getUnmodifiableTagList() {
+    	return model.getUnmodifiableTagList();
     }
 }
