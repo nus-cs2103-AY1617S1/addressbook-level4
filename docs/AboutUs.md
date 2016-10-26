@@ -3,7 +3,7 @@
 We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
 
 ## Project Team
-1. Chen Tiankai  
+1. Chen Tiankai [@TiankaiChen] (https://github.com/TiankaiChen)  
   <img src="images/Tiankai.jpg" width="150">  
   - Year 3 Mechanical Engineering Major
   - Roles:
@@ -16,7 +16,7 @@ We are a team based in the [School of Computing, National University of Singapor
     - Code written: functional code test code docs
     - Other major contributions:
 
-2. Phua Kian Ming  
+2. Phua Kian Ming [@daredevil999] (https://github.com/daredevil999)  
   <img src="images/Kianming.jpg" width="150">  
   - Year 3 Mechanical Engineering Major
   - Roles:
@@ -28,7 +28,7 @@ We are a team based in the [School of Computing, National University of Singapor
     - Code written: functional code test code docs
     - Other major contributions:
     
-3. Poh Yee Heng Keith  
+3. Poh Yee Heng Keith [@Yeehengg] (https://github.com/Yeehengg)  
   <img src="images/Keith.jpg" width="150">  
   - Year 3 Computer Engineering Major
   - Roles:
@@ -40,7 +40,7 @@ We are a team based in the [School of Computing, National University of Singapor
     - Code written: functional code test code docs
     - Other major contributions: 
 
-4. Xu Chen  
+4. Xu Chen [@githubxxcc] (https://github.com/githubxxcc)  
   <img src="images/Xuchen.jpg" width="150">  
   - Year 2 Computer Science Major
   - Roles:
