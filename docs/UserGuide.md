@@ -108,6 +108,8 @@ Examples:
   Deletes the 1st task in the currently showing floating task list. 
 <!--- @@author --->
 <!--- @@author A0129595N --->
+
+
 #### Edit a task : `edit`
 Edits the specified task from the to-do list.<br>
 Edit Floating Task Format: `edit 'f'INDEX [TASK_NAME] [t/TAG]`<br>
