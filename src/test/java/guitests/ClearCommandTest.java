@@ -16,7 +16,7 @@ public class ClearCommandTest extends WhatNowGuiTest {
         //verify other commands can work after a clear command
         commandBox.runCommand(td.h.getAddCommand());
         assertTrue(taskListPanel.isListMatching(td.h));
-        commandBox.runCommand("delete todo 1");
+        commandBox.runCommand("delete schedule 1");
         assertListSize(0);
 
         //verify clear command works when the list is empty

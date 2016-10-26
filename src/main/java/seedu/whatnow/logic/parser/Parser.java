@@ -669,6 +669,8 @@ public class Parser {
                 return new IncorrectCommand(ive.getMessage());
             } catch (ParseException pe) {
                 return new IncorrectCommand(pe.getMessage());
+            } catch (NoSuchElementException nsee) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, UpdateCommand.MESSAGE_USAGE));
             }
         }
         
