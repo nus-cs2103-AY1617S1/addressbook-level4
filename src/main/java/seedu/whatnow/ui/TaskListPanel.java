@@ -79,6 +79,11 @@ public class TaskListPanel extends UiPart {
             }
         });
     }
+    
+    /** Clears the task list view of any selection */
+    public void clear() {
+        taskListView.getSelectionModel().clearSelection();
+    }
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {

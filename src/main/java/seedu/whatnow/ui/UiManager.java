@@ -10,6 +10,8 @@ import seedu.whatnow.MainApp;
 import seedu.whatnow.commons.core.ComponentManager;
 import seedu.whatnow.commons.core.Config;
 import seedu.whatnow.commons.core.LogsCenter;
+import seedu.whatnow.commons.events.model.AddTaskEvent;
+import seedu.whatnow.commons.events.model.UpdateTaskEvent;
 import seedu.whatnow.commons.events.storage.DataSavingExceptionEvent;
 import seedu.whatnow.commons.events.ui.JumpToListRequestEvent;
 import seedu.whatnow.commons.events.ui.ShowHelpRequestEvent;
@@ -17,6 +19,7 @@ import seedu.whatnow.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.whatnow.commons.util.StringUtil;
 import seedu.whatnow.logic.Logic;
 import seedu.whatnow.model.UserPrefs;
+import seedu.whatnow.model.task.Task;
 
 import java.util.logging.Logger;
 
@@ -26,6 +29,8 @@ import java.util.logging.Logger;
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/whatnow_32.png";
+    private static final String MESSAGE_TASK_ADDED = "A task was added";
+    private static final String MESSAGE_TASK_UPDATED = "A task was updated";
 
     private Logic logic;
     private Config config;
@@ -115,5 +120,32 @@ public class UiManager extends ComponentManager implements Ui {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getTaskListPanel().scrollTo(event.targetIndex);
     }
-
+    
+    @Subscribe
+    public void handleAddTaskEvent(AddTaskEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, MESSAGE_TASK_ADDED));
+        Task task = event.task;
+        
+        if (task.getTaskType().equals("floating")) {
+            mainWindow.getTaskListPanel().scrollTo(logic.getFilteredTaskList().indexOf(task));
+            mainWindow.getScheduleListPanel().clear();
+        } else {
+            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList().indexOf(task));
+            mainWindow.getTaskListPanel().clear();
+        }
+    }
+    
+    @Subscribe
+    public void handleUpdateTaskEvent(UpdateTaskEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, MESSAGE_TASK_UPDATED));
+        Task task = event.task;
+        
+        if (task.getTaskType().equals("floating")) {
+            mainWindow.getTaskListPanel().scrollTo(logic.getFilteredTaskList().indexOf(task));
+            mainWindow.getScheduleListPanel().clear();
+        } else {
+            mainWindow.getScheduleListPanel().scrollTo(logic.getFilteredScheduleList().indexOf(task));
+            mainWindow.getTaskListPanel().clear();
+        }
+    }
 }

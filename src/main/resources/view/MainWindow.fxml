@@ -47,21 +47,11 @@
             </VBox>
          </items>
          <items>
-         <VBox>
-         <children>
-         	<VBox fx:id="todayList" minWidth="340" alignment = "CENTER">
-         		<Label fx:id = "today" contentDisplay="CENTER" prefWidth="100.0" text="Today" styleClass = "label-bright"/>
-            	<children>
-                	<AnchorPane fx:id="todayListPlaceholder" VBox.vgrow = "ALWAYS" prefWidth="1700" />
-				</children>
-         	</VBox>
          	<VBox fx:id="scheduleList" minWidth="340" alignment = "CENTER">
                 <Label fx:id = "schedule" contentDisplay="CENTER" prefWidth="100.0" text="Schedule" styleClass = "label-bright"/>
                 <children>
                      <AnchorPane fx:id="scheduleListPlaceholder" VBox.vgrow = "ALWAYS" prefWidth="1700" />
 				</children>
-         	</VBox>
-         	</children>
          	</VBox>
          </items>
       </SplitPane>

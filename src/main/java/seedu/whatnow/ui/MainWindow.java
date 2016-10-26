@@ -41,7 +41,6 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private ScheduleListPanel scheduleListPanel;
     private TaskListPanel taskListPanel;
-    private TodayListPanel todayListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -71,9 +70,6 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
-    
-    @FXML
-    private AnchorPane todayListPlaceholder;
     
     public MainWindow() {
         super();
@@ -122,7 +118,6 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        todayListPanel = TodayListPanel.load(primaryStage, getTodayListPlaceholder(), logic.getFilteredScheduleList());
         scheduleListPanel = ScheduleListPanel.load(primaryStage, getScheduleListPlaceholder(), logic.getFilteredScheduleList());
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -148,10 +143,6 @@ public class MainWindow extends UiPart {
     
     private AnchorPane getScheduleListPlaceholder() {
         return scheduleListPlaceholder;
-    }
-    
-    private AnchorPane getTodayListPlaceholder() {
-        return todayListPlaceholder;
     }
 
     public void hide() {
